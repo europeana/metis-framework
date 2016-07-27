@@ -1,0 +1,40 @@
+            ------
+            DataSource: SPARQL
+            ------
+ 
+ The following example queries for direct superclasses using Sesame 
+ {{{http://www.openrdf.org/doc/sesame2/2.1.3/apidocs/org/openrdf/sail/inferencer/fc/DirectTypeHierarchyInferencer.html} direct types}} 
+ and SKOS prefLabels. 
+
++------------------------------------------------------------------+
+<ac:SparqlDataSource>
+   <ac:sparqlQuery><![CDATA[
+     PREFIX skos: <http://www.w3.org/2008/05/skos#>
+	 PREFIX sesame:<http://www.openrdf.org/schema/sesame#>
+	 SELECT ?record_id ?parent_id ?label 
+	 WHERE { 
+	   ?record_id sesame:directSubClassOf ?parent_id
+	   . OPTIONAL {
+	       ?record_id skos:prefLabel ?label
+	   }
+	   . FILTER isURI(?record_id)
+	 }  
+    ]]></ac:sparqlQuery>
+    <ac:file>xxx.rdf</ac:file> 
+</ac:SparqlDataSource>
++------------------------------------------------------------------+
+
+ In the object rule empty record separator should be used:
+                    
++------------------------------------------------------------------+
+<ac:objectRules rdf:parseType="Collection">
+   <ac:ObjectRule rdf:about="recordRule">
+   <ac:recordSeparator></ac:recordSeparator>
+   <ac:recordIdentifier>record_id</ac:recordIdentifier>
+   <ac:recordInformalIdentifier>label</ac:recordInformalIdentifier>
+   <ac:propertyRules>
+    ...
+   </ac:propertyRules>
+</ac:ObjectRule>
++------------------------------------------------------------------+
+

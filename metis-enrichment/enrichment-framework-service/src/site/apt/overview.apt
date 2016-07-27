@@ -1,0 +1,155 @@
+            ------
+            AnnoCultor Overview
+            ------
+ 
+
+Sample problem 
+
+ It is difficult to integrate data from different sources (databases or XML dumps) because they often use
+ different schemas and different content standards to represent their data.
+
+ In a typical example Amsterdam may be represented in one XML file in one way:
+
++------------------------------------------------------------------+
+ <object>
+   <inventoryNumber>1</inventoryNumber>
+   <place>Den Haag, NL</place>
+ </object>
++------------------------------------------------------------------+
+
+ and in another file in the other way:
+
++------------------------------------------------------------------+
+ <item>
+   <inv>1</inv>
+   <location>
+     <city>The Hague</city>
+     <country>Netherlands</country>
+   </location>
+ </item>
++------------------------------------------------------------------+
+
+
+ In a Semantic Web application these representations should be unified
+ by converting both XML files to {{{http://www.w3.org/RDF/}RDF}} and 
+ semantically enriching the data.
+
+ In our example this would mean that both 
+ XML tag <<<place>>> and XML subtree <<<location>>> 
+ should be converted to RDF properties and declared as subproperties 
+ of some standardized property <<<customerLocation>>>. As a result
+ both properties would be found on a query for the standardized property <<<customerLocation>>>.
+
+ Further, we should analyze the values of these tags to realize that
+ they refer to the same city, the capital of The Netherlands.
+ This allows looking it up in an external vocabulary, e.g. {{{http://www.geonames.org}Geonames}},
+ and replace the literal strings with unambigous code <<<http://www.geonames.org/2747373>>>. 
+ As a result, we can point both locations on a map, or to pull its Chineese name
+ from Geonames. 
+
+ In the literature the first step is often called "schema integration" and
+ the second - "data enrichment".
+  
+ AnnoCultor is a specific tool, able to help a programmer in writing 
+ data converters to convert XML files to RDF with both schema integration and
+ data enrichment. AnnoCultor is suitable for converting product catalogs, museum collections,
+ vocabularies and thesauri of terms, and other databases or XML files.
+
+Experience
+
+ We used AnnoCultor to convert collections of:
+
+  * Louvre museum,
+
+  * Rijksmuseum Amsterdam,
+  
+  * Rijksbureau voor Kunsthistorische Documentatie,
+
+  * Tropenmuseum Amsterdam,
+ 
+  * Rijksmuseum Volkenkunde Leiden.
+ 
+
+ We also used AnnoCultor to convert thesauri of:
+
+  * Getty Thesauri,
+
+  * SVCN,
+
+  * institution-specific thesauri.
+
+
+ During the conversion, your engineers will face technical problems;
+ it is quite likely that we have already faced exactly the same problems
+ in our work and developed reusable solutions. Accordingly, with AnnoCultor your conversion tasks
+ switch from developing specific solutions to putting available solutions
+ together that saves time and improves quality. 
+
+ Please, refer to our analysis of the effort needed to convert a dataset, as
+ presented in the paper <<Porting Cultural Repositories to the Semantic Web>>
+ by Borys Omelayenko, as listed in the {{{http://annocultor.sourceforge.net/core/pubs.html} publications section}}.
+ 
+Required skills
+
+ AnnoCultor 2.x requires knowledge of XML to write converters as
+ XML documents. Java knowledge is not compulsory. 
+ However, in some cases, basic Java knowledge is needed to write code snippets to
+ customize and fine-tune custom converters. 
+ 
+ AnnoCultor is distributed under the Apache license.
+
+AnnoCultor 
+ 
+ * Needs Java JDK 6 to run. You need JDK with a Java compiler, not just the JRE. And you definitely need version 6. 
+ 
+ * Needs an XML editor with full XML Schema support (e.g. XmlSpy or Oxygen), optional but strongly recommended.
+   
+ * Provides conversion rules for converting:
+ 
+   * parts of XML into target RDF resources,
+   
+   * XML tags into RDF properties if the target resources,
+   
+   * XML tag values into RDF resources and literals.
+   
+ * Provides mechanisms for semantic data enrichment:
+ 
+   * loading vocabulary of terms,
+     
+   * finding XML tag values in these vocabularies,
+   
+   * disambiguating the findings,
+   
+   * creating local terms and mapping them to the vocabulary terms.
+   
+ * Simplifies data analysis and quality assurance:
+ 
+   * XML analysis tool shows all XML paths, their most used values, and their uniqueness,
+   
+   * generates conversion reports with statistics, XML tags missed in the conversion, terms that were not found in vocabularies, etc. 
+ 
+AnnoCultor is 
+ 
+ * <<not>> a user-friendly tool: 
+ 
+   * there is no specific user interface, only your XML editor
+   
+   * everything runs from command line;
+ 
+ * <<not>> an automatic converter:
+  
+   * you need to know exactly how your XML document should be represented in RDF,
+   
+   * you need to write a separate rule for each XML tag that will be then converted to one or more RDF triples;
+   
+ * <<not>> an automatic mapping tool: 
+   
+   * you have to provide term labels and most of the disambiguation Java code;
+ 
+ * <<not>> an automatic enrichment tool: 
+   
+   * it has no build-in vocabularies, you need to provide your own.
+  
+
+
+

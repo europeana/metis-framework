@@ -1,0 +1,24 @@
+<!-- Century halfs templates  -->
+<list>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>First half of the %2$dth century</pattern_1>
+    <pattern_2>Second half of the %2$dth century</pattern_2>
+    <pattern_3>ERROR</pattern_3>
+    <pattern_N>ERROR</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>fr</lang>
+    <pattern_1>%2$de (début)</pattern_1>
+    <pattern_2>%2$de (fin)</pattern_2>
+    <pattern_3>ERROR</pattern_3>
+    <pattern_N>ERROR</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>ru</lang>
+    <pattern_1>Первая половниа %2$d-го века</pattern_1>
+    <pattern_2>Вторая половина %2$d-го века</pattern_2>
+    <pattern_3>ERROR</pattern_3>
+    <pattern_N>ERROR</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+</list>

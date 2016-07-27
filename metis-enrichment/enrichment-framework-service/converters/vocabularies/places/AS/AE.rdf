@@ -1,0 +1,1969 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_AE
+Description: Selected fields pulled from Geonames about AE done on Mon May 23 21:13:12 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/290410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.88417</wgs:lat>
+	<wgs:long>53.07222</wgs:long>
+	<skos:altLabel>Az Zarqā’</skos:altLabel>
+	<skos:altLabel>Jaztal Zarakkūh</skos:altLabel>
+	<skos:altLabel>Jazīrat Zarkā</skos:altLabel>
+	<skos:altLabel>Jazīrat Zīrkū</skos:altLabel>
+	<skos:altLabel>Jezīrat Zirko</skos:altLabel>
+	<skos:altLabel>Zarakkawh</skos:altLabel>
+	<skos:altLabel>Zarakkuh</skos:altLabel>
+	<skos:altLabel>Zarqa</skos:altLabel>
+	<skos:altLabel>Zirko Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Zirkūh</skos:altLabel>
+	<skos:prefLabel>Zirkūh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.43778</wgs:lat>
+	<wgs:long>55.46472</wgs:long>
+	<skos:altLabel>Al-Zūrā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Zawrah</skos:altLabel>
+	<skos:altLabel>Zora Island</skos:altLabel>
+	<skos:prefLabel>Jazīrat Zawrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.16111</wgs:lat>
+	<wgs:long>52.00222</wgs:long>
+	<skos:altLabel xml:lang="ar">Yāsāt Şaghīrah</skos:altLabel>
+	<skos:prefLabel>Yāsāt Şaghīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.18528</wgs:lat>
+	<wgs:long>51.99806</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Yāsāt as Suflá</skos:altLabel>
+	<skos:altLabel>Yāsāt Saflī</skos:altLabel>
+	<skos:prefLabel>Al Yāsāt as Suflá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.23611</wgs:lat>
+	<wgs:long>52.01333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Yāsāt al ‘Ulyā</skos:altLabel>
+	<skos:altLabel>Yāsāt ‘Alī</skos:altLabel>
+	<skos:prefLabel>Al Yāsāt al ‘Ulyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.31889</wgs:lat>
+	<wgs:long>52.71972</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Yabr</skos:altLabel>
+	<skos:prefLabel>Jazīrat Yabr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.30444</wgs:lat>
+	<wgs:long>52.87806</wgs:long>
+	<skos:altLabel>Al Isha</skos:altLabel>
+	<skos:altLabel>Jazīrat ‘Ish</skos:altLabel>
+	<skos:altLabel>Ushsh</skos:altLabel>
+	<skos:altLabel>‘Ashsh</skos:altLabel>
+	<skos:altLabel>‘Ish</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Ushsh</skos:altLabel>
+	<skos:altLabel>’Ishsh</skos:altLabel>
+	<skos:prefLabel>‘Ushsh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4975593</europeana:population>
+	<wgs:lat>24</wgs:lat>
+	<wgs:long>54</wgs:long>
+	<skos:altLabel>AE</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Imārāt al ‘Arabīyah al Muttaḩidah</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Aontas na nÉimíríochtaí Arabacha</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Apvienotie Arābu Emirāti</skos:altLabel>
+	<skos:altLabel xml:lang="et">Araabia Ühendemiraadid</skos:altLabel>
+	<skos:altLabel>Arab Federation of Gulf States</skos:altLabel>
+	<skos:altLabel>Arab Gulf Federation</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Arabiar Emirerri Batuak</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Arabiar Emirrerri Batuak</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Arabiemiirikunnat</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Birlashgan Arab Amirliglar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Birleşik Arap Emirlikleri</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Các Tiểu Vương quốc A-rập Thống nhất</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Các Tiểu vương quốc Ả rập Thống nhất</skos:altLabel>
+	<skos:altLabel>Dawlat Ittiḩād al Imārāt al ‘Arabīyah</skos:altLabel>
+	<skos:altLabel xml:lang="no">De forente arabiske emirater</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Dei sameinte arabiske emirata</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Egyesült Arab Emirátus</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Egyesült Arab Emírségek</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Emira Arab Ini</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Emirados Árabes Unidos</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Emiraethau Arabaidd Unedig</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Emiratele Arabe Unite</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Emiratet Arabe te Bashkuara</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Emiratet e Bashkuara Arabe</skos:altLabel>
+	<skos:altLabel xml:lang="it">Emirati Arabi Uniti</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Emirati Għarab Maqgħuda</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Emiratos Arabe Unite</skos:altLabel>
+	<skos:altLabel xml:lang="an">Emiratos Arabes Unitos</skos:altLabel>
+	<skos:altLabel xml:lang="es">Emiratos Árabes Unidos</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Emiratos Árabes Unidos</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Emiratos Árabes Unidos</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Emiratos Árabes Unidos - الإمارات العربيّة المتّحدة</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Emirats Arabis Units</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Emirats Àrabs Units</skos:altLabel>
+	<skos:altLabel xml:lang="la">Emiratus Arabi Uniti</skos:altLabel>
+	<skos:altLabel xml:lang="br">Emirelezhioù Arab Unanet</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Emiriah Arab Bersatu</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Falme za Kiarabu</skos:altLabel>
+	<skos:altLabel>Federation of Arab Emirates</skos:altLabel>
+	<skos:altLabel>Federation of Arabian Emirates</skos:altLabel>
+	<skos:altLabel>Federation of Arabian Gulf Emirates</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Feriene Arabyske Emiraten</skos:altLabel>
+	<skos:altLabel xml:lang="da">Forenede Arabiske Emirater</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Förenade Arabemiraten</skos:altLabel>
+	<skos:altLabel xml:lang="so">Imaaraadka Carabta ee Midoobay</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jungtiniai Arabų Emyratai</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lemiräns Pebalöl Larabänik</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Muugano wa Falme za Nchi za Kiarabu</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Mîrnişînên Erebî yên Yekbûyî</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ovttastuvvan Arábaemiráhtat</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pennternasedh Unys Arabek</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Sameindu Emirríkini</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sameinuðu arabísku furstadæmin</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Spojené arabské emiráty</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Spojené arabské emiráty</skos:altLabel>
+	<skos:altLabel>Trucial States</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Ujedinjeni Arapski Emirati</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ujedinjeni Arapski Emirati</skos:altLabel>
+	<skos:altLabel xml:lang="id">Uni Emirat Arab</skos:altLabel>
+	<skos:altLabel>Union of Arab Emirates</skos:altLabel>
+	<skos:altLabel xml:lang="io">Unionita Araba Emirati</skos:altLabel>
+	<skos:altLabel xml:lang="en">United Arab Emirates</skos:altLabel>
+	<skos:altLabel xml:lang="tl">United Arab Emirates</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Unió dels Emirats Àrabs</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Unuiĝintaj Arabaj Emirlandoj</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Unuiĝintaj Arabaj Emirlandos</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Vereenegt Arabesch Emirater</skos:altLabel>
+	<skos:altLabel xml:lang="li">Vereinegde Arabische Emirate</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vereinigte Arabische Emirate</skos:altLabel>
+	<skos:altLabel xml:lang="af">Verenigde Arabiese Emirate</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Verenigde Arabische Emiraten</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Združeni arabski emirati</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zjednoczone Emiraty Arabskie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Émirats Arabes Unis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ηνωμένα Αραβικά Εμιράτα</skos:altLabel>
+	<skos:altLabel xml:lang="be">Аб'яднаныя Арабскія Эміраты</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Имороти Муттаҳидаи Араб</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Об'єднані Арабські Емірати</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Обʼєднані Арабські Емірати</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Обединени Арабски Емирства</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Обединети Арапски Емирати</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Объединенные Арабские Эмираты</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Объединённые Арабские Эмираты</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Уједињени Арапски Емирати</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Միացյալ Արաբական Էմիրաթներ</skos:altLabel>
+	<skos:altLabel xml:lang="he">איחוד האמירויות הערביות</skos:altLabel>
+	<skos:altLabel xml:lang="he">איחוד נסיכויות ערב</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברית האמירויות הערביות</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئەرەب بىرلەشمە خەلىپىلىكى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الإمارات العربية المتحدة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الامارات العربية المتحدة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">امارات متحده عربی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">امارات متحدهٔ عربی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عمارات متحده ی عربی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">متحده عرب امارات</skos:altLabel>
+	<skos:altLabel xml:lang="ur">متحدہ عرب امارات</skos:altLabel>
+	<skos:altLabel xml:lang="hi">संयुक्त अरब अमीरात</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সংযুক্ত আরব আমিরাত</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஐக்கிய அரபு அமீரகம்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஐக்கிய அரபு கூட்டாட்சி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഐക്യ അറബ് എമിരേറ്റുകള്‍‌</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സംയുക്ത അറബ് രാഷ്ട്രം</skos:altLabel>
+	<skos:altLabel xml:lang="th">สหรัฐอาหรับเอมิเรตส์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ສະຫະລັດອາຫລັບເອມິເລດ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཡུ་ནའི་ཊེཊ་ཨ་ར བ་ཨེ་མི་རེཊསི</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨ་རབ། ཨི་མི་རཊ྄། ཆིག་སྒྲིལ་རྒྱལ་ཁབ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">არაბეთის გაერთიანებული ემირატები</skos:altLabel>
+	<skos:altLabel xml:lang="ka">არაბეთის გაერთიანებული საამიროები</skos:altLabel>
+	<skos:altLabel xml:lang="am">የተባበሩት አረብ ኤምሬትስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អេមីរ៉ែទអារ៉ាប់រួម</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アラブ首長国連邦</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿拉伯联合酋长国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아랍에미리트</skos:altLabel>
+	<skos:prefLabel>United Arab Emirates</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.39139</wgs:lat>
+	<wgs:long>52.77722</wgs:long>
+	<skos:altLabel xml:lang="ar">Umm Jaşşār</skos:altLabel>
+	<skos:altLabel>Umm Qaşār</skos:altLabel>
+	<skos:altLabel>Umm Qaşşār</skos:altLabel>
+	<skos:altLabel>‘Umm Gaṣṣār</skos:altLabel>
+	<skos:prefLabel>Umm Jaşşār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.5</wgs:lat>
+	<wgs:long>54.46667</wgs:long>
+	<skos:altLabel xml:lang="ar">Umm Fīyīn</skos:altLabel>
+	<skos:prefLabel>Umm Fīyīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.43861</wgs:lat>
+	<wgs:long>54.51444</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm an Nār</skos:altLabel>
+	<skos:altLabel>‘Umm al-Nār</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm an Nār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.24</wgs:lat>
+	<wgs:long>53.39417</wgs:long>
+	<skos:altLabel>Jazīrat Umm ‘mīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm ‘Amīm</skos:altLabel>
+	<skos:prefLabel>Umm ‘Amīm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>44411</europeana:population>
+	<wgs:lat>25.56528</wgs:lat>
+	<wgs:long>55.55333</wgs:long>
+	<skos:altLabel>Um al Quweim</skos:altLabel>
+	<skos:altLabel>Umm al Qaiwain</skos:altLabel>
+	<skos:altLabel>Umm al Qawain</skos:altLabel>
+	<skos:altLabel>Umm al Qaywayn</skos:altLabel>
+	<skos:altLabel>Yumul al Quwain</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أم القيوين</skos:altLabel>
+	<skos:prefLabel>Umm al Qaywayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>56253</europeana:population>
+	<wgs:lat>25.5</wgs:lat>
+	<wgs:long>55.75</wgs:long>
+	<skos:altLabel xml:lang="fr">Oumm al Qaïwaïn</skos:altLabel>
+	<skos:altLabel>Skeikhdom of Umm al Qaiwain</skos:altLabel>
+	<skos:altLabel>Umm Al Quwain</skos:altLabel>
+	<skos:altLabel>Umm al Qawain</skos:altLabel>
+	<skos:altLabel>Umm al Qaywayn</skos:altLabel>
+	<skos:altLabel>Umm al Qiwain</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أم القيوين</skos:altLabel>
+	<skos:prefLabel>Umm al Qaywayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.39306</wgs:lat>
+	<wgs:long>52.76528</wgs:long>
+	<skos:altLabel>Umm Kirkum</skos:altLabel>
+	<skos:altLabel>Umm Kurkum</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm al Kurkum</skos:altLabel>
+	<skos:prefLabel>Umm al Kurkum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.21778</wgs:lat>
+	<wgs:long>51.86583</wgs:long>
+	<skos:altLabel>Jazīrat Umm al Ḩaţab</skos:altLabel>
+	<skos:altLabel>Umm al Halab Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm al Ḩaţab</skos:altLabel>
+	<skos:altLabel>Umm el Halab</skos:altLabel>
+	<skos:prefLabel>Umm al Ḩaţab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.56528</wgs:lat>
+	<wgs:long>54.58389</wgs:long>
+	<skos:altLabel>Umm al Barāk</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm al Birak</skos:altLabel>
+	<skos:altLabel>Umm al-Berak</skos:altLabel>
+	<skos:prefLabel>Umm al Birak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.15111</wgs:lat>
+	<wgs:long>53.01611</wgs:long>
+	<skos:altLabel>Themairiyya</skos:altLabel>
+	<skos:altLabel>Themeiriyyah</skos:altLabel>
+	<skos:altLabel>Thimairiyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Thumayrīyah</skos:altLabel>
+	<skos:prefLabel>Thumayrīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.18333</wgs:lat>
+	<wgs:long>52.89444</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat aş Şīlīyā</skos:altLabel>
+	<skos:altLabel>Jazīrat Şulayyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat aş Şīlīyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.38333</wgs:lat>
+	<wgs:long>51.71667</wgs:long>
+	<skos:altLabel>Faraijdat</skos:altLabel>
+	<skos:altLabel>Fereijid</skos:altLabel>
+	<skos:altLabel>South Faraydat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">South Furayjidāt</skos:altLabel>
+	<skos:prefLabel>South Furayjidāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.23222</wgs:lat>
+	<wgs:long>54.21056</wgs:long>
+	<skos:altLabel>Jazīrat Sīrī Bū Naybar</skos:altLabel>
+	<skos:altLabel>Jezirat Sir Bu Na‘air</skos:altLabel>
+	<skos:altLabel>Sir Abu Nu‘air</skos:altLabel>
+	<skos:altLabel>Sīr bu Na‘air Island</skos:altLabel>
+	<skos:altLabel>Şīr Abū Nu‘ayr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şīr Bū Nu‘ayr</skos:altLabel>
+	<skos:altLabel>Ṣīr Bū Nu‘air</skos:altLabel>
+	<skos:prefLabel>Şīr Bū Nu‘ayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.32944</wgs:lat>
+	<wgs:long>52.60583</wgs:long>
+	<skos:altLabel>Al Yās</skos:altLabel>
+	<skos:altLabel>Jezīrat Yas</skos:altLabel>
+	<skos:altLabel>Sir Banias</skos:altLabel>
+	<skos:altLabel>Sir Beni Yas</skos:altLabel>
+	<skos:altLabel>Yas Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şīr Banī Yās</skos:altLabel>
+	<skos:prefLabel>Şīr Banī Yās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.35306</wgs:lat>
+	<wgs:long>56.37861</wgs:long>
+	<skos:altLabel xml:lang="ar">Sīrat al Khawr</skos:altLabel>
+	<skos:prefLabel>Sīrat al Khawr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.11528</wgs:lat>
+	<wgs:long>52.44028</wgs:long>
+	<skos:altLabel>Jazīrat Mashat</skos:altLabel>
+	<skos:altLabel>Jazīrat Showayhāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Shuwayhāt</skos:altLabel>
+	<skos:altLabel>Shuwaihāt</skos:altLabel>
+	<skos:altLabel>Shuweihāt</skos:altLabel>
+	<skos:prefLabel>Jazīrat Shuwayhāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.25</wgs:lat>
+	<wgs:long>54.3</wgs:long>
+	<skos:altLabel xml:lang="ar">Shū Triyyah</skos:altLabel>
+	<skos:prefLabel>Shū Triyyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.3</wgs:lat>
+	<wgs:long>53.61667</wgs:long>
+	<skos:altLabel xml:lang="ar">Shuray‘ah</skos:altLabel>
+	<skos:prefLabel>Shuray‘ah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/290952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.19333</wgs:lat>
+	<wgs:long>53.53694</wgs:long>
+	<skos:altLabel>Aş Şalāḩah</skos:altLabel>
+	<skos:altLabel>Salala</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şalāḩah</skos:altLabel>
+	<skos:prefLabel>Şalāḩah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.55</wgs:lat>
+	<wgs:long>51.65</wgs:long>
+	<skos:altLabel>Ra’s Seyād</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ra’s Siyād</skos:altLabel>
+	<skos:prefLabel>Ra’s Siyād</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>115949</europeana:population>
+	<wgs:lat>25.79111</wgs:lat>
+	<wgs:long>55.94278</wgs:long>
+	<skos:altLabel>Julfa</skos:altLabel>
+	<skos:altLabel>Khaimah</skos:altLabel>
+	<skos:altLabel>Ras al Khaimah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ra’s al Khaymah</skos:altLabel>
+	<skos:altLabel>Rās al Khaima</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رأس الخيمة</skos:altLabel>
+	<skos:prefLabel>Ra’s al Khaymah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291075/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>187535</europeana:population>
+	<wgs:lat>25.66667</wgs:lat>
+	<wgs:long>56</wgs:long>
+	<skos:altLabel>Jasimi Shaikhdom of Ras al-Khaimah</skos:altLabel>
+	<skos:altLabel>Ran al Khaima</skos:altLabel>
+	<skos:altLabel>Ras al Khaima</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ras el Khaïmah</skos:altLabel>
+	<skos:altLabel>Raʼs al Khaymah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ra’s al Khaymah</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Ras al Khaimah</skos:altLabel>
+	<skos:altLabel>State of Ras Al Khaima</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رأس الخيمة</skos:altLabel>
+	<skos:prefLabel>Ra’s al Khaymah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.53222</wgs:lat>
+	<wgs:long>54.52361</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ramḩān</skos:altLabel>
+	<skos:altLabel>Ramḩān</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ramḩān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.76667</wgs:lat>
+	<wgs:long>55.95</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Qurmah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Qurmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.20917</wgs:lat>
+	<wgs:long>54.10389</wgs:long>
+	<skos:altLabel>Gassābi</skos:altLabel>
+	<skos:altLabel>Jaşşābī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşşābī</skos:altLabel>
+	<skos:altLabel>Quşābī</skos:altLabel>
+	<skos:altLabel>Umm al Majārib</skos:altLabel>
+	<skos:prefLabel>Qaşşābī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.93528</wgs:lat>
+	<wgs:long>52.84972</wgs:long>
+	<skos:altLabel>Al Qarnain</skos:altLabel>
+	<skos:altLabel>Al Qarnayn</skos:altLabel>
+	<skos:altLabel>Jazīrat al Qarnayn</skos:altLabel>
+	<skos:altLabel>Jezirat Qarnain</skos:altLabel>
+	<skos:altLabel>Karnain Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qarnayn</skos:altLabel>
+	<skos:altLabel>Qarnein</skos:altLabel>
+	<skos:prefLabel>Qarnayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.2925</wgs:lat>
+	<wgs:long>51.79556</wgs:long>
+	<skos:altLabel>Jazīrat Na‘ītah</skos:altLabel>
+	<skos:altLabel>Naita</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Na‘ītah</skos:altLabel>
+	<skos:altLabel>Ne’īta</skos:altLabel>
+	<skos:altLabel>Ni‘eitah</skos:altLabel>
+	<skos:prefLabel>Na‘ītah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.46667</wgs:lat>
+	<wgs:long>54.41667</wgs:long>
+	<skos:altLabel xml:lang="ar">Mushayrib</skos:altLabel>
+	<skos:prefLabel>Mushayrib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>24.16667</wgs:lat>
+	<wgs:long>53.75</wgs:long>
+	<skos:altLabel>Megaishit</skos:altLabel>
+	<skos:altLabel>Megeshiţ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muqayshiţ</skos:altLabel>
+	<skos:prefLabel>Muqayshiţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.11694</wgs:lat>
+	<wgs:long>51.89806</wgs:long>
+	<skos:altLabel>Al Mahammaliyah</skos:altLabel>
+	<skos:altLabel>Jazīrat Muḩammalīyah</skos:altLabel>
+	<skos:altLabel>Mahamaliya</skos:altLabel>
+	<skos:altLabel>Mehammaliyya</skos:altLabel>
+	<skos:altLabel>Mehammaliyyah</skos:altLabel>
+	<skos:altLabel>Muhammaliya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muhammalīyah</skos:altLabel>
+	<skos:prefLabel>Muhammalīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.28333</wgs:lat>
+	<wgs:long>53.25</wgs:long>
+	<skos:altLabel>Al Ghubbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Marawwaḩ</skos:altLabel>
+	<skos:altLabel>Marawaḩ</skos:altLabel>
+	<skos:altLabel>Marawwaḩ</skos:altLabel>
+	<skos:altLabel>Marāwiḩ</skos:altLabel>
+	<skos:altLabel>Merawwa</skos:altLabel>
+	<skos:altLabel>Merawwaḥ</skos:altLabel>
+	<skos:prefLabel>Jazīrat Marawwaḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291552/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.66167</wgs:lat>
+	<wgs:long>51.82361</wgs:long>
+	<skos:altLabel>Al-Makāsib</skos:altLabel>
+	<skos:altLabel>Jazīrat al Makāsib</skos:altLabel>
+	<skos:altLabel>Machāsib</skos:altLabel>
+	<skos:altLabel>Makhāsib</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Makāsib</skos:altLabel>
+	<skos:prefLabel>Makāsib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.83333</wgs:lat>
+	<wgs:long>51.83333</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ma‘āshī</skos:altLabel>
+	<skos:altLabel>Jezīret al-Ma’āshī</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ma‘āshī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33575</europeana:population>
+	<wgs:lat>25.33917</wgs:lat>
+	<wgs:long>56.35611</wgs:long>
+	<skos:altLabel>Fakkān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khawr Fakkān</skos:altLabel>
+	<skos:altLabel>Khawr al Fakkān</skos:altLabel>
+	<skos:altLabel>Khor Fakhan</skos:altLabel>
+	<skos:altLabel>Khor Fakkān</skos:altLabel>
+	<skos:altLabel>Khor al Fakkan</skos:altLabel>
+	<skos:altLabel>Khor al Fākhān</skos:altLabel>
+	<skos:altLabel>Khorfakan</skos:altLabel>
+	<skos:altLabel>Port Khor Fakkan</skos:altLabel>
+	<skos:prefLabel>Khawr Fakkān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.15194</wgs:lat>
+	<wgs:long>51.995</wgs:long>
+	<skos:altLabel>Bandar Judaira</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Judayrah</skos:altLabel>
+	<skos:prefLabel>Judayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.20722</wgs:lat>
+	<wgs:long>53.40528</wgs:long>
+	<skos:altLabel>Al Djunaina</skos:altLabel>
+	<skos:altLabel>Al Junaina</skos:altLabel>
+	<skos:altLabel>Al Junaynah</skos:altLabel>
+	<skos:altLabel>Janāna</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Janānah</skos:altLabel>
+	<skos:altLabel>Junanah</skos:altLabel>
+	<skos:altLabel>Juneina</skos:altLabel>
+	<skos:prefLabel>Janānah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.15361</wgs:lat>
+	<wgs:long>54.03917</wgs:long>
+	<skos:altLabel>Hālet Jamīla</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jumaylah</skos:altLabel>
+	<skos:altLabel>Ḩālat Jamīlah</skos:altLabel>
+	<skos:prefLabel>Jumaylah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.39667</wgs:lat>
+	<wgs:long>51.50306</wgs:long>
+	<skos:altLabel>Haram</skos:altLabel>
+	<skos:altLabel>Huwaisāt</skos:altLabel>
+	<skos:altLabel>Huwaiza</skos:altLabel>
+	<skos:altLabel>Huweisāt</skos:altLabel>
+	<skos:altLabel>Jazīrat Ḩuwaysāt</skos:altLabel>
+	<skos:altLabel>Qasar Haram</skos:altLabel>
+	<skos:altLabel>Ḥeweiṣāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩuwayşāt</skos:altLabel>
+	<skos:prefLabel>Ḩuwayşāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>25.91667</wgs:lat>
+	<wgs:long>56.03333</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩulaylah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩulaylah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.41667</wgs:lat>
+	<wgs:long>54.35</wgs:long>
+	<skos:altLabel>Hidariat</skos:altLabel>
+	<skos:altLabel>Hudairiyyat</skos:altLabel>
+	<skos:altLabel>Ḩudaeriyyāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩudayrīyāt</skos:altLabel>
+	<skos:prefLabel>Ḩudayrīyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.35833</wgs:lat>
+	<wgs:long>52.76667</wgs:long>
+	<skos:altLabel xml:lang="ar">Hook Island</skos:altLabel>
+	<skos:altLabel>Hook Islet</skos:altLabel>
+	<skos:prefLabel>Hook Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.38833</wgs:lat>
+	<wgs:long>53.42056</wgs:long>
+	<skos:altLabel>Halat Haib</skos:altLabel>
+	<skos:altLabel>Halat Hail</skos:altLabel>
+	<skos:altLabel>Ḥālat al-Hīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩālat al Ḩayl</skos:altLabel>
+	<skos:prefLabel>Ḩālat al Ḩayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.56667</wgs:lat>
+	<wgs:long>54.48333</wgs:long>
+	<skos:altLabel xml:lang="ar">Ḩayl</skos:altLabel>
+	<skos:prefLabel>Ḩayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.72611</wgs:lat>
+	<wgs:long>54.64694</wgs:long>
+	<skos:altLabel>Ḩanjūrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩālat Ḩanyūrah</skos:altLabel>
+	<skos:prefLabel>Ḩālat Ḩanyūrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.70361</wgs:lat>
+	<wgs:long>55.79556</wgs:long>
+	<skos:altLabel>Al Jazīrah al Ḩamrā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ḩamrā’</skos:altLabel>
+	<skos:altLabel>Jazīrat az Za‘āb</skos:altLabel>
+	<skos:altLabel>Jezirat al Hamra</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ḩamrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/291998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.20111</wgs:lat>
+	<wgs:long>52.79028</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Ḩamar</skos:altLabel>
+	<skos:altLabel>Al Ḩumr</skos:altLabel>
+	<skos:altLabel>Al-Homor</skos:altLabel>
+	<skos:altLabel>Al-Ḥumur</skos:altLabel>
+	<skos:altLabel>Djezirat al Hamar</skos:altLabel>
+	<skos:altLabel>Jazīrat al Ḩamar</skos:altLabel>
+	<skos:prefLabel>Al Ḩamar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.545</wgs:lat>
+	<wgs:long>55.58361</wgs:long>
+	<skos:altLabel>Jazīrat Ghallah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ghallah</skos:altLabel>
+	<skos:altLabel>Jazīrat al Ghubbah</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ghallah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.48333</wgs:lat>
+	<wgs:long>56.36667</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ghubbah</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ghubbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.41667</wgs:lat>
+	<wgs:long>52.65</wgs:long>
+	<skos:altLabel>Ghashsha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ghashshah</skos:altLabel>
+	<skos:altLabel>Jazīrat Ghashā</skos:altLabel>
+	<skos:altLabel>Rashid</skos:altLabel>
+	<skos:prefLabel>Ghashshah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.81583</wgs:lat>
+	<wgs:long>54.74861</wgs:long>
+	<skos:altLabel>Ghanādha</skos:altLabel>
+	<skos:altLabel>Ghanāḑah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat aţ Ţawīlah</skos:altLabel>
+	<skos:prefLabel>Jazīrat aţ Ţawīlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>24.41389</wgs:lat>
+	<wgs:long>51.54778</wgs:long>
+	<skos:altLabel>Ghagha</skos:altLabel>
+	<skos:altLabel>Ghara</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ghāghah</skos:altLabel>
+	<skos:altLabel>Jazair Ghagha</skos:altLabel>
+	<skos:altLabel>Jazair Ghāra</skos:altLabel>
+	<skos:altLabel>Jezirat Ghára</skos:altLabel>
+	<skos:altLabel>Juzur Ghāghah</skos:altLabel>
+	<skos:prefLabel>Ghāghah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.43333</wgs:lat>
+	<wgs:long>51.55</wgs:long>
+	<skos:altLabel>Ghāgha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ghāghah</skos:altLabel>
+	<skos:prefLabel>Ghāghah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.41444</wgs:lat>
+	<wgs:long>51.68944</wgs:long>
+	<skos:altLabel>Faraijdat</skos:altLabel>
+	<skos:altLabel>Fereijid</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Furayjid</skos:altLabel>
+	<skos:altLabel>Furayjidāt</skos:altLabel>
+	<skos:altLabel>North Faraydat</skos:altLabel>
+	<skos:prefLabel>Furayjid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.36667</wgs:lat>
+	<wgs:long>52.85</wgs:long>
+	<skos:altLabel xml:lang="ar">Fatā’ir</skos:altLabel>
+	<skos:prefLabel>Fatā’ir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.50278</wgs:lat>
+	<wgs:long>54.50806</wgs:long>
+	<skos:altLabel>Fāhad Hasarrah</skos:altLabel>
+	<skos:altLabel>Gesairet Fāhid</skos:altLabel>
+	<skos:altLabel>Jazirat Fahad</skos:altLabel>
+	<skos:altLabel>Jazīrat Fahd</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Fāhid</skos:altLabel>
+	<skos:altLabel>Jeseirat Fahid</skos:altLabel>
+	<skos:prefLabel>Jazīrat Fāhid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>1137347</europeana:population>
+	<wgs:lat>25.25222</wgs:lat>
+	<wgs:long>55.28</wgs:long>
+	<skos:altLabel>Dabei</skos:altLabel>
+	<skos:altLabel>Dibai</skos:altLabel>
+	<skos:altLabel>Dibay</skos:altLabel>
+	<skos:altLabel xml:lang="id">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="da">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="it">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="no">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Dubai emiraat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dubaj</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dubaj</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dubaj</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Dubaj</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Dubajo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Dubajus</skos:altLabel>
+	<skos:altLabel>Dubay</skos:altLabel>
+	<skos:altLabel>Dubayy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dubaï</skos:altLabel>
+	<skos:altLabel xml:lang="is">Dúbæ</skos:altLabel>
+	<skos:altLabel>Fort Dabei</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Дубаи</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Дубай</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дубай</skos:altLabel>
+	<skos:altLabel xml:lang="he">דובאי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">دبئی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دبي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">دبی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">दुबई</skos:altLabel>
+	<skos:altLabel xml:lang="ta">துபாய்</skos:altLabel>
+	<skos:altLabel xml:lang="th">ดูไบ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドバイ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">杜拜</skos:altLabel>
+	<skos:altLabel xml:lang="zh">迪拜</skos:altLabel>
+	<skos:altLabel xml:lang="ko">두바이</skos:altLabel>
+	<skos:prefLabel>Dubai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1141963</europeana:population>
+	<wgs:lat>25</wgs:lat>
+	<wgs:long>55.33333</wgs:long>
+	<skos:altLabel>Debai</skos:altLabel>
+	<skos:altLabel>Debei</skos:altLabel>
+	<skos:altLabel>Dibai</skos:altLabel>
+	<skos:altLabel xml:lang="es">Dubai</skos:altLabel>
+	<skos:altLabel>Dubayy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dubaï</skos:altLabel>
+	<skos:altLabel>Imārat Dubayy</skos:altLabel>
+	<skos:altLabel>Shaikhdom of Dubai</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Dubai</skos:altLabel>
+	<skos:altLabel>State of Dubai</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دبي</skos:altLabel>
+	<skos:prefLabel>Dubayy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26395</europeana:population>
+	<wgs:lat>25.61667</wgs:lat>
+	<wgs:long>56.26667</wgs:long>
+	<skos:altLabel>Dabā</skos:altLabel>
+	<skos:altLabel>Dabā al-Ḥiṣn</skos:altLabel>
+	<skos:altLabel>Dibah</skos:altLabel>
+	<skos:altLabel>Dibba</skos:altLabel>
+	<skos:altLabel>Dibbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dibā</skos:altLabel>
+	<skos:altLabel>Dibā al Ḩişn</skos:altLabel>
+	<skos:altLabel>Dībā al Ḩişn</skos:altLabel>
+	<skos:altLabel>Husn Dibba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дибба Аль-Хисн</skos:altLabel>
+	<skos:altLabel>Ḩişn Dibā</skos:altLabel>
+	<skos:prefLabel>Dibā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.95917</wgs:lat>
+	<wgs:long>52.39972</wgs:long>
+	<skos:altLabel>Daiyina</skos:altLabel>
+	<skos:altLabel>Daiyinah Island</skos:altLabel>
+	<skos:altLabel>Dayyina</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dayyīnah</skos:altLabel>
+	<skos:altLabel>Jazīrat Diyina</skos:altLabel>
+	<skos:altLabel>Jezirat Daiyinah</skos:altLabel>
+	<skos:prefLabel>Dayyīnah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.15</wgs:lat>
+	<wgs:long>52.88333</wgs:long>
+	<skos:altLabel xml:lang="ar">Dās</skos:altLabel>
+	<skos:prefLabel>Dās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.19306</wgs:lat>
+	<wgs:long>52.94778</wgs:long>
+	<skos:altLabel>Dagallah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Daqalah</skos:altLabel>
+	<skos:altLabel>Deqala</skos:altLabel>
+	<skos:altLabel>Deqalah</skos:altLabel>
+	<skos:altLabel>Jazīrat Daqalah</skos:altLabel>
+	<skos:prefLabel>Daqalah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.43333</wgs:lat>
+	<wgs:long>52.3</wgs:long>
+	<skos:altLabel xml:lang="ar">Ḩālat Dalmā al Janūbīyah</skos:altLabel>
+	<skos:prefLabel>Ḩālat Dalmā al Janūbīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.51056</wgs:lat>
+	<wgs:long>52.31028</wgs:long>
+	<skos:altLabel>Dalmah Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dalmā</skos:altLabel>
+	<skos:altLabel>Jazīrat Dalmah</skos:altLabel>
+	<skos:prefLabel>Dalmā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.54778</wgs:lat>
+	<wgs:long>54.54806</wgs:long>
+	<skos:altLabel xml:lang="ar">Camp Island</skos:altLabel>
+	<skos:prefLabel>Camp Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.15778</wgs:lat>
+	<wgs:long>53.04417</wgs:long>
+	<skos:altLabel xml:lang="ar">Bū Shiyārah</skos:altLabel>
+	<skos:altLabel>Şawāmi‘</skos:altLabel>
+	<skos:prefLabel>Bū Shiyārah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.19056</wgs:lat>
+	<wgs:long>54.0875</wgs:long>
+	<skos:altLabel>Bu Shāra</skos:altLabel>
+	<skos:altLabel>Bū Shārah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Abū as Sayāyīf</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū as Sayāyīf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.23639</wgs:lat>
+	<wgs:long>54.12583</wgs:long>
+	<skos:altLabel>Bū Qermah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bū Qirmah</skos:altLabel>
+	<skos:prefLabel>Bū Qirmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.5</wgs:lat>
+	<wgs:long>54.48333</wgs:long>
+	<skos:altLabel>Bu Krū</skos:altLabel>
+	<skos:altLabel>Bū Karū</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bū Kurūh</skos:altLabel>
+	<skos:prefLabel>Bū Kurūh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.3</wgs:lat>
+	<wgs:long>54.21667</wgs:long>
+	<skos:altLabel>Bu-Keshaisha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bū Khushayshah</skos:altLabel>
+	<skos:altLabel>Bū-Kesheidhah</skos:altLabel>
+	<skos:prefLabel>Bū Khushayshah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.17194</wgs:lat>
+	<wgs:long>53.0875</wgs:long>
+	<skos:altLabel>Bu Kharaij</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bū Khurayj</skos:altLabel>
+	<skos:prefLabel>Bū Khurayj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.23639</wgs:lat>
+	<wgs:long>54.10611</wgs:long>
+	<skos:altLabel xml:lang="ar">Bū Ka‘l</skos:altLabel>
+	<skos:prefLabel>Bū Ka‘l</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.53333</wgs:lat>
+	<wgs:long>54.48333</wgs:long>
+	<skos:altLabel>Bū Ḥeil</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bū Ḩayl</skos:altLabel>
+	<skos:altLabel>Jubayl</skos:altLabel>
+	<skos:prefLabel>Bū Ḩayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.41667</wgs:lat>
+	<wgs:long>54.36667</wgs:long>
+	<skos:altLabel>Bu Al Sayaeef</skos:altLabel>
+	<skos:altLabel>Bu Seyayeef</skos:altLabel>
+	<skos:altLabel>Bū Sā’if</skos:altLabel>
+	<skos:altLabel>Bū al-Sayāyīf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bū as Sayāyīf</skos:altLabel>
+	<skos:altLabel>Jazīrat Bū Sāyif</skos:altLabel>
+	<skos:prefLabel>Bū as Sayāyīf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.56889</wgs:lat>
+	<wgs:long>54.54278</wgs:long>
+	<skos:altLabel>Bel Ghailam</skos:altLabel>
+	<skos:altLabel>Bil Ghaylam</skos:altLabel>
+	<skos:altLabel>Bil Ghilm</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Bil Ghaylam</skos:altLabel>
+	<skos:prefLabel>Jazīrat Bil Ghaylam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.14083</wgs:lat>
+	<wgs:long>51.80778</wgs:long>
+	<skos:altLabel>Kassār al Baya</skos:altLabel>
+	<skos:altLabel>Qasār al Ba‘ayā</skos:altLabel>
+	<skos:altLabel>Qaşr Ba‘jā’</skos:altLabel>
+	<skos:altLabel>Qaşār al Ba‘ayā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşşār Ba‘yā</skos:altLabel>
+	<skos:prefLabel>Qaşşār Ba‘yā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.37833</wgs:lat>
+	<wgs:long>54.22778</wgs:long>
+	<skos:altLabel>Al Bahrāni Island</skos:altLabel>
+	<skos:altLabel>Halet el Bahreini</skos:altLabel>
+	<skos:altLabel>Jazīrat al Baḩrānī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩālat al Baḩrānī</skos:altLabel>
+	<skos:prefLabel>Ḩālat al Baḩrānī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.42833</wgs:lat>
+	<wgs:long>56.36889</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Badīyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Badīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.13611</wgs:lat>
+	<wgs:long>52.43694</wgs:long>
+	<skos:altLabel xml:lang="ar">Az Zabbūt</skos:altLabel>
+	<skos:altLabel>Jazīrat Zabut</skos:altLabel>
+	<skos:altLabel>Zabbūt</skos:altLabel>
+	<skos:prefLabel>Az Zabbūt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.61389</wgs:lat>
+	<wgs:long>55.62583</wgs:long>
+	<skos:altLabel>Al-Sīniyyah</skos:altLabel>
+	<skos:altLabel>Jazīrat Mallāh</skos:altLabel>
+	<skos:altLabel>Jazīrat Sīnīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat as Sīnīyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat as Sīnīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.18333</wgs:lat>
+	<wgs:long>54</wgs:long>
+	<skos:altLabel xml:lang="ar">As Salālī</skos:altLabel>
+	<skos:altLabel>Jazīrat as Salālī</skos:altLabel>
+	<skos:altLabel>Salali</skos:altLabel>
+	<skos:prefLabel>As Salālī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.53333</wgs:lat>
+	<wgs:long>54.43333</wgs:long>
+	<skos:altLabel xml:lang="ar">As Sa‘dīyāt</skos:altLabel>
+	<skos:altLabel>Sa‘dīyāt</skos:altLabel>
+	<skos:altLabel>Sa’diyyāt</skos:altLabel>
+	<skos:prefLabel>As Sa‘dīyāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>543733</europeana:population>
+	<wgs:lat>25.36222</wgs:lat>
+	<wgs:long>55.39111</wgs:long>
+	<skos:altLabel>Al Sharjah</skos:altLabel>
+	<skos:altLabel>Ash Shāriqa</skos:altLabel>
+	<skos:altLabel>Ash Shāriqah</skos:altLabel>
+	<skos:altLabel>Ash ’Mariqah</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ash-Shāriqah' emiraat</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Schardscha</skos:altLabel>
+	<skos:altLabel xml:lang="de">Schardscha</skos:altLabel>
+	<skos:altLabel>Sharga</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sharjah</skos:altLabel>
+	<skos:altLabel>Shārijah</skos:altLabel>
+	<skos:altLabel>Shāriqah</skos:altLabel>
+	<skos:altLabel>Shārja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ŝarĵo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шарджа</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Шаржа</skos:altLabel>
+	<skos:altLabel xml:lang="he">שארג'ה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الشارقة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">شارجه</skos:altLabel>
+	<skos:altLabel xml:lang="ar">شارقة</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சார்ஜா</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シャールジャ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">夏尔迦</skos:altLabel>
+	<skos:prefLabel>Sharjah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>620183</europeana:population>
+	<wgs:lat>25</wgs:lat>
+	<wgs:long>55.75</wgs:long>
+	<skos:altLabel>Ash Shāriqah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ash Shāriqah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Charjah</skos:altLabel>
+	<skos:altLabel>Imārat ash Shāriqah</skos:altLabel>
+	<skos:altLabel>Sharja and Kalba</skos:altLabel>
+	<skos:altLabel>Sharjah</skos:altLabel>
+	<skos:altLabel>Sharjah Principality</skos:altLabel>
+	<skos:altLabel>Sharjah State</skos:altLabel>
+	<skos:altLabel>Sharjah and Kalba</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Sharjah</skos:altLabel>
+	<skos:altLabel>Shārgah</skos:altLabel>
+	<skos:altLabel>Shārijah</skos:altLabel>
+	<skos:altLabel>Shāriqah</skos:altLabel>
+	<skos:altLabel>Shārja</skos:altLabel>
+	<skos:altLabel>State of Sharjah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الشارقة</skos:altLabel>
+	<skos:prefLabel>Ash Shāriqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.79389</wgs:lat>
+	<wgs:long>52.56167</wgs:long>
+	<skos:altLabel>Arzana</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Arzanah</skos:altLabel>
+	<skos:altLabel>Jazīrat ‘Arḑānah</skos:altLabel>
+	<skos:prefLabel>Arzanah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292688/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16000</europeana:population>
+	<wgs:lat>24.11028</wgs:lat>
+	<wgs:long>52.73056</wgs:long>
+	<skos:altLabel xml:lang="ar">Ar Ruways</skos:altLabel>
+	<skos:altLabel>Ar Ru’ays</skos:altLabel>
+	<skos:altLabel>Ruwais</skos:altLabel>
+	<skos:prefLabel>Ar Ruways</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292695/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.18083</wgs:lat>
+	<wgs:long>54.04806</wgs:long>
+	<skos:altLabel>Ar Rafīq</skos:altLabel>
+	<skos:altLabel>Ar Rufayq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ar Rafīq</skos:altLabel>
+	<skos:prefLabel>Jazīrat ar Rafīq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>24.20667</wgs:lat>
+	<wgs:long>51.9975</wgs:long>
+	<skos:altLabel>Al Yāsayn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Yāsāt</skos:altLabel>
+	<skos:altLabel>Al Yā’sīn</skos:altLabel>
+	<skos:altLabel>Jazair al Yāsāt</skos:altLabel>
+	<skos:altLabel>Jezirat Yásat</skos:altLabel>
+	<skos:prefLabel>Al Yāsāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.65972</wgs:lat>
+	<wgs:long>54.58056</wgs:long>
+	<skos:altLabel>Al Weḥeil</skos:altLabel>
+	<skos:altLabel>Al Wuḩayl</skos:altLabel>
+	<skos:altLabel>Jazirat Hail</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩayl</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.16944</wgs:lat>
+	<wgs:long>54.09333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qanţūr</skos:altLabel>
+	<skos:altLabel>Al-Ganţūr</skos:altLabel>
+	<skos:altLabel>Al-Ghantūr</skos:altLabel>
+	<skos:altLabel>Jezīrat Kantur</skos:altLabel>
+	<skos:altLabel>Qantar Island</skos:altLabel>
+	<skos:altLabel>Qanţūr</skos:altLabel>
+	<skos:prefLabel>Al Qanţūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.58694</wgs:lat>
+	<wgs:long>51.72806</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Qaffāy</skos:altLabel>
+	<skos:altLabel>Al Qafāy</skos:altLabel>
+	<skos:altLabel>Jazīrat Gaffai</skos:altLabel>
+	<skos:altLabel>Jazīrat Kafāi</skos:altLabel>
+	<skos:altLabel>Jazīrat al Qaffāy</skos:altLabel>
+	<skos:altLabel>Jezirat Kafái</skos:altLabel>
+	<skos:altLabel>Kafāy</skos:altLabel>
+	<skos:altLabel>Qaffai</skos:altLabel>
+	<skos:prefLabel>Al Qaffāy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>24.50056</wgs:lat>
+	<wgs:long>51.72833</wgs:long>
+	<skos:altLabel>Al Mahayimat</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Muhayyimāt</skos:altLabel>
+	<skos:altLabel>Al-Mehayyimat</skos:altLabel>
+	<skos:altLabel>Jazair Mahayimat</skos:altLabel>
+	<skos:altLabel>Jaza’ir Muhayyimāt</skos:altLabel>
+	<skos:altLabel>Miyamāt Entin</skos:altLabel>
+	<skos:altLabel>Muhaiyimain</skos:altLabel>
+	<skos:altLabel>Muhayimāt</skos:altLabel>
+	<skos:altLabel>Muhayyimayn</skos:altLabel>
+	<skos:prefLabel>Al Muhayyimāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.46</wgs:lat>
+	<wgs:long>53.37361</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mubarraz</skos:altLabel>
+	<skos:altLabel>Hālat al Mubarras</skos:altLabel>
+	<skos:altLabel>Ḩālat al Mubarraz</skos:altLabel>
+	<skos:prefLabel>Al Mubarraz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.23972</wgs:lat>
+	<wgs:long>52.6825</wgs:long>
+	<skos:altLabel>Halet al ’Allāq</skos:altLabel>
+	<skos:altLabel>Hālet al-’Allāg</skos:altLabel>
+	<skos:altLabel>Ḩālat Buwaytir</skos:altLabel>
+	<skos:altLabel>Ḩālat al ‘Alaq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩālat al ‘Allāk</skos:altLabel>
+	<skos:prefLabel>Ḩālat al ‘Allāk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.12139</wgs:lat>
+	<wgs:long>53.27556</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Khuşayfah</skos:altLabel>
+	<skos:altLabel>Khesaifa</skos:altLabel>
+	<skos:altLabel>Khesaifah</skos:altLabel>
+	<skos:altLabel>Khusaifah</skos:altLabel>
+	<skos:altLabel>Khuşayfah</skos:altLabel>
+	<skos:prefLabel>Al Khuşayfah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>24.17444</wgs:lat>
+	<wgs:long>53.88667</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jirāb</skos:altLabel>
+	<skos:altLabel>Jirāb</skos:altLabel>
+	<skos:prefLabel>Al Jirāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.30306</wgs:lat>
+	<wgs:long>51.66111</wgs:long>
+	<skos:altLabel>Al Faza‘īyah</skos:altLabel>
+	<skos:altLabel>Al Fazāya</skos:altLabel>
+	<skos:altLabel>Al Faz‘īyah</skos:altLabel>
+	<skos:altLabel>Al Faḑīyah</skos:altLabel>
+	<skos:altLabel>Al Ibsaiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Ifzī‘īyah</skos:altLabel>
+	<skos:altLabel>Al ‘Ubsayyah</skos:altLabel>
+	<skos:altLabel>Al-Ifzai’yya</skos:altLabel>
+	<skos:altLabel>Al-’Ifzī‘iyyah</skos:altLabel>
+	<skos:altLabel>El Fazaya</skos:altLabel>
+	<skos:altLabel>Jazīrat al Faḑīyah</skos:altLabel>
+	<skos:altLabel>Jazīrat al ‘Ubsayyah</skos:altLabel>
+	<skos:prefLabel>Al Ifzī‘īyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.61667</wgs:lat>
+	<wgs:long>54.53639</wgs:long>
+	<skos:altLabel>Al Ghurāb</skos:altLabel>
+	<skos:altLabel>Ghrāb</skos:altLabel>
+	<skos:altLabel>Ghurāb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Ra’s Ghurāb</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ra’s Ghurāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.36667</wgs:lat>
+	<wgs:long>54.31667</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Fuţaysī</skos:altLabel>
+	<skos:altLabel>Al-Futaisi</skos:altLabel>
+	<skos:altLabel>Fetaisi</skos:altLabel>
+	<skos:altLabel>Feteisī</skos:altLabel>
+	<skos:altLabel>Jabal Fataysah</skos:altLabel>
+	<skos:prefLabel>Al Fuţaysī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>62415</europeana:population>
+	<wgs:lat>25.12306</wgs:lat>
+	<wgs:long>56.3375</wgs:long>
+	<skos:altLabel>Al Fujayrah</skos:altLabel>
+	<skos:altLabel>Al-Fudjayra</skos:altLabel>
+	<skos:altLabel xml:lang="et">Al-Fujayrah' emiraat</skos:altLabel>
+	<skos:altLabel xml:lang="de">Fudschaira</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Fudschaira</skos:altLabel>
+	<skos:altLabel>Fujaira</skos:altLabel>
+	<skos:altLabel>Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="id">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="es">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Fujairah</skos:altLabel>
+	<skos:altLabel xml:lang="it">Fujairah</skos:altLabel>
+	<skos:altLabel>Fujayrah</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Fuĵajro</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фуджейра</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фуджейра</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الفجيرة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فجيرة</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フジャイラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">富吉拉</skos:altLabel>
+	<skos:prefLabel>Al Fujayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>113316</europeana:population>
+	<wgs:lat>25.13333</wgs:lat>
+	<wgs:long>56.25</wgs:long>
+	<skos:altLabel>Al Fujayrah</skos:altLabel>
+	<skos:altLabel>Fujaira</skos:altLabel>
+	<skos:altLabel>Fujairah</skos:altLabel>
+	<skos:altLabel>Fujarah</skos:altLabel>
+	<skos:altLabel>Fujayrah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fujaïrah</skos:altLabel>
+	<skos:altLabel>Fujeira</skos:altLabel>
+	<skos:altLabel>Shaikhdom of Fujairah</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Fujairah</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Fujayrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الفجيرة</skos:altLabel>
+	<skos:prefLabel>Al Fujayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.29333</wgs:lat>
+	<wgs:long>53.1975</wgs:long>
+	<skos:altLabel>Al Bazm ash Sharqī</skos:altLabel>
+	<skos:altLabel>Al Fiha</skos:altLabel>
+	<skos:altLabel>Al Fuyay’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Fīyay</skos:altLabel>
+	<skos:altLabel>Al-Bazm al-Sharqi</skos:altLabel>
+	<skos:altLabel>Fiyya</skos:altLabel>
+	<skos:prefLabel>Al Fīyay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.32917</wgs:lat>
+	<wgs:long>53.08583</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Bazm al Gharbī</skos:altLabel>
+	<skos:altLabel>Al-Bizm al-Gharbi</skos:altLabel>
+	<skos:altLabel>Bazam al Gharbi</skos:altLabel>
+	<skos:altLabel>Bazim-al-Gharbi Island</skos:altLabel>
+	<skos:altLabel>Bazm al Gharbi</skos:altLabel>
+	<skos:prefLabel>Al Bazm al Gharbī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>408733</europeana:population>
+	<wgs:lat>24.19167</wgs:lat>
+	<wgs:long>55.76056</wgs:long>
+	<skos:altLabel>Al Ain</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Al Ain</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Al Ain</skos:altLabel>
+	<skos:altLabel xml:lang="en">Al Ain</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Al Ain</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Al Ajn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al ‘Ayn</skos:altLabel>
+	<skos:altLabel xml:lang="de">Al-Ain</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Al-Ayn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Айн</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العين</skos:altLabel>
+	<skos:prefLabel>Al ‘Ayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>226172</europeana:population>
+	<wgs:lat>25.41111</wgs:lat>
+	<wgs:long>55.43504</wgs:long>
+	<skos:altLabel xml:lang="no">Ajman</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ajman</skos:altLabel>
+	<skos:altLabel>Al Ajman</skos:altLabel>
+	<skos:altLabel>`Ujmān</skos:altLabel>
+	<skos:prefLabel>`Ajmān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292933/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>234905</europeana:population>
+	<wgs:lat>25.38333</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel xml:lang="es">Ajman</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ajman</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ajman</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Ajman</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عجمان</skos:altLabel>
+	<skos:altLabel>‘Ajmān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Ajmān</skos:altLabel>
+	<skos:altLabel>‘Ujmān</skos:altLabel>
+	<skos:prefLabel>‘Ajmān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24716</europeana:population>
+	<wgs:lat>25.28222</wgs:lat>
+	<wgs:long>55.89028</wgs:long>
+	<skos:altLabel>Adh Dhaid</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Adh Dhayd</skos:altLabel>
+	<skos:altLabel>Al Daid</skos:altLabel>
+	<skos:altLabel>Al-Dhayd</skos:altLabel>
+	<skos:altLabel>Dhaid</skos:altLabel>
+	<skos:altLabel>Dhayd</skos:altLabel>
+	<skos:altLabel>Duhayd</skos:altLabel>
+	<skos:altLabel>Ihaid</skos:altLabel>
+	<skos:altLabel>Ḑayd</skos:altLabel>
+	<skos:prefLabel>Adh Dhayd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.45</wgs:lat>
+	<wgs:long>54.38333</wgs:long>
+	<skos:altLabel>Abu Dhabi</skos:altLabel>
+	<skos:altLabel>Abū Z̧abī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Abū Z̧aby</skos:altLabel>
+	<skos:prefLabel>Jazīrat Abū Z̧aby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>603492</europeana:population>
+	<wgs:lat>24.46667</wgs:lat>
+	<wgs:long>54.36667</wgs:long>
+	<skos:altLabel xml:lang="lt">Abu Dabis</skos:altLabel>
+	<skos:altLabel xml:lang="id">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="io">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Abu Dhabi emiraat</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Abu Zabi</skos:altLabel>
+	<skos:altLabel>Abu Ḑabi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Abu-Dabio</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Abud Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Abú Dabí</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Abú Dhabí</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Abú Zabí</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Abū Z̧aby</skos:altLabel>
+	<skos:altLabel>Abū Z̧abye</skos:altLabel>
+	<skos:altLabel>Abū Z̧abyo</skos:altLabel>
+	<skos:altLabel>Abū Z̧abī</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Emirato de Abu Dabi</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Äbu Saby</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αμπου Νταμπι</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αμπού Ντάμπι</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Абу Даби</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абу-Даби</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Абу-Дабі</skos:altLabel>
+	<skos:altLabel xml:lang="he">אבו דאבי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أبوظبي</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アブダビ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿布扎比</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아부다비</skos:altLabel>
+	<skos:prefLabel>Abu Dhabi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1395899</europeana:population>
+	<wgs:lat>23.66667</wgs:lat>
+	<wgs:long>54</wgs:long>
+	<skos:altLabel xml:lang="fr">Abou Dabi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Abu Dhabi</skos:altLabel>
+	<skos:altLabel>Abū Z̧aby</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Abū Z̧aby</skos:altLabel>
+	<skos:altLabel>Emirate of Abu Dhabi</skos:altLabel>
+	<skos:altLabel>Imārat Abū Z̧aby</skos:altLabel>
+	<skos:altLabel>Shaikhdom of Abu Dhabi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أبوظبي</skos:altLabel>
+	<skos:prefLabel>Abū Z̧aby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/292997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.1775</wgs:lat>
+	<wgs:long>53.78611</wgs:long>
+	<skos:altLabel>Abū al Aby</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Abū al Abyaḑ</skos:altLabel>
+	<skos:altLabel>Al Jirāb</skos:altLabel>
+	<skos:altLabel>Jazīrat Abu al Abyadh</skos:altLabel>
+	<skos:altLabel>Jazīrat Abūl Abyaḑ</skos:altLabel>
+	<skos:altLabel>Jezirat Abul Abyadh</skos:altLabel>
+	<skos:altLabel>Magayshit</skos:altLabel>
+	<skos:altLabel>Maqaishat Island</skos:altLabel>
+	<skos:altLabel>Megaishit</skos:altLabel>
+	<skos:altLabel>Mukaysẖiṭ</skos:altLabel>
+	<skos:altLabel>Muqayshiţ</skos:altLabel>
+	<skos:prefLabel>Abū al Abyaḑ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/389390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.46028</wgs:lat>
+	<wgs:long>54.535</wgs:long>
+	<skos:altLabel xml:lang="ar">As Sammālīyah</skos:altLabel>
+	<skos:prefLabel>As Sammālīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/398614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.42778</wgs:lat>
+	<wgs:long>52.30778</wgs:long>
+	<skos:altLabel xml:lang="ar">Ḩālat Masum</skos:altLabel>
+	<skos:prefLabel>Ḩālat Masum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/398678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.27278</wgs:lat>
+	<wgs:long>51.68972</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Ḩāmī Rūḩah</skos:altLabel>
+	<skos:prefLabel>Jazīrat Ḩāmī Rūḩah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/398683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.32667</wgs:lat>
+	<wgs:long>51.63972</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al ‘Ubsayyah</skos:altLabel>
+	<skos:prefLabel>Jazīrat al ‘Ubsayyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/398723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.35917</wgs:lat>
+	<wgs:long>51.62</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Khumays</skos:altLabel>
+	<skos:prefLabel>Jazīrat Khumays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/398733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.43833</wgs:lat>
+	<wgs:long>51.54444</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Khardal</skos:altLabel>
+	<skos:prefLabel>Jazīrat Khardal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/398734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.38389</wgs:lat>
+	<wgs:long>51.57694</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Ghumaghin</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Ghumaghin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/399420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>24.39167</wgs:lat>
+	<wgs:long>51.53583</wgs:long>
+	<skos:altLabel xml:lang="ar">Qasār Mal‘ab</skos:altLabel>
+	<skos:prefLabel>Qasār Mal‘ab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/415000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/290557/"/>
+	<europeana:country>AE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>25.31556</wgs:lat>
+	<wgs:long>55.36139</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat al Ḩibāb</skos:altLabel>
+	<skos:prefLabel>Jazīrat al Ḩibāb</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 126 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

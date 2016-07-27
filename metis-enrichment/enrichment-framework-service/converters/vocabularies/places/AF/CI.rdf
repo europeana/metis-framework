@@ -1,0 +1,3291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_CI
+Description: Selected fields pulled from Geonames about CI done on Mon May 23 21:16:09 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.36667</wgs:lat>
+	<wgs:long>-6.2</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Zuénoula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597332/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>-6</wgs:long>
+	<skos:prefLabel>Département de Zuénoula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34435</europeana:population>
+	<wgs:lat>7.42917</wgs:lat>
+	<wgs:long>-6.04306</wgs:long>
+	<skos:altLabel>Zouénoula</skos:altLabel>
+	<skos:altLabel>Zuénoula</skos:altLabel>
+	<skos:altLabel>Zénoula</skos:altLabel>
+	<skos:prefLabel>Zuénoula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-8.25</wgs:long>
+	<skos:altLabel>Sous-préfecture de Zouan-Hounien</skos:altLabel>
+	<skos:altLabel>Zouan-Hounian</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Zouan-Hounien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-5.28333</wgs:long>
+	<skos:altLabel>Sous-préfecture de Yamoussoukro</skos:altLabel>
+	<skos:altLabel>Yamoussokro</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Yamoussoukro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597324/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-5.25</wgs:long>
+	<skos:prefLabel>Département de Yamoussoukro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2279755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>194530</europeana:population>
+	<wgs:lat>6.81667</wgs:lat>
+	<wgs:long>-5.28333</wgs:long>
+	<skos:altLabel xml:lang="lt">Jamusukras</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jamusukro</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jamusukro</skos:altLabel>
+	<skos:altLabel>Yamoussokro</skos:altLabel>
+	<skos:altLabel xml:lang="id">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="et">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="it">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="no">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="de">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="es">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Yamoussoukro</skos:altLabel>
+	<skos:altLabel xml:lang="da">Yamoussoukro</skos:altLabel>
+	<skos:altLabel>Yamoussoukro</skos:altLabel>
+	<skos:altLabel>Yamussukro</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γιαμουσσούκρο</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Јамусукро</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ямусукро</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ямусукро</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Յամուսուկրո</skos:altLabel>
+	<skos:altLabel xml:lang="he">יאמוסוקרו</skos:altLabel>
+	<skos:altLabel xml:lang="am">ያሙሱክሮ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヤムスクロ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">亚穆苏克罗</skos:altLabel>
+	<skos:altLabel xml:lang="ko">야무수크로</skos:altLabel>
+	<skos:prefLabel>Yamoussoukro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.26222</wgs:lat>
+	<wgs:long>-3.75389</wgs:long>
+	<skos:altLabel>Ile Vietri</skos:altLabel>
+	<skos:altLabel>Vitrie Island</skos:altLabel>
+	<skos:altLabel>Île Vitré</skos:altLabel>
+	<skos:altLabel>Île Vété</skos:altLabel>
+	<skos:prefLabel>Île Vitré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.46667</wgs:lat>
+	<wgs:long>-6.71667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Vavoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597319/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.41667</wgs:lat>
+	<wgs:long>-6.75</wgs:long>
+	<skos:prefLabel>Département de Vavoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31250</europeana:population>
+	<wgs:lat>7.38194</wgs:lat>
+	<wgs:long>-6.47778</wgs:long>
+	<skos:altLabel>Vavoua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вавуа</skos:altLabel>
+	<skos:prefLabel>Vavoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.00056</wgs:lat>
+	<wgs:long>-6.68361</wgs:long>
+	<skos:prefLabel>Île Tyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.53333</wgs:lat>
+	<wgs:long>-5.01667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Toumodi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597324/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-5</wgs:long>
+	<skos:prefLabel>Département de Toumodi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39005</europeana:population>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>-5.01667</wgs:long>
+	<skos:altLabel>Toumodi</skos:altLabel>
+	<skos:altLabel>Tumodi</skos:altLabel>
+	<skos:prefLabel>Toumodi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14098</europeana:population>
+	<wgs:lat>6.56667</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:prefLabel>Toulépleu-Gueré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-8.25</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Toulépleu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.25</wgs:lat>
+	<wgs:long>-7.75</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Touba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597334/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.66667</wgs:lat>
+	<wgs:long>-7.5</wgs:long>
+	<skos:prefLabel>Département de Touba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>27504</europeana:population>
+	<wgs:lat>8.28333</wgs:lat>
+	<wgs:long>-7.68333</wgs:long>
+	<skos:altLabel>Touba</skos:altLabel>
+	<skos:altLabel>Tuba</skos:altLabel>
+	<skos:prefLabel>Touba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>10.45</wgs:lat>
+	<wgs:long>-6.41667</wgs:long>
+	<skos:altLabel>Sous-préfecture de Tengréla</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Tingréla</skos:altLabel>
+	<skos:altLabel>Tengrela</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Tengréla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597320/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-6.41667</wgs:long>
+	<skos:altLabel>Département de Tingréla</skos:altLabel>
+	<skos:altLabel>Tengréla</skos:altLabel>
+	<skos:prefLabel>Département de Tingréla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39277</europeana:population>
+	<wgs:lat>10.48694</wgs:lat>
+	<wgs:long>-6.40972</wgs:long>
+	<skos:altLabel>Tengrela</skos:altLabel>
+	<skos:altLabel>Tingréla</skos:altLabel>
+	<skos:prefLabel>Tengrela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>10.16667</wgs:lat>
+	<wgs:long>-7.75</wgs:long>
+	<skos:prefLabel>Sous-préfecture Tienko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280687/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.41667</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:altLabel>Sous-préfecture de Tiéningboué</skos:altLabel>
+	<skos:altLabel>Tienigbe</skos:altLabel>
+	<skos:altLabel>Tieninghoue</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Tiéningboué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-5.16667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Tiebissou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.03333</wgs:lat>
+	<wgs:long>-4.83333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Tiassalé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597316/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-4.75</wgs:long>
+	<skos:prefLabel>Département de Tiassalé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35090</europeana:population>
+	<wgs:lat>5.89833</wgs:lat>
+	<wgs:long>-4.82833</wgs:long>
+	<skos:prefLabel>Tiassalé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>-3.73333</wgs:long>
+	<skos:altLabel>Sous-préfecture de Teheni</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Téhini</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Téhini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280933/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.83778</wgs:lat>
+	<wgs:long>-6.68333</wgs:long>
+	<skos:prefLabel>Île Tapéro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.6</wgs:lat>
+	<wgs:long>-3.2</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Tanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597325/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.66667</wgs:lat>
+	<wgs:long>-3.33333</wgs:long>
+	<skos:prefLabel>Département de Tanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2280995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20161</europeana:population>
+	<wgs:lat>7.80639</wgs:lat>
+	<wgs:long>-3.17139</wgs:long>
+	<skos:altLabel>Tan N’Da</skos:altLabel>
+	<skos:altLabel>Tanda</skos:altLabel>
+	<skos:altLabel>Tanga</skos:altLabel>
+	<skos:prefLabel>Tanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-7.41667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Taï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>4.61667</wgs:lat>
+	<wgs:long>-7.45</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Tabou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597326/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-7.33333</wgs:long>
+	<skos:prefLabel>Département de Tabou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17134</europeana:population>
+	<wgs:lat>4.41667</wgs:lat>
+	<wgs:long>-7.35</wgs:long>
+	<skos:altLabel>Tabou</skos:altLabel>
+	<skos:altLabel>Tabu</skos:altLabel>
+	<skos:prefLabel>Tabou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.52944</wgs:lat>
+	<wgs:long>-6.47556</wgs:long>
+	<skos:prefLabel>Île Sra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.45806</wgs:lat>
+	<wgs:long>-6.40667</wgs:long>
+	<skos:prefLabel>Îles Sougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.78333</wgs:lat>
+	<wgs:long>-6.63333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Soubré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597326/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-6.66667</wgs:long>
+	<skos:prefLabel>Département de Soubré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.13333</wgs:lat>
+	<wgs:long>-6.1</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Sirasso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Sinfra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597332/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Département de Sinfra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59919</europeana:population>
+	<wgs:lat>6.61667</wgs:lat>
+	<wgs:long>-5.91667</wgs:long>
+	<skos:prefLabel>Sinfra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.56667</wgs:lat>
+	<wgs:long>-5.45</wgs:long>
+	<skos:altLabel>Sinemaliali</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Sinematiali</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Sinematiali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-4.5</wgs:long>
+	<skos:altLabel>Sikenssi</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Sikensi</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Sikensi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.3</wgs:lat>
+	<wgs:long>-6.93333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Sifié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597328/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.21667</wgs:lat>
+	<wgs:long>-7.11667</wgs:long>
+	<skos:altLabel>Seguelon</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Séguélo</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Séguélon</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Séguélon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281866/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.08333</wgs:lat>
+	<wgs:long>-6.53333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Séguéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597327/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>-6.75</wgs:long>
+	<skos:prefLabel>Département de Séguéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-6.16667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Sassandra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597326/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-6.16667</wgs:long>
+	<skos:prefLabel>Département de Sassandra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2281951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23274</europeana:population>
+	<wgs:lat>4.95</wgs:lat>
+	<wgs:long>-6.08333</wgs:long>
+	<skos:altLabel>Sassandra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сассандра</skos:altLabel>
+	<skos:prefLabel>Sassandra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597326/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-6.75</wgs:long>
+	<skos:prefLabel>Département de San-Pédro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>196751</europeana:population>
+	<wgs:lat>4.73333</wgs:lat>
+	<wgs:long>-6.61667</wgs:long>
+	<skos:altLabel>San-Pédro</skos:altLabel>
+	<skos:prefLabel>San-Pédro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597321/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.41667</wgs:lat>
+	<wgs:long>-5.41667</wgs:long>
+	<skos:altLabel>Département de Sakasso</skos:altLabel>
+	<skos:altLabel>Département de Sakassou</skos:altLabel>
+	<skos:prefLabel>Département de Sakassou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.43333</wgs:lat>
+	<wgs:long>-5.41667</wgs:long>
+	<skos:altLabel>Sous-préfecture de Sakasso</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Sakassou</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Sakassou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15068</europeana:population>
+	<wgs:lat>7.45806</wgs:lat>
+	<wgs:long>-5.29417</wgs:long>
+	<skos:altLabel>Sakasso</skos:altLabel>
+	<skos:altLabel>Sakassou</skos:altLabel>
+	<skos:altLabel>Sakassu</skos:altLabel>
+	<skos:prefLabel>Sakassou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.68333</wgs:lat>
+	<wgs:long>-3.93333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Prikro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.26917</wgs:lat>
+	<wgs:long>-4.395</wgs:long>
+	<skos:altLabel>Anbry Island</skos:altLabel>
+	<skos:altLabel>Ile Aubry</skos:altLabel>
+	<skos:altLabel>Île aux Pigeons</skos:altLabel>
+	<skos:prefLabel>Île aux Pigeons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.29861</wgs:lat>
+	<wgs:long>-3.97444</wgs:long>
+	<skos:altLabel>Little Bassam Island</skos:altLabel>
+	<skos:altLabel>Île de Petit-Bassam</skos:altLabel>
+	<skos:prefLabel>Île de Petit-Bassam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282690/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.61667</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:prefLabel>Île aux Palmiers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-5.91667</wgs:long>
+	<skos:altLabel>Ouaragahio</skos:altLabel>
+	<skos:altLabel>Sous-préfecture d’ Ouragahio</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture d’ Ouragahio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-5.5</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Oumé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597330/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-5.5</wgs:long>
+	<skos:prefLabel>Département de Oumé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2282827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52070</europeana:population>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-5.41667</wgs:long>
+	<skos:altLabel>Oumé</skos:altLabel>
+	<skos:altLabel>Ume</skos:altLabel>
+	<skos:prefLabel>Oumé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2283014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>-7.75</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Odienné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2283015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597328/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-7.5</wgs:long>
+	<skos:prefLabel>Département d’ Odienné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2283016/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>49857</europeana:population>
+	<wgs:lat>9.51</wgs:lat>
+	<wgs:long>-7.56917</wgs:long>
+	<skos:altLabel xml:lang="en">Odienné</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Odienné</skos:altLabel>
+	<skos:altLabel>Odienné</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Одиенне</skos:altLabel>
+	<skos:prefLabel>Odienné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2283615/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.71667</wgs:lat>
+	<wgs:long>-5.3</wgs:long>
+	<skos:altLabel>Niankaramandougou</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Niakaramandougou</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Niakaramandougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2283915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.53333</wgs:lat>
+	<wgs:long>-3.53333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Nassian</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2283929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.11667</wgs:lat>
+	<wgs:long>-5.61667</wgs:long>
+	<skos:altLabel>Napiéouledougou</skos:altLabel>
+	<skos:altLabel>Niapleodougou</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Napiéoledougou</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Napiéoledougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.24111</wgs:lat>
+	<wgs:long>-3.72889</wgs:long>
+	<skos:prefLabel>Île Morin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>10.05</wgs:lat>
+	<wgs:long>-5.96667</wgs:long>
+	<skos:altLabel>M’Bengué</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Mbingué</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de M’bengué</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de M’bengué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>-4.48333</wgs:long>
+	<skos:altLabel>Dimbokro-Sud</skos:altLabel>
+	<skos:altLabel>M’Bato</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de M’batto</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de M’batto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.63333</wgs:lat>
+	<wgs:long>-4.3</wgs:long>
+	<skos:prefLabel>Sous-préfecture de M’bahiakro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597331/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.58333</wgs:lat>
+	<wgs:long>-4.16667</wgs:long>
+	<skos:prefLabel>Département de M’bahiakro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.96667</wgs:lat>
+	<wgs:long>-6.03333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Mankono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597327/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.33333</wgs:lat>
+	<wgs:long>-6</wgs:long>
+	<skos:prefLabel>Département de Mankono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19095</europeana:population>
+	<wgs:lat>8.05861</wgs:lat>
+	<wgs:long>-6.18972</wgs:long>
+	<skos:prefLabel>Mankono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.21667</wgs:lat>
+	<wgs:long>-7.68333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Man</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597323/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>-7.41667</wgs:long>
+	<skos:prefLabel>Département de Man</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>139341</europeana:population>
+	<wgs:lat>7.40528</wgs:lat>
+	<wgs:long>-7.5475</wgs:long>
+	<skos:altLabel xml:lang="fr">Man</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Man</skos:altLabel>
+	<skos:altLabel xml:lang="en">Man</skos:altLabel>
+	<skos:altLabel>Man</skos:altLabel>
+	<skos:prefLabel>Man</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2284760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.71667</wgs:lat>
+	<wgs:long>-7.05</wgs:long>
+	<skos:altLabel>Madianani</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Madinani</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Madinani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.03194</wgs:lat>
+	<wgs:long>-6.72833</wgs:long>
+	<skos:prefLabel>Île Lô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.29028</wgs:lat>
+	<wgs:long>-4.32222</wgs:long>
+	<skos:altLabel>Laydet Island</skos:altLabel>
+	<skos:altLabel>Sabadou</skos:altLabel>
+	<skos:altLabel>Île Leydet</skos:altLabel>
+	<skos:prefLabel>Île Leydet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.88333</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Lakota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597329/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Département de Lakota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38055</europeana:population>
+	<wgs:lat>5.85278</wgs:lat>
+	<wgs:long>-5.68833</wgs:long>
+	<skos:altLabel>Iakota</skos:altLabel>
+	<skos:altLabel>Lakota</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лакота</skos:altLabel>
+	<skos:prefLabel>Lakota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.91667</wgs:lat>
+	<wgs:long>-6.33333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Kouto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.3</wgs:lat>
+	<wgs:long>-7.25</wgs:long>
+	<skos:altLabel>Kouibly</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Kouibli</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Kouibly</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Kouibly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2285996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.18333</wgs:lat>
+	<wgs:long>-4.6</wgs:long>
+	<skos:altLabel>Kouassikro</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Kouassi Kouassikro</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Kouassi Kouassikro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2286301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.58333</wgs:lat>
+	<wgs:long>-5.91667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Korhogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2286303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597320/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>-5.83333</wgs:long>
+	<skos:prefLabel>Département de Korhogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2286304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>167359</europeana:population>
+	<wgs:lat>9.45</wgs:lat>
+	<wgs:long>-5.63333</wgs:long>
+	<skos:altLabel xml:lang="fr">Korhogo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Korhogo</skos:altLabel>
+	<skos:altLabel>Korhogo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Корого</skos:altLabel>
+	<skos:prefLabel>Korhogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2286457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.03333</wgs:lat>
+	<wgs:long>-4.3</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Kong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2286630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.88333</wgs:lat>
+	<wgs:long>-6.63333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Kolia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.54944</wgs:lat>
+	<wgs:long>-6.49917</wgs:long>
+	<skos:prefLabel>Îles Kébé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.21667</wgs:lat>
+	<wgs:long>-5.03333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Katiola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597321/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>-5.16667</wgs:long>
+	<skos:prefLabel>Département de Katiola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59641</europeana:population>
+	<wgs:lat>8.13333</wgs:lat>
+	<wgs:long>-5.1</wgs:long>
+	<skos:altLabel>Katiola</skos:altLabel>
+	<skos:altLabel>Lafouka</skos:altLabel>
+	<skos:prefLabel>Katiola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.83333</wgs:lat>
+	<wgs:long>-6.83333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Kani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.23333</wgs:lat>
+	<wgs:long>-4.5</wgs:long>
+	<skos:prefLabel>Sous-prefecture de Jacqueville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>21058798</europeana:population>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>-5</wgs:long>
+	<skos:altLabel xml:lang="na">Aibori Kot</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Cósta Eabhair</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Berderya Aç</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bjelokosna Obala</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Boli Kosta</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bregu i Fildishtë</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bờ Biển Ngà</skos:altLabel>
+	<skos:altLabel>CI</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Coasta de Fildeş</skos:altLabel>
+	<skos:altLabel xml:lang="it">Costa d'Avorio</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Costa d'Ivori</skos:altLabel>
+	<skos:altLabel xml:lang="an">Costa de Bori</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Costa de Ebore</skos:altLabel>
+	<skos:altLabel xml:lang="es">Costa de Marfil</skos:altLabel>
+	<skos:altLabel>Costa de Marfil</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Costa de Marfil</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Costa do Marfil - Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Costa do Marfim</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Costa d’Ivori</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Cote d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="et">Cote d’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Còsta d'Evòri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="en">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel>Côte de l’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Côte d’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="de">Côte d’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Côte d’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="et">Côte d’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Côte-d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="id">C�te d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Dramblio KKR</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Dramblio Kaulo Krantas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ebur-Bordo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Eburbordo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Elefántcsontpart</skos:altLabel>
+	<skos:altLabel xml:lang="et">Elevandiluurannik</skos:altLabel>
+	<skos:altLabel>Elfenbein-Küste</skos:altLabel>
+	<skos:altLabel xml:lang="de">Elfenbeinküste</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Elfenbeinskysten</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Elfenbenskusten</skos:altLabel>
+	<skos:altLabel xml:lang="da">Elfenbenskysten</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Elfenbenskysten</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Elfenbenskysten</skos:altLabel>
+	<skos:altLabel xml:lang="no">Elfenbenskysten</skos:altLabel>
+	<skos:altLabel xml:lang="az">Fil Dişi Sahili</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fildişi Kıyısı</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fildişi Sahili</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fildişi Sahilleri</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Fílabeinsstrondin</skos:altLabel>
+	<skos:altLabel xml:lang="is">Fílabeinsströndin</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Ivoarkust</skos:altLabel>
+	<skos:altLabel xml:lang="af">Ivoorkus</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ivoorkust</skos:altLabel>
+	<skos:altLabel xml:lang="io">Ivora Rivo</skos:altLabel>
+	<skos:altLabel>Ivory Coast</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ivory Coast</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kosta ta’ l-Avorju</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kotdivuaro</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kotdivuāra</skos:altLabel>
+	<skos:altLabel xml:lang="la">Litus Eburneum</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Norsunluurannikko</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Obala Bjelokosti</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Obala Slonovače</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Obala Slonovače</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Obala Slonovače</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pantai Gading</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Pantai Gading</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Pobrežie Slonoviny</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Pobřeží slonoviny</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Pwani ya Pembe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Côte d’Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Côte d'Ivoire</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Slonokoščena obala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wybrzeże Kości Słoniowej</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ακτή Ελεφαντοστού</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ακτή Ελεφαντόδοντος</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Брегот на Слоновата Коска</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бряг на слоновата кост</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кот д'Ивоар</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кот д’Ивоар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кот д’Ивуар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кот-д'Івуар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кот-д'Ивуар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кот-д’Івуар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кот-д’Ивуар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Обала Слоноваче</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Փղոսկրի Ափ</skos:altLabel>
+	<skos:altLabel xml:lang="he">חוף השנהב</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ساحل العاج</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ساحل عاج</skos:altLabel>
+	<skos:altLabel xml:lang="ps">عاج ساحل</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كوتى دى ئىۋۇئېر</skos:altLabel>
+	<skos:altLabel xml:lang="hi">आईवरी कोस्ट</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আইভরি কোস্ট</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কোটে দ্য ইভয়ার</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஐவரி கோஸ்ட்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഐവറി കോസ്റ്റ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศโกตดิวัวร์</skos:altLabel>
+	<skos:altLabel xml:lang="th">โกตดิวัวร์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຝັ່ງທະເລໄອວໍລິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀོ་ཊེ་ཌི། ཨི་ཝོ་རེ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კოტ-დ'ივუარი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სპილოს ძვლის სანაპირო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኮት ዲቯር</skos:altLabel>
+	<skos:altLabel xml:lang="km">កូដឌីវ័រ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コートジボアール</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コートジボワール</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科特迪瓦</skos:altLabel>
+	<skos:altLabel xml:lang="zh">象牙海岸</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코트디부아르</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코트디부와르</skos:altLabel>
+	<skos:prefLabel>Republic of Côte d’Ivoire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-6.58333</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Issia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597319/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-6.5</wgs:long>
+	<skos:prefLabel>Département de Issia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50313</europeana:population>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>-6.58333</wgs:long>
+	<skos:prefLabel>Issia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.55</wgs:lat>
+	<wgs:long>-5.3</wgs:long>
+	<skos:altLabel>Guitry</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Guitri</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Guitri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Guiglo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597333/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Département de Guiglo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>39134</europeana:population>
+	<wgs:lat>6.54028</wgs:lat>
+	<wgs:long>-7.48583</wgs:long>
+	<skos:prefLabel>Guiglo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-6.25</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Guibéroua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2287970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13186</europeana:population>
+	<wgs:lat>6.23667</wgs:lat>
+	<wgs:long>-6.1775</wgs:long>
+	<skos:altLabel>Guiberou</skos:altLabel>
+	<skos:altLabel>Guibiéouroua</skos:altLabel>
+	<skos:altLabel>Guibéhorouo</skos:altLabel>
+	<skos:altLabel>Guibéroua</skos:altLabel>
+	<skos:prefLabel>Guibéroua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.86667</wgs:lat>
+	<wgs:long>-6.78333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Gregbeu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.36667</wgs:lat>
+	<wgs:long>-5.05</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Grand-Lahou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597316/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-4.91667</wgs:long>
+	<skos:prefLabel>Département de Grand-Lahou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10273</europeana:population>
+	<wgs:lat>5.13667</wgs:lat>
+	<wgs:long>-5.02417</wgs:long>
+	<skos:altLabel>Grand Lahu</skos:altLabel>
+	<skos:altLabel>Grand-Lahou</skos:altLabel>
+	<skos:prefLabel>Grand-Lahou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-6.91667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Grand-Béréby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.23333</wgs:lat>
+	<wgs:long>-3.61667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Grand-Bassam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73772</europeana:population>
+	<wgs:lat>5.20194</wgs:lat>
+	<wgs:long>-3.735</wgs:long>
+	<skos:altLabel xml:lang="de">Grand-Bassam</skos:altLabel>
+	<skos:altLabel xml:lang="en">Grand-Bassam</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Grand-Bassam</skos:altLabel>
+	<skos:altLabel>Grand-Bassam</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гран-Бассам</skos:altLabel>
+	<skos:prefLabel>Grand-Bassam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29909</europeana:population>
+	<wgs:lat>6.315</wgs:lat>
+	<wgs:long>-3.96028</wgs:long>
+	<skos:altLabel>Affery</skos:altLabel>
+	<skos:altLabel>Aféri</skos:altLabel>
+	<skos:altLabel>Grand Aféri</skos:altLabel>
+	<skos:prefLabel>Affery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-7.33333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Grabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>10.08333</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Goulia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.35</wgs:lat>
+	<wgs:long>-6.33333</wgs:long>
+	<skos:prefLabel>Îles Gokpi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.38333</wgs:lat>
+	<wgs:long>-6.38333</wgs:long>
+	<skos:prefLabel>Îles Gokba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.56667</wgs:lat>
+	<wgs:long>-5.96667</wgs:long>
+	<skos:altLabel>Gouitafla</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Gohitafla</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Gohitafla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.38333</wgs:lat>
+	<wgs:long>-6.33333</wgs:long>
+	<skos:prefLabel>Îles Goba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-6.71667</wgs:long>
+	<skos:prefLabel>Île Gô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.05</wgs:lat>
+	<wgs:long>-6</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Gagnoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288828/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597330/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-6</wgs:long>
+	<skos:prefLabel>Département de Gagnoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288829/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>123184</europeana:population>
+	<wgs:lat>6.13333</wgs:lat>
+	<wgs:long>-5.93333</wgs:long>
+	<skos:altLabel>Gagnoa</skos:altLabel>
+	<skos:altLabel>Gragnoa</skos:altLabel>
+	<skos:prefLabel>Gagnoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2288867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-5.58333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Fresco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.98333</wgs:lat>
+	<wgs:long>-6.1</wgs:long>
+	<skos:altLabel>Île Fisolagpo</skos:altLabel>
+	<skos:altLabel>Île Niafidou</skos:altLabel>
+	<skos:altLabel>Île Nuckba</skos:altLabel>
+	<skos:altLabel>Île Nukba</skos:altLabel>
+	<skos:prefLabel>Île Fisolagpo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.33333</wgs:lat>
+	<wgs:long>-4.91667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Ferkessédougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597320/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-4.75</wgs:long>
+	<skos:prefLabel>Département de Ferkessédougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62008</europeana:population>
+	<wgs:lat>9.6</wgs:lat>
+	<wgs:long>-5.2</wgs:long>
+	<skos:altLabel xml:lang="en">Ferkessédougou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ferkessédougou</skos:altLabel>
+	<skos:altLabel>Ferkessédougou</skos:altLabel>
+	<skos:altLabel>Firkessédougou</skos:altLabel>
+	<skos:altLabel>Firkessédugu</skos:altLabel>
+	<skos:altLabel>Pofire</skos:altLabel>
+	<skos:altLabel>Serkessedougou</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Феркеседугу</skos:altLabel>
+	<skos:prefLabel>Ferkessédougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>-7.25</wgs:long>
+	<skos:altLabel>Facobly</skos:altLabel>
+	<skos:altLabel>Fakobli</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Facobly</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Fakobli</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Facobly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-7.25</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Duékoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597333/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-7.25</wgs:long>
+	<skos:prefLabel>Département de Duékoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47198</europeana:population>
+	<wgs:lat>6.73806</wgs:lat>
+	<wgs:long>-7.34306</wgs:long>
+	<skos:prefLabel>Duékoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.88333</wgs:lat>
+	<wgs:long>-6.71667</wgs:long>
+	<skos:prefLabel>Île Douyoukli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.3</wgs:lat>
+	<wgs:long>-8.1</wgs:long>
+	<skos:prefLabel>Îles Doua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>-5.25</wgs:long>
+	<skos:prefLabel>Sous-prefecture de Divo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597329/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-5.25</wgs:long>
+	<skos:prefLabel>Département de Divo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>127867</europeana:population>
+	<wgs:lat>5.83972</wgs:lat>
+	<wgs:long>-5.36</wgs:long>
+	<skos:altLabel>Boudougou</skos:altLabel>
+	<skos:altLabel>Divo</skos:altLabel>
+	<skos:prefLabel>Divo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-4.75</wgs:long>
+	<skos:altLabel>Dimbokro-Nord</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Dimbokro</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Dimbokro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597331/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-4.75</wgs:long>
+	<skos:prefLabel>Département de Dimbokro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>67349</europeana:population>
+	<wgs:lat>6.65</wgs:lat>
+	<wgs:long>-4.7</wgs:long>
+	<skos:altLabel xml:lang="en">Dimbokro</skos:altLabel>
+	<skos:altLabel>Dimbokro</skos:altLabel>
+	<skos:prefLabel>Dimbokro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2289999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.08333</wgs:lat>
+	<wgs:long>-5.86667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Dikodougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.28333</wgs:lat>
+	<wgs:long>-4.83333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Didiévi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.91667</wgs:lat>
+	<wgs:long>-5.16667</wgs:long>
+	<skos:altLabel>Diaoula</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Diaouala</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Diawala</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Diawala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.71667</wgs:lat>
+	<wgs:long>-6.3</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Dianra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.76667</wgs:lat>
+	<wgs:long>-5.18333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Diabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.31694</wgs:lat>
+	<wgs:long>-3.92694</wgs:long>
+	<skos:altLabel>Adasipe Island</skos:altLabel>
+	<skos:altLabel>Île Désiré</skos:altLabel>
+	<skos:altLabel>Île Désirée</skos:altLabel>
+	<skos:prefLabel>Île Désirée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.38333</wgs:lat>
+	<wgs:long>-6.33333</wgs:long>
+	<skos:prefLabel>Îles Dégré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.19472</wgs:lat>
+	<wgs:long>-4.715</wgs:long>
+	<skos:altLabel>Deblai Island</skos:altLabel>
+	<skos:altLabel>Île Deblay</skos:altLabel>
+	<skos:prefLabel>Île Deblay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>-3.86667</wgs:long>
+	<skos:altLabel>Daoukro</skos:altLabel>
+	<skos:altLabel>Daoukro-Ouelle</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Daoukro-Ouele</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Daoukro-Ouéllé</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Daoukro-Ouéllé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597331/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>-4</wgs:long>
+	<skos:prefLabel>Département de Daoukro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40175</europeana:population>
+	<wgs:lat>7.0591</wgs:lat>
+	<wgs:long>-3.9631</wgs:long>
+	<skos:altLabel>Daoukrou</skos:altLabel>
+	<skos:altLabel>Daukro</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Даукро</skos:altLabel>
+	<skos:prefLabel>Daoukro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.40889</wgs:lat>
+	<wgs:long>-8.16694</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Danané</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597323/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.31306</wgs:lat>
+	<wgs:long>-8.08806</wgs:long>
+	<skos:prefLabel>Département de Danané</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53808</europeana:population>
+	<wgs:lat>7.26278</wgs:lat>
+	<wgs:long>-8.15972</wgs:long>
+	<skos:altLabel>Danané</skos:altLabel>
+	<skos:altLabel>Fort Hittos</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Данане</skos:altLabel>
+	<skos:prefLabel>Danané</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>-6.38333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Daloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597319/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.91667</wgs:lat>
+	<wgs:long>-6.5</wgs:long>
+	<skos:prefLabel>Département de Daloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290486/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>215652</europeana:population>
+	<wgs:lat>6.87472</wgs:lat>
+	<wgs:long>-6.45194</wgs:long>
+	<skos:altLabel xml:lang="pl">Daloa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Daloa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Daloa</skos:altLabel>
+	<skos:altLabel>Daloa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Далоа</skos:altLabel>
+	<skos:prefLabel>Daloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-4.53333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Dabou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>69661</europeana:population>
+	<wgs:lat>5.32056</wgs:lat>
+	<wgs:long>-4.38306</wgs:long>
+	<skos:altLabel xml:lang="en">Dabou</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dabou</skos:altLabel>
+	<skos:altLabel>Dabou</skos:altLabel>
+	<skos:altLabel>Dabu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Даб</skos:altLabel>
+	<skos:prefLabel>Dabou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.45</wgs:lat>
+	<wgs:long>-4.46667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Dabakala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597321/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.33333</wgs:lat>
+	<wgs:long>-4.41667</wgs:long>
+	<skos:prefLabel>Département de Dabakala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290609/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13717</europeana:population>
+	<wgs:lat>8.36667</wgs:lat>
+	<wgs:long>-4.43333</wgs:long>
+	<skos:altLabel>Dabakala</skos:altLabel>
+	<skos:altLabel>Dabakla</skos:altLabel>
+	<skos:prefLabel>Dabakala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28806</wgs:lat>
+	<wgs:long>-4.23111</wgs:long>
+	<skos:altLabel>Curnet Island</skos:altLabel>
+	<skos:altLabel>Île Cornuet</skos:altLabel>
+	<skos:altLabel>Île Cournet</skos:altLabel>
+	<skos:prefLabel>Île Cornuet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.2</wgs:lat>
+	<wgs:long>-7</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Buyo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.71667</wgs:lat>
+	<wgs:long>-4.7</wgs:long>
+	<skos:altLabel>Bobro</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Brobo</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Brobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.38333</wgs:lat>
+	<wgs:long>-6.53333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Boundiali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290835/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597320/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>-6.5</wgs:long>
+	<skos:prefLabel>Département de Boundiali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38878</europeana:population>
+	<wgs:lat>9.52167</wgs:lat>
+	<wgs:long>-6.48694</wgs:long>
+	<skos:altLabel>Boundiali</skos:altLabel>
+	<skos:altLabel>Boundiouli</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бундиали</skos:altLabel>
+	<skos:prefLabel>Boundiali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>-3.33333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bouna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597325/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>-3.5</wgs:long>
+	<skos:prefLabel>Département de Bouna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23570</europeana:population>
+	<wgs:lat>9.26667</wgs:lat>
+	<wgs:long>-3</wgs:long>
+	<skos:altLabel>Bouna</skos:altLabel>
+	<skos:altLabel>Buna</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Буна</skos:altLabel>
+	<skos:prefLabel>Bouna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.27917</wgs:lat>
+	<wgs:long>-4.08583</wgs:long>
+	<skos:prefLabel>Île Boulay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.21417</wgs:lat>
+	<wgs:long>-3.72417</wgs:long>
+	<skos:altLabel>Buet Island</skos:altLabel>
+	<skos:altLabel>Île Bouer</skos:altLabel>
+	<skos:altLabel>Île Bouët</skos:altLabel>
+	<skos:prefLabel>Île Bouët</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.27028</wgs:lat>
+	<wgs:long>-4.44222</wgs:long>
+	<skos:altLabel>Buburi Island</skos:altLabel>
+	<skos:altLabel>Île Bouboury</skos:altLabel>
+	<skos:prefLabel>Île Bouboury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>-4.96667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bouaké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597321/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.83333</wgs:lat>
+	<wgs:long>-4.91667</wgs:long>
+	<skos:prefLabel>Département de Bouaké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>567481</europeana:population>
+	<wgs:lat>7.68333</wgs:lat>
+	<wgs:long>-5.03306</wgs:long>
+	<skos:altLabel xml:lang="pl">Bouake</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bouaké</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bouaké</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bouaké</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bouaké</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bouaké</skos:altLabel>
+	<skos:altLabel>Bouaké</skos:altLabel>
+	<skos:altLabel>Bwake</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Буаке</skos:altLabel>
+	<skos:prefLabel>Bouaké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.05</wgs:lat>
+	<wgs:long>-5.8</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bouaflé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597332/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-5.83333</wgs:long>
+	<skos:prefLabel>Département de Bouaflé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>60962</europeana:population>
+	<wgs:lat>6.98333</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:altLabel>Bouaflé</skos:altLabel>
+	<skos:altLabel>Buafle</skos:altLabel>
+	<skos:prefLabel>Bouaflé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.95</wgs:lat>
+	<wgs:long>-5.36667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Botro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2290985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13375</europeana:population>
+	<wgs:lat>7.85667</wgs:lat>
+	<wgs:long>-5.30833</wgs:long>
+	<skos:prefLabel>Botro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.66667</wgs:lat>
+	<wgs:long>-7.58333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Borotou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291087/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37312</europeana:population>
+	<wgs:lat>5.27222</wgs:lat>
+	<wgs:long>-3.60083</wgs:long>
+	<skos:altLabel>Bonoua</skos:altLabel>
+	<skos:altLabel>Bonua</skos:altLabel>
+	<skos:altLabel>Bunua</skos:altLabel>
+	<skos:altLabel>Grand Akapless</skos:altLabel>
+	<skos:prefLabel>Bonoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-4.2</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bongouanou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597331/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-4.33333</wgs:long>
+	<skos:prefLabel>Département de Bongouanou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34405</europeana:population>
+	<wgs:lat>6.64861</wgs:lat>
+	<wgs:long>-4.19917</wgs:long>
+	<skos:altLabel>Bongouanou</skos:altLabel>
+	<skos:altLabel>Bonguanu</skos:altLabel>
+	<skos:altLabel>Bougouanou</skos:altLabel>
+	<skos:prefLabel>Bongouanou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.33333</wgs:lat>
+	<wgs:long>-2.91667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bondoukou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597325/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.25</wgs:lat>
+	<wgs:long>-3</wgs:long>
+	<skos:prefLabel>Département de Bondoukou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>58297</europeana:population>
+	<wgs:lat>8.03333</wgs:lat>
+	<wgs:long>-2.8</wgs:long>
+	<skos:altLabel>Bondoukau</skos:altLabel>
+	<skos:altLabel>Bondoukou</skos:altLabel>
+	<skos:altLabel>Bonduku</skos:altLabel>
+	<skos:altLabel>Boudoukou</skos:altLabel>
+	<skos:altLabel>Gontoukou</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бондуку</skos:altLabel>
+	<skos:prefLabel>Bondoukou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-4.33333</wgs:long>
+	<skos:altLabel>Bokanda</skos:altLabel>
+	<skos:altLabel>Sous-préfecture de Bocanda</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture de Bocanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13079</europeana:population>
+	<wgs:lat>7.06417</wgs:lat>
+	<wgs:long>-4.50111</wgs:long>
+	<skos:altLabel>Bocanda</skos:altLabel>
+	<skos:altLabel>Bokanda</skos:altLabel>
+	<skos:prefLabel>Bocanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.68333</wgs:lat>
+	<wgs:long>-6.71667</wgs:long>
+	<skos:prefLabel>Île Bô</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.4</wgs:lat>
+	<wgs:long>-6.38333</wgs:long>
+	<skos:prefLabel>Îles de Blé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.51167</wgs:lat>
+	<wgs:long>-6.45389</wgs:long>
+	<skos:prefLabel>Île Bitiéka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>8.08333</wgs:lat>
+	<wgs:long>-3.7</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bini-Barabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.36667</wgs:lat>
+	<wgs:long>-4.03333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bingerville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50694</europeana:population>
+	<wgs:lat>5.35583</wgs:lat>
+	<wgs:long>-3.89</wgs:long>
+	<skos:altLabel>Bingerville</skos:altLabel>
+	<skos:prefLabel>Bingerville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>6.86667</wgs:lat>
+	<wgs:long>-7.06667</wgs:long>
+	<skos:prefLabel>Biblahoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.71667</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Biankouma. Sous-préfecture de</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597323/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:prefLabel>Département de Biankouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22868</europeana:population>
+	<wgs:lat>7.73694</wgs:lat>
+	<wgs:long>-7.61028</wgs:long>
+	<skos:altLabel>Biankouma</skos:altLabel>
+	<skos:prefLabel>Biankouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7.8</wgs:lat>
+	<wgs:long>-5.61667</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Béoumi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597321/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.83333</wgs:lat>
+	<wgs:long>-5.58333</wgs:long>
+	<skos:prefLabel>Département de Béoumi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2291779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23053</europeana:population>
+	<wgs:lat>7.67611</wgs:lat>
+	<wgs:long>-5.57972</wgs:long>
+	<skos:altLabel>Beumi</skos:altLabel>
+	<skos:altLabel>Béoumi</skos:altLabel>
+	<skos:prefLabel>Béoumi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>-7.58333</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bangolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597323/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-7.33333</wgs:long>
+	<skos:prefLabel>Département de Bangolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17712</europeana:population>
+	<wgs:lat>7.00694</wgs:lat>
+	<wgs:long>-7.475</wgs:long>
+	<skos:altLabel>Bangolo</skos:altLabel>
+	<skos:altLabel>Zagna</skos:altLabel>
+	<skos:prefLabel>Bangolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.08333</wgs:lat>
+	<wgs:long>-7.55</wgs:long>
+	<skos:prefLabel>Sous-préfecture de Bako</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>-3.16667</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Ayamé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12315</europeana:population>
+	<wgs:lat>5.6</wgs:lat>
+	<wgs:long>-3.16222</wgs:long>
+	<skos:prefLabel>Ayamé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.51667</wgs:lat>
+	<wgs:long>-4.01667</wgs:long>
+	<skos:altLabel>Sous-préfecture d’ Anyama</skos:altLabel>
+	<skos:altLabel>Sous-préfecture d’ Ayama</skos:altLabel>
+	<skos:prefLabel>Sous-préfecture d’ Anyama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-3.91667</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Arrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37432</europeana:population>
+	<wgs:lat>6.66528</wgs:lat>
+	<wgs:long>-3.97222</wgs:long>
+	<skos:altLabel>Arra</skos:altLabel>
+	<skos:altLabel>Arrah</skos:altLabel>
+	<skos:prefLabel>Arrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2292852/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>100653</europeana:population>
+	<wgs:lat>5.49583</wgs:lat>
+	<wgs:long>-4.05472</wgs:long>
+	<skos:altLabel>Aniama</skos:altLabel>
+	<skos:altLabel>Anyama</skos:altLabel>
+	<skos:altLabel>Anyama Sossokoua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аньяме</skos:altLabel>
+	<skos:prefLabel>Anyama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.61667</wgs:lat>
+	<wgs:long>-3.63333</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Alépé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293107/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35970</europeana:population>
+	<wgs:lat>6.39</wgs:lat>
+	<wgs:long>-3.90028</wgs:long>
+	<skos:altLabel>Akoupé</skos:altLabel>
+	<skos:altLabel>Akupe</skos:altLabel>
+	<skos:prefLabel>Akoupé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597322/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.11667</wgs:lat>
+	<wgs:long>-3.3</wgs:long>
+	<skos:altLabel>Département d’ Agnibilékrou</skos:altLabel>
+	<skos:altLabel>Sous-préfecture d’ Agnibilekrou</skos:altLabel>
+	<skos:prefLabel>Département d’ Agnibilékrou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43061</europeana:population>
+	<wgs:lat>7.13444</wgs:lat>
+	<wgs:long>-3.20472</wgs:long>
+	<skos:altLabel>Agnibilékrou</skos:altLabel>
+	<skos:altLabel>Anibelekru</skos:altLabel>
+	<skos:prefLabel>Agnibilékrou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-4.25</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Agboville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597318/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.83333</wgs:lat>
+	<wgs:long>-4.25</wgs:long>
+	<skos:prefLabel>Département d’ Agboville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>81770</europeana:population>
+	<wgs:lat>5.93417</wgs:lat>
+	<wgs:long>-4.22139</wgs:long>
+	<skos:altLabel xml:lang="fr">Agboville</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Agboville</skos:altLabel>
+	<skos:altLabel xml:lang="en">Agboville</skos:altLabel>
+	<skos:altLabel>Agboville</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Агбовиле</skos:altLabel>
+	<skos:prefLabel>Agboville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-3.75</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Adzopé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597318/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-3.83333</wgs:long>
+	<skos:altLabel>Département d’ Adzopé</skos:altLabel>
+	<skos:altLabel>Sous-préfecture d’ Adzopé</skos:altLabel>
+	<skos:prefLabel>Département d’ Adzopé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61884</europeana:population>
+	<wgs:lat>6.10694</wgs:lat>
+	<wgs:long>-3.86194</wgs:long>
+	<skos:altLabel xml:lang="en">Adzopé</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Adzopé</skos:altLabel>
+	<skos:altLabel>Adzopé</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Адзопе</skos:altLabel>
+	<skos:prefLabel>Adzopé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293427/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.25</wgs:lat>
+	<wgs:long>-3.03333</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Adiaké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16531</europeana:population>
+	<wgs:lat>5.28639</wgs:lat>
+	<wgs:long>-3.3075</wgs:long>
+	<skos:altLabel>Adiaké</skos:altLabel>
+	<skos:prefLabel>Adiaké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>5.46667</wgs:lat>
+	<wgs:long>-3.03333</wgs:long>
+	<skos:prefLabel>Sous-préfecture d’ Aboisso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597317/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-3.16667</wgs:long>
+	<skos:prefLabel>Département d’ Aboisso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>37654</europeana:population>
+	<wgs:lat>5.4675</wgs:lat>
+	<wgs:long>-3.21444</wgs:long>
+	<skos:altLabel>Abisso</skos:altLabel>
+	<skos:altLabel>Aboissa</skos:altLabel>
+	<skos:altLabel>Aboisso</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абуассо</skos:altLabel>
+	<skos:prefLabel>Aboisso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>900000</europeana:population>
+	<wgs:lat>5.41889</wgs:lat>
+	<wgs:long>-4.02056</wgs:long>
+	<skos:prefLabel>Abobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597316/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-4.03333</wgs:long>
+	<skos:prefLabel>Département d’ Abidjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>3677115</europeana:population>
+	<wgs:lat>5.34111</wgs:lat>
+	<wgs:long>-4.02806</wgs:long>
+	<skos:altLabel xml:lang="tr">Abican</skos:altLabel>
+	<skos:altLabel xml:lang="id">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Abidjan</skos:altLabel>
+	<skos:altLabel>Abidjan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Abidżan</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Abidžan</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Abidžan</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Abidžanas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Abidžāna</skos:altLabel>
+	<skos:altLabel>Abijan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Abiyán</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Abiĝano</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абиджан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Абиджан</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Абиџан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Абіджан</skos:altLabel>
+	<skos:altLabel xml:lang="he">אביג'אן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أبيجان</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アビジャン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿比让</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아비장</skos:altLabel>
+	<skos:prefLabel>Abidjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:prefLabel>Abengourou Sous-préfecture d'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597322/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:prefLabel>Département d’ Abengourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>104020</europeana:population>
+	<wgs:lat>6.72972</wgs:lat>
+	<wgs:long>-3.49639</wgs:long>
+	<skos:altLabel>Abengourou</skos:altLabel>
+	<skos:altLabel>Abenguru</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Абенгуру</skos:altLabel>
+	<skos:prefLabel>Abengourou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.31417</wgs:lat>
+	<wgs:long>-3.90528</wgs:long>
+	<skos:prefLabel>Iles des Chauves-Souris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597317/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.21667</wgs:lat>
+	<wgs:long>-3.08333</wgs:long>
+	<skos:prefLabel>Département d’ Adiaké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597316/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-3.66667</wgs:long>
+	<skos:prefLabel>Département d’ Alépé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597331/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-4.41667</wgs:long>
+	<skos:prefLabel>Département de Bocanda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597316/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-4.5</wgs:long>
+	<skos:prefLabel>Département de Dabou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597317/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-3.58333</wgs:long>
+	<skos:prefLabel>Département de Grand-Bassam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597316/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.2</wgs:lat>
+	<wgs:long>-4.5</wgs:long>
+	<skos:prefLabel>Département de Jacqueville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597324/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-5.08333</wgs:long>
+	<skos:prefLabel>Département de Tiébissou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597333/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:prefLabel>Département de Toulépleu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.39639</wgs:lat>
+	<wgs:long>-6.37528</wgs:long>
+	<skos:prefLabel>Île de Blé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.38889</wgs:lat>
+	<wgs:long>-6.365</wgs:long>
+	<skos:prefLabel>Île Gokba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.38972</wgs:lat>
+	<wgs:long>-6.34028</wgs:long>
+	<skos:prefLabel>Île Dégré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.34556</wgs:lat>
+	<wgs:long>-6.32917</wgs:long>
+	<skos:prefLabel>Île Gokpi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.225</wgs:lat>
+	<wgs:long>-4.645</wgs:long>
+	<skos:prefLabel>Île Likré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>51157</europeana:population>
+	<wgs:lat>7.96111</wgs:lat>
+	<wgs:long>-6.67306</wgs:long>
+	<skos:altLabel xml:lang="en">Séguéla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Séguéla</skos:altLabel>
+	<skos:altLabel>Séguéla</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сегеле</skos:altLabel>
+	<skos:prefLabel>Séguéla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.28083</wgs:lat>
+	<wgs:long>-4.26083</wgs:long>
+	<skos:prefLabel>Île Six</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.2975</wgs:lat>
+	<wgs:long>-4.12444</wgs:long>
+	<skos:prefLabel>Île Cinquante huite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597150/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.17972</wgs:lat>
+	<wgs:long>-3.28833</wgs:long>
+	<skos:prefLabel>Île Niamouadio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.16889</wgs:lat>
+	<wgs:long>-3.29806</wgs:long>
+	<skos:prefLabel>Île Nanobaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.17278</wgs:lat>
+	<wgs:long>-3.28083</wgs:long>
+	<skos:prefLabel>Île Napoléon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.16056</wgs:lat>
+	<wgs:long>-3.30222</wgs:long>
+	<skos:prefLabel>Île Bolebeti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.1625</wgs:lat>
+	<wgs:long>-3.2725</wgs:long>
+	<skos:prefLabel>Île Ngramaïna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.15611</wgs:lat>
+	<wgs:long>-3.29833</wgs:long>
+	<skos:prefLabel>Île Assiendo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.23694</wgs:lat>
+	<wgs:long>-3.27139</wgs:long>
+	<skos:prefLabel>Île d’ Eoussou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.15</wgs:lat>
+	<wgs:long>-3.2475</wgs:long>
+	<skos:prefLabel>Île Esso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.14528</wgs:lat>
+	<wgs:long>-3.16972</wgs:long>
+	<skos:prefLabel>Île Assongou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-4.33333</wgs:long>
+	<skos:altLabel>Lagunes</skos:altLabel>
+	<skos:altLabel>Région des Lagunes</skos:altLabel>
+	<skos:prefLabel>Région des Lagunes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-3.25</wgs:long>
+	<skos:altLabel>Région du Sud-Comoé</skos:altLabel>
+	<skos:altLabel>Sud-Comoé</skos:altLabel>
+	<skos:prefLabel>Région du Sud-Comoé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>-4</wgs:long>
+	<skos:altLabel>Agneby</skos:altLabel>
+	<skos:altLabel>Agnéby</skos:altLabel>
+	<skos:altLabel>Région de l’ Agnéby</skos:altLabel>
+	<skos:prefLabel>Région de l’ Agnéby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>-6.58333</wgs:long>
+	<skos:altLabel>Haut-Sassandra</skos:altLabel>
+	<skos:altLabel>Région du Haut-Sassandra</skos:altLabel>
+	<skos:prefLabel>Région du Haut-Sassandra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-5.5</wgs:long>
+	<skos:altLabel>Région des Savanes</skos:altLabel>
+	<skos:altLabel>Savanes</skos:altLabel>
+	<skos:prefLabel>Région des Savanes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.25</wgs:lat>
+	<wgs:long>-4.83333</wgs:long>
+	<skos:altLabel>Région de la Vallée du Bandama</skos:altLabel>
+	<skos:altLabel>Vallée du Bandama</skos:altLabel>
+	<skos:prefLabel>Région de la Vallée du Bandama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-3.41667</wgs:long>
+	<skos:altLabel>Moyen-Comoé</skos:altLabel>
+	<skos:altLabel>Région du Moyen-Comoé</skos:altLabel>
+	<skos:prefLabel>Région du Moyen-Comoé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>-7.66667</wgs:long>
+	<skos:altLabel>18 Montagnes</skos:altLabel>
+	<skos:altLabel>Dix-Huit Montagnes</skos:altLabel>
+	<skos:altLabel>Région des Dix-Huit Montagnes</skos:altLabel>
+	<skos:altLabel>Région des Montagnes</skos:altLabel>
+	<skos:prefLabel>Région des Dix-Huit Montagnes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.83333</wgs:lat>
+	<wgs:long>-5.16667</wgs:long>
+	<skos:altLabel>Lacs</skos:altLabel>
+	<skos:altLabel>Région des Lacs</skos:altLabel>
+	<skos:prefLabel>Région des Lacs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>-3.25</wgs:long>
+	<skos:altLabel>Région du Zanzan</skos:altLabel>
+	<skos:altLabel>Zanzan</skos:altLabel>
+	<skos:prefLabel>Région du Zanzan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-6.66667</wgs:long>
+	<skos:altLabel>Bas-Sassandra</skos:altLabel>
+	<skos:altLabel>Région du Bas-Sassandra</skos:altLabel>
+	<skos:prefLabel>Région du Bas-Sassandra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>-6.33333</wgs:long>
+	<skos:altLabel>Région du Worodougou</skos:altLabel>
+	<skos:altLabel>Worodougou</skos:altLabel>
+	<skos:prefLabel>Région du Worodougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-7.41667</wgs:long>
+	<skos:altLabel>Denguélé</skos:altLabel>
+	<skos:altLabel>Région du Denguélé</skos:altLabel>
+	<skos:prefLabel>Région du Denguélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.66667</wgs:lat>
+	<wgs:long>-5.5</wgs:long>
+	<skos:altLabel>Région du Sud-Bandama</skos:altLabel>
+	<skos:altLabel>Sud-Bandama</skos:altLabel>
+	<skos:prefLabel>Région du Sud-Bandama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>-5.91667</wgs:long>
+	<skos:altLabel>Fromager</skos:altLabel>
+	<skos:altLabel>Région du Fromager</skos:altLabel>
+	<skos:prefLabel>Région du Fromager</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.25</wgs:lat>
+	<wgs:long>-4.16667</wgs:long>
+	<skos:altLabel>Nʼzi-Comoé</skos:altLabel>
+	<skos:altLabel>N’zi-Comoé</skos:altLabel>
+	<skos:altLabel>Région du N’zi-Comoé</skos:altLabel>
+	<skos:prefLabel>Région du N’zi-Comoé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-5.83333</wgs:long>
+	<skos:altLabel>Marahoué</skos:altLabel>
+	<skos:altLabel>Région de la Marahoué</skos:altLabel>
+	<skos:prefLabel>Région de la Marahoué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-7.5</wgs:long>
+	<skos:altLabel>Cavaly</skos:altLabel>
+	<skos:altLabel>Moyen-Cavally</skos:altLabel>
+	<skos:altLabel>Moyen-Cavaly</skos:altLabel>
+	<skos:altLabel>Région du Cavaly</skos:altLabel>
+	<skos:altLabel>Région du Moyen-Cavally</skos:altLabel>
+	<skos:prefLabel>Région du Moyen-Cavally</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>-7.5</wgs:long>
+	<skos:altLabel>Bafing</skos:altLabel>
+	<skos:altLabel>Région du Baffing</skos:altLabel>
+	<skos:altLabel>Région du Bafing</skos:altLabel>
+	<skos:prefLabel>Région du Bafing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2598243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2287781/"/>
+	<europeana:country>CI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>58492</europeana:population>
+	<wgs:lat>5.78556</wgs:lat>
+	<wgs:long>-6.60833</wgs:long>
+	<skos:prefLabel>Soubré</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 291 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

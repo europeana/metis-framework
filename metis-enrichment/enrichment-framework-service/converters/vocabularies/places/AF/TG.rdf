@@ -1,0 +1,878 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_TG
+Description: Selected fields pulled from Geonames about TG done on Mon May 23 21:16:23 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2365173/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:altLabel>Circonscription de Vogan</skos:altLabel>
+	<skos:altLabel>Préfecture de Vo</skos:altLabel>
+	<skos:prefLabel>Préfecture de Vo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20569</europeana:population>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>1.53333</wgs:long>
+	<skos:altLabel>Voga</skos:altLabel>
+	<skos:altLabel>Vogan</skos:altLabel>
+	<skos:altLabel>Woga</skos:altLabel>
+	<skos:altLabel>Wogan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Воган</skos:altLabel>
+	<skos:prefLabel>Vogan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2365173/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>1.16667</wgs:long>
+	<skos:altLabel>Circonscription de Tsévié</skos:altLabel>
+	<skos:altLabel>Préfecture de Tsévié</skos:altLabel>
+	<skos:altLabel>Préfecture du Zio</skos:altLabel>
+	<skos:prefLabel>Préfecture du Zio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>55775</europeana:population>
+	<wgs:lat>6.42611</wgs:lat>
+	<wgs:long>1.21333</wgs:long>
+	<skos:altLabel>Tsévié</skos:altLabel>
+	<skos:altLabel>Tsévyé</skos:altLabel>
+	<skos:altLabel>Tzevie</skos:altLabel>
+	<skos:prefLabel>Tsévié</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6587239</europeana:population>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>1.16667</wgs:long>
+	<skos:altLabel>French Togoland</skos:altLabel>
+	<skos:altLabel>Republic of Togo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République Togolaise</skos:altLabel>
+	<skos:altLabel>TG</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Togas</skos:altLabel>
+	<skos:altLabel xml:lang="se">Toge</skos:altLabel>
+	<skos:altLabel xml:lang="id">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="bm">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="af">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="an">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="se">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Togo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Togolando</skos:altLabel>
+	<skos:altLabel xml:lang="en">Togolese Republic</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Togolo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Togoän</skos:altLabel>
+	<skos:altLabel xml:lang="la">Togum</skos:altLabel>
+	<skos:altLabel xml:lang="so">Toogo</skos:altLabel>
+	<skos:altLabel xml:lang="az">Toqo</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Tògo</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Tóga</skos:altLabel>
+	<skos:altLabel xml:lang="is">Tógó</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tô-gô</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τόγκο</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тога</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Того</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Того</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Того</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Того</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Того</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Того</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тоґо</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տոգո</skos:altLabel>
+	<skos:altLabel xml:lang="he">טוגו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">توجو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">توغو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">توگو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">توگو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ٹوگو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">टोगो</skos:altLabel>
+	<skos:altLabel xml:lang="ks">टोगो</skos:altLabel>
+	<skos:altLabel xml:lang="sa">टोगो</skos:altLabel>
+	<skos:altLabel xml:lang="bn">টোগো</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ടോഗോ</skos:altLabel>
+	<skos:altLabel xml:lang="th">โตโก</skos:altLabel>
+	<skos:altLabel xml:lang="th">โทโก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ໂຕໂກ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ტოგო</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቶጎ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቶጐ</skos:altLabel>
+	<skos:altLabel xml:lang="km">តូហ្គូ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トーゴ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トーゴ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多哥</skos:altLabel>
+	<skos:altLabel xml:lang="ko">토고</skos:altLabel>
+	<skos:prefLabel>Togolese Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2367237/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9</wgs:lat>
+	<wgs:long>1.16667</wgs:long>
+	<skos:altLabel>Circonscription de Tchaoudjo</skos:altLabel>
+	<skos:altLabel>Préfecture de Tchaoudjo</skos:altLabel>
+	<skos:altLabel>Sokodé</skos:altLabel>
+	<skos:prefLabel>Préfecture de Tchaoudjo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2367237/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.83333</wgs:lat>
+	<wgs:long>1.41667</wgs:long>
+	<skos:altLabel>Circonscription de Tchamba</skos:altLabel>
+	<skos:altLabel>Préfecture de Tchamba</skos:altLabel>
+	<skos:prefLabel>Préfecture de Tchamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2363908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25668</europeana:population>
+	<wgs:lat>9.03333</wgs:lat>
+	<wgs:long>1.41667</wgs:long>
+	<skos:altLabel>Kouboni</skos:altLabel>
+	<skos:altLabel>Kuboni</skos:altLabel>
+	<skos:altLabel>Tchamba</skos:altLabel>
+	<skos:prefLabel>Tchamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2365173/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:altLabel>Circonscription de Tabligbo</skos:altLabel>
+	<skos:altLabel>Préfecture de Yoto</skos:altLabel>
+	<skos:altLabel>Subdivision de Tabligbo</skos:altLabel>
+	<skos:prefLabel>Préfecture de Yoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13748</europeana:population>
+	<wgs:lat>6.58333</wgs:lat>
+	<wgs:long>1.5</wgs:long>
+	<skos:altLabel>Awési</skos:altLabel>
+	<skos:altLabel>Tabligbo</skos:altLabel>
+	<skos:altLabel>Tablizhbo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Таблигбо</skos:altLabel>
+	<skos:prefLabel>Tabligbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2367237/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.75</wgs:lat>
+	<wgs:long>0.83333</wgs:long>
+	<skos:altLabel>Circonscription de Sotouboua</skos:altLabel>
+	<skos:altLabel>Préfecture de Sotouboua</skos:altLabel>
+	<skos:prefLabel>Préfecture de Sotouboua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21054</europeana:population>
+	<wgs:lat>8.56667</wgs:lat>
+	<wgs:long>0.98333</wgs:long>
+	<skos:altLabel>Sotouboua</skos:altLabel>
+	<skos:prefLabel>Sotouboua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>117811</europeana:population>
+	<wgs:lat>8.98333</wgs:lat>
+	<wgs:long>1.13333</wgs:long>
+	<skos:altLabel xml:lang="en">Sokodé</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sokodé</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sokodé</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sokodé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sokodé</skos:altLabel>
+	<skos:altLabel>Sokodé</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сокоде</skos:altLabel>
+	<skos:altLabel xml:lang="zh">索科德</skos:altLabel>
+	<skos:prefLabel>Sokodé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>0.5</wgs:long>
+	<skos:altLabel>Région des Savanes</skos:altLabel>
+	<skos:altLabel>Savanes</skos:altLabel>
+	<skos:prefLabel>Région des Savanes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>1.16667</wgs:long>
+	<skos:altLabel>Plateaux</skos:altLabel>
+	<skos:altLabel>Région des Plateaux</skos:altLabel>
+	<skos:prefLabel>Région des Plateaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>1.25</wgs:long>
+	<skos:altLabel>Circonscription de Notsé</skos:altLabel>
+	<skos:altLabel>Circonscription de Nuatja</skos:altLabel>
+	<skos:altLabel>Nouatja</skos:altLabel>
+	<skos:altLabel>Nuatjo</skos:altLabel>
+	<skos:altLabel>Préfecture du Haho</skos:altLabel>
+	<skos:altLabel>Subdivision de Nuatja</skos:altLabel>
+	<skos:prefLabel>Préfecture du Haho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22017</europeana:population>
+	<wgs:lat>6.95</wgs:lat>
+	<wgs:long>1.16667</wgs:long>
+	<skos:altLabel>Notsé</skos:altLabel>
+	<skos:altLabel>Nouatja</skos:altLabel>
+	<skos:altLabel>Nuatia</skos:altLabel>
+	<skos:altLabel>Nuatja</skos:altLabel>
+	<skos:altLabel>Nuatya</skos:altLabel>
+	<skos:prefLabel>Notsé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.83333</wgs:lat>
+	<wgs:long>1.08333</wgs:long>
+	<skos:altLabel>Circonscription de Niamtougou</skos:altLabel>
+	<skos:altLabel>Niantougou</skos:altLabel>
+	<skos:altLabel>Préfecture de Doufelgou</skos:altLabel>
+	<skos:prefLabel>Préfecture de Doufelgou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2364812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23261</europeana:population>
+	<wgs:lat>9.76806</wgs:lat>
+	<wgs:long>1.10528</wgs:long>
+	<skos:altLabel>Niamtougou</skos:altLabel>
+	<skos:altLabel>Niamtuu</skos:altLabel>
+	<skos:altLabel>Njamtūu</skos:altLabel>
+	<skos:altLabel>Nyamtouhou</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ниамтугу</skos:altLabel>
+	<skos:prefLabel>Niamtougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>1.33333</wgs:long>
+	<skos:altLabel>Maritime</skos:altLabel>
+	<skos:altLabel>Région Maritime</skos:altLabel>
+	<skos:prefLabel>Région Maritime</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364205/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>0.58333</wgs:long>
+	<skos:altLabel>Cercle de Sansanné-Mango</skos:altLabel>
+	<skos:altLabel>Circonscription de Mango</skos:altLabel>
+	<skos:altLabel>Préfecture de l’ Oti</skos:altLabel>
+	<skos:altLabel>Sansanné-Mango</skos:altLabel>
+	<skos:prefLabel>Préfecture de l’ Oti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37748</europeana:population>
+	<wgs:lat>10.35917</wgs:lat>
+	<wgs:long>0.47083</wgs:long>
+	<skos:altLabel>Mango</skos:altLabel>
+	<skos:altLabel>Nsara</skos:altLabel>
+	<skos:altLabel>N’Zara</skos:altLabel>
+	<skos:altLabel>Sansane-Mangu</skos:altLabel>
+	<skos:altLabel>Sansanné-Mango</skos:altLabel>
+	<skos:altLabel>Sanssané-Mango</skos:altLabel>
+	<skos:prefLabel>Sansanné-Mango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2365173/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.23333</wgs:lat>
+	<wgs:long>1.2</wgs:long>
+	<skos:altLabel>Circonscription de Lomé</skos:altLabel>
+	<skos:altLabel>Préfecture de Lomé</skos:altLabel>
+	<skos:altLabel>Préfecture du Golfe</skos:altLabel>
+	<skos:prefLabel>Préfecture du Golfe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>749700</europeana:population>
+	<wgs:lat>6.13748</wgs:lat>
+	<wgs:long>1.21227</wgs:long>
+	<skos:altLabel xml:lang="io">Lome</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Lome</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Lome</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="da">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="no">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="id">Lomé</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lomė</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λομέ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ломе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ломе</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ломе</skos:altLabel>
+	<skos:altLabel xml:lang="he">לומה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لومه</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لومي</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሎሜ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ロメ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">洛美</skos:altLabel>
+	<skos:altLabel xml:lang="ko">로메</skos:altLabel>
+	<skos:prefLabel>Lomé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.58333</wgs:lat>
+	<wgs:long>1.16667</wgs:long>
+	<skos:altLabel>Circonscription de Lama-Kara</skos:altLabel>
+	<skos:altLabel>Kara</skos:altLabel>
+	<skos:altLabel>Préfecture de la Kozah</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Kozah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365560/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>95974</europeana:population>
+	<wgs:lat>6.9</wgs:lat>
+	<wgs:long>0.63333</wgs:long>
+	<skos:altLabel>Agomé-Palimé</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kpalimé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kpalimé</skos:altLabel>
+	<skos:altLabel>Kpalimé</skos:altLabel>
+	<skos:altLabel>Palimé</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Palimé</skos:altLabel>
+	<skos:altLabel xml:lang="en">Palimé</skos:altLabel>
+	<skos:altLabel xml:lang="zh">帕利梅</skos:altLabel>
+	<skos:prefLabel>Kpalimé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>1.28333</wgs:long>
+	<skos:altLabel>Circonscription de Kpagouda</skos:altLabel>
+	<skos:altLabel>Circonscription de Pagouda</skos:altLabel>
+	<skos:altLabel>Préfecture de la Binah</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Binah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2365976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>0.75</wgs:long>
+	<skos:altLabel>Circonscription de Klouto</skos:altLabel>
+	<skos:altLabel>Kloto</skos:altLabel>
+	<skos:altLabel>Kpalime</skos:altLabel>
+	<skos:altLabel>Palimé</skos:altLabel>
+	<skos:altLabel>Préfecture du Kloto</skos:altLabel>
+	<skos:prefLabel>Préfecture du Kloto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2366152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>104207</europeana:population>
+	<wgs:lat>9.55111</wgs:lat>
+	<wgs:long>1.18611</wgs:long>
+	<skos:altLabel>Kara</skos:altLabel>
+	<skos:altLabel>Lama</skos:altLabel>
+	<skos:altLabel>Lama-Kara</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кара</skos:altLabel>
+	<skos:prefLabel>Kara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2366167/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.08333</wgs:lat>
+	<wgs:long>1</wgs:long>
+	<skos:altLabel>Circonscription de Kandé</skos:altLabel>
+	<skos:altLabel>Circonscription de Kanté</skos:altLabel>
+	<skos:altLabel>Préfecture de Kéran</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kéran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2366168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11466</europeana:population>
+	<wgs:lat>9.95778</wgs:lat>
+	<wgs:long>1.04472</wgs:long>
+	<skos:altLabel>Kandé</skos:altLabel>
+	<skos:altLabel>Kanté</skos:altLabel>
+	<skos:prefLabel>Kandé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364205/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.91667</wgs:lat>
+	<wgs:long>0.16667</wgs:long>
+	<skos:altLabel>Cercle de Dapango</skos:altLabel>
+	<skos:altLabel>Circonscription de Dapango</skos:altLabel>
+	<skos:altLabel>Circonscription de Dapaong</skos:altLabel>
+	<skos:altLabel>Dapaon</skos:altLabel>
+	<skos:altLabel>Dapong</skos:altLabel>
+	<skos:altLabel>Préfecture de Tone</skos:altLabel>
+	<skos:prefLabel>Préfecture de Tone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>33324</europeana:population>
+	<wgs:lat>10.86389</wgs:lat>
+	<wgs:long>0.205</wgs:long>
+	<skos:altLabel>Dapango</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dapaong</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dapaong</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dapaong</skos:altLabel>
+	<skos:altLabel>Dapaong</skos:altLabel>
+	<skos:altLabel>Dapong</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дапаонге</skos:altLabel>
+	<skos:altLabel xml:lang="zh">达庞</skos:altLabel>
+	<skos:prefLabel>Dapaong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>8.66667</wgs:lat>
+	<wgs:long>1</wgs:long>
+	<skos:altLabel>Centrale</skos:altLabel>
+	<skos:altLabel>Région Centrale</skos:altLabel>
+	<skos:prefLabel>Région Centrale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>0.75</wgs:long>
+	<skos:altLabel>Cercle de Bassari</skos:altLabel>
+	<skos:altLabel>Circonscription de Bassar</skos:altLabel>
+	<skos:altLabel>Circonscription de Bassari</skos:altLabel>
+	<skos:altLabel>Circonscription de Katcha</skos:altLabel>
+	<skos:altLabel>Préfecture de Bassar</skos:altLabel>
+	<skos:prefLabel>Préfecture de Bassar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61845</europeana:population>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>0.78333</wgs:long>
+	<skos:altLabel xml:lang="fr">Bassar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bassar</skos:altLabel>
+	<skos:altLabel>Bassar</skos:altLabel>
+	<skos:altLabel>Bassari</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Басар</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴萨</skos:altLabel>
+	<skos:prefLabel>Bassar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.33333</wgs:lat>
+	<wgs:long>1.25</wgs:long>
+	<skos:altLabel>Circonscription de Bafilo</skos:altLabel>
+	<skos:altLabel>Préfecture d’ Assoli</skos:altLabel>
+	<skos:prefLabel>Préfecture d’ Assoli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22543</europeana:population>
+	<wgs:lat>9.35</wgs:lat>
+	<wgs:long>1.26667</wgs:long>
+	<skos:altLabel>Bafilo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бафило</skos:altLabel>
+	<skos:prefLabel>Bafilo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>0.75</wgs:long>
+	<skos:altLabel>Circonscription de Badou</skos:altLabel>
+	<skos:altLabel>Préfecture de Wawa</skos:altLabel>
+	<skos:prefLabel>Préfecture de Wawa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20029</europeana:population>
+	<wgs:lat>7.58333</wgs:lat>
+	<wgs:long>0.6</wgs:long>
+	<skos:altLabel>Badou</skos:altLabel>
+	<skos:altLabel>Bādu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бад</skos:altLabel>
+	<skos:prefLabel>Badou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>1.33333</wgs:long>
+	<skos:altLabel>Circonscription d’ Atakpamé</skos:altLabel>
+	<skos:altLabel>Préfecture de l’ Ogou</skos:altLabel>
+	<skos:prefLabel>Préfecture de l’ Ogou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>80683</europeana:population>
+	<wgs:lat>7.53333</wgs:lat>
+	<wgs:long>1.13333</wgs:long>
+	<skos:prefLabel>Atakpamé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2365173/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.36667</wgs:lat>
+	<wgs:long>1.66667</wgs:long>
+	<skos:altLabel>Cercle d’ Anécho</skos:altLabel>
+	<skos:altLabel>Circonscription d’ Anécho</skos:altLabel>
+	<skos:altLabel>Circonscription d’ Aného</skos:altLabel>
+	<skos:altLabel>Préfecture des Lacs</skos:altLabel>
+	<skos:altLabel>Préfecture d’ Aného</skos:altLabel>
+	<skos:prefLabel>Préfecture des Lacs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2367990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47579</europeana:population>
+	<wgs:lat>6.23333</wgs:lat>
+	<wgs:long>1.6</wgs:long>
+	<skos:altLabel>Anekho</skos:altLabel>
+	<skos:altLabel>Anerho</skos:altLabel>
+	<skos:altLabel>Anécho</skos:altLabel>
+	<skos:altLabel>Aného</skos:altLabel>
+	<skos:altLabel>Klein-Popo</skos:altLabel>
+	<skos:altLabel>Little Popo</skos:altLabel>
+	<skos:altLabel>Petit Popo</skos:altLabel>
+	<skos:prefLabel>Aného</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2368034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>1.05</wgs:long>
+	<skos:altLabel>Circonscription d’ Amlamé</skos:altLabel>
+	<skos:altLabel>Préfecture d’ Amou</skos:altLabel>
+	<skos:prefLabel>Préfecture d’ Amou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>9.66667</wgs:lat>
+	<wgs:long>0.91667</wgs:long>
+	<skos:altLabel>Kara</skos:altLabel>
+	<skos:altLabel>Région de la Kara</skos:altLabel>
+	<skos:prefLabel>Région de la Kara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2365173/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.43333</wgs:lat>
+	<wgs:long>0.93333</wgs:long>
+	<skos:prefLabel>Préfecture de l’ Avé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.73333</wgs:lat>
+	<wgs:long>0.76667</wgs:long>
+	<skos:prefLabel>Préfecture d’ Agou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.08333</wgs:lat>
+	<wgs:long>1.43333</wgs:long>
+	<skos:prefLabel>Préfecture d’ Est-Mono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.2</wgs:lat>
+	<wgs:long>1.55</wgs:long>
+	<skos:prefLabel>Préfecture du Moyen-Mono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364370/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.28333</wgs:lat>
+	<wgs:long>0.7</wgs:long>
+	<skos:prefLabel>Préfecture de Danyi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2367237/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.16667</wgs:lat>
+	<wgs:long>0.91667</wgs:long>
+	<skos:prefLabel>Préfecture de Blitta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2597439/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.7</wgs:lat>
+	<wgs:long>0.58333</wgs:long>
+	<skos:prefLabel>Préfecture de Dankpen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364205/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.86667</wgs:lat>
+	<wgs:long>0.61667</wgs:long>
+	<skos:prefLabel>Préfecture de Kpendjal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2597448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2363686/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2364205/"/>
+	<europeana:country>TG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>0.13333</wgs:long>
+	<skos:prefLabel>Préfecture de Tandjouaré</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 54 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

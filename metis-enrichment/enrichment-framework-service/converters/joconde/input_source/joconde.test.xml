@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BASE>
+	<NAME>Joconde</NAME>
+	<DOMAINE>MUSEES</DOMAINE>
+	<NOTICES>
+		<NOTICE ID="AE037478">
+			<REF>
+				AE037478
+</REF>
+			<ADPT>louvre  </ADPT>
+			<AUTR>POUSSIN Nicolas</AUTR>
+			<DDPT>
+				1995
+</DDPT>
+			<DACQ>
+				1995
+</DACQ>
+			<INV>
+				E 27721
+</INV>
+			<APTN>
+				Damien
+</APTN>
+			<DIMS>
+				H. 12 ; l. 7
+</DIMS>
+			<COMM>
+				fragment
+</COMM>
+			<MUSEO>
+				0602901
+</MUSEO>
+			<DOMN>
+				archéologie ; Egyptien
+</DOMN>
+			<COOR>
+				Marina Zveguinzoff
+</COOR>
+			<STAT>
+				propriété de l'Etat ; don ; musée du Louvre Département des Antiquités ég
+</STAT>
+			<TICO>
+				masque de momie
+</TICO>
+			<LABEL>
+				Musée de France
+				au sens de la loi n°2002-5 du 4 janvier 2002
+</LABEL>
+			<COPY>
+				© Direction des musées de France
+</COPY>
+			<DENO>
+				masque de momie
+</DENO>
+			<TECH>
+				terre cuite ; étoffe stuquée
+</TECH>
+			<LOCA>
+				Cannes ; musée de la Castre
+</LOCA>
+			<LOCA2>
+				France ; Provence-Alpes-Côte d'Azur ; Alpes-Maritimes
+</LOCA2>
+			<IMAGE>
+				non
+</IMAGE>
+		</NOTICE>
+	</NOTICES>
+</BASE>

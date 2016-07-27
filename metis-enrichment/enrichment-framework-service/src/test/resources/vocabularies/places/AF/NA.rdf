@@ -1,0 +1,1216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_NA
+Description: Selected fields pulled from Geonames about NA done on Mon May 23 21:16:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/876733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.05</wgs:lat>
+	<wgs:long>21.45</wgs:long>
+	<skos:prefLabel>Xhamukwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.06667</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:prefLabel>Tjaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.03333</wgs:lat>
+	<wgs:long>21.43333</wgs:long>
+	<skos:altLabel>Mukwe Island</skos:altLabel>
+	<skos:altLabel>Thipanana</skos:altLabel>
+	<skos:prefLabel>Thipanana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.05</wgs:lat>
+	<wgs:long>21.45</wgs:long>
+	<skos:prefLabel>Tanhwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.7</wgs:lat>
+	<wgs:long>25.13333</wgs:long>
+	<skos:prefLabel>Sipalandwe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.8</wgs:lat>
+	<wgs:long>25.13333</wgs:long>
+	<skos:prefLabel>Sidudu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.01667</wgs:lat>
+	<wgs:long>21.41667</wgs:long>
+	<skos:prefLabel>Sibanana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.98333</wgs:lat>
+	<wgs:long>20.31667</wgs:long>
+	<skos:prefLabel>Shinyemba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.11667</wgs:lat>
+	<wgs:long>21.58333</wgs:long>
+	<skos:prefLabel>Shaoha Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.15</wgs:lat>
+	<wgs:long>21.71667</wgs:long>
+	<skos:altLabel>Shadjuku</skos:altLabel>
+	<skos:altLabel>Shatjuku Island</skos:altLabel>
+	<skos:prefLabel>Shadjuku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.1</wgs:lat>
+	<wgs:long>21.55</wgs:long>
+	<skos:altLabel>Ndongo</skos:altLabel>
+	<skos:altLabel>Ntongo Island</skos:altLabel>
+	<skos:prefLabel>Ndongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.61667</wgs:lat>
+	<wgs:long>25.05</wgs:long>
+	<skos:altLabel>Mukomba Island</skos:altLabel>
+	<skos:altLabel>Nantunga Island</skos:altLabel>
+	<skos:altLabel>Nantungu Island</skos:altLabel>
+	<skos:prefLabel>Nantungu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/876973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.76667</wgs:lat>
+	<wgs:long>25.2</wgs:long>
+	<skos:prefLabel>Nansansi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.78333</wgs:lat>
+	<wgs:long>25.2</wgs:long>
+	<skos:altLabel>Impalira Island</skos:altLabel>
+	<skos:altLabel>Mpalela Island</skos:altLabel>
+	<skos:altLabel>Mpalila Island</skos:altLabel>
+	<skos:prefLabel>Mpalila Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.06667</wgs:lat>
+	<wgs:long>21.48333</wgs:long>
+	<skos:prefLabel>Majenga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.56667</wgs:lat>
+	<wgs:long>25.01667</wgs:long>
+	<skos:prefLabel>Mabala Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>24.65</wgs:long>
+	<skos:prefLabel>Katoya Ka Musisanyane Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25027</europeana:population>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>24.26667</wgs:long>
+	<skos:altLabel>Katima Molilo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Katima Mulilo</skos:altLabel>
+	<skos:altLabel>Katima Mulilo</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Катіма-Муліло</skos:altLabel>
+	<skos:altLabel xml:lang="he">קאטימה מולילו</skos:altLabel>
+	<skos:prefLabel>Katima Mulilo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.08333</wgs:lat>
+	<wgs:long>21.53333</wgs:long>
+	<skos:prefLabel>Karatia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.51667</wgs:lat>
+	<wgs:long>24.51667</wgs:long>
+	<skos:altLabel>Isolionke Island</skos:altLabel>
+	<skos:altLabel>Kalimbeza Island</skos:altLabel>
+	<skos:altLabel>Likunganeno Island</skos:altLabel>
+	<skos:altLabel>Lukanganeno Island</skos:altLabel>
+	<skos:prefLabel>Kalimbeza Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.78333</wgs:lat>
+	<wgs:long>25.25</wgs:long>
+	<skos:altLabel>Kakumba Island</skos:altLabel>
+	<skos:altLabel>Kankumba Island</skos:altLabel>
+	<skos:prefLabel>Kakumba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.48333</wgs:lat>
+	<wgs:long>24.33333</wgs:long>
+	<skos:altLabel>Hippo Island</skos:altLabel>
+	<skos:altLabel>Namwe Island</skos:altLabel>
+	<skos:prefLabel>Hippo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.03333</wgs:lat>
+	<wgs:long>21.43333</wgs:long>
+	<skos:altLabel>Gororo</skos:altLabel>
+	<skos:altLabel>Shamongoro Island</skos:altLabel>
+	<skos:prefLabel>Gororo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.01667</wgs:lat>
+	<wgs:long>21.38333</wgs:long>
+	<skos:prefLabel>Gangara Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.05</wgs:lat>
+	<wgs:long>21.45</wgs:long>
+	<skos:prefLabel>Durumutji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.06667</wgs:lat>
+	<wgs:long>21.46667</wgs:long>
+	<skos:prefLabel>Divuju</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.1</wgs:lat>
+	<wgs:long>21.6</wgs:long>
+	<skos:prefLabel>Catsho Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.23333</wgs:lat>
+	<wgs:long>21.76667</wgs:long>
+	<skos:altLabel>Bije Island</skos:altLabel>
+	<skos:altLabel>Biye</skos:altLabel>
+	<skos:prefLabel>Biye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/877348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.1</wgs:lat>
+	<wgs:long>21.63333</wgs:long>
+	<skos:prefLabel>Bagani Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1090052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>23.75</wgs:long>
+	<skos:altLabel>Caprivi</skos:altLabel>
+	<skos:altLabel>Liambezi</skos:altLabel>
+	<skos:prefLabel>Caprivi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3352136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>268132</europeana:population>
+	<wgs:lat>-22.55941</wgs:lat>
+	<wgs:long>17.08323</wgs:long>
+	<skos:altLabel xml:lang="lt">Vindhukas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="en">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="af">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="da">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="it">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="es">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="io">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="no">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="de">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="et">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Windhoek</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Windhoek</skos:altLabel>
+	<skos:altLabel>Windhuk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Windhuk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Windhuk</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουίντχουκ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Виндхук</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Виндхук</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Виндхук</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Виндхук</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վինդհուկ</skos:altLabel>
+	<skos:altLabel xml:lang="he">וינדהוק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ويندهوك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ویندهوک</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዊንድሁክ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウィントフック</skos:altLabel>
+	<skos:altLabel xml:lang="zh">温得和克</skos:altLabel>
+	<skos:altLabel xml:lang="ko">빈트후크</skos:altLabel>
+	<skos:prefLabel>Windhoek</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3352137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-22.75</wgs:lat>
+	<wgs:long>17.08333</wgs:long>
+	<skos:altLabel>Khomas</skos:altLabel>
+	<skos:altLabel>Windhoek</skos:altLabel>
+	<skos:prefLabel>Khomas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3352166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>14.65</wgs:long>
+	<skos:altLabel>The White Lady of the Brandberg</skos:altLabel>
+	<skos:altLabel>White Lady</skos:altLabel>
+	<skos:prefLabel>White Lady</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3352593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12190</europeana:population>
+	<wgs:lat>-19.23333</wgs:lat>
+	<wgs:long>17.71667</wgs:long>
+	<skos:altLabel>Tsumeb</skos:altLabel>
+	<skos:prefLabel>Tsumeb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3352844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25047</europeana:population>
+	<wgs:lat>-22.68333</wgs:lat>
+	<wgs:long>14.53333</wgs:long>
+	<skos:altLabel xml:lang="es">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="de">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="en">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="da">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="af">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Swakopmund</skos:altLabel>
+	<skos:altLabel>Swakopmund</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Свакопмунд</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スワコプムント</skos:altLabel>
+	<skos:prefLabel>Swakopmund</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3352991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.68333</wgs:lat>
+	<wgs:long>15.53333</wgs:long>
+	<skos:prefLabel>Sparrow Hawk Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.95</wgs:lat>
+	<wgs:long>15.68333</wgs:long>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-24.23333</wgs:lat>
+	<wgs:long>17.48333</wgs:long>
+	<skos:prefLabel>Slag van Kub</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>-26.63694</wgs:lat>
+	<wgs:long>15.15333</wgs:long>
+	<skos:altLabel>Kaifisch Island</skos:altLabel>
+	<skos:altLabel>Shark Island</skos:altLabel>
+	<skos:prefLabel>Shark Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>58172</europeana:population>
+	<wgs:lat>-17.93333</wgs:lat>
+	<wgs:long>19.76667</wgs:long>
+	<skos:altLabel>Rundu</skos:altLabel>
+	<skos:altLabel>Runtu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рунду</skos:altLabel>
+	<skos:prefLabel>Rundu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.93333</wgs:lat>
+	<wgs:long>15.68333</wgs:long>
+	<skos:altLabel>Roast Beef Islets</skos:altLabel>
+	<skos:altLabel>Roastbeef Island</skos:altLabel>
+	<skos:prefLabel>Roastbeef Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21377</europeana:population>
+	<wgs:lat>-23.31667</wgs:lat>
+	<wgs:long>17.08333</wgs:long>
+	<skos:altLabel>Rehoboth</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рехобот</skos:altLabel>
+	<skos:prefLabel>Rehoboth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-22.35</wgs:lat>
+	<wgs:long>16.11667</wgs:long>
+	<skos:prefLabel>Powder Tower</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3353811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21224</europeana:population>
+	<wgs:lat>-20.46369</wgs:lat>
+	<wgs:long>16.64772</wgs:long>
+	<skos:altLabel>Otiwarongo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Отьиваронго</skos:altLabel>
+	<skos:prefLabel>Otjiwarongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3354021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33618</europeana:population>
+	<wgs:lat>-17.78333</wgs:lat>
+	<wgs:long>15.68333</wgs:long>
+	<skos:altLabel>Okatana</skos:altLabel>
+	<skos:altLabel>Oshakati</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ошакати</skos:altLabel>
+	<skos:prefLabel>Oshakati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3354540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11547</europeana:population>
+	<wgs:lat>-21.43333</wgs:lat>
+	<wgs:long>15.93333</wgs:long>
+	<skos:altLabel>Omaruru</skos:altLabel>
+	<skos:prefLabel>Omaruru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3354898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20879</europeana:population>
+	<wgs:lat>-21.98333</wgs:lat>
+	<wgs:long>16.91667</wgs:long>
+	<skos:altLabel xml:lang="es">Okahandja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Okahandja</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Okahandja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Okahandja</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Okahandja</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Okahandja</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Okahandja</skos:altLabel>
+	<skos:altLabel>Okahandja</skos:altLabel>
+	<skos:altLabel>Okahanja</skos:altLabel>
+	<skos:prefLabel>Okahandja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3355338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>2128471</europeana:population>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>17</wgs:long>
+	<skos:altLabel xml:lang="ga">An Namaib</skos:altLabel>
+	<skos:altLabel>NA</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Na-mi-bi-a (Namibia)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nam-mi-bi-a</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Namibi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Namibi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="de">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Namibia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Namibie</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Namibie</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Namibien</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Namibija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Namibija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Namibija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Namibija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Namibija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Namibio</skos:altLabel>
+	<skos:altLabel>Namibië</skos:altLabel>
+	<skos:altLabel xml:lang="af">Namibië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Namibië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Namibja</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Namibya</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Namibän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Namibía</skos:altLabel>
+	<skos:altLabel xml:lang="et">Namiibia</skos:altLabel>
+	<skos:altLabel xml:lang="so">Namiibiya</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Namíbia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Namíbia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Namíbia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Namíbia</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Namîbiya</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Namībija</skos:altLabel>
+	<skos:altLabel>Republic of Namibia</skos:altLabel>
+	<skos:altLabel>South-West Africa</skos:altLabel>
+	<skos:altLabel>Suidwes-Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναμίμπια</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Намибия</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Намибия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Намибия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Намибија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Намибија</skos:altLabel>
+	<skos:altLabel xml:lang="be">Намібія</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Намібія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նամիբիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">נאמיביה</skos:altLabel>
+	<skos:altLabel xml:lang="he">נמיביה</skos:altLabel>
+	<skos:altLabel xml:lang="ug">نامبىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناميبيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نامیبیا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نمیبیا</skos:altLabel>
+	<skos:altLabel xml:lang="ks">नमीबिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">नमीबिया</skos:altLabel>
+	<skos:altLabel xml:lang="mr">नामिबिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नामीबिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নামিবিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">னாமீபியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">നമീബിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">นามิเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศนามิเบีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ນາມິເບຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ན་མི་བི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნამიბია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ናሚቢያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ណាមីប៊ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナミビア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナミビア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">纳米比亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">나미비아</skos:altLabel>
+	<skos:prefLabel>Republic of Namibia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3355581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-22.66667</wgs:lat>
+	<wgs:long>14.55</wgs:long>
+	<skos:prefLabel>Martin Luther</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3355595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13380</europeana:population>
+	<wgs:lat>-24.63333</wgs:lat>
+	<wgs:long>17.96667</wgs:long>
+	<skos:altLabel>Mariental</skos:altLabel>
+	<skos:prefLabel>Mariental</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3355672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15137</europeana:population>
+	<wgs:lat>-26.64806</wgs:lat>
+	<wgs:long>15.15944</wgs:long>
+	<skos:altLabel xml:lang="de">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="af">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="es">Lüderitz</skos:altLabel>
+	<skos:altLabel>Lüderitz</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Людериц</skos:altLabel>
+	<skos:prefLabel>Lüderitz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3355709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.78333</wgs:lat>
+	<wgs:long>15.88333</wgs:long>
+	<skos:prefLabel>Logan’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3356213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12021</europeana:population>
+	<wgs:lat>-20.36667</wgs:lat>
+	<wgs:long>14.96667</wgs:long>
+	<skos:altLabel>Khorixas</skos:altLabel>
+	<skos:altLabel>Wallwitch</skos:altLabel>
+	<skos:altLabel>Wellwitsch</skos:altLabel>
+	<skos:altLabel>Welwitsch</skos:altLabel>
+	<skos:altLabel>Welwitschia</skos:altLabel>
+	<skos:prefLabel>Khorixas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3356264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15608</europeana:population>
+	<wgs:lat>-26.58333</wgs:lat>
+	<wgs:long>18.13333</wgs:long>
+	<skos:altLabel xml:lang="es">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="af">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="de">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="en">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="et">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Keetmanshoop</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Keetmanshoop</skos:altLabel>
+	<skos:altLabel>Keetmanshoop</skos:altLabel>
+	<skos:prefLabel>Keetmanshoop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3356789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-19.58333</wgs:lat>
+	<wgs:long>17.93333</wgs:long>
+	<skos:altLabel>Hoba Meteoriet</skos:altLabel>
+	<skos:altLabel>Hoba Meteorite</skos:altLabel>
+	<skos:prefLabel>Hoba Meteorite</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24099</europeana:population>
+	<wgs:lat>-19.56667</wgs:lat>
+	<wgs:long>18.11667</wgs:long>
+	<skos:altLabel>Grootfontein</skos:altLabel>
+	<skos:altLabel>Groutfontein</skos:altLabel>
+	<skos:prefLabel>Grootfontein</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16321</europeana:population>
+	<wgs:lat>-22.45</wgs:lat>
+	<wgs:long>18.96667</wgs:long>
+	<skos:altLabel>Gobabis</skos:altLabel>
+	<skos:prefLabel>Gobabis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-21.41667</wgs:lat>
+	<wgs:long>15.95</wgs:long>
+	<skos:altLabel>Franke Tower</skos:altLabel>
+	<skos:altLabel>Franketurm</skos:altLabel>
+	<skos:prefLabel>Franketurm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-22.66667</wgs:lat>
+	<wgs:long>16.61667</wgs:long>
+	<skos:prefLabel>Francois-Feste</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.5825</wgs:lat>
+	<wgs:long>15.16361</wgs:long>
+	<skos:prefLabel>Flamingo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-25.25</wgs:lat>
+	<wgs:long>16.53333</wgs:long>
+	<skos:altLabel>Duwisib Castle</skos:altLabel>
+	<skos:prefLabel>Duwisib Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3357915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-17.33333</wgs:lat>
+	<wgs:long>13.83333</wgs:long>
+	<skos:prefLabel>Dorslandtrek Herdenking</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3358004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-21.76667</wgs:lat>
+	<wgs:long>13.95</wgs:long>
+	<skos:altLabel>Dias Cross</skos:altLabel>
+	<skos:altLabel>Diego Cao</skos:altLabel>
+	<skos:prefLabel>Diego Cao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3358011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-26.63556</wgs:lat>
+	<wgs:long>15.08917</wgs:long>
+	<skos:altLabel>Dias Cross</skos:altLabel>
+	<skos:altLabel>Diaz Cross</skos:altLabel>
+	<skos:altLabel>Diaz Kruis</skos:altLabel>
+	<skos:prefLabel>Diaz Kruis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3358416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10363</europeana:population>
+	<wgs:lat>-26.48333</wgs:lat>
+	<wgs:long>17.15</wgs:long>
+	<skos:altLabel>Bethanie</skos:altLabel>
+	<skos:altLabel>Bethanien</skos:altLabel>
+	<skos:altLabel>Bethany</skos:altLabel>
+	<skos:prefLabel>Bethanie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3358473/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-18.86667</wgs:lat>
+	<wgs:long>18.31667</wgs:long>
+	<skos:prefLabel>Baobab Tree</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3359638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52058</europeana:population>
+	<wgs:lat>-22.9575</wgs:lat>
+	<wgs:long>14.50528</wgs:long>
+	<skos:altLabel>Walfisch-Bucht-Niederland</skos:altLabel>
+	<skos:altLabel xml:lang="de">Walfischbucht</skos:altLabel>
+	<skos:altLabel xml:lang="en">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="es">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="da">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="et">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="it">Walvis Bay</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Walvisbaai</skos:altLabel>
+	<skos:altLabel xml:lang="af">Walvisbaai</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Валвис Беј</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Волфіш-Бей</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウォルビスベイ</skos:altLabel>
+	<skos:prefLabel>Walvis Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.83333</wgs:lat>
+	<wgs:long>15.13333</wgs:long>
+	<skos:altLabel>South Long Insel</skos:altLabel>
+	<skos:altLabel>South Long Island</skos:altLabel>
+	<skos:prefLabel>South Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.66667</wgs:lat>
+	<wgs:long>15.53333</wgs:long>
+	<skos:altLabel>Sinclair Island</skos:altLabel>
+	<skos:altLabel>Sinclair-Insel</skos:altLabel>
+	<skos:altLabel>Sinclair’s Island</skos:altLabel>
+	<skos:prefLabel>Sinclair’s Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3361716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.6</wgs:lat>
+	<wgs:long>15.15</wgs:long>
+	<skos:altLabel>Seal Island</skos:altLabel>
+	<skos:altLabel>Seehunds-Insel</skos:altLabel>
+	<skos:prefLabel>Seal Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.01667</wgs:lat>
+	<wgs:long>15.21667</wgs:long>
+	<skos:prefLabel>Possession Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.2</wgs:lat>
+	<wgs:long>15.25</wgs:long>
+	<skos:altLabel>Pomona Island</skos:altLabel>
+	<skos:altLabel>Pomona-Insel</skos:altLabel>
+	<skos:prefLabel>Pomona Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.63333</wgs:lat>
+	<wgs:long>15.53333</wgs:long>
+	<skos:altLabel>Plumpudding Island</skos:altLabel>
+	<skos:altLabel>Plumpudding-Insel</skos:altLabel>
+	<skos:prefLabel>Plumpudding Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3362955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.61667</wgs:lat>
+	<wgs:long>15.15</wgs:long>
+	<skos:altLabel>Penguin Island</skos:altLabel>
+	<skos:altLabel>Pinquin Insel</skos:altLabel>
+	<skos:prefLabel>Penguin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3363581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.81667</wgs:lat>
+	<wgs:long>15.13333</wgs:long>
+	<skos:altLabel>North Long Insel</skos:altLabel>
+	<skos:altLabel>North Long Island</skos:altLabel>
+	<skos:prefLabel>North Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3364190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.71667</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:altLabel>Mercury Island</skos:altLabel>
+	<skos:altLabel>Merker Island</skos:altLabel>
+	<skos:prefLabel>Mercury Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3366595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.28333</wgs:lat>
+	<wgs:long>14.95</wgs:long>
+	<skos:altLabel>Ichabo Island</skos:altLabel>
+	<skos:altLabel>Ichaboe Island</skos:altLabel>
+	<skos:altLabel>Itshabo Island</skos:altLabel>
+	<skos:prefLabel>Ichaboe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3367073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-26.65</wgs:lat>
+	<wgs:long>15.08333</wgs:long>
+	<skos:altLabel>Halifax Eiland</skos:altLabel>
+	<skos:altLabel>Halifax Island</skos:altLabel>
+	<skos:altLabel>Halifax-Insel</skos:altLabel>
+	<skos:prefLabel>Halifax Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3369996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.4</wgs:lat>
+	<wgs:long>15.35</wgs:long>
+	<skos:altLabel>Black Rock</skos:altLabel>
+	<skos:altLabel>Black Rock Island</skos:altLabel>
+	<skos:altLabel>Schwarzenfels</skos:altLabel>
+	<skos:prefLabel>Black Rock Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-27.11667</wgs:lat>
+	<wgs:long>15.21667</wgs:long>
+	<skos:altLabel>Albatros Insel</skos:altLabel>
+	<skos:altLabel>Albatross Island</skos:altLabel>
+	<skos:altLabel>Albatross Rock</skos:altLabel>
+	<skos:prefLabel>Albatross Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>132032</europeana:population>
+	<wgs:lat>-22.08333</wgs:lat>
+	<wgs:long>15.33333</wgs:long>
+	<skos:altLabel>Erongo</skos:altLabel>
+	<skos:prefLabel>Erongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>65800</europeana:population>
+	<wgs:lat>-24.5</wgs:lat>
+	<wgs:long>17.25</wgs:long>
+	<skos:altLabel>Hardap</skos:altLabel>
+	<skos:prefLabel>Hardap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>70222</europeana:population>
+	<wgs:lat>-27</wgs:lat>
+	<wgs:long>17.5</wgs:long>
+	<skos:altLabel>Karas</skos:altLabel>
+	<skos:prefLabel>Karas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>67054</europeana:population>
+	<wgs:lat>-19.41667</wgs:lat>
+	<wgs:long>13.75</wgs:long>
+	<skos:altLabel>Kunene</skos:altLabel>
+	<skos:prefLabel>Kunene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>238744</europeana:population>
+	<wgs:lat>-17.58333</wgs:lat>
+	<wgs:long>16.75</wgs:long>
+	<skos:altLabel>Ohangwena</skos:altLabel>
+	<skos:prefLabel>Ohangwena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-18.41667</wgs:lat>
+	<wgs:long>19.75</wgs:long>
+	<skos:altLabel xml:lang="nn">Kavango</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kavango</skos:altLabel>
+	<skos:altLabel>Okavango</skos:altLabel>
+	<skos:prefLabel>Okavango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>71057</europeana:population>
+	<wgs:lat>-21.75</wgs:lat>
+	<wgs:long>19.41667</wgs:long>
+	<skos:altLabel>Omaheke</skos:altLabel>
+	<skos:prefLabel>Omaheke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>234691</europeana:population>
+	<wgs:lat>-18.33333</wgs:lat>
+	<wgs:long>14.83333</wgs:long>
+	<skos:altLabel>Omusati</skos:altLabel>
+	<skos:prefLabel>Omusati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>210123</europeana:population>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>15.75</wgs:long>
+	<skos:altLabel>Oshana</skos:altLabel>
+	<skos:prefLabel>Oshana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>167525</europeana:population>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>17.08333</wgs:long>
+	<skos:altLabel>Oshikoto</skos:altLabel>
+	<skos:prefLabel>Oshikoto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>144651</europeana:population>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Otjozondjupa</skos:altLabel>
+	<skos:prefLabel>Otjozondjupa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3355338/"/>
+	<europeana:country>NA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.63333</wgs:lat>
+	<wgs:long>14.51667</wgs:long>
+	<skos:altLabel>Hollams Bird Island</skos:altLabel>
+	<skos:altLabel>Hollam’s Vogel-Insel</skos:altLabel>
+	<skos:altLabel>Hollands</skos:altLabel>
+	<skos:altLabel>Hollandsbird Island</skos:altLabel>
+	<skos:prefLabel>Hollandsbird Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 91 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_ST
+Description: Selected fields pulled from Geonames about ST done on Mon May 23 21:16:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>1.36667</wgs:lat>
+	<wgs:long>7.28333</wgs:long>
+	<skos:altLabel>Ilheos Dois Irmãos</skos:altLabel>
+	<skos:altLabel>Pedras Tinhosas</skos:altLabel>
+	<skos:altLabel>The Brothers</skos:altLabel>
+	<skos:prefLabel>Pedras Tinhosas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.38333</wgs:lat>
+	<wgs:long>7.28333</wgs:long>
+	<skos:altLabel>Hermano Chico</skos:altLabel>
+	<skos:altLabel>Irmão Pequeno</skos:altLabel>
+	<skos:altLabel>Little Brother</skos:altLabel>
+	<skos:altLabel>Tinhosa Pequena</skos:altLabel>
+	<skos:prefLabel>Tinhosa Pequena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.35</wgs:lat>
+	<wgs:long>7.3</wgs:long>
+	<skos:altLabel>Great Brother</skos:altLabel>
+	<skos:altLabel>Hermano Grande</skos:altLabel>
+	<skos:altLabel>Irmão Grande</skos:altLabel>
+	<skos:altLabel>Tinhosa Grande</skos:altLabel>
+	<skos:prefLabel>Tinhosa Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410753/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>0.03333</wgs:lat>
+	<wgs:long>6.63333</wgs:long>
+	<skos:altLabel>Sete Pedras</skos:altLabel>
+	<skos:altLabel>Seven Stones</skos:altLabel>
+	<skos:prefLabel>Sete Pedras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>175808</europeana:population>
+	<wgs:lat>1</wgs:lat>
+	<wgs:long>7</wgs:long>
+	<skos:altLabel>Colónia de São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Democratic Republic of Sao Tome and Principe</skos:altLabel>
+	<skos:altLabel xml:lang="la">Insulae Sancti Tomae et Principis</skos:altLabel>
+	<skos:altLabel>Province of Sao Tome and Principe</skos:altLabel>
+	<skos:altLabel>Província de São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República Democrática de São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel>ST</skos:altLabel>
+	<skos:altLabel>Saint Thomas and Prince</skos:altLabel>
+	<skos:altLabel>Saint Thomas and Principe</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Saint Tome és Principe</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Saluda-Tomeän e Prinsipeän</skos:altLabel>
+	<skos:altLabel xml:lang="gl">San Tomé e Príncipe - São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="an">San Tomé y Prenzipe</skos:altLabel>
+	<skos:altLabel xml:lang="lt">San Tomė ir Principė</skos:altLabel>
+	<skos:altLabel xml:lang="lt">San Tomė ir Prinsipė</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Santo Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santo Tomé y Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Santome un Prinsipi</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Santu Tomé mpé Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Sao Tome a Principe</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Sao Tome agus Principe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sao Tome and Principe</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Sao Tome and Principe</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sao Tome dan Principe</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Sao Tome dan Principe</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Sao Tome dan Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sao Tome dhe Principe</skos:altLabel>
+	<skos:altLabel xml:lang="io">Sao Tome e Principe</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sao Tome e Prinsipe</skos:altLabel>
+	<skos:altLabel xml:lang="af">Sao Tome en Principe</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Sao Tome eta Principe</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sao Tome i Principe</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sao Tome in Principe</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Sao Tome na Principe</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Sao Tome og Principe</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Sao Tome og Principe</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sao Tome og Principe</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Sao Tome og Prinsipi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Sao Tome ve Principe</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sao Tome şi Principe</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sao Tomè e Principe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sao Tomé en Principe</skos:altLabel>
+	<skos:altLabel xml:lang="af">Sao Tomé en Principe</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Sao Tomé eta Principe</skos:altLabel>
+	<skos:altLabel xml:lang="et">Sao Tomé ja Principe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sao Tomé ja Principe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sao Tomé och Principe</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sao Tomé og Principe</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sao Tomé und Principe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sao Tomé-et-Principe</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sao-Tomeo kaj Principeo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Saó Tóme og Prinsípe</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Sen Tommas ha Pryns</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatý Tomáš</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatý Tomáš a Princův ostrov</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveti Toma i Princip</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sveti Toma i Princip</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveti Toma i Prinsipe</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätý Tom a Principe</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätý Tomáš</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätý Tomáš a Princove ostrovy</skos:altLabel>
+	<skos:altLabel>São Thomé and Principe</skos:altLabel>
+	<skos:altLabel xml:lang="hr">São Tomé and Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">São Tomé and Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="tr">São Tomé and Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="en">São Tomé and Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="tl">São Tomé at Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="it">São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="ia">São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="oc">São Tomé e Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="af">São Tomé en Principe</skos:altLabel>
+	<skos:altLabel xml:lang="ca">São Tomé i Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="lt">São Tomé ir Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="et">São Tomé ja Principe</skos:altLabel>
+	<skos:altLabel xml:lang="fi">São Tomé ja Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="et">São Tomé ja Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="se">São Tomé ja Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">São Tomé och Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="da">São Tomé og Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="no">São Tomé og Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="nn">São Tomé og Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="is">São Tomé og Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="de">São Tomé und Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="vi">São Tomé và Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="hu">São Tomé és Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="ro">São Tomé şi Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">São Tomé-et-Principe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">São Tomé-et-Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Săo Tomé và Príncipe</skos:altLabel>
+	<skos:altLabel xml:lang="id">S�o Tom� and Pr�ncipe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Świętego Tomasza i Książęca</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xao Tô-mê và Prin-xi-pê</skos:altLabel>
+	<skos:altLabel xml:lang="el">Άγιος Θωμάς και Πρίνσιπε</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σάο Τομέ και Πρίνσιπε</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сан Томе та Принсіпі</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сан-Томе и Принсипе</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сан-Томе и Принсипи</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сан-Томе і Прінсіпі</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сан-Томэ і Прынсіпі</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сао Томе и Принсипе</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сао Томе и Принсипи</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сао Томе и Принципе</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сао Томе и Принципе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сао Томе и Принципе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сао Томе и Принципи</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սան-Թոմե-Փրինսիպի</skos:altLabel>
+	<skos:altLabel xml:lang="he">סאו טומה ופרינסיפה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سائو تومه و پرینسیپه</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سائوتومه و پرینسیپ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سان تومي وبرينسيبي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ساو تومي وبرينسيبي</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ساوتومې او پرنسيپه</skos:altLabel>
+	<skos:altLabel xml:lang="hi">श?ओ टोम? अन्द फ्र?न्चिपे</skos:altLabel>
+	<skos:altLabel xml:lang="hi">साउ-तोम-प्रिंसिप</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সাও থোম ও প্রিন্সিপ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซาวตูเมและปรินซิปี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเซาตูเมและปรินซิปี</skos:altLabel>
+	<skos:altLabel xml:lang="th">เซาโตเมและปรินซิเป</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ས་འོ་ཏོད་མད། དང༌། པ྄རིན་སི་པེ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სან-ტომესა და პრინსიპის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="ka">საო-ტომე და პრინსიპი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳን ቶሜ እና ፕሪንሲፔ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳኦ ቶሜ እና ፕሪንሲፔ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サントメ プリンシペ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サントメ・プリンシペ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣多美和普林西比</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣多美普林西比</skos:altLabel>
+	<skos:altLabel xml:lang="ko">상토메 프린스페</skos:altLabel>
+	<skos:altLabel xml:lang="ko">상투메 프린시페</skos:altLabel>
+	<skos:prefLabel>Sao Tome and Principe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.2</wgs:lat>
+	<wgs:long>6.65</wgs:long>
+	<skos:altLabel>Ilha de São Tomé</skos:altLabel>
+	<skos:altLabel>Isla de Santo Tomé</skos:altLabel>
+	<skos:altLabel>Isla de São-Thomé</skos:altLabel>
+	<skos:altLabel>Saint Thomas Island</skos:altLabel>
+	<skos:altLabel>Île San Thomé</skos:altLabel>
+	<skos:prefLabel>Ilha de São Tomé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>53300</europeana:population>
+	<wgs:lat>0.33654</wgs:lat>
+	<wgs:long>6.72732</wgs:long>
+	<skos:altLabel>Salazar</skos:altLabel>
+	<skos:altLabel xml:lang="lt">San Tomė</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santo Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="io">Sao Tome</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Sao Tome</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sao Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sao-Tomeo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätý Tomáš</skos:altLabel>
+	<skos:altLabel>Sào Thomé</skos:altLabel>
+	<skos:altLabel xml:lang="en">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="no">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="de">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="fi">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="hr">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="pl">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="sv">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="it">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="da">São Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="da">Söo Tomé</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σάο Τομέ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сан-Томе</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сао Томе</skos:altLabel>
+	<skos:altLabel xml:lang="he">סאו טומה</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳን ቶሜ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サントメ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">상투메</skos:altLabel>
+	<skos:prefLabel>São Tomé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>157000</europeana:population>
+	<wgs:lat>0.2</wgs:lat>
+	<wgs:long>6.65</wgs:long>
+	<skos:altLabel>São Tomé</skos:altLabel>
+	<skos:prefLabel>São Tomé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.13333</wgs:lat>
+	<wgs:long>6.48333</wgs:long>
+	<skos:prefLabel>Ilhéu São Miguel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.25</wgs:lat>
+	<wgs:long>6.76667</wgs:long>
+	<skos:altLabel>Ilhéu Postilhão</skos:altLabel>
+	<skos:altLabel>Ilhéu de Sant’Ana</skos:altLabel>
+	<skos:prefLabel>Ilhéu de Sant’Ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.66667</wgs:lat>
+	<wgs:long>7.45</wgs:long>
+	<skos:altLabel>Ilha Santa Ana</skos:altLabel>
+	<skos:altLabel>Ilheu de Roque</skos:altLabel>
+	<skos:altLabel>Ilhéu Santa Ana</skos:altLabel>
+	<skos:altLabel>Ilhéu Santana</skos:altLabel>
+	<skos:altLabel>Roques Island</skos:altLabel>
+	<skos:prefLabel>Ilhéu Santana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.06667</wgs:lat>
+	<wgs:long>6.6</wgs:long>
+	<skos:altLabel>Ilhéu Kixiba</skos:altLabel>
+	<skos:altLabel>Ilhéu Quixibá</skos:altLabel>
+	<skos:prefLabel>Ilhéu Quixibá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.61667</wgs:lat>
+	<wgs:long>7.41667</wgs:long>
+	<skos:altLabel>Ilha do Príncipe</skos:altLabel>
+	<skos:altLabel>Prince’s Island</skos:altLabel>
+	<skos:altLabel>Île du Prince</skos:altLabel>
+	<skos:altLabel>Île du Principe</skos:altLabel>
+	<skos:prefLabel>Ilha do Príncipe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410878/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5000</europeana:population>
+	<wgs:lat>1.61667</wgs:lat>
+	<wgs:long>7.41667</wgs:long>
+	<skos:altLabel>Príncipe</skos:altLabel>
+	<skos:prefLabel>Príncipe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.53333</wgs:lat>
+	<wgs:long>7.38333</wgs:long>
+	<skos:altLabel>Ilhéu Antonio Enes</skos:altLabel>
+	<skos:altLabel>Ilhéu Portinho</skos:altLabel>
+	<skos:prefLabel>Ilhéu Portinho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2410985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>1.68333</wgs:lat>
+	<wgs:long>7.48333</wgs:long>
+	<skos:altLabel>Ilheo Mosteiros</skos:altLabel>
+	<skos:altLabel>Ilhéus dos Mosteiros</skos:altLabel>
+	<skos:prefLabel>Ilhéus dos Mosteiros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.1</wgs:lat>
+	<wgs:long>6.51667</wgs:long>
+	<skos:altLabel>Ilhéu Macaco</skos:altLabel>
+	<skos:altLabel>Ilhéu dos Côcos</skos:altLabel>
+	<skos:prefLabel>Ilhéu Macaco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.18333</wgs:lat>
+	<wgs:long>6.46667</wgs:long>
+	<skos:altLabel>Ilhéu Joana de Sousa</skos:altLabel>
+	<skos:altLabel>Ilhéu Joana de Souza</skos:altLabel>
+	<skos:prefLabel>Ilhéu Joana de Sousa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.73333</wgs:lat>
+	<wgs:long>7.38333</wgs:long>
+	<skos:altLabel>Galé Rock</skos:altLabel>
+	<skos:altLabel>Pedra da Galé</skos:altLabel>
+	<skos:prefLabel>Pedra da Galé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-0.01667</wgs:lat>
+	<wgs:long>6.53333</wgs:long>
+	<skos:altLabel>Ilha Gago Coutinho</skos:altLabel>
+	<skos:altLabel>Ilhéu Gago Coutinho</skos:altLabel>
+	<skos:altLabel>Ilhéu das Rôlas</skos:altLabel>
+	<skos:prefLabel>Ilhéu Gago Coutinho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.13333</wgs:lat>
+	<wgs:long>6.48333</wgs:long>
+	<skos:prefLabel>Ilhéu Gabado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.13333</wgs:lat>
+	<wgs:long>6.48333</wgs:long>
+	<skos:altLabel>Ilhéu Formoso</skos:altLabel>
+	<skos:altLabel>Ilhéu Formozo</skos:altLabel>
+	<skos:prefLabel>Ilhéu Formoso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.2</wgs:lat>
+	<wgs:long>6.46667</wgs:long>
+	<skos:altLabel>Ilheo Coco</skos:altLabel>
+	<skos:altLabel>Ilhéu Coco</skos:altLabel>
+	<skos:prefLabel>Ilhéu Coco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.51667</wgs:lat>
+	<wgs:long>7.43333</wgs:long>
+	<skos:altLabel>Carocho Islet</skos:altLabel>
+	<skos:altLabel>Dutchman’s Cap</skos:altLabel>
+	<skos:altLabel>Ilheu Boné de Joquei</skos:altLabel>
+	<skos:altLabel>Ilhéu Caroço</skos:altLabel>
+	<skos:prefLabel>Ilhéu Caroço</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.4</wgs:lat>
+	<wgs:long>6.71667</wgs:long>
+	<skos:altLabel>Cobras</skos:altLabel>
+	<skos:altLabel>Ilhéu das Cabras</skos:altLabel>
+	<skos:prefLabel>Ilhéu das Cabras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>1.7</wgs:lat>
+	<wgs:long>7.4</wgs:long>
+	<skos:altLabel>Ilhéu Bombom</skos:altLabel>
+	<skos:prefLabel>Ilhéu Bombom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2410758/"/>
+	<europeana:country>ST</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>0.13333</wgs:lat>
+	<wgs:long>6.48333</wgs:long>
+	<skos:prefLabel>Balsa Voador</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 26 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

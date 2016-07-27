@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:actime="http://semium.org/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2008/05/skos#"
+    xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+
+AnnoCultor time ontology, manually edited list of cultural and artistic periods.
+
+ -->
+
+<rdf:Description rdf:about="http://semium.org/time/coptic">
+	<rdf:type rdf:resource="http://semium.org/time/Period"/>
+    <dcterms:isPartOf rdf:resource="http://semium.org/time/Time"/>
+    <actime:beginDate>300-01-01</actime:beginDate>
+    <actime:endDate>900-12-31</actime:endDate>
+</rdf:Description>
+
+</rdf:RDF>

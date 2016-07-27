@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_AW
+Description: Selected fields pulled from Geonames about AW done on Mon May 23 21:14:15 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>29998</europeana:population>
+	<wgs:lat>12.52398</wgs:lat>
+	<wgs:long>-70.02703</wgs:long>
+	<skos:altLabel xml:lang="id">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="af">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="io">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="no">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="de">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="it">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="da">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="el">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="es">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Oranjestad</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ораниестад</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ораньестад</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オラニエスタッド</skos:altLabel>
+	<skos:prefLabel>Oranjestad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.41667</wgs:lat>
+	<wgs:long>-69.9</wgs:long>
+	<skos:prefLabel>Indiaanskop</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLL"/>
+	<europeana:population>40627</europeana:population>
+	<wgs:lat>12.53333</wgs:lat>
+	<wgs:long>-69.98333</wgs:long>
+	<skos:prefLabel>Babijn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLIX"/>
+	<europeana:population>71566</europeana:population>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-69.96667</wgs:long>
+	<skos:altLabel>AW</skos:altLabel>
+	<skos:altLabel xml:lang="id">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="da">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="et">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="se">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Aruba</skos:altLabel>
+	<skos:altLabel>Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Arubo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Arúba</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αρούμπα</skos:altLabel>
+	<skos:altLabel xml:lang="be">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="he">ארובה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">آروبا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آروبا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अरूबा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আরুবা</skos:altLabel>
+	<skos:altLabel xml:lang="th">อารูบา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອາລູບາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨ་རུ་བ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">არუბა</skos:altLabel>
+	<skos:altLabel xml:lang="am">አሩባ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルバ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿鲁巴岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아루바</skos:altLabel>
+	<skos:prefLabel>Aruba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>12.5</wgs:lat>
+	<wgs:long>-69.96667</wgs:long>
+	<skos:altLabel xml:lang="id">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="af">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="da">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="li">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="et">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="io">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="an">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="br">Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Aruba</skos:altLabel>
+	<skos:altLabel>Aruba</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Arubo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Arúba</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αρούμπα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Аруба</skos:altLabel>
+	<skos:altLabel xml:lang="he">ארובה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أروبا</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আরুবা</skos:altLabel>
+	<skos:altLabel xml:lang="th">อารูบา</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルバ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿魯巴</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아루바</skos:altLabel>
+	<skos:prefLabel>Aruba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14649</europeana:population>
+	<wgs:lat>12.61667</wgs:lat>
+	<wgs:long>-70.06667</wgs:long>
+	<skos:altLabel>Arashi</skos:altLabel>
+	<skos:altLabel>Arasji</skos:altLabel>
+	<skos:prefLabel>Arasji</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3577284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLL"/>
+	<europeana:population>29442</europeana:population>
+	<wgs:lat>12.51667</wgs:lat>
+	<wgs:long>-69.95</wgs:long>
+	<skos:prefLabel>Angochi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6620377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3577279/"/>
+	<europeana:country>AW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>12.51663</wgs:lat>
+	<wgs:long>-70.03332</wgs:long>
+	<skos:prefLabel>Aruba (general)</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 7 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

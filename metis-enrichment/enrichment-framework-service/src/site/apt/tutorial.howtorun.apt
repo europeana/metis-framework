@@ -1,0 +1,34 @@
+            ------
+            Tutorial: How to run
+            ------
+ 
+
+Converter
+
+ Please, check out AnnoCultor from Subversion, and look at the demos
+ (directory <<<demos>>>) to see how a custom converter can be built
+ and executed. 
+ 
+JDK
+ 
+ JDK 6 is required.
+  
+Command line 
+
+ In the demo examples converters are located in <<<profile/profile.xml>>>
+ and working directories are assumed to be called <<work>> 
+ (you may choose any other). To run a demo you need execute the following command
+ from the directory of the demo 
+ (e.g. {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/icn/convert.bat}ICN <<<convert.bat>>>}}):
+  
++------------------------------------------------------------------+ 
+convert
++------------------------------------------------------------------+
+
+ Please, refer to file <<<pom.xml>>> 
+ (e.g. {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/icn/pom.xml}ICN <<<pom.xml>>>}}) for more details on how it works.
+ 
+Results
+ 
+ After a run you should get a lot of console messages and, if lucky,
+ some files in the <<<outputDir>>> set in the converter.

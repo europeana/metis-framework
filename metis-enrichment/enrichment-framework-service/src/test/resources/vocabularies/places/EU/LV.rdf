@@ -1,0 +1,2470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_LV
+Description: Selected fields pulled from Geonames about LV done on Mon May 23 21:12:41 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/453754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26963</europeana:population>
+	<wgs:lat>57.54108</wgs:lat>
+	<wgs:long>25.42751</wgs:long>
+	<skos:altLabel>Valmeena</skos:altLabel>
+	<skos:altLabel>Valmeera</skos:altLabel>
+	<skos:altLabel>Valmera</skos:altLabel>
+	<skos:altLabel>Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="en">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="de">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="et">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Valmiera</skos:altLabel>
+	<skos:altLabel xml:lang="no">Valmiera</skos:altLabel>
+	<skos:altLabel>Valmieras</skos:altLabel>
+	<skos:altLabel>Vol'mar</skos:altLabel>
+	<skos:altLabel>Wolmar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Валмиера</skos:altLabel>
+	<skos:prefLabel>Valmiera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/453845/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>56.51667</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:prefLabel>Zirgu Salas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/453846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.01667</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Zirgu Island</skos:altLabel>
+	<skos:prefLabel>Zirgu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/453993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.93346</wgs:lat>
+	<wgs:long>24.11842</wgs:long>
+	<skos:altLabel>Ostrov Zakyusala</skos:altLabel>
+	<skos:altLabel>Zaķu Island</skos:altLabel>
+	<skos:altLabel>Zaķusala</skos:altLabel>
+	<skos:prefLabel>Zaķusala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.18333</wgs:lat>
+	<wgs:long>22.16667</wgs:long>
+	<skos:altLabel>Ostrov Viskuzhi</skos:altLabel>
+	<skos:altLabel>Viskūžu Sala</skos:altLabel>
+	<skos:prefLabel>Viskūžu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.33333</wgs:lat>
+	<wgs:long>21.83333</wgs:long>
+	<skos:altLabel>Ventspils Rajons</skos:altLabel>
+	<skos:altLabel>Ventspilsskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ventspils Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>42644</europeana:population>
+	<wgs:lat>57.38944</wgs:lat>
+	<wgs:long>21.56056</wgs:long>
+	<skos:altLabel>Ventspils</skos:altLabel>
+	<skos:altLabel>Vindau</skos:altLabel>
+	<skos:altLabel>Vindava</skos:altLabel>
+	<skos:altLabel>Wentspils</skos:altLabel>
+	<skos:altLabel xml:lang="de">Windau</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вентспилс</skos:altLabel>
+	<skos:prefLabel>Ventspils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.40611</wgs:lat>
+	<wgs:long>21.60167</wgs:long>
+	<skos:altLabel xml:lang="lt">Ventspilis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ventspils</skos:altLabel>
+	<skos:altLabel>Ventspils</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вентспилс</skos:altLabel>
+	<skos:altLabel xml:lang="be">Вэнтспілс</skos:altLabel>
+	<skos:altLabel xml:lang="zh">文茨皮尔斯</skos:altLabel>
+	<skos:prefLabel>Ventspils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.985</wgs:lat>
+	<wgs:long>24.10972</wgs:long>
+	<skos:altLabel>Great Vejzaku Island</skos:altLabel>
+	<skos:altLabel>Lielā Vējzaķu Sala</skos:altLabel>
+	<skos:altLabel>Vējzaķa Island</skos:altLabel>
+	<skos:altLabel>Vējzaķu Sala</skos:altLabel>
+	<skos:prefLabel>Vējzaķa Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454432/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/457954/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>85260</europeana:population>
+	<wgs:lat>56.53333</wgs:lat>
+	<wgs:long>21.01667</wgs:long>
+	<skos:altLabel>Old Libau</skos:altLabel>
+	<skos:altLabel>Old Liepāja</skos:altLabel>
+	<skos:altLabel>Staraya Libava</skos:altLabel>
+	<skos:altLabel>Vec-Liepāja</skos:altLabel>
+	<skos:prefLabel>Vec-Liepāja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>58629</europeana:population>
+	<wgs:lat>57.75</wgs:lat>
+	<wgs:long>25.25</wgs:long>
+	<skos:altLabel>Valmieras Rajons</skos:altLabel>
+	<skos:altLabel>Valmiyerskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Valmieras Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>33348</europeana:population>
+	<wgs:lat>57.58333</wgs:lat>
+	<wgs:long>25.91667</wgs:long>
+	<skos:altLabel>Valkas Rajons</skos:altLabel>
+	<skos:altLabel>Valkskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Valkas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18348</europeana:population>
+	<wgs:lat>56.96694</wgs:lat>
+	<wgs:long>23.15528</wgs:long>
+	<skos:altLabel>Tukkum</skos:altLabel>
+	<skos:altLabel>Tukum</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tukumas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tukums</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tukums</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tukums</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tukums</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tukums</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tukums</skos:altLabel>
+	<skos:altLabel>Tukums</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тукумс</skos:altLabel>
+	<skos:prefLabel>Tukums</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>52357</europeana:population>
+	<wgs:lat>56.91667</wgs:lat>
+	<wgs:long>23</wgs:long>
+	<skos:altLabel>Tukuma Rajons</skos:altLabel>
+	<skos:altLabel>Tukumskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Tukuma Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>48425</europeana:population>
+	<wgs:lat>57.33333</wgs:lat>
+	<wgs:long>22.58333</wgs:long>
+	<skos:altLabel>Talsinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Talsu Rajons</skos:altLabel>
+	<skos:prefLabel>Talsu Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/454970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12022</europeana:population>
+	<wgs:lat>57.24562</wgs:lat>
+	<wgs:long>22.58137</wgs:long>
+	<skos:altLabel xml:lang="lt">Talsai</skos:altLabel>
+	<skos:altLabel>Talsen</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Talsi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Talsi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Talsi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Talsi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Talsi</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Talsi</skos:altLabel>
+	<skos:altLabel>Talsi</skos:altLabel>
+	<skos:altLabel>Talsy</skos:altLabel>
+	<skos:altLabel>Telsy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Талси</skos:altLabel>
+	<skos:prefLabel>Talsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/455718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10422</europeana:population>
+	<wgs:lat>57.15194</wgs:lat>
+	<wgs:long>24.86472</wgs:long>
+	<skos:altLabel>Segewold</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="et">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sigulda</skos:altLabel>
+	<skos:altLabel>Sigulda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СИГУЛДА</skos:altLabel>
+	<skos:prefLabel>Sigulda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/455888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>37892</europeana:population>
+	<wgs:lat>56.66667</wgs:lat>
+	<wgs:long>22.5</wgs:long>
+	<skos:altLabel>Saldus Rajons</skos:altLabel>
+	<skos:altLabel>Saldusskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Saldus Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/455890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12224</europeana:population>
+	<wgs:lat>56.66363</wgs:lat>
+	<wgs:long>22.48807</wgs:long>
+	<skos:altLabel>Frauenburg</skos:altLabel>
+	<skos:altLabel>Saldus</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Салдус</skos:altLabel>
+	<skos:prefLabel>Saldus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/455898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17606</europeana:population>
+	<wgs:lat>56.86014</wgs:lat>
+	<wgs:long>24.36544</wgs:long>
+	<skos:altLabel>Kirchholm</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kirkholm</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Salaspilis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="et">Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="no">Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="de">Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Salaspils</skos:altLabel>
+	<skos:altLabel>Salaspils</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Саласпилс</skos:altLabel>
+	<skos:prefLabel>Salaspils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>139676</europeana:population>
+	<wgs:lat>57</wgs:lat>
+	<wgs:long>24.33333</wgs:long>
+	<skos:altLabel>Rizhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Rīgas Rajons</skos:altLabel>
+	<skos:prefLabel>Rīgas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>742572</europeana:population>
+	<wgs:lat>56.946</wgs:lat>
+	<wgs:long>24.10589</wgs:long>
+	<skos:altLabel xml:lang="id">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="es">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="da">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="io">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="br">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Riga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Rigo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Riia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Riika</skos:altLabel>
+	<skos:altLabel>Rija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ryga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ryga</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ríga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Rīga</skos:altLabel>
+	<skos:altLabel xml:lang="br">Rīga</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Rīga</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ρίγα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">РИГА</skos:altLabel>
+	<skos:altLabel xml:lang="os">Ригæ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Рига</skos:altLabel>
+	<skos:altLabel xml:lang="be">Рыґа</skos:altLabel>
+	<skos:altLabel xml:lang="he">ריגה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ريغا</skos:altLabel>
+	<skos:altLabel xml:lang="mr">रिगा</skos:altLabel>
+	<skos:altLabel xml:lang="th">ริกา</skos:altLabel>
+	<skos:altLabel xml:lang="ka">რიგა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሪጋ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リガ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">里加</skos:altLabel>
+	<skos:altLabel xml:lang="ko">리가</skos:altLabel>
+	<skos:prefLabel>Riga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>742596</europeana:population>
+	<wgs:lat>56.97778</wgs:lat>
+	<wgs:long>24.12167</wgs:long>
+	<skos:altLabel>Gorod Riga</skos:altLabel>
+	<skos:altLabel>Rīga</skos:altLabel>
+	<skos:prefLabel>Rīga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>27.16667</wgs:long>
+	<skos:altLabel>Rezeknenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Rēzeknes Rajons</skos:altLabel>
+	<skos:prefLabel>Rēzeknes Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>38340</europeana:population>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>27.31667</wgs:long>
+	<skos:altLabel xml:lang="eo">Rezekne</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Rezekne</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Rezekne</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Rezeknė</skos:altLabel>
+	<skos:altLabel>Rezhitsa</skos:altLabel>
+	<skos:altLabel>Rositten</skos:altLabel>
+	<skos:altLabel>Ryezhitsa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rzeżyca</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="et">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="no">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="es">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="it">Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Rēzekne</skos:altLabel>
+	<skos:altLabel>Rēzekne</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Rėzeknė</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ρέζεκνε</skos:altLabel>
+	<skos:altLabel xml:lang="ru">РЕЗЕКНЕ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Резекне</skos:altLabel>
+	<skos:altLabel xml:lang="he">רזקנה</skos:altLabel>
+	<skos:prefLabel>Rēzekne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.51028</wgs:lat>
+	<wgs:long>27.34</wgs:long>
+	<skos:altLabel>Rēzekne</skos:altLabel>
+	<skos:prefLabel>Rēzekne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.99528</wgs:lat>
+	<wgs:long>24.09889</wgs:long>
+	<skos:altLabel>Fogelholm</skos:altLabel>
+	<skos:altLabel>Putnu Island</skos:altLabel>
+	<skos:altLabel>Vogelholm</skos:altLabel>
+	<skos:prefLabel>Putnu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>40536</europeana:population>
+	<wgs:lat>56.33333</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Preiļu Rajons</skos:altLabel>
+	<skos:altLabel>Preyl’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Preiļu Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/456804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>56.95</wgs:lat>
+	<wgs:long>24.08333</wgs:long>
+	<skos:altLabel>Kip-Poldu</skos:altLabel>
+	<skos:altLabel>Peldu Island</skos:altLabel>
+	<skos:altLabel>Poldu</skos:altLabel>
+	<skos:prefLabel>Peldu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12584</europeana:population>
+	<wgs:lat>56.78528</wgs:lat>
+	<wgs:long>23.93806</wgs:long>
+	<skos:altLabel>Olaine</skos:altLabel>
+	<skos:altLabel>Olayne</skos:altLabel>
+	<skos:prefLabel>Olaine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>61120</europeana:population>
+	<wgs:lat>56.75</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Ogres Rajons</skos:altLabel>
+	<skos:altLabel>Ogrskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ogres Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25818</europeana:population>
+	<wgs:lat>56.8162</wgs:lat>
+	<wgs:long>24.61401</wgs:long>
+	<skos:altLabel xml:lang="en">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ogre</skos:altLabel>
+	<skos:altLabel>Ogre</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Uogrė</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ОГРЕ</skos:altLabel>
+	<skos:prefLabel>Ogre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457226/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.93333</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Mūku Island</skos:altLabel>
+	<skos:prefLabel>Mūku Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.93333</wgs:lat>
+	<wgs:long>24.13333</wgs:long>
+	<skos:altLabel>Muižas Island</skos:altLabel>
+	<skos:prefLabel>Muižas Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.2</wgs:lat>
+	<wgs:long>22.15</wgs:long>
+	<skos:altLabel>Morica Sala</skos:altLabel>
+	<skos:altLabel>Morichalve</skos:altLabel>
+	<skos:altLabel>Moricsala</skos:altLabel>
+	<skos:altLabel>Moritzholm</skos:altLabel>
+	<skos:altLabel>Ostrov Morits</skos:altLabel>
+	<skos:prefLabel>Moricsala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.51667</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:altLabel>Klein Pferde-Insel</skos:altLabel>
+	<skos:altLabel>Mazā Zirgu Sala</skos:altLabel>
+	<skos:prefLabel>Mazā Zirgu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.98333</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Little Vejzaku Island</skos:altLabel>
+	<skos:altLabel>Mazā Veizaķa Island</skos:altLabel>
+	<skos:prefLabel>Mazā Vējzaķu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.18333</wgs:lat>
+	<wgs:long>22.18333</wgs:long>
+	<skos:prefLabel>Mazalksnīts Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>45093</europeana:population>
+	<wgs:lat>56.83333</wgs:lat>
+	<wgs:long>26.25</wgs:long>
+	<skos:altLabel>Madonas Rajons</skos:altLabel>
+	<skos:altLabel>Madonskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Madonas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>34113</europeana:population>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>27.75</wgs:long>
+	<skos:altLabel>Ludzas Rajons</skos:altLabel>
+	<skos:altLabel>Ludzenskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ludzas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10514</europeana:population>
+	<wgs:lat>56.55</wgs:lat>
+	<wgs:long>27.71667</wgs:long>
+	<skos:altLabel>Lucyn</skos:altLabel>
+	<skos:altLabel>Ludsen</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ludza</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Ludza</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ludza</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Ludza</skos:altLabel>
+	<skos:altLabel>Ludza</skos:altLabel>
+	<skos:altLabel>Ludze</skos:altLabel>
+	<skos:altLabel>Lyutsin</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λούντζα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛУДЗА</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лудза</skos:altLabel>
+	<skos:altLabel xml:lang="be">Люцын</skos:altLabel>
+	<skos:altLabel xml:lang="he">לודזה</skos:altLabel>
+	<skos:prefLabel>Ludza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.92417</wgs:lat>
+	<wgs:long>24.11833</wgs:long>
+	<skos:altLabel>Lucav Island</skos:altLabel>
+	<skos:altLabel>Lucava Sala</skos:altLabel>
+	<skos:altLabel>Lucavas Sala</skos:altLabel>
+	<skos:altLabel>Lucavsala</skos:altLabel>
+	<skos:altLabel>Ostrov Lutsavas-sala</skos:altLabel>
+	<skos:altLabel>Ostrov Lutsavsala</skos:altLabel>
+	<skos:prefLabel>Lucavsala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10073</europeana:population>
+	<wgs:lat>56.35431</wgs:lat>
+	<wgs:long>26.17579</wgs:long>
+	<skos:altLabel>Livany</skos:altLabel>
+	<skos:altLabel xml:lang="en">Līvāni</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛИВАНЫ</skos:altLabel>
+	<skos:prefLabel>Līvāni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>39018</europeana:population>
+	<wgs:lat>57.58333</wgs:lat>
+	<wgs:long>24.66667</wgs:long>
+	<skos:altLabel>Limbazhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Limbažu Rajons</skos:altLabel>
+	<skos:prefLabel>Limbažu Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>45519</europeana:population>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>21.41667</wgs:long>
+	<skos:altLabel>Liepājas Rajons</skos:altLabel>
+	<skos:altLabel>Liyepayskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Liepājas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>85132</europeana:population>
+	<wgs:lat>56.51667</wgs:lat>
+	<wgs:long>21.01667</wgs:long>
+	<skos:altLabel>Leepaja</skos:altLabel>
+	<skos:altLabel>Lepaya</skos:altLabel>
+	<skos:altLabel>Libau</skos:altLabel>
+	<skos:altLabel>Libava</skos:altLabel>
+	<skos:altLabel>Liepaiya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Liepaja</skos:altLabel>
+	<skos:altLabel xml:lang="da">Liepaja</skos:altLabel>
+	<skos:altLabel>Liepaya</skos:altLabel>
+	<skos:altLabel>Liepoja</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Liepoja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="es">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="et">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="it">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="no">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Liepāja</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Liepāja</skos:altLabel>
+	<skos:altLabel>Liepāja</skos:altLabel>
+	<skos:altLabel>Lietaja</skos:altLabel>
+	<skos:altLabel>Lietaya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lipawa</skos:altLabel>
+	<skos:altLabel>Liyepaya</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιεπάγια</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λιεπαγια</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лиепая</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ліепая</skos:altLabel>
+	<skos:altLabel xml:lang="he">ליפאיה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">リエパーヤ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">리에파야</skos:altLabel>
+	<skos:prefLabel>Liepāja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/457955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>85260</europeana:population>
+	<wgs:lat>56.54194</wgs:lat>
+	<wgs:long>21.03667</wgs:long>
+	<skos:altLabel>Liepāja</skos:altLabel>
+	<skos:prefLabel>Liepāja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.51667</wgs:lat>
+	<wgs:long>21.03333</wgs:long>
+	<skos:altLabel>Gross Pferde-Insel</skos:altLabel>
+	<skos:altLabel>Lielā Zirgu Sala</skos:altLabel>
+	<skos:prefLabel>Lielā Zirgu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.18333</wgs:lat>
+	<wgs:long>22.13333</wgs:long>
+	<skos:altLabel>Lielalksnīts Sala</skos:altLabel>
+	<skos:altLabel>Ostrov Liyelalksnits</skos:altLabel>
+	<skos:prefLabel>Lielalksnīts Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.01667</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Liela Ilķeniesu Island</skos:altLabel>
+	<skos:prefLabel>Lielā Iļķeniešu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.18333</wgs:lat>
+	<wgs:long>22.13333</wgs:long>
+	<skos:prefLabel>Lielā Alkšņu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>2217969</europeana:population>
+	<wgs:lat>57</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel xml:lang="ga">An Laitvia</skos:altLabel>
+	<skos:altLabel>LV</skos:altLabel>
+	<skos:altLabel xml:lang="so">Laatfiya</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Laitbhia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Latfia</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Latvi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="br">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="sc">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Latvia</skos:altLabel>
+	<skos:altLabel>Latvian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Latvija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Latvija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Latvija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Latvija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Latvija</skos:altLabel>
+	<skos:altLabel>Latvijas Padomju Socialistiska Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Latvijas Republika</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Latvio</skos:altLabel>
+	<skos:altLabel xml:lang="az">Latviya</skos:altLabel>
+	<skos:altLabel>Latviyskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Latviyän</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Latvja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Latvujo</skos:altLabel>
+	<skos:altLabel xml:lang="af">Letland</skos:altLabel>
+	<skos:altLabel xml:lang="da">Letland</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Letland</skos:altLabel>
+	<skos:altLabel xml:lang="li">Letland</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Letlân</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Letoni</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Letoni</skos:altLabel>
+	<skos:altLabel xml:lang="es">Letonia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Letonia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Letonia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Letonia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Letonia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Letonia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Letonia - Latvija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Letonija</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Letonija</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Letonya</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Letonya</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lettland</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lettland</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Lettland</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Lettland</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Lettland</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lettonia</skos:altLabel>
+	<skos:altLabel xml:lang="co">Lettonia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Lettonia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Lettonia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Lettonia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Lettonie</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Lettország</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Letònia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Letònia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Letónia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Letônia</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Lituniya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Litunya</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Lotyšsko</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lotyšsko</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lát-vi-a</skos:altLabel>
+	<skos:altLabel xml:lang="se">Látvia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Läti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Latvia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Łotwa</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λετονία</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λεττονία</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Латви</skos:altLabel>
+	<skos:altLabel xml:lang="os">Латви</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Латвия</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Латвия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Латвия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Латвија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Латвія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Латвія</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Летония</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Летонија</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լատվիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">לאטביה</skos:altLabel>
+	<skos:altLabel xml:lang="he">לטביה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">לעטלאנד</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لاتفيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لاتویا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">لاتۋىيە</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لتونی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">لٹوِیا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लाटविया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लातविया</skos:altLabel>
+	<skos:altLabel xml:lang="ne">लात्भिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लात्विया</skos:altLabel>
+	<skos:altLabel xml:lang="mr">लात्व्हिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লাতভিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লাত্ভিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லாட்வியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലാത്വിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศลัตเวีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ลัตเวีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ลัทเวีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລຼາດເວຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལཏ་བི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლატვია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ላትቪያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ឡាតវីយ៉ា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ラトビア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ラトビア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拉脫維亞</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拉脱维亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">라트비아</skos:altLabel>
+	<skos:prefLabel>Republic of Latvia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.01972</wgs:lat>
+	<wgs:long>24.09778</wgs:long>
+	<skos:altLabel>Kurpnieku Island</skos:altLabel>
+	<skos:altLabel>Kurpnieku Sala</skos:altLabel>
+	<skos:altLabel>Kurpniyeksala</skos:altLabel>
+	<skos:prefLabel>Kurpnieku Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Kundzin Island</skos:altLabel>
+	<skos:altLabel>Kundziņsala</skos:altLabel>
+	<skos:prefLabel>Kundziņsala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458459/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>37112</europeana:population>
+	<wgs:lat>56.83333</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Kuldigskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kuldīgas Rajons</skos:altLabel>
+	<skos:prefLabel>Kuldīgas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13289</europeana:population>
+	<wgs:lat>56.97399</wgs:lat>
+	<wgs:long>21.95721</wgs:long>
+	<skos:altLabel xml:lang="de">Goldingen</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kuldiga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kuldyga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kuldīga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kuldīga</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kuldīga</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kuldīga</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kuldīga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kuldīga</skos:altLabel>
+	<skos:altLabel>Kuldīga</skos:altLabel>
+	<skos:altLabel>Kuldīgas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кулдига</skos:altLabel>
+	<skos:prefLabel>Kuldīga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>35778</europeana:population>
+	<wgs:lat>56.08333</wgs:lat>
+	<wgs:long>27.5</wgs:long>
+	<skos:altLabel>Kraslavskiy Rayon</skos:altLabel>
+	<skos:altLabel>Krāslavas Rajons</skos:altLabel>
+	<skos:prefLabel>Krāslavas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458623/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11088</europeana:population>
+	<wgs:lat>55.89514</wgs:lat>
+	<wgs:long>27.16799</wgs:long>
+	<skos:altLabel>Kraaslava</skos:altLabel>
+	<skos:altLabel>Kreslavka</skos:altLabel>
+	<skos:altLabel>Kreslawka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Krāslava</skos:altLabel>
+	<skos:altLabel>Krāslava</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КРАСЛАВА</skos:altLabel>
+	<skos:prefLabel>Krāslava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/458808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.95611</wgs:lat>
+	<wgs:long>24.08139</wgs:long>
+	<skos:altLabel>Kip Island</skos:altLabel>
+	<skos:altLabel>Kip Ostrov</skos:altLabel>
+	<skos:altLabel>Ostrov Kipsala</skos:altLabel>
+	<skos:altLabel>Ķipu Sala</skos:altLabel>
+	<skos:altLabel>Ķīpsala</skos:altLabel>
+	<skos:prefLabel>Ķīpsala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>54088</europeana:population>
+	<wgs:lat>56.968</wgs:lat>
+	<wgs:long>23.77038</wgs:long>
+	<skos:altLabel xml:lang="ca">Jurmala</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jurmala</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jurmala</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Jurmala</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jūrmala</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Jūrmala</skos:altLabel>
+	<skos:altLabel>Riga Beach</skos:altLabel>
+	<skos:altLabel xml:lang="de">Riga-Strand</skos:altLabel>
+	<skos:altLabel>Rigas Iurmala</skos:altLabel>
+	<skos:altLabel>Rigas Yurmala</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rigastrand</skos:altLabel>
+	<skos:altLabel>Rizhskoye Vzmor'ye</skos:altLabel>
+	<skos:altLabel>Rīgas Jormalas Pilsēta</skos:altLabel>
+	<skos:altLabel>Rīgas Jūrmala</skos:altLabel>
+	<skos:altLabel>Yuomala</skos:altLabel>
+	<skos:altLabel>Yurmala</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Юрмала</skos:altLabel>
+	<skos:prefLabel>Jūrmala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.95198</wgs:lat>
+	<wgs:long>23.69531</wgs:long>
+	<skos:prefLabel>Jūrmala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>36054</europeana:population>
+	<wgs:lat>56.58333</wgs:lat>
+	<wgs:long>23.75</wgs:long>
+	<skos:altLabel>Jelgavas Rajons</skos:altLabel>
+	<skos:altLabel>Yelgavskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Jelgavas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>61791</europeana:population>
+	<wgs:lat>56.65</wgs:lat>
+	<wgs:long>23.71278</wgs:long>
+	<skos:altLabel>Elgava</skos:altLabel>
+	<skos:altLabel>Iyelgava</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jelgava</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Jelgava</skos:altLabel>
+	<skos:altLabel>Jelgava</skos:altLabel>
+	<skos:altLabel>Jelgawa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mitau</skos:altLabel>
+	<skos:altLabel>Mitava</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mitawa</skos:altLabel>
+	<skos:altLabel>Yelgava</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Елгава</skos:altLabel>
+	<skos:altLabel xml:lang="be">Елґава</skos:altLabel>
+	<skos:prefLabel>Jelgava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>61791</europeana:population>
+	<wgs:lat>56.65111</wgs:lat>
+	<wgs:long>23.71639</wgs:long>
+	<skos:altLabel>Jelgava</skos:altLabel>
+	<skos:prefLabel>Jelgava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.33333</wgs:lat>
+	<wgs:long>25.83333</wgs:long>
+	<skos:altLabel>Jēkabpils Rajons</skos:altLabel>
+	<skos:altLabel>Yekabpilsskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Jēkabpils Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27078</europeana:population>
+	<wgs:lat>56.49903</wgs:lat>
+	<wgs:long>25.85735</wgs:long>
+	<skos:altLabel>Jakobstadt</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jekabpilis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jēkabpils</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jēkabpils</skos:altLabel>
+	<skos:altLabel>Jēkabpils</skos:altLabel>
+	<skos:altLabel>Kreuzburg</skos:altLabel>
+	<skos:altLabel>Krustpils</skos:altLabel>
+	<skos:altLabel>Yakabpils</skos:altLabel>
+	<skos:altLabel>Yekabpils</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЕКАБПИЛС</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Йекабпилс</skos:altLabel>
+	<skos:prefLabel>Jēkabpils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.01667</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Gulbju Flat</skos:altLabel>
+	<skos:altLabel>Gulbju Island</skos:altLabel>
+	<skos:altLabel>Gulbju Sēklis</skos:altLabel>
+	<skos:prefLabel>Gulbju Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/459664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>27424</europeana:population>
+	<wgs:lat>57.16667</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Gulbenes Rajons</skos:altLabel>
+	<skos:altLabel>Gulbenskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Gulbenes Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.01194</wgs:lat>
+	<wgs:long>24.12167</wgs:long>
+	<skos:altLabel>Daudera Island</skos:altLabel>
+	<skos:altLabel>Doudera Island</skos:altLabel>
+	<skos:altLabel>Doudera Sala</skos:altLabel>
+	<skos:altLabel>Doudersala</skos:altLabel>
+	<skos:prefLabel>Doudersala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.85</wgs:lat>
+	<wgs:long>24.25</wgs:long>
+	<skos:altLabel>Doles Sala</skos:altLabel>
+	<skos:altLabel>Ostrov Doles Sala</skos:altLabel>
+	<skos:prefLabel>Doles Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.58333</wgs:lat>
+	<wgs:long>23.16667</wgs:long>
+	<skos:altLabel>Dobeles Rajons</skos:altLabel>
+	<skos:altLabel>Dobel’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Dobeles Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11225</europeana:population>
+	<wgs:lat>56.625</wgs:lat>
+	<wgs:long>23.27861</wgs:long>
+	<skos:altLabel xml:lang="pl">Dobele</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dobele</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dobele</skos:altLabel>
+	<skos:altLabel xml:lang="et">Dobele</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dobele</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dobele</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dobele</skos:altLabel>
+	<skos:altLabel>Dobele</skos:altLabel>
+	<skos:altLabel>Doblen</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Duobelė</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Добеле</skos:altLabel>
+	<skos:prefLabel>Dobele</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.91667</wgs:lat>
+	<wgs:long>26.5</wgs:long>
+	<skos:altLabel>Daugavpils Rajons</skos:altLabel>
+	<skos:altLabel>Daugavpilsskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Daugavpils Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>111564</europeana:population>
+	<wgs:lat>55.88333</wgs:lat>
+	<wgs:long>26.53333</wgs:long>
+	<skos:altLabel xml:lang="en">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="de">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="da">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="et">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="it">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="no">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="es">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Daugavpils</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Daugavpils</skos:altLabel>
+	<skos:altLabel>Daugavpils</skos:altLabel>
+	<skos:altLabel>Daugawpils</skos:altLabel>
+	<skos:altLabel>Daugpilis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Daugpilis</skos:altLabel>
+	<skos:altLabel>Dvinsk</skos:altLabel>
+	<skos:altLabel>Dwinsk</skos:altLabel>
+	<skos:altLabel>Dyneburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dünaburg</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Väinänlinna</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ДАУГАВПИЛС</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Даугавпилс</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Даугавпилс</skos:altLabel>
+	<skos:altLabel xml:lang="be">Даўґаўпілс</skos:altLabel>
+	<skos:altLabel xml:lang="he">דאוגבפילס</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ダウガフピルス</skos:altLabel>
+	<skos:altLabel xml:lang="ko">다우가프필스</skos:altLabel>
+	<skos:prefLabel>Daugavpils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55.88139</wgs:lat>
+	<wgs:long>26.53889</wgs:long>
+	<skos:altLabel>Daugavpils</skos:altLabel>
+	<skos:prefLabel>Daugavpils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.03333</wgs:lat>
+	<wgs:long>24</wgs:long>
+	<skos:altLabel>Buļļu Sala</skos:altLabel>
+	<skos:altLabel>Daugavgrīvas Sala</skos:altLabel>
+	<skos:altLabel>Dunamond Island</skos:altLabel>
+	<skos:altLabel>Dünamund Island</skos:altLabel>
+	<skos:altLabel>Dünamünde</skos:altLabel>
+	<skos:altLabel>Düünamünde</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ostrov Bull’u</skos:altLabel>
+	<skos:altLabel>Ostrov Daugavgriva</skos:altLabel>
+	<skos:altLabel>Ostrov Dinamyund</skos:altLabel>
+	<skos:prefLabel>Buļļu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>58890</europeana:population>
+	<wgs:lat>57.25</wgs:lat>
+	<wgs:long>25.5</wgs:long>
+	<skos:altLabel>Cēsu Rajons</skos:altLabel>
+	<skos:altLabel>Tsesisskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Cēsu Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18198</europeana:population>
+	<wgs:lat>57.31188</wgs:lat>
+	<wgs:long>25.27456</wgs:long>
+	<skos:altLabel xml:lang="en">Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="et">Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Cēsis</skos:altLabel>
+	<skos:altLabel>Cēsis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Cėsys</skos:altLabel>
+	<skos:altLabel>Tsesis</skos:altLabel>
+	<skos:altLabel>Venden</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wenden</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЦЕСИС</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Цесис</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ツェーシス</skos:altLabel>
+	<skos:prefLabel>Cēsis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/456172/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>14771</europeana:population>
+	<wgs:lat>57.03132</wgs:lat>
+	<wgs:long>24.05571</wgs:long>
+	<skos:altLabel xml:lang="de">Bolderaa</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bolderāja</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Болдерай</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Болдерая</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Больдераа</skos:altLabel>
+	<skos:prefLabel>Bolderaja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/460984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.91667</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Bieķeņ Island</skos:altLabel>
+	<skos:prefLabel>Bieķiņa Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>51666</europeana:population>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>24.33333</wgs:long>
+	<skos:altLabel>Bauskas Rajons</skos:altLabel>
+	<skos:altLabel>Bauskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Bauskas Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10532</europeana:population>
+	<wgs:lat>56.4075</wgs:lat>
+	<wgs:long>24.19056</wgs:long>
+	<skos:altLabel xml:lang="en">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bauska</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bauska</skos:altLabel>
+	<skos:altLabel>Bauska</skos:altLabel>
+	<skos:altLabel>Bauske</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bauskė</skos:altLabel>
+	<skos:altLabel>Bosko</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БАУСКА</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бауска</skos:altLabel>
+	<skos:prefLabel>Bauska</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>29780</europeana:population>
+	<wgs:lat>57.08333</wgs:lat>
+	<wgs:long>27.5</wgs:long>
+	<skos:altLabel>Balvskiy Rayon</skos:altLabel>
+	<skos:altLabel>Balvu Rajons</skos:altLabel>
+	<skos:prefLabel>Balvu Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>21.01667</wgs:long>
+	<skos:altLabel>Attacken-Insel</skos:altLabel>
+	<skos:altLabel>Attekas Sala</skos:altLabel>
+	<skos:altLabel>Atteku Sala</skos:altLabel>
+	<skos:prefLabel>Atteku Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.96667</wgs:lat>
+	<wgs:long>24.1</wgs:long>
+	<skos:altLabel>Andrej Sala</skos:altLabel>
+	<skos:altLabel>Andreja Island</skos:altLabel>
+	<skos:altLabel>Andreyevskiy Ostrov</skos:altLabel>
+	<skos:prefLabel>Andreja Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461525/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>25667</europeana:population>
+	<wgs:lat>57.41667</wgs:lat>
+	<wgs:long>27</wgs:long>
+	<skos:altLabel>Aluksnenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Alūksnes Rajons</skos:altLabel>
+	<skos:prefLabel>Alūksnes Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/461613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>40690</europeana:population>
+	<wgs:lat>56.5</wgs:lat>
+	<wgs:long>25.16667</wgs:long>
+	<skos:altLabel>Aizkraukles Rajons</skos:altLabel>
+	<skos:altLabel>Ayzkraukl’skiy</skos:altLabel>
+	<skos:altLabel>Stuchkinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Stučkas Rajons</skos:altLabel>
+	<skos:prefLabel>Aizkraukles Rajons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/829150/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.36667</wgs:lat>
+	<wgs:long>21.58861</wgs:long>
+	<skos:prefLabel>Bridas Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.29472</wgs:lat>
+	<wgs:long>23.09472</wgs:long>
+	<skos:prefLabel>Lielā Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>56.98194</wgs:lat>
+	<wgs:long>23.05556</wgs:long>
+	<skos:prefLabel>Jaunmoku Pils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.99306</wgs:lat>
+	<wgs:long>23.46139</wgs:long>
+	<skos:prefLabel>Mērsala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>56.83556</wgs:lat>
+	<wgs:long>24.44167</wgs:long>
+	<skos:prefLabel>Nāves Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.04333</wgs:lat>
+	<wgs:long>24.05139</wgs:long>
+	<skos:altLabel xml:lang="lv">Mīlestības Saliņa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Любви</skos:altLabel>
+	<skos:prefLabel>Mīlestības Saliņa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.02861</wgs:lat>
+	<wgs:long>24.07722</wgs:long>
+	<skos:prefLabel>Krievu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.02417</wgs:lat>
+	<wgs:long>24.28194</wgs:long>
+	<skos:prefLabel>Auzu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.02944</wgs:lat>
+	<wgs:long>24.29278</wgs:long>
+	<skos:prefLabel>Mazā Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.03083</wgs:lat>
+	<wgs:long>24.28111</wgs:long>
+	<skos:prefLabel>Priežu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.0375</wgs:lat>
+	<wgs:long>24.30278</wgs:long>
+	<skos:prefLabel>Liepu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.04083</wgs:lat>
+	<wgs:long>24.3075</wgs:long>
+	<skos:prefLabel>Ropažu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.14278</wgs:lat>
+	<wgs:long>24.31861</wgs:long>
+	<skos:prefLabel>Kalna Ulmaņa Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.14194</wgs:lat>
+	<wgs:long>24.33194</wgs:long>
+	<skos:prefLabel>Krievu Sala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/864781/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>57.15417</wgs:lat>
+	<wgs:long>24.35556</wgs:long>
+	<skos:altLabel>Persala</skos:altLabel>
+	<skos:altLabel>Pērssala</skos:altLabel>
+	<skos:prefLabel>Pērssala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.56667</wgs:lat>
+	<wgs:long>22.39472</wgs:long>
+	<skos:prefLabel>Dundagas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.97556</wgs:lat>
+	<wgs:long>21.55444</wgs:long>
+	<skos:prefLabel>Alsungas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.80639</wgs:lat>
+	<wgs:long>21.22389</wgs:long>
+	<skos:prefLabel>Pāvilostas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.34917</wgs:lat>
+	<wgs:long>21.09</wgs:long>
+	<skos:prefLabel>Nīcas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.21167</wgs:lat>
+	<wgs:long>21.20972</wgs:long>
+	<skos:prefLabel>Rucavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.48694</wgs:lat>
+	<wgs:long>21.23556</wgs:long>
+	<skos:prefLabel>Grobiņas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.6075</wgs:lat>
+	<wgs:long>21.39528</wgs:long>
+	<skos:prefLabel>Durbes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.71667</wgs:lat>
+	<wgs:long>21.56889</wgs:long>
+	<skos:prefLabel>Aizputes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.4325</wgs:lat>
+	<wgs:long>21.565</wgs:long>
+	<skos:prefLabel>Priekules Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.45056</wgs:lat>
+	<wgs:long>21.82833</wgs:long>
+	<skos:prefLabel>Vaiņodes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.66111</wgs:lat>
+	<wgs:long>21.98889</wgs:long>
+	<skos:prefLabel>Skrundas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.71417</wgs:lat>
+	<wgs:long>22.65667</wgs:long>
+	<skos:prefLabel>Brocēnu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.45111</wgs:lat>
+	<wgs:long>22.82647</wgs:long>
+	<skos:prefLabel>Rojas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.95667</wgs:lat>
+	<wgs:long>22.705</wgs:long>
+	<skos:prefLabel>Kandavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.46306</wgs:lat>
+	<wgs:long>22.96278</wgs:long>
+	<skos:prefLabel>Auces Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.75917</wgs:lat>
+	<wgs:long>22.92694</wgs:long>
+	<skos:prefLabel>Jaunpils Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.0275</wgs:lat>
+	<wgs:long>23.28389</wgs:long>
+	<skos:prefLabel>Engures Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.42611</wgs:lat>
+	<wgs:long>23.31694</wgs:long>
+	<skos:prefLabel>Tērvetes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.65139</wgs:lat>
+	<wgs:long>23.92806</wgs:long>
+	<skos:prefLabel>Ozolnieku Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.41056</wgs:lat>
+	<wgs:long>23.97472</wgs:long>
+	<skos:prefLabel>Rundāles Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.88889</wgs:lat>
+	<wgs:long>23.76611</wgs:long>
+	<skos:prefLabel>Babītes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.88639</wgs:lat>
+	<wgs:long>23.95889</wgs:long>
+	<skos:prefLabel>Mārupes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.79139</wgs:lat>
+	<wgs:long>23.94806</wgs:long>
+	<skos:prefLabel>Olaines Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.60944</wgs:lat>
+	<wgs:long>24.20667</wgs:long>
+	<skos:prefLabel>Iecavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.79806</wgs:lat>
+	<wgs:long>24.22639</wgs:long>
+	<skos:prefLabel>Ķekavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.87444</wgs:lat>
+	<wgs:long>24.35056</wgs:long>
+	<skos:prefLabel>Salaspils Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.73111</wgs:lat>
+	<wgs:long>24.3725</wgs:long>
+	<skos:prefLabel>Baldones Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.93778</wgs:lat>
+	<wgs:long>24.32361</wgs:long>
+	<skos:prefLabel>Stopiņu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.11722</wgs:lat>
+	<wgs:long>24.24583</wgs:long>
+	<skos:prefLabel>Carnikavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.10917</wgs:lat>
+	<wgs:long>24.37944</wgs:long>
+	<skos:prefLabel>Ādažu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.01778</wgs:lat>
+	<wgs:long>24.37056</wgs:long>
+	<skos:prefLabel>Garkalnes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.49611</wgs:lat>
+	<wgs:long>24.63444</wgs:long>
+	<skos:prefLabel>Vecumnieku Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.66833</wgs:lat>
+	<wgs:long>24.74722</wgs:long>
+	<skos:prefLabel>Ķeguma Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.7175</wgs:lat>
+	<wgs:long>24.95556</wgs:long>
+	<skos:prefLabel>Lielvārdes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.6725</wgs:lat>
+	<wgs:long>25.09694</wgs:long>
+	<skos:prefLabel>Skrīveru Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.51417</wgs:lat>
+	<wgs:long>25.29583</wgs:long>
+	<skos:prefLabel>Jaunjelgavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.31528</wgs:lat>
+	<wgs:long>25.155</wgs:long>
+	<skos:prefLabel>Neretas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.29889</wgs:lat>
+	<wgs:long>25.51944</wgs:long>
+	<skos:prefLabel>Viesītes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.48222</wgs:lat>
+	<wgs:long>25.70639</wgs:long>
+	<skos:prefLabel>Salas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.50111</wgs:lat>
+	<wgs:long>25.86917</wgs:long>
+	<skos:prefLabel>Jēkabpils</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.14639</wgs:lat>
+	<wgs:long>25.80889</wgs:long>
+	<skos:prefLabel>Aknīstes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.01167</wgs:lat>
+	<wgs:long>26.14833</wgs:long>
+	<skos:prefLabel>Ilūkstes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.22556</wgs:lat>
+	<wgs:long>26.50278</wgs:long>
+	<skos:prefLabel>Vārkavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.37139</wgs:lat>
+	<wgs:long>26.35056</wgs:long>
+	<skos:prefLabel>Līvānu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.63333</wgs:lat>
+	<wgs:long>26.63444</wgs:long>
+	<skos:prefLabel>Varakļānu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.56333</wgs:lat>
+	<wgs:long>26.89611</wgs:long>
+	<skos:prefLabel>Viļānu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.35806</wgs:lat>
+	<wgs:long>26.82556</wgs:long>
+	<skos:prefLabel>Riebiņu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.10667</wgs:lat>
+	<wgs:long>27.10056</wgs:long>
+	<skos:prefLabel>Aglonas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.59278</wgs:lat>
+	<wgs:long>27.86944</wgs:long>
+	<skos:prefLabel>Ciblas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.3225</wgs:lat>
+	<wgs:long>28.11111</wgs:long>
+	<skos:prefLabel>Zilupes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.18222</wgs:lat>
+	<wgs:long>27.65417</wgs:long>
+	<skos:prefLabel>Viļakas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.91694</wgs:lat>
+	<wgs:long>27.61</wgs:long>
+	<skos:prefLabel>Baltinavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.12028</wgs:lat>
+	<wgs:long>27.64444</wgs:long>
+	<skos:prefLabel>Dagdas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.76333</wgs:lat>
+	<wgs:long>27.67639</wgs:long>
+	<skos:prefLabel>Kārsavas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.9825</wgs:lat>
+	<wgs:long>27.0975</wgs:long>
+	<skos:prefLabel>Rugāju Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.0075</wgs:lat>
+	<wgs:long>26.27667</wgs:long>
+	<skos:prefLabel>Cesvaines Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.9275</wgs:lat>
+	<wgs:long>26.73556</wgs:long>
+	<skos:prefLabel>Lubānas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.54917</wgs:lat>
+	<wgs:long>26.17278</wgs:long>
+	<skos:prefLabel>Krustpils Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.67861</wgs:lat>
+	<wgs:long>25.7225</wgs:long>
+	<skos:prefLabel>Pļaviņu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.71028</wgs:lat>
+	<wgs:long>25.46333</wgs:long>
+	<skos:prefLabel>Kokneses Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.86028</wgs:lat>
+	<wgs:long>24.58361</wgs:long>
+	<skos:prefLabel>Ikšķiles Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.96639</wgs:lat>
+	<wgs:long>24.59639</wgs:long>
+	<skos:prefLabel>Ropažu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.10222</wgs:lat>
+	<wgs:long>24.65083</wgs:long>
+	<skos:prefLabel>Inčukalna Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.21306</wgs:lat>
+	<wgs:long>24.79306</wgs:long>
+	<skos:prefLabel>Krimuldas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.12972</wgs:lat>
+	<wgs:long>24.86389</wgs:long>
+	<skos:prefLabel>Siguldas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.18917</wgs:lat>
+	<wgs:long>25.05917</wgs:long>
+	<skos:prefLabel>Līgatnes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.99444</wgs:lat>
+	<wgs:long>24.97306</wgs:long>
+	<skos:prefLabel>Mālpils Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.21222</wgs:lat>
+	<wgs:long>24.54611</wgs:long>
+	<skos:prefLabel>Sējas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.25139</wgs:lat>
+	<wgs:long>24.42611</wgs:long>
+	<skos:prefLabel>Saulkrastu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.74028</wgs:lat>
+	<wgs:long>24.45194</wgs:long>
+	<skos:prefLabel>Salacgrīvas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.80083</wgs:lat>
+	<wgs:long>24.83528</wgs:long>
+	<skos:prefLabel>Alojas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.915</wgs:lat>
+	<wgs:long>25.45028</wgs:long>
+	<skos:prefLabel>Naukšēnu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.93528</wgs:lat>
+	<wgs:long>25.22417</wgs:long>
+	<skos:prefLabel>Rūjienas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.91194</wgs:lat>
+	<wgs:long>25.03306</wgs:long>
+	<skos:prefLabel>Mazsalacas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.70056</wgs:lat>
+	<wgs:long>25.35528</wgs:long>
+	<skos:prefLabel>Burtnieku Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.36833</wgs:lat>
+	<wgs:long>25.06611</wgs:long>
+	<skos:prefLabel>Pārgaujas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.5375</wgs:lat>
+	<wgs:long>25.19056</wgs:long>
+	<skos:altLabel>Kocēnu Novads</skos:altLabel>
+	<skos:altLabel>Valmieras Novads</skos:altLabel>
+	<skos:prefLabel>Kocēnu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.10167</wgs:lat>
+	<wgs:long>25.31556</wgs:long>
+	<skos:prefLabel>Amatas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.35417</wgs:lat>
+	<wgs:long>25.46361</wgs:long>
+	<skos:prefLabel>Priekuļu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.33222</wgs:lat>
+	<wgs:long>25.65639</wgs:long>
+	<skos:prefLabel>Raunas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.62611</wgs:lat>
+	<wgs:long>25.78306</wgs:long>
+	<skos:prefLabel>Strenču Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.52306</wgs:lat>
+	<wgs:long>25.59444</wgs:long>
+	<skos:prefLabel>Beverīnas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.40667</wgs:lat>
+	<wgs:long>26.01083</wgs:long>
+	<skos:prefLabel>Smiltenes Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.15</wgs:lat>
+	<wgs:long>25.97361</wgs:long>
+	<skos:prefLabel>Jaunpiebalgas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>56.89806</wgs:lat>
+	<wgs:long>25.67333</wgs:long>
+	<skos:prefLabel>Ērgļu Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.09917</wgs:lat>
+	<wgs:long>25.70361</wgs:long>
+	<skos:prefLabel>Vecpiebalgas Novads</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7628384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/458258/"/>
+	<europeana:country>LV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>57.46694</wgs:lat>
+	<wgs:long>26.52056</wgs:long>
+	<skos:prefLabel>Apes Novads</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 188 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

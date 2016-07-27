@@ -1,0 +1,34 @@
+            ------
+            Tutorial: Reports
+            ------
+ 
+
+How to get
+
+ Ensure that parameter <<<docDir>>> is set in your converter:
+ 
++------------------------------------------------------------------+
+ <ac:Parameter>
+  <ac:name>docDir</ac:name>
+  <ac:value>doc</ac:value>
+ </ac:Parameter>
++------------------------------------------------------------------+
+
+ After a _successful_ conversion a directory named after the converter id, 
+ holding file <<<index.html>>> should be created in the directory specified with <<<docDir>>>,
+ holding a conversion report.   
+ 
+What is there
+
+ The most important things are:
+ 
+ * Rule invocation 
+ 
+  Rule invocation counters tell how many times each rule was used.
+  
+ * Forgotten XML tags
+ 
+ Section Forgotten XML tags lists XMLtags that are not converted. Possibly because they were
+ overlooked and a corresponding conversion rule was not created.
+ 
+ 

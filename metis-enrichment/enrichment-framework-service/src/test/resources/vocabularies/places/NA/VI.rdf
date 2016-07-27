@@ -1,0 +1,3555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_VI
+Description: Selected fields pulled from Geonames about VI done on Mon May 23 21:14:43 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4046952/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35218</wgs:lat>
+	<wgs:long>-64.7768</wgs:long>
+	<skos:prefLabel>Estate Denis Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795158/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36051</wgs:lat>
+	<wgs:long>-64.74347</wgs:long>
+	<skos:prefLabel>Abrahams Fancy Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795161/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34801</wgs:lat>
+	<wgs:long>-64.98293</wgs:long>
+	<skos:prefLabel>Estate Adelphi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795164/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34107</wgs:lat>
+	<wgs:long>-64.76764</wgs:long>
+	<skos:prefLabel>Estate Adrian</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795167/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71136</wgs:lat>
+	<wgs:long>-64.80931</wgs:long>
+	<skos:prefLabel>Estate Adventure</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795169/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3494</wgs:lat>
+	<wgs:long>-64.93292</wgs:long>
+	<skos:prefLabel>Estate Agnes Fancy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795176/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74247</wgs:lat>
+	<wgs:long>-64.71431</wgs:long>
+	<skos:prefLabel>Aldershville Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795179/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7447</wgs:lat>
+	<wgs:long>-64.62264</wgs:long>
+	<skos:prefLabel>Estate All for the Better</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795187/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74525</wgs:lat>
+	<wgs:long>-64.69403</wgs:long>
+	<skos:prefLabel>Estate Altona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795188/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34023</wgs:lat>
+	<wgs:long>-64.94487</wgs:long>
+	<skos:prefLabel>Altona Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795192/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33912</wgs:lat>
+	<wgs:long>-64.9407</wgs:long>
+	<skos:prefLabel>Altona-Welgunst Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795202/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70636</wgs:lat>
+	<wgs:long>-64.77987</wgs:long>
+	<skos:prefLabel>Estate Anguilla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795204/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33829</wgs:lat>
+	<wgs:long>-64.88514</wgs:long>
+	<skos:prefLabel>Estate Annas Retreat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795209/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36051</wgs:lat>
+	<wgs:long>-64.73014</wgs:long>
+	<skos:prefLabel>Estate Annaberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795215/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71192</wgs:lat>
+	<wgs:long>-64.77181</wgs:long>
+	<skos:prefLabel>Estate Annaberg and Shannon Grove</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795218/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76331</wgs:lat>
+	<wgs:long>-64.8482</wgs:long>
+	<skos:prefLabel>Estate Annaly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795221/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34523</wgs:lat>
+	<wgs:long>-64.93987</wgs:long>
+	<skos:prefLabel>Estate Annas Fancy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795223/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75858</wgs:lat>
+	<wgs:long>-64.6732</wgs:long>
+	<skos:prefLabel>Estate Annas Hope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795227/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.71081</wgs:lat>
+	<wgs:long>-64.88292</wgs:long>
+	<skos:prefLabel>Athalie McFarlane Petersen Public Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795230/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32579</wgs:lat>
+	<wgs:long>-64.91348</wgs:long>
+	<skos:prefLabel>Estate Bakkero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795238/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31357</wgs:lat>
+	<wgs:long>-64.91459</wgs:long>
+	<skos:prefLabel>Barrel of Beef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795240/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72553</wgs:lat>
+	<wgs:long>-64.76292</wgs:long>
+	<skos:prefLabel>Estate Barren Spot 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795244/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75358</wgs:lat>
+	<wgs:long>-64.68986</wgs:long>
+	<skos:prefLabel>Batteriet Louise Augusta Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795249/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72442</wgs:lat>
+	<wgs:long>-64.84959</wgs:long>
+	<skos:prefLabel>Estate Becks Grove</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795252/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73692</wgs:lat>
+	<wgs:long>-64.72264</wgs:long>
+	<skos:prefLabel>Estate Beeston Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795256/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32718</wgs:lat>
+	<wgs:long>-64.76903</wgs:long>
+	<skos:prefLabel>Estate Bellevue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795258/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77581</wgs:lat>
+	<wgs:long>-64.79903</wgs:long>
+	<skos:prefLabel>Estate Belvedere</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795268/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32579</wgs:lat>
+	<wgs:long>-64.78569</wgs:long>
+	<skos:prefLabel>Estate Bethany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795271/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35773</wgs:lat>
+	<wgs:long>-65.00376</wgs:long>
+	<skos:prefLabel>Bethesda Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795273/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69803</wgs:lat>
+	<wgs:long>-64.79542</wgs:long>
+	<skos:prefLabel>Estate Bethlehem Middle Works</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795275/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7147</wgs:lat>
+	<wgs:long>-64.79209</wgs:long>
+	<skos:prefLabel>Estate Bethlehem Old Works</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795277/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69386</wgs:lat>
+	<wgs:long>-64.81626</wgs:long>
+	<skos:prefLabel>Estate Bettys Hope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795279/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75914</wgs:lat>
+	<wgs:long>-64.79542</wgs:long>
+	<skos:prefLabel>Estate Betsys Jewel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795282/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33412</wgs:lat>
+	<wgs:long>-64.76903</wgs:long>
+	<skos:prefLabel>Estate Beverhoutberg and Esperance</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795285/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76053</wgs:lat>
+	<wgs:long>-64.83292</wgs:long>
+	<skos:prefLabel>Estate Fountain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795291/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7147</wgs:lat>
+	<wgs:long>-64.76487</wgs:long>
+	<skos:prefLabel>Estate Blessing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795292/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.34412</wgs:lat>
+	<wgs:long>-64.68291</wgs:long>
+	<skos:prefLabel>Blinders Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795303/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.84126</wgs:long>
+	<skos:prefLabel>Estate Bodkin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795304/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73108</wgs:lat>
+	<wgs:long>-64.77987</wgs:long>
+	<skos:prefLabel>Estate Body Slob South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795305/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74608</wgs:lat>
+	<wgs:long>-64.67681</wgs:long>
+	<skos:prefLabel>Estate Boetzberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795306/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72803</wgs:lat>
+	<wgs:long>-64.83848</wgs:long>
+	<skos:prefLabel>Estate Allandale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795310/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.31468</wgs:lat>
+	<wgs:long>-64.89625</wgs:long>
+	<skos:prefLabel>Estate Bolongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795315/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74386</wgs:lat>
+	<wgs:long>-64.77042</wgs:long>
+	<skos:prefLabel>Estate Bonne Esperance 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795316/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35496</wgs:lat>
+	<wgs:long>-64.98848</wgs:long>
+	<skos:prefLabel>Estate Bonne Esperance</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795317/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35301</wgs:lat>
+	<wgs:long>-64.95792</wgs:long>
+	<skos:prefLabel>Estate Bonne Resolution</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795318/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30218</wgs:lat>
+	<wgs:long>-64.70986</wgs:long>
+	<skos:prefLabel>Booby Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795324/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33551</wgs:lat>
+	<wgs:long>-64.72319</wgs:long>
+	<skos:prefLabel>Estate Bordeaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795325/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35634</wgs:lat>
+	<wgs:long>-65.02459</wgs:long>
+	<skos:prefLabel>Estate Bordeaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795332/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35218</wgs:lat>
+	<wgs:long>-65.03293</wgs:long>
+	<skos:prefLabel>Estate Little Saint Thomas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795340/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31218</wgs:lat>
+	<wgs:long>-64.87209</wgs:long>
+	<skos:prefLabel>Bovoni Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795341/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.31884</wgs:lat>
+	<wgs:long>-64.88848</wgs:long>
+	<skos:prefLabel>Estate Bovoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795344/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38662</wgs:lat>
+	<wgs:long>-64.97431</wgs:long>
+	<skos:prefLabel>Brass Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795348/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.27523</wgs:lat>
+	<wgs:long>-64.88709</wgs:long>
+	<skos:prefLabel>Broken Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795351/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73692</wgs:lat>
+	<wgs:long>-64.85737</wgs:long>
+	<skos:prefLabel>Estate Brooks Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795355/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36134</wgs:lat>
+	<wgs:long>-64.70791</wgs:long>
+	<skos:prefLabel>Estate Browns Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795361/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.78692</wgs:lat>
+	<wgs:long>-64.61931</wgs:long>
+	<skos:prefLabel>Buck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795362/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.27746</wgs:lat>
+	<wgs:long>-64.89375</wgs:long>
+	<skos:prefLabel>Buck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795369/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72442</wgs:lat>
+	<wgs:long>-64.70931</wgs:long>
+	<skos:prefLabel>Estate Bugby Hole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795378/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75914</wgs:lat>
+	<wgs:long>-64.87737</wgs:long>
+	<skos:prefLabel>Burns Hill Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795382/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.88292</wgs:long>
+	<skos:prefLabel>Buttlers Bay Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795391/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32718</wgs:lat>
+	<wgs:long>-64.70375</wgs:long>
+	<skos:prefLabel>Estate Calabash Boom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795392/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76192</wgs:lat>
+	<wgs:long>-64.87181</wgs:long>
+	<skos:prefLabel>Estate Caledonia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795399/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69386</wgs:lat>
+	<wgs:long>-64.87042</wgs:long>
+	<skos:prefLabel>Camporico Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795402/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35496</wgs:lat>
+	<wgs:long>-64.92098</wgs:long>
+	<skos:prefLabel>Estate Canaan and Sherpenjewel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795407/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68553</wgs:lat>
+	<wgs:long>-64.83431</wgs:long>
+	<skos:prefLabel>Cane Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795408/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70498</wgs:lat>
+	<wgs:long>-64.84404</wgs:long>
+	<skos:prefLabel>Estate Cane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795412/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77303</wgs:lat>
+	<wgs:long>-64.80931</wgs:long>
+	<skos:prefLabel>Estate Cane Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795414/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3369</wgs:lat>
+	<wgs:long>-64.78847</wgs:long>
+	<skos:prefLabel>Estate Caneel Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795425/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.27718</wgs:lat>
+	<wgs:long>-64.89042</wgs:long>
+	<skos:prefLabel>Capella Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795433/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36884</wgs:lat>
+	<wgs:long>-64.98015</wgs:long>
+	<skos:prefLabel>Estate Caret Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795436/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7397</wgs:lat>
+	<wgs:long>-64.67681</wgs:long>
+	<skos:prefLabel>Estate Carina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795439/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68136</wgs:lat>
+	<wgs:long>-64.83709</wgs:long>
+	<skos:prefLabel>Estate Cain Carlton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795440/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70359</wgs:lat>
+	<wgs:long>-64.84959</wgs:long>
+	<skos:prefLabel>Estate Carlton 1 North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795444/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34662</wgs:lat>
+	<wgs:long>-64.7218</wgs:long>
+	<skos:prefLabel>Estate Carolina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795448/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36968</wgs:lat>
+	<wgs:long>-64.79431</wgs:long>
+	<skos:prefLabel>Carval Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795449/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3069</wgs:lat>
+	<wgs:long>-64.86514</wgs:long>
+	<skos:prefLabel>Cas Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795453/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72442</wgs:lat>
+	<wgs:long>-64.80181</wgs:long>
+	<skos:prefLabel>Castle Burk Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795455/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7172</wgs:lat>
+	<wgs:long>-64.67792</wgs:long>
+	<skos:prefLabel>Estate Castle Nugent</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795457/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74942</wgs:lat>
+	<wgs:long>-64.61486</wgs:long>
+	<skos:prefLabel>Estate Catherines Hope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795460/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72247</wgs:lat>
+	<wgs:long>-64.71403</wgs:long>
+	<skos:prefLabel>Estate Catherines Rest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795467/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>20000</europeana:population>
+	<wgs:lat>18.3419</wgs:lat>
+	<wgs:long>-64.9307</wgs:long>
+	<skos:altLabel xml:lang="id">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="en">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="no">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="es">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="da">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="io">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Charlotte Amalie</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Шарлота Амалия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Шарлота Амалија</skos:altLabel>
+	<skos:altLabel xml:lang="he">שארלוט אמאלי</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シャーロット・アマリー</skos:altLabel>
+	<skos:prefLabel>Charlotte Amalie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795468/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32718</wgs:lat>
+	<wgs:long>-64.88986</wgs:long>
+	<skos:prefLabel>Estate Charlotte Amalie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795475/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32023</wgs:lat>
+	<wgs:long>-64.78153</wgs:long>
+	<skos:prefLabel>Estate Chocolate Hole and Great Cruz Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795484/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.74692</wgs:lat>
+	<wgs:long>-64.70264</wgs:long>
+	<skos:prefLabel>Christiansted Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795502/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35634</wgs:lat>
+	<wgs:long>-64.7568</wgs:long>
+	<skos:prefLabel>Cinnamon Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795504/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77581</wgs:lat>
+	<wgs:long>-64.7782</wgs:long>
+	<skos:prefLabel>Estate Clairmont</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795508/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75831</wgs:lat>
+	<wgs:long>-64.64403</wgs:long>
+	<skos:prefLabel>Estate Coakley Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795511/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30412</wgs:lat>
+	<wgs:long>-64.84542</wgs:long>
+	<skos:prefLabel>Calf Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795512/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.40385</wgs:lat>
+	<wgs:long>-65.06043</wgs:long>
+	<skos:prefLabel>Cockroach Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795516/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31384</wgs:lat>
+	<wgs:long>-64.8607</wgs:long>
+	<skos:prefLabel>Coculus Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795520/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3494</wgs:lat>
+	<wgs:long>-64.86431</wgs:long>
+	<skos:prefLabel>Coki Point Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795521/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31523</wgs:lat>
+	<wgs:long>-64.76014</wgs:long>
+	<skos:prefLabel>Cocoloba Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795528/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.31329</wgs:lat>
+	<wgs:long>-64.70375</wgs:long>
+	<skos:prefLabel>Estate Concordia A</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795529/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32023</wgs:lat>
+	<wgs:long>-64.70791</wgs:long>
+	<skos:prefLabel>Estate Concordia B</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795530/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68636</wgs:lat>
+	<wgs:long>-64.87598</wgs:long>
+	<skos:prefLabel>Concordia Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795531/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75636</wgs:lat>
+	<wgs:long>-64.76903</wgs:long>
+	<skos:prefLabel>Estate Concordia East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795533/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36773</wgs:lat>
+	<wgs:long>-64.80264</wgs:long>
+	<skos:prefLabel>Congo Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795541/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32523</wgs:lat>
+	<wgs:long>-64.79125</wgs:long>
+	<skos:prefLabel>Estate Contant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795542/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34246</wgs:lat>
+	<wgs:long>-64.95376</wgs:long>
+	<skos:prefLabel>Estate Contant</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795545/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73636</wgs:lat>
+	<wgs:long>-64.71348</wgs:long>
+	<skos:prefLabel>Estate Contentment</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795555/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71609</wgs:lat>
+	<wgs:long>-64.71209</wgs:long>
+	<skos:prefLabel>Estate Corn Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795557/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75914</wgs:lat>
+	<wgs:long>-64.58153</wgs:long>
+	<skos:prefLabel>Estate Cotton Garden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795559/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73192</wgs:lat>
+	<wgs:long>-64.6357</wgs:long>
+	<skos:prefLabel>Estate Cotton Grove</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795564/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30384</wgs:lat>
+	<wgs:long>-64.84736</wgs:long>
+	<skos:prefLabel>Cow Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795571/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.40829</wgs:lat>
+	<wgs:long>-65.04932</wgs:long>
+	<skos:prefLabel>Cricket Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795579/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32995</wgs:lat>
+	<wgs:long>-64.79403</wgs:long>
+	<skos:prefLabel>Cruz Bay Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795585/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31495</wgs:lat>
+	<wgs:long>-64.83431</wgs:long>
+	<skos:prefLabel>Current Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795598/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34051</wgs:lat>
+	<wgs:long>-64.93987</wgs:long>
+	<skos:prefLabel>Estate Demarara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795606/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70359</wgs:lat>
+	<wgs:long>-64.82459</wgs:long>
+	<skos:prefLabel>Estate Diamond West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795607/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72942</wgs:lat>
+	<wgs:long>-64.75292</wgs:long>
+	<skos:prefLabel>Estate Diamond East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795610/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72247</wgs:lat>
+	<wgs:long>-64.8107</wgs:long>
+	<skos:prefLabel>Estate Lower Love</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795617/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.29579</wgs:lat>
+	<wgs:long>-64.81569</wgs:long>
+	<skos:prefLabel>Dog Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795619/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.29495</wgs:lat>
+	<wgs:long>-64.81236</wgs:long>
+	<skos:prefLabel>Dog Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795620/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33496</wgs:lat>
+	<wgs:long>-65.08432</wgs:long>
+	<skos:prefLabel>Domkirk Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795622/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33662</wgs:lat>
+	<wgs:long>-64.89681</wgs:long>
+	<skos:prefLabel>Estate Donoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795627/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35857</wgs:lat>
+	<wgs:long>-64.96154</wgs:long>
+	<skos:prefLabel>Estate Dorothea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795635/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30134</wgs:lat>
+	<wgs:long>-65.01015</wgs:long>
+	<skos:prefLabel>Dry Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795637/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35356</wgs:lat>
+	<wgs:long>-64.79319</wgs:long>
+	<skos:prefLabel>Durloe Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795639/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.37968</wgs:lat>
+	<wgs:long>-65.06182</wgs:long>
+	<skos:prefLabel>Dutchcap Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795645/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34107</wgs:lat>
+	<wgs:long>-64.66902</wgs:long>
+	<skos:prefLabel>Estate Hansen Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795655/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>18.3294</wgs:lat>
+	<wgs:long>-64.79208</wgs:long>
+	<skos:prefLabel>Elaine Ione Sprauve Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795658/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32412</wgs:lat>
+	<wgs:long>-64.95181</wgs:long>
+	<skos:prefLabel>Elephant Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795659/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3494</wgs:lat>
+	<wgs:long>-64.93515</wgs:long>
+	<skos:prefLabel>Estate Elizabeth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795661/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73692</wgs:lat>
+	<wgs:long>-64.68986</wgs:long>
+	<skos:prefLabel>Estate Elizas Retreat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795665/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35079</wgs:lat>
+	<wgs:long>-64.71069</wgs:long>
+	<skos:prefLabel>Estate Emmaus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795669/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69386</wgs:lat>
+	<wgs:long>-64.83292</wgs:long>
+	<skos:prefLabel>Estate Enfield Green</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795670/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>18.34107</wgs:lat>
+	<wgs:long>-64.93542</wgs:long>
+	<skos:prefLabel>Enid M Baa Library and Archives</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795673/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32857</wgs:lat>
+	<wgs:long>-64.79681</wgs:long>
+	<skos:prefLabel>Estate Enighed</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795678/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69942</wgs:lat>
+	<wgs:long>-64.80237</wgs:long>
+	<skos:prefLabel>Envy Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795684/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75497</wgs:lat>
+	<wgs:long>-64.55236</wgs:long>
+	<skos:prefLabel>Estate A Piece of Land</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795694/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75081</wgs:lat>
+	<wgs:long>-64.71625</wgs:long>
+	<skos:prefLabel>Estate Fangselet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795698/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71553</wgs:lat>
+	<wgs:long>-64.67042</wgs:long>
+	<skos:prefLabel>Estate Fareham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795704/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32162</wgs:lat>
+	<wgs:long>-64.76153</wgs:long>
+	<skos:prefLabel>Estate Fish Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795718/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32662</wgs:lat>
+	<wgs:long>-64.65014</wgs:long>
+	<skos:prefLabel>Flanagan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795720/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31634</wgs:lat>
+	<wgs:long>-64.98987</wgs:long>
+	<skos:prefLabel>Flat Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795721/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31662</wgs:lat>
+	<wgs:long>-64.98959</wgs:long>
+	<skos:prefLabel>Flat Cays</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795724/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.74553</wgs:lat>
+	<wgs:long>-64.70459</wgs:long>
+	<skos:prefLabel>Florence A Williams Public Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795738/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34384</wgs:lat>
+	<wgs:long>-64.70569</wgs:long>
+	<skos:prefLabel>Estate Fortberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795742/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35357</wgs:lat>
+	<wgs:long>-65.00515</wgs:long>
+	<skos:prefLabel>Estate Fortuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795759/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71331</wgs:lat>
+	<wgs:long>-64.86209</wgs:long>
+	<skos:prefLabel>Estate Frederikshaab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795778/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74108</wgs:lat>
+	<wgs:long>-64.71209</wgs:long>
+	<skos:prefLabel>Estate Friedensthal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795782/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34662</wgs:lat>
+	<wgs:long>-64.8732</wgs:long>
+	<skos:prefLabel>Estate Frydendal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795783/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32579</wgs:lat>
+	<wgs:long>-64.86875</wgs:long>
+	<skos:prefLabel>Estate Frydenhoj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795790/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74386</wgs:lat>
+	<wgs:long>-64.69403</wgs:long>
+	<skos:prefLabel>Estate East Street</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795794/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33412</wgs:lat>
+	<wgs:long>-64.77597</wgs:long>
+	<skos:prefLabel>Estate Glucksberg and Grunwald</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795798/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71609</wgs:lat>
+	<wgs:long>-64.80181</wgs:long>
+	<skos:prefLabel>Estate Golden Grove</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795800/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75081</wgs:lat>
+	<wgs:long>-64.72042</wgs:long>
+	<skos:prefLabel>Estate Golden Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795804/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.37773</wgs:lat>
+	<wgs:long>-65.06376</wgs:long>
+	<skos:prefLabel>Gorret Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795808/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.73358</wgs:lat>
+	<wgs:long>-64.75181</wgs:long>
+	<skos:prefLabel>Governor Juan F Luis Hospital and Medical Center Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795809/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30968</wgs:lat>
+	<wgs:long>-64.83264</wgs:long>
+	<skos:prefLabel>Fish Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795813/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.79803</wgs:lat>
+	<wgs:long>-64.71625</wgs:long>
+	<skos:prefLabel>Estate Granard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795816/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73136</wgs:lat>
+	<wgs:long>-64.72125</wgs:long>
+	<skos:prefLabel>Estate Grange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795818/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74831</wgs:lat>
+	<wgs:long>-64.59042</wgs:long>
+	<skos:prefLabel>Estate North Grapetree Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795822/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35912</wgs:lat>
+	<wgs:long>-64.83264</wgs:long>
+	<skos:prefLabel>Grass Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795826/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35134</wgs:lat>
+	<wgs:long>-64.75097</wgs:long>
+	<skos:prefLabel>Estate Great Cinnamon Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795833/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72581</wgs:lat>
+	<wgs:long>-64.64681</wgs:long>
+	<skos:prefLabel>Estate Great Pond</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795834/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30968</wgs:lat>
+	<wgs:long>-64.82875</wgs:long>
+	<skos:prefLabel>Great Saint James Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795835/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.76692</wgs:lat>
+	<wgs:long>-64.6657</wgs:long>
+	<skos:prefLabel>Green Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795836/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31023</wgs:lat>
+	<wgs:long>-64.90792</wgs:long>
+	<skos:prefLabel>Green Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795840/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75831</wgs:lat>
+	<wgs:long>-64.6532</wgs:long>
+	<skos:prefLabel>Estate Green Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795846/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7272</wgs:lat>
+	<wgs:long>-64.82265</wgs:long>
+	<skos:prefLabel>Estate Grove Place</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795847/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7397</wgs:lat>
+	<wgs:long>-64.6307</wgs:long>
+	<skos:prefLabel>Estate Gumbs Land</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795855/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34468</wgs:lat>
+	<wgs:long>-64.76208</wgs:long>
+	<skos:prefLabel>Estate Hammer Farm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795858/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76608</wgs:lat>
+	<wgs:long>-64.88015</wgs:long>
+	<skos:prefLabel>Estate Hams Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795860/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77025</wgs:lat>
+	<wgs:long>-64.87181</wgs:long>
+	<skos:prefLabel>Estate Hams Bluff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795862/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69609</wgs:lat>
+	<wgs:long>-64.87265</wgs:long>
+	<skos:prefLabel>Estate Hannahs Rest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795863/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.39801</wgs:lat>
+	<wgs:long>-64.90792</wgs:long>
+	<skos:prefLabel>Hans Lollik Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795864/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3844</wgs:lat>
+	<wgs:long>-64.90042</wgs:long>
+	<skos:prefLabel>Hans Lollik Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795869/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74108</wgs:lat>
+	<wgs:long>-64.82959</wgs:long>
+	<skos:prefLabel>Estate Hard Labor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795872/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72303</wgs:lat>
+	<wgs:long>-64.66209</wgs:long>
+	<skos:prefLabel>Estate Hartman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795873/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.68386</wgs:lat>
+	<wgs:long>-64.76153</wgs:long>
+	<skos:prefLabel>Harvey Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795875/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3294</wgs:lat>
+	<wgs:long>-64.93542</wgs:long>
+	<skos:prefLabel>Hassel Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795881/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34801</wgs:lat>
+	<wgs:long>-64.68569</wgs:long>
+	<skos:prefLabel>Estate Haulover</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795887/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34523</wgs:lat>
+	<wgs:long>-64.78014</wgs:long>
+	<skos:prefLabel>Estate Hawksnest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795892/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35356</wgs:lat>
+	<wgs:long>-64.79319</wgs:long>
+	<skos:prefLabel>Henley Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795896/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.82164</wgs:lat>
+	<wgs:long>-64.71625</wgs:long>
+	<skos:prefLabel>Estate Hermon Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795899/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74942</wgs:lat>
+	<wgs:long>-64.80459</wgs:long>
+	<skos:prefLabel>Estate Hermitage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795900/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35634</wgs:lat>
+	<wgs:long>-64.70097</wgs:long>
+	<skos:prefLabel>Estate Hermitage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795901/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69775</wgs:lat>
+	<wgs:long>-64.88237</wgs:long>
+	<skos:prefLabel>Hesseeberg Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795904/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33273</wgs:lat>
+	<wgs:long>-64.89403</wgs:long>
+	<skos:prefLabel>Estate Hoffman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795906/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70914</wgs:lat>
+	<wgs:long>-64.84626</wgs:long>
+	<skos:prefLabel>Estate Hogensborg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795910/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33551</wgs:lat>
+	<wgs:long>-64.94265</wgs:long>
+	<skos:prefLabel>Estate Honduras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795916/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.79803</wgs:lat>
+	<wgs:long>-64.75792</wgs:long>
+	<skos:prefLabel>Estate Hope East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795917/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71859</wgs:lat>
+	<wgs:long>-64.83709</wgs:long>
+	<skos:prefLabel>Estate Hope West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795918/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33968</wgs:lat>
+	<wgs:long>-64.74125</wgs:long>
+	<skos:prefLabel>Estate Hope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795919/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36468</wgs:lat>
+	<wgs:long>-65.00237</wgs:long>
+	<skos:prefLabel>Estate Hope</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795921/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68914</wgs:lat>
+	<wgs:long>-64.85237</wgs:long>
+	<skos:prefLabel>Hope and Carlton Land Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795923/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34662</wgs:lat>
+	<wgs:long>-64.92681</wgs:long>
+	<skos:prefLabel>Estate Hospital Ground</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795927/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36746</wgs:lat>
+	<wgs:long>-64.95598</wgs:long>
+	<skos:prefLabel>Estate Hull</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795932/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38301</wgs:lat>
+	<wgs:long>-64.9707</wgs:long>
+	<skos:prefLabel>Inner Brass Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795937/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.57319</wgs:long>
+	<skos:prefLabel>Estate Jacks Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795940/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32523</wgs:lat>
+	<wgs:long>-64.84764</wgs:long>
+	<skos:prefLabel>Jack Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795941/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74831</wgs:lat>
+	<wgs:long>-64.58097</wgs:long>
+	<skos:prefLabel>Estate South Grapetree Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795944/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73636</wgs:lat>
+	<wgs:long>-64.80515</wgs:long>
+	<skos:prefLabel>Jealousy Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795948/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34662</wgs:lat>
+	<wgs:long>-64.98015</wgs:long>
+	<skos:prefLabel>Estate John Brewers Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795955/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.31884</wgs:lat>
+	<wgs:long>-64.70236</wgs:long>
+	<skos:prefLabel>Estate Johns Folly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795959/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73275</wgs:lat>
+	<wgs:long>-64.8607</wgs:long>
+	<skos:prefLabel>Estate Jolly Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795961/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77525</wgs:lat>
+	<wgs:long>-64.74625</wgs:long>
+	<skos:prefLabel>Estate Judiths Fancy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795966/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35051</wgs:lat>
+	<wgs:long>-65.05765</wgs:long>
+	<skos:prefLabel>Kalkun Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795973/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33968</wgs:lat>
+	<wgs:long>-64.92431</wgs:long>
+	<skos:prefLabel>Estate Kings Quarter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795978/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72359</wgs:lat>
+	<wgs:long>-64.78292</wgs:long>
+	<skos:prefLabel>Estate Kingshill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795994/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7022</wgs:lat>
+	<wgs:long>-64.76626</wgs:long>
+	<skos:prefLabel>Krausses Lagune Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4795995/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34023</wgs:lat>
+	<wgs:long>-64.93709</wgs:long>
+	<skos:prefLabel>Kronprindsens Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796001/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72442</wgs:lat>
+	<wgs:long>-64.67875</wgs:long>
+	<skos:prefLabel>Estate La Press Valley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796003/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73275</wgs:lat>
+	<wgs:long>-64.77126</wgs:long>
+	<skos:prefLabel>Estate La Reine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796005/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75914</wgs:lat>
+	<wgs:long>-64.73709</wgs:long>
+	<skos:prefLabel>Estate La Grande Princess</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796011/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32162</wgs:lat>
+	<wgs:long>-64.72597</wgs:long>
+	<skos:prefLabel>Estate Lameshur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796014/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33134</wgs:lat>
+	<wgs:long>-64.87681</wgs:long>
+	<skos:prefLabel>Estate Langmath Mariendal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796019/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77581</wgs:lat>
+	<wgs:long>-64.80237</wgs:long>
+	<skos:prefLabel>Estate La Vallee</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796020/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31634</wgs:lat>
+	<wgs:long>-64.68791</wgs:long>
+	<skos:prefLabel>Leduck Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796026/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36051</wgs:lat>
+	<wgs:long>-64.72041</wgs:long>
+	<skos:prefLabel>Estate Leinster Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796033/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36051</wgs:lat>
+	<wgs:long>-64.94042</wgs:long>
+	<skos:prefLabel>Estate Lerkenlund</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796036/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75636</wgs:lat>
+	<wgs:long>-64.78514</wgs:long>
+	<skos:prefLabel>Estate Lebanon Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796038/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3544</wgs:lat>
+	<wgs:long>-64.95376</wgs:long>
+	<skos:prefLabel>Estate Liliendal and Marienjoj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796041/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31773</wgs:lat>
+	<wgs:long>-64.94626</wgs:long>
+	<skos:prefLabel>Limestone Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796055/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35218</wgs:lat>
+	<wgs:long>-64.96626</wgs:long>
+	<skos:prefLabel>Estate Lindbergh Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796062/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31773</wgs:lat>
+	<wgs:long>-64.98904</wgs:long>
+	<skos:prefLabel>Little Flat Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796064/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.79348</wgs:long>
+	<skos:prefLabel>Estate Little Fountain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796065/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.40912</wgs:lat>
+	<wgs:long>-64.90792</wgs:long>
+	<skos:prefLabel>Little Hans Lollik Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796068/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72581</wgs:lat>
+	<wgs:long>-64.86348</wgs:long>
+	<skos:prefLabel>Estate Little La Grange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796073/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33968</wgs:lat>
+	<wgs:long>-64.71403</wgs:long>
+	<skos:prefLabel>Estate Little Plantation</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796075/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75775</wgs:lat>
+	<wgs:long>-64.72542</wgs:long>
+	<skos:prefLabel>Estate Little Princess North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796076/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72997</wgs:lat>
+	<wgs:long>-64.6282</wgs:long>
+	<skos:prefLabel>Estate Little Profit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796078/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.29995</wgs:lat>
+	<wgs:long>-64.82514</wgs:long>
+	<skos:prefLabel>Little Saint James Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796081/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.38579</wgs:lat>
+	<wgs:long>-64.98987</wgs:long>
+	<skos:prefLabel>Lizard Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796096/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71553</wgs:lat>
+	<wgs:long>-64.69514</wgs:long>
+	<skos:prefLabel>Estate Longford</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796097/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75497</wgs:lat>
+	<wgs:long>-64.58708</wgs:long>
+	<skos:prefLabel>Estate Long Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796099/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35107</wgs:lat>
+	<wgs:long>-64.9232</wgs:long>
+	<skos:prefLabel>Loouisenhoj Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796103/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36245</wgs:lat>
+	<wgs:long>-64.80375</wgs:long>
+	<skos:prefLabel>Lovango Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796107/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34107</wgs:lat>
+	<wgs:long>-64.95042</wgs:long>
+	<skos:prefLabel>Estate Lower John Dunko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796110/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73831</wgs:lat>
+	<wgs:long>-64.67181</wgs:long>
+	<skos:prefLabel>Estate Lowry Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796113/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73692</wgs:lat>
+	<wgs:long>-64.61625</wgs:long>
+	<skos:prefLabel>Estate Madam Carty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796116/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35134</wgs:lat>
+	<wgs:long>-64.93292</wgs:long>
+	<skos:prefLabel>Estate Mafolie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796119/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36134</wgs:lat>
+	<wgs:long>-64.92264</wgs:long>
+	<skos:prefLabel>Estate Magens Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796124/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36051</wgs:lat>
+	<wgs:long>-64.74125</wgs:long>
+	<skos:prefLabel>Estate Maho Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796135/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.30218</wgs:lat>
+	<wgs:long>-64.71069</wgs:long>
+	<skos:prefLabel>Estate Mandal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796136/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35495</wgs:lat>
+	<wgs:long>-64.8982</wgs:long>
+	<skos:prefLabel>Estate Mandal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796142/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70636</wgs:lat>
+	<wgs:long>-64.7982</wgs:long>
+	<skos:prefLabel>Estate Mannings Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796148/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73914</wgs:lat>
+	<wgs:long>-64.66625</wgs:long>
+	<skos:prefLabel>Estate Marienhoj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796162/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.37023</wgs:lat>
+	<wgs:long>-64.74264</wgs:long>
+	<skos:prefLabel>Mary Point Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796166/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74664</wgs:lat>
+	<wgs:long>-64.76348</wgs:long>
+	<skos:prefLabel>Estate Marys Fancy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796176/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35968</wgs:lat>
+	<wgs:long>-64.82014</wgs:long>
+	<skos:prefLabel>Mingo Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796179/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71609</wgs:lat>
+	<wgs:long>-64.83015</wgs:long>
+	<skos:prefLabel>Mint Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796181/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35912</wgs:lat>
+	<wgs:long>-64.93014</wgs:long>
+	<skos:prefLabel>Estate Misgunst</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796183/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32995</wgs:lat>
+	<wgs:long>-64.7493</wgs:long>
+	<skos:prefLabel>Estate Molendal and Little Reef Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796185/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74831</wgs:lat>
+	<wgs:long>-64.78792</wgs:long>
+	<skos:prefLabel>Estate Mon Bijou South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796191/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73831</wgs:lat>
+	<wgs:long>-64.82876</wgs:long>
+	<skos:prefLabel>Estate Plessen 1</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796199/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76136</wgs:lat>
+	<wgs:long>-64.75598</wgs:long>
+	<skos:prefLabel>Estate Montpellier East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796200/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73914</wgs:lat>
+	<wgs:long>-64.84542</wgs:long>
+	<skos:prefLabel>Estate Montpellier West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796203/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75775</wgs:lat>
+	<wgs:long>-64.7607</wgs:long>
+	<skos:prefLabel>Estate Morning Star South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796216/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75636</wgs:lat>
+	<wgs:long>-64.80653</wgs:long>
+	<skos:prefLabel>Estate Mount Eagle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796218/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72442</wgs:lat>
+	<wgs:long>-64.63931</wgs:long>
+	<skos:prefLabel>Estate Mount Fancy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796223/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74525</wgs:lat>
+	<wgs:long>-64.80376</wgs:long>
+	<skos:prefLabel>Estate Colquohoun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796224/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75081</wgs:lat>
+	<wgs:long>-64.66625</wgs:long>
+	<skos:prefLabel>Estate Mount Pleasant East 1</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796225/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71053</wgs:lat>
+	<wgs:long>-64.81737</wgs:long>
+	<skos:prefLabel>Estate Mount Pleasant West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796226/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73553</wgs:lat>
+	<wgs:long>-64.66903</wgs:long>
+	<skos:prefLabel>Estate Mount Pleasant East 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796227/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74525</wgs:lat>
+	<wgs:long>-64.80237</wgs:long>
+	<skos:prefLabel>Mount Pleasant Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796228/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35912</wgs:lat>
+	<wgs:long>-64.69264</wgs:long>
+	<skos:prefLabel>Estate Mount Pleasant and Retreat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796229/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73136</wgs:lat>
+	<wgs:long>-64.62875</wgs:long>
+	<skos:prefLabel>Estate Mount Retreat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796231/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.66181</wgs:long>
+	<skos:prefLabel>Estate Southgate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796233/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74525</wgs:lat>
+	<wgs:long>-64.84403</wgs:long>
+	<skos:prefLabel>Estate Mount Stewart</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796235/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74997</wgs:lat>
+	<wgs:long>-64.86765</wgs:long>
+	<skos:prefLabel>Estate Mount Victory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796237/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74636</wgs:lat>
+	<wgs:long>-64.88237</wgs:long>
+	<skos:prefLabel>Estate Mount Washington and Washington Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796239/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74664</wgs:lat>
+	<wgs:long>-64.69542</wgs:long>
+	<skos:prefLabel>Mount Welcome Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796240/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73692</wgs:lat>
+	<wgs:long>-64.69403</wgs:long>
+	<skos:prefLabel>Estate Mount Welcome</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796242/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7147</wgs:lat>
+	<wgs:long>-64.8357</wgs:long>
+	<skos:prefLabel>Estate Mountain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796250/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72303</wgs:lat>
+	<wgs:long>-64.68792</wgs:long>
+	<skos:prefLabel>Munster Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796253/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32162</wgs:lat>
+	<wgs:long>-64.87875</wgs:long>
+	<skos:prefLabel>Estate Nadir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796265/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32107</wgs:lat>
+	<wgs:long>-64.85375</wgs:long>
+	<skos:prefLabel>Estate Nazareth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796269/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70081</wgs:lat>
+	<wgs:long>-64.79542</wgs:long>
+	<skos:prefLabel>Negro Bay Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796270/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69525</wgs:lat>
+	<wgs:long>-64.8107</wgs:long>
+	<skos:prefLabel>Estate Envy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796273/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3494</wgs:lat>
+	<wgs:long>-64.9732</wgs:long>
+	<skos:prefLabel>Estate Neltjeberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796275/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33273</wgs:lat>
+	<wgs:long>-64.90181</wgs:long>
+	<skos:prefLabel>Estate New Herrnhut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796279/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75358</wgs:lat>
+	<wgs:long>-64.87181</wgs:long>
+	<skos:prefLabel>Estate Nicholas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796282/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33551</wgs:lat>
+	<wgs:long>-64.95792</wgs:long>
+	<skos:prefLabel>Estate Nisky</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796288/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76747</wgs:lat>
+	<wgs:long>-64.81626</wgs:long>
+	<skos:prefLabel>Estate North Star</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796289/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75914</wgs:lat>
+	<wgs:long>-64.88709</wgs:long>
+	<skos:prefLabel>Estate Northside</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796295/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34523</wgs:lat>
+	<wgs:long>-64.7718</wgs:long>
+	<skos:prefLabel>Estate Number 1 of Susannaberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796296/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3494</wgs:lat>
+	<wgs:long>-64.77042</wgs:long>
+	<skos:prefLabel>Estate Number 1 of Trunk Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796300/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.70997</wgs:lat>
+	<wgs:long>-64.88292</wgs:long>
+	<skos:prefLabel>Old Frederiksted Public Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796304/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74525</wgs:lat>
+	<wgs:long>-64.71848</wgs:long>
+	<skos:prefLabel>Estate Orange Grove East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796305/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7372</wgs:lat>
+	<wgs:long>-64.85515</wgs:long>
+	<skos:prefLabel>Estate Orange Grove West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796311/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.39468</wgs:lat>
+	<wgs:long>-64.97098</wgs:long>
+	<skos:prefLabel>Outer Brass Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796313/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73831</wgs:lat>
+	<wgs:long>-64.86015</wgs:long>
+	<skos:prefLabel>Estate Oxford</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796316/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.29968</wgs:lat>
+	<wgs:long>-64.89042</wgs:long>
+	<skos:prefLabel>Packet Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796319/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35495</wgs:lat>
+	<wgs:long>-64.70569</wgs:long>
+	<skos:prefLabel>Palestina Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796323/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70442</wgs:lat>
+	<wgs:long>-64.81348</wgs:long>
+	<skos:prefLabel>Estate Paradise</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796324/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74525</wgs:lat>
+	<wgs:long>-64.65459</wgs:long>
+	<skos:prefLabel>Parara Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796326/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75497</wgs:lat>
+	<wgs:long>-64.81626</wgs:long>
+	<skos:prefLabel>Estate Parasol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796327/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36412</wgs:lat>
+	<wgs:long>-64.73847</wgs:long>
+	<skos:prefLabel>Parcel 3 of Annaberg Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796328/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3044</wgs:lat>
+	<wgs:long>-64.70375</wgs:long>
+	<skos:prefLabel>Estate Parcel of Concordia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796329/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32523</wgs:lat>
+	<wgs:long>-64.77264</wgs:long>
+	<skos:prefLabel>Estate Parcel of Gift and Regenback</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796331/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33329</wgs:lat>
+	<wgs:long>-64.78042</wgs:long>
+	<skos:prefLabel>Estate Pastory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796332/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7272</wgs:lat>
+	<wgs:long>-64.81209</wgs:long>
+	<skos:prefLabel>Patience Grove Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796333/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3069</wgs:lat>
+	<wgs:long>-64.87181</wgs:long>
+	<skos:prefLabel>Patricia Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796339/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36412</wgs:lat>
+	<wgs:long>-64.97959</wgs:long>
+	<skos:prefLabel>Estate Pearl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796342/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.41412</wgs:lat>
+	<wgs:long>-64.90792</wgs:long>
+	<skos:prefLabel>Pelican Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796348/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35412</wgs:lat>
+	<wgs:long>-64.77736</wgs:long>
+	<skos:prefLabel>Perkins Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796349/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.38134</wgs:lat>
+	<wgs:long>-65.00098</wgs:long>
+	<skos:prefLabel>Estate Perseverance</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796354/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35079</wgs:lat>
+	<wgs:long>-64.76736</wgs:long>
+	<skos:prefLabel>Estate Peter Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796358/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.37023</wgs:lat>
+	<wgs:long>-64.91903</wgs:long>
+	<skos:prefLabel>Estate Peterborg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796361/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73942</wgs:lat>
+	<wgs:long>-64.70736</wgs:long>
+	<skos:prefLabel>Estate Peters Farm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796367/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7272</wgs:lat>
+	<wgs:long>-64.66764</wgs:long>
+	<skos:prefLabel>Estate Petronella</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796376/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7147</wgs:lat>
+	<wgs:long>-64.80792</wgs:long>
+	<skos:prefLabel>Pleasant Prospect Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796378/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75081</wgs:lat>
+	<wgs:long>-64.86348</wgs:long>
+	<skos:prefLabel>Estate Pleasant Valley West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796379/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74664</wgs:lat>
+	<wgs:long>-64.63847</wgs:long>
+	<skos:prefLabel>Estate Pleasant Valley East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796382/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71747</wgs:lat>
+	<wgs:long>-64.81903</wgs:long>
+	<skos:prefLabel>Estate Plessen 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796387/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30912</wgs:lat>
+	<wgs:long>-64.9707</wgs:long>
+	<skos:prefLabel>Porpoise Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796400/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71747</wgs:lat>
+	<wgs:long>-64.78015</wgs:long>
+	<skos:prefLabel>Estate Profit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796404/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74775</wgs:lat>
+	<wgs:long>-64.8857</wgs:long>
+	<skos:prefLabel>Estate Prospect Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796407/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76414</wgs:lat>
+	<wgs:long>-64.82459</wgs:long>
+	<skos:prefLabel>Estate Prosperity East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796408/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72664</wgs:lat>
+	<wgs:long>-64.88154</wgs:long>
+	<skos:prefLabel>Estate Prosperity West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796410/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.7497</wgs:lat>
+	<wgs:long>-64.70264</wgs:long>
+	<skos:prefLabel>Protestant Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796417/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74247</wgs:lat>
+	<wgs:long>-64.86765</wgs:long>
+	<skos:prefLabel>Estate Punch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796421/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34468</wgs:lat>
+	<wgs:long>-64.93015</wgs:long>
+	<skos:prefLabel>Estate Queens Quarter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796424/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>18.34384</wgs:lat>
+	<wgs:long>-64.97348</wgs:long>
+	<skos:prefLabel>Ralph M Paiewonsky Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796428/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35523</wgs:lat>
+	<wgs:long>-64.78931</wgs:long>
+	<skos:prefLabel>Ramgoat Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796431/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33551</wgs:lat>
+	<wgs:long>-64.90792</wgs:long>
+	<skos:prefLabel>Estate Raphune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796432/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35606</wgs:lat>
+	<wgs:long>-64.79681</wgs:long>
+	<skos:prefLabel>Rata Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796436/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73636</wgs:lat>
+	<wgs:long>-64.69959</wgs:long>
+	<skos:prefLabel>Estate Recovery Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796452/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32995</wgs:lat>
+	<wgs:long>-64.74541</wgs:long>
+	<skos:prefLabel>Estate Reef Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796462/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32301</wgs:lat>
+	<wgs:long>-64.77125</wgs:long>
+	<skos:prefLabel>Estate Rendezvous and Ditlef</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796470/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72997</wgs:lat>
+	<wgs:long>-64.7107</wgs:long>
+	<skos:prefLabel>Estate Richmond</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796471/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74608</wgs:lat>
+	<wgs:long>-64.73014</wgs:long>
+	<skos:prefLabel>Richmond Estate (historical)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796474/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7397</wgs:lat>
+	<wgs:long>-64.81487</wgs:long>
+	<skos:prefLabel>Estate River</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796476/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75081</wgs:lat>
+	<wgs:long>-64.67681</wgs:long>
+	<skos:prefLabel>Estate Roberts Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796483/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.85153</wgs:long>
+	<skos:prefLabel>Estate Rose Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796485/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.3494</wgs:lat>
+	<wgs:long>-64.92181</wgs:long>
+	<skos:prefLabel>Estate Ross</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796486/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31412</wgs:lat>
+	<wgs:long>-64.86431</wgs:long>
+	<skos:prefLabel>Rotto Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796496/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32829</wgs:lat>
+	<wgs:long>-64.92598</wgs:long>
+	<skos:prefLabel>Rupert Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796498/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.78025</wgs:lat>
+	<wgs:long>-64.78792</wgs:long>
+	<skos:prefLabel>Estate Rust Up Twist</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796499/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34107</wgs:lat>
+	<wgs:long>-64.75236</wgs:long>
+	<skos:prefLabel>Estate Rustenberg and Adventure</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796501/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.68414</wgs:lat>
+	<wgs:long>-64.76126</wgs:long>
+	<skos:prefLabel>Ruth Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796505/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30551</wgs:lat>
+	<wgs:long>-65.0007</wgs:long>
+	<skos:prefLabel>Saba Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796511/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73636</wgs:lat>
+	<wgs:long>-64.70653</wgs:long>
+	<skos:prefLabel>Saint Cathrine Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7267902/"/>
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>17.74803</wgs:lat>
+	<wgs:long>-64.64959</wgs:long>
+	<skos:prefLabel>Saint Croix</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796521/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7197</wgs:lat>
+	<wgs:long>-64.85459</wgs:long>
+	<skos:prefLabel>Estate Saint Georges Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796523/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71609</wgs:lat>
+	<wgs:long>-64.82876</wgs:long>
+	<skos:prefLabel>Estate Saint George</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796531/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76358</wgs:lat>
+	<wgs:long>-64.74542</wgs:long>
+	<skos:prefLabel>Saint Johns Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796532/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75358</wgs:lat>
+	<wgs:long>-64.73987</wgs:long>
+	<skos:prefLabel>Estate Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796533/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35357</wgs:lat>
+	<wgs:long>-64.91514</wgs:long>
+	<skos:prefLabel>Estate Saint Joseph and Rosendal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796544/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35773</wgs:lat>
+	<wgs:long>-64.94681</wgs:long>
+	<skos:prefLabel>Estate Saint Peter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796546/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74192</wgs:lat>
+	<wgs:long>-64.69125</wgs:long>
+	<skos:prefLabel>Estate Saint Peters</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796547/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32301</wgs:lat>
+	<wgs:long>-64.70236</wgs:long>
+	<skos:prefLabel>Estate Saint Quaco and Zimmerman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796548/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35329</wgs:lat>
+	<wgs:long>-64.93653</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saint Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Saint Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="no">Saint Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="da">Sankt Thomas</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט תומס</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セント・トーマス島</skos:altLabel>
+	<skos:prefLabel>Saint Thomas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7267903/"/>
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.34002</wgs:lat>
+	<wgs:long>-64.74569</wgs:long>
+	<skos:prefLabel>Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796558/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73497</wgs:lat>
+	<wgs:long>-64.66625</wgs:long>
+	<skos:prefLabel>Estate Sallys Fancy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796561/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3619</wgs:lat>
+	<wgs:long>-65.0496</wgs:long>
+	<skos:prefLabel>Salt Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796569/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.77997</wgs:lat>
+	<wgs:long>-64.76431</wgs:long>
+	<skos:prefLabel>Estate Salt River</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796573/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.34468</wgs:lat>
+	<wgs:long>-65.04904</wgs:long>
+	<skos:prefLabel>Saltwater Money Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796574/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.32995</wgs:lat>
+	<wgs:long>-64.78153</wgs:long>
+	<skos:prefLabel>Estate San Soucci</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796585/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3294</wgs:lat>
+	<wgs:long>-64.94653</wgs:long>
+	<skos:prefLabel>Sandy Point Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796588/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36051</wgs:lat>
+	<wgs:long>-64.99543</wgs:long>
+	<skos:prefLabel>Estate Santa Maria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796592/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.34079</wgs:lat>
+	<wgs:long>-65.07821</wgs:long>
+	<skos:prefLabel>Savana Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796604/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7472</wgs:lat>
+	<wgs:long>-64.64959</wgs:long>
+	<skos:prefLabel>Estate Seven Hills</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796605/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33718</wgs:lat>
+	<wgs:long>-64.84458</wgs:long>
+	<skos:prefLabel>Shark Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796611/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75581</wgs:lat>
+	<wgs:long>-64.68097</wgs:long>
+	<skos:prefLabel>Estate Shoys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796613/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33134</wgs:lat>
+	<wgs:long>-64.75903</wgs:long>
+	<skos:prefLabel>Estate Sieben</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796620/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32884</wgs:lat>
+	<wgs:long>-64.80486</wgs:long>
+	<skos:prefLabel>Skipper Jacob Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796622/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75081</wgs:lat>
+	<wgs:long>-64.59819</wgs:long>
+	<skos:prefLabel>Estate North Slob</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796626/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33773</wgs:lat>
+	<wgs:long>-64.85597</wgs:long>
+	<skos:prefLabel>Estate Smith Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796629/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70025</wgs:lat>
+	<wgs:long>-64.88292</wgs:long>
+	<skos:prefLabel>Smithfield Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796631/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34801</wgs:lat>
+	<wgs:long>-64.94265</wgs:long>
+	<skos:prefLabel>Estate Solberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796635/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75553</wgs:lat>
+	<wgs:long>-64.81209</wgs:long>
+	<skos:prefLabel>Estate Solitude West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796639/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.36884</wgs:lat>
+	<wgs:long>-64.98987</wgs:long>
+	<skos:prefLabel>Estate Sorgenfri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796647/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72525</wgs:lat>
+	<wgs:long>-64.7732</wgs:long>
+	<skos:prefLabel>Spanish Town Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796653/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7397</wgs:lat>
+	<wgs:long>-64.88987</wgs:long>
+	<skos:prefLabel>Estate Sprat Hall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796658/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.75775</wgs:lat>
+	<wgs:long>-64.86209</wgs:long>
+	<skos:prefLabel>Estate Spring Garden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796661/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73136</wgs:lat>
+	<wgs:long>-64.83431</wgs:long>
+	<skos:prefLabel>Estate Springfield</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796664/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.72997</wgs:lat>
+	<wgs:long>-64.6982</wgs:long>
+	<skos:prefLabel>Estate Spring Gut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796665/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34801</wgs:lat>
+	<wgs:long>-64.93931</wgs:long>
+	<skos:prefLabel>Estate Staabi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796669/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33051</wgs:lat>
+	<wgs:long>-64.80708</wgs:long>
+	<skos:prefLabel>Steven Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796672/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68136</wgs:lat>
+	<wgs:long>-64.89959</wgs:long>
+	<skos:prefLabel>Stony Ground Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796673/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69525</wgs:lat>
+	<wgs:long>-64.87876</wgs:long>
+	<skos:prefLabel>Estate Stony Ground</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796675/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30329</wgs:lat>
+	<wgs:long>-64.83542</wgs:long>
+	<skos:prefLabel>The Stragglers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796686/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.40301</wgs:lat>
+	<wgs:long>-65.05821</wgs:long>
+	<skos:prefLabel>Sula Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796694/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34245</wgs:lat>
+	<wgs:long>-64.77264</wgs:long>
+	<skos:prefLabel>Estate Susannaberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796696/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76053</wgs:lat>
+	<wgs:long>-64.84265</wgs:long>
+	<skos:prefLabel>Estate Sweet Bottom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796697/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35218</wgs:lat>
+	<wgs:long>-64.88292</wgs:long>
+	<skos:prefLabel>Estate Tabor and Harmony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796703/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7522</wgs:lat>
+	<wgs:long>-64.60514</wgs:long>
+	<skos:prefLabel>Estate Teague Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796707/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35912</wgs:lat>
+	<wgs:long>-64.86097</wgs:long>
+	<skos:prefLabel>Thatch Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796710/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74053</wgs:lat>
+	<wgs:long>-64.6607</wgs:long>
+	<skos:prefLabel>Estate Sight</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796711/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71525</wgs:lat>
+	<wgs:long>-64.68709</wgs:long>
+	<skos:prefLabel>Estate The Springs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796712/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.33134</wgs:lat>
+	<wgs:long>-64.91209</wgs:long>
+	<skos:prefLabel>Estate Thomas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796717/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74664</wgs:lat>
+	<wgs:long>-64.65459</wgs:long>
+	<skos:prefLabel>Estate Tipperary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796718/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.36246</wgs:lat>
+	<wgs:long>-64.93681</wgs:long>
+	<skos:prefLabel>Tombstone Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796720/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31357</wgs:lat>
+	<wgs:long>-64.91681</wgs:long>
+	<skos:prefLabel>Triangle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796724/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35523</wgs:lat>
+	<wgs:long>-64.76903</wgs:long>
+	<skos:prefLabel>Trunk Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796728/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74664</wgs:lat>
+	<wgs:long>-64.60236</wgs:long>
+	<skos:prefLabel>Estate Turner Hole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796734/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3469</wgs:lat>
+	<wgs:long>-64.8582</wgs:long>
+	<skos:prefLabel>Turtleback Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796735/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30912</wgs:lat>
+	<wgs:long>-65.0007</wgs:long>
+	<skos:prefLabel>Turtledove Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796743/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.34301</wgs:lat>
+	<wgs:long>-64.81708</wgs:long>
+	<skos:prefLabel>Two Brothers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796744/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70636</wgs:lat>
+	<wgs:long>-64.8807</wgs:long>
+	<skos:prefLabel>Estate Two Brothers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796746/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73914</wgs:lat>
+	<wgs:long>-64.83903</wgs:long>
+	<skos:prefLabel>Estate Two Friends</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796749/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73692</wgs:lat>
+	<wgs:long>-64.65653</wgs:long>
+	<skos:prefLabel>Estate Union and Mount Washington</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796754/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.71859</wgs:lat>
+	<wgs:long>-64.79737</wgs:long>
+	<skos:prefLabel>University of the Virgin Islands Saint Croix Campus Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796756/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34801</wgs:lat>
+	<wgs:long>-64.94959</wgs:long>
+	<skos:prefLabel>Estate Upper John Dunko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796758/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73275</wgs:lat>
+	<wgs:long>-64.81348</wgs:long>
+	<skos:prefLabel>Estate Upper Love</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796766/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.16468</wgs:lat>
+	<wgs:long>-64.66625</wgs:long>
+	<skos:altLabel xml:lang="fr">Iles vierges americaines</skos:altLabel>
+	<skos:prefLabel>Virgin Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796770/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>17.71386</wgs:lat>
+	<wgs:long>-64.88376</wgs:long>
+	<skos:prefLabel>Virgin Islands Energy Office Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>108708</europeana:population>
+	<wgs:lat>18.34829</wgs:lat>
+	<wgs:long>-64.98348</wgs:long>
+	<skos:altLabel xml:lang="cs">Americké Panenské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Amerikaanse Maagdeneilanden</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Amerikanska Jungfruöarna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Amerikanske Jomfruøer</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Amerikāņu Virdžīnas</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bandarísku Jómfrúreyjar</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bandarísku jómfrúaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Deviški otoki (ZDA)</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Djevičanska Otočja, SAD</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Virgens (EUA)</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Virxes Estadounidenses</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Verges nord-americanes</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Virgine, SUA</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Vírgenes, EE.UU.</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Vergini (americane)</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jomfruøyane (USA)</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Jomfruøyene (USA)</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jungfern-Inseln (USA)</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mergelių salos (JAV)</skos:altLabel>
+	<skos:altLabel xml:lang="et">Neitsisaared, USA</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin na Maighdean S.A.M.</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Panenské ostrovy, US</skos:altLabel>
+	<skos:altLabel xml:lang="en">U.S. Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ms">U.S. Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">U.S. Virgin Islands</skos:altLabel>
+	<skos:altLabel xml:lang="hu">U.S. Virgin-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Usonaj Virgulininsuloj</skos:altLabel>
+	<skos:altLabel>VI</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Virgin Adaları, ABD</skos:altLabel>
+	<skos:altLabel xml:lang="id">Virgin Islands, A.S.</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Virginia uharteak (Ameriketako Estatu Batuak)</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Dziewicze, Stanów Zjednoczonych</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Yhdysvaltain Neitsytsaaret</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Americanaidd y Wyryf</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Vierges des États-Unis</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Đảo Virgin, thuộc Mỹ</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αμερικανικές Παρθένοι Νήσοι</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Виргинские о-ва, США</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Вирджински Острови, САЩ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Віргінскія астравы, ЗША</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вірґінські острови (США)</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Девичанска острва, САД</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Девствени Острови на САД</skos:altLabel>
+	<skos:altLabel xml:lang="he">בתולה, איי (ארה"ב)</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر ورجن، امریکہ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزایر ویرجین ایالات متحده</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر فرجين الأمريكية</skos:altLabel>
+	<skos:altLabel xml:lang="hi">यू.एस.वर्जिन आईलैंडस्</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মার্কিন ভার্জিন দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะเวอร์จินของสหรัฐอเมริกา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຢູເອສເວີຈິນໄອແລນ</skos:altLabel>
+	<skos:altLabel xml:lang="am">የአሜሪካ ቨርጂን ደሴቶች</skos:altLabel>
+	<skos:altLabel xml:lang="ja">米領バージン諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">维尔京群岛，美属</skos:altLabel>
+	<skos:altLabel xml:lang="ko">미령 버진군도</skos:altLabel>
+	<skos:prefLabel>Virgin Islands of the United States</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796810/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71747</wgs:lat>
+	<wgs:long>-64.84376</wgs:long>
+	<skos:prefLabel>Estate Waldberggaard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796816/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32079</wgs:lat>
+	<wgs:long>-64.95126</wgs:long>
+	<skos:prefLabel>Water Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796822/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3669</wgs:lat>
+	<wgs:long>-64.72347</wgs:long>
+	<skos:prefLabel>Waterlemon Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796824/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30634</wgs:lat>
+	<wgs:long>-64.82097</wgs:long>
+	<skos:prefLabel>Welk Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796827/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.35912</wgs:lat>
+	<wgs:long>-65.04571</wgs:long>
+	<skos:prefLabel>West Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796844/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71136</wgs:lat>
+	<wgs:long>-64.86765</wgs:long>
+	<skos:prefLabel>Estate Wheel of Fortune</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796846/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.70025</wgs:lat>
+	<wgs:long>-64.86154</wgs:long>
+	<skos:prefLabel>Estate Whim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796847/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.37023</wgs:lat>
+	<wgs:long>-64.75375</wgs:long>
+	<skos:prefLabel>Whistling Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796849/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.69053</wgs:lat>
+	<wgs:long>-64.88515</wgs:long>
+	<skos:prefLabel>Estate White Lady</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796852/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68775</wgs:lat>
+	<wgs:long>-64.87042</wgs:long>
+	<skos:prefLabel>Estate Whites Bay 2</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796855/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73442</wgs:lat>
+	<wgs:long>-64.88931</wgs:long>
+	<skos:prefLabel>Estate William</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796858/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.6897</wgs:lat>
+	<wgs:long>-64.83848</wgs:long>
+	<skos:prefLabel>Williams Delight Estate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796859/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.68414</wgs:lat>
+	<wgs:long>-64.83709</wgs:long>
+	<skos:prefLabel>Estate Williams Delight</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796860/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76053</wgs:lat>
+	<wgs:long>-64.8482</wgs:long>
+	<skos:prefLabel>Estate Wills Bay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796863/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.76164</wgs:lat>
+	<wgs:long>-64.77403</wgs:long>
+	<skos:prefLabel>Estate Windsor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796867/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.73136</wgs:lat>
+	<wgs:long>-64.62181</wgs:long>
+	<skos:prefLabel>Estate Wood Cottage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796874/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.7347</wgs:lat>
+	<wgs:long>-64.61903</wgs:long>
+	<skos:prefLabel>Estate Yellow Cliff</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796875/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74664</wgs:lat>
+	<wgs:long>-64.62042</wgs:long>
+	<skos:prefLabel>Estate Hope and Carton Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796879/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.35495</wgs:lat>
+	<wgs:long>-64.70569</wgs:long>
+	<skos:prefLabel>Estate Zootenvaal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4796883/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71609</wgs:lat>
+	<wgs:long>-64.79209</wgs:long>
+	<skos:prefLabel>Estate Upper Bethlehem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4829347/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34523</wgs:lat>
+	<wgs:long>-64.90514</wgs:long>
+	<skos:prefLabel>Estate Wintberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4796775/"/>
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>17.73563</wgs:lat>
+	<wgs:long>-64.74795</wgs:long>
+	<skos:prefLabel>Saint Croix Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4796775/"/>
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.32758</wgs:lat>
+	<wgs:long>-64.73771</wgs:long>
+	<skos:prefLabel>Saint John Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4796775/"/>
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.32713</wgs:lat>
+	<wgs:long>-64.96941</wgs:long>
+	<skos:prefLabel>Saint Thomas Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267970/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>18.34211</wgs:lat>
+	<wgs:long>-64.93372</wgs:long>
+	<skos:prefLabel>Town of Charlotte Amalie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267971/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.74385</wgs:lat>
+	<wgs:long>-64.70648</wgs:long>
+	<skos:prefLabel>Town of Christiansted</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267972/">
+	<europeana:country>VI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>17.71211</wgs:lat>
+	<wgs:long>-64.88106</wgs:long>
+	<skos:prefLabel>Town of Frederiksted</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 427 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

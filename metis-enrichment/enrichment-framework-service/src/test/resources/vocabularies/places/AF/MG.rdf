@@ -1,0 +1,3546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_MG
+Description: Selected fields pulled from Geonames about MG done on Mon May 23 21:16:17 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>206373</europeana:population>
+	<wgs:lat>-18.16667</wgs:lat>
+	<wgs:long>49.38333</wgs:long>
+	<skos:altLabel>Tamatave</skos:altLabel>
+	<skos:altLabel xml:lang="de">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="it">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="no">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Toamasina</skos:altLabel>
+	<skos:altLabel>Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Туамасина</skos:altLabel>
+	<skos:altLabel xml:lang="zh">图阿马西纳</skos:altLabel>
+	<skos:prefLabel>Toamasina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.7</wgs:lat>
+	<wgs:long>49.71667</wgs:long>
+	<skos:altLabel>Ile des Sorciers</skos:altLabel>
+	<skos:altLabel>Nosy Vorona</skos:altLabel>
+	<skos:altLabel>Sorciers Islet</skos:altLabel>
+	<skos:prefLabel>Nosy Vorona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.42485</wgs:lat>
+	<wgs:long>48.36332</wgs:long>
+	<skos:prefLabel>Nosy Vorona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19949</europeana:population>
+	<wgs:lat>-22.81667</wgs:lat>
+	<wgs:long>47.28333</wgs:long>
+	<skos:prefLabel>Vondrozo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1053570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.21667</wgs:lat>
+	<wgs:long>49.36667</wgs:long>
+	<skos:prefLabel>Nosy Volana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25311</europeana:population>
+	<wgs:lat>-17.35</wgs:lat>
+	<wgs:long>49.03333</wgs:long>
+	<skos:prefLabel>Vohibinany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.45</wgs:lat>
+	<wgs:long>50.45</wgs:long>
+	<skos:prefLabel>Nosy Voara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>44.41667</wgs:long>
+	<skos:prefLabel>Nosy Voalavo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.35</wgs:lat>
+	<wgs:long>49.51667</wgs:long>
+	<skos:prefLabel>Nosy Via</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.65</wgs:lat>
+	<wgs:long>43.6</wgs:long>
+	<skos:altLabel>Nosi Vei</skos:altLabel>
+	<skos:altLabel>Nosy Ve</skos:altLabel>
+	<skos:altLabel>Sandy Island</skos:altLabel>
+	<skos:prefLabel>Nosy Ve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.03333</wgs:lat>
+	<wgs:long>43.23333</wgs:long>
+	<skos:altLabel>Nosy Ve</skos:altLabel>
+	<skos:altLabel>Ve Island</skos:altLabel>
+	<skos:prefLabel>Nosy Ve</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.86667</wgs:lat>
+	<wgs:long>48.63333</wgs:long>
+	<skos:prefLabel>Nosy Vazoana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36916</europeana:population>
+	<wgs:lat>-17.46667</wgs:lat>
+	<wgs:long>49.2</wgs:long>
+	<skos:prefLabel>Vavatenina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.5</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Nosy Faly</skos:altLabel>
+	<skos:altLabel>Nosy Vatofaly</skos:altLabel>
+	<skos:prefLabel>Nosy Vatofaly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.5</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:prefLabel>Nosy Vao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23523</europeana:population>
+	<wgs:lat>-23.35</wgs:lat>
+	<wgs:long>47.6</wgs:long>
+	<skos:altLabel>Vangaindrano</skos:altLabel>
+	<skos:prefLabel>Vangaindrano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.16667</wgs:lat>
+	<wgs:long>47.81667</wgs:long>
+	<skos:prefLabel>Nosy Valiha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.38333</wgs:lat>
+	<wgs:long>48.7</wgs:long>
+	<skos:altLabel>Joseph Island</skos:altLabel>
+	<skos:altLabel>Nosy Valia</skos:altLabel>
+	<skos:altLabel>Nosy Valiha</skos:altLabel>
+	<skos:prefLabel>Nosy Valiha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.6</wgs:lat>
+	<wgs:long>49.58333</wgs:long>
+	<skos:prefLabel>Nosy Valasolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.86667</wgs:lat>
+	<wgs:long>49.85</wgs:long>
+	<skos:prefLabel>Nosy Vahala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13333</wgs:lat>
+	<wgs:long>48.98333</wgs:long>
+	<skos:altLabel>Moresby</skos:altLabel>
+	<skos:altLabel>Nosy Vaha</skos:altLabel>
+	<skos:prefLabel>Nosy Vaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.98333</wgs:lat>
+	<wgs:long>48.58333</wgs:long>
+	<skos:altLabel>Nosy Tsitampevina</skos:altLabel>
+	<skos:altLabel>Tsitamperina</skos:altLabel>
+	<skos:altLabel>Tsitamperina Islet</skos:altLabel>
+	<skos:altLabel>Tsitampevina</skos:altLabel>
+	<skos:prefLabel>Nosy Tsitampevina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27060</europeana:population>
+	<wgs:lat>-18.76667</wgs:lat>
+	<wgs:long>46.03333</wgs:long>
+	<skos:prefLabel>Tsiroanomandidy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.63333</wgs:lat>
+	<wgs:long>48.86667</wgs:long>
+	<skos:prefLabel>Nosy Tsiringidringitra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29825</europeana:population>
+	<wgs:lat>-25.3</wgs:lat>
+	<wgs:long>45.48333</wgs:long>
+	<skos:altLabel>Tsihombe</skos:altLabel>
+	<skos:altLabel>Tsiombe</skos:altLabel>
+	<skos:prefLabel>Tsiombe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1054854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.45</wgs:lat>
+	<wgs:long>48.71667</wgs:long>
+	<skos:altLabel>Nosy Sankazo</skos:altLabel>
+	<skos:altLabel>Tsiankazo</skos:altLabel>
+	<skos:altLabel>Tsiankazo Islet</skos:altLabel>
+	<skos:altLabel>Îlot Tsiankaso</skos:altLabel>
+	<skos:prefLabel>Îlot Tsiankaso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16761</europeana:population>
+	<wgs:lat>-16.78333</wgs:lat>
+	<wgs:long>47.65</wgs:long>
+	<skos:prefLabel>Tsaratanana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.01667</wgs:lat>
+	<wgs:long>48.55</wgs:long>
+	<skos:altLabel>Nosy Tsarabanjina</skos:altLabel>
+	<skos:altLabel>Tsara Bajina</skos:altLabel>
+	<skos:prefLabel>Nosy Tsarabanjina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.26667</wgs:lat>
+	<wgs:long>49.4</wgs:long>
+	<skos:prefLabel>Nosy Tsara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.75</wgs:lat>
+	<wgs:long>43.28333</wgs:long>
+	<skos:prefLabel>Nosy Trovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.06667</wgs:lat>
+	<wgs:long>49.91667</wgs:long>
+	<skos:altLabel>Iles des Trois Frères</skos:altLabel>
+	<skos:altLabel>Les Trois Freres</skos:altLabel>
+	<skos:altLabel>Nosy Trois Frères</skos:altLabel>
+	<skos:prefLabel>Nosy Trois Frères</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.43145</wgs:lat>
+	<wgs:long>48.36409</wgs:long>
+	<skos:prefLabel>Les Toris Frères</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.6</wgs:lat>
+	<wgs:long>47.58333</wgs:long>
+	<skos:prefLabel>Nosy Toloho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055423/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.96667</wgs:lat>
+	<wgs:long>48.53333</wgs:long>
+	<skos:prefLabel>Nosy Toloho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.46667</wgs:lat>
+	<wgs:long>48.53333</wgs:long>
+	<skos:altLabel>Nosy Antolo</skos:altLabel>
+	<skos:altLabel>Nosy Toloho</skos:altLabel>
+	<skos:prefLabel>Nosy Toloho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2543763</europeana:population>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel xml:lang="mg">Faritanin’ i Toliara</skos:altLabel>
+	<skos:altLabel>Faritanin’ i Toliary</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Faritany de Toliara</skos:altLabel>
+	<skos:altLabel>Faritany de Toliary</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Tulear</skos:altLabel>
+	<skos:altLabel>Toliara</skos:altLabel>
+	<skos:altLabel>Tulear</skos:altLabel>
+	<skos:prefLabel>Faritanin’ i Toliara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>115319</europeana:population>
+	<wgs:lat>-23.35</wgs:lat>
+	<wgs:long>43.66667</wgs:long>
+	<skos:altLabel>Toliara</skos:altLabel>
+	<skos:altLabel>Toliary</skos:altLabel>
+	<skos:altLabel>Tulear</skos:altLabel>
+	<skos:altLabel>Tullear</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тулиара</skos:altLabel>
+	<skos:prefLabel>Toliara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>45141</europeana:population>
+	<wgs:lat>-25.03183</wgs:lat>
+	<wgs:long>46.99981</wgs:long>
+	<skos:altLabel>Faradofay</skos:altLabel>
+	<skos:altLabel>Taolanaro</skos:altLabel>
+	<skos:altLabel>Tôlagnaro</skos:altLabel>
+	<skos:prefLabel>Fort Dauphin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3012480</europeana:population>
+	<wgs:lat>-18</wgs:lat>
+	<wgs:long>49</wgs:long>
+	<skos:altLabel xml:lang="mg">Faritanin’ i Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Faritany de Toamasina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Tamatave</skos:altLabel>
+	<skos:altLabel>Toamasina</skos:altLabel>
+	<skos:prefLabel>Faritanin’ i Toamasina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055475/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.76667</wgs:lat>
+	<wgs:long>43.28333</wgs:long>
+	<skos:altLabel>Nosy Tsipoy</skos:altLabel>
+	<skos:altLabel>Timpoi</skos:altLabel>
+	<skos:altLabel>Timpoy</skos:altLabel>
+	<skos:prefLabel>Timpoy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.4</wgs:lat>
+	<wgs:long>49.55</wgs:long>
+	<skos:altLabel>Nosy Antendro</skos:altLabel>
+	<skos:altLabel>Nosy Tendro</skos:altLabel>
+	<skos:prefLabel>Nosy Tendro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.25</wgs:lat>
+	<wgs:long>48.31667</wgs:long>
+	<skos:altLabel>Ile Tendraka</skos:altLabel>
+	<skos:altLabel>Nosy Tandraka</skos:altLabel>
+	<skos:altLabel>Nosy Tendraka</skos:altLabel>
+	<skos:prefLabel>Nosy Tendraka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055554/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.2488</wgs:lat>
+	<wgs:long>48.18741</wgs:long>
+	<skos:prefLabel>Nosy Taolankena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055587/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.46667</wgs:lat>
+	<wgs:long>48.23333</wgs:long>
+	<skos:altLabel>Ninepin</skos:altLabel>
+	<skos:altLabel>Nosy Tanihely</skos:altLabel>
+	<skos:altLabel>Nosy Tanikely</skos:altLabel>
+	<skos:altLabel>Tani Keli</skos:altLabel>
+	<skos:altLabel>Tanikely</skos:altLabel>
+	<skos:altLabel>Tany Kely</skos:altLabel>
+	<skos:prefLabel>Nosy Tanihely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055594/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.76667</wgs:lat>
+	<wgs:long>43.81667</wgs:long>
+	<skos:prefLabel>Nosy Tania</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.36841</wgs:lat>
+	<wgs:long>48.17934</wgs:long>
+	<skos:altLabel>Nosy n' Tangam</skos:altLabel>
+	<skos:prefLabel>Nosy Tanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1055604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.43333</wgs:lat>
+	<wgs:long>48.7</wgs:long>
+	<skos:prefLabel>Nosy Tanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.86667</wgs:lat>
+	<wgs:long>49.83333</wgs:long>
+	<skos:altLabel>Southern Islands</skos:altLabel>
+	<skos:altLabel>Îlots du Sud</skos:altLabel>
+	<skos:prefLabel>Îlots du Sud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.16667</wgs:lat>
+	<wgs:long>49.38333</wgs:long>
+	<skos:altLabel>Nosy Suarez</skos:altLabel>
+	<skos:altLabel>Suarez Island</skos:altLabel>
+	<skos:altLabel>Îlot Suarez</skos:altLabel>
+	<skos:prefLabel>Nosy Suarez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.63333</wgs:lat>
+	<wgs:long>47.58333</wgs:long>
+	<skos:altLabel>Nosi Soi</skos:altLabel>
+	<skos:altLabel>Nosy Soy</skos:altLabel>
+	<skos:prefLabel>Nosy Soy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.7</wgs:lat>
+	<wgs:long>49.63333</wgs:long>
+	<skos:prefLabel>Îlot Souris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.75</wgs:lat>
+	<wgs:long>47.21667</wgs:long>
+	<skos:altLabel>Ile Souillac</skos:altLabel>
+	<skos:altLabel>Nosy Anihina</skos:altLabel>
+	<skos:altLabel>Îlot Souillac</skos:altLabel>
+	<skos:prefLabel>Îlot Souillac</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40453</europeana:population>
+	<wgs:lat>-19.16667</wgs:lat>
+	<wgs:long>46.73333</wgs:long>
+	<skos:altLabel>Seavinandriana</skos:altLabel>
+	<skos:altLabel>Soavinandriana</skos:altLabel>
+	<skos:prefLabel>Soavinandriana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39271</europeana:population>
+	<wgs:lat>-16.91667</wgs:lat>
+	<wgs:long>49.58333</wgs:long>
+	<skos:altLabel>Saanierana</skos:altLabel>
+	<skos:altLabel>Soahierana</skos:altLabel>
+	<skos:altLabel>Soanierana</skos:altLabel>
+	<skos:altLabel>Soanierana Ivongo</skos:altLabel>
+	<skos:prefLabel>Soanierana Ivongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-23.71667</wgs:lat>
+	<wgs:long>43.61667</wgs:long>
+	<skos:altLabel>Nosy Anisara</skos:altLabel>
+	<skos:altLabel>Nosy Antsatra</skos:altLabel>
+	<skos:altLabel>Nosy Satrana</skos:altLabel>
+	<skos:prefLabel>Nosy Satrana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>49.83333</wgs:long>
+	<skos:altLabel>Nosy Satrana</skos:altLabel>
+	<skos:altLabel>Sata Nosy</skos:altLabel>
+	<skos:prefLabel>Nosy Satrana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1056899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31522</europeana:population>
+	<wgs:lat>-14.26667</wgs:lat>
+	<wgs:long>50.16667</wgs:long>
+	<skos:altLabel>Sahambava</skos:altLabel>
+	<skos:altLabel>Sahambavany</skos:altLabel>
+	<skos:altLabel>Sambaha</skos:altLabel>
+	<skos:altLabel>Sambava</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Самбава</skos:altLabel>
+	<skos:prefLabel>Sambava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.3</wgs:lat>
+	<wgs:long>48.16667</wgs:long>
+	<skos:altLabel>Nosy Sakatia</skos:altLabel>
+	<skos:altLabel>Sakatia</skos:altLabel>
+	<skos:altLabel>Sakatia Island</skos:altLabel>
+	<skos:altLabel>Île Sakatia</skos:altLabel>
+	<skos:prefLabel>Nosy Sakatia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21826</europeana:population>
+	<wgs:lat>-22.9</wgs:lat>
+	<wgs:long>44.53333</wgs:long>
+	<skos:altLabel>Sakaraha</skos:altLabel>
+	<skos:altLabel>Sakaray</skos:altLabel>
+	<skos:prefLabel>Sakaraha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.83333</wgs:lat>
+	<wgs:long>49.91667</wgs:long>
+	<skos:altLabel>Nosi Boraha</skos:altLabel>
+	<skos:altLabel>Nosy Boraha</skos:altLabel>
+	<skos:altLabel>Nosy Sainte Marie</skos:altLabel>
+	<skos:altLabel>Saint Mary Island</skos:altLabel>
+	<skos:altLabel>Île Sainte-Marie</skos:altLabel>
+	<skos:prefLabel>Nosy Sainte Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.36667</wgs:lat>
+	<wgs:long>47.63333</wgs:long>
+	<skos:altLabel>Nosi Beroja</skos:altLabel>
+	<skos:altLabel>Nosi Shaba</skos:altLabel>
+	<skos:altLabel>Nosy Saba</skos:altLabel>
+	<skos:prefLabel>Nosy Saba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.15</wgs:lat>
+	<wgs:long>49.73333</wgs:long>
+	<skos:prefLabel>Îlot Rocheux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.98333</wgs:lat>
+	<wgs:long>47.05</wgs:long>
+	<skos:prefLabel>Îlot des Rochers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.53333</wgs:lat>
+	<wgs:long>49.76667</wgs:long>
+	<skos:prefLabel>Nosy Ravina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>49.86667</wgs:long>
+	<skos:altLabel>Nosy Ratsy</skos:altLabel>
+	<skos:altLabel>Rata Islet</skos:altLabel>
+	<skos:altLabel>Île Rata</skos:altLabel>
+	<skos:prefLabel>Nosy Ratsy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.81667</wgs:lat>
+	<wgs:long>43.28333</wgs:long>
+	<skos:altLabel>Nosi Ratafani</skos:altLabel>
+	<skos:altLabel>Nosy Ratafanika</skos:altLabel>
+	<skos:altLabel>Nosy Ratafanike</skos:altLabel>
+	<skos:altLabel>Nosy Ratafany</skos:altLabel>
+	<skos:prefLabel>Nosy Ratafanika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>47.78333</wgs:long>
+	<skos:altLabel>Nosy Radama</skos:altLabel>
+	<skos:altLabel>Radama Islands</skos:altLabel>
+	<skos:prefLabel>Nosy Radama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-14.06667</wgs:lat>
+	<wgs:long>47.75</wgs:long>
+	<skos:prefLabel>Iles Radama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1057990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.98333</wgs:lat>
+	<wgs:long>48.48333</wgs:long>
+	<skos:altLabel>Banc des Frères</skos:altLabel>
+	<skos:altLabel>Frères Bank</skos:altLabel>
+	<skos:altLabel>Les Quatre Frères</skos:altLabel>
+	<skos:prefLabel>Les Quatre Frères</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058038/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.1</wgs:lat>
+	<wgs:long>49.06667</wgs:long>
+	<skos:prefLabel>Nosy Pahangy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058039/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.01667</wgs:lat>
+	<wgs:long>49.08333</wgs:long>
+	<skos:altLabel>Flat Rock</skos:altLabel>
+	<skos:altLabel>Nosi Pahangi</skos:altLabel>
+	<skos:altLabel>Nosi Pahanji</skos:altLabel>
+	<skos:altLabel>Nosy Pahangy</skos:altLabel>
+	<skos:altLabel>Rocher Plat</skos:altLabel>
+	<skos:prefLabel>Nosy Pahangy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.73333</wgs:lat>
+	<wgs:long>48.9</wgs:long>
+	<skos:altLabel>Nosi Ni Andriana</skos:altLabel>
+	<skos:altLabel>Nosy Ny Andriana</skos:altLabel>
+	<skos:prefLabel>Nosy Ny Andriana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37152</europeana:population>
+	<wgs:lat>-20.58333</wgs:lat>
+	<wgs:long>48.53333</wgs:long>
+	<skos:prefLabel>Nosy Varika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>49.13333</wgs:long>
+	<skos:prefLabel>Nosy Kola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.96667</wgs:lat>
+	<wgs:long>47.78333</wgs:long>
+	<skos:prefLabel>Nosy Berafia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.33333</wgs:lat>
+	<wgs:long>48.25</wgs:long>
+	<skos:altLabel>Nosibé</skos:altLabel>
+	<skos:altLabel>Nossi-Be</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nosy Be</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nosy Be</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nosy Be</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nosy Be</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nosy Be</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nosy Be</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nosy Be</skos:altLabel>
+	<skos:altLabel>Nosy Be</skos:altLabel>
+	<skos:altLabel>Nosy-Be</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nosy-Be</skos:altLabel>
+	<skos:prefLabel>Nosy Be</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058109/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-15.81667</wgs:lat>
+	<wgs:long>49.96667</wgs:long>
+	<skos:prefLabel>Ilots de Nosindrendra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058110/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21.68333</wgs:lat>
+	<wgs:long>43.35</wgs:long>
+	<skos:altLabel>Nosindolo</skos:altLabel>
+	<skos:altLabel>Nosy Ndolo</skos:altLabel>
+	<skos:prefLabel>Nosindolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.05</wgs:lat>
+	<wgs:long>44.03333</wgs:long>
+	<skos:altLabel>Barracouta Islet</skos:altLabel>
+	<skos:altLabel>Nosimborona</skos:altLabel>
+	<skos:altLabel>Nosy Borona</skos:altLabel>
+	<skos:altLabel>Île Barracouta</skos:altLabel>
+	<skos:prefLabel>Nosimborona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.76667</wgs:lat>
+	<wgs:long>49.83333</wgs:long>
+	<skos:altLabel>North Islet</skos:altLabel>
+	<skos:altLabel>Îlot du Nord</skos:altLabel>
+	<skos:prefLabel>Îlot du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-11.95</wgs:lat>
+	<wgs:long>49.28333</wgs:long>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:altLabel>Îlot du Nord</skos:altLabel>
+	<skos:prefLabel>Îlot du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.31667</wgs:lat>
+	<wgs:long>50.01667</wgs:long>
+	<skos:prefLabel>Îlots Noirs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.25</wgs:lat>
+	<wgs:long>50.48333</wgs:long>
+	<skos:prefLabel>Nosy Ngontsy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>50.23333</wgs:long>
+	<skos:prefLabel>Nosy Nepato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.11667</wgs:lat>
+	<wgs:long>49.81667</wgs:long>
+	<skos:altLabel>Ile des Nattes</skos:altLabel>
+	<skos:altLabel>Nosy Nato</skos:altLabel>
+	<skos:altLabel>Île aux Nattes</skos:altLabel>
+	<skos:prefLabel>Nosy Nato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.81667</wgs:lat>
+	<wgs:long>47.83333</wgs:long>
+	<skos:altLabel>Nosi Nakoo</skos:altLabel>
+	<skos:altLabel>Nossy Nakoo</skos:altLabel>
+	<skos:altLabel>Nosy Nakoo</skos:altLabel>
+	<skos:prefLabel>Nosy Nakoo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13333</wgs:lat>
+	<wgs:long>49.08333</wgs:long>
+	<skos:prefLabel>Nosy Mpay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>49.8</wgs:long>
+	<skos:altLabel>Moury Island</skos:altLabel>
+	<skos:altLabel>Moury Islet</skos:altLabel>
+	<skos:altLabel>Îlot Moury</skos:altLabel>
+	<skos:prefLabel>Îlot Moury</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.15</wgs:lat>
+	<wgs:long>49.76667</wgs:long>
+	<skos:altLabel>Ile aux Mouetts</skos:altLabel>
+	<skos:altLabel>Île aux Mouettes</skos:altLabel>
+	<skos:prefLabel>Île aux Mouettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.68333</wgs:lat>
+	<wgs:long>43.81667</wgs:long>
+	<skos:prefLabel>Nosy Motsadiniky</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36803</europeana:population>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>44.28333</wgs:long>
+	<skos:altLabel>Morondava</skos:altLabel>
+	<skos:prefLabel>Morondava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29212</europeana:population>
+	<wgs:lat>-18.93333</wgs:lat>
+	<wgs:long>48.2</wgs:long>
+	<skos:prefLabel>Moramanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.9</wgs:lat>
+	<wgs:long>48.6</wgs:long>
+	<skos:altLabel>Grande Mitsio</skos:altLabel>
+	<skos:altLabel>Mitsio Island</skos:altLabel>
+	<skos:altLabel>Nosi Mitsio</skos:altLabel>
+	<skos:altLabel>Nosy Mitsio</skos:altLabel>
+	<skos:prefLabel>Nosy Mitsio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.41667</wgs:lat>
+	<wgs:long>48.85</wgs:long>
+	<skos:altLabel>Nosi Misangi</skos:altLabel>
+	<skos:altLabel>Nosy Misangy</skos:altLabel>
+	<skos:prefLabel>Nosy Misangy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.58333</wgs:lat>
+	<wgs:long>49.76667</wgs:long>
+	<skos:altLabel>Nosy Milombo</skos:altLabel>
+	<skos:altLabel>Nosy Milomboka</skos:altLabel>
+	<skos:altLabel>Nosy Mitomby</skos:altLabel>
+	<skos:prefLabel>Nosy Milomboka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>49.83333</wgs:long>
+	<skos:altLabel>Middle Islet</skos:altLabel>
+	<skos:altLabel>Îlot du Milieu</skos:altLabel>
+	<skos:prefLabel>Îlot du Milieu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1058956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.88333</wgs:lat>
+	<wgs:long>47.35</wgs:long>
+	<skos:prefLabel>Ile Ambato Midoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1059048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>44.4</wgs:long>
+	<skos:prefLabel>Nosy Miandroka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1059051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20631</europeana:population>
+	<wgs:lat>-19.51667</wgs:lat>
+	<wgs:long>45.46667</wgs:long>
+	<skos:altLabel>Miandrivazo</skos:altLabel>
+	<skos:prefLabel>Miandrivazo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1059178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.55</wgs:lat>
+	<wgs:long>48.8</wgs:long>
+	<skos:prefLabel>Nosy Menaloba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1059215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.35</wgs:lat>
+	<wgs:long>48.5</wgs:long>
+	<skos:prefLabel>Nosy Mbana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1059242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.31667</wgs:lat>
+	<wgs:long>43.73333</wgs:long>
+	<skos:altLabel>Movony Island</skos:altLabel>
+	<skos:altLabel>Nosy Mavony</skos:altLabel>
+	<skos:prefLabel>Nosy Mavony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1059507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31253</europeana:population>
+	<wgs:lat>-16.1</wgs:lat>
+	<wgs:long>46.63333</wgs:long>
+	<skos:altLabel>Marovoay</skos:altLabel>
+	<skos:prefLabel>Marovoay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060007/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26160</europeana:population>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>48.11667</wgs:long>
+	<skos:prefLabel>Marolambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.01667</wgs:lat>
+	<wgs:long>46.6</wgs:long>
+	<skos:altLabel>Marokohira Island</skos:altLabel>
+	<skos:altLabel>Île Marokohira</skos:altLabel>
+	<skos:prefLabel>Île Marokohira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23859</europeana:population>
+	<wgs:lat>-15.43333</wgs:lat>
+	<wgs:long>49.73333</wgs:long>
+	<skos:altLabel>Maroantsetra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маруанцентре</skos:altLabel>
+	<skos:prefLabel>Maroantsetra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.41667</wgs:lat>
+	<wgs:long>43.91667</wgs:long>
+	<skos:altLabel>Mroantaly Island</skos:altLabel>
+	<skos:altLabel>Nosy Maroantaly</skos:altLabel>
+	<skos:altLabel>Nosy Marontaly</skos:altLabel>
+	<skos:prefLabel>Nosy Maroantaly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.05</wgs:lat>
+	<wgs:long>43.85</wgs:long>
+	<skos:altLabel>Marify Island</skos:altLabel>
+	<skos:altLabel>Nosy Marify</skos:altLabel>
+	<skos:prefLabel>Nosy Marify</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.45</wgs:lat>
+	<wgs:long>48.66667</wgs:long>
+	<skos:altLabel>Nosy Mananono</skos:altLabel>
+	<skos:altLabel>Nosy Manonoka</skos:altLabel>
+	<skos:altLabel>Nourse Island</skos:altLabel>
+	<skos:prefLabel>Nosy Manonoka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31840</europeana:population>
+	<wgs:lat>-18.91667</wgs:lat>
+	<wgs:long>47.8</wgs:long>
+	<skos:prefLabel>Manjakandriana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060681/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.38333</wgs:lat>
+	<wgs:long>43.25</wgs:long>
+	<skos:prefLabel>Nosy Manjaboaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.21667</wgs:lat>
+	<wgs:long>44.21667</wgs:long>
+	<skos:altLabel>Nosy Manitsa</skos:altLabel>
+	<skos:altLabel>Nosy Manitse</skos:altLabel>
+	<skos:prefLabel>Nosy Manitse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.56667</wgs:lat>
+	<wgs:long>43.88333</wgs:long>
+	<skos:altLabel>Mangily Island</skos:altLabel>
+	<skos:altLabel>Nosy Manghily</skos:altLabel>
+	<skos:altLabel>Nosy Mangily</skos:altLabel>
+	<skos:prefLabel>Nosy Mangily</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.96667</wgs:lat>
+	<wgs:long>48.75</wgs:long>
+	<skos:prefLabel>Nosy Mangiho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1060911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.5</wgs:lat>
+	<wgs:long>49.76667</wgs:long>
+	<skos:altLabel>Mangabe</skos:altLabel>
+	<skos:altLabel>Nosi Marosi</skos:altLabel>
+	<skos:altLabel>Nosy Mangabe</skos:altLabel>
+	<skos:altLabel>Nosy Marosy</skos:altLabel>
+	<skos:altLabel>Île Marosse</skos:altLabel>
+	<skos:prefLabel>Nosy Mangabe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.46667</wgs:lat>
+	<wgs:long>48.7</wgs:long>
+	<skos:altLabel>Mandazona</skos:altLabel>
+	<skos:altLabel>Nosy Mandazona</skos:altLabel>
+	<skos:prefLabel>Nosy Mandazona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27686</europeana:population>
+	<wgs:lat>-21.21667</wgs:lat>
+	<wgs:long>48.33333</wgs:long>
+	<skos:prefLabel>Mananjary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061412/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41209</europeana:population>
+	<wgs:lat>-16.16667</wgs:lat>
+	<wgs:long>49.76667</wgs:long>
+	<skos:altLabel>Mananara</skos:altLabel>
+	<skos:altLabel>Mananara Avaratra</skos:altLabel>
+	<skos:prefLabel>Mananara Avaratra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.8</wgs:lat>
+	<wgs:long>49.86667</wgs:long>
+	<skos:altLabel>Manampahana Island</skos:altLabel>
+	<skos:altLabel>Nosy Manampahana</skos:altLabel>
+	<skos:altLabel>Nosy Manampaho</skos:altLabel>
+	<skos:prefLabel>Nosy Manampaho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061487/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>46.43333</wgs:long>
+	<skos:altLabel>Anosy Manambotra</skos:altLabel>
+	<skos:altLabel>Nosi Manambutsu</skos:altLabel>
+	<skos:altLabel>Nosy Manambotra</skos:altLabel>
+	<skos:prefLabel>Nosy Manambotra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.75</wgs:lat>
+	<wgs:long>49.78333</wgs:long>
+	<skos:altLabel>Manambidi Island</skos:altLabel>
+	<skos:altLabel>Nosy Manambiby</skos:altLabel>
+	<skos:altLabel>Nosy Manambidy</skos:altLabel>
+	<skos:altLabel>Nosy Manamboay</skos:altLabel>
+	<skos:prefLabel>Nosy Manambiby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35499</europeana:population>
+	<wgs:lat>-22.13333</wgs:lat>
+	<wgs:long>48.01667</wgs:long>
+	<skos:altLabel>Manakara</skos:altLabel>
+	<skos:altLabel>Manankara</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Манакара</skos:altLabel>
+	<skos:prefLabel>Manakara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.71667</wgs:lat>
+	<wgs:long>48.2</wgs:long>
+	<skos:altLabel>Ambariotelo</skos:altLabel>
+	<skos:altLabel>Ambariotelohely</skos:altLabel>
+	<skos:altLabel>Amberiotela</skos:altLabel>
+	<skos:altLabel>Amberiotelo</skos:altLabel>
+	<skos:altLabel>Nosy Mamoko</skos:altLabel>
+	<skos:prefLabel>Nosy Mamoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>46.46667</wgs:long>
+	<skos:altLabel>Anosy Malaimbandy</skos:altLabel>
+	<skos:altLabel>Malaimbandi</skos:altLabel>
+	<skos:altLabel>Nosi Lava</skos:altLabel>
+	<skos:altLabel>Nosy Malaimbandy</skos:altLabel>
+	<skos:prefLabel>Nosy Malaimbandy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.3</wgs:lat>
+	<wgs:long>49.23333</wgs:long>
+	<skos:altLabel>Ile des Maques</skos:altLabel>
+	<skos:altLabel>Île des Makis</skos:altLabel>
+	<skos:prefLabel>Île des Makis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061864/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.71667</wgs:lat>
+	<wgs:long>45.9</wgs:long>
+	<skos:altLabel>Nosi Makambi</skos:altLabel>
+	<skos:altLabel>Nosy Makamby</skos:altLabel>
+	<skos:altLabel>Île Mahakamby</skos:altLabel>
+	<skos:prefLabel>Nosy Makamby</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.76667</wgs:lat>
+	<wgs:long>46.33333</wgs:long>
+	<skos:altLabel>Ile Verte</skos:altLabel>
+	<skos:altLabel>Nosy Beza</skos:altLabel>
+	<skos:altLabel>Nosy Maitso</skos:altLabel>
+	<skos:prefLabel>Nosy Maitso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1061956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.43333</wgs:lat>
+	<wgs:long>48.93333</wgs:long>
+	<skos:altLabel>Nosy Mahanotso</skos:altLabel>
+	<skos:altLabel>Nosy Mahonotsa</skos:altLabel>
+	<skos:prefLabel>Nosy Mahonotsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>43.73333</wgs:long>
+	<skos:prefLabel>Nosy Maheloholo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39879</europeana:population>
+	<wgs:lat>-19.9</wgs:lat>
+	<wgs:long>48.8</wgs:long>
+	<skos:prefLabel>Mahanoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1988786</europeana:population>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel xml:lang="mg">Faritanin’ i Mahajanga</skos:altLabel>
+	<skos:altLabel>Faritanin’ i Mojanga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Faritany de Mahajanga</skos:altLabel>
+	<skos:altLabel>Mahajanga</skos:altLabel>
+	<skos:altLabel>Majunga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Majunga</skos:altLabel>
+	<skos:prefLabel>Faritanin’ i Mahajanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>154657</europeana:population>
+	<wgs:lat>-15.71667</wgs:lat>
+	<wgs:long>46.31667</wgs:long>
+	<skos:altLabel xml:lang="en">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mahajanga</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Mahajanga</skos:altLabel>
+	<skos:altLabel>Mahajanga</skos:altLabel>
+	<skos:altLabel>Majunga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Махадзанга</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マハジャンガ</skos:altLabel>
+	<skos:prefLabel>Mahajanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17</wgs:lat>
+	<wgs:long>49.85</wgs:long>
+	<skos:altLabel>Madame Island</skos:altLabel>
+	<skos:altLabel>Quail Island</skos:altLabel>
+	<skos:altLabel>Îlot Madame</skos:altLabel>
+	<skos:prefLabel>Îlot Madame</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>21281844</europeana:population>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel>Democratic Republic of Madagascar</skos:altLabel>
+	<skos:altLabel>Grande-Terre</skos:altLabel>
+	<skos:altLabel>Grande-Île</skos:altLabel>
+	<skos:altLabel>La Grand Île de Madagascar</skos:altLabel>
+	<skos:altLabel>MG</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ma-đa-gát-xca</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ma-đa-gát-xca (Madagascar)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="an">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Madagascar</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Madagascar</skos:altLabel>
+	<skos:altLabel>Madagascar and Dependencies</skos:altLabel>
+	<skos:altLabel xml:lang="la">Madagascaria</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Madagasikara</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Madagaska</skos:altLabel>
+	<skos:altLabel xml:lang="id">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="af">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="is">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="et">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="br">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="io">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="se">Madagaskar</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Madagaskara</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Madagaskaras</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Madagaskaro</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Madagaszkár</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Madagáscar</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Madegaskari</skos:altLabel>
+	<skos:altLabel>Malagash Republic</skos:altLabel>
+	<skos:altLabel>Malagasy Republic</skos:altLabel>
+	<skos:altLabel>Malgache</skos:altLabel>
+	<skos:altLabel>Malgache Republic</skos:altLabel>
+	<skos:altLabel>Repoblika Demokratika Malagasy</skos:altLabel>
+	<skos:altLabel>Repoblika Malagasy</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Repoblikan’i Madagasikara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Madagascar</skos:altLabel>
+	<skos:altLabel>République Démocratique de Madagascar</skos:altLabel>
+	<skos:altLabel>République Malgache</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Madagascar</skos:altLabel>
+	<skos:altLabel>Territoire de Madagascar</skos:altLabel>
+	<skos:altLabel>Territoire de Madagascar et Dépendances</skos:altLabel>
+	<skos:altLabel>Île Rouge</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαδαγασκάρη</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мадаґаскар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Республика Мадагаскар</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մադագասկար</skos:altLabel>
+	<skos:altLabel xml:lang="he">מדגסקר</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ماداگاسكار</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ماداگاسکار</skos:altLabel>
+	<skos:altLabel xml:lang="ps">مادغاسکر</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مدغشقر</skos:altLabel>
+	<skos:altLabel xml:lang="ur">مڈغاسکر</skos:altLabel>
+	<skos:altLabel xml:lang="ks">मडगास्कर</skos:altLabel>
+	<skos:altLabel xml:lang="sa">मडगास्कर</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मदागास्कर</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मेडागास्कर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মাদাগাস্কার</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மடகாஸ்கர்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">മഡഗാസ്കര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศมาดากัสการ์</skos:altLabel>
+	<skos:altLabel xml:lang="th">มาดากัสการ์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມາຄາກັສກາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མ་དཱ་གྷསྐཱར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მადაგასკარი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማዳጋስካር</skos:altLabel>
+	<skos:altLabel xml:lang="km">ម៉ាដាហ្កាស្ការ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マダガスカル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マダガスカル共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马达加斯加</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마다가스카르</skos:altLabel>
+	<skos:altLabel xml:lang="ko">마다카스카르</skos:altLabel>
+	<skos:prefLabel>Republic of Madagascar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.6</wgs:lat>
+	<wgs:long>49.58333</wgs:long>
+	<skos:altLabel>Lowry Islands</skos:altLabel>
+	<skos:altLabel>Nosy Lowry</skos:altLabel>
+	<skos:altLabel>Îles Lowry</skos:altLabel>
+	<skos:prefLabel>Nosy Lowry</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.3</wgs:lat>
+	<wgs:long>49.31667</wgs:long>
+	<skos:altLabel>Dundas Island</skos:altLabel>
+	<skos:altLabel>Le Pain du Sucre</skos:altLabel>
+	<skos:altLabel>Nosy Longo</skos:altLabel>
+	<skos:altLabel>Pain de Sucre</skos:altLabel>
+	<skos:altLabel>Sugarloaf</skos:altLabel>
+	<skos:altLabel>Île Pain de Sucre</skos:altLabel>
+	<skos:prefLabel>Nosy Longo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12</wgs:lat>
+	<wgs:long>49.31667</wgs:long>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Îlot Long</skos:altLabel>
+	<skos:prefLabel>Îlot Long</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1062993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.71667</wgs:lat>
+	<wgs:long>48.18333</wgs:long>
+	<skos:prefLabel>Nosy Lolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-24.93333</wgs:lat>
+	<wgs:long>47.11667</wgs:long>
+	<skos:altLabel>Iles Lokaro</skos:altLabel>
+	<skos:altLabel>Nosy Lokaro</skos:altLabel>
+	<skos:prefLabel>Nosy Lokaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>49.25</wgs:long>
+	<skos:altLabel>Ilot du Sépulere</skos:altLabel>
+	<skos:altLabel>Nosi Loatrafasana</skos:altLabel>
+	<skos:altLabel>Nosimpasina</skos:altLabel>
+	<skos:altLabel>Nosy Loapasana</skos:altLabel>
+	<skos:altLabel>Sepulchre Islet</skos:altLabel>
+	<skos:altLabel>Îlot du Sépulcre</skos:altLabel>
+	<skos:prefLabel>Nosy Loapasana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.71667</wgs:lat>
+	<wgs:long>43.28333</wgs:long>
+	<skos:altLabel>Nosi Lava</skos:altLabel>
+	<skos:altLabel>Nosy Lava</skos:altLabel>
+	<skos:prefLabel>Nosy Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.38333</wgs:lat>
+	<wgs:long>46.38333</wgs:long>
+	<skos:prefLabel>Nosy Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.58333</wgs:lat>
+	<wgs:long>43.93333</wgs:long>
+	<skos:altLabel>Lava Island</skos:altLabel>
+	<skos:altLabel>Nosy Lava</skos:altLabel>
+	<skos:prefLabel>Nosy Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.55</wgs:lat>
+	<wgs:long>47.6</wgs:long>
+	<skos:altLabel>Lava Island</skos:altLabel>
+	<skos:altLabel>Nosi Lava</skos:altLabel>
+	<skos:altLabel>Nosy Lava</skos:altLabel>
+	<skos:prefLabel>Nosy Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.75</wgs:lat>
+	<wgs:long>48.68333</wgs:long>
+	<skos:prefLabel>Nosy Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>49.36667</wgs:long>
+	<skos:prefLabel>Nosy Lava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>49.31667</wgs:long>
+	<skos:altLabel>Chapman Rock</skos:altLabel>
+	<skos:altLabel>Ilot aux Hérons</skos:altLabel>
+	<skos:altLabel>Nosi Langor</skos:altLabel>
+	<skos:altLabel>Nosy Langoro</skos:altLabel>
+	<skos:altLabel>Île des Aigrettes</skos:altLabel>
+	<skos:altLabel>Îlot des Aigrettes</skos:altLabel>
+	<skos:prefLabel>Nosy Langoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.6</wgs:lat>
+	<wgs:long>47.66667</wgs:long>
+	<skos:altLabel>Nosy Langna</skos:altLabel>
+	<skos:altLabel>Nosy Lango</skos:altLabel>
+	<skos:prefLabel>Nosy Lango</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.43333</wgs:lat>
+	<wgs:long>49.56667</wgs:long>
+	<skos:altLabel>Nosi Laliara</skos:altLabel>
+	<skos:altLabel>Nosy Lalaria</skos:altLabel>
+	<skos:altLabel>Nosy Laliara</skos:altLabel>
+	<skos:prefLabel>Nosy Lalaria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>48.95</wgs:long>
+	<skos:altLabel>Nosy Lakandava</skos:altLabel>
+	<skos:altLabel>Nosy Lokandava</skos:altLabel>
+	<skos:prefLabel>Nosy Lakandava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.2</wgs:lat>
+	<wgs:long>49.26667</wgs:long>
+	<skos:altLabel>Bathurst Islet</skos:altLabel>
+	<skos:altLabel>Ile de la Coquille</skos:altLabel>
+	<skos:altLabel>Nosy Koba</skos:altLabel>
+	<skos:altLabel>Nosy Komba</skos:altLabel>
+	<skos:prefLabel>Nosy Koba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>47.95</wgs:long>
+	<skos:altLabel>Nosi Kivinji</skos:altLabel>
+	<skos:altLabel>Nosy Kiviniy</skos:altLabel>
+	<skos:altLabel>Nosy Kivinjy</skos:altLabel>
+	<skos:altLabel>Nosy Kivonjy</skos:altLabel>
+	<skos:prefLabel>Nosy Kivinjy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.56667</wgs:lat>
+	<wgs:long>48.08333</wgs:long>
+	<skos:altLabel>Ambararata</skos:altLabel>
+	<skos:altLabel>Nosy Kisimamy</skos:altLabel>
+	<skos:altLabel>Nosy Kisimani</skos:altLabel>
+	<skos:altLabel>Nosy Kisimany</skos:altLabel>
+	<skos:altLabel>Nosy Kisimasy</skos:altLabel>
+	<skos:prefLabel>Nosy Kisimasy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.91667</wgs:lat>
+	<wgs:long>46.4</wgs:long>
+	<skos:altLabel>Anosy Kibondro</skos:altLabel>
+	<skos:altLabel>Nosy Kibondro</skos:altLabel>
+	<skos:prefLabel>Nosy Kibondro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.71667</wgs:lat>
+	<wgs:long>48.18333</wgs:long>
+	<skos:altLabel>Nosi Keli</skos:altLabel>
+	<skos:altLabel>Nosy Kely</skos:altLabel>
+	<skos:prefLabel>Nosy Kely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063731/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.95</wgs:lat>
+	<wgs:long>47.76667</wgs:long>
+	<skos:altLabel>Kalakajóro</skos:altLabel>
+	<skos:altLabel>Nosy Kalakajora</skos:altLabel>
+	<skos:altLabel>Nosy Kalakajoro</skos:altLabel>
+	<skos:altLabel>Nosy Karakajoro</skos:altLabel>
+	<skos:prefLabel>Nosy Kalakajoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.95</wgs:lat>
+	<wgs:long>48.58333</wgs:long>
+	<skos:altLabel>Nosi Kajohi</skos:altLabel>
+	<skos:altLabel>Nosy Kajohy</skos:altLabel>
+	<skos:prefLabel>Nosy Kajohy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1063748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.3</wgs:lat>
+	<wgs:long>49.4</wgs:long>
+	<skos:altLabel>Nosy Kabija</skos:altLabel>
+	<skos:altLabel>Nosy Kabitza</skos:altLabel>
+	<skos:prefLabel>Nosy Kabija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.58333</wgs:lat>
+	<wgs:long>47.81667</wgs:long>
+	<skos:prefLabel>Nosy Iranja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.8</wgs:lat>
+	<wgs:long>44.4</wgs:long>
+	<skos:altLabel>L’Îlot Indien</skos:altLabel>
+	<skos:altLabel>Îlot Indien</skos:altLabel>
+	<skos:prefLabel>Îlot Indien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.38333</wgs:lat>
+	<wgs:long>49.41667</wgs:long>
+	<skos:prefLabel>Nosy Ilansambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32374</europeana:population>
+	<wgs:lat>-21.88333</wgs:lat>
+	<wgs:long>47.43333</wgs:long>
+	<skos:altLabel>Fort Carhot</skos:altLabel>
+	<skos:altLabel>Fort-Carnot</skos:altLabel>
+	<skos:altLabel>Ikongo</skos:altLabel>
+	<skos:prefLabel>Ikongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15601</europeana:population>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>46.58333</wgs:long>
+	<skos:altLabel>Ikalamavony</skos:altLabel>
+	<skos:prefLabel>Ikalamavony</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16990</europeana:population>
+	<wgs:lat>-22.4</wgs:lat>
+	<wgs:long>46.11667</wgs:long>
+	<skos:altLabel>Ihosy</skos:altLabel>
+	<skos:prefLabel>Ihosy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17543</europeana:population>
+	<wgs:lat>-21.3</wgs:lat>
+	<wgs:long>47.63333</wgs:long>
+	<skos:prefLabel>Ifanadiana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.41667</wgs:lat>
+	<wgs:long>49.55</wgs:long>
+	<skos:prefLabel>Île aux Huîtres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.53333</wgs:lat>
+	<wgs:long>49.78333</wgs:long>
+	<skos:altLabel>Nosi Harami</skos:altLabel>
+	<skos:altLabel>Nosy Haramy</skos:altLabel>
+	<skos:prefLabel>Nosy Haramy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>49.01667</wgs:long>
+	<skos:altLabel>Chatham Island</skos:altLabel>
+	<skos:altLabel>Nosy Hara</skos:altLabel>
+	<skos:altLabel>Nosy Harana</skos:altLabel>
+	<skos:prefLabel>Nosy Hara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.08333</wgs:lat>
+	<wgs:long>43.18333</wgs:long>
+	<skos:altLabel>Had Island</skos:altLabel>
+	<skos:altLabel>Murder Islet</skos:altLabel>
+	<skos:altLabel>Nosy Hao</skos:altLabel>
+	<skos:prefLabel>Nosy Hao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064671/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.11667</wgs:lat>
+	<wgs:long>49.05</wgs:long>
+	<skos:altLabel>Hay Island</skos:altLabel>
+	<skos:altLabel>Hoy Island</skos:altLabel>
+	<skos:altLabel>Nosy Hao</skos:altLabel>
+	<skos:prefLabel>Nosy Hao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>49.8</wgs:long>
+	<skos:altLabel>Guy Islet</skos:altLabel>
+	<skos:altLabel>Îlot Guy</skos:altLabel>
+	<skos:prefLabel>Îlot Guy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.9</wgs:lat>
+	<wgs:long>47.33333</wgs:long>
+	<skos:prefLabel>Île du Goulet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>48.96667</wgs:long>
+	<skos:altLabel>Moorsom Sand</skos:altLabel>
+	<skos:altLabel>Nosi Foti</skos:altLabel>
+	<skos:altLabel>Nosy Fasy</skos:altLabel>
+	<skos:altLabel>Nosy Foty</skos:altLabel>
+	<skos:prefLabel>Nosy Foty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.45</wgs:lat>
+	<wgs:long>49.38333</wgs:long>
+	<skos:prefLabel>Nosy Fonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>48.6</wgs:long>
+	<skos:prefLabel>Nosy Fisaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.61667</wgs:lat>
+	<wgs:long>49.58333</wgs:long>
+	<skos:prefLabel>Nosy Fiherenana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3797493</europeana:population>
+	<wgs:lat>-19.5</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel xml:lang="mg">Faritanin’ i Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Faritany de Fianarantsoa</skos:altLabel>
+	<skos:altLabel>Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Fianarantsoa</skos:altLabel>
+	<skos:prefLabel>Faritanin’ i Fianarantsoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>167227</europeana:population>
+	<wgs:lat>-21.43333</wgs:lat>
+	<wgs:long>47.08333</wgs:long>
+	<skos:altLabel xml:lang="de">Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Fianarantsoa</skos:altLabel>
+	<skos:altLabel>Fianarantsoa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фианаранцуа</skos:altLabel>
+	<skos:prefLabel>Fianarantsoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19605</europeana:population>
+	<wgs:lat>-18.43333</wgs:lat>
+	<wgs:long>46.56667</wgs:long>
+	<skos:altLabel>Fenoarivo</skos:altLabel>
+	<skos:altLabel>Fenoarivo Afovoany</skos:altLabel>
+	<skos:altLabel>Fenoarivo Be</skos:altLabel>
+	<skos:prefLabel>Fenoarivo Be</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1064980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21036</europeana:population>
+	<wgs:lat>-17.36667</wgs:lat>
+	<wgs:long>49.41667</wgs:long>
+	<skos:altLabel>Fenerive</skos:altLabel>
+	<skos:altLabel>Fenoarivo Atsinanana</skos:altLabel>
+	<skos:altLabel>Fénérive-Atsinanana</skos:altLabel>
+	<skos:altLabel>Fénérive-Est</skos:altLabel>
+	<skos:prefLabel>Fenoarivo Atsinanana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065096/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.83333</wgs:lat>
+	<wgs:long>43.3</wgs:long>
+	<skos:prefLabel>Nosy Fatra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.08333</wgs:lat>
+	<wgs:long>49.88333</wgs:long>
+	<skos:prefLabel>Nosy Fasika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37563</europeana:population>
+	<wgs:lat>-19.4</wgs:lat>
+	<wgs:long>46.95</wgs:long>
+	<skos:prefLabel>Faratsiho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24764</europeana:population>
+	<wgs:lat>-22.81667</wgs:lat>
+	<wgs:long>47.83333</wgs:long>
+	<skos:prefLabel>Farafangana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.63333</wgs:lat>
+	<wgs:long>47.66667</wgs:long>
+	<skos:altLabel>Nosy Fadrina</skos:altLabel>
+	<skos:altLabel>Nosy Faho</skos:altLabel>
+	<skos:altLabel>Nosy Faohina</skos:altLabel>
+	<skos:prefLabel>Nosy Faohina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.18333</wgs:lat>
+	<wgs:long>48.23333</wgs:long>
+	<skos:prefLabel>Nord Fany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>49.23333</wgs:long>
+	<skos:altLabel>Ile de la Tortue</skos:altLabel>
+	<skos:altLabel>Nosi Fanu</skos:altLabel>
+	<skos:altLabel>Nosy Fano</skos:altLabel>
+	<skos:prefLabel>Nosy Fano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.5</wgs:lat>
+	<wgs:long>48.76667</wgs:long>
+	<skos:altLabel>Faninana</skos:altLabel>
+	<skos:altLabel>Faninana Islet</skos:altLabel>
+	<skos:altLabel>Îlot Faninana</skos:altLabel>
+	<skos:prefLabel>Îlot Faninana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.18333</wgs:lat>
+	<wgs:long>48.23333</wgs:long>
+	<skos:altLabel>Anosiana</skos:altLabel>
+	<skos:altLabel>Nosy Fanihi</skos:altLabel>
+	<skos:altLabel>Nosy Fanihy</skos:altLabel>
+	<skos:altLabel>Nosy Fany</skos:altLabel>
+	<skos:prefLabel>Nosy Fanihy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31437</europeana:population>
+	<wgs:lat>-20.23333</wgs:lat>
+	<wgs:long>47.38333</wgs:long>
+	<skos:altLabel>Fandriana</skos:altLabel>
+	<skos:altLabel>Ifandriana</skos:altLabel>
+	<skos:prefLabel>Fandriana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.45</wgs:lat>
+	<wgs:long>50.46667</wgs:long>
+	<skos:altLabel>Nosy Fanala</skos:altLabel>
+	<skos:altLabel>Nosy Fanalo</skos:altLabel>
+	<skos:prefLabel>Nosy Fanala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>49.05</wgs:long>
+	<skos:altLabel>Le Limaçon</skos:altLabel>
+	<skos:altLabel>Limacon Islet</skos:altLabel>
+	<skos:altLabel>Nosy Famaho</skos:altLabel>
+	<skos:prefLabel>Nosy Famaho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.31667</wgs:lat>
+	<wgs:long>48.46667</wgs:long>
+	<skos:altLabel>Nosi Fali</skos:altLabel>
+	<skos:altLabel>Nosy Faly</skos:altLabel>
+	<skos:prefLabel>Nosy Faly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.3</wgs:lat>
+	<wgs:long>49.41667</wgs:long>
+	<skos:prefLabel>Nosy Faho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.55</wgs:lat>
+	<wgs:long>43.86667</wgs:long>
+	<skos:altLabel>Dondosy Island</skos:altLabel>
+	<skos:altLabel>Nosy Dondosy</skos:altLabel>
+	<skos:prefLabel>Nosy Dondosy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.43333</wgs:lat>
+	<wgs:long>49.38333</wgs:long>
+	<skos:prefLabel>Nosy Dombala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.18333</wgs:lat>
+	<wgs:long>49.38333</wgs:long>
+	<skos:altLabel>Diego Island</skos:altLabel>
+	<skos:altLabel>Nosi Lava</skos:altLabel>
+	<skos:altLabel>Nosy Diégo</skos:altLabel>
+	<skos:altLabel>Nosy Lava</skos:altLabel>
+	<skos:altLabel>Îlot Diego</skos:altLabel>
+	<skos:prefLabel>Nosy Diégo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>49.13333</wgs:long>
+	<skos:prefLabel>Îlot du Courrier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.35</wgs:lat>
+	<wgs:long>43.93333</wgs:long>
+	<skos:altLabel>Chesterfield Island</skos:altLabel>
+	<skos:altLabel>Ilot Chesterfield</skos:altLabel>
+	<skos:altLabel>Nosy Chesterfield</skos:altLabel>
+	<skos:altLabel>Île Chesterfield</skos:altLabel>
+	<skos:prefLabel>Nosy Chesterfield</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.76667</wgs:lat>
+	<wgs:long>47.21667</wgs:long>
+	<skos:prefLabel>Îlot de Chartres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.6</wgs:lat>
+	<wgs:long>48.85</wgs:long>
+	<skos:altLabel>Nosi Vori</skos:altLabel>
+	<skos:altLabel>Nosy Bory</skos:altLabel>
+	<skos:altLabel>Nosy Vory</skos:altLabel>
+	<skos:prefLabel>Nosy Bory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065682/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-16.36667</wgs:lat>
+	<wgs:long>44.68333</wgs:long>
+	<skos:prefLabel>Ancien Poste de Bokarano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1065976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.91667</wgs:lat>
+	<wgs:long>43.3</wgs:long>
+	<skos:altLabel>Bevato</skos:altLabel>
+	<skos:altLabel>Nosy Bevato</skos:altLabel>
+	<skos:prefLabel>Nosy Bevato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1066310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31102</europeana:population>
+	<wgs:lat>-23.71667</wgs:lat>
+	<wgs:long>44.38333</wgs:long>
+	<skos:prefLabel>Betioky</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1066514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29785</europeana:population>
+	<wgs:lat>-19.83333</wgs:lat>
+	<wgs:long>46.85</wgs:long>
+	<skos:prefLabel>Betafo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1066831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18632</europeana:population>
+	<wgs:lat>-21.66667</wgs:lat>
+	<wgs:long>45.16667</wgs:long>
+	<skos:altLabel>Beroroha</skos:altLabel>
+	<skos:altLabel>Beroroho</skos:altLabel>
+	<skos:altLabel>Beroroka</skos:altLabel>
+	<skos:prefLabel>Beroroha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1067030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.03333</wgs:lat>
+	<wgs:long>47.8</wgs:long>
+	<skos:altLabel>Berofia</skos:altLabel>
+	<skos:altLabel>Nosi Ovi</skos:altLabel>
+	<skos:altLabel>Nosi Ovy</skos:altLabel>
+	<skos:altLabel>Nosy Berafia</skos:altLabel>
+	<skos:prefLabel>Nosy Berafia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1067175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.3</wgs:lat>
+	<wgs:long>49.41667</wgs:long>
+	<skos:prefLabel>Nosy Benatchikara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1067240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>43.23333</wgs:long>
+	<skos:altLabel>Nosy Bemoka</skos:altLabel>
+	<skos:altLabel>Nosy Mivola</skos:altLabel>
+	<skos:prefLabel>Nosy Bemoka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1067531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23900</europeana:population>
+	<wgs:lat>-19.7</wgs:lat>
+	<wgs:long>44.55</wgs:long>
+	<skos:altLabel>Belo</skos:altLabel>
+	<skos:altLabel>Belo Tsiribihina</skos:altLabel>
+	<skos:altLabel>Belo sur Tsiribihina</skos:altLabel>
+	<skos:prefLabel>Belo Tsiribihina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1067542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>48.96667</wgs:long>
+	<skos:prefLabel>Nosy Belomotro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1067565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23021</europeana:population>
+	<wgs:lat>-25.16667</wgs:lat>
+	<wgs:long>45.05</wgs:long>
+	<skos:prefLabel>Beloha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>50.15</wgs:long>
+	<skos:prefLabel>Nosy Behentona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16948</europeana:population>
+	<wgs:lat>-14.55</wgs:lat>
+	<wgs:long>48.73333</wgs:long>
+	<skos:prefLabel>Bealanana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.76667</wgs:lat>
+	<wgs:long>47.21667</wgs:long>
+	<skos:altLabel>Anena Nosy Be</skos:altLabel>
+	<skos:altLabel>Nosi Be</skos:altLabel>
+	<skos:altLabel>Nosy Be</skos:altLabel>
+	<skos:altLabel>Îlot aux Chèvres</skos:altLabel>
+	<skos:prefLabel>Nosy Be</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.3</wgs:lat>
+	<wgs:long>50</wgs:long>
+	<skos:altLabel>Nosy Be</skos:altLabel>
+	<skos:altLabel>Île Verte</skos:altLabel>
+	<skos:prefLabel>Nosy Be</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068733/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-18.41667</wgs:lat>
+	<wgs:long>43.66667</wgs:long>
+	<skos:altLabel>Iles Stériles</skos:altLabel>
+	<skos:altLabel>Nosy Barren</skos:altLabel>
+	<skos:altLabel>Îles Barren</skos:altLabel>
+	<skos:prefLabel>Nosy Barren</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-12.8</wgs:lat>
+	<wgs:long>49.86667</wgs:long>
+	<skos:prefLabel>Îles Barracouta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068735/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.81667</wgs:lat>
+	<wgs:long>49.88333</wgs:long>
+	<skos:altLabel>Barracouta Island</skos:altLabel>
+	<skos:altLabel>Nosy Barracouta</skos:altLabel>
+	<skos:altLabel>Île Barracouta</skos:altLabel>
+	<skos:prefLabel>Île Barracouta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068775/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.76667</wgs:lat>
+	<wgs:long>47.2</wgs:long>
+	<skos:prefLabel>Îlot Babet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068834/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.33333</wgs:lat>
+	<wgs:long>49.85</wgs:long>
+	<skos:altLabel>Nosi Atafi</skos:altLabel>
+	<skos:altLabel>Nosy Atafa</skos:altLabel>
+	<skos:altLabel>Nosy Atafana</skos:altLabel>
+	<skos:prefLabel>Nosy Atafana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21982</europeana:population>
+	<wgs:lat>-19.01667</wgs:lat>
+	<wgs:long>47.18333</wgs:long>
+	<skos:altLabel>Arivonimamo</skos:altLabel>
+	<skos:altLabel>Arivonimamy</skos:altLabel>
+	<skos:prefLabel>Arivonimamo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.23333</wgs:lat>
+	<wgs:long>48.18333</wgs:long>
+	<skos:altLabel>Antsoiberi</skos:altLabel>
+	<skos:altLabel>Antsoibery</skos:altLabel>
+	<skos:altLabel>Antsoibory</skos:altLabel>
+	<skos:altLabel>Nosy An Tsaibory</skos:altLabel>
+	<skos:altLabel>Nosy Antsoibory</skos:altLabel>
+	<skos:altLabel>Îlot Antsoibery</skos:altLabel>
+	<skos:prefLabel>Îlot Antsoibery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21290</europeana:population>
+	<wgs:lat>-14.86667</wgs:lat>
+	<wgs:long>47.98333</wgs:long>
+	<skos:altLabel>Antsohihi</skos:altLabel>
+	<skos:altLabel>Antsohihy</skos:altLabel>
+	<skos:prefLabel>Antsohihy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.8</wgs:lat>
+	<wgs:long>45.98333</wgs:long>
+	<skos:prefLabel>Nosy Antsoherindava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1068991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.83333</wgs:lat>
+	<wgs:long>45.96667</wgs:long>
+	<skos:prefLabel>Nosy Antsoheribory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1069000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.5</wgs:lat>
+	<wgs:long>47.95</wgs:long>
+	<skos:altLabel>Antsoha</skos:altLabel>
+	<skos:altLabel>Antsoho</skos:altLabel>
+	<skos:altLabel>Nord Antsoha</skos:altLabel>
+	<skos:altLabel>Nosy Antsoha</skos:altLabel>
+	<skos:prefLabel>Nosy Antsoha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1069127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1342317</europeana:population>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>49.5</wgs:long>
+	<skos:altLabel>Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Faritanin’ Antsiran̈ana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Faritany d'Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Diégo-Suarez</skos:altLabel>
+	<skos:prefLabel>Faritanin’ Antsiran̈ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1069129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>82937</europeana:population>
+	<wgs:lat>-12.26667</wgs:lat>
+	<wgs:long>49.28333</wgs:long>
+	<skos:altLabel>Antseranana</skos:altLabel>
+	<skos:altLabel>Antsirana</skos:altLabel>
+	<skos:altLabel xml:lang="de">Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="it">Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Antsiranana</skos:altLabel>
+	<skos:altLabel xml:lang="no">Antsiranana</skos:altLabel>
+	<skos:altLabel>Antsirane</skos:altLabel>
+	<skos:altLabel xml:lang="et">Antsiran̈ana</skos:altLabel>
+	<skos:altLabel>Antsiran̈ana</skos:altLabel>
+	<skos:altLabel>Diego Soarez</skos:altLabel>
+	<skos:altLabel>Diégo-Suarez</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Анцеранана</skos:altLabel>
+	<skos:prefLabel>Antsiran̈ana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1070108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.48333</wgs:lat>
+	<wgs:long>48.75</wgs:long>
+	<skos:altLabel>Antolohizana</skos:altLabel>
+	<skos:altLabel>Antolohizana Islet</skos:altLabel>
+	<skos:altLabel>Nosy Antolohizana</skos:altLabel>
+	<skos:altLabel>Nosy Antoloho</skos:altLabel>
+	<skos:prefLabel>Nosy Antoloho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1070464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.11667</wgs:lat>
+	<wgs:long>47.75</wgs:long>
+	<skos:altLabel>Antanimora</skos:altLabel>
+	<skos:altLabel>Antany Mora</skos:altLabel>
+	<skos:altLabel>Nosi Fali</skos:altLabel>
+	<skos:altLabel>Nosy Antanimora</skos:altLabel>
+	<skos:prefLabel>Nosy Antanimora</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1070661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>70626</europeana:population>
+	<wgs:lat>-19.65</wgs:lat>
+	<wgs:long>47.31667</wgs:long>
+	<skos:prefLabel>Antanifotsy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1070938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5270750</europeana:population>
+	<wgs:lat>-19</wgs:lat>
+	<wgs:long>47</wgs:long>
+	<skos:altLabel xml:lang="es">Antananarivo</skos:altLabel>
+	<skos:altLabel>Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Antananarivo Faritany d'</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Faritanin’ Antananarivo</skos:altLabel>
+	<skos:altLabel>Faritanin’ Atananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Tananarive</skos:altLabel>
+	<skos:altLabel>Province d’ Antananarivo</skos:altLabel>
+	<skos:prefLabel>Faritanin’ Antananarivo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1070940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1391433</europeana:population>
+	<wgs:lat>-18.91433</wgs:lat>
+	<wgs:long>47.53098</wgs:long>
+	<skos:altLabel xml:lang="id">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="io">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="et">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Antananarivo</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Antananarivo</skos:altLabel>
+	<skos:altLabel>Antananarivu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Antananaryvas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Antananarywa</skos:altLabel>
+	<skos:altLabel xml:lang="is">Antananarívó</skos:altLabel>
+	<skos:altLabel>Tananarive</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ταναναρίβη</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Антананариво</skos:altLabel>
+	<skos:altLabel xml:lang="os">Антананариву</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Антананариву</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Антананаріво</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Անտանանարիվո</skos:altLabel>
+	<skos:altLabel xml:lang="he">אנטננריבו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أنتاناناريفو</skos:altLabel>
+	<skos:altLabel xml:lang="th">อันตานานาริโว</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ანტანანარივო</skos:altLabel>
+	<skos:altLabel xml:lang="am">አንታናናሪቮ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンタナナリボ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塔那那利佛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">안타나나리보</skos:altLabel>
+	<skos:prefLabel>Antananarivo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.23333</wgs:lat>
+	<wgs:long>48.98333</wgs:long>
+	<skos:prefLabel>Nosy Antanalovo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.15</wgs:lat>
+	<wgs:long>49.38333</wgs:long>
+	<skos:altLabel>Antali Keli</skos:altLabel>
+	<skos:altLabel>Nosy Antalikely</skos:altLabel>
+	<skos:altLabel>Nosy Antalina</skos:altLabel>
+	<skos:altLabel>Nosy Antalina Kely</skos:altLabel>
+	<skos:altLabel>Nosy Antaly Kely</skos:altLabel>
+	<skos:prefLabel>Nosy Antaly Kely</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.13333</wgs:lat>
+	<wgs:long>49.36667</wgs:long>
+	<skos:altLabel>Antali Be</skos:altLabel>
+	<skos:altLabel>Nosy Antalibe</skos:altLabel>
+	<skos:altLabel>Nosy Antaly-Be</skos:altLabel>
+	<skos:altLabel>Nosy Antanibe</skos:altLabel>
+	<skos:prefLabel>Nosy Antaly-Be</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.95</wgs:lat>
+	<wgs:long>48.6</wgs:long>
+	<skos:altLabel>Nosi Antali</skos:altLabel>
+	<skos:altLabel>Nosy Antaly</skos:altLabel>
+	<skos:prefLabel>Nosy Antaly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.56667</wgs:lat>
+	<wgs:long>48.83333</wgs:long>
+	<skos:altLabel>Nosi Antali</skos:altLabel>
+	<skos:altLabel>Nosy Antaly</skos:altLabel>
+	<skos:prefLabel>Nosy Antaly</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34112</europeana:population>
+	<wgs:lat>-14.88333</wgs:lat>
+	<wgs:long>50.28333</wgs:long>
+	<skos:altLabel>Antalaha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Анталахи</skos:altLabel>
+	<skos:prefLabel>Antalaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>46.5</wgs:long>
+	<skos:altLabel>Anosilava</skos:altLabel>
+	<skos:altLabel>Nosy Kibondro</skos:altLabel>
+	<skos:prefLabel>Anosilava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1071786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.66667</wgs:lat>
+	<wgs:long>49.65</wgs:long>
+	<skos:prefLabel>Nosy Ankomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1072841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.48333</wgs:lat>
+	<wgs:long>47.96667</wgs:long>
+	<skos:altLabel>Ankasoberavina</skos:altLabel>
+	<skos:altLabel>Ankazoberavina</skos:altLabel>
+	<skos:altLabel>Ankazoberavina Island</skos:altLabel>
+	<skos:altLabel>Ile du Passage</skos:altLabel>
+	<skos:altLabel>Nord Ankazoberavina</skos:altLabel>
+	<skos:altLabel>Nosy Ankazoberavina</skos:altLabel>
+	<skos:altLabel>Passage Island</skos:altLabel>
+	<skos:altLabel>Îlot Ankazoberavina</skos:altLabel>
+	<skos:prefLabel>Nosy Ankazoberavina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1072849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15722</europeana:population>
+	<wgs:lat>-18.31667</wgs:lat>
+	<wgs:long>47.11667</wgs:long>
+	<skos:prefLabel>Ankazobe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1072879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25961</europeana:population>
+	<wgs:lat>-22.28333</wgs:lat>
+	<wgs:long>44.51667</wgs:long>
+	<skos:altLabel>Ankazoabe</skos:altLabel>
+	<skos:altLabel>Ankazoabo</skos:altLabel>
+	<skos:altLabel>Ankazoabo Sud</skos:altLabel>
+	<skos:prefLabel>Ankazoabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1073065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.83333</wgs:lat>
+	<wgs:long>48.58333</wgs:long>
+	<skos:altLabel>Ankarea</skos:altLabel>
+	<skos:altLabel>Ankarea Islet</skos:altLabel>
+	<skos:altLabel>Nosy Ankarea</skos:altLabel>
+	<skos:prefLabel>Nosy Ankarea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1073255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.8</wgs:lat>
+	<wgs:long>49.83333</wgs:long>
+	<skos:altLabel>Nosy Akao</skos:altLabel>
+	<skos:altLabel>Nosy Ankao</skos:altLabel>
+	<skos:prefLabel>Nosy Ankao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1073482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19027</europeana:population>
+	<wgs:lat>-18.4</wgs:lat>
+	<wgs:long>47.86667</wgs:long>
+	<skos:prefLabel>Anjozorobe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1073498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.26667</wgs:lat>
+	<wgs:long>48.98333</wgs:long>
+	<skos:altLabel>Nosy Anjombavola</skos:altLabel>
+	<skos:altLabel>Nosy Anjombavolo</skos:altLabel>
+	<skos:prefLabel>Nosy Anjombavola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1073942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.25</wgs:lat>
+	<wgs:long>49.4</wgs:long>
+	<skos:altLabel>Nosy Angongo</skos:altLabel>
+	<skos:altLabel>Nosy Ankonko</skos:altLabel>
+	<skos:prefLabel>Nosy Angongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1073991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.93333</wgs:lat>
+	<wgs:long>43.76667</wgs:long>
+	<skos:altLabel>Nosy Angarahoka</skos:altLabel>
+	<skos:altLabel>Nosy Be</skos:altLabel>
+	<skos:altLabel>Nosy Nosibe</skos:altLabel>
+	<skos:prefLabel>Nosy Angarahoka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1074124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.5</wgs:lat>
+	<wgs:long>43.8</wgs:long>
+	<skos:altLabel>Androtra</skos:altLabel>
+	<skos:altLabel>Androtra Island</skos:altLabel>
+	<skos:altLabel>Nosy Androtra</skos:altLabel>
+	<skos:prefLabel>Nosy Androtra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1074345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.83333</wgs:lat>
+	<wgs:long>43.76667</wgs:long>
+	<skos:altLabel>Andrianmatarana</skos:altLabel>
+	<skos:altLabel>Barlow Island</skos:altLabel>
+	<skos:altLabel>Barlow Islet</skos:altLabel>
+	<skos:altLabel>Nosi Andriangori</skos:altLabel>
+	<skos:altLabel>Nosy Andriangory</skos:altLabel>
+	<skos:prefLabel>Nosy Andriangory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1074381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.06667</wgs:lat>
+	<wgs:long>43.66667</wgs:long>
+	<skos:altLabel>Andriamitaroka</skos:altLabel>
+	<skos:altLabel>Crab Island</skos:altLabel>
+	<skos:altLabel>Crab Islet</skos:altLabel>
+	<skos:altLabel>Nosi Andrianmitarika</skos:altLabel>
+	<skos:altLabel>Nosy Andriamitaroka</skos:altLabel>
+	<skos:prefLabel>Nosy Andriamitaroka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1074530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.65</wgs:lat>
+	<wgs:long>43.85</wgs:long>
+	<skos:prefLabel>Nosy Andravoho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1075019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.95</wgs:lat>
+	<wgs:long>43.2</wgs:long>
+	<skos:altLabel>Grave Islet</skos:altLabel>
+	<skos:altLabel>Nosi Andrahombava</skos:altLabel>
+	<skos:altLabel>Nosy Andrahambava</skos:altLabel>
+	<skos:altLabel>Nosy Andrahombava</skos:altLabel>
+	<skos:altLabel>Nosy Andranombala</skos:altLabel>
+	<skos:altLabel>Nosy Andriambala</skos:altLabel>
+	<skos:prefLabel>Nosy Andranombala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1075482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.55</wgs:lat>
+	<wgs:long>43.88333</wgs:long>
+	<skos:altLabel>Andrano Island</skos:altLabel>
+	<skos:altLabel>Nosy Andrano</skos:altLabel>
+	<skos:prefLabel>Nosy Andrano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1075568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.65</wgs:lat>
+	<wgs:long>43.36667</wgs:long>
+	<skos:prefLabel>Nosy Andramona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22680</europeana:population>
+	<wgs:lat>-13.4</wgs:lat>
+	<wgs:long>48.26667</wgs:long>
+	<skos:altLabel>Andoany</skos:altLabel>
+	<skos:altLabel>Hell-Ville</skos:altLabel>
+	<skos:altLabel>Helville</skos:altLabel>
+	<skos:prefLabel>Andoany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19750</europeana:population>
+	<wgs:lat>-17.01667</wgs:lat>
+	<wgs:long>48.58333</wgs:long>
+	<skos:prefLabel>Andilamena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10429</europeana:population>
+	<wgs:lat>-18.95</wgs:lat>
+	<wgs:long>49.1</wgs:long>
+	<skos:altLabel>Andevorante</skos:altLabel>
+	<skos:altLabel>Andevoranto</skos:altLabel>
+	<skos:altLabel>Andovoranto</skos:altLabel>
+	<skos:prefLabel>Andovoranto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20798</europeana:population>
+	<wgs:lat>-14.65</wgs:lat>
+	<wgs:long>49.65</wgs:long>
+	<skos:prefLabel>Andapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.26667</wgs:lat>
+	<wgs:long>48.96667</wgs:long>
+	<skos:prefLabel>Nosy Andantsara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.03333</wgs:lat>
+	<wgs:long>43.23333</wgs:long>
+	<skos:altLabel>Andamotibe</skos:altLabel>
+	<skos:altLabel>Nosy Andamatibe</skos:altLabel>
+	<skos:altLabel>Nosy Andamotibe</skos:altLabel>
+	<skos:prefLabel>Nosy Andamotibe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.43333</wgs:lat>
+	<wgs:long>49.56667</wgs:long>
+	<skos:altLabel>Nosi Andambouchi</skos:altLabel>
+	<skos:altLabel>Nosy Andambouchi</skos:altLabel>
+	<skos:prefLabel>Nosy Andambouchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1076858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.26667</wgs:lat>
+	<wgs:long>48.63333</wgs:long>
+	<skos:altLabel>Nosy Amabo</skos:altLabel>
+	<skos:altLabel>Nosy Anambo</skos:altLabel>
+	<skos:altLabel>Woody Island</skos:altLabel>
+	<skos:altLabel>Woody Islet</skos:altLabel>
+	<skos:altLabel>Île Boisée</skos:altLabel>
+	<skos:prefLabel>Nosy Anambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1077627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.75</wgs:lat>
+	<wgs:long>47.2</wgs:long>
+	<skos:altLabel>Ampolahasambo</skos:altLabel>
+	<skos:altLabel>Nosy Ampolahasambo</skos:altLabel>
+	<skos:prefLabel>Nosy Ampolahasambo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1077983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.33333</wgs:lat>
+	<wgs:long>49.41667</wgs:long>
+	<skos:altLabel>Nosi Pasandava</skos:altLabel>
+	<skos:altLabel>Nosy Ampasindava</skos:altLabel>
+	<skos:altLabel>Nosy Pasandava</skos:altLabel>
+	<skos:prefLabel>Nosy Ampasindava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1078446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51519</europeana:population>
+	<wgs:lat>-17.58333</wgs:lat>
+	<wgs:long>48.21667</wgs:long>
+	<skos:altLabel>Amparafaravola</skos:altLabel>
+	<skos:altLabel>Amparafarovola</skos:altLabel>
+	<skos:altLabel>Amparofaravola</skos:altLabel>
+	<skos:prefLabel>Amparafaravola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1078488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.56667</wgs:lat>
+	<wgs:long>48.03333</wgs:long>
+	<skos:altLabel>Ampanorolaibe Island</skos:altLabel>
+	<skos:altLabel>Île Ampanorolaibe</skos:altLabel>
+	<skos:prefLabel>Île Ampanorolaibe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1078553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25686</europeana:population>
+	<wgs:lat>-24.7</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:prefLabel>Ampanihy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1078709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.4</wgs:lat>
+	<wgs:long>49.56667</wgs:long>
+	<skos:prefLabel>Nosy Ampandrafitra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1079048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66818</europeana:population>
+	<wgs:lat>-25.16667</wgs:lat>
+	<wgs:long>46.08333</wgs:long>
+	<skos:prefLabel>Ambovombe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1079088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30353</europeana:population>
+	<wgs:lat>-20.51667</wgs:lat>
+	<wgs:long>47.25</wgs:long>
+	<skos:altLabel>Ambositra</skos:altLabel>
+	<skos:prefLabel>Ambositra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1081530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11830</europeana:population>
+	<wgs:lat>-16.98333</wgs:lat>
+	<wgs:long>49.85</wgs:long>
+	<skos:altLabel>Ambodifotatra</skos:altLabel>
+	<skos:altLabel>Ambodifototra</skos:altLabel>
+	<skos:prefLabel>Ambodifotatra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1081790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36082</europeana:population>
+	<wgs:lat>-25.03333</wgs:lat>
+	<wgs:long>46.38333</wgs:long>
+	<skos:altLabel>Amboasary</skos:altLabel>
+	<skos:altLabel>Amboasary Sud</skos:altLabel>
+	<skos:prefLabel>Amboasary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1082243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14635</europeana:population>
+	<wgs:lat>-13.2</wgs:lat>
+	<wgs:long>49.05</wgs:long>
+	<skos:prefLabel>Ambilobe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1082639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43134</europeana:population>
+	<wgs:lat>-17.83333</wgs:lat>
+	<wgs:long>48.41667</wgs:long>
+	<skos:altLabel>Ambatondrazaka</skos:altLabel>
+	<skos:altLabel>Ambatonoradrazaka</skos:altLabel>
+	<skos:prefLabel>Ambatondrazaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1082657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-12.43333</wgs:lat>
+	<wgs:long>49.53333</wgs:long>
+	<skos:prefLabel>Nosy Ambatomkena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1082742/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>50.41667</wgs:long>
+	<skos:altLabel>Nosy Ambatomifanga</skos:altLabel>
+	<skos:altLabel>Nosy Ambatonifanga</skos:altLabel>
+	<skos:prefLabel>Nosy Ambatomifanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1082992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28461</europeana:population>
+	<wgs:lat>-19.38333</wgs:lat>
+	<wgs:long>47.41667</wgs:long>
+	<skos:prefLabel>Ambatolampy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.83333</wgs:lat>
+	<wgs:long>50.3</wgs:long>
+	<skos:altLabel>Nosy Ambatoharana</skos:altLabel>
+	<skos:altLabel>Nosy Vazaha</skos:altLabel>
+	<skos:prefLabel>Nosy Ambatoharana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083239/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25997</europeana:population>
+	<wgs:lat>-20.55</wgs:lat>
+	<wgs:long>46.8</wgs:long>
+	<skos:altLabel>Ambatofinandrahana</skos:altLabel>
+	<skos:prefLabel>Ambatofinandrahana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22529</europeana:population>
+	<wgs:lat>-16.46667</wgs:lat>
+	<wgs:long>46.71667</wgs:long>
+	<skos:altLabel>Ambato</skos:altLabel>
+	<skos:altLabel>Ambato Boeni</skos:altLabel>
+	<skos:altLabel>Ambato Boeny</skos:altLabel>
+	<skos:prefLabel>Ambato Boeny</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083418/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.46667</wgs:lat>
+	<wgs:long>48.35</wgs:long>
+	<skos:altLabel>Amberiovata</skos:altLabel>
+	<skos:altLabel>Nosy Ambariovato</skos:altLabel>
+	<skos:altLabel>Nosy Komba</skos:altLabel>
+	<skos:prefLabel>Nosy Ambariovato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.25</wgs:lat>
+	<wgs:long>48.3</wgs:long>
+	<skos:prefLabel>de Ambariotrandraka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-13.43333</wgs:lat>
+	<wgs:long>48.36667</wgs:long>
+	<skos:altLabel>Ambariotelo</skos:altLabel>
+	<skos:altLabel>Ambariotelo Islets</skos:altLabel>
+	<skos:altLabel>The Brothers</skos:altLabel>
+	<skos:prefLabel>Ambariotelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.63333</wgs:lat>
+	<wgs:long>47.91667</wgs:long>
+	<skos:prefLabel>Ambariopotaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.93333</wgs:lat>
+	<wgs:long>47.76667</wgs:long>
+	<skos:prefLabel>Ambariompotaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083433/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.63333</wgs:lat>
+	<wgs:long>47.86667</wgs:long>
+	<skos:prefLabel>Ambariokaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-13.43333</wgs:lat>
+	<wgs:long>48.36667</wgs:long>
+	<skos:altLabel>Ambariobe</skos:altLabel>
+	<skos:altLabel>Ambariobe Islet</skos:altLabel>
+	<skos:prefLabel>Ambariobe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30621</europeana:population>
+	<wgs:lat>-13.68333</wgs:lat>
+	<wgs:long>48.45</wgs:long>
+	<skos:altLabel>Ambanja</skos:altLabel>
+	<skos:prefLabel>Ambanja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1083968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28027</europeana:population>
+	<wgs:lat>-21.83333</wgs:lat>
+	<wgs:long>46.93333</wgs:long>
+	<skos:altLabel>Ambalava</skos:altLabel>
+	<skos:altLabel>Ambalavao</skos:altLabel>
+	<skos:prefLabel>Ambalavao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1084745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.05</wgs:lat>
+	<wgs:long>49.46667</wgs:long>
+	<skos:altLabel>Ilot Prune</skos:altLabel>
+	<skos:altLabel>Nosi Alanana</skos:altLabel>
+	<skos:altLabel>Nosy Alanana</skos:altLabel>
+	<skos:altLabel>Prune Island</skos:altLabel>
+	<skos:prefLabel>Nosy Alanana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>-18.87084</wgs:lat>
+	<wgs:long>47.6816</wgs:long>
+	<skos:prefLabel>FJKM Isoavina Ambanitsena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7304400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1062947/"/>
+	<europeana:country>MG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>-18.9014</wgs:lat>
+	<wgs:long>47.55822</wgs:long>
+	<skos:prefLabel>Eglise Adventiste Ampanotokana Ambatomaro</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 295 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

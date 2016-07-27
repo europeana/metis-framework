@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xml:lang="tr"
+            xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            xmlns:rdfs='http://www.w3.org/2000/01/rdf-schema#'
+            xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+            xmlns="http://www.eionet.europa.eu/gemet/2004/06/gemet-schema.rdf#">
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5499">
+<rdfs:label>DOĞAL ÇEVRE, YAPAY ÇEVRE</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/4044">
+<rdfs:label>İNSAN FAALİYETLERİ VE ÜRÜNLERİ, ÇEVRE ÜZERİNE ETKİLERİ</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/2894">
+<rdfs:label>TOPLUMSAL YÖNLER, ÇEVRE POLİTİKASI TEDBİRLERİ</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5306">
+<rdfs:label>YARDIMCI LİSTELER</rdfs:label>
+</SuperGroup>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/96">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>İDARE, YÖNETİM, POLİTİKA, SİYASET, KURUMLAR, PLANLAMA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/234">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>TARIM, ORMANCILIK; HAYVANCILIK; BALIKÇILIK</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/618">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ATMOSFER (hava, iklim)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/893">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>BİYOSFER (canlılar, ekosistemler)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1062">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ANTROPOSFER (yapay çevre, yerleşim yerleri, arazi düzeni)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1349">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>KİMYA, MADDELER, SÜREÇLER</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1922">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>BİLGİ, EĞİTİM, KÜLTÜR, ÇEVRESEL FARKINDALIK</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2504">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>EKONOMİ, FİNANS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2711">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ENERJİ</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/3875">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>SAĞLIK, BESLENME</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4125">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>HİDROSFER (temiz su, deniz suyu, sular)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4281">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>SANAYİ, EL SANATLARI; TEKNOLOJİ, EKİPMAN (DONATIM)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4630">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ARAZİ (peyzaj, coğrafya)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4750">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>MEVZUAT, NORMLAR, ULUSLAR ARASI SÖZLEŞMELER</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4856">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>LITOSFER (toprak, jeolojik süreçler)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/6237">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>FİZİKSEL YÖNLER, GÜRÜLTÜ, TİTREŞİM, RADYASYON</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7007">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>YENİDEN YAPILANDIRMA, TURİZM</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7136">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ARAŞTIRMA, FEN BİLİMLERi (BİLİM)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7243">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>RİSKLER, GÜVENLİK</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7779">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>TOPLUM</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7956">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ALAN</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8575">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>TİCARET, HİZMETLER</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8603">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>TRAFİK, ULAŞIM</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/9117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ATIKLAR, KİRLETİCİLER, KİRLİLİK</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10111">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ÇEVRE (doğal çevre, yapay çevre)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10112">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ÜRÜNLER, MATERYALLER</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10114">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ETKİLER, TESİRLER / SONUÇLER, ETKİLER</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>GENEL TERİMLER</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10118">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>KAYNAKLAR (kaynakların kullanımı)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/13109">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ÇEVRE POLİTİKASI</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14979">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ZAMAN (kronoloji)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14980">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>İŞLEVSEL TERİMLER</rdfs:label>
+</Group>
+<Theme rdfs:label="afetler, kazalar, risk" rdf:about="http://www.eionet.europa.eu/gemet/theme/32" />
+<Theme rdfs:label="alan" rdf:about="http://www.eionet.europa.eu/gemet/theme/36" />
+<Theme rdfs:label="araştırma" rdf:about="http://www.eionet.europa.eu/gemet/theme/30" />
+<Theme rdfs:label="askeri yönler" rdf:about="http://www.eionet.europa.eu/gemet/theme/22" />
+<Theme rdfs:label="atık" rdf:about="http://www.eionet.europa.eu/gemet/theme/39" />
+<Theme rdfs:label="balıkçılık" rdf:about="http://www.eionet.europa.eu/gemet/theme/12" />
+<Theme rdfs:label="bilgi" rdf:about="http://www.eionet.europa.eu/gemet/theme/20" />
+<Theme rdfs:label="biyoloji" rdf:about="http://www.eionet.europa.eu/gemet/theme/4" />
+<Theme rdfs:label="çevre politikası" rdf:about="http://www.eionet.europa.eu/gemet/theme/11" />
+<Theme rdfs:label="coğrafya" rdf:about="http://www.eionet.europa.eu/gemet/theme/16" />
+<Theme rdfs:label="doğal alanlar, peyzaj, ekosistemler" rdf:about="http://www.eionet.europa.eu/gemet/theme/23" />
+<Theme rdfs:label="doğal dinamikler" rdf:about="http://www.eionet.europa.eu/gemet/theme/8" />
+<Theme rdfs:label="ekonomi" rdf:about="http://www.eionet.europa.eu/gemet/theme/9" />
+<Theme rdfs:label="enerji" rdf:about="http://www.eionet.europa.eu/gemet/theme/10" />
+<Theme rdfs:label="fizik" rdf:about="http://www.eionet.europa.eu/gemet/theme/25" />
+<Theme rdfs:label="genel" rdf:about="http://www.eionet.europa.eu/gemet/theme/15" />
+<Theme rdfs:label="gıda, içme suyu" rdf:about="http://www.eionet.europa.eu/gemet/theme/13" />
+<Theme rdfs:label="gürültü, titreşim" rdf:about="http://www.eionet.europa.eu/gemet/theme/24" />
+<Theme rdfs:label="hava" rdf:about="http://www.eionet.europa.eu/gemet/theme/3" />
+<Theme rdfs:label="hayvancılık" rdf:about="http://www.eionet.europa.eu/gemet/theme/18" />
+<Theme rdfs:label="idare" rdf:about="http://www.eionet.europa.eu/gemet/theme/1" />
+<Theme rdfs:label="iklim" rdf:about="http://www.eionet.europa.eu/gemet/theme/7" />
+<Theme rdfs:label="insan sağlığı" rdf:about="http://www.eionet.europa.eu/gemet/theme/17" />
+<Theme rdfs:label="kaynaklar" rdf:about="http://www.eionet.europa.eu/gemet/theme/31" />
+<Theme rdfs:label="kentsel çevre, kentsel baskı" rdf:about="http://www.eionet.europa.eu/gemet/theme/38" />
+<Theme rdfs:label="kimya" rdf:about="http://www.eionet.europa.eu/gemet/theme/6" />
+<Theme rdfs:label="kirlilik" rdf:about="http://www.eionet.europa.eu/gemet/theme/26" />
+<Theme rdfs:label="materyaller" rdf:about="http://www.eionet.europa.eu/gemet/theme/27" />
+<Theme rdfs:label="mevzuat" rdf:about="http://www.eionet.europa.eu/gemet/theme/21" />
+<Theme rdfs:label="ormancılık" rdf:about="http://www.eionet.europa.eu/gemet/theme/14" />
+<Theme rdfs:label="radyasyon" rdf:about="http://www.eionet.europa.eu/gemet/theme/28" />
+<Theme rdfs:label="sanayi" rdf:about="http://www.eionet.europa.eu/gemet/theme/19" />
+<Theme rdfs:label="sosyal yönler, nüfus" rdf:about="http://www.eionet.europa.eu/gemet/theme/34" />
+<Theme rdfs:label="su" rdf:about="http://www.eionet.europa.eu/gemet/theme/40" />
+<Theme rdfs:label="tarım" rdf:about="http://www.eionet.europa.eu/gemet/theme/2" />
+<Theme rdfs:label="taşıma" rdf:about="http://www.eionet.europa.eu/gemet/theme/37" />
+<Theme rdfs:label="ticaret, hizmetler" rdf:about="http://www.eionet.europa.eu/gemet/theme/33" />
+<Theme rdfs:label="toprak" rdf:about="http://www.eionet.europa.eu/gemet/theme/35" />
+<Theme rdfs:label="turizm" rdf:about="http://www.eionet.europa.eu/gemet/theme/29" />
+<Theme rdfs:label="yapı" rdf:about="http://www.eionet.europa.eu/gemet/theme/5" />
+</rdf:RDF>

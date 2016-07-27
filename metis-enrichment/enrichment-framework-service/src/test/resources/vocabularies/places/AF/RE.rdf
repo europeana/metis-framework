@@ -1,0 +1,695 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_RE
+Description: Selected fields pulled from Geonames about RE done on Mon May 23 21:16:21 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/935197/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.96667</wgs:lat>
+	<wgs:long>55.31667</wgs:long>
+	<skos:prefLabel>Îlet Savannah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690284/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>282274</europeana:population>
+	<wgs:lat>-21.25</wgs:lat>
+	<wgs:long>55.58333</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935214/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>76655</europeana:population>
+	<wgs:lat>-21.31667</wgs:lat>
+	<wgs:long>55.48333</wgs:long>
+	<skos:altLabel>Saint-Pierre</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Пьер</skos:altLabel>
+	<skos:prefLabel>Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690284/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>202862</europeana:population>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>55.33333</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Paul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935221/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>99307</europeana:population>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>55.26667</wgs:long>
+	<skos:altLabel>Saint-Paul</skos:altLabel>
+	<skos:prefLabel>Saint-Paul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935223/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47881</europeana:population>
+	<wgs:lat>-21.26667</wgs:lat>
+	<wgs:long>55.41667</wgs:long>
+	<skos:altLabel>Saint-Louis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сен-Луи</skos:altLabel>
+	<skos:prefLabel>Saint-Louis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935225/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28278</europeana:population>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>55.28333</wgs:long>
+	<skos:altLabel>Saint-Leu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санкт-Леу</skos:altLabel>
+	<skos:prefLabel>Saint-Leu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935227/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33694</europeana:population>
+	<wgs:lat>-21.36667</wgs:lat>
+	<wgs:long>55.61667</wgs:long>
+	<skos:altLabel>Saint-Joseph</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Джозеф</skos:altLabel>
+	<skos:prefLabel>Saint-Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935248/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20530</europeana:population>
+	<wgs:lat>-20.9</wgs:lat>
+	<wgs:long>55.61667</wgs:long>
+	<skos:altLabel>Sainte-Suzanne</skos:altLabel>
+	<skos:prefLabel>Sainte-Suzanne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935255/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31636</europeana:population>
+	<wgs:lat>-20.88333</wgs:lat>
+	<wgs:long>55.55</wgs:long>
+	<skos:altLabel>Sainte-Marie</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Мари</skos:altLabel>
+	<skos:prefLabel>Sainte-Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690284/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>193732</europeana:population>
+	<wgs:lat>-20.91667</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Denis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935264/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>137195</europeana:population>
+	<wgs:lat>-20.88231</wgs:lat>
+	<wgs:long>55.4504</wgs:long>
+	<skos:altLabel xml:lang="de">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="io">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="no">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saint-Denis</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint-Denis de la Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="da">St. Denis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сен-Дени</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט דניס</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サン・ドゥニ</skos:altLabel>
+	<skos:prefLabel>Saint-Denis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690284/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<europeana:population>115239</europeana:population>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>55.66667</wgs:long>
+	<skos:prefLabel>Arrondissement de Saint-Benoît</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935267/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35310</europeana:population>
+	<wgs:lat>-21.03333</wgs:lat>
+	<wgs:long>55.71667</wgs:long>
+	<skos:altLabel>Saint-Benoît</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санкт-Бенуа</skos:altLabel>
+	<skos:prefLabel>Saint-Benoît</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935268/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48674</europeana:population>
+	<wgs:lat>-20.95</wgs:lat>
+	<wgs:long>55.65</wgs:long>
+	<skos:altLabel>Saint-André</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санкт-Андре</skos:altLabel>
+	<skos:prefLabel>Saint-André</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935316/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>55.6</wgs:long>
+	<skos:altLabel>Bourbon</skos:altLabel>
+	<skos:altLabel>Bourbon Island</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illa de la Reunió</skos:altLabel>
+	<skos:altLabel>La Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Reinjona</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Reunio</skos:altLabel>
+	<skos:altLabel xml:lang="la">Reunio</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="da">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="en">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Reunionas</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Reunião</skos:altLabel>
+	<skos:altLabel xml:lang="an">Reunión</skos:altLabel>
+	<skos:altLabel xml:lang="es">Reunión</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Reunión - Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Reünion</skos:altLabel>
+	<skos:altLabel>Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="de">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="en">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="io">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="it">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="af">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="et">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="is">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="no">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="da">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="id">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île de la Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Đảo Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Реинион</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Реунион</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Реюнион</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Реюньон</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Реюніон</skos:altLabel>
+	<skos:altLabel xml:lang="he">ראוניון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر ريونيون</skos:altLabel>
+	<skos:altLabel xml:lang="th">เรอูนียง</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レユニオン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">留尼汪</skos:altLabel>
+	<skos:altLabel xml:lang="ko">레위니옹</skos:altLabel>
+	<skos:prefLabel>Reunion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>776948</europeana:population>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>55.6</wgs:long>
+	<skos:altLabel xml:lang="fr">La Réunion</skos:altLabel>
+	<skos:altLabel>RE</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Reinjona</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Reunio</skos:altLabel>
+	<skos:altLabel xml:lang="da">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="de">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="en">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="se">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Reunion</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Reunionas</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Reunião</skos:altLabel>
+	<skos:altLabel xml:lang="es">Reunión</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="af">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="et">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="is">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="it">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="id">Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ρεϋνιόν</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Реинион</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Реюниън</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Реюньйон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Реюньон</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Рејунион</skos:altLabel>
+	<skos:altLabel xml:lang="be">Рэюньён</skos:altLabel>
+	<skos:altLabel xml:lang="he">ראוניון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">روينيون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ریونیون</skos:altLabel>
+	<skos:altLabel xml:lang="hi">रीयूनियन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">রিইউনিয়ন</skos:altLabel>
+	<skos:altLabel xml:lang="th">เรอูนียง</skos:altLabel>
+	<skos:altLabel xml:lang="ka">რეიუნიონი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሪዩኒየን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">レユニオン島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">留尼汪</skos:altLabel>
+	<skos:altLabel xml:lang="ko">리유니온</skos:altLabel>
+	<skos:prefLabel>Reunion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935416/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10961</europeana:population>
+	<wgs:lat>-21.35</wgs:lat>
+	<wgs:long>55.56667</wgs:long>
+	<skos:altLabel>Village de la Petite Ile</skos:altLabel>
+	<skos:prefLabel>Petite-Île</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935417/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.36667</wgs:lat>
+	<wgs:long>55.56667</wgs:long>
+	<skos:altLabel>La Petite Ile</skos:altLabel>
+	<skos:altLabel>Petite Île</skos:altLabel>
+	<skos:prefLabel>Petite Île</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935495/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>57</wgs:long>
+	<skos:altLabel>Les Mascareignes</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mascareignes</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mascarene Islands</skos:altLabel>
+	<skos:altLabel>Mascarenhas</skos:altLabel>
+	<skos:prefLabel>Mascareignes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935582/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>69986</europeana:population>
+	<wgs:lat>-21.26667</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Le Tampon</skos:altLabel>
+	<skos:altLabel>Tampon</skos:altLabel>
+	<skos:altLabel>Village du Tampon</skos:altLabel>
+	<skos:prefLabel>Le Tampon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935616/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40771</europeana:population>
+	<wgs:lat>-20.91667</wgs:lat>
+	<wgs:long>55.3</wgs:long>
+	<skos:altLabel>La Point-aux-galets</skos:altLabel>
+	<skos:altLabel>Le Port</skos:altLabel>
+	<skos:altLabel>Le Port des Galets</skos:altLabel>
+	<skos:altLabel>Port</skos:altLabel>
+	<skos:altLabel>Port de la Pointe des Galets</skos:altLabel>
+	<skos:altLabel>Port des Galets</skos:altLabel>
+	<skos:prefLabel>Le Port</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935691/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>26865</europeana:population>
+	<wgs:lat>-20.91667</wgs:lat>
+	<wgs:long>55.33333</wgs:long>
+	<skos:altLabel>La Possession</skos:altLabel>
+	<skos:altLabel>Possession</skos:altLabel>
+	<skos:prefLabel>La Possession</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935799/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>55.48333</wgs:long>
+	<skos:prefLabel>Îlet du Gros Galet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936048/">
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10444</europeana:population>
+	<wgs:lat>-20.98333</wgs:lat>
+	<wgs:long>55.68333</wgs:long>
+	<skos:altLabel>Bras-Panon</skos:altLabel>
+	<skos:prefLabel>Bras-Panon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935317/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>794107</europeana:population>
+	<wgs:lat>-21.10044</wgs:lat>
+	<wgs:long>55.60206</wgs:long>
+	<skos:altLabel>Région Réunion</skos:altLabel>
+	<skos:prefLabel>Réunion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6690283/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>794107</europeana:population>
+	<wgs:lat>-21.10084</wgs:lat>
+	<wgs:long>55.60344</wgs:long>
+	<skos:altLabel>Département de La Réunion</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Reunião</skos:altLabel>
+	<skos:altLabel xml:lang="es">Reunión</skos:altLabel>
+	<skos:altLabel xml:lang="it">Riunione</skos:altLabel>
+	<skos:prefLabel>Réunion</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935266/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>11216</europeana:population>
+	<wgs:lat>-20.98333</wgs:lat>
+	<wgs:long>55.68333</wgs:long>
+	<skos:prefLabel>Bras-Panon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>5868</europeana:population>
+	<wgs:lat>-21.23333</wgs:lat>
+	<wgs:long>55.46667</wgs:long>
+	<skos:prefLabel>L'Entre-Deux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>13179</europeana:population>
+	<wgs:lat>-21.25</wgs:lat>
+	<wgs:long>55.38333</wgs:long>
+	<skos:prefLabel>L'Étang-Salé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>11672</europeana:population>
+	<wgs:lat>-21.35</wgs:lat>
+	<wgs:long>55.56667</wgs:long>
+	<skos:prefLabel>Petite-Île</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935266/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>4713</europeana:population>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>55.63333</wgs:long>
+	<skos:prefLabel>La Plaine-des-Palmistes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935220/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>38313</europeana:population>
+	<wgs:lat>-20.91667</wgs:lat>
+	<wgs:long>55.3</wgs:long>
+	<skos:prefLabel>Le Port</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935220/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>27175</europeana:population>
+	<wgs:lat>-20.91667</wgs:lat>
+	<wgs:long>55.33333</wgs:long>
+	<skos:prefLabel>La Possession</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935266/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>51964</europeana:population>
+	<wgs:lat>-20.95</wgs:lat>
+	<wgs:long>55.65</wgs:long>
+	<skos:prefLabel>Saint-André</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935266/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>33485</europeana:population>
+	<wgs:lat>-21.03333</wgs:lat>
+	<wgs:long>55.71667</wgs:long>
+	<skos:prefLabel>Saint-Benoît</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935263/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>140733</europeana:population>
+	<wgs:lat>-20.86667</wgs:lat>
+	<wgs:long>55.46667</wgs:long>
+	<skos:prefLabel>Saint-Denis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>34602</europeana:population>
+	<wgs:lat>-21.36667</wgs:lat>
+	<wgs:long>55.61667</wgs:long>
+	<skos:prefLabel>Saint-Joseph</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935220/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>29422</europeana:population>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>55.28333</wgs:long>
+	<skos:prefLabel>Saint-Leu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>50131</europeana:population>
+	<wgs:lat>-21.26667</wgs:lat>
+	<wgs:long>55.41667</wgs:long>
+	<skos:prefLabel>Saint-Louis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935220/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>101023</europeana:population>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>55.26667</wgs:long>
+	<skos:prefLabel>Saint-Paul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>75265</europeana:population>
+	<wgs:lat>-21.31667</wgs:lat>
+	<wgs:long>55.48333</wgs:long>
+	<skos:prefLabel>Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>5129</europeana:population>
+	<wgs:lat>-21.35</wgs:lat>
+	<wgs:long>55.76667</wgs:long>
+	<skos:prefLabel>Saint-Philippe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935263/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>31143</europeana:population>
+	<wgs:lat>-20.88333</wgs:lat>
+	<wgs:long>55.55</wgs:long>
+	<skos:prefLabel>Sainte-Marie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935266/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>6680</europeana:population>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>55.78333</wgs:long>
+	<skos:prefLabel>Sainte-Rose</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935263/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>21856</europeana:population>
+	<wgs:lat>-20.9</wgs:lat>
+	<wgs:long>55.61667</wgs:long>
+	<skos:prefLabel>Sainte-Suzanne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935266/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>7181</europeana:population>
+	<wgs:lat>-21.01667</wgs:lat>
+	<wgs:long>55.55</wgs:long>
+	<skos:prefLabel>Salazie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>70539</europeana:population>
+	<wgs:lat>-21.26667</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:prefLabel>Le Tampon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935220/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>6929</europeana:population>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>55.3</wgs:long>
+	<skos:prefLabel>Trois-Bassins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>5796</europeana:population>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>55.46667</wgs:long>
+	<skos:prefLabel>Cilaos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6690316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/935213/"/>
+	<europeana:country>RE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM4"/>
+	<europeana:population>10093</europeana:population>
+	<wgs:lat>-21.23278</wgs:lat>
+	<wgs:long>55.33286</wgs:long>
+	<skos:prefLabel>Les Avirons</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 50 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

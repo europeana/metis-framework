@@ -1,0 +1,67 @@
+.yui-dt-col-1 {
+	width: 50%;
+}
+
+.yui-skin-sam tr.yui-dt-even td.yui-dt-asc,.yui-skin-sam tr.yui-dt-even td.yui-dt-desc {
+	background-color: #eee;
+}
+
+.yui-skin-sam tr.yui-dt-odd td.yui-dt-asc,.yui-skin-sam tr.yui-dt-odd td.yui-dt-desc {
+	background-color: white;
+}
+
+.yui-skin-sam tr.yui-dt-even {
+	background-color: #eee;
+}
+
+.yui-skin-sam tr.yui-dt-odd {
+	background-color: white;
+}
+
+.yui-skin-sam .yui-navset .yui-nav, .yui-skin-sam .yui-navset .yui-navset-top .yui-nav {
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+td {
+	color: black;
+}
+
+.namespaceAbbr {
+	font-style: italic;
+}
+
+.yui-skin-sam .yui-dt table {
+   width: 100%
+}
+
+.subtitle {
+   font-family: sans-serif;
+   margin: 0;
+   margin-left: 1cm;
+   margin-right: 1cm;
+   text-align: left;
+   font-style: italic;
+}
+
+h1 {
+   font-family: sans-serif;
+   text-align: center;
+   font-size: 150%;
+}
+
+.yui-content {
+   background-color: white;
+}
+.yui-skin-sam .yui-dt th {
+	background-color: #ddd;
+}
+
+@media print {
+#divReport {
+  font-size: 9pt;
+}
+.yui-skin-sam .yui-navset .yui-content, .yui-skin-sam .yui-navset .yui-navset-top .yui-content {
+  border: 0;
+}
+}

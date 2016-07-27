@@ -1,0 +1,1650 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_LU
+Description: Selected fields pulled from Geonames about LU done on Mon May 23 21:12:41 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2959975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960655/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.96667</wgs:lat>
+	<wgs:long>5.93333</wgs:long>
+	<skos:altLabel>Canton de Wiltz</skos:altLabel>
+	<skos:altLabel>Wiltz</skos:altLabel>
+	<skos:prefLabel>Canton de Wiltz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2959978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.91667</wgs:lat>
+	<wgs:long>5.91667</wgs:long>
+	<skos:prefLabel>Wiltz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960655/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>3147</europeana:population>
+	<wgs:lat>49.93333</wgs:lat>
+	<wgs:long>6.16667</wgs:long>
+	<skos:altLabel>Canton de Vianden</skos:altLabel>
+	<skos:altLabel>Vianden</skos:altLabel>
+	<skos:prefLabel>Canton de Vianden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.13333</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Troisvierges</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960103/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Schifflange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.58333</wgs:lat>
+	<wgs:long>5.91667</wgs:long>
+	<skos:prefLabel>Sanem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Rumelange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960513/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>17882</europeana:population>
+	<wgs:lat>49.53333</wgs:lat>
+	<wgs:long>6.33333</wgs:long>
+	<skos:altLabel>Canton de Remich</skos:altLabel>
+	<skos:altLabel>Remich</skos:altLabel>
+	<skos:prefLabel>Canton de Remich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960655/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14470</europeana:population>
+	<wgs:lat>49.8</wgs:lat>
+	<wgs:long>5.9</wgs:long>
+	<skos:altLabel>Canton de Redange</skos:altLabel>
+	<skos:altLabel>Redange</skos:altLabel>
+	<skos:prefLabel>Canton de Redange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960188/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.55</wgs:lat>
+	<wgs:long>5.88333</wgs:long>
+	<skos:prefLabel>Pétange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960314/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>24212</europeana:population>
+	<wgs:lat>49.75</wgs:lat>
+	<wgs:long>6.1</wgs:long>
+	<skos:altLabel>Canton de Mersch</skos:altLabel>
+	<skos:altLabel>Mersch</skos:altLabel>
+	<skos:prefLabel>Canton de Mersch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>497538</europeana:population>
+	<wgs:lat>49.75</wgs:lat>
+	<wgs:long>6.16667</wgs:long>
+	<skos:altLabel xml:lang="en">Grand Duchy of Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Grand-Duché de Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Grande-Dutcheye do Lussimbork</skos:altLabel>
+	<skos:altLabel>LU</skos:altLabel>
+	<skos:altLabel>Letzeburg</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Liuksemburgas</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lucembursko</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Lucsamburg</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Lucsamburg</skos:altLabel>
+	<skos:altLabel xml:lang="so">Luksemboorg</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Luksemborg</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Luksembourg</skos:altLabel>
+	<skos:altLabel xml:lang="br">Luksembourg</skos:altLabel>
+	<skos:altLabel xml:lang="et">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Luksemburga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Luksemburgio</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Luksemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Luksemburgu</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Luksimbur</skos:altLabel>
+	<skos:altLabel xml:lang="an">Lusemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Lushaborg</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lussemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Lussemburgu</skos:altLabel>
+	<skos:altLabel xml:lang="sc">Lussemburgu</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Luxemborg</skos:altLabel>
+	<skos:altLabel xml:lang="id">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="en">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="da">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="no">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="se">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="id">Luxemburg</skos:altLabel>
+	<skos:altLabel>Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="li">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="io">Luxemburgia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Luxemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Luxemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Luxemburgo - Lëtzebuerg</skos:altLabel>
+	<skos:altLabel xml:lang="la">Luxemburgum</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Luxembursko</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Luxenburgo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Luxämburgän</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Lwcsembwrg</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Lëtzebuerg</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Lúc-xăm-bua</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Lúksemboarch</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lúxemborg</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Lüksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λουξεμβούργο</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Луксембург</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Луксембург</skos:altLabel>
+	<skos:altLabel xml:lang="os">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="be">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Люксембурґ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Люксэмбург</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Լյուքսեմբուրգ</skos:altLabel>
+	<skos:altLabel xml:lang="he">לוקסמבורג</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لوكسمبورج</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لوكسمبورغ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لوكسومبرغ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لوکزامبورگ</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ليۇكسېمبۇرگ</skos:altLabel>
+	<skos:altLabel xml:lang="dv">ލަޒަންބާ</skos:altLabel>
+	<skos:altLabel xml:lang="ne">लक्जेम्बर्ग</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लक्समबर्ग</skos:altLabel>
+	<skos:altLabel xml:lang="hi">लक्सेम्बर्ग</skos:altLabel>
+	<skos:altLabel xml:lang="bn">লাক্সেমবার্গ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">லக்ஸ்சம்பர்க்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ലക്സംബര്‍ഗ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศลักเซมเบิร์ก</skos:altLabel>
+	<skos:altLabel xml:lang="th">ลักเซมเบิร์ก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ລຸກແຊມເບີກ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ལཀ་ཛམ་བོརྒ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლუქსემბურგი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሉክሰምበርግ</skos:altLabel>
+	<skos:altLabel xml:lang="km">លុចហ្សំបួរ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルクセンブルク</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルクセンブルグ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">卢森堡</skos:altLabel>
+	<skos:altLabel xml:lang="ko">룩셈부르크</skos:altLabel>
+	<skos:prefLabel>Grand Duchy of Luxembourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>49.58333</wgs:lat>
+	<wgs:long>6.16667</wgs:long>
+	<skos:altLabel>District de Luxembourg</skos:altLabel>
+	<skos:altLabel>Luxembourg</skos:altLabel>
+	<skos:prefLabel>District de Luxembourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960314/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.6</wgs:lat>
+	<wgs:long>6.13333</wgs:long>
+	<skos:altLabel>Canton de Luxembourg</skos:altLabel>
+	<skos:altLabel>Canton de Luxembourg-Campagne</skos:altLabel>
+	<skos:altLabel>Luxembourg</skos:altLabel>
+	<skos:prefLabel>Canton de Luxembourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>76684</europeana:population>
+	<wgs:lat>49.61167</wgs:lat>
+	<wgs:long>6.13</wgs:long>
+	<skos:altLabel xml:lang="es">Ciudad de Luxemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ciutat de Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kota Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Letzeburg</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Liuksemburgas</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Lucemburk</skos:altLabel>
+	<skos:altLabel>Lucilinburhuc</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Lucsamburg</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Luksemburg</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Luksemburga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Luksemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Luksemburgu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Lussemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Lussimbork veye</skos:altLabel>
+	<skos:altLabel xml:lang="en">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="et">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="da">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="no">Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Luxembourg</skos:altLabel>
+	<skos:altLabel>Luxembourg</skos:altLabel>
+	<skos:altLabel xml:lang="de">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="io">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="af">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Luxemburg</skos:altLabel>
+	<skos:altLabel xml:lang="es">Luxemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Luxemburgo</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Luxenburgo</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Lëtzebuerg</skos:altLabel>
+	<skos:altLabel xml:lang="is">Lúxemborg</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Луксембург</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Луксембург</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Люксембург</skos:altLabel>
+	<skos:altLabel xml:lang="be">Люксэмбург</skos:altLabel>
+	<skos:altLabel xml:lang="he">לוקסמבורג</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لوكسمبورغ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">لوکزامبورگ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ლუქსემბურგი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሉክሰምቡርግ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ルクセンブルク</skos:altLabel>
+	<skos:altLabel xml:lang="ko">룩셈부르크 시</skos:altLabel>
+	<skos:prefLabel>Luxembourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.6</wgs:lat>
+	<wgs:long>6.16667</wgs:long>
+	<skos:altLabel>Luxembourg</skos:altLabel>
+	<skos:altLabel>Ville de Luxembourg</skos:altLabel>
+	<skos:prefLabel>Ville de Luxembourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Kayl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>49.66667</wgs:lat>
+	<wgs:long>6.41667</wgs:long>
+	<skos:altLabel>District de Grevenmacher</skos:altLabel>
+	<skos:altLabel>Grevenmacher</skos:altLabel>
+	<skos:prefLabel>District de Grevenmacher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960513/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.66667</wgs:lat>
+	<wgs:long>6.33333</wgs:long>
+	<skos:altLabel>Canton de Grevenmacher</skos:altLabel>
+	<skos:altLabel>Grevenmacher</skos:altLabel>
+	<skos:prefLabel>Canton de Grevenmacher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.66667</wgs:lat>
+	<wgs:long>6.41667</wgs:long>
+	<skos:prefLabel>Grevenmacher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.83333</wgs:lat>
+	<wgs:long>6.08333</wgs:long>
+	<skos:prefLabel>Ettelbruck</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28228</europeana:population>
+	<wgs:lat>49.49583</wgs:lat>
+	<wgs:long>5.98056</wgs:long>
+	<skos:altLabel>Esch</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Esch-Uelzecht</skos:altLabel>
+	<skos:altLabel xml:lang="de">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="en">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="it">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="es">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="no">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel>Esch-sur-Alzette</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эш-сюр-Алзетте</skos:altLabel>
+	<skos:prefLabel>Esch-sur-Alzette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960314/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>6.03333</wgs:long>
+	<skos:altLabel>Esch</skos:altLabel>
+	<skos:prefLabel>Canton d'Esch-sur-Alzette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960513/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.76667</wgs:lat>
+	<wgs:long>6.36667</wgs:long>
+	<skos:altLabel>Echternach</skos:altLabel>
+	<skos:prefLabel>Canton d'Echternach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.81307</wgs:lat>
+	<wgs:long>6.42185</wgs:long>
+	<skos:prefLabel>Echternach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18013</europeana:population>
+	<wgs:lat>49.48056</wgs:lat>
+	<wgs:long>6.0875</wgs:long>
+	<skos:altLabel xml:lang="lb">Diddeleng</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dudelange</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dudelange</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Dudelange</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dudelange</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dudelange</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dudelange</skos:altLabel>
+	<skos:altLabel>Dudelange</skos:altLabel>
+	<skos:altLabel>Dudelingen</skos:altLabel>
+	<skos:prefLabel>Dudelange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>6.08333</wgs:long>
+	<skos:prefLabel>Dudelange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.51667</wgs:lat>
+	<wgs:long>5.88333</wgs:long>
+	<skos:prefLabel>Differdange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>49.91667</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:altLabel>Diekirch</skos:altLabel>
+	<skos:altLabel>District de Diekirch</skos:altLabel>
+	<skos:prefLabel>District de Diekirch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960655/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>49.86667</wgs:lat>
+	<wgs:long>6.16667</wgs:long>
+	<skos:altLabel>Canton de Diekirch</skos:altLabel>
+	<skos:altLabel>Diekirch</skos:altLabel>
+	<skos:prefLabel>Canton de Diekirch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.91667</wgs:lat>
+	<wgs:long>6.13333</wgs:long>
+	<skos:prefLabel>Diekirch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960655/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>13237</europeana:population>
+	<wgs:lat>50.08333</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:altLabel>Canton de Clervaux</skos:altLabel>
+	<skos:altLabel>Clervaux</skos:altLabel>
+	<skos:prefLabel>Canton de Clervaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960693/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>49.96528</wgs:lat>
+	<wgs:long>6.02778</wgs:long>
+	<skos:altLabel>Château de Schuttbourg</skos:altLabel>
+	<skos:altLabel>Schuttburg Château</skos:altLabel>
+	<skos:prefLabel>Schuttburg Château</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960314/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>37873</europeana:population>
+	<wgs:lat>49.63333</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:altLabel>Canton de Capellen</skos:altLabel>
+	<skos:altLabel>Capellen</skos:altLabel>
+	<skos:prefLabel>Canton de Capellen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5</wgs:lat>
+	<wgs:long>6.08333</wgs:long>
+	<skos:prefLabel>Bettembourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2960792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>49.81667</wgs:lat>
+	<wgs:long>6.1</wgs:long>
+	<skos:prefLabel>Château de Berg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3285197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.85</wgs:lat>
+	<wgs:long>6.01667</wgs:long>
+	<skos:prefLabel>Feulen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3285198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.91667</wgs:lat>
+	<wgs:long>5.83333</wgs:long>
+	<skos:prefLabel>Lac de la Haute-Sûre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.55194</wgs:lat>
+	<wgs:long>6.08574</wgs:long>
+	<skos:prefLabel>Hart van 't Goedland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6692361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.95785</wgs:lat>
+	<wgs:long>6.05621</wgs:long>
+	<skos:prefLabel>Luxemburgse Ardennen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5675</wgs:lat>
+	<wgs:long>5.91028</wgs:long>
+	<skos:prefLabel>Bascharage</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.59667</wgs:lat>
+	<wgs:long>5.87583</wgs:long>
+	<skos:prefLabel>Clemency</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.58833</wgs:lat>
+	<wgs:long>5.98333</wgs:long>
+	<skos:prefLabel>Dippach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.61667</wgs:lat>
+	<wgs:long>5.9525</wgs:long>
+	<skos:prefLabel>Garnich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.68861</wgs:lat>
+	<wgs:long>5.91472</wgs:long>
+	<skos:prefLabel>Hobscheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.66833</wgs:lat>
+	<wgs:long>6.03583</wgs:long>
+	<skos:prefLabel>Kehlen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.67</wgs:lat>
+	<wgs:long>5.95</wgs:long>
+	<skos:prefLabel>Koerich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.66444</wgs:lat>
+	<wgs:long>6.07306</wgs:long>
+	<skos:prefLabel>Kopstal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.6275</wgs:lat>
+	<wgs:long>6.02333</wgs:long>
+	<skos:prefLabel>Mamer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.70111</wgs:lat>
+	<wgs:long>5.96722</wgs:long>
+	<skos:prefLabel>Septfontaines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960696/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.66139</wgs:lat>
+	<wgs:long>5.91917</wgs:long>
+	<skos:prefLabel>Steinfort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.49583</wgs:lat>
+	<wgs:long>5.98056</wgs:long>
+	<skos:prefLabel>Esch-sur-Alzette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.515</wgs:lat>
+	<wgs:long>6.19167</wgs:long>
+	<skos:prefLabel>Frisange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.56833</wgs:lat>
+	<wgs:long>6.06528</wgs:long>
+	<skos:prefLabel>Leudelange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.53306</wgs:lat>
+	<wgs:long>5.98833</wgs:long>
+	<skos:prefLabel>Mondercange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.5625</wgs:lat>
+	<wgs:long>6.00889</wgs:long>
+	<skos:prefLabel>Reckange-sur-Mess</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960599/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.54222</wgs:lat>
+	<wgs:long>6.15</wgs:long>
+	<skos:prefLabel>Roeser</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.61111</wgs:lat>
+	<wgs:long>6.05</wgs:long>
+	<skos:prefLabel>Bertrange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.58194</wgs:lat>
+	<wgs:long>6.22667</wgs:long>
+	<skos:prefLabel>Contern</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.56806</wgs:lat>
+	<wgs:long>6.15139</wgs:long>
+	<skos:prefLabel>Hesperange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.6475</wgs:lat>
+	<wgs:long>6.26</wgs:long>
+	<skos:prefLabel>Niederanven</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.61333</wgs:lat>
+	<wgs:long>6.21889</wgs:long>
+	<skos:prefLabel>Sandweiler</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.62056</wgs:lat>
+	<wgs:long>6.26861</wgs:long>
+	<skos:prefLabel>Schuttrange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.67694</wgs:lat>
+	<wgs:long>6.12389</wgs:long>
+	<skos:prefLabel>Steinsel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.62056</wgs:lat>
+	<wgs:long>6.07333</wgs:long>
+	<skos:prefLabel>Strassen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.65833</wgs:lat>
+	<wgs:long>6.13722</wgs:long>
+	<skos:prefLabel>Walferdange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960315/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.54083</wgs:lat>
+	<wgs:long>6.20083</wgs:long>
+	<skos:prefLabel>Weiler-la-Tour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.81361</wgs:lat>
+	<wgs:long>6.08917</wgs:long>
+	<skos:prefLabel>Berg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.7875</wgs:lat>
+	<wgs:long>6.06944</wgs:long>
+	<skos:prefLabel>Bissen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.77528</wgs:lat>
+	<wgs:long>6.01556</wgs:long>
+	<skos:prefLabel>Boevange-sur-Attert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.73972</wgs:lat>
+	<wgs:long>6.18722</wgs:long>
+	<skos:prefLabel>Fischbach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.7625</wgs:lat>
+	<wgs:long>6.24139</wgs:long>
+	<skos:prefLabel>Heffingen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.77694</wgs:lat>
+	<wgs:long>6.22111</wgs:long>
+	<skos:prefLabel>Larochette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.71583</wgs:lat>
+	<wgs:long>6.13361</wgs:long>
+	<skos:prefLabel>Lintgen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.69472</wgs:lat>
+	<wgs:long>6.1425</wgs:long>
+	<skos:prefLabel>Lorentzweiler</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.74889</wgs:lat>
+	<wgs:long>6.10611</wgs:long>
+	<skos:prefLabel>Mersch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.78694</wgs:lat>
+	<wgs:long>6.17472</wgs:long>
+	<skos:prefLabel>Nommern</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960275/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.71778</wgs:lat>
+	<wgs:long>6.01028</wgs:long>
+	<skos:prefLabel>Tuntange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.05333</wgs:lat>
+	<wgs:long>5.91917</wgs:long>
+	<skos:prefLabel>Wincrange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.05472</wgs:lat>
+	<wgs:long>6.03139</wgs:long>
+	<skos:prefLabel>Clervaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693298/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.97472</wgs:lat>
+	<wgs:long>6.05417</wgs:long>
+	<skos:prefLabel>Consthum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.09611</wgs:lat>
+	<wgs:long>6.08806</wgs:long>
+	<skos:prefLabel>Heinerscheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.01778</wgs:lat>
+	<wgs:long>6.09333</wgs:long>
+	<skos:prefLabel>Hosingen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.03361</wgs:lat>
+	<wgs:long>6.03861</wgs:long>
+	<skos:prefLabel>Munshausen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960683/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>50.13722</wgs:lat>
+	<wgs:long>6.075</wgs:long>
+	<skos:prefLabel>Weiswampach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>49.89194</wgs:lat>
+	<wgs:long>6.16528</wgs:long>
+	<skos:prefLabel>Bastendorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.87667</wgs:lat>
+	<wgs:long>6.21806</wgs:long>
+	<skos:prefLabel>Bettendorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.91</wgs:lat>
+	<wgs:long>6.06722</wgs:long>
+	<skos:prefLabel>Bourscheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693306/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.82944</wgs:lat>
+	<wgs:long>6.22278</wgs:long>
+	<skos:prefLabel>Ermsdorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.86472</wgs:lat>
+	<wgs:long>6.11472</wgs:long>
+	<skos:prefLabel>Erpeldange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.94722</wgs:lat>
+	<wgs:long>6.08167</wgs:long>
+	<skos:prefLabel>Hoscheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.80194</wgs:lat>
+	<wgs:long>6.21833</wgs:long>
+	<skos:prefLabel>Medernach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.83389</wgs:lat>
+	<wgs:long>6.0075</wgs:long>
+	<skos:prefLabel>Mertzig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.86861</wgs:lat>
+	<wgs:long>6.26778</wgs:long>
+	<skos:prefLabel>Reisdorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960656/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.83056</wgs:lat>
+	<wgs:long>6.09861</wgs:long>
+	<skos:prefLabel>Schieren</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.73056</wgs:lat>
+	<wgs:long>5.88722</wgs:long>
+	<skos:prefLabel>Beckerich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.76389</wgs:lat>
+	<wgs:long>5.85722</wgs:long>
+	<skos:prefLabel>Ell</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.83083</wgs:lat>
+	<wgs:long>5.845</wgs:long>
+	<skos:prefLabel>Rambrouch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.82778</wgs:lat>
+	<wgs:long>5.96722</wgs:long>
+	<skos:prefLabel>Grosbous</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.76556</wgs:lat>
+	<wgs:long>5.89083</wgs:long>
+	<skos:prefLabel>Redange-sur-Attert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.72722</wgs:lat>
+	<wgs:long>5.98639</wgs:long>
+	<skos:prefLabel>Saeul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.76972</wgs:lat>
+	<wgs:long>5.98222</wgs:long>
+	<skos:prefLabel>Useldange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.80306</wgs:lat>
+	<wgs:long>6</wgs:long>
+	<skos:prefLabel>Vichten</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960161/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.83667</wgs:lat>
+	<wgs:long>5.90639</wgs:long>
+	<skos:prefLabel>Wahl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.88778</wgs:lat>
+	<wgs:long>5.81639</wgs:long>
+	<skos:prefLabel>Boulaide</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.91139</wgs:lat>
+	<wgs:long>5.93639</wgs:long>
+	<skos:prefLabel>Esch-sur-Sûre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.99778</wgs:lat>
+	<wgs:long>5.94889</wgs:long>
+	<skos:prefLabel>Eschweiler</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.92167</wgs:lat>
+	<wgs:long>5.96833</wgs:long>
+	<skos:prefLabel>Gœsdorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.88889</wgs:lat>
+	<wgs:long>5.97889</wgs:long>
+	<skos:prefLabel>Heiderscheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.95278</wgs:lat>
+	<wgs:long>6.02</wgs:long>
+	<skos:prefLabel>Kautenbach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.8775</wgs:lat>
+	<wgs:long>5.88722</wgs:long>
+	<skos:prefLabel>Neunhausen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.98889</wgs:lat>
+	<wgs:long>5.99917</wgs:long>
+	<skos:prefLabel>Wilwerwiltz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2959975/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.96778</wgs:lat>
+	<wgs:long>5.89028</wgs:long>
+	<skos:prefLabel>Winseler</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960020/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.91556</wgs:lat>
+	<wgs:long>6.19611</wgs:long>
+	<skos:prefLabel>Tandel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960020/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.96083</wgs:lat>
+	<wgs:long>6.14306</wgs:long>
+	<skos:prefLabel>Putscheid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960020/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.935</wgs:lat>
+	<wgs:long>6.20889</wgs:long>
+	<skos:prefLabel>Vianden</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.83583</wgs:lat>
+	<wgs:long>6.29167</wgs:long>
+	<skos:prefLabel>Beaufort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.74611</wgs:lat>
+	<wgs:long>6.36361</wgs:long>
+	<skos:prefLabel>Bech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.81361</wgs:lat>
+	<wgs:long>6.35028</wgs:long>
+	<skos:prefLabel>Berdorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.77306</wgs:lat>
+	<wgs:long>6.33833</wgs:long>
+	<skos:prefLabel>Consdorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693338/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.74611</wgs:lat>
+	<wgs:long>6.465</wgs:long>
+	<skos:prefLabel>Mompach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.79778</wgs:lat>
+	<wgs:long>6.50417</wgs:long>
+	<skos:prefLabel>Rosport</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960629/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.78889</wgs:lat>
+	<wgs:long>6.28667</wgs:long>
+	<skos:prefLabel>Waldbillig</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.68333</wgs:lat>
+	<wgs:long>6.35</wgs:long>
+	<skos:prefLabel>Betzdorf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.70278</wgs:lat>
+	<wgs:long>6.37472</wgs:long>
+	<skos:prefLabel>Biwer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.66167</wgs:lat>
+	<wgs:long>6.34361</wgs:long>
+	<skos:prefLabel>Flaxweiler</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.70722</wgs:lat>
+	<wgs:long>6.25306</wgs:long>
+	<skos:prefLabel>Junglinster</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.70278</wgs:lat>
+	<wgs:long>6.42639</wgs:long>
+	<skos:prefLabel>Manternach</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.69611</wgs:lat>
+	<wgs:long>6.48139</wgs:long>
+	<skos:prefLabel>Mertert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960514/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.60833</wgs:lat>
+	<wgs:long>6.40583</wgs:long>
+	<skos:prefLabel>Wormeldange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.55389</wgs:lat>
+	<wgs:long>6.32917</wgs:long>
+	<skos:prefLabel>Bous</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.48528</wgs:lat>
+	<wgs:long>6.32306</wgs:long>
+	<skos:prefLabel>Burmerange</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.54083</wgs:lat>
+	<wgs:long>6.25972</wgs:long>
+	<skos:prefLabel>Dalheim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.59861</wgs:lat>
+	<wgs:long>6.36806</wgs:long>
+	<skos:prefLabel>Lenningen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693352/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.505</wgs:lat>
+	<wgs:long>6.28111</wgs:long>
+	<skos:prefLabel>Mondorf-les-Bains</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.48861</wgs:lat>
+	<wgs:long>6.35167</wgs:long>
+	<skos:prefLabel>Remerschen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693354/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.545</wgs:lat>
+	<wgs:long>6.36694</wgs:long>
+	<skos:prefLabel>Remich</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.56278</wgs:lat>
+	<wgs:long>6.36444</wgs:long>
+	<skos:prefLabel>Stadtbredimus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.555</wgs:lat>
+	<wgs:long>6.2875</wgs:long>
+	<skos:prefLabel>Waldbredimus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960152/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2960313/"/>
+	<europeana:country>LU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>49.52389</wgs:lat>
+	<wgs:long>6.34222</wgs:long>
+	<skos:prefLabel>Wellenstein</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 139 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

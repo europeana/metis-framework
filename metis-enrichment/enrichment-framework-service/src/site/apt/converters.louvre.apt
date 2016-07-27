@@ -1,0 +1,45 @@
+            ------
+            Converter: Louvre
+            ------
+ 
+
+ This is a converter of the dataset of the {{{http://www.louvre.fr}Louvre museum}} in Paris.
+ 
+Source files
+ 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/louvre/} Parent directory for source files}}
+ in the AnnoCultor source repository.
+ 
+Data 
+
+ In this dataset each source record, e.g. Mona Lisa (what else!) is represented with a separate
+ XML file, with a total dataset of 17553 files. 
+
+ In the demo we use just one record to illustrate how AnnoCultor can handle it all. 
+ This describes Mona Lisa and it is located in 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/louvre/input_source/14153.xml}file 14153.xml}}
+ 
+Analysis
+ 
+ Here is the 
+ {{{http://annocultor.svn.sourceforge.net/viewvc/annocultor/demos/converters/louvre/doc/analysis.html} analysis}}
+ produced by the AnnoCultor Analyser run over the whole dataset.
+  
+Converter
+
+ The 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/louvre/profile/profile.xml} converter in XML}}
+ illustrates the following AnnoCultor features:
+ 
+ * part-of objects
+ 
+ * converting a part-of object to a few properties of the parent object
+ 
+ * wildcards on source files 
+ 
+ * property rename
+ 
+ * people, places, and terms lookup
+ 
+ * using listeners on converter and listeners on object rules together.
+ 

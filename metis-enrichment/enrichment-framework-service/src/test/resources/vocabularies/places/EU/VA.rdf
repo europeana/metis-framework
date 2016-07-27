@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_VA
+Description: Selected fields pulled from Geonames about VA done on Mon May 23 21:12:57 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3164670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3164670/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>VA</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>921</europeana:population>
+	<wgs:lat>41.90225</wgs:lat>
+	<wgs:long>12.4533</wgs:long>
+	<skos:altLabel xml:lang="ga">An Chathaoir Naofa (Stát Chathair na Vatacáine)</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Cidade do Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="it">Città Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="it">Città del Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ciudad del Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ciutat del Vaticà</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Colina do Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="it">Colle Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="es">El Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="so">Faatikaan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Grad Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Heilige stoel (Vaticaanstad)</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Heliga stolen (Vatikanstaten)</skos:altLabel>
+	<skos:altLabel xml:lang="en">Holy See</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kota Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kutsal Devlet (Vatikan Şehir Devleti)</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Oraşul Vatican</skos:altLabel>
+	<skos:altLabel xml:lang="da">Pavestolen (Vatikanstaten)</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pyhä istuin (Vatikaani)</skos:altLabel>
+	<skos:altLabel xml:lang="is">Páfagarður</skos:altLabel>
+	<skos:altLabel xml:lang="et">Püha Tool (Vatikan)</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Siège (Etat de la Cité du Vatican)</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Siège (État de la Cité du Vatican)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Sede</skos:altLabel>
+	<skos:altLabel xml:lang="it">Santa Sede (Città del Vaticano)</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Sede (Estado de la Ciudad del Vaticano)</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Santa Sé (Cidade-Estado do Vaticano)</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sfântul Scaun (Statul Vatican)</skos:altLabel>
+	<skos:altLabel xml:lang="de">Staat der Vatikanstadt</skos:altLabel>
+	<skos:altLabel xml:lang="it">Stato della Città del Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Stolica Apostolska (Państwo Watykańskie)</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Stolica Apostolska (Watykan)</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatý stolec</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveta Stolica (Država Vatikanskog Grada)</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätá stolica (Vatikánsky mestský štát)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Thành phố Vatican</skos:altLabel>
+	<skos:altLabel>VA</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Va-ti-căng</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vaticaanstad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vatican</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Vatican</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vatican</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vatican City</skos:altLabel>
+	<skos:altLabel xml:lang="et">Vatican City</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vatican City State</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vatican Hill</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vaticano</skos:altLabel>
+	<skos:altLabel xml:lang="af">Vatikaan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vatikaanivaltio</skos:altLabel>
+	<skos:altLabel xml:lang="id">Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Vatikan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vatikanen</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Vatikanet</skos:altLabel>
+	<skos:altLabel xml:lang="to">Vatikani</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vatikano</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Vatikano</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Vatikano</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Vatikano Hiria</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vatikano Miesto Valstybė, Šventasis Sostas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vatikano miestas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vatikanstadt</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vatikanstaten</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Vatikanstaten</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vatikanstaten</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vatikán</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vatikán</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vatikán</skos:altLabel>
+	<skos:altLabel xml:lang="se">Vatikána</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Vatikāns</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vatíkanið</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Watykan</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Y Fatican</skos:altLabel>
+	<skos:altLabel xml:lang="ca">el Vaticà</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αγία Έδρα (Βατικανό)</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ватикан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ватикан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ватикан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ватикан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ватикана</skos:altLabel>
+	<skos:altLabel xml:lang="be">Вацікан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Государство-город Ватикан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Місто Ватикан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Свещено море (Ватиканска държава)</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վատիկան</skos:altLabel>
+	<skos:altLabel xml:lang="he">וטיקאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">עיר הותיקן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الفاتيكان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">واتیکان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ویٹیکن سٹی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वेटिकन सिटि</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वैटिकन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভ্যাটিকান সিটি রাষ্ট্র</skos:altLabel>
+	<skos:altLabel xml:lang="ta">வாடிகன்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">വത്തിക്കാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">นครรัฐวาติกัน</skos:altLabel>
+	<skos:altLabel xml:lang="th">วาติกัน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ວາຕິກັນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">དམ་པའི་རྒྱལ་ཁམས།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ვატიკანი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቫቲካን</skos:altLabel>
+	<skos:altLabel xml:lang="km">វ៉ាទីកង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ローマ教皇庁 (バチカン市国)</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ローマ法王庁 (バチカン市国)</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣座（梵蒂冈）</skos:altLabel>
+	<skos:altLabel xml:lang="zh">梵蒂冈</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바티칸</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바티칸시티</skos:altLabel>
+	<skos:prefLabel>State of the Vatican City</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 0 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_PN
+Description: Selected fields pulled from Geonames about PN done on Mon May 23 21:17:17 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030695/">
+	<europeana:country>PN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-23.91667</wgs:lat>
+	<wgs:long>-130.73333</wgs:long>
+	<skos:altLabel>Sandy Islands</skos:altLabel>
+	<skos:altLabel>Sandy Islets</skos:altLabel>
+	<skos:prefLabel>Sandy Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>PN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>46</europeana:population>
+	<wgs:lat>-25.06667</wgs:lat>
+	<wgs:long>-130.1</wgs:long>
+	<skos:altLabel>Henderson, Ducie and Oeno Islands Pitcairn</skos:altLabel>
+	<skos:altLabel>PN</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="da">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="et">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="is">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="it">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="se">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pitcairn-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Pitcairnove ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Pitkarna Insulo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pitkernas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Pitkērna</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πίτκερν</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Питкайрн</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Питкарн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Питкерн</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Питкерн</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Піткерн</skos:altLabel>
+	<skos:altLabel xml:lang="he">פיטקרן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بتكايرن</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پیتکایرن</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पिटकेर्न</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পিটকেয়ার্ন</skos:altLabel>
+	<skos:altLabel xml:lang="th">พิตแคร์น</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፒትካኢርን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ピトケアン島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">皮特凯恩</skos:altLabel>
+	<skos:altLabel xml:lang="ko">핏케언섬</skos:altLabel>
+	<skos:prefLabel>Henderson, Ducie and Oeno Islands Pitcairn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030700/">
+	<europeana:country>PN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-25.06667</wgs:lat>
+	<wgs:long>-130.08333</wgs:long>
+	<skos:altLabel xml:lang="gl">Illa de Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Pitcairn</skos:altLabel>
+	<skos:altLabel>Occas Island</skos:altLabel>
+	<skos:altLabel>Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="da">Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Pitcairn Adası</skos:altLabel>
+	<skos:altLabel>Pitcairn Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pitcairn Islands</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pitcairn-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pitcairneilanden</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pitcairninseln</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Pitcairnove ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Pitcairnovy ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Pitcairnski otoki</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pitcairnöarna</skos:altLabel>
+	<skos:altLabel xml:lang="no">Pitcairnøyene</skos:altLabel>
+	<skos:altLabel>Pitcairn’s Island</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Pitkarna Insulo</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Pitkern</skos:altLabel>
+	<skos:altLabel xml:lang="io">Pitkern</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pitkerno salos</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynysow Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Pitcairn</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Πίτκαιρν</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Острва Питкерн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Острова Питкэрн</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Питкэрн</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Піткернські острови</skos:altLabel>
+	<skos:altLabel xml:lang="he">פיטקרן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر بيتكيرن</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะพิตแคร์น</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ピトケアン諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">皮特凯恩群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">핏케언 제도</skos:altLabel>
+	<skos:prefLabel>Pitcairn Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030713/">
+	<europeana:country>PN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-24.36667</wgs:lat>
+	<wgs:long>-128.31667</wgs:long>
+	<skos:altLabel>Elizabeth Island</skos:altLabel>
+	<skos:altLabel>Henderson</skos:altLabel>
+	<skos:altLabel xml:lang="de">Henderson</skos:altLabel>
+	<skos:altLabel xml:lang="es">Henderson</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Henderson</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Henderson</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Henderson Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Henderson Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Henderson Island</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Henderson Island</skos:altLabel>
+	<skos:altLabel>Henderson Island</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Henderson-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha Henderson</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヘンダーソン島</skos:altLabel>
+	<skos:prefLabel>Henderson Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 3 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

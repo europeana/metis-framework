@@ -1,0 +1,631 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_BI
+Description: Selected fields pulled from Geonames about BI done on Mon May 23 21:16:08 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/422232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19642</europeana:population>
+	<wgs:lat>-4.1348</wgs:lat>
+	<wgs:long>29.804</wgs:long>
+	<skos:altLabel xml:lang="en">Makamba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Makamba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Makamba</skos:altLabel>
+	<skos:altLabel>Makamba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Макамба</skos:altLabel>
+	<skos:prefLabel>Makamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/422233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>499682</europeana:population>
+	<wgs:lat>-4.16667</wgs:lat>
+	<wgs:long>29.75278</wgs:long>
+	<skos:altLabel>Makamba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Makamba</skos:altLabel>
+	<skos:altLabel>iProvense ya Makamba</skos:altLabel>
+	<skos:prefLabel>iProvense ya Makamba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/423034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-4.34944</wgs:lat>
+	<wgs:long>29.59444</wgs:long>
+	<skos:prefLabel>Monument Burton-Speke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/423327/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>493490</europeana:population>
+	<wgs:lat>-3.85</wgs:lat>
+	<wgs:long>29.63333</wgs:long>
+	<skos:altLabel>Bururi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Bururi</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Bururi</skos:altLabel>
+	<skos:prefLabel>iProvense ya Bururi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/423328/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19740</europeana:population>
+	<wgs:lat>-3.94877</wgs:lat>
+	<wgs:long>29.62438</wgs:long>
+	<skos:altLabel xml:lang="en">Bururi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bururi</skos:altLabel>
+	<skos:altLabel>Bururi</skos:altLabel>
+	<skos:altLabel>Mont Bururi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бурури</skos:altLabel>
+	<skos:prefLabel>Bururi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/425378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>331700</europeana:population>
+	<wgs:lat>-3.37611</wgs:lat>
+	<wgs:long>29.36</wgs:long>
+	<skos:altLabel xml:lang="en">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bujumbura</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Buĵumburo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bużumbura</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bužumbūra</skos:altLabel>
+	<skos:altLabel>Usumbura</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπουζουμπούρα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бужумбура</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Буџумбура</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բուժումբուրա</skos:altLabel>
+	<skos:altLabel xml:lang="he">בוג'ומבורה</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بوجومبرا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوجومبورا</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቡጁምቡራ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブジュンブラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布琼布拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">부줌부라</skos:altLabel>
+	<skos:prefLabel>Bujumbura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/425390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-3.39222</wgs:lat>
+	<wgs:long>29.38667</wgs:long>
+	<skos:prefLabel>Monument Bujumbura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/425519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-3.48111</wgs:lat>
+	<wgs:long>29.35278</wgs:long>
+	<skos:prefLabel>Monument Livingstone-Stanley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/425550/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>303482</europeana:population>
+	<wgs:lat>-3.25</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel>Muramvya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Muramvya</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Muramvya</skos:altLabel>
+	<skos:prefLabel>iProvense ya Muramvya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/425551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18041</europeana:population>
+	<wgs:lat>-3.2682</wgs:lat>
+	<wgs:long>29.6079</wgs:long>
+	<skos:prefLabel>Muramvya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/426271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>675016</europeana:population>
+	<wgs:lat>-3.5</wgs:lat>
+	<wgs:long>29.95</wgs:long>
+	<skos:altLabel>Gitega</skos:altLabel>
+	<skos:altLabel>Kitega</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Gitega</skos:altLabel>
+	<skos:prefLabel>iProvense ya Gitega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/426272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>23167</europeana:population>
+	<wgs:lat>-3.4264</wgs:lat>
+	<wgs:long>29.9308</wgs:long>
+	<skos:altLabel xml:lang="id">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gitega</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gitega</skos:altLabel>
+	<skos:altLabel>Gitega</skos:altLabel>
+	<skos:altLabel>Kitega</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гитеге</skos:altLabel>
+	<skos:prefLabel>Gitega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/426699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>369797</europeana:population>
+	<wgs:lat>-3.45</wgs:lat>
+	<wgs:long>30.31667</wgs:long>
+	<skos:altLabel xml:lang="fr">Province de Ruyigi</skos:altLabel>
+	<skos:altLabel>Ruyigi</skos:altLabel>
+	<skos:altLabel>iProvense ya Ruyigi</skos:altLabel>
+	<skos:prefLabel>iProvense ya Ruyigi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/426700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>38458</europeana:population>
+	<wgs:lat>-3.47639</wgs:lat>
+	<wgs:long>30.24861</wgs:long>
+	<skos:altLabel xml:lang="en">Ruyigi</skos:altLabel>
+	<skos:altLabel>Ruyigi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Руйиги</skos:altLabel>
+	<skos:prefLabel>Ruyigi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/427700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>202283</europeana:population>
+	<wgs:lat>-3.13333</wgs:lat>
+	<wgs:long>30.58333</wgs:long>
+	<skos:altLabel>Cankuzo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Cankuzo</skos:altLabel>
+	<skos:altLabel>iProvense ya Cankuzo</skos:altLabel>
+	<skos:prefLabel>iProvense ya Cankuzo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/428218/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>479683</europeana:population>
+	<wgs:lat>-3.125</wgs:lat>
+	<wgs:long>30.13333</wgs:long>
+	<skos:altLabel>Karuzi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Karuzi</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Karuzi</skos:altLabel>
+	<skos:prefLabel>iProvense ya Karuzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/428219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10705</europeana:population>
+	<wgs:lat>-3.10139</wgs:lat>
+	<wgs:long>30.16472</wgs:long>
+	<skos:altLabel xml:lang="it">Karuzi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Karuzi</skos:altLabel>
+	<skos:altLabel>Karuzi</skos:altLabel>
+	<skos:prefLabel>Karuzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/428514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>354427</europeana:population>
+	<wgs:lat>-3.11667</wgs:lat>
+	<wgs:long>29.4</wgs:long>
+	<skos:altLabel>Bubanza</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Bubanza</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Bubanza</skos:altLabel>
+	<skos:prefLabel>iProvense ya Bubanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/428515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12728</europeana:population>
+	<wgs:lat>-3.0804</wgs:lat>
+	<wgs:long>29.391</wgs:long>
+	<skos:altLabel xml:lang="it">Bubanza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bubanza</skos:altLabel>
+	<skos:altLabel>Bubanza</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бубанза</skos:altLabel>
+	<skos:prefLabel>Bubanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/430020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>490949</europeana:population>
+	<wgs:lat>-2.88333</wgs:lat>
+	<wgs:long>29.25</wgs:long>
+	<skos:altLabel>Cibitoke</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Cibitoke</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Cibitoke</skos:altLabel>
+	<skos:prefLabel>iProvense ya Cibitoke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/430021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>14220</europeana:population>
+	<wgs:lat>-2.8869</wgs:lat>
+	<wgs:long>29.1248</wgs:long>
+	<skos:prefLabel>Cibitoke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/430567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>719158</europeana:population>
+	<wgs:lat>-2.875</wgs:lat>
+	<wgs:long>29.925</wgs:long>
+	<skos:altLabel>Ngozi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Ngozi</skos:altLabel>
+	<skos:altLabel>iProvense ya Ngozi</skos:altLabel>
+	<skos:prefLabel>iProvense ya Ngozi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/430569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21506</europeana:population>
+	<wgs:lat>-2.90833</wgs:lat>
+	<wgs:long>29.82778</wgs:long>
+	<skos:altLabel xml:lang="it">Ngozi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ngozi</skos:altLabel>
+	<skos:altLabel>Ngozi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нгози</skos:altLabel>
+	<skos:prefLabel>Ngozi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/430951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>486917</europeana:population>
+	<wgs:lat>-3.06667</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel>Kayanza</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Kayanza</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Kayanza</skos:altLabel>
+	<skos:prefLabel>iProvense ya Kayanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/430952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19443</europeana:population>
+	<wgs:lat>-2.9221</wgs:lat>
+	<wgs:long>29.6293</wgs:long>
+	<skos:altLabel xml:lang="it">Kayanza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kayanza</skos:altLabel>
+	<skos:altLabel>Kayanza</skos:altLabel>
+	<skos:prefLabel>Kayanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/431130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.4269</wgs:lat>
+	<wgs:long>30.2811</wgs:long>
+	<skos:prefLabel>Île Akayoba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/431747/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>595947</europeana:population>
+	<wgs:lat>-2.83333</wgs:lat>
+	<wgs:long>30.33333</wgs:long>
+	<skos:altLabel>Muyinga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Muyinga</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Muyinga</skos:altLabel>
+	<skos:prefLabel>iProvense ya Muyinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/431748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>71076</europeana:population>
+	<wgs:lat>-2.84944</wgs:lat>
+	<wgs:long>30.33611</wgs:long>
+	<skos:altLabel xml:lang="pl">Muyinga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Muyinga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Muyinga</skos:altLabel>
+	<skos:altLabel>Muyinga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Муйинга</skos:altLabel>
+	<skos:prefLabel>Muyinga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/432356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.50417</wgs:lat>
+	<wgs:long>30.12639</wgs:long>
+	<skos:prefLabel>Île Kigwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/432455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>602089</europeana:population>
+	<wgs:lat>-2.58333</wgs:lat>
+	<wgs:long>30.16667</wgs:long>
+	<skos:altLabel>Kirundo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Kirundo</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Kirundo</skos:altLabel>
+	<skos:prefLabel>iProvense ya Kirundo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/433561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9863117</europeana:population>
+	<wgs:lat>-3.5</wgs:lat>
+	<wgs:long>30</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhurúin</skos:altLabel>
+	<skos:altLabel>BI</skos:altLabel>
+	<skos:altLabel xml:lang="li">Boeroendi</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Bouroundi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bu-run-đi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bu-run-đi (Burundi)</skos:altLabel>
+	<skos:altLabel xml:lang="id">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="et">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="af">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="an">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="io">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="na">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="rn">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="se">Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="la">Burundia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Burundis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Burundo</skos:altLabel>
+	<skos:altLabel xml:lang="wo">Buruundi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Búrúndí</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Bûrûndî</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="rn">Republika y’u Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República de Burundi - Republika y'u Burundi</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Rundiyän</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République du Burundi</skos:altLabel>
+	<skos:altLabel>Urundi</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπουρούντι</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бурундзі</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бурунди</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Бурунди</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бурунди</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бурунди</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бурунди</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бурунди</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бурунді</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բուրունդի</skos:altLabel>
+	<skos:altLabel xml:lang="he">בורונדי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">برنڈی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">برونډي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوراندی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بوروندي</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوروندی</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بۇرۇندى</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बरंडी</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बुरुंडी</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बुरुंडी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बुरुंडी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বুরুণ্ডি</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বুরুন্ডি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">புருண்டி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബറുണ്ടി</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബുറുണ്ടി</skos:altLabel>
+	<skos:altLabel xml:lang="th">บุรุนดี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบุรุนดี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບູລັນຕິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བུ་རུན་ཌི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბურუნდი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቡሩንዲ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ብሩንዲ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៊ូរុនឌី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブルンジ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブルンジ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布隆迪</skos:altLabel>
+	<skos:altLabel xml:lang="zh">蒲隆地</skos:altLabel>
+	<skos:altLabel xml:lang="ko">부룬디</skos:altLabel>
+	<skos:prefLabel>Republic of Burundi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/433569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-3.88444</wgs:lat>
+	<wgs:long>29.85222</wgs:long>
+	<skos:prefLabel>Monument Rutovu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/433635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>20893</europeana:population>
+	<wgs:lat>-3.9279</wgs:lat>
+	<wgs:long>29.992</wgs:long>
+	<skos:altLabel xml:lang="it">Rutana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rutana</skos:altLabel>
+	<skos:altLabel>Rutana</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рутана</skos:altLabel>
+	<skos:prefLabel>Rutana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/434147/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>293572</europeana:population>
+	<wgs:lat>-3.86667</wgs:lat>
+	<wgs:long>30.1</wgs:long>
+	<skos:altLabel xml:lang="fr">Province de Rutana</skos:altLabel>
+	<skos:altLabel>Rutana</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Rutana</skos:altLabel>
+	<skos:prefLabel>iProvense ya Rutana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/434386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>274890</europeana:population>
+	<wgs:lat>-3.5</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel>Mwaro</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Province de Mwaro</skos:altLabel>
+	<skos:altLabel xml:lang="rn">iProvense ya Mwaro</skos:altLabel>
+	<skos:prefLabel>Province de Mwaro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-3.3802</wgs:lat>
+	<wgs:long>29.3547</wgs:long>
+	<skos:prefLabel>Bujumbura Mairie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/433561/"/>
+	<europeana:country>BI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-3.59566</wgs:lat>
+	<wgs:long>29.42688</wgs:long>
+	<skos:prefLabel>Bujumbura Rural</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 36 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

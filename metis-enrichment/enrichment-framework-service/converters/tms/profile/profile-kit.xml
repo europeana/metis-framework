@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY ac 'http://annocultor.eu/converter/'>
+    <!ENTITY vra 'http://www.vraweb.org/vracore/vracore3#'>
+    
+    <!ENTITY vocabularies SYSTEM '/../../vocabularies.xml'> 
+    <!ENTITY parameters SYSTEM '/../../parameters.xml'> 
+    <!ENTITY query-records SYSTEM '/queryRecords.xml'> 
+    
+    ]>
+    <rdf:RDF 
+    xmlns:ac="http://annocultor.eu/converter/" 
+    xmlns:dc="http://purl.org/dc/elements/1.1/" 
+    xmlns:rdf="&rdf;" 
+    xmlns:rdfs="&rdfs;" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://annocultor.eu/schema/XConverter.xsd">
+      <ac:Profile 
+      ac:institution="AnnoCultor" 
+      ac:publisherId="000" 
+      ac:versionAnnoCultor="2.0" 
+      rdf:about="tms">
+  <!-- 
+      Shared definition of parameters and vocabularies are loaded from the corresponding files.
+  -->
+        <ac:parameters rdf:parseType="Collection">
+           &parameters;
+        </ac:parameters>
+         <ac:vocabularies rdf:parseType="Collection">
+           &vocabularies;
+        </ac:vocabularies>
+        <ac:repositories rdf:parseType="Collection">
+          <ac:Repository rdf:about="tms">
+            <ac:datasources rdf:parseType="Collection">
+            <!-- 
+            
+            Download MS SQL JDBC driver from http://msdn.microsoft.com/en-us/sqlserver/aa937724.aspx
+            
+            There should be file named sqljdbc4.jar, 
+            paste it to the directory with pom.xml, and *.bat files,
+            it should be one above this file.
+            
+            Check that you have a MS SQL database running, 
+            and update the jdbcUrl as appropriate.
+            
+            File queryRecords.xml contains the SQL query that is executed to
+            fetch data from the database.
+            -->
+              <ac:SqlDataSource>
+                <ac:jdbcDriver>sun.jdbc.odbc.JdbcOdbcDriver</ac:jdbcDriver>
+                <ac:jdbcUrl>jdbc:sqlserver://localhost;database=kit;user=tms;password=12345</ac:jdbcUrl>
+                <ac:sqlQuery>
+                &query-records;
+                </ac:sqlQuery>
+              </ac:SqlDataSource>
+            </ac:datasources>
+
+            <ac:destinations rdf:parseType="Collection">
+              <ac:RdfGraph rdf:about="Works">
+                <ac:comment>Museum objects, one RDF resource per object</ac:comment>
+              </ac:RdfGraph>              
+              <ac:RdfGraph rdf:about="Links">
+                <ac:comment>Links from museum objects to terms from external vocabularies</ac:comment>
+              </ac:RdfGraph>              
+            </ac:destinations>  
+
+            <ac:objectRules rdf:parseType="Collection">    
+              <ac:ObjectRule>
+                <ac:recordSeparator></ac:recordSeparator>
+                 <ac:recordIdentifier>ObjectNumber</ac:recordIdentifier>
+                <ac:recordInformalIdentifier>Title</ac:recordInformalIdentifier>  
+                <ac:propertyRules>    
+
+                  <ac:eu.annocultor.rules.SequenceRule-single>
+                  <ac:srcPath rdf:datatype="ac:Path">ObjectNumber</ac:srcPath>
+                    <ac:rule rdf:datatype="ac:Rule">
+                       <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                         <ac:srcPath rdf:datatype="ac:Path">ObjectNumber</ac:srcPath>
+                         <ac:dstProperty rdf:datatype="ac:Property">dc:identifier</ac:dstProperty>
+                         <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                       </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+
+                       <ac:eu.annocultor.rules.AffixValueRule-default>
+                         <ac:prefix>http://collectie.tropenmuseum.nl/fullscreen.asp?server=collectie.tropenmuseum.nl&amp;port=20980&amp;credit=Tropenmuseum%20Royal%20Tropical%20Institute&amp;file=*G%20schijf*TMSMedia*images*screen*</ac:prefix>
+                         <ac:affix>.jpg</ac:affix>
+                         <ac:rule rdf:datatype="ac:Rule">
+                           <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                             <ac:srcPath rdf:datatype="ac:Path">ObjectNumber</ac:srcPath>
+                             <ac:dstProperty rdf:datatype="ac:Property">dc:image</ac:dstProperty>
+                             <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                           </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                         </ac:rule>  
+                       </ac:eu.annocultor.rules.AffixValueRule-default>
+                    </ac:rule>
+                  </ac:eu.annocultor.rules.SequenceRule-single>
+                  
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">Title</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:title</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                                          
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">Dated</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:date</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                                     
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">DateBegin</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:date.begin</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">DateEnd</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:date.end</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+
+                   <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">ObjectName</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:subject</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">Medium</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:material</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+
+                  <ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+                    <ac:srcPath rdf:datatype="ac:Path">ObjectName</ac:srcPath>
+                    <ac:dstProperty rdf:datatype="ac:Property">dc:image</ac:dstProperty>
+                    <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                  </ac:eu.annocultor.rules.RenameLiteralPropertyRule-default>
+ 
+                 </ac:propertyRules>                  
+              </ac:ObjectRule>
+            </ac:objectRules>    
+            <!-- Set this to a positive number to make conversion stop earlier -->        
+            <ac:maxRecordsToConvert>-1</ac:maxRecordsToConvert>
+          </ac:Repository>
+        </ac:repositories>
+      </ac:Profile>
+    </rdf:RDF>

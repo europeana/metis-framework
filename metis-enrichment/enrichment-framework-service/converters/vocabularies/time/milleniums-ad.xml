@@ -1,0 +1,24 @@
+<!-- Full Century templates  -->
+<list>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>First millenium AD</pattern_1>
+    <pattern_2>Second millenium AD</pattern_2>
+    <pattern_3>Third millenium AD</pattern_3>
+    <pattern_N>Fourth millenium AD</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>First millenium AD, years 1-1000</pattern_1>
+    <pattern_2>Second millenium AD, years 1001-2000</pattern_2>
+    <pattern_3>Third millenium AD, years 2001-3000</pattern_3>
+    <pattern_N>Fourth millenium AD, years 3001-4000</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>fr</lang>
+    <pattern_1>1er millénaire après J.-C.</pattern_1>
+    <pattern_2>2e millénaire après J.-C.</pattern_2>
+    <pattern_3>3e millénaire après J.-C.</pattern_3>
+    <pattern_N>4e millénaire après J.-C.</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+</list>

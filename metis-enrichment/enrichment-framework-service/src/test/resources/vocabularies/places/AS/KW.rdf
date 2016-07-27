@@ -1,0 +1,779 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_KW
+Description: Selected fields pulled from Geonames about KW done on Mon May 23 21:13:32 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/285371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.99389</wgs:lat>
+	<wgs:long>48.06667</wgs:long>
+	<skos:altLabel>Al Warba Island</skos:altLabel>
+	<skos:altLabel>Al Warbah</skos:altLabel>
+	<skos:altLabel>Jazirat Warbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Warbah</skos:altLabel>
+	<skos:altLabel>Ouarba</skos:altLabel>
+	<skos:altLabel>Wabra Island</skos:altLabel>
+	<skos:altLabel>Warba</skos:altLabel>
+	<skos:altLabel>جزيرة وربة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة وَرْبَة</skos:altLabel>
+	<skos:prefLabel>Jazīrat Warbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.38167</wgs:lat>
+	<wgs:long>47.86694</wgs:long>
+	<skos:altLabel>Jazirat Umm an Namil</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm Naml</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm al-Namil</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm an Namal</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm an Naml</skos:altLabel>
+	<skos:altLabel>Jazīrat Umm an Namī</skos:altLabel>
+	<skos:altLabel>Umm Al-Nemmel</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة أُمّ اَلنَّمْل</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm an Naml</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>28.67833</wgs:lat>
+	<wgs:long>48.65278</wgs:long>
+	<skos:altLabel>Island Umm Al-Maradem</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Umm al Marādim</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة أُمّ اَلْمَرَادِم</skos:altLabel>
+	<skos:prefLabel>Jazīrat Umm al Marādim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285480/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.35444</wgs:lat>
+	<wgs:long>47.90972</wgs:long>
+	<skos:altLabel>Grain</skos:altLabel>
+	<skos:altLabel>Graine</skos:altLabel>
+	<skos:altLabel>Jazirat Kurein</skos:altLabel>
+	<skos:altLabel>Jazirat Qurain</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Qurayn</skos:altLabel>
+	<skos:altLabel>Jazīrat al Quraiyin</skos:altLabel>
+	<skos:altLabel>Jazīrat ash Shuwaikh</skos:altLabel>
+	<skos:altLabel>Jezirat Kurain</skos:altLabel>
+	<skos:altLabel>Kurein Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة قُرَيْن</skos:altLabel>
+	<skos:prefLabel>Jazīrat Qurayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>28.82</wgs:lat>
+	<wgs:long>48.77417</wgs:long>
+	<skos:altLabel>Jazīrat Kārū</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Qārūh</skos:altLabel>
+	<skos:altLabel>Jezirat Karu</skos:altLabel>
+	<skos:altLabel>Qarawah</skos:altLabel>
+	<skos:altLabel>Qārawh</skos:altLabel>
+	<skos:altLabel>Qārū</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة قَارُوه</skos:altLabel>
+	<skos:prefLabel>Jazīrat Qārūh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285553/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.48472</wgs:lat>
+	<wgs:long>48.25139</wgs:long>
+	<skos:altLabel>Jazirat Miskān</skos:altLabel>
+	<skos:altLabel>Jazīrat Mashjan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Miskān</skos:altLabel>
+	<skos:altLabel>Machiane</skos:altLabel>
+	<skos:altLabel>Mashjang</skos:altLabel>
+	<skos:altLabel>Mashjān Island</skos:altLabel>
+	<skos:altLabel>Mashyān</skos:altLabel>
+	<skos:altLabel>Maskan Island</skos:altLabel>
+	<skos:altLabel>Maskān</skos:altLabel>
+	<skos:altLabel>Mischan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة مِسْكَان</skos:altLabel>
+	<skos:prefLabel>Jazīrat Miskān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>2789132</europeana:population>
+	<wgs:lat>29.5</wgs:lat>
+	<wgs:long>47.75</wgs:long>
+	<skos:altLabel>Al Kuwait</skos:altLabel>
+	<skos:altLabel>Al Kuweit</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Coweit</skos:altLabel>
+	<skos:altLabel xml:lang="la">Cuvaitum</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Cuáit</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cô-oét</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dawlat al Kuwayt</skos:altLabel>
+	<skos:altLabel>Dawlat al-Kuwait</skos:altLabel>
+	<skos:altLabel>Dowlat al Kuwait</skos:altLabel>
+	<skos:altLabel>KW</skos:altLabel>
+	<skos:altLabel xml:lang="af">Koeweit</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Koeweit</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Koeweit</skos:altLabel>
+	<skos:altLabel xml:lang="li">Koeweit</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Kowait</skos:altLabel>
+	<skos:altLabel>Koweit</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Kowet</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Koweyt</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Koweït</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Kuvait</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kuvait</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kuvajti</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kuvajto</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kuveit</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kuveita</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kuveitas</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kuveyt</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kuväytän</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="an">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="se">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Kuwait - الكويت</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kuwajt</skos:altLabel>
+	<skos:altLabel xml:lang="so">Kuwayt</skos:altLabel>
+	<skos:altLabel>Kuweit</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kuweit</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kuwejt</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Kuweyt</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kúveit</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Quvayt</skos:altLabel>
+	<skos:altLabel>Shaikhdom of Kuwait</skos:altLabel>
+	<skos:altLabel>Sheikhdom of Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="en">State of Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κουβέιτ</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Кувайт</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кувајт</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кувајт</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кувейт</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кувейт</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кувейт</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кувэйт</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Քուվեյթ</skos:altLabel>
+	<skos:altLabel xml:lang="he">כוויית</skos:altLabel>
+	<skos:altLabel xml:lang="he">כווית</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الكويت</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دَوْلَة اَلْكُوَيْت</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كۇۋەيت</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کویت</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کویټ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">कुवैत</skos:altLabel>
+	<skos:altLabel xml:lang="mr">कुवैत</skos:altLabel>
+	<skos:altLabel xml:lang="sa">कुवैत</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কুয়েত</skos:altLabel>
+	<skos:altLabel xml:lang="ta">குவைத்து</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കുവൈറ്റ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">คูเวต</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศคูเวต</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຄູເວດ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཀུ་ཝེཊ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀུ་ཝེད་རྒྱལ་ཁབ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კუვეიტი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ქუვეითი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኩዌት ከተማ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ክዌት</skos:altLabel>
+	<skos:altLabel xml:lang="km">គុយវ៉ែត</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クウェート</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科威特</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쿠웨이트</skos:altLabel>
+	<skos:prefLabel>State of Kuwait</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.07222</wgs:lat>
+	<wgs:long>48.49333</wgs:long>
+	<skos:altLabel>Ab Kubr Island</skos:altLabel>
+	<skos:altLabel>Al Kubbar</skos:altLabel>
+	<skos:altLabel>Al Kuber</skos:altLabel>
+	<skos:altLabel>Al Kubr</skos:altLabel>
+	<skos:altLabel>Jazirat Kubbar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Kubbar</skos:altLabel>
+	<skos:altLabel>Jazīrat Kubār</skos:altLabel>
+	<skos:altLabel>Jazīrat al Kubr</skos:altLabel>
+	<skos:altLabel>Kuber</skos:altLabel>
+	<skos:altLabel>Kubra Island</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة كُبَّر</skos:altLabel>
+	<skos:prefLabel>Jazīrat Kubbar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285603/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285815/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>18496</europeana:population>
+	<wgs:lat>29.26917</wgs:lat>
+	<wgs:long>47.97806</wgs:long>
+	<skos:altLabel xml:lang="ar">Janūb as Surrah</skos:altLabel>
+	<skos:altLabel>South Surra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَنُوب اَلسُّرَّة</skos:altLabel>
+	<skos:prefLabel>Janūb as Surrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>510436</europeana:population>
+	<wgs:lat>29.28333</wgs:lat>
+	<wgs:long>47.99722</wgs:long>
+	<skos:altLabel>Province of Hawali</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مُحَافَظَة حَوَلِّي</skos:altLabel>
+	<skos:altLabel>Ḩawallī</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Ḩawallī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.44056</wgs:lat>
+	<wgs:long>48.33472</wgs:long>
+	<skos:altLabel>Faijlaka Island</skos:altLabel>
+	<skos:altLabel>Failaka Island</skos:altLabel>
+	<skos:altLabel>Failakah Island</skos:altLabel>
+	<skos:altLabel>Failicha</skos:altLabel>
+	<skos:altLabel>Fulaykā’</skos:altLabel>
+	<skos:altLabel>Jazirat Failaka</skos:altLabel>
+	<skos:altLabel>Jazīrat Failaka</skos:altLabel>
+	<skos:altLabel>Jazīrat Falakā</skos:altLabel>
+	<skos:altLabel>Jazīrat Faylakah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Faylakā</skos:altLabel>
+	<skos:altLabel>Jazīrat al-Falakah</skos:altLabel>
+	<skos:altLabel>Pheleechi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة فَيْلَكَا</skos:altLabel>
+	<skos:prefLabel>Jazīrat Faylakā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285659/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.76972</wgs:lat>
+	<wgs:long>48.25556</wgs:long>
+	<skos:altLabel>Bubiyan Island</skos:altLabel>
+	<skos:altLabel>Jazirat Būbyān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Būbiyān</skos:altLabel>
+	<skos:altLabel>Jazīrat Būbyān</skos:altLabel>
+	<skos:altLabel>جزيرة بوبيان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة بُوبِيَان</skos:altLabel>
+	<skos:prefLabel>Jazīrat Būbiyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285822/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>30635</europeana:population>
+	<wgs:lat>29.3032</wgs:lat>
+	<wgs:long>48.04881</wgs:long>
+	<skos:altLabel xml:lang="ar">Bayān</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баян</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بَيَان</skos:altLabel>
+	<skos:prefLabel>Bayān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285680/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.37778</wgs:lat>
+	<wgs:long>48.43917</wgs:long>
+	<skos:altLabel>Auhah Island</skos:altLabel>
+	<skos:altLabel>Jazirat Auhah</skos:altLabel>
+	<skos:altLabel>Jazirat Auħah</skos:altLabel>
+	<skos:altLabel>Jazīrat Auha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat ‘Awhah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة عَوْهَة</skos:altLabel>
+	<skos:altLabel>‘Auha Island</skos:altLabel>
+	<skos:altLabel>‘Awhah</skos:altLabel>
+	<skos:prefLabel>Jazīrat ‘Awhah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285822/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>147649</europeana:population>
+	<wgs:lat>29.33389</wgs:lat>
+	<wgs:long>48.07611</wgs:long>
+	<skos:altLabel>Ad Dumna</skos:altLabel>
+	<skos:altLabel>Ad Dumnah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Sālimīyah</skos:altLabel>
+	<skos:altLabel>As-Sālimiyah</skos:altLabel>
+	<skos:altLabel>As-S̅āimiyah</skos:altLabel>
+	<skos:altLabel>As̄ - Sālimiyah</skos:altLabel>
+	<skos:altLabel>Dimnah</skos:altLabel>
+	<skos:altLabel>Salimiyah</skos:altLabel>
+	<skos:altLabel>Salmiya</skos:altLabel>
+	<skos:altLabel>Salmiyah</skos:altLabel>
+	<skos:altLabel>Salmiyyeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">السالمية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلسَّالِمِيَّة</skos:altLabel>
+	<skos:prefLabel>As Sālimīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285787/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>13762</europeana:population>
+	<wgs:lat>29.34722</wgs:lat>
+	<wgs:long>47.96167</wgs:long>
+	<skos:altLabel>Al Shamiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ash Shāmīyah</skos:altLabel>
+	<skos:altLabel>Shamiya</skos:altLabel>
+	<skos:altLabel>Shamiyeh</skos:altLabel>
+	<skos:altLabel>Shamiyyeh</skos:altLabel>
+	<skos:altLabel>Shamīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلشَّامِيَّة</skos:altLabel>
+	<skos:prefLabel>Ash Shāmīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>52068</europeana:population>
+	<wgs:lat>29.14583</wgs:lat>
+	<wgs:long>48.09472</wgs:long>
+	<skos:altLabel>Al-Riqqah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ar Riqqah</skos:altLabel>
+	<skos:altLabel>Reqqa</skos:altLabel>
+	<skos:altLabel>الرقة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلرِّقَّة</skos:altLabel>
+	<skos:prefLabel>Ar Riqqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10017</europeana:population>
+	<wgs:lat>28.63917</wgs:lat>
+	<wgs:long>47.93056</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Wafrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْوَفْرَة</skos:altLabel>
+	<skos:prefLabel>Al Wafrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>28.53333</wgs:lat>
+	<wgs:long>48</wgs:long>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Wafrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مُحَافَظَت اَلّوَفْرَة</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Wafrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39025</europeana:population>
+	<wgs:lat>29.09611</wgs:lat>
+	<wgs:long>48.13278</wgs:long>
+	<skos:altLabel>Al Manjaf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Manqaf</skos:altLabel>
+	<skos:altLabel>Al-Mangaf</skos:altLabel>
+	<skos:altLabel>Manqaf</skos:altLabel>
+	<skos:altLabel xml:lang="ar">المنقف</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمَنْقَف</skos:altLabel>
+	<skos:prefLabel>Al Manqaf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18178</europeana:population>
+	<wgs:lat>29.145</wgs:lat>
+	<wgs:long>48.13028</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mahbūlah</skos:altLabel>
+	<skos:altLabel>Al-Mahabūlah</skos:altLabel>
+	<skos:altLabel>Mahboola</skos:altLabel>
+	<skos:altLabel>المهبولة</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْمَهْبُولَة</skos:altLabel>
+	<skos:prefLabel>Al Mahbūlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>60064</europeana:population>
+	<wgs:lat>29.36972</wgs:lat>
+	<wgs:long>47.97833</wgs:long>
+	<skos:altLabel>Al Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Kuwayt</skos:altLabel>
+	<skos:altLabel xml:lang="it">Al-Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ciudad de Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Koeweit</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kota Kuwait</skos:altLabel>
+	<skos:altLabel>Koweit</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Koweït</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kuvajt</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kuvajto</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kuvajturbo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kuveitas</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kuväyt</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kuwait</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kuwait City</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kuwait City</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kuwait City</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kuwait Stad</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kuwait by</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kuwait-Stadt</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kuwait-Urbo</skos:altLabel>
+	<skos:altLabel>Kuwayt</skos:altLabel>
+	<skos:altLabel>Kuweit</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kuweit</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kuwejt</skos:altLabel>
+	<skos:altLabel xml:lang="it">Madinat al-Kuwait</skos:altLabel>
+	<skos:altLabel>Madīnat al Kuwayt</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πόλη του Κουβέιτ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кувейт</skos:altLabel>
+	<skos:altLabel xml:lang="he">כווית סיטי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْكُوَيْت</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مدينة الكويت</skos:altLabel>
+	<skos:altLabel xml:lang="th">คูเวตซิตี</skos:altLabel>
+	<skos:altLabel xml:lang="ja">クウェート</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科威特市</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쿠웨이트 시</skos:altLabel>
+	<skos:prefLabel>Kuwait</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>29.33333</wgs:lat>
+	<wgs:long>48</wgs:long>
+	<skos:altLabel>Al ‘Āşimah</skos:altLabel>
+	<skos:altLabel>Governortate of Metropolis</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Kuwayt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al ‘Āşimah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مُحَافَظَة اَلْعَاصِمَة</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al ‘Āşimah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>307316</europeana:population>
+	<wgs:lat>29.33333</wgs:lat>
+	<wgs:long>47.66667</wgs:long>
+	<skos:altLabel>Al Jahrāʼ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Jahrā’</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Jahrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مُحَافَظَة جَهْرَاء</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Jahrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24281</europeana:population>
+	<wgs:lat>29.3375</wgs:lat>
+	<wgs:long>47.65806</wgs:long>
+	<skos:altLabel>Al Jahara</skos:altLabel>
+	<skos:altLabel>Al Jahrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Jahrā’</skos:altLabel>
+	<skos:altLabel>Al-Jaharah</skos:altLabel>
+	<skos:altLabel>Iahara</skos:altLabel>
+	<skos:altLabel>Jahra Village</skos:altLabel>
+	<skos:altLabel>Jahrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْجَهْرَاء</skos:altLabel>
+	<skos:prefLabel>Al Jahrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>68290</europeana:population>
+	<wgs:lat>29.0825</wgs:lat>
+	<wgs:long>48.13028</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Faḩāḩīl</skos:altLabel>
+	<skos:altLabel>Al Fuħaiħil</skos:altLabel>
+	<skos:altLabel>Al Fuḩayḩīl</skos:altLabel>
+	<skos:altLabel>Al Ifhaihil</skos:altLabel>
+	<skos:altLabel>Al-Fahaheel</skos:altLabel>
+	<skos:altLabel>Al-Fahahil</skos:altLabel>
+	<skos:altLabel>Fahaheel</skos:altLabel>
+	<skos:altLabel>Fahaihīl</skos:altLabel>
+	<skos:altLabel>Fahāhīl</skos:altLabel>
+	<skos:altLabel>Faḩayḩīl</skos:altLabel>
+	<skos:altLabel>Fuḩayḩīl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الفحاحيل</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْفُحَيْحِيل</skos:altLabel>
+	<skos:prefLabel>Al Faḩāḩīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23071</europeana:population>
+	<wgs:lat>29.17389</wgs:lat>
+	<wgs:long>48.12111</wgs:long>
+	<skos:altLabel>Al Fantas</skos:altLabel>
+	<skos:altLabel>Al Fintass</skos:altLabel>
+	<skos:altLabel>Al Fintās</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Finţās</skos:altLabel>
+	<skos:altLabel>Al-Fint̅ās</skos:altLabel>
+	<skos:altLabel>Fantass</skos:altLabel>
+	<skos:altLabel>Fanţās</skos:altLabel>
+	<skos:altLabel>Finatus</skos:altLabel>
+	<skos:altLabel>Fintas</skos:altLabel>
+	<skos:altLabel>Fintass</skos:altLabel>
+	<skos:altLabel>Finţās</skos:altLabel>
+	<skos:altLabel>Funtás</skos:altLabel>
+	<skos:altLabel>الفنطاس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْفِنْطَاس</skos:altLabel>
+	<skos:prefLabel>Al Finţās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>86525</europeana:population>
+	<wgs:lat>29.2775</wgs:lat>
+	<wgs:long>47.95861</wgs:long>
+	<skos:altLabel>Al Farwania</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Farwānīyah</skos:altLabel>
+	<skos:altLabel>Al-Farawaniyah</skos:altLabel>
+	<skos:altLabel>Al-Farwaniyyah</skos:altLabel>
+	<skos:altLabel>Farwaniah</skos:altLabel>
+	<skos:altLabel>Farwaniyyeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلْفَرْوَانِيَّة</skos:altLabel>
+	<skos:prefLabel>Al Farwānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>640375</europeana:population>
+	<wgs:lat>29.26667</wgs:lat>
+	<wgs:long>47.96667</wgs:long>
+	<skos:altLabel xml:lang="en">Al Farwaniyah</skos:altLabel>
+	<skos:altLabel>Al Farwānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مُحَافَظَة اَلْفَرْوَانِيَّة</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Farwānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>430923</europeana:population>
+	<wgs:lat>29</wgs:lat>
+	<wgs:long>48</wgs:long>
+	<skos:altLabel>Al Aḩmadī</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at al Aḩmadi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Aḩmadī</skos:altLabel>
+	<skos:altLabel>Province of Ahmadi</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مُحَافَظَة اَلأَحْمَدِي</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Aḩmadī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285856/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285787/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>17585</europeana:population>
+	<wgs:lat>29.365</wgs:lat>
+	<wgs:long>48.00139</wgs:long>
+	<skos:altLabel xml:lang="ar">Ad Dasmah</skos:altLabel>
+	<skos:altLabel>Ad Dasmā’</skos:altLabel>
+	<skos:altLabel>Dasma</skos:altLabel>
+	<skos:altLabel>Dasmah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلدَّسْمَة</skos:altLabel>
+	<skos:prefLabel>Ad Dasmah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/387947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>29.65278</wgs:lat>
+	<wgs:long>48.11583</wgs:long>
+	<skos:altLabel>Al Sabahiyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Aş Şabāḩīyah</skos:altLabel>
+	<skos:altLabel>الصباحية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلصَّبَاحِيَّة</skos:altLabel>
+	<skos:prefLabel>Aş Şabāḩīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/387958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285822/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>40945</europeana:population>
+	<wgs:lat>29.29583</wgs:lat>
+	<wgs:long>48.07861</wgs:long>
+	<skos:altLabel>Salwa</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Salwá</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сальва</skos:altLabel>
+	<skos:altLabel>سلوى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سَلْوَى</skos:altLabel>
+	<skos:prefLabel>Salwá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/388065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285815/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>36447</europeana:population>
+	<wgs:lat>29.295</wgs:lat>
+	<wgs:long>47.93306</wgs:long>
+	<skos:altLabel xml:lang="ar">Ar Rābiyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">اَلرَّابِيَة</skos:altLabel>
+	<skos:prefLabel>Ar Rābiyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/412756/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>30.00167</wgs:lat>
+	<wgs:long>48.08167</wgs:long>
+	<skos:altLabel>Jazirat Warbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jazīrat Warbah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة وَرْبَة</skos:altLabel>
+	<skos:prefLabel>Jazīrat Warbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/412800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285747/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>139163</europeana:population>
+	<wgs:lat>29.25722</wgs:lat>
+	<wgs:long>48.05722</wgs:long>
+	<skos:altLabel>Şabāḩ as Salim aş Sabbāḩ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şabāḩ as Sālim</skos:altLabel>
+	<skos:altLabel xml:lang="ar">صَبَاح اَلسَّالِم</skos:altLabel>
+	<skos:prefLabel>Şabāḩ as Sālim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/412843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>29.74472</wgs:lat>
+	<wgs:long>48.35083</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Būbiyān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة بُوبِيَان</skos:altLabel>
+	<skos:prefLabel>Jazīrat Būbiyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/414930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/285570/"/>
+	<europeana:country>KW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>29.35861</wgs:lat>
+	<wgs:long>47.90639</wgs:long>
+	<skos:altLabel xml:lang="ar">Jazīrat Qurayn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَزِيرَة قُرَيْن</skos:altLabel>
+	<skos:prefLabel>Jazīrat Qurayn</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 37 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -6,7 +6,6 @@ import org.w3c.dom.ls.LSInput;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,7 +29,8 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
                 stream = new FileInputStream(prefix+"/"+systemId);
             }else {
                 if(cache.get(systemId)==null) {
-                    stream = new URL(systemId).openStream();
+
+                    stream = new FileInputStream(this.getClass().getClassLoader().getResource("xml.xsd").getFile());
                     cache.put(systemId,stream);
                 } else {
                     stream = cache.get(systemId);
@@ -40,7 +40,6 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
             input.setSystemId(systemId);
             input.setBaseURI(baseURI);
             input.setCharacterStream(new InputStreamReader(stream));
-
             return input;
         } catch (Exception e){
             e.printStackTrace();

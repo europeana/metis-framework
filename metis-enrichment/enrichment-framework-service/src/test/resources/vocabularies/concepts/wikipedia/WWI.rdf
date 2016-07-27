@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+            xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+            xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+            xml:lang="en">
+
+<rdf:Description rdf:about="http://dbpedia.org/page/World_War_I">
+  <skos:prefLabel xml:lang="en">World War I</skos:prefLabel>  
+  <skos:prefLabel xml:lang="fr">Première Guerre mondiale</skos:prefLabel>  
+  <skos:prefLabel xml:lang="pt">Primeira Guerra Mundial</skos:prefLabel>  
+  <skos:prefLabel xml:lang="es">Primera Guerra Mundial</skos:prefLabel>  
+  <skos:prefLabel xml:lang="fi">Ensimmäinen maailmansota</skos:prefLabel>  
+  <skos:prefLabel xml:lang="it">Prima guerra mondiale</skos:prefLabel>  
+  <skos:prefLabel xml:lang="ja">第一次世界大戦</skos:prefLabel>  
+  <skos:prefLabel xml:lang="nl">Eerste Wereldoorlog</skos:prefLabel>  
+  <skos:prefLabel xml:lang="no">Første verdenskrig</skos:prefLabel>  
+  <skos:prefLabel xml:lang="ru">Первая мировая война</skos:prefLabel>  
+  <skos:prefLabel xml:lang="sv">Första världskriget</skos:prefLabel>  
+  <skos:prefLabel xml:lang="zh">第一次世界大战</skos:prefLabel>  
+  <skos:prefLabel xml:lang="de">Erste Weltkrieg</skos:prefLabel>  
+  <skos:prefLabel xml:lang="uk">Перша світова війна</skos:prefLabel>  
+  <skos:prefLabel xml:lang="pl">I wojna światowa</skos:prefLabel>  
+  <skos:altLabel>WW1</skos:altLabel>  
+  <skos:altLabel>WWI</skos:altLabel>  
+  <skos:altLabel xml:lang="en">World War 1</skos:altLabel>  
+  <skos:altLabel xml:lang="en">First World War</skos:altLabel>  
+  <skos:altLabel xml:lang="en">World War One</skos:altLabel>  
+  <skos:altLabel xml:lang="en">Great War</skos:altLabel>  
+</rdf:Description>
+</rdf:RDF>

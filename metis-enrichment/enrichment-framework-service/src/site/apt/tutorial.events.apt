@@ -1,0 +1,199 @@
+            ------
+            Tutorial: Events and Java code snippets
+            ------
+ 
+Extending XML converters with Java
+
+  Converters in XML are defined straightforwardly. However, it often becomes handy to
+  include a few lines of Java code to fine tune them. AnnoCultor allows defining event listeners 
+  in Java that would be invoked at some specific moments.
+  
+  These Java listeners are located in XML under tag <<<listeners>>>:
+
++------------------------------------------------------------------+
+ <ac:listeners rdf:parseType="Collection">    								   
+   <ac:OnPreCondition>
+     <ac:java><![CDATA[
+       return sourceTriple.getValue().matches("[\\w ]+");
+     ]]></ac:java>
+   </ac:OnPreCondition>
+ </ac:listeners>
++------------------------------------------------------------------+
+  
+  The above code, placed at the end of XML definition of a property rule, 
+  would make the rule fire only if input value consists of 
+  word characters with occasional spaces.
+  
+What is allowed?
+  
+  The listeners are converted to Java methods, thus, anything that is allowed as a body of a Java method
+  is allowed here. All AnnoCultor API classes are imported together with the following Java imports:
+  
++------------------------------------------------------------------+
+  import java.util.*;
+  import java.util.regex.*;
+  import java.util.zip.*;
+  import java.io.*;
+  import java.text.*;
++------------------------------------------------------------------+ 
+ 
+Signatures and parameters
+
+  The signatures of the listeners are defined in their XML Schema, element <<<documentation>>>.
+  
+Compilation errors
+
+  A converter in XML is first translated into a Java class, stored in the AnnoCultor working directory, that is
+  then compiled and executed. It is highly recommended to examine the generated file <<<GeneratedConverter.java>>> 
+  on any compilation error.
+  
+Converter events
+  
+  These events occur when a converter is selecting source files, start the conversion process, etc. 
+  
+* Placeholder <<<Declarations>>>
+  
+  Strictly speaking, this is not an event listener but a place where (static) declarations can be placed.
+  This is the right place to declare some global collections that need to be referenced in other listeners.
+  You may also define custom classes or methods here.   
+  
+  For example, you may define a set of strings, JPEG file names, that 
+  identify which records (works describing these JPEGs) should be converted.  
+ 
+* Event <<<OnConversionStarts>>>
+  
+  Occurs after the source files are selected but the converter is not instantiated yet. 
+  
+  In our example this is the place to load the set of JPEGs from a file.
+  
+* Event <<<OnConversionEnds>>>
+ 
+  Occurs after conversion is done. If some statistics was gathered during the conversion 
+  then this is the right place to save it to a file.
+  
+Object rules
+  
+  These event occur when an object rule is processing a record from the source XML file.
+  
+* Placeholder <<<Declarations>>>
+  
+  Java declarations augmenting the <<<ObjectRule>>> instance. 
+  
+* Event <<<OnPreCondition>>>
+ 
+  This event occurs when a new record is found in the source XML and a decision needs to be 
+  made if it should be converted. This record is described with the <<<sourceDataObject>>>
+  provided as a parameter (see the XML schema for the complete signature).
+  
+  In a typical use case we need to check if tag <<</ROOT/WORK/STATUS>>> has value <<<public>>>
+  
++------------------------------------------------------------------+
+ return "public".equals(sourceDataObject.getFirstValue(factory.makeXmlPath("/ROOT/WORK/STATUS")));
++------------------------------------------------------------------+
+      
+* Event <<<OnProcess>>>
+  
+  This event occurs when a record has satisfied the precondition and is about to be converted.
+  This is a good place to alter the record.
+  
+  In a typical example, a time interval may be represented with a single XML tag with values like 
+  "born 1815, died 1870" with a number of different representational options or missing values. 
+  It may make sense to split them up into birth date and death date here. A small
+  piece of Java code can do the job, e.g. <<<sourceDataObject.getFirstValue(...).split(", *")>>>.
+  After the separation two additional tags should be added using two calls 
+  to <<<sourceDataObject.addValue(Path, value)>>>.
+  Then these additional tags can be converted separately with ordinary property rules. 
+  
+* Event <<<OnPostCondition>>>
+  
+	This event has the same effect as <<<OnPreCondition>>>, however the evaluation happens after the
+	record is converted and the conversion result is kept in a buffer ready to be written to the
+	output RDF file. It is used in the situation when the decision depends on the conversion of child
+	records. Placing the condition here ensures that all child records have been processed and
+	possible flags are set there.
+	
+	In a typical use case, a work of art may have several reproductions, represented with nested child objects:
+	  
++------------------------------------------------------------------+
+ <work>    								   
+  <title>Portrait</title>
+  <reproduction>
+   <file>123.pdf</file>
+  </reproduction>
+  <reproduction>
+   <file>123.tiff</file>
+  </reproduction>
+  <reproduction>
+   <file>123.jpeg</file>
+  </reproduction>	  
+ </work>
++------------------------------------------------------------------+
+  
+  Imagine, we want only the works with JPEG reproductions to be included.
+  To properly do it, one needs to create an object rule for works and another object rule 
+  for reproductions. At the moment of precondition of works no single reproduction has been processed
+  and we don't know if there is one with a JPEG file. We need to declare a boolean flag in the works object rule.
+   
+  Then, inn the object rule for reproductions we should later this flag,
+  depending on the value of the <<<file>>> field. Finally, the postcondition in the works object rule
+  occurs when all child rules have been processed, and it can assess this flag and decide if a work should be included or not.
+  
+Property rules
+
+* Placeholder <<<Declarations>>>
+
+  Same as in object rule. 
+  
+  For example, if we have a fixed set of exceptions, then we can declare this set here.
+
+* Event <<<OnInit>>>
+  
+  Occurs only once, after the rule is instantiated. This is a good place to populate our set of exceptions.  
+  
+* Event <<<OnPreCondition>>>
+  
+  Occurs before a rule is applied to a source value. If its listeners returns <<<false>>> than the rule is
+  not fired. 
+  
+  For example the following snippet would only allow values with words and spaces to be processed:
+  
++------------------------------------------------------------------+
+ return sourceTriple.getValue().matches("[\\w ]+");
++------------------------------------------------------------------+
+
+* Event <<<OnInvocation>>>
+  
+  Allows to modify the value that would be processed. It is meant for small modifications,
+  such as to replace all colons with semicolons:
+
++------------------------------------------------------------------+
+ return sourceTriple.getValue().replace(":", ";");
++------------------------------------------------------------------+
+  
+Vocabulary rules
+
+* Event <<<OnInit>>>
+  
+  Occurs only once, after the vocabulary is instantiated. 
+
+* Event <<<OnLoadTermCode>>>
+  
+  Occurs when a term code is loaded from a query result. This is a good place
+  to prefix codes with namespaces, or change their namespace, or do other manipulations.
+  The resulting term code will be used in the system. 
+
+* Event <<<OnNormaliseLabel>>>
+  
+  Normalising term labels before use (loading from a persisted vocabulary or looking up a term).
+  This is the place to normalise label case:
+  
++------------------------------------------------------------------+
+ return label.toLowerCase(); 
++------------------------------------------------------------------+
+
+* Event <<<OnDisambiguate>>>
+  
+  Occurs when a term lookup returns more than one term. If not disambiguated, such a search
+  result would be treated as "nothing found". In a typical use the provided disambiguation context
+  would be used to decide on which term is actually meant. 
+ 

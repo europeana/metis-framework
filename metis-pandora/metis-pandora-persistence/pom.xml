@@ -14,12 +14,12 @@
         <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-pandora-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.2.5.RELEASE</version>
+            <version>${version.spring}</version>
         </dependency>
     </dependencies>
 

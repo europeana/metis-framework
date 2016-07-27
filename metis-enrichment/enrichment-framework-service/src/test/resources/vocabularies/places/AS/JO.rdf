@@ -1,0 +1,2286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_JO
+Description: Selected fields pulled from Geonames about JO done on Mon May 23 21:13:30 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/245875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.61667</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel xml:lang="ar">Zaynab</skos:altLabel>
+	<skos:altLabel>Zeinab</skos:altLabel>
+	<skos:altLabel>Zeineb</skos:altLabel>
+	<skos:prefLabel>Zaynab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/245901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.66667</wgs:lat>
+	<wgs:long>35.63333</wgs:long>
+	<skos:altLabel>Dhalmā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Z̧almā’</skos:altLabel>
+	<skos:prefLabel>Z̧almā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14000</europeana:population>
+	<wgs:lat>30.32221</wgs:lat>
+	<wgs:long>35.47933</wgs:long>
+	<skos:altLabel>Aljī</skos:altLabel>
+	<skos:altLabel>El-Gi</skos:altLabel>
+	<skos:altLabel>Elchi</skos:altLabel>
+	<skos:altLabel>Elji</skos:altLabel>
+	<skos:altLabel xml:lang="en">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wādī Mūsá</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Петра</skos:altLabel>
+	<skos:altLabel xml:lang="ar">وادي موسى</skos:altLabel>
+	<skos:prefLabel>Wādī Mūsá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>181212</europeana:population>
+	<wgs:lat>31.95</wgs:lat>
+	<wgs:long>35.81667</wgs:long>
+	<skos:altLabel xml:lang="en">Wadi Al Seer</skos:altLabel>
+	<skos:altLabel xml:lang="no">Wadi Al Seer</skos:altLabel>
+	<skos:altLabel>Wadi Sir</skos:altLabel>
+	<skos:altLabel>Wadi es Sīr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Wādī as Sīr</skos:altLabel>
+	<skos:prefLabel>Wādī as Sīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.63333</wgs:lat>
+	<wgs:long>35.93333</wgs:long>
+	<skos:altLabel>Areinba</skos:altLabel>
+	<skos:altLabel>Ereinbe el Gharbiye</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Uraynibah</skos:altLabel>
+	<skos:altLabel>Ureiniba</skos:altLabel>
+	<skos:prefLabel>Uraynibah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30</wgs:lat>
+	<wgs:long>35.51667</wgs:long>
+	<skos:altLabel>El ‘Uqeiqa</skos:altLabel>
+	<skos:altLabel>‘Aqīqah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Uqayqah</skos:altLabel>
+	<skos:altLabel>‘Uqeiqa</skos:altLabel>
+	<skos:prefLabel>‘Uqayqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.86667</wgs:lat>
+	<wgs:long>35.93333</wgs:long>
+	<skos:altLabel>Um Za’rūra</skos:altLabel>
+	<skos:altLabel>Um Ze‘rure</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm Zu‘rūrah</skos:altLabel>
+	<skos:prefLabel>Umm Zu‘rūrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.71667</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel>Umm Zu‘rūr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm Zu‘rūrah</skos:altLabel>
+	<skos:prefLabel>Umm Zu‘rūrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.4</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel>Um Quleib</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm Qulayb</skos:altLabel>
+	<skos:altLabel>Umm Quleib</skos:altLabel>
+	<skos:prefLabel>Umm Qulayb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18274</europeana:population>
+	<wgs:lat>31.88333</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel>Um el Semmaq</skos:altLabel>
+	<skos:altLabel>Um es Summāq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm as Summāq</skos:altLabel>
+	<skos:prefLabel>Umm as Summāq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.28333</wgs:lat>
+	<wgs:long>35.6</wgs:long>
+	<skos:altLabel>Um el Hashim</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Umm al Hashīm</skos:altLabel>
+	<skos:prefLabel>Umm al Hashīm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.98333</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Umm aḑ Ḑibā‘</skos:altLabel>
+	<skos:altLabel>Um ed Dibā‘</skos:altLabel>
+	<skos:altLabel>Um el Deba‘</skos:altLabel>
+	<skos:altLabel>Umm aḑ Ḑibā‘</skos:altLabel>
+	<skos:prefLabel>Khirbat Umm aḑ Ḑibā‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246434/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel>Khirbat Emeis</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat ‘Umaysh</skos:altLabel>
+	<skos:altLabel>‘Emeish</skos:altLabel>
+	<skos:prefLabel>Khirbat ‘Umaysh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.53333</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel>Quraiyat ‘Ilaiyān</skos:altLabel>
+	<skos:altLabel>‘Alinān</skos:altLabel>
+	<skos:altLabel>‘Aliyān</skos:altLabel>
+	<skos:altLabel>‘Elaiyan</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Ulayyān</skos:altLabel>
+	<skos:prefLabel>‘Ulayyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.8</wgs:lat>
+	<wgs:long>35.6</wgs:long>
+	<skos:altLabel>Ghesul</skos:altLabel>
+	<skos:altLabel>Teileilât Ghassûl</skos:altLabel>
+	<skos:altLabel>Teleilat el Ghassul</skos:altLabel>
+	<skos:altLabel>Tell el Ghusūl</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tulaylāt al Ghassūl</skos:altLabel>
+	<skos:altLabel>Tuleilal Ghesūl</skos:altLabel>
+	<skos:altLabel>Tuleilat Ghesul</skos:altLabel>
+	<skos:altLabel>Tuleilat Ghusul</skos:altLabel>
+	<skos:altLabel>Tuleilāt Ghisūl</skos:altLabel>
+	<skos:prefLabel>Tulaylāt al Ghassūl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.25333</wgs:lat>
+	<wgs:long>35.52778</wgs:long>
+	<skos:altLabel>Khirbat Ţawāḩīn as Sukkar</skos:altLabel>
+	<skos:altLabel>Khirbat Ṭawāḥīn es Sukkar</skos:altLabel>
+	<skos:altLabel>Tewahin el-Suker</skos:altLabel>
+	<skos:altLabel>Tewahine el Suker</skos:altLabel>
+	<skos:altLabel>Ţawāḩīn Sukkar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţawāḩīn as Sukkar</skos:altLabel>
+	<skos:altLabel>Ṭawahīn es Sukkay</skos:altLabel>
+	<skos:prefLabel>Ţawāḩīn as Sukkar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246573/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.01667</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Tawāhīn es Sukkar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ţawāḩīn as Sukkar</skos:altLabel>
+	<skos:prefLabel>Ţawāḩīn as Sukkar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.9</wgs:lat>
+	<wgs:long>35.63333</wgs:long>
+	<skos:altLabel>Beth-Nimrah</skos:altLabel>
+	<skos:altLabel>Bethennabris</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Tall Nimrīn</skos:altLabel>
+	<skos:altLabel>Tell Nimrīn</skos:altLabel>
+	<skos:altLabel>Tell el-Bleibil</skos:altLabel>
+	<skos:prefLabel>Tall Nimrīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.55872</wgs:lat>
+	<wgs:long>35.80087</wgs:long>
+	<skos:altLabel xml:lang="ar">Tall al Ushay‘ir</skos:altLabel>
+	<skos:altLabel>Tell el Ashei‘ir</skos:altLabel>
+	<skos:prefLabel>Tall al Ushay‘ir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12942</europeana:population>
+	<wgs:lat>32.31372</wgs:lat>
+	<wgs:long>35.83713</wgs:long>
+	<skos:altLabel xml:lang="ar">Sūf</skos:altLabel>
+	<skos:prefLabel>Sūf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.7675</wgs:lat>
+	<wgs:long>35.72667</wgs:long>
+	<skos:altLabel>Pisga</skos:altLabel>
+	<skos:altLabel>Pisgah</skos:altLabel>
+	<skos:altLabel>Siagha</skos:altLabel>
+	<skos:altLabel>Sisya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Siyāgha</skos:altLabel>
+	<skos:altLabel>Sīyāgha</skos:altLabel>
+	<skos:altLabel>Şiyāghah</skos:altLabel>
+	<skos:prefLabel>Siyāgha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.08333</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Sirat el Deiran</skos:altLabel>
+	<skos:altLabel>Sirat el Heirān</skos:altLabel>
+	<skos:altLabel>Siret el-Heiran</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şīrat al Ḩayrān</skos:altLabel>
+	<skos:altLabel>Şīrat Ḩayrān</skos:altLabel>
+	<skos:prefLabel>Şīrat al Ḩayrān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.13692</wgs:lat>
+	<wgs:long>35.75489</wgs:long>
+	<skos:altLabel xml:lang="ar">Sīḩān</skos:altLabel>
+	<skos:prefLabel>Sīḩān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/246977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.95</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Sare</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sārah</skos:altLabel>
+	<skos:prefLabel>Sārah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.45</wgs:lat>
+	<wgs:long>35.93333</wgs:long>
+	<skos:altLabel>Salīya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Sāliyah</skos:altLabel>
+	<skos:prefLabel>Sāliyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10470</europeana:population>
+	<wgs:lat>32.2833</wgs:lat>
+	<wgs:long>35.80946</wgs:long>
+	<skos:altLabel xml:lang="ar">Sākib</skos:altLabel>
+	<skos:prefLabel>Sākib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10616</europeana:population>
+	<wgs:lat>32.36805</wgs:lat>
+	<wgs:long>35.84656</wgs:long>
+	<skos:altLabel>Sakhra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Şakhrah</skos:altLabel>
+	<skos:prefLabel>Şakhrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40241</europeana:population>
+	<wgs:lat>31.87861</wgs:lat>
+	<wgs:long>36.00444</wgs:long>
+	<skos:altLabel xml:lang="ar">Saḩāb</skos:altLabel>
+	<skos:altLabel>Sehab</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сахаб</skos:altLabel>
+	<skos:prefLabel>Saḩāb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.86667</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:altLabel>Ar Ruwayḩah</skos:altLabel>
+	<skos:altLabel>Ar Ruwayḩī</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat ar Ruwayḩī</skos:altLabel>
+	<skos:altLabel>Khirbat er Ruweihi</skos:altLabel>
+	<skos:prefLabel>Khirbat ar Ruwayḩī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.9</wgs:lat>
+	<wgs:long>35.65</wgs:long>
+	<skos:altLabel>Karakā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rujm Karakā</skos:altLabel>
+	<skos:altLabel>Rujm Karkā</skos:altLabel>
+	<skos:prefLabel>Rujm Karakā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.5925</wgs:lat>
+	<wgs:long>35.68722</wgs:long>
+	<skos:altLabel>Rujm ‘Atruz</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rujm ‘Aţarūz</skos:altLabel>
+	<skos:altLabel>‘Atārūz</skos:altLabel>
+	<skos:altLabel>‘Aţrūz</skos:altLabel>
+	<skos:prefLabel>Rujm ‘Aţarūz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.08333</wgs:lat>
+	<wgs:long>35.81667</wgs:long>
+	<skos:altLabel xml:lang="ar">Rujm al Māhirī</skos:altLabel>
+	<skos:altLabel>Rujm el Māhirī</skos:altLabel>
+	<skos:prefLabel>Rujm al Māhirī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.61667</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel>El Heri</skos:altLabel>
+	<skos:altLabel>Ras el Heri</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rujm al Hurī</skos:altLabel>
+	<skos:altLabel>Rujm el Heri</skos:altLabel>
+	<skos:altLabel>Rujm el Hiri</skos:altLabel>
+	<skos:prefLabel>Rujm al Hurī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.78333</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel xml:lang="ar">Rujm al Ḩamrā’</skos:altLabel>
+	<skos:altLabel>Rujm el Aḥmar</skos:altLabel>
+	<skos:altLabel>Rujm el Hamrā</skos:altLabel>
+	<skos:prefLabel>Rujm al Ḩamrā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.76667</wgs:lat>
+	<wgs:long>35.56667</wgs:long>
+	<skos:altLabel xml:lang="ar">Ramsīs</skos:altLabel>
+	<skos:prefLabel>Ramsīs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.21667</wgs:lat>
+	<wgs:long>36.08333</wgs:long>
+	<skos:altLabel>Ar Rakkīḑ</skos:altLabel>
+	<skos:altLabel>Er Rakkid</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat ar Rakkīḑ</skos:altLabel>
+	<skos:prefLabel>Khirbat ar Rakkīḑ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.78333</wgs:lat>
+	<wgs:long>35.73333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qufayqif</skos:altLabel>
+	<skos:altLabel>Qufeiqif</skos:altLabel>
+	<skos:prefLabel>Qufayqif</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.06667</wgs:lat>
+	<wgs:long>36.08333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşr Shabīb</skos:altLabel>
+	<skos:altLabel>Qaṣr Shibīb</skos:altLabel>
+	<skos:prefLabel>Qaşr Shabīb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.99231</wgs:lat>
+	<wgs:long>35.8577</wgs:long>
+	<skos:altLabel>Qasr Muhai</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr Muḩayy</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قصر محي</skos:altLabel>
+	<skos:prefLabel>Qaşr Muḩayy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.60667</wgs:lat>
+	<wgs:long>37.96638</wgs:long>
+	<skos:altLabel>Burka</skos:altLabel>
+	<skos:altLabel>Kaṣr Burku‘</skos:altLabel>
+	<skos:altLabel>Qasr el Burqu‘</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr Burqu‘</skos:altLabel>
+	<skos:altLabel>Qaşr al Burqu‘</skos:altLabel>
+	<skos:altLabel>Qaṣr Burgu</skos:altLabel>
+	<skos:prefLabel>Qaşr Burqu‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.32639</wgs:lat>
+	<wgs:long>36.57278</wgs:long>
+	<skos:altLabel>Kasr el Tuba</skos:altLabel>
+	<skos:altLabel>Qasr et Tûba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr aţ Ţūbah</skos:altLabel>
+	<skos:altLabel>Qaşr el Tubq</skos:altLabel>
+	<skos:prefLabel>Qaşr aţ Ţūbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.41667</wgs:lat>
+	<wgs:long>35.98333</wgs:long>
+	<skos:altLabel>Qasr eth Thuraiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr ath Thurayyā</skos:altLabel>
+	<skos:altLabel>Qaşr ath Turayyā</skos:altLabel>
+	<skos:prefLabel>Qaşr ath Thurayyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.96667</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel>Qasr esh Shuḥār</skos:altLabel>
+	<skos:altLabel>Qaşr Shawhār</skos:altLabel>
+	<skos:altLabel>Qaşr ash Shawhār</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr ash Shūhār</skos:altLabel>
+	<skos:altLabel>Qaṣr Shūhār</skos:altLabel>
+	<skos:prefLabel>Qaşr ash Shūhār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247588/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.80444</wgs:lat>
+	<wgs:long>36.58556</wgs:long>
+	<skos:altLabel>Kasr Amrah</skos:altLabel>
+	<skos:altLabel>Qasr al Amra</skos:altLabel>
+	<skos:altLabel>Qasr ‘Amra</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr ‘Amrah</skos:altLabel>
+	<skos:altLabel>Quseir ‘Amra</skos:altLabel>
+	<skos:altLabel>Quṣayr ‘Amrah</skos:altLabel>
+	<skos:prefLabel>Qaşr ‘Amrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.76667</wgs:lat>
+	<wgs:long>36.68333</wgs:long>
+	<skos:altLabel>Kasr Weined</skos:altLabel>
+	<skos:altLabel>Qasr ‘Uweinid</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al ‘Uwaynid</skos:altLabel>
+	<skos:altLabel>Qaṣr el ‘Uweined</skos:altLabel>
+	<skos:altLabel>Qaṣr el ‘Uweinid</skos:altLabel>
+	<skos:prefLabel>Qaşr al ‘Uwaynid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247590/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.5</wgs:lat>
+	<wgs:long>36.41667</wgs:long>
+	<skos:altLabel>Qaşr al Jallāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Qilāt</skos:altLabel>
+	<skos:altLabel>Qaṣr el Jilāt</skos:altLabel>
+	<skos:prefLabel>Qaşr al Qilāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247592/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.92639</wgs:lat>
+	<wgs:long>36.11778</wgs:long>
+	<skos:altLabel>Qasr al Mushaysh</skos:altLabel>
+	<skos:altLabel>Qasr el Mushaiyish</skos:altLabel>
+	<skos:altLabel>Qasr el Musheish</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Mushayyish</skos:altLabel>
+	<skos:altLabel>Qaşt Mushaysh</skos:altLabel>
+	<skos:prefLabel>Qaşr al Mushayyish</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247593/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.74111</wgs:lat>
+	<wgs:long>36.00944</wgs:long>
+	<skos:altLabel>El Meshetta</skos:altLabel>
+	<skos:altLabel>El Mushetta</skos:altLabel>
+	<skos:altLabel>Meshita</skos:altLabel>
+	<skos:altLabel>Mushatta</skos:altLabel>
+	<skos:altLabel>Qasr el Mushetta</skos:altLabel>
+	<skos:altLabel>Qaşr al Mushattah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Mushattá</skos:altLabel>
+	<skos:altLabel>Qaṣr el Mushatta</skos:altLabel>
+	<skos:prefLabel>Qaşr al Mushattá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.08333</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel>Qasr el Juwein</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Juwayn</skos:altLabel>
+	<skos:prefLabel>Qaşr al Juwayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.53333</wgs:lat>
+	<wgs:long>36.18333</wgs:long>
+	<skos:altLabel>Kasr Hammam</skos:altLabel>
+	<skos:altLabel>Qasr el Hammâm</skos:altLabel>
+	<skos:altLabel>Qasr el Hemmam</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Ḩammām</skos:altLabel>
+	<skos:prefLabel>Qaşr al Ḩammām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.88333</wgs:lat>
+	<wgs:long>36.81667</wgs:long>
+	<skos:altLabel>Azraq</skos:altLabel>
+	<skos:altLabel>Kasr el Azrak</skos:altLabel>
+	<skos:altLabel>Qasr Azraq</skos:altLabel>
+	<skos:altLabel>Qasr el Azraq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr al Azraq</skos:altLabel>
+	<skos:prefLabel>Qaşr al Azraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.38333</wgs:lat>
+	<wgs:long>35.96667</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşr al ‘Ālī</skos:altLabel>
+	<skos:altLabel>Qaṣr el ‘Āl</skos:altLabel>
+	<skos:prefLabel>Qaşr al ‘Ālī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.11667</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel>Qasr Abu Rukba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qaşr Abū Rukbah</skos:altLabel>
+	<skos:prefLabel>Qaşr Abū Rukbah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.22472</wgs:lat>
+	<wgs:long>35.74611</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Qamarayn</skos:altLabel>
+	<skos:altLabel>Khirbat Qamarein</skos:altLabel>
+	<skos:altLabel>Qemerein</skos:altLabel>
+	<skos:prefLabel>Khirbat Qamarayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.83333</wgs:lat>
+	<wgs:long>35.93333</wgs:long>
+	<skos:altLabel xml:lang="ar">Qal‘at al Ḩasā</skos:altLabel>
+	<skos:altLabel>Qal‘at el Ḥasā</skos:altLabel>
+	<skos:prefLabel>Qal‘at al Ḩasā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.53333</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:altLabel>Khirbat el Qahqeh</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qahqah</skos:altLabel>
+	<skos:altLabel>Qahqe</skos:altLabel>
+	<skos:prefLabel>Qahqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.29302</wgs:lat>
+	<wgs:long>35.62251</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Qāfişā</skos:altLabel>
+	<skos:altLabel>Qafise</skos:altLabel>
+	<skos:altLabel>Qāfişā</skos:altLabel>
+	<skos:prefLabel>Khirbat Qāfişā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.63333</wgs:lat>
+	<wgs:long>35.78333</wgs:long>
+	<skos:altLabel>Mereijmet Abu Shakhanneb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Murayjimat Abū Shakhannab</skos:altLabel>
+	<skos:altLabel>Mureijimat Abū Shakhannab</skos:altLabel>
+	<skos:prefLabel>Murayjimat Abū Shakhannab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.56667</wgs:lat>
+	<wgs:long>35.63333</wgs:long>
+	<skos:altLabel>El Mekâwer</skos:altLabel>
+	<skos:altLabel>El Mukāwer</skos:altLabel>
+	<skos:altLabel>Khirbat Mukāwir</skos:altLabel>
+	<skos:altLabel>Machaerus</skos:altLabel>
+	<skos:altLabel>Mekawer</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Mukāwir</skos:altLabel>
+	<skos:prefLabel>Mukāwir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/247994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.05</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel>Khirbat Mudeibī”</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat Muḑaybī‘</skos:altLabel>
+	<skos:altLabel>Medeibi</skos:altLabel>
+	<skos:altLabel>Muḑaybi‘</skos:altLabel>
+	<skos:prefLabel>Khirbat Muḑaybī‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.2809</wgs:lat>
+	<wgs:long>36.03282</wgs:long>
+	<skos:altLabel>Madaqq er Ribq</skos:altLabel>
+	<skos:altLabel>Maddaq er Ribq</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Midaqq ar Ribq</skos:altLabel>
+	<skos:prefLabel>Midaqq ar Ribq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248160/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.4</wgs:lat>
+	<wgs:long>35.65</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Marzabīlā</skos:altLabel>
+	<skos:prefLabel>Khirbat Marzabīlā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.43333</wgs:lat>
+	<wgs:long>35.51667</wgs:long>
+	<skos:altLabel>Khirbat Maqdas</skos:altLabel>
+	<skos:altLabel>Khirbat el Meqdes</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Maqdis</skos:altLabel>
+	<skos:prefLabel>Maqdis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.51667</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel xml:lang="ar">Maq‘ad Ibn Naşr Allāh</skos:altLabel>
+	<skos:altLabel>Meq‘ed Ibn Nesralla</skos:altLabel>
+	<skos:prefLabel>Maq‘ad Ibn Naşr Allāh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>82335</europeana:population>
+	<wgs:lat>31.71667</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel xml:lang="de">Madaba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Madaba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Madaba</skos:altLabel>
+	<skos:altLabel>Medeba</skos:altLabel>
+	<skos:altLabel>Meidevā</skos:altLabel>
+	<skos:altLabel>Mādeba</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мадаба</skos:altLabel>
+	<skos:altLabel xml:lang="he">מפת מידבא</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة مادبا</skos:altLabel>
+	<skos:prefLabel>Mādabā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>30.33333</wgs:lat>
+	<wgs:long>36.58333</wgs:long>
+	<skos:altLabel>Governorate of Ma‘ān</skos:altLabel>
+	<skos:altLabel>Liwā’ Ma‘ān</skos:altLabel>
+	<skos:altLabel>Ma‘ān</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ma’an</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ma’an</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Ma‘ān</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Ma‘ān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.6</wgs:lat>
+	<wgs:long>35.76667</wgs:long>
+	<skos:altLabel>El Libb</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Libb</skos:altLabel>
+	<skos:altLabel>Lubb</skos:altLabel>
+	<skos:prefLabel>Libb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17837</europeana:population>
+	<wgs:lat>32.27639</wgs:lat>
+	<wgs:long>35.59938</wgs:long>
+	<skos:altLabel>Kareime</skos:altLabel>
+	<skos:altLabel>Kereime</skos:altLabel>
+	<skos:altLabel>Kuraiyima</skos:altLabel>
+	<skos:altLabel>Kuraymah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Kurayyimah</skos:altLabel>
+	<skos:altLabel>Kureima</skos:altLabel>
+	<skos:altLabel>Kureiyima</skos:altLabel>
+	<skos:altLabel>Quraymah</skos:altLabel>
+	<skos:prefLabel>Kurayyimah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248421/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.10833</wgs:lat>
+	<wgs:long>35.66389</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Kufayrāz</skos:altLabel>
+	<skos:altLabel>Khirbat Kufeirāz</skos:altLabel>
+	<skos:prefLabel>Khirbat Kufayrāz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.96667</wgs:lat>
+	<wgs:long>35.95</wgs:long>
+	<skos:altLabel>Kheneifse</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khunayfisah</skos:altLabel>
+	<skos:altLabel>Khuneifisa</skos:altLabel>
+	<skos:prefLabel>Khunayfisah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel>Hilda</skos:altLabel>
+	<skos:altLabel>Khaldā</skos:altLabel>
+	<skos:altLabel>Khelda</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khildā</skos:altLabel>
+	<skos:prefLabel>Khildā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.51528</wgs:lat>
+	<wgs:long>36.10222</wgs:long>
+	<skos:altLabel xml:lang="ar">Khān az Zabīb</skos:altLabel>
+	<skos:altLabel>Khān ez Zabīb</skos:altLabel>
+	<skos:prefLabel>Khān az Zabīb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.41848</wgs:lat>
+	<wgs:long>35.95053</wgs:long>
+	<skos:altLabel>Kaber</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat Kabar</skos:altLabel>
+	<skos:altLabel>Khirbat Qabr</skos:altLabel>
+	<skos:altLabel>Kiber</skos:altLabel>
+	<skos:prefLabel>Khirbat Kabar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12069</europeana:population>
+	<wgs:lat>32.40792</wgs:lat>
+	<wgs:long>35.70802</wgs:long>
+	<skos:altLabel>Jedeita</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Judaytā</skos:altLabel>
+	<skos:altLabel>Judeita</skos:altLabel>
+	<skos:altLabel>Judeitta</skos:altLabel>
+	<skos:prefLabel>Judaytā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6407085</europeana:population>
+	<wgs:lat>31</wgs:lat>
+	<wgs:long>36</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mamlakah al Urdunīyah al Hāshimīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Iordáin</skos:altLabel>
+	<skos:altLabel xml:lang="an">Chordania</skos:altLabel>
+	<skos:altLabel xml:lang="it">Giordania</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gioóc-đa-ni (Jordan)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gióc-đa-ni</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gwlad Iorddonen</skos:altLabel>
+	<skos:altLabel>Hashemite Jordan Kingdom</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hashemite Kingdom of Jordan</skos:altLabel>
+	<skos:altLabel>Hashimite Kingdom of Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Iordan</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Iordania</skos:altLabel>
+	<skos:altLabel xml:lang="la">Iordania</skos:altLabel>
+	<skos:altLabel>JO</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jordaania</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Jordaanje</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="na">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jordan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Jordani</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="io">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Jordania</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Jordania</skos:altLabel>
+	<skos:altLabel>Jordanian Hashimite Kingdom</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jordanie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jordanien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jordanien</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jordanija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Jordanija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jordanio</skos:altLabel>
+	<skos:altLabel xml:lang="af">Jordanië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jordanië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Jordanië</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Jordània</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jordánia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Jordánia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jordánsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Jordánsko</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jordânia</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jordānija</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jórdanía</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Lurdunän</skos:altLabel>
+	<skos:altLabel>Sharq el Urdun</skos:altLabel>
+	<skos:altLabel>Sharq el Urdunn</skos:altLabel>
+	<skos:altLabel>Trans-Jordan</skos:altLabel>
+	<skos:altLabel>Transjordania</skos:altLabel>
+	<skos:altLabel xml:lang="so">Urdun</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Urdun</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xordania</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xordania - الأردن</skos:altLabel>
+	<skos:altLabel xml:lang="id">Yordania</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Yr Iorddonen</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ürdün</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Ġordan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ιορδανία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Іарданія</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Јордан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јордан</skos:altLabel>
+	<skos:altLabel xml:lang="os">Иордани</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Иордания</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Йордания</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Йорданія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ярданія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հորդանան</skos:altLabel>
+	<skos:altLabel xml:lang="yi">יאַרדן</skos:altLabel>
+	<skos:altLabel xml:lang="he">ירדן</skos:altLabel>
+	<skos:altLabel xml:lang="yi">ירדן</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اردن</skos:altLabel>
+	<skos:altLabel xml:lang="ps">اردن</skos:altLabel>
+	<skos:altLabel xml:lang="ur">اردن</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الأردن</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الاردن</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جردن</skos:altLabel>
+	<skos:altLabel xml:lang="mr">जॉर्डन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जॉर्डन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जोर्डन</skos:altLabel>
+	<skos:altLabel xml:lang="hi">यार्दन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জর্ডন</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জর্ডান</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জর্দান</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஜொர்டான்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ജോര്‍ദാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ജോര്‍ദ്ദാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">จอร์แดน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศจอร์แดน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຈໍແດນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཇོར་ཌན།</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཇོར་ཏའན</skos:altLabel>
+	<skos:altLabel xml:lang="ka">იორდანია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጆርዳን</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ៊្សកដានី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヨルダン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヨルダン・ハシミテ王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">约旦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">요르단</skos:altLabel>
+	<skos:prefLabel>Hashemite Kingdom of Jordan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10628</europeana:population>
+	<wgs:lat>31.85</wgs:lat>
+	<wgs:long>35.93333</wgs:long>
+	<skos:altLabel xml:lang="ar">Jāwā</skos:altLabel>
+	<skos:prefLabel>Jāwā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248844/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>37.03333</wgs:long>
+	<skos:altLabel xml:lang="ar">Jāwá</skos:altLabel>
+	<skos:altLabel>Khirbat Jâwa</skos:altLabel>
+	<skos:prefLabel>Jāwá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27046</europeana:population>
+	<wgs:lat>32.28082</wgs:lat>
+	<wgs:long>35.89929</wgs:long>
+	<skos:altLabel>Djerash</skos:altLabel>
+	<skos:altLabel>Gerasa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gerasa</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gerasa</skos:altLabel>
+	<skos:altLabel>Jarash</skos:altLabel>
+	<skos:altLabel>Jerasa</skos:altLabel>
+	<skos:altLabel>Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джераш</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'רש</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جرش</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محافظة جرش</skos:altLabel>
+	<skos:prefLabel>Jarash</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22756</europeana:population>
+	<wgs:lat>31.15889</wgs:lat>
+	<wgs:long>35.69278</wgs:long>
+	<skos:altLabel>‘Azrā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Izrā</skos:altLabel>
+	<skos:prefLabel>‘Izrā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.9</wgs:lat>
+	<wgs:long>36.03333</wgs:long>
+	<skos:altLabel>Irmadān</skos:altLabel>
+	<skos:altLabel>Irmedān</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Irmidān</skos:altLabel>
+	<skos:prefLabel>Irmidān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248944/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>942069</europeana:population>
+	<wgs:lat>32.5</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel>Governorate of Irbid</skos:altLabel>
+	<skos:altLabel>Irbed</skos:altLabel>
+	<skos:altLabel>Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="en">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="no">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="en">Irbid Governorate</skos:altLabel>
+	<skos:altLabel>Liwā’ Irbid</skos:altLabel>
+	<skos:altLabel>Liwā’ ‘Ajlūn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Irbid</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Irbid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>307480</europeana:population>
+	<wgs:lat>32.55556</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel>Arbēla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="en">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Irbid</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ирбид</skos:altLabel>
+	<skos:altLabel xml:lang="he">אירביד</skos:altLabel>
+	<skos:altLabel xml:lang="ar">إربد</skos:altLabel>
+	<skos:prefLabel>Irbid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/248967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.8</wgs:lat>
+	<wgs:long>35.61667</wgs:long>
+	<skos:altLabel xml:lang="ar">‘Ilāqah</skos:altLabel>
+	<skos:prefLabel>‘Ilāqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.3</wgs:lat>
+	<wgs:long>35.76667</wgs:long>
+	<skos:altLabel>Hemeimat</skos:altLabel>
+	<skos:altLabel>Ḥumeimāt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ḩumaymāt</skos:altLabel>
+	<skos:prefLabel>Ḩumaymāt</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.14167</wgs:lat>
+	<wgs:long>35.70556</wgs:long>
+	<skos:altLabel>Al Ḩawīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat al Ḩawīyah</skos:altLabel>
+	<skos:altLabel>Khirbat el Hawiya</skos:altLabel>
+	<skos:altLabel>Ḩawīya</skos:altLabel>
+	<skos:prefLabel>Khirbat al Ḩawīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.39938</wgs:lat>
+	<wgs:long>35.8254</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Harqalā</skos:altLabel>
+	<skos:prefLabel>Khirbat Harqalā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.05</wgs:lat>
+	<wgs:long>36.23333</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Ḩamad</skos:altLabel>
+	<skos:prefLabel>Khirbat Ḩamad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.71667</wgs:lat>
+	<wgs:long>35.65</wgs:long>
+	<skos:altLabel xml:lang="ar">Gharandal</skos:altLabel>
+	<skos:altLabel>Khirbat Gharandal</skos:altLabel>
+	<skos:prefLabel>Gharandal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.07861</wgs:lat>
+	<wgs:long>35.21472</wgs:long>
+	<skos:altLabel>Ariddela</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Gharandal</skos:altLabel>
+	<skos:altLabel>Gharandel</skos:altLabel>
+	<skos:altLabel>Karandel</skos:altLabel>
+	<skos:altLabel>Rarandel</skos:altLabel>
+	<skos:altLabel>‘Aridela</skos:altLabel>
+	<skos:prefLabel>Gharandal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.63333</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel xml:lang="ar">Faynān</skos:altLabel>
+	<skos:altLabel>Feinān</skos:altLabel>
+	<skos:altLabel>Khirbat Feinān</skos:altLabel>
+	<skos:altLabel>Qaynān</skos:altLabel>
+	<skos:prefLabel>Faynān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:altLabel xml:lang="ar">Falḩā’</skos:altLabel>
+	<skos:altLabel>Felhe</skos:altLabel>
+	<skos:prefLabel>Falḩā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.53333</wgs:lat>
+	<wgs:long>35.78333</wgs:long>
+	<skos:altLabel>Dohfere</skos:altLabel>
+	<skos:altLabel>Duhfura</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Duḩfarah</skos:altLabel>
+	<skos:altLabel>Duḩfurah</skos:altLabel>
+	<skos:prefLabel>Duḩfarah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249633/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.13333</wgs:lat>
+	<wgs:long>35.4</wgs:long>
+	<skos:altLabel xml:lang="ar">Dilāghah</skos:altLabel>
+	<skos:altLabel>Khirbat Dilâgha</skos:altLabel>
+	<skos:prefLabel>Dilāghah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.91667</wgs:lat>
+	<wgs:long>35.6</wgs:long>
+	<skos:altLabel>Dibā‘a</skos:altLabel>
+	<skos:altLabel>Khirbat Dhibā‘a</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat Ḑibā‘ah</skos:altLabel>
+	<skos:altLabel>Ḑibā‘ah</skos:altLabel>
+	<skos:prefLabel>Khirbat Ḑibā‘ah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.78333</wgs:lat>
+	<wgs:long>36.03333</wgs:long>
+	<skos:altLabel>Deheibe el Sharqiye</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dhuhaybah ash Sharqīyah</skos:altLabel>
+	<skos:altLabel>Dhuheiba esh Sharqīya</skos:altLabel>
+	<skos:prefLabel>Dhuhaybah ash Sharqīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.79333</wgs:lat>
+	<wgs:long>36.02583</wgs:long>
+	<skos:altLabel>Deheibe el Gharbiye</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dhuhaybah al Gharbīyah</skos:altLabel>
+	<skos:altLabel>Dhuheiba el Gharbīya</skos:altLabel>
+	<skos:altLabel>Dhuhybat al Gharbīyah</skos:altLabel>
+	<skos:prefLabel>Dhuhaybah al Gharbīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.34472</wgs:lat>
+	<wgs:long>36.92238</wgs:long>
+	<skos:altLabel>Deir el Khim</skos:altLabel>
+	<skos:altLabel>Deir el Oenn</skos:altLabel>
+	<skos:altLabel>Deïr el Kinn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat Dayr al Kinn</skos:altLabel>
+	<skos:altLabel>Khirbet Deir el Kin</skos:altLabel>
+	<skos:prefLabel>Khirbat Dayr al Kinn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.55</wgs:lat>
+	<wgs:long>35.76667</wgs:long>
+	<skos:altLabel>Ad Da‘jānīyah</skos:altLabel>
+	<skos:altLabel>Kharābat ad Da‘jānīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat ad Da‘jānīyah</skos:altLabel>
+	<skos:altLabel>Khirbat ed Da‘jānīya</skos:altLabel>
+	<skos:prefLabel>Khirbat ad Da‘jānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.11667</wgs:lat>
+	<wgs:long>35.41667</wgs:long>
+	<skos:altLabel>Barqah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Burqā</skos:altLabel>
+	<skos:prefLabel>Burqā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.30934</wgs:lat>
+	<wgs:long>35.94286</wgs:long>
+	<skos:altLabel>Al Bukūr</skos:altLabel>
+	<skos:altLabel>El Bukūr</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat al Bukūr</skos:altLabel>
+	<skos:prefLabel>Khirbat al Bukūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.35</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel>Al Buḩayrah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khirbat al Buḩayrah</skos:altLabel>
+	<skos:altLabel>Khirbat el Buḥeira</skos:altLabel>
+	<skos:prefLabel>Khirbat al Buḩayrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/249896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.4</wgs:lat>
+	<wgs:long>35.35</wgs:long>
+	<skos:altLabel xml:lang="ar">Bi’r Madhkūr</skos:altLabel>
+	<skos:prefLabel>Bi’r Madhkūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.45</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel xml:lang="ar">Khirbat Bārīn</skos:altLabel>
+	<skos:prefLabel>Khirbat Bārīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>792665</europeana:population>
+	<wgs:lat>32.07275</wgs:lat>
+	<wgs:long>36.08796</wgs:long>
+	<skos:altLabel xml:lang="ar">Az Zarqā’</skos:altLabel>
+	<skos:altLabel>Kalaat el Zerka</skos:altLabel>
+	<skos:altLabel>Qal‘at az Zarqā’</skos:altLabel>
+	<skos:altLabel>Qal‘at ez Zerqa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Zarka</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Zarka</skos:altLabel>
+	<skos:altLabel xml:lang="id">Zarqa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zarqa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zarqa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Zarqa</skos:altLabel>
+	<skos:altLabel>Zarqā’</skos:altLabel>
+	<skos:altLabel>Zerka</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Зарка</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الزرقاء</skos:altLabel>
+	<skos:altLabel xml:lang="ar">زرقاء</skos:altLabel>
+	<skos:prefLabel>Az Zarqā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250092/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>31.83333</wgs:lat>
+	<wgs:long>36.83333</wgs:long>
+	<skos:altLabel>Aţ Ţafīlah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at az Zarqā’</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zarqa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Zarqa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zarqa Governorate</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at az Zarqā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18376</europeana:population>
+	<wgs:lat>32.50722</wgs:lat>
+	<wgs:long>35.8575</wgs:long>
+	<skos:altLabel>Aidūn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Aydūn</skos:altLabel>
+	<skos:altLabel>Eidūn</skos:altLabel>
+	<skos:prefLabel>Aydūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14619</europeana:population>
+	<wgs:lat>32.64139</wgs:lat>
+	<wgs:long>35.99194</wgs:long>
+	<skos:altLabel xml:lang="ar">Aţ Ţurrah</skos:altLabel>
+	<skos:altLabel>Eṭ Ṭurra</skos:altLabel>
+	<skos:altLabel>Turra</skos:altLabel>
+	<skos:prefLabel>Aţ Ţurrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12615</europeana:population>
+	<wgs:lat>32.54167</wgs:lat>
+	<wgs:long>35.71694</wgs:long>
+	<skos:altLabel xml:lang="ar">Aţ Ţayyibah</skos:altLabel>
+	<skos:altLabel>Et Taiyibe</skos:altLabel>
+	<skos:altLabel>Eṭ Ṭaiyiba</skos:altLabel>
+	<skos:altLabel>Taibe</skos:altLabel>
+	<skos:altLabel>Taiyiba</skos:altLabel>
+	<skos:altLabel>Ţayyibah</skos:altLabel>
+	<skos:prefLabel>Aţ Ţayyibah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.96667</wgs:lat>
+	<wgs:long>35.7</wgs:long>
+	<skos:altLabel xml:lang="ar">At Tannūr</skos:altLabel>
+	<skos:altLabel>Tannūr</skos:altLabel>
+	<skos:prefLabel>At Tannūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25429</europeana:population>
+	<wgs:lat>30.83333</wgs:lat>
+	<wgs:long>35.6</wgs:long>
+	<skos:altLabel xml:lang="ar">Aţ Ţafīlah</skos:altLabel>
+	<skos:altLabel>Aṭ Ṭafīla</skos:altLabel>
+	<skos:altLabel>El Tafile</skos:altLabel>
+	<skos:altLabel>Et Tafīla</skos:altLabel>
+	<skos:altLabel>Tafile</skos:altLabel>
+	<skos:altLabel>Tafileh</skos:altLabel>
+	<skos:altLabel>Tafīla</skos:altLabel>
+	<skos:altLabel>Tofel</skos:altLabel>
+	<skos:altLabel>Tophel</skos:altLabel>
+	<skos:altLabel>Tufailah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الطفيلة</skos:altLabel>
+	<skos:prefLabel>Aţ Ţafīlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>30.75</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel>Aţ Ţafīlah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at aţ Ţafīlah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tafielah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tafielah</skos:altLabel>
+	<skos:altLabel>Tafielah Governorate</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at aţ Ţafīlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>35.83333</wgs:long>
+	<skos:altLabel xml:lang="ar">Aţ Ţabaqah</skos:altLabel>
+	<skos:altLabel>El Tabaqa</skos:altLabel>
+	<skos:altLabel>Et Tabaqa</skos:altLabel>
+	<skos:altLabel>Khirbat aţ Ţabaqah</skos:altLabel>
+	<skos:altLabel>Tabaqa</skos:altLabel>
+	<skos:prefLabel>Aţ Ţabaqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.75</wgs:lat>
+	<wgs:long>35.71667</wgs:long>
+	<skos:altLabel xml:lang="ar">Ath Thawānī</skos:altLabel>
+	<skos:altLabel>El Towane</skos:altLabel>
+	<skos:altLabel>El Twane</skos:altLabel>
+	<skos:altLabel>Eth Thuwāne</skos:altLabel>
+	<skos:prefLabel>Ath Thawānī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.83333</wgs:lat>
+	<wgs:long>35.68333</wgs:long>
+	<skos:altLabel xml:lang="ar">Aş Şīr</skos:altLabel>
+	<skos:prefLabel>Aş Şīr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250256/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.8</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:altLabel xml:lang="ar">As Sāmik</skos:altLabel>
+	<skos:altLabel>El Samek</skos:altLabel>
+	<skos:altLabel>Khirbat es Sāmik</skos:altLabel>
+	<skos:prefLabel>As Sāmik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80189</europeana:population>
+	<wgs:lat>32.03917</wgs:lat>
+	<wgs:long>35.72722</wgs:long>
+	<skos:altLabel>Al-Salt</skos:altLabel>
+	<skos:altLabel xml:lang="ar">As Salţ</skos:altLabel>
+	<skos:altLabel>Es Salt</skos:altLabel>
+	<skos:altLabel>Rāmoth Gil‘ād</skos:altLabel>
+	<skos:altLabel>Salt</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salt</skos:altLabel>
+	<skos:prefLabel>As Salţ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.16667</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel xml:lang="ar">Aş Şadaqah</skos:altLabel>
+	<skos:altLabel>Es Sadaqa</skos:altLabel>
+	<skos:altLabel>Khirbat es Sadaqa</skos:altLabel>
+	<skos:altLabel>Sadaka</skos:altLabel>
+	<skos:altLabel>Zodokatha</skos:altLabel>
+	<skos:altLabel>Şadaqah</skos:altLabel>
+	<skos:prefLabel>Aş Şadaqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel xml:lang="ar">Ash Shudayyid</skos:altLabel>
+	<skos:altLabel>Khirbat esh Shedeiyid</skos:altLabel>
+	<skos:altLabel>Khirbat esh Shudaiyid</skos:altLabel>
+	<skos:altLabel>Shudayid</skos:altLabel>
+	<skos:prefLabel>Ash Shudayyid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11243</europeana:population>
+	<wgs:lat>32.64456</wgs:lat>
+	<wgs:long>35.94097</wgs:long>
+	<skos:altLabel xml:lang="ar">Ash Shajarah</skos:altLabel>
+	<skos:altLabel>Esh Shajara</skos:altLabel>
+	<skos:altLabel>Shajara</skos:altLabel>
+	<skos:altLabel>Shajarah</skos:altLabel>
+	<skos:prefLabel>Ash Shajarah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>74901</europeana:population>
+	<wgs:lat>32.55917</wgs:lat>
+	<wgs:long>36.00694</wgs:long>
+	<skos:altLabel xml:lang="en">Ar Ramtha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ar Ramthā</skos:altLabel>
+	<skos:altLabel>El Remteh</skos:altLabel>
+	<skos:altLabel>Er Remtha</skos:altLabel>
+	<skos:altLabel>Ramtha</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الرمثا</skos:altLabel>
+	<skos:prefLabel>Ar Ramthā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.46667</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel xml:lang="ar">‘Aqrabā</skos:altLabel>
+	<skos:prefLabel>‘Aqrabā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17634</europeana:population>
+	<wgs:lat>32.3063</wgs:lat>
+	<wgs:long>35.75653</wgs:long>
+	<skos:altLabel>‘Anjara</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Anjarah</skos:altLabel>
+	<skos:prefLabel>‘Anjarah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1972712</europeana:population>
+	<wgs:lat>31.58369</wgs:lat>
+	<wgs:long>36.33335</wgs:long>
+	<skos:altLabel>Al `Āşimah</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="en">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="en">Amman Governorate</skos:altLabel>
+	<skos:altLabel>Governorate of `Amman</skos:altLabel>
+	<skos:altLabel>Muhafidhiyat el `Asima</skos:altLabel>
+	<skos:altLabel>Muhafizate Al Aasimah</skos:altLabel>
+	<skos:altLabel>Muḩāfaz̧at `Āsimah</skos:altLabel>
+	<skos:altLabel>Muḩāfiz̧īyat al `Āşimah</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at `Ammān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1275857</europeana:population>
+	<wgs:lat>31.95522</wgs:lat>
+	<wgs:long>35.94503</wgs:long>
+	<skos:altLabel xml:lang="bs">Aman</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Aman</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Amanas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Amano</skos:altLabel>
+	<skos:altLabel xml:lang="id">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="de">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="en">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="da">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="io">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="it">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="is">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="no">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Amman</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ammán</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ammán</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ammán</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Amán - عمان</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Amã</skos:altLabel>
+	<skos:altLabel>Philadelphia</skos:altLabel>
+	<skos:altLabel>Rabbah</skos:altLabel>
+	<skos:altLabel>Rabbath Ammon</skos:altLabel>
+	<skos:altLabel xml:lang="ar">`Ammān</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αμμάν</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Аман</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Амман</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Амман</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Амман</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Аммон</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Աման</skos:altLabel>
+	<skos:altLabel xml:lang="he">רבת עמון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">عمان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عمان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عَمّان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अम्मान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আম্মান</skos:altLabel>
+	<skos:altLabel xml:lang="am">አማን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンマン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安曼</skos:altLabel>
+	<skos:altLabel xml:lang="ko">암만</skos:altLabel>
+	<skos:prefLabel>Amman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32396</europeana:population>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>35.95</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Quwaysimah</skos:altLabel>
+	<skos:altLabel>El Quweisima</skos:altLabel>
+	<skos:altLabel>El Quweisme</skos:altLabel>
+	<skos:prefLabel>Al Quwaysimah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.1021</wgs:lat>
+	<wgs:long>35.47708</wgs:long>
+	<skos:altLabel>Al Qarīn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al Qurayn</skos:altLabel>
+	<skos:altLabel>Khirbat Qurein</skos:altLabel>
+	<skos:prefLabel>Al Qurayn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.81556</wgs:lat>
+	<wgs:long>36.09417</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Muwaqqar</skos:altLabel>
+	<skos:altLabel>El Mowaqar</skos:altLabel>
+	<skos:altLabel>El Mowqar</skos:altLabel>
+	<skos:altLabel>El Muwaqqar</skos:altLabel>
+	<skos:altLabel>Muakkar</skos:altLabel>
+	<skos:altLabel>Mugher</skos:altLabel>
+	<skos:altLabel>Muwaqqar</skos:altLabel>
+	<skos:prefLabel>Al Muwaqqar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.13333</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Murayghah</skos:altLabel>
+	<skos:altLabel>El Mereighe</skos:altLabel>
+	<skos:altLabel>El Muraiyigha</skos:altLabel>
+	<skos:altLabel>El Mureigha</skos:altLabel>
+	<skos:altLabel>Muraiyigha</skos:altLabel>
+	<skos:altLabel>Mureigha</skos:altLabel>
+	<skos:prefLabel>Al Murayghah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250557/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.68333</wgs:lat>
+	<wgs:long>35.55</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Māqitah</skos:altLabel>
+	<skos:altLabel>Maqita</skos:altLabel>
+	<skos:prefLabel>Al Māqitah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.9</wgs:lat>
+	<wgs:long>36.08333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Manākhir</skos:altLabel>
+	<skos:altLabel>El Manākher</skos:altLabel>
+	<skos:altLabel>El Menakher</skos:altLabel>
+	<skos:prefLabel>Al Manākhir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>57118</europeana:population>
+	<wgs:lat>32.34289</wgs:lat>
+	<wgs:long>36.20804</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Mafraq</skos:altLabel>
+	<skos:altLabel>El-Fedein</skos:altLabel>
+	<skos:altLabel>Kalat el Mafrak</skos:altLabel>
+	<skos:altLabel>Mafraq</skos:altLabel>
+	<skos:altLabel>Qal‘at al Mafraq</skos:altLabel>
+	<skos:altLabel>Qal‘at el Mafraq</skos:altLabel>
+	<skos:prefLabel>Al Mafraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>246783</europeana:population>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>37.91667</wgs:long>
+	<skos:altLabel>Al Mafraq</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mafraq</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mafraq</skos:altLabel>
+	<skos:altLabel>Mafraq Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mafraq Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Mafraq</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Mafraq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.46667</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Lahūn</skos:altLabel>
+	<skos:altLabel>El Lehun</skos:altLabel>
+	<skos:altLabel>Khirbat el Lahūn</skos:altLabel>
+	<skos:altLabel>Lahūn</skos:altLabel>
+	<skos:prefLabel>Al Lahūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250617/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.55</wgs:lat>
+	<wgs:long>35.85</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Kawm</skos:altLabel>
+	<skos:altLabel>El Kom</skos:altLabel>
+	<skos:altLabel>Khirbat el Kaum</skos:altLabel>
+	<skos:prefLabel>Al Kawm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250619/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.73333</wgs:lat>
+	<wgs:long>35.58333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Kawlā</skos:altLabel>
+	<skos:altLabel>El Kaula</skos:altLabel>
+	<skos:prefLabel>Al Kawlā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22581</europeana:population>
+	<wgs:lat>31.18248</wgs:lat>
+	<wgs:long>35.69999</wgs:long>
+	<skos:altLabel>Al Karak</skos:altLabel>
+	<skos:altLabel>El Kerak</skos:altLabel>
+	<skos:altLabel>Karak</skos:altLabel>
+	<skos:altLabel>Kerak</skos:altLabel>
+	<skos:altLabel>Kir Moab</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль-Карак</skos:altLabel>
+	<skos:prefLabel>Qīr Moāv</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>207335</europeana:population>
+	<wgs:lat>31.16667</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:altLabel xml:lang="en">District of Karak</skos:altLabel>
+	<skos:altLabel>El Kerak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Governorate of Kerak</skos:altLabel>
+	<skos:altLabel xml:lang="no">Karak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Karak</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kerak</skos:altLabel>
+	<skos:altLabel>Liwā’ al Karak</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Karak</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الكرك</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Karak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46834</europeana:population>
+	<wgs:lat>32.01667</wgs:lat>
+	<wgs:long>35.86667</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Jubayhah</skos:altLabel>
+	<skos:altLabel>El Jebeihe</skos:altLabel>
+	<skos:altLabel>El Jubeiha</skos:altLabel>
+	<skos:altLabel>Jubeiha</skos:altLabel>
+	<skos:prefLabel>Al Jubayhah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.91667</wgs:lat>
+	<wgs:long>35.9</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Ḩamrānīyah</skos:altLabel>
+	<skos:altLabel>El Hemraniye</skos:altLabel>
+	<skos:altLabel>El-Hamrānīya</skos:altLabel>
+	<skos:prefLabel>Al Ḩamrānīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.33333</wgs:lat>
+	<wgs:long>35.43333</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Batrā’</skos:altLabel>
+	<skos:altLabel>Baţrā’</skos:altLabel>
+	<skos:altLabel xml:lang="id">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="es">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="da">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="it">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Petra</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Pétra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Петра</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Петра</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Петра</skos:altLabel>
+	<skos:altLabel xml:lang="he">פטרה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">البتراء</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بتراء</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ペトラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">佩特拉</skos:altLabel>
+	<skos:prefLabel>Petra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:altLabel>Al Balqāʼ</skos:altLabel>
+	<skos:altLabel xml:lang="en">Balqa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Balqa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Balqa Governorate</skos:altLabel>
+	<skos:altLabel>Governorate of Al Balqā</skos:altLabel>
+	<skos:altLabel>Liwā’ al Balqā’</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al Balqā’</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al Balqā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.38333</wgs:lat>
+	<wgs:long>35.55</wgs:long>
+	<skos:altLabel xml:lang="ar">Al ‘Arjā’</skos:altLabel>
+	<skos:altLabel>Khirbet el ‘Arja</skos:altLabel>
+	<skos:prefLabel>Al ‘Arjā’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>95048</europeana:population>
+	<wgs:lat>29.52667</wgs:lat>
+	<wgs:long>35.00778</wgs:long>
+	<skos:altLabel xml:lang="da">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Akaba</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Akabe</skos:altLabel>
+	<skos:altLabel xml:lang="et">Al-‘Aqabah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aqaba</skos:altLabel>
+	<skos:altLabel>Qal`at el `Aqaba</skos:altLabel>
+	<skos:altLabel>`Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Акаба</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Акаба</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Акаба</skos:altLabel>
+	<skos:altLabel xml:lang="he">עקבה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العقبة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">عقبه</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アカバ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">亞喀巴</skos:altLabel>
+	<skos:prefLabel>Aqaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.66667</wgs:lat>
+	<wgs:long>35.61667</wgs:long>
+	<skos:altLabel>Al ‘Alamā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Al ‘Allamā</skos:altLabel>
+	<skos:altLabel>‘Almā</skos:altLabel>
+	<skos:prefLabel>Al ‘Allamā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250791/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.25</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel xml:lang="ar">‘Akkā</skos:altLabel>
+	<skos:prefLabel>‘Akkā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>125557</europeana:population>
+	<wgs:lat>32.33385</wgs:lat>
+	<wgs:long>35.75238</wgs:long>
+	<skos:altLabel xml:lang="no">Adjlun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Adjlun</skos:altLabel>
+	<skos:altLabel xml:lang="ar">‘Ajlūn</skos:altLabel>
+	<skos:prefLabel>‘Ajlūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.93333</wgs:lat>
+	<wgs:long>35.8</wgs:long>
+	<skos:altLabel xml:lang="ar">Ad Dayr</skos:altLabel>
+	<skos:altLabel>Ed Deir</skos:altLabel>
+	<skos:altLabel>El Deir</skos:altLabel>
+	<skos:prefLabel>Ad Dayr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/250840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>36.18333</wgs:long>
+	<skos:altLabel xml:lang="ar">Ad Dalābīḩ</skos:altLabel>
+	<skos:altLabel>Ed Dalābīh</skos:altLabel>
+	<skos:prefLabel>Ad Dalābīḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/251033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.88333</wgs:lat>
+	<wgs:long>35.68333</wgs:long>
+	<skos:altLabel xml:lang="ar">Abū aş Şab‘</skos:altLabel>
+	<skos:altLabel>Abū aḑ Ḑab‘</skos:altLabel>
+	<skos:prefLabel>Abū aş Şab‘</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/251105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.95</wgs:lat>
+	<wgs:long>35.88333</wgs:long>
+	<skos:altLabel xml:lang="ar">‘Abdūn</skos:altLabel>
+	<skos:prefLabel>‘Abdūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443120/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>32.33333</wgs:lat>
+	<wgs:long>35.75</wgs:long>
+	<skos:altLabel xml:lang="en">Ajloun Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ajlun</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ajlun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ajlun Governorate</skos:altLabel>
+	<skos:altLabel>Liwā’ ‘Ajlūn</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at ‘Ajlūn</skos:altLabel>
+	<skos:altLabel>‘Ajlūn</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at ‘Ajlūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>156585</europeana:population>
+	<wgs:lat>32.25</wgs:lat>
+	<wgs:long>35.91667</wgs:long>
+	<skos:altLabel>Jarash</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jerash</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jerash Governorate</skos:altLabel>
+	<skos:prefLabel>Jerash</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>29.75</wgs:lat>
+	<wgs:long>35.33333</wgs:long>
+	<skos:altLabel>Al ‘Aqabah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aqaba</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at al ‘Aqabah</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at al ‘Aqabah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/443123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>131900</europeana:population>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>35.66667</wgs:long>
+	<skos:altLabel xml:lang="en">Madaba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Madaba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Madaba Governorate</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Muḩāfaz̧at Mādabā</skos:altLabel>
+	<skos:altLabel>Mādabā</skos:altLabel>
+	<skos:prefLabel>Muḩāfaz̧at Mādabā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6946409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21678</europeana:population>
+	<wgs:lat>31.16368</wgs:lat>
+	<wgs:long>35.76204</wgs:long>
+	<skos:altLabel xml:lang="en">Al-Karak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Karak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kerak</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Карак</skos:altLabel>
+	<skos:prefLabel>Karak City</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7015783/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/248816/"/>
+	<europeana:country>JO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>30.99557</wgs:lat>
+	<wgs:long>35.8824</wgs:long>
+	<skos:altLabel xml:lang="ar">Qaşr az Zamīlah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قصر الزميلة</skos:altLabel>
+	<skos:prefLabel>Qaşr az Zamīlah</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 155 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

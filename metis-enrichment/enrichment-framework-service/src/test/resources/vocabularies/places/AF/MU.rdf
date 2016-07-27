@@ -1,0 +1,1448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_MU
+Description: Selected fields pulled from Geonames about MU done on Mon May 23 21:16:18 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/448254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-10.4</wgs:lat>
+	<wgs:long>56.61667</wgs:long>
+	<skos:altLabel>Agalega Islands</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Agalegaøyane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Agalegaøyene</skos:altLabel>
+	<skos:prefLabel>Agalega Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.68333</wgs:lat>
+	<wgs:long>59.6</wgs:long>
+	<skos:prefLabel>Verronge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933944/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.395</wgs:lat>
+	<wgs:long>57.76361</wgs:long>
+	<skos:altLabel>Ile Vakois</skos:altLabel>
+	<skos:altLabel>L’Ile aux Vaquois</skos:altLabel>
+	<skos:altLabel>Vaquoas Island</skos:altLabel>
+	<skos:altLabel>Île Vacoas</skos:altLabel>
+	<skos:altLabel>Îlot Vacoas</skos:altLabel>
+	<skos:prefLabel>Îlot Vacoas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>110000</europeana:population>
+	<wgs:lat>-20.29806</wgs:lat>
+	<wgs:long>57.47833</wgs:long>
+	<skos:altLabel>Vacoa</skos:altLabel>
+	<skos:altLabel>Vacoas</skos:altLabel>
+	<skos:prefLabel>Vacoas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23269</europeana:population>
+	<wgs:lat>-20.05472</wgs:lat>
+	<wgs:long>57.54528</wgs:long>
+	<skos:altLabel>Triolet</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Триолет</skos:altLabel>
+	<skos:prefLabel>Triolet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10621</europeana:population>
+	<wgs:lat>-20.50972</wgs:lat>
+	<wgs:long>57.50528</wgs:long>
+	<skos:prefLabel>Surinam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.46667</wgs:lat>
+	<wgs:long>56.66667</wgs:long>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.46667</wgs:lat>
+	<wgs:long>59.58333</wgs:long>
+	<skos:altLabel>Ile Sirène</skos:altLabel>
+	<skos:altLabel>Siren Island</skos:altLabel>
+	<skos:prefLabel>Siren Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.38056</wgs:lat>
+	<wgs:long>57.70722</wgs:long>
+	<skos:altLabel>Singe Island</skos:altLabel>
+	<skos:altLabel>Île Singe</skos:altLabel>
+	<skos:altLabel>Île aux Singes</skos:altLabel>
+	<skos:prefLabel>Île aux Singes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.81583</wgs:lat>
+	<wgs:long>57.79917</wgs:long>
+	<skos:altLabel>Serpent Island</skos:altLabel>
+	<skos:altLabel>Serpent Islet</skos:altLabel>
+	<skos:altLabel>Île aux Serpents</skos:altLabel>
+	<skos:prefLabel>Serpent Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>70158</europeana:population>
+	<wgs:lat>-20.46667</wgs:lat>
+	<wgs:long>57.5</wgs:long>
+	<skos:altLabel>Savane</skos:altLabel>
+	<skos:altLabel>Savanne</skos:altLabel>
+	<skos:altLabel>Savanne District</skos:altLabel>
+	<skos:prefLabel>Savanne District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.50083</wgs:lat>
+	<wgs:long>57.44139</wgs:long>
+	<skos:altLabel>Île Sancho</skos:altLabel>
+	<skos:altLabel>Îlot Sancho</skos:altLabel>
+	<skos:prefLabel>Îlot Sancho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16414</europeana:population>
+	<wgs:lat>-20.2175</wgs:lat>
+	<wgs:long>57.52083</wgs:long>
+	<skos:altLabel>Saint Pierre</skos:altLabel>
+	<skos:altLabel>Saint Pierre Village</skos:altLabel>
+	<skos:prefLabel>Saint Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.84806</wgs:lat>
+	<wgs:long>57.78083</wgs:long>
+	<skos:altLabel>Round Island</skos:altLabel>
+	<skos:altLabel>Round Islet</skos:altLabel>
+	<skos:altLabel>Île Ronde</skos:altLabel>
+	<skos:prefLabel>Round Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12619</europeana:population>
+	<wgs:lat>-20.40028</wgs:lat>
+	<wgs:long>57.59667</wgs:long>
+	<skos:prefLabel>Rose Belle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>57.81667</wgs:long>
+	<skos:altLabel>Ile Roche</skos:altLabel>
+	<skos:altLabel>Îlot de Roches</skos:altLabel>
+	<skos:prefLabel>Îlot de Roches</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934090/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>107250</europeana:population>
+	<wgs:lat>-20.05833</wgs:lat>
+	<wgs:long>57.64167</wgs:long>
+	<skos:altLabel>Rivière du Rempart</skos:altLabel>
+	<skos:altLabel>Rivière du Rempart District</skos:altLabel>
+	<skos:prefLabel>Rivière du Rempart District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11675</europeana:population>
+	<wgs:lat>-20.10306</wgs:lat>
+	<wgs:long>57.68472</wgs:long>
+	<skos:prefLabel>Rivière du Rempart</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.45</wgs:lat>
+	<wgs:long>59.61667</wgs:long>
+	<skos:altLabel>Establishment Island</skos:altLabel>
+	<skos:altLabel>Raphael Island</skos:altLabel>
+	<skos:altLabel>Île Raphael</skos:altLabel>
+	<skos:prefLabel>Île Raphael</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>80961</europeana:population>
+	<wgs:lat>-20.26444</wgs:lat>
+	<wgs:long>57.47194</wgs:long>
+	<skos:altLabel xml:lang="fr">Quatre Bornes</skos:altLabel>
+	<skos:altLabel xml:lang="en">Quatre Bornes</skos:altLabel>
+	<skos:altLabel>Quatre Bornes</skos:altLabel>
+	<skos:prefLabel>Quatre Bornes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>133789</europeana:population>
+	<wgs:lat>-20.16667</wgs:lat>
+	<wgs:long>57.525</wgs:long>
+	<skos:altLabel>District of Port Louis</skos:altLabel>
+	<skos:altLabel>Port Louis</skos:altLabel>
+	<skos:altLabel>Port Louis District</skos:altLabel>
+	<skos:prefLabel>Port Louis District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>155226</europeana:population>
+	<wgs:lat>-20.16194</wgs:lat>
+	<wgs:long>57.49889</wgs:long>
+	<skos:altLabel xml:lang="de">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="da">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="io">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="it">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="no">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="es">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="et">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Port Louis</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Port Louis</skos:altLabel>
+	<skos:altLabel>Port Louis</skos:altLabel>
+	<skos:altLabel>Port Louis Town</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Port Luisas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Port-Louis</skos:altLabel>
+	<skos:altLabel xml:lang="el">Πορ Λουί</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Порт Луис Маурицијус</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Порт-Луи</skos:altLabel>
+	<skos:altLabel xml:lang="he">פורט לואיס</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بور لويس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پورت‌لوئیس</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፖርት ሉዊስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ポートルイス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">路易港</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포트루이스</skos:altLabel>
+	<skos:prefLabel>Port Louis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25028</wgs:lat>
+	<wgs:long>57.79111</wgs:long>
+	<skos:prefLabel>Pointe de la Rivière Sèche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>57.48333</wgs:long>
+	<skos:altLabel>Plaines Wilhems</skos:altLabel>
+	<skos:altLabel>Plaines Wilhems District</skos:altLabel>
+	<skos:altLabel>Plains Wilhems</skos:altLabel>
+	<skos:prefLabel>Plaines Wilhems District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10778</europeana:population>
+	<wgs:lat>-20.42861</wgs:lat>
+	<wgs:long>57.65306</wgs:long>
+	<skos:altLabel>Plaine Magnien</skos:altLabel>
+	<skos:altLabel>Plaines Magnien</skos:altLabel>
+	<skos:prefLabel>Plaine Magnien</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.55</wgs:lat>
+	<wgs:long>59.5</wgs:long>
+	<skos:altLabel>Ile Perle</skos:altLabel>
+	<skos:altLabel>Pearl Island</skos:altLabel>
+	<skos:prefLabel>Pearl Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.39639</wgs:lat>
+	<wgs:long>57.76083</wgs:long>
+	<skos:altLabel>L’Ile de la Passe</skos:altLabel>
+	<skos:altLabel>Île de La Passe</skos:altLabel>
+	<skos:prefLabel>Île de La Passe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>133870</europeana:population>
+	<wgs:lat>-20.09583</wgs:lat>
+	<wgs:long>57.55972</wgs:long>
+	<skos:altLabel>Pamplemousses</skos:altLabel>
+	<skos:altLabel>Pamplemousses District</skos:altLabel>
+	<skos:prefLabel>Pamplemousses District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10622</europeana:population>
+	<wgs:lat>-20.18556</wgs:lat>
+	<wgs:long>57.47722</wgs:long>
+	<skos:altLabel>Pailles</skos:altLabel>
+	<skos:altLabel>Pailles Village</skos:altLabel>
+	<skos:altLabel>mauvilac</skos:altLabel>
+	<skos:prefLabel>Pailles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.32472</wgs:lat>
+	<wgs:long>57.80722</wgs:long>
+	<skos:altLabel>Flamand Point</skos:altLabel>
+	<skos:altLabel>Île aux Oiseaux</skos:altLabel>
+	<skos:prefLabel>Île aux Oiseaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.38333</wgs:lat>
+	<wgs:long>59.65</wgs:long>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Nord</skos:altLabel>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.36667</wgs:lat>
+	<wgs:long>56.6</wgs:long>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.4025</wgs:lat>
+	<wgs:long>57.705</wgs:long>
+	<skos:altLabel>Le Mouchoir Rouge</skos:altLabel>
+	<skos:altLabel>Mouchoir Rouge</skos:altLabel>
+	<skos:altLabel>Mouchoir-Rouge Island</skos:altLabel>
+	<skos:prefLabel>Mouchoir Rouge</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.09056</wgs:lat>
+	<wgs:long>57.70556</wgs:long>
+	<skos:altLabel>Deadmans Islet</skos:altLabel>
+	<skos:altLabel>Îlot du Mort</skos:altLabel>
+	<skos:prefLabel>Îlot du Mort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>80544</europeana:population>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>57.56667</wgs:long>
+	<skos:altLabel>Moka</skos:altLabel>
+	<skos:altLabel>Moka District</skos:altLabel>
+	<skos:prefLabel>Moka District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1294104</europeana:population>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>57.58333</wgs:long>
+	<skos:altLabel>Isle de France</skos:altLabel>
+	<skos:altLabel>MU</skos:altLabel>
+	<skos:altLabel xml:lang="mg">Maorisy</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maurice</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Maurici</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Maurici</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Mauricijus</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mauricijus</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Mauricijus</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Mauricijus</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mauricio</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Mauricio - Maurice</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mauricius</skos:altLabel>
+	<skos:altLabel xml:lang="io">Mauris</skos:altLabel>
+	<skos:altLabel xml:lang="id">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="af">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="se">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Mauritsius</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Maurizeän</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Maurizio</skos:altLabel>
+	<skos:altLabel xml:lang="it">Maurizio</skos:altLabel>
+	<skos:altLabel xml:lang="an">Maurizio</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mauriţius</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Maurícia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Maurício</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Maurícius</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Maurīcija</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Mawrisiws</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Mawrizju</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Maŭricio</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Moris</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Morisi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Máritíus</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Móritius</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Mô-ri-xơ</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileán Mhuirís</skos:altLabel>
+	<skos:altLabel>Republic of Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de Mauricio</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynys Morrys</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Maurice</skos:altLabel>
+	<skos:altLabel>Île de France</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μαυρίκιος</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маврикий</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Маврикия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Маврикій</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мавриций</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Маврициус</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мауритус</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Маурицијус</skos:altLabel>
+	<skos:altLabel xml:lang="be">Маўрыкій</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մավրիտոս</skos:altLabel>
+	<skos:altLabel xml:lang="he">מאוריציוס</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ماوريتوس</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ماۋرىتيىچۇس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موريشوس</skos:altLabel>
+	<skos:altLabel xml:lang="ar">موريشيوس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موریتیوس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">موریس</skos:altLabel>
+	<skos:altLabel xml:lang="sa">मारिशस</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मॉरिशस</skos:altLabel>
+	<skos:altLabel xml:lang="mr">मॉरिशिअस</skos:altLabel>
+	<skos:altLabel xml:lang="hi">मौरिस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মউরিশাস</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মরিশাস</skos:altLabel>
+	<skos:altLabel xml:lang="ml">മൌറീഷ്യസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศมอริเชียส</skos:altLabel>
+	<skos:altLabel xml:lang="th">มอริเชียส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມໍຣິຕຽດ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">མོ་རི་ཤིཡསི</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མཽ་རིཤས྄།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მავრიკი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მავრიკია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማሩሸስ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሞሪሸስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ម៉ូរីទុស</skos:altLabel>
+	<skos:altLabel xml:lang="ja">モーリシャス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">毛里求斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">모리셔스</skos:altLabel>
+	<skos:prefLabel>Republic of Mauritius</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>57.58333</wgs:long>
+	<skos:altLabel>Cirne</skos:altLabel>
+	<skos:altLabel>Dina Arobi</skos:altLabel>
+	<skos:altLabel>Ilha da Cirnos</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Maurice</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Maurici</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mauricio</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mauritius</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mauritius</skos:altLabel>
+	<skos:altLabel>Mauritius</skos:altLabel>
+	<skos:altLabel>Mauritius Island</skos:altLabel>
+	<skos:altLabel>Swan Island</skos:altLabel>
+	<skos:altLabel>The Isle of France</skos:altLabel>
+	<skos:altLabel>Île Maurice</skos:altLabel>
+	<skos:altLabel>Île de France</skos:altLabel>
+	<skos:prefLabel>Mauritius</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>57</wgs:long>
+	<skos:altLabel>Les Mascareignes</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mascareignes</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mascarene Islands</skos:altLabel>
+	<skos:altLabel>Mascarenhas</skos:altLabel>
+	<skos:prefLabel>Mascareignes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.3775</wgs:lat>
+	<wgs:long>57.78028</wgs:long>
+	<skos:altLabel>Marianne Island</skos:altLabel>
+	<skos:altLabel>Marianne Islet</skos:altLabel>
+	<skos:altLabel>Île Marianne</skos:altLabel>
+	<skos:prefLabel>Île Marianne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.6</wgs:lat>
+	<wgs:long>59.7</wgs:long>
+	<skos:altLabel>Mapare</skos:altLabel>
+	<skos:altLabel>Mapare Island</skos:altLabel>
+	<skos:altLabel>Mapare Islet</skos:altLabel>
+	<skos:prefLabel>Mapare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.1475</wgs:lat>
+	<wgs:long>57.74556</wgs:long>
+	<skos:prefLabel>Île Malno</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17042</europeana:population>
+	<wgs:lat>-20.40806</wgs:lat>
+	<wgs:long>57.7</wgs:long>
+	<skos:altLabel>Mahébourg</skos:altLabel>
+	<skos:prefLabel>Mahébourg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-20.26417</wgs:lat>
+	<wgs:long>57.7975</wgs:long>
+	<skos:altLabel>Ile Lubine</skos:altLabel>
+	<skos:altLabel>Île aux Lubines</skos:altLabel>
+	<skos:prefLabel>Île aux Lubines</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934341/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.48722</wgs:lat>
+	<wgs:long>57.6425</wgs:long>
+	<skos:prefLabel>Le Souffleur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.4</wgs:lat>
+	<wgs:long>57.33333</wgs:long>
+	<skos:altLabel>Les Bénitiers</skos:altLabel>
+	<skos:altLabel>L’Ile aux Bénitiers</skos:altLabel>
+	<skos:altLabel>The Bénitiers</skos:altLabel>
+	<skos:prefLabel>Les Bénitiers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10404</europeana:population>
+	<wgs:lat>-20.18972</wgs:lat>
+	<wgs:long>57.66111</wgs:long>
+	<skos:prefLabel>Lalmatie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41778</wgs:lat>
+	<wgs:long>57.71139</wgs:long>
+	<skos:prefLabel>Île du Hangard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934452/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.93917</wgs:lat>
+	<wgs:long>57.61361</wgs:long>
+	<skos:altLabel>Coin de Mire</skos:altLabel>
+	<skos:altLabel>Gunner’s Quoin</skos:altLabel>
+	<skos:altLabel>Gunner’s Quoin Islet</skos:altLabel>
+	<skos:prefLabel>Gunner’s Quoin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>115391</europeana:population>
+	<wgs:lat>-20.41667</wgs:lat>
+	<wgs:long>57.63333</wgs:long>
+	<skos:altLabel>Grand Port</skos:altLabel>
+	<skos:altLabel>Grand Port District</skos:altLabel>
+	<skos:prefLabel>Grand Port District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11512</europeana:population>
+	<wgs:lat>-20.01361</wgs:lat>
+	<wgs:long>57.57389</wgs:long>
+	<skos:altLabel>Grand Baie</skos:altLabel>
+	<skos:altLabel>Grande Baie</skos:altLabel>
+	<skos:prefLabel>Grand Baie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20910</europeana:population>
+	<wgs:lat>-20.035</wgs:lat>
+	<wgs:long>57.64306</wgs:long>
+	<skos:prefLabel>Goodlands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.88361</wgs:lat>
+	<wgs:long>57.66528</wgs:long>
+	<skos:altLabel>Gabriel Island</skos:altLabel>
+	<skos:altLabel>Gabriel Islet</skos:altLabel>
+	<skos:altLabel>Îlot Gabriel</skos:altLabel>
+	<skos:prefLabel>Gabriel Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.6</wgs:lat>
+	<wgs:long>59.51667</wgs:long>
+	<skos:altLabel>Frigate Island</skos:altLabel>
+	<skos:altLabel>Ile Frégate</skos:altLabel>
+	<skos:prefLabel>Frigate Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934503/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.37944</wgs:lat>
+	<wgs:long>57.78056</wgs:long>
+	<skos:altLabel>Fous Island</skos:altLabel>
+	<skos:altLabel>Fous Islet</skos:altLabel>
+	<skos:altLabel>Île aux Fous</skos:altLabel>
+	<skos:prefLabel>Île aux Fous</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.46833</wgs:lat>
+	<wgs:long>57.33</wgs:long>
+	<skos:altLabel>Fourneau Island</skos:altLabel>
+	<skos:altLabel>L’Ilot Fourneau</skos:altLabel>
+	<skos:altLabel>Îlot Fourneau</skos:altLabel>
+	<skos:prefLabel>Îlot Fourneau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.39278</wgs:lat>
+	<wgs:long>57.77111</wgs:long>
+	<skos:altLabel>Fouquet Island</skos:altLabel>
+	<skos:altLabel>Fouquets Island</skos:altLabel>
+	<skos:altLabel>Ile Fouquet</skos:altLabel>
+	<skos:altLabel>Île aux Fouquets</skos:altLabel>
+	<skos:prefLabel>Île aux Fouquets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.38222</wgs:lat>
+	<wgs:long>57.36194</wgs:long>
+	<skos:prefLabel>Îlot Fortier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-20.2725</wgs:lat>
+	<wgs:long>57.80056</wgs:long>
+	<skos:prefLabel>Île Forency</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.32028</wgs:lat>
+	<wgs:long>57.81472</wgs:long>
+	<skos:altLabel>Flamand Island</skos:altLabel>
+	<skos:altLabel>Flamand Islet</skos:altLabel>
+	<skos:altLabel>Île Flamand</skos:altLabel>
+	<skos:altLabel>Îlot Flamants</skos:altLabel>
+	<skos:prefLabel>Îlot Flamants</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>138447</europeana:population>
+	<wgs:lat>-20.23333</wgs:lat>
+	<wgs:long>57.71667</wgs:long>
+	<skos:altLabel>Flacq</skos:altLabel>
+	<skos:altLabel>Flacq District</skos:altLabel>
+	<skos:altLabel>Flacque District</skos:altLabel>
+	<skos:prefLabel>Flacq District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.14667</wgs:lat>
+	<wgs:long>57.48972</wgs:long>
+	<skos:altLabel>Fever Islet</skos:altLabel>
+	<skos:prefLabel>Fever Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-20.25778</wgs:lat>
+	<wgs:long>57.79889</wgs:long>
+	<skos:altLabel>East Islet</skos:altLabel>
+	<skos:altLabel>Île de L’Est</skos:altLabel>
+	<skos:prefLabel>Île de L’Est</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.44639</wgs:lat>
+	<wgs:long>57.70417</wgs:long>
+	<skos:altLabel>Two Cocos Islands</skos:altLabel>
+	<skos:altLabel>Île des Deux Cocos</skos:altLabel>
+	<skos:prefLabel>Île des Deux Cocos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934570/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84200</europeana:population>
+	<wgs:lat>-20.31472</wgs:lat>
+	<wgs:long>57.52028</wgs:long>
+	<skos:altLabel xml:lang="fr">Curepipe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Curepipe</skos:altLabel>
+	<skos:altLabel>Curepipe</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Курепипе</skos:altLabel>
+	<skos:prefLabel>Curepipe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.81667</wgs:lat>
+	<wgs:long>59.5</wgs:long>
+	<skos:altLabel>Coco Island</skos:altLabel>
+	<skos:altLabel>Cocoa</skos:altLabel>
+	<skos:altLabel>Cocoa Island</skos:altLabel>
+	<skos:altLabel>Cocoa Islet</skos:altLabel>
+	<skos:altLabel>Ile Coco</skos:altLabel>
+	<skos:prefLabel>Coco Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12457</europeana:population>
+	<wgs:lat>-20.48722</wgs:lat>
+	<wgs:long>57.46556</wgs:long>
+	<skos:prefLabel>Chemin Grenier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28139</wgs:lat>
+	<wgs:long>57.78639</wgs:long>
+	<skos:prefLabel>Île aux Chats</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.38</wgs:lat>
+	<wgs:long>57.70778</wgs:long>
+	<skos:prefLabel>Île Chat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>-20.27111</wgs:lat>
+	<wgs:long>57.7975</wgs:long>
+	<skos:altLabel>Île aux Cerfs</skos:altLabel>
+	<skos:prefLabel>Île aux Cerfs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>17710</europeana:population>
+	<wgs:lat>-20.18972</wgs:lat>
+	<wgs:long>57.71444</wgs:long>
+	<skos:altLabel>Centre of Flacq</skos:altLabel>
+	<skos:altLabel>Flacq</skos:altLabel>
+	<skos:prefLabel>Centre de Flacq</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.4</wgs:lat>
+	<wgs:long>57.36667</wgs:long>
+	<skos:prefLabel>Case Noyale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-16.63333</wgs:lat>
+	<wgs:long>59.63333</wgs:long>
+	<skos:altLabel>Cargados Carajos</skos:altLabel>
+	<skos:altLabel>Cargados Carajos Shoals</skos:altLabel>
+	<skos:altLabel>Cargados Garajos</skos:altLabel>
+	<skos:altLabel>Saint Brandon</skos:altLabel>
+	<skos:altLabel>Saint Brandon Rocks</skos:altLabel>
+	<skos:prefLabel>Cargados Carajos Shoals</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934667/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28778</wgs:lat>
+	<wgs:long>57.78972</wgs:long>
+	<skos:altLabel>Camisard Island</skos:altLabel>
+	<skos:altLabel>Île Camisard</skos:altLabel>
+	<skos:prefLabel>Île Camisard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>70046</europeana:population>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>57.41667</wgs:long>
+	<skos:altLabel>Black River</skos:altLabel>
+	<skos:altLabel>Black River District</skos:altLabel>
+	<skos:altLabel>Rivière Noire</skos:altLabel>
+	<skos:prefLabel>Black River District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.02083</wgs:lat>
+	<wgs:long>57.69361</wgs:long>
+	<skos:prefLabel>Pointe Bernache</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41611</wgs:lat>
+	<wgs:long>57.33722</wgs:long>
+	<skos:altLabel>Île aux Bénitiers</skos:altLabel>
+	<skos:altLabel>Îlot Beintiers</skos:altLabel>
+	<skos:prefLabel>Île aux Bénitiers</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17671</europeana:population>
+	<wgs:lat>-20.25417</wgs:lat>
+	<wgs:long>57.74528</wgs:long>
+	<skos:altLabel>Bel Air</skos:altLabel>
+	<skos:altLabel>Rivière Sèche</skos:altLabel>
+	<skos:prefLabel>Bel Air</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.14944</wgs:lat>
+	<wgs:long>57.47472</wgs:long>
+	<skos:altLabel>Barkley Island</skos:altLabel>
+	<skos:altLabel>Barkly Islet</skos:altLabel>
+	<skos:prefLabel>Barkly Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.6</wgs:lat>
+	<wgs:long>59.63333</wgs:long>
+	<skos:altLabel>Avocare Islet</skos:altLabel>
+	<skos:altLabel>Avocaré Island</skos:altLabel>
+	<skos:prefLabel>Avocaré Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.03361</wgs:lat>
+	<wgs:long>57.695</wgs:long>
+	<skos:altLabel>Amber Island</skos:altLabel>
+	<skos:altLabel>Isle d’ Ambre</skos:altLabel>
+	<skos:altLabel>L’Ile d’ Ambre</skos:altLabel>
+	<skos:altLabel>Île d’ Ambre</skos:altLabel>
+	<skos:prefLabel>Île d’ Ambre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.25</wgs:lat>
+	<wgs:long>59.58333</wgs:long>
+	<skos:altLabel>Albatross Island</skos:altLabel>
+	<skos:altLabel>Ile Albatros</skos:altLabel>
+	<skos:altLabel>Ile Albatross</skos:altLabel>
+	<skos:prefLabel>Albatross Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.41722</wgs:lat>
+	<wgs:long>57.72667</wgs:long>
+	<skos:altLabel>Aigrette Island</skos:altLabel>
+	<skos:altLabel>Île aux Aigrettes</skos:altLabel>
+	<skos:prefLabel>Île aux Aigrettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934817/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-10.4</wgs:lat>
+	<wgs:long>56.61667</wgs:long>
+	<skos:altLabel>Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="es">Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="et">Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="en">Agalega Islands</skos:altLabel>
+	<skos:altLabel>Agalega Islands</skos:altLabel>
+	<skos:altLabel xml:lang="de">Agalega-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Agalegaøyane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Agalegaøyene</skos:altLabel>
+	<skos:altLabel>Galega</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Agalega</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Агалега</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Агалега острва</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アガレガ諸島</skos:altLabel>
+	<skos:prefLabel>Agalega Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106583/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-16.63333</wgs:lat>
+	<wgs:long>59.63333</wgs:long>
+	<skos:altLabel xml:lang="pl">Cargados Carajos</skos:altLabel>
+	<skos:altLabel xml:lang="es">Cargados Carajos</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Cargados Carajos</skos:altLabel>
+	<skos:altLabel xml:lang="en">Cargados Carajos</skos:altLabel>
+	<skos:altLabel>Cargados Carajos</skos:altLabel>
+	<skos:altLabel xml:lang="de">Cargados-Carajos-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Écueils des Cargados Carajos</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Каргадос Карахос</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Каргадос-Карахос</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カルガドス・カラホス諸島</skos:altLabel>
+	<skos:prefLabel>Cargados Carajos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.02444</wgs:lat>
+	<wgs:long>57.67694</wgs:long>
+	<skos:prefLabel>Matapan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106608/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.03972</wgs:lat>
+	<wgs:long>57.68361</wgs:long>
+	<skos:prefLabel>Îlot Maunick</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.22833</wgs:lat>
+	<wgs:long>57.80083</wgs:long>
+	<skos:prefLabel>Île Vacoas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.24611</wgs:lat>
+	<wgs:long>57.78944</wgs:long>
+	<skos:prefLabel>Îlot Levrettes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106655/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.24806</wgs:lat>
+	<wgs:long>57.79194</wgs:long>
+	<skos:prefLabel>Îlot Lievres</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.39472</wgs:lat>
+	<wgs:long>57.35778</wgs:long>
+	<skos:prefLabel>Îlot Malais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15197</europeana:population>
+	<wgs:lat>-20.135</wgs:lat>
+	<wgs:long>57.52111</wgs:long>
+	<skos:prefLabel>Le Hochet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1281792/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>72</wgs:long>
+	<skos:altLabel>Chagos Archipelago</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Chagos</skos:altLabel>
+	<skos:altLabel>Oil Islands</skos:altLabel>
+	<skos:prefLabel>Chagos Archipelago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1281793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.68333</wgs:lat>
+	<wgs:long>72.33333</wgs:long>
+	<skos:altLabel>Nelson</skos:altLabel>
+	<skos:altLabel>Nelsons Island</skos:altLabel>
+	<skos:prefLabel>Nelsons Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1281794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-2.9</wgs:lat>
+	<wgs:long>73.56667</wgs:long>
+	<skos:prefLabel>Maraweli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1281795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.25</wgs:lat>
+	<wgs:long>71.86667</wgs:long>
+	<skos:altLabel xml:lang="fr">Île Longue</skos:altLabel>
+	<skos:prefLabel>Île Longue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.7</wgs:lat>
+	<wgs:long>63.31667</wgs:long>
+	<skos:altLabel>Sandy Island</skos:altLabel>
+	<skos:altLabel>Sandy Islet</skos:altLabel>
+	<skos:altLabel>Île aux Sables</skos:altLabel>
+	<skos:prefLabel>Île aux Sables</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545749/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.7</wgs:lat>
+	<wgs:long>63.41667</wgs:long>
+	<skos:altLabel>Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="it">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="no">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="es">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="da">Rodrigues</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Rodrigues</skos:altLabel>
+	<skos:altLabel>Rodriguez</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rodriguez</skos:altLabel>
+	<skos:altLabel>Rodriguez Island</skos:altLabel>
+	<skos:altLabel>Île Rodrigues</skos:altLabel>
+	<skos:altLabel>Île Rodriguez</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Родригез</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Родригес</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ロドリゲス島</skos:altLabel>
+	<skos:prefLabel>Île Rodrigues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545755/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.76667</wgs:lat>
+	<wgs:long>63.43333</wgs:long>
+	<skos:altLabel>Cat Island</skos:altLabel>
+	<skos:altLabel>Pierrot Island</skos:altLabel>
+	<skos:altLabel>Pierrot Islet</skos:altLabel>
+	<skos:prefLabel>Pierrot Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>63.4</wgs:long>
+	<skos:altLabel>Paille en Queue Island</skos:altLabel>
+	<skos:altLabel>Pianqui Island</skos:altLabel>
+	<skos:prefLabel>Paille en Queue Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.73333</wgs:lat>
+	<wgs:long>63.33333</wgs:long>
+	<skos:prefLabel>Marianne Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>63.43333</wgs:long>
+	<skos:altLabel>Hermitage Island</skos:altLabel>
+	<skos:prefLabel>Hermitage Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.76667</wgs:lat>
+	<wgs:long>63.41667</wgs:long>
+	<skos:prefLabel>Gombrani Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545786/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>63.33333</wgs:long>
+	<skos:altLabel>Frigate Island</skos:altLabel>
+	<skos:altLabel>Frégate Island</skos:altLabel>
+	<skos:prefLabel>Frégate Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545788/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.78333</wgs:lat>
+	<wgs:long>63.41667</wgs:long>
+	<skos:altLabel>Flat Island</skos:altLabel>
+	<skos:altLabel>Flat Islet</skos:altLabel>
+	<skos:prefLabel>Flat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545790/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.68333</wgs:lat>
+	<wgs:long>63.4</wgs:long>
+	<skos:prefLabel>Diamond Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545793/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>63.33333</wgs:long>
+	<skos:altLabel>Desinée Island</skos:altLabel>
+	<skos:altLabel>Destinée Island</skos:altLabel>
+	<skos:prefLabel>Destinée Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.76667</wgs:lat>
+	<wgs:long>63.35</wgs:long>
+	<skos:prefLabel>Crab Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>63.31667</wgs:long>
+	<skos:altLabel>Catharine Island</skos:altLabel>
+	<skos:altLabel>Catherine Island</skos:altLabel>
+	<skos:prefLabel>Catherine Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1545805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.66667</wgs:lat>
+	<wgs:long>63.4</wgs:long>
+	<skos:altLabel>Booby Island</skos:altLabel>
+	<skos:altLabel>Fous Island</skos:altLabel>
+	<skos:prefLabel>Booby Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>36403</europeana:population>
+	<wgs:lat>-19.7</wgs:lat>
+	<wgs:long>63.41667</wgs:long>
+	<skos:altLabel>Rodrigues</skos:altLabel>
+	<skos:prefLabel>Rodrigues</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.72222</wgs:lat>
+	<wgs:long>63.29722</wgs:long>
+	<skos:prefLabel>Île Cocos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1547464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934292/"/>
+	<europeana:country>MU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.76528</wgs:lat>
+	<wgs:long>63.39861</wgs:long>
+	<skos:prefLabel>Pintades Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 111 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

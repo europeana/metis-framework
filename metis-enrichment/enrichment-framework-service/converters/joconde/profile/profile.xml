@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY ac 'http://annocultor.eu/converter/'>
+    <!ENTITY vra 'http://www.vraweb.org/vracore/vracore3#'>
+        
+    <!ENTITY vocabularies SYSTEM '/../../vocabularies.xml'> 
+    <!ENTITY parameters SYSTEM '/../../parameters.xml'> 
+    
+]>
+<rdf:RDF 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://annocultor.eu/schema/XConverter.xsd"
+ xmlns:ac="http://annocultor.eu/converter/" 
+ xmlns:dc="http://purl.org/dc/elements/1.1/" 
+ xmlns:inm="http://www.inmagic.com/webpublisher/query" 
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" 
+ xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+ xmlns:vra="&vra;"
+>
+ <ac:Profile 
+ ac:institution="Multimedian e-Culture project" 
+ ac:publisherId="000" 
+ ac:versionAnnoCultor="2.0" 
+ rdf:about="joconde">
+  <!-- 
+      Shared definition of parameters and vocabularies are loaded from the corresponding files.
+  -->
+   <ac:parameters rdf:parseType="Collection">
+    &parameters;
+  </ac:parameters>
+  <ac:vocabularies rdf:parseType="Collection">
+    &vocabularies;
+  </ac:vocabularies>
+  
+  <ac:repositories rdf:parseType="Collection">
+    <ac:Repository rdf:about="joconde">
+      <ac:datasources rdf:parseType="Collection">
+        <ac:XmlDataSource>
+          <ac:file>joconde.test.xml</ac:file>
+        </ac:XmlDataSource>
+      </ac:datasources>
+      <ac:destinations rdf:parseType="Collection">
+        <!-- 
+          Destinations are separate RDF files that will be created.
+          Each property rule has a parameter that specifies where to store the result.
+          Splitting a dataset among several files may be quite useful in practice.
+         -->
+         <ac:RdfGraph rdf:about="Works">
+            <ac:comment>Museum objects, one RDF resource per object</ac:comment>
+         </ac:RdfGraph>              
+         <ac:RdfGraph rdf:about="Links">
+            <ac:comment>Links from museum objects to terms from external vocabularies</ac:comment>
+         </ac:RdfGraph>              
+       </ac:destinations>  
+       <ac:objectRules rdf:parseType="Collection">    
+         <ac:ObjectRule>
+           <ac:recordSeparator>/BASE/NOTICES/NOTICE</ac:recordSeparator>
+           <ac:recordIdentifier>/BASE/NOTICES/NOTICE/REF</ac:recordIdentifier>
+           <ac:recordInformalIdentifier>/BASE/NOTICES/NOTICE/TITR</ac:recordInformalIdentifier>
+              
+           <ac:listeners rdf:parseType="Collection"> 
+             <ac:OnPreCondition>
+               <ac:java>
+                 // sample precondition
+                return true;
+              </ac:java>
+            </ac:OnPreCondition>
+           </ac:listeners>
+                
+          <ac:propertyRules>
+            <!-- 
+              Batch rule, the ac:rule rule is populated with each ac:map. 
+              Target properties are set explicitly in the map.
+             -->                  
+            <ac:eu.annocultor.rules.BatchRule-setPropNames>
+              <ac:rule rdf:datatype="ac:Rule">
+                <ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+                   <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+                </ac:eu.annocultor.rules.RenameLiteralPropertyRule-template>
+              </ac:rule>
+              <ac:map rdf:datatype="ac:Map"> 
+                 <ac:srcValue rdf:datatype="ac:Path">PERI</ac:srcValue>
+                 <ac:dstValue rdf:datatype="ac:Property">dc:date</ac:dstValue>
+              </ac:map>
+              <ac:map rdf:datatype="ac:Map"> 
+                 <ac:srcValue rdf:datatype="ac:Path">TITR</ac:srcValue>
+                 <ac:dstValue rdf:datatype="ac:Property">dc:title</ac:dstValue>
+              </ac:map>
+               <ac:map rdf:datatype="ac:Map"> 
+                <ac:srcValue rdf:datatype="ac:Path">GENE</ac:srcValue>
+                 <ac:dstValue rdf:datatype="ac:Property">dc:relation</ac:dstValue>
+               </ac:map>
+               <ac:map rdf:datatype="ac:Map"> 
+                <ac:srcValue rdf:datatype="ac:Path">INV</ac:srcValue>
+                 <ac:dstValue rdf:datatype="ac:Property">dc:identifier</ac:dstValue>
+               </ac:map>
+               <ac:map rdf:datatype="ac:Map"> 
+                <ac:srcValue rdf:datatype="ac:Path">COPY</ac:srcValue>
+                 <ac:dstValue rdf:datatype="ac:Property">dc:rights</ac:dstValue>
+               </ac:map>
+             </ac:eu.annocultor.rules.BatchRule-setPropNames>
+            
+            <!-- 
+             Adding a constant statement about each record: rdf:type
+             -->    
+            <ac:eu.annocultor.rules.CreateResourcePropertyRule-default>
+              <ac:srcPath rdf:datatype="ac:Path">REF</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">rdf:type</ac:dstProperty>
+              <ac:dstResource rdf:datatype="ac:Resource">dc:WORK</ac:dstResource>
+              <ac:dstGraph rdf:datatype="ac:Graph">Works</ac:dstGraph>
+            </ac:eu.annocultor.rules.CreateResourcePropertyRule-default>
+                                  
+             <ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">DOMN</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:type</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">Links</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">Links</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">dc:type</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">type</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfTerms">terms</ac:termsVocabulary>
+              <ac:listeners rdf:parseType="Collection">                       
+                <ac:OnPreCondition>
+                  <ac:java>
+                    // sample precondition, checked before a rule is fired.
+                    // returning false allows skiping rule execution
+
+                    // here we only search for term represented with words
+                    // boolean result = sourceTriple.getValue().matches("\\w+");
+                      
+                    // but always return true, as the above is just an illustration :) 
+                    return true;
+                  </ac:java>
+                 </ac:OnPreCondition>
+              </ac:listeners>
+            </ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>                      
+
+            <ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">ECOL</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:culture</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">Links</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">Links</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">dc:culture</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">type</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfTerms">terms</ac:termsVocabulary>
+            </ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>                      
+
+            <ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">REPR</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:subject</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">Links</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">Links</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">dc:subject</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">subject</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfTerms">terms</ac:termsVocabulary>
+             </ac:eu.annocultor.tagger.rules.LookupTermRule-noLocalTerms>                      
+
+            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">LOCA</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">vra:location.currentRepository</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">Links</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">Links</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">vra:location.currentRepository</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">currentLocation</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>        
+
+            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">LOCA2</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">vra:location.creationSite</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">Links</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">Links</ac:dstGraphLinks>
+              <ac:termsProperty rdf:datatype="ac:Property">vra:location.creationSite</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">creationSite</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>        
+
+             <ac:eu.annocultor.tagger.rules.LookupPersonRule-noLocalTerms>
+              <ac:srcPath rdf:datatype="ac:Path">AUTR</ac:srcPath>
+              <ac:dstProperty rdf:datatype="ac:Property">dc:creator</ac:dstProperty>
+              <ac:dstGraphLiterals rdf:datatype="ac:Graph">Links</ac:dstGraphLiterals>
+              <ac:dstGraphLinks rdf:datatype="ac:Graph">Links</ac:dstGraphLinks>
+              <ac:birthPath rdf:datatype="ac:Path">PAUT</ac:birthPath>
+              <ac:deathPath rdf:datatype="ac:Path">PAUT</ac:deathPath>                    
+              <ac:termsProperty rdf:datatype="ac:Property">dc:creator</ac:termsProperty>
+              <ac:termsSignature rdf:datatype="ac:String">creator</ac:termsSignature>
+              <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)|( *, *)</ac:termsSplitPattern>
+              <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPeople">people</ac:termsVocabulary>
+              
+              <!-- 
+                This example is probably too big for listeners. However,
+                author names are stored in Joconde in form <LAST first>
+                while in ULAN they use form <first last>.
+                
+                This sample is a function that swaps both names to be able to find them 
+                in ULAN.
+               -->
+              <ac:listeners rdf:parseType="Collection">
+                <ac:Declarations>
+                  <ac:java><![CDATA[
+                    Map<String, String> nameReplace = new HashMap<String, String>();
+                    
+                    public String swapLastFirstNames(String name)
+                    {
+                      // replace first
+                      String n = name.replaceAll("  ", " ");
+                      n = nameReplace.containsKey(n) ? nameReplace.get(n) : n;
+                    
+                      // XXXX, YYYY (dit) ZZZ
+                      if (n.contains(",") && n.contains("(dit)"))
+                      {
+                        n = n.substring(0, n.indexOf(",")) + n.substring(n.lastIndexOf("(dit)") + 5);
+                      }
+                      // LAST first    
+                      Matcher m = Pattern.compile("^([A-Z]+) (.+)$").matcher(n);
+                      if (m.find())
+                      {
+                        return m.group(2) + " " + m.group(1);
+                      }
+                      return n;
+                    }
+                    
+                    private void testSwapLastFirstNames() throws Exception
+                    {
+                      if (!swapLastFirstNames("Tilman RIEMENSCHNEIDER").equals("Tilman RIEMENSCHNEIDER"))
+                        throw new Exception();
+                      if (!swapLastFirstNames("Tilman Pal RIEMENSCHNEIDER").equals("Tilman Pal RIEMENSCHNEIDER"))
+                        throw new Exception();
+                      if (!swapLastFirstNames("RUBENS Peter Paul").equals("Peter Paul RUBENS"))
+                        throw new Exception();
+                      if (!swapLastFirstNames("RUBENS- Peter Paul").equals("RUBENS- Peter Paul"))
+                        throw new Exception();
+                      if (!swapLastFirstNames("REMBRANDT Harmensz Van, REMBRANDT (dit) RIJN").equals("Rembrandt van Rijn"))
+                        throw new Exception();
+                      if (!swapLastFirstNames("David II, TENIERS Le Jeune (dit) TENIERS").equals("David II TENIERS"))
+                        throw new Exception("'" + swapLastFirstNames("David II, TENIERS Le Jeune (dit) TENIERS") + "'");
+                    }
+                    ]]>
+                  </ac:java>
+                </ac:Declarations>
+                 <ac:OnInit>
+                  <ac:java>                  
+                    // exceptions
+                    nameReplace.put("Petrus-Paulus RUBENS", "Peter Paul RUBENS");
+                    nameReplace.put("Jean-Baptiste MAUZAISSE", "Jean Baptiste MAUZAISSE");
+                    nameReplace.put("Jean-Baptiste Siméon CHARDIN", "Jean Baptiste CHARDIN");
+                    nameReplace.put("Jean-Baptiste Camille COROT", "Jean Baptiste Camille COROT");
+                    nameReplace.put("REMBRANDT Harmensz Van, REMBRANDT (dit) RIJN", "Rembrandt van Rijn");
+                    nameReplace.put("Harmensz. van Rijn Rembrandt", "Rembrandt van Rijn");
+                    nameReplace.put("", "");
+                    
+                    // enforce test on rule creation
+                    testSwapLastFirstNames();
+                  </ac:java>
+                </ac:OnInit>
+                <ac:OnInvocation>
+                  <ac:java>
+                    // we may check what is it actually doing
+                    // console.println(sourceTriple.getValue() +">" + swapLastFirstNames(sourceTriple.getValue()));
+                    
+                    // swap each name before the rule is invoked
+                    return sourceTriple.changeValue(new XmlValue(swapLastFirstNames(sourceTriple.getValue().getValue())));
+                  </ac:java>
+                </ac:OnInvocation>
+              </ac:listeners>
+            </ac:eu.annocultor.tagger.rules.LookupPersonRule-noLocalTerms>                    
+           </ac:propertyRules>                  
+        </ac:ObjectRule>
+      </ac:objectRules>
+
+      <!-- 
+        Conversion limit made for debugging. 
+        A positive value would stop conversion after the corresponding
+        number of records is passed. 
+        
+        Note: in a normal completion it creates all output files but 
+        end with an exception that is raised to stop conversion. Watch out!
+       -->            
+      <ac:maxRecordsToConvert>-1</ac:maxRecordsToConvert>
+    </ac:Repository>
+   </ac:repositories>
+  </ac:Profile>
+ </rdf:RDF>

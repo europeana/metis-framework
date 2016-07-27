@@ -1,0 +1,665 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_MT
+Description: Selected fields pulled from Geonames about MT done on Mon May 23 21:12:41 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11549</europeana:population>
+	<wgs:lat>35.85583</wgs:lat>
+	<wgs:long>14.53306</wgs:long>
+	<skos:altLabel>Casal Zeitun</skos:altLabel>
+	<skos:altLabel>Iz Zeitun</skos:altLabel>
+	<skos:altLabel>Iż-Żejtun</skos:altLabel>
+	<skos:altLabel>Zeitun</skos:altLabel>
+	<skos:altLabel>Żejtun</skos:altLabel>
+	<skos:prefLabel>Żejtun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11063</europeana:population>
+	<wgs:lat>35.87194</wgs:lat>
+	<wgs:long>14.44111</wgs:long>
+	<skos:altLabel>Lebbug</skos:altLabel>
+	<skos:altLabel>Zebbuj</skos:altLabel>
+	<skos:altLabel>Ħaż-Żebbuġ</skos:altLabel>
+	<skos:altLabel>Żebbuġ</skos:altLabel>
+	<skos:prefLabel>Żebbuġ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15030</europeana:population>
+	<wgs:lat>35.87611</wgs:lat>
+	<wgs:long>14.535</wgs:long>
+	<skos:altLabel>Haż-Żabbar</skos:altLabel>
+	<skos:altLabel>Żabbar</skos:altLabel>
+	<skos:prefLabel>Żabbar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.05417</wgs:lat>
+	<wgs:long>14.25889</wgs:long>
+	<skos:prefLabel>Ta’ Sansuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.03389</wgs:lat>
+	<wgs:long>14.23778</wgs:long>
+	<skos:prefLabel>Ta’ Marżiena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.93667</wgs:lat>
+	<wgs:long>14.42</wgs:long>
+	<skos:prefLabel>Tal-Qadi Temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.04306</wgs:lat>
+	<wgs:long>14.1975</wgs:long>
+	<skos:altLabel>Ta’ Ħarrux</skos:altLabel>
+	<skos:altLabel>Ta’ Ħarush</skos:altLabel>
+	<skos:prefLabel>Ta’ Ħarrux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.91861</wgs:lat>
+	<wgs:long>14.3675</wgs:long>
+	<skos:altLabel>Ta Hagran</skos:altLabel>
+	<skos:altLabel>Ta Hajret</skos:altLabel>
+	<skos:altLabel>Ta’ Ħaġrat Temples</skos:altLabel>
+	<skos:prefLabel>Ta’ Ħaġrat Temples</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11318</europeana:population>
+	<wgs:lat>35.9125</wgs:lat>
+	<wgs:long>14.50194</wgs:long>
+	<skos:altLabel xml:lang="de">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sliema</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sliema</skos:altLabel>
+	<skos:altLabel>Sliema</skos:altLabel>
+	<skos:altLabel>Tas-Sliema</skos:altLabel>
+	<skos:prefLabel>Sliema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.96639</wgs:lat>
+	<wgs:long>14.40222</wgs:long>
+	<skos:altLabel>Ghezzejjer Selmunet</skos:altLabel>
+	<skos:altLabel>Gzeier Island</skos:altLabel>
+	<skos:altLabel>Gzeir</skos:altLabel>
+	<skos:altLabel>Gżejjer Selmunett</skos:altLabel>
+	<skos:altLabel>Isola di San Paolo</skos:altLabel>
+	<skos:altLabel>Saint Paulls Island</skos:altLabel>
+	<skos:altLabel>Saint Paul’s Island</skos:altLabel>
+	<skos:altLabel>Selmunet</skos:altLabel>
+	<skos:altLabel>Selmunett</skos:altLabel>
+	<skos:prefLabel>Gżejjer Selmunett</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.88528</wgs:lat>
+	<wgs:long>14.40028</wgs:long>
+	<skos:prefLabel>Roman Villa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12914</europeana:population>
+	<wgs:lat>35.87417</wgs:lat>
+	<wgs:long>14.39415</wgs:long>
+	<skos:altLabel>Ir-Rabt</skos:altLabel>
+	<skos:altLabel>Rabato</skos:altLabel>
+	<skos:prefLabel>Rabat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18230</europeana:population>
+	<wgs:lat>35.87601</wgs:lat>
+	<wgs:long>14.472</wgs:long>
+	<skos:altLabel>Curmi</skos:altLabel>
+	<skos:altLabel>Ħal Qormi</skos:altLabel>
+	<skos:prefLabel>Qormi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562683/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10378</europeana:population>
+	<wgs:lat>35.91361</wgs:lat>
+	<wgs:long>14.44361</wgs:long>
+	<skos:altLabel>In-Naxxar</skos:altLabel>
+	<skos:altLabel>Nasciar</skos:altLabel>
+	<skos:altLabel>Nashar</skos:altLabel>
+	<skos:altLabel>Naxaro</skos:altLabel>
+	<skos:altLabel>Naxxar</skos:altLabel>
+	<skos:prefLabel>Naxxar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562704/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17789</europeana:population>
+	<wgs:lat>35.90917</wgs:lat>
+	<wgs:long>14.42556</wgs:long>
+	<skos:altLabel>Il-Mosta</skos:altLabel>
+	<skos:altLabel>Masta</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Mosta</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mosta</skos:altLabel>
+	<skos:altLabel>Mosta</skos:altLabel>
+	<skos:altLabel>Musta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Моста</skos:altLabel>
+	<skos:prefLabel>Mosta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.82694</wgs:lat>
+	<wgs:long>14.43611</wgs:long>
+	<skos:altLabel>L-Imnaidra</skos:altLabel>
+	<skos:altLabel>Mnajdra</skos:altLabel>
+	<skos:prefLabel>Mnajdra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>14.43333</wgs:long>
+	<skos:altLabel>Arcipelago di Malta</skos:altLabel>
+	<skos:altLabel>Il-Gżejjer ta’ Malta</skos:altLabel>
+	<skos:altLabel>Malta</skos:altLabel>
+	<skos:altLabel>Maltese Islands</skos:altLabel>
+	<skos:prefLabel>Maltese Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>403000</europeana:population>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>14.43333</wgs:long>
+	<skos:altLabel xml:lang="ro">Insula Malta</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla de Malta</skos:altLabel>
+	<skos:altLabel>MT</skos:altLabel>
+	<skos:altLabel xml:lang="so">Maalda</skos:altLabel>
+	<skos:altLabel xml:lang="id">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="es">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="de">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="da">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="et">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="is">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="af">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="it">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="en">Malta</skos:altLabel>
+	<skos:altLabel xml:lang="en">Malta Island</skos:altLabel>
+	<skos:altLabel xml:lang="et">Malta saar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Malte</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Malto</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Maltë</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Man-ta</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Málta</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Málta</skos:altLabel>
+	<skos:altLabel xml:lang="se">Málta</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pulau Malta</skos:altLabel>
+	<skos:altLabel>Repubblika ta’ Malta</skos:altLabel>
+	<skos:altLabel>Republic of Malta</skos:altLabel>
+	<skos:altLabel>State of Malta</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μάλτα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Малта</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Малта</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Малта</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мальта</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мальта</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мальта</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Մալթա</skos:altLabel>
+	<skos:altLabel xml:lang="he">מלטה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مالت</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مالطا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مالطة</skos:altLabel>
+	<skos:altLabel xml:lang="hi">माल्टा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মল্টা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மால்டா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">മാള്‍ട്ട</skos:altLabel>
+	<skos:altLabel xml:lang="th">มอลตา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ມັນຕາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">མལ་ཊ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მალტა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ማልታ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ម៉ាល់តា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マルタ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マルタ島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">马耳他</skos:altLabel>
+	<skos:altLabel xml:lang="ko">몰타</skos:altLabel>
+	<skos:prefLabel>Republic of Malta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:population>388232</europeana:population>
+	<wgs:lat>35.91667</wgs:lat>
+	<wgs:long>14.43333</wgs:long>
+	<skos:altLabel>Island of Malta</skos:altLabel>
+	<skos:altLabel>Malta</skos:altLabel>
+	<skos:altLabel>Malta</skos:altLabel>
+	<skos:prefLabel>Malta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.01361</wgs:lat>
+	<wgs:long>14.31944</wgs:long>
+	<skos:altLabel>Cominotto</skos:altLabel>
+	<skos:altLabel>Comminotto</skos:altLabel>
+	<skos:altLabel>Kemmunet</skos:altLabel>
+	<skos:altLabel>Kemmunett</skos:altLabel>
+	<skos:prefLabel>Kemmunett</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.01333</wgs:lat>
+	<wgs:long>14.33556</wgs:long>
+	<skos:altLabel>Comino</skos:altLabel>
+	<skos:altLabel xml:lang="es">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="en">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="da">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="de">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="it">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="af">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Comino</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Comino</skos:altLabel>
+	<skos:altLabel>Kemmuna</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Комино</skos:altLabel>
+	<skos:prefLabel>Kemmuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.02</wgs:lat>
+	<wgs:long>14.25806</wgs:long>
+	<skos:altLabel>Il-Borġ ta’ l-Imramma</skos:altLabel>
+	<skos:altLabel>Ta’ l-Imramma</skos:altLabel>
+	<skos:prefLabel>Il-Borġ ta’ l-Imramma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.86972</wgs:lat>
+	<wgs:long>14.50667</wgs:long>
+	<skos:altLabel>Hypogeum</skos:altLabel>
+	<skos:altLabel>Hypogeum Temples</skos:altLabel>
+	<skos:altLabel>Hypogeum of Ħal Saflieni</skos:altLabel>
+	<skos:prefLabel>Hypogeum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2562998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10680</europeana:population>
+	<wgs:lat>35.88472</wgs:lat>
+	<wgs:long>14.48444</wgs:long>
+	<skos:altLabel>Ham Rum</skos:altLabel>
+	<skos:altLabel>Il-Hamrun</skos:altLabel>
+	<skos:altLabel>Ħamrun</skos:altLabel>
+	<skos:prefLabel>Ħamrun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.82778</wgs:lat>
+	<wgs:long>14.44194</wgs:long>
+	<skos:altLabel>Haġar Kim</skos:altLabel>
+	<skos:altLabel>Ħaġar Qim</skos:altLabel>
+	<skos:prefLabel>Ħaġar Qim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>36.04944</wgs:lat>
+	<wgs:long>14.25</wgs:long>
+	<skos:altLabel>Calypso’s Island</skos:altLabel>
+	<skos:altLabel>Ghaudesh</skos:altLabel>
+	<skos:altLabel>Ghaudex</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="af">Gozo</skos:altLabel>
+	<skos:altLabel>Gozzo Island</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Għawdex</skos:altLabel>
+	<skos:altLabel xml:lang="es">Għawdex</skos:altLabel>
+	<skos:altLabel xml:lang="et">Għawdex</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Gozo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гозо</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ゴゾ島</skos:altLabel>
+	<skos:prefLabel>Gozo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.85111</wgs:lat>
+	<wgs:long>14.39556</wgs:long>
+	<skos:altLabel>Ghar el Cbir</skos:altLabel>
+	<skos:altLabel>Għar il-Kbir</skos:altLabel>
+	<skos:prefLabel>Għar il-Kbir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563080/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.04833</wgs:lat>
+	<wgs:long>14.23028</wgs:long>
+	<skos:altLabel>Ghajn Hammier</skos:altLabel>
+	<skos:altLabel>Għajn Tal-Ħamimiet</skos:altLabel>
+	<skos:prefLabel>Għajn Tal-Ħamimiet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563097/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.04667</wgs:lat>
+	<wgs:long>14.26944</wgs:long>
+	<skos:altLabel>Giants Tower</skos:altLabel>
+	<skos:altLabel>Il Gigantia</skos:altLabel>
+	<skos:altLabel>Il-Ġgantija</skos:altLabel>
+	<skos:altLabel>Ġgantija</skos:altLabel>
+	<skos:altLabel>Ġgantija Temples</skos:altLabel>
+	<skos:prefLabel>Ġgantija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>35.90389</wgs:lat>
+	<wgs:long>14.50278</wgs:long>
+	<skos:altLabel>Gzira</skos:altLabel>
+	<skos:altLabel>Il-Gżira ta’ Forti Manoel</skos:altLabel>
+	<skos:altLabel>Jezirah Island</skos:altLabel>
+	<skos:altLabel>Manoel Island</skos:altLabel>
+	<skos:prefLabel>Il-Gżira ta’ Forti Manoel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563115/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLQ"/>
+	<europeana:population>11819</europeana:population>
+	<wgs:lat>35.87028</wgs:lat>
+	<wgs:long>14.51333</wgs:long>
+	<skos:altLabel>Il-Fgura</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фгура</skos:altLabel>
+	<skos:prefLabel>Fgura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.83667</wgs:lat>
+	<wgs:long>14.52778</wgs:long>
+	<skos:prefLabel>Għar Dalam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.95361</wgs:lat>
+	<wgs:long>14.4175</wgs:long>
+	<skos:prefLabel>Buġibba Temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.03083</wgs:lat>
+	<wgs:long>14.28472</wgs:long>
+	<skos:prefLabel>Borġ Għarib</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21676</europeana:population>
+	<wgs:lat>35.89722</wgs:lat>
+	<wgs:long>14.46111</wgs:long>
+	<skos:altLabel>Birchircara</skos:altLabel>
+	<skos:altLabel xml:lang="id">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="es">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="de">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="it">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Birkirkara</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Birkirkara</skos:altLabel>
+	<skos:altLabel>Birkirkara</skos:altLabel>
+	<skos:altLabel>B’Kara</skos:altLabel>
+	<skos:altLabel>Casal Birchircara</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Биркиркара</skos:altLabel>
+	<skos:altLabel xml:lang="he">בירקירקרה</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቢርኪርካራ</skos:altLabel>
+	<skos:prefLabel>Birkirkara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2563855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>36.0225</wgs:lat>
+	<wgs:long>14.255</wgs:long>
+	<skos:prefLabel>Id-Dura tal-Mara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2564445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.86944</wgs:lat>
+	<wgs:long>14.51167</wgs:long>
+	<skos:altLabel>Neolithic Temples</skos:altLabel>
+	<skos:altLabel>Tarxien Prehistoric Temples</skos:altLabel>
+	<skos:prefLabel>Tarxien Prehistoric Temples</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2564471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.8325</wgs:lat>
+	<wgs:long>14.52861</wgs:long>
+	<skos:prefLabel>Bronze Age Village</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2564472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.83028</wgs:lat>
+	<wgs:long>14.52917</wgs:long>
+	<skos:altLabel>Neolithic Temple</skos:altLabel>
+	<skos:altLabel>Peolithic Temple</skos:altLabel>
+	<skos:prefLabel>Neolithic Temple</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2565360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>35.84583</wgs:lat>
+	<wgs:long>14.55194</wgs:long>
+	<skos:altLabel>Neolithic Temples</skos:altLabel>
+	<skos:altLabel>Tas-Silġ</skos:altLabel>
+	<skos:prefLabel>Tas-Silġ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2567539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2562770/"/>
+	<europeana:country>MT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12346</europeana:population>
+	<wgs:lat>35.90556</wgs:lat>
+	<wgs:long>14.47611</wgs:long>
+	<skos:altLabel>San Ġwann</skos:altLabel>
+	<skos:prefLabel>San Ġwann</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 40 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

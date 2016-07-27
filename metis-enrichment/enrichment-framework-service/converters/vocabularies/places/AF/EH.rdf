@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_EH
+Description: Selected fields pulled from Geonames about EH done on Mon May 23 21:16:12 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2461445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.TERR"/>
+	<europeana:population>273008</europeana:population>
+	<wgs:lat>24.49215</wgs:lat>
+	<wgs:long>-12.65625</wgs:long>
+	<skos:altLabel xml:lang="ga">An Sahára Thiar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Batı Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="sh">EH</skos:altLabel>
+	<skos:altLabel>El Sáhara</skos:altLabel>
+	<skos:altLabel xml:lang="es">El Sáhara Español</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gorllewin Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Länsi-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lääne-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Mendebaldeko Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nyugat-Szahara</skos:altLabel>
+	<skos:altLabel xml:lang="se">Oarje-Sahára</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Okcidenta Saharo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Province of Sahara</skos:altLabel>
+	<skos:altLabel>Provincia Española de Sáhara</skos:altLabel>
+	<skos:altLabel xml:lang="es">Provincia del Sáhara</skos:altLabel>
+	<skos:altLabel xml:lang="es">Provincia del Sáhara Español</skos:altLabel>
+	<skos:altLabel xml:lang="es">RASD</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República Àrab Saharauí Democràtica</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Árabe Saharaui Democrática</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Rietumsahāra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saara Ocidental</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sahara Barat</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Sahara Barat</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sahara Occidental</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Sahara Occidental</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sahara Occidentale</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sahara Zachodnia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sahara de Vest</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Sahara occidental</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Sahara tal-Punent</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Sahara ya límbe</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Saharaja Perëndimore</skos:altLabel>
+	<skos:altLabel xml:lang="en">Spanish Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Spanish Western Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sàhara Occidental</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sáhara Occidental</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tây Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vakarų Sachara</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Vest-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vest-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vestsahara</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vestur-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="af">Wes-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="de">West-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="nl">West-Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Western Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Zahodna Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Zapadna Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Západná Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Západní Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="sv">västra Sahara</skos:altLabel>
+	<skos:altLabel xml:lang="el">Δυτική Σαχάρα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Западна Сахара</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Западна Сахара</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Западна Сахара</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Западная Сахара</skos:altLabel>
+	<skos:altLabel xml:lang="be">Заходняя Сахара</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Західна Сахара</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Արևմտյան Սահարա</skos:altLabel>
+	<skos:altLabel xml:lang="he">סהרה המערבית</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الصحراء الغربية</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سحرای غربی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لصحراء الغربية</skos:altLabel>
+	<skos:altLabel xml:lang="ur">مغربی صحارا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पश्चिमी सहारा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পশ্চিম সাহারা</skos:altLabel>
+	<skos:altLabel xml:lang="ml">പശ്ചിമ സഹാറ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซาฮาราตะวันตก</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຊາຮາລາຕະເວັນຕົກ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">დასავლეთი საჰარა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ምዕራባዊ ሳህራ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សាហារ៉ាខាងលិច</skos:altLabel>
+	<skos:altLabel xml:lang="ja">西サハラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">西撒哈拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">서부 사하라</skos:altLabel>
+	<skos:prefLabel>Western Sahara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2461446/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.15278</wgs:lat>
+	<wgs:long>-16.8375</wgs:long>
+	<skos:altLabel>Isla Virginia</skos:altLabel>
+	<skos:altLabel>Islote Virginia</skos:altLabel>
+	<skos:altLabel>Lahjayra Lakbira</skos:altLabel>
+	<skos:altLabel>Roque Grande</skos:altLabel>
+	<skos:altLabel>Virgin Rock</skos:altLabel>
+	<skos:prefLabel>Lahjayra Lakbira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2461874/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42056</europeana:population>
+	<wgs:lat>26.67917</wgs:lat>
+	<wgs:long>-11.67806</wgs:long>
+	<skos:altLabel>Esmara</skos:altLabel>
+	<skos:altLabel>Semara</skos:altLabel>
+	<skos:altLabel>Smar</skos:altLabel>
+	<skos:altLabel>Smara</skos:altLabel>
+	<skos:prefLabel>Smara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2461995/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>22.20667</wgs:lat>
+	<wgs:long>-16.82028</wgs:long>
+	<skos:altLabel>Agal Rock</skos:altLabel>
+	<skos:altLabel>Isla Pedro de Calhe</skos:altLabel>
+	<skos:altLabel>Islote Piedra Galha</skos:altLabel>
+	<skos:altLabel>Lahjayra Çghira</skos:altLabel>
+	<skos:altLabel>Pedra de Galha</skos:altLabel>
+	<skos:altLabel>Piedra de Agal</skos:altLabel>
+	<skos:altLabel>Piedra de Galha</skos:altLabel>
+	<skos:altLabel>Roque Chico</skos:altLabel>
+	<skos:prefLabel>Lahjayra Çghira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2462610/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>23.872</wgs:lat>
+	<wgs:long>-15.785</wgs:long>
+	<skos:prefLabel>Isla Herne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2462881/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>188084</europeana:population>
+	<wgs:lat>27.135</wgs:lat>
+	<wgs:long>-13.1625</wgs:long>
+	<skos:altLabel>Aaium</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Aaiun</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aaiún</skos:altLabel>
+	<skos:altLabel>Aiun</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ajuno</skos:altLabel>
+	<skos:altLabel>Al Ayoun</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Al-Aaiun</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Al-Ayun</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Al-Ujun</skos:altLabel>
+	<skos:altLabel>Ejbei Uad el Aabd</skos:altLabel>
+	<skos:altLabel xml:lang="de">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="it">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="en">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="nl">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="sw">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="pt">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="no">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="id">El Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="es">El Aaiún</skos:altLabel>
+	<skos:altLabel>El Aium</skos:altLabel>
+	<skos:altLabel>El Aiún</skos:altLabel>
+	<skos:altLabel xml:lang="it">El Ayun</skos:altLabel>
+	<skos:altLabel xml:lang="sk">El-Aaiún</skos:altLabel>
+	<skos:altLabel xml:lang="id">Laayoune</skos:altLabel>
+	<skos:altLabel>Laayoune</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Laayoune</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Laâyoune</skos:altLabel>
+	<skos:altLabel>La’Youn</skos:altLabel>
+	<skos:altLabel xml:lang="gl">O Aiún - العيون</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ел Ајун</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эль-Аюн</skos:altLabel>
+	<skos:altLabel xml:lang="ar">العيون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">العیون</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アイウン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿尤恩</skos:altLabel>
+	<skos:altLabel xml:lang="ko">엘아윤</skos:altLabel>
+	<skos:prefLabel>Ejbei Uad el Aabd</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2463447/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>75000</europeana:population>
+	<wgs:lat>23.68477</wgs:lat>
+	<wgs:long>-15.95798</wgs:long>
+	<skos:altLabel>Ad - Dakhla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ad Dakhla</skos:altLabel>
+	<skos:altLabel>Ad Dakhla</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dakhla</skos:altLabel>
+	<skos:altLabel>Dakhlah</skos:altLabel>
+	<skos:altLabel>Factoria Villa Cisneros</skos:altLabel>
+	<skos:altLabel>Villa Cisneras</skos:altLabel>
+	<skos:altLabel xml:lang="es">Villa Cisneros</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дахла</skos:altLabel>
+	<skos:prefLabel>Ad Dakhla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6547304/">
+	<europeana:country>EH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>73067</europeana:population>
+	<wgs:lat>22.84713</wgs:lat>
+	<wgs:long>-14.71303</wgs:long>
+	<skos:prefLabel>Oued Ed-Dahab-Lagouira</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 7 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,46 @@
+            ------
+            Converter: Getting started
+            ------
+ 
+
+ Several real-life converters are shipped together with AnnoCultor.
+ 
+Download
+
+  To download the converters you need to check out the AnnoCultor source code
+  from the following Subversion repository:
+  
++------------------------------------------------------------------+
+  https://annocultor.svn.sourceforge.net/svnroot/annocultor
++------------------------------------------------------------------+
+
+  For example,
+  
++------------------------------------------------------------------+
+  svn co https://annocultor.svn.sourceforge.net/svnroot/annocultor
++------------------------------------------------------------------+
+  	  	
+Source files
+ 
+ In the local checkout navigate to <<<annocultor/demos/converters/>>>. 
+ Here the converters are.
+ 
+Maven POM files
+ 
+ Each converter has a standard <<<pom.xml>>> file. This file serves two goals:
+ 
+ * it uses Maven dependency mechanism to ensure that the most recent AnnoCultor release is downloaded and used for conversion;
+ 
+ * it lets Maven resolve JDK path and uses <<<${java.home}>>> to find the Java executable to run the converters.
+ 
+ 
+Running
+
+ Each converter has scripts like <<<convert.bat>>> or <<<convert.sh>>>
+ 
+ Running converters may not be straightforward. 
+ Please, refer to their descriptions.
+ 
+ Getty converters are a good place to start, please navigate to   
+ {{{converters.getty.html} Getty converters manual}} to see how to run them.
+ 

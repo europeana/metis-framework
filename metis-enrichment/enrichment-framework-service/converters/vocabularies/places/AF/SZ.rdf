@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_SZ
+Description: Selected fields pulled from Geonames about SZ done on Mon May 23 21:16:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/934841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>1354051</europeana:population>
+	<wgs:lat>-26.5</wgs:lat>
+	<wgs:long>31.5</wgs:long>
+	<skos:altLabel xml:lang="ga">An tSuasalainn</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gwlad Swazi</skos:altLabel>
+	<skos:altLabel>Kingdom of Swaziland</skos:altLabel>
+	<skos:altLabel>Ngwane</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Pow Swati</skos:altLabel>
+	<skos:altLabel>SZ</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Siwaziland</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Suacilandia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Suacilandia - Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Suazi</skos:altLabel>
+	<skos:altLabel xml:lang="la">Suazia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Suazilandia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Suazilandia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Suazilandia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Suazilândia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Svaasimaa</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Svasiland</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Svasiyän</skos:altLabel>
+	<skos:altLabel xml:lang="is">Svasíland</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Svazi</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Svazi</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Svazi</skos:altLabel>
+	<skos:altLabel xml:lang="se">Svazieana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svazijsko</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svazijsko</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Svaziland</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Svaziland</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Svazilandas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Svazilando</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Svazilandë</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Svazilend</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Svazilenda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Svazilendas</skos:altLabel>
+	<skos:altLabel>Swasieland</skos:altLabel>
+	<skos:altLabel xml:lang="de">Swasiland</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Swasilandya</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Swasisuyu</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Swazijsko</skos:altLabel>
+	<skos:altLabel xml:lang="id">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="da">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="it">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="en">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="no">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="af">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="br">Swaziland</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Swazilandia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Swazilandia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Swazilandia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Swazilando</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Swazilàndia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Swazimaa</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Sważiland</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szváziföld</skos:altLabel>
+	<skos:altLabel xml:lang="ss">Umbuso weSwatini</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Uswazi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xoa-di-len</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ζουαζιλάνδη</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σουαζιλάνδη</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Свазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Свазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Свазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Свазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Свазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Свазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Свазіленд</skos:altLabel>
+	<skos:altLabel xml:lang="be">Свазіленд</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Суазиленд</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սվազիլենդ</skos:altLabel>
+	<skos:altLabel xml:lang="he">סוואזילנד</skos:altLabel>
+	<skos:altLabel xml:lang="he">סווזילנד</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سوازيلاند</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سوازيلند</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سوازی لینڈ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سوازیلاند</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سوازیلند</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سۋازىلاند</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सुआजीलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="hi">स्वाज़ीलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="hi">स्वाजीलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="sa">स्वाजीलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সোয়াজিল্যান্ড</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศสวาซิแลนด์</skos:altLabel>
+	<skos:altLabel xml:lang="th">สวาซิแลนด์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ສະວາຊິແລນ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სვაზილენდი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሱዋዚላንድ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ስዋዚላንድ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សូហ្ស៉ីឡង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スワジランド</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スワジランド王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斯威士兰</skos:altLabel>
+	<skos:altLabel xml:lang="ko">스와질란드</skos:altLabel>
+	<skos:altLabel xml:lang="ko">스와질랜드</skos:altLabel>
+	<skos:prefLabel>Kingdom of Swaziland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>234981</europeana:population>
+	<wgs:lat>-27</wgs:lat>
+	<wgs:long>31.66667</wgs:long>
+	<skos:altLabel>Hlatikulu District</skos:altLabel>
+	<skos:altLabel>Shiselweni</skos:altLabel>
+	<skos:altLabel>Shiselweni District</skos:altLabel>
+	<skos:prefLabel>Shiselweni District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>76218</europeana:population>
+	<wgs:lat>-26.31667</wgs:lat>
+	<wgs:long>31.13333</wgs:long>
+	<skos:altLabel xml:lang="id">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="es">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="da">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="io">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="no">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Mbabane</skos:altLabel>
+	<skos:altLabel>Mbabane</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mbabano</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mbabanė</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπαμπάνε</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Мбабане</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мбабане</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Мбабане</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мбабане</skos:altLabel>
+	<skos:altLabel xml:lang="he">מבבנה</skos:altLabel>
+	<skos:altLabel xml:lang="am">ምባባኔ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ムババーネ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">墨巴本</skos:altLabel>
+	<skos:altLabel xml:lang="ko">음바바네</skos:altLabel>
+	<skos:prefLabel>Mbabane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>354155</europeana:population>
+	<wgs:lat>-26.25</wgs:lat>
+	<wgs:long>31.5</wgs:long>
+	<skos:altLabel>Manzini</skos:altLabel>
+	<skos:altLabel>Manzini District</skos:altLabel>
+	<skos:prefLabel>Manzini District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/934995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>110537</europeana:population>
+	<wgs:lat>-26.48333</wgs:lat>
+	<wgs:long>31.36667</wgs:long>
+	<skos:altLabel>Bremersdorp</skos:altLabel>
+	<skos:altLabel xml:lang="es">Manzini</skos:altLabel>
+	<skos:altLabel xml:lang="de">Manzini</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Manzini</skos:altLabel>
+	<skos:altLabel xml:lang="en">Manzini</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Manzini</skos:altLabel>
+	<skos:altLabel>Manzini</skos:altLabel>
+	<skos:altLabel>Manêini</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Манзини</skos:altLabel>
+	<skos:altLabel xml:lang="zh">曼齐尼</skos:altLabel>
+	<skos:prefLabel>Manzini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>224435</europeana:population>
+	<wgs:lat>-26.41667</wgs:lat>
+	<wgs:long>31.75</wgs:long>
+	<skos:altLabel>Lubombo</skos:altLabel>
+	<skos:altLabel>Lubombo District</skos:altLabel>
+	<skos:altLabel>Lumbombo</skos:altLabel>
+	<skos:altLabel>Stegi District</skos:altLabel>
+	<skos:prefLabel>Lubombo District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>308366</europeana:population>
+	<wgs:lat>-26</wgs:lat>
+	<wgs:long>31.5</wgs:long>
+	<skos:altLabel>Hhohho</skos:altLabel>
+	<skos:altLabel>Hhohho District</skos:altLabel>
+	<skos:altLabel>Piggs District</skos:altLabel>
+	<skos:altLabel>Pigg’s Peak District</skos:altLabel>
+	<skos:prefLabel>Hhohho District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/935113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/934841/"/>
+	<europeana:country>SZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10342</europeana:population>
+	<wgs:lat>-26.81667</wgs:lat>
+	<wgs:long>31.93333</wgs:long>
+	<skos:altLabel>Big Bend</skos:altLabel>
+	<skos:prefLabel>Big Bend</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 7 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

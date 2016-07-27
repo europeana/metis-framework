@@ -1,0 +1,75 @@
+            ------
+            Converter: Geonames
+            ------
+ 
+
+ This converter translates the {{{http://www.geonames.org/ontology/}Geonames}} vocabulary to a stripped-off RDF representation. 
+ We developed two ready-to-reuse converters for 
+ the two ways in which Geonames is available: daily updated CSV files 
+ and an (often outdated) RDF dump.
+ 
+Converting up-to-date CSV version
+
+ First, download two files: 
+ {{{http://download.geonames.org/export/dump/allCountries.zip}allCountries.zip}} 
+ and
+ {{{http://download.geonames.org/export/dump/alternateNames.zip}alternateNames.zip}},
+ and unzip them to directory 
+ <<<annocultor/converters/geonames/input_source/>>>.
+ 
+ Now its simple - run <<<convertCsvToRdf>>> from  <<<annocultor/converters/geonames>>>.
+ And look into <<<annocultor/converters/geonames/output_rdf/>>>.
+ By default it will convert Europe only. With a slight modification to 
+ <<<convertCsvToRdf>>> it can be set to convert other continents.
+ 
+RDF dump, often outdated
+ 
+ Geonames describes millions objects, with an RDF file of more than 6 Gbytes. They are available as a 
+ {{{http://download.geonames.org/all-geonames-rdf.zip}dump txt file}}. In this file each record describes a place (called Feature) with a dozen or two
+ properties. These records are already represented in RDF, as small RDF files. These files are merged into
+ a single large text dump, where each record is separated with a line containing its identifier. 
+ 
+ Download this dump and save it to <<<annocultor/demos/converters/getty/input_source/>>>.
+ 
+ Class {{{http://annocultor.svn.sourceforge.net/svnroot/annocultor/src/main/java/eu/europeana/semantic/converters/geonames/GeonamesDumpToRdf.java}GeonamesDumpToRdf}} separates them and groups per continent
+ and per country. 
+ Run it with script {{{http://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/geonames/}TODO}}. 
+ It should produce a number of files in <<<annocultor/demos/converters/getty/input_source/>>>
+ 
+ These files are valid RDF files and can be loaded to a triple store as-is. However, 
+ many applications only use a fraction of the fields provided by Geonames.
+
+Source files
+ 
+ {{{http://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/geonames/} Parent directory for source files}}
+ in the AnnoCultor source repository.
+ 
+   
+Converter
+
+ The {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/geonames/profile/profile-geonames.xml}Geonames converter}}
+ filters out several fields, drastically reducing the size of the RDF.
+ 
+ This converter shows a peculiar way of using AnnoCultor. Typically, AnnoCultor is used to
+ convert XML files or SQL databases to RDF. In this converter we convert RDF to RDF. In fact,
+ we process the source RDF document at XML level and perform usual conversion. 
+  
+ The conversion 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/geonames/profile/parameters-getty.xml}parameters}}
+ are separated in a file, as usual. 
+  
+ This converter illustrates the following AnnoCultor features:
+ 
+ * translating RDF to RDF
+ 
+ * multiple source files 
+ 
+ * property rename
+ 
+ * sequence of rules
+  
+ * qualified identifiers.
+ 
+Acknowledgments
+ 
+ This converter was developed with support from the {{{http://europeana.eu}Europeana project}}}.  

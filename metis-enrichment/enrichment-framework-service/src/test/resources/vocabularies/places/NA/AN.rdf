@@ -1,0 +1,436 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Converted on Mon Jun 14 15:41:47 CEST 2010
+Named graph: NA_AN
+Description: Selected fields pulled from Geonames about AN done on Mon Jun 14 15:41:47 CEST 2010
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513090/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:latitude>12.1084</europeana:latitude>
+	<europeana:longitude>-68.93354</europeana:longitude>
+	<europeana:population>125000</europeana:population>
+	<skos:altLabel xml:lang="de">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="en">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="et">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="io">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="es">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="id">Willemstad</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Вилемстад</skos:altLabel>
+	<skos:altLabel xml:lang="he">וילמסטאד</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ウィレムスタッド</skos:altLabel>
+	<skos:altLabel xml:lang="zh">威廉斯塔德</skos:altLabel>
+	<skos:altLabel xml:lang="ko">빌렘스타드</skos:altLabel>
+	<skos:prefLabel>Willemstad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513091/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.07639</europeana:latitude>
+	<europeana:longitude>-68.85611</europeana:longitude>
+	<skos:altLabel>Eiland Willemberg</skos:altLabel>
+	<skos:altLabel>Willemberg Island</skos:altLabel>
+	<skos:prefLabel>Willemberg</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513232/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>17.5</europeana:latitude>
+	<europeana:longitude>-62.96667</europeana:longitude>
+	<skos:altLabel xml:lang="tr">Ermiş Eustatius</skos:altLabel>
+	<skos:altLabel>Saint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Eustache</skos:altLabel>
+	<skos:altLabel>Sint Eustasius</skos:altLabel>
+	<skos:altLabel xml:lang="es">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="no">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sint Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="et">Sint-Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sint-Eustatius</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sint-Eustatius</skos:altLabel>
+	<skos:altLabel>Statia</skos:altLabel>
+	<skos:altLabel xml:lang="ja">シント・ユースタティウス島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣尤斯特歇斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">신트외스타티우스 섬</skos:altLabel>
+	<skos:prefLabel>Sint Eustatius</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513314/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>17.63333</europeana:latitude>
+	<europeana:longitude>-63.23333</europeana:longitude>
+	<skos:altLabel xml:lang="ca">Illa de Saba</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="no">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="de">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saba</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saba saar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Саба</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Саба</skos:altLabel>
+	<skos:altLabel xml:lang="he">סאבא</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サバ島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">사바 섬</skos:altLabel>
+	<skos:prefLabel>Saba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513350/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.11667</europeana:latitude>
+	<europeana:longitude>-68.23333</europeana:longitude>
+	<skos:altLabel>Eil Rancho</skos:altLabel>
+	<skos:altLabel>Rancho</skos:altLabel>
+	<skos:altLabel>Rancho Island</skos:altLabel>
+	<skos:prefLabel>Eiland Rancho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513396/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.07722</europeana:latitude>
+	<europeana:longitude>-68.85667</europeana:longitude>
+	<skos:altLabel>Eiland Penso</skos:altLabel>
+	<skos:altLabel>Penso</skos:altLabel>
+	<skos:prefLabel>Penso Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513447/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLIX"/>
+	<europeana:latitude>12.16667</europeana:latitude>
+	<europeana:longitude>-69</europeana:longitude>
+	<europeana:population>136197</europeana:population>
+	<skos:altLabel>AN</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Alankomaiden Antillit</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Antilele Olandeze</skos:altLabel>
+	<skos:altLabel xml:lang="id">Antiles Belanda</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Antilhas Holandesas</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Antillas Holandesas</skos:altLabel>
+	<skos:altLabel xml:lang="es">Antillas Neerlandesas</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Antillas nederlandese</skos:altLabel>
+	<skos:altLabel xml:lang="it">Antille Olandesi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Antilles Hà Lan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Antilles Neerlandeses</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Antilles Olandiżi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Antilles néerlandaises</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Antillí na hÍsiltíre</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Antyle Holenderskie</skos:altLabel>
+	<skos:altLabel xml:lang="es">Curazao</skos:altLabel>
+	<skos:altLabel>Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="it">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="en">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="de">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="da">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="et">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="no">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Curaçao</skos:altLabel>
+	<skos:altLabel xml:lang="da">De Nederlandske Antiller</skos:altLabel>
+	<skos:altLabel xml:lang="nb">De nederlandske Antillene</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Dei nederlandske Antillane</skos:altLabel>
+	<skos:altLabel>Dutch West Indies</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Holandské Antily</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Holandské Antily</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Holland Antillák</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Hollanda Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="et">Hollandi Antillid</skos:altLabel>
+	<skos:altLabel xml:lang="is">Hollensku Antillur</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kurasao</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nederlandaj Antiloj</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Nederlandar Antillak</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nederlands-Antille</skos:altLabel>
+	<skos:altLabel>Nederlandsche Antillen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nederlandse Antillen</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nederländska Antillerna</skos:altLabel>
+	<skos:altLabel xml:lang="en">Netherlands Antilles</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Netherlands Antilles</skos:altLabel>
+	<skos:altLabel>Netherlands West Indies</skos:altLabel>
+	<skos:altLabel xml:lang="de">Niederländische Antillen</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nizozemski Antili</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nizozemski Antili</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nīderlandes Antiļas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Olandijos Antilai</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Caribî yr Iseldiroedd</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ολλανδικές Αντίλλες</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Антилы</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кюрасао</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нидерландски Антили</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нидерландские Антильские острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нідерландські Антільські Острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Нідэрландскія Антылы</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Холандски Антили</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Холандски Антили</skos:altLabel>
+	<skos:altLabel xml:lang="he">קולוניות הולנד</skos:altLabel>
+	<skos:altLabel xml:lang="he">קוראסאו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">انتیلس هلند</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر الأنتيل الهولندية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر كوراكاو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نیدرلینڈز انٹیلیز</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नीदरलैंड्स एंटिलीज़</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নেদারল্যান্ড আন্টেলিস</skos:altLabel>
+	<skos:altLabel xml:lang="th">เนเฮอร์แลนด์แอนทิลลิส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເນເທີແລນແອນເທິນ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნიდერლანდების ანტილები</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኔዘርላንድስ አንቲልስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オランダ領アンティル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キュラソー島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">库拉索</skos:altLabel>
+	<skos:altLabel xml:lang="zh">荷属安的列斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">네덜란드 열도</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쿠라사오 섬</skos:altLabel>
+	<skos:prefLabel>Netherlands Antilles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513469/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.03333</europeana:latitude>
+	<europeana:longitude>-63.11667</europeana:longitude>
+	<skos:prefLabel>Mona Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513470/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.01667</europeana:latitude>
+	<europeana:longitude>-63</europeana:longitude>
+	<skos:altLabel>Mal Aborder</skos:altLabel>
+	<skos:altLabel>Mollibeday Rots</skos:altLabel>
+	<skos:prefLabel>Molly Beday</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513481/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.08056</europeana:latitude>
+	<europeana:longitude>-68.85722</europeana:longitude>
+	<skos:altLabel>Eiland Meeuwtje</skos:altLabel>
+	<skos:prefLabel>Meeuwtje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513482/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.11667</europeana:latitude>
+	<europeana:longitude>-68.91667</europeana:longitude>
+	<skos:prefLabel>Meeuwtje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513511/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.11667</europeana:latitude>
+	<europeana:longitude>-68.8</europeana:longitude>
+	<skos:prefLabel>Isla Makuaku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513529/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.05067</europeana:latitude>
+	<europeana:longitude>-63.10976</europeana:longitude>
+	<skos:altLabel>Klein Key</skos:altLabel>
+	<skos:prefLabel>Little Key</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513530/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>17.63333</europeana:latitude>
+	<europeana:longitude>-63.21667</europeana:longitude>
+	<skos:prefLabel>Little Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513538/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<europeana:latitude>17</europeana:latitude>
+	<europeana:longitude>-63</europeana:longitude>
+	<skos:altLabel>Groupe de Leeward</skos:altLabel>
+	<skos:altLabel>Îles Sous-le-Vent</skos:altLabel>
+	<skos:prefLabel>Leeward Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513593/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12</europeana:latitude>
+	<europeana:longitude>-68.65</europeana:longitude>
+	<skos:prefLabel>Klein Curaçao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513594/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.15</europeana:latitude>
+	<europeana:longitude>-68.3</europeana:longitude>
+	<skos:altLabel>Little Bonaire</skos:altLabel>
+	<skos:prefLabel>Klein Bonaire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513618/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.11667</europeana:latitude>
+	<europeana:longitude>-68.91667</europeana:longitude>
+	<skos:altLabel>Kadoesji</skos:altLabel>
+	<skos:prefLabel>Kadoesjie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513676/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.01806</europeana:latitude>
+	<europeana:longitude>-63.01905</europeana:longitude>
+	<skos:altLabel>Guana Cay</skos:altLabel>
+	<skos:altLabel>Guana Key</skos:altLabel>
+	<skos:altLabel>Guano Cay</skos:altLabel>
+	<skos:altLabel>Pelikan</skos:altLabel>
+	<skos:altLabel>Pélican</skos:altLabel>
+	<skos:prefLabel>Guana Key of Pelikan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513695/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>17.6491</europeana:latitude>
+	<europeana:longitude>-63.23</europeana:longitude>
+	<skos:altLabel>Groen Eil</skos:altLabel>
+	<skos:altLabel>Groen Eiland</skos:altLabel>
+	<skos:prefLabel>Green Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513790/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.16688</europeana:latitude>
+	<europeana:longitude>-68.96667</europeana:longitude>
+	<skos:altLabel>Curaçoa</skos:altLabel>
+	<skos:prefLabel>Curaçao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3513881/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>12.2</europeana:latitude>
+	<europeana:longitude>-68.25</europeana:longitude>
+	<skos:altLabel xml:lang="en">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bonaire</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bonaire</skos:altLabel>
+	<skos:altLabel>Buen Ayre</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бонер</skos:altLabel>
+	<skos:altLabel xml:lang="he">בונייר</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボネール島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">보네르 섬</skos:altLabel>
+	<skos:prefLabel>Bonaire</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3748114/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<europeana:latitude>12.11278</europeana:latitude>
+	<europeana:longitude>-68.90889</europeana:longitude>
+	<skos:prefLabel>Sapaté Eiland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6985426/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.03019</europeana:latitude>
+	<europeana:longitude>-63.09837</europeana:longitude>
+	<skos:prefLabel>Pelikan Key</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6985428/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.03611</europeana:latitude>
+	<europeana:longitude>-63.09078</europeana:longitude>
+	<skos:prefLabel>Snoopy Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6985437/">
+	<europeana:country>AN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<europeana:latitude>18.031</europeana:latitude>
+	<europeana:longitude>-63.04486</europeana:longitude>
+	<skos:prefLabel>Pond Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 25 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

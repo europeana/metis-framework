@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_GI
+Description: Selected fields pulled from Geonames about GI done on Mon May 23 21:12:36 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411585/">
+	<europeana:country>GI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>26544</europeana:population>
+	<wgs:lat>36.14474</wgs:lat>
+	<wgs:long>-5.35257</wgs:long>
+	<skos:altLabel xml:lang="la">Calpe</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cebelitarık</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Djibraltar</skos:altLabel>
+	<skos:altLabel>Gibilterra</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gibilterra</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="io">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gibraltaras</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gibraltár</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gibraltár</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gíbraltar</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Kamaka</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xibraltar - Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĝibraltaro</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γιβραλτάρ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гибралтар</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гибралтар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гибралтар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґібралтар</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיברלטר</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جبل‌الطارق</skos:altLabel>
+	<skos:altLabel xml:lang="ar">محمية جبل طارق</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジブラルタル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">直布罗陀</skos:altLabel>
+	<skos:altLabel xml:lang="ko">지브롤터</skos:altLabel>
+	<skos:prefLabel>Gibraltar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>GI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>27884</europeana:population>
+	<wgs:lat>36.13333</wgs:lat>
+	<wgs:long>-5.35</wgs:long>
+	<skos:altLabel xml:lang="la">Calpe</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Cebelitarık</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Djibraltar</skos:altLabel>
+	<skos:altLabel>GI</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Gibartar</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gibilterra</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="io">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="se">Gibraltar</skos:altLabel>
+	<skos:altLabel>Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gibraltaras</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gibraltár</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gibraltár</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gibraltārs</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Giobráltar</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gjibraltari</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gíbraltar</skos:altLabel>
+	<skos:altLabel xml:lang="br">Jibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Jibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Kamaka</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Xibraltar - Gibraltar</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ĝibraltaro</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γιβραλτάρ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гибралтар</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гибралтар</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гибралтар</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гилбартар</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гібралтар</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґібралтар</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיברלטר</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جبل طارق</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جبل‌الطارق</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مستعمرة جبل طارق</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گیبرالتار</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जिब्राल्टर</skos:altLabel>
+	<skos:altLabel xml:lang="bn">জিব্রল্টার</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ജിബ്രിള്‍ട്ടര്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ยิบรอลตาร์</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཇིབ་རཱལ་ཊར།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გიბრალტარი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჰიბრალტარი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጊብራልታር</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジブラルタル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">直布罗陀</skos:altLabel>
+	<skos:altLabel xml:lang="ko">지브롤터</skos:altLabel>
+	<skos:prefLabel>Gibraltar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411596/">
+	<europeana:country>GI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>36.11667</wgs:lat>
+	<wgs:long>-5.35</wgs:long>
+	<skos:prefLabel>Elliots Memorial</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411609/">
+	<europeana:country>GI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>36.15</wgs:lat>
+	<wgs:long>-5.33333</wgs:long>
+	<skos:prefLabel>Cross of Sacrifice</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6693878/">
+	<europeana:country>GI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>36.14397</wgs:lat>
+	<wgs:long>-5.3499</wgs:long>
+	<skos:prefLabel>Moorish Castle</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 4 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

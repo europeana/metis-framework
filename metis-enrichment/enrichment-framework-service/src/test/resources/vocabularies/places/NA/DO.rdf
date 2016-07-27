@@ -1,0 +1,3188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_DO
+Description: Selected fields pulled from Geonames about DO done on Mon May 23 21:14:23 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11595</europeana:population>
+	<wgs:lat>18.77014</wgs:lat>
+	<wgs:long>-70.02508</wgs:long>
+	<skos:altLabel>Villa de Yamasá</skos:altLabel>
+	<skos:altLabel>Yamasá</skos:altLabel>
+	<skos:prefLabel>Yamasá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496132/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>38094</europeana:population>
+	<wgs:lat>18.78333</wgs:lat>
+	<wgs:long>-70.05</wgs:long>
+	<skos:prefLabel>Yamasá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493186/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>42324</europeana:population>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-70.18333</wgs:long>
+	<skos:prefLabel>Yaguate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.46667</wgs:long>
+	<skos:prefLabel>Cayo de Willy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11642</europeana:population>
+	<wgs:lat>19.7411</wgs:lat>
+	<wgs:long>-71.4464</wgs:long>
+	<skos:altLabel>Lucas Evangelista de Peña</skos:altLabel>
+	<skos:altLabel>Villa Isabel</skos:altLabel>
+	<skos:altLabel>Villa Vásquez</skos:altLabel>
+	<skos:altLabel>Villa Vázquez</skos:altLabel>
+	<skos:prefLabel>Villa Vásquez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496200/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>15379</europeana:population>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-71.38333</wgs:long>
+	<skos:altLabel>Villa Vásquez</skos:altLabel>
+	<skos:altLabel>Villa Vázquez</skos:altLabel>
+	<skos:prefLabel>Villa Vásquez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493282/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>24856</europeana:population>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-70.4</wgs:long>
+	<skos:prefLabel>Villa Tapia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508718/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18343</europeana:population>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-69.83333</wgs:long>
+	<skos:prefLabel>Villa Riva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512050/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>11308</europeana:population>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-71.53333</wgs:long>
+	<skos:altLabel>Jaragua</skos:altLabel>
+	<skos:altLabel>Villa Jaragua</skos:altLabel>
+	<skos:prefLabel>Villa Jaragua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14525</europeana:population>
+	<wgs:lat>19.8</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:altLabel>La Isabela</skos:altLabel>
+	<skos:altLabel>Villa Isabela</skos:altLabel>
+	<skos:prefLabel>Villa Isabela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10177</europeana:population>
+	<wgs:lat>19.54057</wgs:lat>
+	<wgs:long>-70.78853</wgs:long>
+	<skos:altLabel>Las Lagunas</skos:altLabel>
+	<skos:altLabel>Villa González</skos:altLabel>
+	<skos:prefLabel>Villa González</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33137</europeana:population>
+	<wgs:lat>19.56378</wgs:lat>
+	<wgs:long>-70.87582</wgs:long>
+	<skos:altLabel>Bisonó</skos:altLabel>
+	<skos:altLabel>José E. Bisonó</skos:altLabel>
+	<skos:altLabel>José Eliás Bisonó</skos:altLabel>
+	<skos:altLabel>Villa Bisonó</skos:altLabel>
+	<skos:prefLabel>Villa Bisonó</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40027</europeana:population>
+	<wgs:lat>18.66667</wgs:lat>
+	<wgs:long>-70.16667</wgs:long>
+	<skos:altLabel>Villa Altagracia</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вилья-Альтаграсия</skos:altLabel>
+	<skos:prefLabel>Villa Altagracia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493186/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>83918</europeana:population>
+	<wgs:lat>18.63333</wgs:lat>
+	<wgs:long>-70.25</wgs:long>
+	<skos:prefLabel>Villa Altagracia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3491961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.2</wgs:lat>
+	<wgs:long>-69.33333</wgs:long>
+	<skos:altLabel>Cayo Carenero</skos:altLabel>
+	<skos:altLabel>Cayo Vigía</skos:altLabel>
+	<skos:prefLabel>Cayo Vigía</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11060</europeana:population>
+	<wgs:lat>18.38443</wgs:lat>
+	<wgs:long>-71.1801</wgs:long>
+	<skos:altLabel>Vicente Noble</skos:altLabel>
+	<skos:altLabel>Villa de Vicente Noble</skos:altLabel>
+	<skos:prefLabel>Vicente Noble</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512042/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>17099</europeana:population>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:prefLabel>Vicente Noble</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.61667</wgs:lat>
+	<wgs:long>-71</wgs:long>
+	<skos:altLabel>Provincia de Valverde</skos:altLabel>
+	<skos:altLabel>Valverde</skos:altLabel>
+	<skos:prefLabel>Provincia de Valverde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493091/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>11545</europeana:population>
+	<wgs:lat>18.66667</wgs:lat>
+	<wgs:long>-71.28333</wgs:long>
+	<skos:prefLabel>Vallejuelo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.82753</wgs:lat>
+	<wgs:long>-71.7958</wgs:long>
+	<skos:altLabel>Bonito</skos:altLabel>
+	<skos:altLabel>Tororú</skos:altLabel>
+	<skos:prefLabel>Tororú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.9</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:altLabel>Tercero</skos:altLabel>
+	<skos:altLabel>Terrero</skos:altLabel>
+	<skos:prefLabel>Tercero</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493282/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>24536</europeana:population>
+	<wgs:lat>19.38333</wgs:lat>
+	<wgs:long>-70.33333</wgs:long>
+	<skos:prefLabel>Tenares</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23304</europeana:population>
+	<wgs:lat>19.48538</wgs:lat>
+	<wgs:long>-70.61104</wgs:long>
+	<skos:altLabel>Peña</skos:altLabel>
+	<skos:altLabel>Tamboril</skos:altLabel>
+	<skos:prefLabel>Tamboril</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492518/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492918/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>53380</europeana:population>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-70.6</wgs:long>
+	<skos:altLabel>Peña</skos:altLabel>
+	<skos:altLabel>Tamboril</skos:altLabel>
+	<skos:prefLabel>Tamboril</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512050/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>9782</europeana:population>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-71.16667</wgs:long>
+	<skos:prefLabel>Tamayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-69.26667</wgs:long>
+	<skos:altLabel>Cayo Alcatraz</skos:altLabel>
+	<skos:altLabel>Cayo Playa Hondo</skos:altLabel>
+	<skos:altLabel>Cayo del Sur</skos:altLabel>
+	<skos:prefLabel>Cayo del Sur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>47193</europeana:population>
+	<wgs:lat>19.71667</wgs:lat>
+	<wgs:long>-70.46667</wgs:long>
+	<skos:prefLabel>Sosúa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-71.83333</wgs:long>
+	<skos:altLabel>Cayos Siete Hermanos</skos:altLabel>
+	<skos:altLabel>Los Siete Hermanos</skos:altLabel>
+	<skos:altLabel>Sieta Hermanos</skos:altLabel>
+	<skos:altLabel>The Seven Brothers</skos:altLabel>
+	<skos:prefLabel>Cayos Siete Hermanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.14676</wgs:lat>
+	<wgs:long>-68.6877</wgs:long>
+	<skos:altLabel>Isla Saona</skos:altLabel>
+	<skos:prefLabel>Isla Saona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>2201941</europeana:population>
+	<wgs:lat>18.50012</wgs:lat>
+	<wgs:long>-69.98857</wgs:long>
+	<skos:altLabel>Ciudad Trujillo</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ciudad Trujillo</skos:altLabel>
+	<skos:altLabel>Saint Domingue</skos:altLabel>
+	<skos:altLabel>Santa Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Santo Domingo</skos:altLabel>
+	<skos:altLabel>Santo Domingo City</skos:altLabel>
+	<skos:altLabel>Santo Domingo de Guzmán</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σάντο Ντομίνγκο</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санто-Доминго</skos:altLabel>
+	<skos:prefLabel>Santo Domingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496024/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-69.83333</wgs:long>
+	<skos:prefLabel>Santo Domingo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-71.33333</wgs:long>
+	<skos:altLabel>Provincia de Santiago Rodríguez</skos:altLabel>
+	<skos:altLabel>Santiago Rodríguez</skos:altLabel>
+	<skos:prefLabel>Provincia de Santiago Rodríguez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>1200000</europeana:population>
+	<wgs:lat>19.45</wgs:lat>
+	<wgs:long>-70.7</wgs:long>
+	<skos:altLabel>Santiago</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Santiago de los Caballeros</skos:altLabel>
+	<skos:altLabel xml:lang="it">Santiago de los Caballeros</skos:altLabel>
+	<skos:altLabel xml:lang="de">Santiago de los Caballeros</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Santiago de los Caballeros</skos:altLabel>
+	<skos:altLabel xml:lang="en">Santiago de los Caballeros</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Santiago de los Caballeros</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сантьяго-де-лос-Кабальерос</skos:altLabel>
+	<skos:prefLabel>Santiago de los Caballeros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492918/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-70.7</wgs:long>
+	<skos:altLabel>Santiago</skos:altLabel>
+	<skos:altLabel>Santiago de los Caballeros</skos:altLabel>
+	<skos:prefLabel>Santiago de los Caballeros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-70.91667</wgs:long>
+	<skos:altLabel>Provincia de Santiago</skos:altLabel>
+	<skos:altLabel>Santiago</skos:altLabel>
+	<skos:prefLabel>Provincia de Santiago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23547</europeana:population>
+	<wgs:lat>18.76559</wgs:lat>
+	<wgs:long>-69.03886</wgs:long>
+	<skos:altLabel>El Seibo</skos:altLabel>
+	<skos:altLabel>Santa Cruz de El Seibo</skos:altLabel>
+	<skos:altLabel>Santa Cruz del Seibo</skos:altLabel>
+	<skos:altLabel>Santa Cruz del Seybo</skos:altLabel>
+	<skos:altLabel>Seibo</skos:altLabel>
+	<skos:altLabel>Seybo</skos:altLabel>
+	<skos:prefLabel>Santa Cruz de El Seibo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>77160</europeana:population>
+	<wgs:lat>18.20854</wgs:lat>
+	<wgs:long>-71.10077</wgs:long>
+	<skos:altLabel>Barahona</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Barahona</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Santa Cruz de Barahona</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Cruz de Barahona</skos:altLabel>
+	<skos:altLabel xml:lang="en">Santa Cruz de Barahona</skos:altLabel>
+	<skos:altLabel>Santa Cruz de Barahona</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Санта-Крус-де-Бараона</skos:altLabel>
+	<skos:prefLabel>Santa Cruz de Barahona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3492997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11432</europeana:population>
+	<wgs:lat>19.21667</wgs:lat>
+	<wgs:long>-69.31667</wgs:long>
+	<skos:altLabel>Samaná</skos:altLabel>
+	<skos:altLabel>Santa Bárbara de Samaná</skos:altLabel>
+	<skos:prefLabel>Santa Bárbara de Samaná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3503706/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18387</europeana:population>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-68.66667</wgs:long>
+	<skos:prefLabel>San Rafael del Yuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-69.33333</wgs:long>
+	<skos:altLabel>Provincia de Macoris</skos:altLabel>
+	<skos:altLabel>Provincia de San Pedro de Macorís</skos:altLabel>
+	<skos:altLabel>San Pedro de Macorís</skos:altLabel>
+	<skos:prefLabel>Provincia de San Pedro de Macorís</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>217899</europeana:population>
+	<wgs:lat>18.46156</wgs:lat>
+	<wgs:long>-69.29718</wgs:long>
+	<skos:altLabel>San Pedro Macoris</skos:altLabel>
+	<skos:altLabel xml:lang="en">San Pedro de Macorís</skos:altLabel>
+	<skos:altLabel xml:lang="pt">San Pedro de Macorís</skos:altLabel>
+	<skos:altLabel xml:lang="de">San Pedro de Macorís</skos:altLabel>
+	<skos:altLabel xml:lang="nl">San Pedro de Macorís</skos:altLabel>
+	<skos:altLabel>San Pedro de Macorís</skos:altLabel>
+	<skos:prefLabel>San Pedro de Macorís</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493031/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-69.25</wgs:long>
+	<skos:prefLabel>San Pedro de Macorís</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>72950</europeana:population>
+	<wgs:lat>18.8</wgs:lat>
+	<wgs:long>-71.23333</wgs:long>
+	<skos:altLabel>San Juan</skos:altLabel>
+	<skos:altLabel>San Juan de la Maguana</skos:altLabel>
+	<skos:prefLabel>San Juan de la Maguana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493083/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493091/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-71.16667</wgs:long>
+	<skos:altLabel>San Juan</skos:altLabel>
+	<skos:altLabel>San Juan de la Maguana</skos:altLabel>
+	<skos:prefLabel>San Juan de la Maguana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493091/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-71.25</wgs:long>
+	<skos:altLabel>Provincia Benefactor</skos:altLabel>
+	<skos:altLabel>Provincia de San Juan</skos:altLabel>
+	<skos:altLabel>San Juan</skos:altLabel>
+	<skos:prefLabel>Provincia de San Juan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493100/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21148</europeana:population>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-70.5</wgs:long>
+	<skos:prefLabel>San José de Ocoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493101/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3495015/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.63333</wgs:lat>
+	<wgs:long>-70.5</wgs:long>
+	<skos:prefLabel>San José de Ocoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492918/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>37967</europeana:population>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:prefLabel>San José de Las Matas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11542</europeana:population>
+	<wgs:lat>18.38333</wgs:lat>
+	<wgs:long>-70.08333</wgs:long>
+	<skos:altLabel>San Gregorio de Nigua</skos:altLabel>
+	<skos:prefLabel>San Gregorio de Nigua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>124763</europeana:population>
+	<wgs:lat>19.29518</wgs:lat>
+	<wgs:long>-70.25543</wgs:long>
+	<skos:altLabel xml:lang="fr">San Francisco de Macorís</skos:altLabel>
+	<skos:altLabel xml:lang="nl">San Francisco de Macorís</skos:altLabel>
+	<skos:altLabel xml:lang="es">San Francisco de Macorís</skos:altLabel>
+	<skos:altLabel xml:lang="en">San Francisco de Macorís</skos:altLabel>
+	<skos:altLabel>San Francisco de Macorís</skos:altLabel>
+	<skos:prefLabel>San Francisco de Macorís</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493147/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508718/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>155511</europeana:population>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-70.2</wgs:long>
+	<skos:prefLabel>San Francisco de Macorís</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17001</europeana:population>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-71.65</wgs:long>
+	<skos:altLabel>Monte Cristi</skos:altLabel>
+	<skos:altLabel>Monte Cristy</skos:altLabel>
+	<skos:altLabel>Monte-Christi</skos:altLabel>
+	<skos:altLabel>San Fernando de Monte Cristi</skos:altLabel>
+	<skos:prefLabel>San Fernando de Monte Cristi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>146000</europeana:population>
+	<wgs:lat>19.8</wgs:lat>
+	<wgs:long>-70.68333</wgs:long>
+	<skos:altLabel>Port Plata</skos:altLabel>
+	<skos:altLabel>Puerto Plata</skos:altLabel>
+	<skos:altLabel>San Felipe de Puerto Plata</skos:altLabel>
+	<skos:prefLabel>Puerto Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.55</wgs:lat>
+	<wgs:long>-70.2</wgs:long>
+	<skos:altLabel>Provincia Trujillo</skos:altLabel>
+	<skos:altLabel>Provincia Trujillo Valdez</skos:altLabel>
+	<skos:altLabel>Provincia de San Cristóbal</skos:altLabel>
+	<skos:altLabel>San Cristóbal</skos:altLabel>
+	<skos:prefLabel>Provincia de San Cristóbal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493186/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-70.13333</wgs:long>
+	<skos:altLabel>San Cristóbal</skos:altLabel>
+	<skos:prefLabel>San Cristóbal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493192/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-70.16667</wgs:long>
+	<skos:altLabel>Provincia Sánchez Ramírez</skos:altLabel>
+	<skos:altLabel>Sánchez Ramírez</skos:altLabel>
+	<skos:prefLabel>Provincia Sánchez Ramírez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11365</europeana:population>
+	<wgs:lat>19.23333</wgs:lat>
+	<wgs:long>-69.6</wgs:long>
+	<skos:prefLabel>Sánchez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493232/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-69.61667</wgs:long>
+	<skos:prefLabel>Sánchez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-69.45</wgs:long>
+	<skos:altLabel>Distrito de Samana</skos:altLabel>
+	<skos:altLabel>Provincia de Samaná</skos:altLabel>
+	<skos:altLabel>Samaná</skos:altLabel>
+	<skos:prefLabel>Provincia de Samaná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493232/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.23333</wgs:lat>
+	<wgs:long>-69.33333</wgs:long>
+	<skos:altLabel>Samaná</skos:altLabel>
+	<skos:prefLabel>Samaná</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>123787</europeana:population>
+	<wgs:lat>18.61501</wgs:lat>
+	<wgs:long>-68.70798</wgs:long>
+	<skos:altLabel>Higüey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Higüey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Higüey</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Higüey</skos:altLabel>
+	<skos:altLabel xml:lang="es">Salvaleón de Higüey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salvaleón de Higüey</skos:altLabel>
+	<skos:prefLabel>Salvaleón de Higüey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11675</europeana:population>
+	<wgs:lat>19.40552</wgs:lat>
+	<wgs:long>-70.37985</wgs:long>
+	<skos:prefLabel>Salsipuedes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-70.33333</wgs:long>
+	<skos:altLabel>Hermanas Mirabal</skos:altLabel>
+	<skos:altLabel>Salcedo</skos:altLabel>
+	<skos:prefLabel>Provincia de Hermanas Mirabal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493282/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-70.38333</wgs:long>
+	<skos:prefLabel>Salcedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16380</europeana:population>
+	<wgs:lat>19.47793</wgs:lat>
+	<wgs:long>-71.34125</wgs:long>
+	<skos:altLabel>Sabaneta</skos:altLabel>
+	<skos:altLabel>San Ignacio de Sabaneta</skos:altLabel>
+	<skos:altLabel>Santiago Rodríguez</skos:altLabel>
+	<skos:prefLabel>Sabaneta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492912/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>34960</europeana:population>
+	<wgs:lat>19.38333</wgs:lat>
+	<wgs:long>-71.35</wgs:long>
+	<skos:altLabel>Sabaneta</skos:altLabel>
+	<skos:altLabel>San Ignacio de Sabaneta</skos:altLabel>
+	<skos:altLabel>Santiago Rodríguez</skos:altLabel>
+	<skos:prefLabel>Sabaneta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10624</europeana:population>
+	<wgs:lat>18.71667</wgs:lat>
+	<wgs:long>-71.01667</wgs:long>
+	<skos:altLabel>Sabana Yegua</skos:altLabel>
+	<skos:altLabel>Sabaneta Yegua</skos:altLabel>
+	<skos:prefLabel>Sabana Yegua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16834</europeana:population>
+	<wgs:lat>18.95</wgs:lat>
+	<wgs:long>-69.8</wgs:long>
+	<skos:altLabel>Sabana Grande</skos:altLabel>
+	<skos:altLabel>Sabana Grande Boyá</skos:altLabel>
+	<skos:altLabel>Sabana Grande de Boyá</skos:altLabel>
+	<skos:altLabel>Villa de Sabana Grande de Boyá</skos:altLabel>
+	<skos:prefLabel>Sabana Grande de Boyá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493483/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496132/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>24773</europeana:population>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-69.83333</wgs:long>
+	<skos:prefLabel>Sabana Grande de Boyá</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493568/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13977</europeana:population>
+	<wgs:lat>19.06667</wgs:lat>
+	<wgs:long>-69.38333</wgs:long>
+	<skos:altLabel>Sabana de La Mar</skos:altLabel>
+	<skos:altLabel>Sabana la Mar</skos:altLabel>
+	<skos:altLabel>Savana la Mar</skos:altLabel>
+	<skos:prefLabel>Sabana de La Mar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504766/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14994</europeana:population>
+	<wgs:lat>19.03333</wgs:lat>
+	<wgs:long>-69.41667</wgs:long>
+	<skos:prefLabel>Sabana de La Mar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496772/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>15383</europeana:population>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-70.05</wgs:long>
+	<skos:prefLabel>Río San Juan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508951/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>6649</europeana:population>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:prefLabel>Restauración</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.56667</wgs:long>
+	<skos:prefLabel>Cayo Redondo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.16355</wgs:lat>
+	<wgs:long>-68.64525</wgs:long>
+	<skos:prefLabel>Cayo Ratón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3493937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.88333</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:altLabel>Rata</skos:altLabel>
+	<skos:altLabel>Ratas</skos:altLabel>
+	<skos:prefLabel>Ratas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493031/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>10267</europeana:population>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-69.16667</wgs:long>
+	<skos:prefLabel>Ramón Santana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494121/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17694</europeana:population>
+	<wgs:lat>18.55542</wgs:lat>
+	<wgs:long>-69.40814</wgs:long>
+	<skos:altLabel>Ingenio Quisquella</skos:altLabel>
+	<skos:altLabel>Quisqueya</skos:altLabel>
+	<skos:prefLabel>Quisqueya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>100023</europeana:population>
+	<wgs:lat>18.58182</wgs:lat>
+	<wgs:long>-68.40431</wgs:long>
+	<skos:altLabel xml:lang="ru">Пунта Кана</skos:altLabel>
+	<skos:prefLabel>Punta Cana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3279</wgs:lat>
+	<wgs:long>-70.85127</wgs:long>
+	<skos:altLabel>Cayo Puerto Viejo</skos:altLabel>
+	<skos:altLabel>El Morro</skos:altLabel>
+	<skos:prefLabel>Cayo Puerto Viejo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-70.75</wgs:long>
+	<skos:altLabel>Distrito Puerto Plata</skos:altLabel>
+	<skos:altLabel>Provincia de Puerto Plata</skos:altLabel>
+	<skos:altLabel xml:lang="en">Puerto Plata</skos:altLabel>
+	<skos:altLabel>Puerto Plata</skos:altLabel>
+	<skos:prefLabel>Provincia de Puerto Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-70.7</wgs:long>
+	<skos:altLabel>Puerto Plata</skos:altLabel>
+	<skos:prefLabel>Puerto Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-69.23333</wgs:long>
+	<skos:prefLabel>Cayito de Puerto de Luis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31954</wgs:lat>
+	<wgs:long>-70.86046</wgs:long>
+	<skos:altLabel>Cayo Boca Carril</skos:altLabel>
+	<skos:altLabel>Cayo Puerto Corral</skos:altLabel>
+	<skos:altLabel>La Mata de los Pajaros</skos:altLabel>
+	<skos:prefLabel>Cayo Puerto Corral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494297/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.32153</wgs:lat>
+	<wgs:long>-70.85829</wgs:long>
+	<skos:altLabel>Cayo Puertecito</skos:altLabel>
+	<skos:altLabel>La Matica</skos:altLabel>
+	<skos:prefLabel>Cayo Puertecito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504326/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>4018</europeana:population>
+	<wgs:lat>18.56667</wgs:lat>
+	<wgs:long>-71.61667</wgs:long>
+	<skos:prefLabel>Postrer Río</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.84105</wgs:lat>
+	<wgs:long>-71.28059</wgs:long>
+	<skos:altLabel>Cayo Pasaje</skos:altLabel>
+	<skos:altLabel>Cayo Pisaje</skos:altLabel>
+	<skos:prefLabel>Cayo Pisaje</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508718/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18192</europeana:population>
+	<wgs:lat>19.21667</wgs:lat>
+	<wgs:long>-70.16667</wgs:long>
+	<skos:prefLabel>Pimentel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3494806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.48889</wgs:lat>
+	<wgs:long>-71.64333</wgs:long>
+	<skos:prefLabel>Piedra Negra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-70.36667</wgs:long>
+	<skos:altLabel>Peravia</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Provincia Trujillo Valdez</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Provincia de Baní</skos:altLabel>
+	<skos:altLabel>Provincia de Peravia</skos:altLabel>
+	<skos:prefLabel>Provincia de Peravia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512209/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>11543</europeana:population>
+	<wgs:lat>18.61667</wgs:lat>
+	<wgs:long>-70.8</wgs:long>
+	<skos:prefLabel>Peralta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496200/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>9618</europeana:population>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-71.66667</wgs:long>
+	<skos:prefLabel>Pepillo Salcedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.63333</wgs:long>
+	<skos:prefLabel>Cayo Pelú</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3507269/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-71.55</wgs:long>
+	<skos:prefLabel>Pedro Santana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495136/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.06639</wgs:lat>
+	<wgs:long>-71.495</wgs:long>
+	<skos:altLabel>Pedernales</skos:altLabel>
+	<skos:altLabel>Provincia de Pedernales</skos:altLabel>
+	<skos:prefLabel>Provincia de Pedernales</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495137/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11072</europeana:population>
+	<wgs:lat>18.03838</wgs:lat>
+	<wgs:long>-71.74403</wgs:long>
+	<skos:altLabel>Anse à Pitre</skos:altLabel>
+	<skos:altLabel>Pedernales</skos:altLabel>
+	<skos:altLabel>Puerto de Pedernales</skos:altLabel>
+	<skos:prefLabel>Pedernales</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495139/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3495136/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.08333</wgs:lat>
+	<wgs:long>-71.6</wgs:long>
+	<skos:prefLabel>Pedernales</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512042/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>13580</europeana:population>
+	<wgs:lat>18</wgs:lat>
+	<wgs:long>-71.25</wgs:long>
+	<skos:prefLabel>Paraíso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.77242</wgs:lat>
+	<wgs:long>-71.37779</wgs:long>
+	<skos:prefLabel>Cayo del Papayo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.63333</wgs:long>
+	<skos:prefLabel>Cayo de Pancho Macho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.2</wgs:lat>
+	<wgs:long>-69.31667</wgs:long>
+	<skos:altLabel>Cayo Garla</skos:altLabel>
+	<skos:altLabel>Cayo Paloma</skos:altLabel>
+	<skos:prefLabel>Cayo Paloma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512209/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>22527</europeana:population>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-70.88333</wgs:long>
+	<skos:prefLabel>Padre Las Casas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3495136/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>4153</europeana:population>
+	<wgs:lat>17.83333</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:prefLabel>Oviedo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3495015/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>12320</europeana:population>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-70.21667</wgs:long>
+	<skos:prefLabel>Nizao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495857/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18670</europeana:population>
+	<wgs:lat>18.48138</wgs:lat>
+	<wgs:long>-71.41965</wgs:long>
+	<skos:altLabel>Neiba</skos:altLabel>
+	<skos:altLabel>Neyba</skos:altLabel>
+	<skos:prefLabel>Neiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512050/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>25131</europeana:population>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-71.41667</wgs:long>
+	<skos:altLabel>Neiba</skos:altLabel>
+	<skos:altLabel>Neyba</skos:altLabel>
+	<skos:prefLabel>Neiba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3495865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.78333</wgs:lat>
+	<wgs:long>-70.65</wgs:long>
+	<skos:prefLabel>Cayo Negro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33862</europeana:population>
+	<wgs:lat>19.3832</wgs:lat>
+	<wgs:long>-69.8474</wgs:long>
+	<skos:altLabel>Ciudad de Nagua</skos:altLabel>
+	<skos:altLabel>Julia Molina</skos:altLabel>
+	<skos:altLabel>Nagua</skos:altLabel>
+	<skos:altLabel>Villa Julia Molina</skos:altLabel>
+	<skos:altLabel>callejon a</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нагуа</skos:altLabel>
+	<skos:prefLabel>Nagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496022/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496772/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>57348</europeana:population>
+	<wgs:lat>19.36667</wgs:lat>
+	<wgs:long>-70</wgs:long>
+	<skos:prefLabel>Nagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.48333</wgs:lat>
+	<wgs:long>-69.93333</wgs:long>
+	<skos:altLabel>Distrito Nacional</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Distrito de Santo Domingo</skos:altLabel>
+	<skos:prefLabel>Distrito Nacional</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-71.81667</wgs:long>
+	<skos:prefLabel>Muertos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-69.83333</wgs:long>
+	<skos:altLabel>Monte Plata</skos:altLabel>
+	<skos:altLabel>Provincia de Monte Plata</skos:altLabel>
+	<skos:prefLabel>Provincia de Monte Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15532</europeana:population>
+	<wgs:lat>18.807</wgs:lat>
+	<wgs:long>-69.78399</wgs:long>
+	<skos:altLabel>Monte Plata</skos:altLabel>
+	<skos:altLabel>San Antonio de Monte Plata</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Монте Плата</skos:altLabel>
+	<skos:prefLabel>Monte Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496132/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-69.85</wgs:long>
+	<skos:altLabel>Monte Plata</skos:altLabel>
+	<skos:prefLabel>Monte Plata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.9</wgs:lat>
+	<wgs:long>-71.78333</wgs:long>
+	<skos:prefLabel>Monte Grande</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.66667</wgs:lat>
+	<wgs:long>-71.41667</wgs:long>
+	<skos:altLabel>Distrito de Monte Cristi</skos:altLabel>
+	<skos:altLabel>Monte Cristi</skos:altLabel>
+	<skos:altLabel>Provincia de Monte Cristi</skos:altLabel>
+	<skos:altLabel>Provincia de Monte Cristy</skos:altLabel>
+	<skos:prefLabel>Provincia de Monte Cristi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496200/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.83333</wgs:lat>
+	<wgs:long>-71.61667</wgs:long>
+	<skos:altLabel>Monte Cristi</skos:altLabel>
+	<skos:altLabel>Monte Cristy</skos:altLabel>
+	<skos:prefLabel>Monte Cristi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496214/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-71.76667</wgs:long>
+	<skos:altLabel>Monte Chico</skos:altLabel>
+	<skos:altLabel>Montechio</skos:altLabel>
+	<skos:prefLabel>Monte Chico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>-70.41667</wgs:long>
+	<skos:altLabel>Monseñor Nouel</skos:altLabel>
+	<skos:altLabel>Provincia de Monseñor Nouel</skos:altLabel>
+	<skos:prefLabel>Provincia de Monseñor Nouel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.74295</wgs:lat>
+	<wgs:long>-71.37743</wgs:long>
+	<skos:altLabel>Cayo Mondesí</skos:altLabel>
+	<skos:altLabel>Cayo de Mondesi</skos:altLabel>
+	<skos:prefLabel>Cayo Mondesí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492912/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>11436</europeana:population>
+	<wgs:lat>19.46667</wgs:lat>
+	<wgs:long>-71.16667</wgs:long>
+	<skos:prefLabel>Monción</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61834</europeana:population>
+	<wgs:lat>19.39352</wgs:lat>
+	<wgs:long>-70.52598</wgs:long>
+	<skos:prefLabel>Moca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3505867/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>135253</europeana:population>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-70.5</wgs:long>
+	<skos:prefLabel>Moca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3506189/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>20530</europeana:population>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>-69</wgs:long>
+	<skos:prefLabel>Miches</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-70</wgs:long>
+	<skos:altLabel>María Trinidad Sánchez</skos:altLabel>
+	<skos:altLabel>Provincia María Trinidad Sánchez</skos:altLabel>
+	<skos:altLabel>Provincia de Julia Molina</skos:altLabel>
+	<skos:prefLabel>Provincia María Trinidad Sánchez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.21178</wgs:lat>
+	<wgs:long>-68.72503</wgs:long>
+	<skos:altLabel>Isla María</skos:altLabel>
+	<skos:altLabel>La Mata de los Pájaros</skos:altLabel>
+	<skos:prefLabel>Isla María</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>48297</europeana:population>
+	<wgs:lat>19.55186</wgs:lat>
+	<wgs:long>-71.07813</wgs:long>
+	<skos:altLabel>Mao</skos:altLabel>
+	<skos:altLabel>Valverde</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мао</skos:altLabel>
+	<skos:prefLabel>Mao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496832/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492112/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>49740</europeana:population>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:altLabel>Mao</skos:altLabel>
+	<skos:altLabel>Valverde</skos:altLabel>
+	<skos:prefLabel>Mao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3496925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.74389</wgs:lat>
+	<wgs:long>-71.73038</wgs:long>
+	<skos:prefLabel>Islote Manga de Yagua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3497224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496274/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>17957</europeana:population>
+	<wgs:lat>18.88333</wgs:lat>
+	<wgs:long>-70.3</wgs:long>
+	<skos:prefLabel>Maimón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3497351/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18535</europeana:population>
+	<wgs:lat>19.83333</wgs:lat>
+	<wgs:long>-71.05</wgs:long>
+	<skos:prefLabel>Luperón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3497927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.5</wgs:long>
+	<skos:prefLabel>Cayos de Los Pájaros</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3498193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493031/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>23198</europeana:population>
+	<wgs:lat>18.63333</wgs:lat>
+	<wgs:long>-69.5</wgs:long>
+	<skos:prefLabel>Los Llanos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3498419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14250</europeana:population>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-71.03333</wgs:long>
+	<skos:prefLabel>Los Hidalgos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3498734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-69.4</wgs:long>
+	<skos:prefLabel>Cayo Los Corozos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508951/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14700</europeana:population>
+	<wgs:lat>19.41667</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:prefLabel>Loma de Cabrera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.2</wgs:lat>
+	<wgs:long>-69.33333</wgs:long>
+	<skos:altLabel>Cayo Linares</skos:altLabel>
+	<skos:altLabel>Cayo Tamiso</skos:altLabel>
+	<skos:prefLabel>Cayo Linares</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-69.41667</wgs:long>
+	<skos:prefLabel>Cayo Limón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499750/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492918/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>28651</europeana:population>
+	<wgs:lat>19.45</wgs:lat>
+	<wgs:long>-70.6</wgs:long>
+	<skos:altLabel>Licey al Medio</skos:altLabel>
+	<skos:prefLabel>Licey al Medio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-69.2</wgs:long>
+	<skos:altLabel>Cayo Levantado</skos:altLabel>
+	<skos:altLabel>Las Galeras</skos:altLabel>
+	<skos:prefLabel>Cayo Levantado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-69.28333</wgs:long>
+	<skos:altLabel>Cayo Lerantado</skos:altLabel>
+	<skos:altLabel>Cayo Levantado</skos:altLabel>
+	<skos:altLabel>Cayo Leventado</skos:altLabel>
+	<skos:prefLabel>Cayo Levantado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.11667</wgs:lat>
+	<wgs:long>-70.61667</wgs:long>
+	<skos:altLabel>La Vega</skos:altLabel>
+	<skos:altLabel>Provincia de La Vega</skos:altLabel>
+	<skos:prefLabel>Provincia de La Vega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3499980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3499977/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-70.5</wgs:long>
+	<skos:altLabel>La Vega</skos:altLabel>
+	<skos:prefLabel>La Vega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10218</europeana:population>
+	<wgs:lat>19.67119</wgs:lat>
+	<wgs:long>-71.50471</wgs:long>
+	<skos:altLabel>La Mata de Santa Cruz</skos:altLabel>
+	<skos:altLabel>Las Matas de Santa Cruz</skos:altLabel>
+	<skos:altLabel>Matas de Santa Cruz</skos:altLabel>
+	<skos:prefLabel>Las Matas de Santa Cruz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500369/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496200/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>17836</europeana:population>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:prefLabel>Las Matas de Santa Cruz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500370/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21802</europeana:population>
+	<wgs:lat>18.87361</wgs:lat>
+	<wgs:long>-71.52139</wgs:long>
+	<skos:altLabel>Las Matas</skos:altLabel>
+	<skos:altLabel>Las Matas de Farfán</skos:altLabel>
+	<skos:altLabel>Matas de Farfan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лас-Матас-де-Фарфан</skos:altLabel>
+	<skos:prefLabel>Las Matas de Farfán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493091/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>37366</europeana:population>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:prefLabel>Las Matas de Farfán</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500543/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-69.26667</wgs:long>
+	<skos:altLabel>Cayo Bon Homme</skos:altLabel>
+	<skos:altLabel>Cayo Buen Hombre</skos:altLabel>
+	<skos:altLabel>Cayo de Las Flechas</skos:altLabel>
+	<skos:prefLabel>Cayo de Las Flechas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-69.56667</wgs:long>
+	<skos:altLabel>Cayo Ballenas</skos:altLabel>
+	<skos:altLabel>Cayo Las Ballenas</skos:altLabel>
+	<skos:altLabel>Cayos Las Ballenas</skos:altLabel>
+	<skos:altLabel>Las Ballenas</skos:altLabel>
+	<skos:prefLabel>Cayos Las Ballenas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-68.96667</wgs:long>
+	<skos:altLabel>La Romana</skos:altLabel>
+	<skos:altLabel>Provincia de La Romana</skos:altLabel>
+	<skos:prefLabel>Provincia de La Romana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>208437</europeana:population>
+	<wgs:lat>18.42734</wgs:lat>
+	<wgs:long>-68.97285</wgs:long>
+	<skos:altLabel>La Romana</skos:altLabel>
+	<skos:altLabel>Romana</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ла-Романа</skos:altLabel>
+	<skos:prefLabel>La Romana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3500959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3500955/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-69</wgs:long>
+	<skos:altLabel>La Romana</skos:altLabel>
+	<skos:prefLabel>La Romana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3501257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-69.63333</wgs:long>
+	<skos:prefLabel>La Piedra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3501657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.43333</wgs:lat>
+	<wgs:long>-69.61667</wgs:long>
+	<skos:prefLabel>Isla La Matica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3502282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>19.86244</wgs:lat>
+	<wgs:long>-70.79736</wgs:long>
+	<skos:prefLabel>Cayo La Isla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3502374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492112/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14802</europeana:population>
+	<wgs:lat>19.7</wgs:lat>
+	<wgs:long>-71.13333</wgs:long>
+	<skos:prefLabel>Laguna Salada</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3502669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-69.26667</wgs:long>
+	<skos:altLabel>Cayo La Farola</skos:altLabel>
+	<skos:altLabel>Cayo Pascual</skos:altLabel>
+	<skos:prefLabel>Cayo La Farola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3502787/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504326/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>7455</europeana:population>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-71.68333</wgs:long>
+	<skos:prefLabel>La Descubierta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3503513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.01667</wgs:lat>
+	<wgs:long>-69.18333</wgs:long>
+	<skos:prefLabel>Cayo La Bocaina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3503638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-69.18333</wgs:long>
+	<skos:prefLabel>Piedra de La Ballena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3503706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-68.63333</wgs:long>
+	<skos:altLabel>La Altagracia</skos:altLabel>
+	<skos:altLabel>Provincia de La Altagracia</skos:altLabel>
+	<skos:prefLabel>Provincia de La Altagracia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504078/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504326/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>12262</europeana:population>
+	<wgs:lat>18.46667</wgs:lat>
+	<wgs:long>-71.83333</wgs:long>
+	<skos:prefLabel>Jimaní</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29983</europeana:population>
+	<wgs:lat>19.11667</wgs:lat>
+	<wgs:long>-70.63333</wgs:long>
+	<skos:altLabel>Jarabacoa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Харабакоа</skos:altLabel>
+	<skos:prefLabel>Jarabacoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3499977/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>58528</europeana:population>
+	<wgs:lat>19.13333</wgs:lat>
+	<wgs:long>-70.66667</wgs:long>
+	<skos:prefLabel>Jarabacoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492918/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>15988</europeana:population>
+	<wgs:lat>19.4</wgs:lat>
+	<wgs:long>-70.8</wgs:long>
+	<skos:prefLabel>Jánico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.3</wgs:lat>
+	<wgs:long>-69.66667</wgs:long>
+	<skos:altLabel>Cabo Jackson</skos:altLabel>
+	<skos:altLabel>Cayo Jackson</skos:altLabel>
+	<skos:prefLabel>Cayo Jackson</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504326/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:altLabel>Independencia</skos:altLabel>
+	<skos:altLabel>Provincia de Independencia</skos:altLabel>
+	<skos:prefLabel>Provincia de Independencia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>25283</europeana:population>
+	<wgs:lat>19.75</wgs:lat>
+	<wgs:long>-70.86667</wgs:long>
+	<skos:prefLabel>Imbert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3507269/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>10536</europeana:population>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-71.66667</wgs:long>
+	<skos:prefLabel>Hondo Valle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-71</wgs:long>
+	<skos:altLabel>Bohio</skos:altLabel>
+	<skos:altLabel xml:lang="es">Española</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hispaniola</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hispaniolo</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ile d'Haïti</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla de Santo Domingo</skos:altLabel>
+	<skos:altLabel>Kiskeya</skos:altLabel>
+	<skos:altLabel xml:lang="es">La Española</skos:altLabel>
+	<skos:altLabel>Quisqueya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Domingue</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santo Domingo</skos:altLabel>
+	<skos:prefLabel>Hispaniola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3503706/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>162138</europeana:population>
+	<wgs:lat>18.7</wgs:lat>
+	<wgs:long>-68.66667</wgs:long>
+	<skos:prefLabel>Higüey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35999</europeana:population>
+	<wgs:lat>18.76278</wgs:lat>
+	<wgs:long>-69.25681</wgs:long>
+	<skos:altLabel>Hato Mayor</skos:altLabel>
+	<skos:altLabel>Hato Mayor del Rey</skos:altLabel>
+	<skos:prefLabel>Hato Mayor del Rey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504766/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-69.33333</wgs:long>
+	<skos:altLabel>Hato Mayor</skos:altLabel>
+	<skos:altLabel>Provincia de Hato Mayor</skos:altLabel>
+	<skos:prefLabel>Provincia de Hato Mayor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504769/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504766/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.7</wgs:lat>
+	<wgs:long>-69.33333</wgs:long>
+	<skos:altLabel>Hato Mayor</skos:altLabel>
+	<skos:prefLabel>Hato Mayor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496200/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>7673</europeana:population>
+	<wgs:lat>19.61667</wgs:lat>
+	<wgs:long>-71.33333</wgs:long>
+	<skos:prefLabel>Guayubín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3504952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3500955/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18762</europeana:population>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-68.95</wgs:long>
+	<skos:altLabel>Guaimate</skos:altLabel>
+	<skos:altLabel>Guaymate</skos:altLabel>
+	<skos:prefLabel>Guaymate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-69.21667</wgs:long>
+	<skos:altLabel>Piedra Grapín</skos:altLabel>
+	<skos:altLabel>Piedra de Grepin</skos:altLabel>
+	<skos:prefLabel>Piedra Grapín</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3505867/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>19741</europeana:population>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-70.16667</wgs:long>
+	<skos:prefLabel>Gaspar Hernández</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505492/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.1</wgs:lat>
+	<wgs:long>-69.65</wgs:long>
+	<skos:prefLabel>Cayo de la Garza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-69.31667</wgs:long>
+	<skos:prefLabel>Cayo Garza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10024</europeana:population>
+	<wgs:lat>19.12148</wgs:lat>
+	<wgs:long>-70.29972</wgs:long>
+	<skos:altLabel>Fantino</skos:altLabel>
+	<skos:altLabel>Villa de Fantino</skos:altLabel>
+	<skos:prefLabel>Fantino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505779/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493192/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>21989</europeana:population>
+	<wgs:lat>19.11667</wgs:lat>
+	<wgs:long>-70.3</wgs:long>
+	<skos:prefLabel>Fantino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505855/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42169</europeana:population>
+	<wgs:lat>19.5847</wgs:lat>
+	<wgs:long>-70.98489</wgs:long>
+	<skos:prefLabel>Esperanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492112/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>47785</europeana:population>
+	<wgs:lat>19.63333</wgs:lat>
+	<wgs:long>-71.05</wgs:long>
+	<skos:altLabel>Esperanza</skos:altLabel>
+	<skos:prefLabel>Esperanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505867/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-70.45</wgs:long>
+	<skos:altLabel>Espaillat</skos:altLabel>
+	<skos:altLabel>Provincia Espaillat</skos:altLabel>
+	<skos:prefLabel>Provincia Espaillat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3505949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512042/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>13521</europeana:population>
+	<wgs:lat>17.91667</wgs:lat>
+	<wgs:long>-71.25</wgs:long>
+	<skos:prefLabel>Enriquillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3506042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504766/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>8138</europeana:population>
+	<wgs:lat>18.93333</wgs:lat>
+	<wgs:long>-69.38333</wgs:long>
+	<skos:prefLabel>El Valle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3506189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.8</wgs:lat>
+	<wgs:long>-69.05</wgs:long>
+	<skos:altLabel>El Seybo</skos:altLabel>
+	<skos:altLabel>El Seíbo</skos:altLabel>
+	<skos:altLabel>Provincia de El Seíbo</skos:altLabel>
+	<skos:altLabel>Provincia del Seibo</skos:altLabel>
+	<skos:altLabel>Provincia del Seybo</skos:altLabel>
+	<skos:prefLabel>Provincia de El Seíbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3506190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3506189/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.75</wgs:lat>
+	<wgs:long>-69</wgs:long>
+	<skos:altLabel>El Seibo</skos:altLabel>
+	<skos:prefLabel>El Seibo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3507269/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>8066</europeana:population>
+	<wgs:lat>18.76667</wgs:lat>
+	<wgs:long>-71.66667</wgs:long>
+	<skos:prefLabel>El Llano</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.30867</wgs:lat>
+	<wgs:long>-70.86738</wgs:long>
+	<skos:prefLabel>El Jobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.80424</wgs:lat>
+	<wgs:long>-68.55678</wgs:long>
+	<skos:altLabel>El Infiernito</skos:altLabel>
+	<skos:altLabel>La Piedra de los Irios</skos:altLabel>
+	<skos:prefLabel>El Infiernito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:altLabel>Elías Piña</skos:altLabel>
+	<skos:altLabel>Provincia San Rafael</skos:altLabel>
+	<skos:altLabel>Provincia de Elías Piña</skos:altLabel>
+	<skos:altLabel>Provincia de La Estrelleta</skos:altLabel>
+	<skos:altLabel>Provincia de la Estrelleta</skos:altLabel>
+	<skos:prefLabel>Provincia de Elías Piña</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507520/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.65</wgs:lat>
+	<wgs:long>-70.08333</wgs:long>
+	<skos:prefLabel>Cayo El Grigrí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.89162</wgs:lat>
+	<wgs:long>-71.64952</wgs:long>
+	<skos:altLabel>Islote El Fraile</skos:altLabel>
+	<skos:altLabel>Islote del Flaire</skos:altLabel>
+	<skos:prefLabel>Islote El Fraile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3507629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496772/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14246</europeana:population>
+	<wgs:lat>19.28333</wgs:lat>
+	<wgs:long>-69.91667</wgs:long>
+	<skos:prefLabel>El Factor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493091/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>23656</europeana:population>
+	<wgs:lat>18.7</wgs:lat>
+	<wgs:long>-71.46667</wgs:long>
+	<skos:prefLabel>El Cercado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-70.83333</wgs:long>
+	<skos:prefLabel>Cayo El Caney</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13405</europeana:population>
+	<wgs:lat>18.37839</wgs:lat>
+	<wgs:long>-71.52469</wgs:long>
+	<skos:altLabel>Duvergé</skos:altLabel>
+	<skos:altLabel>Las Damas</skos:altLabel>
+	<skos:prefLabel>Duvergé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3504326/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>18607</europeana:population>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-71.5</wgs:long>
+	<skos:prefLabel>Duvergé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508718/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-70.08333</wgs:long>
+	<skos:altLabel>Duarte</skos:altLabel>
+	<skos:altLabel>Provincia Duarte</skos:altLabel>
+	<skos:altLabel>Provincia Pacificador</skos:altLabel>
+	<skos:prefLabel>Provincia Duarte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508732/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.79097</wgs:lat>
+	<wgs:long>-71.75885</wgs:long>
+	<skos:altLabel>Isla Los Dos Caños</skos:altLabel>
+	<skos:altLabel>Isla de los Dos Caños</skos:altLabel>
+	<skos:prefLabel>Isla de los Dos Caños</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508796/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9823821</europeana:population>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-70.66667</wgs:long>
+	<skos:altLabel xml:lang="ga">An Phoblacht Dhoiminiceach</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cộng hoà Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cộng hòa Ðô-mi-ni-ca-na</skos:altLabel>
+	<skos:altLabel>DO</skos:altLabel>
+	<skos:altLabel xml:lang="da">Den Dominikanske Republik</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Den dominikanske republikk</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Den dominikanske republikk</skos:altLabel>
+	<skos:altLabel xml:lang="no">Den dominikanske republikk</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Den dominikanske republikken</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Domingo lýðveldið</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dominicaanse Republiek</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dominicaine, république</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Dominican Republic</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dominican Republic</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Dominik Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="et">Dominikaani Vabariik</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Dominikaaninen tasavalta</skos:altLabel>
+	<skos:altLabel xml:lang="af">Dominikaanse Republiek</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dominikai Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dominikana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dominikana</skos:altLabel>
+	<skos:altLabel xml:lang="io">Dominikana Republiko</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dominikanische Republik</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Dominikanska Republika</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Dominikanska Republika</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Dominikanska Republika</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Dominikanska republika</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Dominikanska republiken</skos:altLabel>
+	<skos:altLabel xml:lang="da">Dominikanske Republik</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Dominikar Errepublika</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Dominikos Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Dominikánska republika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Dominikánská republika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dominikāna</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Dominikānas Republika</skos:altLabel>
+	<skos:altLabel xml:lang="is">Dóminíska lýðveldið</skos:altLabel>
+	<skos:altLabel xml:lang="es">Haití Español</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Jamhuri ya Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Jamhuri ya Dominikan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Komara Domînîk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Quisqueya</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Repiblik dominikàn</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Repoblek Dhominikanek</skos:altLabel>
+	<skos:altLabel xml:lang="it">Repubblica Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Republica Dominican</skos:altLabel>
+	<skos:altLabel xml:lang="an">Republica Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Republica Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Republica Dominicană</skos:altLabel>
+	<skos:altLabel xml:lang="na">Republik Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Republik Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Republik Dominican</skos:altLabel>
+	<skos:altLabel xml:lang="id">Republik Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Republik Dominika</skos:altLabel>
+	<skos:altLabel xml:lang="br">Republik Dominikan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Republika Domenikane</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Republika Dominikany</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Republika Dominikanë</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Republika Dominikańska</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Republikka Domenikana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República Dominica</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="es">República de Santo Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Repüblikän Dominiganik</skos:altLabel>
+	<skos:altLabel xml:lang="la">Respublica Dominicana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République Dominicaine</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santo Domingo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Spanish Haiti (historical)</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Y Weriniaeth Ddominicaidd</skos:altLabel>
+	<skos:altLabel xml:lang="el">Δομινικανή Δημοκρατία</skos:altLabel>
+	<skos:altLabel xml:lang="be">Дамініканская Рэспубліка</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Доминиканска Република</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Доминиканска Република</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Доминиканска Република</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Доминиканска република</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Доминиканская Республика</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Домініканська Республіка</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Դոմինիկյան Հանրապետություն</skos:altLabel>
+	<skos:altLabel xml:lang="he">הרפובליקה הדומיניקנית</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الجمهورية الدومينيكية</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية الدومنيكان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية الدومينيك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جمهوری دومونیکا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جمهوری دومینیکن</skos:altLabel>
+	<skos:altLabel xml:lang="ug">دومىنىكا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ڈومینیکن ریپبلک</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ډومنيکان جمهوريت</skos:altLabel>
+	<skos:altLabel xml:lang="hi">डॉमिनिकन गणतंत्र</skos:altLabel>
+	<skos:altLabel xml:lang="mr">डॉमिनिकन प्रजासत्ताक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">डोमिनिकन गणराज्य</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ডোমিনিকান প্রজাতন্ত্র</skos:altLabel>
+	<skos:altLabel xml:lang="ta">டொமினிகன் குடியரசு</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഡൊമിനിക്കന്‍ റിപ്പബ്ലിക്</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐโดมินิกัน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ສາທາລະນະລັດໂດມິນິກັນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཌོ་མིནནི་ཀན་སྤྱི་མཐུན་རྒྱལ་ཁབ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">დომინიკანის რესპუბლიკა</skos:altLabel>
+	<skos:altLabel xml:lang="ka">დომინიკელთა რესპუბლიკა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዶሚኒክ ሪፑብሊክ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សាធារណរដ្ឋដូមីនីកែន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ドミニカ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多明尼加共和國</skos:altLabel>
+	<skos:altLabel xml:lang="zh">多米尼加共和国</skos:altLabel>
+	<skos:altLabel xml:lang="ko">도미니카 공화국</skos:altLabel>
+	<skos:prefLabel>Dominican Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>19.5</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:altLabel>Dajabón</skos:altLabel>
+	<skos:altLabel>Provincia Libertador</skos:altLabel>
+	<skos:altLabel>Provincia de Dajabón</skos:altLabel>
+	<skos:prefLabel>Provincia de Dajabón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16398</europeana:population>
+	<wgs:lat>19.54878</wgs:lat>
+	<wgs:long>-71.70829</wgs:long>
+	<skos:prefLabel>Dajabón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508951/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-71.58333</wgs:long>
+	<skos:altLabel>Dajabón</skos:altLabel>
+	<skos:prefLabel>Dajabón</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3508993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.01667</wgs:lat>
+	<wgs:long>-69.16667</wgs:long>
+	<skos:prefLabel>Cayo Culebra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.10917</wgs:lat>
+	<wgs:long>-68.57045</wgs:long>
+	<skos:altLabel>Cayo El Cayito</skos:altLabel>
+	<skos:altLabel>Isla Cuidado</skos:altLabel>
+	<skos:prefLabel>Isla Cuidado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509207/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41641</europeana:population>
+	<wgs:lat>19.05272</wgs:lat>
+	<wgs:long>-70.14939</wgs:long>
+	<skos:altLabel>Cotuy</skos:altLabel>
+	<skos:altLabel>Cotuí</skos:altLabel>
+	<skos:prefLabel>Cotuí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493192/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>71814</europeana:population>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-70.16667</wgs:long>
+	<skos:prefLabel>Cotuí</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29481</europeana:population>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>-70.75</wgs:long>
+	<skos:altLabel>Constanza</skos:altLabel>
+	<skos:altLabel>Costanza</skos:altLabel>
+	<skos:altLabel>Villa de Constanza</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Констанция</skos:altLabel>
+	<skos:prefLabel>Constanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3499977/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>43606</europeana:population>
+	<wgs:lat>18.86667</wgs:lat>
+	<wgs:long>-70.7</wgs:long>
+	<skos:prefLabel>Constanza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>102426</europeana:population>
+	<wgs:lat>19.22207</wgs:lat>
+	<wgs:long>-70.52956</wgs:long>
+	<skos:altLabel xml:lang="es">Concepción de La Vega</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Concepción de La Vega</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Concepción de La Vega</skos:altLabel>
+	<skos:altLabel>Concepción de La Vega</skos:altLabel>
+	<skos:altLabel xml:lang="de">Concepción de la Vega</skos:altLabel>
+	<skos:altLabel xml:lang="en">Concepción de la Vega</skos:altLabel>
+	<skos:altLabel>La Vega</skos:altLabel>
+	<skos:altLabel xml:lang="nl">La Vega</skos:altLabel>
+	<skos:prefLabel>Concepción de La Vega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12070</europeana:population>
+	<wgs:lat>18.8775</wgs:lat>
+	<wgs:long>-71.70278</wgs:long>
+	<skos:altLabel>Comendado</skos:altLabel>
+	<skos:altLabel>Comendador</skos:altLabel>
+	<skos:altLabel>Elias Peña</skos:altLabel>
+	<skos:altLabel>Elías Piña</skos:altLabel>
+	<skos:prefLabel>Comendador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3507269/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>25211</europeana:population>
+	<wgs:lat>18.88333</wgs:lat>
+	<wgs:long>-71.66667</wgs:long>
+	<skos:altLabel>Comendador</skos:altLabel>
+	<skos:altLabel>Elías Piña</skos:altLabel>
+	<skos:prefLabel>Comendador</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.18333</wgs:lat>
+	<wgs:long>-69.3</wgs:long>
+	<skos:altLabel>Cayo Carenero</skos:altLabel>
+	<skos:altLabel>Cayo Chica</skos:altLabel>
+	<skos:altLabel>Cayo Chico</skos:altLabel>
+	<skos:prefLabel>Cayo Chico</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493192/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>9188</europeana:population>
+	<wgs:lat>19</wgs:lat>
+	<wgs:long>-69.96667</wgs:long>
+	<skos:prefLabel>Cevicos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.66497</wgs:lat>
+	<wgs:long>-71.30249</wgs:long>
+	<skos:prefLabel>Isla Cerro Gordo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3509990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3505867/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>7180</europeana:population>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-70.46667</wgs:long>
+	<skos:prefLabel>Cayetano Germosén</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.19598</wgs:lat>
+	<wgs:long>-68.63712</wgs:long>
+	<skos:altLabel>Ile Catalinita</skos:altLabel>
+	<skos:altLabel>Isla Catalina</skos:altLabel>
+	<skos:altLabel>Isla Catalinita</skos:altLabel>
+	<skos:prefLabel>Isla Catalinita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.3579</wgs:lat>
+	<wgs:long>-69.0072</wgs:long>
+	<skos:altLabel>Isla Catalina</skos:altLabel>
+	<skos:altLabel>La Catalina Isla</skos:altLabel>
+	<skos:prefLabel>Isla Catalina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508718/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>16373</europeana:population>
+	<wgs:lat>19.25</wgs:lat>
+	<wgs:long>-70</wgs:long>
+	<skos:prefLabel>Castillo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510084/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496200/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14303</europeana:population>
+	<wgs:lat>19.71667</wgs:lat>
+	<wgs:long>-71.48333</wgs:long>
+	<skos:prefLabel>Castañuelas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.33333</wgs:lat>
+	<wgs:long>-69.38333</wgs:long>
+	<skos:altLabel>Cayo Canas</skos:altLabel>
+	<skos:altLabel>Cayo Caña</skos:altLabel>
+	<skos:prefLabel>Cayo Canas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13382</europeana:population>
+	<wgs:lat>18.45</wgs:lat>
+	<wgs:long>-70.2</wgs:long>
+	<skos:altLabel>Cambita</skos:altLabel>
+	<skos:altLabel>Cambita Garabitas</skos:altLabel>
+	<skos:altLabel>Cambita Garabito</skos:altLabel>
+	<skos:altLabel>Cambita Garabitos</skos:altLabel>
+	<skos:prefLabel>Cambita Garabitos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493186/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>31529</europeana:population>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-70.23333</wgs:long>
+	<skos:altLabel>Cambita Garabito</skos:altLabel>
+	<skos:altLabel>Cambita Garabitos</skos:altLabel>
+	<skos:prefLabel>Cambita Garabitos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.63333</wgs:long>
+	<skos:prefLabel>Cayo del Calvario</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.08333</wgs:lat>
+	<wgs:long>-69.56667</wgs:long>
+	<skos:prefLabel>Cayo Cacata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.48636</wgs:lat>
+	<wgs:long>-71.68291</wgs:long>
+	<skos:altLabel>Isla Cabritos</skos:altLabel>
+	<skos:altLabel>Isla de Cabritos</skos:altLabel>
+	<skos:prefLabel>Isla Cabritos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496772/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-69.96667</wgs:long>
+	<skos:prefLabel>Cabrera</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.88787</wgs:lat>
+	<wgs:long>-71.66806</wgs:long>
+	<skos:altLabel>Cabra Island</skos:altLabel>
+	<skos:altLabel>Cayo Pablillo</skos:altLabel>
+	<skos:altLabel>Ile Cabra</skos:altLabel>
+	<skos:altLabel>Isla Cabra</skos:altLabel>
+	<skos:altLabel>Isla Cabras</skos:altLabel>
+	<skos:prefLabel>Isla Cabras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-70.78333</wgs:long>
+	<skos:altLabel>Isla Cabral</skos:altLabel>
+	<skos:altLabel>Isla Cabras</skos:altLabel>
+	<skos:prefLabel>Isla Cabras</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12303</europeana:population>
+	<wgs:lat>18.25</wgs:lat>
+	<wgs:long>-71.21667</wgs:long>
+	<skos:altLabel>Cabral</skos:altLabel>
+	<skos:altLabel>Rincon</skos:altLabel>
+	<skos:altLabel>Rincon Nuevo</skos:altLabel>
+	<skos:prefLabel>Cabral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3510886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512042/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>14179</europeana:population>
+	<wgs:lat>18.3</wgs:lat>
+	<wgs:long>-71.16667</wgs:long>
+	<skos:prefLabel>Cabral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73269</europeana:population>
+	<wgs:lat>18.93687</wgs:lat>
+	<wgs:long>-70.40923</wgs:long>
+	<skos:altLabel>Banao</skos:altLabel>
+	<skos:altLabel>Bonao</skos:altLabel>
+	<skos:altLabel>Monseñor Nouel</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бонао</skos:altLabel>
+	<skos:prefLabel>Bonao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496274/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>119182</europeana:population>
+	<wgs:lat>18.91667</wgs:lat>
+	<wgs:long>-70.46667</wgs:long>
+	<skos:altLabel>Bonao</skos:altLabel>
+	<skos:altLabel>Monseñor Nouel</skos:altLabel>
+	<skos:prefLabel>Bonao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493091/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>8771</europeana:population>
+	<wgs:lat>18.83333</wgs:lat>
+	<wgs:long>-71</wgs:long>
+	<skos:prefLabel>Bohechío</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-70.81667</wgs:long>
+	<skos:altLabel>Cayo Boca Chica</skos:altLabel>
+	<skos:altLabel>Cayo Boca Chico</skos:altLabel>
+	<skos:prefLabel>Cayo Boca Chica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3492918/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>45235</europeana:population>
+	<wgs:lat>19.58333</wgs:lat>
+	<wgs:long>-70.86667</wgs:long>
+	<skos:altLabel>Bisonó</skos:altLabel>
+	<skos:altLabel>José E. Bisonó</skos:altLabel>
+	<skos:altLabel>Villa Bisonó</skos:altLabel>
+	<skos:prefLabel>Bisonó</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511540/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>154040</europeana:population>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-70.1</wgs:long>
+	<skos:altLabel>Benemérita de San Cristóbal</skos:altLabel>
+	<skos:altLabel>San Cristóbal</skos:altLabel>
+	<skos:prefLabel>San Cristóbal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511612/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.58333</wgs:lat>
+	<wgs:long>-71.51667</wgs:long>
+	<skos:altLabel>Ile Beata</skos:altLabel>
+	<skos:altLabel>Isla Beata</skos:altLabel>
+	<skos:prefLabel>Isla Beata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21055</europeana:population>
+	<wgs:lat>18.75639</wgs:lat>
+	<wgs:long>-69.63616</wgs:long>
+	<skos:altLabel>Bayaguana</skos:altLabel>
+	<skos:altLabel>San Juan Bautista de Bayaguana</skos:altLabel>
+	<skos:altLabel>San Juan de Bayaguana</skos:altLabel>
+	<skos:prefLabel>Bayaguana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3511627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3496132/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>33688</europeana:population>
+	<wgs:lat>18.78333</wgs:lat>
+	<wgs:long>-69.6</wgs:long>
+	<skos:prefLabel>Bayaguana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.16667</wgs:lat>
+	<wgs:long>-71.25</wgs:long>
+	<skos:altLabel>Barahona</skos:altLabel>
+	<skos:altLabel>Distrito de Barahona</skos:altLabel>
+	<skos:altLabel>Provincia de Barahona</skos:altLabel>
+	<skos:prefLabel>Provincia de Barahona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>18.21667</wgs:lat>
+	<wgs:long>-71.08333</wgs:long>
+	<skos:altLabel>El Cayo</skos:altLabel>
+	<skos:altLabel>Isleta de Barahona</skos:altLabel>
+	<skos:altLabel>La Isleta</skos:altLabel>
+	<skos:prefLabel>Isleta de Barahona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512042/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.16667</wgs:lat>
+	<wgs:long>-71.25</wgs:long>
+	<skos:prefLabel>Barahona</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512050/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-71.35</wgs:long>
+	<skos:altLabel>Baoruco</skos:altLabel>
+	<skos:altLabel>Provincia de Bahoruco</skos:altLabel>
+	<skos:altLabel>Provincia de Baoruco</skos:altLabel>
+	<skos:prefLabel>Provincia de Baoruco</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3507269/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>7197</europeana:population>
+	<wgs:lat>19.03333</wgs:lat>
+	<wgs:long>-71.61667</wgs:long>
+	<skos:prefLabel>Bánica</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66709</europeana:population>
+	<wgs:lat>18.28333</wgs:lat>
+	<wgs:long>-70.33333</wgs:long>
+	<skos:altLabel>Banti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baní</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Baní</skos:altLabel>
+	<skos:altLabel xml:lang="es">Baní</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baní</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бан</skos:altLabel>
+	<skos:prefLabel>Baní</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512069/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3495015/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-70.38333</wgs:long>
+	<skos:prefLabel>Baní</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>66784</europeana:population>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-70.03333</wgs:long>
+	<skos:altLabel xml:lang="es">Bajos de Haina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bajos de Haina</skos:altLabel>
+	<skos:altLabel>Bajos de Haina</skos:altLabel>
+	<skos:altLabel>Bajos de Jaina</skos:altLabel>
+	<skos:prefLabel>Bajos de Haina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512129/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3493186/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>86406</europeana:population>
+	<wgs:lat>18.41667</wgs:lat>
+	<wgs:long>-70.03333</wgs:long>
+	<skos:prefLabel>Bajos de Haina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59139</europeana:population>
+	<wgs:lat>18.45319</wgs:lat>
+	<wgs:long>-70.7349</wgs:long>
+	<skos:altLabel>Azua</skos:altLabel>
+	<skos:altLabel>Azua de Compostela</skos:altLabel>
+	<skos:altLabel>Compostela de Azua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Асуа-де-Компостела</skos:altLabel>
+	<skos:prefLabel>Azua de Compostela</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.58333</wgs:lat>
+	<wgs:long>-70.66667</wgs:long>
+	<skos:altLabel>Azua</skos:altLabel>
+	<skos:altLabel>Provincia de Azua</skos:altLabel>
+	<skos:prefLabel>Provincia de Azua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512211/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3512209/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>18.5</wgs:lat>
+	<wgs:long>-70.75</wgs:long>
+	<skos:prefLabel>Azua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.53333</wgs:lat>
+	<wgs:long>-69.88333</wgs:long>
+	<skos:prefLabel>Cayo Arroyo Salado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.86667</wgs:lat>
+	<wgs:long>-71.25</wgs:long>
+	<skos:prefLabel>Cayo Arenas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.88333</wgs:lat>
+	<wgs:long>-71.86667</wgs:long>
+	<skos:prefLabel>Arenas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512607/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.16667</wgs:lat>
+	<wgs:long>-69.28333</wgs:long>
+	<skos:altLabel>Cayo Arena</skos:altLabel>
+	<skos:altLabel>Cayo Arenas</skos:altLabel>
+	<skos:prefLabel>Cayo Arena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.47306</wgs:lat>
+	<wgs:long>-71.64083</wgs:long>
+	<skos:altLabel>Isla Alta Vela</skos:altLabel>
+	<skos:altLabel>Isla Alto Velo</skos:altLabel>
+	<skos:prefLabel>Isla Alto Velo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3494267/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>24137</europeana:population>
+	<wgs:lat>19.7</wgs:lat>
+	<wgs:long>-70.83333</wgs:long>
+	<skos:prefLabel>Altamira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>19.86728</wgs:lat>
+	<wgs:long>-71.67539</wgs:long>
+	<skos:prefLabel>Cayo Ahogado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.33333</wgs:lat>
+	<wgs:long>-70.83333</wgs:long>
+	<skos:altLabel>Cayo Ahogada</skos:altLabel>
+	<skos:altLabel>Cayo Ahogado</skos:altLabel>
+	<skos:prefLabel>Cayo Ahogado</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3512938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>18.31694</wgs:lat>
+	<wgs:long>-70.86326</wgs:long>
+	<skos:altLabel>Cayo Agua Dulce</skos:altLabel>
+	<skos:altLabel>Melendro</skos:altLabel>
+	<skos:prefLabel>Cayo Agua Dulce</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6201372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.54882</wgs:lat>
+	<wgs:long>-70.50877</wgs:long>
+	<skos:altLabel>San José de Ocoa</skos:altLabel>
+	<skos:prefLabel>Provincia de San José de Ocoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6201373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3508796/"/>
+	<europeana:country>DO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>18.48042</wgs:lat>
+	<wgs:long>-69.91871</wgs:long>
+	<skos:altLabel>Santo Domingo</skos:altLabel>
+	<skos:prefLabel>Provincia de Santo Domingo</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 265 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

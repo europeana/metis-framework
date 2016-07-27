@@ -1,0 +1,478 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_LC
+Description: Selected fields pulled from Geonames about LC done on Mon May 23 21:14:28 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>15132</europeana:population>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:altLabel>Quarter of Vieux-Fort</skos:altLabel>
+	<skos:altLabel>Vieux-Fort</skos:altLabel>
+	<skos:prefLabel>Quarter of Vieux-Fort</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7519</europeana:population>
+	<wgs:lat>13.85</wgs:lat>
+	<wgs:long>-61.03333</wgs:long>
+	<skos:altLabel>Quarter of Soufrière</skos:altLabel>
+	<skos:altLabel>Soufrière</skos:altLabel>
+	<skos:prefLabel>Quarter of Soufrière</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.75</wgs:lat>
+	<wgs:long>-60.91667</wgs:long>
+	<skos:prefLabel>Scorpion Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-60.98333</wgs:long>
+	<skos:altLabel xml:lang="id">Saint Lucia</skos:altLabel>
+	<skos:altLabel>Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Saint Lucia</skos:altLabel>
+	<skos:altLabel>Saint Lucia Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sainte-Lucie</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sankta Lucio</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sankti Lúsía</skos:altLabel>
+	<skos:altLabel xml:lang="it">Santa Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Santa Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Lucía</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Santa Lucía - Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Santa Luzia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Santa Luzía</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Santa Lúcia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Santa Lúcia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Santos Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Sen Lusia</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Sent Lisi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sent Lusija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sentlūsija</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sfânta Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Sint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="io">St Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="de">St. Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatá Lucie</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveta Lucija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sveta Lucija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sveta Lucija</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätá Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αγία Λουκία</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Света Луција</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сейнт Лусия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Люсия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сент-Люсія</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט לוסיה</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ساينت لۇسىيە</skos:altLabel>
+	<skos:altLabel xml:lang="sa">सेंट लूसिया</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントルシア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣卢西亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트루시아</skos:altLabel>
+	<skos:prefLabel>Saint Lucia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>160922</europeana:population>
+	<wgs:lat>13.88333</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:altLabel>Colony of Saint Lucia</skos:altLabel>
+	<skos:altLabel>Hewanorra</skos:altLabel>
+	<skos:altLabel>LC</skos:altLabel>
+	<skos:altLabel xml:lang="sv">S:t Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="da">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Saint Lucia</skos:altLabel>
+	<skos:altLabel>Saint Lucia</skos:altLabel>
+	<skos:altLabel>Saint Lucia Colony</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Saint Lusia</skos:altLabel>
+	<skos:altLabel xml:lang="is">Saint Lúsía</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sainte-Lucie</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Sancte Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sankti Lúsía</skos:altLabel>
+	<skos:altLabel xml:lang="it">Santa Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Lucía</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Santa Lucía</skos:altLabel>
+	<skos:altLabel xml:lang="id">Santa Lusia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Santa Luzia</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Santa Luċija</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Santa Lúcia</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sent Lusija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sent-Lucio</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sentlūsija</skos:altLabel>
+	<skos:altLabel xml:lang="sv">St Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="de">St. Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">St. Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">St. Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="nl">St. Lucia</skos:altLabel>
+	<skos:altLabel>State of Saint Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sv. Lucija</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatá Lucie</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveta Lucija</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätá Lucia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xan Lu-xi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xanh Lu-xi  (Saint Lucia)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αγία Λουκία</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Санта Лючія</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Света Лусия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Света Луција</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Света Лучија</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сейнт Лусия</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сент Луција</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Люсия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сент-Люсія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сэнт-Люсія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սանտա Լուչիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">סיינט לוצ'יה</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט לוסיה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سانت لوسيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سنت لوسیا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سیت لوسیا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سینٹ لوسیا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेंट लूसिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेन्ट लुसिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সেন্ট লুসিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="th">เซนต์ลูเซีย</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སེནྚ། ལུ་ཤི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სენტ-ლუსია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሴንት ሉቺያ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントルシア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣卢西亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트 루시아</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트루시아</skos:altLabel>
+	<skos:prefLabel>Saint Lucia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576479/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:altLabel>Bouche Island</skos:altLabel>
+	<skos:altLabel>Bouche Islet</skos:altLabel>
+	<skos:altLabel>Rouche Island</skos:altLabel>
+	<skos:prefLabel>Rouche Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.03333</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:altLabel>Choc Island</skos:altLabel>
+	<skos:altLabel>Choc Islet</skos:altLabel>
+	<skos:altLabel>Islet du Choc</skos:altLabel>
+	<skos:altLabel>Rat Island</skos:altLabel>
+	<skos:altLabel>Rat Islet</skos:altLabel>
+	<skos:prefLabel>Rat Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.95</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:prefLabel>L’Islet à Ramier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-60.88333</wgs:long>
+	<skos:prefLabel>Praslin Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-60.91667</wgs:long>
+	<skos:altLabel>Praslin</skos:altLabel>
+	<skos:altLabel>Quarter of Praslin</skos:altLabel>
+	<skos:prefLabel>Quarter of Praslin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576519/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.08333</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:altLabel>Gros Island</skos:altLabel>
+	<skos:altLabel>Gros Islet</skos:altLabel>
+	<skos:altLabel>Ile des Ramiers</skos:altLabel>
+	<skos:altLabel>Pigeon Island</skos:altLabel>
+	<skos:prefLabel>Pigeon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>16125</europeana:population>
+	<wgs:lat>13.81667</wgs:lat>
+	<wgs:long>-60.93333</wgs:long>
+	<skos:altLabel>Micoud</skos:altLabel>
+	<skos:altLabel>Quarter of Micoud</skos:altLabel>
+	<skos:prefLabel>Quarter of Micoud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>13.71667</wgs:lat>
+	<wgs:long>-60.91667</wgs:long>
+	<skos:altLabel>Islet Maria</skos:altLabel>
+	<skos:altLabel>Maria Island</skos:altLabel>
+	<skos:altLabel>Maria Islands</skos:altLabel>
+	<skos:altLabel>Marie Island</skos:altLabel>
+	<skos:prefLabel>Maria Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576642/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.06667</wgs:lat>
+	<wgs:long>-60.9</wgs:long>
+	<skos:prefLabel>Lapins Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7185</europeana:population>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-61</wgs:long>
+	<skos:altLabel>Laborie</skos:altLabel>
+	<skos:altLabel>Quarter of Laborie</skos:altLabel>
+	<skos:prefLabel>Quarter of Laborie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14.05</wgs:lat>
+	<wgs:long>-60.95</wgs:long>
+	<skos:altLabel>Gros-Islet</skos:altLabel>
+	<skos:altLabel>Quarter of Gros-Islet</skos:altLabel>
+	<skos:prefLabel>Quarter of Gros-Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576715/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.86667</wgs:lat>
+	<wgs:long>-60.88333</wgs:long>
+	<skos:altLabel>Fregate Island</skos:altLabel>
+	<skos:altLabel>Frigate</skos:altLabel>
+	<skos:altLabel>Frigate Island</skos:altLabel>
+	<skos:prefLabel>Frigate Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576716/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.06667</wgs:lat>
+	<wgs:long>-60.9</wgs:long>
+	<skos:altLabel>Fous Island</skos:altLabel>
+	<skos:altLabel>Fous Islet</skos:altLabel>
+	<skos:prefLabel>Fous Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>14.06667</wgs:lat>
+	<wgs:long>-60.98333</wgs:long>
+	<skos:altLabel>Foureur Island</skos:altLabel>
+	<skos:altLabel>Foureur Islet</skos:altLabel>
+	<skos:altLabel>Fourreur Island</skos:altLabel>
+	<skos:prefLabel>Fourreur Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>-60.86667</wgs:long>
+	<skos:altLabel>Bateaux Island</skos:altLabel>
+	<skos:altLabel>Des Bateaux Island</skos:altLabel>
+	<skos:altLabel>Des Bateaux Islet</skos:altLabel>
+	<skos:prefLabel>Des Bateaux Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576762/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>13.9</wgs:lat>
+	<wgs:long>-60.88333</wgs:long>
+	<skos:prefLabel>Dennery Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>13179</europeana:population>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-60.91667</wgs:long>
+	<skos:altLabel>Dennery</skos:altLabel>
+	<skos:altLabel>Quarter of Dennery</skos:altLabel>
+	<skos:prefLabel>Quarter of Dennery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>14</wgs:lat>
+	<wgs:long>-60.91667</wgs:long>
+	<skos:altLabel>Dauphin</skos:altLabel>
+	<skos:altLabel>Quarter of Dauphin</skos:altLabel>
+	<skos:prefLabel>Quarter of Dauphin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5933</europeana:population>
+	<wgs:lat>13.78333</wgs:lat>
+	<wgs:long>-61.03333</wgs:long>
+	<skos:altLabel>Choiseul</skos:altLabel>
+	<skos:altLabel>Quarter of Choiseul</skos:altLabel>
+	<skos:prefLabel>Quarter of Choiseul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>68400</europeana:population>
+	<wgs:lat>13.98333</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:altLabel>Castries</skos:altLabel>
+	<skos:altLabel>Quarter of Castries</skos:altLabel>
+	<skos:prefLabel>Quarter of Castries</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576854/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLL"/>
+	<europeana:population>12980</europeana:population>
+	<wgs:lat>14.01667</wgs:lat>
+	<wgs:long>-60.96667</wgs:long>
+	<skos:prefLabel>Bisée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3576891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3576468/"/>
+	<europeana:country>LC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>6394</europeana:population>
+	<wgs:lat>13.91667</wgs:lat>
+	<wgs:long>-61.01667</wgs:long>
+	<skos:altLabel>Anse-la-Raye</skos:altLabel>
+	<skos:altLabel>Quarter of Anse-la-Raye</skos:altLabel>
+	<skos:prefLabel>Quarter of Anse-la-Raye</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 26 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

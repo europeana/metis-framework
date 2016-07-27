@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xml:lang="en"
+            xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            xmlns:rdfs='http://www.w3.org/2000/01/rdf-schema#'
+            xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+            xmlns="http://www.eionet.europa.eu/gemet/2004/06/gemet-schema.rdf#">
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5306">
+<rdfs:label>ACCESSORY LISTS</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/4044">
+<rdfs:label>HUMAN ACTIVITIES AND PRODUCTS, EFFECTS ON THE ENVIRONMENT</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5499">
+<rdfs:label>NATURAL ENVIRONMENT, ANTHROPIC ENVIRONMENT</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/2894">
+<rdfs:label>SOCIAL ASPECTS, ENVIRONMENTAL POLICY MEASURES</rdfs:label>
+</SuperGroup>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/96">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ADMINISTRATION, MANAGEMENT, POLICY, POLITICS, INSTITUTIONS, PLANNING</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/234">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>AGRICULTURE, FORESTRY; ANIMAL HUSBANDRY; FISHERY</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/618">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ATMOSPHERE (air, climate)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/893">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>BIOSPHERE (organisms, ecosystems)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1062">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ANTHROPOSPHERE (built environment, human settlements, land setup)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1349">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>CHEMISTRY, SUBSTANCES, PROCESSES</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1922">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>INFORMATION, EDUCATION, CULTURE, ENVIRONMENTAL AWARENESS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2504">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ECONOMICS, FINANCE</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2711">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ENERGY</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/3875">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>HEALTH, NUTRITION</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4125">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>HYDROSPHERE (freshwater, marine water, waters)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4281">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>INDUSTRY, CRAFTS; TECHNOLOGY; EQUIPMENTS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4630">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>LAND (landscape, geography)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4750">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>LEGISLATION, NORMS, CONVENTIONS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4856">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>LITHOSPHERE (soil, geological processes)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/6237">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>PHYSICAL ASPECTS, NOISE, VIBRATIONS, RADIATIONS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7007">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>RECREATION, TOURISM</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7136">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>RESEARCH, SCIENCES</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7243">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>RISKS, SAFETY</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7779">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>SOCIETY</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7956">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>SPACE</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8575">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>TRADE, SERVICES</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8603">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>TRAFFIC, TRANSPORTATION</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/9117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>WASTES, POLLUTANTS, POLLUTION</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10111">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ENVIRONMENT (natural environment, anthropic environment)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10112">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>PRODUCTS, MATERIALS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10114">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>EFFECTS, IMPACTS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>GENERAL TERMS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10118">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>RESOURCES (utilisation of resources)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/13109">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ENVIRONMENTAL POLICY</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14979">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>TIME (chronology)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14980">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>FUNCTIONAL TERMS</rdfs:label>
+</Group>
+<Theme rdfs:label="administration" rdf:about="http://www.eionet.europa.eu/gemet/theme/1" />
+<Theme rdfs:label="agriculture" rdf:about="http://www.eionet.europa.eu/gemet/theme/2" />
+<Theme rdfs:label="air" rdf:about="http://www.eionet.europa.eu/gemet/theme/3" />
+<Theme rdfs:label="animal husbandry" rdf:about="http://www.eionet.europa.eu/gemet/theme/18" />
+<Theme rdfs:label="biology" rdf:about="http://www.eionet.europa.eu/gemet/theme/4" />
+<Theme rdfs:label="building" rdf:about="http://www.eionet.europa.eu/gemet/theme/5" />
+<Theme rdfs:label="chemistry" rdf:about="http://www.eionet.europa.eu/gemet/theme/6" />
+<Theme rdfs:label="climate" rdf:about="http://www.eionet.europa.eu/gemet/theme/7" />
+<Theme rdfs:label="disasters, accidents, risk" rdf:about="http://www.eionet.europa.eu/gemet/theme/32" />
+<Theme rdfs:label="economics" rdf:about="http://www.eionet.europa.eu/gemet/theme/9" />
+<Theme rdfs:label="energy" rdf:about="http://www.eionet.europa.eu/gemet/theme/10" />
+<Theme rdfs:label="environmental policy" rdf:about="http://www.eionet.europa.eu/gemet/theme/11" />
+<Theme rdfs:label="fishery" rdf:about="http://www.eionet.europa.eu/gemet/theme/12" />
+<Theme rdfs:label="food, drinking water" rdf:about="http://www.eionet.europa.eu/gemet/theme/13" />
+<Theme rdfs:label="forestry" rdf:about="http://www.eionet.europa.eu/gemet/theme/14" />
+<Theme rdfs:label="general" rdf:about="http://www.eionet.europa.eu/gemet/theme/15" />
+<Theme rdfs:label="geography" rdf:about="http://www.eionet.europa.eu/gemet/theme/16" />
+<Theme rdfs:label="human health" rdf:about="http://www.eionet.europa.eu/gemet/theme/17" />
+<Theme rdfs:label="industry" rdf:about="http://www.eionet.europa.eu/gemet/theme/19" />
+<Theme rdfs:label="information" rdf:about="http://www.eionet.europa.eu/gemet/theme/20" />
+<Theme rdfs:label="legislation" rdf:about="http://www.eionet.europa.eu/gemet/theme/21" />
+<Theme rdfs:label="materials" rdf:about="http://www.eionet.europa.eu/gemet/theme/27" />
+<Theme rdfs:label="military aspects" rdf:about="http://www.eionet.europa.eu/gemet/theme/22" />
+<Theme rdfs:label="natural areas, landscape, ecosystems" rdf:about="http://www.eionet.europa.eu/gemet/theme/23" />
+<Theme rdfs:label="natural dynamics" rdf:about="http://www.eionet.europa.eu/gemet/theme/8" />
+<Theme rdfs:label="noise, vibrations" rdf:about="http://www.eionet.europa.eu/gemet/theme/24" />
+<Theme rdfs:label="physics" rdf:about="http://www.eionet.europa.eu/gemet/theme/25" />
+<Theme rdfs:label="pollution" rdf:about="http://www.eionet.europa.eu/gemet/theme/26" />
+<Theme rdfs:label="radiations" rdf:about="http://www.eionet.europa.eu/gemet/theme/28" />
+<Theme rdfs:label="research" rdf:about="http://www.eionet.europa.eu/gemet/theme/30" />
+<Theme rdfs:label="resources" rdf:about="http://www.eionet.europa.eu/gemet/theme/31" />
+<Theme rdfs:label="social aspects, population" rdf:about="http://www.eionet.europa.eu/gemet/theme/34" />
+<Theme rdfs:label="soil" rdf:about="http://www.eionet.europa.eu/gemet/theme/35" />
+<Theme rdfs:label="space" rdf:about="http://www.eionet.europa.eu/gemet/theme/36" />
+<Theme rdfs:label="tourism" rdf:about="http://www.eionet.europa.eu/gemet/theme/29" />
+<Theme rdfs:label="trade, services" rdf:about="http://www.eionet.europa.eu/gemet/theme/33" />
+<Theme rdfs:label="transport" rdf:about="http://www.eionet.europa.eu/gemet/theme/37" />
+<Theme rdfs:label="urban environment, urban stress" rdf:about="http://www.eionet.europa.eu/gemet/theme/38" />
+<Theme rdfs:label="waste" rdf:about="http://www.eionet.europa.eu/gemet/theme/39" />
+<Theme rdfs:label="water" rdf:about="http://www.eionet.europa.eu/gemet/theme/40" />
+</rdf:RDF>

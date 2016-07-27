@@ -1,0 +1,4231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_BY
+Description: Selected fields pulled from Geonames about BY done on Mon May 23 21:12:28 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/611866/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10700</europeana:population>
+	<wgs:lat>53.59167</wgs:lat>
+	<wgs:long>24.24361</wgs:long>
+	<skos:altLabel xml:lang="en">Skidel'</skos:altLabel>
+	<skos:altLabel>Skidel’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Скидель</skos:altLabel>
+	<skos:prefLabel>Skidel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61007</europeana:population>
+	<wgs:lat>54.09833</wgs:lat>
+	<wgs:long>28.3325</wgs:long>
+	<skos:altLabel xml:lang="de">Schodsina</skos:altLabel>
+	<skos:altLabel>Zhodino</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zhodzina</skos:altLabel>
+	<skos:altLabel>Zhodzina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Żodino</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЖОДИНО</skos:altLabel>
+	<skos:altLabel xml:lang="be">Жодзiна</skos:altLabel>
+	<skos:altLabel xml:lang="be">Жодзіна</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Жодино</skos:altLabel>
+	<skos:prefLabel>Zhodzina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.75</wgs:lat>
+	<wgs:long>29.83333</wgs:long>
+	<skos:altLabel>Zhlobinski Rayon</skos:altLabel>
+	<skos:altLabel>Zhlobinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Zhlobinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>73089</europeana:population>
+	<wgs:lat>52.89222</wgs:lat>
+	<wgs:long>30.02806</wgs:long>
+	<skos:altLabel>Korpilovka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zhlobin</skos:altLabel>
+	<skos:altLabel>Zhlobin</skos:altLabel>
+	<skos:altLabel>Zlobin</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Жлобин</skos:altLabel>
+	<skos:prefLabel>Zhlobin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.25</wgs:lat>
+	<wgs:long>27.75</wgs:long>
+	<skos:altLabel>Zhitkovichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zhytkavitski Rayon</skos:altLabel>
+	<skos:altLabel>Zhytkavshkaga Rayon</skos:altLabel>
+	<skos:prefLabel>Zhytkavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618815/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13630</europeana:population>
+	<wgs:lat>52.22861</wgs:lat>
+	<wgs:long>27.86361</wgs:long>
+	<skos:altLabel>Jitkovichi</skos:altLabel>
+	<skos:altLabel>Zhitkovichi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zhytkavichy</skos:altLabel>
+	<skos:altLabel>Zhytkavichy</skos:altLabel>
+	<skos:altLabel>Żytkowicze</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЖИТКОВИЧИ</skos:altLabel>
+	<skos:prefLabel>Zhytkavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618869/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>55.2</wgs:lat>
+	<wgs:long>30.18333</wgs:long>
+	<skos:prefLabel>Zheleznodorozhnyy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618870/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:prefLabel>Zheleznodorozhnyy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618911/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>24.08333</wgs:long>
+	<skos:altLabel>Zhabinkawski Rayon</skos:altLabel>
+	<skos:altLabel>Zhabinkovskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Жабінкаўскі Раён</skos:altLabel>
+	<skos:prefLabel>Zhabinkawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10921</europeana:population>
+	<wgs:lat>52.20056</wgs:lat>
+	<wgs:long>24.02333</wgs:long>
+	<skos:altLabel>Stara Sabinka</skos:altLabel>
+	<skos:altLabel>Zabinaa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zhabinka</skos:altLabel>
+	<skos:altLabel>Zhabinka</skos:altLabel>
+	<skos:altLabel>Żabinka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЖАБИНКА</skos:altLabel>
+	<skos:altLabel xml:lang="be">Жабінка</skos:altLabel>
+	<skos:prefLabel>Zhabinka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/618930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.16667</wgs:lat>
+	<wgs:long>24.91667</wgs:long>
+	<skos:altLabel>Zel’venskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zel’vyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Zel’vyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/619008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.86194</wgs:lat>
+	<wgs:long>27.66222</wgs:long>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Zavodski Rayon</skos:altLabel>
+	<skos:altLabel>Zavodskoy Rayon</skos:altLabel>
+	<skos:prefLabel>Zavodski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/619066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13500</europeana:population>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>27.28333</wgs:long>
+	<skos:altLabel>Zaslav</skos:altLabel>
+	<skos:altLabel>Zaslavl’</skos:altLabel>
+	<skos:altLabel xml:lang="en">Zaslawye</skos:altLabel>
+	<skos:altLabel>Zaslawye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Заславль</skos:altLabel>
+	<skos:prefLabel>Zaslawye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/619597/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>51.75</wgs:lat>
+	<wgs:long>28.91667</wgs:long>
+	<skos:altLabel>Yel’ski Rayon</skos:altLabel>
+	<skos:altLabel>Yel’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Yel’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/619978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.16667</wgs:lat>
+	<wgs:long>25.16667</wgs:long>
+	<skos:altLabel>Voranawski Rayon</skos:altLabel>
+	<skos:altLabel>Voronovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Voranawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.03611</wgs:lat>
+	<wgs:long>26.62222</wgs:long>
+	<skos:altLabel>Valozhynski Rayon</skos:altLabel>
+	<skos:altLabel>Volozhinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Valozhynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.25</wgs:lat>
+	<wgs:long>24.41667</wgs:long>
+	<skos:altLabel>Vawkavyski Rayon</skos:altLabel>
+	<skos:altLabel>Volkovysskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Vawkavyski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>342700</europeana:population>
+	<wgs:lat>55.1925</wgs:lat>
+	<wgs:long>30.19444</wgs:long>
+	<skos:altLabel xml:lang="lv">Vicebska</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vicebszk</skos:altLabel>
+	<skos:altLabel xml:lang="et">Viciebsk</skos:altLabel>
+	<skos:altLabel>Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vitebsk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vitebskas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vitsebsk</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vitsebsk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vitsyebsk</skos:altLabel>
+	<skos:altLabel>Vitsyebsk</skos:altLabel>
+	<skos:altLabel>Witebsk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Witebsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wizebsk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Витебск</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Витебск</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вітебськ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Віцебск</skos:altLabel>
+	<skos:altLabel xml:lang="he">ויטבסק</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヴィチェプスク</skos:altLabel>
+	<skos:altLabel xml:lang="zh">维捷布斯克</skos:altLabel>
+	<skos:altLabel xml:lang="ko">비쳅스크</skos:altLabel>
+	<skos:prefLabel>Vitsyebsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.25</wgs:lat>
+	<wgs:long>30.33333</wgs:long>
+	<skos:altLabel>Vitebskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vitsyebski Rayon</skos:altLabel>
+	<skos:prefLabel>Vitsyebski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620134/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>55</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Vitebsk Oblast</skos:altLabel>
+	<skos:altLabel>Vitebskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Vitsyebskaya Voblastsʼ</skos:altLabel>
+	<skos:altLabel>Vitsyebskaya Voblasts’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Витебская Область</skos:altLabel>
+	<skos:altLabel xml:lang="be">Віцебская Вобластсь</skos:altLabel>
+	<skos:prefLabel>Vitsyebskaya Voblasts’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.5</wgs:lat>
+	<wgs:long>27.08333</wgs:long>
+	<skos:altLabel>Vileyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vilyeyski Rayon</skos:altLabel>
+	<skos:prefLabel>Vilyeyski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30000</europeana:population>
+	<wgs:lat>54.4975</wgs:lat>
+	<wgs:long>26.92111</wgs:long>
+	<skos:altLabel>Vileyka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vilyeyka</skos:altLabel>
+	<skos:altLabel>Vilyeyka</skos:altLabel>
+	<skos:altLabel>Wilejka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вилейка</skos:altLabel>
+	<skos:prefLabel>Vilyeyka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>31.25</wgs:long>
+	<skos:altLabel>Vetkovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vyetkawski Rayon</skos:altLabel>
+	<skos:prefLabel>Vyetkawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.75</wgs:lat>
+	<wgs:long>28.16667</wgs:long>
+	<skos:altLabel>Drissenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Verkhnedvinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vyerkhnyadzvinski Rayon</skos:altLabel>
+	<skos:prefLabel>Vyerkhnyadzvinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47300</europeana:population>
+	<wgs:lat>53.15194</wgs:lat>
+	<wgs:long>24.45556</wgs:long>
+	<skos:altLabel xml:lang="en">Vawkavysk</skos:altLabel>
+	<skos:altLabel>Vawkavysk</skos:altLabel>
+	<skos:altLabel>Volkovysk</skos:altLabel>
+	<skos:altLabel>Wołkowysk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ВОЛКОВЫСК</skos:altLabel>
+	<skos:prefLabel>Vawkavysk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620482/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.41667</wgs:lat>
+	<wgs:long>27.33333</wgs:long>
+	<skos:altLabel>Uzdenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Uzdzyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Uzdzyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620539/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.08333</wgs:lat>
+	<wgs:long>28.5</wgs:long>
+	<skos:altLabel>Ushachskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ushatski Rayon</skos:altLabel>
+	<skos:prefLabel>Ushatski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.9</wgs:lat>
+	<wgs:long>30.35</wgs:long>
+	<skos:altLabel>Tsentral’ny Rayon</skos:altLabel>
+	<skos:altLabel>Tsentral’nyy Rayon</skos:altLabel>
+	<skos:prefLabel>Tsentral’ny Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:altLabel>Tsentral’ny Rayon</skos:altLabel>
+	<skos:altLabel>Tsentral’nyy Rayon</skos:altLabel>
+	<skos:prefLabel>Tsentral’ny Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620745/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.91778</wgs:lat>
+	<wgs:long>27.56333</wgs:long>
+	<skos:altLabel>Tsentral’ny Rayon</skos:altLabel>
+	<skos:altLabel>Tsentral’nyy Rayon</skos:altLabel>
+	<skos:prefLabel>Tsentral’ny Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.5</wgs:lat>
+	<wgs:long>29.75</wgs:long>
+	<skos:altLabel>Talachynski Rayon</skos:altLabel>
+	<skos:altLabel>Tolochinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Talachynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/620833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11381</europeana:population>
+	<wgs:lat>54.41083</wgs:lat>
+	<wgs:long>29.70333</wgs:long>
+	<skos:altLabel>Talachyn</skos:altLabel>
+	<skos:altLabel>Tolochin</skos:altLabel>
+	<skos:altLabel>Tolochino</skos:altLabel>
+	<skos:prefLabel>Talachyn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.91667</wgs:lat>
+	<wgs:long>24.25</wgs:long>
+	<skos:altLabel>Svislatski Rayon</skos:altLabel>
+	<skos:altLabel>Svislochskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Svislatski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.75</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Parichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Svetlogorskiy Rayon</skos:altLabel>
+	<skos:altLabel>Svyetlahorski Rayon</skos:altLabel>
+	<skos:prefLabel>Svyetlahorski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>71250</europeana:population>
+	<wgs:lat>52.62917</wgs:lat>
+	<wgs:long>29.73389</wgs:long>
+	<skos:altLabel>Shatilki</skos:altLabel>
+	<skos:altLabel>Shatsilki</skos:altLabel>
+	<skos:altLabel>Svetlogorsk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Svyetlahorsk</skos:altLabel>
+	<skos:altLabel>Svyetlahorsk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СВЕТЛОГОРСК</skos:altLabel>
+	<skos:prefLabel>Svyetlahorsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15500</europeana:population>
+	<wgs:lat>53.47861</wgs:lat>
+	<wgs:long>26.7475</wgs:long>
+	<skos:altLabel>Stolbtsy</skos:altLabel>
+	<skos:altLabel>Stolptse</skos:altLabel>
+	<skos:altLabel>Stolptsy</skos:altLabel>
+	<skos:altLabel>Stolpze</skos:altLabel>
+	<skos:altLabel xml:lang="en">Stowbtsy</skos:altLabel>
+	<skos:altLabel>Stowbtsy</skos:altLabel>
+	<skos:altLabel>Stołpce</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Столбцы</skos:altLabel>
+	<skos:prefLabel>Stowbtsy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52</wgs:lat>
+	<wgs:long>27</wgs:long>
+	<skos:altLabel>Stolinski Rayon</skos:altLabel>
+	<skos:altLabel>Stolinskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Столінскі Раён</skos:altLabel>
+	<skos:prefLabel>Stolinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10491</europeana:population>
+	<wgs:lat>51.88333</wgs:lat>
+	<wgs:long>26.85</wgs:long>
+	<skos:altLabel>Stolin</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Столин</skos:altLabel>
+	<skos:altLabel xml:lang="be">Столін</skos:altLabel>
+	<skos:prefLabel>Stolin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.58333</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Stawbtsowski Rayon</skos:altLabel>
+	<skos:altLabel>Stolbtsovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Stawbtsowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10094</europeana:population>
+	<wgs:lat>53.03917</wgs:lat>
+	<wgs:long>28.2725</wgs:long>
+	<skos:altLabel>Starye Dorogi</skos:altLabel>
+	<skos:altLabel>Staryya Darohi</skos:altLabel>
+	<skos:altLabel>Staryye Dorogi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СТАРЫЕ ДОРОГИ</skos:altLabel>
+	<skos:prefLabel>Staryya Darohi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53</wgs:lat>
+	<wgs:long>28.16667</wgs:long>
+	<skos:altLabel>Staradarozhski Rayon</skos:altLabel>
+	<skos:altLabel>Starodorozhskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Staradarozhski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:altLabel>Savyetski Rayon</skos:altLabel>
+	<skos:altLabel>Sovetskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Savyetski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.91778</wgs:lat>
+	<wgs:long>27.59417</wgs:long>
+	<skos:altLabel>Savyetski Rayon</skos:altLabel>
+	<skos:altLabel>Sovetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Voroshilovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Savyetski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>27.41667</wgs:long>
+	<skos:altLabel>Salihorski Rayon</skos:altLabel>
+	<skos:altLabel>Soligorskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Salihorski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.5</wgs:lat>
+	<wgs:long>26.41667</wgs:long>
+	<skos:altLabel>Smarhonski Rayon</skos:altLabel>
+	<skos:altLabel>Smorgonskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Smarhonski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36900</europeana:population>
+	<wgs:lat>54.48361</wgs:lat>
+	<wgs:long>26.4</wgs:long>
+	<skos:altLabel xml:lang="en">Smarhon'</skos:altLabel>
+	<skos:altLabel>Smarhon’</skos:altLabel>
+	<skos:altLabel>Smorgone</skos:altLabel>
+	<skos:altLabel>Smorgonie</skos:altLabel>
+	<skos:altLabel>Smorgon’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сморгонь</skos:altLabel>
+	<skos:prefLabel>Smarhon’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621728/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>28.16667</wgs:long>
+	<skos:altLabel>Smalyavitski Rayon</skos:altLabel>
+	<skos:altLabel>Smolevichskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Smalyavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621729/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12516</europeana:population>
+	<wgs:lat>54.03333</wgs:lat>
+	<wgs:long>28.08417</wgs:long>
+	<skos:altLabel xml:lang="en">Smalyavichy</skos:altLabel>
+	<skos:altLabel>Smalyavichy</skos:altLabel>
+	<skos:altLabel>Smolevichi</skos:altLabel>
+	<skos:altLabel>Smolewitsch</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СМОЛЕВИЧИ</skos:altLabel>
+	<skos:prefLabel>Smalyavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53</wgs:lat>
+	<wgs:long>27.66667</wgs:long>
+	<skos:altLabel>Slutski Rayon</skos:altLabel>
+	<skos:altLabel>Slutskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Slutski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621741/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>62228</europeana:population>
+	<wgs:lat>53.02722</wgs:lat>
+	<wgs:long>27.56194</wgs:long>
+	<skos:altLabel xml:lang="lt">Sluckas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Slutsk</skos:altLabel>
+	<skos:altLabel>Slutsk</skos:altLabel>
+	<skos:altLabel>Sluzk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sluzk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Słuck</skos:altLabel>
+	<skos:altLabel xml:lang="et">Słuck</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СЛУЦК</skos:altLabel>
+	<skos:altLabel xml:lang="be">Слуцак</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Слуцк</skos:altLabel>
+	<skos:altLabel xml:lang="he">סלוצק</skos:altLabel>
+	<skos:prefLabel>Slutsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.08333</wgs:lat>
+	<wgs:long>25.25</wgs:long>
+	<skos:altLabel>Slonimski Rayon</skos:altLabel>
+	<skos:altLabel>Slonimskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Slonimski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621754/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>51434</europeana:population>
+	<wgs:lat>53.08667</wgs:lat>
+	<wgs:long>25.32194</wgs:long>
+	<skos:altLabel xml:lang="en">Slonim</skos:altLabel>
+	<skos:altLabel xml:lang="es">Slonim</skos:altLabel>
+	<skos:altLabel xml:lang="de">Slonim</skos:altLabel>
+	<skos:altLabel>Slonim</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Slonimas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Słonim</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СЛОНИМ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Слоним</skos:altLabel>
+	<skos:altLabel xml:lang="be">Слонім</skos:altLabel>
+	<skos:altLabel xml:lang="ja">スロニム</skos:altLabel>
+	<skos:altLabel xml:lang="ko">슬로님</skos:altLabel>
+	<skos:prefLabel>Slonim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621846/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.5</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:altLabel>Propoyskiy Rayon</skos:altLabel>
+	<skos:altLabel>Slavgorodskiy Rayon</skos:altLabel>
+	<skos:altLabel>Slawharadski Rayon</skos:altLabel>
+	<skos:prefLabel>Slawharadski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/621985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.33333</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Shumilinski Rayon</skos:altLabel>
+	<skos:altLabel>Shumilinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sirotinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Shumilinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.16667</wgs:lat>
+	<wgs:long>30.33333</wgs:long>
+	<skos:altLabel>Shklovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Shklowski Rayon</skos:altLabel>
+	<skos:prefLabel>Shklowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13485</europeana:population>
+	<wgs:lat>54.21083</wgs:lat>
+	<wgs:long>30.29194</wgs:long>
+	<skos:altLabel>Shklov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Shklow</skos:altLabel>
+	<skos:altLabel>Shklow</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ШКЛОВ</skos:altLabel>
+	<skos:prefLabel>Shklow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15700</europeana:population>
+	<wgs:lat>53.60972</wgs:lat>
+	<wgs:long>24.73778</wgs:long>
+	<skos:altLabel>Shchuchin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Shchuchyn</skos:altLabel>
+	<skos:altLabel>Shchuchyn</skos:altLabel>
+	<skos:altLabel>Szczuczyn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Щучин</skos:altLabel>
+	<skos:prefLabel>Shchuchyn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.58333</wgs:lat>
+	<wgs:long>24.66667</wgs:long>
+	<skos:altLabel>Shchuchinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Shchuchynski Rayon</skos:altLabel>
+	<skos:prefLabel>Shchuchynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.41667</wgs:lat>
+	<wgs:long>27.41667</wgs:long>
+	<skos:altLabel>Sharkovshchinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Sharkowshchynski Rayon</skos:altLabel>
+	<skos:prefLabel>Sharkowshchynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.83333</wgs:lat>
+	<wgs:long>29.83333</wgs:long>
+	<skos:altLabel>Sennenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Syennyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Syennyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101614</europeana:population>
+	<wgs:lat>52.8</wgs:lat>
+	<wgs:long>27.53333</wgs:long>
+	<skos:altLabel>Chizhevichi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Salihorsk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Salihorsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Salihorsk</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Salihorsk</skos:altLabel>
+	<skos:altLabel>Salihorsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Salyhorsk</skos:altLabel>
+	<skos:altLabel>Soligorsk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Soligorsk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Soligorskas</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СОЛИГОРСК</skos:altLabel>
+	<skos:altLabel xml:lang="be">Салігорск</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Солигорск</skos:altLabel>
+	<skos:prefLabel>Salihorsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.83333</wgs:lat>
+	<wgs:long>28.91667</wgs:long>
+	<skos:altLabel>Rasonski Rayon</skos:altLabel>
+	<skos:altLabel>Rossonskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Rasonski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622738/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.16667</wgs:lat>
+	<wgs:long>30.16667</wgs:long>
+	<skos:altLabel>Rahachowski Rayon</skos:altLabel>
+	<skos:altLabel>Rogachëvskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Rahachowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622739/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34700</europeana:population>
+	<wgs:lat>53.085</wgs:lat>
+	<wgs:long>30.05</wgs:long>
+	<skos:altLabel xml:lang="en">Rahachow</skos:altLabel>
+	<skos:altLabel>Rahachow</skos:altLabel>
+	<skos:altLabel>Rogachev</skos:altLabel>
+	<skos:altLabel>Rogatschew</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рогачев</skos:altLabel>
+	<skos:prefLabel>Rahachow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>65400</europeana:population>
+	<wgs:lat>52.36389</wgs:lat>
+	<wgs:long>30.39472</wgs:long>
+	<skos:altLabel>Rechitsa</skos:altLabel>
+	<skos:altLabel>Rechysta</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rechytsa</skos:altLabel>
+	<skos:altLabel>Rechytsa</skos:altLabel>
+	<skos:altLabel>Ryechitsa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Речица</skos:altLabel>
+	<skos:prefLabel>Rechytsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.25</wgs:lat>
+	<wgs:long>30.16667</wgs:long>
+	<skos:altLabel>Rechitskiy Rayon</skos:altLabel>
+	<skos:altLabel>Rechytski Rayon</skos:altLabel>
+	<skos:prefLabel>Rechytski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.5</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel>Pukhavitski Rayon</skos:altLabel>
+	<skos:altLabel>Pukhovichskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Pukhavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19135</europeana:population>
+	<wgs:lat>52.55667</wgs:lat>
+	<wgs:long>24.46444</wgs:long>
+	<skos:altLabel>Pruzana</skos:altLabel>
+	<skos:altLabel>Pruzhana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pruzhany</skos:altLabel>
+	<skos:altLabel>Pruzhany</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПРУЖАНЫ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Пружаны</skos:altLabel>
+	<skos:prefLabel>Pruzhany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/622998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>24.58333</wgs:long>
+	<skos:altLabel>Pruzhanski Rayon</skos:altLabel>
+	<skos:altLabel>Pruzhanskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Пружанскі Раён</skos:altLabel>
+	<skos:prefLabel>Pruzhanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.08333</wgs:lat>
+	<wgs:long>26.91667</wgs:long>
+	<skos:altLabel>Pastawski Rayon</skos:altLabel>
+	<skos:altLabel>Postavskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Pastawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.58333</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel>Polatski Rayon</skos:altLabel>
+	<skos:altLabel>Polotskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Polatski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623317/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>82258</europeana:population>
+	<wgs:lat>55.48556</wgs:lat>
+	<wgs:long>28.80417</wgs:long>
+	<skos:altLabel>Podolsk</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Polack</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Polack</skos:altLabel>
+	<skos:altLabel xml:lang="en">Polatsk</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Polatsk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Polatsk</skos:altLabel>
+	<skos:altLabel>Polatsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Polazk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Polockas</skos:altLabel>
+	<skos:altLabel>Polotsk</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Polotsk</skos:altLabel>
+	<skos:altLabel>Polozk</skos:altLabel>
+	<skos:altLabel>Potolsk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Połock</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПОЛОЦК</skos:altLabel>
+	<skos:altLabel xml:lang="be">Полацак</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Полоцк</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Полоцьк</skos:altLabel>
+	<skos:prefLabel>Polatsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:altLabel>Pinski Rayon</skos:altLabel>
+	<skos:altLabel>Pinskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Пінскі Раён</skos:altLabel>
+	<skos:prefLabel>Pinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623549/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>130777</europeana:population>
+	<wgs:lat>52.12139</wgs:lat>
+	<wgs:long>26.07278</wgs:long>
+	<skos:altLabel xml:lang="id">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="it">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pinsk</skos:altLabel>
+	<skos:altLabel>Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Pinskas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pińsk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПИНСК</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Пинск</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Пинск</skos:altLabel>
+	<skos:altLabel xml:lang="be">Пінск</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Пінськ</skos:altLabel>
+	<skos:altLabel xml:lang="he">פינסק</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ピンスク</skos:altLabel>
+	<skos:altLabel xml:lang="ko">핀스크</skos:altLabel>
+	<skos:prefLabel>Pinsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.25</wgs:lat>
+	<wgs:long>28.5</wgs:long>
+	<skos:altLabel>Petrikovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Petrykauskaga Rayon</skos:altLabel>
+	<skos:altLabel>Pyetrykawski Rayon</skos:altLabel>
+	<skos:prefLabel>Pyetrykawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10552</europeana:population>
+	<wgs:lat>52.12806</wgs:lat>
+	<wgs:long>28.49444</wgs:long>
+	<skos:altLabel>Petrikov</skos:altLabel>
+	<skos:altLabel>Petrikovo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pyetrykaw</skos:altLabel>
+	<skos:altLabel>Pyetrykaw</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПЕТРИКОВ</skos:altLabel>
+	<skos:prefLabel>Pyetrykaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>55.2</wgs:lat>
+	<wgs:long>30.18333</wgs:long>
+	<skos:altLabel>Pervomayskiy Rayon</skos:altLabel>
+	<skos:altLabel>Pyershamayski Rayon</skos:altLabel>
+	<skos:prefLabel>Pyershamayski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.15</wgs:lat>
+	<wgs:long>29.23333</wgs:long>
+	<skos:altLabel>Pervomayskiy Rayon</skos:altLabel>
+	<skos:altLabel>Pyershamayski Rayon</skos:altLabel>
+	<skos:prefLabel>Pyershamayski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.91944</wgs:lat>
+	<wgs:long>27.62222</wgs:long>
+	<skos:altLabel>Pervomayskiy Rayon</skos:altLabel>
+	<skos:altLabel>Pyershamayski Rayon</skos:altLabel>
+	<skos:prefLabel>Pyershamayski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20218</europeana:population>
+	<wgs:lat>55.11676</wgs:lat>
+	<wgs:long>26.83263</wgs:long>
+	<skos:altLabel xml:lang="en">Pastavy</skos:altLabel>
+	<skos:altLabel>Pastavy</skos:altLabel>
+	<skos:altLabel>Postavy</skos:altLabel>
+	<skos:altLabel>Postawy</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ПОСТАВЫ</skos:altLabel>
+	<skos:prefLabel>Pastavy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.88028</wgs:lat>
+	<wgs:long>27.67</wgs:long>
+	<skos:altLabel>Partizanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Partyzanski Rayon</skos:altLabel>
+	<skos:prefLabel>Partyzanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/623940/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.66667</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Astravyetski Rayon</skos:altLabel>
+	<skos:altLabel>Ostrovetskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Astravyetski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.33333</wgs:lat>
+	<wgs:long>28.75</wgs:long>
+	<skos:altLabel>Asipovitski Rayon</skos:altLabel>
+	<skos:altLabel>Osipovichskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Asipovitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34591</europeana:population>
+	<wgs:lat>53.29333</wgs:lat>
+	<wgs:long>28.64222</wgs:long>
+	<skos:altLabel xml:lang="en">Asipovichy</skos:altLabel>
+	<skos:altLabel>Asipovichy</skos:altLabel>
+	<skos:altLabel>Osipovichi</skos:altLabel>
+	<skos:altLabel>Ospipovichi</skos:altLabel>
+	<skos:altLabel>Ossipowitschi</skos:altLabel>
+	<skos:altLabel>Sipovichi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ОСИПОВИЧИ</skos:altLabel>
+	<skos:prefLabel>Asipovichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.41667</wgs:lat>
+	<wgs:long>25.91667</wgs:long>
+	<skos:altLabel>Ashmyanski Rayon</skos:altLabel>
+	<skos:altLabel>Oshmyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ashmyanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.5</wgs:lat>
+	<wgs:long>30.33333</wgs:long>
+	<skos:altLabel>Arshanski Rayon</skos:altLabel>
+	<skos:altLabel>Orshanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Arshanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>125347</europeana:population>
+	<wgs:lat>54.51528</wgs:lat>
+	<wgs:long>30.40528</wgs:long>
+	<skos:altLabel xml:lang="hu">Orsa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Orscha</skos:altLabel>
+	<skos:altLabel xml:lang="en">Orsha</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Orsha</skos:altLabel>
+	<skos:altLabel>Orsha</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Orsza</skos:altLabel>
+	<skos:altLabel xml:lang="it">Orsza</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Orŝa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Orša</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Orša</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vorsja</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vorsja</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vorsja</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ОРША</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Орша</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Орша</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヴォルシャ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">奥尔沙</skos:altLabel>
+	<skos:altLabel xml:lang="ko">보르샤</skos:altLabel>
+	<skos:prefLabel>Orsha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>55.2</wgs:lat>
+	<wgs:long>30.18333</wgs:long>
+	<skos:altLabel>Kastrychnitski Rayon</skos:altLabel>
+	<skos:altLabel>Oktyabr’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kastrychnitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.9</wgs:lat>
+	<wgs:long>30.35</wgs:long>
+	<skos:altLabel>Kastrychnitski Rayon</skos:altLabel>
+	<skos:altLabel>Oktyabr’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kastrychnitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.68333</wgs:lat>
+	<wgs:long>23.83333</wgs:long>
+	<skos:altLabel>Kastrychnitski Rayon</skos:altLabel>
+	<skos:altLabel>Oktyabr’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kastrychnitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.85667</wgs:lat>
+	<wgs:long>27.54139</wgs:long>
+	<skos:altLabel>Kastrychnitski Rayon</skos:altLabel>
+	<skos:altLabel>Oktyabr’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kastrychnitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel>Aktsyabrski Rayon</skos:altLabel>
+	<skos:altLabel>Oktyabr’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Aktsyabrski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13800</europeana:population>
+	<wgs:lat>54.66192</wgs:lat>
+	<wgs:long>29.15016</wgs:long>
+	<skos:altLabel xml:lang="ru">Новолукомль</skos:altLabel>
+	<skos:prefLabel>Novolukoml’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.66667</wgs:lat>
+	<wgs:long>25.75</wgs:long>
+	<skos:altLabel>Navahrudski Rayon</skos:altLabel>
+	<skos:altLabel>Novogrudskiy Rayon</skos:altLabel>
+	<skos:altLabel>Nowogrodek District</skos:altLabel>
+	<skos:prefLabel>Navahrudski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:prefLabel>Novobelitskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.25</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Nesvizhskiy Rayon</skos:altLabel>
+	<skos:altLabel>Nyasvizhski Rayon</skos:altLabel>
+	<skos:prefLabel>Nyasvizhski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12847</europeana:population>
+	<wgs:lat>53.21806</wgs:lat>
+	<wgs:long>26.6725</wgs:long>
+	<skos:altLabel>Nesvizh</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nesvyžius</skos:altLabel>
+	<skos:altLabel>Nes’vezh</skos:altLabel>
+	<skos:altLabel xml:lang="it">Niasvizh</skos:altLabel>
+	<skos:altLabel>Nieśwież</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nieśwież</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Njasviž</skos:altLabel>
+	<skos:altLabel xml:lang="de">Njaswisch</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nyasvizh</skos:altLabel>
+	<skos:altLabel>Nyasvizh</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nyaszvizs</skos:altLabel>
+	<skos:altLabel xml:lang="ru">НЕСВИЖ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Несвиж</skos:altLabel>
+	<skos:altLabel xml:lang="be">Нясьвіж</skos:altLabel>
+	<skos:prefLabel>Nyasvizh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624784/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>100885</europeana:population>
+	<wgs:lat>55.53333</wgs:lat>
+	<wgs:long>28.65</wgs:long>
+	<skos:altLabel xml:lang="hu">Navapolack</skos:altLabel>
+	<skos:altLabel xml:lang="en">Navapolatsk</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Navapolatsk</skos:altLabel>
+	<skos:altLabel>Navapolatsk</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Navapólatsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nawapolazk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Novopolockas</skos:altLabel>
+	<skos:altLabel>Novopolotsk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nowopołock</skos:altLabel>
+	<skos:altLabel>Polotskiy</skos:altLabel>
+	<skos:altLabel xml:lang="be">Наваполацк</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новополоцк</skos:altLabel>
+	<skos:prefLabel>Navapolatsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624785/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30748</europeana:population>
+	<wgs:lat>53.6</wgs:lat>
+	<wgs:long>25.83333</wgs:long>
+	<skos:altLabel xml:lang="lt">Naugardukas</skos:altLabel>
+	<skos:altLabel xml:lang="et">Navahradak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Navahrudak</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Navahrudak</skos:altLabel>
+	<skos:altLabel>Navahrudak</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nawahradak</skos:altLabel>
+	<skos:altLabel>Novogroudok</skos:altLabel>
+	<skos:altLabel>Novogrudek</skos:altLabel>
+	<skos:altLabel>Novogrudok</skos:altLabel>
+	<skos:altLabel>Nowogródek</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nowogródek</skos:altLabel>
+	<skos:altLabel xml:lang="ru">НОВОГРУДОК</skos:altLabel>
+	<skos:altLabel xml:lang="be">Наваградак</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новогрудок</skos:altLabel>
+	<skos:altLabel xml:lang="he">נבהרדק</skos:altLabel>
+	<skos:altLabel xml:lang="zh">新格鲁多克</skos:altLabel>
+	<skos:prefLabel>Navahrudak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624798/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>51.66667</wgs:lat>
+	<wgs:long>29.41667</wgs:long>
+	<skos:altLabel>Narawlyanski Rayon</skos:altLabel>
+	<skos:altLabel>Narovlyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Narawlyanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624858/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.83333</wgs:lat>
+	<wgs:long>27</wgs:long>
+	<skos:altLabel>Myadel’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Myadzyel’ski Rayon</skos:altLabel>
+	<skos:prefLabel>Myadzyel’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11500</europeana:population>
+	<wgs:lat>54.02083</wgs:lat>
+	<wgs:long>31.72639</wgs:long>
+	<skos:altLabel>Mstislavl’</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mstsislaw</skos:altLabel>
+	<skos:altLabel>Mstsislaw</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мстиславль</skos:altLabel>
+	<skos:prefLabel>Mstsislaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>31.5</wgs:long>
+	<skos:altLabel>Mstislavskiy Rayon</skos:altLabel>
+	<skos:altLabel>Mstsislawski Rayon</skos:altLabel>
+	<skos:prefLabel>Mstsislawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel>Mazyrski Rayon</skos:altLabel>
+	<skos:altLabel>Mozyrskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Mazyrski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.41667</wgs:lat>
+	<wgs:long>24.5</wgs:long>
+	<skos:altLabel>Mastowski Rayon</skos:altLabel>
+	<skos:altLabel>Mostovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Mastowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.1</wgs:lat>
+	<wgs:long>23.7</wgs:long>
+	<skos:prefLabel>Moskovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/624936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.87417</wgs:lat>
+	<wgs:long>27.50278</wgs:long>
+	<skos:altLabel>Maskowski Rayon</skos:altLabel>
+	<skos:altLabel>Moskovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Maskowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.25</wgs:lat>
+	<wgs:long>26.83333</wgs:long>
+	<skos:altLabel>Maladzyechanski Rayon</skos:altLabel>
+	<skos:altLabel>Molodechnenskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Maladzyechanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.83333</wgs:lat>
+	<wgs:long>30.25</wgs:long>
+	<skos:altLabel>Mahilyowski Rayon</skos:altLabel>
+	<skos:altLabel>Mogilëvskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Mahilyowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>30.75</wgs:long>
+	<skos:altLabel>Mahilyowskaya Voblastsʼ</skos:altLabel>
+	<skos:altLabel>Mahilyowskaya Voblasts’</skos:altLabel>
+	<skos:altLabel>Mogilëv Oblast</skos:altLabel>
+	<skos:altLabel>Mogilëvskaya Oblast’</skos:altLabel>
+	<skos:altLabel xml:lang="be">Магілёўская Вобластсь</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Могилёвская Область</skos:altLabel>
+	<skos:prefLabel>Mahilyowskaya Voblasts’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10649</europeana:population>
+	<wgs:lat>55.61556</wgs:lat>
+	<wgs:long>27.62861</wgs:long>
+	<skos:altLabel>Mery</skos:altLabel>
+	<skos:altLabel>Miory</skos:altLabel>
+	<skos:altLabel xml:lang="en">Miyory</skos:altLabel>
+	<skos:altLabel>Miyory</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МИОРЫ</skos:altLabel>
+	<skos:prefLabel>Miyory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.58333</wgs:lat>
+	<wgs:long>27.83333</wgs:long>
+	<skos:altLabel>Miorskiy Rayon</skos:altLabel>
+	<skos:altLabel>Miyorski Rayon</skos:altLabel>
+	<skos:prefLabel>Miyorski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625140/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.83333</wgs:lat>
+	<wgs:long>27.58333</wgs:long>
+	<skos:altLabel>Minski Rayon</skos:altLabel>
+	<skos:altLabel>Minskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Minski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel>Minsk Oblast</skos:altLabel>
+	<skos:altLabel>Minskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Minskaya Voblastsʼ</skos:altLabel>
+	<skos:altLabel>Minskaya Voblasts’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Минская Область</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мінская Вобластсь</skos:altLabel>
+	<skos:prefLabel>Minskaya Voblasts’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625143/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>53.9</wgs:lat>
+	<wgs:long>27.56667</wgs:long>
+	<skos:altLabel>Gorod Minsk</skos:altLabel>
+	<skos:altLabel>Gorod-Geroy Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Horad Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Horad Minsk</skos:altLabel>
+	<skos:altLabel>Horad Minsk</skos:altLabel>
+	<skos:altLabel>Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Minskas</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мінск</skos:altLabel>
+	<skos:prefLabel>Horad Minsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625144/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1742124</europeana:population>
+	<wgs:lat>53.9</wgs:lat>
+	<wgs:long>27.56667</wgs:long>
+	<skos:altLabel xml:lang="ga">Minsc</skos:altLabel>
+	<skos:altLabel xml:lang="la">Minscum</skos:altLabel>
+	<skos:altLabel xml:lang="id">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="es">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="da">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="io">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="et">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="it">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="no">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Minsk</skos:altLabel>
+	<skos:altLabel>Minsk</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Minsk - Мінск</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Minska</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Minskas</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Minsko</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Minszk</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mińsk</skos:altLabel>
+	<skos:altLabel>Myensk</skos:altLabel>
+	<skos:altLabel>Myenyesk</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μινσκ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Менск</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Минск</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Минск</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Минск</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Минск</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Минск</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мінськ</skos:altLabel>
+	<skos:altLabel xml:lang="he">מינסק</skos:altLabel>
+	<skos:altLabel xml:lang="yi">מינסק</skos:altLabel>
+	<skos:altLabel xml:lang="ar">مينسك</skos:altLabel>
+	<skos:altLabel xml:lang="fa">مینسک</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მინსკი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ミンスク</skos:altLabel>
+	<skos:altLabel xml:lang="zh">明斯克</skos:altLabel>
+	<skos:altLabel xml:lang="zh">明斯克市</skos:altLabel>
+	<skos:altLabel xml:lang="ko">민스크</skos:altLabel>
+	<skos:prefLabel>Minsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>112137</europeana:population>
+	<wgs:lat>52.05</wgs:lat>
+	<wgs:long>29.26667</wgs:long>
+	<skos:altLabel xml:lang="de">Masyr</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Mazir</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mazyr</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mazyr</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mazyr</skos:altLabel>
+	<skos:altLabel>Mazyr</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mozyr</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mozyr</skos:altLabel>
+	<skos:altLabel>Mozyr’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МОЗЫРЬ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Мазыр</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Мозир</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мозырь</skos:altLabel>
+	<skos:prefLabel>Mazyr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16102</europeana:population>
+	<wgs:lat>53.40778</wgs:lat>
+	<wgs:long>24.53278</wgs:long>
+	<skos:altLabel xml:lang="en">Masty</skos:altLabel>
+	<skos:altLabel>Masty</skos:altLabel>
+	<skos:altLabel>Mosty</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МОСТЫ</skos:altLabel>
+	<skos:prefLabel>Masty</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20100</europeana:population>
+	<wgs:lat>53.51667</wgs:lat>
+	<wgs:long>28.15</wgs:long>
+	<skos:altLabel xml:lang="en">Mar''ina Horka</skos:altLabel>
+	<skos:altLabel>Maryina Gorka</skos:altLabel>
+	<skos:altLabel>Mar’ina Gorka</skos:altLabel>
+	<skos:altLabel>Mar’’ina Horka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Марьина Горка</skos:altLabel>
+	<skos:prefLabel>Mar’’ina Horka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>51.83333</wgs:lat>
+	<wgs:long>24.08333</wgs:long>
+	<skos:altLabel>Malarytski Rayon</skos:altLabel>
+	<skos:altLabel>Maloritskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Маларыцкі Раён</skos:altLabel>
+	<skos:prefLabel>Malarytski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101300</europeana:population>
+	<wgs:lat>54.31667</wgs:lat>
+	<wgs:long>26.84972</wgs:long>
+	<skos:altLabel xml:lang="en">Maladzyechna</skos:altLabel>
+	<skos:altLabel>Maladzyechna</skos:altLabel>
+	<skos:altLabel>Molodechno</skos:altLabel>
+	<skos:altLabel>Molodeczno</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Молодечно</skos:altLabel>
+	<skos:prefLabel>Maladzyechna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>369200</europeana:population>
+	<wgs:lat>53.91389</wgs:lat>
+	<wgs:long>30.33639</wgs:long>
+	<skos:altLabel xml:lang="lv">Magiļeva</skos:altLabel>
+	<skos:altLabel xml:lang="es">Maguilov</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mahilioŭ</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mahiljou</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mahiljou</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Mahiljov</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mahiljow</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mahiljoŭ</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mahiloŭ</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mahilyow</skos:altLabel>
+	<skos:altLabel>Mahilyow</skos:altLabel>
+	<skos:altLabel>Mogilev</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mogilev</skos:altLabel>
+	<skos:altLabel xml:lang="br">Mogilev</skos:altLabel>
+	<skos:altLabel xml:lang="it">Mogilev</skos:altLabel>
+	<skos:altLabel>Mogilew</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mogiliavas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Mogiliovas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Moguilev</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Mohylew</skos:altLabel>
+	<skos:altLabel xml:lang="be">Магілёў</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Могилев</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Могильов</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Могилёв</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Могиљев</skos:altLabel>
+	<skos:prefLabel>Mahilyow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625717/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.75</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel>Lyubanski Rayon</skos:altLabel>
+	<skos:altLabel>Lyubanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Lyubanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10107</europeana:population>
+	<wgs:lat>52.8</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel>Luban</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lyuban'</skos:altLabel>
+	<skos:altLabel>Lyuban’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛЮБАНЬ</skos:altLabel>
+	<skos:prefLabel>Lyuban’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17400</europeana:population>
+	<wgs:lat>54.88333</wgs:lat>
+	<wgs:long>28.7</wgs:long>
+	<skos:altLabel>Lepel’</skos:altLabel>
+	<skos:altLabel xml:lang="en">Lyepyel'</skos:altLabel>
+	<skos:altLabel>Lyepyel’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лепель</skos:altLabel>
+	<skos:prefLabel>Lyepyel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.91667</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:altLabel>Lyakhavitski Rayon</skos:altLabel>
+	<skos:altLabel>Lyakhovichskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ляхавіцкі Раён</skos:altLabel>
+	<skos:prefLabel>Lyakhavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625818/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25000</europeana:population>
+	<wgs:lat>52.25028</wgs:lat>
+	<wgs:long>26.79944</wgs:long>
+	<skos:altLabel>Luninets</skos:altLabel>
+	<skos:altLabel>Luniniez</skos:altLabel>
+	<skos:altLabel xml:lang="en">Luninyets</skos:altLabel>
+	<skos:altLabel>Luninyets</skos:altLabel>
+	<skos:altLabel>Łuniniec</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лунинец</skos:altLabel>
+	<skos:altLabel xml:lang="be">Лунінец</skos:altLabel>
+	<skos:prefLabel>Luninyets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625820/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.33395</wgs:lat>
+	<wgs:long>26.80848</wgs:long>
+	<skos:altLabel>Luninetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Luninyetski Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Лунінецкі Раён</skos:altLabel>
+	<skos:prefLabel>Luninyetski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52</wgs:lat>
+	<wgs:long>30.66667</wgs:long>
+	<skos:altLabel>Loyevskiy Rayon</skos:altLabel>
+	<skos:altLabel>Loyewski Rayon</skos:altLabel>
+	<skos:prefLabel>Loyewski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.33333</wgs:lat>
+	<wgs:long>27.75</wgs:long>
+	<skos:altLabel>Lahoyski Rayon</skos:altLabel>
+	<skos:altLabel>Logoyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Lahoyski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/625972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10321</europeana:population>
+	<wgs:lat>54.20611</wgs:lat>
+	<wgs:long>27.85444</wgs:long>
+	<skos:altLabel xml:lang="en">Lahoysk</skos:altLabel>
+	<skos:altLabel>Lahoysk</skos:altLabel>
+	<skos:altLabel>Logoysk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Логойск</skos:altLabel>
+	<skos:prefLabel>Lahoysk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55</wgs:lat>
+	<wgs:long>30.66667</wgs:long>
+	<skos:altLabel>Lioznenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyëznyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyëznyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.66667</wgs:lat>
+	<wgs:long>25.25</wgs:long>
+	<skos:altLabel>Lidski Rayon</skos:altLabel>
+	<skos:altLabel>Lidskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Lidski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>98036</europeana:population>
+	<wgs:lat>53.88333</wgs:lat>
+	<wgs:long>25.29972</wgs:long>
+	<skos:altLabel xml:lang="en">Lida</skos:altLabel>
+	<skos:altLabel xml:lang="et">Lida</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Lida</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lida</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Lida</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Lida</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Lida</skos:altLabel>
+	<skos:altLabel>Lida</skos:altLabel>
+	<skos:altLabel>Lieda</skos:altLabel>
+	<skos:altLabel>Lyda</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Lyda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЛИДА</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лида</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ліда</skos:altLabel>
+	<skos:prefLabel>Lida</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.83333</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Lepel’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyepyel’ski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyepyel’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.85944</wgs:lat>
+	<wgs:long>27.58778</wgs:long>
+	<skos:altLabel>Leninskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyeninski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyeninski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626162/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.68333</wgs:lat>
+	<wgs:long>23.83333</wgs:long>
+	<skos:altLabel>Leninskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyeninski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyeninski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.15</wgs:lat>
+	<wgs:long>29.23333</wgs:long>
+	<skos:altLabel>Leninskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyeninski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyeninski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.1</wgs:lat>
+	<wgs:long>23.7</wgs:long>
+	<skos:altLabel>Leninskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyeninski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyeninski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.9</wgs:lat>
+	<wgs:long>30.35</wgs:long>
+	<skos:altLabel>Leninskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lyeninski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyeninski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626189/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>51.83333</wgs:lat>
+	<wgs:long>28.25</wgs:long>
+	<skos:altLabel>Lel’chitskiy Rayon</skos:altLabel>
+	<skos:altLabel>Lel’chykaga Rayon</skos:altLabel>
+	<skos:altLabel>Lyel’chytski Rayon</skos:altLabel>
+	<skos:prefLabel>Lyel’chytski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27681</europeana:population>
+	<wgs:lat>53.69889</wgs:lat>
+	<wgs:long>31.71417</wgs:long>
+	<skos:altLabel>Krichëv</skos:altLabel>
+	<skos:altLabel xml:lang="en">Krychaw</skos:altLabel>
+	<skos:altLabel>Krychaw</skos:altLabel>
+	<skos:altLabel>Krytchev</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КРИЧЕВ</skos:altLabel>
+	<skos:prefLabel>Krychaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626463/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.33333</wgs:lat>
+	<wgs:long>29.16667</wgs:long>
+	<skos:altLabel>Krupski Rayon</skos:altLabel>
+	<skos:altLabel>Krupskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Krupski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.16667</wgs:lat>
+	<wgs:long>29.66667</wgs:long>
+	<skos:altLabel>Kruglyanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kryhlyanski Rayon</skos:altLabel>
+	<skos:prefLabel>Kryhlyanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.75</wgs:lat>
+	<wgs:long>31.66667</wgs:long>
+	<skos:altLabel>Krichevskiy Rayon</skos:altLabel>
+	<skos:altLabel>Krychawski Rayon</skos:altLabel>
+	<skos:prefLabel>Krychawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626626/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.33333</wgs:lat>
+	<wgs:long>31.41667</wgs:long>
+	<skos:altLabel>Krasnapol’ski Rayon</skos:altLabel>
+	<skos:altLabel>Krasnopol’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Krasnapol’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10552</europeana:population>
+	<wgs:lat>52.53861</wgs:lat>
+	<wgs:long>30.91583</wgs:long>
+	<skos:altLabel>Kastsyukowka</skos:altLabel>
+	<skos:altLabel>Kostjubowka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kostyukovka</skos:altLabel>
+	<skos:altLabel>Kostyukovka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КОСТЮКОВКА</skos:altLabel>
+	<skos:prefLabel>Kostyukovka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.33333</wgs:lat>
+	<wgs:long>32</wgs:long>
+	<skos:altLabel>Kastsyukovitski Rayon</skos:altLabel>
+	<skos:altLabel>Kostyukovichskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kastsyukovitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11946</europeana:population>
+	<wgs:lat>53.33889</wgs:lat>
+	<wgs:long>32.04611</wgs:long>
+	<skos:altLabel xml:lang="en">Kastsyukovichy</skos:altLabel>
+	<skos:altLabel>Kastsyukovichy</skos:altLabel>
+	<skos:altLabel>Kommunary</skos:altLabel>
+	<skos:altLabel>Kostokovya</skos:altLabel>
+	<skos:altLabel>Kostyukovichi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КОСТЮКОВИЧИ</skos:altLabel>
+	<skos:prefLabel>Kastsyukovichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.16667</wgs:lat>
+	<wgs:long>30.83333</wgs:long>
+	<skos:altLabel>Karmyanski Rayon</skos:altLabel>
+	<skos:altLabel>Kormyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Karmyanski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.5</wgs:lat>
+	<wgs:long>26.25</wgs:long>
+	<skos:altLabel>Karelitski Rayon</skos:altLabel>
+	<skos:altLabel>Korelichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Valevkovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Karelitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/626951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.16667</wgs:lat>
+	<wgs:long>27.08333</wgs:long>
+	<skos:altLabel>Kapyl’ski Rayon</skos:altLabel>
+	<skos:altLabel>Kopyl’skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kapyl’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627145/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50691</europeana:population>
+	<wgs:lat>52.21611</wgs:lat>
+	<wgs:long>24.36639</wgs:long>
+	<skos:altLabel>Kobrin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kobryn</skos:altLabel>
+	<skos:altLabel>Kobryn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КОБРИН</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кобрын</skos:altLabel>
+	<skos:prefLabel>Kobryn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627146/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>24.5</wgs:long>
+	<skos:altLabel>Kobrinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kobrynski Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кобрынскі Раён</skos:altLabel>
+	<skos:prefLabel>Kobrynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.58333</wgs:lat>
+	<wgs:long>32</wgs:long>
+	<skos:altLabel>Klimavitski Rayon</skos:altLabel>
+	<skos:altLabel>Klimovichskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Klimavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14951</europeana:population>
+	<wgs:lat>53.60944</wgs:lat>
+	<wgs:long>31.95194</wgs:long>
+	<skos:altLabel xml:lang="en">Klimavichy</skos:altLabel>
+	<skos:altLabel>Klimavichy</skos:altLabel>
+	<skos:altLabel>Klimovichi</skos:altLabel>
+	<skos:altLabel>Klimowitschi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КЛИМОВИЧИ</skos:altLabel>
+	<skos:prefLabel>Klimavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.5</wgs:lat>
+	<wgs:long>29.33333</wgs:long>
+	<skos:altLabel>Klichawski Rayon</skos:altLabel>
+	<skos:altLabel>Klichevskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Klichawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53</wgs:lat>
+	<wgs:long>26.66667</wgs:long>
+	<skos:altLabel>Kletskiy Rayon</skos:altLabel>
+	<skos:altLabel>Klyetski Rayon</skos:altLabel>
+	<skos:prefLabel>Klyetski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.33333</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Kirawski Rayon</skos:altLabel>
+	<skos:altLabel>Kirovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kirawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>51.91667</wgs:lat>
+	<wgs:long>29.91667</wgs:long>
+	<skos:altLabel>Khoynikskiy Rayon</skos:altLabel>
+	<skos:altLabel>Khoynitski Rayon</skos:altLabel>
+	<skos:prefLabel>Khoynitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13200</europeana:population>
+	<wgs:lat>51.9</wgs:lat>
+	<wgs:long>29.96667</wgs:long>
+	<skos:altLabel>Choiniki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Khoyniki</skos:altLabel>
+	<skos:altLabel>Khoyniki</skos:altLabel>
+	<skos:altLabel>Khoynki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хойники</skos:altLabel>
+	<skos:prefLabel>Khoyniki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.41667</wgs:lat>
+	<wgs:long>32.5</wgs:long>
+	<skos:altLabel>Khotimskiy Rayon</skos:altLabel>
+	<skos:altLabel>Khotsimski Rayon</skos:altLabel>
+	<skos:prefLabel>Khotsimski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>23.66667</wgs:long>
+	<skos:altLabel>Kamenetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kamyanyetski Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Камянецкі Раён</skos:altLabel>
+	<skos:prefLabel>Kamyanyetski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627748/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.25</wgs:lat>
+	<wgs:long>29.41667</wgs:long>
+	<skos:altLabel>Kalinkavitski Rayon</skos:altLabel>
+	<skos:altLabel>Kalinkovichskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kalinkavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>37190</europeana:population>
+	<wgs:lat>52.13333</wgs:lat>
+	<wgs:long>29.32889</wgs:long>
+	<skos:altLabel xml:lang="en">Kalinkavichy</skos:altLabel>
+	<skos:altLabel>Kalinkavichy</skos:altLabel>
+	<skos:altLabel>Kalinkovichi</skos:altLabel>
+	<skos:altLabel>Kalinkowitschi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КАЛИНКОВИЧИ</skos:altLabel>
+	<skos:prefLabel>Kalinkavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627794/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>25.66667</wgs:long>
+	<skos:altLabel>Iv’yevskiy Rayon</skos:altLabel>
+	<skos:altLabel>Iwyewski Rayon</skos:altLabel>
+	<skos:prefLabel>Iwyewski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>25.5</wgs:long>
+	<skos:altLabel>Ivatsevichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Ivatsevitski Rayon</skos:altLabel>
+	<skos:altLabel>Kossovskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Івацэвіцкі Раён</skos:altLabel>
+	<skos:prefLabel>Ivatsevitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24200</europeana:population>
+	<wgs:lat>52.70917</wgs:lat>
+	<wgs:long>25.33889</wgs:long>
+	<skos:altLabel>Fol’vark Ivatseviche</skos:altLabel>
+	<skos:altLabel>Ivantsevichi</skos:altLabel>
+	<skos:altLabel>Ivatsevichi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ivatsevichy</skos:altLabel>
+	<skos:altLabel>Ivatsevichy</skos:altLabel>
+	<skos:altLabel>Iwacewicze</skos:altLabel>
+	<skos:altLabel>Twacewicze</skos:altLabel>
+	<skos:altLabel xml:lang="be">Івацэвічы</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ивацевичи</skos:altLabel>
+	<skos:prefLabel>Ivatsevichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:altLabel>Ivanawski Rayon</skos:altLabel>
+	<skos:altLabel>Ivanovskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Іванаўскі Раён</skos:altLabel>
+	<skos:prefLabel>Ivanawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627811/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13614</europeana:population>
+	<wgs:lat>52.1325</wgs:lat>
+	<wgs:long>25.54611</wgs:long>
+	<skos:altLabel xml:lang="en">Ivanava</skos:altLabel>
+	<skos:altLabel>Ivanava</skos:altLabel>
+	<skos:altLabel>Ivanovo</skos:altLabel>
+	<skos:altLabel>Janów</skos:altLabel>
+	<skos:altLabel>Yanov</skos:altLabel>
+	<skos:altLabel>Yanuv</skos:altLabel>
+	<skos:altLabel xml:lang="be">Іванава</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ИВАНОВО</skos:altLabel>
+	<skos:prefLabel>Ivanava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>317365</europeana:population>
+	<wgs:lat>53.68139</wgs:lat>
+	<wgs:long>23.81472</wgs:long>
+	<skos:altLabel>Gardinas</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gardinas</skos:altLabel>
+	<skos:altLabel xml:lang="es">Goradnia</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Grodna</skos:altLabel>
+	<skos:altLabel>Grodno</skos:altLabel>
+	<skos:altLabel xml:lang="da">Grodno</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Grodno</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Grodno</skos:altLabel>
+	<skos:altLabel xml:lang="it">Grodno</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="et">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hrodna</skos:altLabel>
+	<skos:altLabel>Hrodna</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГРОДНО</skos:altLabel>
+	<skos:altLabel xml:lang="be">Горадня</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гродно</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гродно</skos:altLabel>
+	<skos:altLabel xml:lang="he">הורדנה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フロドナ</skos:altLabel>
+	<skos:prefLabel>Hrodna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33897</europeana:population>
+	<wgs:lat>54.28333</wgs:lat>
+	<wgs:long>30.99111</wgs:long>
+	<skos:altLabel>Gorki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Horki</skos:altLabel>
+	<skos:altLabel>Horki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГОРКИ</skos:altLabel>
+	<skos:prefLabel>Horki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>480951</europeana:population>
+	<wgs:lat>52.44167</wgs:lat>
+	<wgs:long>30.98333</wgs:long>
+	<skos:altLabel xml:lang="da">Gomel</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gomel</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gomelis</skos:altLabel>
+	<skos:altLabel>Gomel’</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gomeļa</skos:altLabel>
+	<skos:altLabel>Homel</skos:altLabel>
+	<skos:altLabel xml:lang="de">Homel</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Homel</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Homel</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Homel</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Homel</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Homel</skos:altLabel>
+	<skos:altLabel xml:lang="es">Homiel</skos:altLabel>
+	<skos:altLabel xml:lang="et">Homiel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Homyel</skos:altLabel>
+	<skos:altLabel xml:lang="en">Homyel'</skos:altLabel>
+	<skos:altLabel>Homyel’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГОМЕЛЬ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гомел</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гомель</skos:altLabel>
+	<skos:altLabel xml:lang="he">הומל</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ホメリ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">호몔</skos:altLabel>
+	<skos:prefLabel>Homyel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/627908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22000</europeana:population>
+	<wgs:lat>55.13333</wgs:lat>
+	<wgs:long>27.68333</wgs:long>
+	<skos:altLabel>Glenboke</skos:altLabel>
+	<skos:altLabel>Glubokoye</skos:altLabel>
+	<skos:altLabel>Glębokie</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hlybokaye</skos:altLabel>
+	<skos:altLabel>Hlybokaye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Глубокое</skos:altLabel>
+	<skos:prefLabel>Hlybokaye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.66667</wgs:lat>
+	<wgs:long>24</wgs:long>
+	<skos:altLabel>Grodnenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Hrodzyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Hrodzyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>53.5</wgs:lat>
+	<wgs:long>24.5</wgs:long>
+	<skos:altLabel>Grodnenskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Grodnyenskaya Oblast</skos:altLabel>
+	<skos:altLabel>Hrodzyenskaya Voblastsʼ</skos:altLabel>
+	<skos:altLabel>Hrodzyenskaya Voblasts’</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гродзенская Вобластсь</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гродненская Область</skos:altLabel>
+	<skos:prefLabel>Hrodzyenskaya Voblasts’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628152/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.66667</wgs:lat>
+	<wgs:long>30.16667</wgs:long>
+	<skos:altLabel>Gorodokskiy Rayon</skos:altLabel>
+	<skos:altLabel>Haradotski Rayon</skos:altLabel>
+	<skos:prefLabel>Haradotski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13380</europeana:population>
+	<wgs:lat>55.46028</wgs:lat>
+	<wgs:long>30</wgs:long>
+	<skos:altLabel>Gorodok</skos:altLabel>
+	<skos:altLabel xml:lang="en">Haradok</skos:altLabel>
+	<skos:altLabel>Haradok</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГОРОДОК</skos:altLabel>
+	<skos:prefLabel>Haradok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.33333</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:altLabel>Goretskiy Rayon</skos:altLabel>
+	<skos:altLabel>Horatski Rayon</skos:altLabel>
+	<skos:prefLabel>Horatski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.33333</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:altLabel>Gomel’skiy Rayon</skos:altLabel>
+	<skos:altLabel>Homyel’ski Rayon</skos:altLabel>
+	<skos:prefLabel>Homyel’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>52</wgs:lat>
+	<wgs:long>30</wgs:long>
+	<skos:altLabel>Gomel’ Oblast</skos:altLabel>
+	<skos:altLabel>Gomel’skaya Oblast’</skos:altLabel>
+	<skos:altLabel>Homyelʼskaya Voblastsʼ</skos:altLabel>
+	<skos:altLabel>Homyel’skaya Voblasts’</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гомельская Вобластсь</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гомельская Область</skos:altLabel>
+	<skos:prefLabel>Homyel’skaya Voblasts’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.91667</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Glusskiy Rayon</skos:altLabel>
+	<skos:altLabel>Hluski Rayon</skos:altLabel>
+	<skos:prefLabel>Hluski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.16667</wgs:lat>
+	<wgs:long>27.83333</wgs:long>
+	<skos:altLabel>Glubokskiy Rayon</skos:altLabel>
+	<skos:altLabel>Hlybotski Rayon</skos:altLabel>
+	<skos:prefLabel>Hlybotski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>26.5</wgs:long>
+	<skos:altLabel>Gantsevichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Hantsavitski Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ганцавіцкі Раён</skos:altLabel>
+	<skos:prefLabel>Hantsavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625143/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.90056</wgs:lat>
+	<wgs:long>27.495</wgs:long>
+	<skos:altLabel>Frunzenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Frunzyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Frunzyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24609</europeana:population>
+	<wgs:lat>53.685</wgs:lat>
+	<wgs:long>27.14194</wgs:long>
+	<skos:altLabel xml:lang="de">Dsjarschynsk</skos:altLabel>
+	<skos:altLabel>Dzerjinsk</skos:altLabel>
+	<skos:altLabel>Dzerzhinsk</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Dzerĵinsk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Dzeržinskas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Dzierżynsk</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Dzjarzsinszk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dzyarzhynsk</skos:altLabel>
+	<skos:altLabel>Dzyarzhynsk</skos:altLabel>
+	<skos:altLabel>Kaiden</skos:altLabel>
+	<skos:altLabel>Kaydanovo</skos:altLabel>
+	<skos:altLabel>Koydanava</skos:altLabel>
+	<skos:altLabel>Koydanovo</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ДЗЕРЖИНСК</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дзержинск</skos:altLabel>
+	<skos:altLabel xml:lang="be">Койданаў</skos:altLabel>
+	<skos:prefLabel>Dzyarzhynsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628641/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.75</wgs:lat>
+	<wgs:long>27.16667</wgs:long>
+	<skos:altLabel>Dzerzhinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dzyarzhynski Rayon</skos:altLabel>
+	<skos:prefLabel>Dzyarzhynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.41667</wgs:lat>
+	<wgs:long>25.25</wgs:long>
+	<skos:altLabel>Dyatlovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dzyatlawski Rayon</skos:altLabel>
+	<skos:prefLabel>Dzyatlawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628789/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.58333</wgs:lat>
+	<wgs:long>30.83333</wgs:long>
+	<skos:altLabel>Dubrovenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dubrovyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Dubrovyenski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628882/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Drahichynski Rayon</skos:altLabel>
+	<skos:altLabel>Drogichenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Drogichinskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Драгічынскі Раён</skos:altLabel>
+	<skos:prefLabel>Drahichynski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/628884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13389</europeana:population>
+	<wgs:lat>52.18972</wgs:lat>
+	<wgs:long>25.15028</wgs:long>
+	<skos:altLabel xml:lang="en">Drahichyn</skos:altLabel>
+	<skos:altLabel>Drahichyn</skos:altLabel>
+	<skos:altLabel>Drogichin</skos:altLabel>
+	<skos:altLabel>Drohiczyn</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ДРОГИЧИН</skos:altLabel>
+	<skos:altLabel xml:lang="be">Драгічын</skos:altLabel>
+	<skos:prefLabel>Drahichyn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.83333</wgs:lat>
+	<wgs:long>27.91667</wgs:long>
+	<skos:altLabel>Dokshitskiy Rayon</skos:altLabel>
+	<skos:altLabel>Dokshytski Rayon</skos:altLabel>
+	<skos:prefLabel>Dokshytski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629017/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.33333</wgs:lat>
+	<wgs:long>31.41667</wgs:long>
+	<skos:altLabel>Dobrushski Rayon</skos:altLabel>
+	<skos:altLabel>Dobrushskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Dobrushski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19083</europeana:population>
+	<wgs:lat>52.40944</wgs:lat>
+	<wgs:long>31.32278</wgs:long>
+	<skos:altLabel xml:lang="en">Dobrush</skos:altLabel>
+	<skos:altLabel>Dobrush</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ДОБРУШ</skos:altLabel>
+	<skos:prefLabel>Dobrush</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.75</wgs:lat>
+	<wgs:long>28.5</wgs:long>
+	<skos:altLabel>Chervenskiy Rayon</skos:altLabel>
+	<skos:altLabel>Chervyen’ski Rayon</skos:altLabel>
+	<skos:prefLabel>Chervyen’ski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629346/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.66667</wgs:lat>
+	<wgs:long>31.33333</wgs:long>
+	<skos:altLabel>Cherikovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Cherykawski Rayon</skos:altLabel>
+	<skos:prefLabel>Cherykawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.91667</wgs:lat>
+	<wgs:long>31.08333</wgs:long>
+	<skos:altLabel>Chacherski Rayon</skos:altLabel>
+	<skos:altLabel>Checherskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Chacherski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629395/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11313</europeana:population>
+	<wgs:lat>53.81278</wgs:lat>
+	<wgs:long>30.98361</wgs:long>
+	<skos:altLabel>Chausi</skos:altLabel>
+	<skos:altLabel>Chausy</skos:altLabel>
+	<skos:altLabel xml:lang="en">Chavusi</skos:altLabel>
+	<skos:altLabel>Chavusi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЧАУСЫ</skos:altLabel>
+	<skos:prefLabel>Chavusi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.83333</wgs:lat>
+	<wgs:long>30.91667</wgs:long>
+	<skos:altLabel>Chausskiy Rayon</skos:altLabel>
+	<skos:altLabel>Chavuski Rayon</skos:altLabel>
+	<skos:prefLabel>Chavuski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.75</wgs:lat>
+	<wgs:long>29.25</wgs:long>
+	<skos:altLabel>Chashnikskiy Rayon</skos:altLabel>
+	<skos:altLabel>Chashnitski Rayon</skos:altLabel>
+	<skos:prefLabel>Chashnitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11484</europeana:population>
+	<wgs:lat>54.85889</wgs:lat>
+	<wgs:long>29.15583</wgs:long>
+	<skos:altLabel xml:lang="en">Chashniki</skos:altLabel>
+	<skos:altLabel>Chashniki</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЧАШНИКИ</skos:altLabel>
+	<skos:prefLabel>Chashniki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.5</wgs:lat>
+	<wgs:long>30.25</wgs:long>
+	<skos:altLabel>Bykhawski Rayon</skos:altLabel>
+	<skos:altLabel>Bykhovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Bykhawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17500</europeana:population>
+	<wgs:lat>53.51833</wgs:lat>
+	<wgs:long>30.24611</wgs:long>
+	<skos:altLabel>Bychow</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bykhaw</skos:altLabel>
+	<skos:altLabel>Bykhaw</skos:altLabel>
+	<skos:altLabel>Bykhov</skos:altLabel>
+	<skos:altLabel>Star Bykhov</skos:altLabel>
+	<skos:altLabel>Staryy Bykhov</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БЫХОВ</skos:altLabel>
+	<skos:prefLabel>Bykhaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29645</europeana:population>
+	<wgs:lat>52.53361</wgs:lat>
+	<wgs:long>24.98389</wgs:long>
+	<skos:altLabel>Bereza Kartuska</skos:altLabel>
+	<skos:altLabel>Bereza-Kartuskaya</skos:altLabel>
+	<skos:altLabel>Bereza-Kartuzskaya</skos:altLabel>
+	<skos:altLabel>Berëza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Byaroza</skos:altLabel>
+	<skos:altLabel>Byaroza</skos:altLabel>
+	<skos:altLabel>Kartuz-Bereza</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БЕРЕЗА</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бяроза</skos:altLabel>
+	<skos:prefLabel>Byaroza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.66667</wgs:lat>
+	<wgs:long>30.5</wgs:long>
+	<skos:altLabel>Buda-Kashalyowski Rayon</skos:altLabel>
+	<skos:altLabel>Buda-Koshelevskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Buda-Kashalyowski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52</wgs:lat>
+	<wgs:long>23.75</wgs:long>
+	<skos:altLabel>Brestski Rayon</skos:altLabel>
+	<skos:altLabel>Brestskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брэсцкі Раён</skos:altLabel>
+	<skos:prefLabel>Brestski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>52.5</wgs:lat>
+	<wgs:long>25.5</wgs:long>
+	<skos:altLabel xml:lang="ru">Brestskaya Oblast’</skos:altLabel>
+	<skos:altLabel>Brestskaya Voblastsʼ</skos:altLabel>
+	<skos:altLabel>Brestskaya Voblasts’</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Брестская Область</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брэстская Вобластсь</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брэсцкая Вобласць</skos:altLabel>
+	<skos:prefLabel>Brestskaya Voblasts’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>300715</europeana:population>
+	<wgs:lat>52.1</wgs:lat>
+	<wgs:long>23.7</wgs:long>
+	<skos:altLabel xml:lang="es">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="et">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="it">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="no">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Brest</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Brest</skos:altLabel>
+	<skos:altLabel>Brest</skos:altLabel>
+	<skos:altLabel>Brest Litovsk</skos:altLabel>
+	<skos:altLabel xml:lang="id">Brest-Litovsk</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Brest-Litovsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brest-Litowsk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Brestas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Breszt</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Brześć</skos:altLabel>
+	<skos:altLabel>Brześć nad Bugiem</skos:altLabel>
+	<skos:altLabel>Brześć-Litewsk</skos:altLabel>
+	<skos:altLabel>Brześć-Litewski</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БРЕСТ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Берасьце</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Берестя</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Брест</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Брест</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брэст</skos:altLabel>
+	<skos:altLabel xml:lang="he">ברסט ליטובסק</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブレスト</skos:altLabel>
+	<skos:altLabel xml:lang="zh">布列斯特</skos:altLabel>
+	<skos:prefLabel>Brest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.55972</wgs:lat>
+	<wgs:long>27</wgs:long>
+	<skos:altLabel>Braslavskiy Rayon</skos:altLabel>
+	<skos:altLabel>Braslawski Rayon</skos:altLabel>
+	<skos:prefLabel>Braslawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12378</europeana:population>
+	<wgs:lat>55.63389</wgs:lat>
+	<wgs:long>27.05389</wgs:long>
+	<skos:altLabel>Braslav</skos:altLabel>
+	<skos:altLabel xml:lang="en">Braslaw</skos:altLabel>
+	<skos:altLabel>Braslaw</skos:altLabel>
+	<skos:altLabel>Brastaw</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Brasław</skos:altLabel>
+	<skos:altLabel>Breslauja</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БРАСЛАВ</skos:altLabel>
+	<skos:prefLabel>Braslaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>51.66667</wgs:lat>
+	<wgs:long>30.33333</wgs:long>
+	<skos:altLabel>Braginskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Brahinski Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Брагінскі Раён</skos:altLabel>
+	<skos:prefLabel>Brahinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/629799/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.33333</wgs:lat>
+	<wgs:long>28.58333</wgs:long>
+	<skos:altLabel>Barysawski Rayon</skos:altLabel>
+	<skos:altLabel>Borisovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Barysawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.08333</wgs:lat>
+	<wgs:long>29.16667</wgs:long>
+	<skos:altLabel>Babruyski Rayon</skos:altLabel>
+	<skos:altLabel>Bobruyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Babruyski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630135/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55</wgs:lat>
+	<wgs:long>29.5</wgs:long>
+	<skos:altLabel>Beshenkovichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Byeshankovitski Rayon</skos:altLabel>
+	<skos:prefLabel>Byeshankovitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.5</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Berëzovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Byarozawski Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бярозаўскі Раён</skos:altLabel>
+	<skos:prefLabel>Byarozawski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630166/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11800</europeana:population>
+	<wgs:lat>53.76667</wgs:lat>
+	<wgs:long>25.53333</wgs:long>
+	<skos:altLabel xml:lang="en">Berëzovka</skos:altLabel>
+	<skos:altLabel>Berëzovka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Берёзовка</skos:altLabel>
+	<skos:prefLabel>Berëzovka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.83333</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel>Berezinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Byarezinski Rayon</skos:altLabel>
+	<skos:prefLabel>Byarezinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12800</europeana:population>
+	<wgs:lat>53.84389</wgs:lat>
+	<wgs:long>29</wgs:long>
+	<skos:altLabel>Berezino</skos:altLabel>
+	<skos:altLabel xml:lang="en">Byerazino</skos:altLabel>
+	<skos:altLabel>Byerazino</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Березино</skos:altLabel>
+	<skos:prefLabel>Byerazino</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.25</wgs:lat>
+	<wgs:long>24</wgs:long>
+	<skos:altLabel>Berestovitskiy Rayon</skos:altLabel>
+	<skos:altLabel>Byerastavitski Rayon</skos:altLabel>
+	<skos:altLabel>Krynkovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Byerastavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630244/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>29.75</wgs:long>
+	<skos:altLabel>Belynichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Byalynitski Rayon</skos:altLabel>
+	<skos:prefLabel>Byalynitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10691</europeana:population>
+	<wgs:lat>52.47111</wgs:lat>
+	<wgs:long>25.17333</wgs:long>
+	<skos:altLabel xml:lang="en">Beloozersk</skos:altLabel>
+	<skos:altLabel>Beloozersk</skos:altLabel>
+	<skos:altLabel>Berezovskiy</skos:altLabel>
+	<skos:altLabel>Byelaazyorsk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БЕЛООЗЕРСК</skos:altLabel>
+	<skos:altLabel xml:lang="be">Белаазёрск</skos:altLabel>
+	<skos:prefLabel>Byelaazyorsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>9685000</europeana:population>
+	<wgs:lat>53</wgs:lat>
+	<wgs:long>28</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhealarúis</skos:altLabel>
+	<skos:altLabel>BY</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Baltarusija</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Baltkrievija</skos:altLabel>
+	<skos:altLabel xml:lang="an">Belarrusia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="na">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Belarus</skos:altLabel>
+	<skos:altLabel xml:lang="id">Belarusia</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Belarussi</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Belarws</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Belorusija</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Belorusija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Belorusio</skos:altLabel>
+	<skos:altLabel>Belorusskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Belorusszia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Belorusujo</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Beyaz Rusya</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Białoruś</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bielo-Rússia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bielorrusia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bielorrusia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bielorrusia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bielorrusia - Беларусь</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bielorrússia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bielorusia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bielorusia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bielorusko</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bielorussia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Bielorussia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Bielorussia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bielorússia</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Bilarus</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Biélorussie</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bjellorusi</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bjellorusia</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bjelorusija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bjelorusija</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Bjelorussja</skos:altLabel>
+	<skos:altLabel xml:lang="br">Byelarus</skos:altLabel>
+	<skos:altLabel>Byelaruskaya Savyetskaya Satsyyalistychnaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Byelorisi</skos:altLabel>
+	<skos:altLabel>Byelorussian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bélarus</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bê-la-rút</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bê-la-rút (Belarus)</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bělorusko</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fehéroroszország</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hviderusland</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Hviterussland</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Hviterussland</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hviterussland</skos:altLabel>
+	<skos:altLabel xml:lang="is">Hvíta-Rússland</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Hvítarussland</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kviterussland</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Belarus</skos:altLabel>
+	<skos:altLabel>Republic of Byelarus</skos:altLabel>
+	<skos:altLabel xml:lang="be">Respublika Byelarus’</skos:altLabel>
+	<skos:altLabel xml:lang="la">Ruthenia Alba</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Rûsya Sipî</skos:altLabel>
+	<skos:altLabel xml:lang="et">Valgevene</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Valko-Venäjä</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Vieta-Rusän</skos:altLabel>
+	<skos:altLabel xml:lang="se">Vilgesruošša</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vitryssland</skos:altLabel>
+	<skos:altLabel xml:lang="de">Weißrussland</skos:altLabel>
+	<skos:altLabel>White Russian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="af">Wit-Rusland</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Wit-Rusland</skos:altLabel>
+	<skos:altLabel xml:lang="li">Wit-Rusland</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Wyt-Ruslân</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Wäissrussland</skos:altLabel>
+	<skos:altLabel xml:lang="el">Λευκορωσία</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Беларус</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Беларус</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Беларус</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Беларус</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Беларусь</skos:altLabel>
+	<skos:altLabel xml:lang="be">Беларусь</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Белоруси</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Белорусия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Белорусија</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Белорусија</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Белоруссия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Білорусь</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Бѣла Рѹсь</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բելառուս</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բելոռուս</skos:altLabel>
+	<skos:altLabel xml:lang="he">בלארוס</skos:altLabel>
+	<skos:altLabel xml:lang="he">בלרוס</skos:altLabel>
+	<skos:altLabel xml:lang="yi">בעלאָרוסיע</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بلاروس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بیلا رس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بیلارس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بیلوروسی</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بېلورۇسىيە</skos:altLabel>
+	<skos:altLabel xml:lang="ar">روسيا البيضاء</skos:altLabel>
+	<skos:altLabel xml:lang="fa">روسیه‌ سفید</skos:altLabel>
+	<skos:altLabel xml:lang="ne">बेलारुस</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बेलारूस</skos:altLabel>
+	<skos:altLabel xml:lang="mr">बेलारूस</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बेलारूस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বেলারুশ</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বেলোরুশিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பெலாரஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பெலாரூஸ்</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബെലറൂസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเบลารุส</skos:altLabel>
+	<skos:altLabel xml:lang="th">เบลารุส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເບນລາຮັສ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བེ་ལུ་རུ་སུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბელარუსი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბელორუსია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቤላሩስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">បេឡារុស្ស</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベラルーシ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベラルーシ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">白俄罗斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베라루스</skos:altLabel>
+	<skos:altLabel xml:lang="ko">벨라루스</skos:altLabel>
+	<skos:prefLabel>Republic of Belarus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>100000</europeana:population>
+	<wgs:lat>54.22556</wgs:lat>
+	<wgs:long>28.49139</wgs:long>
+	<skos:altLabel xml:lang="en">Barysaw</skos:altLabel>
+	<skos:altLabel>Barysaw</skos:altLabel>
+	<skos:altLabel>Borisov</skos:altLabel>
+	<skos:altLabel>Borissow</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БОРИСОВ</skos:altLabel>
+	<skos:prefLabel>Barysaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.16667</wgs:lat>
+	<wgs:long>25.83333</wgs:long>
+	<skos:altLabel>Baranavitski Rayon</skos:altLabel>
+	<skos:altLabel>Baranovichskiy Rayon</skos:altLabel>
+	<skos:altLabel>Novomyshskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="be">Баранавіцкі Раён</skos:altLabel>
+	<skos:prefLabel>Baranavitski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>168772</europeana:population>
+	<wgs:lat>53.13333</wgs:lat>
+	<wgs:long>26.03333</wgs:long>
+	<skos:altLabel xml:lang="en">Baranavichy</skos:altLabel>
+	<skos:altLabel>Baranavichy</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Baranavitsjy</skos:altLabel>
+	<skos:altLabel xml:lang="de">Baranawitschy</skos:altLabel>
+	<skos:altLabel>Baranoviche</skos:altLabel>
+	<skos:altLabel>Baranovichi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Baranovichi</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Baranovichi - Баранавiчы</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Baranovitchi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Baranovitši</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Baranovičiai</skos:altLabel>
+	<skos:altLabel>Baranowicze</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Baranowicze</skos:altLabel>
+	<skos:altLabel>Baranowitschi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БАРАНОВИЧИ</skos:altLabel>
+	<skos:altLabel xml:lang="be">Баранавічы</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Барановичи</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Барановичи</skos:altLabel>
+	<skos:prefLabel>Baranavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630468/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>220517</europeana:population>
+	<wgs:lat>53.15</wgs:lat>
+	<wgs:long>29.23333</wgs:long>
+	<skos:altLabel xml:lang="nl">Babroejsk</skos:altLabel>
+	<skos:altLabel xml:lang="de">Babruisk</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Babrujsk</skos:altLabel>
+	<skos:altLabel xml:lang="en">Babruysk</skos:altLabel>
+	<skos:altLabel>Babruysk</skos:altLabel>
+	<skos:altLabel>Bobruisk</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bobruisk</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bobruiskas</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bobrujsk</skos:altLabel>
+	<skos:altLabel>Bobruysk</skos:altLabel>
+	<skos:altLabel xml:lang="ru">БОБРУЙСК</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бабруйск</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бобруйск</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бобруйск</skos:altLabel>
+	<skos:altLabel xml:lang="he">בוברויסק</skos:altLabel>
+	<skos:prefLabel>Babruysk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/630515/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14345</europeana:population>
+	<wgs:lat>54.41694</wgs:lat>
+	<wgs:long>25.93278</wgs:long>
+	<skos:altLabel xml:lang="en">Ashmyany</skos:altLabel>
+	<skos:altLabel>Ashmyany</skos:altLabel>
+	<skos:altLabel>Ašmena</skos:altLabel>
+	<skos:altLabel>Oshmyana</skos:altLabel>
+	<skos:altLabel>Oshmyany</skos:altLabel>
+	<skos:altLabel>Oszmiana</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ОШМЯНЫ</skos:altLabel>
+	<skos:prefLabel>Ashmyany</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.83333</wgs:lat>
+	<wgs:long>24.41667</wgs:long>
+	<skos:altLabel>Porazawski Rayon</skos:altLabel>
+	<skos:prefLabel>Porozovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.75</wgs:lat>
+	<wgs:long>23.66667</wgs:long>
+	<skos:altLabel>Sapotskinski Rayon</skos:altLabel>
+	<skos:prefLabel>Sopotskinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.66667</wgs:lat>
+	<wgs:long>24.25</wgs:long>
+	<skos:altLabel>Skidal'ski Rayon</skos:altLabel>
+	<skos:prefLabel>Skidel'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.83333</wgs:lat>
+	<wgs:long>24.66667</wgs:long>
+	<skos:prefLabel>Ostrynskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Radunski Rayon</skos:altLabel>
+	<skos:prefLabel>Radun'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828800/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>23.41667</wgs:long>
+	<skos:altLabel>Vysokawski Rayon</skos:altLabel>
+	<skos:prefLabel>Vysokovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828802/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.83333</wgs:lat>
+	<wgs:long>24.83333</wgs:long>
+	<skos:altLabel>Ruzhanski Rayon</skos:altLabel>
+	<skos:prefLabel>Ruzhanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828803/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:altLabel>Antopal'ski Rayon</skos:altLabel>
+	<skos:prefLabel>Antopol'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52</wgs:lat>
+	<wgs:long>24.75</wgs:long>
+	<skos:altLabel>Dzivinski Rayon</skos:altLabel>
+	<skos:prefLabel>Divinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.58333</wgs:lat>
+	<wgs:long>25.75</wgs:long>
+	<skos:altLabel>Tsyelyakhanski Rayon</skos:altLabel>
+	<skos:prefLabel>Telekhanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828807/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.33333</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Haradzishchanski Rayon</skos:altLabel>
+	<skos:prefLabel>Gorodishchenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>51.91667</wgs:lat>
+	<wgs:long>27.25</wgs:long>
+	<skos:altLabel>Davyd-Haradotski Rayon</skos:altLabel>
+	<skos:prefLabel>David-Gorodokskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.34889</wgs:lat>
+	<wgs:long>27.16111</wgs:long>
+	<skos:altLabel>Lyeninski Rayon</skos:altLabel>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.33333</wgs:lat>
+	<wgs:long>26.16667</wgs:long>
+	<skos:altLabel>Lahishynski Rayon</skos:altLabel>
+	<skos:prefLabel>Logishinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828822/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.83333</wgs:lat>
+	<wgs:long>27.08333</wgs:long>
+	<skos:altLabel>Chyrvonaslabodski Rayon</skos:altLabel>
+	<skos:prefLabel>Krasnoslobodskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828823/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.63639</wgs:lat>
+	<wgs:long>27.57278</wgs:long>
+	<skos:altLabel>Starobinski Rayon</skos:altLabel>
+	<skos:prefLabel>Starobinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828824/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>53.58333</wgs:lat>
+	<wgs:long>27.66667</wgs:long>
+	<skos:altLabel>Rudzyenski Rayon</skos:altLabel>
+	<skos:prefLabel>Rudenskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828826/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>54.5</wgs:lat>
+	<wgs:long>27.75</wgs:long>
+	<skos:altLabel>Plyeshchanitski Rayon</skos:altLabel>
+	<skos:prefLabel>Pleshchenitskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828838/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>54.75</wgs:lat>
+	<wgs:long>28.08333</wgs:long>
+	<skos:altLabel>Byagoml'ski Rayon</skos:altLabel>
+	<skos:altLabel>Byahoml'ski Rayon</skos:altLabel>
+	<skos:prefLabel>Begoml'skiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>54.58333</wgs:lat>
+	<wgs:long>28.83333</wgs:long>
+	<skos:altLabel>(( Kholopenichskiy Rayon ))</skos:altLabel>
+	<skos:altLabel>Khalopyenitski Rayon</skos:altLabel>
+	<skos:prefLabel>(( Kholopenichskiy Rayon ))</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828841/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>55.41667</wgs:lat>
+	<wgs:long>30.58333</wgs:long>
+	<skos:altLabel>Surazhski Rayon</skos:altLabel>
+	<skos:prefLabel>Surazhskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828842/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>55.36056</wgs:lat>
+	<wgs:long>28.65722</wgs:long>
+	<skos:altLabel>Vyetrynski Rayon</skos:altLabel>
+	<skos:prefLabel>Vetrinskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.08333</wgs:lat>
+	<wgs:long>31</wgs:long>
+	<skos:altLabel>Dribinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Drybinski Rayon</skos:altLabel>
+	<skos:prefLabel>Drybinski Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1142759</europeana:population>
+	<wgs:lat>53.68333</wgs:lat>
+	<wgs:long>23.83333</wgs:long>
+	<skos:altLabel>Gorod Grodno</skos:altLabel>
+	<skos:altLabel>Horad Hrodna</skos:altLabel>
+	<skos:prefLabel>Horad Hrodna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828857/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.41667</wgs:lat>
+	<wgs:long>28.66667</wgs:long>
+	<skos:altLabel>Kapatkyevitski Rayon</skos:altLabel>
+	<skos:prefLabel>Kopatkevichskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>51.5</wgs:lat>
+	<wgs:long>30.41667</wgs:long>
+	<skos:altLabel>Kamarynski Rayon</skos:altLabel>
+	<skos:prefLabel>Komarinsky Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.43556</wgs:lat>
+	<wgs:long>29.31778</wgs:long>
+	<skos:altLabel>Azarytski Rayon</skos:altLabel>
+	<skos:prefLabel>Ozarichskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828862/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.25</wgs:lat>
+	<wgs:long>29.83333</wgs:long>
+	<skos:altLabel>Vasilyevitski Rayon</skos:altLabel>
+	<skos:prefLabel>Vasilevichskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828863/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>52.16667</wgs:lat>
+	<wgs:long>31.41667</wgs:long>
+	<skos:altLabel>Tsyerakhowski Rayon</skos:altLabel>
+	<skos:prefLabel>Terekhovskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.58333</wgs:lat>
+	<wgs:long>30.66667</wgs:long>
+	<skos:prefLabel>Uvarovichskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1456779</europeana:population>
+	<wgs:lat>52.1</wgs:lat>
+	<wgs:long>23.7</wgs:long>
+	<skos:altLabel>Gorod Brest</skos:altLabel>
+	<skos:altLabel>Horad Brest</skos:altLabel>
+	<skos:altLabel xml:lang="be">Горад Брэст</skos:altLabel>
+	<skos:prefLabel>Horad Brest</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.13333</wgs:lat>
+	<wgs:long>26.03333</wgs:long>
+	<skos:altLabel>Gorod Baranovichi</skos:altLabel>
+	<skos:altLabel>Horad Baranavichy</skos:altLabel>
+	<skos:altLabel xml:lang="be">Горад Баранавічы</skos:altLabel>
+	<skos:prefLabel>Horad Baranavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.21611</wgs:lat>
+	<wgs:long>24.36639</wgs:long>
+	<skos:altLabel>Gorod Kobrin</skos:altLabel>
+	<skos:altLabel>Horad Kobryn</skos:altLabel>
+	<skos:altLabel xml:lang="be">Горад Кобрын</skos:altLabel>
+	<skos:prefLabel>Horad Kobryn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.25028</wgs:lat>
+	<wgs:long>26.79944</wgs:long>
+	<skos:altLabel>Gorod Luninets</skos:altLabel>
+	<skos:altLabel>Horad Luninyets</skos:altLabel>
+	<skos:altLabel xml:lang="be">Горад Лунінец</skos:altLabel>
+	<skos:prefLabel>Horad Luninyets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/629631/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.12139</wgs:lat>
+	<wgs:long>26.07278</wgs:long>
+	<skos:altLabel>Gorod Pinsk</skos:altLabel>
+	<skos:altLabel>Horad Pinsk</skos:altLabel>
+	<skos:altLabel xml:lang="be">Горад Пінск</skos:altLabel>
+	<skos:prefLabel>Horad Pinsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.1925</wgs:lat>
+	<wgs:long>30.19444</wgs:long>
+	<skos:altLabel>Gorod Vitebsk</skos:altLabel>
+	<skos:altLabel>Horad Vitsyebsk</skos:altLabel>
+	<skos:prefLabel>Horad Vitsyebsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.88333</wgs:lat>
+	<wgs:long>28.7</wgs:long>
+	<skos:altLabel>Gorod Lepel’</skos:altLabel>
+	<skos:altLabel>Horad Lyepyel’</skos:altLabel>
+	<skos:prefLabel>Horad Lyepyel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828889/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.52917</wgs:lat>
+	<wgs:long>28.64306</wgs:long>
+	<skos:altLabel>Gorod Novopolotsk</skos:altLabel>
+	<skos:altLabel>Horad Navapolatsk</skos:altLabel>
+	<skos:prefLabel>Horad Navapolatsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.51528</wgs:lat>
+	<wgs:long>30.40528</wgs:long>
+	<skos:altLabel>Gorod Orsha</skos:altLabel>
+	<skos:altLabel>Horad Orsha</skos:altLabel>
+	<skos:prefLabel>Horad Orsha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/620134/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>55.48556</wgs:lat>
+	<wgs:long>28.80417</wgs:long>
+	<skos:altLabel>Gorod Polotsk</skos:altLabel>
+	<skos:altLabel>Horad Polatsk</skos:altLabel>
+	<skos:prefLabel>Horad Polatsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.44167</wgs:lat>
+	<wgs:long>30.98333</wgs:long>
+	<skos:altLabel>Gorod Gomel’</skos:altLabel>
+	<skos:altLabel>Horad Homyel’</skos:altLabel>
+	<skos:prefLabel>Horad Homyel’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.40944</wgs:lat>
+	<wgs:long>31.32278</wgs:long>
+	<skos:altLabel>Gorod Dobrush</skos:altLabel>
+	<skos:altLabel>Horad Dobrush</skos:altLabel>
+	<skos:prefLabel>Horad Dobrush</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.89222</wgs:lat>
+	<wgs:long>30.02806</wgs:long>
+	<skos:altLabel>Gorod Zhlobin</skos:altLabel>
+	<skos:altLabel>Horad Zhlobin</skos:altLabel>
+	<skos:prefLabel>Horad Zhlobin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828897/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.13333</wgs:lat>
+	<wgs:long>29.32889</wgs:long>
+	<skos:altLabel>Gorod Kalinkovichi</skos:altLabel>
+	<skos:altLabel>Horad Kalinkavichy</skos:altLabel>
+	<skos:prefLabel>Horad Kalinkavichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.05</wgs:lat>
+	<wgs:long>29.26667</wgs:long>
+	<skos:altLabel>Gorod Mozyr’</skos:altLabel>
+	<skos:altLabel>Horad Mazyr</skos:altLabel>
+	<skos:prefLabel>Horad Mazyr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.36389</wgs:lat>
+	<wgs:long>30.39472</wgs:long>
+	<skos:altLabel>Gorod Rechitsa</skos:altLabel>
+	<skos:altLabel>Horad Rechytsa</skos:altLabel>
+	<skos:prefLabel>Horad Rechytsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.085</wgs:lat>
+	<wgs:long>30.05</wgs:long>
+	<skos:altLabel>Gorod Rogachev</skos:altLabel>
+	<skos:altLabel>Horad Rahachow</skos:altLabel>
+	<skos:prefLabel>Horad Rahachow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828901/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628281/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.62917</wgs:lat>
+	<wgs:long>29.73389</wgs:long>
+	<skos:altLabel>Gorod Svetlogorsk</skos:altLabel>
+	<skos:altLabel>Horad Svyetlahorsk</skos:altLabel>
+	<skos:prefLabel>Horad Svyetlahorsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.15194</wgs:lat>
+	<wgs:long>24.45556</wgs:long>
+	<skos:altLabel>Gorod Volkovysk</skos:altLabel>
+	<skos:altLabel>Horad Vawkavysk</skos:altLabel>
+	<skos:prefLabel>Horad Vawkavysk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.88333</wgs:lat>
+	<wgs:long>25.29972</wgs:long>
+	<skos:altLabel>Gorod Lida</skos:altLabel>
+	<skos:altLabel>Horad Lida</skos:altLabel>
+	<skos:prefLabel>Horad Lida</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.6</wgs:lat>
+	<wgs:long>25.83333</wgs:long>
+	<skos:altLabel>Gorod Novogrudok</skos:altLabel>
+	<skos:altLabel>Horad Navahrudak</skos:altLabel>
+	<skos:prefLabel>Horad Navahrudak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828905/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.08667</wgs:lat>
+	<wgs:long>25.32194</wgs:long>
+	<skos:altLabel>Gorod Slonim</skos:altLabel>
+	<skos:altLabel>Horad Slonim</skos:altLabel>
+	<skos:prefLabel>Horad Slonim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/628035/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.48361</wgs:lat>
+	<wgs:long>26.4</wgs:long>
+	<skos:altLabel>Gorod Smorgon’</skos:altLabel>
+	<skos:altLabel>Horad Smarhon’</skos:altLabel>
+	<skos:prefLabel>Horad Smarhon’</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828907/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>100000</europeana:population>
+	<wgs:lat>54.22556</wgs:lat>
+	<wgs:long>28.49139</wgs:long>
+	<skos:altLabel>Gorod Borisov</skos:altLabel>
+	<skos:altLabel>Horad Barysaw</skos:altLabel>
+	<skos:prefLabel>Horad Barysaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828908/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.4975</wgs:lat>
+	<wgs:long>26.92111</wgs:long>
+	<skos:altLabel>Gorod Vileyka</skos:altLabel>
+	<skos:altLabel>Horad Vilyeyka</skos:altLabel>
+	<skos:prefLabel>Horad Vilyeyka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828910/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.685</wgs:lat>
+	<wgs:long>27.14194</wgs:long>
+	<skos:altLabel>Gorod Dzerzhinsk</skos:altLabel>
+	<skos:altLabel>Horad Dzyarzhynsk</skos:altLabel>
+	<skos:prefLabel>Horad Dzyarzhynsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828912/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.09833</wgs:lat>
+	<wgs:long>28.3325</wgs:long>
+	<skos:altLabel>Gorod Zhodino</skos:altLabel>
+	<skos:altLabel>Horad Zhodzina</skos:altLabel>
+	<skos:prefLabel>Horad Zhodzina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54</wgs:lat>
+	<wgs:long>27.28333</wgs:long>
+	<skos:altLabel>Gorod Zaslavl’</skos:altLabel>
+	<skos:altLabel>Horad Zaslawye</skos:altLabel>
+	<skos:prefLabel>Horad Zaslawye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.31667</wgs:lat>
+	<wgs:long>26.84972</wgs:long>
+	<skos:altLabel>Gorod Molodechno</skos:altLabel>
+	<skos:altLabel>Horad Maladzyechna</skos:altLabel>
+	<skos:prefLabel>Horad Maladzyechna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.02722</wgs:lat>
+	<wgs:long>27.56194</wgs:long>
+	<skos:altLabel>Gorod Slutsk</skos:altLabel>
+	<skos:altLabel>Horad Slutsk</skos:altLabel>
+	<skos:prefLabel>Horad Slutsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828916/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625142/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>52.8</wgs:lat>
+	<wgs:long>27.53333</wgs:long>
+	<skos:altLabel>Gorod Soligorsk</skos:altLabel>
+	<skos:altLabel>Horad Salihorsk</skos:altLabel>
+	<skos:prefLabel>Horad Salihorsk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828917/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.91389</wgs:lat>
+	<wgs:long>30.33639</wgs:long>
+	<skos:altLabel>Gorod Mogilev</skos:altLabel>
+	<skos:altLabel>Horad Mahilyow</skos:altLabel>
+	<skos:prefLabel>Horad Mahilyow</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828918/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.15</wgs:lat>
+	<wgs:long>29.23333</wgs:long>
+	<skos:altLabel>Gorod Bobruysk</skos:altLabel>
+	<skos:altLabel>Horad Babruysk</skos:altLabel>
+	<skos:prefLabel>Horad Babruysk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828919/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.29333</wgs:lat>
+	<wgs:long>28.64222</wgs:long>
+	<skos:altLabel>Gorod Osipovichi</skos:altLabel>
+	<skos:altLabel>Horad Asipovichy</skos:altLabel>
+	<skos:prefLabel>Horad Asipovichy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828920/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/625073/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>53.69889</wgs:lat>
+	<wgs:long>31.71417</wgs:long>
+	<skos:altLabel>Gorod Krichev</skos:altLabel>
+	<skos:altLabel>Horad Krychaw</skos:altLabel>
+	<skos:prefLabel>Horad Krychaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/829413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>54.75</wgs:lat>
+	<wgs:long>26.75</wgs:long>
+	<skos:prefLabel>Molodechnenskaya Oblast'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6846555/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13200</europeana:population>
+	<wgs:lat>53.76272</wgs:lat>
+	<wgs:long>27.29622</wgs:long>
+	<skos:altLabel xml:lang="en">Fanipol</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фаниполь</skos:altLabel>
+	<skos:prefLabel>Fanipol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7576577/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/630336/"/>
+	<europeana:country>BY</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.CSTL"/>
+	<wgs:lat>53.2228</wgs:lat>
+	<wgs:long>26.69171</wgs:long>
+	<skos:altLabel xml:lang="en">Nesvizh Castle</skos:altLabel>
+	<skos:altLabel xml:lang="en">Niasvizh Castle</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nieświeski zamek</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Несвижский замок</skos:altLabel>
+	<skos:altLabel xml:lang="be">Нясвіжскі замак</skos:altLabel>
+	<skos:prefLabel>Niasvizh Castle</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 294 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

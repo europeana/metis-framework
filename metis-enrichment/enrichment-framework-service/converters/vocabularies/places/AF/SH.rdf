@@ -1,0 +1,653 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_SH
+Description: Selected fields pulled from Geonames about SH done on Mon May 23 21:16:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411423/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.93333</wgs:lat>
+	<wgs:long>-14.31667</wgs:long>
+	<skos:prefLabel>Boatswainbird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411429/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.95</wgs:lat>
+	<wgs:long>-14.36667</wgs:long>
+	<skos:altLabel xml:lang="de">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ascension Island</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ascension Island</skos:altLabel>
+	<skos:altLabel>Ascension Island</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ascension Uhartea</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ascensione</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ascensão</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa de Ascensión</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla Ascensión</skos:altLabel>
+	<skos:altLabel>Island of Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Otok Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Pulo ng Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Wniebowstąpienia</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Акнезијско острво</skos:altLabel>
+	<skos:altLabel xml:lang="be">Выспа Ўшэсьця</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Вознесения</skos:altLabel>
+	<skos:altLabel xml:lang="he">אסנשן</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アセンション島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿森松岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">어센션 섬</skos:altLabel>
+	<skos:prefLabel>Ascension Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2411430/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3370751/"/>
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1035</europeana:population>
+	<wgs:lat>-7.95</wgs:lat>
+	<wgs:long>-14.35</wgs:long>
+	<skos:altLabel>Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île d'Ascension</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Вознесения</skos:altLabel>
+	<skos:prefLabel>Ascension</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2572139/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-7.92583</wgs:lat>
+	<wgs:long>-14.4075</wgs:long>
+	<skos:prefLabel>Redpole Monument</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370663/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.01667</wgs:lat>
+	<wgs:long>-5.73333</wgs:long>
+	<skos:prefLabel>White Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370677/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.01667</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Upper Black Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370682/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-37.08333</wgs:lat>
+	<wgs:long>-12.28333</wgs:long>
+	<skos:altLabel xml:lang="pt">Ilha de Tristão da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa de Tristán da Cuña</skos:altLabel>
+	<skos:altLabel>Tristan</skos:altLabel>
+	<skos:altLabel>Tristan Island</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="af">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tristan da Cunha</skos:altLabel>
+	<skos:altLabel>Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tristán da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тристан-да-Кунья</skos:altLabel>
+	<skos:altLabel xml:lang="he">טריסטן דה קוניה</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トリスタン・ダ・クーニャ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">트리스탄다쿠냐 제도</skos:altLabel>
+	<skos:prefLabel>Tristan da Cunha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370683/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-37.25</wgs:lat>
+	<wgs:long>-12.5</wgs:long>
+	<skos:altLabel>Tristan da Cunha Group</skos:altLabel>
+	<skos:altLabel>Tristan da Cunha Islands</skos:altLabel>
+	<skos:prefLabel>Tristan da Cunha Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3370751/"/>
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>271</europeana:population>
+	<wgs:lat>-37.25</wgs:lat>
+	<wgs:long>-12.5</wgs:long>
+	<skos:altLabel>Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Tristan da Cunha</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Острова Тристан-да-Кунья</skos:altLabel>
+	<skos:prefLabel>Tristan da Cunha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370689/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.78333</wgs:long>
+	<skos:prefLabel>Thompsons Valley Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370707/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-37.38333</wgs:lat>
+	<wgs:long>-12.48333</wgs:long>
+	<skos:altLabel>Stoltenhof Island</skos:altLabel>
+	<skos:altLabel>Stoltenhoff</skos:altLabel>
+	<skos:altLabel>Stoltenhoff Island</skos:altLabel>
+	<skos:prefLabel>Stoltenhoff Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370715/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.03333</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:altLabel>Speery</skos:altLabel>
+	<skos:altLabel>Speery Island</skos:altLabel>
+	<skos:altLabel>Speery Islet</skos:altLabel>
+	<skos:prefLabel>Speery Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370717/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.4</wgs:lat>
+	<wgs:long>-9.95</wgs:long>
+	<skos:prefLabel>South West Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370721/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.96667</wgs:lat>
+	<wgs:long>-5.63333</wgs:long>
+	<skos:prefLabel>Shore Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370735/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:prefLabel>Sane Valley House</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370740/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Sandy Bay Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370744/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Sampsons Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370745/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:prefLabel>Salt Spring</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370746/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.03333</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Salt Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370750/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:altLabel>Island of Saint Helena</skos:altLabel>
+	<skos:altLabel>Saint Helena</skos:altLabel>
+	<skos:altLabel>Saint Helena Island</skos:altLabel>
+	<skos:prefLabel>Saint Helena Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370751/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>7460</europeana:population>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:altLabel xml:lang="da">S:t Helena</skos:altLabel>
+	<skos:altLabel>SH</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="se">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Saint Helena</skos:altLabel>
+	<skos:altLabel>Saint Helena</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sainte-Hélène</skos:altLabel>
+	<skos:altLabel xml:lang="ga">San Héilin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sankt Helena</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sankti Helena</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sant'Elena</skos:altLabel>
+	<skos:altLabel xml:lang="es">Santa Elena</skos:altLabel>
+	<skos:altLabel xml:lang="id">Santa Helena</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Santa Helena</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Santa Helena</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Santa Helena</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sent-Heleno</skos:altLabel>
+	<skos:altLabel xml:lang="sv">St Helena</skos:altLabel>
+	<skos:altLabel xml:lang="nn">St. Helena</skos:altLabel>
+	<skos:altLabel xml:lang="sl">St. Helena</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatá Helena</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveta Helena</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätá Helena</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Svētās Helēnas Sala</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Sainte-Hélène</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Święta Helena</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Šv. Elena</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αγία Ελένη</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Святой Елены</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Острів Св. Олени</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Света Јелена</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Света Елена</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Света Елена</skos:altLabel>
+	<skos:altLabel xml:lang="be">Святой Алены, Востраў</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט הלנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سانت هيلنا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سنت هلن</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سینٹ ھیلینا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेंट हेलेना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সেন্ট হেলেনা</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเซนต์เฮเลนา</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སེནྚ། ཧེ་ལི་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">წმინდა ელენეს კუნძული</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሴንት ሄለና</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントヘレナ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣赫勒拿</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트 헬레나</skos:altLabel>
+	<skos:prefLabel>Saint Helena</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370752/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.35</wgs:lat>
+	<wgs:long>-9.93333</wgs:long>
+	<skos:prefLabel>Saddle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370754/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Saddle Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370762/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.91667</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Ruperts Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370764/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.3</wgs:lat>
+	<wgs:long>-10</wgs:long>
+	<skos:prefLabel>Round Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370765/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.65</wgs:long>
+	<skos:altLabel>Rough Rock Island</skos:altLabel>
+	<skos:altLabel>Rough Rock Islet</skos:altLabel>
+	<skos:prefLabel>Rough Rock Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370772/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:altLabel>Rock Rose</skos:altLabel>
+	<skos:altLabel>Rock Rose Hill</skos:altLabel>
+	<skos:altLabel>Rock Rose House</skos:altLabel>
+	<skos:prefLabel>Rock Rose</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370773/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.73333</wgs:long>
+	<skos:prefLabel>Rock Mount</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370777/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.03333</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Robert Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370794/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-5.68333</wgs:long>
+	<skos:prefLabel>Powells Batteries</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370799/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>-5.65</wgs:long>
+	<skos:prefLabel>Portuguese Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370807/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.31667</wgs:lat>
+	<wgs:long>-9.91667</wgs:long>
+	<skos:prefLabel>Penguin Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370812/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.96667</wgs:lat>
+	<wgs:long>-5.78333</wgs:long>
+	<skos:prefLabel>Peaked Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370822/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.36667</wgs:lat>
+	<wgs:long>-9.88333</wgs:long>
+	<skos:prefLabel>Number One</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370827/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-37.4</wgs:lat>
+	<wgs:long>-12.46667</wgs:long>
+	<skos:altLabel>Nightingale</skos:altLabel>
+	<skos:altLabel>Nightingale Island</skos:altLabel>
+	<skos:prefLabel>Nightingale Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370837/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-5.7</wgs:long>
+	<skos:altLabel>Buonapartes Tomb</skos:altLabel>
+	<skos:altLabel>Napoleons Tomb</skos:altLabel>
+	<skos:prefLabel>Napoleons Tomb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370847/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-37.38333</wgs:lat>
+	<wgs:long>-12.53333</wgs:long>
+	<skos:altLabel>Middle</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370854/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.36667</wgs:lat>
+	<wgs:long>-9.88333</wgs:long>
+	<skos:prefLabel>Luff Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370856/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16.01667</wgs:lat>
+	<wgs:long>-5.75</wgs:long>
+	<skos:prefLabel>Lower Black Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370905/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-37.28333</wgs:lat>
+	<wgs:long>-12.75</wgs:long>
+	<skos:altLabel xml:lang="pt">Ilha Inacessível</skos:altLabel>
+	<skos:altLabel>Inaccessible</skos:altLabel>
+	<skos:altLabel xml:lang="de">Inaccessible</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Inaccessible</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Inaccessible</skos:altLabel>
+	<skos:altLabel xml:lang="en">Inaccessible Island</skos:altLabel>
+	<skos:altLabel xml:lang="no">Inaccessible Island</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Inaccessible Island</skos:altLabel>
+	<skos:altLabel>Inaccessible Island</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Inaccessible</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Неприступный</skos:altLabel>
+	<skos:altLabel xml:lang="ja">イナクセシブル島</skos:altLabel>
+	<skos:prefLabel>Inaccessible Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370940/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Guard Thicket</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370941/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.93333</wgs:lat>
+	<wgs:long>-5.66667</wgs:long>
+	<skos:prefLabel>Gregorys Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370948/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.30571</wgs:lat>
+	<wgs:long>-9.99687</wgs:long>
+	<skos:altLabel>Gough</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gough</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gough</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gough Island</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gough Island</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gough Island</skos:altLabel>
+	<skos:altLabel>Gough's Island</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gough-Insel</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gough-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="af">Gougheiland</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla de Gough</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Gough</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гоф</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ゴフ島</skos:altLabel>
+	<skos:prefLabel>Gough Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370954/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.63333</wgs:long>
+	<skos:altLabel>George Island</skos:altLabel>
+	<skos:altLabel>George Islet</skos:altLabel>
+	<skos:prefLabel>George Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370966/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.98333</wgs:lat>
+	<wgs:long>-5.66667</wgs:long>
+	<skos:prefLabel>Flat Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3370981/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.96667</wgs:lat>
+	<wgs:long>-5.76667</wgs:long>
+	<skos:prefLabel>Egg Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371009/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.3</wgs:lat>
+	<wgs:long>-9.98333</wgs:long>
+	<skos:prefLabel>Cone Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371010/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.36667</wgs:lat>
+	<wgs:long>-9.88333</wgs:long>
+	<skos:prefLabel>The Commodore</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371012/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Colemans Tower</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371014/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.96667</wgs:lat>
+	<wgs:long>-5.76667</wgs:long>
+	<skos:prefLabel>Cockburns Battery</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371043/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-5.66667</wgs:long>
+	<skos:prefLabel>Bradleys</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371055/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-5.71667</wgs:long>
+	<skos:prefLabel>Black Horse Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371056/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>-5.78333</wgs:long>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3371093/">
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-40.36667</wgs:lat>
+	<wgs:long>-9.88333</wgs:long>
+	<skos:prefLabel>The Admiral</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6930057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3370751/"/>
+	<europeana:country>SH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4255</europeana:population>
+	<wgs:lat>-15.93183</wgs:lat>
+	<wgs:long>-5.71817</wgs:long>
+	<skos:prefLabel>Saint Helena</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 54 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

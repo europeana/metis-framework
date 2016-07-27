@@ -1,0 +1,2356 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_TO
+Description: Selected fields pulled from Geonames about TO done on Mon May 23 21:17:20 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2132236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.18333</wgs:lat>
+	<wgs:long>174.86667</wgs:long>
+	<skos:prefLabel>Lateiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032227/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.13333</wgs:long>
+	<skos:prefLabel>Velitoa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032229/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.6</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:altLabel>Haafuluhao</skos:altLabel>
+	<skos:altLabel>Hafoulou-hou</skos:altLabel>
+	<skos:altLabel>Vavao</skos:altLabel>
+	<skos:altLabel>Vavu</skos:altLabel>
+	<skos:altLabel>`Uta Vava`u</skos:altLabel>
+	<skos:prefLabel>Vava`u Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:altLabel>Haafuluhao</skos:altLabel>
+	<skos:altLabel>Hafoulou-hou</skos:altLabel>
+	<skos:altLabel>Lord Howe's Islands</skos:altLabel>
+	<skos:altLabel>Martin de Mayorga</skos:altLabel>
+	<skos:altLabel>Vavao</skos:altLabel>
+	<skos:altLabel>Vavu</skos:altLabel>
+	<skos:altLabel>Vavu Group</skos:altLabel>
+	<skos:prefLabel>Vava`u Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032231/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:prefLabel>Vava`u</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:prefLabel>Valetoa Mamaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032237/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:prefLabel>Valetoa Kakau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.1</wgs:long>
+	<skos:prefLabel>Vaka`eitu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-174.03333</wgs:long>
+	<skos:altLabel>Otungake</skos:altLabel>
+	<skos:altLabel>Utugake</skos:altLabel>
+	<skos:prefLabel>Utungake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032253/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.85</wgs:lat>
+	<wgs:long>-174.4</wgs:long>
+	<skos:altLabel>Holeva</skos:altLabel>
+	<skos:altLabel>Hoolaiva</skos:altLabel>
+	<skos:prefLabel>Uoleva Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032254/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-173.93333</wgs:long>
+	<skos:altLabel>Umuma Island</skos:altLabel>
+	<skos:prefLabel>Umuna Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032255/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.8</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:prefLabel>Lua Ui Vaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032257/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.9</wgs:lat>
+	<wgs:long>-174.41667</wgs:long>
+	<skos:altLabel>Ouia</skos:altLabel>
+	<skos:altLabel>Uia</skos:altLabel>
+	<skos:prefLabel>`Uiha Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.78333</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:prefLabel>Lua Ui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.96667</wgs:lat>
+	<wgs:long>-174.5</wgs:long>
+	<skos:altLabel>Uonuku Hihifo Island</skos:altLabel>
+	<skos:prefLabel>Uanukuhihifu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.96667</wgs:lat>
+	<wgs:long>-174.48333</wgs:long>
+	<skos:altLabel>Alefa</skos:altLabel>
+	<skos:altLabel>Uonuku Hahake</skos:altLabel>
+	<skos:prefLabel>Uanukuhahaki Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-174.06667</wgs:long>
+	<skos:prefLabel>Tu`ungasika</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.01667</wgs:lat>
+	<wgs:long>-174.76667</wgs:long>
+	<skos:altLabel>Tongua Island</skos:altLabel>
+	<skos:altLabel>Tungnoi</skos:altLabel>
+	<skos:prefLabel>Tungua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.63333</wgs:lat>
+	<wgs:long>-173.95</wgs:long>
+	<skos:prefLabel>Tulie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.06667</wgs:lat>
+	<wgs:long>-175.25</wgs:long>
+	<skos:altLabel>Tufagga</skos:altLabel>
+	<skos:prefLabel>Tufaka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.46667</wgs:lat>
+	<wgs:long>-174.76667</wgs:long>
+	<skos:altLabel>Tanumea</skos:altLabel>
+	<skos:altLabel>Tonomaia</skos:altLabel>
+	<skos:altLabel>Tonumea Island</skos:altLabel>
+	<skos:prefLabel>Tonumeia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>-175.16667</wgs:long>
+	<skos:altLabel>Amsterdam Island</skos:altLabel>
+	<skos:altLabel>New Amsterdam Island</skos:altLabel>
+	<skos:altLabel>Togatabu</skos:altLabel>
+	<skos:altLabel>Tongataboo Island</skos:altLabel>
+	<skos:altLabel>Tongatabu Island</skos:altLabel>
+	<skos:prefLabel>Tongatapu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>-175.16667</wgs:long>
+	<skos:altLabel>Tongatabu Group</skos:altLabel>
+	<skos:prefLabel>Tongatapu Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>70319</europeana:population>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>-175.16667</wgs:long>
+	<skos:prefLabel>Tongatapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-175</wgs:long>
+	<skos:altLabel>Friendly Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Tonga</skos:altLabel>
+	<skos:altLabel>Toga</skos:altLabel>
+	<skos:altLabel>Ton</skos:altLabel>
+	<skos:altLabel>Tonga Group</skos:altLabel>
+	<skos:altLabel>Tonga Islands</skos:altLabel>
+	<skos:altLabel>Tongan Islands</skos:altLabel>
+	<skos:prefLabel>Tonga Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>122580</europeana:population>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-175</wgs:long>
+	<skos:altLabel xml:lang="id">Bahasa Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bahasa Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Igitonga</skos:altLabel>
+	<skos:altLabel>Kingdom of Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kitonga</skos:altLabel>
+	<skos:altLabel>TO</skos:altLabel>
+	<skos:altLabel xml:lang="sm">Toga</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="is">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="an">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="li">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="se">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="to">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="af">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="so">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="yo">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tongai</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tonganščina</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tongiešu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tongo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Tonguäns</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tongų</skos:altLabel>
+	<skos:altLabel xml:lang="az">Tonqa</skos:altLabel>
+	<skos:altLabel xml:lang="ty">To’a</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Tònga</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tông-ga</skos:altLabel>
+	<skos:altLabel xml:lang="ia">tonga</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τόνγκα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="mn">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тонгански</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тонґа</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տոնգա</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տոնգերեն</skos:altLabel>
+	<skos:altLabel xml:lang="he">טונגה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تونجا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تونغا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تونگا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">تونگا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">تونگا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ټونګا</skos:altLabel>
+	<skos:altLabel xml:lang="mr">टांगा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">टोंगा</skos:altLabel>
+	<skos:altLabel xml:lang="ne">टोन्गा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">তোনগা</skos:altLabel>
+	<skos:altLabel xml:lang="pa">ਤੋਨ੍ਗ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">டோங்கா</skos:altLabel>
+	<skos:altLabel xml:lang="ta">தொங்கா</skos:altLabel>
+	<skos:altLabel xml:lang="te">ఠాఙ్గ</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಟೊಂಗ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ടോംഗ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ตองกา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศตองกา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ภาษาทองก้า</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ທອງກ້າ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ტონგა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቶንጋ</skos:altLabel>
+	<skos:altLabel xml:lang="km">តុងហ្គា</skos:altLabel>
+	<skos:altLabel xml:lang="km">ថុងហ្គា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トンガ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トンガ王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">東加</skos:altLabel>
+	<skos:altLabel xml:lang="zh">汤加</skos:altLabel>
+	<skos:altLabel xml:lang="ko">통가</skos:altLabel>
+	<skos:prefLabel>Kingdom of Tonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.1</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:prefLabel>Tokulu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.16667</wgs:lat>
+	<wgs:long>-174.18333</wgs:long>
+	<skos:prefLabel>Toku Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.06667</wgs:lat>
+	<wgs:long>-175.3</wgs:long>
+	<skos:prefLabel>Toketoke Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:prefLabel>Toka Vevili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>-175.08333</wgs:long>
+	<skos:altLabel>Tofoa</skos:altLabel>
+	<skos:altLabel>Toofoa</skos:altLabel>
+	<skos:prefLabel>Tofua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.96667</wgs:lat>
+	<wgs:long>-174.46667</wgs:long>
+	<skos:altLabel>Tofaga</skos:altLabel>
+	<skos:altLabel>Tofonga Island</skos:altLabel>
+	<skos:prefLabel>Tofanga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032300/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.31667</wgs:lat>
+	<wgs:long>-174.53333</wgs:long>
+	<skos:prefLabel>Telekivava`u Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.4</wgs:lat>
+	<wgs:long>-174.53333</wgs:long>
+	<skos:altLabel>Teleki Toga</skos:altLabel>
+	<skos:altLabel>Telekitinga</skos:altLabel>
+	<skos:prefLabel>Telekitonga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.35</wgs:lat>
+	<wgs:long>-174.53333</wgs:long>
+	<skos:altLabel>Lalona Island</skos:altLabel>
+	<skos:prefLabel>Telekiha`apai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032308/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.98333</wgs:lat>
+	<wgs:long>-174.73333</wgs:long>
+	<skos:altLabel>Moa-moa</skos:altLabel>
+	<skos:altLabel>Teauba Island</skos:altLabel>
+	<skos:prefLabel>Teaupa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032309/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.73333</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:prefLabel>Tauta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.73333</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:altLabel>Tauga</skos:altLabel>
+	<skos:prefLabel>Taunga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032312/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.85</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:altLabel>Laurabeto</skos:altLabel>
+	<skos:prefLabel>Taula Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.01667</wgs:lat>
+	<wgs:long>-175</wgs:long>
+	<skos:altLabel>Taii</skos:altLabel>
+	<skos:prefLabel>Tau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.88333</wgs:lat>
+	<wgs:long>-174.41667</wgs:long>
+	<skos:altLabel>Tatefa</skos:altLabel>
+	<skos:prefLabel>Tatafa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>-175.05</wgs:long>
+	<skos:altLabel>Lazaretto</skos:altLabel>
+	<skos:altLabel>Motu Tabu</skos:altLabel>
+	<skos:altLabel>Motutapa Island</skos:altLabel>
+	<skos:altLabel>Motutapu</skos:altLabel>
+	<skos:prefLabel>Motu Tapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:altLabel>Tabana</skos:altLabel>
+	<skos:prefLabel>Tapana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032319/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>-174.63333</wgs:long>
+	<skos:prefLabel>Tano`a Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032322/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:prefLabel>Talakite Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.26667</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:prefLabel>Motu Tafisi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.85</wgs:lat>
+	<wgs:long>-173.71667</wgs:long>
+	<skos:altLabel>Boscawen Island</skos:altLabel>
+	<skos:altLabel>Tafehi</skos:altLabel>
+	<skos:prefLabel>Tafahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.73333</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:prefLabel>Sisia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>-175.65</wgs:long>
+	<skos:prefLabel>Motu Sii</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.68333</wgs:lat>
+	<wgs:long>-174.28333</wgs:long>
+	<skos:prefLabel>Selila</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032343/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:prefLabel>Motu Pu`uara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032344/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.91667</wgs:lat>
+	<wgs:long>-174.76667</wgs:long>
+	<skos:altLabel>Pudupudua Island</skos:altLabel>
+	<skos:prefLabel>Putuputua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>-175.25</wgs:long>
+	<skos:altLabel>Boloa</skos:altLabel>
+	<skos:altLabel>Holoa</skos:altLabel>
+	<skos:prefLabel>Polo`a Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>-174.71667</wgs:long>
+	<skos:altLabel>Beabea Island</skos:altLabel>
+	<skos:altLabel>Bebea</skos:altLabel>
+	<skos:altLabel>Peapea Island</skos:altLabel>
+	<skos:prefLabel>Pepea Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032365/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:altLabel>Bau</skos:altLabel>
+	<skos:prefLabel>Pau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>-175.16667</wgs:long>
+	<skos:altLabel>Bagaimotu</skos:altLabel>
+	<skos:altLabel>Bangaimotu</skos:altLabel>
+	<skos:altLabel>Panghai-motu</skos:altLabel>
+	<skos:altLabel>Pangimodu</skos:altLabel>
+	<skos:prefLabel>Pangaimotu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:altLabel>Bagaimotu</skos:altLabel>
+	<skos:altLabel>Bangaimotu</skos:altLabel>
+	<skos:altLabel>Pengai Motu</skos:altLabel>
+	<skos:prefLabel>Pangaimotu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:prefLabel>Ovalau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.1</wgs:long>
+	<skos:prefLabel>Ovaka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032374/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.03333</wgs:lat>
+	<wgs:long>-174.68333</wgs:long>
+	<skos:altLabel>Fonou-Foua</skos:altLabel>
+	<skos:altLabel>O-ooa</skos:altLabel>
+	<skos:prefLabel>`O`ua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.35</wgs:lat>
+	<wgs:long>-174.53333</wgs:long>
+	<skos:prefLabel>`Otu Tolu Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032376/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.06667</wgs:long>
+	<skos:altLabel>Ota</skos:altLabel>
+	<skos:prefLabel>Oto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.96667</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:prefLabel>Ono Iki Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.1</wgs:long>
+	<skos:prefLabel>Onevao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.11667</wgs:long>
+	<skos:altLabel>Onevah</skos:altLabel>
+	<skos:prefLabel>`Onevai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.13333</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:prefLabel>`Oneata Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-173.95</wgs:long>
+	<skos:prefLabel>`Olo`ua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-173.95</wgs:long>
+	<skos:prefLabel>Okoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-173.96667</wgs:long>
+	<skos:altLabel>Ofe</skos:altLabel>
+	<skos:prefLabel>Ofu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.6</wgs:lat>
+	<wgs:long>-174.45</wgs:long>
+	<skos:altLabel>Ofolaga</skos:altLabel>
+	<skos:prefLabel>Ofolanga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>-174.68333</wgs:long>
+	<skos:prefLabel>Nukutula Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>-174.51667</wgs:long>
+	<skos:prefLabel>Nukutavake</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.78333</wgs:lat>
+	<wgs:long>-174.53333</wgs:long>
+	<skos:altLabel>Nougou Boule</skos:altLabel>
+	<skos:altLabel>Nukubule Island</skos:altLabel>
+	<skos:prefLabel>Nukupule Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.15</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:altLabel>Nuku Nuku</skos:altLabel>
+	<skos:prefLabel>Nukunukumotu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.71667</wgs:lat>
+	<wgs:long>-174.28333</wgs:long>
+	<skos:altLabel>Nukonama</skos:altLabel>
+	<skos:altLabel>Nukunamo</skos:altLabel>
+	<skos:prefLabel>Nukunamu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>-174.73333</wgs:long>
+	<skos:altLabel>Nukulei</skos:altLabel>
+	<skos:prefLabel>Nukulai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032397/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-173.98333</wgs:long>
+	<skos:prefLabel>Nukulahanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.48333</wgs:lat>
+	<wgs:long>-174.76667</wgs:long>
+	<skos:prefLabel>Nuku Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032399/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.01667</wgs:long>
+	<skos:altLabel>Nugu</skos:altLabel>
+	<skos:prefLabel>Nuku Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:prefLabel>Nukufaiau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032402/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>22400</europeana:population>
+	<wgs:lat>-21.13333</wgs:lat>
+	<wgs:long>-175.2</wgs:long>
+	<skos:altLabel>Niukalofa</skos:altLabel>
+	<skos:altLabel xml:lang="la">Nucualofa</skos:altLabel>
+	<skos:altLabel>Nukalofa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nuku'alofa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nuku'alofa</skos:altLabel>
+	<skos:altLabel>Nuku`aloia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Nukualofa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nukualofa</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nukualofa</skos:altLabel>
+	<skos:altLabel xml:lang="to">Nukuʻalofa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nuku’alofa</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νουκουαλόφα</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нукуалофа</skos:altLabel>
+	<skos:altLabel xml:lang="he">נוקואלופה</skos:altLabel>
+	<skos:altLabel xml:lang="th">นูกูอะโลฟา</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኑኩአሎፋ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヌクアロファ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">努库阿洛法</skos:altLabel>
+	<skos:altLabel xml:lang="zh">努庫阿洛發</skos:altLabel>
+	<skos:altLabel xml:lang="ko">누쿠알로파</skos:altLabel>
+	<skos:prefLabel>Nuku`alofa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032403/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:prefLabel>Nuku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Nuapuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032405/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:altLabel>Niuapapu</skos:altLabel>
+	<skos:altLabel>Noapapu Island</skos:altLabel>
+	<skos:altLabel>Nuababu</skos:altLabel>
+	<skos:altLabel>Nuipapa</skos:altLabel>
+	<skos:prefLabel>Nuapapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:altLabel>Annamooka</skos:altLabel>
+	<skos:altLabel>Namuka</skos:altLabel>
+	<skos:prefLabel>Nomuka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>-174.81667</wgs:long>
+	<skos:altLabel>Annamooka-Eky</skos:altLabel>
+	<skos:altLabel>Little Nomuka</skos:altLabel>
+	<skos:altLabel>Namukaiki</skos:altLabel>
+	<skos:altLabel>Nomukeiki</skos:altLabel>
+	<skos:prefLabel>Nomuka Iki Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>-174.75</wgs:long>
+	<skos:altLabel>Mu'omu'a Group</skos:altLabel>
+	<skos:prefLabel>Nomuka Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-173.75</wgs:long>
+	<skos:altLabel>Keppel Island</skos:altLabel>
+	<skos:altLabel>Niuatabutabu</skos:altLabel>
+	<skos:altLabel>Niuatobutabu</skos:altLabel>
+	<skos:altLabel>Verraders Island</skos:altLabel>
+	<skos:prefLabel>Niuatoputapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032414/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.58333</wgs:lat>
+	<wgs:long>-175.63333</wgs:long>
+	<skos:altLabel>Goede Hoop Eiland</skos:altLabel>
+	<skos:altLabel>Good Hope Island</skos:altLabel>
+	<skos:altLabel>Niua-fu</skos:altLabel>
+	<skos:altLabel>Niuafoo</skos:altLabel>
+	<skos:altLabel>Niuafou Island</skos:altLabel>
+	<skos:altLabel>Proby Island</skos:altLabel>
+	<skos:altLabel>Tin Can Island</skos:altLabel>
+	<skos:altLabel>Tin Can Mail Island</skos:altLabel>
+	<skos:prefLabel>Niuafo`ou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032415/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.76667</wgs:lat>
+	<wgs:long>-174.63333</wgs:long>
+	<skos:altLabel>Neeneva</skos:altLabel>
+	<skos:prefLabel>Niniva Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.18333</wgs:lat>
+	<wgs:long>-175.16667</wgs:long>
+	<skos:prefLabel>Ngofonua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032417/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Ngau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:altLabel>Namua-hongo</skos:altLabel>
+	<skos:prefLabel>Mu`omu`a</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.26667</wgs:lat>
+	<wgs:long>-174.81667</wgs:long>
+	<skos:prefLabel>Muifuiva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032445/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.06667</wgs:long>
+	<skos:prefLabel>Mounu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032446/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.18333</wgs:lat>
+	<wgs:long>-175.13333</wgs:long>
+	<skos:prefLabel>Mo`ungatapu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.63333</wgs:lat>
+	<wgs:long>-174.48333</wgs:long>
+	<skos:altLabel>Mangone</skos:altLabel>
+	<skos:altLabel>Mougaone</skos:altLabel>
+	<skos:prefLabel>Mo`unga`one Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>-175.13333</wgs:long>
+	<skos:altLabel>Monuafai</skos:altLabel>
+	<skos:prefLabel>Monuafe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.58333</wgs:lat>
+	<wgs:long>-175.65</wgs:long>
+	<skos:prefLabel>Motu Molemole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.11667</wgs:long>
+	<skos:prefLabel>Mokotau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032461/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.26667</wgs:lat>
+	<wgs:long>-174.65</wgs:long>
+	<skos:prefLabel>Meama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>-174.56667</wgs:long>
+	<skos:altLabel>Meamo</skos:altLabel>
+	<skos:altLabel>Miama</skos:altLabel>
+	<skos:prefLabel>Meama</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.96667</wgs:lat>
+	<wgs:long>-174.75</wgs:long>
+	<skos:altLabel>Matugu Island</skos:altLabel>
+	<skos:prefLabel>Matuku Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032469/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Matatoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032481/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:altLabel>Matahao</skos:altLabel>
+	<skos:prefLabel>Mata`aho Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.85</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:altLabel>Naoonoho</skos:altLabel>
+	<skos:prefLabel>Maninita Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:altLabel>Maneema</skos:altLabel>
+	<skos:prefLabel>Manima Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032490/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.33333</wgs:lat>
+	<wgs:long>-174.71667</wgs:long>
+	<skos:altLabel>Komango</skos:altLabel>
+	<skos:altLabel>Mago</skos:altLabel>
+	<skos:prefLabel>Mango Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032491/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.31667</wgs:lat>
+	<wgs:long>-174.73333</wgs:long>
+	<skos:altLabel>Mago Iki</skos:altLabel>
+	<skos:prefLabel>Mango Iki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.03333</wgs:lat>
+	<wgs:long>-175.13333</wgs:long>
+	<skos:altLabel>Mallenoah</skos:altLabel>
+	<skos:prefLabel>Malinoa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Malafakalava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Mala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:altLabel>Makaha</skos:altLabel>
+	<skos:altLabel>Makkahaa</skos:altLabel>
+	<skos:prefLabel>Makaha`a Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-173.95</wgs:long>
+	<skos:prefLabel>Mafana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.81667</wgs:lat>
+	<wgs:long>-173.98333</wgs:long>
+	<skos:altLabel>Luatofito Island</skos:altLabel>
+	<skos:prefLabel>Luatafito Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032508/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:prefLabel>Luaofa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032509/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.86667</wgs:lat>
+	<wgs:long>-174.48333</wgs:long>
+	<skos:altLabel>Longahoo</skos:altLabel>
+	<skos:altLabel>Luagahu</skos:altLabel>
+	<skos:prefLabel>Luangahu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032510/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.01667</wgs:lat>
+	<wgs:long>-174.71667</wgs:long>
+	<skos:altLabel>Luanamu Island</skos:altLabel>
+	<skos:prefLabel>Luanamo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-174.1</wgs:long>
+	<skos:prefLabel>Luamoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032512/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.66667</wgs:lat>
+	<wgs:long>-174.4</wgs:long>
+	<skos:altLabel>Loohooga</skos:altLabel>
+	<skos:altLabel>Lua Hoko</skos:altLabel>
+	<skos:prefLabel>Luahoko Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032513/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:prefLabel>Luafatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Lotuma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032516/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.25</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:prefLabel>Motu Loto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-173.93333</wgs:long>
+	<skos:prefLabel>Lolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.83333</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Lua Loli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.83333</wgs:lat>
+	<wgs:long>-174.55</wgs:long>
+	<skos:altLabel>Lofaga</skos:altLabel>
+	<skos:prefLabel>Lofanga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032526/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.01667</wgs:lat>
+	<wgs:long>-174.46667</wgs:long>
+	<skos:altLabel>Lima</skos:altLabel>
+	<skos:prefLabel>Limu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032528/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.8</wgs:lat>
+	<wgs:long>-174.35</wgs:long>
+	<skos:altLabel>Lefouka</skos:altLabel>
+	<skos:altLabel>Lefuka</skos:altLabel>
+	<skos:prefLabel>Lifuka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.06667</wgs:lat>
+	<wgs:long>-174.61667</wgs:long>
+	<skos:altLabel>Lekaleka</skos:altLabel>
+	<skos:prefLabel>Lekeleka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:prefLabel>Lekeleka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032538/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:prefLabel>Lautala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032541/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.8</wgs:lat>
+	<wgs:long>-174.65</wgs:long>
+	<skos:altLabel>Bickerton Island</skos:altLabel>
+	<skos:altLabel>Latte</skos:altLabel>
+	<skos:altLabel>Lette</skos:altLabel>
+	<skos:prefLabel>Late Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032542/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:altLabel>Labe</skos:altLabel>
+	<skos:prefLabel>Lape</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.73333</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:altLabel>Lagitau</skos:altLabel>
+	<skos:prefLabel>Langitau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.75</wgs:lat>
+	<wgs:long>-174.1</wgs:long>
+	<skos:prefLabel>Langakali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032550/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>-175.63333</wgs:long>
+	<skos:prefLabel>Motu Lahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.1</wgs:long>
+	<skos:prefLabel>Kulo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032558/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.95</wgs:lat>
+	<wgs:long>-174.8</wgs:long>
+	<skos:altLabel>Kotoo</skos:altLabel>
+	<skos:prefLabel>Kotu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032559/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-174.75</wgs:long>
+	<skos:altLabel>Kotoo</skos:altLabel>
+	<skos:altLabel>Lulunga Group</skos:altLabel>
+	<skos:altLabel>Western Ha`apal Group</skos:altLabel>
+	<skos:prefLabel>Kotu Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:altLabel>Kogaloto</skos:altLabel>
+	<skos:altLabel>Kongalota Island</skos:altLabel>
+	<skos:prefLabel>Kongaloto Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032565/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.63333</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:prefLabel>Kolotahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032567/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.95</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:altLabel>Koro Island</skos:altLabel>
+	<skos:altLabel>Ogoroo</skos:altLabel>
+	<skos:prefLabel>Kolo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-173.93333</wgs:long>
+	<skos:prefLabel>Koloa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032571/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-174.06667</wgs:long>
+	<skos:prefLabel>Kitu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032572/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-174.78333</wgs:long>
+	<skos:altLabel>Keetoo</skos:altLabel>
+	<skos:prefLabel>Kito Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032574/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-173.95</wgs:long>
+	<skos:prefLabel>Kiato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032575/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-173.93333</wgs:long>
+	<skos:prefLabel>Kenutu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032576/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.5</wgs:lat>
+	<wgs:long>-174.73333</wgs:long>
+	<skos:altLabel>Falafagea</skos:altLabel>
+	<skos:altLabel>Fallafajea</skos:altLabel>
+	<skos:altLabel>Kelifijia</skos:altLabel>
+	<skos:prefLabel>Kelefesia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032579/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.73333</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:altLabel>Katafaga</skos:altLabel>
+	<skos:prefLabel>Katafanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032580/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.03333</wgs:long>
+	<skos:altLabel>Kaba</skos:altLabel>
+	<skos:altLabel>Kopa</skos:altLabel>
+	<skos:prefLabel>Kapa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:altLabel>Lua Kaba</skos:altLabel>
+	<skos:altLabel>Luakapa</skos:altLabel>
+	<skos:prefLabel>Lua Kapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.66667</wgs:lat>
+	<wgs:long>-175.01667</wgs:long>
+	<skos:prefLabel>Kao Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032584/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>-175.21667</wgs:long>
+	<skos:prefLabel>Kanatea Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032585/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.46667</wgs:lat>
+	<wgs:long>-174.95</wgs:long>
+	<skos:altLabel>Catto</skos:altLabel>
+	<skos:altLabel>Cattow</skos:altLabel>
+	<skos:altLabel>Kallau</skos:altLabel>
+	<skos:prefLabel>Kalau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032586/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:prefLabel>Kalau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032589/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.8</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:altLabel>Kahifehifa</skos:altLabel>
+	<skos:prefLabel>Kaihifahifa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.53333</wgs:lat>
+	<wgs:long>-175.38333</wgs:long>
+	<skos:altLabel>Honga Tonga Island</skos:altLabel>
+	<skos:altLabel>Huga Toga</skos:altLabel>
+	<skos:prefLabel>Hunga Tonga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.95</wgs:lat>
+	<wgs:long>-173.76667</wgs:long>
+	<skos:prefLabel>Hunganga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032600/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.68333</wgs:lat>
+	<wgs:long>-174.11667</wgs:long>
+	<skos:altLabel>Hounga</skos:altLabel>
+	<skos:altLabel>Huga</skos:altLabel>
+	<skos:prefLabel>Hunga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.55</wgs:lat>
+	<wgs:long>-175.4</wgs:long>
+	<skos:altLabel>Honga Hapai Island</skos:altLabel>
+	<skos:altLabel>Huga Haabai</skos:altLabel>
+	<skos:altLabel>Hunga Haabai</skos:altLabel>
+	<skos:prefLabel>Hunga Ha`apai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032620/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.81667</wgs:lat>
+	<wgs:long>-174.06667</wgs:long>
+	<skos:altLabel>Lua Hiabo</skos:altLabel>
+	<skos:altLabel>Lua Hiapu</skos:altLabel>
+	<skos:altLabel>Luahiapo</skos:altLabel>
+	<skos:altLabel>Luahiapu</skos:altLabel>
+	<skos:altLabel>Luayapo</skos:altLabel>
+	<skos:prefLabel>Lua Hiapo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.01667</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:altLabel>Accou Jago</skos:altLabel>
+	<skos:altLabel>Hakau Fasi</skos:altLabel>
+	<skos:altLabel>Hakaufussi</skos:altLabel>
+	<skos:prefLabel>Hakaufusi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.85</wgs:lat>
+	<wgs:long>-174.51667</wgs:long>
+	<skos:altLabel>Houa-manou</skos:altLabel>
+	<skos:prefLabel>Hakau`ata Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-19.78333</wgs:lat>
+	<wgs:long>-174.45</wgs:long>
+	<skos:altLabel>Haabai Group</skos:altLabel>
+	<skos:altLabel>Haapi Group</skos:altLabel>
+	<skos:altLabel>Hapai Group</skos:altLabel>
+	<skos:altLabel>Hapaii</skos:altLabel>
+	<skos:prefLabel>Ha`apai Group</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032637/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>7570</europeana:population>
+	<wgs:lat>-19.78333</wgs:lat>
+	<wgs:long>-174.45</wgs:long>
+	<skos:prefLabel>Ha`apai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.66667</wgs:lat>
+	<wgs:long>-174.28333</wgs:long>
+	<skos:altLabel>Haaono</skos:altLabel>
+	<skos:prefLabel>Ha`ano Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.MNMT"/>
+	<wgs:lat>-21.13333</wgs:lat>
+	<wgs:long>-175.05</wgs:long>
+	<skos:altLabel>Ha`amonga</skos:altLabel>
+	<skos:altLabel>Ha`amonga `a Maui</skos:altLabel>
+	<skos:altLabel>The Burden of Maui</skos:altLabel>
+	<skos:prefLabel>Ha`amonga Trilithon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.95</wgs:lat>
+	<wgs:long>-174.71667</wgs:long>
+	<skos:altLabel>Hafaiva</skos:altLabel>
+	<skos:prefLabel>Ha`afeva Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032648/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.81667</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:altLabel>Luaafuleheu</skos:altLabel>
+	<skos:altLabel>Tuoola</skos:altLabel>
+	<skos:prefLabel>Lua a Fuleheu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032649/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.1</wgs:lat>
+	<wgs:long>-175.03333</wgs:long>
+	<skos:altLabel>Fukaive</skos:altLabel>
+	<skos:prefLabel>Fukave Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.78333</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:altLabel>Fuamotu</skos:altLabel>
+	<skos:prefLabel>Fua`amotu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-174.75</wgs:long>
+	<skos:prefLabel>Foua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032656/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.81667</wgs:lat>
+	<wgs:long>-174.73333</wgs:long>
+	<skos:altLabel>Footooha</skos:altLabel>
+	<skos:altLabel>Fotoua</skos:altLabel>
+	<skos:altLabel>Foutoua</skos:altLabel>
+	<skos:prefLabel>Fotuha`a Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.76667</wgs:lat>
+	<wgs:long>-173.95</wgs:long>
+	<skos:altLabel>Fonuauga</skos:altLabel>
+	<skos:prefLabel>Fonuaunga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032661/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.8</wgs:lat>
+	<wgs:long>-174.11667</wgs:long>
+	<skos:altLabel>Fanua-one-one</skos:altLabel>
+	<skos:altLabel>Femuaomeone</skos:altLabel>
+	<skos:prefLabel>Fonua`one`one</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032662/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.01667</wgs:lat>
+	<wgs:long>-174.31667</wgs:long>
+	<skos:altLabel>Amargura</skos:altLabel>
+	<skos:altLabel>Fanoualei</skos:altLabel>
+	<skos:altLabel>Fanua Lai</skos:altLabel>
+	<skos:altLabel>Gardner's Island</skos:altLabel>
+	<skos:prefLabel>Fonualei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.73333</wgs:lat>
+	<wgs:long>-174.06667</wgs:long>
+	<skos:prefLabel>Fonualai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032664/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.11667</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:altLabel>Fanuaika</skos:altLabel>
+	<skos:altLabel>Fonoaika</skos:altLabel>
+	<skos:prefLabel>Fonuaika Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.78333</wgs:lat>
+	<wgs:long>-173.96667</wgs:long>
+	<skos:altLabel>Fonuafoou</skos:altLabel>
+	<skos:altLabel>Fonuafoō</skos:altLabel>
+	<skos:prefLabel>Fonuafuu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032668/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.93333</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:prefLabel>Fono i Mukka Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032669/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.28333</wgs:lat>
+	<wgs:long>-174.63333</wgs:long>
+	<skos:prefLabel>Fonoifua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:altLabel>Fofoua</skos:altLabel>
+	<skos:prefLabel>Fofoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032673/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.15</wgs:long>
+	<skos:altLabel>Focato</skos:altLabel>
+	<skos:prefLabel>Foelifuka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032674/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:altLabel>Foiata</skos:altLabel>
+	<skos:prefLabel>Foeata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032675/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>-174.3</wgs:long>
+	<skos:altLabel>Foua</skos:altLabel>
+	<skos:altLabel>Fua</skos:altLabel>
+	<skos:prefLabel>Foa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032678/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.3</wgs:lat>
+	<wgs:long>-174.53333</wgs:long>
+	<skos:altLabel>Fetokobuga</skos:altLabel>
+	<skos:altLabel>Fetokobunga</skos:altLabel>
+	<skos:prefLabel>Fetokopunga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.96667</wgs:lat>
+	<wgs:long>-174.73333</wgs:long>
+	<skos:prefLabel>Fetoa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.78333</wgs:lat>
+	<wgs:long>-174.18333</wgs:long>
+	<skos:altLabel>Fatoumanga</skos:altLabel>
+	<skos:altLabel>Fatumaga</skos:altLabel>
+	<skos:prefLabel>Fatumanga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032694/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-173.98333</wgs:long>
+	<skos:prefLabel>Fanuatapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032696/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.76667</wgs:lat>
+	<wgs:long>-174.13333</wgs:long>
+	<skos:altLabel>Fagisito</skos:altLabel>
+	<skos:altLabel>Tangaseto</skos:altLabel>
+	<skos:prefLabel>Fangasito Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.05</wgs:lat>
+	<wgs:long>-174.7</wgs:long>
+	<skos:altLabel>Fakahigu Island</skos:altLabel>
+	<skos:prefLabel>Fakahiku Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.66667</wgs:lat>
+	<wgs:long>-173.93333</wgs:long>
+	<skos:prefLabel>Faioa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.71667</wgs:lat>
+	<wgs:long>-173.98333</wgs:long>
+	<skos:prefLabel>Fafini</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032720/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.15</wgs:long>
+	<skos:altLabel>Fafaa</skos:altLabel>
+	<skos:altLabel>Faffao</skos:altLabel>
+	<skos:prefLabel>Fafa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.76667</wgs:lat>
+	<wgs:long>-174.01667</wgs:long>
+	<skos:altLabel>Euaiki</skos:altLabel>
+	<skos:altLabel>Kawege</skos:altLabel>
+	<skos:prefLabel>`Eueiki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.76667</wgs:lat>
+	<wgs:long>-174.03333</wgs:long>
+	<skos:prefLabel>`Euakafa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032723/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.36667</wgs:lat>
+	<wgs:long>-174.93333</wgs:long>
+	<skos:altLabel>Eooa</skos:altLabel>
+	<skos:altLabel>Middelburg</skos:altLabel>
+	<skos:altLabel>Middleburg</skos:altLabel>
+	<skos:prefLabel>`Eua Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.11667</wgs:lat>
+	<wgs:long>-174.98333</wgs:long>
+	<skos:altLabel>Eoa-tehi</skos:altLabel>
+	<skos:altLabel>Euaigee</skos:altLabel>
+	<skos:altLabel>Eueiki</skos:altLabel>
+	<skos:prefLabel>`Eua Iki Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032740/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-21.18333</wgs:lat>
+	<wgs:long>-175.13333</wgs:long>
+	<skos:prefLabel>Captain Cooks Tree</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.05</wgs:long>
+	<skos:altLabel>Aa</skos:altLabel>
+	<skos:prefLabel>Ava</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032757/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.05</wgs:lat>
+	<wgs:long>-175.25</wgs:long>
+	<skos:altLabel>Atataa</skos:altLabel>
+	<skos:prefLabel>`Atata Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.05</wgs:lat>
+	<wgs:long>-175</wgs:long>
+	<skos:altLabel>Ataa</skos:altLabel>
+	<skos:prefLabel>`Ata Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032759/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-22.33333</wgs:lat>
+	<wgs:long>-176.2</wgs:long>
+	<skos:altLabel>Kaafa</skos:altLabel>
+	<skos:altLabel>Pijlstaart</skos:altLabel>
+	<skos:altLabel>Pylstaart</skos:altLabel>
+	<skos:altLabel>Pylstaert</skos:altLabel>
+	<skos:prefLabel>`Ata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032763/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.HSTS"/>
+	<wgs:lat>-15.56667</wgs:lat>
+	<wgs:long>-175.63333</wgs:long>
+	<skos:altLabel>Aga-ha</skos:altLabel>
+	<skos:altLabel>Anagaha</skos:altLabel>
+	<skos:prefLabel>Angaha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032767/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174.08333</wgs:long>
+	<skos:prefLabel>Alinonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032772/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-21.08333</wgs:lat>
+	<wgs:long>-175.25</wgs:long>
+	<skos:altLabel>Alakibeau</skos:altLabel>
+	<skos:prefLabel>`Alakipeau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032780/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-18.7</wgs:lat>
+	<wgs:long>-174</wgs:long>
+	<skos:prefLabel>Afo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.6</wgs:lat>
+	<wgs:long>-175.65</wgs:long>
+	<skos:prefLabel>Motu Aali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6941102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-18.65</wgs:lat>
+	<wgs:long>-173.98333</wgs:long>
+	<skos:prefLabel>Vava'u</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-15.60976</wgs:lat>
+	<wgs:long>-175.63361</wgs:long>
+	<skos:prefLabel>Niuas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-21.3632</wgs:lat>
+	<wgs:long>-174.92972</wgs:long>
+	<skos:prefLabel>Eua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7668055/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.9567</wgs:lat>
+	<wgs:long>-173.77833</wgs:long>
+	<skos:prefLabel>Niuatoputapu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/7668055/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-15.60976</wgs:lat>
+	<wgs:long>-175.6332</wgs:long>
+	<skos:prefLabel>Niuafo'ou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7668055/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/4032283/"/>
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1652</europeana:population>
+	<wgs:lat>-15.9544</wgs:lat>
+	<wgs:long>-173.78963</wgs:long>
+	<skos:prefLabel>Niuas</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 213 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

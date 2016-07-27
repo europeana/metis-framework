@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_IM
+Description: Selected fields pulled from Geonames about IM done on Mon May 23 21:12:38 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042171/">
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>54.2</wgs:lat>
+	<wgs:long>-4.63333</wgs:long>
+	<skos:altLabel>Cronky-y-Keillown</skos:altLabel>
+	<skos:altLabel>Tynwald Hill</skos:altLabel>
+	<skos:prefLabel>Tynwald Hill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042183/">
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>54.06667</wgs:lat>
+	<wgs:long>-4.6</wgs:long>
+	<skos:altLabel>Saint Michael Island</skos:altLabel>
+	<skos:altLabel>Saint Michaels Island</skos:altLabel>
+	<skos:prefLabel>Saint Michaels Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042204/">
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>54.16263</wgs:lat>
+	<wgs:long>-4.74335</wgs:long>
+	<skos:prefLabel>The Niarbyl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042211/">
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>54.25</wgs:lat>
+	<wgs:long>-4.5</wgs:long>
+	<skos:altLabel>Isle of Man</skos:altLabel>
+	<skos:prefLabel>Isle of Man</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042225/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCL"/>
+	<europeana:population>75049</europeana:population>
+	<wgs:lat>54.25</wgs:lat>
+	<wgs:long>-4.5</wgs:long>
+	<skos:altLabel xml:lang="li">Eiland Man</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Eilean Mhanainn</skos:altLabel>
+	<skos:altLabel>IM</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilha de Man</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Illa de Man</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illa de Man</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa de Man</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illa de Man - Ellan Vannin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Insel Man</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Man</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Man</skos:altLabel>
+	<skos:altLabel xml:lang="es">Isla de Man</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Isle Of Man</skos:altLabel>
+	<skos:altLabel xml:lang="id">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="en">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="da">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="de">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isola di Man</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Man</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Man</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Man</skos:altLabel>
+	<skos:altLabel xml:lang="et">Man</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Man</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Man</skos:altLabel>
+	<skos:altLabel xml:lang="no">Man</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Man</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Man (Île)</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Man Adası</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Man sziget</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Man uhartea</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Man-sziget</skos:altLabel>
+	<skos:altLabel xml:lang="br">Manav</skos:altLabel>
+	<skos:altLabel xml:lang="et">Mani saar</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Manksinsulo</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Mann</skos:altLabel>
+	<skos:altLabel xml:lang="gv">Mannin</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Mansaari</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Menas sala</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Meno sala</skos:altLabel>
+	<skos:altLabel xml:lang="la">Monapia</skos:altLabel>
+	<skos:altLabel xml:lang="is">Mön</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileán Mhanann</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ostrov Man</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Ostrvo Man</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Otok Man</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Otok Man</skos:altLabel>
+	<skos:altLabel xml:lang="id">Pulau Man</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspa Man</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynys Manaw</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynys Manow</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île de Man</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσος Μαν</skos:altLabel>
+	<skos:altLabel xml:lang="be">Востраў Мэн</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Мен</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мэн, о-в</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Острво Ман</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Острво Човека</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Остров Ман</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Остров Мэн</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Острів Мен</skos:altLabel>
+	<skos:altLabel xml:lang="he">האי מאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">האי מן</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة مان</skos:altLabel>
+	<skos:altLabel xml:lang="th">เกาะแมน</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კუნძული მენი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">მანის კუნძული</skos:altLabel>
+	<skos:altLabel xml:lang="ja">マン島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">曼岛</skos:altLabel>
+	<skos:altLabel xml:lang="zh">曼島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">맨 섬</skos:altLabel>
+	<skos:altLabel xml:lang="ko">맨섬</skos:altLabel>
+	<skos:prefLabel>Isle of Man</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042237/">
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>26218</europeana:population>
+	<wgs:lat>54.15</wgs:lat>
+	<wgs:long>-4.48333</wgs:long>
+	<skos:altLabel xml:lang="lt">Daglasas</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Doolish</skos:altLabel>
+	<skos:altLabel xml:lang="gv">Doolish</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="io">Douglas</skos:altLabel>
+	<skos:altLabel>Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="en">Douglas, Isle of Man</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Dubh Lios</skos:altLabel>
+	<skos:altLabel>Port Douglas</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Даглас</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дуглас</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ダグラス市</skos:altLabel>
+	<skos:prefLabel>Douglas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6620382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042225/"/>
+	<europeana:country>IM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>54.15052</wgs:lat>
+	<wgs:long>-4.4844</wgs:long>
+	<skos:prefLabel>Isle of Man (general)</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 6 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

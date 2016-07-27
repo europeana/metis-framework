@@ -1,0 +1,728 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_BT
+Description: Selected fields pulled from Geonames about BT done on Mon May 23 21:13:19 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1252416/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>98676</europeana:population>
+	<wgs:lat>27.46609</wgs:lat>
+	<wgs:long>89.64191</wgs:long>
+	<skos:altLabel>Thimbu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Thimbu</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Thimbu</skos:altLabel>
+	<skos:altLabel>Thimpago</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Thimphou</skos:altLabel>
+	<skos:altLabel xml:lang="id">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="es">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="et">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="io">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Thimphu</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Thimphu</skos:altLabel>
+	<skos:altLabel>Thimpu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Thimpu</skos:altLabel>
+	<skos:altLabel xml:lang="es">Timbu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Timbuo</skos:altLabel>
+	<skos:altLabel xml:lang="da">Timphu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Timpu</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τιμπού (θερινή) Πουνάκα (χειμερινή)</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тхимпху</skos:altLabel>
+	<skos:altLabel xml:lang="he">ת'ימפו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تيمفو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">थिम्फू</skos:altLabel>
+	<skos:altLabel xml:lang="ta">திம்பு</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጢምጱ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ティンプー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">廷布</skos:altLabel>
+	<skos:altLabel xml:lang="ko">팀부</skos:altLabel>
+	<skos:prefLabel>Thimphu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1252424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.16667</wgs:lat>
+	<wgs:long>91.75</wgs:long>
+	<skos:altLabel>Tashi Gang Dzong</skos:altLabel>
+	<skos:altLabel>Tashigang</skos:altLabel>
+	<skos:prefLabel>Tashigang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1252484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17043</europeana:population>
+	<wgs:lat>26.85164</wgs:lat>
+	<wgs:long>89.38837</wgs:long>
+	<skos:altLabel>Phunchholing</skos:altLabel>
+	<skos:altLabel>Phuntsoling</skos:altLabel>
+	<skos:prefLabel>Phuntsholing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1252634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>699847</europeana:population>
+	<wgs:lat>27.5</wgs:lat>
+	<wgs:long>90.5</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhútáin</skos:altLabel>
+	<skos:altLabel>BT</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bh2utan</skos:altLabel>
+	<skos:altLabel xml:lang="li">Bhoetaan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Bhoetan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bhoutan</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Bhoutan</skos:altLabel>
+	<skos:altLabel xml:lang="br">Bhoutan</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="na">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="se">Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Bhután</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bhután</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bhwtan</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Bhútán</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Botan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bu-tan (Bhutan)</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Butan</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Butanas</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Butani</skos:altLabel>
+	<skos:altLabel xml:lang="la">Butania</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Butano</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bután</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bután</skos:altLabel>
+	<skos:altLabel xml:lang="an">Bután</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bután</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bután - འབྲུག་ཡུལ</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Butão</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Butāna</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bútan</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Bûtan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Bûtan</skos:altLabel>
+	<skos:altLabel>Druk-yul</skos:altLabel>
+	<skos:altLabel>Kingdom of Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Regne de Bhutan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπουτάν</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Бутан</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Бутан</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бутан</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бутан</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бутан</skos:altLabel>
+	<skos:altLabel xml:lang="be">Бутан</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Бутон</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բուտան</skos:altLabel>
+	<skos:altLabel xml:lang="he">בהוטאן</skos:altLabel>
+	<skos:altLabel xml:lang="he">בהוטן</skos:altLabel>
+	<skos:altLabel xml:lang="fa">باتان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بوتان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوتان</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بھوٹان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بۇتان</skos:altLabel>
+	<skos:altLabel xml:lang="hi">भूटान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভুটান</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভূটান</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பூடான்</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பூட்டான்</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಭುತಾನ</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಭೂತಾನ್</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഭൂട്ടാന്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศภูฏาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ภูฏาน</skos:altLabel>
+	<skos:altLabel xml:lang="th">ภูฐาน</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ພູຖານ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">འབྲུག</skos:altLabel>
+	<skos:altLabel xml:lang="dz">འབྲུག་ཡུལ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">འབྲུག་ཡུལ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბუტანი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቡህታን</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៊ូតាន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブータン</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ブータン王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">不丹</skos:altLabel>
+	<skos:altLabel xml:lang="ko">부탄</skos:altLabel>
+	<skos:prefLabel>Kingdom of Bhutan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>21658</europeana:population>
+	<wgs:lat>27.7</wgs:lat>
+	<wgs:long>90.78333</wgs:long>
+	<skos:altLabel>Bumthang</skos:altLabel>
+	<skos:altLabel>Bumthang Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Bumthang Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>61173</europeana:population>
+	<wgs:lat>27</wgs:lat>
+	<wgs:long>89.55</wgs:long>
+	<skos:altLabel>Chhukha</skos:altLabel>
+	<skos:altLabel>Chhukha Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Chhukha Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>26837</europeana:population>
+	<wgs:lat>27.1</wgs:lat>
+	<wgs:long>89.86667</wgs:long>
+	<skos:altLabel>Daga</skos:altLabel>
+	<skos:altLabel>Daga Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Daga Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>29207</europeana:population>
+	<wgs:lat>26.93333</wgs:lat>
+	<wgs:long>90.1</wgs:long>
+	<skos:altLabel>Chirang</skos:altLabel>
+	<skos:altLabel>Chirang Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Chirang Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>26.95</wgs:lat>
+	<wgs:long>90.5</wgs:long>
+	<skos:altLabel>Geylegphug</skos:altLabel>
+	<skos:altLabel>Geylegphug Dzongkhag</skos:altLabel>
+	<skos:altLabel>Sarpang</skos:altLabel>
+	<skos:altLabel>Sarpang District</skos:altLabel>
+	<skos:prefLabel>Geylegphug Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>13020</europeana:population>
+	<wgs:lat>27.33333</wgs:lat>
+	<wgs:long>89.18333</wgs:long>
+	<skos:altLabel>Ha</skos:altLabel>
+	<skos:altLabel>Ha Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Ha Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337284/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.75</wgs:lat>
+	<wgs:long>91.18333</wgs:long>
+	<skos:altLabel>Lhuntshi</skos:altLabel>
+	<skos:altLabel>Lhuntshi Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Lhuntshi Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>52490</europeana:population>
+	<wgs:lat>27.25</wgs:lat>
+	<wgs:long>91.23333</wgs:long>
+	<skos:altLabel>Mongar</skos:altLabel>
+	<skos:altLabel>Mongar Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Mongar Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>32129</europeana:population>
+	<wgs:lat>27.51667</wgs:lat>
+	<wgs:long>89.4</wgs:long>
+	<skos:altLabel xml:lang="es">Paro</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Paro</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Paro</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Paro</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Paro</skos:altLabel>
+	<skos:altLabel>Paro</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paro</skos:altLabel>
+	<skos:altLabel xml:lang="en">Paro District</skos:altLabel>
+	<skos:altLabel>Paro Dzongkhag</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Паро</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पारो-भूटान</skos:altLabel>
+	<skos:prefLabel>Paro Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27</wgs:lat>
+	<wgs:long>91.36667</wgs:long>
+	<skos:altLabel>Pemagatsel</skos:altLabel>
+	<skos:altLabel>Pemagatsel Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Pemagatsel Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>22951</europeana:population>
+	<wgs:lat>28</wgs:lat>
+	<wgs:long>89.93333</wgs:long>
+	<skos:altLabel>Punakha</skos:altLabel>
+	<skos:altLabel>Punakha Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Punakha Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>64805</europeana:population>
+	<wgs:lat>27.03333</wgs:lat>
+	<wgs:long>89.08333</wgs:long>
+	<skos:altLabel>Samchi</skos:altLabel>
+	<skos:altLabel>Samchi Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Samchi Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337290/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>52459</europeana:population>
+	<wgs:lat>26.91667</wgs:lat>
+	<wgs:long>91.61667</wgs:long>
+	<skos:altLabel xml:lang="es">Distrito de Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Dzongkhag Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel>Samdrup</skos:altLabel>
+	<skos:altLabel>Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="no">Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Samdrup Jongkhar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Samdrup Jongkhar District</skos:altLabel>
+	<skos:altLabel>Samdrup Jongkhar Dzongkhag</skos:altLabel>
+	<skos:altLabel xml:lang="et">Samdrup Jongkhari ringkond</skos:altLabel>
+	<skos:prefLabel>Samdrup Jongkhar Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>27048</europeana:population>
+	<wgs:lat>27.08333</wgs:lat>
+	<wgs:long>90.85</wgs:long>
+	<skos:altLabel>Shemgang</skos:altLabel>
+	<skos:altLabel>Shemgang Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Shemgang Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337292/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.33333</wgs:lat>
+	<wgs:long>91.73333</wgs:long>
+	<skos:altLabel>Tashigang</skos:altLabel>
+	<skos:altLabel>Tashigang Dzongkhag</skos:altLabel>
+	<skos:altLabel>Trashigang District</skos:altLabel>
+	<skos:prefLabel>Tashigang Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337293/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>89840</europeana:population>
+	<wgs:lat>27.6</wgs:lat>
+	<wgs:long>89.66667</wgs:long>
+	<skos:altLabel>Thimphu</skos:altLabel>
+	<skos:altLabel>Thimphu Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Thimphu Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337294/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>19135</europeana:population>
+	<wgs:lat>27.35</wgs:lat>
+	<wgs:long>90.53333</wgs:long>
+	<skos:altLabel>Tongsa</skos:altLabel>
+	<skos:altLabel>Tongsa Dzong</skos:altLabel>
+	<skos:altLabel>Tongsa Dzongkhag</skos:altLabel>
+	<skos:prefLabel>Tongsa Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1337295/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>34746</europeana:population>
+	<wgs:lat>27.5</wgs:lat>
+	<wgs:long>90.13333</wgs:long>
+	<skos:altLabel>Wangdi Phodrang</skos:altLabel>
+	<skos:altLabel>Wangdi Phodrang Dzongkhag</skos:altLabel>
+	<skos:altLabel>Wangdü Phodrang</skos:altLabel>
+	<skos:prefLabel>Wangdi Phodrang Dzongkhag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303651/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3500</europeana:population>
+	<wgs:lat>27.91313</wgs:lat>
+	<wgs:long>89.70886</wgs:long>
+	<skos:altLabel>Gasa</skos:altLabel>
+	<skos:altLabel>Gasa District</skos:altLabel>
+	<skos:prefLabel>Gasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.58468</wgs:lat>
+	<wgs:long>91.45466</wgs:long>
+	<skos:altLabel>Trashi Yangste</skos:altLabel>
+	<skos:altLabel>Trashiyangtse District</skos:altLabel>
+	<skos:prefLabel>Trashi Yangste</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337295/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.55301</wgs:lat>
+	<wgs:long>90.21069</wgs:long>
+	<skos:prefLabel>Dangchu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646448/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337280/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.02788</wgs:lat>
+	<wgs:long>90.04885</wgs:long>
+	<skos:prefLabel>Tsangkha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337280/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.09016</wgs:lat>
+	<wgs:long>90.01421</wgs:long>
+	<skos:prefLabel>Lajab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337280/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.97897</wgs:lat>
+	<wgs:long>90.02916</wgs:long>
+	<skos:prefLabel>Drukgyegang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337287/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.94094</wgs:lat>
+	<wgs:long>91.39005</wgs:long>
+	<skos:prefLabel>Khar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337287/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.00063</wgs:lat>
+	<wgs:long>91.35817</wgs:long>
+	<skos:prefLabel>Chongshing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7646636/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337287/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.0437</wgs:lat>
+	<wgs:long>91.34465</wgs:long>
+	<skos:prefLabel>Yurung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647111/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337292/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.34642</wgs:lat>
+	<wgs:long>91.70927</wgs:long>
+	<skos:prefLabel>Radi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337291/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.20107</wgs:lat>
+	<wgs:long>90.80763</wgs:long>
+	<skos:prefLabel>Nangkor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647113/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337279/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.91389</wgs:lat>
+	<wgs:long>89.42317</wgs:long>
+	<skos:prefLabel>Phuentsholing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337279/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.92043</wgs:lat>
+	<wgs:long>89.62193</wgs:long>
+	<skos:prefLabel>Bongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647118/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337291/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.96509</wgs:lat>
+	<wgs:long>90.91624</wgs:long>
+	<skos:prefLabel>Goshing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647122/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337291/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.07292</wgs:lat>
+	<wgs:long>90.99064</wgs:long>
+	<skos:prefLabel>Bardo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337292/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.12827</wgs:lat>
+	<wgs:long>91.53658</wgs:long>
+	<skos:prefLabel>Lumang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337292/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.09496</wgs:lat>
+	<wgs:long>91.59825</wgs:long>
+	<skos:prefLabel>Thrimshing</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337279/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.17634</wgs:lat>
+	<wgs:long>89.54901</wgs:long>
+	<skos:prefLabel>Chabchha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337280/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.03027</wgs:lat>
+	<wgs:long>89.95758</wgs:long>
+	<skos:prefLabel>Khiphisa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647633/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337294/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.57324</wgs:lat>
+	<wgs:long>90.47333</wgs:long>
+	<skos:prefLabel>Nubi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647634/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337294/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.41241</wgs:lat>
+	<wgs:long>90.53263</wgs:long>
+	<skos:prefLabel>Bjakteng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337281/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.99869</wgs:lat>
+	<wgs:long>90.14044</wgs:long>
+	<skos:prefLabel>Kikhorthang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647805/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337281/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.89656</wgs:lat>
+	<wgs:long>90.11259</wgs:long>
+	<skos:prefLabel>Beteni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647808/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337295/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.38292</wgs:lat>
+	<wgs:long>89.96708</wgs:long>
+	<skos:prefLabel>Ruepaisa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647809/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337295/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.42462</wgs:lat>
+	<wgs:long>89.82341</wgs:long>
+	<skos:prefLabel>Nahi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647813/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337291/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.10936</wgs:lat>
+	<wgs:long>90.67809</wgs:long>
+	<skos:prefLabel>Trong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647816/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1252634/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1337286/"/>
+	<europeana:country>BT</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.39939</wgs:lat>
+	<wgs:long>89.56854</wgs:long>
+	<skos:prefLabel>Mewang</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 48 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

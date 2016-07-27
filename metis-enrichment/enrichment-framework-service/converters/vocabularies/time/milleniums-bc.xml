@@ -1,0 +1,24 @@
+<!-- Full Century templates  -->
+<list>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>First millenium BC</pattern_1>
+    <pattern_2>Second millenium BC</pattern_2>
+    <pattern_3>Third millenium BC</pattern_3>
+    <pattern_N>Fourth millenium BC</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>en</lang>
+    <pattern_1>First millenium BC, years 1-1000 BC</pattern_1>
+    <pattern_2>Second millenium BC, years 2001-3000 BC</pattern_2>
+    <pattern_3>Third millenium BC, years 3001-4000 BC</pattern_3>
+    <pattern_N>Fourth millenium BC, years 4001-5000 BC</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+<eu.annocultor.converters.time.LabelTemplate>
+    <lang>fr</lang>
+    <pattern_1>1er millénaire avant J.-C.</pattern_1>
+    <pattern_2>2e millénaire avant J.-C.</pattern_2>
+    <pattern_3>3e millénaire avant J.-C.</pattern_3>
+    <pattern_N>4e millénaire avant J.-C.</pattern_N>
+</eu.annocultor.converters.time.LabelTemplate>
+</list>

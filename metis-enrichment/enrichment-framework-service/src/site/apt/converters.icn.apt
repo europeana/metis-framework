@@ -1,0 +1,28 @@
+            ------
+            Converter: Instituut Collectie Nederland
+            ------
+ 
+
+ This is a converter of the ICN dataset of the Dutch
+ {{{http://icn.nl}Instituut Collectie Nederland}}.
+ 
+Source files
+ 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/icn/} Parent directory}}
+ in the AnnoCultor source repository. 
+ 
+Data
+
+ The source is a MS SQL Server database. Hence, to reproduce this demo you need to have a MS SQL Server running
+ with the ICN database on it. 
+ 
+  
+Converter
+
+ The
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/icn/profile/profile.xml} converter in XML}}
+ illustrates the following AnnoCultor features:
+ 
+ * using SQL queries to access source data.
+ 
+ Look at the <<<datasource>>> element and the way source paths are addressed in the rules.

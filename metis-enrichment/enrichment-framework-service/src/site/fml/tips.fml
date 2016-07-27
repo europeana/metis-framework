@@ -1,0 +1,31 @@
+ <?xml version="1.0"?> 
+<faqs title="Tips and Tricks"> 
+  <part id="about"> 
+    <faq> 
+      <question>Why AnnoCultor is so slow?</question> 
+      <answer> 
+        <p> 
+          The bottleneck lies in the complexity of XPath-like path computation. In
+        </p> 
+      </answer> 
+    </faq> 
+
+    <faq> 
+      <question> Here is another question?</question> 
+      <answer> 
+        <p> 
+          This is the answer to this question...
+        </p> 
+      </answer> 
+    </faq> 
+
+    <faq> 
+      <question> Here is another question?</question> 
+      <answer> 
+        <p> 
+          This is the answer to this question...
+        </p> 
+      </answer> 
+    </faq> 
+  </part> 
+</faqs>

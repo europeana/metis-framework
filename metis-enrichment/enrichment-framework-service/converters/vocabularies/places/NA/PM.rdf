@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_PM
+Description: Selected fields pulled from Geonames about PM done on Mon May 23 21:14:31 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLD"/>
+	<europeana:population>7012</europeana:population>
+	<wgs:lat>46.83333</wgs:lat>
+	<wgs:long>-56.33333</wgs:long>
+	<skos:altLabel xml:lang="fr">Collectivité Territoriale de Saint-Pierre et Miquelon</skos:altLabel>
+	<skos:altLabel>Department of Saint Pierre and Miquelon</skos:altLabel>
+	<skos:altLabel>Département de Saint-Pierre et Miquelon</skos:altLabel>
+	<skos:altLabel>PM</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Saint Pierre a Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Saint Pierre a Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Saint Pierre a Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Saint Pierre agus Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint Pierre and Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Saint Pierre and Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Saint Pierre and Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Saint Pierre and Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="id">Saint Pierre dan Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint Pierre e Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Saint Pierre i Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint Pierre ja Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="se">Saint Pierre ja Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="da">Saint Pierre og Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Pierre og Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Pierre og Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saint Pierre ve Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Saint Pierre và Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Saint Pierre és Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saint-Pierre e Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint-Pierre en Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Pierre et Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Saint-Pierre eta Mikelune</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saint-Pierre ja Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Pierre-et-Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="gl">San Pedro e Miguelón</skos:altLabel>
+	<skos:altLabel xml:lang="es">San Pedro y Miquelón</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sankti Pierre og Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sen Pjeras ir Mikelonas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Senpjēra un Mikelona</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sent-Piero kaj Mikelono</skos:altLabel>
+	<skos:altLabel xml:lang="fr">St-Pierre et Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="pl">St. Pierre i Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="sl">St. Pierre in Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">St. Pierre och Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="de">St. Pierre und Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="ro">St. Pierre şi Miquelon</skos:altLabel>
+	<skos:altLabel>Territoire de Saint Pierre et Miquelon</skos:altLabel>
+	<skos:altLabel>Territoire des Îles Saint-Pierre et Miquelon</skos:altLabel>
+	<skos:altLabel>Territory of Saint Pierre and Miquelon</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαιντ Πιέρ και Μικελόν</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сен Пиер и Микелон</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сен Пјер и Микелон</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сен-П'єр та Мікелон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сен-Пьер и Микелон</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сент Пјер и Микелан</skos:altLabel>
+	<skos:altLabel xml:lang="he">סיינט פייר ומיקואלון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سانت بيير وميكولون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سنت پیر و میکلون</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سینٹ پائرے اور میکویلون</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेंट पियर एंड मिक्लन</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সেন্ট পিয়ের ও মিকেলন</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเซนต์ปิแอร์และมิคิวลอน</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სენტ-პიერი და მიქელონი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቅዱስ ፒዬር እና ሚኩኤሎን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サンピエール ミクロン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣皮埃尔和密克隆群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트 피레 미켈론</skos:altLabel>
+	<skos:prefLabel>Saint-Pierre et Miquelon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424933/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.78444</wgs:lat>
+	<wgs:long>-56.19806</wgs:long>
+	<skos:prefLabel>Île Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3424932/"/>
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>5494</europeana:population>
+	<wgs:lat>46.78333</wgs:lat>
+	<wgs:long>-56.2</wgs:long>
+	<skos:altLabel>Saint-Pierre</skos:altLabel>
+	<skos:prefLabel>Commune de Saint-Pierre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3424932/"/>
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>605</europeana:population>
+	<wgs:lat>46.91667</wgs:lat>
+	<wgs:long>-56.33333</wgs:long>
+	<skos:altLabel>Miquelon-Langlade</skos:altLabel>
+	<skos:prefLabel>Commune de Miquelon-Langlade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424939/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.96639</wgs:lat>
+	<wgs:long>-56.32778</wgs:long>
+	<skos:prefLabel>Île Miquelon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424942/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.78472</wgs:lat>
+	<wgs:long>-56.15139</wgs:long>
+	<skos:prefLabel>Île aux Marins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3424944/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>46.84278</wgs:lat>
+	<wgs:long>-56.315</wgs:long>
+	<skos:altLabel>Langlade</skos:altLabel>
+	<skos:altLabel>Petite Miquelon</skos:altLabel>
+	<skos:prefLabel>Langlade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3425560/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>46.78556</wgs:lat>
+	<wgs:long>-56.13</wgs:long>
+	<skos:prefLabel>Île Pelée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3425561/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.78833</wgs:lat>
+	<wgs:long>-56.13167</wgs:long>
+	<skos:prefLabel>Île aux Vainqueurs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3425564/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.79417</wgs:lat>
+	<wgs:long>-56.13528</wgs:long>
+	<skos:prefLabel>Île aux Pigeons</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3425626/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.82028</wgs:lat>
+	<wgs:long>-56.16944</wgs:long>
+	<skos:prefLabel>Grand Colombier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3425799/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>46.99694</wgs:lat>
+	<wgs:long>-56.31278</wgs:long>
+	<skos:altLabel>L'Île aux Chevaux</skos:altLabel>
+	<skos:altLabel>Île aux Chevaux</skos:altLabel>
+	<skos:prefLabel>L'Île aux Chevaux</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3425913/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLX"/>
+	<wgs:lat>47.04583</wgs:lat>
+	<wgs:long>-56.32972</wgs:long>
+	<skos:altLabel>Grande Miquelon</skos:altLabel>
+	<skos:altLabel>Île Miquelon</skos:altLabel>
+	<skos:prefLabel>Île Miquelon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6691708/">
+	<europeana:country>PM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>46.96057</wgs:lat>
+	<wgs:long>-56.32965</wgs:long>
+	<skos:altLabel>Collectivité territoriale de Saint-Pierre-et-Miquelon</skos:altLabel>
+	<skos:prefLabel>Saint-Pierre-et-Miquelon</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 13 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

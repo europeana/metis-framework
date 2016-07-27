@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: NA_KN
+Description: Selected fields pulled from Geonames about KN done on Mon May 23 21:14:27 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575114/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1050</europeana:population>
+	<wgs:lat>17.31667</wgs:lat>
+	<wgs:long>-62.76667</wgs:long>
+	<skos:altLabel>Trinity Palmetto Point</skos:altLabel>
+	<skos:prefLabel>Trinity Palmetto Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575164/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2045</europeana:population>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-62.8</wgs:long>
+	<skos:altLabel>Saint Thomas Middle Island</skos:altLabel>
+	<skos:prefLabel>Saint Thomas Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575165/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1791</europeana:population>
+	<wgs:lat>17.16667</wgs:lat>
+	<wgs:long>-62.6</wgs:long>
+	<skos:altLabel>Saint Thomas Lowland</skos:altLabel>
+	<skos:prefLabel>Saint Thomas Lowland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2262</europeana:population>
+	<wgs:lat>17.31667</wgs:lat>
+	<wgs:long>-62.71667</wgs:long>
+	<skos:altLabel>Saint Peter Basseterre</skos:altLabel>
+	<skos:prefLabel>Saint Peter Basseterre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1538</europeana:population>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-62.6</wgs:long>
+	<skos:altLabel>Saint Paul Charlestown</skos:altLabel>
+	<skos:prefLabel>Saint Paul Charlestown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575172/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1882</europeana:population>
+	<wgs:lat>17.4</wgs:lat>
+	<wgs:long>-62.83333</wgs:long>
+	<skos:altLabel>Saint Paul Capesterre</skos:altLabel>
+	<skos:altLabel>Saint Paul Capisterre</skos:altLabel>
+	<skos:prefLabel>Saint Paul Capesterre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575173/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2994</europeana:population>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-62.73333</wgs:long>
+	<skos:altLabel>Saint Mary Cayon</skos:altLabel>
+	<skos:prefLabel>Saint Mary Cayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575174/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255149/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>49898</europeana:population>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-62.75</wgs:long>
+	<skos:altLabel>Federation of Saint Christopher and Nevis</skos:altLabel>
+	<skos:altLabel>Federation of Saint Kitts and Nevis</skos:altLabel>
+	<skos:altLabel>KN</skos:altLabel>
+	<skos:altLabel>Presidency of Saint Christopher-Nevis</skos:altLabel>
+	<skos:altLabel>Presidency of Saint Kitts-Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">S:t Kitts och Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sain Kitts şi Nevis</skos:altLabel>
+	<skos:altLabel>Saint Christopher and Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saint Christopher och Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Saint Kits dhe Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Saint Kittler ve Neviler</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Saint Kitts a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Saint Kitts a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Saint Kitts agus Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint Kitts and Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Saint Kitts and Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Saint Kitts at Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="id">Saint Kitts dan Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Saint Kitts dan Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="it">Saint Kitts e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Saint Kitts e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Saint Kitts e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saint Kitts e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="af">Saint Kitts en Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint Kitts en Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint Kitts et Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Saint Kitts eta Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint Kitts i Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Saint Kitts i Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Saint Kitts in Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saint Kitts ja Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint Kitts ja Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="se">Saint Kitts ja Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Saint Kitts na Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Saint Kitts och Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="da">Saint Kitts og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Saint Kitts og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Kitts og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="no">Saint Kitts og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="is">Saint Kitts og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Saint Kitts und Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Saint Kitts és Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Saint Kitts şi Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Saint-Christophe-et-Niévès</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Saluda-Kiteän e Neviseän</skos:altLabel>
+	<skos:altLabel xml:lang="an">San Cristofo y Nieus</skos:altLabel>
+	<skos:altLabel xml:lang="gl">San Cristovo e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="es">San Cristóbal y Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="es">San Cristóbal y Nieves</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Sancte Christophoro e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sankta Kristofo kaj Neviso</skos:altLabel>
+	<skos:altLabel xml:lang="is">Sankti Kristófer og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Sant Cristòl e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Sant Cristòl e Nieves</skos:altLabel>
+	<skos:altLabel xml:lang="id">Santa Kitts dan Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Santo Kitts dan Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Sen Kitts ha Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sent Kitsas ir Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sent Kristoferis ir Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sent-Kristofo kaj Neviso</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Sentkitsa un Nevisa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Sfântul Kitts şi Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sv">St Kitts och Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="io">St Kitts-Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="nb">St. Christopher og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="nn">St. Christopher og Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">St. Kitts en Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="de">St. Kitts und Nevis</skos:altLabel>
+	<skos:altLabel>State of Saint Christopher-Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Sv. Kitts a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Sv. Kitts a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sv. Kristofor i Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatý Kitts a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Svatý Kryštof a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sveti Kristofor i Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sveti Kristofor i Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sveti Kristofor i Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätý Krištof</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Svätý Krištof a Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Cristovão e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Cristóvão e Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Cristóvão e Névis</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xan-kít và Nê-vi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xanh-kít và Nê-vi (Saint Kitts và Nevis)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Άγιος Κιτς και Νέβις</skos:altLabel>
+	<skos:altLabel xml:lang="el">Άγιος Χριστόφορος και Νέβις</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαιντ Κιτς και Νέβις</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Свети Китс и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сейнт Китс и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сент Китс</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сент Китс и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сент Китс и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сент Кристофер и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сент Кітс і Невіс</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Китс и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Киттс и Невис</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сент-Кітс і Невіс</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сэнт-Кітс і Нэвіс</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սենտ Կիտս-Նեվիս</skos:altLabel>
+	<skos:altLabel xml:lang="he">סיינט קיטס ונביס</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט קיטס ונוויס</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سانت كيتس ونيفيس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سنت کیتس و نویس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سینت کیتس و نویس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سینٹ کٹس اور نیوس</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سېنټ کېټس او نېويس</skos:altLabel>
+	<skos:altLabel xml:lang="sa">सेंट किट्</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेंट किट्स और नेविस</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेन्ट किट्स और नेविस</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সেন্ট কিটস ও নেভিস</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเซนต์คิตส์และเนวิส</skos:altLabel>
+	<skos:altLabel xml:lang="th">เซนต์คิตส์และเนวิส</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སེནྚ། ཀིཊྚས྄། དང༌། ནེ་བིས྄།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სენტ-კიტსი და ნევისი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቅዱስ ኪትስ እና ኔቪስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントクリストファー・ネイビス</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントクリストファー・ネビス</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圣基茨和尼维斯</skos:altLabel>
+	<skos:altLabel xml:lang="zh">聖克里斯多福與尼維斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트 키츠 네비스</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트크리스토퍼 네비스</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세인트키츠 네비스</skos:altLabel>
+	<skos:prefLabel>Federation of Saint Kitts and Nevis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575175/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2009</europeana:population>
+	<wgs:lat>17.11667</wgs:lat>
+	<wgs:long>-62.6</wgs:long>
+	<skos:altLabel>Parish of Saint John Brown Hill</skos:altLabel>
+	<skos:altLabel>Saint John Figtree</skos:altLabel>
+	<skos:prefLabel>Saint John Figtree</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2859</europeana:population>
+	<wgs:lat>17.38333</wgs:lat>
+	<wgs:long>-62.8</wgs:long>
+	<skos:altLabel>Saint John Capesterre</skos:altLabel>
+	<skos:altLabel>Saint John Capisterre</skos:altLabel>
+	<skos:prefLabel>Saint John Capesterre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1529</europeana:population>
+	<wgs:lat>17.16667</wgs:lat>
+	<wgs:long>-62.56667</wgs:long>
+	<skos:altLabel>Saint James Windwa</skos:altLabel>
+	<skos:altLabel>Saint James Windward</skos:altLabel>
+	<skos:prefLabel>Saint James Windward</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2072</europeana:population>
+	<wgs:lat>17.13333</wgs:lat>
+	<wgs:long>-62.56667</wgs:long>
+	<skos:altLabel>Saint George Gingerland</skos:altLabel>
+	<skos:prefLabel>Saint George Gingerland</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575180/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>12920</europeana:population>
+	<wgs:lat>17.26667</wgs:lat>
+	<wgs:long>-62.68333</wgs:long>
+	<skos:altLabel>Saint George Basseterre</skos:altLabel>
+	<skos:prefLabel>Saint George Basseterre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.33333</wgs:lat>
+	<wgs:long>-62.75</wgs:long>
+	<skos:altLabel xml:lang="es">Isla de San Cristóbal</skos:altLabel>
+	<skos:altLabel>Saint Christopher</skos:altLabel>
+	<skos:altLabel>Saint Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="en">Saint Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Saint Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Saint Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Saint Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Saint Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Sent Kitsas</skos:altLabel>
+	<skos:altLabel xml:lang="de">St. Kitts</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Cristóvão</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Saint-Christophe</skos:altLabel>
+	<skos:altLabel xml:lang="fr">île Saint-Christophe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Китс</skos:altLabel>
+	<skos:altLabel xml:lang="he">סנט קיטס</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セントクリストファー島</skos:altLabel>
+	<skos:prefLabel>Saint Christopher</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575183/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2849</europeana:population>
+	<wgs:lat>17.36667</wgs:lat>
+	<wgs:long>-62.83333</wgs:long>
+	<skos:altLabel>Saint Anne Sandy Point</skos:altLabel>
+	<skos:prefLabel>Saint Anne Sandy Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.15</wgs:lat>
+	<wgs:long>-62.58333</wgs:long>
+	<skos:altLabel>Dulcina</skos:altLabel>
+	<skos:altLabel>Meavis</skos:altLabel>
+	<skos:altLabel>Meves</skos:altLabel>
+	<skos:altLabel>Mevis</skos:altLabel>
+	<skos:altLabel>Neves</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nevis</skos:altLabel>
+	<skos:altLabel>Nevis</skos:altLabel>
+	<skos:altLabel>Nievis</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Île Nevis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Невис</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ネイビス島</skos:altLabel>
+	<skos:prefLabel>Nevis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1801</europeana:population>
+	<wgs:lat>17.35</wgs:lat>
+	<wgs:long>-62.76667</wgs:long>
+	<skos:altLabel>Christ Church Nichola Town</skos:altLabel>
+	<skos:prefLabel>Christ Church Nichola Town</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>17.23333</wgs:lat>
+	<wgs:long>-62.6</wgs:long>
+	<skos:altLabel>Booby Island</skos:altLabel>
+	<skos:altLabel>Booby Islet</skos:altLabel>
+	<skos:prefLabel>Booby Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3575551/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3575174/"/>
+	<europeana:country>KN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>12920</europeana:population>
+	<wgs:lat>17.29484</wgs:lat>
+	<wgs:long>-62.7261</wgs:long>
+	<skos:altLabel>Basse Terre Town</skos:altLabel>
+	<skos:altLabel xml:lang="id">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="de">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="es">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="io">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="en">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="it">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="no">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="da">Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Basteras</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπαστέρ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бастер</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Бастер</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бастер</skos:altLabel>
+	<skos:altLabel xml:lang="he">באסטר</skos:altLabel>
+	<skos:altLabel xml:lang="fa">باسه‌تر</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባስቴር</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バセテール</skos:altLabel>
+	<skos:prefLabel>Basseterre</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 18 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

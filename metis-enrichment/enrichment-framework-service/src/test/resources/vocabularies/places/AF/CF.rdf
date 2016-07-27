@@ -1,0 +1,976 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_CF
+Description: Selected fields pulled from Geonames about CF done on Mon May 23 21:16:09 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/236178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>38096</europeana:population>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>22.75</wgs:long>
+	<skos:altLabel>District Autonome de Birao</skos:altLabel>
+	<skos:altLabel>Préfecture de Vakaga</skos:altLabel>
+	<skos:altLabel>Préfecture de la Vakaga</skos:altLabel>
+	<skos:altLabel>Vakaga</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Vakaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/236524/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13459</europeana:population>
+	<wgs:lat>4.95</wgs:lat>
+	<wgs:long>23.91667</wgs:long>
+	<skos:prefLabel>Rafaï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/236887/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>226816</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:altLabel>Ouaka</skos:altLabel>
+	<skos:altLabel>Préfecture de la Ouaka</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Ouaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/236950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12887</europeana:population>
+	<wgs:lat>5.4</wgs:lat>
+	<wgs:long>26.5</wgs:long>
+	<skos:altLabel xml:lang="et">Obo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Obo</skos:altLabel>
+	<skos:altLabel>Obo</skos:altLabel>
+	<skos:prefLabel>Obo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/237379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11764</europeana:population>
+	<wgs:lat>8.40917</wgs:lat>
+	<wgs:long>20.65306</wgs:long>
+	<skos:altLabel>Nadélé</skos:altLabel>
+	<skos:altLabel>Ndélé</skos:altLabel>
+	<skos:altLabel>N’Delle</skos:altLabel>
+	<skos:prefLabel>Ndélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/237478/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19431</europeana:population>
+	<wgs:lat>4.31667</wgs:lat>
+	<wgs:long>21.18333</wgs:long>
+	<skos:altLabel xml:lang="es">Mobaye</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mobaye</skos:altLabel>
+	<skos:altLabel>Mobaye</skos:altLabel>
+	<skos:altLabel>Mobie</skos:altLabel>
+	<skos:prefLabel>Mobaye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/237556/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>23.5</wgs:long>
+	<skos:altLabel>Mbomou</skos:altLabel>
+	<skos:altLabel>Préfecture de Mbomou</skos:altLabel>
+	<skos:altLabel>Préfecture du Mbomou</skos:altLabel>
+	<skos:prefLabel>Préfecture du Mbomou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/238373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11513</europeana:population>
+	<wgs:lat>4.6</wgs:lat>
+	<wgs:long>21.9</wgs:long>
+	<skos:prefLabel>Kembé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/238566/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16571</europeana:population>
+	<wgs:lat>6.25</wgs:lat>
+	<wgs:long>21.2</wgs:long>
+	<skos:altLabel>Ippi</skos:altLabel>
+	<skos:altLabel>Ippy</skos:altLabel>
+	<skos:prefLabel>Ippy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/238639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>39543</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>District Autonome Zandé</skos:altLabel>
+	<skos:altLabel>Haut-Mbomou</skos:altLabel>
+	<skos:altLabel>Obo</skos:altLabel>
+	<skos:altLabel>Obo-Zemio</skos:altLabel>
+	<skos:altLabel>Préfecture de Haut-Mbomou</skos:altLabel>
+	<skos:altLabel>Préfecture du Haut-Mbomou</skos:altLabel>
+	<skos:altLabel>Zémio</skos:altLabel>
+	<skos:prefLabel>Préfecture du Haut-Mbomou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/238640/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>72244</europeana:population>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>23</wgs:long>
+	<skos:altLabel>Haute-Kotto</skos:altLabel>
+	<skos:altLabel>Kotto Dar el Kouti</skos:altLabel>
+	<skos:altLabel>Préfecture de Haute-Kotto</skos:altLabel>
+	<skos:altLabel>Préfecture de la Haute-Kotto</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Haute-Kotto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/239880/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4844927</europeana:population>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>21</wgs:long>
+	<skos:altLabel xml:lang="eu">Afrika Erdiko Errepublika</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Afrika qendrore</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Bê Afríka</skos:altLabel>
+	<skos:altLabel>CF</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Centr-Afrika Respubliko</skos:altLabel>
+	<skos:altLabel xml:lang="li">Centraal Afrika</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Centraal-Afrikaanse Republiek</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Centrafricaine, république</skos:altLabel>
+	<skos:altLabel xml:lang="io">Centrafrika</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Centrafrique</skos:altLabel>
+	<skos:altLabel>Central African Empire</skos:altLabel>
+	<skos:altLabel xml:lang="en">Central African Republic</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Central African Republic</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Centralafrikanska republiken</skos:altLabel>
+	<skos:altLabel xml:lang="da">Centralafrikanske Republik</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Centralna Afrička Republika</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Centralnoafriška republika</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Centreafrica</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Centrinės Afrikos Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Centrālāfrika</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Centrālāfrikas Republika</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cộng hoà Trung Phi</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Cộng hòa Trung Phi</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Den sentralafrikanske republikk</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Den sentralafrikanske republikk</skos:altLabel>
+	<skos:altLabel xml:lang="no">Den sentralafrikanske republikk</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Den sentralafrikanske republikken</skos:altLabel>
+	<skos:altLabel>Empire Centrafricaine</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gweriniaeth Canol Affrica</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Jamhuri ya Afrika ya Kati</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kesk Aafrika Vabariik</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kesk-Aafrika Vabariik</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Keski-Afrikan tasavalta</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Közép-afrikai Köztársaság</skos:altLabel>
+	<skos:altLabel xml:lang="is">Mið-Afríkulýðveldið</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Miðafrikalýðveldið</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Orta Afrika Cumhuriyeti</skos:altLabel>
+	<skos:altLabel>Oubangui-Chari</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Poblacht na hAfraice Láir</skos:altLabel>
+	<skos:altLabel xml:lang="it">Repubblica Centrafricana</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Repubblika Afrikana Ċentrali</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Republica African Central</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Republica Centrafricană</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Republica Central Africană</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Republica Centroafrican</skos:altLabel>
+	<skos:altLabel xml:lang="an">Republica Zentroafricana</skos:altLabel>
+	<skos:altLabel xml:lang="id">Republik Afrika Tengah</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Republik Afrika Tengah</skos:altLabel>
+	<skos:altLabel xml:lang="jv">Republik Afrika Tengah</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Republika Qendrore e Afrikës</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Republika Środkowej Afryki</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Republika Środkowoafrykańska</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República Africana Central</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República Centrafricana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República Centreafricana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">República Centro-Africana</skos:altLabel>
+	<skos:altLabel xml:lang="es">República Centroafricana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República Centroafricana - République Centroafricaine</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République Centrafricaine</skos:altLabel>
+	<skos:altLabel xml:lang="af">Sentraal-Afrikaanse Republiek</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Sentrafrika</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Srednjeafriška republika</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Srednjoafrička Republika</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Srednjoafrička Republika</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Stredoafrická republika</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Středoafrická republika</skos:altLabel>
+	<skos:altLabel>Territoire de l’ Oubangui</skos:altLabel>
+	<skos:altLabel>Ubangi-Shari</skos:altLabel>
+	<skos:altLabel>Ubangui-Shari</skos:altLabel>
+	<skos:altLabel xml:lang="de">Zentralafrikanische Republik</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κεντρική Αφρικανική Δημοκρατία</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κεντροαφρικανική Δημοκρατία</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Централан Афричка република</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Централна Африканска Република</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Централна Афричка Република</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Централно Афричка Република</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Централноафриканска Република</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Централноафриканска Република</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Централноафричка Република</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Центрально-Африканская Республика</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Центрально-Африканська Республіка</skos:altLabel>
+	<skos:altLabel xml:lang="be">Цэнтральна-Афрыканская Рэспубліка</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ҷумҳурии Африқои Марказӣ</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կենտրոնական Աֆրիկյան Հանրապետություն</skos:altLabel>
+	<skos:altLabel xml:lang="he">הרפובליקה המרכז אפריקאית</skos:altLabel>
+	<skos:altLabel xml:lang="he">הרפובליקה המרכז־אפריקאית</skos:altLabel>
+	<skos:altLabel xml:lang="he">הרפובליקה של מרכז אפריקה</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ئوتتۇرا ئافرىقا جۇمھۇرىيىتى</skos:altLabel>
+	<skos:altLabel xml:lang="fa">افریقای مرکزی</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية أفريقيا الوسطى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جمهورية افريقيا الوسطى</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جمهوری آفریقای مرکزی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جمهوری افریقای مرکزی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جمہوریہ وسطی افریقہ</skos:altLabel>
+	<skos:altLabel xml:lang="ps">د افريقا منځنی جمهوريت</skos:altLabel>
+	<skos:altLabel xml:lang="sa">केन्द्रीय अफ्रीका गणराज्य</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेंट्रल अफ़्रीकन रिपब्लिक</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेंट्रल अफ्रीकन रिपब्लिक</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মধ্য আফ্রিকা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">মধ্য-আফ্রিকা প্রজাতন্ত্র</skos:altLabel>
+	<skos:altLabel xml:lang="ta">மத்திய ஆப்ரிக்கக் குடியரசு</skos:altLabel>
+	<skos:altLabel xml:lang="ml">സെന്‍ട്രല്‍ ആഫ്രിക്കന്‍ റിപ്പബ്ലിക്</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐแอฟริกากลาง</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ສາທາລະນະລັດອັບຟຼິກກາກາງ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ცენტრალური აფრიკის რესპუბლიკა</skos:altLabel>
+	<skos:altLabel xml:lang="am">የመካከለኛው አፍሪካ ሪፐብሊክ</skos:altLabel>
+	<skos:altLabel xml:lang="am">የመካከለኛው አፍሪካ ሪፑብሊክ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សាធារណរដ្ឋអាហ្វ្រិកកណ្ដាល</skos:altLabel>
+	<skos:altLabel xml:lang="ja">中央アフリカ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">中央アフリカ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">中非共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">中非共和國</skos:altLabel>
+	<skos:altLabel xml:lang="ko">중앙 아프리카</skos:altLabel>
+	<skos:altLabel xml:lang="ko">중앙아프리카 공화국</skos:altLabel>
+	<skos:prefLabel>Central African Republic</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/239899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>29027</europeana:population>
+	<wgs:lat>6.53333</wgs:lat>
+	<wgs:long>21.98333</wgs:long>
+	<skos:altLabel xml:lang="de">Bria</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bria</skos:altLabel>
+	<skos:altLabel>Bria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бриа</skos:altLabel>
+	<skos:prefLabel>Bria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/240210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10178</europeana:population>
+	<wgs:lat>10.27595</wgs:lat>
+	<wgs:long>22.79073</wgs:long>
+	<skos:altLabel xml:lang="es">Birao</skos:altLabel>
+	<skos:altLabel xml:lang="en">Birao</skos:altLabel>
+	<skos:altLabel>Birao</skos:altLabel>
+	<skos:prefLabel>Birao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/240396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>205805</europeana:population>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>21.5</wgs:long>
+	<skos:altLabel>Basse-Kotto</skos:altLabel>
+	<skos:altLabel>Préfecture de Basse-Kotto</skos:altLabel>
+	<skos:altLabel>Préfecture de la Basse-Kotto</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Basse-Kotto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/240498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>24361</europeana:population>
+	<wgs:lat>4.73333</wgs:lat>
+	<wgs:long>22.81667</wgs:long>
+	<skos:altLabel>Bangassou</skos:altLabel>
+	<skos:altLabel>Bangassu</skos:altLabel>
+	<skos:altLabel>Bangasu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бангасу</skos:altLabel>
+	<skos:prefLabel>Bangassou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/240591/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>39779</europeana:population>
+	<wgs:lat>8.41667</wgs:lat>
+	<wgs:long>20.66667</wgs:long>
+	<skos:altLabel>Bamingui-Bangoran</skos:altLabel>
+	<skos:altLabel>District Autonome de Ndélé</skos:altLabel>
+	<skos:altLabel>Préfecture de la Bamingui-Bangoran</skos:altLabel>
+	<skos:altLabel>Préfecture du Bamingui-Bangoran</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Bamingui-Bangoran</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/240604/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>32547</europeana:population>
+	<wgs:lat>5.76194</wgs:lat>
+	<wgs:long>20.66722</wgs:long>
+	<skos:altLabel xml:lang="en">Bambari</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bambari</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bambari</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bambari</skos:altLabel>
+	<skos:altLabel xml:lang="et">Bambari</skos:altLabel>
+	<skos:altLabel>Bambari</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бамбари</skos:altLabel>
+	<skos:prefLabel>Bambari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/240999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14234</europeana:population>
+	<wgs:lat>5.03333</wgs:lat>
+	<wgs:long>21.21667</wgs:long>
+	<skos:altLabel>Alinda</skos:altLabel>
+	<skos:altLabel>Alindao</skos:altLabel>
+	<skos:altLabel>Alindo</skos:altLabel>
+	<skos:prefLabel>Alindao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2313458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.04179</wgs:lat>
+	<wgs:long>19.87072</wgs:long>
+	<skos:altLabel>Île Louhou</skos:altLabel>
+	<skos:altLabel>Île Lubu</skos:altLabel>
+	<skos:prefLabel>Île Louhou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2313993/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.09376</wgs:lat>
+	<wgs:long>19.81579</wgs:long>
+	<skos:altLabel>Île Kondé</skos:altLabel>
+	<skos:prefLabel>Île Kondé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2315744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.11831</wgs:lat>
+	<wgs:long>19.73377</wgs:long>
+	<skos:prefLabel>Île Garoni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>34267</europeana:population>
+	<wgs:lat>5.712</wgs:lat>
+	<wgs:long>19.07764</wgs:long>
+	<skos:altLabel>Fort-Sibut</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sibut</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sibut</skos:altLabel>
+	<skos:altLabel>Sibut</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сибут</skos:altLabel>
+	<skos:prefLabel>Sibut</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>93537</europeana:population>
+	<wgs:lat>3.5</wgs:lat>
+	<wgs:long>16.08333</wgs:long>
+	<skos:altLabel>Préfecture de Sangha</skos:altLabel>
+	<skos:altLabel>Préfecture de la Sangha-Mbaéré</skos:altLabel>
+	<skos:altLabel>Sangha</skos:altLabel>
+	<skos:altLabel>Sangha Economique</skos:altLabel>
+	<skos:altLabel>Sangha-Mbaéré</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Sangha-Mbaéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383476/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.61667</wgs:lat>
+	<wgs:long>18.6</wgs:long>
+	<skos:prefLabel>Île aux Perroquets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383523/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18441</europeana:population>
+	<wgs:lat>7.24388</wgs:lat>
+	<wgs:long>16.43975</wgs:long>
+	<skos:altLabel>Pahua</skos:altLabel>
+	<skos:altLabel>Paoua</skos:altLabel>
+	<skos:prefLabel>Paoua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.55</wgs:lat>
+	<wgs:long>15.98333</wgs:long>
+	<skos:prefLabel>Panawélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383650/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>333161</europeana:population>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Ouham-Pendé</skos:altLabel>
+	<skos:altLabel>Préfecture de l’ Ouham-Pendé</skos:altLabel>
+	<skos:prefLabel>Préfecture de l’ Ouham-Pendé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Ouham</skos:altLabel>
+	<skos:altLabel>Préfecture de l’ Ouham</skos:altLabel>
+	<skos:prefLabel>Préfecture de l’ Ouham</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383765/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>323347</europeana:population>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Ombella-Mpoko</skos:altLabel>
+	<skos:altLabel>Préfecture de l’ Ombella-Mpoko</skos:altLabel>
+	<skos:prefLabel>Préfecture de l’ Ombella-Mpoko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2383827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>26809</europeana:population>
+	<wgs:lat>3.53333</wgs:lat>
+	<wgs:long>16.06667</wgs:long>
+	<skos:altLabel>Djembe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nola</skos:altLabel>
+	<skos:altLabel>Nola</skos:altLabel>
+	<skos:prefLabel>Nola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2384205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>185013</europeana:population>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Nana Nambere</skos:altLabel>
+	<skos:altLabel>Nana-Mambéré</skos:altLabel>
+	<skos:altLabel>Prefecture de Bouar-Baboua</skos:altLabel>
+	<skos:altLabel>Préfecture de Nana-Mambéré</skos:altLabel>
+	<skos:altLabel>Préfecture de la Nana-Mambéré</skos:altLabel>
+	<skos:altLabel>Région de Bouar</skos:altLabel>
+	<skos:altLabel>Région de Bouar-Baboua</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Nana-Mambéré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2384377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10885</europeana:population>
+	<wgs:lat>3.63333</wgs:lat>
+	<wgs:long>18.6</wgs:long>
+	<skos:altLabel>Mongoumba</skos:altLabel>
+	<skos:prefLabel>Mongoumba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2384605/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.205</wgs:lat>
+	<wgs:long>18.60694</wgs:long>
+	<skos:prefLabel>Île Mboto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2384645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.19222</wgs:lat>
+	<wgs:long>18.59972</wgs:long>
+	<skos:altLabel>Île Mbo</skos:altLabel>
+	<skos:altLabel>Île Ngbo</skos:altLabel>
+	<skos:prefLabel>Île Ngbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2384770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>67132</europeana:population>
+	<wgs:lat>3.88333</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel xml:lang="de">Mbaiki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mbaïki</skos:altLabel>
+	<skos:altLabel>Mbaïki</skos:altLabel>
+	<skos:prefLabel>Mbaïki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2384837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.58333</wgs:lat>
+	<wgs:long>15.93333</wgs:long>
+	<skos:prefLabel>Mapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2385030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.12192</wgs:lat>
+	<wgs:long>19.75744</wgs:long>
+	<skos:prefLabel>Île Louma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2385033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.13389</wgs:lat>
+	<wgs:long>18.63194</wgs:long>
+	<skos:prefLabel>Île Loukoussou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2385105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>220983</europeana:population>
+	<wgs:lat>4</wgs:lat>
+	<wgs:long>18</wgs:long>
+	<skos:altLabel>Lobaye</skos:altLabel>
+	<skos:altLabel>Préfecture de Lobaye</skos:altLabel>
+	<skos:altLabel>Préfecture de la Lobaye</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Lobaye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2385836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>101627</europeana:population>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>19.08333</wgs:long>
+	<skos:altLabel>Kémo</skos:altLabel>
+	<skos:altLabel>Kémo-Gribingui</skos:altLabel>
+	<skos:altLabel>Préfecture de Kémo</skos:altLabel>
+	<skos:altLabel>Préfecture de Kémo-Gribingui</skos:altLabel>
+	<skos:altLabel>Préfecture de la Kémo</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Kémo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2385839/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.46667</wgs:lat>
+	<wgs:long>18.78333</wgs:long>
+	<skos:prefLabel>Île Kembé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2386012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>56520</europeana:population>
+	<wgs:lat>6.98333</wgs:lat>
+	<wgs:long>19.18333</wgs:long>
+	<skos:altLabel>Crampel</skos:altLabel>
+	<skos:altLabel>Fort-Crampel</skos:altLabel>
+	<skos:altLabel>Kaga Bandoro</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kaga-Bandoro</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kaga-Bandoro</skos:altLabel>
+	<skos:prefLabel>Kaga Bandoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2386042/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13637</europeana:population>
+	<wgs:lat>7.69225</wgs:lat>
+	<wgs:long>18.62611</wgs:long>
+	<skos:prefLabel>Kabo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2386161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>299555</europeana:population>
+	<wgs:lat>4.5</wgs:lat>
+	<wgs:long>16</wgs:long>
+	<skos:altLabel>Mambere Kadei</skos:altLabel>
+	<skos:altLabel>Mambéré-Kadéï</skos:altLabel>
+	<skos:altLabel>Préfecture de Haute-Sangha</skos:altLabel>
+	<skos:altLabel>Préfecture de la Mambéré-Kadéï</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Mambéré-Kadéï</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2386243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>19.25</wgs:long>
+	<skos:altLabel>Gribingui</skos:altLabel>
+	<skos:altLabel>Gribingui Economique</skos:altLabel>
+	<skos:altLabel>Nana-Gribingui</skos:altLabel>
+	<skos:altLabel>Nana-Grébizi</skos:altLabel>
+	<skos:altLabel>Préfecture de Gribingui</skos:altLabel>
+	<skos:altLabel>Préfecture de Nana-Grébizi</skos:altLabel>
+	<skos:altLabel>Préfecture de la Nana-Grébizi</skos:altLabel>
+	<skos:prefLabel>Préfecture de la Nana-Grébizi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2386689/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.14449</wgs:lat>
+	<wgs:long>19.63957</wgs:long>
+	<skos:prefLabel>Île Gari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2387435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20093</europeana:population>
+	<wgs:lat>4.96667</wgs:lat>
+	<wgs:long>18.7</wgs:long>
+	<skos:altLabel>Damara</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дамара</skos:altLabel>
+	<skos:prefLabel>Damara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2387494/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.78333</wgs:lat>
+	<wgs:long>15.73333</wgs:long>
+	<skos:altLabel>Carnot</skos:altLabel>
+	<skos:altLabel>Sous-Préfecture de Carnot</skos:altLabel>
+	<skos:prefLabel>Sous-Préfecture de Carnot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2387495/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38071</europeana:population>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>15.86667</wgs:long>
+	<skos:prefLabel>Carnot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2387546/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>40201</europeana:population>
+	<wgs:lat>6.31667</wgs:lat>
+	<wgs:long>16.38333</wgs:long>
+	<skos:altLabel>Bosum</skos:altLabel>
+	<skos:altLabel>Bozoum</skos:altLabel>
+	<skos:altLabel>Bozum</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бозуме</skos:altLabel>
+	<skos:prefLabel>Bozoum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2387890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13250</europeana:population>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>18.28333</wgs:long>
+	<skos:altLabel>Bouca</skos:altLabel>
+	<skos:altLabel>Bouka</skos:altLabel>
+	<skos:altLabel>Buka</skos:altLabel>
+	<skos:prefLabel>Bouca</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2387926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>28581</europeana:population>
+	<wgs:lat>5.95</wgs:lat>
+	<wgs:long>15.6</wgs:long>
+	<skos:altLabel xml:lang="id">Bouar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bouar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bouar</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Bouar</skos:altLabel>
+	<skos:altLabel>Bouar</skos:altLabel>
+	<skos:altLabel>Buar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Буаре</skos:altLabel>
+	<skos:prefLabel>Bouar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2388036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>27428</europeana:population>
+	<wgs:lat>6.48333</wgs:lat>
+	<wgs:long>17.45</wgs:long>
+	<skos:altLabel>Amangba</skos:altLabel>
+	<skos:altLabel>Bossango</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bossangoa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bossangoa</skos:altLabel>
+	<skos:altLabel>Bossangoa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Босангоа</skos:altLabel>
+	<skos:prefLabel>Bossangoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2388267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.68333</wgs:lat>
+	<wgs:long>15.83333</wgs:long>
+	<skos:prefLabel>Boma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2388614/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16655</europeana:population>
+	<wgs:lat>4.31667</wgs:lat>
+	<wgs:long>17.46667</wgs:long>
+	<skos:prefLabel>Boda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2388873/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>129655</europeana:population>
+	<wgs:lat>4.25671</wgs:lat>
+	<wgs:long>18.41583</wgs:long>
+	<skos:altLabel xml:lang="en">Bimbo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bimbo</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bimbo</skos:altLabel>
+	<skos:altLabel>Bimbo</skos:altLabel>
+	<skos:altLabel>Bimo</skos:altLabel>
+	<skos:prefLabel>Bimbo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2389086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>61815</europeana:population>
+	<wgs:lat>4.26116</wgs:lat>
+	<wgs:long>15.79216</wgs:long>
+	<skos:altLabel xml:lang="pl">Berberati</skos:altLabel>
+	<skos:altLabel xml:lang="en">Berbérati</skos:altLabel>
+	<skos:altLabel xml:lang="de">Berbérati</skos:altLabel>
+	<skos:altLabel xml:lang="es">Berbérati</skos:altLabel>
+	<skos:altLabel>Berbérati</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Берберати</skos:altLabel>
+	<skos:prefLabel>Berbérati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2389691/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15310</europeana:population>
+	<wgs:lat>7.2954</wgs:lat>
+	<wgs:long>18.28775</wgs:long>
+	<skos:altLabel>Batangafo</skos:altLabel>
+	<skos:altLabel>Dévo</skos:altLabel>
+	<skos:prefLabel>Batangafo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2389853/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>542393</europeana:population>
+	<wgs:lat>4.36122</wgs:lat>
+	<wgs:long>18.55496</wgs:long>
+	<skos:altLabel xml:lang="pl">Bangi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Bangis</skos:altLabel>
+	<skos:altLabel xml:lang="id">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="es">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="it">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="da">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="io">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Bangui</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μπανγκουί</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Банги</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Банги</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Банги</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Бангі</skos:altLabel>
+	<skos:altLabel xml:lang="he">בנגואי</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بانگوئی</skos:altLabel>
+	<skos:altLabel xml:lang="am">ባንጊ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バンギ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">班基</skos:altLabel>
+	<skos:altLabel xml:lang="ko">방기</skos:altLabel>
+	<skos:prefLabel>Bangui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2390511/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>15</wgs:long>
+	<skos:altLabel>Baboua</skos:altLabel>
+	<skos:altLabel>Sous-Préfecture de Baboua</skos:altLabel>
+	<skos:prefLabel>Sous-Préfecture de Baboua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2586980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.23306</wgs:lat>
+	<wgs:long>18.57806</wgs:long>
+	<skos:prefLabel>Île Mboulou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2586986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.13833</wgs:lat>
+	<wgs:long>18.61444</wgs:long>
+	<skos:prefLabel>Île Ndonggué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.65167</wgs:lat>
+	<wgs:long>18.90333</wgs:long>
+	<skos:prefLabel>Île Bongbélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2596686/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/239880/"/>
+	<europeana:country>CF</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>542393</europeana:population>
+	<wgs:lat>4.36667</wgs:lat>
+	<wgs:long>18.58333</wgs:long>
+	<skos:altLabel>Bangui</skos:altLabel>
+	<skos:altLabel>Commune de Bangui</skos:altLabel>
+	<skos:prefLabel>Commune de Bangui</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 64 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

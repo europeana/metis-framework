@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: EU_JE
+Description: Selected fields pulled from Geonames about JE done on Mon May 23 21:12:39 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042091/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>28000</europeana:population>
+	<wgs:lat>49.18333</wgs:lat>
+	<wgs:long>-2.1</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Helier</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сент-Хельер</skos:altLabel>
+	<skos:prefLabel>Saint Helier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042130/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.16074</wgs:lat>
+	<wgs:long>-2.07723</wgs:long>
+	<skos:altLabel>Green Island</skos:altLabel>
+	<skos:prefLabel>La Motte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042131/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>49.23639</wgs:lat>
+	<wgs:long>-2.1425</wgs:long>
+	<skos:altLabel xml:lang="en">La Hougue Boëte</skos:altLabel>
+	<skos:altLabel>La Hougue Boëtte</skos:altLabel>
+	<skos:prefLabel>La Hougue Boëte</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042132/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>49.2</wgs:lat>
+	<wgs:long>-2.06667</wgs:long>
+	<skos:altLabel>Hougue Bie</skos:altLabel>
+	<skos:altLabel xml:lang="en">La Hougue Bie</skos:altLabel>
+	<skos:altLabel>Prince’s Tower</skos:altLabel>
+	<skos:prefLabel>La Hougue Bie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255148/"/>
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCL"/>
+	<europeana:population>90812</europeana:population>
+	<wgs:lat>49.21667</wgs:lat>
+	<wgs:long>-2.11667</wgs:long>
+	<skos:altLabel xml:lang="fr">Bailliage de Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Batllia de Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Džersis</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Džērsija</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Geirsí</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Jersey</skos:altLabel>
+	<skos:altLabel>JE</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="id">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="se">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τζέρσεϊ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Џерси</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джерси</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Джерсі</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Джърси</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג׳רסי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جرسي</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جرسی</skos:altLabel>
+	<skos:altLabel xml:lang="hi">जर्सी</skos:altLabel>
+	<skos:altLabel xml:lang="th">เจอร์ซีย์</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჯერსი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジャージー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">泽西岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">저지섬</skos:altLabel>
+	<skos:prefLabel>Bailiwick of Jersey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042143/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.2167</wgs:lat>
+	<wgs:long>-2.13753</wgs:long>
+	<skos:altLabel xml:lang="la">Caesarea Maritima</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Džersija</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Gersei</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insula Jersey</skos:altLabel>
+	<skos:altLabel>Isle of Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="id">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="af">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="io">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="li">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Jersey</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Jersi</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τζέρσεϋ</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Џерси</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джерси</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Джерсі</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'רזי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزيرة جيرزي</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ჯერსი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ジャージー島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澤西島</skos:altLabel>
+	<skos:altLabel xml:lang="ko">저지 섬</skos:altLabel>
+	<skos:prefLabel>Jersey</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3042145/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.16972</wgs:lat>
+	<wgs:long>-2.1775</wgs:long>
+	<skos:altLabel>Isle au Guerdain</skos:altLabel>
+	<skos:altLabel>L’Île au Guerdain</skos:altLabel>
+	<skos:altLabel>Île au Guerdain</skos:altLabel>
+	<skos:prefLabel>Île au Guerdain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237065/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.17611</wgs:lat>
+	<wgs:long>-2.12528</wgs:long>
+	<skos:altLabel xml:lang="en">Elizabeth Castle</skos:altLabel>
+	<skos:altLabel>Le Château Elisabeth</skos:altLabel>
+	<skos:altLabel>Le Château de L’Islet</skos:altLabel>
+	<skos:prefLabel>Elizabeth Castle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237072/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.16565</wgs:lat>
+	<wgs:long>-2.07659</wgs:long>
+	<skos:altLabel xml:lang="en">St Clement</skos:altLabel>
+	<skos:prefLabel>Saint Clement</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237073/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.19517</wgs:lat>
+	<wgs:long>-2.09238</wgs:long>
+	<skos:prefLabel>Saint Saviour</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237200/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.19056</wgs:lat>
+	<wgs:long>-2.20056</wgs:long>
+	<skos:altLabel>Saint Brelade</skos:altLabel>
+	<skos:altLabel>St. Brelade</skos:altLabel>
+	<skos:altLabel>St. Brelade’s</skos:altLabel>
+	<skos:prefLabel>Saint Brelade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237203/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.18472</wgs:lat>
+	<wgs:long>-2.04917</wgs:long>
+	<skos:altLabel xml:lang="en">Grouville</skos:altLabel>
+	<skos:prefLabel>Grouville</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237212/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.23583</wgs:lat>
+	<wgs:long>-2.17222</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Mary</skos:altLabel>
+	<skos:altLabel>St. Mary</skos:altLabel>
+	<skos:altLabel>St. Mary’s</skos:altLabel>
+	<skos:prefLabel>Saint Mary</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237214/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.21528</wgs:lat>
+	<wgs:long>-2.14</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Lawrence</skos:altLabel>
+	<skos:prefLabel>Saint Lawrence</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237221/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.21333</wgs:lat>
+	<wgs:long>-2.18194</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Peter</skos:altLabel>
+	<skos:altLabel>Saint Peter’s</skos:altLabel>
+	<skos:altLabel>St. Peter</skos:altLabel>
+	<skos:prefLabel>Saint Peter</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237229/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.22667</wgs:lat>
+	<wgs:long>-2.20556</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Ouen</skos:altLabel>
+	<skos:altLabel>St. Ouen</skos:altLabel>
+	<skos:altLabel>St. Ouen’s</skos:altLabel>
+	<skos:prefLabel>Saint Ouen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237497/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.24694</wgs:lat>
+	<wgs:long>-2.1375</wgs:long>
+	<skos:altLabel xml:lang="en">Saint John</skos:altLabel>
+	<skos:altLabel>St. John’s</skos:altLabel>
+	<skos:prefLabel>Saint John</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237530/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.23472</wgs:lat>
+	<wgs:long>-2.09</wgs:long>
+	<skos:altLabel xml:lang="en">Trinity</skos:altLabel>
+	<skos:prefLabel>Trinity</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237642/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.29167</wgs:lat>
+	<wgs:long>-1.92778</wgs:long>
+	<skos:altLabel xml:lang="en">Marmotier</skos:altLabel>
+	<skos:prefLabel>Marmotier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237645/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>49.28333</wgs:lat>
+	<wgs:long>-1.92778</wgs:long>
+	<skos:prefLabel>Île Mâitre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237716/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.21944</wgs:lat>
+	<wgs:long>-2.04972</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Martin</skos:altLabel>
+	<skos:prefLabel>Saint Martin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/3237864/">
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PRSH"/>
+	<wgs:lat>49.18333</wgs:lat>
+	<wgs:long>-2.1</wgs:long>
+	<skos:altLabel xml:lang="en">Saint Helier</skos:altLabel>
+	<skos:prefLabel>Saint Helier</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6620384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/3042142/"/>
+	<europeana:country>JE</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>49.1834</wgs:lat>
+	<wgs:long>-2.10034</wgs:long>
+	<skos:prefLabel>Jersey (general)</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 22 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

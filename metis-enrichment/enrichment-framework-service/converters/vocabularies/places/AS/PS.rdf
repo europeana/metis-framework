@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_PS
+Description: Selected fields pulled from Geonames about PS done on Mon May 23 21:13:36 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/281102/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>126305</europeana:population>
+	<wgs:lat>31.287</wgs:lat>
+	<wgs:long>34.25952</wgs:long>
+	<skos:altLabel>Er Rafa</skos:altLabel>
+	<skos:altLabel>Rafa</skos:altLabel>
+	<skos:altLabel>Rafaa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Rafah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Rafaḩ</skos:altLabel>
+	<skos:altLabel>Rafīah</skos:altLabel>
+	<skos:altLabel>Raphia</skos:altLabel>
+	<skos:altLabel>Rifah</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ràfia</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Рафа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рафах</skos:altLabel>
+	<skos:altLabel xml:lang="he">רפיח</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رفح</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رَفَحْ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拉法赫</skos:altLabel>
+	<skos:prefLabel>Rafaḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281124/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>173183</europeana:population>
+	<wgs:lat>31.34018</wgs:lat>
+	<wgs:long>34.30627</wgs:long>
+	<skos:altLabel>Hanūt Yōnā</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jan Yunis</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jan Yunís</skos:altLabel>
+	<skos:altLabel>Khan Younes</skos:altLabel>
+	<skos:altLabel xml:lang="no">Khan Younis</skos:altLabel>
+	<skos:altLabel>Khan Yumus</skos:altLabel>
+	<skos:altLabel xml:lang="en">Khan Yunis</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Khān Yūnis</skos:altLabel>
+	<skos:altLabel>Khān Yūnus</skos:altLabel>
+	<skos:altLabel>Yunas</skos:altLabel>
+	<skos:altLabel>Yunus</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хан-Юнис</skos:altLabel>
+	<skos:altLabel xml:lang="ar">خان يونس</skos:altLabel>
+	<skos:prefLabel>Khān Yūnis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281129/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>168568</europeana:population>
+	<wgs:lat>31.52722</wgs:lat>
+	<wgs:long>34.48634</wgs:long>
+	<skos:altLabel xml:lang="no">Jabalia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jabalia</skos:altLabel>
+	<skos:altLabel>Jabaliya</skos:altLabel>
+	<skos:altLabel>Jabalya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jabāliyā</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Jabālyā</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джабалия</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جَباليا</skos:altLabel>
+	<skos:prefLabel>Jabālyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281132/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6254930/"/>
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>487904</europeana:population>
+	<wgs:lat>31.41667</wgs:lat>
+	<wgs:long>34.33333</wgs:long>
+	<skos:altLabel xml:lang="ia">Banda de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bande de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Faixa de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Faixa de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="an">Faxa de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="es">Franja de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Franja de Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Fâşia Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gasaströndin</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gaza Sektoro</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gaza Strip</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gaza tsoon</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gazaremsan</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gazas josla</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gazastreifen</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gazastriben</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gazastripa</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Gazastripen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gazastrook</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gazos Ruožas</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gazze Şeridi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Gázai övezet</skos:altLabel>
+	<skos:altLabel xml:lang="id">Jalur Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Konna Gasa</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Pojas Gaze</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Pásmo Gazy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Pásmo Gazy</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Qiţā` Ghazzah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Strefa Gazy</skos:altLabel>
+	<skos:altLabel xml:lang="it">Striscia di Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ивица Газа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Појас Газе</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сектор Газа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сектор Газа</skos:altLabel>
+	<skos:altLabel xml:lang="he">רצועת עזה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">قطاع غزة</skos:altLabel>
+	<skos:altLabel xml:lang="th">ฉนวนกาซา</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ღაზის სექტორი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガザ地区</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加沙地带</skos:altLabel>
+	<skos:prefLabel>Gaza Strip</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281133/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>410000</europeana:population>
+	<wgs:lat>31.5</wgs:lat>
+	<wgs:long>34.46667</wgs:long>
+	<skos:altLabel>Azzah</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gaza</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gaza City</skos:altLabel>
+	<skos:altLabel>Ghazah</skos:altLabel>
+	<skos:altLabel>Ghazza</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Ghazzah</skos:altLabel>
+	<skos:altLabel>Ghazze</skos:altLabel>
+	<skos:altLabel>Ghazzi</skos:altLabel>
+	<skos:altLabel>Ghuzze</skos:altLabel>
+	<skos:altLabel>`Azzā</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Газа</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Газа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Газа</skos:altLabel>
+	<skos:altLabel xml:lang="he">עזה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غزة</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガザ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加沙</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加薩</skos:altLabel>
+	<skos:prefLabel>Gaza</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281141/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>59504</europeana:population>
+	<wgs:lat>31.41655</wgs:lat>
+	<wgs:long>34.34525</wgs:long>
+	<skos:altLabel>Belar</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Dayr al Balaḩ</skos:altLabel>
+	<skos:altLabel>Deir el-Balah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Deir el-Balah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Deir el-Balah</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Deir el-Balah</skos:altLabel>
+	<skos:altLabel>Der el Bela</skos:altLabel>
+	<skos:altLabel xml:lang="ar">دير البلح</skos:altLabel>
+	<skos:prefLabel>Dayr al Balaḩ</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281145/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>56919</europeana:population>
+	<wgs:lat>31.5464</wgs:lat>
+	<wgs:long>34.49514</wgs:long>
+	<skos:altLabel>Bayt Lāhiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bayt Lāhiyah</skos:altLabel>
+	<skos:altLabel xml:lang="ar">Bayt Lā’īyā</skos:altLabel>
+	<skos:altLabel xml:lang="no">Beit Lahia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Beit Lahia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Beit Lahia</skos:altLabel>
+	<skos:altLabel>Beit Lahya</skos:altLabel>
+	<skos:altLabel>Beit Lāhiya</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيت لائيا</skos:altLabel>
+	<skos:prefLabel>Bayt Lā’īyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281161/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34951</europeana:population>
+	<wgs:lat>31.43944</wgs:lat>
+	<wgs:long>34.40306</wgs:long>
+	<skos:altLabel>Al Burayj</skos:altLabel>
+	<skos:altLabel>Al-Bureij</skos:altLabel>
+	<skos:altLabel>El Bureij</skos:altLabel>
+	<skos:prefLabel>Al Burayj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281218/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.48333</wgs:lat>
+	<wgs:long>35.13333</wgs:long>
+	<skos:altLabel>Khirbat Zīf</skos:altLabel>
+	<skos:altLabel>Ziph</skos:altLabel>
+	<skos:prefLabel>Khirbat Zīf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281292/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>41425</europeana:population>
+	<wgs:lat>31.45</wgs:lat>
+	<wgs:long>35.08333</wgs:long>
+	<skos:altLabel xml:lang="de">Jatta</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jatta</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jatta</skos:altLabel>
+	<skos:altLabel>Yaţţah</skos:altLabel>
+	<skos:altLabel>Yaṭṭa</skos:altLabel>
+	<skos:altLabel>Yuta</skos:altLabel>
+	<skos:prefLabel>Yaţţah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281577/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44169</europeana:population>
+	<wgs:lat>32.31083</wgs:lat>
+	<wgs:long>35.02583</wgs:long>
+	<skos:altLabel>Keram</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Toelkarem</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tulkarem</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tulkarem</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tulkarem</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tulkarm</skos:altLabel>
+	<skos:altLabel>Tūl Kerem</skos:altLabel>
+	<skos:altLabel>Ţūlkarm</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тулькарм</skos:altLabel>
+	<skos:altLabel xml:lang="he">טול כרם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">طولكرم</skos:altLabel>
+	<skos:prefLabel>Ţūlkarm</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281579/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>Beit Sûr</skos:altLabel>
+	<skos:altLabel>Beit Tsur</skos:altLabel>
+	<skos:altLabel>Beth-zur</skos:altLabel>
+	<skos:altLabel>Bethsura</skos:altLabel>
+	<skos:altLabel>Khirbat Tubeiqa</skos:altLabel>
+	<skos:altLabel>Khirbat Ţubayqah</skos:altLabel>
+	<skos:altLabel>Khirbeṭ eṭ Tubeiqah</skos:altLabel>
+	<skos:prefLabel>Khirbat Ţubayqah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281581/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15591</europeana:population>
+	<wgs:lat>32.32139</wgs:lat>
+	<wgs:long>35.36917</wgs:long>
+	<skos:altLabel>Ţūbās</skos:altLabel>
+	<skos:prefLabel>Ţūbās</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281637/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14202</europeana:population>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>35.01667</wgs:long>
+	<skos:altLabel>Tarqūmiya</skos:altLabel>
+	<skos:altLabel>Tarqūmiyah</skos:altLabel>
+	<skos:altLabel>Tarqūmye</skos:altLabel>
+	<skos:altLabel>Terkumie</skos:altLabel>
+	<skos:altLabel>Turqumiya</skos:altLabel>
+	<skos:prefLabel>Tarqūmiyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281657/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10119</europeana:population>
+	<wgs:lat>32.2825</wgs:lat>
+	<wgs:long>35.38361</wgs:long>
+	<skos:prefLabel>Ţammūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281665/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.86667</wgs:lat>
+	<wgs:long>35.45</wgs:long>
+	<skos:altLabel>Tall as Sulţān</skos:altLabel>
+	<skos:altLabel>Tell es Sultān</skos:altLabel>
+	<skos:prefLabel>Tall as Sulţān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281715/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12992</europeana:population>
+	<wgs:lat>31.65</wgs:lat>
+	<wgs:long>35.06667</wgs:long>
+	<skos:prefLabel>Şūrīf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281767/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.56667</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>Sirat al Balla‘a</skos:altLabel>
+	<skos:altLabel>Sirat el Ballaa</skos:altLabel>
+	<skos:altLabel>Şīrat al Ballā‘ah</skos:altLabel>
+	<skos:prefLabel>Şīrat al Ballā‘ah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281933/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.85</wgs:lat>
+	<wgs:long>35.48333</wgs:long>
+	<skos:altLabel>Gilgal</skos:altLabel>
+	<skos:altLabel>Khirbet en Nitla</skos:altLabel>
+	<skos:altLabel>Khirbet en-Nakhla</skos:altLabel>
+	<skos:altLabel>Shaiarat en Nitla</skos:altLabel>
+	<skos:altLabel>Shajarat an Nitla</skos:altLabel>
+	<skos:altLabel>Shajarat an Nitlah</skos:altLabel>
+	<skos:altLabel>Tamaresk</skos:altLabel>
+	<skos:prefLabel>Shajarat an Nitlah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/281960/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.05</wgs:lat>
+	<wgs:long>35.28333</wgs:long>
+	<skos:altLabel>Khirbat Saylūn</skos:altLabel>
+	<skos:altLabel>Khirbat Seilun</skos:altLabel>
+	<skos:altLabel>Shilo</skos:altLabel>
+	<skos:altLabel>Shiloh</skos:altLabel>
+	<skos:prefLabel>Khirbat Saylūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282132/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.51667</wgs:lat>
+	<wgs:long>34.96667</wgs:long>
+	<skos:altLabel>Rujm al Muntara</skos:altLabel>
+	<skos:altLabel>Rujm al Munţārah</skos:altLabel>
+	<skos:altLabel>Rujm el Muntara</skos:altLabel>
+	<skos:prefLabel>Rujm al Munţārah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282239/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24599</europeana:population>
+	<wgs:lat>31.9</wgs:lat>
+	<wgs:long>35.2</wgs:long>
+	<skos:altLabel>Rahm Alla</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ramala</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ramallah</skos:altLabel>
+	<skos:altLabel>Ramallah</skos:altLabel>
+	<skos:altLabel xml:lang="et">Rām Allāh</skos:altLabel>
+	<skos:altLabel>Rām Allāh</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Рамала</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рамалла</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Рамаллах</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Рамаллах</skos:altLabel>
+	<skos:altLabel xml:lang="he">רמאללה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">رام الله</skos:altLabel>
+	<skos:altLabel xml:lang="fa">رام‌الله</skos:altLabel>
+	<skos:altLabel xml:lang="zh">拉姆安拉</skos:altLabel>
+	<skos:prefLabel>Ramallah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282303/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.73333</wgs:lat>
+	<wgs:long>35.45</wgs:long>
+	<skos:prefLabel>Khirbat Qumrān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282364/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.61667</wgs:lat>
+	<wgs:long>35</wgs:long>
+	<skos:altLabel>Keilah</skos:altLabel>
+	<skos:altLabel>Khirbat Kaylā</skos:altLabel>
+	<skos:altLabel>Khirbat Keila</skos:altLabel>
+	<skos:altLabel>Khirbat Qaylah</skos:altLabel>
+	<skos:altLabel>Khirbat Qeila</skos:altLabel>
+	<skos:altLabel>Khirbet Qîlā</skos:altLabel>
+	<skos:altLabel>Qayla</skos:altLabel>
+	<skos:prefLabel>Khirbat Qaylah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282430/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.1</wgs:lat>
+	<wgs:long>35.46667</wgs:long>
+	<skos:altLabel>Alexandrium</skos:altLabel>
+	<skos:altLabel>Qarn Şarţabah</skos:altLabel>
+	<skos:altLabel>Qarn Şarţabeh</skos:altLabel>
+	<skos:altLabel>Qarn Ṣarṭaba</skos:altLabel>
+	<skos:prefLabel>Qarn Şarţabah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282457/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43212</europeana:population>
+	<wgs:lat>32.18639</wgs:lat>
+	<wgs:long>34.96306</wgs:long>
+	<skos:altLabel>Kal Kiliya</skos:altLabel>
+	<skos:altLabel>Kalkilieh</skos:altLabel>
+	<skos:altLabel>Kfar Saba</skos:altLabel>
+	<skos:altLabel>Qalkilya</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Qalqilyah</skos:altLabel>
+	<skos:altLabel xml:lang="no">Qalqilyah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Qalqilyah</skos:altLabel>
+	<skos:altLabel>Qalqīliya</skos:altLabel>
+	<skos:altLabel>Qalqīlyah</skos:altLabel>
+	<skos:altLabel>Qalqīlye</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Калькилия</skos:altLabel>
+	<skos:prefLabel>Qalqīlyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282476/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19127</europeana:population>
+	<wgs:lat>32.40861</wgs:lat>
+	<wgs:long>35.28</wgs:long>
+	<skos:altLabel>Kubatie</skos:altLabel>
+	<skos:altLabel>Kubatiya</skos:altLabel>
+	<skos:altLabel>Qabātiya</skos:altLabel>
+	<skos:altLabel>Qabātye</skos:altLabel>
+	<skos:altLabel>Qabāţīyah</skos:altLabel>
+	<skos:prefLabel>Qabāţīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282615/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>130326</europeana:population>
+	<wgs:lat>32.22111</wgs:lat>
+	<wgs:long>35.25444</wgs:long>
+	<skos:altLabel xml:lang="la">Flavia Neapolis</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nablus</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nablus</skos:altLabel>
+	<skos:altLabel>Nabulus</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Naplouse</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Naplusa</skos:altLabel>
+	<skos:altLabel>Napouse</skos:altLabel>
+	<skos:altLabel>Neapolis</skos:altLabel>
+	<skos:altLabel>Nāblus</skos:altLabel>
+	<skos:altLabel>Schechem</skos:altLabel>
+	<skos:altLabel>Shechem</skos:altLabel>
+	<skos:altLabel xml:lang="en">Shechem</skos:altLabel>
+	<skos:altLabel>Shekhem</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sichem</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sichem</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Sichem</skos:altLabel>
+	<skos:altLabel xml:lang="es">Siquem</skos:altLabel>
+	<skos:altLabel>Sychem</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Sychem</skos:altLabel>
+	<skos:altLabel>Sykhem</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Наблус</skos:altLabel>
+	<skos:altLabel xml:lang="he">שכם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نابلس</skos:altLabel>
+	<skos:prefLabel>Nablus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/282852/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.71667</wgs:lat>
+	<wgs:long>35.38333</wgs:long>
+	<skos:altLabel>Al Mird</skos:altLabel>
+	<skos:altLabel>Hycania</skos:altLabel>
+	<skos:altLabel>Hyrcania</skos:altLabel>
+	<skos:altLabel>Khirbet Mird</skos:altLabel>
+	<skos:altLabel>Mār Sābā</skos:altLabel>
+	<skos:prefLabel>Mār Sābā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/283346/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.76667</wgs:lat>
+	<wgs:long>35.5</wgs:long>
+	<skos:altLabel>Kallia</skos:altLabel>
+	<skos:altLabel>Kāliyah</skos:altLabel>
+	<skos:altLabel>Kāliyā</skos:altLabel>
+	<skos:prefLabel>Kāliyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/283506/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34730</europeana:population>
+	<wgs:lat>32.45639</wgs:lat>
+	<wgs:long>35.29583</wgs:long>
+	<skos:altLabel>Djenin</skos:altLabel>
+	<skos:altLabel xml:lang="de">Dschenin</skos:altLabel>
+	<skos:altLabel>Engannim</skos:altLabel>
+	<skos:altLabel>Janīn</skos:altLabel>
+	<skos:altLabel>Jenin</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jenin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jenin</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Jenin</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jenin</skos:altLabel>
+	<skos:altLabel>Jinin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jénine</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Джанин</skos:altLabel>
+	<skos:altLabel xml:lang="he">ג'נין</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جنين</skos:altLabel>
+	<skos:altLabel>‘Ein Gannīm</skos:altLabel>
+	<skos:prefLabel>Janīn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/283741/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.66667</wgs:lat>
+	<wgs:long>35.25</wgs:long>
+	<skos:prefLabel>Har Hordos</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/283796/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.55</wgs:lat>
+	<wgs:long>34.95</wgs:long>
+	<skos:prefLabel>Khirbat al Ḩamām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/283806/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21076</europeana:population>
+	<wgs:lat>31.58333</wgs:lat>
+	<wgs:long>35.11667</wgs:long>
+	<skos:prefLabel>Ḩalḩūl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/283917/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>31.65</wgs:lat>
+	<wgs:long>35.23333</wgs:long>
+	<skos:altLabel>Khirbat Firaydis</skos:altLabel>
+	<skos:altLabel>Khirbat Firdaus</skos:altLabel>
+	<skos:altLabel>Khirbat Firdaws</skos:altLabel>
+	<skos:altLabel>Tel Herodium</skos:altLabel>
+	<skos:prefLabel>Khirbat Firdaws</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284011/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20835</europeana:population>
+	<wgs:lat>31.5</wgs:lat>
+	<wgs:long>35.03333</wgs:long>
+	<skos:altLabel>Dūrah</skos:altLabel>
+	<skos:altLabel>Dūrā</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дуры</skos:altLabel>
+	<skos:prefLabel>Dūrā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284064/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>32.09333</wgs:lat>
+	<wgs:long>35.03083</wgs:long>
+	<skos:altLabel>Khirbat Dayr Qissīs</skos:altLabel>
+	<skos:altLabel>Khirbat Dayr al Qassī’s</skos:altLabel>
+	<skos:altLabel>Khirbet Deir Qassis</skos:altLabel>
+	<skos:altLabel>Khirbet Deir el Qassis</skos:altLabel>
+	<skos:prefLabel>Khirbat Dayr Qissīs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284294/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12822</europeana:population>
+	<wgs:lat>31.88333</wgs:lat>
+	<wgs:long>35.16667</wgs:long>
+	<skos:altLabel>Baytūniyā</skos:altLabel>
+	<skos:altLabel>Beitunia</skos:altLabel>
+	<skos:altLabel>Beituniyā</skos:altLabel>
+	<skos:altLabel>Beitūnya</skos:altLabel>
+	<skos:altLabel>Betounia</skos:altLabel>
+	<skos:altLabel>Bītuniyā</skos:altLabel>
+	<skos:prefLabel>Baytūniyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284304/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14921</europeana:population>
+	<wgs:lat>31.7</wgs:lat>
+	<wgs:long>35.21667</wgs:long>
+	<skos:altLabel>Bayt Sāḩūr</skos:altLabel>
+	<skos:altLabel>Beit Saḥūr</skos:altLabel>
+	<skos:altLabel>Bettsahour</skos:altLabel>
+	<skos:prefLabel>Bayt Sāḩūr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284315/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29019</europeana:population>
+	<wgs:lat>31.71667</wgs:lat>
+	<wgs:long>35.2</wgs:long>
+	<skos:altLabel xml:lang="ar">Bayt Laḩm</skos:altLabel>
+	<skos:altLabel>Beit Lahm</skos:altLabel>
+	<skos:altLabel>Beit Lehem</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Beitheal</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belem</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Belém</skos:altLabel>
+	<skos:altLabel xml:lang="es">Belén</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Belén</skos:altLabel>
+	<skos:altLabel xml:lang="es">Belén de Judá</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bet-Leĥem</skos:altLabel>
+	<skos:altLabel xml:lang="la">Bethleem</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Bethleem Efrata</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bethlehem</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Bethlehem</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Bethlehem</skos:altLabel>
+	<skos:altLabel>Bethléem</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Bethléem</skos:altLabel>
+	<skos:altLabel xml:lang="id">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="de">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="da">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="no">Betlehem</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Betlejem</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Betlem</skos:altLabel>
+	<skos:altLabel xml:lang="it">Betlemme</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Bètleyèm</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βηθλεέμ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вифлеем</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Віфлеєм</skos:altLabel>
+	<skos:altLabel xml:lang="he">בית לחם</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بيت لحم</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბეით-ლაჰმი</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ベツレヘム</skos:altLabel>
+	<skos:altLabel xml:lang="zh">伯利恆</skos:altLabel>
+	<skos:altLabel xml:lang="ko">베들레헴</skos:altLabel>
+	<skos:prefLabel>Bethlehem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284324/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16183</europeana:population>
+	<wgs:lat>31.71667</wgs:lat>
+	<wgs:long>35.18333</wgs:long>
+	<skos:altLabel>Bayt Jālā</skos:altLabel>
+	<skos:altLabel>Beit Jālā</skos:altLabel>
+	<skos:prefLabel>Bayt Jālā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284329/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12238</europeana:population>
+	<wgs:lat>31.61667</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel>Bayt Immar</skos:altLabel>
+	<skos:altLabel>Bayt ‘Umar</skos:altLabel>
+	<skos:altLabel>Beit Immar</skos:altLabel>
+	<skos:altLabel>Beit Ummar</skos:altLabel>
+	<skos:prefLabel>Bayt Immar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284339/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10108</europeana:population>
+	<wgs:lat>32.17667</wgs:lat>
+	<wgs:long>35.33222</wgs:long>
+	<skos:altLabel>Bayt Fūrīk</skos:altLabel>
+	<skos:altLabel>Bayt Nūrīk</skos:altLabel>
+	<skos:altLabel>Beit Fūrīk</skos:altLabel>
+	<skos:prefLabel>Bayt Fūrīk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284341/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10579</europeana:population>
+	<wgs:lat>31.61667</wgs:lat>
+	<wgs:long>35.15</wgs:long>
+	<skos:altLabel>Bayt Fajjār</skos:altLabel>
+	<skos:altLabel>Beit Fajjār</skos:altLabel>
+	<skos:prefLabel>Bayt Fajjār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284446/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17146</europeana:population>
+	<wgs:lat>32.205</wgs:lat>
+	<wgs:long>35.28472</wgs:long>
+	<skos:altLabel>Balāta</skos:altLabel>
+	<skos:altLabel>Balāţah</skos:altLabel>
+	<skos:prefLabel>Balāţah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284486/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27616</europeana:population>
+	<wgs:lat>31.41667</wgs:lat>
+	<wgs:long>34.96667</wgs:long>
+	<skos:altLabel>Adh Dhahiriya</skos:altLabel>
+	<skos:altLabel>Az̧ Z̧āhirīyah</skos:altLabel>
+	<skos:altLabel>Aḑ Ḑāhirīyah</skos:altLabel>
+	<skos:altLabel>Debir</skos:altLabel>
+	<skos:altLabel>Devīr</skos:altLabel>
+	<skos:altLabel>Dhāhirīya</skos:altLabel>
+	<skos:altLabel>Ed Dhaherie</skos:altLabel>
+	<skos:altLabel>Edh Dhāhrīye</skos:altLabel>
+	<skos:altLabel>Edh Dhāiriya</skos:altLabel>
+	<skos:altLabel>El Dahaheriya</skos:altLabel>
+	<skos:altLabel>Eḍh Ḍhāhiriya</skos:altLabel>
+	<skos:prefLabel>Az̧ Z̧āhirīyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284557/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10100</europeana:population>
+	<wgs:lat>32.36917</wgs:lat>
+	<wgs:long>35.06972</wgs:long>
+	<skos:prefLabel>‘Attīl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284890/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24838</europeana:population>
+	<wgs:lat>31.85</wgs:lat>
+	<wgs:long>35.23333</wgs:long>
+	<skos:altLabel>Ar Rām</skos:altLabel>
+	<skos:altLabel>Er Rām</skos:altLabel>
+	<skos:altLabel>Rām</skos:altLabel>
+	<skos:prefLabel>Ar Rām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284899/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>19783</europeana:population>
+	<wgs:lat>31.86667</wgs:lat>
+	<wgs:long>35.45</wgs:long>
+	<skos:altLabel xml:lang="ar">Arīḩā</skos:altLabel>
+	<skos:altLabel>Erīha</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gerico</skos:altLabel>
+	<skos:altLabel xml:lang="en">Jericho</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Jericho</skos:altLabel>
+	<skos:altLabel xml:lang="de">Jericho</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jerichonas</skos:altLabel>
+	<skos:altLabel xml:lang="es">Jericó</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Jericó</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Jericó</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Jerihon</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Jerihon</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Jerihon</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jeriko</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jeriko</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jeriko</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Jerycho</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jéricho</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jērika</skos:altLabel>
+	<skos:altLabel>Yerīhō</skos:altLabel>
+	<skos:altLabel>Yirīḩū</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Єрихон</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Иерихон</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Йерихон</skos:altLabel>
+	<skos:altLabel xml:lang="he">יריחו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أريحا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اریحا</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エリコ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">杰里科</skos:altLabel>
+	<skos:prefLabel>Jericho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/284999/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16164</europeana:population>
+	<wgs:lat>32.4825</wgs:lat>
+	<wgs:long>35.2275</wgs:long>
+	<skos:altLabel>Al Yāmūn</skos:altLabel>
+	<skos:altLabel>El Yāmūn</skos:altLabel>
+	<skos:altLabel>Yāmūn</skos:altLabel>
+	<skos:prefLabel>Al Yāmūn</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285066/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>160470</europeana:population>
+	<wgs:lat>31.53333</wgs:lat>
+	<wgs:long>35.1</wgs:long>
+	<skos:altLabel xml:lang="ar">Al Khalīl</skos:altLabel>
+	<skos:altLabel>El Khalil</skos:altLabel>
+	<skos:altLabel>El Khulil</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Hebrom</skos:altLabel>
+	<skos:altLabel xml:lang="id">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="da">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="it">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="de">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="no">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hebron</skos:altLabel>
+	<skos:altLabel xml:lang="es">Hebrón</skos:altLabel>
+	<skos:altLabel>Hevrōn</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Hébron</skos:altLabel>
+	<skos:altLabel>Khalil-el-Rahman</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хеврон</skos:altLabel>
+	<skos:altLabel xml:lang="he">חברון</skos:altLabel>
+	<skos:altLabel xml:lang="ar">الخليل</skos:altLabel>
+	<skos:altLabel>Ḩabrūn</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヘブロン</skos:altLabel>
+	<skos:prefLabel>Hebron</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285108/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>38192</europeana:population>
+	<wgs:lat>31.9</wgs:lat>
+	<wgs:long>35.21667</wgs:long>
+	<skos:altLabel>Al Bira</skos:altLabel>
+	<skos:altLabel>Al Bīrah</skos:altLabel>
+	<skos:altLabel>Be-ērot</skos:altLabel>
+	<skos:altLabel>Be-ēroth</skos:altLabel>
+	<skos:altLabel>Bīra</skos:altLabel>
+	<skos:altLabel>Bīrah</skos:altLabel>
+	<skos:altLabel>Bīre</skos:altLabel>
+	<skos:altLabel>El Bīra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аль-Бира</skos:altLabel>
+	<skos:prefLabel>Al Bīrah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285153/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6254930/"/>
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2771681</europeana:population>
+	<wgs:lat>31.66667</wgs:lat>
+	<wgs:long>35.25</wgs:long>
+	<skos:altLabel xml:lang="ar">Aḑ Ḑaffah al Gharbīyah</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Cisjordània</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vestbredden</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Västbanken</skos:altLabel>
+	<skos:prefLabel>West Bank</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/285279/">
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11753</europeana:population>
+	<wgs:lat>31.76667</wgs:lat>
+	<wgs:long>35.26667</wgs:long>
+	<skos:prefLabel>Abū Dīs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6254930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLS"/>
+	<europeana:population>3800000</europeana:population>
+	<wgs:lat>31.92157</wgs:lat>
+	<wgs:long>35.20329</wgs:long>
+	<skos:altLabel xml:lang="tr">Filistin</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Na Críocha Pailistíneacha</skos:altLabel>
+	<skos:altLabel>PS</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Palestiina</skos:altLabel>
+	<skos:altLabel xml:lang="et">Palestiina Omavalitsus</skos:altLabel>
+	<skos:altLabel xml:lang="id">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="es">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="it">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="se">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Palestina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Palestine</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Palestine</skos:altLabel>
+	<skos:altLabel xml:lang="en">Palestine</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Palestinian Territory</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Palestinian Territory</skos:altLabel>
+	<skos:altLabel xml:lang="en">Palestinian Territory</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Palestyna</skos:altLabel>
+	<skos:altLabel xml:lang="is">Palestína</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Palestína</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Palestīna</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Palesztín Terület</skos:altLabel>
+	<skos:altLabel xml:lang="de">Palästina</skos:altLabel>
+	<skos:altLabel xml:lang="da">Palæstina</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tiriogaeth Palesteina</skos:altLabel>
+	<skos:altLabel xml:lang="hr">palestinski teritorij</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παλαιστίνη</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Палестина</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Палестина</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Палестина</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Палестинска Територија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Палестинська територія</skos:altLabel>
+	<skos:altLabel xml:lang="be">Палестынскія тэрыторыі</skos:altLabel>
+	<skos:altLabel xml:lang="he">פלסטין</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فلسطين</skos:altLabel>
+	<skos:altLabel xml:lang="fa">فلسطین</skos:altLabel>
+	<skos:altLabel xml:lang="ps">فلسطین</skos:altLabel>
+	<skos:altLabel xml:lang="ur">فلسطین</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ऑक्युपाइड पैलेस्टीनियन टेरिटरी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ফিলিস্তিন অঞ্চল</skos:altLabel>
+	<skos:altLabel xml:lang="th">ปาเลสไตน์</skos:altLabel>
+	<skos:altLabel xml:lang="dz">པེ་ལིསི་ཊི་ནིཡ ན་ཊེ་རི་ངོ་རི</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პალესტინის ტერიტორია</skos:altLabel>
+	<skos:altLabel xml:lang="am">የፍልስጤም ግዛት</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៉ាលេស្ទីន</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パレスチナ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴勒斯坦</skos:altLabel>
+	<skos:altLabel xml:lang="ko">팔레스타인</skos:altLabel>
+	<skos:prefLabel>Palestine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7303419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/281184/"/>
+	<europeana:country>PS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLX"/>
+	<europeana:population>428304</europeana:population>
+	<wgs:lat>31.78336</wgs:lat>
+	<wgs:long>35.23388</wgs:long>
+	<skos:altLabel xml:lang="nn">Aust-Jerusalem</skos:altLabel>
+	<skos:altLabel>Jerusalem East</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Jérusalem-Est</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ostjerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Östra Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Øst-Jerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="da">Østjerusalem</skos:altLabel>
+	<skos:altLabel xml:lang="he">מזרח ירושלים</skos:altLabel>
+	<skos:altLabel xml:lang="ar">لقدس الشرقية</skos:altLabel>
+	<skos:prefLabel>East Jerusalem</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 55 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

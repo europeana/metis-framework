@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl 'http://www.w3.org/2002/07/owl#'>
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY ulan 'http://e-culture.multimedian.nl/ns/getty/ulan#'>
+    <!ENTITY vp 'http://e-culture.multimedian.nl/ns/getty/vp#'>
+    <!ENTITY xsd 'http://www.w3.org/2001/XMLSchema#'>
+    <!ENTITY tgn 'http://e-culture.multimedian.nl/ns/getty/tgn#'>
+    <!ENTITY skos 'http://www.w3.org/2004/02/skos/core#'>
+]>
+
+<!-- 
+ Copyright 2005-2009 the original author or authors.
+
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ 
+ This file is a part of AnnoCultor demos, see
+ 
+     http://annocultor.sourceforge.net 
+ 
+ This file contains a sample of several ULAN records converted into RDF.
+ The original data was taken from GETTY
+ 
+     http://www.getty.edu/research/conducting_research/vocabularies/ulan/  
+
+ The conversion was done by the MultimediaN e-Culture project
+
+     http://e-culture.multimedian.nl
+ 
+ This file is provided for illustration purposes only.    
+ -->
+
+<rdf:RDF
+    xmlns:owl="&owl;"
+    xmlns:tgn="&tgn;"
+    xmlns:rdf="&rdf;"
+    xmlns:skos="&skos;"
+    xmlns:rdfs="&rdfs;"
+    xmlns:ulan="&ulan;"
+    xmlns:vp="&vp;"
+    xmlns:xsd="&xsd;"
+>
+
+<ulan:Person rdf:about="&ulan;500010879"
+    ulan:biographyPreferred="Italian painter, draftsman, scientist, 1452-1519"
+    ulan:birthDate="1452"
+    ulan:deathDate="1519"
+    vp:id="500010879"
+    vp:labelPreferred="Leonardo da Vinci" skos:prefLabel="Leonardo da Vinci">
+  <ulan:biographyNonPreferred>1452-02.V.1519; Architect, Author, Engineer, Painter,Sculptor, Italia</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>Italian artist, 1452-1519</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>Italian painter, 1452-1519</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>Italian painter, sculptor, and architect, 1452-1519</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>Italian painter, sculptor, architect, engineer, musician, scientist, 1452-1519</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>Italian, 1452-1519</ulan:biographyNonPreferred>
+  <ulan:roleNonPreferred rdf:resource="&ulan;30010"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;31175"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;31261"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;31467"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;35017"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;40011"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;40221"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;41117"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;41211"/>
+  <ulan:teacher_of rdf:resource="&ulan;500115585"/>
+  <ulan:teacher_of rdf:resource="&ulan;500115891"/>
+  <vp:labelNonPreferred>Leonard Davincy</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Leonardo D'Vinci</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Leonardo De Vinci</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Leonardo d'Avinci</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Leonardo da Vince</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Leonardo de Vinza</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Léonard de Vinci</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Léonardo de Vinci</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Vinci, Leonardo da</vp:labelNonPreferred>
+  <vp:labelNonPreferred>da Vinci, Leonardo</vp:labelNonPreferred>
+  <ulan:assisted_by rdf:resource="&ulan;500115585"/>
+  <ulan:birthPlace rdf:resource="&tgn;7006173"/>
+  <ulan:collaborated_with rdf:resource="&ulan;500115418"/>
+  <ulan:deathPlace rdf:resource="&tgn;7008272"/>
+  <ulan:eventNonPreferred>
+    <rdf:Description>
+      <ulan:eventPlace rdf:resource="&tgn;1000070"/>
+      <rdf:type rdf:resource="&ulan;12002"/>
+      <skos:inScheme rdf:resource="http://e-culture.multimedian.nl/ns/getty/ulan"/>
+    </rdf:Description>
+  </ulan:eventNonPreferred>
+  <ulan:eventPreferred>
+    <rdf:Description>
+      <ulan:eventPlace rdf:resource="&tgn;1000080"/>
+      <rdf:type rdf:resource="&ulan;12002"/>
+      <skos:inScheme rdf:resource="http://e-culture.multimedian.nl/ns/getty/ulan"/>
+    </rdf:Description>
+  </ulan:eventPreferred>
+  <ulan:gender rdf:resource="&ulan;Male"/>
+  <ulan:influenced rdf:resource="&ulan;500025314"/>
+  <ulan:nationalityNonPreferred rdf:resource="&ulan;902380"/>
+  <ulan:nationalityPreferred rdf:resource="&ulan;902300"/>
+  <ulan:parentPreferred rdf:resource="&ulan;500000002"/>
+  <ulan:rolePreferred rdf:resource="&ulan;31100"/>
+  <ulan:student_of rdf:resource="&ulan;500003951"/>
+  <vp:descriptiveNote xml:lang="en">Leonardo was born near Vinci, at Anchiano. He is known as the founder of the High Renaissance style. His work was extremely influential for contemporary and later artists. His writings on art and perception codified the ideals of representation and expression that dominated European teaching for the next 400 years. He is famed for his drawing of figures, representations of landscape, depiction of aerial perspective and space, the use of light and shade (chiaroscuro), and the evocation of the sitters' characters. He was also known for inventions in architecture and engineering. He often left his works unfinished, apparently losing interest after the conception of the idea. His most famous surviving works are the "Last Supper" fresco in Milan and the "Mona Lisa" portrait in the Louvre, Paris.</vp:descriptiveNote>
+  <skos:inScheme rdf:resource="http://e-culture.multimedian.nl/ns/getty/ulan"/>
+</ulan:Person>
+
+<ulan:Person rdf:about="&ulan;500005036"
+    ulan:biographyPreferred="French painter and draftsman, 1594-1665, active in Italy"
+    ulan:birthDate="1594"
+    ulan:deathDate="1665"
+    vp:id="500005036"
+    vp:labelPreferred="Poussin, Nicolas">
+  <ulan:biographyNonPreferred>French artist, 1594-1665</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>French painter, 1594-1665</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>French painter, 1594?-1665</ulan:biographyNonPreferred>
+  <ulan:biographyNonPreferred>French, 1594-1665</ulan:biographyNonPreferred>
+  <ulan:roleNonPreferred rdf:resource="&ulan;31175"/>
+  <ulan:roleNonPreferred rdf:resource="&ulan;31261"/>
+  <vp:labelNonPreferred>Master of Hovingham</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Niccola Pussino</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Niccolo Poussin</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Niccolo Pusino</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Niccolo Pussini</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Niccolo Pussino</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Paussin, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poesi, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poison, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Posi, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Posini, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Possini, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Possino, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poufon, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Pousan, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Pousien, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Pousijn, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Pousin, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poussen, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poussijn, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poussin, Nichola</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poussin, Nicholas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poussino, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Poussn, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Pozzino, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Puisson, Nicolas</vp:labelNonPreferred>
+  <vp:labelNonPreferred>Pusino, Nicolas</vp:labelNonPreferred>
+  <ulan:birthPlace rdf:resource="&tgn;1033969"/>
+  <ulan:deathPlace rdf:resource="&tgn;7000874"/>
+  <ulan:eventPreferred>
+    <rdf:Description>
+      <ulan:eventPlace rdf:resource="&tgn;1000080"/>
+      <rdf:type rdf:resource="&ulan;12002"/>
+      <skos:inScheme rdf:resource="http://e-culture.multimedian.nl/ns/getty/ulan"/>
+    </rdf:Description>
+  </ulan:eventPreferred>
+  <ulan:gender rdf:resource="&ulan;Male"/>
+  <ulan:influenced rdf:resource="&ulan;500016423"/>
+  <ulan:nationalityPreferred rdf:resource="&ulan;901600"/>
+  <ulan:parentPreferred rdf:resource="&ulan;500000002"/>
+  <ulan:rolePreferred rdf:resource="&ulan;31100"/>
+  <ulan:teacher_of rdf:resource="&ulan;500115515"/>
+  <vp:descriptiveNote xml:lang="en">Poussin was born into a family of some local distinction in Normandy, where he probably received early training in painting. He spent most of his formative years in Paris, and he then went to Italy by at least 1624. He was a popular and influential painter who successfully subordinated dramatic narrative and the expression of extreme states of human passions to the formal harmony of designs, which were based on the beauty and precision of abstract forms. His work epitomized the contemporary search for equilibrium and synthesis between the forces of the Classical and the Baroque around which most artistic critical debate in Rome was concentrated during the 1630s.</vp:descriptiveNote>
+  <skos:inScheme rdf:resource="http://e-culture.multimedian.nl/ns/getty/ulan"/>
+</ulan:Person>
+
+
+</rdf:RDF>

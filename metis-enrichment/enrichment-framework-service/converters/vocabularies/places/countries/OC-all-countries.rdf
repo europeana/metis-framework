@@ -1,0 +1,1219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_AU
+Description: Selected fields pulled from Geonames about AU done on Mon May 23 20:25:28 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2077456/">
+	<europeana:country>AU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>21515754</europeana:population>
+	<wgs:lat>-25</wgs:lat>
+	<wgs:long>135</wgs:long>
+	<skos:altLabel>AU</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Ahitereiria</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Astráil</skos:altLabel>
+	<skos:altLabel xml:lang="et">Austraalia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Australi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="id">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Australia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Australia (Úc)</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Australie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Australien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Australien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Australien</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Australien</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Australija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Australija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Australija</skos:altLabel>
+	<skos:altLabel xml:lang="af">Australië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Australië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Australië</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Austràlia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Austràlia</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Austrália</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Austrália</skos:altLabel>
+	<skos:altLabel xml:lang="se">Austrália</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Austrálie</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Austrālija</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ausztrália</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Autereraria</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Avstralia</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Avstralija</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Avstraliya Hamjamiyati</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Avustralya</skos:altLabel>
+	<skos:altLabel xml:lang="so">Awstraaliya</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Awstralia</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Awstralja</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Awstralya</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Awustralya</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Aŭstralio</skos:altLabel>
+	<skos:altLabel>Commonwealth of Australia</skos:altLabel>
+	<skos:altLabel xml:lang="zu">I-Ostreliya</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ostrali</skos:altLabel>
+	<skos:altLabel xml:lang="na">Otereiriya</skos:altLabel>
+	<skos:altLabel xml:lang="is">Ástralía</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Ò-tāi-lī-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Úc</skos:altLabel>
+	<skos:altLabel xml:lang="to">ʻAositelēlia</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αυστραλία</skos:altLabel>
+	<skos:altLabel xml:lang="os">Австрали</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Австралия</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Австралия</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Австралија</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Австралійський Союз</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Австралія</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Аустралија</skos:altLabel>
+	<skos:altLabel xml:lang="be">Аўстралія</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ավստրալիա</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אויסטראליע</skos:altLabel>
+	<skos:altLabel xml:lang="he">אוסטרליה</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אױסטראַליע</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آسٹریلیا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">آسټراليا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أستراليا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">استراليا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">استرالیا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ظاؤستعرالعية</skos:altLabel>
+	<skos:altLabel xml:lang="dv">އޮސްޓޭލިޔާ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">ऑस्ट्रेलिया</skos:altLabel>
+	<skos:altLabel xml:lang="mr">ऑस्ट्रेलिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">অস্ট্রেলিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">অস্ট্রেলিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஆஸ்திரேலியா</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಆಸ್ಟ್ರೆಲಿಯ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഓസ്ട്രേലിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศออสเตรเลีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">ออสเตรเลีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອົອດສະຕາລີ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ཨས་ཊེཡེ་ལི་ཡ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨསྟྲེ་ལི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨོ་སེ་ཐེ་ལི་ཡ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ავსტრალია</skos:altLabel>
+	<skos:altLabel xml:lang="am">አውስትሬሊያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អូស្ត្រាលី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">オーストラリア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳大利亚</skos:altLabel>
+	<skos:altLabel xml:lang="zh">澳大利亞</skos:altLabel>
+	<skos:altLabel xml:lang="ko">오스트레일리아</skos:altLabel>
+	<skos:altLabel xml:lang="ko">호주</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2077456/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Commonwealth of Australia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2205218/">
+	<europeana:country>FJ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>875983</europeana:population>
+	<wgs:lat>-18</wgs:lat>
+	<wgs:long>178</wgs:long>
+	<skos:altLabel>FJ</skos:altLabel>
+	<skos:altLabel>Feeje</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Ficiyuäns</skos:altLabel>
+	<skos:altLabel xml:lang="af">Fidji</skos:altLabel>
+	<skos:altLabel xml:lang="io">Fidji</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Fidji</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Fidji</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fidji</skos:altLabel>
+	<skos:altLabel xml:lang="de">Fidschi</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Fidsí</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Fidxi - Viti</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fidzsi</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Fidzsi-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="et">FidĪi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Fidżi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="et">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Fidži</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Fidžis</skos:altLabel>
+	<skos:altLabel xml:lang="it">Figi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="tt">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="na">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="no">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Fiji</skos:altLabel>
+	<skos:altLabel xml:lang="da">Fiji-øerne</skos:altLabel>
+	<skos:altLabel xml:lang="se">Fijisullot</skos:altLabel>
+	<skos:altLabel xml:lang="to">Fisi</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Fixhi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Fiyi</skos:altLabel>
+	<skos:altLabel xml:lang="an">Fiyi</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Fiĝioj</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Fiĝoj</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Fiġi</skos:altLabel>
+	<skos:altLabel xml:lang="is">Fídjieyjar</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Fîjî</skos:altLabel>
+	<skos:altLabel xml:lang="la">Insulae Vitienses</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ishujt e Fildisht</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Phi-gi</skos:altLabel>
+	<skos:altLabel>Republic of Fiji</skos:altLabel>
+	<skos:altLabel>Republic of the Fiji Islands</skos:altLabel>
+	<skos:altLabel>Viti</skos:altLabel>
+	<skos:altLabel xml:lang="fj">Viti</skos:altLabel>
+	<skos:altLabel xml:lang="to">Viti</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Fidji</skos:altLabel>
+	<skos:altLabel xml:lang="el">Φίτζι</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Фиджи</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фиджи</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Фиџи</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Фиџи</skos:altLabel>
+	<skos:altLabel xml:lang="be">Фіджы</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Фіджі</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ֆիջի</skos:altLabel>
+	<skos:altLabel xml:lang="he">פיג'י</skos:altLabel>
+	<skos:altLabel xml:lang="he">פיג׳י</skos:altLabel>
+	<skos:altLabel xml:lang="ug">فىجى</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فيجي</skos:altLabel>
+	<skos:altLabel xml:lang="ur">فِجی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">فیجی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">فېجي</skos:altLabel>
+	<skos:altLabel xml:lang="hi">फ़िजी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">फ़िजी</skos:altLabel>
+	<skos:altLabel xml:lang="hi">फिजी</skos:altLabel>
+	<skos:altLabel xml:lang="ks">फिजी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ফিজি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பிஜி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഫിജി</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศฟิจิ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ฟิจิ</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຟິຈິ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཕི་ཇི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ფიჯი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፊጂ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្វ៉ីហ្ស៉ី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">フィジー</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斐济</skos:altLabel>
+	<skos:altLabel xml:lang="zh">斐濟</skos:altLabel>
+	<skos:altLabel xml:lang="ko">피지</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2205218/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Republic of the Fiji Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4030945/">
+	<europeana:country>KI</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>92533</europeana:population>
+	<wgs:lat>1.421</wgs:lat>
+	<wgs:long>172.984</wgs:long>
+	<skos:altLabel xml:lang="ga">Cireabaití</skos:altLabel>
+	<skos:altLabel>Gilbert Islands</skos:altLabel>
+	<skos:altLabel>KI</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Karibati</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ki-ri-ba-ti</skos:altLabel>
+	<skos:altLabel xml:lang="to">Kilipasi</skos:altLabel>
+	<skos:altLabel>Kiribasi</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kiribasuäns</skos:altLabel>
+	<skos:altLabel xml:lang="na">Kiribat</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="et">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="an">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="af">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="io">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="la">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="se">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kiribatis</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Kiribato</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Kiribès</skos:altLabel>
+	<skos:altLabel xml:lang="is">Kíribatí</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Qiribati</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Quiribati</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Quiribati - Kiribati</skos:altLabel>
+	<skos:altLabel>Republic of Kiribati</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κιριμπάτι</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Кирибати</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кірибаті</skos:altLabel>
+	<skos:altLabel xml:lang="be">Кірыбаці</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Кірібаті</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կիրիբատի</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיריבאטי</skos:altLabel>
+	<skos:altLabel xml:lang="he">קיריבטי</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيريباتي</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كيريباس</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کریباتی</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کِرباتی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کیریباتی</skos:altLabel>
+	<skos:altLabel xml:lang="ps">کېريباتي</skos:altLabel>
+	<skos:altLabel xml:lang="mr">किरिबाटी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">किरिबाटी</skos:altLabel>
+	<skos:altLabel xml:lang="hi">किरिबाती</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কিরিবাতি</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কিরিবাস</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கிரிபடி</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കിരിബാത്തി</skos:altLabel>
+	<skos:altLabel xml:lang="ml">കിരീബാസ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">คิริบาส</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศคิริบาส</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐคิริบาส</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ຄີລິບາດ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀི་རི་བཱ་ཏི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">კირიბატი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኪሪባቲ</skos:altLabel>
+	<skos:altLabel xml:lang="km">គិរិបាទី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キリバス</skos:altLabel>
+	<skos:altLabel xml:lang="ja">キリバス共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">基里巴斯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키리바시</skos:altLabel>
+	<skos:altLabel xml:lang="ko">키리바티</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/4030945/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Republic of Kiribati</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110425/">
+	<europeana:country>NR</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>10065</europeana:population>
+	<wgs:lat>-0.517</wgs:lat>
+	<wgs:long>166.933</wgs:long>
+	<skos:altLabel>NR</skos:altLabel>
+	<skos:altLabel xml:lang="na">Naoero</skos:altLabel>
+	<skos:altLabel xml:lang="af">Naoeroe</skos:altLabel>
+	<skos:altLabel xml:lang="li">Naoeroe</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Naorou</skos:altLabel>
+	<skos:altLabel xml:lang="to">Naulu</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Naureän</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nauro</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nauru</skos:altLabel>
+	<skos:altLabel>Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="an">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="ks">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="rm">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="se">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nauru - Naoero</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nauru Adası</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nauru Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Naurua</skos:altLabel>
+	<skos:altLabel xml:lang="la">Naurum</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Naurû</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Nawrw</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Nárú</skos:altLabel>
+	<skos:altLabel xml:lang="is">Nárú</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Nauru</skos:altLabel>
+	<skos:altLabel>Trust Territory of Nauru</skos:altLabel>
+	<skos:altLabel xml:lang="bs">nauru</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναουρού</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ναούρου</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="be">Науру</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նաուրու</skos:altLabel>
+	<skos:altLabel xml:lang="he">נאורו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نائورو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ناورو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ناورو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نورو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नॉरू</skos:altLabel>
+	<skos:altLabel xml:lang="mr">नौरू</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নাউরু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நௌரு</skos:altLabel>
+	<skos:altLabel xml:lang="th">นาอูรู</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศนาอูรู</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐนาอูรู</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནཽ་རུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნაურუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ናኡሩ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ナウル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瑙鲁</skos:altLabel>
+	<skos:altLabel xml:lang="zh">諾魯</skos:altLabel>
+	<skos:altLabel xml:lang="ko">나우루</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2110425/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Nauru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2186224/">
+	<europeana:country>NZ</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>4252277</europeana:population>
+	<wgs:lat>-42</wgs:lat>
+	<wgs:long>174</wgs:long>
+	<skos:altLabel xml:lang="ga">An Nua-Shéalainn</skos:altLabel>
+	<skos:altLabel xml:lang="se">Aotearoa</skos:altLabel>
+	<skos:altLabel>Dominion of New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Jaunzēlande</skos:altLabel>
+	<skos:altLabel>NZ</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Naujoji Zelandija</skos:altLabel>
+	<skos:altLabel xml:lang="de">Neuseeland</skos:altLabel>
+	<skos:altLabel xml:lang="ms">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="nb">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="nn">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="da">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="en">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="mt">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="vi">New Zealand</skos:altLabel>
+	<skos:altLabel xml:lang="so">Neyuusilaand</skos:altLabel>
+	<skos:altLabel xml:lang="af">Nieu-Seeland</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nieuw-Zeeland</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Niu Di-lân</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Noua Zeelandă</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nouvelle-Zélande</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nov-Zelando</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nova Celandia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nova Zelanda</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nova Zelandija</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nova Zelândia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Nove Zelanda</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Novi Zeland</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nový Zéland</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nový Zéland</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nowa Zelandia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nueva Zelanda</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nuova Zelanda</skos:altLabel>
+	<skos:altLabel xml:lang="to">Nuʻusila</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ny Zeeland</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nya Zeeland</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Ný Sæland</skos:altLabel>
+	<skos:altLabel xml:lang="is">Nýja-Sjáland</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Seland Newydd</skos:altLabel>
+	<skos:altLabel xml:lang="id">Selandia Baru</skos:altLabel>
+	<skos:altLabel xml:lang="et">Uus Meremaa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Uus-Meremaa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Uusi-Seelanti</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Yeni Zelanda</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Zeelanda Berria</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Zelanda e Re</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Új-Zéland</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νέα Ζηλανδία</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Нов Зеланд</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Нова Зеландия</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Нова Зеландія</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Новая Зеландия</skos:altLabel>
+	<skos:altLabel xml:lang="be">Новая Зеландыя</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Нови Зеланд</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նոր Զելանդիա</skos:altLabel>
+	<skos:altLabel xml:lang="he">גאוגרפיה של ניו זילנד</skos:altLabel>
+	<skos:altLabel xml:lang="he">ניו זילנד</skos:altLabel>
+	<skos:altLabel xml:lang="fa">زلاند نو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">زيلندا الجديدة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">زیلاند جدید</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيوزيلاندا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نیوزی لینڈ</skos:altLabel>
+	<skos:altLabel xml:lang="ps">نیوزیلنډ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">न्यूज़ीलैंड</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নিউ জিলণ্ড</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নিউজিল্যাণ্ড</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நியூசிலாந்து</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ന്യൂസിലാന്‍റ്</skos:altLabel>
+	<skos:altLabel xml:lang="th">นิวซีแลนด์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ນິວຊີແລນ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནིའུ་ཛི་ལན྄ཌ།</skos:altLabel>
+	<skos:altLabel xml:lang="dz">ནིའུ་ཛི་ལེནཌ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ახალი ზელანდია</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኒው ዚላንድ</skos:altLabel>
+	<skos:altLabel xml:lang="km">នូវែលហ្សេឡង់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ニュージーランド</skos:altLabel>
+	<skos:altLabel xml:lang="zh">新西兰</skos:altLabel>
+	<skos:altLabel xml:lang="ko">뉴질랜드</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2186224/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>New Zealand</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2088628/">
+	<europeana:country>PG</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>6064515</europeana:population>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>147</wgs:long>
+	<skos:altLabel>Independent State of Papua New Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Nua-Ghuine Phapua</skos:altLabel>
+	<skos:altLabel>PG</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pa-pu-a Niu Ghi-nê</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Pa-pua Niu Ghi-nê (Papua New Guinea)</skos:altLabel>
+	<skos:altLabel xml:lang="et">Paapua Uus-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Papoa Nòva Guinèa</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Papoa-Nòva Guinèa</skos:altLabel>
+	<skos:altLabel xml:lang="af">Papoea Nieu-Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="af">Papoea-Nieu-Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Papoea-Nieuw-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="li">Papoea-Nui-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="br">Papoua-Ginea Nevez</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Papouasie-Nouvelle Guinée</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Papouasie-Nouvelle-Guinée</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Papua Ginea Berria</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Papua Gini Newydd</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Papua Guinea Mpya</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Papua Guineja e Re</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Papua Naujoji Gvinėja</skos:altLabel>
+	<skos:altLabel xml:lang="en">Papua New Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Papua New Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Papua New Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Papua Noua Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="io">Papua Nov-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Papua Nova Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="la">Papua Nova Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Papua Nova Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Papua Nova Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Papua Nova Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Papua Nova Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Papua Nove Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Papua Nová Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Papua Nová Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Papua Nowa Gwinea</skos:altLabel>
+	<skos:altLabel xml:lang="id">Papua Nugini</skos:altLabel>
+	<skos:altLabel xml:lang="it">Papua Nuova Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="da">Papua Ny Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Papua Ny-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Papua Ny-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="no">Papua Ny-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Papua Nya Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Papua Nýguinea</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Papua Tân Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="et">Papua Uus Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Papua Yeni Gine</skos:altLabel>
+	<skos:altLabel xml:lang="az">Papua Yeni Qvineya</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Papua ir Naujoji Gvinėja</skos:altLabel>
+	<skos:altLabel xml:lang="an">Papua y Nueba Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Papua-Jaungvineja</skos:altLabel>
+	<skos:altLabel xml:lang="de">Papua-Neuguinea</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Papua-Nova Guiné</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Papua-Nová Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Papua-Nová Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Papua-Nowa Gwinea</skos:altLabel>
+	<skos:altLabel xml:lang="se">Papua-Ođđa-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Papua-Uusi-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Papuanova Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Papuo-Nov-Gvineo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Papuveän Nula-Gineyän</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Papwa-Ginea Ġdida</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Papúa Nova Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Papúa Nueva Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="is">Papúa Nýja-Gínea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Papúa-Nueva Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Papûa Gîneya Nû</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Pápua Új-Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παπούα - Νέα Γουινέα</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παπούα Νέα Γουινέα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Папуа Нова Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Папуа Нова Гвинеја</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Папуа Нова Гвинеја</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Папуа Нова Гвінея</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Папуа — Новая Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Папуа-Нова Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Папуа-Нова Ґвінея</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Папуа-Новая Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="be">Папуа-Новая Гвінея</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Պապուա Նոր Գվինեա</skos:altLabel>
+	<skos:altLabel xml:lang="he">גינאה החדשה פפואה</skos:altLabel>
+	<skos:altLabel xml:lang="he">פאפואה ניו-גיניאה</skos:altLabel>
+	<skos:altLabel xml:lang="he">פפואה גינאה החדשה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بابوا غينيا الجديدة</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاپوآ گینه نو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">پاپوا نیو گنی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پاپوا گینهٔ نو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">پاپۇئا يېڭى گۋىنىيىسى</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گوینیا ی جدید پاپوا</skos:altLabel>
+	<skos:altLabel xml:lang="ks">पपुवा न्यू गिनी</skos:altLabel>
+	<skos:altLabel xml:lang="sa">पपुवा न्यू गिनी</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पापुआ न्यू गिनी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পাপুয়া নিউ গিনি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பப்புவா நியூ கினி</skos:altLabel>
+	<skos:altLabel xml:lang="ta">பாப்புவா-நியூகினி</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศปาปัวนิวกินี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ปาปัวนิวกินี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ປາປົວນິວກີນີ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པ་པུ་ཨ། ནིའུ། གྷི་ནི།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პაპუა-ახალი გვინეა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፓፑዋ ኒው ጊኒ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ប៉ាពូអានូវែលហ្គីណេ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パプアニューギニア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パプア・ニューギニア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">巴布亚新几内亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파푸아 뉴기니</skos:altLabel>
+	<skos:altLabel xml:lang="ko">파푸아뉴기니</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2088628/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Independent State of Papua New Guinea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2103350/">
+	<europeana:country>SB</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>559198</europeana:population>
+	<wgs:lat>-8</wgs:lat>
+	<wgs:long>159</wgs:long>
+	<skos:altLabel>British Solomon Islands</skos:altLabel>
+	<skos:altLabel>British Solomon Islands Protectorate</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Giravên Salomon</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Iles Salomon</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Salomão</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Illas Salamon</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Illas Salomon</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Salomón</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Illas Salomón - Solomon Islands</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Illes Salomó</skos:altLabel>
+	<skos:altLabel xml:lang="la">Insulae Salomonicae</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Insulas Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Insulele Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ishujt Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="es">Islas Salomón</skos:altLabel>
+	<skos:altLabel xml:lang="an">Islas Salomón</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Salomone</skos:altLabel>
+	<skos:altLabel xml:lang="it">Isole Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Kapuluang Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kepulauan Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Kepulauan Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Oileáin Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Quần đảo Xô-lô-mông</skos:altLabel>
+	<skos:altLabel>SB</skos:altLabel>
+	<skos:altLabel xml:lang="et">Saalomoni Saared</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Salamon-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Salamunovi Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Saliamono salos</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Salomon uharteak</skos:altLabel>
+	<skos:altLabel xml:lang="it">Salomone, isole</skos:altLabel>
+	<skos:altLabel xml:lang="de">Salomonen</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Salomonoj</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Salomonovi otoki</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Salomonovo otočje</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Salomonsaaret</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Salomonseilanden</skos:altLabel>
+	<skos:altLabel xml:lang="se">Salomonsullot</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Salomonuäns</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Salomonöarna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Salomonøerne</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Salomonøyane</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Salomonøyene</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Salomonøyene</skos:altLabel>
+	<skos:altLabel xml:lang="no">Salomonøyene</skos:altLabel>
+	<skos:altLabel xml:lang="es">Salomón</skos:altLabel>
+	<skos:altLabel xml:lang="is">Salómonseyjar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Solomon Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="af">Solomon Eilande</skos:altLabel>
+	<skos:altLabel xml:lang="en">Solomon Islands</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Solomon Islands</skos:altLabel>
+	<skos:altLabel>Solomon Islands</skos:altLabel>
+	<skos:altLabel xml:lang="de">Solomon-Inseln</skos:altLabel>
+	<skos:altLabel xml:lang="io">Solomon-Insuli</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Solomonski Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Solomonski Otoci</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Sálomonoyggjarnar</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Visiwa vya Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wyspy Salomona</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ynysoedd Solomon</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ynysow Salamon</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Zālamana salas</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Îles Salomon</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Šalamounovy ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Šalamúnove ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="to">ʻOtumotu Solomone</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Σολομώντα</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νήσοι Σολομώντος</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νησιά Σολομώντα</skos:altLabel>
+	<skos:altLabel xml:lang="be">Саламонавы Астравы</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Соломон Утравĕсем</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Соломонова Острва</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Соломонови О-ви</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Соломонови Острови</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Соломонови Острови</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Соломоновите Острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Соломоновы Острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Соломонові Острови</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Соломонска Острва</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Соломонские острова</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սոլոմոնյան կղզիներ</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי שלמה</skos:altLabel>
+	<skos:altLabel xml:lang="he">שלמה, איי</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائر سولومون</skos:altLabel>
+	<skos:altLabel xml:lang="ur">جزائرسولمون</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزایر سلیمان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">جزر سليمان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">جزیره های سالامون</skos:altLabel>
+	<skos:altLabel xml:lang="ps">د سلېمان ټاپوان</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سولومون تاقىم ئاراللىرى</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सोलोमन द्वीप</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সোলোমান দ্বীপপুঞ্জ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சாலமன் தீவுகள்</skos:altLabel>
+	<skos:altLabel xml:lang="th">หมู่เกาะโซโลมอน</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སོ་ལོ་མོན། གླིང་ཕྲན་ཚོ་ཁག།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სოლომონის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሰሎሞን ደሴት</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ソロモン諸島</skos:altLabel>
+	<skos:altLabel xml:lang="zh">所罗门群岛</skos:altLabel>
+	<skos:altLabel xml:lang="ko">솔로몬</skos:altLabel>
+	<skos:altLabel xml:lang="ko">솔로몬 제도</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2103350/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Solomon Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4032283/">
+	<europeana:country>TO</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>122580</europeana:population>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>-175</wgs:long>
+	<skos:altLabel xml:lang="id">Bahasa Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Bahasa Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="rw">Igitonga</skos:altLabel>
+	<skos:altLabel>Kingdom of Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kitonga</skos:altLabel>
+	<skos:altLabel>TO</skos:altLabel>
+	<skos:altLabel xml:lang="sm">Toga</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="is">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="an">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="li">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="se">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="to">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="af">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="so">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="yo">Tonga</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tongai</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tonganščina</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tongiešu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tongo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Tonguäns</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tongų</skos:altLabel>
+	<skos:altLabel xml:lang="az">Tonqa</skos:altLabel>
+	<skos:altLabel xml:lang="ty">To’a</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Tònga</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tông-ga</skos:altLabel>
+	<skos:altLabel xml:lang="ia">tonga</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τόνγκα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="mn">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Тонга</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тонгански</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тонґа</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տոնգա</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տոնգերեն</skos:altLabel>
+	<skos:altLabel xml:lang="he">טונגה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تونجا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">تونغا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تونگا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">تونگا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">تونگا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ټونګا</skos:altLabel>
+	<skos:altLabel xml:lang="mr">टांगा</skos:altLabel>
+	<skos:altLabel xml:lang="hi">टोंगा</skos:altLabel>
+	<skos:altLabel xml:lang="ne">टोन्गा</skos:altLabel>
+	<skos:altLabel xml:lang="bn">তোনগা</skos:altLabel>
+	<skos:altLabel xml:lang="pa">ਤੋਨ੍ਗ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">டோங்கா</skos:altLabel>
+	<skos:altLabel xml:lang="ta">தொங்கா</skos:altLabel>
+	<skos:altLabel xml:lang="te">ఠాఙ్గ</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ಟೊಂಗ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ടോംഗ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ตองกา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศตองกา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ภาษาทองก้า</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ທອງກ້າ</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ტონგა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቶንጋ</skos:altLabel>
+	<skos:altLabel xml:lang="km">តុងហ្គា</skos:altLabel>
+	<skos:altLabel xml:lang="km">ថុងហ្គា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トンガ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">トンガ王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">東加</skos:altLabel>
+	<skos:altLabel xml:lang="zh">汤加</skos:altLabel>
+	<skos:altLabel xml:lang="ko">통가</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/4032283/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Kingdom of Tonga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2110297/">
+	<europeana:country>TV</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>10472</europeana:population>
+	<wgs:lat>-8.51719</wgs:lat>
+	<wgs:long>179.14478</wgs:long>
+	<skos:altLabel>TV</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Tu-va-lu</skos:altLabel>
+	<skos:altLabel xml:lang="na">Tubaru</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Tuvalo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="da">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="et">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="an">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="io">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="la">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="se">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Tuvalu</skos:altLabel>
+	<skos:altLabel>Tuvalu</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Tuvaluäns</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Tuvalú</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tuwalu</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Twfalw</skos:altLabel>
+	<skos:altLabel xml:lang="is">Túvalú</skos:altLabel>
+	<skos:altLabel xml:lang="is">Túvalúeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="to">Tūvalu</skos:altLabel>
+	<skos:altLabel xml:lang="el">Τουβαλού</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Тувалу</skos:altLabel>
+	<skos:altLabel xml:lang="be">Тувалу</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Тувалу</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Тувалу</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тувалу</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Тувалу</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Տուվալու</skos:altLabel>
+	<skos:altLabel xml:lang="he">טובאלו</skos:altLabel>
+	<skos:altLabel xml:lang="he">טובלו</skos:altLabel>
+	<skos:altLabel xml:lang="fa">توالو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">توفالو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">تووالو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">تووالو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ٹوالو</skos:altLabel>
+	<skos:altLabel xml:lang="ks">टुवालु</skos:altLabel>
+	<skos:altLabel xml:lang="sa">टुवालु</skos:altLabel>
+	<skos:altLabel xml:lang="hi">तुवालु</skos:altLabel>
+	<skos:altLabel xml:lang="bn">টুভালু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">துவாலூ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">തുവാലു</skos:altLabel>
+	<skos:altLabel xml:lang="th">ตูวาลู</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศตูวาลู</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཐུ་ཝ་ལུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ტუვალუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቱቫሉ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ツバル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">图瓦卢</skos:altLabel>
+	<skos:altLabel xml:lang="zh">圖瓦盧</skos:altLabel>
+	<skos:altLabel xml:lang="ko">투발루</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2110297/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Tuvalu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2134431/">
+	<europeana:country>VU</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>221552</europeana:population>
+	<wgs:lat>-16</wgs:lat>
+	<wgs:long>167</wgs:long>
+	<skos:altLabel>Condominium des Nouvelles-Hébrides</skos:altLabel>
+	<skos:altLabel>New Hebrides Condominium</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="bi">Ripablik blong Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Vanuatu</skos:altLabel>
+	<skos:altLabel>VU</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Va-nu-a-tu</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vanatú</skos:altLabel>
+	<skos:altLabel xml:lang="id">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="da">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="et">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="af">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="io">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="la">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="an">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="bi">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="se">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="to">Vanuatu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Vanuatu Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Vanuatuo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Vanuatuäns</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Vanuatú</skos:altLabel>
+	<skos:altLabel xml:lang="es">Vanutu</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Vanwatu</skos:altLabel>
+	<skos:altLabel xml:lang="is">Vanúatú</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βανουάτου</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ванату</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Ванату</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="be">Вануату</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վանուատու</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואמוטו</skos:altLabel>
+	<skos:altLabel xml:lang="he">ואנואטו</skos:altLabel>
+	<skos:altLabel xml:lang="he">ונואטו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فانوآتو</skos:altLabel>
+	<skos:altLabel xml:lang="ar">فانواتو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">وانواتو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">وانواٹو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ونواتو</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ۋانۇئاتۇ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वन्वातु</skos:altLabel>
+	<skos:altLabel xml:lang="hi">वानुअतु</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ভানুয়াটু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">வனுவாட்டு</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศวานูอาตู</skos:altLabel>
+	<skos:altLabel xml:lang="th">วานูอาตู</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ວານົວຕູ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཝ་ནུ་ཨ་ཐུ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ვანუატუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቫኑአቱ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バヌアツ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">バヌアツ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">瓦努阿图</skos:altLabel>
+	<skos:altLabel xml:lang="ko">바누아투</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/2134431/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Republic of Vanuatu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4034894/">
+	<europeana:country>WS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>192001</europeana:population>
+	<wgs:lat>-13.8031</wgs:lat>
+	<wgs:long>-172.17831</wgs:long>
+	<skos:altLabel xml:lang="tr">Bağımsız Samoa Devleti</skos:altLabel>
+	<skos:altLabel xml:lang="mi">Hamoa</skos:altLabel>
+	<skos:altLabel xml:lang="to">Haʻamoa</skos:altLabel>
+	<skos:altLabel xml:lang="ty">Hāmoa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Independent State of Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sm">Malo Sa’oloto Tuto’atasi o Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Rietumsamoa</skos:altLabel>
+	<skos:altLabel xml:lang="id">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="es">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="da">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="it">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="an">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="io">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="no">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="se">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sm">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="la">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="af">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Samoa</skos:altLabel>
+	<skos:altLabel>Samoa i Sisifo</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Samoo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Samovuäns</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Samó</skos:altLabel>
+	<skos:altLabel xml:lang="is">Samóa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Szamoa</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Sámoa</skos:altLabel>
+	<skos:altLabel>WS</skos:altLabel>
+	<skos:altLabel>Western Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xa-moa</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xa-moa (Samoa)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σαμόα</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="be">Самоа (Заходняе)</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սամոա</skos:altLabel>
+	<skos:altLabel xml:lang="he">סמואה</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ساموآ</skos:altLabel>
+	<skos:altLabel xml:lang="ug">ساموئا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ساموا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ساموا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ساموا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">ساموا</skos:altLabel>
+	<skos:altLabel xml:lang="sa">समोआ</skos:altLabel>
+	<skos:altLabel xml:lang="hi">समोआ</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সামোয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">சமோவா</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซามัว</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศซามัว</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ནུ་བ་ས་མོ་འ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სამოა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሳሞአ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សាមូអា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">サモア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">萨摩亚</skos:altLabel>
+	<skos:altLabel xml:lang="ja">西サモア</skos:altLabel>
+	<skos:altLabel xml:lang="ko">사모아</skos:altLabel>
+	<skos:broader rdf:resource="http://sws.geonames.org/4034894/"/>
+	<skos:broader rdf:resource="http://sws.geonames.org/6255151/"/>
+	<skos:prefLabel>Independent State of Samoa</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 10 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

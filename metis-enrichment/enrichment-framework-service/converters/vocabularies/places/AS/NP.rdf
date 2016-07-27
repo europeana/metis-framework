@@ -1,0 +1,1875 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_NP
+Description: Selected fields pulled from Geonames about NP done on Mon May 23 21:13:34 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21867</europeana:population>
+	<wgs:lat>27.98333</wgs:lat>
+	<wgs:long>83.76667</wgs:long>
+	<skos:altLabel>Walling</skos:altLabel>
+	<skos:altLabel>Wāling</skos:altLabel>
+	<skos:prefLabel>Wāling</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>317107</europeana:population>
+	<wgs:lat>26.91667</wgs:lat>
+	<wgs:long>86.66667</wgs:long>
+	<skos:altLabel>Garhi</skos:altLabel>
+	<skos:altLabel>Udaipur</skos:altLabel>
+	<skos:altLabel>Udaipur Garhi</skos:altLabel>
+	<skos:altLabel>Udayapur</skos:altLabel>
+	<skos:altLabel>Udayapur District</skos:altLabel>
+	<skos:altLabel>Udayapur Garhi</skos:altLabel>
+	<skos:altLabel>Udaypur</skos:altLabel>
+	<skos:prefLabel>Udayapur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>39058</europeana:population>
+	<wgs:lat>28.13333</wgs:lat>
+	<wgs:long>82.3</wgs:long>
+	<skos:prefLabel>Tulsīpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282666/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44758</europeana:population>
+	<wgs:lat>28.5</wgs:lat>
+	<wgs:long>81.13333</wgs:long>
+	<skos:prefLabel>Tīkāpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.25</wgs:lat>
+	<wgs:long>87.58333</wgs:long>
+	<skos:altLabel>Tehr Thum</skos:altLabel>
+	<skos:altLabel>Tehrathum</skos:altLabel>
+	<skos:altLabel>Terhthum</skos:altLabel>
+	<skos:prefLabel>Tehrathum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.66667</wgs:lat>
+	<wgs:long>87.83333</wgs:long>
+	<skos:prefLabel>Tāplejun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282714/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23693</europeana:population>
+	<wgs:lat>27.86667</wgs:lat>
+	<wgs:long>83.55</wgs:long>
+	<skos:altLabel>Tānsen</skos:altLabel>
+	<skos:altLabel>Tānsing</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тансен</skos:altLabel>
+	<skos:prefLabel>Tānsen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282722/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>333332</europeana:population>
+	<wgs:lat>27.91667</wgs:lat>
+	<wgs:long>84.25</wgs:long>
+	<skos:altLabel>Tanahu District</skos:altLabel>
+	<skos:altLabel>Tanahun</skos:altLabel>
+	<skos:altLabel>Tanhu</skos:altLabel>
+	<skos:prefLabel>Tanahun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282734/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>324855</europeana:population>
+	<wgs:lat>28</wgs:lat>
+	<wgs:long>83.83333</wgs:long>
+	<skos:altLabel>Syanga</skos:altLabel>
+	<skos:altLabel>Syāngjā</skos:altLabel>
+	<skos:prefLabel>Syāngjā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282744/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>690454</europeana:population>
+	<wgs:lat>26.66667</wgs:lat>
+	<wgs:long>87.16667</wgs:long>
+	<skos:prefLabel>Sunsarī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>111099</europeana:population>
+	<wgs:lat>27.75</wgs:lat>
+	<wgs:long>86.75</wgs:long>
+	<skos:altLabel>Solokhumbu</skos:altLabel>
+	<skos:altLabel>Solukhumba</skos:altLabel>
+	<skos:altLabel>Solukhumbū</skos:altLabel>
+	<skos:prefLabel>Solukhumbū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282770/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24657</europeana:population>
+	<wgs:lat>26.65</wgs:lat>
+	<wgs:long>86.2</wgs:long>
+	<skos:altLabel>Shirha</skos:altLabel>
+	<skos:altLabel>Sirha</skos:altLabel>
+	<skos:altLabel>Sirāhā</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сираха</skos:altLabel>
+	<skos:prefLabel>Sirāhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282771/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>613253</europeana:population>
+	<wgs:lat>26.75</wgs:lat>
+	<wgs:long>86.33333</wgs:long>
+	<skos:altLabel>Char Pargana</skos:altLabel>
+	<skos:altLabel>Sirha</skos:altLabel>
+	<skos:altLabel>Sirāhā</skos:altLabel>
+	<skos:prefLabel>Sirāhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.91667</wgs:lat>
+	<wgs:long>85.75</wgs:long>
+	<skos:altLabel>Palanchok</skos:altLabel>
+	<skos:altLabel>Sindhu</skos:altLabel>
+	<skos:altLabel>Sindhu Pālchok</skos:altLabel>
+	<skos:altLabel>Sindhupalanchowk</skos:altLabel>
+	<skos:prefLabel>Sindhu Pālchok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>299780</europeana:population>
+	<wgs:lat>27.25</wgs:lat>
+	<wgs:long>86</wgs:long>
+	<skos:altLabel>Sindhuligarhi</skos:altLabel>
+	<skos:altLabel>Sindhulī</skos:altLabel>
+	<skos:prefLabel>Sindhulī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>29.25</wgs:lat>
+	<wgs:long>81.16667</wgs:long>
+	<skos:altLabel>Setī</skos:altLabel>
+	<skos:altLabel>Setī Añchal</skos:altLabel>
+	<skos:altLabel>Setī Zone</skos:altLabel>
+	<skos:prefLabel>Setī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282806/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>686222</europeana:population>
+	<wgs:lat>27</wgs:lat>
+	<wgs:long>85.58333</wgs:long>
+	<skos:altLabel>Sailahi</skos:altLabel>
+	<skos:altLabel>Sarlāhī</skos:altLabel>
+	<skos:prefLabel>Sarlāhī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>609580</europeana:population>
+	<wgs:lat>26.58333</wgs:lat>
+	<wgs:long>86.75</wgs:long>
+	<skos:altLabel>Saptari District</skos:altLabel>
+	<skos:altLabel>Saptarī</skos:altLabel>
+	<skos:altLabel>Satpari</skos:altLabel>
+	<skos:prefLabel>Saptarī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282812/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>164469</europeana:population>
+	<wgs:lat>27.58333</wgs:lat>
+	<wgs:long>87.33333</wgs:long>
+	<skos:altLabel>Sangkuwasabha</skos:altLabel>
+	<skos:altLabel>Sankhua Sabha</skos:altLabel>
+	<skos:altLabel>Sankhuwāsabhā</skos:altLabel>
+	<skos:prefLabel>Sankhuwāsabhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282827/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>28.41667</wgs:lat>
+	<wgs:long>82.25</wgs:long>
+	<skos:altLabel>Jajarkte</skos:altLabel>
+	<skos:altLabel>Sallyan</skos:altLabel>
+	<skos:altLabel>Sallyāna</skos:altLabel>
+	<skos:altLabel>Salyan Jajarkot</skos:altLabel>
+	<skos:altLabel>Salyān</skos:altLabel>
+	<skos:prefLabel>Salyān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282836/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.23333</wgs:lat>
+	<wgs:long>86.66667</wgs:long>
+	<skos:altLabel>Sagarmāthā</skos:altLabel>
+	<skos:altLabel>Sagarmāthā Añchal</skos:altLabel>
+	<skos:altLabel>Sagarmāthā Zone</skos:altLabel>
+	<skos:prefLabel>Sagarmāthā Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282837/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>785610</europeana:population>
+	<wgs:lat>27.66667</wgs:lat>
+	<wgs:long>83.41667</wgs:long>
+	<skos:altLabel>Rupendehi</skos:altLabel>
+	<skos:altLabel>Rūpandehī</skos:altLabel>
+	<skos:prefLabel>Rūpandehī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>199558</europeana:population>
+	<wgs:lat>28.75</wgs:lat>
+	<wgs:long>82.58333</wgs:long>
+	<skos:prefLabel>Rūkum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282847/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>217498</europeana:population>
+	<wgs:lat>28.41667</wgs:lat>
+	<wgs:long>82.75</wgs:long>
+	<skos:prefLabel>Rolpā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282856/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>591290</europeana:population>
+	<wgs:lat>27</wgs:lat>
+	<wgs:long>85.33333</wgs:long>
+	<skos:altLabel>Rautahat</skos:altLabel>
+	<skos:altLabel>Rauthat</skos:altLabel>
+	<skos:prefLabel>Rautahat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282859/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>47688</europeana:population>
+	<wgs:lat>28.16667</wgs:lat>
+	<wgs:long>85.33333</wgs:long>
+	<skos:altLabel>Rasuwā</skos:altLabel>
+	<skos:prefLabel>Rasuwā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282865/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>28.33333</wgs:lat>
+	<wgs:long>82.5</wgs:long>
+	<skos:altLabel>Rapati</skos:altLabel>
+	<skos:altLabel>Rāptī</skos:altLabel>
+	<skos:altLabel>Rāptī Añchal</skos:altLabel>
+	<skos:altLabel>Rāptī Zone</skos:altLabel>
+	<skos:prefLabel>Rāptī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>221954</europeana:population>
+	<wgs:lat>27.41667</wgs:lat>
+	<wgs:long>86.08333</wgs:long>
+	<skos:prefLabel>Rāmechhāp</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33061</europeana:population>
+	<wgs:lat>26.53333</wgs:lat>
+	<wgs:long>86.75</wgs:long>
+	<skos:altLabel>Rājbirāj</skos:altLabel>
+	<skos:prefLabel>Rājbirāj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282888/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>222945</europeana:population>
+	<wgs:lat>28.08333</wgs:lat>
+	<wgs:long>82.83333</wgs:long>
+	<skos:altLabel>Pyūthān</skos:altLabel>
+	<skos:prefLabel>Pyūthān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>200000</europeana:population>
+	<wgs:lat>28.26689</wgs:lat>
+	<wgs:long>83.96851</wgs:long>
+	<skos:altLabel>Pakhra</skos:altLabel>
+	<skos:altLabel>Pokhar</skos:altLabel>
+	<skos:altLabel xml:lang="de">Pokhara</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Pokhara</skos:altLabel>
+	<skos:altLabel xml:lang="no">Pokhara</skos:altLabel>
+	<skos:altLabel xml:lang="es">Pokhara</skos:altLabel>
+	<skos:altLabel xml:lang="en">Pokhara</skos:altLabel>
+	<skos:altLabel>Pokhra</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Покхара</skos:altLabel>
+	<skos:altLabel xml:lang="ne">पोखरा</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ポカラ</skos:altLabel>
+	<skos:altLabel xml:lang="ko">포카라</skos:altLabel>
+	<skos:prefLabel>Pokhara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282900/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>28.25</wgs:lat>
+	<wgs:long>82.83333</wgs:long>
+	<skos:prefLabel>Piuthān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>183310</europeana:population>
+	<wgs:lat>27.66667</wgs:lat>
+	<wgs:long>85.33333</wgs:long>
+	<skos:altLabel>Lalitapura</skos:altLabel>
+	<skos:altLabel>Lalitpur</skos:altLabel>
+	<skos:altLabel xml:lang="de">Lalitpur</skos:altLabel>
+	<skos:altLabel xml:lang="en">Patan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Patan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Patan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Patan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Patan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Patan</skos:altLabel>
+	<skos:altLabel>Pātan</skos:altLabel>
+	<skos:altLabel>Yala</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лалитпур</skos:altLabel>
+	<skos:prefLabel>Pātan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.TMPL"/>
+	<wgs:lat>27.7</wgs:lat>
+	<wgs:long>85.35</wgs:long>
+	<skos:altLabel>Pashupatināth</skos:altLabel>
+	<skos:altLabel>Pasupatinath</skos:altLabel>
+	<skos:prefLabel>Pashupatināth</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>545291</europeana:population>
+	<wgs:lat>27.33333</wgs:lat>
+	<wgs:long>84.83333</wgs:long>
+	<skos:altLabel>Parsa</skos:altLabel>
+	<skos:altLabel>Tarsa</skos:altLabel>
+	<skos:prefLabel>Parsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>163024</europeana:population>
+	<wgs:lat>28.41667</wgs:lat>
+	<wgs:long>83.66667</wgs:long>
+	<skos:altLabel>Parbat</skos:altLabel>
+	<skos:prefLabel>Parbat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>29.33333</wgs:lat>
+	<wgs:long>82.16667</wgs:long>
+	<skos:prefLabel>Pānsae</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>211098</europeana:population>
+	<wgs:lat>27.16667</wgs:lat>
+	<wgs:long>87.83333</wgs:long>
+	<skos:prefLabel>Panchthar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27602</europeana:population>
+	<wgs:lat>27.58333</wgs:lat>
+	<wgs:long>85.51667</wgs:long>
+	<skos:altLabel>Panaoti</skos:altLabel>
+	<skos:altLabel>Panauti Village</skos:altLabel>
+	<skos:prefLabel>Panaoti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>27.75</wgs:lat>
+	<wgs:long>83.83333</wgs:long>
+	<skos:prefLabel>Pālpa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282954/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.75</wgs:lat>
+	<wgs:long>83.66667</wgs:long>
+	<skos:prefLabel>Pālpā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>159761</europeana:population>
+	<wgs:lat>27.33333</wgs:lat>
+	<wgs:long>86.41667</wgs:long>
+	<skos:altLabel>Okhaldunggā</skos:altLabel>
+	<skos:altLabel>Okhalḍhungā</skos:altLabel>
+	<skos:altLabel>Okhladhunga</skos:altLabel>
+	<skos:prefLabel>Okhalḍhungā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>28</wgs:lat>
+	<wgs:long>83.83333</wgs:long>
+	<skos:prefLabel>Nuwākot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.91667</wgs:lat>
+	<wgs:long>85.25</wgs:long>
+	<skos:altLabel>Nawākot</skos:altLabel>
+	<skos:altLabel>Nuwakot District</skos:altLabel>
+	<skos:altLabel>Nuwākot</skos:altLabel>
+	<skos:prefLabel>Nuwākot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>28951852</europeana:population>
+	<wgs:lat>28</wgs:lat>
+	<wgs:long>84</wgs:long>
+	<skos:altLabel>Kingdom of Nepal</skos:altLabel>
+	<skos:altLabel>NP</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Neipeal</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nepaal</skos:altLabel>
+	<skos:altLabel xml:lang="id">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="es">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="et">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="it">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="da">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="is">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="an">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="az">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="io">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="li">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="no">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Nepal</skos:altLabel>
+	<skos:altLabel>Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="se">Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Nepal - नेपाल अधिराज्य</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Nepalas</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Nepali</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Nepali</skos:altLabel>
+	<skos:altLabel xml:lang="la">Nepalia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Nepalo</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Nepalän</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Nepál</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Nepál</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Nepál</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Nepāla</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Népal</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nê-pan</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Nê-pan (Nepal)</skos:altLabel>
+	<skos:altLabel>State of Nepal</skos:altLabel>
+	<skos:altLabel xml:lang="el">Νεπάλ</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="be">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="os">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Непал</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Նեպալ</skos:altLabel>
+	<skos:altLabel xml:lang="he">נפאל</skos:altLabel>
+	<skos:altLabel xml:lang="ar">النيبال</skos:altLabel>
+	<skos:altLabel xml:lang="ar">نيبال</skos:altLabel>
+	<skos:altLabel xml:lang="fa">نپال</skos:altLabel>
+	<skos:altLabel xml:lang="ps">نیپال</skos:altLabel>
+	<skos:altLabel xml:lang="ur">نیپال</skos:altLabel>
+	<skos:altLabel xml:lang="ug">نېپلا</skos:altLabel>
+	<skos:altLabel xml:lang="dv">ނޭޕާލް</skos:altLabel>
+	<skos:altLabel xml:lang="bh">नेपाल</skos:altLabel>
+	<skos:altLabel xml:lang="hi">नेपाल</skos:altLabel>
+	<skos:altLabel xml:lang="ks">नेपाल</skos:altLabel>
+	<skos:altLabel xml:lang="ne">नेपाल</skos:altLabel>
+	<skos:altLabel xml:lang="sa">नेपाल</skos:altLabel>
+	<skos:altLabel xml:lang="bn">নেপাল</skos:altLabel>
+	<skos:altLabel xml:lang="gu">નેપાળ</skos:altLabel>
+	<skos:altLabel xml:lang="ta">நேபாளம்</skos:altLabel>
+	<skos:altLabel xml:lang="kn">ನೆಪಾಳ</skos:altLabel>
+	<skos:altLabel xml:lang="ml">നേപ്പാള്‍</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเนปาล</skos:altLabel>
+	<skos:altLabel xml:lang="th">เนปาล</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເນປານ</skos:altLabel>
+	<skos:altLabel xml:lang="dz">བལ་ཡུལ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བལ་ཡུལ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ნეპალი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ኔፓል</skos:altLabel>
+	<skos:altLabel xml:lang="km">នេប៉ាល់</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ネパール</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ネパール王国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">尼泊尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">네팔</skos:altLabel>
+	<skos:prefLabel>Kingdom of Nepal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1282991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>621622</europeana:population>
+	<wgs:lat>27.66667</wgs:lat>
+	<wgs:long>83.91667</wgs:long>
+	<skos:altLabel>Nawalparāsī</skos:altLabel>
+	<skos:prefLabel>Nawalparāsī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.36667</wgs:lat>
+	<wgs:long>84.91667</wgs:long>
+	<skos:altLabel>Nārāyanī</skos:altLabel>
+	<skos:altLabel>Nārāyanī Añchal</skos:altLabel>
+	<skos:altLabel>Nārāyanī Zone</skos:altLabel>
+	<skos:prefLabel>Nārāyanī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283020/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>117417</europeana:population>
+	<wgs:lat>28.58333</wgs:lat>
+	<wgs:long>83.33333</wgs:long>
+	<skos:altLabel>Mayagdi</skos:altLabel>
+	<skos:altLabel>Mayangdi</skos:altLabel>
+	<skos:altLabel>Myangdi</skos:altLabel>
+	<skos:altLabel>Myāgdī</skos:altLabel>
+	<skos:prefLabel>Myāgdī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>15321</europeana:population>
+	<wgs:lat>28.91667</wgs:lat>
+	<wgs:long>83.91667</wgs:long>
+	<skos:altLabel>Lo</skos:altLabel>
+	<skos:altLabel>Mastang</skos:altLabel>
+	<skos:altLabel>Moostang</skos:altLabel>
+	<skos:altLabel>Mustāng</skos:altLabel>
+	<skos:prefLabel>Mustāng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>43861</europeana:population>
+	<wgs:lat>29.58333</wgs:lat>
+	<wgs:long>82.41667</wgs:long>
+	<skos:altLabel>Mūgu</skos:altLabel>
+	<skos:prefLabel>Mūgu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>908459</europeana:population>
+	<wgs:lat>26.66667</wgs:lat>
+	<wgs:long>87.5</wgs:long>
+	<skos:altLabel>Morang</skos:altLabel>
+	<skos:altLabel>Morang District</skos:altLabel>
+	<skos:prefLabel>Morang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.18333</wgs:lat>
+	<wgs:long>87.88333</wgs:long>
+	<skos:altLabel>Mechī</skos:altLabel>
+	<skos:altLabel>Mechī Añchal</skos:altLabel>
+	<skos:altLabel>Mechī Zone</skos:altLabel>
+	<skos:prefLabel>Mechī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>10083</europeana:population>
+	<wgs:lat>28.66667</wgs:lat>
+	<wgs:long>84.25</wgs:long>
+	<skos:altLabel>Manang</skos:altLabel>
+	<skos:prefLabel>Manang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283082/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20284</europeana:population>
+	<wgs:lat>26.86667</wgs:lat>
+	<wgs:long>85.56667</wgs:long>
+	<skos:altLabel>Malangawa</skos:altLabel>
+	<skos:altLabel>Malangwa</skos:altLabel>
+	<skos:altLabel>Malankwa</skos:altLabel>
+	<skos:prefLabel>Malangwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>424704</europeana:population>
+	<wgs:lat>27.41667</wgs:lat>
+	<wgs:long>85.25</wgs:long>
+	<skos:altLabel>Makwānpur</skos:altLabel>
+	<skos:prefLabel>Makwānpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283094/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>593521</europeana:population>
+	<wgs:lat>26.91667</wgs:lat>
+	<wgs:long>85.83333</wgs:long>
+	<skos:altLabel>Mahotari</skos:altLabel>
+	<skos:altLabel>Mahottarī</skos:altLabel>
+	<skos:altLabel>Mohotari</skos:altLabel>
+	<skos:prefLabel>Mahottarī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283095/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>88381</europeana:population>
+	<wgs:lat>28.91667</wgs:lat>
+	<wgs:long>80.33333</wgs:long>
+	<skos:altLabel>Mahen Dkanagar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Mahendranagar</skos:altLabel>
+	<skos:altLabel>Mahendranagar</skos:altLabel>
+	<skos:prefLabel>Mahendranagar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283098/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>29.41667</wgs:lat>
+	<wgs:long>80.55</wgs:long>
+	<skos:altLabel>Mahākālī</skos:altLabel>
+	<skos:altLabel>Mahākālī Añchal</skos:altLabel>
+	<skos:altLabel>Mahākālī Zone</skos:altLabel>
+	<skos:prefLabel>Mahākālī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283112/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.75</wgs:lat>
+	<wgs:long>83.5</wgs:long>
+	<skos:altLabel>Lumbinī</skos:altLabel>
+	<skos:altLabel>Lumbinī Añchal</skos:altLabel>
+	<skos:altLabel>Lumbinī Zone</skos:altLabel>
+	<skos:prefLabel>Lumbinī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>181180</europeana:population>
+	<wgs:lat>28.25</wgs:lat>
+	<wgs:long>84.41667</wgs:long>
+	<skos:prefLabel>Lamjung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283154/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>373438</europeana:population>
+	<wgs:lat>27.58333</wgs:lat>
+	<wgs:long>85.33333</wgs:long>
+	<skos:altLabel>Lalitpur</skos:altLabel>
+	<skos:altLabel>Patan</skos:altLabel>
+	<skos:prefLabel>Lalitpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283161/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31495</europeana:population>
+	<wgs:lat>26.71667</wgs:lat>
+	<wgs:long>86.48333</wgs:long>
+	<skos:prefLabel>Lahān</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.15</wgs:lat>
+	<wgs:long>87.31667</wgs:long>
+	<skos:altLabel>Koshi Zone</skos:altLabel>
+	<skos:altLabel>Kosī</skos:altLabel>
+	<skos:altLabel>Kosī Añchal</skos:altLabel>
+	<skos:altLabel>Kosī Zone</skos:altLabel>
+	<skos:prefLabel>Kosī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44632</europeana:population>
+	<wgs:lat>27.66667</wgs:lat>
+	<wgs:long>85.28333</wgs:long>
+	<skos:altLabel>Kirtipur</skos:altLabel>
+	<skos:prefLabel>Kirtipur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283202/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>234084</europeana:population>
+	<wgs:lat>27.25</wgs:lat>
+	<wgs:long>86.83333</wgs:long>
+	<skos:altLabel>Khotang</skos:altLabel>
+	<skos:prefLabel>Khotang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22903</europeana:population>
+	<wgs:lat>27.36667</wgs:lat>
+	<wgs:long>87.21667</wgs:long>
+	<skos:altLabel>Khanbari</skos:altLabel>
+	<skos:altLabel>Khāndbāri</skos:altLabel>
+	<skos:prefLabel>Khāndbāri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283240/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1442271</europeana:population>
+	<wgs:lat>27.70169</wgs:lat>
+	<wgs:long>85.3206</wgs:long>
+	<skos:altLabel xml:lang="pt">Catmandu</skos:altLabel>
+	<skos:altLabel>Kantipur</skos:altLabel>
+	<skos:altLabel>Kantipura</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Kathmandau</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kathmandou</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kathmandu</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Katmandou</skos:altLabel>
+	<skos:altLabel>Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="da">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="et">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="io">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="no">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Katmandu</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Katmanduo</skos:altLabel>
+	<skos:altLabel xml:lang="es">Katmandú</skos:altLabel>
+	<skos:altLabel>Khatmandu</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Kàtmandu</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Káthmandu</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Káthmándú</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κατμαντού</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Катманду</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Катманду</skos:altLabel>
+	<skos:altLabel xml:lang="he">קטמנדו</skos:altLabel>
+	<skos:altLabel xml:lang="ug">كاتماندۇ</skos:altLabel>
+	<skos:altLabel xml:lang="ar">كاثماندو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کاتماندو</skos:altLabel>
+	<skos:altLabel xml:lang="ur">کھٹمنڈو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">काठमांडू</skos:altLabel>
+	<skos:altLabel xml:lang="ne">काठमाडौं</skos:altLabel>
+	<skos:altLabel xml:lang="bn">কাঠমান্ডু</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கத்மந்து</skos:altLabel>
+	<skos:altLabel xml:lang="th">กาฐมาณฑุ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀཋ་མན་གྲུ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ካትማንዱ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">カトマンズ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加德滿都</skos:altLabel>
+	<skos:altLabel xml:lang="ko">카트만두</skos:altLabel>
+	<skos:prefLabel>Kathmandu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>1264684</europeana:population>
+	<wgs:lat>27.75</wgs:lat>
+	<wgs:long>85.41667</wgs:long>
+	<skos:altLabel>Kathmandu</skos:altLabel>
+	<skos:altLabel>Kātmāndu</skos:altLabel>
+	<skos:altLabel>Valley of Nepal</skos:altLabel>
+	<skos:prefLabel>Kathmandu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283243/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>416161</europeana:population>
+	<wgs:lat>28.33333</wgs:lat>
+	<wgs:long>84</wgs:long>
+	<skos:altLabel>Kāskī</skos:altLabel>
+	<skos:prefLabel>Kāskī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283245/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>29.5</wgs:lat>
+	<wgs:long>82.41667</wgs:long>
+	<skos:altLabel>Karnālī</skos:altLabel>
+	<skos:altLabel>Karnālī Añchal</skos:altLabel>
+	<skos:altLabel>Karnālī Zone</skos:altLabel>
+	<skos:prefLabel>Karnālī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>530419</europeana:population>
+	<wgs:lat>27.66667</wgs:lat>
+	<wgs:long>82.91667</wgs:long>
+	<skos:altLabel>Kapilavastu</skos:altLabel>
+	<skos:altLabel>Kapilbastū</skos:altLabel>
+	<skos:altLabel>Kapilvastu</skos:altLabel>
+	<skos:altLabel>Shivaraj</skos:altLabel>
+	<skos:altLabel>Taulihawa</skos:altLabel>
+	<skos:prefLabel>Kapilbastū</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>432167</europeana:population>
+	<wgs:lat>28.83333</wgs:lat>
+	<wgs:long>80.33333</wgs:long>
+	<skos:altLabel>Kanchanpur</skos:altLabel>
+	<skos:prefLabel>Kanchanpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>108688</europeana:population>
+	<wgs:lat>29.25</wgs:lat>
+	<wgs:long>81.83333</wgs:long>
+	<skos:altLabel>Kālīkot</skos:altLabel>
+	<skos:altLabel>Tibrikot</skos:altLabel>
+	<skos:prefLabel>Kālīkot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>713089</europeana:population>
+	<wgs:lat>28.75</wgs:lat>
+	<wgs:long>80.91667</wgs:long>
+	<skos:prefLabel>Kailālī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>399759</europeana:population>
+	<wgs:lat>27.58333</wgs:lat>
+	<wgs:long>85.66667</wgs:long>
+	<skos:altLabel>Kabhre</skos:altLabel>
+	<skos:altLabel>Kabhre Palchok</skos:altLabel>
+	<skos:altLabel>Kavrepalanchok</skos:altLabel>
+	<skos:altLabel>Kābhre Palānchok</skos:altLabel>
+	<skos:prefLabel>Kābhre Palānchok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>93261</europeana:population>
+	<wgs:lat>29.5</wgs:lat>
+	<wgs:long>82.25</wgs:long>
+	<skos:prefLabel>Jumla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283307/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>729514</europeana:population>
+	<wgs:lat>26.58333</wgs:lat>
+	<wgs:long>87.91667</wgs:long>
+	<skos:prefLabel>Jhāpā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283316/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.33333</wgs:lat>
+	<wgs:long>86</wgs:long>
+	<skos:altLabel>Janakpur</skos:altLabel>
+	<skos:altLabel>Janakpur Añchal</skos:altLabel>
+	<skos:altLabel>Janakpur Zone</skos:altLabel>
+	<skos:prefLabel>Janakpur Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283318/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>93767</europeana:population>
+	<wgs:lat>26.7</wgs:lat>
+	<wgs:long>85.91667</wgs:long>
+	<skos:prefLabel>Janakpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23573</europeana:population>
+	<wgs:lat>26.63333</wgs:lat>
+	<wgs:long>85.8</wgs:long>
+	<skos:altLabel>Jaleshwar</skos:altLabel>
+	<skos:altLabel>Jaleswar</skos:altLabel>
+	<skos:prefLabel>Jaleswar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>28.83333</wgs:lat>
+	<wgs:long>82.25</wgs:long>
+	<skos:prefLabel>Jājarkot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283329/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47984</europeana:population>
+	<wgs:lat>26.66667</wgs:lat>
+	<wgs:long>87.28333</wgs:long>
+	<skos:altLabel>Itahari</skos:altLabel>
+	<skos:altLabel>Ithari</skos:altLabel>
+	<skos:altLabel>Titahari</skos:altLabel>
+	<skos:prefLabel>Ithari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283333/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17491</europeana:population>
+	<wgs:lat>26.9</wgs:lat>
+	<wgs:long>87.93333</wgs:long>
+	<skos:altLabel>Ilām</skos:altLabel>
+	<skos:prefLabel>Ilām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283334/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>305058</europeana:population>
+	<wgs:lat>26.91667</wgs:lat>
+	<wgs:long>87.91667</wgs:long>
+	<skos:altLabel>Illam</skos:altLabel>
+	<skos:altLabel>Ilām</skos:altLabel>
+	<skos:prefLabel>Ilām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283335/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>45562</europeana:population>
+	<wgs:lat>29.91667</wgs:lat>
+	<wgs:long>81.91667</wgs:long>
+	<skos:altLabel>Humlā</skos:altLabel>
+	<skos:prefLabel>Humlā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283339/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>84775</europeana:population>
+	<wgs:lat>27.41667</wgs:lat>
+	<wgs:long>85.03333</wgs:long>
+	<skos:altLabel>Hetauda</skos:altLabel>
+	<skos:altLabel>Hetauda Bazar</skos:altLabel>
+	<skos:altLabel>Hetaunda</skos:altLabel>
+	<skos:altLabel>Hetaura</skos:altLabel>
+	<skos:altLabel>Heṭauḍā</skos:altLabel>
+	<skos:altLabel>Hithaura</skos:altLabel>
+	<skos:altLabel>Hitura</skos:altLabel>
+	<skos:prefLabel>Heṭauḍā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283367/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>307098</europeana:population>
+	<wgs:lat>28.08333</wgs:lat>
+	<wgs:long>83.33333</wgs:long>
+	<skos:altLabel>Gulmī</skos:altLabel>
+	<skos:prefLabel>Gulmī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53107</europeana:population>
+	<wgs:lat>28.23333</wgs:lat>
+	<wgs:long>81.33333</wgs:long>
+	<skos:altLabel>Gularia</skos:altLabel>
+	<skos:altLabel>Gulariyā</skos:altLabel>
+	<skos:prefLabel>Gulariyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>298275</europeana:population>
+	<wgs:lat>28.33333</wgs:lat>
+	<wgs:long>84.83333</wgs:long>
+	<skos:prefLabel>Gorkhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283401/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>27325</europeana:population>
+	<wgs:lat>26.76667</wgs:lat>
+	<wgs:long>85.26667</wgs:long>
+	<skos:altLabel>Gaur</skos:altLabel>
+	<skos:altLabel>Gour</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гаура</skos:altLabel>
+	<skos:prefLabel>Gaur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>28.33333</wgs:lat>
+	<wgs:long>84.38333</wgs:long>
+	<skos:altLabel>Gandakī</skos:altLabel>
+	<skos:altLabel>Gandakī Añchal</skos:altLabel>
+	<skos:altLabel>Gandakī Zone</skos:altLabel>
+	<skos:prefLabel>Gandakī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283425/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>217385</europeana:population>
+	<wgs:lat>29.25</wgs:lat>
+	<wgs:long>80.91667</wgs:long>
+	<skos:altLabel>Dotī</skos:altLabel>
+	<skos:altLabel>Silgarhi-Doti</skos:altLabel>
+	<skos:prefLabel>Dotī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>30974</europeana:population>
+	<wgs:lat>29.16667</wgs:lat>
+	<wgs:long>83.08333</wgs:long>
+	<skos:altLabel>Dolpo</skos:altLabel>
+	<skos:altLabel>Dolpā</skos:altLabel>
+	<skos:prefLabel>Dolpā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283431/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>214519</europeana:population>
+	<wgs:lat>27.83333</wgs:lat>
+	<wgs:long>86.25</wgs:long>
+	<skos:altLabel>Dolakhā</skos:altLabel>
+	<skos:altLabel>Dolkha</skos:altLabel>
+	<skos:prefLabel>Dolakhā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>28.66667</wgs:lat>
+	<wgs:long>83.6</wgs:long>
+	<skos:altLabel>Dhaualagiri</skos:altLabel>
+	<skos:altLabel>Dhaulagiri</skos:altLabel>
+	<skos:altLabel>Dhaulagiri Zone</skos:altLabel>
+	<skos:altLabel>Dhawalāgiri</skos:altLabel>
+	<skos:altLabel>Dhawalāgiri Añchal</skos:altLabel>
+	<skos:altLabel>Dhawalāgiri Zone</skos:altLabel>
+	<skos:prefLabel>Dhawalāgiri Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283460/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>108600</europeana:population>
+	<wgs:lat>26.81667</wgs:lat>
+	<wgs:long>87.28333</wgs:long>
+	<skos:altLabel>Dharan</skos:altLabel>
+	<skos:altLabel>Dharān Bāzār</skos:altLabel>
+	<skos:prefLabel>Dharān Bāzār</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>721407</europeana:population>
+	<wgs:lat>26.83333</wgs:lat>
+	<wgs:long>86.08333</wgs:long>
+	<skos:altLabel>Dhanusha</skos:altLabel>
+	<skos:prefLabel>Dhanūkha</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22084</europeana:population>
+	<wgs:lat>26.98333</wgs:lat>
+	<wgs:long>87.33333</wgs:long>
+	<skos:altLabel>Dhankuta Bazar</skos:altLabel>
+	<skos:altLabel>Dhankutta</skos:altLabel>
+	<skos:altLabel>Dhankutā</skos:altLabel>
+	<skos:prefLabel>Dhankutā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283466/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>173216</europeana:population>
+	<wgs:lat>27</wgs:lat>
+	<wgs:long>87.33333</wgs:long>
+	<skos:prefLabel>Dhankutā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283467/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>92294</europeana:population>
+	<wgs:lat>28.68333</wgs:lat>
+	<wgs:long>80.6</wgs:long>
+	<skos:altLabel>Dhangadhi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dhangadhi</skos:altLabel>
+	<skos:altLabel>Dhangarhi</skos:altLabel>
+	<skos:altLabel>Dhantardhi</skos:altLabel>
+	<skos:prefLabel>Dhangarhi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>357244</europeana:population>
+	<wgs:lat>28</wgs:lat>
+	<wgs:long>84.91667</wgs:long>
+	<skos:prefLabel>Dhāding</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283484/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18317</europeana:population>
+	<wgs:lat>29.85</wgs:lat>
+	<wgs:long>80.55</wgs:long>
+	<skos:altLabel>Dhārchul</skos:altLabel>
+	<skos:altLabel>Dhārchulā</skos:altLabel>
+	<skos:altLabel>Dārchulā</skos:altLabel>
+	<skos:prefLabel>Dārchulā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>128083</europeana:population>
+	<wgs:lat>29.91667</wgs:lat>
+	<wgs:long>80.75</wgs:long>
+	<skos:prefLabel>Dārchulā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283489/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>506451</europeana:population>
+	<wgs:lat>28</wgs:lat>
+	<wgs:long>82.41667</wgs:long>
+	<skos:altLabel>Dang Deokhuri</skos:altLabel>
+	<skos:altLabel>Dang-Deukhuri</skos:altLabel>
+	<skos:altLabel>Deokhori</skos:altLabel>
+	<skos:altLabel>Dāng</skos:altLabel>
+	<skos:altLabel>Dāng-Deokhori</skos:altLabel>
+	<skos:prefLabel>Dāng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283496/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20908</europeana:population>
+	<wgs:lat>28.83333</wgs:lat>
+	<wgs:long>81.73333</wgs:long>
+	<skos:prefLabel>Dailekh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>236425</europeana:population>
+	<wgs:lat>28.83333</wgs:lat>
+	<wgs:long>81.66667</wgs:long>
+	<skos:prefLabel>Dailekh</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19014</europeana:population>
+	<wgs:lat>29.3</wgs:lat>
+	<wgs:long>80.58333</wgs:long>
+	<skos:altLabel>Dadeldhurā</skos:altLabel>
+	<skos:altLabel>Dandeldhura</skos:altLabel>
+	<skos:altLabel>Dandelhura</skos:altLabel>
+	<skos:prefLabel>Dadeldhurā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>134082</europeana:population>
+	<wgs:lat>29.25</wgs:lat>
+	<wgs:long>80.41667</wgs:long>
+	<skos:altLabel>Dadeldhurā</skos:altLabel>
+	<skos:altLabel>Dandeldhura</skos:altLabel>
+	<skos:prefLabel>Dadeldhurā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>521155</europeana:population>
+	<wgs:lat>27.58333</wgs:lat>
+	<wgs:long>84.5</wgs:long>
+	<skos:altLabel>Chitaun</skos:altLabel>
+	<skos:altLabel>Chitawan</skos:altLabel>
+	<skos:altLabel>Chitwan</skos:altLabel>
+	<skos:prefLabel>Chitawan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>91733</europeana:population>
+	<wgs:lat>27.7</wgs:lat>
+	<wgs:long>83.45</wgs:long>
+	<skos:altLabel>Butaul</skos:altLabel>
+	<skos:altLabel>Butwaī</skos:altLabel>
+	<skos:altLabel>Butwāl</skos:altLabel>
+	<skos:prefLabel>Butwāl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>133238</europeana:population>
+	<wgs:lat>27</wgs:lat>
+	<wgs:long>84.86667</wgs:long>
+	<skos:altLabel>Birgunj</skos:altLabel>
+	<skos:altLabel xml:lang="en">Birgunj</skos:altLabel>
+	<skos:altLabel>Bīrganj</skos:altLabel>
+	<skos:prefLabel>Bīrganj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>182324</europeana:population>
+	<wgs:lat>26.4831</wgs:lat>
+	<wgs:long>87.28337</wgs:long>
+	<skos:altLabel>Biratnagur</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Биратнагар</skos:altLabel>
+	<skos:prefLabel>Birātnagar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283601/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>204253</europeana:population>
+	<wgs:lat>27.25</wgs:lat>
+	<wgs:long>87.08333</wgs:long>
+	<skos:altLabel>Bhojpur</skos:altLabel>
+	<skos:altLabel>East Number Four</skos:altLabel>
+	<skos:altLabel>Number Four East</skos:altLabel>
+	<skos:prefLabel>Bhojpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>28.58333</wgs:lat>
+	<wgs:long>81.66667</wgs:long>
+	<skos:altLabel>Bherī</skos:altLabel>
+	<skos:altLabel>Bherī Añchal</skos:altLabel>
+	<skos:altLabel>Bherī Zone</skos:altLabel>
+	<skos:prefLabel>Bherī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283613/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>107157</europeana:population>
+	<wgs:lat>27.68333</wgs:lat>
+	<wgs:long>84.43333</wgs:long>
+	<skos:altLabel>Bharatpur</skos:altLabel>
+	<skos:prefLabel>Bharatpur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>76886</europeana:population>
+	<wgs:lat>27.66734</wgs:lat>
+	<wgs:long>85.41673</wgs:long>
+	<skos:prefLabel>Bhaktapur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283621/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>63367</europeana:population>
+	<wgs:lat>27.5</wgs:lat>
+	<wgs:long>83.45</wgs:long>
+	<skos:altLabel>Bhairawa</skos:altLabel>
+	<skos:altLabel>Bhairhwa</skos:altLabel>
+	<skos:altLabel>Bhairwa</skos:altLabel>
+	<skos:altLabel>Bhairāhawā</skos:altLabel>
+	<skos:altLabel>Siddharthanagar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Siddharthanagar</skos:altLabel>
+	<skos:prefLabel>Bhairāhawā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19523</europeana:population>
+	<wgs:lat>26.53333</wgs:lat>
+	<wgs:long>88.08333</wgs:long>
+	<skos:prefLabel>Bhadrapur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283663/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>426489</europeana:population>
+	<wgs:lat>28.33333</wgs:lat>
+	<wgs:long>81.41667</wgs:long>
+	<skos:altLabel>Bardiyā</skos:altLabel>
+	<skos:altLabel>Bardīa</skos:altLabel>
+	<skos:prefLabel>Bardiyā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283670/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>613427</europeana:population>
+	<wgs:lat>27.08333</wgs:lat>
+	<wgs:long>85.08333</wgs:long>
+	<skos:altLabel>Bārā</skos:altLabel>
+	<skos:prefLabel>Bārā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283676/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>428385</europeana:population>
+	<wgs:lat>28.16667</wgs:lat>
+	<wgs:long>81.83333</wgs:long>
+	<skos:altLabel>Bānke</skos:altLabel>
+	<skos:altLabel>Bānkey</skos:altLabel>
+	<skos:prefLabel>Bānke</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283679/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17153</europeana:population>
+	<wgs:lat>27.63333</wgs:lat>
+	<wgs:long>85.51667</wgs:long>
+	<skos:altLabel>Banepa</skos:altLabel>
+	<skos:altLabel>Banepa Bazar</skos:altLabel>
+	<skos:altLabel>Panepa</skos:altLabel>
+	<skos:prefLabel>Banepa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283697/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>115674</europeana:population>
+	<wgs:lat>29.5</wgs:lat>
+	<wgs:long>81.5</wgs:long>
+	<skos:altLabel>Bājura</skos:altLabel>
+	<skos:prefLabel>Bājura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283699/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>175236</europeana:population>
+	<wgs:lat>29.66667</wgs:lat>
+	<wgs:long>81.25</wgs:long>
+	<skos:altLabel>Bajhang</skos:altLabel>
+	<skos:altLabel>Bajāng</skos:altLabel>
+	<skos:prefLabel>Bajhang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283701/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>244724</europeana:population>
+	<wgs:lat>29.5</wgs:lat>
+	<wgs:long>80.58333</wgs:long>
+	<skos:prefLabel>Baitadī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283710/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>27.91667</wgs:lat>
+	<wgs:long>85.41667</wgs:long>
+	<skos:altLabel>Bāgmatī</skos:altLabel>
+	<skos:altLabel>Bāgmatī Añchal</skos:altLabel>
+	<skos:altLabel>Bāgmatī Zone</skos:altLabel>
+	<skos:prefLabel>Bāgmatī Zone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283711/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23296</europeana:population>
+	<wgs:lat>28.26667</wgs:lat>
+	<wgs:long>83.6</wgs:long>
+	<skos:altLabel>Baglung Bazar</skos:altLabel>
+	<skos:altLabel>Bāglung</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Баглунг</skos:altLabel>
+	<skos:prefLabel>Bāglung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283712/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>278551</europeana:population>
+	<wgs:lat>28.41667</wgs:lat>
+	<wgs:long>83.16667</wgs:long>
+	<skos:prefLabel>Bāglung</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283726/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>218013</europeana:population>
+	<wgs:lat>27.91667</wgs:lat>
+	<wgs:long>83.08333</wgs:long>
+	<skos:altLabel>Argha</skos:altLabel>
+	<skos:altLabel>Arghakhachi</skos:altLabel>
+	<skos:altLabel>Arghākhānchī</skos:altLabel>
+	<skos:prefLabel>Arghākhānchī</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1283743/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>239534</europeana:population>
+	<wgs:lat>29.08333</wgs:lat>
+	<wgs:long>81.33333</wgs:long>
+	<skos:altLabel>Achhām</skos:altLabel>
+	<skos:prefLabel>Achhām</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6254843/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31381</europeana:population>
+	<wgs:lat>28.60194</wgs:lat>
+	<wgs:long>81.63389</wgs:long>
+	<skos:altLabel>Birendranagar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Бирендранаган</skos:altLabel>
+	<skos:prefLabel>Birendranagar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/6941099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>64400</europeana:population>
+	<wgs:lat>28.05</wgs:lat>
+	<wgs:long>81.61667</wgs:long>
+	<skos:altLabel xml:lang="ru">Непалгун</skos:altLabel>
+	<skos:prefLabel>Nepalgunj</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7289705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>29.30915</wgs:lat>
+	<wgs:long>80.91534</wgs:long>
+	<skos:altLabel xml:lang="en">Far Western Region</skos:altLabel>
+	<skos:prefLabel>Sudur Pashchimanchal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7289706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>29.05977</wgs:lat>
+	<wgs:long>82.31335</wgs:long>
+	<skos:altLabel xml:lang="en">Mid Western Region</skos:altLabel>
+	<skos:prefLabel>Madhya Pashchimanchal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7289707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>27.45436</wgs:lat>
+	<wgs:long>85.22301</wgs:long>
+	<skos:altLabel xml:lang="en">Central Region</skos:altLabel>
+	<skos:prefLabel>Madhyamanchal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7289708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>27.23998</wgs:lat>
+	<wgs:long>87.14802</wgs:long>
+	<skos:altLabel xml:lang="en">Eastern Region</skos:altLabel>
+	<skos:prefLabel>Purwanchal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7289709/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>28.17039</wgs:lat>
+	<wgs:long>83.93829</wgs:long>
+	<skos:altLabel xml:lang="en">Western Region</skos:altLabel>
+	<skos:prefLabel>Pashchimanchal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647006/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1283710/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>27.82936</wgs:lat>
+	<wgs:long>85.54504</wgs:long>
+	<skos:prefLabel>Sindhupalchok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648378/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1283316/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<europeana:population>671364</europeana:population>
+	<wgs:lat>26.83505</wgs:lat>
+	<wgs:long>86.01216</wgs:long>
+	<skos:prefLabel>Dhanusa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1283316/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.83</wgs:lat>
+	<wgs:long>86.01</wgs:long>
+	<skos:prefLabel>Dhanusa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1283410/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>28.10463</wgs:lat>
+	<wgs:long>83.87911</wgs:long>
+	<skos:prefLabel>Syangja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648581/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1283316/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>26.83505</wgs:lat>
+	<wgs:long>86.01216</wgs:long>
+	<skos:prefLabel>Dhanusa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7667450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1282988/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1283606/"/>
+	<europeana:country>NP</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>28.51746</wgs:lat>
+	<wgs:long>81.7787</wgs:long>
+	<skos:prefLabel>Surkhet</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 142 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

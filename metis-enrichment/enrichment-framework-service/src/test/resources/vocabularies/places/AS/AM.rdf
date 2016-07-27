@@ -1,0 +1,1498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AS_AM
+Description: Selected fields pulled from Geonames about AM done on Mon May 23 21:13:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/174707/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.78333</wgs:lat>
+	<wgs:long>45.28333</wgs:long>
+	<skos:altLabel>Mikoyanovskiy Rayon</skos:altLabel>
+	<skos:altLabel>Mikoyanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Yekhegnadzorskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Yeghegnadzori Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174725/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12192</europeana:population>
+	<wgs:lat>39.91056</wgs:lat>
+	<wgs:long>44.72778</wgs:long>
+	<skos:altLabel>Beyuk-Vedi</skos:altLabel>
+	<skos:altLabel>Biyuk-Vedi</skos:altLabel>
+	<skos:altLabel>Vedi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Веди</skos:altLabel>
+	<skos:prefLabel>Vedi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174761/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.58333</wgs:lat>
+	<wgs:long>46</wgs:long>
+	<skos:altLabel>Sisianskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sisiani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39</wgs:lat>
+	<wgs:long>46.28333</wgs:long>
+	<skos:altLabel>Megrinskiy Rayon</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мегринский Район</skos:altLabel>
+	<skos:prefLabel>Meghru Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>44.50028</wgs:long>
+	<skos:altLabel>Masisskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Masisi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174875/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>33160</europeana:population>
+	<wgs:lat>39.20111</wgs:lat>
+	<wgs:long>46.415</wgs:long>
+	<skos:altLabel>Ghap’an</skos:altLabel>
+	<skos:altLabel>Kafan</skos:altLabel>
+	<skos:altLabel>Kafin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kapan</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kapan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kapan</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Kapan</skos:altLabel>
+	<skos:altLabel>Katan</skos:altLabel>
+	<skos:altLabel>Madan</skos:altLabel>
+	<skos:altLabel>Qafan</skos:altLabel>
+	<skos:altLabel>Zangezur</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Капан</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Կապան</skos:altLabel>
+	<skos:altLabel xml:lang="fa">کاپان</skos:altLabel>
+	<skos:prefLabel>Kapan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174881/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.25</wgs:lat>
+	<wgs:long>46.33333</wgs:long>
+	<skos:altLabel>Kafanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kapani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.5</wgs:lat>
+	<wgs:long>46.33333</wgs:long>
+	<skos:altLabel>Gorisskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Gorisi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174895/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20379</europeana:population>
+	<wgs:lat>39.50778</wgs:lat>
+	<wgs:long>46.33861</wgs:long>
+	<skos:altLabel>Geryusy</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Goris</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Горис</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գորիս</skos:altLabel>
+	<skos:prefLabel>Goris</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.75</wgs:lat>
+	<wgs:long>45.61667</wgs:long>
+	<skos:altLabel>Azizbekovskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Vayk'i Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15208</europeana:population>
+	<wgs:lat>39.46278</wgs:lat>
+	<wgs:long>45.97306</wgs:long>
+	<skos:altLabel>Atsavan</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Hats’avan</skos:altLabel>
+	<skos:altLabel>Sisian</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ацаван</skos:altLabel>
+	<skos:prefLabel>Hats’avan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.95</wgs:lat>
+	<wgs:long>44.55</wgs:long>
+	<skos:altLabel>Artashatskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kamarlinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Artashati Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>20562</europeana:population>
+	<wgs:lat>39.95389</wgs:lat>
+	<wgs:long>44.55056</wgs:long>
+	<skos:altLabel>Artashat</skos:altLabel>
+	<skos:altLabel>Kamarl</skos:altLabel>
+	<skos:altLabel>Kamarlu</skos:altLabel>
+	<skos:altLabel>Kamarlyu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Арташат</skos:altLabel>
+	<skos:prefLabel>Artashat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255147/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>2968000</europeana:population>
+	<wgs:lat>40</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>AM</skos:altLabel>
+	<skos:altLabel xml:lang="ga">An Airméin</skos:altLabel>
+	<skos:altLabel xml:lang="uz">Armaniston</skos:altLabel>
+	<skos:altLabel xml:lang="et">Armeenia</skos:altLabel>
+	<skos:altLabel xml:lang="so">Armeeniya</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Armeenje</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Armeni</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Armeni</skos:altLabel>
+	<skos:altLabel xml:lang="id">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="es">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="en">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="it">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="an">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="na">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="no">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="io">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="la">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="se">Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Armenia - Հայաստան</skos:altLabel>
+	<skos:altLabel>Armenian Soviet Socialist Republic</skos:altLabel>
+	<skos:altLabel xml:lang="de">Armenien</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Armenien</skos:altLabel>
+	<skos:altLabel xml:lang="da">Armenien</skos:altLabel>
+	<skos:altLabel xml:lang="lb">Armenien</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Armenija</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Armenija</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Armenija</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Armenio</skos:altLabel>
+	<skos:altLabel xml:lang="af">Armenië</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Armenië</skos:altLabel>
+	<skos:altLabel xml:lang="li">Armenië</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Armenja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Armenujo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Armenía</skos:altLabel>
+	<skos:altLabel xml:lang="af">Arminië</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Arminya</skos:altLabel>
+	<skos:altLabel>Armyanskaya Sovetskaya Sotsialisticheskaya Respublika</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Armènia</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Arménia</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Arménie</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Arménie</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Arménsko</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Armênia</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Armēnija</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Armėnija</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Ermenistan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Ermenistan</skos:altLabel>
+	<skos:altLabel xml:lang="az">Ermənistan</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Hajio</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Hayastani Hanrapetut’yun</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Jermenija</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Larmenän</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Armenia</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República d'Armènia</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ác-mê-ni-a</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ác-mê-ni-a (Armenia)</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Örményország</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αρμενία</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јерменија</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Арманистон</skos:altLabel>
+	<skos:altLabel xml:lang="mo">Армения</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Армения</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Армения</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Арменија</skos:altLabel>
+	<skos:altLabel xml:lang="be">Арменія</skos:altLabel>
+	<skos:altLabel xml:lang="cu">Арменї</skos:altLabel>
+	<skos:altLabel xml:lang="be">Армэнія</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Вірменія</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ерменија</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Эрмени</skos:altLabel>
+	<skos:altLabel xml:lang="kk">Әрменстан</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հայաստան</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Հայաստանի Հանրապետութիւն</skos:altLabel>
+	<skos:altLabel xml:lang="yi">אַרמעניע</skos:altLabel>
+	<skos:altLabel xml:lang="he">ארמניה</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آر مینیا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">آرمینیا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">أرمينيا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ارمنستان</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ارمنستان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ارمينيا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">आर्मीनिया</skos:altLabel>
+	<skos:altLabel xml:lang="sa">आर्मीनिया</skos:altLabel>
+	<skos:altLabel xml:lang="hi">आर्मेनिया</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আর্মেনিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আর্মেনিয়া</skos:altLabel>
+	<skos:altLabel xml:lang="ta">ஆர்மீனியா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">അര്‍മേനിയ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศอาร์เมเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="th">อาร์เมเนีย</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ອາມິເນຍ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཨར་མེ་ནི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სასომხეთი</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სომხეთი</skos:altLabel>
+	<skos:altLabel xml:lang="am">አርሜኒያ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អារមីនៀ</skos:altLabel>
+	<skos:altLabel xml:lang="km">អារមេនី</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルメニア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アルメニア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">亚美尼亚</skos:altLabel>
+	<skos:altLabel xml:lang="zh">亞美尼亞</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아르메니아</skos:altLabel>
+	<skos:prefLabel>Republic of Armenia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.95</wgs:lat>
+	<wgs:long>44.83333</wgs:long>
+	<skos:altLabel>Araratskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vedinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ararati Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/174991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>28832</europeana:population>
+	<wgs:lat>39.83028</wgs:lat>
+	<wgs:long>44.7025</wgs:long>
+	<skos:altLabel>Ararat</skos:altLabel>
+	<skos:altLabel>Davalinskiy Tsemzavod</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Арарат</skos:altLabel>
+	<skos:prefLabel>Ararat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.91667</wgs:lat>
+	<wgs:long>44.83333</wgs:long>
+	<skos:altLabel>Ararat</skos:altLabel>
+	<skos:altLabel>Ararati Marz</skos:altLabel>
+	<skos:prefLabel>Ararati Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409314/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>39.33333</wgs:lat>
+	<wgs:long>46.25</wgs:long>
+	<skos:altLabel>Syunikʼ</skos:altLabel>
+	<skos:altLabel>Syunik’i Marz</skos:altLabel>
+	<skos:prefLabel>Syunik’i Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409315/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>52846</europeana:population>
+	<wgs:lat>39.75</wgs:lat>
+	<wgs:long>45.41667</wgs:long>
+	<skos:altLabel>Vayotsʼ Dzor</skos:altLabel>
+	<skos:altLabel>Vayots’ Dzori Marz</skos:altLabel>
+	<skos:prefLabel>Vayots’ Dzori Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409320/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>44.7</wgs:long>
+	<skos:prefLabel>Ararat K'aghak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409321/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.95</wgs:lat>
+	<wgs:long>44.55</wgs:long>
+	<skos:prefLabel>Artashat K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.5</wgs:lat>
+	<wgs:long>46.38333</wgs:long>
+	<skos:prefLabel>Goris K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409324/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.83333</wgs:lat>
+	<wgs:long>45.66667</wgs:long>
+	<skos:prefLabel>Jermuk K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/409325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>39.2</wgs:lat>
+	<wgs:long>46.4</wgs:long>
+	<skos:prefLabel>Kapan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel xml:lang="es">Ereván</skos:altLabel>
+	<skos:altLabel>Gorod Yerevan</skos:altLabel>
+	<skos:altLabel>K’aghak’ Yerevan</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Yerevan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Yerevan</skos:altLabel>
+	<skos:altLabel>Yerevan</skos:altLabel>
+	<skos:prefLabel>K’aghak’ Yerevan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1093485</europeana:population>
+	<wgs:lat>40.18111</wgs:lat>
+	<wgs:long>44.51361</wgs:long>
+	<skos:altLabel>Ayrivan</skos:altLabel>
+	<skos:altLabel>Ereun</skos:altLabel>
+	<skos:altLabel>Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Erevan</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Erevano</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ereván</skos:altLabel>
+	<skos:altLabel>Erewan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Erewan</skos:altLabel>
+	<skos:altLabel>Erivan</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Erivan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Eriwan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Erywań</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Iereván - Երեվան</skos:altLabel>
+	<skos:altLabel>Iravan</skos:altLabel>
+	<skos:altLabel xml:lang="da">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="et">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="no">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="af">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="fy">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="is">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Jerevan</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Jerevanas</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Jereván</skos:altLabel>
+	<skos:altLabel>Revan</skos:altLabel>
+	<skos:altLabel xml:lang="id">Yerevan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yerevan</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Yerevan</skos:altLabel>
+	<skos:altLabel xml:lang="it">Yerevan</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Yerevan</skos:altLabel>
+	<skos:altLabel>Yervandavan</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Yiriwan</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Êrîvan</skos:altLabel>
+	<skos:altLabel xml:lang="az">İrəvan</skos:altLabel>
+	<skos:altLabel xml:lang="el">Ερεβάν</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Єреван</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Јереван</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЕРЕВАН</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Ереван</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ереван</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ереван</skos:altLabel>
+	<skos:altLabel xml:lang="be">Ерэван</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Երեվան</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Երևան</skos:altLabel>
+	<skos:altLabel xml:lang="he">ירוואן</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ایروان</skos:altLabel>
+	<skos:altLabel xml:lang="fa">شهر ایروان</skos:altLabel>
+	<skos:altLabel xml:lang="ar">يريفان</skos:altLabel>
+	<skos:altLabel xml:lang="sa">येरेवान</skos:altLabel>
+	<skos:altLabel xml:lang="mr">येरेवान</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ইয়েরেভান</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ერევანი</skos:altLabel>
+	<skos:altLabel xml:lang="am">ዬሬቫን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">エレバン</skos:altLabel>
+	<skos:altLabel xml:lang="zh">葉里溫</skos:altLabel>
+	<skos:altLabel xml:lang="ko">예레반</skos:altLabel>
+	<skos:prefLabel>Yerevan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616062/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>49513</europeana:population>
+	<wgs:lat>40.17278</wgs:lat>
+	<wgs:long>44.2925</wgs:long>
+	<skos:altLabel>Artemed</skos:altLabel>
+	<skos:altLabel>Avan Vardgesi</skos:altLabel>
+	<skos:altLabel xml:lang="na">Echmiadzin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Echmiadzin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Echmiadzin</skos:altLabel>
+	<skos:altLabel xml:lang="it">Echmiadzin</skos:altLabel>
+	<skos:altLabel>Echmiadzin</skos:altLabel>
+	<skos:altLabel>Echmiatsin</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Echmiatsin</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Eczmiadzyn</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ejmiatsin</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ejmiatsin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Etchmiadzine</skos:altLabel>
+	<skos:altLabel xml:lang="de">Etschmiadsin</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ečmiadzin</skos:altLabel>
+	<skos:altLabel>Iejmiatsin</skos:altLabel>
+	<skos:altLabel>Kaynepolis</skos:altLabel>
+	<skos:altLabel>Kayrak’aghak’</skos:altLabel>
+	<skos:altLabel>Norak’aghak’</skos:altLabel>
+	<skos:altLabel>Uch’k’ilisa</skos:altLabel>
+	<skos:altLabel>Vagharshapat</skos:altLabel>
+	<skos:altLabel>Valeroktista</skos:altLabel>
+	<skos:altLabel>Vardgesavan</skos:altLabel>
+	<skos:altLabel>Üçkilise</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Вагаршапат</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ЭЧМИАДЗИН</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Эчмиадзин</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վաղարշապատ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">اچمیادزین</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ეჩმიაძინი</skos:altLabel>
+	<skos:prefLabel>Ejmiatsin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>10705</europeana:population>
+	<wgs:lat>40.32167</wgs:lat>
+	<wgs:long>44.48139</wgs:long>
+	<skos:altLabel>Jegward</skos:altLabel>
+	<skos:altLabel xml:lang="en">Yeghvard</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Yeghvard</skos:altLabel>
+	<skos:altLabel>Yegvard</skos:altLabel>
+	<skos:altLabel>Yegvart</skos:altLabel>
+	<skos:altLabel>Yevgard</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Егвард</skos:altLabel>
+	<skos:prefLabel>Yeghvard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616105/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>45.75</wgs:long>
+	<skos:altLabel>Basargecharskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vardenisskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Vardenisi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616108/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11382</europeana:population>
+	<wgs:lat>40.18056</wgs:lat>
+	<wgs:long>45.72833</wgs:long>
+	<skos:altLabel>Basargech’ar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vardenis</skos:altLabel>
+	<skos:altLabel>Vardenis</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ВАРДЕНИС</skos:altLabel>
+	<skos:prefLabel>Vardenis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616130/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:altLabel>Alaverdskiy Rayon</skos:altLabel>
+	<skos:altLabel>Allaverdskiy Rayon</skos:altLabel>
+	<skos:altLabel>Tumanyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>T'umanyani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616186/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>43.83333</wgs:long>
+	<skos:altLabel>Talinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>T'alini Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:altLabel>Stepanavanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Step'anavani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>44.16667</wgs:long>
+	<skos:altLabel>Spitakskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Spitaki Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15059</europeana:population>
+	<wgs:lat>40.83722</wgs:lat>
+	<wgs:long>44.2675</wgs:long>
+	<skos:altLabel>Amamlu</skos:altLabel>
+	<skos:altLabel>Amamth</skos:altLabel>
+	<skos:altLabel>Spitak</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Спитак</skos:altLabel>
+	<skos:prefLabel>Spitak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/616051/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:prefLabel>Spandaryanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616205/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/616051/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:prefLabel>Sovetskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/616051/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.45</wgs:long>
+	<skos:prefLabel>Shaumyanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616238/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>45.41667</wgs:long>
+	<skos:altLabel>Shamshadinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Taushi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616247/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>44.91667</wgs:long>
+	<skos:altLabel>Sevanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Sevani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616250/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17083</europeana:population>
+	<wgs:lat>40.555</wgs:lat>
+	<wgs:long>44.95361</wgs:long>
+	<skos:altLabel xml:lang="en">Sevan</skos:altLabel>
+	<skos:altLabel>Sevan</skos:altLabel>
+	<skos:altLabel>Ssewan</skos:altLabel>
+	<skos:altLabel>Yelenovka</skos:altLabel>
+	<skos:altLabel xml:lang="ru">СЕВАН</skos:altLabel>
+	<skos:prefLabel>Sevan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616283/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.5</wgs:lat>
+	<wgs:long>44.66667</wgs:long>
+	<skos:altLabel>Akhtinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Razdanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Hrazdani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616323/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/616051/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel>Stalinskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ordzhonikidzevskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.08333</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Oktemberyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Armaviri Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616332/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.16667</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Noyemberyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Noyemberyani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel>Nairiyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Nairii Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:prefLabel>Myasnikyanskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18911</europeana:population>
+	<wgs:lat>40.06722</wgs:lat>
+	<wgs:long>44.43611</wgs:long>
+	<skos:altLabel>Hrazdan</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Masis</skos:altLabel>
+	<skos:altLabel>Narimanlu</skos:altLabel>
+	<skos:altLabel>Razdan</skos:altLabel>
+	<skos:altLabel>Takhanshalu</skos:altLabel>
+	<skos:altLabel>Tokhanshalu</skos:altLabel>
+	<skos:altLabel>Ulukhanlu</skos:altLabel>
+	<skos:altLabel>Zangibasar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Масис</skos:altLabel>
+	<skos:prefLabel>Masis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616436/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.08333</wgs:lat>
+	<wgs:long>45.25</wgs:long>
+	<skos:altLabel>Martuninskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Martunu Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11037</europeana:population>
+	<wgs:lat>40.14472</wgs:lat>
+	<wgs:long>45.30639</wgs:long>
+	<skos:altLabel>Karanlug</skos:altLabel>
+	<skos:altLabel>Martuki</skos:altLabel>
+	<skos:altLabel xml:lang="en">Martuni</skos:altLabel>
+	<skos:altLabel>Martuni</skos:altLabel>
+	<skos:altLabel>Martuny</skos:altLabel>
+	<skos:altLabel>Nerkin Karanlukh</skos:altLabel>
+	<skos:altLabel>Nizhniy-Karanlug</skos:altLabel>
+	<skos:altLabel xml:lang="ru">МАРТУНИ</skos:altLabel>
+	<skos:prefLabel>Martuni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616485/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/616051/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:prefLabel>Leninskiy Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616514/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>45.25</wgs:long>
+	<skos:altLabel>Krasnosel'skiy Rayon</skos:altLabel>
+	<skos:prefLabel>Krasnoselski Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101098</europeana:population>
+	<wgs:lat>40.81278</wgs:lat>
+	<wgs:long>44.48833</wgs:long>
+	<skos:altLabel>Gharak’ilisa</skos:altLabel>
+	<skos:altLabel>Karakhs</skos:altLabel>
+	<skos:altLabel>Karakilis</skos:altLabel>
+	<skos:altLabel>Karaklis</skos:altLabel>
+	<skos:altLabel>Kirovakan</skos:altLabel>
+	<skos:altLabel>Kirowakan</skos:altLabel>
+	<skos:altLabel>Korovakan</skos:altLabel>
+	<skos:altLabel>Mets Karakilisa</skos:altLabel>
+	<skos:altLabel xml:lang="en">Vanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="et">Vanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Vanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Vanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Vanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Vanadzor</skos:altLabel>
+	<skos:altLabel>Vanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="de">Wanadsor</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Wanadzor</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ванадзор</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КИРОВАКАН</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Վանաձոր</skos:altLabel>
+	<skos:altLabel xml:lang="fa">وانادزور</skos:altLabel>
+	<skos:prefLabel>Vanadzor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616599/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>21680</europeana:population>
+	<wgs:lat>40.35889</wgs:lat>
+	<wgs:long>45.12667</wgs:long>
+	<skos:altLabel>Gavar</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gavarr</skos:altLabel>
+	<skos:altLabel>Gavarr</skos:altLabel>
+	<skos:altLabel>Kamo</skos:altLabel>
+	<skos:altLabel>Kyavar</skos:altLabel>
+	<skos:altLabel>Nor Bayazet</skos:altLabel>
+	<skos:altLabel>Nor-Bajaset</skos:altLabel>
+	<skos:altLabel>Novo Bayazet</skos:altLabel>
+	<skos:altLabel>Novyi Bayaset</skos:altLabel>
+	<skos:altLabel xml:lang="ru">КАМО</skos:altLabel>
+	<skos:prefLabel>Gavarr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.08333</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:altLabel>Kalininskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Tashiri Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>45.08333</wgs:long>
+	<skos:altLabel>Nor Bayazetskiy Rayon</skos:altLabel>
+	<skos:altLabel>Rayon Imeni Kamo</skos:altLabel>
+	<skos:prefLabel>Kamoyi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616624/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/616051/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>40.18333</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel>Mikoyanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Rayon Imeni Dvadtsati Shesti Bakinskikh Komissarov</skos:altLabel>
+	<skos:prefLabel>Imeni Dvadtsati Shesti Komissarov Rayon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616627/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>14737</europeana:population>
+	<wgs:lat>40.87556</wgs:lat>
+	<wgs:long>45.14917</wgs:long>
+	<skos:altLabel>Idzhevan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ijevan</skos:altLabel>
+	<skos:altLabel>Ijevan</skos:altLabel>
+	<skos:altLabel>Istibulagh</skos:altLabel>
+	<skos:altLabel>Karavan Savan</skos:altLabel>
+	<skos:altLabel>Karavansarai</skos:altLabel>
+	<skos:altLabel>K’aravansaray</skos:altLabel>
+	<skos:altLabel>K’arvansara</skos:altLabel>
+	<skos:altLabel>K’ervansera</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ИДЖЕВАН</skos:altLabel>
+	<skos:prefLabel>Ijevan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616628/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>45</wgs:long>
+	<skos:altLabel>Idzhevanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ijevani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616629/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>40795</europeana:population>
+	<wgs:lat>40.50167</wgs:lat>
+	<wgs:long>44.75472</wgs:long>
+	<skos:altLabel>Akhta</skos:altLabel>
+	<skos:altLabel>Akhtala</skos:altLabel>
+	<skos:altLabel>Akhti</skos:altLabel>
+	<skos:altLabel xml:lang="en">Hrazdan</skos:altLabel>
+	<skos:altLabel>Hrazdan</skos:altLabel>
+	<skos:altLabel>Nerkin Akhta</skos:altLabel>
+	<skos:altLabel>Nizhne Akhti</skos:altLabel>
+	<skos:altLabel>Nizhniye Akhty</skos:altLabel>
+	<skos:altLabel>Nizhnyaya Akhta</skos:altLabel>
+	<skos:altLabel>Razdan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Раздан</skos:altLabel>
+	<skos:prefLabel>Hrazdan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616631/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25963</europeana:population>
+	<wgs:lat>40.15222</wgs:lat>
+	<wgs:long>44.03083</wgs:long>
+	<skos:altLabel xml:lang="en">Armavir</skos:altLabel>
+	<skos:altLabel>Armavir</skos:altLabel>
+	<skos:altLabel>Hoktemberyan</skos:altLabel>
+	<skos:altLabel>Oktemberyan</skos:altLabel>
+	<skos:altLabel>Sardar-Abad</skos:altLabel>
+	<skos:altLabel>Sardarapat</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Октембер</skos:altLabel>
+	<skos:prefLabel>Armavir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616635/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>148381</europeana:population>
+	<wgs:lat>40.78944</wgs:lat>
+	<wgs:long>43.8475</wgs:long>
+	<skos:altLabel>Aleksandropol’</skos:altLabel>
+	<skos:altLabel>Alek’pol</skos:altLabel>
+	<skos:altLabel>Alek’sandrapol</skos:altLabel>
+	<skos:altLabel>Alek’sandrobol</skos:altLabel>
+	<skos:altLabel>Alexandropol’</skos:altLabel>
+	<skos:altLabel>Gimri</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Giumri</skos:altLabel>
+	<skos:altLabel xml:lang="et">Gjumri</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gjumri</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gjumri</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gjumri</skos:altLabel>
+	<skos:altLabel>Gumri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gumri</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Gumru</skos:altLabel>
+	<skos:altLabel>Gumry</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gyumri</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gyumri</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gyumri</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gyumri</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gyumri</skos:altLabel>
+	<skos:altLabel>Gyumri</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gümrü</skos:altLabel>
+	<skos:altLabel>Kumayri</skos:altLabel>
+	<skos:altLabel>Kyumayri</skos:altLabel>
+	<skos:altLabel>Kyumri</skos:altLabel>
+	<skos:altLabel>Kümri</skos:altLabel>
+	<skos:altLabel>Leninakan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ГЮМРИ</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гюмри</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гюмри</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гјумри</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գյումրի</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گیومری</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ギュムリ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">久姆里</skos:altLabel>
+	<skos:prefLabel>Gyumri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616643/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>43.91667</wgs:long>
+	<skos:altLabel>Gukasyanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ashots'k'i Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616647/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>44.58333</wgs:long>
+	<skos:altLabel>Gugarkskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kirovakanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Gugark'i Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616705/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:altLabel>Echmiadzinskiy Rayon</skos:altLabel>
+	<skos:altLabel>Vagarshapatskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ejmiatsni Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616752/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13478</europeana:population>
+	<wgs:lat>40.74083</wgs:lat>
+	<wgs:long>44.86306</wgs:long>
+	<skos:altLabel>Delijan</skos:altLabel>
+	<skos:altLabel>Delishan</skos:altLabel>
+	<skos:altLabel>Delizhan</skos:altLabel>
+	<skos:altLabel>Dili</skos:altLabel>
+	<skos:altLabel>Dili P’ok’r</skos:altLabel>
+	<skos:altLabel>Dilichan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dilijan</skos:altLabel>
+	<skos:altLabel>Dilijan</skos:altLabel>
+	<skos:altLabel>Dilishan</skos:altLabel>
+	<skos:altLabel>Dilizhan</skos:altLabel>
+	<skos:altLabel>Hin</skos:altLabel>
+	<skos:altLabel>Tili</skos:altLabel>
+	<skos:altLabel>Tilichan</skos:altLabel>
+	<skos:altLabel xml:lang="ru">ДИЛИЖАН</skos:altLabel>
+	<skos:prefLabel>Dilijan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616876/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:altLabel>Ashtarakskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Ashtaraki Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>18779</europeana:population>
+	<wgs:lat>40.2975</wgs:lat>
+	<wgs:long>44.36167</wgs:long>
+	<skos:altLabel>Achtarak</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aschtarak</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ashtarak</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ashtarak</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ashtarak</skos:altLabel>
+	<skos:altLabel>Ashtarakats’ Gyugh</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Aştarak</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Aštarak</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Aštarak</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АШТАРАК</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аштарак</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Աշտարակ</skos:altLabel>
+	<skos:altLabel xml:lang="fa">آشتاراک</skos:altLabel>
+	<skos:prefLabel>Ashtarak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>44.08333</wgs:long>
+	<skos:altLabel>Artikskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Art'iki Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.63333</wgs:lat>
+	<wgs:long>44.21667</wgs:long>
+	<skos:altLabel>Aragatsskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Aragatsi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:altLabel>Aparanskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Aparani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616961/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.58333</wgs:lat>
+	<wgs:long>43.75</wgs:long>
+	<skos:altLabel>Aginskiy Rayon</skos:altLabel>
+	<skos:altLabel>Aniyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Anii Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.08333</wgs:lat>
+	<wgs:long>43.66667</wgs:long>
+	<skos:altLabel>Amasiyskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Amasiayi Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13184</europeana:population>
+	<wgs:lat>41.09766</wgs:lat>
+	<wgs:long>44.67316</wgs:long>
+	<skos:altLabel xml:lang="en">Alaverdi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Alaverdi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Alaverdi</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Alaverdi</skos:altLabel>
+	<skos:altLabel>Alaverdi</skos:altLabel>
+	<skos:altLabel>Alaverdy</skos:altLabel>
+	<skos:altLabel>Alawerdy</skos:altLabel>
+	<skos:altLabel>Allaverdy</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Aławerdy</skos:altLabel>
+	<skos:altLabel>Manes</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АЛАВЕРДИ</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Алаверди</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Ալավերդի</skos:altLabel>
+	<skos:altLabel xml:lang="fa">الله‌وردی</skos:altLabel>
+	<skos:prefLabel>Alaverdi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/616987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.83333</wgs:lat>
+	<wgs:long>43.91667</wgs:long>
+	<skos:altLabel>Akhuryanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Duzkendskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Akhuryani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.25</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:altLabel>Abovyanskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kotaykskiy Rayon</skos:altLabel>
+	<skos:altLabel>Kotayskiy Rayon</skos:altLabel>
+	<skos:prefLabel>Kotayk'i Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/617026/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35673</europeana:population>
+	<wgs:lat>40.26917</wgs:lat>
+	<wgs:long>44.62444</wgs:long>
+	<skos:altLabel xml:lang="en">Abovyan</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Abovyan</skos:altLabel>
+	<skos:altLabel>Elar</skos:altLabel>
+	<skos:altLabel xml:lang="ru">АБОВЯН</skos:altLabel>
+	<skos:prefLabel>Abovyan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>44.16667</wgs:long>
+	<skos:altLabel>Aragatsotn</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Aragatsotni Marz</skos:altLabel>
+	<skos:altLabel>Aragatzotn</skos:altLabel>
+	<skos:prefLabel>Aragatsotni Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.11667</wgs:lat>
+	<wgs:long>44</wgs:long>
+	<skos:altLabel>Armavir</skos:altLabel>
+	<skos:altLabel>Armaviri Marz</skos:altLabel>
+	<skos:prefLabel>Armaviri Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.25</wgs:lat>
+	<wgs:long>45.41667</wgs:long>
+	<skos:altLabel>Gegharkʼunikʼ</skos:altLabel>
+	<skos:altLabel>Geghark’unik’i Marz</skos:altLabel>
+	<skos:prefLabel>Geghark’unik’i Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828262/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.41667</wgs:lat>
+	<wgs:long>44.75</wgs:long>
+	<skos:altLabel>Kotaykʼ</skos:altLabel>
+	<skos:altLabel>Kotayk’i Marz</skos:altLabel>
+	<skos:prefLabel>Kotayk’i Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>44.5</wgs:long>
+	<skos:altLabel>Lorri</skos:altLabel>
+	<skos:altLabel>Lorru Marz</skos:altLabel>
+	<skos:prefLabel>Lorru Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.75</wgs:lat>
+	<wgs:long>43.83333</wgs:long>
+	<skos:altLabel>Shirak</skos:altLabel>
+	<skos:altLabel>Shiraki Marz</skos:altLabel>
+	<skos:prefLabel>Shiraki Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828265/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>40.91667</wgs:lat>
+	<wgs:long>45.16667</wgs:long>
+	<skos:altLabel>Taush</skos:altLabel>
+	<skos:altLabel>Tavush</skos:altLabel>
+	<skos:altLabel>Tavushi Marz</skos:altLabel>
+	<skos:prefLabel>Tavushi Marz</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.26667</wgs:lat>
+	<wgs:long>44.61667</wgs:long>
+	<skos:altLabel>Abovian</skos:altLabel>
+	<skos:prefLabel>Abovyan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828267/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41.13333</wgs:lat>
+	<wgs:long>44.65</wgs:long>
+	<skos:prefLabel>Alaverdi K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828268/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.61667</wgs:lat>
+	<wgs:long>43.98333</wgs:long>
+	<skos:prefLabel>Art'ik K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828269/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.33333</wgs:lat>
+	<wgs:long>44.25</wgs:long>
+	<skos:prefLabel>Ashtarak K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828270/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>43.78333</wgs:long>
+	<skos:prefLabel>Baghramyani Shrjan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>43.78333</wgs:long>
+	<skos:prefLabel>Ch'arents'avan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>43.78333</wgs:long>
+	<skos:prefLabel>Dilijan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828273/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.16667</wgs:lat>
+	<wgs:long>44.3</wgs:long>
+	<skos:prefLabel>Ejmiatsin K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828274/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.8</wgs:lat>
+	<wgs:long>43.83333</wgs:long>
+	<skos:prefLabel>Gyumri K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828275/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.15</wgs:lat>
+	<wgs:long>44.03333</wgs:long>
+	<skos:prefLabel>Hoktemberyan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828276/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.85</wgs:lat>
+	<wgs:long>45.15</wgs:long>
+	<skos:prefLabel>Ijevan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828277/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.35</wgs:lat>
+	<wgs:long>45.13333</wgs:long>
+	<skos:prefLabel>Kamo K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.06667</wgs:lat>
+	<wgs:long>44.28333</wgs:long>
+	<skos:prefLabel>Metsamor K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828279/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.55</wgs:lat>
+	<wgs:long>44.95</wgs:long>
+	<skos:prefLabel>Sevan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828280/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.81667</wgs:lat>
+	<wgs:long>44.26667</wgs:long>
+	<skos:prefLabel>Spitak K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>41</wgs:lat>
+	<wgs:long>44.33333</wgs:long>
+	<skos:prefLabel>Step'anavan K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/828282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>40.8</wgs:lat>
+	<wgs:long>44.48333</wgs:long>
+	<skos:prefLabel>Vanadzor K'aghak'</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/832159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/174982/"/>
+	<europeana:country>AM</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>40.14417</wgs:lat>
+	<wgs:long>44.46778</wgs:long>
+	<skos:altLabel xml:lang="hy">Karmir Blur</skos:altLabel>
+	<skos:prefLabel>Karmir Blur</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 101 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

@@ -1,0 +1,1 @@
+https://proxy.europeana.sara.nl/dashboard/solr/select/?q=*%3A*&version=2.2&indent=on&start=0&rows=10000000&fl=europeana_uri,dc_date

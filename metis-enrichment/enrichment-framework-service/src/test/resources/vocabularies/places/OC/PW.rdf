@@ -1,0 +1,3658 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_PW
+Description: Selected fields pulled from Geonames about PW done on Mon May 23 21:17:17 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/1558749/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>132.21667</wgs:long>
+	<skos:altLabel>Saint Andrew</skos:altLabel>
+	<skos:altLabel>Saint Andrew Islands</skos:altLabel>
+	<skos:altLabel>Songosor-Inseln</skos:altLabel>
+	<skos:altLabel>Sonserol</skos:altLabel>
+	<skos:altLabel>Sonsorol Islands</skos:altLabel>
+	<skos:altLabel>Sonsoru To</skos:altLabel>
+	<skos:altLabel>Sonsoru-shotō</skos:altLabel>
+	<skos:altLabel>Southwest Islands</skos:altLabel>
+	<skos:prefLabel>Sonsorol Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1558892/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.16667</wgs:lat>
+	<wgs:long>134.64889</wgs:long>
+	<skos:altLabel>Ngaruang</skos:altLabel>
+	<skos:altLabel>Ngaruangl</skos:altLabel>
+	<skos:altLabel>Ngaruangl Island</skos:altLabel>
+	<skos:altLabel>Ngeruangel</skos:altLabel>
+	<skos:altLabel>Ngerwangel</skos:altLabel>
+	<skos:prefLabel>Ngaruangl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559313/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>134.5</wgs:long>
+	<skos:altLabel>Yasi</skos:altLabel>
+	<skos:altLabel>Yasi Island</skos:altLabel>
+	<skos:prefLabel>Yasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559314/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Usa</skos:altLabel>
+	<skos:altLabel>Usa Island</skos:altLabel>
+	<skos:prefLabel>Usa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559316/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.21806</wgs:lat>
+	<wgs:long>134.39306</wgs:long>
+	<skos:altLabel>Ngkesill</skos:altLabel>
+	<skos:altLabel>Unkaseri</skos:altLabel>
+	<skos:altLabel>Unkaseri Island</skos:altLabel>
+	<skos:altLabel>Unkerseri</skos:altLabel>
+	<skos:prefLabel>Ngkesill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559319/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Tai</skos:altLabel>
+	<skos:altLabel>Tai Island</skos:altLabel>
+	<skos:prefLabel>Tai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559322/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32722</wgs:lat>
+	<wgs:long>134.49722</wgs:long>
+	<skos:altLabel>Nakano Island</skos:altLabel>
+	<skos:altLabel>Ngara Tegetei</skos:altLabel>
+	<skos:altLabel>Ngarategetei Island</skos:altLabel>
+	<skos:altLabel>Ngerebetei</skos:altLabel>
+	<skos:altLabel>Simono</skos:altLabel>
+	<skos:altLabel>Simono Island</skos:altLabel>
+	<skos:altLabel>Simono-To</skos:altLabel>
+	<skos:altLabel>Ueno Island</skos:altLabel>
+	<skos:altLabel>Ueno-To</skos:altLabel>
+	<skos:prefLabel>Simono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559323/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.32444</wgs:lat>
+	<wgs:long>132.22111</wgs:long>
+	<skos:altLabel>Banna</skos:altLabel>
+	<skos:altLabel>Banna To</skos:altLabel>
+	<skos:altLabel>Dongosaro</skos:altLabel>
+	<skos:altLabel>Puru</skos:altLabel>
+	<skos:altLabel>Saint Andrew</skos:altLabel>
+	<skos:altLabel>Saint André</skos:altLabel>
+	<skos:altLabel>San Andres</skos:altLabel>
+	<skos:altLabel>Sanserol</skos:altLabel>
+	<skos:altLabel>Sansoral</skos:altLabel>
+	<skos:altLabel>Soisol</skos:altLabel>
+	<skos:altLabel>Sonesor</skos:altLabel>
+	<skos:altLabel>Songosor</skos:altLabel>
+	<skos:altLabel>Songosor-Inseln</skos:altLabel>
+	<skos:altLabel>Sonrol</skos:altLabel>
+	<skos:altLabel>Sonserol</skos:altLabel>
+	<skos:altLabel>Sonseron</skos:altLabel>
+	<skos:altLabel>Sonsol</skos:altLabel>
+	<skos:altLabel>Sonsonrrol</skos:altLabel>
+	<skos:altLabel>Sonsoral</skos:altLabel>
+	<skos:altLabel>Sonsorol</skos:altLabel>
+	<skos:altLabel>Sonsorol Island</skos:altLabel>
+	<skos:altLabel>Sonsorol Islands</skos:altLabel>
+	<skos:altLabel>Sonsoru To</skos:altLabel>
+	<skos:altLabel>Sontserol</skos:altLabel>
+	<skos:altLabel>Sonzeral</skos:altLabel>
+	<skos:altLabel>Sonzerol</skos:altLabel>
+	<skos:altLabel>Souserol</skos:altLabel>
+	<skos:prefLabel>Sonsorol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559324/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32861</wgs:lat>
+	<wgs:long>134.4875</wgs:long>
+	<skos:altLabel>Ngedesakr</skos:altLabel>
+	<skos:altLabel>Sanryo</skos:altLabel>
+	<skos:altLabel>Sanryo Island</skos:altLabel>
+	<skos:altLabel>Sanryo-To</skos:altLabel>
+	<skos:prefLabel>Ngedesakr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559325/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Ryugu</skos:altLabel>
+	<skos:altLabel>Ryugu Island</skos:altLabel>
+	<skos:prefLabel>Ryugu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559332/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Otohima</skos:altLabel>
+	<skos:altLabel>Otohima Island</skos:altLabel>
+	<skos:prefLabel>Otohima</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559341/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50583</wgs:lat>
+	<wgs:long>134.49722</wgs:long>
+	<skos:prefLabel>Klaibudech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559343/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27083</wgs:lat>
+	<wgs:long>134.36389</wgs:long>
+	<skos:altLabel>Ogiurottoru Island</skos:altLabel>
+	<skos:altLabel>Ogiurottoru-To</skos:altLabel>
+	<skos:altLabel>Ogyurottoru</skos:altLabel>
+	<skos:altLabel>Ogyurottoru Island</skos:altLabel>
+	<skos:altLabel>Ogyurottoru-To</skos:altLabel>
+	<skos:prefLabel>Ogyurottoru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559347/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33833</wgs:lat>
+	<wgs:long>134.555</wgs:long>
+	<skos:altLabel>Geseru</skos:altLabel>
+	<skos:altLabel>Geseru-tō</skos:altLabel>
+	<skos:altLabel>Kesill Island</skos:altLabel>
+	<skos:altLabel>Ng Kesill Island</skos:altLabel>
+	<skos:altLabel>Ngethil</skos:altLabel>
+	<skos:altLabel>Ngethil Island</skos:altLabel>
+	<skos:altLabel>Ngkesiil</skos:altLabel>
+	<skos:altLabel>Ngkesiil Island</skos:altLabel>
+	<skos:altLabel>Ngkesill</skos:altLabel>
+	<skos:prefLabel>Ngkesill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559386/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.04139</wgs:lat>
+	<wgs:long>134.69833</wgs:long>
+	<skos:altLabel>Caraparasu To</skos:altLabel>
+	<skos:altLabel>Carapellas</skos:altLabel>
+	<skos:altLabel>Garabarasu-tō</skos:altLabel>
+	<skos:altLabel>Garaparasu To</skos:altLabel>
+	<skos:altLabel>Ngarapalas</skos:altLabel>
+	<skos:altLabel>Ngarapalas Island</skos:altLabel>
+	<skos:altLabel>Ngerbelas</skos:altLabel>
+	<skos:altLabel>Ngerebelas</skos:altLabel>
+	<skos:prefLabel>Ngerebelas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559397/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32833</wgs:lat>
+	<wgs:long>134.52889</wgs:long>
+	<skos:altLabel>Ngadert</skos:altLabel>
+	<skos:altLabel>Ngadert Island</skos:altLabel>
+	<skos:altLabel>Ngedert</skos:altLabel>
+	<skos:prefLabel>Ngedert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559407/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.32417</wgs:lat>
+	<wgs:long>132.31028</wgs:long>
+	<skos:altLabel>Bur</skos:altLabel>
+	<skos:altLabel>Current Island</skos:altLabel>
+	<skos:altLabel>Isle du Courant</skos:altLabel>
+	<skos:altLabel>Mariere Islands</skos:altLabel>
+	<skos:altLabel>Meliel</skos:altLabel>
+	<skos:altLabel>Melieli</skos:altLabel>
+	<skos:altLabel>Meriel</skos:altLabel>
+	<skos:altLabel>Merieres</skos:altLabel>
+	<skos:altLabel>Meril</skos:altLabel>
+	<skos:altLabel>Merir</skos:altLabel>
+	<skos:altLabel>Merir Island</skos:altLabel>
+	<skos:altLabel>Meriru To</skos:altLabel>
+	<skos:altLabel>Meriru-shō</skos:altLabel>
+	<skos:altLabel>Palolo</skos:altLabel>
+	<skos:altLabel>Paolo</skos:altLabel>
+	<skos:altLabel>Paulo Mariere</skos:altLabel>
+	<skos:altLabel>Pulo</skos:altLabel>
+	<skos:altLabel>Pulo Maria</skos:altLabel>
+	<skos:altLabel>Pulo Marier</skos:altLabel>
+	<skos:altLabel>Pulo Mariera</skos:altLabel>
+	<skos:altLabel>Pulo Mariere</skos:altLabel>
+	<skos:altLabel>Pulo Marriere</skos:altLabel>
+	<skos:altLabel>Warren Hastings Island</skos:altLabel>
+	<skos:altLabel>Warren Hastings Islands</skos:altLabel>
+	<skos:prefLabel>Merir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559409/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Makura</skos:altLabel>
+	<skos:altLabel>Makura Island</skos:altLabel>
+	<skos:altLabel>Makura-To</skos:altLabel>
+	<skos:prefLabel>Makura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559411/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.22694</wgs:lat>
+	<wgs:long>134.39694</wgs:long>
+	<skos:prefLabel>Chomedokl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559413/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.3</wgs:lat>
+	<wgs:long>134.46667</wgs:long>
+	<skos:altLabel>Korukigiiru</skos:altLabel>
+	<skos:altLabel>Korukigiiru Island</skos:altLabel>
+	<skos:altLabel>Korukiguru Island</skos:altLabel>
+	<skos:prefLabel>Korukigiiru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559417/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35</wgs:lat>
+	<wgs:long>134.56667</wgs:long>
+	<skos:altLabel>Arukodorokkuru Island</skos:altLabel>
+	<skos:altLabel>Arukodorokkuru-tō</skos:altLabel>
+	<skos:altLabel>Gorrak Island</skos:altLabel>
+	<skos:altLabel>Korak</skos:altLabel>
+	<skos:altLabel>Korak Island</skos:altLabel>
+	<skos:altLabel>Ngarekedlukl</skos:altLabel>
+	<skos:prefLabel>Korak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559418/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Ko</skos:altLabel>
+	<skos:altLabel>Ko Island</skos:altLabel>
+	<skos:prefLabel>Ko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559429/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33028</wgs:lat>
+	<wgs:long>134.48056</wgs:long>
+	<skos:altLabel>Kado</skos:altLabel>
+	<skos:altLabel>Kado Island</skos:altLabel>
+	<skos:altLabel>Kado-To</skos:altLabel>
+	<skos:altLabel>Ngermaech</skos:altLabel>
+	<skos:altLabel>Ngermechaech</skos:altLabel>
+	<skos:prefLabel>Ngermechaech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559431/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>134.5</wgs:long>
+	<skos:altLabel>Iwa</skos:altLabel>
+	<skos:altLabel>Iwa Island</skos:altLabel>
+	<skos:prefLabel>Iwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559433/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.3325</wgs:lat>
+	<wgs:long>134.48111</wgs:long>
+	<skos:altLabel>Ika</skos:altLabel>
+	<skos:altLabel>Ika Island</skos:altLabel>
+	<skos:altLabel>Ika-To</skos:altLabel>
+	<skos:altLabel>Ngetkuml</skos:altLabel>
+	<skos:prefLabel>Ngetkuml</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559434/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.21306</wgs:lat>
+	<wgs:long>134.38056</wgs:long>
+	<skos:altLabel>Bital Rirs</skos:altLabel>
+	<skos:altLabel>Rirs Bital</skos:altLabel>
+	<skos:prefLabel>Rirs Bital</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559435/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Hoya</skos:altLabel>
+	<skos:altLabel>Hoya Island</skos:altLabel>
+	<skos:prefLabel>Hoya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559437/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.31667</wgs:lat>
+	<wgs:long>134.5</wgs:long>
+	<skos:altLabel>Ho</skos:altLabel>
+	<skos:altLabel>Ho Island</skos:altLabel>
+	<skos:altLabel>Ho-To</skos:altLabel>
+	<skos:prefLabel>Ho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559438/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32861</wgs:lat>
+	<wgs:long>134.48472</wgs:long>
+	<skos:altLabel>Hiruge</skos:altLabel>
+	<skos:altLabel>Hiruge Island</skos:altLabel>
+	<skos:altLabel>Hiruge-To</skos:altLabel>
+	<skos:altLabel>Ngathu Mer</skos:altLabel>
+	<skos:altLabel>Ngatku Mer</skos:altLabel>
+	<skos:altLabel>Ngerumetochel</skos:altLabel>
+	<skos:altLabel>Ngerumetoel</skos:altLabel>
+	<skos:prefLabel>Ngerumetochel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559439/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>134.48333</wgs:long>
+	<skos:altLabel>Higashi Naka</skos:altLabel>
+	<skos:altLabel>Higashinaka-To</skos:altLabel>
+	<skos:altLabel>Higasi Naka Island</skos:altLabel>
+	<skos:altLabel>Ngaramegaeg</skos:altLabel>
+	<skos:prefLabel>Higashi Naka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559440/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.97833</wgs:lat>
+	<wgs:long>131.81361</wgs:long>
+	<skos:altLabel>Helen Island</skos:altLabel>
+	<skos:altLabel>Helen Islet</skos:altLabel>
+	<skos:altLabel>Helen-Riff</skos:altLabel>
+	<skos:altLabel>Heren To</skos:altLabel>
+	<skos:altLabel>Heren-Shō</skos:altLabel>
+	<skos:altLabel>Hoten Rif</skos:altLabel>
+	<skos:altLabel>Hotsarihie</skos:altLabel>
+	<skos:prefLabel>Helen Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559446/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>14000</europeana:population>
+	<wgs:lat>7.34221</wgs:lat>
+	<wgs:long>134.47909</wgs:long>
+	<skos:altLabel>Goreor</skos:altLabel>
+	<skos:altLabel>Goror</skos:altLabel>
+	<skos:altLabel>Koreor</skos:altLabel>
+	<skos:altLabel>Koror City</skos:altLabel>
+	<skos:altLabel>Koror town</skos:altLabel>
+	<skos:altLabel>Koror village</skos:altLabel>
+	<skos:altLabel>Korōru</skos:altLabel>
+	<skos:prefLabel>Koror</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559460/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35111</wgs:lat>
+	<wgs:long>134.52444</wgs:long>
+	<skos:altLabel>Garayamu</skos:altLabel>
+	<skos:altLabel>Garayamu Island</skos:altLabel>
+	<skos:altLabel>Garayamu-To</skos:altLabel>
+	<skos:altLabel>Gogeal Ngaream</skos:altLabel>
+	<skos:altLabel>Ngeream</skos:altLabel>
+	<skos:prefLabel>Ngeream</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559469/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.41194</wgs:lat>
+	<wgs:long>134.4425</wgs:long>
+	<skos:altLabel>Garakabaru-tō</skos:altLabel>
+	<skos:altLabel>Gunkan Island</skos:altLabel>
+	<skos:altLabel>Man-of-War Island</skos:altLabel>
+	<skos:altLabel>Ngaragebal</skos:altLabel>
+	<skos:altLabel>Ngarebagal Island</skos:altLabel>
+	<skos:altLabel>Ngaregabal</skos:altLabel>
+	<skos:altLabel>Ngaregabal Island</skos:altLabel>
+	<skos:altLabel>Ngaregabel Island</skos:altLabel>
+	<skos:altLabel>Ngerchebal</skos:altLabel>
+	<skos:altLabel>Ngerhebal</skos:altLabel>
+	<skos:prefLabel>Ngerchebal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559470/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.11222</wgs:lat>
+	<wgs:long>134.36</wgs:long>
+	<skos:altLabel>Garagon-tō</skos:altLabel>
+	<skos:altLabel>Ngerchong</skos:altLabel>
+	<skos:altLabel>Ngerechong</skos:altLabel>
+	<skos:altLabel>Ngeregong</skos:altLabel>
+	<skos:altLabel>Ngeregong Island</skos:altLabel>
+	<skos:altLabel>Ngerhong</skos:altLabel>
+	<skos:prefLabel>Ngerechong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559473/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.11667</wgs:lat>
+	<wgs:long>134.25</wgs:long>
+	<skos:altLabel>Gamirisshu</skos:altLabel>
+	<skos:altLabel>Gamirisshu-To</skos:altLabel>
+	<skos:altLabel>Gamirisshu-shotō</skos:altLabel>
+	<skos:altLabel>Garakayo To</skos:altLabel>
+	<skos:altLabel>Garyo-To</skos:altLabel>
+	<skos:altLabel>Ngemelis Group</skos:altLabel>
+	<skos:altLabel>Ngemelis Island</skos:altLabel>
+	<skos:altLabel>Ngemelis Islands</skos:altLabel>
+	<skos:altLabel>Ngemelis-Inseln</skos:altLabel>
+	<skos:altLabel>Ngemlis</skos:altLabel>
+	<skos:altLabel>Olobetapel-Inseln</skos:altLabel>
+	<skos:prefLabel>Ngemlis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559479/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.3525</wgs:lat>
+	<wgs:long>132.22556</wgs:long>
+	<skos:altLabel>Bana</skos:altLabel>
+	<skos:altLabel>Banna Island</skos:altLabel>
+	<skos:altLabel>Fana</skos:altLabel>
+	<skos:altLabel>Fana Island</skos:altLabel>
+	<skos:altLabel>Fanah</skos:altLabel>
+	<skos:altLabel>Fanna</skos:altLabel>
+	<skos:prefLabel>Fana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559487/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>8.06944</wgs:lat>
+	<wgs:long>134.7125</wgs:long>
+	<skos:altLabel>Chiangel</skos:altLabel>
+	<skos:altLabel>Gajangeru To</skos:altLabel>
+	<skos:altLabel>Kadjangel</skos:altLabel>
+	<skos:altLabel>Kadjangle</skos:altLabel>
+	<skos:altLabel>Kajamble</skos:altLabel>
+	<skos:altLabel>Kajangle</skos:altLabel>
+	<skos:altLabel>Kajangle Inseln</skos:altLabel>
+	<skos:altLabel>Kajangle Islands</skos:altLabel>
+	<skos:altLabel>Kajanguru Shoto</skos:altLabel>
+	<skos:altLabel>Kajanguru-tō</skos:altLabel>
+	<skos:altLabel>Kayangel</skos:altLabel>
+	<skos:altLabel>Kayangel Islets</skos:altLabel>
+	<skos:altLabel>Kayangle</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kayangle Islands</skos:altLabel>
+	<skos:altLabel>Kazanguru To</skos:altLabel>
+	<skos:altLabel>Kianguel</skos:altLabel>
+	<skos:altLabel>Kreiangel Inseln</skos:altLabel>
+	<skos:altLabel>Kyangle</skos:altLabel>
+	<skos:altLabel>Kyangle Isles</skos:altLabel>
+	<skos:altLabel>Moore Island</skos:altLabel>
+	<skos:altLabel>Moore Isle</skos:altLabel>
+	<skos:altLabel>Ngajangel</skos:altLabel>
+	<skos:altLabel>Ngeiangl</skos:altLabel>
+	<skos:altLabel>Nggeiangel</skos:altLabel>
+	<skos:altLabel>Queangal</skos:altLabel>
+	<skos:prefLabel>Ngcheangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559489/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.03861</wgs:lat>
+	<wgs:long>134.69306</wgs:long>
+	<skos:altLabel>Goaku To</skos:altLabel>
+	<skos:altLabel>Gorak</skos:altLabel>
+	<skos:altLabel>Gorak Island</skos:altLabel>
+	<skos:altLabel>Goraku-tō</skos:altLabel>
+	<skos:altLabel>Korack</skos:altLabel>
+	<skos:altLabel>Ngerebelas</skos:altLabel>
+	<skos:altLabel>Orak</skos:altLabel>
+	<skos:prefLabel>Orak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559490/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.00917</wgs:lat>
+	<wgs:long>131.17583</wgs:long>
+	<skos:altLabel>Cadocapuee</skos:altLabel>
+	<skos:altLabel>Cadopuei</skos:altLabel>
+	<skos:altLabel>Codocopuey</skos:altLabel>
+	<skos:altLabel>Codopuei</skos:altLabel>
+	<skos:altLabel>Evening</skos:altLabel>
+	<skos:altLabel>Hatobei</skos:altLabel>
+	<skos:altLabel>Hatohobei</skos:altLabel>
+	<skos:altLabel>Johnstone</skos:altLabel>
+	<skos:altLabel>Kadogubi</skos:altLabel>
+	<skos:altLabel>Kodgubi Island</skos:altLabel>
+	<skos:altLabel>Kodogubi</skos:altLabel>
+	<skos:altLabel>Kodokopuei</skos:altLabel>
+	<skos:altLabel>Lord North Island</skos:altLabel>
+	<skos:altLabel>Nevil Island</skos:altLabel>
+	<skos:altLabel>Neville Island</skos:altLabel>
+	<skos:altLabel>Peaked Hill</skos:altLabel>
+	<skos:altLabel>Peaked Island</skos:altLabel>
+	<skos:altLabel>San Carlos</skos:altLabel>
+	<skos:altLabel>Tobi</skos:altLabel>
+	<skos:altLabel>Tobi Island</skos:altLabel>
+	<skos:altLabel>Togobei</skos:altLabel>
+	<skos:altLabel>Tokobe</skos:altLabel>
+	<skos:altLabel>Tokobei Island</skos:altLabel>
+	<skos:altLabel>Tokobei-tō</skos:altLabel>
+	<skos:prefLabel>Tobi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559493/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.21389</wgs:lat>
+	<wgs:long>134.37417</wgs:long>
+	<skos:altLabel>Beap Inseln</skos:altLabel>
+	<skos:altLabel>Chongetekakl</skos:altLabel>
+	<skos:altLabel>Congotekatel</skos:altLabel>
+	<skos:altLabel>Gongotekatel</skos:altLabel>
+	<skos:altLabel>Ongetkatel</skos:altLabel>
+	<skos:altLabel>Ororumakku</skos:altLabel>
+	<skos:altLabel>Ororumakku Island</skos:altLabel>
+	<skos:altLabel>Ororumakku-tō</skos:altLabel>
+	<skos:altLabel>Rebaikesil</skos:altLabel>
+	<skos:prefLabel>Ongetkatel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559500/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35917</wgs:lat>
+	<wgs:long>134.42667</wgs:long>
+	<skos:altLabel>Arumukudeu-tō</skos:altLabel>
+	<skos:altLabel>Ngeremekediu</skos:altLabel>
+	<skos:altLabel>Rmegetbu</skos:altLabel>
+	<skos:altLabel>Rmegethu</skos:altLabel>
+	<skos:altLabel>Rmegethu Island</skos:altLabel>
+	<skos:prefLabel>Ngeremekediu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559505/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.2625</wgs:lat>
+	<wgs:long>134.36667</wgs:long>
+	<skos:altLabel>Arishoku</skos:altLabel>
+	<skos:altLabel>Arishoku Island</skos:altLabel>
+	<skos:altLabel>Arishoku-To</skos:altLabel>
+	<skos:prefLabel>Arishoku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559506/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50667</wgs:lat>
+	<wgs:long>134.49417</wgs:long>
+	<skos:altLabel>Arirudo</skos:altLabel>
+	<skos:altLabel>Arirudo Island</skos:altLabel>
+	<skos:altLabel>Arirudo-To</skos:altLabel>
+	<skos:altLabel>Lild</skos:altLabel>
+	<skos:altLabel>Ugul</skos:altLabel>
+	<skos:altLabel>Ugula Maradel</skos:altLabel>
+	<skos:altLabel>Ugula Maradel Island</skos:altLabel>
+	<skos:prefLabel>Lild</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559511/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35333</wgs:lat>
+	<wgs:long>134.44611</wgs:long>
+	<skos:altLabel>Arakabesan</skos:altLabel>
+	<skos:altLabel>Arakabesan Island</skos:altLabel>
+	<skos:altLabel>Arakabesan-tō</skos:altLabel>
+	<skos:altLabel>Arakbesan Island</skos:altLabel>
+	<skos:altLabel>Arrakapasang</skos:altLabel>
+	<skos:altLabel>Naracabersu</skos:altLabel>
+	<skos:altLabel>Naracobersa Island</skos:altLabel>
+	<skos:altLabel>Ngarekobasang</skos:altLabel>
+	<skos:altLabel>Ngarekobasanga</skos:altLabel>
+	<skos:altLabel>Ngerekebesang</skos:altLabel>
+	<skos:altLabel>Pedul</skos:altLabel>
+	<skos:prefLabel>Ngerekebesang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559514/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.65944</wgs:lat>
+	<wgs:long>131.96361</wgs:long>
+	<skos:altLabel>Anna Island</skos:altLabel>
+	<skos:altLabel>Anna Islands</skos:altLabel>
+	<skos:altLabel>Belau</skos:altLabel>
+	<skos:altLabel>Palo Anna Island</skos:altLabel>
+	<skos:altLabel>Poulo</skos:altLabel>
+	<skos:altLabel>Pul</skos:altLabel>
+	<skos:altLabel>Pulo Ana</skos:altLabel>
+	<skos:altLabel>Pulo Ann</skos:altLabel>
+	<skos:altLabel>Pulo Anna</skos:altLabel>
+	<skos:altLabel>Pulo Anna Island</skos:altLabel>
+	<skos:altLabel>Pulo Anna Islands</skos:altLabel>
+	<skos:altLabel>Pulo Anne</skos:altLabel>
+	<skos:altLabel>Pur</skos:altLabel>
+	<skos:altLabel>Puro</skos:altLabel>
+	<skos:altLabel>Puru Anna</skos:altLabel>
+	<skos:altLabel>Puru-Anna-To</skos:altLabel>
+	<skos:altLabel>Puru-tō</skos:altLabel>
+	<skos:altLabel>San Andreas</skos:altLabel>
+	<skos:altLabel>Wul</skos:altLabel>
+	<skos:altLabel>Wull</skos:altLabel>
+	<skos:prefLabel>Pulo Anna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559520/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47556</wgs:lat>
+	<wgs:long>134.62083</wgs:long>
+	<skos:altLabel>Altoi Island</skos:altLabel>
+	<skos:altLabel>Ingurutoi Island</skos:altLabel>
+	<skos:altLabel>Ngerutoi</skos:altLabel>
+	<skos:altLabel>Nguritoi</skos:altLabel>
+	<skos:altLabel>Ngurutoi</skos:altLabel>
+	<skos:altLabel>Ngurutoi Island</skos:altLabel>
+	<skos:altLabel>Urutoi-tō</skos:altLabel>
+	<skos:prefLabel>Ngerutoi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559524/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.51667</wgs:lat>
+	<wgs:long>134.5</wgs:long>
+	<skos:altLabel>Aiyums</skos:altLabel>
+	<skos:altLabel>Aiyuns Island</skos:altLabel>
+	<skos:altLabel>Ayunsu</skos:altLabel>
+	<skos:altLabel>Ayunsu Island</skos:altLabel>
+	<skos:altLabel>Gasau</skos:altLabel>
+	<skos:altLabel>Iungs</skos:altLabel>
+	<skos:prefLabel>Iungs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559527/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32722</wgs:lat>
+	<wgs:long>134.49028</wgs:long>
+	<skos:altLabel>Ailukpebul Island</skos:altLabel>
+	<skos:altLabel>Bukrrairong</skos:altLabel>
+	<skos:altLabel>Ilut Pebul</skos:altLabel>
+	<skos:altLabel>Kamori</skos:altLabel>
+	<skos:altLabel>Kamori Island</skos:altLabel>
+	<skos:altLabel>Kamori-To</skos:altLabel>
+	<skos:altLabel>a Ilukpebul</skos:altLabel>
+	<skos:prefLabel>Bukrrairong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559528/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.1525</wgs:lat>
+	<wgs:long>134.35694</wgs:long>
+	<skos:altLabel>A Ilmalk Island</skos:altLabel>
+	<skos:altLabel>Ailmalk</skos:altLabel>
+	<skos:altLabel>Ametoti</skos:altLabel>
+	<skos:altLabel>Amototi</skos:altLabel>
+	<skos:altLabel>Amototi Island</skos:altLabel>
+	<skos:altLabel>Amototoi</skos:altLabel>
+	<skos:altLabel>Eil Malik</skos:altLabel>
+	<skos:altLabel>Eil Malk</skos:altLabel>
+	<skos:altLabel>Eil Malk Island</skos:altLabel>
+	<skos:altLabel>Errakong</skos:altLabel>
+	<skos:altLabel>Irakong</skos:altLabel>
+	<skos:altLabel>Isla Iarachong</skos:altLabel>
+	<skos:altLabel>Makarakara To</skos:altLabel>
+	<skos:altLabel>Makarakaru-tō</skos:altLabel>
+	<skos:altLabel>Mecherchar</skos:altLabel>
+	<skos:altLabel>a Ilimalk</skos:altLabel>
+	<skos:prefLabel>Mecherchar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559532/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>536</europeana:population>
+	<wgs:lat>7.46667</wgs:lat>
+	<wgs:long>134.53333</wgs:long>
+	<skos:altLabel>Adpang</skos:altLabel>
+	<skos:altLabel>Emis</skos:altLabel>
+	<skos:altLabel>Gasupan</skos:altLabel>
+	<skos:altLabel>Ngatpan</skos:altLabel>
+	<skos:altLabel>Ngatpang</skos:altLabel>
+	<skos:altLabel>Ngatpang State</skos:altLabel>
+	<skos:altLabel>Ngedbang</skos:altLabel>
+	<skos:altLabel>Ngetpang</skos:altLabel>
+	<skos:altLabel>Ngimes</skos:altLabel>
+	<skos:altLabel>Ngimis</skos:altLabel>
+	<skos:altLabel>State of Ngatpang</skos:altLabel>
+	<skos:prefLabel>State of Ngatpang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559533/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27528</wgs:lat>
+	<wgs:long>134.28944</wgs:long>
+	<skos:altLabel>Aburashokoru To</skos:altLabel>
+	<skos:altLabel>Apurashekoru Island</skos:altLabel>
+	<skos:altLabel>Apurashokoru Island</skos:altLabel>
+	<skos:altLabel>Apurashokoru-tō</skos:altLabel>
+	<skos:altLabel>Attakadokoru Island</skos:altLabel>
+	<skos:altLabel>Attakadokoru-tō</skos:altLabel>
+	<skos:altLabel>Aulong</skos:altLabel>
+	<skos:altLabel>Aulong Island</skos:altLabel>
+	<skos:altLabel>Orulong</skos:altLabel>
+	<skos:altLabel>Rattakadokoru Island</skos:altLabel>
+	<skos:altLabel>Ulong</skos:altLabel>
+	<skos:altLabel>a Ulong</skos:altLabel>
+	<skos:prefLabel>Ulong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559544/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30833</wgs:lat>
+	<wgs:long>134.47778</wgs:long>
+	<skos:altLabel>Auluptagel</skos:altLabel>
+	<skos:altLabel>Auluptagel Island</skos:altLabel>
+	<skos:altLabel>Aurapushekaru</skos:altLabel>
+	<skos:altLabel>Aurapushekaru Island</skos:altLabel>
+	<skos:altLabel>Chulebsechel</skos:altLabel>
+	<skos:altLabel>Oluksakel</skos:altLabel>
+	<skos:altLabel>Oropushakari-tō</skos:altLabel>
+	<skos:altLabel>Oropusharakaru To</skos:altLabel>
+	<skos:altLabel>Oropushhakari-To</skos:altLabel>
+	<skos:altLabel>Ulapsagel</skos:altLabel>
+	<skos:altLabel>Ulebsechel</skos:altLabel>
+	<skos:altLabel>Ulupsael</skos:altLabel>
+	<skos:altLabel>Ulupsagel</skos:altLabel>
+	<skos:altLabel>a Ulapsagel</skos:altLabel>
+	<skos:prefLabel>Ulebsechel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559546/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.50667</wgs:lat>
+	<wgs:long>134.49028</wgs:long>
+	<skos:altLabel>Iiruboyakodo</skos:altLabel>
+	<skos:altLabel>Iiruboyakodo Island</skos:altLabel>
+	<skos:altLabel>Uchulameradel</skos:altLabel>
+	<skos:prefLabel>Uchulameradel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559548/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30778</wgs:lat>
+	<wgs:long>134.49806</wgs:long>
+	<skos:altLabel>Kwannon</skos:altLabel>
+	<skos:altLabel>Kwannon Island</skos:altLabel>
+	<skos:altLabel>Kwannon-To</skos:altLabel>
+	<skos:altLabel>Ucheliungs</skos:altLabel>
+	<skos:altLabel>Ugeliungs Island</skos:altLabel>
+	<skos:prefLabel>Ucheliungs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559552/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32667</wgs:lat>
+	<wgs:long>134.47806</wgs:long>
+	<skos:altLabel>Byobu</skos:altLabel>
+	<skos:altLabel>Byobu Island</skos:altLabel>
+	<skos:altLabel>Byobu-To</skos:altLabel>
+	<skos:altLabel>Kisano</skos:altLabel>
+	<skos:altLabel>Toirius</skos:altLabel>
+	<skos:prefLabel>Toirius</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559554/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.02389</wgs:lat>
+	<wgs:long>134.2675</wgs:long>
+	<skos:altLabel>Ngabard</skos:altLabel>
+	<skos:altLabel>Ngabard Island</skos:altLabel>
+	<skos:altLabel>Tngabard</skos:altLabel>
+	<skos:prefLabel>Tngabard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559555/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30611</wgs:lat>
+	<wgs:long>134.40694</wgs:long>
+	<skos:altLabel>Adorius</skos:altLabel>
+	<skos:altLabel>Telutkarungutes</skos:altLabel>
+	<skos:altLabel>Tlutkaraguis</skos:altLabel>
+	<skos:altLabel>Tlutkarnguis</skos:altLabel>
+	<skos:prefLabel>Tlutkaraguis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559557/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32917</wgs:lat>
+	<wgs:long>134.47778</wgs:long>
+	<skos:altLabel>Namako</skos:altLabel>
+	<skos:altLabel>Namako Island</skos:altLabel>
+	<skos:altLabel>Namako-To</skos:altLabel>
+	<skos:altLabel>Tengetcheyangel</skos:altLabel>
+	<skos:altLabel>Tengetcheyangl</skos:altLabel>
+	<skos:prefLabel>Tengetcheyangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559560/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.98</wgs:lat>
+	<wgs:long>134.22056</wgs:long>
+	<skos:altLabel>Scelebsprung Islet</skos:altLabel>
+	<skos:altLabel>Telkakl</skos:altLabel>
+	<skos:prefLabel>Telkakl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559568/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.03</wgs:lat>
+	<wgs:long>134.26417</wgs:long>
+	<skos:altLabel>Rurid Island</skos:altLabel>
+	<skos:altLabel>Ruriid</skos:altLabel>
+	<skos:prefLabel>Ruriid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559577/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14806</wgs:lat>
+	<wgs:long>134.31611</wgs:long>
+	<skos:prefLabel>Rikelau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559580/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01667</wgs:lat>
+	<wgs:long>134.25</wgs:long>
+	<skos:altLabel>Beliliou</skos:altLabel>
+	<skos:altLabel>Pelelew</skos:altLabel>
+	<skos:altLabel>Peleliou</skos:altLabel>
+	<skos:altLabel xml:lang="en">Peleliu</skos:altLabel>
+	<skos:altLabel>Peleliu Insel</skos:altLabel>
+	<skos:altLabel>Peleliu Islands</skos:altLabel>
+	<skos:altLabel>Peliliou</skos:altLabel>
+	<skos:altLabel>Pelilu</skos:altLabel>
+	<skos:altLabel>Periryu</skos:altLabel>
+	<skos:altLabel>Periryū-tō</skos:altLabel>
+	<skos:altLabel>Pililau</skos:altLabel>
+	<skos:altLabel>Pililer</skos:altLabel>
+	<skos:altLabel>Pililiu</skos:altLabel>
+	<skos:altLabel>Pililju</skos:altLabel>
+	<skos:altLabel>Pililu</skos:altLabel>
+	<skos:altLabel>Pililu Insel</skos:altLabel>
+	<skos:altLabel>Pillilew</skos:altLabel>
+	<skos:altLabel>Uler</skos:altLabel>
+	<skos:prefLabel>Peleliu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559581/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>134.45</wgs:long>
+	<skos:altLabel>Arrecifos</skos:altLabel>
+	<skos:altLabel>Fannog</skos:altLabel>
+	<skos:altLabel>Isles de Pellew</skos:altLabel>
+	<skos:altLabel>Le Groupe Pallay</skos:altLabel>
+	<skos:altLabel>Les Palos</skos:altLabel>
+	<skos:altLabel>Palao Inseln</skos:altLabel>
+	<skos:altLabel>Palaoa</skos:altLabel>
+	<skos:altLabel>Palaos Islands</skos:altLabel>
+	<skos:altLabel>Palaos Isles</skos:altLabel>
+	<skos:altLabel>Palau Islands</skos:altLabel>
+	<skos:altLabel>Palau group</skos:altLabel>
+	<skos:altLabel>Palau-Inseln</skos:altLabel>
+	<skos:altLabel>Paleu</skos:altLabel>
+	<skos:altLabel>Pallow</skos:altLabel>
+	<skos:altLabel>Pally</skos:altLabel>
+	<skos:altLabel>Paloo</skos:altLabel>
+	<skos:altLabel>Panlog</skos:altLabel>
+	<skos:altLabel>Pannog</skos:altLabel>
+	<skos:altLabel>Parao Syoto</skos:altLabel>
+	<skos:altLabel>Parao-Jima</skos:altLabel>
+	<skos:altLabel>Parao-shotō</skos:altLabel>
+	<skos:altLabel>Paulogue</skos:altLabel>
+	<skos:altLabel>Peeloo Islands</skos:altLabel>
+	<skos:altLabel>Pelau-Inseln</skos:altLabel>
+	<skos:altLabel>Pelelew Island</skos:altLabel>
+	<skos:altLabel>Peleu</skos:altLabel>
+	<skos:altLabel>Pelew Group</skos:altLabel>
+	<skos:altLabel>Pelew Island</skos:altLabel>
+	<skos:altLabel>Pelew Islands</skos:altLabel>
+	<skos:altLabel>Pelew Isles</skos:altLabel>
+	<skos:altLabel>Pelew-Inseln</skos:altLabel>
+	<skos:altLabel>Pellew Inseln</skos:altLabel>
+	<skos:altLabel>Pelli</skos:altLabel>
+	<skos:altLabel>Pellow</skos:altLabel>
+	<skos:altLabel>Punlac</skos:altLabel>
+	<skos:altLabel>Punlog</skos:altLabel>
+	<skos:altLabel>The Palaus</skos:altLabel>
+	<skos:altLabel>The Pallou Islands</skos:altLabel>
+	<skos:altLabel>Walau</skos:altLabel>
+	<skos:prefLabel>Palau Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559582/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLF"/>
+	<europeana:population>20303</europeana:population>
+	<wgs:lat>7.45507</wgs:lat>
+	<wgs:long>134.56055</wgs:long>
+	<skos:altLabel xml:lang="et">Belau</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Belau</skos:altLabel>
+	<skos:altLabel xml:lang="la">Belavia</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Belaŭo</skos:altLabel>
+	<skos:altLabel>PW</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Palaos</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="id">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="en">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="da">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="no">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="de">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="es">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="an">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="io">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="it">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="se">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Palau</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Palau - Belau</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Palauvuäns</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Palaŭo</skos:altLabel>
+	<skos:altLabel xml:lang="is">Palá</skos:altLabel>
+	<skos:altLabel xml:lang="el">Παλάου</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Палау</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Палау</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Палау</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Палау</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Палау</skos:altLabel>
+	<skos:altLabel xml:lang="be">Палаў</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Պալաու</skos:altLabel>
+	<skos:altLabel xml:lang="he">פלאו</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بالاو</skos:altLabel>
+	<skos:altLabel xml:lang="fa">پالائو</skos:altLabel>
+	<skos:altLabel xml:lang="ps">پالاو</skos:altLabel>
+	<skos:altLabel xml:lang="hi">पलाऊ</skos:altLabel>
+	<skos:altLabel xml:lang="bn">পালাউ</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศปาเลา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ปาเลา</skos:altLabel>
+	<skos:altLabel xml:lang="th">สาธารณรัฐปาเลา</skos:altLabel>
+	<skos:altLabel xml:lang="bo">པ་ལཽ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">პალაუ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ፓላው</skos:altLabel>
+	<skos:altLabel xml:lang="ja">パラオ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">帕劳</skos:altLabel>
+	<skos:altLabel xml:lang="zh">帛琉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">팔라우</skos:altLabel>
+	<skos:prefLabel>Republic of Palau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559584/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14222</wgs:lat>
+	<wgs:long>134.23361</wgs:long>
+	<skos:altLabel>Belual A Kelat</skos:altLabel>
+	<skos:altLabel>Ngedos</skos:altLabel>
+	<skos:altLabel>Oruregiru</skos:altLabel>
+	<skos:altLabel>Oruregiru Island</skos:altLabel>
+	<skos:altLabel>Oruregiru-To</skos:altLabel>
+	<skos:altLabel>Oruregoru To</skos:altLabel>
+	<skos:prefLabel>Belual A Kelat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559586/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.3425</wgs:lat>
+	<wgs:long>134.49444</wgs:long>
+	<skos:altLabel>Corer</skos:altLabel>
+	<skos:altLabel>Corra</skos:altLabel>
+	<skos:altLabel>Corror</skos:altLabel>
+	<skos:altLabel>Corrora</skos:altLabel>
+	<skos:altLabel>Goreor</skos:altLabel>
+	<skos:altLabel>Goror</skos:altLabel>
+	<skos:altLabel>Koreor Island</skos:altLabel>
+	<skos:altLabel xml:lang="en">Koror</skos:altLabel>
+	<skos:altLabel>Koror Island</skos:altLabel>
+	<skos:altLabel>Kororu-tō</skos:altLabel>
+	<skos:altLabel>Korrer</skos:altLabel>
+	<skos:altLabel>Korror</skos:altLabel>
+	<skos:altLabel>Korror Island</skos:altLabel>
+	<skos:altLabel>Oreor</skos:altLabel>
+	<skos:prefLabel>Oreor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559588/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.48417</wgs:lat>
+	<wgs:long>134.4725</wgs:long>
+	<skos:altLabel>Gordilsau Island</skos:altLabel>
+	<skos:altLabel>Kordilsau</skos:altLabel>
+	<skos:altLabel>Ngardebotar</skos:altLabel>
+	<skos:altLabel>Odiilsau</skos:altLabel>
+	<skos:altLabel>Odillsau</skos:altLabel>
+	<skos:altLabel>Okoradegusu Island</skos:altLabel>
+	<skos:altLabel>Okoradegusu-To</skos:altLabel>
+	<skos:altLabel>Ordiilsau</skos:altLabel>
+	<skos:altLabel>Orudeerusao Island</skos:altLabel>
+	<skos:altLabel>Orudeerusao-To</skos:altLabel>
+	<skos:prefLabel>Ordiilsau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559590/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.48583</wgs:lat>
+	<wgs:long>134.47528</wgs:long>
+	<skos:altLabel>Goragel Island</skos:altLabel>
+	<skos:altLabel>Goraku</skos:altLabel>
+	<skos:altLabel>Oorakur Island</skos:altLabel>
+	<skos:altLabel>Orachel</skos:altLabel>
+	<skos:altLabel>Orahal</skos:altLabel>
+	<skos:altLabel>Orakura</skos:altLabel>
+	<skos:altLabel>Orakuru</skos:altLabel>
+	<skos:altLabel>Orakuru Island</skos:altLabel>
+	<skos:altLabel>Orakuru-To</skos:altLabel>
+	<skos:altLabel>Orutorukkuru Island</skos:altLabel>
+	<skos:altLabel>Orutorukkuru-To</skos:altLabel>
+	<skos:altLabel>Toilkeru</skos:altLabel>
+	<skos:prefLabel>Orachel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559597/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32472</wgs:lat>
+	<wgs:long>134.52806</wgs:long>
+	<skos:altLabel>Gomologel</skos:altLabel>
+	<skos:altLabel>Komoloki Island</skos:altLabel>
+	<skos:altLabel>Komolokl</skos:altLabel>
+	<skos:altLabel>Komolokl Island</skos:altLabel>
+	<skos:altLabel>Omelochel</skos:altLabel>
+	<skos:prefLabel>Omelochel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559599/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50139</wgs:lat>
+	<wgs:long>134.49861</wgs:long>
+	<skos:altLabel>Gomeduaol Island</skos:altLabel>
+	<skos:altLabel>Omeduaol</skos:altLabel>
+	<skos:altLabel>Oomebuaol</skos:altLabel>
+	<skos:prefLabel>Omeduaol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559600/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47889</wgs:lat>
+	<wgs:long>134.50833</wgs:long>
+	<skos:altLabel>Ngarabekus</skos:altLabel>
+	<skos:altLabel>Ngarabekus Island</skos:altLabel>
+	<skos:altLabel>Ngerebekus</skos:altLabel>
+	<skos:altLabel>Omechedecheraol Mesang</skos:altLabel>
+	<skos:prefLabel>Omechedecheraol Mesang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559601/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.49028</wgs:lat>
+	<wgs:long>134.47583</wgs:long>
+	<skos:altLabel>Golteruk Island</skos:altLabel>
+	<skos:altLabel>Golterukl</skos:altLabel>
+	<skos:altLabel>Grutorukkuru</skos:altLabel>
+	<skos:altLabel>Olterukel</skos:altLabel>
+	<skos:altLabel>Olterukl</skos:altLabel>
+	<skos:altLabel>Orutorukkuru</skos:altLabel>
+	<skos:altLabel>Toilkeru</skos:altLabel>
+	<skos:prefLabel>Olterukl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559603/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.06167</wgs:lat>
+	<wgs:long>134.27083</wgs:long>
+	<skos:altLabel>Kongauru</skos:altLabel>
+	<skos:altLabel>Kongauru Island</skos:altLabel>
+	<skos:altLabel>Kongauru-To</skos:altLabel>
+	<skos:altLabel>Kongoru Island</skos:altLabel>
+	<skos:altLabel>Ngaruru Island</skos:altLabel>
+	<skos:altLabel>Olngeuaol</skos:altLabel>
+	<skos:altLabel>Olngewaol</skos:altLabel>
+	<skos:prefLabel>Olngeuaol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559606/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.41444</wgs:lat>
+	<wgs:long>134.48944</wgs:long>
+	<skos:altLabel>Goderdul Island</skos:altLabel>
+	<skos:altLabel>Gokerdul</skos:altLabel>
+	<skos:altLabel>Gokerdul Island</skos:altLabel>
+	<skos:altLabel>Gokeroul</skos:altLabel>
+	<skos:altLabel>Okerduul</skos:altLabel>
+	<skos:prefLabel>Okerduul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559608/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27222</wgs:lat>
+	<wgs:long>134.39889</wgs:long>
+	<skos:altLabel>Hoimadelehesuh</skos:altLabel>
+	<skos:altLabel>Oimadelchesuch</skos:altLabel>
+	<skos:altLabel>Oimadorakoshoku</skos:altLabel>
+	<skos:altLabel>Oimadorakoshoku Island</skos:altLabel>
+	<skos:altLabel>Oimadorakoshoku-To</skos:altLabel>
+	<skos:prefLabel>Oimadelchesuch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559609/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14556</wgs:lat>
+	<wgs:long>134.32306</wgs:long>
+	<skos:altLabel>Oilouch</skos:altLabel>
+	<skos:altLabel>Oiro Island</skos:altLabel>
+	<skos:altLabel>Oirou</skos:altLabel>
+	<skos:altLabel>Oirou Island</skos:altLabel>
+	<skos:prefLabel>Oilouch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559610/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18778</wgs:lat>
+	<wgs:long>134.37833</wgs:long>
+	<skos:prefLabel>Chowid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559613/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01306</wgs:lat>
+	<wgs:long>134.26139</wgs:long>
+	<skos:altLabel>Ngadpiseg</skos:altLabel>
+	<skos:altLabel>Ngorungol Island</skos:altLabel>
+	<skos:altLabel>Ngorungor</skos:altLabel>
+	<skos:altLabel>Ngurungor</skos:altLabel>
+	<skos:prefLabel>Ngurungor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559618/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.05694</wgs:lat>
+	<wgs:long>134.2875</wgs:long>
+	<skos:altLabel>Ngkeuall</skos:altLabel>
+	<skos:altLabel>Ngkewall</skos:altLabel>
+	<skos:prefLabel>Ngkeuall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559630/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>24</europeana:population>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>132.21667</wgs:long>
+	<skos:altLabel>Sonsorol</skos:altLabel>
+	<skos:altLabel>State of Sonsorol</skos:altLabel>
+	<skos:prefLabel>State of Sonsorol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559634/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35556</wgs:lat>
+	<wgs:long>134.49528</wgs:long>
+	<skos:altLabel>Gatsumudokku</skos:altLabel>
+	<skos:altLabel>Guamudokku-tō</skos:altLabel>
+	<skos:altLabel>Madmosuk Island</skos:altLabel>
+	<skos:altLabel>Ngatemdung</skos:altLabel>
+	<skos:altLabel>Ngatmedug</skos:altLabel>
+	<skos:altLabel>Ngatmedug Island</skos:altLabel>
+	<skos:altLabel>Ngetmeduch</skos:altLabel>
+	<skos:prefLabel>Ngetmeduch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559638/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32083</wgs:lat>
+	<wgs:long>134.48889</wgs:long>
+	<skos:altLabel>Gologugeul Island</skos:altLabel>
+	<skos:altLabel>Kaibakku</skos:altLabel>
+	<skos:altLabel>Kaibakku Island</skos:altLabel>
+	<skos:altLabel>Kaibakku-To</skos:altLabel>
+	<skos:altLabel>Ngeteklou</skos:altLabel>
+	<skos:prefLabel>Ngeteklou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559639/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.53361</wgs:lat>
+	<wgs:long>134.51222</wgs:long>
+	<skos:prefLabel>Ngeluong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559642/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01472</wgs:lat>
+	<wgs:long>134.26639</wgs:long>
+	<skos:altLabel>Ngesuall</skos:altLabel>
+	<skos:altLabel>Ngeswall</skos:altLabel>
+	<skos:altLabel>Ngeswall Island</skos:altLabel>
+	<skos:prefLabel>Ngesuall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559650/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.36528</wgs:lat>
+	<wgs:long>134.42833</wgs:long>
+	<skos:altLabel>Gororu-tō</skos:altLabel>
+	<skos:altLabel>Gororuro To</skos:altLabel>
+	<skos:altLabel>Gurer Island</skos:altLabel>
+	<skos:altLabel>Gurur Island</skos:altLabel>
+	<skos:altLabel>Ngerur</skos:altLabel>
+	<skos:altLabel>Nguror Island</skos:altLabel>
+	<skos:altLabel>Ngurur</skos:altLabel>
+	<skos:altLabel>Ngurur Island</skos:altLabel>
+	<skos:prefLabel>Ngerur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559651/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35111</wgs:lat>
+	<wgs:long>134.58667</wgs:long>
+	<skos:altLabel>Narumutai</skos:altLabel>
+	<skos:altLabel>Narumutai Island</skos:altLabel>
+	<skos:altLabel>Ngerumtoi</skos:altLabel>
+	<skos:altLabel>Omebael</skos:altLabel>
+	<skos:prefLabel>Ngerumtoi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559655/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.68611</wgs:lat>
+	<wgs:long>134.615</wgs:long>
+	<skos:altLabel>Gururoan</skos:altLabel>
+	<skos:altLabel>Gururoan Island</skos:altLabel>
+	<skos:altLabel>Ngerulluang</skos:altLabel>
+	<skos:altLabel>Nguruleang</skos:altLabel>
+	<skos:altLabel>Nguruloang Island</skos:altLabel>
+	<skos:prefLabel>Ngerulluang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559656/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27083</wgs:lat>
+	<wgs:long>134.425</wgs:long>
+	<skos:altLabel>Ngeruktabel</skos:altLabel>
+	<skos:altLabel>Ngurukdapel Island</skos:altLabel>
+	<skos:altLabel>Urckthapel</skos:altLabel>
+	<skos:altLabel>Urucdzapel</skos:altLabel>
+	<skos:altLabel>Uruckzapel</skos:altLabel>
+	<skos:altLabel>Urukdapel</skos:altLabel>
+	<skos:altLabel>Urukdsapel</skos:altLabel>
+	<skos:altLabel>Urukethaburu</skos:altLabel>
+	<skos:altLabel>Uruksapel</skos:altLabel>
+	<skos:altLabel>Uruktapel Island</skos:altLabel>
+	<skos:altLabel>Uruktapi</skos:altLabel>
+	<skos:altLabel>Urukthapel</skos:altLabel>
+	<skos:altLabel>Urukthapel Island</skos:altLabel>
+	<skos:altLabel>Urukthapel Islands</skos:altLabel>
+	<skos:altLabel>Urukthopel</skos:altLabel>
+	<skos:altLabel>Urukutaaburu To</skos:altLabel>
+	<skos:altLabel>Urukutaburu-tō</skos:altLabel>
+	<skos:altLabel>Urukutapuru</skos:altLabel>
+	<skos:altLabel>Urukutapuru-To</skos:altLabel>
+	<skos:altLabel>Urukzapel</skos:altLabel>
+	<skos:prefLabel>Ngeruktabel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559658/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.17528</wgs:lat>
+	<wgs:long>134.26139</wgs:long>
+	<skos:altLabel>70 Islands</skos:altLabel>
+	<skos:altLabel>Arukuizu</skos:altLabel>
+	<skos:altLabel>Milotk</skos:altLabel>
+	<skos:altLabel>Ngerukeuid</skos:altLabel>
+	<skos:altLabel>Ngerukewid</skos:altLabel>
+	<skos:altLabel>Ngerukuid</skos:altLabel>
+	<skos:altLabel>Nishidate-To</skos:altLabel>
+	<skos:altLabel>Nishitatsu-tō</skos:altLabel>
+	<skos:altLabel>Orukuizu Island</skos:altLabel>
+	<skos:altLabel>Orukuizu To</skos:altLabel>
+	<skos:altLabel>Pointed Rock</skos:altLabel>
+	<skos:altLabel>Seventy Islands</skos:altLabel>
+	<skos:altLabel>Siebzig Inseln</skos:altLabel>
+	<skos:altLabel>The Seventies</skos:altLabel>
+	<skos:prefLabel>Ngerukeuid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559660/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.08306</wgs:lat>
+	<wgs:long>134.32861</wgs:long>
+	<skos:altLabel>Gorokottan</skos:altLabel>
+	<skos:altLabel>Gorokottan Island</skos:altLabel>
+	<skos:altLabel>Gorokottan-tō</skos:altLabel>
+	<skos:altLabel>Ngeruchebtang</skos:altLabel>
+	<skos:altLabel>Ngeruchubtang</skos:altLabel>
+	<skos:altLabel>Ngerugelbtang</skos:altLabel>
+	<skos:altLabel>Ngerugelbtang Island</skos:altLabel>
+	<skos:altLabel>Ngerugelptan Island</skos:altLabel>
+	<skos:prefLabel>Ngeruchubtang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559667/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32444</wgs:lat>
+	<wgs:long>134.48167</wgs:long>
+	<skos:altLabel>Itoyori</skos:altLabel>
+	<skos:altLabel>Itoyori Island</skos:altLabel>
+	<skos:altLabel>Itoyori-To</skos:altLabel>
+	<skos:altLabel>Natumesango</skos:altLabel>
+	<skos:altLabel>Natumesango Island</skos:altLabel>
+	<skos:altLabel>Ngertechiel</skos:altLabel>
+	<skos:altLabel>Rael</skos:altLabel>
+	<skos:altLabel>Rael Island</skos:altLabel>
+	<skos:prefLabel>Ngertechiel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559672/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.39444</wgs:lat>
+	<wgs:long>134.58833</wgs:long>
+	<skos:altLabel>Badebei</skos:altLabel>
+	<skos:altLabel>Bedibei</skos:altLabel>
+	<skos:prefLabel>Badebei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559677/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.60111</wgs:lat>
+	<wgs:long>134.63861</wgs:long>
+	<skos:prefLabel>Kekereiel Dormechol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559678/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.19694</wgs:lat>
+	<wgs:long>134.37472</wgs:long>
+	<skos:altLabel>Garameyaosu</skos:altLabel>
+	<skos:altLabel>Garameyaosu Island</skos:altLabel>
+	<skos:altLabel>Garameyaosu-To</skos:altLabel>
+	<skos:altLabel>Gosak</skos:altLabel>
+	<skos:altLabel>Ngermeaus</skos:altLabel>
+	<skos:altLabel>Tagerdu</skos:altLabel>
+	<skos:prefLabel>Ngermeaus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559682/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.03528</wgs:lat>
+	<wgs:long>134.29444</wgs:long>
+	<skos:altLabel>Garakashieru To</skos:altLabel>
+	<skos:altLabel>Garakashūru-tō</skos:altLabel>
+	<skos:altLabel>Ngargersiul</skos:altLabel>
+	<skos:altLabel>Ngargersiul Island</skos:altLabel>
+	<skos:altLabel>Ngerkersiul</skos:altLabel>
+	<skos:altLabel>Ngerkersiwl</skos:altLabel>
+	<skos:prefLabel>Ngerkersiul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559683/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.73972</wgs:lat>
+	<wgs:long>134.62083</wgs:long>
+	<skos:altLabel>Gasarao</skos:altLabel>
+	<skos:altLabel>Kaeakakurao-To</skos:altLabel>
+	<skos:altLabel>Karākakurao-tō</skos:altLabel>
+	<skos:altLabel>Ngarekeklau</skos:altLabel>
+	<skos:altLabel>Ngarekeklau Island</skos:altLabel>
+	<skos:altLabel>Ngerkeklau</skos:altLabel>
+	<skos:prefLabel>Ngerkeklau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559685/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.05667</wgs:lat>
+	<wgs:long>134.70917</wgs:long>
+	<skos:altLabel>Arayonzet</skos:altLabel>
+	<skos:altLabel>Gariungusu-tō</skos:altLabel>
+	<skos:altLabel>Ngariung Island</skos:altLabel>
+	<skos:altLabel>Ngariungs</skos:altLabel>
+	<skos:altLabel>Ngariungs Island</skos:altLabel>
+	<skos:altLabel>Ngariynga Island</skos:altLabel>
+	<skos:altLabel>Ngeriungs</skos:altLabel>
+	<skos:altLabel>Ngeryungs</skos:altLabel>
+	<skos:prefLabel>Ngeriungs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559704/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.75417</wgs:lat>
+	<wgs:long>134.61694</wgs:long>
+	<skos:altLabel>Aruguru-tō</skos:altLabel>
+	<skos:altLabel>Garakakurao To</skos:altLabel>
+	<skos:altLabel>Garukoru Island</skos:altLabel>
+	<skos:altLabel>Garukoru To</skos:altLabel>
+	<skos:altLabel>Ngaregur</skos:altLabel>
+	<skos:altLabel>Ngaregur Island</skos:altLabel>
+	<skos:altLabel>Ngerechur</skos:altLabel>
+	<skos:altLabel>Orocur</skos:altLabel>
+	<skos:altLabel>Urocur</skos:altLabel>
+	<skos:prefLabel>Ngerechur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559707/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.31944</wgs:lat>
+	<wgs:long>134.49722</wgs:long>
+	<skos:prefLabel>Ngerebetei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559710/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35167</wgs:lat>
+	<wgs:long>134.57972</wgs:long>
+	<skos:altLabel>Garumetai-tō</skos:altLabel>
+	<skos:altLabel>Nardueis</skos:altLabel>
+	<skos:altLabel>Nardueis Island</skos:altLabel>
+	<skos:altLabel>Ngarduais</skos:altLabel>
+	<skos:altLabel>Ngerduais</skos:altLabel>
+	<skos:altLabel>Ngerdways</skos:altLabel>
+	<skos:prefLabel>Ngerduais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559713/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>7.34944</wgs:lat>
+	<wgs:long>134.43889</wgs:long>
+	<skos:altLabel>Dobesang Island</skos:altLabel>
+	<skos:altLabel>Kartis Island</skos:altLabel>
+	<skos:altLabel>Kartis-To</skos:altLabel>
+	<skos:altLabel>Karuchisu Island</skos:altLabel>
+	<skos:altLabel>Karuchisu-tō</skos:altLabel>
+	<skos:altLabel>Kobasang Island</skos:altLabel>
+	<skos:altLabel>Ngardis</skos:altLabel>
+	<skos:altLabel>Ngerdis</skos:altLabel>
+	<skos:prefLabel>Ngerdis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559719/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.08889</wgs:lat>
+	<wgs:long>134.27222</wgs:long>
+	<skos:altLabel>Carp Island</skos:altLabel>
+	<skos:altLabel>Garakayo Island</skos:altLabel>
+	<skos:altLabel>Garakayo To</skos:altLabel>
+	<skos:altLabel>Garakayo-tō</skos:altLabel>
+	<skos:altLabel>Ngaregeu</skos:altLabel>
+	<skos:altLabel>Ngercheu</skos:altLabel>
+	<skos:altLabel>Ngergoi</skos:altLabel>
+	<skos:prefLabel>Ngercheu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559727/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.34</wgs:lat>
+	<wgs:long>134.44111</wgs:long>
+	<skos:altLabel>Garangoru-tō</skos:altLabel>
+	<skos:altLabel>Ngargol</skos:altLabel>
+	<skos:altLabel>Ngargol Island</skos:altLabel>
+	<skos:altLabel>Ngargol-Insel</skos:altLabel>
+	<skos:altLabel>Ngerchaol</skos:altLabel>
+	<skos:prefLabel>Ngerchaol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559733/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47167</wgs:lat>
+	<wgs:long>134.51444</wgs:long>
+	<skos:altLabel>Garubuisu</skos:altLabel>
+	<skos:altLabel>Ngarasag</skos:altLabel>
+	<skos:altLabel>Ngarasog</skos:altLabel>
+	<skos:altLabel>Ngarasog Island</skos:altLabel>
+	<skos:altLabel>Ngarsog</skos:altLabel>
+	<skos:altLabel>Ngerasech</skos:altLabel>
+	<skos:prefLabel>Ngerasech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559737/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.56167</wgs:lat>
+	<wgs:long>134.5175</wgs:long>
+	<skos:altLabel>Gamolei</skos:altLabel>
+	<skos:altLabel>Gamolei Island</skos:altLabel>
+	<skos:altLabel>Ngemolei</skos:altLabel>
+	<skos:prefLabel>Ngemolei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559747/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18639</wgs:lat>
+	<wgs:long>134.34417</wgs:long>
+	<skos:altLabel>Gaseburu</skos:altLabel>
+	<skos:altLabel>Gaseburu Island</skos:altLabel>
+	<skos:altLabel>Gaseburu-To</skos:altLabel>
+	<skos:altLabel>Ngelsibel</skos:altLabel>
+	<skos:prefLabel>Ngelsibel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559753/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.05444</wgs:lat>
+	<wgs:long>134.25639</wgs:long>
+	<skos:altLabel>Guadabusu To</skos:altLabel>
+	<skos:altLabel>Guadobusu Island</skos:altLabel>
+	<skos:altLabel>Gwadobusu-tō</skos:altLabel>
+	<skos:altLabel>Ngedbus</skos:altLabel>
+	<skos:altLabel>Ngedebus</skos:altLabel>
+	<skos:altLabel>Ngesebus</skos:altLabel>
+	<skos:altLabel>Ngesebus Island</skos:altLabel>
+	<skos:prefLabel>Ngedbus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559758/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.5075</wgs:lat>
+	<wgs:long>134.48833</wgs:long>
+	<skos:altLabel>Geshbokul</skos:altLabel>
+	<skos:altLabel>Geshibakuru</skos:altLabel>
+	<skos:altLabel>Geshibokuru Island</skos:altLabel>
+	<skos:altLabel>Ngebokel</skos:altLabel>
+	<skos:altLabel>Ngesbokel</skos:altLabel>
+	<skos:altLabel>Ngesebokl</skos:altLabel>
+	<skos:altLabel>Ngesebokul</skos:altLabel>
+	<skos:altLabel>Oeshboekel</skos:altLabel>
+	<skos:altLabel>Oeshbokul Island</skos:altLabel>
+	<skos:prefLabel>Ngesbokel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559759/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26611</wgs:lat>
+	<wgs:long>134.36556</wgs:long>
+	<skos:altLabel>Gabodel</skos:altLabel>
+	<skos:altLabel>Gabodel Island</skos:altLabel>
+	<skos:altLabel>Gaboderu Island</skos:altLabel>
+	<skos:altLabel>Ngebedel</skos:altLabel>
+	<skos:prefLabel>Ngebedel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559762/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26694</wgs:lat>
+	<wgs:long>134.33111</wgs:long>
+	<skos:altLabel>Gabodel Island</skos:altLabel>
+	<skos:altLabel>Gaboderu</skos:altLabel>
+	<skos:altLabel>Gamudok Island</skos:altLabel>
+	<skos:altLabel>Gamudoko Island</skos:altLabel>
+	<skos:altLabel>Gamudoko-tō</skos:altLabel>
+	<skos:altLabel>Ngebedangel</skos:altLabel>
+	<skos:altLabel>Ngobasangel</skos:altLabel>
+	<skos:altLabel>Ngobosangl</skos:altLabel>
+	<skos:altLabel>Orolong</skos:altLabel>
+	<skos:prefLabel>Ngebedangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559764/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01833</wgs:lat>
+	<wgs:long>134.26861</wgs:long>
+	<skos:altLabel>Guapatsu-tō</skos:altLabel>
+	<skos:altLabel>Ngabad</skos:altLabel>
+	<skos:altLabel>Ngabad Island</skos:altLabel>
+	<skos:altLabel>Ngebad</skos:altLabel>
+	<skos:prefLabel>Ngebad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559766/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.9075</wgs:lat>
+	<wgs:long>134.135</wgs:long>
+	<skos:altLabel xml:lang="en">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="es">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="de">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="it">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="no">Angaur</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Angaur</skos:altLabel>
+	<skos:altLabel>Angaur Island</skos:altLabel>
+	<skos:altLabel>Angaur Ngaurd</skos:altLabel>
+	<skos:altLabel>Angauru-tō</skos:altLabel>
+	<skos:altLabel>Angelel</skos:altLabel>
+	<skos:altLabel>Angelul</skos:altLabel>
+	<skos:altLabel>Angorur Island</skos:altLabel>
+	<skos:altLabel>Angour</skos:altLabel>
+	<skos:altLabel>Angyaur</skos:altLabel>
+	<skos:altLabel>Negour</skos:altLabel>
+	<skos:altLabel>Ngaur</skos:altLabel>
+	<skos:altLabel>Ngeauar</skos:altLabel>
+	<skos:altLabel>Ngeour</skos:altLabel>
+	<skos:altLabel>Niaur</skos:altLabel>
+	<skos:altLabel>N’Yaur</skos:altLabel>
+	<skos:altLabel>a Ngeaur</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アンガウル州</skos:altLabel>
+	<skos:altLabel xml:lang="zh">安加爾</skos:altLabel>
+	<skos:prefLabel>Angaur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559767/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.20639</wgs:lat>
+	<wgs:long>134.37028</wgs:long>
+	<skos:altLabel>Gaiangas Island</skos:altLabel>
+	<skos:altLabel>Gaianges</skos:altLabel>
+	<skos:altLabel>Gaiangsu</skos:altLabel>
+	<skos:altLabel>Ngaiabes</skos:altLabel>
+	<skos:altLabel>Ngeanges</skos:altLabel>
+	<skos:altLabel>Yar</skos:altLabel>
+	<skos:prefLabel>Ngeanges</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559774/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>145</europeana:population>
+	<wgs:lat>8.06667</wgs:lat>
+	<wgs:long>134.70833</wgs:long>
+	<skos:altLabel>Kayangel</skos:altLabel>
+	<skos:altLabel>Kayangel State</skos:altLabel>
+	<skos:altLabel>Ngcheangel</skos:altLabel>
+	<skos:altLabel>Ngcheangel Municipality</skos:altLabel>
+	<skos:altLabel>State of Kayangel</skos:altLabel>
+	<skos:prefLabel>State of Kayangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559775/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.08056</wgs:lat>
+	<wgs:long>134.71639</wgs:long>
+	<skos:altLabel>A Bad</skos:altLabel>
+	<skos:altLabel>Chiangel</skos:altLabel>
+	<skos:altLabel>Gajangeru To</skos:altLabel>
+	<skos:altLabel>Kadjangle</skos:altLabel>
+	<skos:altLabel>Kajangeru-tō</skos:altLabel>
+	<skos:altLabel>Kajangle</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kayangle</skos:altLabel>
+	<skos:altLabel>Kianguel</skos:altLabel>
+	<skos:altLabel>Kreiangel</skos:altLabel>
+	<skos:altLabel>Malanglang</skos:altLabel>
+	<skos:altLabel>Ngajangel</skos:altLabel>
+	<skos:altLabel>Ngajangel Island</skos:altLabel>
+	<skos:altLabel>Ngajargel</skos:altLabel>
+	<skos:altLabel>Ngardilong</skos:altLabel>
+	<skos:altLabel>Ngardims</skos:altLabel>
+	<skos:altLabel>Ngcheangle</skos:altLabel>
+	<skos:altLabel>Ngeiangl</skos:altLabel>
+	<skos:altLabel>Nggeiangel</skos:altLabel>
+	<skos:altLabel>Nghyangel</skos:altLabel>
+	<skos:prefLabel>Ngcheangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>3</wgs:lat>
+	<wgs:long>131.175</wgs:long>
+	<skos:altLabel>Hatohobei</skos:altLabel>
+	<skos:prefLabel>State of Hatohobei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559790/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32056</wgs:lat>
+	<wgs:long>134.49639</wgs:long>
+	<skos:altLabel>Nakano</skos:altLabel>
+	<skos:altLabel>Nakano Island</skos:altLabel>
+	<skos:altLabel>Nakano-To</skos:altLabel>
+	<skos:altLabel>Ngerbechetei</skos:altLabel>
+	<skos:altLabel>Ngerebetei</skos:altLabel>
+	<skos:altLabel>Ngrategetei Island</skos:altLabel>
+	<skos:altLabel>Ueno</skos:altLabel>
+	<skos:altLabel>Ueno Island</skos:altLabel>
+	<skos:altLabel>Ueno-To</skos:altLabel>
+	<skos:prefLabel>Ngerbechetei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559809/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32361</wgs:lat>
+	<wgs:long>134.47917</wgs:long>
+	<skos:altLabel>Kisano</skos:altLabel>
+	<skos:altLabel>Kisano Island</skos:altLabel>
+	<skos:altLabel>Meduu</skos:altLabel>
+	<skos:altLabel>Takonoki</skos:altLabel>
+	<skos:altLabel>Takonoki Island</skos:altLabel>
+	<skos:altLabel>Takonoki-To</skos:altLabel>
+	<skos:prefLabel>Meduu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559815/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.175</wgs:lat>
+	<wgs:long>134.26667</wgs:long>
+	<skos:altLabel>70 Islands</skos:altLabel>
+	<skos:altLabel>Arukuizu</skos:altLabel>
+	<skos:altLabel>Ngerukeuid</skos:altLabel>
+	<skos:altLabel>Ngerukewid</skos:altLabel>
+	<skos:altLabel>Nishitatsu-tō</skos:altLabel>
+	<skos:altLabel>Orukuizu</skos:altLabel>
+	<skos:altLabel>Orukuizu To</skos:altLabel>
+	<skos:altLabel>Seventy Islands</skos:altLabel>
+	<skos:altLabel>Siebzig Inseln</skos:altLabel>
+	<skos:altLabel>The Seventies</skos:altLabel>
+	<skos:prefLabel>Ngerukeuid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559817/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.13611</wgs:lat>
+	<wgs:long>134.35833</wgs:long>
+	<skos:altLabel>Mchochaeo</skos:altLabel>
+	<skos:altLabel>Mochochaw</skos:altLabel>
+	<skos:altLabel>Mokokaemu</skos:altLabel>
+	<skos:altLabel>Mokokaemu Island</skos:altLabel>
+	<skos:altLabel>Mokokaemu-To</skos:altLabel>
+	<skos:prefLabel>Mchochaeo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559819/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33028</wgs:lat>
+	<wgs:long>134.45</wgs:long>
+	<skos:altLabel>Amalakell</skos:altLabel>
+	<skos:altLabel>Amalaquel</skos:altLabel>
+	<skos:altLabel>Malacal</skos:altLabel>
+	<skos:altLabel>Malacan</skos:altLabel>
+	<skos:altLabel>Malaccan</skos:altLabel>
+	<skos:altLabel>Malackan</skos:altLabel>
+	<skos:altLabel>Malagal</skos:altLabel>
+	<skos:altLabel>Malakal</skos:altLabel>
+	<skos:altLabel>Malakal Island</skos:altLabel>
+	<skos:altLabel>Marakaru</skos:altLabel>
+	<skos:altLabel>Marakaru-tō</skos:altLabel>
+	<skos:altLabel>Nanalake</skos:altLabel>
+	<skos:altLabel>Ngemelachel</skos:altLabel>
+	<skos:prefLabel>Malakal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559823/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.72639</wgs:lat>
+	<wgs:long>134.6125</wgs:long>
+	<skos:prefLabel>Lkes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559824/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.53028</wgs:lat>
+	<wgs:long>134.61694</wgs:long>
+	<skos:altLabel>Alkess Island</skos:altLabel>
+	<skos:altLabel>Arukeshi</skos:altLabel>
+	<skos:altLabel>Arukeshi Island</skos:altLabel>
+	<skos:altLabel>Arukeshi-To</skos:altLabel>
+	<skos:altLabel>Lkes</skos:altLabel>
+	<skos:altLabel>Ngarakis</skos:altLabel>
+	<skos:prefLabel>Lkes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559829/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33528</wgs:lat>
+	<wgs:long>134.48556</wgs:long>
+	<skos:altLabel>Gua Island</skos:altLabel>
+	<skos:altLabel>Gua-To</skos:altLabel>
+	<skos:altLabel>Guat</skos:altLabel>
+	<skos:altLabel>Guat Island</skos:altLabel>
+	<skos:altLabel>Kuat</skos:altLabel>
+	<skos:prefLabel>Kuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559831/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.16889</wgs:lat>
+	<wgs:long>134.33444</wgs:long>
+	<skos:altLabel>Kuabeserrai</skos:altLabel>
+	<skos:altLabel>Kuwabusharai</skos:altLabel>
+	<skos:altLabel>Kuwabusharai Island</skos:altLabel>
+	<skos:prefLabel>Kuabeserrai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559841/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18472</wgs:lat>
+	<wgs:long>134.23611</wgs:long>
+	<skos:altLabel>Kemokem</skos:altLabel>
+	<skos:altLabel>Nishidate</skos:altLabel>
+	<skos:altLabel>Nishidate Island</skos:altLabel>
+	<skos:altLabel>Orukuizu</skos:altLabel>
+	<skos:prefLabel>Kemokem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559859/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.13389</wgs:lat>
+	<wgs:long>134.30444</wgs:long>
+	<skos:altLabel>Eomogan</skos:altLabel>
+	<skos:altLabel>Eomogan Island</skos:altLabel>
+	<skos:altLabel>Eomogan-tō</skos:altLabel>
+	<skos:altLabel>Ioulomekang</skos:altLabel>
+	<skos:prefLabel>Ioulomekang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559868/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.5025</wgs:lat>
+	<wgs:long>134.49472</wgs:long>
+	<skos:altLabel>Erakkueeru</skos:altLabel>
+	<skos:altLabel>Erakkueeru Island</skos:altLabel>
+	<skos:altLabel>Erakkueeru-To</skos:altLabel>
+	<skos:altLabel>Ilacheuir</skos:altLabel>
+	<skos:altLabel>Tanget Ra Medu Island</skos:altLabel>
+	<skos:altLabel>Tanset Ra Medu</skos:altLabel>
+	<skos:altLabel>a Ilagauir Island</skos:altLabel>
+	<skos:prefLabel>Ilacheuir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559871/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33667</wgs:lat>
+	<wgs:long>134.48222</wgs:long>
+	<skos:altLabel>Doro Island</skos:altLabel>
+	<skos:altLabel>Doro Island and Misaki Island</skos:altLabel>
+	<skos:altLabel>Doro-To</skos:altLabel>
+	<skos:altLabel>Iberor</skos:altLabel>
+	<skos:altLabel>Misaki Island</skos:altLabel>
+	<skos:altLabel>Misaki-To</skos:altLabel>
+	<skos:prefLabel>Iberor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559875/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.11611</wgs:lat>
+	<wgs:long>134.23667</wgs:long>
+	<skos:altLabel>Arimaksu</skos:altLabel>
+	<skos:altLabel>Gariyo To</skos:altLabel>
+	<skos:altLabel>Garyo</skos:altLabel>
+	<skos:altLabel>Garyo Island</skos:altLabel>
+	<skos:altLabel>Garyo-To</skos:altLabel>
+	<skos:altLabel>Iilblau</skos:altLabel>
+	<skos:altLabel>Yiilbelau</skos:altLabel>
+	<skos:prefLabel>Iilblau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559876/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33194</wgs:lat>
+	<wgs:long>134.535</wgs:long>
+	<skos:altLabel>Garayama Island</skos:altLabel>
+	<skos:altLabel>Garayamu</skos:altLabel>
+	<skos:altLabel>Garreru</skos:altLabel>
+	<skos:altLabel>Garreru Island</skos:altLabel>
+	<skos:altLabel>Garreru-tō</skos:altLabel>
+	<skos:altLabel>Garrerui</skos:altLabel>
+	<skos:altLabel>Gatsureru To</skos:altLabel>
+	<skos:altLabel>Ngaream</skos:altLabel>
+	<skos:altLabel>Ngeream</skos:altLabel>
+	<skos:altLabel>Pkulapnei</skos:altLabel>
+	<skos:altLabel>Pkulapngei</skos:altLabel>
+	<skos:prefLabel>Garreru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559879/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.19028</wgs:lat>
+	<wgs:long>134.36222</wgs:long>
+	<skos:altLabel>Ashakasengu</skos:altLabel>
+	<skos:altLabel>Ashakasengu Island</skos:altLabel>
+	<skos:altLabel>Euidelchol</skos:altLabel>
+	<skos:altLabel>Sehesengel</skos:altLabel>
+	<skos:prefLabel>Euidelchol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559887/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>7.23333</wgs:lat>
+	<wgs:long>134.3</wgs:long>
+	<skos:altLabel>Chelbacheb</skos:altLabel>
+	<skos:altLabel>Elbacheb</skos:altLabel>
+	<skos:altLabel>Islus Errekelfiu</skos:altLabel>
+	<skos:altLabel>Kokial Islands</skos:altLabel>
+	<skos:altLabel>Limestone Islands</skos:altLabel>
+	<skos:altLabel>Rock Islands</skos:altLabel>
+	<skos:altLabel>The Rock Islands</skos:altLabel>
+	<skos:prefLabel>Chelbacheb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559888/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32972</wgs:lat>
+	<wgs:long>134.51278</wgs:long>
+	<skos:altLabel>Eitelblong</skos:altLabel>
+	<skos:altLabel>Eitelblong Island</skos:altLabel>
+	<skos:altLabel>Itelblong</skos:altLabel>
+	<skos:prefLabel>Itelblong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559894/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.12889</wgs:lat>
+	<wgs:long>134.23</wgs:long>
+	<skos:altLabel>Admasah</skos:altLabel>
+	<skos:altLabel>Airimasuku-tō</skos:altLabel>
+	<skos:altLabel>Arimasuku Island</skos:altLabel>
+	<skos:altLabel>Arimesuku</skos:altLabel>
+	<skos:altLabel>Dmasech</skos:altLabel>
+	<skos:altLabel>Garakayo</skos:altLabel>
+	<skos:altLabel>Tmasch</skos:altLabel>
+	<skos:prefLabel>Dmasech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559895/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>134.28333</wgs:long>
+	<skos:prefLabel>Dmasech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559896/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33917</wgs:lat>
+	<wgs:long>134.55056</wgs:long>
+	<skos:altLabel>Delepebai</skos:altLabel>
+	<skos:altLabel>Delepebai Island</skos:altLabel>
+	<skos:altLabel>Dlebebai</skos:altLabel>
+	<skos:altLabel>Terebebai</skos:altLabel>
+	<skos:altLabel>Terebebai-tō</skos:altLabel>
+	<skos:prefLabel>Dlebebai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559898/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14361</wgs:lat>
+	<wgs:long>134.22833</wgs:long>
+	<skos:altLabel>Airimasuku-To</skos:altLabel>
+	<skos:altLabel>Arimaksu</skos:altLabel>
+	<skos:altLabel>Arimasuku Island</skos:altLabel>
+	<skos:altLabel>Desomel</skos:altLabel>
+	<skos:prefLabel>Desomel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559909/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33917</wgs:lat>
+	<wgs:long>134.54611</wgs:long>
+	<skos:altLabel>Chesechosou</skos:altLabel>
+	<skos:altLabel>Gashkosu To</skos:altLabel>
+	<skos:altLabel>Gashokosu</skos:altLabel>
+	<skos:altLabel>Gashokuso To</skos:altLabel>
+	<skos:altLabel>Gesegosu</skos:altLabel>
+	<skos:altLabel>Gosegasu Island</skos:altLabel>
+	<skos:altLabel>Gosegosu</skos:altLabel>
+	<skos:altLabel>Goshkosu-To</skos:altLabel>
+	<skos:altLabel>Goshokuso-tō</skos:altLabel>
+	<skos:altLabel>Ngothugothu</skos:altLabel>
+	<skos:altLabel>Ngothugothu Island</skos:altLabel>
+	<skos:prefLabel>Chesechosou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559911/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18806</wgs:lat>
+	<wgs:long>134.38333</wgs:long>
+	<skos:altLabel>Amoi</skos:altLabel>
+	<skos:altLabel>Amoi Island</skos:altLabel>
+	<skos:altLabel>Amoi-To</skos:altLabel>
+	<skos:altLabel>Chemoi</skos:altLabel>
+	<skos:altLabel>Chemol</skos:altLabel>
+	<skos:altLabel>Gorwuied</skos:altLabel>
+	<skos:altLabel>Gowuied</skos:altLabel>
+	<skos:altLabel>Moir</skos:altLabel>
+	<skos:altLabel>Ngarabelobang</skos:altLabel>
+	<skos:altLabel>Ngaruang</skos:altLabel>
+	<skos:prefLabel>Chemol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559912/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.1075</wgs:lat>
+	<wgs:long>134.24111</wgs:long>
+	<skos:altLabel>Cheleu</skos:altLabel>
+	<skos:altLabel>Gariyo To</skos:altLabel>
+	<skos:altLabel>Garo Island</skos:altLabel>
+	<skos:altLabel>Heleu</skos:altLabel>
+	<skos:prefLabel>Cheleu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559915/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26667</wgs:lat>
+	<wgs:long>134.39444</wgs:long>
+	<skos:altLabel>Buntiou</skos:altLabel>
+	<skos:altLabel>Butottoribo</skos:altLabel>
+	<skos:altLabel>Butottoribo Island</skos:altLabel>
+	<skos:altLabel>Butottoribo-To</skos:altLabel>
+	<skos:altLabel>Butottoribou Island</skos:altLabel>
+	<skos:prefLabel>Butottoribo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559936/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.06306</wgs:lat>
+	<wgs:long>134.27944</wgs:long>
+	<skos:altLabel>Belualasmau</skos:altLabel>
+	<skos:altLabel>Belwalasmau</skos:altLabel>
+	<skos:prefLabel>Belualasmau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559937/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18528</wgs:lat>
+	<wgs:long>134.23556</wgs:long>
+	<skos:prefLabel>Kmekumer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559944/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.10333</wgs:lat>
+	<wgs:long>134.24833</wgs:long>
+	<skos:altLabel>Bailechesengel</skos:altLabel>
+	<skos:altLabel>Bailehesengel</skos:altLabel>
+	<skos:altLabel>Bairakaseru Island</skos:altLabel>
+	<skos:prefLabel>Bailechesengel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559945/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.ANS"/>
+	<wgs:lat>7.70667</wgs:lat>
+	<wgs:long>134.62889</wgs:long>
+	<skos:prefLabel>Badrulchau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559946/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14167</wgs:lat>
+	<wgs:long>134.31722</wgs:long>
+	<skos:altLabel>Abappaomogan Island</skos:altLabel>
+	<skos:altLabel>Abappaomogan-tō</skos:altLabel>
+	<skos:altLabel>Bablomekang</skos:altLabel>
+	<skos:altLabel>Goilug</skos:altLabel>
+	<skos:prefLabel>Bablomekang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559947/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>134.6</wgs:long>
+	<skos:altLabel>Arrecifos</skos:altLabel>
+	<skos:altLabel>Babeldaob</skos:altLabel>
+	<skos:altLabel xml:lang="es">Babeldaob</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Babeldaob</skos:altLabel>
+	<skos:altLabel xml:lang="no">Babeldaob</skos:altLabel>
+	<skos:altLabel xml:lang="en">Babeldaob</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Babeldaob</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Babeldaob</skos:altLabel>
+	<skos:altLabel>Babeldzuap</skos:altLabel>
+	<skos:altLabel>Babeldáob</skos:altLabel>
+	<skos:altLabel>Babelhoup Island</skos:altLabel>
+	<skos:altLabel>Babeltaob</skos:altLabel>
+	<skos:altLabel>Babelthaob</skos:altLabel>
+	<skos:altLabel>Babelthaub</skos:altLabel>
+	<skos:altLabel>Babelthaup Island</skos:altLabel>
+	<skos:altLabel>Babelthoup</skos:altLabel>
+	<skos:altLabel>Babelthuab</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Babelthuap</skos:altLabel>
+	<skos:altLabel xml:lang="de">Babelthuap</skos:altLabel>
+	<skos:altLabel xml:lang="en">Babelthuap</skos:altLabel>
+	<skos:altLabel>Babelthuap Island</skos:altLabel>
+	<skos:altLabel>Babeltloab</skos:altLabel>
+	<skos:altLabel>Babeltop</skos:altLabel>
+	<skos:altLabel>Babeltuap</skos:altLabel>
+	<skos:altLabel>Babelutaobu</skos:altLabel>
+	<skos:altLabel>Babelzuap</skos:altLabel>
+	<skos:altLabel>Baberudaobu To</skos:altLabel>
+	<skos:altLabel>Baberutaobu Jima</skos:altLabel>
+	<skos:altLabel>Babldaob</skos:altLabel>
+	<skos:altLabel>Bablehoup Island</skos:altLabel>
+	<skos:altLabel>Bablethoup Island</skos:altLabel>
+	<skos:altLabel>Badelzuap</skos:altLabel>
+	<skos:altLabel>Baobeltaob</skos:altLabel>
+	<skos:altLabel>Baubelthouap</skos:altLabel>
+	<skos:altLabel>Palau Island</skos:altLabel>
+	<skos:altLabel>Panlog</skos:altLabel>
+	<skos:altLabel>Panlog Island</skos:altLabel>
+	<skos:altLabel>Panloq</skos:altLabel>
+	<skos:altLabel>Parao</skos:altLabel>
+	<skos:altLabel>Parao Tō</skos:altLabel>
+	<skos:prefLabel>Babeldaob</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1559964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>221</europeana:population>
+	<wgs:lat>7.44167</wgs:lat>
+	<wgs:long>134.49167</wgs:long>
+	<skos:altLabel>Aimeliik</skos:altLabel>
+	<skos:altLabel>Aimeliik Municipality</skos:altLabel>
+	<skos:altLabel>Aimelik</skos:altLabel>
+	<skos:altLabel>Aimiliiki</skos:altLabel>
+	<skos:altLabel>Aimiriiki</skos:altLabel>
+	<skos:altLabel>Eimelik</skos:altLabel>
+	<skos:altLabel>Imeliik</skos:altLabel>
+	<skos:altLabel>Ngerebungs</skos:altLabel>
+	<skos:altLabel>State of Aimeliik</skos:altLabel>
+	<skos:prefLabel>State of Aimeliik</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.38028</wgs:lat>
+	<wgs:long>134.54111</wgs:long>
+	<skos:altLabel>Airai</skos:altLabel>
+	<skos:prefLabel>State of Airai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037653/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.90667</wgs:lat>
+	<wgs:long>134.13528</wgs:long>
+	<skos:altLabel>Angaur</skos:altLabel>
+	<skos:prefLabel>State of Angaur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037654/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27528</wgs:lat>
+	<wgs:long>134.29806</wgs:long>
+	<skos:prefLabel>Apurashokoru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037657/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26722</wgs:lat>
+	<wgs:long>134.34917</wgs:long>
+	<skos:prefLabel>Arishoku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037666/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.49972</wgs:lat>
+	<wgs:long>134.56694</wgs:long>
+	<skos:prefLabel>Babeldaob</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037669/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.39444</wgs:lat>
+	<wgs:long>134.58833</wgs:long>
+	<skos:prefLabel>Badebei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037672/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.10333</wgs:lat>
+	<wgs:long>134.24833</wgs:long>
+	<skos:prefLabel>Bailechesengel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037682/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.06306</wgs:lat>
+	<wgs:long>134.27944</wgs:long>
+	<skos:prefLabel>Belualasmau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037684/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14222</wgs:lat>
+	<wgs:long>134.23361</wgs:long>
+	<skos:prefLabel>Belual A Kelat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037711/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33917</wgs:lat>
+	<wgs:long>134.54611</wgs:long>
+	<skos:prefLabel>Chesechosou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037716/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32722</wgs:lat>
+	<wgs:long>134.49028</wgs:long>
+	<skos:prefLabel>Bukrrairong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037723/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.1075</wgs:lat>
+	<wgs:long>134.24111</wgs:long>
+	<skos:prefLabel>Cheleu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037725/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.24778</wgs:lat>
+	<wgs:long>134.40556</wgs:long>
+	<skos:prefLabel>Chelbacheb</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037727/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.22694</wgs:lat>
+	<wgs:long>134.39694</wgs:long>
+	<skos:prefLabel>Chomedokl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037735/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18778</wgs:lat>
+	<wgs:long>134.37833</wgs:long>
+	<skos:prefLabel>Chouwid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037750/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14361</wgs:lat>
+	<wgs:long>134.22833</wgs:long>
+	<skos:prefLabel>Desomel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037751/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.12889</wgs:lat>
+	<wgs:long>134.23</wgs:long>
+	<skos:prefLabel>Dmasech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037755/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33917</wgs:lat>
+	<wgs:long>134.55056</wgs:long>
+	<skos:prefLabel>Dlebebai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037787/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.19028</wgs:lat>
+	<wgs:long>134.36222</wgs:long>
+	<skos:prefLabel>Euidelchol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037788/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.3525</wgs:lat>
+	<wgs:long>132.22556</wgs:long>
+	<skos:prefLabel>Fana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037792/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33194</wgs:lat>
+	<wgs:long>134.535</wgs:long>
+	<skos:prefLabel>Garreru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037795/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50056</wgs:lat>
+	<wgs:long>134.49556</wgs:long>
+	<skos:prefLabel>Goldauakal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037797/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33639</wgs:lat>
+	<wgs:long>134.4825</wgs:long>
+	<skos:prefLabel>Iberor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037800/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>2.97833</wgs:lat>
+	<wgs:long>131.81361</wgs:long>
+	<skos:prefLabel>Helen Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037804/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.02389</wgs:lat>
+	<wgs:long>134.2675</wgs:long>
+	<skos:prefLabel>Tngabard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037811/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.11694</wgs:lat>
+	<wgs:long>134.23583</wgs:long>
+	<skos:prefLabel>Iilblau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037813/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.22722</wgs:lat>
+	<wgs:long>134.39778</wgs:long>
+	<skos:prefLabel>Ii Ra Omdakel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037819/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.5025</wgs:lat>
+	<wgs:long>134.49472</wgs:long>
+	<skos:prefLabel>Ilacheuir</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037834/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.13389</wgs:lat>
+	<wgs:long>134.30444</wgs:long>
+	<skos:prefLabel>Ioulomekang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037858/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.08056</wgs:lat>
+	<wgs:long>134.71639</wgs:long>
+	<skos:prefLabel>Kayangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037859/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.06972</wgs:lat>
+	<wgs:long>134.71389</wgs:long>
+	<skos:prefLabel>Kayangel Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037862/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.60111</wgs:lat>
+	<wgs:long>134.63861</wgs:long>
+	<skos:prefLabel>Kekereiel Dormechol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037866/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.1875</wgs:lat>
+	<wgs:long>134.22556</wgs:long>
+	<skos:prefLabel>Kemokem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037867/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50583</wgs:lat>
+	<wgs:long>134.49722</wgs:long>
+	<skos:prefLabel>Klaibudech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037871/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50667</wgs:lat>
+	<wgs:long>134.49417</wgs:long>
+	<skos:prefLabel>Lild</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037872/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.34083</wgs:lat>
+	<wgs:long>134.49639</wgs:long>
+	<skos:prefLabel>Koror</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037880/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.34639</wgs:lat>
+	<wgs:long>134.56444</wgs:long>
+	<skos:prefLabel>Korak Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037885/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18528</wgs:lat>
+	<wgs:long>134.23556</wgs:long>
+	<skos:prefLabel>Kmekumer</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037888/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.29722</wgs:lat>
+	<wgs:long>134.45139</wgs:long>
+	<skos:prefLabel>Korukigiiru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037892/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.25028</wgs:lat>
+	<wgs:long>134.40694</wgs:long>
+	<skos:altLabel>Koror</skos:altLabel>
+	<skos:prefLabel>State of Koror</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037896/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33528</wgs:lat>
+	<wgs:long>134.48556</wgs:long>
+	<skos:prefLabel>Kuat</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037901/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.16889</wgs:lat>
+	<wgs:long>134.33444</wgs:long>
+	<skos:prefLabel>Kuabeserrai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037904/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33028</wgs:lat>
+	<wgs:long>134.45</wgs:long>
+	<skos:prefLabel>Malakal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037906/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.72639</wgs:lat>
+	<wgs:long>134.6125</wgs:long>
+	<skos:prefLabel>Lkes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037907/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.53028</wgs:lat>
+	<wgs:long>134.61694</wgs:long>
+	<skos:prefLabel>Lkes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037914/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.1375</wgs:lat>
+	<wgs:long>134.34778</wgs:long>
+	<skos:prefLabel>Mchochaeo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037916/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.1525</wgs:lat>
+	<wgs:long>134.35694</wgs:long>
+	<skos:prefLabel>Mecherchar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037924/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32361</wgs:lat>
+	<wgs:long>134.47917</wgs:long>
+	<skos:prefLabel>Meduu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.49444</wgs:lat>
+	<wgs:long>134.63472</wgs:long>
+	<skos:altLabel>Melekeok</skos:altLabel>
+	<skos:prefLabel>State of Melekeok</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037934/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32833</wgs:lat>
+	<wgs:long>134.52889</wgs:long>
+	<skos:prefLabel>Ngedert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037951/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.41222</wgs:lat>
+	<wgs:long>134.4425</wgs:long>
+	<skos:prefLabel>Ngaregabel Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.61444</wgs:lat>
+	<wgs:long>134.625</wgs:long>
+	<skos:altLabel>Ngaraard</skos:altLabel>
+	<skos:prefLabel>State of Ngaraard</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037965/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47194</wgs:lat>
+	<wgs:long>134.51472</wgs:long>
+	<skos:prefLabel>Ngarasag</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037967/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.90667</wgs:lat>
+	<wgs:long>134.13528</wgs:long>
+	<skos:prefLabel>Ngeaur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037969/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.16889</wgs:lat>
+	<wgs:long>134.64889</wgs:long>
+	<skos:prefLabel>Ngaruangl Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037975/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.20639</wgs:lat>
+	<wgs:long>134.37028</wgs:long>
+	<skos:prefLabel>Ngeanges</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.42972</wgs:lat>
+	<wgs:long>134.57389</wgs:long>
+	<skos:altLabel>Ngchesar</skos:altLabel>
+	<skos:prefLabel>State of Ngchesar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037986/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01833</wgs:lat>
+	<wgs:long>134.26861</wgs:long>
+	<skos:prefLabel>Ngebad</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037987/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26694</wgs:lat>
+	<wgs:long>134.33111</wgs:long>
+	<skos:prefLabel>Ngebedangel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037990/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.05444</wgs:lat>
+	<wgs:long>134.25639</wgs:long>
+	<skos:prefLabel>Ngedbus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4037992/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26611</wgs:lat>
+	<wgs:long>134.36556</wgs:long>
+	<skos:prefLabel>Ngebedel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038000/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.53361</wgs:lat>
+	<wgs:long>134.51222</wgs:long>
+	<skos:prefLabel>Ngeluong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038002/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32861</wgs:lat>
+	<wgs:long>134.4875</wgs:long>
+	<skos:prefLabel>Ngedesakr</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038004/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18694</wgs:lat>
+	<wgs:long>134.34417</wgs:long>
+	<skos:prefLabel>Ngelsibel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038006/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33389</wgs:lat>
+	<wgs:long>134.48778</wgs:long>
+	<skos:prefLabel>Ngellang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038011/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.56167</wgs:lat>
+	<wgs:long>134.5175</wgs:long>
+	<skos:prefLabel>Ngemolei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038013/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.11722</wgs:lat>
+	<wgs:long>134.23556</wgs:long>
+	<skos:prefLabel>Ngemlis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038015/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32806</wgs:lat>
+	<wgs:long>134.49639</wgs:long>
+	<skos:prefLabel>Ngerbechetei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038025/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.34</wgs:lat>
+	<wgs:long>134.44111</wgs:long>
+	<skos:prefLabel>Ngerchaol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038027/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30806</wgs:lat>
+	<wgs:long>134.49944</wgs:long>
+	<skos:prefLabel>Ngerchebukl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038034/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.08972</wgs:lat>
+	<wgs:long>134.27056</wgs:long>
+	<skos:prefLabel>Ngercheu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.85639</wgs:lat>
+	<wgs:long>134.55944</wgs:long>
+	<skos:altLabel>Ngarchelong</skos:altLabel>
+	<skos:altLabel>Ngerchelong</skos:altLabel>
+	<skos:prefLabel>State of Ngerchelong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.57167</wgs:lat>
+	<wgs:long>134.56</wgs:long>
+	<skos:altLabel>Ngardmau</skos:altLabel>
+	<skos:prefLabel>State of Ngardmau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038048/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35167</wgs:lat>
+	<wgs:long>134.57972</wgs:long>
+	<skos:prefLabel>Ngerduais</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038049/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35111</wgs:lat>
+	<wgs:long>134.52444</wgs:long>
+	<skos:prefLabel>Ngeream</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038052/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.04139</wgs:lat>
+	<wgs:long>134.69833</wgs:long>
+	<skos:prefLabel>Ngerebelas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038054/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.11222</wgs:lat>
+	<wgs:long>134.36</wgs:long>
+	<skos:prefLabel>Ngerechong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038055/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.75417</wgs:lat>
+	<wgs:long>134.61694</wgs:long>
+	<skos:prefLabel>Ngerechur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038058/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35333</wgs:lat>
+	<wgs:long>134.44611</wgs:long>
+	<skos:prefLabel>Ngerekebesang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038064/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47611</wgs:lat>
+	<wgs:long>134.61667</wgs:long>
+	<skos:prefLabel>Ngeriungs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038067/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35917</wgs:lat>
+	<wgs:long>134.42667</wgs:long>
+	<skos:prefLabel>Ngeremekediu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.52694</wgs:lat>
+	<wgs:long>134.54806</wgs:long>
+	<skos:altLabel>Ngeremlengui</skos:altLabel>
+	<skos:prefLabel>State of Ngeremlengui</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038072/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.05667</wgs:lat>
+	<wgs:long>134.70917</wgs:long>
+	<skos:prefLabel>Ngeriungs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038085/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35417</wgs:lat>
+	<wgs:long>134.49333</wgs:long>
+	<skos:prefLabel>Ngerkebuit</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038086/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.73972</wgs:lat>
+	<wgs:long>134.62083</wgs:long>
+	<skos:prefLabel>Ngerkeklau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038088/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.19694</wgs:lat>
+	<wgs:long>134.37472</wgs:long>
+	<skos:prefLabel>Ngermeaus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038090/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.335</wgs:lat>
+	<wgs:long>134.45917</wgs:long>
+	<skos:prefLabel>Ngermalk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038092/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33028</wgs:lat>
+	<wgs:long>134.48056</wgs:long>
+	<skos:prefLabel>Ngermechaech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038094/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.25222</wgs:lat>
+	<wgs:long>134.4075</wgs:long>
+	<skos:prefLabel>Ngeruktabel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038113/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32444</wgs:lat>
+	<wgs:long>134.48167</wgs:long>
+	<skos:prefLabel>Ngertechiel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038118/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.17528</wgs:lat>
+	<wgs:long>134.26139</wgs:long>
+	<skos:prefLabel>Ngerukewid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038119/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.08306</wgs:lat>
+	<wgs:long>134.32861</wgs:long>
+	<skos:prefLabel>Ngeruchubtang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038127/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47556</wgs:lat>
+	<wgs:long>134.62083</wgs:long>
+	<skos:prefLabel>Ngerutoi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038128/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35111</wgs:lat>
+	<wgs:long>134.58667</wgs:long>
+	<skos:prefLabel>Ngerumtoi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038131/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.68611</wgs:lat>
+	<wgs:long>134.615</wgs:long>
+	<skos:prefLabel>Ngerulluang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038132/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32861</wgs:lat>
+	<wgs:long>134.48472</wgs:long>
+	<skos:prefLabel>Ngerumetochel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038136/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.36528</wgs:lat>
+	<wgs:long>134.42833</wgs:long>
+	<skos:prefLabel>Ngerur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038141/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.22056</wgs:lat>
+	<wgs:long>134.38583</wgs:long>
+	<skos:prefLabel>Ngerusisech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038142/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.99917</wgs:lat>
+	<wgs:long>134.24833</wgs:long>
+	<skos:prefLabel>Ngetengchau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038147/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.5075</wgs:lat>
+	<wgs:long>134.48833</wgs:long>
+	<skos:prefLabel>Ngesbokel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038150/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32083</wgs:lat>
+	<wgs:long>134.48917</wgs:long>
+	<skos:prefLabel>Ngeteklou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038152/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14917</wgs:lat>
+	<wgs:long>134.31278</wgs:long>
+	<skos:prefLabel>Ngesomel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038153/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01472</wgs:lat>
+	<wgs:long>134.26639</wgs:long>
+	<skos:prefLabel>Ngesuall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038162/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.3325</wgs:lat>
+	<wgs:long>134.48111</wgs:long>
+	<skos:prefLabel>Ngetkuml</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038164/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35556</wgs:lat>
+	<wgs:long>134.49528</wgs:long>
+	<skos:prefLabel>Ngetmeduch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038173/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.05583</wgs:lat>
+	<wgs:long>134.2725</wgs:long>
+	<skos:prefLabel>Ngkeuall</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038177/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.13861</wgs:lat>
+	<wgs:long>134.22722</wgs:long>
+	<skos:prefLabel>Ngis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.54639</wgs:lat>
+	<wgs:long>134.60139</wgs:long>
+	<skos:altLabel>Ngiwal</skos:altLabel>
+	<skos:prefLabel>State of Ngiwal</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038180/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.17361</wgs:lat>
+	<wgs:long>134.22333</wgs:long>
+	<skos:prefLabel>Ngkael</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038183/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.21833</wgs:lat>
+	<wgs:long>134.39278</wgs:long>
+	<skos:prefLabel>Ngkesill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038184/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33833</wgs:lat>
+	<wgs:long>134.555</wgs:long>
+	<skos:prefLabel>Ngkesill</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038190/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.49028</wgs:lat>
+	<wgs:long>134.47583</wgs:long>
+	<skos:prefLabel>Olterukl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038202/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.01306</wgs:lat>
+	<wgs:long>134.26139</wgs:long>
+	<skos:prefLabel>Ngurungor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038207/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.41444</wgs:lat>
+	<wgs:long>134.48944</wgs:long>
+	<skos:prefLabel>Okerduul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038208/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14556</wgs:lat>
+	<wgs:long>134.32306</wgs:long>
+	<skos:prefLabel>Oilouch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038211/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.05083</wgs:lat>
+	<wgs:long>134.25361</wgs:long>
+	<skos:prefLabel>Oimaderuul</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038212/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27222</wgs:lat>
+	<wgs:long>134.39917</wgs:long>
+	<skos:prefLabel>Oimadelchesuch</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038214/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.06167</wgs:lat>
+	<wgs:long>134.27111</wgs:long>
+	<skos:prefLabel>Olngeuaol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038222/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.48583</wgs:lat>
+	<wgs:long>134.47528</wgs:long>
+	<skos:prefLabel>Orachel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038225/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47889</wgs:lat>
+	<wgs:long>134.50833</wgs:long>
+	<skos:prefLabel>Omechedecheraol Mesang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038226/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50111</wgs:lat>
+	<wgs:long>134.49861</wgs:long>
+	<skos:prefLabel>Omeduaol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038230/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.26806</wgs:lat>
+	<wgs:long>134.24444</wgs:long>
+	<skos:prefLabel>Ongingiang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038239/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.31889</wgs:lat>
+	<wgs:long>134.51139</wgs:long>
+	<skos:prefLabel>Ordachel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038240/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>8.03861</wgs:lat>
+	<wgs:long>134.69306</wgs:long>
+	<skos:prefLabel>Orak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038243/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.48417</wgs:lat>
+	<wgs:long>134.4725</wgs:long>
+	<skos:prefLabel>Ordiilsau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038248/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.4875</wgs:lat>
+	<wgs:long>134.47556</wgs:long>
+	<skos:prefLabel>Orutorukkuru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038252/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30611</wgs:lat>
+	<wgs:long>134.40694</wgs:long>
+	<skos:prefLabel>Tlutkaraguis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038257/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.48639</wgs:lat>
+	<wgs:long>134.55333</wgs:long>
+	<skos:prefLabel>Palau Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038259/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.00472</wgs:lat>
+	<wgs:long>134.24083</wgs:long>
+	<skos:prefLabel>Peleliu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/1559582/"/>
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>7.00944</wgs:lat>
+	<wgs:long>134.24472</wgs:long>
+	<skos:altLabel>Peleliu</skos:altLabel>
+	<skos:prefLabel>State of Peleliu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038268/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.65944</wgs:lat>
+	<wgs:long>131.96361</wgs:long>
+	<skos:prefLabel>Pulo Anna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038275/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35806</wgs:lat>
+	<wgs:long>134.49528</wgs:long>
+	<skos:prefLabel>Reberaber</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038279/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14806</wgs:lat>
+	<wgs:long>134.31611</wgs:long>
+	<skos:prefLabel>Rikelau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038280/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.21306</wgs:lat>
+	<wgs:long>134.38056</wgs:long>
+	<skos:prefLabel>Rirs Bital</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038291/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.03</wgs:lat>
+	<wgs:long>134.26417</wgs:long>
+	<skos:prefLabel>Ruriid</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038295/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32722</wgs:lat>
+	<wgs:long>134.49694</wgs:long>
+	<skos:prefLabel>Simono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038299/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.35361</wgs:lat>
+	<wgs:long>134.51722</wgs:long>
+	<skos:prefLabel>Songel a Born Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038313/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32917</wgs:lat>
+	<wgs:long>134.47778</wgs:long>
+	<skos:prefLabel>Tengetcheyangl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038317/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33806</wgs:lat>
+	<wgs:long>134.455</wgs:long>
+	<skos:prefLabel>Toirachuil</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038322/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>3.00917</wgs:lat>
+	<wgs:long>131.17583</wgs:long>
+	<skos:prefLabel>Tobi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038324/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30778</wgs:lat>
+	<wgs:long>134.49806</wgs:long>
+	<skos:prefLabel>Ucheliungs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038328/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.12806</wgs:lat>
+	<wgs:long>134.23556</wgs:long>
+	<skos:prefLabel>Uchel A Rois</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038332/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.30833</wgs:lat>
+	<wgs:long>134.47861</wgs:long>
+	<skos:prefLabel>Ulebsechel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038333/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33944</wgs:lat>
+	<wgs:long>134.46028</wgs:long>
+	<skos:prefLabel>Uchulangas</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038335/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.50667</wgs:lat>
+	<wgs:long>134.49028</wgs:long>
+	<skos:prefLabel>Uchulameradel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038340/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.27528</wgs:lat>
+	<wgs:long>134.28944</wgs:long>
+	<skos:prefLabel>Ulong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038342/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33417</wgs:lat>
+	<wgs:long>134.50833</wgs:long>
+	<skos:prefLabel>Ullemetamel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038386/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.14167</wgs:lat>
+	<wgs:long>134.31722</wgs:long>
+	<skos:prefLabel>Bablomekang</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038393/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.18806</wgs:lat>
+	<wgs:long>134.38333</wgs:long>
+	<skos:prefLabel>Chemol</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038397/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32972</wgs:lat>
+	<wgs:long>134.51278</wgs:long>
+	<skos:prefLabel>Itelblong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038404/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47861</wgs:lat>
+	<wgs:long>134.51778</wgs:long>
+	<skos:prefLabel>Ngarabekus</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038418/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.47167</wgs:lat>
+	<wgs:long>134.51444</wgs:long>
+	<skos:prefLabel>Ngerasech</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038421/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.33889</wgs:lat>
+	<wgs:long>134.48222</wgs:long>
+	<skos:prefLabel>Oitab</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038422/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32472</wgs:lat>
+	<wgs:long>134.52806</wgs:long>
+	<skos:prefLabel>Omelochel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038423/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.25167</wgs:lat>
+	<wgs:long>134.37889</wgs:long>
+	<skos:prefLabel>Ongael</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038424/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.21389</wgs:lat>
+	<wgs:long>134.37417</wgs:long>
+	<skos:prefLabel>Ongetkatel</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038425/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.48778</wgs:lat>
+	<wgs:long>134.47583</wgs:long>
+	<skos:prefLabel>Orudeerusao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038427/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.91722</wgs:lat>
+	<wgs:long>134.14194</wgs:long>
+	<skos:prefLabel>Rois Buked</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038430/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.98</wgs:lat>
+	<wgs:long>134.22056</wgs:long>
+	<skos:prefLabel>Telkakl</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/4038432/">
+	<europeana:country>PW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.32667</wgs:lat>
+	<wgs:long>134.47806</wgs:long>
+	<skos:prefLabel>Toirius</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 309 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

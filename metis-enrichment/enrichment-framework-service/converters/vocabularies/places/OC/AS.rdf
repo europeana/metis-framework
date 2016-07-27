@@ -1,0 +1,1394 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: OC_AS
+Description: Selected fields pulled from Geonames about AS done on Mon May 23 21:17:04 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880754/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.28889</wgs:lat>
+	<wgs:long>-170.73361</wgs:long>
+	<skos:prefLabel>Agalua Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880767/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33722</wgs:lat>
+	<wgs:long>-170.81694</wgs:long>
+	<skos:prefLabel>Agatoavalu Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255151/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.TERR"/>
+	<europeana:population>57881</europeana:population>
+	<wgs:lat>-14.33333</wgs:lat>
+	<wgs:long>-170</wgs:long>
+	<skos:altLabel xml:lang="lv">ASV Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ameerika Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="en">American Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="ms">American Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Americká Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Americká Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="se">Amerihká Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="af">Amerikaans Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Amerikaans-Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Amerikai Szamoa</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Amerikan Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Amerikan Samoası</skos:altLabel>
+	<skos:altLabel xml:lang="de">Amerikanisch-Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="da">Amerikansk Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Amerikansk Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Amerikansk Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Amerikanska Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Amerikos Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Američka Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Ameriška Samoa</skos:altLabel>
+	<skos:altLabel xml:lang="is">Amerísku Samóaeyjar</skos:altLabel>
+	<skos:altLabel xml:lang="is">Bandaríska Samóa</skos:altLabel>
+	<skos:altLabel xml:lang="to">Haʻamoa fakaʻamelika</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Samoa Americana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Samoa Americana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Samoa Americana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Samoa Americana</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Samoa Americanaidd</skos:altLabel>
+	<skos:altLabel xml:lang="it">Samoa Americane</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Samoa Americană</skos:altLabel>
+	<skos:altLabel xml:lang="id">Samoa Amerika</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Samoa Amerikana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Samoa Amerykańskie</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Samoa Estatubatuarra</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Samoa american</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Samoa américaines</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Samó Meiriceánach</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Đảo Xa-mô-a của Mỹ (Samoa)</skos:altLabel>
+	<skos:altLabel xml:lang="el">Αμερικανική Σαμόα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Американска Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Американска Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Американские острова Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Американські острови Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Америчка Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="be">Амерыканскае Самоа</skos:altLabel>
+	<skos:altLabel xml:lang="he">סמואה האמריקאית</skos:altLabel>
+	<skos:altLabel xml:lang="ur">امریکی ساموا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">ساموا الأمريكية</skos:altLabel>
+	<skos:altLabel xml:lang="fa">ساموا ی آمریکا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">अमेरिकन समोआ</skos:altLabel>
+	<skos:altLabel xml:lang="bn">আমেরিকান সামোয়া</skos:altLabel>
+	<skos:altLabel xml:lang="th">ซามัว</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ამერიკული სამოა</skos:altLabel>
+	<skos:altLabel xml:lang="am">የአሜሪካ ሳሞአ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アメリカ領サモア</skos:altLabel>
+	<skos:altLabel xml:lang="zh">美属萨摩亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아메리칸 사모아</skos:altLabel>
+	<skos:prefLabel>American Samoa, Territory of</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880842/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.28972</wgs:lat>
+	<wgs:long>-170.55167</wgs:long>
+	<skos:prefLabel>Aunuu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880847/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29361</wgs:lat>
+	<wgs:long>-170.64917</wgs:long>
+	<skos:prefLabel>Avagatatau Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880872/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.25889</wgs:lat>
+	<wgs:long>-170.67556</wgs:long>
+	<skos:prefLabel>West Vaifanua County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880873/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-14.31667</wgs:lat>
+	<wgs:long>-170.76667</wgs:long>
+	<skos:prefLabel>Western District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880874/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29083</wgs:lat>
+	<wgs:long>-170.67</wgs:long>
+	<skos:prefLabel>Whale Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880887/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25583</wgs:lat>
+	<wgs:long>-170.58361</wgs:long>
+	<skos:prefLabel>Vaotamu Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880888/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.26167</wgs:lat>
+	<wgs:long>-170.59028</wgs:long>
+	<skos:prefLabel>Faalefu Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880894/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.27556</wgs:lat>
+	<wgs:long>-170.58333</wgs:long>
+	<skos:prefLabel>East Vaifanua County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880912/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.31556</wgs:lat>
+	<wgs:long>-170.83278</wgs:long>
+	<skos:prefLabel>Faatafa Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880969/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33139</wgs:lat>
+	<wgs:long>-170.82944</wgs:long>
+	<skos:prefLabel>Utusiva Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880990/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.5475</wgs:lat>
+	<wgs:long>-168.14139</wgs:long>
+	<skos:prefLabel>Rose Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880992/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33667</wgs:lat>
+	<wgs:long>-170.82806</wgs:long>
+	<skos:prefLabel>Rocky Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5880995/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-14.54722</wgs:lat>
+	<wgs:long>-168.14167</wgs:long>
+	<skos:prefLabel>Rose Island (inactive)</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881002/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14</wgs:lat>
+	<wgs:long>-171</wgs:long>
+	<skos:altLabel xml:lang="fr">Samoa americaine</skos:altLabel>
+	<skos:prefLabel>Samoa Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881005/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.5375</wgs:lat>
+	<wgs:long>-168.14889</wgs:long>
+	<skos:prefLabel>Sand Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881015/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29444</wgs:lat>
+	<wgs:long>-170.65083</wgs:long>
+	<skos:prefLabel>Fatutoaga Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881037/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>-14.28222</wgs:lat>
+	<wgs:long>-170.68361</wgs:long>
+	<skos:prefLabel>Feleti Pacific Library</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881062/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32972</wgs:lat>
+	<wgs:long>-170.83694</wgs:long>
+	<skos:prefLabel>Utumatuu Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881068/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32444</wgs:lat>
+	<wgs:long>-170.83944</wgs:long>
+	<skos:prefLabel>Utufotu Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5880873/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.33667</wgs:lat>
+	<wgs:long>-170.73694</wgs:long>
+	<skos:prefLabel>Tuäläuta County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881085/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5880873/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.35528</wgs:lat>
+	<wgs:long>-170.76972</wgs:long>
+	<skos:prefLabel>Tüalätai County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881087/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29972</wgs:lat>
+	<wgs:long>-170.7225</wgs:long>
+	<skos:prefLabel>Tutuila Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881095/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.26</wgs:lat>
+	<wgs:long>-170.64806</wgs:long>
+	<skos:prefLabel>Tulagamatuu Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881106/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33556</wgs:lat>
+	<wgs:long>-170.82806</wgs:long>
+	<skos:prefLabel>Toauta Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881119/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.28861</wgs:lat>
+	<wgs:long>-170.60361</wgs:long>
+	<skos:prefLabel>Faiumuolegau Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881121/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.2875</wgs:lat>
+	<wgs:long>-170.66694</wgs:long>
+	<skos:prefLabel>Toasa Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881122/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33694</wgs:lat>
+	<wgs:long>-170.82806</wgs:long>
+	<skos:prefLabel>Toatai Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881135/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32278</wgs:lat>
+	<wgs:long>-170.83556</wgs:long>
+	<skos:prefLabel>Tiaoalii Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881148/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.28</wgs:lat>
+	<wgs:long>-170.57917</wgs:long>
+	<skos:prefLabel>Taulaotoga Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881153/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29278</wgs:lat>
+	<wgs:long>-170.64417</wgs:long>
+	<skos:prefLabel>Tauga Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881162/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.23806</wgs:lat>
+	<wgs:long>-169.47611</wgs:long>
+	<skos:prefLabel>Ta`ū Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881171/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32778</wgs:lat>
+	<wgs:long>-170.84389</wgs:long>
+	<skos:prefLabel>Taputapu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881178/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.30278</wgs:lat>
+	<wgs:long>-170.67556</wgs:long>
+	<skos:prefLabel>Fatu Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881181/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.30389</wgs:lat>
+	<wgs:long>-170.81917</wgs:long>
+	<skos:prefLabel>Tafola Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.27861</wgs:lat>
+	<wgs:long>-170.58778</wgs:long>
+	<skos:prefLabel>Sä`ole County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881192/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11017</europeana:population>
+	<wgs:lat>-14.33583</wgs:lat>
+	<wgs:long>-170.72</wgs:long>
+	<skos:altLabel xml:lang="ru">Тафуна</skos:altLabel>
+	<skos:prefLabel>Tāfuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881199/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>37</europeana:population>
+	<wgs:lat>-11.056</wgs:lat>
+	<wgs:long>-171.082</wgs:long>
+	<skos:prefLabel>Swains Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881210/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.37028</wgs:lat>
+	<wgs:long>-170.73944</wgs:long>
+	<skos:prefLabel>Fatugau Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881213/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.2725</wgs:lat>
+	<wgs:long>-170.62861</wgs:long>
+	<skos:prefLabel>Sua County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881219/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-14.26667</wgs:lat>
+	<wgs:long>-170.65</wgs:long>
+	<skos:prefLabel>Eastern District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881228/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.34</wgs:lat>
+	<wgs:long>-170.7925</wgs:long>
+	<skos:prefLabel>Faatafa Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881263/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25472</wgs:lat>
+	<wgs:long>-170.57972</wgs:long>
+	<skos:prefLabel>Fatumaga Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881268/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.31111</wgs:lat>
+	<wgs:long>-170.68917</wgs:long>
+	<skos:prefLabel>Fatuuli Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881272/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.30306</wgs:lat>
+	<wgs:long>-170.67583</wgs:long>
+	<skos:prefLabel>Flowerpot Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.30333</wgs:lat>
+	<wgs:long>-170.71167</wgs:long>
+	<skos:prefLabel>Itu`aū County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881283/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.30306</wgs:lat>
+	<wgs:long>-170.6775</wgs:long>
+	<skos:prefLabel>Futi Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881351/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32917</wgs:lat>
+	<wgs:long>-170.84028</wgs:long>
+	<skos:prefLabel>Liuvaatoga Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881379/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#S.LIBR"/>
+	<wgs:lat>-14.28528</wgs:lat>
+	<wgs:long>-170.68333</wgs:long>
+	<skos:prefLabel>Library of American Samoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5880873/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.31944</wgs:lat>
+	<wgs:long>-170.80417</wgs:long>
+	<skos:prefLabel>Leālātaua County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5880873/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.30667</wgs:lat>
+	<wgs:long>-170.76583</wgs:long>
+	<skos:prefLabel>Leāsina County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881387/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.32556</wgs:lat>
+	<wgs:long>-170.84528</wgs:long>
+	<skos:prefLabel>Luania Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881394/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.2625</wgs:lat>
+	<wgs:long>-170.55833</wgs:long>
+	<skos:prefLabel>Maalatetele Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881398/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.22944</wgs:lat>
+	<wgs:long>-169.51889</wgs:long>
+	<skos:prefLabel>Maafee Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881434/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.2125</wgs:lat>
+	<wgs:long>-169.55417</wgs:long>
+	<skos:prefLabel>Manu`a Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881436/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-14.23333</wgs:lat>
+	<wgs:long>-169.50833</wgs:long>
+	<skos:altLabel>Manu'a</skos:altLabel>
+	<skos:prefLabel>Manu'a District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881438/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29306</wgs:lat>
+	<wgs:long>-170.78028</wgs:long>
+	<skos:prefLabel>Manuelo Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881441/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25667</wgs:lat>
+	<wgs:long>-170.70083</wgs:long>
+	<skos:prefLabel>Manofā</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881449/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25361</wgs:lat>
+	<wgs:long>-169.45667</wgs:long>
+	<skos:prefLabel>Mataitutua Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881468/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.23444</wgs:lat>
+	<wgs:long>-170.66972</wgs:long>
+	<skos:prefLabel>Matalia Point</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.27417</wgs:lat>
+	<wgs:long>-170.70472</wgs:long>
+	<skos:prefLabel>Mauputasi County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881512/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.285</wgs:lat>
+	<wgs:long>-170.73139</wgs:long>
+	<skos:prefLabel>Nuuosina Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881531/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.3425</wgs:lat>
+	<wgs:long>-170.78861</wgs:long>
+	<skos:prefLabel>Niuaveve Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881532/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33028</wgs:lat>
+	<wgs:long>-170.83444</wgs:long>
+	<skos:prefLabel>Niuolepava Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881537/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25111</wgs:lat>
+	<wgs:long>-170.5725</wgs:long>
+	<skos:prefLabel>Nuuiti Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881540/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.29583</wgs:lat>
+	<wgs:long>-170.79472</wgs:long>
+	<skos:prefLabel>Nuuomanu Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881543/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.1775</wgs:lat>
+	<wgs:long>-169.61778</wgs:long>
+	<skos:prefLabel>Olosega Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881545/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25167</wgs:lat>
+	<wgs:long>-170.56806</wgs:long>
+	<skos:prefLabel>Nuutele Rocks</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881546/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.17639</wgs:lat>
+	<wgs:long>-169.68333</wgs:long>
+	<skos:prefLabel>Nuusilaelae Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881547/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.17833</wgs:lat>
+	<wgs:long>-169.6775</wgs:long>
+	<skos:prefLabel>Nuupule Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881548/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.25444</wgs:lat>
+	<wgs:long>-170.62083</wgs:long>
+	<skos:prefLabel>Nuusetoga Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881549/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.17194</wgs:lat>
+	<wgs:long>-169.68333</wgs:long>
+	<skos:prefLabel>Nu`utele Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881550/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33806</wgs:lat>
+	<wgs:long>-170.80333</wgs:long>
+	<skos:prefLabel>Nuutai Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881551/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.2925</wgs:lat>
+	<wgs:long>-170.76694</wgs:long>
+	<skos:prefLabel>Nuutavana Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881558/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.16194</wgs:lat>
+	<wgs:long>-169.60833</wgs:long>
+	<skos:prefLabel>Nuututai Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881563/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.17917</wgs:lat>
+	<wgs:long>-169.66639</wgs:long>
+	<skos:prefLabel>Ofu Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881607/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.33222</wgs:lat>
+	<wgs:long>-170.8075</wgs:long>
+	<skos:prefLabel>Papaseugogo Rock</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/5881634/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.23944</wgs:lat>
+	<wgs:long>-170.66889</wgs:long>
+	<skos:prefLabel>Pola Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881436/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.20193</wgs:lat>
+	<wgs:long>-169.49271</wgs:long>
+	<skos:prefLabel>Faleasao County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/5881219/"/>
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>-14.21569</wgs:lat>
+	<wgs:long>-170.65214</wgs:long>
+	<skos:prefLabel>Vaifanua County</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267974/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30247</wgs:lat>
+	<wgs:long>-170.75536</wgs:long>
+	<skos:prefLabel>Village of Aasu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267975/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35302</wgs:lat>
+	<wgs:long>-170.80314</wgs:long>
+	<skos:prefLabel>Village of Afao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267976/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.26165</wgs:lat>
+	<wgs:long>-170.64842</wgs:long>
+	<skos:prefLabel>Village of Afono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267977/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.3492</wgs:lat>
+	<wgs:long>-170.82508</wgs:long>
+	<skos:prefLabel>Village of Agugulu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267978/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.29077</wgs:lat>
+	<wgs:long>-170.52245</wgs:long>
+	<skos:prefLabel>Village of Alao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267979/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30639</wgs:lat>
+	<wgs:long>-170.62775</wgs:long>
+	<skos:prefLabel>Village of Alega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267980/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30223</wgs:lat>
+	<wgs:long>-170.60279</wgs:long>
+	<skos:prefLabel>Village of Alofau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267981/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35054</wgs:lat>
+	<wgs:long>-170.79233</wgs:long>
+	<skos:prefLabel>Village of Amaluia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267982/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.34567</wgs:lat>
+	<wgs:long>-170.84552</wgs:long>
+	<skos:prefLabel>Village of Amanave</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267983/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27613</wgs:lat>
+	<wgs:long>-170.62342</wgs:long>
+	<skos:prefLabel>Village of Amaua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267984/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.31108</wgs:lat>
+	<wgs:long>-170.57075</wgs:long>
+	<skos:prefLabel>Village of Amouli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267985/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27592</wgs:lat>
+	<wgs:long>-170.68743</wgs:long>
+	<skos:prefLabel>Village of Anua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267986/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.26725</wgs:lat>
+	<wgs:long>-170.58663</wgs:long>
+	<skos:prefLabel>Village of Aoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267987/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.28964</wgs:lat>
+	<wgs:long>-170.77953</wgs:long>
+	<skos:prefLabel>Village of Aoloau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267988/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35482</wgs:lat>
+	<wgs:long>-170.79774</wgs:long>
+	<skos:prefLabel>Village of Asili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267989/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27507</wgs:lat>
+	<wgs:long>-170.68368</wgs:long>
+	<skos:prefLabel>Village of Atu'u</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267990/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27896</wgs:lat>
+	<wgs:long>-170.66288</wgs:long>
+	<skos:prefLabel>Village of Aua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267991/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27497</wgs:lat>
+	<wgs:long>-170.57609</wgs:long>
+	<skos:prefLabel>Village of Auasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267992/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.3096</wgs:lat>
+	<wgs:long>-170.63899</wgs:long>
+	<skos:prefLabel>Village of Aumi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267993/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.2912</wgs:lat>
+	<wgs:long>-170.55123</wgs:long>
+	<skos:prefLabel>Village of Aunu'u</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267994/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.2795</wgs:lat>
+	<wgs:long>-170.62778</wgs:long>
+	<skos:prefLabel>Village of Auto</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267995/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30704</wgs:lat>
+	<wgs:long>-170.61849</wgs:long>
+	<skos:prefLabel>Village of Avaio</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267996/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.29494</wgs:lat>
+	<wgs:long>-170.67892</wgs:long>
+	<skos:prefLabel>Village of Faga'alu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267997/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27911</wgs:lat>
+	<wgs:long>-170.61437</wgs:long>
+	<skos:prefLabel>Village of Faga'itua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267998/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30876</wgs:lat>
+	<wgs:long>-170.82998</wgs:long>
+	<skos:prefLabel>Village of Fagali'i</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7267999/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27755</wgs:lat>
+	<wgs:long>-170.81758</wgs:long>
+	<skos:prefLabel>Village of Fagamalo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268000/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30527</wgs:lat>
+	<wgs:long>-170.69269</wgs:long>
+	<skos:prefLabel>Village of Faganeanea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268001/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.26944</wgs:lat>
+	<wgs:long>-170.7484</wgs:long>
+	<skos:prefLabel>Village of Fagasa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268002/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.28722</wgs:lat>
+	<wgs:long>-170.6912</wgs:long>
+	<skos:prefLabel>Village of Fagatogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268003/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35001</wgs:lat>
+	<wgs:long>-170.83196</wgs:long>
+	<skos:prefLabel>Village of Failolo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268004/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.20193</wgs:lat>
+	<wgs:long>-169.49271</wgs:long>
+	<skos:prefLabel>Village of Faleasao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268005/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.33242</wgs:lat>
+	<wgs:long>-170.74305</wgs:long>
+	<skos:prefLabel>Village of Faleniu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268006/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.30077</wgs:lat>
+	<wgs:long>-170.67402</wgs:long>
+	<skos:prefLabel>Village of Fatumafuti</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268007/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.38756</wgs:lat>
+	<wgs:long>-170.76009</wgs:long>
+	<skos:prefLabel>Village of Futiga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268008/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.37035</wgs:lat>
+	<wgs:long>-170.71886</wgs:long>
+	<skos:prefLabel>Village of Ili'ili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268009/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.31604</wgs:lat>
+	<wgs:long>-170.65594</wgs:long>
+	<skos:prefLabel>Village of Lauli'i</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268010/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27421</wgs:lat>
+	<wgs:long>-170.67631</wgs:long>
+	<skos:prefLabel>Village of Leloaloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268011/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.34064</wgs:lat>
+	<wgs:long>-170.78118</wgs:long>
+	<skos:prefLabel>Village of Leone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268012/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.25513</wgs:lat>
+	<wgs:long>-169.40728</wgs:long>
+	<skos:prefLabel>Village of Leusoali'i</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268013/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.21034</wgs:lat>
+	<wgs:long>-169.54704</wgs:long>
+	<skos:prefLabel>Village of Luma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268014/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.1961</wgs:lat>
+	<wgs:long>-169.42852</wgs:long>
+	<skos:prefLabel>Village of Maia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268015/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.31429</wgs:lat>
+	<wgs:long>-170.7343</wgs:long>
+	<skos:prefLabel>Village of Malaeimi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268016/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.3355</wgs:lat>
+	<wgs:long>-170.76832</wgs:long>
+	<skos:prefLabel>Village of Malaeloa/Aitulagi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268017/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.34715</wgs:lat>
+	<wgs:long>-170.76817</wgs:long>
+	<skos:prefLabel>Village of Malaeloa/Ituau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268018/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.3107</wgs:lat>
+	<wgs:long>-170.81489</wgs:long>
+	<skos:prefLabel>Village of Maloata</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268019/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.32275</wgs:lat>
+	<wgs:long>-170.75067</wgs:long>
+	<skos:prefLabel>Village of Mapusagafou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268020/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.24788</wgs:lat>
+	<wgs:long>-170.60689</wgs:long>
+	<skos:prefLabel>Village of Masausi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268021/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.24638</wgs:lat>
+	<wgs:long>-170.62314</wgs:long>
+	<skos:prefLabel>Village of Masefau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268022/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.32972</wgs:lat>
+	<wgs:long>-170.66885</wgs:long>
+	<skos:prefLabel>Village of Matu'u</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268023/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.32399</wgs:lat>
+	<wgs:long>-170.74238</wgs:long>
+	<skos:prefLabel>Village of Mesepa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268024/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35432</wgs:lat>
+	<wgs:long>-170.8082</wgs:long>
+	<skos:prefLabel>Village of Nua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268025/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.33221</wgs:lat>
+	<wgs:long>-170.69131</wgs:long>
+	<skos:prefLabel>Village of Nu'uuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268026/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.33221</wgs:lat>
+	<wgs:long>-170.69131</wgs:long>
+	<skos:prefLabel>Village of Nu'uuli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268027/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.17269</wgs:lat>
+	<wgs:long>-169.6741</wgs:long>
+	<skos:prefLabel>Village of Ofu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268028/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.20311</wgs:lat>
+	<wgs:long>-169.59943</wgs:long>
+	<skos:prefLabel>Village of Olosega</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268029/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.23767</wgs:lat>
+	<wgs:long>-170.58435</wgs:long>
+	<skos:prefLabel>Village of Onenoa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268030/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27403</wgs:lat>
+	<wgs:long>-170.60469</wgs:long>
+	<skos:prefLabel>Village of Pagai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268031/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.25159</wgs:lat>
+	<wgs:long>-170.71329</wgs:long>
+	<skos:prefLabel>Village of Pago Pago</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268032/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.33808</wgs:lat>
+	<wgs:long>-170.75231</wgs:long>
+	<skos:prefLabel>Village of Pava'ia'i</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268033/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.31527</wgs:lat>
+	<wgs:long>-170.86293</wgs:long>
+	<skos:prefLabel>Village of Poloa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268034/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.23485</wgs:lat>
+	<wgs:long>-170.59708</wgs:long>
+	<skos:prefLabel>Village of Sa'ilele</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268035/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35753</wgs:lat>
+	<wgs:long>-170.81544</wgs:long>
+	<skos:prefLabel>Village of Se'etaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268036/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.14118</wgs:lat>
+	<wgs:long>-169.60079</wgs:long>
+	<skos:prefLabel>Village of Sili</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268037/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27666</wgs:lat>
+	<wgs:long>-169.48951</wgs:long>
+	<skos:prefLabel>Village of Si'ufaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268039/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35608</wgs:lat>
+	<wgs:long>-170.70404</wgs:long>
+	<skos:prefLabel>Village of Tafuna</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268040/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.35757</wgs:lat>
+	<wgs:long>-170.77061</wgs:long>
+	<skos:prefLabel>Village of Taputimu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268041/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.23182</wgs:lat>
+	<wgs:long>-170.5494</wgs:long>
+	<skos:prefLabel>Village of Tula</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268042/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.2869</wgs:lat>
+	<wgs:long>-170.67852</wgs:long>
+	<skos:prefLabel>Village of Utulei</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268043/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.28215</wgs:lat>
+	<wgs:long>-170.56735</wgs:long>
+	<skos:prefLabel>Village of Utumea East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268044/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.34327</wgs:lat>
+	<wgs:long>-170.82072</wgs:long>
+	<skos:prefLabel>Village of Utumea West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268045/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.38087</wgs:lat>
+	<wgs:long>-170.78198</wgs:long>
+	<skos:prefLabel>Village of Vailoatai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268046/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.38503</wgs:lat>
+	<wgs:long>-170.73282</wgs:long>
+	<skos:prefLabel>Village of Vaitogi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7268047/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.2165</wgs:lat>
+	<wgs:long>-170.66</wgs:long>
+	<skos:prefLabel>Village of Vatia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7269446/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.34618</wgs:lat>
+	<wgs:long>-170.7688</wgs:long>
+	<skos:prefLabel>Village of Auma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7269447/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.33583</wgs:lat>
+	<wgs:long>-170.78721</wgs:long>
+	<skos:prefLabel>Village of Puapua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7269448/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.27073</wgs:lat>
+	<wgs:long>-170.69186</wgs:long>
+	<skos:prefLabel>Village of Satala</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7269449/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-14.26987</wgs:lat>
+	<wgs:long>-170.61987</wgs:long>
+	<skos:prefLabel>Village of Utusia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7309441/">
+	<europeana:country>AS</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-14.54583</wgs:lat>
+	<wgs:long>-168.15</wgs:long>
+	<skos:prefLabel>Rose Atoll</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 159 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

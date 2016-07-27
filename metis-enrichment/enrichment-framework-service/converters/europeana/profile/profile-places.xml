@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY rdf 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'>
+    <!ENTITY rdfs 'http://www.w3.org/2000/01/rdf-schema#'>
+    <!ENTITY ac 'http://annocultor.eu/converter/'>
+    <!ENTITY europeana     "http://www.europeana.eu">
+    <!ENTITY ontology     "http://www.europeana.eu/ontology/">
+        
+    <!ENTITY parameters SYSTEM '/../profile/parameters.xml'> 
+    <!ENTITY vocabularies SYSTEM '/../../vocabularies.xml'> 
+    
+]>
+<rdf:RDF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://annocultor.eu/schema/XConverter.xsd" xmlns:ac="http://annocultor.eu/converter/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" 
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:europeana="&europeana;" 
+    xmlns:ontology="&ontology;" 
+    xmlns:sws="http://sws.geonames.org/" xmlns:dcterms="http://purl.org/dc/terms/">
+	<ac:Profile ac:institution="Europeana project" ac:publisherId="000" ac:versionAnnoCultor="2.0" rdf:about="Ese" ac:namespace="europeana">
+		<!--
+			Shared definition of parameters and vocabularies are loaded from the corresponding files.
+		-->
+		<ac:parameters rdf:parseType="Collection">
+    &parameters;
+		</ac:parameters>
+		<ac:vocabularies rdf:parseType="Collection">
+           &vocabularies;
+		</ac:vocabularies>
+
+		<ac:repositories rdf:parseType="Collection">
+			<ac:Repository rdf:about="Places">
+				<ac:datasources rdf:parseType="Collection">
+					<ac:XmlDataSource>
+						<ac:file>places.solr.xml</ac:file>
+					</ac:XmlDataSource>
+				</ac:datasources>
+				<ac:destinations rdf:parseType="Collection">
+					<!--
+						Destinations are separate RDF files that will be created. Each property rule has a parameter that specifies where to store the result. Splitting a dataset among several files may be quite useful
+						in practice.
+					-->
+					<ac:RdfGraph rdf:about="Places">
+					  <ac:comment>Records for places (literal properties)</ac:comment>	
+					</ac:RdfGraph>  
+					<ac:RdfGraph rdf:about="PlacesSpatial">
+                      <ac:comment>Enrichments based on record field dcterms:spatial. This is where locations should be stored</ac:comment>
+                    </ac:RdfGraph>
+                     <ac:RdfGraph rdf:about="PlacesCoverage">
+                       <ac:comment>Enrichments based on record field dc:coverage. This field is often used to store locations</ac:comment>
+                    </ac:RdfGraph>
+                    <ac:RdfGraph rdf:about="PlacesSubject">
+                       <ac:comment>Enrichments based on record field dc:subject. This field is often used to store locations</ac:comment>
+                    </ac:RdfGraph>
+                    <ac:RdfGraph rdf:about="PlacesDescription">
+                      <ac:comment>Enrichments based on record field dc:description. This field is often used to store locations</ac:comment>
+                    </ac:RdfGraph>
+                     <ac:RdfGraph rdf:about="PlacesTitle">
+                      <ac:comment>Enrichments based on record field dc:title. This field is often used to store locations</ac:comment>
+                    </ac:RdfGraph>
+                    
+                    <ac:SolrDocumentsFile rdf:about="PlacesSolr">
+                      <ac:comment>Enrichments based on record fields</ac:comment>
+                    </ac:SolrDocumentsFile>
+ 				</ac:destinations>
+				<ac:objectRules rdf:parseType="Collection">
+					<ac:ObjectRule rdf:about="subjectRule">
+						<ac:recordSeparator>/response/result/doc</ac:recordSeparator>
+						<ac:recordIdentifier>/response/result/doc/str[@name='europeana_uri']</ac:recordIdentifier>
+						<ac:recordInformalIdentifier>/response/result/doc/str</ac:recordInformalIdentifier>
+
+						<ac:listeners rdf:parseType="Collection">
+							<ac:OnPreCondition>
+								<ac:java>
+									// local identifier is a complete URI, it is already prefixed with a namespace
+									subjectRule.assumeQualifiedLocalRecordIdentifier();
+									return true;
+              					</ac:java>
+							</ac:OnPreCondition>
+						</ac:listeners>
+
+						<ac:propertyRules>
+							<!--
+                                Places
+                            -->
+<!-- 
+						<ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+								<ac:srcPath rdf:datatype="ac:Path">dc:country</ac:srcPath>
+								<ac:dstProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:dstProperty>
+								<ac:dstGraphLiterals rdf:datatype="ac:Graph">Places</ac:dstGraphLiterals>
+								<ac:dstGraphLinks rdf:datatype="ac:Graph">PlacesSpatial</ac:dstGraphLinks>
+								<ac:termsProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:termsProperty>
+								<ac:termsSignature rdf:datatype="ac:String">country</ac:termsSignature>
+								<ac:termsSplitPattern rdf:datatype="ac:String">( *; *)</ac:termsSplitPattern>
+								<ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+                                <ac:listeners rdf:parseType="Collection">
+                                    <ac:OnInit>
+                                        <ac:java>
+                                           addLabelExtractor(new EuropeanaLabelExtractor(false));
+                                        </ac:java>
+                                    </ac:OnInit>
+                                </ac:listeners>
+							</ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+ -->
+    
+                            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+                                <ac:srcPath rdf:datatype="ac:Path">arr[@name='dcterms_spatial']/str</ac:srcPath>
+                                <ac:dstProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:dstProperty>
+                                <ac:dstGraphLiterals rdf:datatype="ac:Graph">Places</ac:dstGraphLiterals>
+                                <ac:dstGraphLinks rdf:datatype="ac:Graph">PlacesSpatial</ac:dstGraphLinks>
+                                <ac:termsProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:termsProperty>
+                                <ac:termsSignature rdf:datatype="ac:String">spatial</ac:termsSignature>
+                                <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)</ac:termsSplitPattern>
+                                <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+                                <ac:listeners rdf:parseType="Collection">
+                                    <ac:Declarations>
+                                        <ac:java>                                         
+                                         @Override
+                                         protected void processLookupMatch(TermList terms, String termUri, String subject, DataObject dataObject, boolean createTermDefinion)
+                                         throws Exception {
+                                            super.processLookupMatch(terms, termUri, subject, dataObject, createTermDefinion);
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("europeana_uri"), new LiteralValue(subject), this));                                        
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("enrichment_place"), new LiteralValue(terms.getFirst().getCode()), this));                                        
+                                         }
+                                        </ac:java>
+                                    </ac:Declarations>
+                                    <ac:OnInit>
+                                        <ac:java>
+                                           addLabelExtractor(new EuropeanaLabelExtractor(false));
+                                        </ac:java>
+                                    </ac:OnInit>
+                                </ac:listeners>
+                            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+
+                            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+                                <ac:srcPath rdf:datatype="ac:Path">arr[@name='dc_coverage']/str</ac:srcPath>
+                                <ac:dstProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:dstProperty>
+                                <ac:dstGraphLiterals rdf:datatype="ac:Graph">Places</ac:dstGraphLiterals>
+                                <ac:dstGraphLinks rdf:datatype="ac:Graph">PlacesCoverage</ac:dstGraphLinks>
+                                <ac:termsProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:termsProperty>
+                                <ac:termsSignature rdf:datatype="ac:String">coverage</ac:termsSignature>
+                                <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)</ac:termsSplitPattern>
+                                <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+                                <ac:listeners rdf:parseType="Collection">
+                                    <ac:OnInit>
+                                        <ac:java>
+                                           addLabelExtractor(new EuropeanaLabelExtractor(false));
+                                        </ac:java>
+                                    </ac:OnInit>
+                                </ac:listeners>
+                            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+
+                            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+                                <ac:srcPath rdf:datatype="ac:Path">arr[@name='dc_subject']/str</ac:srcPath>
+                                <ac:dstProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:dstProperty>
+                                <ac:dstGraphLiterals rdf:datatype="ac:Graph">Places</ac:dstGraphLiterals>
+                                <ac:dstGraphLinks rdf:datatype="ac:Graph">PlacesSubject</ac:dstGraphLinks>
+                                <ac:termsProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:termsProperty>
+                                <ac:termsSignature rdf:datatype="ac:String">subject</ac:termsSignature>
+                                <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)</ac:termsSplitPattern>
+                                <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+                                <ac:listeners rdf:parseType="Collection">
+                                    <ac:Declarations>
+                                        <ac:java>
+                                         protected void reportMissing(String label) throws Exception {
+                                            // missing word is not worth reporting
+                                         }
+                                         @Override
+                                         protected void processLookupMatch(TermList terms, String termUri, String subject, DataObject dataObject, boolean createTermDefinion)
+                                         throws Exception {
+                                            super.processLookupMatch(terms, termUri, subject, dataObject, createTermDefinion);
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("europeana_uri"), new LiteralValue(subject), this));                                        
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("enrichment_place"), new LiteralValue(terms.getFirst().getCode()), this));                                        
+                                         }
+                                        </ac:java>
+                                    </ac:Declarations>
+                                    <ac:OnInit>
+                                        <ac:java>
+                                           addLabelExtractor(new EuropeanaLabelExtractor(true));
+                                        </ac:java>
+                                    </ac:OnInit>
+                                </ac:listeners>
+                            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+
+                            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+                                <ac:srcPath rdf:datatype="ac:Path">arr[@name='dc_description']/str</ac:srcPath>
+                                <ac:dstProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:dstProperty>
+                                <ac:dstGraphLiterals rdf:datatype="ac:Graph">Places</ac:dstGraphLiterals>
+                                <ac:dstGraphLinks rdf:datatype="ac:Graph">PlacesDescription</ac:dstGraphLinks>
+                                <ac:termsProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:termsProperty>
+                                <ac:termsSignature rdf:datatype="ac:String">description</ac:termsSignature>
+                                <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)</ac:termsSplitPattern>
+                                <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+                                <ac:listeners rdf:parseType="Collection">
+                                    <ac:Declarations>
+                                        <ac:java>
+                                         protected void reportMissing(String label) throws Exception {
+                                            // missing word is not worth reporting
+                                         }
+                                         @Override
+                                         protected void processLookupMatch(TermList terms, String termUri, String subject, DataObject dataObject, boolean createTermDefinion)
+                                         throws Exception {
+                                            super.processLookupMatch(terms, termUri, subject, dataObject, createTermDefinion);
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("europeana_uri"), new LiteralValue(subject), this));                                        
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("enrichment_place"), new LiteralValue(terms.getFirst().getCode()), this));                                        
+                                         }
+                                        </ac:java>
+                                    </ac:Declarations>
+                                    <ac:OnInit>
+                                        <ac:java>
+                                           addLabelExtractor(new EuropeanaLabelExtractor(true));
+                                        </ac:java>
+                                    </ac:OnInit>
+                                </ac:listeners>
+                            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+
+                            <ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+                                <ac:srcPath rdf:datatype="ac:Path">arr[@name='dc_title']/str</ac:srcPath>
+                                <ac:dstProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:dstProperty>
+                                <ac:dstGraphLiterals rdf:datatype="ac:Graph">Places</ac:dstGraphLiterals>
+                                <ac:dstGraphLinks rdf:datatype="ac:Graph">PlacesTitle</ac:dstGraphLinks>
+                                <ac:termsProperty rdf:datatype="ac:Property">ontology:locationEnrichment</ac:termsProperty>
+                                <ac:termsSignature rdf:datatype="ac:String">title</ac:termsSignature>
+                                <ac:termsSplitPattern rdf:datatype="ac:String">( *; *)</ac:termsSplitPattern>
+                                <ac:termsVocabulary rdf:datatype="ac:VocabularyOfPlaces">places</ac:termsVocabulary>
+                                <ac:listeners rdf:parseType="Collection">
+                                    <ac:Declarations>
+                                        <ac:java>
+                                         protected void reportMissing(String label) throws Exception {
+                                            // missing word is not worth reporting
+                                         }
+                                         @Override
+                                         protected void processLookupMatch(TermList terms, String termUri, String subject, DataObject dataObject, boolean createTermDefinion)
+                                         throws Exception {
+                                            super.processLookupMatch(terms, termUri, subject, dataObject, createTermDefinion);
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("europeana_uri"), new LiteralValue(subject), this));                                        
+                                            factory.makeGraph("PlacesSolr").add(new Triple(subject, new Property("enrichment_place"), new LiteralValue(terms.getFirst().getCode()), this));                                        
+                                         }
+                                        </ac:java>
+                                    </ac:Declarations>
+                                    <ac:OnInit>
+                                        <ac:java>
+                                           addLabelExtractor(new EuropeanaLabelExtractor(true));
+                                        </ac:java>
+                                    </ac:OnInit>
+                                </ac:listeners>
+                            </ac:eu.annocultor.tagger.rules.LookupPlaceRule-noLocalTerms>
+
+						</ac:propertyRules>
+					</ac:ObjectRule>
+				</ac:objectRules>
+
+				<!--
+					Conversion limit made for debugging. A positive value would stop conversion after the corresponding number of records is passed. Note: in a normal completion it creates all output files but end
+					with an exception that is raised to stop conversion. Watch out!
+				-->
+				<ac:maxRecordsToConvert>-1</ac:maxRecordsToConvert>
+			</ac:Repository>
+		</ac:repositories>
+	</ac:Profile>
+</rdf:RDF>

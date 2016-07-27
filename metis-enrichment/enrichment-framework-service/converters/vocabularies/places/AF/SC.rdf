@@ -1,0 +1,1553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_SC
+Description: Selected fields pulled from Geonames about SC done on Mon May 23 21:16:22 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/241126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.73333</wgs:lat>
+	<wgs:long>47.63333</wgs:long>
+	<skos:prefLabel>Wizard Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241128/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.36667</wgs:lat>
+	<wgs:long>46.21667</wgs:long>
+	<skos:altLabel>Ile Picard</skos:altLabel>
+	<skos:altLabel>West Island</skos:altLabel>
+	<skos:prefLabel>West Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241131/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>22881</europeana:population>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.45</wgs:long>
+	<skos:altLabel>Mahé</skos:altLabel>
+	<skos:altLabel>Port Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="id">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="de">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="es">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="da">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="en">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="no">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="it">Victoria</skos:altLabel>
+	<skos:altLabel>Victoria</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Victòria</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Viktorija</skos:altLabel>
+	<skos:altLabel xml:lang="el">Βικτόρια</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Виктория</skos:altLabel>
+	<skos:altLabel xml:lang="ur">وکٹوریا</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቪክቶሪያ፥ ሲሸልስ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ヴィクトリア</skos:altLabel>
+	<skos:altLabel xml:lang="ko">빅토리아</skos:altLabel>
+	<skos:prefLabel>Victoria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241133/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.68333</wgs:lat>
+	<wgs:long>55.43333</wgs:long>
+	<skos:altLabel>Isle Vache</skos:altLabel>
+	<skos:altLabel>Vache Island</skos:altLabel>
+	<skos:altLabel>Île aux Vaches</skos:altLabel>
+	<skos:prefLabel>Île aux Vaches</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241142/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.4</wgs:long>
+	<skos:altLabel>Thérèse Island</skos:altLabel>
+	<skos:altLabel>Île Thérèse</skos:altLabel>
+	<skos:prefLabel>Île Thérèse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241151/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2602</europeana:population>
+	<wgs:lat>-4.78333</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel xml:lang="nn">Takamaka</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Takamaka</skos:altLabel>
+	<skos:altLabel>Takamaka</skos:altLabel>
+	<skos:prefLabel>Takamaka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241155/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.76667</wgs:lat>
+	<wgs:long>47.58333</wgs:long>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241156/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.43333</wgs:lat>
+	<wgs:long>46.38333</wgs:long>
+	<skos:altLabel>Main island</skos:altLabel>
+	<skos:altLabel>South Island</skos:altLabel>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241157/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.9</wgs:lat>
+	<wgs:long>53.38333</wgs:long>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241158/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.53333</wgs:long>
+	<skos:prefLabel>South East Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241159/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.73333</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Souris Island</skos:altLabel>
+	<skos:altLabel>Souris islet</skos:altLabel>
+	<skos:prefLabel>Souris Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241163/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.48333</wgs:lat>
+	<wgs:long>55.23333</wgs:long>
+	<skos:altLabel>Silhouette</skos:altLabel>
+	<skos:altLabel>Silhouette Island</skos:altLabel>
+	<skos:prefLabel>Silhouette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241170/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>88340</europeana:population>
+	<wgs:lat>-4.58333</wgs:lat>
+	<wgs:long>55.66667</wgs:long>
+	<skos:altLabel>Colony of the Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Ilhas Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="la">Insulae Seisellenses</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Na Séiséil</skos:altLabel>
+	<skos:altLabel>Republic of Seychelles</skos:altLabel>
+	<skos:altLabel>SC</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Seichèlas</skos:altLabel>
+	<skos:altLabel xml:lang="et">Seiiellid</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Seixeles</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Seixeles - Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Seišeliai</skos:altLabel>
+	<skos:altLabel xml:lang="et">Seišellid</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Seišelu salas</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Seišeļu salas</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Sejeluäns</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sejshelli</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Sejŝeloj</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Sejšeli</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Sejšeli</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Sejšeli</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Sejšeli</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Seszele</skos:altLabel>
+	<skos:altLabel xml:lang="io">Seycheli</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Seychellane</skos:altLabel>
+	<skos:altLabel xml:lang="af">Seychelle</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Seychelle-szigetek</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Seychelleak</skos:altLabel>
+	<skos:altLabel xml:lang="de">Seychellen</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Seychellen</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Seychellene</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Seychellene</skos:altLabel>
+	<skos:altLabel xml:lang="no">Seychellene</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Seychellerna</skos:altLabel>
+	<skos:altLabel xml:lang="da">Seychellerne</skos:altLabel>
+	<skos:altLabel xml:lang="id">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="es">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="en">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="it">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="an">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Seychelles</skos:altLabel>
+	<skos:altLabel xml:lang="is">Seychelleseyjar</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Seychellit</skos:altLabel>
+	<skos:altLabel xml:lang="se">Seychellsullot</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Seychellys</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Seychelské ostrovy</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Seychely</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Seychely</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Seyskelloyggjarnar</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Seyşel Adaları</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Seyşeller</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Shelisheli</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Sishel</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Visiwa vya Shelisheli</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xây sen (Seychelles)</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Xây-sen</skos:altLabel>
+	<skos:altLabel xml:lang="el">Σεϋχέλλες</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сейшели</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сейшели</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сейшелски О-ви</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Сейшелски острови</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сейшелы</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сейшельские Острова</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Сейшельські острови</skos:altLabel>
+	<skos:altLabel xml:lang="be">Сейшэльскія Астравы</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Сејшели</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Сејшели</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ҷазираҳои Сейшел</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Սեյշելներ</skos:altLabel>
+	<skos:altLabel xml:lang="he">איי סיישל</skos:altLabel>
+	<skos:altLabel xml:lang="he">סיישל</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سيشل</skos:altLabel>
+	<skos:altLabel xml:lang="ar">سيشيل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سیشل</skos:altLabel>
+	<skos:altLabel xml:lang="fa">سیچلز</skos:altLabel>
+	<skos:altLabel xml:lang="ug">سېيشېل</skos:altLabel>
+	<skos:altLabel xml:lang="ps">سېچېلېس</skos:altLabel>
+	<skos:altLabel xml:lang="ur">سے شلز</skos:altLabel>
+	<skos:altLabel xml:lang="hi">सेशल्स</skos:altLabel>
+	<skos:altLabel xml:lang="bn">সেশেলেস</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศเซเชลส์</skos:altLabel>
+	<skos:altLabel xml:lang="th">เซเชลส์</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ເຊແຊວ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">སཱ་ཤཻལ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">სეიშელის კუნძულები</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሲሸልስ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ሲሼልስ</skos:altLabel>
+	<skos:altLabel xml:lang="km">សីសែល</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セイシェル</skos:altLabel>
+	<skos:altLabel xml:lang="ja">セーシェル</skos:altLabel>
+	<skos:altLabel xml:lang="zh">塞舌尔</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세이셸</skos:altLabel>
+	<skos:altLabel xml:lang="ko">세이쉘</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쉐이쉘</skos:altLabel>
+	<skos:prefLabel>Republic of Seychelles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241171/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-4.58333</wgs:lat>
+	<wgs:long>55.66667</wgs:long>
+	<skos:altLabel>Seychelles</skos:altLabel>
+	<skos:altLabel>Seychelles Group</skos:altLabel>
+	<skos:altLabel>Seychelles Islands</skos:altLabel>
+	<skos:prefLabel>Seychelles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241176/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.68333</wgs:lat>
+	<wgs:long>53.23333</wgs:long>
+	<skos:prefLabel>Sand Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.28333</wgs:lat>
+	<wgs:long>55.75</wgs:long>
+	<skos:altLabel>Saint Pierre Island</skos:altLabel>
+	<skos:altLabel>Saint Pierre Islet</skos:altLabel>
+	<skos:prefLabel>Saint Pierre Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241178/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.31667</wgs:lat>
+	<wgs:long>50.71667</wgs:long>
+	<skos:altLabel>Saint Pierre</skos:altLabel>
+	<skos:altLabel>Saint Pierre Island</skos:altLabel>
+	<skos:prefLabel>Saint Pierre Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3224</europeana:population>
+	<wgs:lat>-4.63333</wgs:lat>
+	<wgs:long>55.43333</wgs:long>
+	<skos:altLabel>Saint Louis</skos:altLabel>
+	<skos:altLabel>St Louis</skos:altLabel>
+	<skos:prefLabel>Saint Louis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.43333</wgs:lat>
+	<wgs:long>53.36667</wgs:long>
+	<skos:altLabel>Saint Joseph Island</skos:altLabel>
+	<skos:altLabel>Saint Joseph islet</skos:altLabel>
+	<skos:prefLabel>Saint Joseph Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241184/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.16667</wgs:lat>
+	<wgs:long>52.73333</wgs:long>
+	<skos:prefLabel>Saint François Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241187/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.6</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:prefLabel>Saint Anne Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241191/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:altLabel>Round Island</skos:altLabel>
+	<skos:altLabel>Round islet</skos:altLabel>
+	<skos:prefLabel>Round Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241193/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.35</wgs:lat>
+	<wgs:long>55.78333</wgs:long>
+	<skos:altLabel>Round Island</skos:altLabel>
+	<skos:altLabel>Round islet</skos:altLabel>
+	<skos:altLabel>Île Ronde</skos:altLabel>
+	<skos:prefLabel>Île Ronde</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.4</wgs:lat>
+	<wgs:long>53.33333</wgs:long>
+	<skos:altLabel>Ressource Island</skos:altLabel>
+	<skos:altLabel>Ressource islet</skos:altLabel>
+	<skos:prefLabel>Ressource Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241201/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.11667</wgs:lat>
+	<wgs:long>53.31667</wgs:long>
+	<skos:altLabel>Eagle Island</skos:altLabel>
+	<skos:altLabel>Eagle islet</skos:altLabel>
+	<skos:altLabel>Remire Island</skos:altLabel>
+	<skos:prefLabel>Remire Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241203/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.58333</wgs:lat>
+	<wgs:long>55.75</wgs:long>
+	<skos:altLabel>Recif Island</skos:altLabel>
+	<skos:altLabel>Recif islet</skos:altLabel>
+	<skos:altLabel>Île aux Récifs</skos:altLabel>
+	<skos:prefLabel>Île aux Récifs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241204/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.53333</wgs:long>
+	<skos:altLabel>Brulé Island</skos:altLabel>
+	<skos:altLabel>Brulée</skos:altLabel>
+	<skos:altLabel>Rat Island</skos:altLabel>
+	<skos:altLabel>Rat islet</skos:altLabel>
+	<skos:altLabel>Île aux Rats</skos:altLabel>
+	<skos:prefLabel>Île aux Rats</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.23333</wgs:lat>
+	<wgs:long>51.03333</wgs:long>
+	<skos:prefLabel>Providence Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.31667</wgs:lat>
+	<wgs:long>55.73333</wgs:long>
+	<skos:altLabel xml:lang="lt">Praslenas</skos:altLabel>
+	<skos:altLabel xml:lang="de">Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="en">Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="no">Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Praslin</skos:altLabel>
+	<skos:altLabel>Praslin</skos:altLabel>
+	<skos:altLabel>Praslin Island</skos:altLabel>
+	<skos:prefLabel>Praslin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241212/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.43333</wgs:lat>
+	<wgs:long>53.31667</wgs:long>
+	<skos:altLabel>Ile Poule</skos:altLabel>
+	<skos:altLabel>Poule Island</skos:altLabel>
+	<skos:altLabel>Poule Islet</skos:altLabel>
+	<skos:prefLabel>Poule Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2273</europeana:population>
+	<wgs:lat>-4.65</wgs:lat>
+	<wgs:long>55.4</wgs:long>
+	<skos:altLabel>Port Glaud</skos:altLabel>
+	<skos:altLabel>Port Glaud</skos:altLabel>
+	<skos:prefLabel>Port Glaud</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241216/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.36667</wgs:lat>
+	<wgs:long>46.26667</wgs:long>
+	<skos:prefLabel>Polymnie Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-5.76667</wgs:lat>
+	<wgs:long>53.31667</wgs:long>
+	<skos:altLabel>Poivre Islands</skos:altLabel>
+	<skos:altLabel>Poivre islets</skos:altLabel>
+	<skos:prefLabel>Poivre Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241221/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2775</europeana:population>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel xml:lang="sh">Pointe La Rue</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Pointe La Rue</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Pointe La Rue</skos:altLabel>
+	<skos:altLabel>Pointe Larue</skos:altLabel>
+	<skos:prefLabel>Pointe Larue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241223/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.86667</wgs:lat>
+	<wgs:long>55.38333</wgs:long>
+	<skos:altLabel>Platte Island</skos:altLabel>
+	<skos:altLabel>Île Plate</skos:altLabel>
+	<skos:prefLabel>Île Plate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3220</europeana:population>
+	<wgs:lat>-4.65</wgs:lat>
+	<wgs:long>55.45833</wgs:long>
+	<skos:altLabel xml:lang="nn">Plaisance</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Plaisance</skos:altLabel>
+	<skos:altLabel>Plaisance</skos:altLabel>
+	<skos:prefLabel>Plaisance</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241228/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.28333</wgs:lat>
+	<wgs:long>55.85</wgs:long>
+	<skos:altLabel>Petite Sœur</skos:altLabel>
+	<skos:altLabel>West Sister</skos:altLabel>
+	<skos:altLabel>West Sister Island</skos:altLabel>
+	<skos:prefLabel>Petite Sœur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241232/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.41667</wgs:long>
+	<skos:prefLabel>Petite Île</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.43333</wgs:lat>
+	<wgs:long>53.35</wgs:long>
+	<skos:altLabel>Pelican Island</skos:altLabel>
+	<skos:altLabel>Pelican islet</skos:altLabel>
+	<skos:prefLabel>Pelican Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241241/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.86667</wgs:lat>
+	<wgs:long>53.38333</wgs:long>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:altLabel>North Islet</skos:altLabel>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.56667</wgs:lat>
+	<wgs:long>55.43333</wgs:long>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:altLabel>North islet</skos:altLabel>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241246/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.38333</wgs:lat>
+	<wgs:long>55.25</wgs:long>
+	<skos:altLabel>North Island</skos:altLabel>
+	<skos:altLabel>Île du Nord</skos:altLabel>
+	<skos:prefLabel>Île du Nord</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241248/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:altLabel>Moyenne Island</skos:altLabel>
+	<skos:altLabel>Moyenne islet</skos:altLabel>
+	<skos:prefLabel>Moyenne Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241251/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3610</europeana:population>
+	<wgs:lat>-4.63333</wgs:lat>
+	<wgs:long>55.45833</wgs:long>
+	<skos:altLabel xml:lang="nn">Mont Fleuri</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Mont Fleuri</skos:altLabel>
+	<skos:altLabel>Mont Fleuri</skos:altLabel>
+	<skos:prefLabel>Mont Fleuri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241252/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2995</europeana:population>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.45</wgs:long>
+	<skos:altLabel>Mont Buxton</skos:altLabel>
+	<skos:altLabel>buxton</skos:altLabel>
+	<skos:prefLabel>Mont Buxton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241259/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.36667</wgs:lat>
+	<wgs:long>46.35</wgs:long>
+	<skos:altLabel>Malabar island</skos:altLabel>
+	<skos:altLabel>Middle Island</skos:altLabel>
+	<skos:prefLabel>Middle Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241260/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.7</wgs:lat>
+	<wgs:long>47.5</wgs:long>
+	<skos:altLabel>Mehai Island</skos:altLabel>
+	<skos:altLabel>Menai Island</skos:altLabel>
+	<skos:prefLabel>Menai Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.18333</wgs:lat>
+	<wgs:long>53.15</wgs:long>
+	<skos:altLabel>Marie Louise</skos:altLabel>
+	<skos:altLabel>Marie Louise Island</skos:altLabel>
+	<skos:altLabel>Marie Louise islet</skos:altLabel>
+	<skos:prefLabel>Marie Louise Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241266/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.33333</wgs:lat>
+	<wgs:long>55.91667</wgs:long>
+	<skos:altLabel>Marianne</skos:altLabel>
+	<skos:altLabel>Marie Anne Island</skos:altLabel>
+	<skos:altLabel>Mary Anne Island</skos:altLabel>
+	<skos:prefLabel>Marianne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.48333</wgs:lat>
+	<wgs:long>55.53333</wgs:long>
+	<skos:altLabel>Mamelle Island</skos:altLabel>
+	<skos:altLabel>Mamelle islet</skos:altLabel>
+	<skos:altLabel>Mamelles</skos:altLabel>
+	<skos:prefLabel>Mamelles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241278/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:altLabel>Long Island</skos:altLabel>
+	<skos:altLabel>Long islet</skos:altLabel>
+	<skos:prefLabel>Long Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241281/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.65</wgs:lat>
+	<wgs:long>55.4</wgs:long>
+	<skos:altLabel>L’Islette</skos:altLabel>
+	<skos:altLabel>Îlot de L’Islette</skos:altLabel>
+	<skos:prefLabel>L’Islette</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241282/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.6</wgs:lat>
+	<wgs:long>55.9</wgs:long>
+	<skos:altLabel>L’llot Island</skos:altLabel>
+	<skos:altLabel>L’Îlot</skos:altLabel>
+	<skos:prefLabel>L’Îlot</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241285/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-4.28333</wgs:lat>
+	<wgs:long>55.86667</wgs:long>
+	<skos:altLabel>Les Sœurs</skos:altLabel>
+	<skos:altLabel>The Sister Islands</skos:altLabel>
+	<skos:altLabel>The Sisters</skos:altLabel>
+	<skos:prefLabel>Les Sœurs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241288/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-4.3</wgs:lat>
+	<wgs:long>55.68333</wgs:long>
+	<skos:prefLabel>Les Parisiennes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241289/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-6</wgs:lat>
+	<wgs:long>53.16667</wgs:long>
+	<skos:altLabel>Amirante Group</skos:altLabel>
+	<skos:altLabel>Amirante Islands</skos:altLabel>
+	<skos:altLabel>Amirante Isles</skos:altLabel>
+	<skos:altLabel>Amirantes</skos:altLabel>
+	<skos:altLabel>Les Amirantes</skos:altLabel>
+	<skos:altLabel>the Amirante archipelago</skos:altLabel>
+	<skos:prefLabel>Les Amirantes</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4023</europeana:population>
+	<wgs:lat>-4.59167</wgs:lat>
+	<wgs:long>55.45</wgs:long>
+	<skos:altLabel>English River</skos:altLabel>
+	<skos:altLabel>English River</skos:altLabel>
+	<skos:altLabel xml:lang="sh">La Rivière Anglaise</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Riviere Anglaise</skos:altLabel>
+	<skos:prefLabel>English River</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241310/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.35</wgs:lat>
+	<wgs:long>55.83333</wgs:long>
+	<skos:altLabel>La Digue</skos:altLabel>
+	<skos:altLabel>La Digue Island</skos:altLabel>
+	<skos:prefLabel>La Digue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241311/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.46667</wgs:long>
+	<skos:altLabel>Inner Islands</skos:altLabel>
+	<skos:altLabel>Inner Islands</skos:altLabel>
+	<skos:altLabel xml:lang="sh">La Digue</skos:altLabel>
+	<skos:prefLabel>Inner Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241325/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.28333</wgs:lat>
+	<wgs:long>55.86667</wgs:long>
+	<skos:altLabel>East Sister</skos:altLabel>
+	<skos:altLabel>East Sister Island</skos:altLabel>
+	<skos:altLabel>Grand Sœur</skos:altLabel>
+	<skos:prefLabel>Grand Sœur</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-4.68333</wgs:lat>
+	<wgs:long>55.45833</wgs:long>
+	<skos:altLabel>Anse aux Pins</skos:altLabel>
+	<skos:altLabel>Grand Anse Mahe</skos:altLabel>
+	<skos:altLabel>Grand’ Anse</skos:altLabel>
+	<skos:prefLabel>Grand Anse Mahe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3609</europeana:population>
+	<wgs:lat>-4.31667</wgs:lat>
+	<wgs:long>55.71667</wgs:long>
+	<skos:altLabel>Grand Anse Praslin</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Grande Anse</skos:altLabel>
+	<skos:altLabel>Grand’ Anse</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Grand’ Anse</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Grand’ Anse</skos:altLabel>
+	<skos:prefLabel>Grand Anse Praslin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241336/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3640</europeana:population>
+	<wgs:lat>-4.575</wgs:lat>
+	<wgs:long>55.44167</wgs:long>
+	<skos:altLabel>Glacis</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Thomas Lowland</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Thomas Lowland</skos:altLabel>
+	<skos:prefLabel>Glacis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.58333</wgs:lat>
+	<wgs:long>55.93333</wgs:long>
+	<skos:altLabel>Frigate Island</skos:altLabel>
+	<skos:altLabel>Frégate</skos:altLabel>
+	<skos:prefLabel>Frégate</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241342/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.41667</wgs:lat>
+	<wgs:long>53.33333</wgs:long>
+	<skos:altLabel>Fouquet Island</skos:altLabel>
+	<skos:altLabel>Fouquet islet</skos:altLabel>
+	<skos:prefLabel>Fouquet Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241345/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.33333</wgs:lat>
+	<wgs:long>55.86667</wgs:long>
+	<skos:altLabel>Félicité Island</skos:altLabel>
+	<skos:prefLabel>Félicité Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241347/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.41667</wgs:lat>
+	<wgs:long>46.25</wgs:long>
+	<skos:altLabel>Esprit</skos:altLabel>
+	<skos:altLabel>Euphrates Islet</skos:altLabel>
+	<skos:prefLabel>Euphrates Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241348/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.88333</wgs:lat>
+	<wgs:long>53.01667</wgs:long>
+	<skos:prefLabel>Étoile Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241350/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.65</wgs:lat>
+	<wgs:long>47.58333</wgs:long>
+	<skos:prefLabel>East North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241355/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.68333</wgs:lat>
+	<wgs:long>53.68333</wgs:long>
+	<skos:altLabel>Desroches Island</skos:altLabel>
+	<skos:altLabel>Île Desroches</skos:altLabel>
+	<skos:prefLabel>Île Desroches</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241356/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.23333</wgs:lat>
+	<wgs:long>53.05</wgs:long>
+	<skos:altLabel>Isle des Noeufs</skos:altLabel>
+	<skos:altLabel>Île Desnœufs</skos:altLabel>
+	<skos:altLabel>Île des Noeufs</skos:altLabel>
+	<skos:prefLabel>Île Desnœufs</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241358/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.8</wgs:lat>
+	<wgs:long>55.66667</wgs:long>
+	<skos:altLabel>Denis</skos:altLabel>
+	<skos:altLabel>Denis Island</skos:altLabel>
+	<skos:altLabel>Dennis Island</skos:altLabel>
+	<skos:altLabel>Ile Denys</skos:altLabel>
+	<skos:altLabel>Île Denis</skos:altLabel>
+	<skos:prefLabel>Île Denis</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241359/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.4</wgs:lat>
+	<wgs:long>53.3</wgs:long>
+	<skos:altLabel>D’Arros Island</skos:altLabel>
+	<skos:altLabel>D’Arros islet</skos:altLabel>
+	<skos:prefLabel>D’Arros Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241361/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.26667</wgs:lat>
+	<wgs:long>55.73333</wgs:long>
+	<skos:altLabel>Curieuse</skos:altLabel>
+	<skos:altLabel>Curieuse Island</skos:altLabel>
+	<skos:prefLabel>Curieuse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-4.33333</wgs:lat>
+	<wgs:long>55.66667</wgs:long>
+	<skos:altLabel>Cousin Islands</skos:altLabel>
+	<skos:altLabel>Cousin Islets</skos:altLabel>
+	<skos:altLabel>The Cousins</skos:altLabel>
+	<skos:prefLabel>Cousin Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241363/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.35</wgs:lat>
+	<wgs:long>55.63333</wgs:long>
+	<skos:altLabel>Cousine</skos:altLabel>
+	<skos:altLabel>Cousine Island</skos:altLabel>
+	<skos:altLabel>South Cousin Islet</skos:altLabel>
+	<skos:prefLabel>Cousine</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241364/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.31667</wgs:lat>
+	<wgs:long>55.65</wgs:long>
+	<skos:altLabel>Cousin</skos:altLabel>
+	<skos:altLabel>Cousin Island</skos:altLabel>
+	<skos:altLabel>North Cousin Islet</skos:altLabel>
+	<skos:prefLabel>Cousin</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.71667</wgs:lat>
+	<wgs:long>47.58333</wgs:long>
+	<skos:altLabel>Atoll de Cosmoledo</skos:altLabel>
+	<skos:altLabel>Cosmoledo</skos:altLabel>
+	<skos:altLabel>Cosmoledo Group</skos:altLabel>
+	<skos:altLabel>Cosmoledo islands</skos:altLabel>
+	<skos:prefLabel>Atoll de Cosmoledo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241371/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.65</wgs:lat>
+	<wgs:long>55.36667</wgs:long>
+	<skos:altLabel>Concept Island</skos:altLabel>
+	<skos:altLabel>Conception Island</skos:altLabel>
+	<skos:prefLabel>Conception Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241373/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.13333</wgs:lat>
+	<wgs:long>56.26667</wgs:long>
+	<skos:altLabel>Coetivy Island</skos:altLabel>
+	<skos:altLabel>Coëtivy</skos:altLabel>
+	<skos:altLabel>Ile Coetivi</skos:altLabel>
+	<skos:prefLabel>Coëtivy</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241375/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.4</wgs:lat>
+	<wgs:long>46.45</wgs:long>
+	<skos:altLabel>Cocoanut Island</skos:altLabel>
+	<skos:altLabel>Coconut Islet</skos:altLabel>
+	<skos:altLabel>Michel</skos:altLabel>
+	<skos:prefLabel>Coconut Islet</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.43333</wgs:lat>
+	<wgs:long>53.33333</wgs:long>
+	<skos:altLabel>Chien Island</skos:altLabel>
+	<skos:altLabel>Chien islet</skos:altLabel>
+	<skos:prefLabel>Chien Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.73333</wgs:lat>
+	<wgs:long>55.46667</wgs:long>
+	<skos:altLabel>Chauve Souris</skos:altLabel>
+	<skos:altLabel>Chauve Souris Island</skos:altLabel>
+	<skos:prefLabel>Chauve Souris Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.3</wgs:lat>
+	<wgs:long>55.75</wgs:long>
+	<skos:altLabel>Bat Island</skos:altLabel>
+	<skos:altLabel>Chauve Souris Island</skos:altLabel>
+	<skos:altLabel>Chauve Souris islet</skos:altLabel>
+	<skos:prefLabel>Chauve Souris Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.53333</wgs:lat>
+	<wgs:long>50.98333</wgs:long>
+	<skos:altLabel>Cerf Island</skos:altLabel>
+	<skos:altLabel>Cerf Islands</skos:altLabel>
+	<skos:altLabel>South Banks</skos:altLabel>
+	<skos:prefLabel>Cerf Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.63333</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:altLabel>Cerf Island</skos:altLabel>
+	<skos:altLabel>Île au Cerf</skos:altLabel>
+	<skos:altLabel>Île aux Cerfs</skos:altLabel>
+	<skos:prefLabel>Île au Cerf</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.45</wgs:lat>
+	<wgs:long>53.36667</wgs:long>
+	<skos:altLabel>Cascassaye Island</skos:altLabel>
+	<skos:altLabel>Cascassaye islet</skos:altLabel>
+	<skos:prefLabel>Cascassaye Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3684</europeana:population>
+	<wgs:lat>-4.66667</wgs:lat>
+	<wgs:long>55.48333</wgs:long>
+	<skos:altLabel>Cascade</skos:altLabel>
+	<skos:prefLabel>Cascade</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241404/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.63333</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:altLabel>Faon Island</skos:altLabel>
+	<skos:altLabel>Faon Islet</skos:altLabel>
+	<skos:altLabel>Île Cachée</skos:altLabel>
+	<skos:prefLabel>Île Cachée</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241413/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-6.08333</wgs:lat>
+	<wgs:long>52.85</wgs:long>
+	<skos:prefLabel>Boudeuse Cay</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241419/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-3.71667</wgs:lat>
+	<wgs:long>55.2</wgs:long>
+	<skos:altLabel>Bird</skos:altLabel>
+	<skos:altLabel>Bird Island</skos:altLabel>
+	<skos:altLabel>Ile Vaches de Mer</skos:altLabel>
+	<skos:altLabel>Sea Cow island</skos:altLabel>
+	<skos:prefLabel>Bird Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241420/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7.06667</wgs:lat>
+	<wgs:long>52.75</wgs:long>
+	<skos:prefLabel>Bijoutier Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241422/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-5.45</wgs:lat>
+	<wgs:long>53.35</wgs:long>
+	<skos:altLabel>Benjamen Island</skos:altLabel>
+	<skos:altLabel>Benjamen islet</skos:altLabel>
+	<skos:prefLabel>Benjamen Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241424/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3753</europeana:population>
+	<wgs:lat>-4.625</wgs:lat>
+	<wgs:long>55.40417</wgs:long>
+	<skos:altLabel>Bel Ombre</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Belombre</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Paul Charlestown</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Paul Charlestown</skos:altLabel>
+	<skos:prefLabel>Bel Ombre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241426/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2878</europeana:population>
+	<wgs:lat>-4.63333</wgs:lat>
+	<wgs:long>55.45</wgs:long>
+	<skos:altLabel>Bel Air</skos:altLabel>
+	<skos:prefLabel>Bel Air</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241428/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3892</europeana:population>
+	<wgs:lat>-4.60833</wgs:lat>
+	<wgs:long>55.43333</wgs:long>
+	<skos:altLabel>Beau Vallon</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Mary Cayon</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Mary Cayon</skos:altLabel>
+	<skos:prefLabel>Beau Vallon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241429/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Balise</skos:altLabel>
+	<skos:altLabel>Beacon Island</skos:altLabel>
+	<skos:altLabel>Beacon islet</skos:altLabel>
+	<skos:altLabel>Seche Island</skos:altLabel>
+	<skos:prefLabel>Beacon Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241438/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3918</europeana:population>
+	<wgs:lat>-4.31667</wgs:lat>
+	<wgs:long>55.73333</wgs:long>
+	<skos:altLabel>Baie Sainte Anne</skos:altLabel>
+	<skos:prefLabel>Baie Sainte Anne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241439/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3053</europeana:population>
+	<wgs:lat>-4.74722</wgs:lat>
+	<wgs:long>55.48333</wgs:long>
+	<skos:altLabel>Baie Lazare</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint John Capesterre</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint John Capesterre</skos:altLabel>
+	<skos:prefLabel>Baie Lazare</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-9.75</wgs:lat>
+	<wgs:long>46.5</wgs:long>
+	<skos:altLabel>Assumption</skos:altLabel>
+	<skos:altLabel>Assumption Island</skos:altLabel>
+	<skos:prefLabel>Assumption</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.2</wgs:lat>
+	<wgs:long>55.66667</wgs:long>
+	<skos:altLabel>Aride Island</skos:altLabel>
+	<skos:altLabel>Île Aride</skos:altLabel>
+	<skos:prefLabel>Île Aride</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241444/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3773</europeana:population>
+	<wgs:lat>-4.74167</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Anse Royale</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint James Windward</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint James Windward</skos:altLabel>
+	<skos:prefLabel>Anse Royale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241447/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4633</europeana:population>
+	<wgs:lat>-4.59167</wgs:lat>
+	<wgs:long>55.45</wgs:long>
+	<skos:altLabel>Anse Etoile</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint George Basseterre</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint George Basseterre</skos:altLabel>
+	<skos:prefLabel>Anse Etoile</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241449/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4027</europeana:population>
+	<wgs:lat>-4.70833</wgs:lat>
+	<wgs:long>55.48333</wgs:long>
+	<skos:altLabel>Anse Boileau</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Saint Anne Sandy Point</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Saint Anne Sandy Point</skos:altLabel>
+	<skos:prefLabel>Anse Boileau</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241450/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3638</europeana:population>
+	<wgs:lat>-4.6875</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Anse aux Pins</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Christ Church Nichola Town</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Christ Church Nichola Town</skos:altLabel>
+	<skos:prefLabel>Anse aux Pins</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-4.65</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Annonyme Island</skos:altLabel>
+	<skos:altLabel>Anonyme Island</skos:altLabel>
+	<skos:altLabel>Anonyme Islet</skos:altLabel>
+	<skos:altLabel>Île Anonyme</skos:altLabel>
+	<skos:prefLabel>Île Anonyme</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-7</wgs:lat>
+	<wgs:long>52.73333</wgs:long>
+	<skos:altLabel>Alphonse Island</skos:altLabel>
+	<skos:altLabel>Île Alphonse</skos:altLabel>
+	<skos:prefLabel>Île Alphonse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241455/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-9.41667</wgs:lat>
+	<wgs:long>46.36667</wgs:long>
+	<skos:altLabel xml:lang="pl">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="es">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Aldabra</skos:altLabel>
+	<skos:altLabel>Aldabra Island</skos:altLabel>
+	<skos:altLabel>Aldabra Islands</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Aldabran</skos:altLabel>
+	<skos:altLabel xml:lang="no">Aldabraøya</skos:altLabel>
+	<skos:altLabel>Groupe d’ Aldabra</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Алдабра</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Альдабра</skos:altLabel>
+	<skos:prefLabel>Groupe d’ Aldabra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/241457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-4.88333</wgs:lat>
+	<wgs:long>53.4</wgs:long>
+	<skos:altLabel>African Islands</skos:altLabel>
+	<skos:altLabel>African islets</skos:altLabel>
+	<skos:altLabel>Îles Africaines</skos:altLabel>
+	<skos:prefLabel>African Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448408/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2159</europeana:population>
+	<wgs:lat>-4.61667</wgs:lat>
+	<wgs:long>55.5</wgs:long>
+	<skos:altLabel>Beau Vallon</skos:altLabel>
+	<skos:altLabel>Les Mamelles</skos:altLabel>
+	<skos:prefLabel>Les Mamelles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448409/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3056</europeana:population>
+	<wgs:lat>-4.65</wgs:lat>
+	<wgs:long>55.46667</wgs:long>
+	<skos:altLabel>Bel Ombre</skos:altLabel>
+	<skos:altLabel>Roche Caiman</skos:altLabel>
+	<skos:prefLabel>Roche Caiman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448410/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3205</europeana:population>
+	<wgs:lat>-4.7</wgs:lat>
+	<wgs:long>55.51667</wgs:long>
+	<skos:altLabel>Au Cap</skos:altLabel>
+	<skos:prefLabel>Au Cap</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/448411/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<europeana:population>1167</europeana:population>
+	<wgs:lat>-7.5</wgs:lat>
+	<wgs:long>52</wgs:long>
+	<skos:prefLabel>Outer Islands</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936194/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-10.13333</wgs:lat>
+	<wgs:long>51.08333</wgs:long>
+	<skos:prefLabel>Trois Iles</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936195/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.16667</wgs:lat>
+	<wgs:long>51.16667</wgs:long>
+	<skos:prefLabel>South Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936196/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.11667</wgs:lat>
+	<wgs:long>51.18333</wgs:long>
+	<skos:prefLabel>North Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936197/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-10.13333</wgs:lat>
+	<wgs:long>51.18333</wgs:long>
+	<skos:prefLabel>Manaha Islets</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936198/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.21667</wgs:lat>
+	<wgs:long>51.13333</wgs:long>
+	<skos:altLabel>Goelette Island</skos:altLabel>
+	<skos:altLabel>Göelette islet</skos:altLabel>
+	<skos:prefLabel>Goelette Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936199/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>-10.16667</wgs:lat>
+	<wgs:long>51.16667</wgs:long>
+	<skos:altLabel>Atoll de Farquhar</skos:altLabel>
+	<skos:altLabel>Farquhar Group</skos:altLabel>
+	<skos:altLabel>Farquhar Islands</skos:altLabel>
+	<skos:altLabel>Joâo de Nova</skos:altLabel>
+	<skos:prefLabel>Atoll de Farquhar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/936200/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/241170/"/>
+	<europeana:country>SC</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-10.1</wgs:lat>
+	<wgs:long>47.75</wgs:long>
+	<skos:altLabel>Astove Island</skos:altLabel>
+	<skos:prefLabel>Astove Island</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 119 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

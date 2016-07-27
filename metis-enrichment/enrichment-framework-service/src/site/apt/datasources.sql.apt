@@ -1,0 +1,30 @@
+            ------
+            DataSource: SQL
+            ------
+ 
+ The following example queries and orders: 
+
++------------------------------------------------------------------+
+<ac:SqlDataSource>
+   <ac:jdbcDriver>com.mysql.jdbc.Driver</ac:jdbcDriver>
+   <ac:jdbcUrl>jdbc:mysql://localhost:7188/col2010ac?user=root</ac:jdbcUrl>
+   <ac:sqlQuery><![CDATA[
+      SELECT record_id, parent_id, label FROM table ORDER BY record_id
+   ]]></ac:sqlQuery>
+</ac:SqlDataSource>
++------------------------------------------------------------------+
+
+ In the object rule empty record separator should be used:
+                    
++------------------------------------------------------------------+
+<ac:objectRules rdf:parseType="Collection">
+   <ac:ObjectRule rdf:about="recordRule">
+   <ac:recordSeparator></ac:recordSeparator>
+   <ac:recordIdentifier>record_id</ac:recordIdentifier>
+   <ac:recordInformalIdentifier>label</ac:recordInformalIdentifier>
+   <ac:propertyRules>
+    ...
+   </ac:propertyRules>
+</ac:ObjectRule>
++------------------------------------------------------------------+
+

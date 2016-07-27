@@ -1,0 +1,6 @@
+edm:Place;setAbout
+skos:prefLabel;setPrefLabel
+skos:altLabel;setAltLabel
+wgs84_pos:lat;setLatitude
+wgs84_pos:long;setLongitude
+dcterms:isPartOf;setIsPartOf

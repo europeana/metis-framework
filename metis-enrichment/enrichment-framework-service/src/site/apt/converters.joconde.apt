@@ -1,0 +1,28 @@
+            ------
+            Converter: Joconde
+            ------
+ 
+
+ This is a converter of the Joconde dataset of the French Ministry of Culture.
+ 
+Source files
+ 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/joconde/} Parent directory for source files}}
+ in the AnnoCultor source repository.
+ 
+Data 
+
+ In the demo we use just one record to illustrate how AnnoCultor can handle it all. 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/joconde/input_source/joconde.test.xml}demo record}}
+ 
+Analysis
+ 
+ Here is the 
+ {{{http://annocultor.svn.sourceforge.net/viewvc/annocultor/demos/converters/joconde/doc/analysis.html} analysis}}
+ produced by the AnnoCultor Analyser run over the whole dataset.
+  
+Converter
+
+ The 
+ {{{https://annocultor.svn.sourceforge.net/svnroot/annocultor/demos/converters/joconde/profile/profile.xml} converter in XML}}
+ illustrates several AnnoCultor features.

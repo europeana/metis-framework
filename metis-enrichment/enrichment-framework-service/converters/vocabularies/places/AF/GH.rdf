@@ -1,0 +1,2981 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_GH
+Description: Selected fields pulled from Geonames about GH done on Mon May 23 21:16:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2293801/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>42972</europeana:population>
+	<wgs:lat>9.43333</wgs:lat>
+	<wgs:long>-0.01667</wgs:long>
+	<skos:altLabel>Jendi</skos:altLabel>
+	<skos:altLabel>Yendi</skos:altLabel>
+	<skos:prefLabel>Yendi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294034/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44254</europeana:population>
+	<wgs:lat>5.35113</wgs:lat>
+	<wgs:long>-0.62313</wgs:long>
+	<skos:altLabel>Simpa</skos:altLabel>
+	<skos:altLabel>Winneba</skos:altLabel>
+	<skos:altLabel>Winnebah</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Виннебе</skos:altLabel>
+	<skos:prefLabel>Winneba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294076/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-2.5</wgs:long>
+	<skos:altLabel>Western</skos:altLabel>
+	<skos:altLabel>Western Province</skos:altLabel>
+	<skos:altLabel>Western Region</skos:altLabel>
+	<skos:prefLabel>Western Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31411</europeana:population>
+	<wgs:lat>7.73333</wgs:lat>
+	<wgs:long>-2.1</wgs:long>
+	<skos:prefLabel>Wenchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294206/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>78107</europeana:population>
+	<wgs:lat>10.05</wgs:lat>
+	<wgs:long>-2.48333</wgs:long>
+	<skos:altLabel>Wa</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ва</skos:altLabel>
+	<skos:prefLabel>Wa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1738710</europeana:population>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>0.5</wgs:long>
+	<skos:altLabel>Togoland Region</skos:altLabel>
+	<skos:altLabel>Trans Volta Togoland Region</skos:altLabel>
+	<skos:altLabel>Trans-Volta</skos:altLabel>
+	<skos:altLabel>Volta</skos:altLabel>
+	<skos:altLabel>Volta Region</skos:altLabel>
+	<skos:prefLabel>Volta Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294286/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>610452</europeana:population>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>-2.25</wgs:long>
+	<skos:altLabel>Upper Region</skos:altLabel>
+	<skos:altLabel>Upper West</skos:altLabel>
+	<skos:altLabel>Upper West Region</skos:altLabel>
+	<skos:prefLabel>Upper West Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294291/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>948118</europeana:population>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>-0.75</wgs:long>
+	<skos:altLabel>Upper East</skos:altLabel>
+	<skos:altLabel>Upper East Region</skos:altLabel>
+	<skos:altLabel>Upper Region</skos:altLabel>
+	<skos:prefLabel>Upper East Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294665/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>144013</europeana:population>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-0.1</wgs:long>
+	<skos:altLabel>Tassi</skos:altLabel>
+	<skos:altLabel>Teshi</skos:altLabel>
+	<skos:altLabel>Teshie</skos:altLabel>
+	<skos:altLabel xml:lang="en">Teshie</skos:altLabel>
+	<skos:altLabel xml:lang="de">Teshie</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тещи</skos:altLabel>
+	<skos:prefLabel>Teshi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294700/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>155782</europeana:population>
+	<wgs:lat>5.61667</wgs:lat>
+	<wgs:long>-0.01667</wgs:long>
+	<skos:altLabel xml:lang="de">Tema</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Tema</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tema</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tema</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tema</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tema</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Tema</skos:altLabel>
+	<skos:altLabel>Tema</skos:altLabel>
+	<skos:altLabel>Temma</skos:altLabel>
+	<skos:altLabel>Toma</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тема</skos:altLabel>
+	<skos:prefLabel>Tema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294727/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>69720</europeana:population>
+	<wgs:lat>7.58333</wgs:lat>
+	<wgs:long>-1.93333</wgs:long>
+	<skos:altLabel>Takyiman</skos:altLabel>
+	<skos:altLabel>Techiman</skos:altLabel>
+	<skos:altLabel>Tekyiman</skos:altLabel>
+	<skos:altLabel>Tekyiman-Brong</skos:altLabel>
+	<skos:prefLabel>Techiman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294768/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>33466</europeana:population>
+	<wgs:lat>5.3</wgs:lat>
+	<wgs:long>-1.98333</wgs:long>
+	<skos:altLabel>Tarkwa</skos:altLabel>
+	<skos:altLabel>Tarquah</skos:altLabel>
+	<skos:prefLabel>Tarkwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294877/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>360579</europeana:population>
+	<wgs:lat>9.4</wgs:lat>
+	<wgs:long>-0.83333</wgs:long>
+	<skos:altLabel xml:lang="en">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="es">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="de">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="id">Tamale</skos:altLabel>
+	<skos:altLabel>Tamale</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Тамале</skos:altLabel>
+	<skos:prefLabel>Tamale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294915/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>232919</europeana:population>
+	<wgs:lat>4.88333</wgs:lat>
+	<wgs:long>-1.75</wgs:long>
+	<skos:prefLabel>Takoradi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50457</europeana:population>
+	<wgs:lat>6.73333</wgs:lat>
+	<wgs:long>-1.61667</wgs:long>
+	<skos:altLabel>Old Tafo</skos:altLabel>
+	<skos:altLabel>Tafo</skos:altLabel>
+	<skos:prefLabel>Tafo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2294962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>50293</europeana:population>
+	<wgs:lat>5.53333</wgs:lat>
+	<wgs:long>-0.7</wgs:long>
+	<skos:altLabel>Agona</skos:altLabel>
+	<skos:altLabel>Agona Swedru</skos:altLabel>
+	<skos:altLabel>Jwewuhu</skos:altLabel>
+	<skos:altLabel>Swedru</skos:altLabel>
+	<skos:prefLabel>Swedru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>70299</europeana:population>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>-2.33333</wgs:long>
+	<skos:altLabel xml:lang="en">Sunyani</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sunyani</skos:altLabel>
+	<skos:altLabel>Sunyani</skos:altLabel>
+	<skos:prefLabel>Sunyani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>34995</europeana:population>
+	<wgs:lat>6.03333</wgs:lat>
+	<wgs:long>-0.45</wgs:long>
+	<skos:prefLabel>Suhum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295235/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.08333</wgs:lat>
+	<wgs:long>0.08333</wgs:long>
+	<skos:prefLabel>Somanya District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20946</europeana:population>
+	<wgs:lat>5</wgs:lat>
+	<wgs:long>-1.65</wgs:long>
+	<skos:altLabel>Shama</skos:altLabel>
+	<skos:altLabel>Shama Junction</skos:altLabel>
+	<skos:prefLabel>Shama Junction</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295398/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>5.96667</wgs:lat>
+	<wgs:long>0.93333</wgs:long>
+	<skos:prefLabel>Seva</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>138872</europeana:population>
+	<wgs:lat>4.93333</wgs:lat>
+	<wgs:long>-1.7</wgs:long>
+	<skos:altLabel>Sekondi</skos:altLabel>
+	<skos:altLabel xml:lang="id">Sekondi-Takoradi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Sekondi-Takoradi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Sekondi-Takoradi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Sekondi-Takoradi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Sekondi-Takoradi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Sékondi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Секонди</skos:altLabel>
+	<skos:prefLabel>Sekondi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295517/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29310</europeana:population>
+	<wgs:lat>9.62472</wgs:lat>
+	<wgs:long>-0.82778</wgs:long>
+	<skos:altLabel>Saveluga</skos:altLabel>
+	<skos:altLabel>Savelugu</skos:altLabel>
+	<skos:prefLabel>Savelugu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295672/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18794</europeana:population>
+	<wgs:lat>5.2</wgs:lat>
+	<wgs:long>-1.06667</wgs:long>
+	<skos:altLabel>Achimfu</skos:altLabel>
+	<skos:altLabel>Saltpond</skos:altLabel>
+	<skos:prefLabel>Saltpond</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295684/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19609</europeana:population>
+	<wgs:lat>8.55</wgs:lat>
+	<wgs:long>-0.51667</wgs:long>
+	<skos:altLabel>Salaga</skos:altLabel>
+	<skos:prefLabel>Salaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2295840/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31607</europeana:population>
+	<wgs:lat>5.43333</wgs:lat>
+	<wgs:long>-2.15</wgs:long>
+	<skos:altLabel>Esamang</skos:altLabel>
+	<skos:altLabel>Prestea</skos:altLabel>
+	<skos:prefLabel>Prestea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2296458/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44227</europeana:population>
+	<wgs:lat>5.53333</wgs:lat>
+	<wgs:long>-0.41667</wgs:long>
+	<skos:prefLabel>Oduponkpehe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2296564/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43399</europeana:population>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-0.98333</wgs:long>
+	<skos:altLabel>Akim Oda</skos:altLabel>
+	<skos:altLabel>Insuaim</skos:altLabel>
+	<skos:altLabel>Nsuaem</skos:altLabel>
+	<skos:altLabel>Oda</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ода</skos:altLabel>
+	<skos:prefLabel>Oda</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2296606/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>137856</europeana:population>
+	<wgs:lat>6.2</wgs:lat>
+	<wgs:long>-1.66667</wgs:long>
+	<skos:altLabel>Oboase</skos:altLabel>
+	<skos:altLabel xml:lang="en">Obuasi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Obuasi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Obuasi</skos:altLabel>
+	<skos:altLabel>Obuasi</skos:altLabel>
+	<skos:altLabel>Obuassi</skos:altLabel>
+	<skos:prefLabel>Obuasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2296969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>70483</europeana:population>
+	<wgs:lat>5.6</wgs:lat>
+	<wgs:long>-0.06667</wgs:long>
+	<skos:altLabel>Nungoa</skos:altLabel>
+	<skos:altLabel xml:lang="de">Nungua</skos:altLabel>
+	<skos:altLabel>Nungua</skos:altLabel>
+	<skos:altLabel>Nungwa</skos:altLabel>
+	<skos:prefLabel>Nungua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2297141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32950</europeana:population>
+	<wgs:lat>5.8</wgs:lat>
+	<wgs:long>-0.35</wgs:long>
+	<skos:prefLabel>Nsawam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2297169/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>2003152</europeana:population>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-1</wgs:long>
+	<skos:altLabel>Northern</skos:altLabel>
+	<skos:altLabel>Northern Region</skos:altLabel>
+	<skos:altLabel>Northern Territories Region</skos:altLabel>
+	<skos:prefLabel>Northern Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2297313/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47162</europeana:population>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>-0.76667</wgs:long>
+	<skos:altLabel>Nkawkaw</skos:altLabel>
+	<skos:altLabel>Nkokoo</skos:altLabel>
+	<skos:prefLabel>Nkawkaw</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2297505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25470</europeana:population>
+	<wgs:lat>10.895</wgs:lat>
+	<wgs:long>-1.09389</wgs:long>
+	<skos:altLabel>Navrongo</skos:altLabel>
+	<skos:prefLabel>Navrongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2297810/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>13983</europeana:population>
+	<wgs:lat>5.26667</wgs:lat>
+	<wgs:long>-0.75</wgs:long>
+	<skos:altLabel>Gamma</skos:altLabel>
+	<skos:altLabel>Gammah</skos:altLabel>
+	<skos:altLabel>Jumba</skos:altLabel>
+	<skos:altLabel>Mumford</skos:altLabel>
+	<skos:altLabel>Mumfort</skos:altLabel>
+	<skos:prefLabel>Mumford</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2298264/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>35887</europeana:population>
+	<wgs:lat>7.06667</wgs:lat>
+	<wgs:long>-1.4</wgs:long>
+	<skos:altLabel>Mampon</skos:altLabel>
+	<skos:altLabel>Mampon Asante</skos:altLabel>
+	<skos:altLabel>Mampong</skos:altLabel>
+	<skos:prefLabel>Mampong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2298330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>101207</europeana:population>
+	<wgs:lat>5.68333</wgs:lat>
+	<wgs:long>-0.16667</wgs:long>
+	<skos:prefLabel>Madina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2298890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>1468609</europeana:population>
+	<wgs:lat>6.68333</wgs:lat>
+	<wgs:long>-1.61667</wgs:long>
+	<skos:altLabel>Coomassie</skos:altLabel>
+	<skos:altLabel>Kumase</skos:altLabel>
+	<skos:altLabel xml:lang="id">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="es">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="no">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="da">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="it">Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Kumasi</skos:altLabel>
+	<skos:altLabel>Kumasi</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Kumasis</skos:altLabel>
+	<skos:altLabel>Kumassi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кумаси</skos:altLabel>
+	<skos:altLabel xml:lang="zh">库马西</skos:altLabel>
+	<skos:altLabel xml:lang="ko">쿠마시</skos:altLabel>
+	<skos:prefLabel>Kumasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22525</europeana:population>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>0.3</wgs:long>
+	<skos:altLabel>Gabi</skos:altLabel>
+	<skos:altLabel>Kpando</skos:altLabel>
+	<skos:altLabel>Kpandu</skos:altLabel>
+	<skos:altLabel>Tsakpe</skos:altLabel>
+	<skos:prefLabel>Kpandu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>0.11667</wgs:long>
+	<skos:prefLabel>Kpale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299349/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>32130</europeana:population>
+	<wgs:lat>6.61667</wgs:lat>
+	<wgs:long>-1.21667</wgs:long>
+	<skos:prefLabel>Konongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299522/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>96266</europeana:population>
+	<wgs:lat>6.08333</wgs:lat>
+	<wgs:long>-0.25</wgs:long>
+	<skos:altLabel xml:lang="de">Koforidua</skos:altLabel>
+	<skos:altLabel xml:lang="en">Koforidua</skos:altLabel>
+	<skos:altLabel>Koforidua</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кофоридуа</skos:altLabel>
+	<skos:prefLabel>Koforidua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299625/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>22731</europeana:population>
+	<wgs:lat>8.05</wgs:lat>
+	<wgs:long>-1.71667</wgs:long>
+	<skos:altLabel>Kintampo</skos:altLabel>
+	<skos:prefLabel>Kintampo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299645/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18077</europeana:population>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>0.98333</wgs:long>
+	<skos:altLabel>Keta</skos:altLabel>
+	<skos:altLabel>Kitta</skos:altLabel>
+	<skos:altLabel>Kwitta</skos:altLabel>
+	<skos:altLabel>Quittah</skos:altLabel>
+	<skos:prefLabel>Keta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299646/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>0.98333</wgs:long>
+	<skos:prefLabel>Keta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2299896/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>0.28333</wgs:long>
+	<skos:prefLabel>Kakle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300372/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>40383</europeana:population>
+	<wgs:lat>7.15</wgs:lat>
+	<wgs:long>0.46667</wgs:long>
+	<skos:altLabel>Chochoe</skos:altLabel>
+	<skos:altLabel>Chokhoe</skos:altLabel>
+	<skos:altLabel>Hohoe</skos:altLabel>
+	<skos:altLabel>Khokhoe</skos:altLabel>
+	<skos:prefLabel>Hohoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300379/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>69998</europeana:population>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>0.46667</wgs:long>
+	<skos:altLabel xml:lang="de">Ho</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ho</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ho</skos:altLabel>
+	<skos:altLabel>Ho</skos:altLabel>
+	<skos:altLabel>Hohoe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Хо</skos:altLabel>
+	<skos:prefLabel>Ho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.61667</wgs:lat>
+	<wgs:long>0.21667</wgs:long>
+	<skos:prefLabel>Hlato</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300569/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>3460792</europeana:population>
+	<wgs:lat>5.75</wgs:lat>
+	<wgs:long>0</wgs:long>
+	<skos:altLabel>Accra Capital District</skos:altLabel>
+	<skos:altLabel>Accra District</skos:altLabel>
+	<skos:altLabel>Accra Region</skos:altLabel>
+	<skos:altLabel>Capital District</skos:altLabel>
+	<skos:altLabel>Greater Accra</skos:altLabel>
+	<skos:altLabel>Greater Accra Region</skos:altLabel>
+	<skos:prefLabel>Greater Accra Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>24339838</europeana:population>
+	<wgs:lat>8</wgs:lat>
+	<wgs:long>-2</wgs:long>
+	<skos:altLabel>GH</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="wa">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Gana - Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Ganao</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Ganän</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Ganë</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gha-na</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Gha-na (Ghana)</skos:altLabel>
+	<skos:altLabel xml:lang="id">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="es">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="da">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="et">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="de">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="it">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="af">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="an">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="io">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="li">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="na">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="no">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="la">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="qu">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="tk">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="tw">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="se">Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Ghána</skos:altLabel>
+	<skos:altLabel>Gold Coast</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Gána</skos:altLabel>
+	<skos:altLabel>Republic of Ghana</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκάνα</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гана</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գանա</skos:altLabel>
+	<skos:altLabel xml:lang="he">גאנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غانا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">غنا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">قانا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګانا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گانا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">گھانا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">घाना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গানা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">ঘানা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கானா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഖാന</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ഘാന</skos:altLabel>
+	<skos:altLabel xml:lang="th">กานา</skos:altLabel>
+	<skos:altLabel xml:lang="th">กาน่า</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกานา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ການ່າ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">ཀ་ན</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གྷ་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">განა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጋና</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្កាណា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガーナ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ガーナ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">加纳</skos:altLabel>
+	<skos:altLabel xml:lang="ko">가나</skos:altLabel>
+	<skos:prefLabel>Republic of Ghana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300721/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44645</europeana:population>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-0.3</wgs:long>
+	<skos:prefLabel>Gbawe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2300883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15637</europeana:population>
+	<wgs:lat>5.7</wgs:lat>
+	<wgs:long>-1.28333</wgs:long>
+	<skos:prefLabel>Foso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2301190/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25560</europeana:population>
+	<wgs:lat>5.08333</wgs:lat>
+	<wgs:long>-1.35</wgs:long>
+	<skos:altLabel>Dena</skos:altLabel>
+	<skos:altLabel>Edina</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Elmina</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Elmina</skos:altLabel>
+	<skos:altLabel xml:lang="de">Elmina</skos:altLabel>
+	<skos:altLabel xml:lang="en">Elmina</skos:altLabel>
+	<skos:altLabel xml:lang="no">Elmina</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Elmina</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Elmina</skos:altLabel>
+	<skos:altLabel>Elmina</skos:altLabel>
+	<skos:altLabel>Saint George Del Mina</skos:altLabel>
+	<skos:altLabel xml:lang="pt">São Jorge da Mina</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Элмина</skos:altLabel>
+	<skos:prefLabel>Elmina</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2301217/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43403</europeana:population>
+	<wgs:lat>7.38333</wgs:lat>
+	<wgs:long>-1.36667</wgs:long>
+	<skos:altLabel>Ejura</skos:altLabel>
+	<skos:prefLabel>Ejura</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2301360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>6.5</wgs:lat>
+	<wgs:long>-0.5</wgs:long>
+	<skos:altLabel>Eastern</skos:altLabel>
+	<skos:altLabel>Eastern Province</skos:altLabel>
+	<skos:altLabel>Eastern Region</skos:altLabel>
+	<skos:prefLabel>Eastern Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2301400/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>25410</europeana:population>
+	<wgs:lat>5.96667</wgs:lat>
+	<wgs:long>-1.78333</wgs:long>
+	<skos:prefLabel>Dunkwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2301464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14227</europeana:population>
+	<wgs:lat>7.16667</wgs:lat>
+	<wgs:long>-2.1</wgs:long>
+	<skos:altLabel>Duayaw Nkwanta</skos:altLabel>
+	<skos:altLabel>Nkwanta</skos:altLabel>
+	<skos:prefLabel>Duayaw Nkwanta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2301639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>47260</europeana:population>
+	<wgs:lat>5.65</wgs:lat>
+	<wgs:long>-0.23333</wgs:long>
+	<skos:altLabel>Dam</skos:altLabel>
+	<skos:altLabel>Dom</skos:altLabel>
+	<skos:altLabel>Dome</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дом</skos:altLabel>
+	<skos:prefLabel>Dom</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-0.25</wgs:long>
+	<skos:prefLabel>Dagomba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302337/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>0.11667</wgs:long>
+	<skos:prefLabel>Chalale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302353/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1717543</europeana:population>
+	<wgs:lat>5.5</wgs:lat>
+	<wgs:long>-1</wgs:long>
+	<skos:altLabel>Central</skos:altLabel>
+	<skos:altLabel>Central Region</skos:altLabel>
+	<skos:prefLabel>Central Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302357/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>143015</europeana:population>
+	<wgs:lat>5.10535</wgs:lat>
+	<wgs:long>-1.2466</wgs:long>
+	<skos:altLabel>Cabo Corso</skos:altLabel>
+	<skos:altLabel>Cape Coast</skos:altLabel>
+	<skos:altLabel>Cape Coast Castle</skos:altLabel>
+	<skos:altLabel>Igua Ogwa</skos:altLabel>
+	<skos:altLabel>Ogwa</skos:altLabel>
+	<skos:prefLabel>Cape Coast</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302547/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1973199</europeana:population>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>-1.5</wgs:long>
+	<skos:altLabel xml:lang="es">Brong-Ahafo</skos:altLabel>
+	<skos:altLabel xml:lang="it">Brong-Ahafo</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Brong-Ahafo</skos:altLabel>
+	<skos:altLabel xml:lang="no">Brong-Ahafo</skos:altLabel>
+	<skos:altLabel>Brong-Ahafo</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brong-Ahafo</skos:altLabel>
+	<skos:altLabel xml:lang="de">Brong-Ahafo Region</skos:altLabel>
+	<skos:altLabel xml:lang="en">Brong-Ahafo Region</skos:altLabel>
+	<skos:altLabel>Brong-Ahafo Region</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Region Brong-Ahafo</skos:altLabel>
+	<skos:prefLabel>Brong-Ahafo Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302821/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>54430</europeana:population>
+	<wgs:lat>10.78556</wgs:lat>
+	<wgs:long>-0.85139</wgs:long>
+	<skos:altLabel>Bolagatanga</skos:altLabel>
+	<skos:altLabel xml:lang="de">Bolgatanga</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Bolgatanga</skos:altLabel>
+	<skos:altLabel xml:lang="en">Bolgatanga</skos:altLabel>
+	<skos:altLabel xml:lang="no">Bolgatanga</skos:altLabel>
+	<skos:altLabel>Bolgatanga</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Болгатанге</skos:altLabel>
+	<skos:prefLabel>Bolgatanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2302904/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.86667</wgs:lat>
+	<wgs:long>-2.25</wgs:long>
+	<skos:altLabel>Bobowase</skos:altLabel>
+	<skos:altLabel>Bobowasi Island</skos:altLabel>
+	<skos:prefLabel>Bobowasi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19076</europeana:population>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-2.33333</wgs:long>
+	<skos:altLabel>Babianeha</skos:altLabel>
+	<skos:altLabel>Bebiani</skos:altLabel>
+	<skos:altLabel>Bebianiha</skos:altLabel>
+	<skos:altLabel>Bibiani</skos:altLabel>
+	<skos:prefLabel>Bibiani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303125/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>46287</europeana:population>
+	<wgs:lat>7.45</wgs:lat>
+	<wgs:long>-2.58333</wgs:long>
+	<skos:altLabel>Berekum</skos:altLabel>
+	<skos:prefLabel>Berekum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303236/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>23759</europeana:population>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-0.38333</wgs:long>
+	<skos:prefLabel>Begoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303258/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>14391</europeana:population>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-2.03333</wgs:long>
+	<skos:prefLabel>Bechem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303287/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>56830</europeana:population>
+	<wgs:lat>11.05806</wgs:lat>
+	<wgs:long>-0.24167</wgs:long>
+	<skos:altLabel>Bawku</skos:altLabel>
+	<skos:prefLabel>Bawku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303330/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.95</wgs:lat>
+	<wgs:long>0.15</wgs:long>
+	<skos:prefLabel>Basampa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2303611/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>24500</europeana:population>
+	<wgs:lat>4.86833</wgs:lat>
+	<wgs:long>-2.24139</wgs:long>
+	<skos:altLabel>Axim</skos:altLabel>
+	<skos:prefLabel>Axim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2304116/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>4105402</europeana:population>
+	<wgs:lat>6.75</wgs:lat>
+	<wgs:long>-1.5</wgs:long>
+	<skos:altLabel>Ashanti</skos:altLabel>
+	<skos:altLabel>Ashanti Region</skos:altLabel>
+	<skos:prefLabel>Ashanti Region</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2304220/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>36589</europeana:population>
+	<wgs:lat>5.86667</wgs:lat>
+	<wgs:long>-0.66667</wgs:long>
+	<skos:prefLabel>Asamankese</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2304389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20147</europeana:population>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-0.73333</wgs:long>
+	<skos:altLabel>Apam</skos:altLabel>
+	<skos:altLabel>Appam</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Апам</skos:altLabel>
+	<skos:prefLabel>Apam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2304548/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>29748</europeana:population>
+	<wgs:lat>5.8</wgs:lat>
+	<wgs:long>0.9</wgs:long>
+	<skos:altLabel>Anloga</skos:altLabel>
+	<skos:altLabel>Awunaga</skos:altLabel>
+	<skos:prefLabel>Anloga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2304931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20451</europeana:population>
+	<wgs:lat>6.05</wgs:lat>
+	<wgs:long>-0.8</wgs:long>
+	<skos:prefLabel>Akwatia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2305027/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>11096</europeana:population>
+	<wgs:lat>5.96667</wgs:lat>
+	<wgs:long>-0.08333</wgs:long>
+	<skos:altLabel>Akropong</skos:altLabel>
+	<skos:altLabel>Akropong-Akwapim</skos:altLabel>
+	<skos:altLabel>Akuropon</skos:altLabel>
+	<skos:prefLabel>Akropong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2305537/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>31554</europeana:population>
+	<wgs:lat>6.8</wgs:lat>
+	<wgs:long>-1.08333</wgs:long>
+	<skos:prefLabel>Agogo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306079/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>202932</europeana:population>
+	<wgs:lat>5.7</wgs:lat>
+	<wgs:long>-0.33333</wgs:long>
+	<skos:prefLabel>Achiaman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306104/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1963264</europeana:population>
+	<wgs:lat>5.55602</wgs:lat>
+	<wgs:long>-0.1969</wgs:long>
+	<skos:altLabel xml:lang="id">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="en">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="da">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="it">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="no">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="de">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="es">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="io">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="et">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Accra</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Acra</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Akkra</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Akkra</skos:altLabel>
+	<skos:altLabel>Akra</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Akra</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Akra</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Akra</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Akra</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Akrao</skos:altLabel>
+	<skos:altLabel xml:lang="tw">Nkran</skos:altLabel>
+	<skos:altLabel xml:lang="el">΄Aκκρα</skos:altLabel>
+	<skos:altLabel xml:lang="os">Аккрæ</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Аккра</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Аккра</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Акра</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Акра</skos:altLabel>
+	<skos:altLabel xml:lang="he">אקרה</skos:altLabel>
+	<skos:altLabel xml:lang="mr">आक्रा</skos:altLabel>
+	<skos:altLabel xml:lang="am">አክራ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">アクラ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">阿克拉</skos:altLabel>
+	<skos:altLabel xml:lang="ko">아크라</skos:altLabel>
+	<skos:prefLabel>Accra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306119/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>15053</europeana:population>
+	<wgs:lat>5.85</wgs:lat>
+	<wgs:long>-0.18333</wgs:long>
+	<skos:altLabel>Aburi</skos:altLabel>
+	<skos:prefLabel>Aburi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2306263/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>4.8</wgs:lat>
+	<wgs:long>-1.93333</wgs:long>
+	<skos:altLabel>Abokori Island</skos:altLabel>
+	<skos:altLabel>Abokwa Island</skos:altLabel>
+	<skos:prefLabel>Abokwa Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2589913/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.03139</wgs:lat>
+	<wgs:long>1.04889</wgs:long>
+	<skos:prefLabel>Dzeheko</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2589914/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>6.01222</wgs:lat>
+	<wgs:long>1.04028</wgs:long>
+	<skos:prefLabel>Nordidzi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647177/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.34104</wgs:lat>
+	<wgs:long>-2.38136</wgs:long>
+	<skos:prefLabel>Nadowli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647179/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.52292</wgs:lat>
+	<wgs:long>-2.06652</wgs:long>
+	<skos:prefLabel>Sissala West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647181/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.92933</wgs:lat>
+	<wgs:long>-1.86848</wgs:long>
+	<skos:prefLabel>Wa East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.96559</wgs:lat>
+	<wgs:long>-2.63098</wgs:long>
+	<skos:prefLabel>Wa West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647380/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.70488</wgs:lat>
+	<wgs:long>-1.75388</wgs:long>
+	<skos:prefLabel>Sissala East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.71024</wgs:lat>
+	<wgs:long>-2.58332</wgs:long>
+	<skos:prefLabel>Jirapa Lambussie</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647382/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.91338</wgs:lat>
+	<wgs:long>0.24399</wgs:long>
+	<skos:prefLabel>Saboba Chereponi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647383/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.71667</wgs:lat>
+	<wgs:long>-0.8</wgs:long>
+	<skos:prefLabel>Talensi-Nabdam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647384/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.85</wgs:lat>
+	<wgs:long>-0.18333</wgs:long>
+	<skos:prefLabel>Garu-Tempane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647385/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.73472</wgs:lat>
+	<wgs:long>-1.29056</wgs:long>
+	<skos:prefLabel>Builsa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647386/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.90778</wgs:lat>
+	<wgs:long>-0.80806</wgs:long>
+	<skos:prefLabel>Bongo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647387/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.79217</wgs:lat>
+	<wgs:long>0.11207</wgs:long>
+	<skos:prefLabel>Nanumba South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647388/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.92453</wgs:lat>
+	<wgs:long>-0.07468</wgs:long>
+	<skos:prefLabel>Nanumba North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647389/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.27324</wgs:lat>
+	<wgs:long>-2.41346</wgs:long>
+	<skos:prefLabel>Sawla-Tuna-Kalba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647390/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.91667</wgs:lat>
+	<wgs:long>-0.51667</wgs:long>
+	<skos:prefLabel>Bawku West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647391/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.4846</wgs:lat>
+	<wgs:long>-0.11207</wgs:long>
+	<skos:prefLabel>Bunkpurugu-Yunyoo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647392/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.72454</wgs:lat>
+	<wgs:long>-2.79977</wgs:long>
+	<skos:prefLabel>Lawra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647393/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.53333</wgs:lat>
+	<wgs:long>-2.7</wgs:long>
+	<skos:prefLabel>Jirapa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647394/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.90568</wgs:lat>
+	<wgs:long>-0.53521</wgs:long>
+	<skos:prefLabel>Karaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647396/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.97027</wgs:lat>
+	<wgs:long>-0.18772</wgs:long>
+	<skos:prefLabel>Gushiegu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647453/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.5927</wgs:lat>
+	<wgs:long>-2.06782</wgs:long>
+	<skos:prefLabel>Bole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647454/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.46667</wgs:lat>
+	<wgs:long>-0.01667</wgs:long>
+	<skos:prefLabel>Kpandai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647456/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.57151</wgs:lat>
+	<wgs:long>-0.6773</wgs:long>
+	<skos:prefLabel>East Gonja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.75</wgs:lat>
+	<wgs:long>-0.98333</wgs:long>
+	<skos:prefLabel>Atebubu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647497/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.60922</wgs:lat>
+	<wgs:long>0.30625</wgs:long>
+	<skos:prefLabel>Nkwanta North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647498/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.25378</wgs:lat>
+	<wgs:long>0.51633</wgs:long>
+	<skos:prefLabel>Nkwanta South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647499/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.04451</wgs:lat>
+	<wgs:long>-1.2891</wgs:long>
+	<skos:prefLabel>Pru</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647500/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.61119</wgs:lat>
+	<wgs:long>-0.45024</wgs:long>
+	<skos:prefLabel>Sene</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647501/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.69817</wgs:lat>
+	<wgs:long>0.22447</wgs:long>
+	<skos:prefLabel>Krachi East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647502/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.8</wgs:lat>
+	<wgs:long>-0.01667</wgs:long>
+	<skos:prefLabel>Krachi West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647503/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.685</wgs:lat>
+	<wgs:long>-1.6618</wgs:long>
+	<skos:prefLabel>Nkoranza North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647504/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.4764</wgs:lat>
+	<wgs:long>-1.2891</wgs:long>
+	<skos:prefLabel>Assin South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647505/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.57118</wgs:lat>
+	<wgs:long>-1.5465</wgs:long>
+	<skos:prefLabel>Twifo Hemang Lower Denkyira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647506/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.9</wgs:lat>
+	<wgs:long>-1.28333</wgs:long>
+	<skos:prefLabel>Sekyere Afram Plains</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647507/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.85388</wgs:lat>
+	<wgs:long>-1.71496</wgs:long>
+	<skos:prefLabel>Upper Denkyira</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647527/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.96389</wgs:lat>
+	<wgs:long>-2.32222</wgs:long>
+	<skos:prefLabel>Ellembelle</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647529/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.78333</wgs:lat>
+	<wgs:long>0.6333</wgs:long>
+	<skos:prefLabel>Dangme East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647530/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.2797</wgs:lat>
+	<wgs:long>-0.63937</wgs:long>
+	<skos:prefLabel>Atiwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647638/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.70176</wgs:lat>
+	<wgs:long>0.32364</wgs:long>
+	<skos:prefLabel>Saboba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647639/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.13417</wgs:lat>
+	<wgs:long>0.28806</wgs:long>
+	<skos:prefLabel>Chereponi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647658/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.83333</wgs:lat>
+	<wgs:long>-2.7</wgs:long>
+	<skos:prefLabel>Lambussie Karni</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7647660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.99222</wgs:lat>
+	<wgs:long>-1.11333</wgs:long>
+	<skos:prefLabel>Kassena Nankana West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648921/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.33333</wgs:lat>
+	<wgs:long>-1.16667</wgs:long>
+	<skos:prefLabel>Abura/Asebu/Kwamankese</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648922/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.55602</wgs:lat>
+	<wgs:long>-0.1969</wgs:long>
+	<skos:prefLabel>Accra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>0.7</wgs:long>
+	<skos:prefLabel>Adaklu-Anyigbe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.28333</wgs:lat>
+	<wgs:long>-1.51667</wgs:long>
+	<skos:prefLabel>Adansi North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.06667</wgs:lat>
+	<wgs:long>-1.4</wgs:long>
+	<skos:prefLabel>Adansi South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.71417</wgs:lat>
+	<wgs:long>-0.15418</wgs:long>
+	<skos:prefLabel>Adenta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648927/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.98644</wgs:lat>
+	<wgs:long>-1.55794</wgs:long>
+	<skos:prefLabel>Afigya-Kwabre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648928/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.65</wgs:lat>
+	<wgs:long>-0.75</wgs:long>
+	<skos:prefLabel>Agona East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648929/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.53333</wgs:lat>
+	<wgs:long>-0.7</wgs:long>
+	<skos:prefLabel>Agona West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648930/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>-2.16667</wgs:long>
+	<skos:prefLabel>Ahafo Ano North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648931/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.91784</wgs:lat>
+	<wgs:long>-1.95763</wgs:long>
+	<skos:prefLabel>Ahafo Ano South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648932/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.84952</wgs:lat>
+	<wgs:long>-2.00979</wgs:long>
+	<skos:prefLabel>Ahanta West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648933/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.41667</wgs:lat>
+	<wgs:long>-0.95</wgs:long>
+	<skos:prefLabel>Ajumako/Enyan/Essiam</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648934/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.11667</wgs:lat>
+	<wgs:long>0.8</wgs:long>
+	<skos:prefLabel>Akatsi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648935/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.96667</wgs:lat>
+	<wgs:long>-0.08333</wgs:long>
+	<skos:prefLabel>Akuapim North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648936/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.8</wgs:lat>
+	<wgs:long>-0.35</wgs:long>
+	<skos:prefLabel>Akuapim South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648937/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-1.15</wgs:long>
+	<skos:prefLabel>Akyemansa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648938/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.25421</wgs:lat>
+	<wgs:long>-1.7507</wgs:long>
+	<skos:prefLabel>Amansie Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648939/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-1.88333</wgs:long>
+	<skos:prefLabel>Amansie West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648941/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.81667</wgs:lat>
+	<wgs:long>-2.81667</wgs:long>
+	<skos:prefLabel>Aowin/Suaman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648942/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.61667</wgs:lat>
+	<wgs:long>-1.21667</wgs:long>
+	<skos:prefLabel>Asante Akim North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648943/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>-1.13333</wgs:long>
+	<skos:prefLabel>Asante Akim South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648944/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.7</wgs:lat>
+	<wgs:long>-0.03333</wgs:long>
+	<skos:prefLabel>Ashaiman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648945/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.58333</wgs:lat>
+	<wgs:long>-1</wgs:long>
+	<skos:prefLabel>Asikuma/Odoben/Brakwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648946/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.7</wgs:lat>
+	<wgs:long>-1.28333</wgs:long>
+	<skos:prefLabel>Assin North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648947/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.81568</wgs:lat>
+	<wgs:long>-2.69478</wgs:long>
+	<skos:prefLabel>Asunafo North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648948/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.68333</wgs:lat>
+	<wgs:long>-2.45</wgs:long>
+	<skos:prefLabel>Asunafo South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648949/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.20308</wgs:lat>
+	<wgs:long>0.08167</wgs:long>
+	<skos:prefLabel>Asuogyaman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648950/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.96667</wgs:lat>
+	<wgs:long>-2.38333</wgs:long>
+	<skos:prefLabel>Asutifi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648951/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.65</wgs:lat>
+	<wgs:long>-1.73333</wgs:long>
+	<skos:prefLabel>Atwima Kwanwoma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648952/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>-2.11667</wgs:long>
+	<skos:prefLabel>Atwima Mponua</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648953/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-1.81667</wgs:long>
+	<skos:prefLabel>Atwima Nwabiagya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.5514</wgs:lat>
+	<wgs:long>-0.51523</wgs:long>
+	<skos:prefLabel>Awutu Senya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648956/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>11.05806</wgs:lat>
+	<wgs:long>-0.24167</wgs:long>
+	<skos:prefLabel>Bawku</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648957/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.45</wgs:lat>
+	<wgs:long>-1.58333</wgs:long>
+	<skos:prefLabel>Bekwai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.45</wgs:lat>
+	<wgs:long>-2.58333</wgs:long>
+	<skos:prefLabel>Berekum</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648959/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.73664</wgs:lat>
+	<wgs:long>-3.04404</wgs:long>
+	<skos:prefLabel>Bia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648960/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.11667</wgs:lat>
+	<wgs:long>0.31667</wgs:long>
+	<skos:prefLabel>Biakoye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648962/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.46667</wgs:lat>
+	<wgs:long>-2.33333</wgs:long>
+	<skos:prefLabel>Bibiani/Ahwiaso/Bekwai</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648963/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.91667</wgs:lat>
+	<wgs:long>-0.98333</wgs:long>
+	<skos:prefLabel>Birim Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648964/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.33856</wgs:lat>
+	<wgs:long>-0.99564</wgs:long>
+	<skos:prefLabel>Birim North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648965/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.9</wgs:lat>
+	<wgs:long>-1.01667</wgs:long>
+	<skos:prefLabel>Birim South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648966/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.78556</wgs:lat>
+	<wgs:long>-0.85139</wgs:long>
+	<skos:prefLabel>Bolgatanga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.41667</wgs:lat>
+	<wgs:long>-1.33333</wgs:long>
+	<skos:prefLabel>Bosome Freho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.53333</wgs:lat>
+	<wgs:long>-1.48333</wgs:long>
+	<skos:prefLabel>Bosomtwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.10535</wgs:lat>
+	<wgs:long>-1.2466</wgs:long>
+	<skos:prefLabel>Cape Coast</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648970/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.9242</wgs:lat>
+	<wgs:long>-1.32349</wgs:long>
+	<skos:prefLabel>Central Gonja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648971/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.88333</wgs:lat>
+	<wgs:long>-0.11667</wgs:long>
+	<skos:prefLabel>Dangme West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648972/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.28333</wgs:lat>
+	<wgs:long>-2.88333</wgs:long>
+	<skos:prefLabel>Dormaa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648973/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.3</wgs:lat>
+	<wgs:long>-2.7</wgs:long>
+	<skos:prefLabel>Dormaa East new</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.16667</wgs:lat>
+	<wgs:long>-0.55</wgs:long>
+	<skos:prefLabel>East Akim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648975/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.53056</wgs:lat>
+	<wgs:long>-0.44222</wgs:long>
+	<skos:prefLabel>East Mamprusi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648976/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.35113</wgs:lat>
+	<wgs:long>-0.62313</wgs:long>
+	<skos:prefLabel>Effutu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648977/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.71667</wgs:lat>
+	<wgs:long>-1.46667</wgs:long>
+	<skos:prefLabel>Ejisu Juaben</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648978/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.38333</wgs:lat>
+	<wgs:long>-1.36667</wgs:long>
+	<skos:prefLabel>Ejura Sekyedumase</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648979/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-0.38333</wgs:long>
+	<skos:prefLabel>Fanteakwa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648980/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.73333</wgs:lat>
+	<wgs:long>-0.2</wgs:long>
+	<skos:prefLabel>Ga East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.65587</wgs:lat>
+	<wgs:long>-0.38971</wgs:long>
+	<skos:prefLabel>Ga West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648982/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.51667</wgs:lat>
+	<wgs:long>-0.75</wgs:long>
+	<skos:prefLabel>Gomoa East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.28333</wgs:lat>
+	<wgs:long>-0.73333</wgs:long>
+	<skos:prefLabel>Gomoa West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648984/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.6</wgs:lat>
+	<wgs:long>0.46667</wgs:long>
+	<skos:prefLabel>Ho</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.15</wgs:lat>
+	<wgs:long>0.46667</wgs:long>
+	<skos:prefLabel>Hohoe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648986/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.95</wgs:lat>
+	<wgs:long>-2.7</wgs:long>
+	<skos:prefLabel>Jaman North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.58365</wgs:lat>
+	<wgs:long>-2.78684</wgs:long>
+	<skos:prefLabel>Jaman South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.4</wgs:lat>
+	<wgs:long>0.46667</wgs:long>
+	<skos:prefLabel>Jasikan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648989/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.05</wgs:lat>
+	<wgs:long>-2.88333</wgs:long>
+	<skos:prefLabel>Jomoro</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648990/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.33333</wgs:lat>
+	<wgs:long>-2.83333</wgs:long>
+	<skos:prefLabel>Juaboso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.53333</wgs:lat>
+	<wgs:long>0.46667</wgs:long>
+	<skos:prefLabel>Kadjebi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294291/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.895</wgs:lat>
+	<wgs:long>-1.09389</wgs:long>
+	<skos:prefLabel>Kassena Nankana East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648994/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.23222</wgs:lat>
+	<wgs:long>1.00111</wgs:long>
+	<skos:prefLabel>Ketu North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648995/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.09861</wgs:lat>
+	<wgs:long>1.14722</wgs:long>
+	<skos:prefLabel>Ketu South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648996/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>8.05</wgs:lat>
+	<wgs:long>-1.71667</wgs:long>
+	<skos:prefLabel>Kintampo North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648997/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.9</wgs:lat>
+	<wgs:long>-1.76667</wgs:long>
+	<skos:prefLabel>Kintampo South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648998/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.08333</wgs:lat>
+	<wgs:long>-1.35</wgs:long>
+	<skos:prefLabel>Komenda/Edina/Eguafo/Abirem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7648999/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7</wgs:lat>
+	<wgs:long>0.3</wgs:long>
+	<skos:prefLabel>Kpando</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.68333</wgs:lat>
+	<wgs:long>-1.61667</wgs:long>
+	<skos:prefLabel>Kumasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649001/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.78333</wgs:lat>
+	<wgs:long>-1.56667</wgs:long>
+	<skos:prefLabel>Kwabre</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649002/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.08333</wgs:lat>
+	<wgs:long>-0.83333</wgs:long>
+	<skos:prefLabel>Kwaebibirem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649003/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.66667</wgs:lat>
+	<wgs:long>-0.75</wgs:long>
+	<skos:prefLabel>Kwahu East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649004/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.04446</wgs:lat>
+	<wgs:long>-0.07935</wgs:long>
+	<skos:prefLabel>Kwahu North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649005/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.55</wgs:lat>
+	<wgs:long>-0.76667</wgs:long>
+	<skos:prefLabel>Kwahu West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649009/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.64378</wgs:lat>
+	<wgs:long>-0.64804</wgs:long>
+	<skos:prefLabel>Kwahu South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649010/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.6</wgs:lat>
+	<wgs:long>-0.06667</wgs:long>
+	<skos:prefLabel>Ledzekuku-Krowor</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649011/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.36339</wgs:lat>
+	<wgs:long>-0.10341</wgs:long>
+	<skos:prefLabel>Lower Manya Krobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649012/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.06667</wgs:lat>
+	<wgs:long>-1.4</wgs:long>
+	<skos:prefLabel>Mampong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649013/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.2</wgs:lat>
+	<wgs:long>-1.06667</wgs:long>
+	<skos:prefLabel>Mfatseman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649014/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.13333</wgs:lat>
+	<wgs:long>-1.65</wgs:long>
+	<skos:prefLabel>Mpohor/Wassa East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649015/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.08333</wgs:lat>
+	<wgs:long>-0.25</wgs:long>
+	<skos:prefLabel>New Juaben</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.56667</wgs:lat>
+	<wgs:long>-1.7</wgs:long>
+	<skos:prefLabel>Nkoranza South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649019/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.06667</wgs:lat>
+	<wgs:long>0.51667</wgs:long>
+	<skos:prefLabel>North Tongu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649021/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.86833</wgs:lat>
+	<wgs:long>-2.24139</wgs:long>
+	<skos:prefLabel>Nzema East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649023/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.99348</wgs:lat>
+	<wgs:long>-1.67067</wgs:long>
+	<skos:prefLabel>Obuasi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.9</wgs:lat>
+	<wgs:long>-1.65</wgs:long>
+	<skos:prefLabel>Offinso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649025/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.4</wgs:lat>
+	<wgs:long>-1.95</wgs:long>
+	<skos:prefLabel>Offinso North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649028/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.56667</wgs:lat>
+	<wgs:long>-2.01667</wgs:long>
+	<skos:prefLabel>Prestea-Huni Valley</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649029/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.62472</wgs:lat>
+	<wgs:long>-0.82778</wgs:long>
+	<skos:prefLabel>Savelugu/Nanton</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649030/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>4.93473</wgs:lat>
+	<wgs:long>-1.71378</wgs:long>
+	<skos:prefLabel>Secondi Takoradi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649031/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.04183</wgs:lat>
+	<wgs:long>-2.87517</wgs:long>
+	<skos:prefLabel>Sefwi Akontobra</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649032/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.2</wgs:lat>
+	<wgs:long>-2.48333</wgs:long>
+	<skos:prefLabel>Sefwi-Wiawso</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649033/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.01667</wgs:lat>
+	<wgs:long>-1.38333</wgs:long>
+	<skos:prefLabel>Sekyere Central</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649035/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.84684</wgs:lat>
+	<wgs:long>-1.39612</wgs:long>
+	<skos:prefLabel>Sekyere East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649037/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2304116/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.93333</wgs:lat>
+	<wgs:long>-1.48333</wgs:long>
+	<skos:prefLabel>Sekyere South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649040/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.01667</wgs:lat>
+	<wgs:long>-1.63333</wgs:long>
+	<skos:prefLabel>Shama new</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.56463</wgs:lat>
+	<wgs:long>0.21404</wgs:long>
+	<skos:prefLabel>South Dayi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294234/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6</wgs:lat>
+	<wgs:long>0.6</wgs:long>
+	<skos:prefLabel>South Tongu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649045/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.03333</wgs:lat>
+	<wgs:long>-0.45</wgs:long>
+	<skos:prefLabel>Suhum/Kraboa/Coaltar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649046/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.33333</wgs:lat>
+	<wgs:long>-2.33333</wgs:long>
+	<skos:prefLabel>Sunyani</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649047/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.36667</wgs:lat>
+	<wgs:long>-2.31667</wgs:long>
+	<skos:prefLabel>Sunyani West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649049/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.86667</wgs:lat>
+	<wgs:long>-2.31667</wgs:long>
+	<skos:prefLabel>Tain</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649051/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.4</wgs:lat>
+	<wgs:long>-0.83333</wgs:long>
+	<skos:prefLabel>Tamale</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649052/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.201</wgs:lat>
+	<wgs:long>-2.18265</wgs:long>
+	<skos:prefLabel>Tano North</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.08333</wgs:lat>
+	<wgs:long>-2.03333</wgs:long>
+	<skos:prefLabel>Tano South</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649054/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.3</wgs:lat>
+	<wgs:long>-1.98333</wgs:long>
+	<skos:prefLabel>Tarkwa Nsuaem</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.58333</wgs:lat>
+	<wgs:long>-1.93333</wgs:long>
+	<skos:prefLabel>Techiman</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649057/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.61667</wgs:lat>
+	<wgs:long>-0.01667</wgs:long>
+	<skos:prefLabel>Tema</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649058/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.43333</wgs:lat>
+	<wgs:long>-1.06667</wgs:long>
+	<skos:prefLabel>Tolon/Kumbungu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649059/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.96981</wgs:lat>
+	<wgs:long>-1.7831</wgs:long>
+	<skos:prefLabel>Upper Denkyira East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649060/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302353/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.15</wgs:lat>
+	<wgs:long>-2.15</wgs:long>
+	<skos:prefLabel>Upper Denkyira West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649061/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.38333</wgs:lat>
+	<wgs:long>-0.13333</wgs:long>
+	<skos:prefLabel>Upper Manya Krobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649063/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294286/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.05</wgs:lat>
+	<wgs:long>-2.48333</wgs:long>
+	<skos:prefLabel>Wa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649064/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.79755</wgs:lat>
+	<wgs:long>-2.00958</wgs:long>
+	<skos:prefLabel>Wassa Amenfi East</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649065/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2294076/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.8</wgs:lat>
+	<wgs:long>-2.43333</wgs:long>
+	<skos:prefLabel>Wassa Amenfi West</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649066/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300569/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.56667</wgs:lat>
+	<wgs:long>-0.33333</wgs:long>
+	<skos:prefLabel>Weija</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649067/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2302547/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>7.73333</wgs:lat>
+	<wgs:long>-2.1</wgs:long>
+	<skos:prefLabel>Wenchi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649068/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>5.86667</wgs:lat>
+	<wgs:long>-0.66667</wgs:long>
+	<skos:prefLabel>West Akim</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.08333</wgs:lat>
+	<wgs:long>-1.81667</wgs:long>
+	<skos:prefLabel>West Gonja</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649071/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>10.35</wgs:lat>
+	<wgs:long>-0.8</wgs:long>
+	<skos:prefLabel>West Mamprusi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649072/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.43333</wgs:lat>
+	<wgs:long>-0.01667</wgs:long>
+	<skos:prefLabel>Yendi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2301360/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>6.17737</wgs:lat>
+	<wgs:long>-0.1765</wgs:long>
+	<skos:prefLabel>Yilo Krobo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7649074/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2297169/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2300660/"/>
+	<europeana:country>GH</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM2"/>
+	<wgs:lat>9.28333</wgs:lat>
+	<wgs:long>0.36667</wgs:long>
+	<skos:prefLabel>Zabzugu/Tatale</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 257 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

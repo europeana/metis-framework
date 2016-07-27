@@ -1,0 +1,1521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_GN
+Description: Selected fields pulled from Geonames about GN done on Mon May 23 21:16:13 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414077/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>86736</europeana:population>
+	<wgs:lat>7.5</wgs:lat>
+	<wgs:long>-9.16667</wgs:long>
+	<skos:altLabel>Préfecture de Yomou</skos:altLabel>
+	<skos:altLabel>Région Administrative de Yomou</skos:altLabel>
+	<skos:altLabel>Yomou</skos:altLabel>
+	<skos:prefLabel>Préfecture de Yomou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414081/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.46667</wgs:lat>
+	<wgs:long>-14.53333</wgs:long>
+	<skos:prefLabel>Île Yomboya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414451/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>10.88333</wgs:lat>
+	<wgs:long>-14.96667</wgs:long>
+	<skos:altLabel>Ilhas Tristão</skos:altLabel>
+	<skos:altLabel>Tristão Inseln</skos:altLabel>
+	<skos:altLabel>Îles Tristao</skos:altLabel>
+	<skos:prefLabel>Îles Tristao</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414544/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>132086</europeana:population>
+	<wgs:lat>11.46667</wgs:lat>
+	<wgs:long>-11.6</wgs:long>
+	<skos:altLabel>Préfecture de Tougué</skos:altLabel>
+	<skos:altLabel>Région Administrative de Tougué</skos:altLabel>
+	<skos:altLabel>Tougué</skos:altLabel>
+	<skos:prefLabel>Préfecture de Tougué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414545/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>25531</europeana:population>
+	<wgs:lat>11.45</wgs:lat>
+	<wgs:long>-11.68333</wgs:long>
+	<skos:altLabel>Tongue</skos:altLabel>
+	<skos:altLabel xml:lang="en">Tougué</skos:altLabel>
+	<skos:altLabel>Tougué</skos:altLabel>
+	<skos:prefLabel>Tougué</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414602/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11.01667</wgs:lat>
+	<wgs:long>-14.71667</wgs:long>
+	<skos:altLabel>Tongosiria</skos:altLabel>
+	<skos:altLabel>Île de Férékasso</skos:altLabel>
+	<skos:prefLabel>Tongosiria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414616/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12235</europeana:population>
+	<wgs:lat>10.36667</wgs:lat>
+	<wgs:long>-13.35</wgs:long>
+	<skos:altLabel>Tendon</skos:altLabel>
+	<skos:altLabel>Tondon</skos:altLabel>
+	<skos:prefLabel>Tondon</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414632/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.5125</wgs:lat>
+	<wgs:long>-13.70639</wgs:long>
+	<skos:altLabel>L’Île de Tumbo</skos:altLabel>
+	<skos:altLabel>Toumbo</skos:altLabel>
+	<skos:altLabel>Île Tombo</skos:altLabel>
+	<skos:prefLabel>Île Tombo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414713/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>7.36667</wgs:lat>
+	<wgs:long>-9.48333</wgs:long>
+	<skos:altLabel>Tinsu Island</skos:altLabel>
+	<skos:altLabel>Île Tinsou</skos:altLabel>
+	<skos:prefLabel>Île Tinsou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414925/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>283642</europeana:population>
+	<wgs:lat>10.91667</wgs:lat>
+	<wgs:long>-13.33333</wgs:long>
+	<skos:altLabel>Préfecture de Télimélé</skos:altLabel>
+	<skos:altLabel>Région Administrative de Télimélé</skos:altLabel>
+	<skos:altLabel>Télimélé</skos:altLabel>
+	<skos:prefLabel>Préfecture de Télimélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2414926/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>30311</europeana:population>
+	<wgs:lat>10.9</wgs:lat>
+	<wgs:long>-13.03333</wgs:long>
+	<skos:altLabel xml:lang="en">Télimélé</skos:altLabel>
+	<skos:altLabel>Télimélé</skos:altLabel>
+	<skos:prefLabel>Télimélé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415048/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.21806</wgs:lat>
+	<wgs:long>-13.29028</wgs:long>
+	<skos:altLabel>Ile Tannah</skos:altLabel>
+	<skos:altLabel>Île Tana</skos:altLabel>
+	<skos:altLabel>Île Tanna</skos:altLabel>
+	<skos:altLabel>Îli Tana</skos:altLabel>
+	<skos:prefLabel>Île Tana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415086/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.49111</wgs:lat>
+	<wgs:long>-13.82139</wgs:long>
+	<skos:altLabel>Fotoba</skos:altLabel>
+	<skos:altLabel>Ile Footobar</skos:altLabel>
+	<skos:altLabel>Ile Futabar</skos:altLabel>
+	<skos:altLabel>Île Tamara</skos:altLabel>
+	<skos:prefLabel>Île Tamara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-14.66667</wgs:long>
+	<skos:prefLabel>Île de Taïdi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415208/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.15</wgs:lat>
+	<wgs:long>-13.31667</wgs:long>
+	<skos:altLabel>Sourinéné</skos:altLabel>
+	<skos:altLabel>Île des Palétuviers</skos:altLabel>
+	<skos:prefLabel>Sourinéné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415209/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.46861</wgs:lat>
+	<wgs:long>-13.79722</wgs:long>
+	<skos:prefLabel>Île Souride</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415622/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.785</wgs:lat>
+	<wgs:long>-13.59278</wgs:long>
+	<skos:altLabel>Bora Banki Island</skos:altLabel>
+	<skos:altLabel>Dassara</skos:altLabel>
+	<skos:altLabel>Île Singuea</skos:altLabel>
+	<skos:altLabel>Île Singuéya</skos:altLabel>
+	<skos:prefLabel>Île Singuéya</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415702/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>243888</europeana:population>
+	<wgs:lat>11.66667</wgs:lat>
+	<wgs:long>-9.5</wgs:long>
+	<skos:altLabel>Préfecture de Siguiri</skos:altLabel>
+	<skos:altLabel>Région Administrative de Siguiri</skos:altLabel>
+	<skos:altLabel>Siguiri</skos:altLabel>
+	<skos:prefLabel>Préfecture de Siguiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2415703/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>43601</europeana:population>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>-9.16667</wgs:long>
+	<skos:altLabel>Sigiri</skos:altLabel>
+	<skos:altLabel>Siguiri</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Сигири</skos:altLabel>
+	<skos:prefLabel>Siguiri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2416368/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.46333</wgs:lat>
+	<wgs:long>-13.79667</wgs:long>
+	<skos:altLabel>Ile Crawford</skos:altLabel>
+	<skos:altLabel>Ile Rooma</skos:altLabel>
+	<skos:altLabel>Île Roume</skos:altLabel>
+	<skos:prefLabel>Île Roume</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2416381/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.06667</wgs:lat>
+	<wgs:long>-14</wgs:long>
+	<skos:prefLabel>Île Quito</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2416440/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>265689</europeana:population>
+	<wgs:lat>10.83333</wgs:lat>
+	<wgs:long>-12.58333</wgs:long>
+	<skos:altLabel>Pita</skos:altLabel>
+	<skos:altLabel>Préfecture de Pita</skos:altLabel>
+	<skos:altLabel>Région Administrative de Pita</skos:altLabel>
+	<skos:prefLabel>Préfecture de Pita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2416443/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>20052</europeana:population>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-12.4</wgs:long>
+	<skos:prefLabel>Pita</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2416968/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>278035</europeana:population>
+	<wgs:lat>7.83333</wgs:lat>
+	<wgs:long>-8.83333</wgs:long>
+	<skos:altLabel>Nzérékoré</skos:altLabel>
+	<skos:altLabel>Préfecture de Nzérékoré</skos:altLabel>
+	<skos:altLabel>Région Administrative de Nzérékoré</skos:altLabel>
+	<skos:prefLabel>Préfecture de Nzérékoré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2416969/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>132728</europeana:population>
+	<wgs:lat>7.74722</wgs:lat>
+	<wgs:long>-8.82389</wgs:long>
+	<skos:altLabel xml:lang="de">Nzérékoré</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Nzérékoré</skos:altLabel>
+	<skos:altLabel xml:lang="en">Nzérékoré</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Nzérékoré</skos:altLabel>
+	<skos:altLabel>Nzérékoré</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Нзерекоре</skos:altLabel>
+	<skos:prefLabel>Nzérékoré</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417102/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.88333</wgs:lat>
+	<wgs:long>-14.88333</wgs:long>
+	<skos:altLabel>Nieni Suri</skos:altLabel>
+	<skos:altLabel>Niémé Souri</skos:altLabel>
+	<skos:altLabel>Niénié Souri</skos:altLabel>
+	<skos:prefLabel>Niémé Souri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417660/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.26778</wgs:lat>
+	<wgs:long>-13.41972</wgs:long>
+	<skos:altLabel>Île Matacong</skos:altLabel>
+	<skos:altLabel>Île Matakong</skos:altLabel>
+	<skos:prefLabel>Île Matakong</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417708/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.03333</wgs:lat>
+	<wgs:long>-14.03333</wgs:long>
+	<skos:prefLabel>Île Marara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417795/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10609</europeana:population>
+	<wgs:lat>10.63333</wgs:lat>
+	<wgs:long>-8.68333</wgs:long>
+	<skos:altLabel xml:lang="en">Mandiana</skos:altLabel>
+	<skos:altLabel>Mandiana</skos:altLabel>
+	<skos:prefLabel>Mandiana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417831/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>222087</europeana:population>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>-12</wgs:long>
+	<skos:altLabel>Mamou</skos:altLabel>
+	<skos:altLabel>Préfecture de Mamou</skos:altLabel>
+	<skos:altLabel>Région Administrative de Mamou</skos:altLabel>
+	<skos:prefLabel>Préfecture de Mamou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417833/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>41619</europeana:population>
+	<wgs:lat>10.38333</wgs:lat>
+	<wgs:long>-12.08333</wgs:long>
+	<skos:prefLabel>Mamou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417885/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>245870</europeana:population>
+	<wgs:lat>12.08333</wgs:lat>
+	<wgs:long>-12.08333</wgs:long>
+	<skos:altLabel>Mali</skos:altLabel>
+	<skos:altLabel>Préfecture de Mali</skos:altLabel>
+	<skos:altLabel>Région Administrative du Mali</skos:altLabel>
+	<skos:prefLabel>Préfecture de Mali</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417987/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>296192</europeana:population>
+	<wgs:lat>8.5</wgs:lat>
+	<wgs:long>-9.41667</wgs:long>
+	<skos:altLabel>Macenta</skos:altLabel>
+	<skos:altLabel>Préfecture de Macenta</skos:altLabel>
+	<skos:altLabel>Région Administrative de Macenta</skos:altLabel>
+	<skos:prefLabel>Préfecture de Macenta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2417988/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>43102</europeana:population>
+	<wgs:lat>8.54611</wgs:lat>
+	<wgs:long>-9.46944</wgs:long>
+	<skos:altLabel xml:lang="en">Macenta</skos:altLabel>
+	<skos:altLabel>Macenta</skos:altLabel>
+	<skos:altLabel>Magenta</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Масента</skos:altLabel>
+	<skos:prefLabel>Macenta</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418053/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLS"/>
+	<wgs:lat>9.45417</wgs:lat>
+	<wgs:long>-13.79</wgs:long>
+	<skos:altLabel>Idolos</skos:altLabel>
+	<skos:altLabel>Iles de Loos</skos:altLabel>
+	<skos:altLabel>Isole Los</skos:altLabel>
+	<skos:altLabel>Los Inseln</skos:altLabel>
+	<skos:altLabel>Îles de Los</skos:altLabel>
+	<skos:prefLabel>Îles de Los</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.76667</wgs:lat>
+	<wgs:long>-14.58333</wgs:long>
+	<skos:altLabel>Devils Island</skos:altLabel>
+	<skos:altLabel>Sourigbé</skos:altLabel>
+	<skos:altLabel>Île Longue</skos:altLabel>
+	<skos:prefLabel>Île Longue</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418360/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>204193</europeana:population>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-12.25</wgs:long>
+	<skos:altLabel>Labé</skos:altLabel>
+	<skos:altLabel>Préfecture de Labé</skos:altLabel>
+	<skos:altLabel>Région Administrative de Labé</skos:altLabel>
+	<skos:prefLabel>Préfecture de Labé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418362/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>46510</europeana:population>
+	<wgs:lat>11.31667</wgs:lat>
+	<wgs:long>-12.28333</wgs:long>
+	<skos:altLabel xml:lang="de">Labé</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Labé</skos:altLabel>
+	<skos:altLabel xml:lang="en">Labé</skos:altLabel>
+	<skos:altLabel>Labé</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лаба</skos:altLabel>
+	<skos:prefLabel>Labé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418435/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>159600</europeana:population>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-9.91667</wgs:long>
+	<skos:altLabel>Kouroussa</skos:altLabel>
+	<skos:altLabel>Préfecture de Kouroussa</skos:altLabel>
+	<skos:altLabel>Région Administrative de Kouroussa</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kouroussa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418437/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>14223</europeana:population>
+	<wgs:lat>10.65</wgs:lat>
+	<wgs:long>-9.88333</wgs:long>
+	<skos:altLabel xml:lang="en">Kouroussa</skos:altLabel>
+	<skos:altLabel>Kouroussa</skos:altLabel>
+	<skos:altLabel>Kurussa</skos:altLabel>
+	<skos:prefLabel>Kouroussa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418595/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>109819</europeana:population>
+	<wgs:lat>12.41667</wgs:lat>
+	<wgs:long>-13.16667</wgs:long>
+	<skos:altLabel>Koundara</skos:altLabel>
+	<skos:altLabel>Préfecture de Koundara</skos:altLabel>
+	<skos:altLabel>Région Administrative de Koundara</skos:altLabel>
+	<skos:prefLabel>Préfecture de Koundara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418596/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>13990</europeana:population>
+	<wgs:lat>12.48333</wgs:lat>
+	<wgs:long>-13.3</wgs:long>
+	<skos:altLabel xml:lang="en">Koundara</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Koundara</skos:altLabel>
+	<skos:altLabel>Koundara</skos:altLabel>
+	<skos:prefLabel>Koundara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418724/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.55</wgs:lat>
+	<wgs:long>-14.61667</wgs:long>
+	<skos:altLabel>Île Koufen</skos:altLabel>
+	<skos:altLabel>Île Kouffen</skos:altLabel>
+	<skos:altLabel>Île Kouffin</skos:altLabel>
+	<skos:prefLabel>Île Koufen</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418871/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.92972</wgs:lat>
+	<wgs:long>-13.65278</wgs:long>
+	<skos:prefLabel>Île Korikori</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2418891/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.75861</wgs:lat>
+	<wgs:long>-13.54861</wgs:long>
+	<skos:altLabel>Coppera Island</skos:altLabel>
+	<skos:altLabel>Île Coperaing</skos:altLabel>
+	<skos:altLabel>Île Copering</skos:altLabel>
+	<skos:altLabel>Île Kopéring</skos:altLabel>
+	<skos:prefLabel>Île Kopéring</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419470/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>213577</europeana:population>
+	<wgs:lat>9.25</wgs:lat>
+	<wgs:long>-9.91667</wgs:long>
+	<skos:altLabel>Kissidougou</skos:altLabel>
+	<skos:altLabel>Préfecture de Kissidougou</skos:altLabel>
+	<skos:altLabel>Région Administrative de Kissidougou</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kissidougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419472/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>47099</europeana:population>
+	<wgs:lat>9.18333</wgs:lat>
+	<wgs:long>-10.1</wgs:long>
+	<skos:altLabel>Kissidougou</skos:altLabel>
+	<skos:altLabel>Kissidugu</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Кисидугу</skos:altLabel>
+	<skos:prefLabel>Kissidougou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419531/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>286152</europeana:population>
+	<wgs:lat>10.08333</wgs:lat>
+	<wgs:long>-12.8</wgs:long>
+	<skos:altLabel>Kindia</skos:altLabel>
+	<skos:altLabel>Préfecture de Kindia</skos:altLabel>
+	<skos:altLabel>Région Administrative de Kindia</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kindia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>117062</europeana:population>
+	<wgs:lat>10.06667</wgs:lat>
+	<wgs:long>-12.85</wgs:long>
+	<skos:altLabel xml:lang="en">Kindia</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kindia</skos:altLabel>
+	<skos:altLabel>Kindia</skos:altLabel>
+	<skos:altLabel>Kindla</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Киндиа</skos:altLabel>
+	<skos:prefLabel>Kindia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419585/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.77306</wgs:lat>
+	<wgs:long>-13.69972</wgs:long>
+	<skos:altLabel>Konebombi Island</skos:altLabel>
+	<skos:altLabel>Koni-Bombo</skos:altLabel>
+	<skos:altLabel>Île Khanibombé</skos:altLabel>
+	<skos:altLabel>Île Khonibombé</skos:altLabel>
+	<skos:altLabel>Île Konebomby</skos:altLabel>
+	<skos:prefLabel>Île Khonibombé</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419618/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>124625</europeana:population>
+	<wgs:lat>9.16667</wgs:lat>
+	<wgs:long>-9.08333</wgs:long>
+	<skos:altLabel>Kérouané</skos:altLabel>
+	<skos:altLabel>Préfecture de Kérouané</skos:altLabel>
+	<skos:altLabel>Région Administrative de Kérouané</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kérouané</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419797/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>-14.75</wgs:long>
+	<skos:altLabel>Ilha Cotenque</skos:altLabel>
+	<skos:altLabel>Katenk</skos:altLabel>
+	<skos:prefLabel>Katenk</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419814/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.7</wgs:lat>
+	<wgs:long>-14.71667</wgs:long>
+	<skos:altLabel>Kassiguéli</skos:altLabel>
+	<skos:altLabel>Kasséguély</skos:altLabel>
+	<skos:prefLabel>Kassiguéli</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419830/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.48056</wgs:lat>
+	<wgs:long>-13.75306</wgs:long>
+	<skos:altLabel>Casa</skos:altLabel>
+	<skos:altLabel>Cassa Isle</skos:altLabel>
+	<skos:altLabel>Factory Island</skos:altLabel>
+	<skos:altLabel>Île Kassa</skos:altLabel>
+	<skos:prefLabel>Île Kassa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419899/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.86667</wgs:lat>
+	<wgs:long>-14.91667</wgs:long>
+	<skos:altLabel>Île Capken</skos:altLabel>
+	<skos:altLabel>Île Capten</skos:altLabel>
+	<skos:altLabel>Île Kapken</skos:altLabel>
+	<skos:prefLabel>Île Kapken</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419958/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.51667</wgs:lat>
+	<wgs:long>-14.63333</wgs:long>
+	<skos:prefLabel>Île Kanonké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419991/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>234785</europeana:population>
+	<wgs:lat>10</wgs:lat>
+	<wgs:long>-9</wgs:long>
+	<skos:altLabel>Kankan</skos:altLabel>
+	<skos:altLabel>Préfecture de Kankan</skos:altLabel>
+	<skos:altLabel>Région Administrative de Kankan</skos:altLabel>
+	<skos:prefLabel>Préfecture de Kankan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2419992/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>114009</europeana:population>
+	<wgs:lat>10.38333</wgs:lat>
+	<wgs:long>-9.3</wgs:long>
+	<skos:altLabel xml:lang="id">Kankan</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Kankan</skos:altLabel>
+	<skos:altLabel xml:lang="de">Kankan</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kankan</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kankan</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Kankan</skos:altLabel>
+	<skos:altLabel>Kankan</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Канкан</skos:altLabel>
+	<skos:prefLabel>Kankan</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420056/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>61527</europeana:population>
+	<wgs:lat>10.66667</wgs:lat>
+	<wgs:long>-14.6</wgs:long>
+	<skos:altLabel>Kamissar</skos:altLabel>
+	<skos:altLabel>Kamsar</skos:altLabel>
+	<skos:altLabel>Kansar</skos:altLabel>
+	<skos:prefLabel>Kamsar</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420168/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.48333</wgs:lat>
+	<wgs:long>-14.6</wgs:long>
+	<skos:prefLabel>Île Kaliki</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420215/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.87583</wgs:lat>
+	<wgs:long>-13.68194</wgs:long>
+	<skos:altLabel>Île Kakounsou</skos:altLabel>
+	<skos:altLabel>Île Kakunzu</skos:altLabel>
+	<skos:prefLabel>Île Kakounsou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420219/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.46667</wgs:lat>
+	<wgs:long>-13.45</wgs:long>
+	<skos:prefLabel>Île de Kakossa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420301/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.33333</wgs:lat>
+	<wgs:long>-13.4</wgs:long>
+	<skos:altLabel>Île Kaback</skos:altLabel>
+	<skos:altLabel>Île Kabak</skos:altLabel>
+	<skos:prefLabel>Île Kabak</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420477/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>10324025</europeana:population>
+	<wgs:lat>11</wgs:lat>
+	<wgs:long>-10</wgs:long>
+	<skos:altLabel xml:lang="ga">An Ghuine</skos:altLabel>
+	<skos:altLabel>Französisch-Guinea</skos:altLabel>
+	<skos:altLabel>French Guinea</skos:altLabel>
+	<skos:altLabel>GN</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghi-nê</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Ghi-nê (Guinea)</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gine</skos:altLabel>
+	<skos:altLabel xml:lang="ff">Gine</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Gine</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Ginea</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Gineja</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Gini</skos:altLabel>
+	<skos:altLabel xml:lang="so">Gini</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guine</skos:altLabel>
+	<skos:altLabel xml:lang="id">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="es">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="da">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="et">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="it">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="de">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="io">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="la">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="no">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="an">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="gd">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="na">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="se">Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Guinea - Guinée</skos:altLabel>
+	<skos:altLabel>Guinean People’s Republic</skos:altLabel>
+	<skos:altLabel xml:lang="af">Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Guinee</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Guineea</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Guineja</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Guinèa</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Guiné</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guinée</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Guinée</skos:altLabel>
+	<skos:altLabel>Guinée Française</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Guinée-Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Gvineja</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gvineo</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gvinėja</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gwinea</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Gyni</skos:altLabel>
+	<skos:altLabel xml:lang="is">Gínea</skos:altLabel>
+	<skos:altLabel>People’s Revolutionary Republic of Guinea</skos:altLabel>
+	<skos:altLabel>Popular and Revolutionary Republic of Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="en">Republic of Guinea</skos:altLabel>
+	<skos:altLabel>Revolutionary People’s Republic of Guinea</skos:altLabel>
+	<skos:altLabel xml:lang="fr">République de Guinée</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γουινέα</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Гвинея</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Гвинеја</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Гвинеја</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Гвінея</skos:altLabel>
+	<skos:altLabel xml:lang="be">Гвінея</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ґвінея</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Գվինեա</skos:altLabel>
+	<skos:altLabel xml:lang="he">גינאה</skos:altLabel>
+	<skos:altLabel xml:lang="he">גיניאה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">غينيا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګونې</skos:altLabel>
+	<skos:altLabel xml:lang="ps">ګیانا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">گنی</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گوینیا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">گۋىنىيە</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گینه</skos:altLabel>
+	<skos:altLabel xml:lang="sa">गिनी</skos:altLabel>
+	<skos:altLabel xml:lang="hi">गिनी</skos:altLabel>
+	<skos:altLabel xml:lang="bn">গিনি</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கினி</skos:altLabel>
+	<skos:altLabel xml:lang="ta">கினியா</skos:altLabel>
+	<skos:altLabel xml:lang="th">กินี</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศกินี</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ກິວນີ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">གྷི་ནི་ཡ།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">გვინეა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጊኒ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጊኔ</skos:altLabel>
+	<skos:altLabel xml:lang="km">ហ្គីណេ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ギニア</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ギニア共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">几内亚</skos:altLabel>
+	<skos:altLabel xml:lang="ko">기니</skos:altLabel>
+	<skos:prefLabel>Republic of Guinea</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420561/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>404691</europeana:population>
+	<wgs:lat>8.66667</wgs:lat>
+	<wgs:long>-10.25</wgs:long>
+	<skos:altLabel>Guéckédou</skos:altLabel>
+	<skos:altLabel>Préfecture de Guékédou</skos:altLabel>
+	<skos:altLabel>Région Administrative de Guéckédou</skos:altLabel>
+	<skos:altLabel>Région Administrative de Guékédou</skos:altLabel>
+	<skos:prefLabel>Préfecture de Guékédou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>79140</europeana:population>
+	<wgs:lat>8.5625</wgs:lat>
+	<wgs:long>-10.1325</wgs:long>
+	<skos:altLabel>Guéckédou</skos:altLabel>
+	<skos:altLabel>Guékédou</skos:altLabel>
+	<skos:prefLabel>Guéckédou</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420598/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISLT"/>
+	<wgs:lat>9.46222</wgs:lat>
+	<wgs:long>-13.74333</wgs:long>
+	<skos:altLabel>Sharks Nose</skos:altLabel>
+	<skos:altLabel>Île du Goulu</skos:altLabel>
+	<skos:altLabel>Île du Gulu</skos:altLabel>
+	<skos:altLabel>îlot du Goulu</skos:altLabel>
+	<skos:prefLabel>Île du Goulu</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420652/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.46667</wgs:lat>
+	<wgs:long>-14.65</wgs:long>
+	<skos:altLabel>Gonsalez Island</skos:altLabel>
+	<skos:altLabel>Ile Conzulès</skos:altLabel>
+	<skos:altLabel>Île Gonzalez</skos:altLabel>
+	<skos:prefLabel>Île Gonzalez</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420825/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>158200</europeana:population>
+	<wgs:lat>11.75</wgs:lat>
+	<wgs:long>-13.2</wgs:long>
+	<skos:altLabel>Gaoual</skos:altLabel>
+	<skos:altLabel>Préfecture de Gaoual</skos:altLabel>
+	<skos:altLabel>Région Administrative de Gaoual</skos:altLabel>
+	<skos:prefLabel>Préfecture de Gaoual</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420849/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.95</wgs:lat>
+	<wgs:long>-14.9</wgs:long>
+	<skos:prefLabel>Île Galibert</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420883/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>82073</europeana:population>
+	<wgs:lat>10.41667</wgs:lat>
+	<wgs:long>-13.58333</wgs:long>
+	<skos:altLabel>Fria</skos:altLabel>
+	<skos:altLabel>Préfecture de Fria</skos:altLabel>
+	<skos:altLabel>Région Administrative de Fria</skos:altLabel>
+	<skos:prefLabel>Préfecture de Fria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420884/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>44369</europeana:population>
+	<wgs:lat>10.45</wgs:lat>
+	<wgs:long>-13.53333</wgs:long>
+	<skos:altLabel>Firiya</skos:altLabel>
+	<skos:altLabel xml:lang="en">Fria</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Fria</skos:altLabel>
+	<skos:altLabel>Fria</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Фриа</skos:altLabel>
+	<skos:prefLabel>Fria</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420898/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.45</wgs:lat>
+	<wgs:long>-13.81667</wgs:long>
+	<skos:prefLabel>Île Fousset</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420981/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.91667</wgs:lat>
+	<wgs:long>-14.86667</wgs:long>
+	<skos:altLabel>Fore Suri</skos:altLabel>
+	<skos:altLabel>Foré Souri</skos:altLabel>
+	<skos:prefLabel>Foré Souri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420983/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>135817</europeana:population>
+	<wgs:lat>9.43333</wgs:lat>
+	<wgs:long>-13.1</wgs:long>
+	<skos:altLabel>Forécariah</skos:altLabel>
+	<skos:altLabel>Préfecture de Forécariah</skos:altLabel>
+	<skos:altLabel>Région Administrative de Forécariah</skos:altLabel>
+	<skos:prefLabel>Préfecture de Forécariah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2420985/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>12358</europeana:population>
+	<wgs:lat>9.43056</wgs:lat>
+	<wgs:long>-13.08806</wgs:long>
+	<skos:altLabel>Forecaria</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Forecariah</skos:altLabel>
+	<skos:altLabel>Forikaria</skos:altLabel>
+	<skos:altLabel xml:lang="en">Forécariah</skos:altLabel>
+	<skos:altLabel>Forécariah</skos:altLabel>
+	<skos:prefLabel>Forécariah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2421272/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>166594</europeana:population>
+	<wgs:lat>10</wgs:lat>
+	<wgs:long>-10.83333</wgs:long>
+	<skos:altLabel>Faranah</skos:altLabel>
+	<skos:altLabel>Faranah Region</skos:altLabel>
+	<skos:altLabel>Préfecture de Faranah</skos:altLabel>
+	<skos:altLabel>Région Administrative de Faranah</skos:altLabel>
+	<skos:prefLabel>Préfecture de Faranah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2421533/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>10.25</wgs:lat>
+	<wgs:long>-13.41667</wgs:long>
+	<skos:altLabel>Dubréka</skos:altLabel>
+	<skos:altLabel>Préfecture de Dubréka</skos:altLabel>
+	<skos:altLabel>Région Administrative de Dubréka</skos:altLabel>
+	<skos:prefLabel>Préfecture de Dubréka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2421535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>10363</europeana:population>
+	<wgs:lat>9.79111</wgs:lat>
+	<wgs:long>-13.52333</wgs:long>
+	<skos:altLabel>Debreeka</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dubréka</skos:altLabel>
+	<skos:altLabel>Dubréka</skos:altLabel>
+	<skos:prefLabel>Dubréka</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2421782/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.8475</wgs:lat>
+	<wgs:long>-13.77944</wgs:long>
+	<skos:altLabel>Ile Dode</skos:altLabel>
+	<skos:altLabel>Île Dodo</skos:altLabel>
+	<skos:prefLabel>Île Dodo</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2421902/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>155636</europeana:population>
+	<wgs:lat>11.5</wgs:lat>
+	<wgs:long>-10.91667</wgs:long>
+	<skos:altLabel>Dinguiraye</skos:altLabel>
+	<skos:altLabel>Préfecture de Dinguiraye</skos:altLabel>
+	<skos:altLabel>Région Administrative de Dinguiraye</skos:altLabel>
+	<skos:prefLabel>Préfecture de Dinguiraye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422127/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.21667</wgs:lat>
+	<wgs:long>-14</wgs:long>
+	<skos:prefLabel>Île du Diable</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422377/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>154820</europeana:population>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>-12.3</wgs:long>
+	<skos:altLabel>Dalaba</skos:altLabel>
+	<skos:altLabel>Préfecture de Dalaba</skos:altLabel>
+	<skos:altLabel>Région Administrative de Dalaba</skos:altLabel>
+	<skos:prefLabel>Préfecture de Dalaba</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422441/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>114250</europeana:population>
+	<wgs:lat>10.6</wgs:lat>
+	<wgs:long>-11.11667</wgs:long>
+	<skos:altLabel>Dabola</skos:altLabel>
+	<skos:altLabel>Préfecture de Dabola</skos:altLabel>
+	<skos:altLabel>Région Administrative de Dabola</skos:altLabel>
+	<skos:prefLabel>Préfecture de Dabola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422442/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>13057</europeana:population>
+	<wgs:lat>10.75</wgs:lat>
+	<wgs:long>-11.11667</wgs:long>
+	<skos:altLabel xml:lang="pl">Dabola</skos:altLabel>
+	<skos:altLabel xml:lang="en">Dabola</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Dabola</skos:altLabel>
+	<skos:altLabel>Dabola</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Дабола</skos:altLabel>
+	<skos:prefLabel>Dabola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422457/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>77103</europeana:population>
+	<wgs:lat>9.70556</wgs:lat>
+	<wgs:long>-13.37694</wgs:long>
+	<skos:altLabel>Coya</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Coyah</skos:altLabel>
+	<skos:altLabel xml:lang="en">Coyah</skos:altLabel>
+	<skos:altLabel>Coyah</skos:altLabel>
+	<skos:altLabel>Koyah</skos:altLabel>
+	<skos:prefLabel>Coyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422462/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.4375</wgs:lat>
+	<wgs:long>-13.81917</wgs:long>
+	<skos:altLabel>Coral Island</skos:altLabel>
+	<skos:altLabel>Corall Île</skos:altLabel>
+	<skos:altLabel>Île de Corail</skos:altLabel>
+	<skos:prefLabel>Île de Corail</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422464/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>1871242</europeana:population>
+	<wgs:lat>9.5</wgs:lat>
+	<wgs:long>-13.66667</wgs:long>
+	<skos:altLabel>Capitale d’État-Zone Spéciale de Conakry</skos:altLabel>
+	<skos:altLabel>Conakry</skos:altLabel>
+	<skos:altLabel>Conakry I</skos:altLabel>
+	<skos:altLabel>Conakry II</skos:altLabel>
+	<skos:altLabel>Région Administrative de Conakry</skos:altLabel>
+	<skos:prefLabel>Capitale d’État-Zone Spéciale de Conakry</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422465/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>1767200</europeana:population>
+	<wgs:lat>9.53795</wgs:lat>
+	<wgs:long>-13.67729</wgs:long>
+	<skos:altLabel xml:lang="pt">Conacri</skos:altLabel>
+	<skos:altLabel xml:lang="de">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="es">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="da">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="it">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="no">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="en">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="af">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="io">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Conakry</skos:altLabel>
+	<skos:altLabel xml:lang="et">Conakry</skos:altLabel>
+	<skos:altLabel>Konakri</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Konakri</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Konakrio</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Konakris</skos:altLabel>
+	<skos:altLabel>Konakry</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Konakry</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Konakry</skos:altLabel>
+	<skos:altLabel xml:lang="el">Κόνακρι</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Конакри</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Конакри</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Конакри</skos:altLabel>
+	<skos:altLabel xml:lang="he">קונאקרי</skos:altLabel>
+	<skos:altLabel xml:lang="ja">コナクリ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">科納克里</skos:altLabel>
+	<skos:altLabel xml:lang="ko">코나크리</skos:altLabel>
+	<skos:prefLabel>Conakry</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422488/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>1871242</europeana:population>
+	<wgs:lat>9.535</wgs:lat>
+	<wgs:long>-13.68778</wgs:long>
+	<skos:altLabel>Camayen</skos:altLabel>
+	<skos:altLabel>Camayenne</skos:altLabel>
+	<skos:prefLabel>Camayenne</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422493/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.44028</wgs:lat>
+	<wgs:long>-13.76306</wgs:long>
+	<skos:altLabel>Ilot Kid</skos:altLabel>
+	<skos:altLabel>Île aux Cabris</skos:altLabel>
+	<skos:altLabel>Îlot Cabri</skos:altLabel>
+	<skos:prefLabel>Îlot Cabri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422534/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.46194</wgs:lat>
+	<wgs:long>-13.78917</wgs:long>
+	<skos:prefLabel>Îlot de la Bouteille</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422923/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>289407</europeana:population>
+	<wgs:lat>11.08333</wgs:lat>
+	<wgs:long>-14.41667</wgs:long>
+	<skos:altLabel>Boké</skos:altLabel>
+	<skos:altLabel>Préfecture de Boké</skos:altLabel>
+	<skos:altLabel>Région Administrative de Boké</skos:altLabel>
+	<skos:prefLabel>Préfecture de Boké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422924/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>15460</europeana:population>
+	<wgs:lat>10.93333</wgs:lat>
+	<wgs:long>-14.3</wgs:long>
+	<skos:altLabel xml:lang="en">Boké</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Boké</skos:altLabel>
+	<skos:altLabel>Boké</skos:altLabel>
+	<skos:altLabel>Boqué</skos:altLabel>
+	<skos:prefLabel>Boké</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2422967/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>165196</europeana:population>
+	<wgs:lat>10.33333</wgs:lat>
+	<wgs:long>-14.16667</wgs:long>
+	<skos:altLabel>Boffa</skos:altLabel>
+	<skos:altLabel>Préfecture de Boffa</skos:altLabel>
+	<skos:altLabel>Région Administrative de Boffa</skos:altLabel>
+	<skos:prefLabel>Préfecture de Boffa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2423008/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.435</wgs:lat>
+	<wgs:long>-13.76861</wgs:long>
+	<skos:altLabel>Blanchel Island</skos:altLabel>
+	<skos:altLabel>Ile White</skos:altLabel>
+	<skos:altLabel>White Rock</skos:altLabel>
+	<skos:altLabel>Île Blanche</skos:altLabel>
+	<skos:prefLabel>Île Blanche</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2423073/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>-14.63333</wgs:long>
+	<skos:altLabel>Broat Island</skos:altLabel>
+	<skos:altLabel>Dapecara Island</skos:altLabel>
+	<skos:altLabel>Île Binari</skos:altLabel>
+	<skos:altLabel>Île Botten</skos:altLabel>
+	<skos:altLabel>Île Bénari</skos:altLabel>
+	<skos:altLabel>Île Kanoké</skos:altLabel>
+	<skos:altLabel>Île Kanonké</skos:altLabel>
+	<skos:prefLabel>Île Binari</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2423124/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>188045</europeana:population>
+	<wgs:lat>8.91667</wgs:lat>
+	<wgs:long>-8.41667</wgs:long>
+	<skos:altLabel>Beyla</skos:altLabel>
+	<skos:altLabel>Préfecture de Beyla</skos:altLabel>
+	<skos:altLabel>Région Administrative de Beyla</skos:altLabel>
+	<skos:prefLabel>Préfecture de Beyla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2423126/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>11566</europeana:population>
+	<wgs:lat>8.68333</wgs:lat>
+	<wgs:long>-8.63333</wgs:long>
+	<skos:prefLabel>Beyla</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2423804/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.1</wgs:lat>
+	<wgs:long>-14.05</wgs:long>
+	<skos:altLabel>Bakissouri</skos:altLabel>
+	<skos:altLabel>Île Big</skos:altLabel>
+	<skos:altLabel>Île Samoho</skos:altLabel>
+	<skos:prefLabel>Bakissouri</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2423909/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>10.9</wgs:lat>
+	<wgs:long>-15</wgs:long>
+	<skos:altLabel>Caterak Island</skos:altLabel>
+	<skos:altLabel>Ilha Catcheque</skos:altLabel>
+	<skos:altLabel>Ilha Cateraque</skos:altLabel>
+	<skos:altLabel>Île Aube</skos:altLabel>
+	<skos:altLabel>Île Katchek</skos:altLabel>
+	<skos:altLabel>Île Katerak</skos:altLabel>
+	<skos:prefLabel>Île Aube</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2592890/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.205</wgs:lat>
+	<wgs:long>-13.28639</wgs:long>
+	<skos:prefLabel>Île de Yelitono</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2592974/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.83361</wgs:lat>
+	<wgs:long>-13.765</wgs:long>
+	<skos:prefLabel>Île Bokhinéné</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593024/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.85889</wgs:lat>
+	<wgs:long>-13.67139</wgs:long>
+	<skos:prefLabel>Île Dentéma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2593041/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>9.80611</wgs:lat>
+	<wgs:long>-13.65528</wgs:long>
+	<skos:prefLabel>Île Benguékara</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595299/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>156452</europeana:population>
+	<wgs:lat>9.75</wgs:lat>
+	<wgs:long>-13.41667</wgs:long>
+	<skos:altLabel>Coyah</skos:altLabel>
+	<skos:altLabel>Préfecture de Coyah</skos:altLabel>
+	<skos:prefLabel>Préfecture de Coyah</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595302/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>114366</europeana:population>
+	<wgs:lat>11.58333</wgs:lat>
+	<wgs:long>-11.83333</wgs:long>
+	<skos:altLabel>Koubia</skos:altLabel>
+	<skos:altLabel>Préfecture de Koubia</skos:altLabel>
+	<skos:prefLabel>Préfecture de Koubia</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595303/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>161465</europeana:population>
+	<wgs:lat>11.41667</wgs:lat>
+	<wgs:long>-12.66667</wgs:long>
+	<skos:altLabel>Lélouma</skos:altLabel>
+	<skos:altLabel>Préfecture de Lélouma</skos:altLabel>
+	<skos:prefLabel>Préfecture de Lélouma</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595304/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>124393</europeana:population>
+	<wgs:lat>7.83333</wgs:lat>
+	<wgs:long>-8.33333</wgs:long>
+	<skos:altLabel>Lola</skos:altLabel>
+	<skos:altLabel>Préfecture de Lola</skos:altLabel>
+	<skos:prefLabel>Préfecture de Lola</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/2595305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>158901</europeana:population>
+	<wgs:lat>10.5</wgs:lat>
+	<wgs:long>-8.75</wgs:long>
+	<skos:altLabel>Mandiana</skos:altLabel>
+	<skos:altLabel>Préfecture de Mandiana</skos:altLabel>
+	<skos:prefLabel>Préfecture de Mandiana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7669296/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/2420477/"/>
+	<europeana:country>GN</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM3"/>
+	<wgs:lat>9.5769</wgs:lat>
+	<wgs:long>-13.6119</wgs:long>
+	<skos:prefLabel>Matoto</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 110 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

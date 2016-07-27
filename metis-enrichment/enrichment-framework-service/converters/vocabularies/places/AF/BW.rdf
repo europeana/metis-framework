@@ -1,0 +1,758 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+	xmlns:ac="http://annocultor.eu/converter/"
+	xmlns:ac_people="http://annocultor.eu/people/"
+	xmlns:ac_report="http://annocultor.eu/report/"
+	xmlns:ac_time="http://annocultor.eu/time/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:europeana="http://www.europeana.eu/resolve/ontology/"
+	xmlns:foaf="http://xmlns.com/foaf/0.1/"
+	xmlns:lib="http://www.swi-prolog.org/rdf/library/"
+	xmlns:oai="http://www.openarchives.org/OAI/2.0/"
+	xmlns:oaidc="http://www.openarchives.org/OAI/2.0/oai_dc/"
+	xmlns:owl="http://www.w3.org/2002/07/owl#"
+	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+	xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+	xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+	xmlns:vra="http://www.vraweb.org/vracore/vracore3#"
+	xmlns:wgs="http://www.w3.org/2003/01/geo/wgs84_pos#"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace">
+<!-- 
+**********************************************************
+This file is a result of conversion to RDF performed using
+AnnoCultor software, available from   http://AnnoCultor.eu
+**********************************************************
+Named graph: AF_BW
+Description: Selected fields pulled from Geonames about BW done on Mon May 23 21:16:08 CEST 2011
+
+This dataset was selected and converted from Geonames http://download.geonames.org/export/dump/readme.txt
+that is licensed under a Creative Commons Attribution 3.0 License,
+see http://creativecommons.org/licenses/by/3.0/
+The Data is provided "as is" without warranty or any representation of accuracy, timeliness or completeness.
+Technical note: isPartOf may refer to concepts that are not described in these files.
+ -->
+
+<rdf:Description rdf:about="http://sws.geonames.org/443222/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-24.58333</wgs:lat>
+	<wgs:long>25.8</wgs:long>
+	<skos:prefLabel>Bakwena Tribal Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/932955/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.15</wgs:lat>
+	<wgs:long>22.43333</wgs:long>
+	<skos:prefLabel>Xgara Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933000/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>17759</europeana:population>
+	<wgs:lat>-21.48333</wgs:lat>
+	<wgs:long>27.48333</wgs:long>
+	<skos:altLabel>Tonota</skos:altLabel>
+	<skos:altLabel>Tonoto</skos:altLabel>
+	<skos:prefLabel>Tonota</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933018/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>20756</europeana:population>
+	<wgs:lat>-24.71667</wgs:lat>
+	<wgs:long>25.53333</wgs:long>
+	<skos:altLabel>Thamaga</skos:altLabel>
+	<skos:prefLabel>Thamaga</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933043/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>179888</europeana:population>
+	<wgs:lat>-25</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Ngwaketse District</skos:altLabel>
+	<skos:altLabel>Ngwaketsi</skos:altLabel>
+	<skos:altLabel>Southern</skos:altLabel>
+	<skos:altLabel>Southern District</skos:altLabel>
+	<skos:prefLabel>Southern District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933044/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-25</wgs:lat>
+	<wgs:long>25.75</wgs:long>
+	<skos:altLabel>South East</skos:altLabel>
+	<skos:altLabel>South East District</skos:altLabel>
+	<skos:prefLabel>South East District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933088/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>47419</europeana:population>
+	<wgs:lat>-22.38333</wgs:lat>
+	<wgs:long>26.71667</wgs:long>
+	<skos:altLabel xml:lang="de">Serowe</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Serowe</skos:altLabel>
+	<skos:altLabel xml:lang="en">Serowe</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Serowe</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Serowe</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Serowe</skos:altLabel>
+	<skos:altLabel>Serowe</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Серова</skos:altLabel>
+	<skos:prefLabel>Serowe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933099/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>53727</europeana:population>
+	<wgs:lat>-21.96611</wgs:lat>
+	<wgs:long>27.91722</wgs:long>
+	<skos:altLabel>Phikwe</skos:altLabel>
+	<skos:altLabel>Pikwe</skos:altLabel>
+	<skos:altLabel>Pikwe-Selibe</skos:altLabel>
+	<skos:altLabel>Selebi</skos:altLabel>
+	<skos:altLabel>Selebi-Phikwe</skos:altLabel>
+	<skos:altLabel>Selebi-Pikwe</skos:altLabel>
+	<skos:altLabel>Selibe</skos:altLabel>
+	<skos:altLabel>Selibe-Phikwe</skos:altLabel>
+	<skos:altLabel>Selibe-Pikwe Mine Lease Area</skos:altLabel>
+	<skos:prefLabel>Selebi-Phikwe</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933123/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.81667</wgs:lat>
+	<wgs:long>23.56667</wgs:long>
+	<skos:prefLabel>Santantadibe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933141/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>21450</europeana:population>
+	<wgs:lat>-24.86667</wgs:lat>
+	<wgs:long>25.81667</wgs:long>
+	<skos:altLabel>Ramotswa</skos:altLabel>
+	<skos:altLabel>Ramoutsa</skos:altLabel>
+	<skos:prefLabel>Ramotswa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933182/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30650</europeana:population>
+	<wgs:lat>-22.55</wgs:lat>
+	<wgs:long>27.13333</wgs:long>
+	<skos:altLabel>Palapaye Road</skos:altLabel>
+	<skos:altLabel>Palapye</skos:altLabel>
+	<skos:altLabel>Palapye Road</skos:altLabel>
+	<skos:altLabel>Palatswe</skos:altLabel>
+	<skos:prefLabel>Palapye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933210/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>89979</europeana:population>
+	<wgs:lat>-21</wgs:lat>
+	<wgs:long>27.5</wgs:long>
+	<skos:altLabel>Francistown District</skos:altLabel>
+	<skos:altLabel>North East</skos:altLabel>
+	<skos:altLabel>North East District</skos:altLabel>
+	<skos:prefLabel>North East District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933224/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.35</wgs:lat>
+	<wgs:long>23.36667</wgs:long>
+	<skos:prefLabel>Ngindi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933230/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>81978</europeana:population>
+	<wgs:lat>-20</wgs:lat>
+	<wgs:long>22.5</wgs:long>
+	<skos:altLabel>Ngamiland District</skos:altLabel>
+	<skos:altLabel>North West</skos:altLabel>
+	<skos:altLabel>North West District</skos:altLabel>
+	<skos:prefLabel>North West District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933242/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.5</wgs:lat>
+	<wgs:long>23.53333</wgs:long>
+	<skos:prefLabel>Namakha Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933261/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.83333</wgs:lat>
+	<wgs:long>23.53333</wgs:long>
+	<skos:prefLabel>Motsaod Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933271/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>19561</europeana:population>
+	<wgs:lat>-24.8</wgs:lat>
+	<wgs:long>25.38333</wgs:long>
+	<skos:altLabel>Moshupa</skos:altLabel>
+	<skos:altLabel>Mosopa</skos:altLabel>
+	<skos:prefLabel>Mosopa</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933305/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>63248</europeana:population>
+	<wgs:lat>-24.41667</wgs:lat>
+	<wgs:long>25.53333</wgs:long>
+	<skos:altLabel xml:lang="pl">Molepolole</skos:altLabel>
+	<skos:altLabel xml:lang="et">Molepolole</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Molepolole</skos:altLabel>
+	<skos:altLabel xml:lang="en">Molepolole</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Molepolole</skos:altLabel>
+	<skos:altLabel>Molepolole</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Молепололе</skos:altLabel>
+	<skos:prefLabel>Molepolole</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933331/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>43394</europeana:population>
+	<wgs:lat>-24.62694</wgs:lat>
+	<wgs:long>25.86556</wgs:long>
+	<skos:altLabel>Mogoditsane</skos:altLabel>
+	<skos:altLabel>Mogoditshane</skos:altLabel>
+	<skos:prefLabel>Mogoditshane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933340/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>36962</europeana:population>
+	<wgs:lat>-24.41667</wgs:lat>
+	<wgs:long>26.15</wgs:long>
+	<skos:altLabel xml:lang="en">Mochudi</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Mochudi</skos:altLabel>
+	<skos:altLabel xml:lang="de">Mochudi</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Mochudi</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Mochudi</skos:altLabel>
+	<skos:altLabel>Mochudi</skos:altLabel>
+	<skos:altLabel>Mochudi Village</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Мочуди</skos:altLabel>
+	<skos:prefLabel>Mochudi</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933366/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>49945</europeana:population>
+	<wgs:lat>-19.98333</wgs:lat>
+	<wgs:long>23.41667</wgs:long>
+	<skos:altLabel xml:lang="de">Maun</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Maun</skos:altLabel>
+	<skos:altLabel xml:lang="en">Maun</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Maun</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Maun</skos:altLabel>
+	<skos:altLabel>Maun</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Маун</skos:altLabel>
+	<skos:prefLabel>Maun</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933471/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>44471</europeana:population>
+	<wgs:lat>-23.06667</wgs:lat>
+	<wgs:long>26.83333</wgs:long>
+	<skos:altLabel>Mahalapye</skos:altLabel>
+	<skos:altLabel>Mahalatswe</skos:altLabel>
+	<skos:prefLabel>Mahalapye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933521/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>30883</europeana:population>
+	<wgs:lat>-25.21667</wgs:lat>
+	<wgs:long>25.66667</wgs:long>
+	<skos:altLabel>Lobatse</skos:altLabel>
+	<skos:altLabel>Lobatsi</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Лобаце</skos:altLabel>
+	<skos:prefLabel>Lobatse</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933535/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>18136</europeana:population>
+	<wgs:lat>-21.41667</wgs:lat>
+	<wgs:long>25.58333</wgs:long>
+	<skos:altLabel>Lethakane</skos:altLabel>
+	<skos:altLabel>Letlhakane</skos:altLabel>
+	<skos:altLabel>Letlhakawe</skos:altLabel>
+	<skos:prefLabel>Letlhakane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933562/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-24</wgs:lat>
+	<wgs:long>25</wgs:long>
+	<skos:altLabel>Kuneneng</skos:altLabel>
+	<skos:altLabel>Kweneng</skos:altLabel>
+	<skos:altLabel>Kweneng District</skos:altLabel>
+	<skos:prefLabel>Kweneng District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933654/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>79665</europeana:population>
+	<wgs:lat>-24.25</wgs:lat>
+	<wgs:long>26.5</wgs:long>
+	<skos:altLabel>Kgatlen</skos:altLabel>
+	<skos:altLabel>Kgatleng</skos:altLabel>
+	<skos:altLabel>Kgatleng District</skos:altLabel>
+	<skos:altLabel>Mochudi</skos:altLabel>
+	<skos:prefLabel>Kgatleng District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933657/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-25</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Kgalagadi</skos:altLabel>
+	<skos:altLabel>Kgalagadi District</skos:altLabel>
+	<skos:altLabel>Kgalazadi</skos:altLabel>
+	<skos:prefLabel>Kgalagadi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933685/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>44716</europeana:population>
+	<wgs:lat>-24.98333</wgs:lat>
+	<wgs:long>25.35</wgs:long>
+	<skos:altLabel xml:lang="de">Kanye</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Kanye</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Kanye</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Kanye</skos:altLabel>
+	<skos:altLabel xml:lang="en">Kanye</skos:altLabel>
+	<skos:altLabel>Kanye</skos:altLabel>
+	<skos:prefLabel>Kanye</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933706/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.75</wgs:lat>
+	<wgs:long>23.43333</wgs:long>
+	<skos:prefLabel>Kai’kau Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933719/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>16853</europeana:population>
+	<wgs:lat>-25.41667</wgs:lat>
+	<wgs:long>25.55</wgs:long>
+	<skos:prefLabel>Janeng</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933758/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<europeana:population>36675</europeana:population>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>22</wgs:long>
+	<skos:altLabel>Ghanzi</skos:altLabel>
+	<skos:altLabel>Ghanzi District</skos:altLabel>
+	<skos:altLabel>Khanzi</skos:altLabel>
+	<skos:prefLabel>Ghanzi District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933760/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.56667</wgs:lat>
+	<wgs:long>23.08333</wgs:long>
+	<skos:prefLabel>Geune Kan Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933764/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.83333</wgs:lat>
+	<wgs:long>23.51667</wgs:long>
+	<skos:prefLabel>Gechia Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933773/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLC"/>
+	<europeana:population>208411</europeana:population>
+	<wgs:lat>-24.65451</wgs:lat>
+	<wgs:long>25.90859</wgs:long>
+	<skos:altLabel>Gaberones</skos:altLabel>
+	<skos:altLabel>Gaberones Village</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Gaboronas</skos:altLabel>
+	<skos:altLabel xml:lang="id">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="en">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="da">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="io">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="no">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="de">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="es">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="it">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="tn">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="ga">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Gaborone</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Gaborono</skos:altLabel>
+	<skos:altLabel xml:lang="el">Γκαμπορόνε</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Габороне</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Габороне</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Габороне</skos:altLabel>
+	<skos:altLabel xml:lang="he">גאבורון</skos:altLabel>
+	<skos:altLabel xml:lang="fa">گابورون</skos:altLabel>
+	<skos:altLabel xml:lang="ur">گبرون</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጋበሮኔ</skos:altLabel>
+	<skos:altLabel xml:lang="am">ጋቦሮን</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ハボローネ</skos:altLabel>
+	<skos:altLabel xml:lang="zh">嘉柏隆里</skos:altLabel>
+	<skos:altLabel xml:lang="ko">가보로네</skos:altLabel>
+	<skos:prefLabel>Gaborone</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933776/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-20.63333</wgs:lat>
+	<wgs:long>25.18333</wgs:long>
+	<skos:altLabel>Gabasari Eiland</skos:altLabel>
+	<skos:altLabel>Gabasari Island</skos:altLabel>
+	<skos:prefLabel>Gabasari Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933777/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPL"/>
+	<europeana:population>12884</europeana:population>
+	<wgs:lat>-24.66667</wgs:lat>
+	<wgs:long>25.78222</wgs:long>
+	<skos:altLabel>Gabane</skos:altLabel>
+	<skos:altLabel>Khabane</skos:altLabel>
+	<skos:prefLabel>Gabane</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933778/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#P.PPLA"/>
+	<europeana:population>89979</europeana:population>
+	<wgs:lat>-21.16667</wgs:lat>
+	<wgs:long>27.51667</wgs:long>
+	<skos:altLabel xml:lang="en">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="de">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="et">Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="it">Francistown</skos:altLabel>
+	<skos:altLabel>Francistown</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Франсистаун</skos:altLabel>
+	<skos:prefLabel>Francistown</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933851/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADM1"/>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>26</wgs:long>
+	<skos:altLabel>Central</skos:altLabel>
+	<skos:altLabel>Central District</skos:altLabel>
+	<skos:altLabel>Ngwati District</skos:altLabel>
+	<skos:altLabel>Ngwato</skos:altLabel>
+	<skos:prefLabel>Central District</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933860/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/6255146/"/>
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.PCLI"/>
+	<europeana:population>2029307</europeana:population>
+	<wgs:lat>-22</wgs:lat>
+	<wgs:long>24</wgs:long>
+	<skos:altLabel xml:lang="ga">An Bhotsuáin</skos:altLabel>
+	<skos:altLabel>BW</skos:altLabel>
+	<skos:altLabel>Bechuanaland Protectorate</skos:altLabel>
+	<skos:altLabel>Betschuanaland Protektorat</skos:altLabel>
+	<skos:altLabel>Betsjoeanaland</skos:altLabel>
+	<skos:altLabel>Betsjoeanaland Protektoraat</skos:altLabel>
+	<skos:altLabel xml:lang="hr">Bocvana</skos:altLabel>
+	<skos:altLabel xml:lang="sl">Bocvana</skos:altLabel>
+	<skos:altLabel xml:lang="bs">Bocvana</skos:altLabel>
+	<skos:altLabel xml:lang="sh">Bocvana</skos:altLabel>
+	<skos:altLabel xml:lang="eo">Bocvano</skos:altLabel>
+	<skos:altLabel xml:lang="es">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="de">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="an">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="la">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Botsuana</skos:altLabel>
+	<skos:altLabel xml:lang="fo">Botsvana</skos:altLabel>
+	<skos:altLabel xml:lang="lt">Botsvana</skos:altLabel>
+	<skos:altLabel xml:lang="sq">Botsvana</skos:altLabel>
+	<skos:altLabel xml:lang="is">Botsvana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Botsvana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Botsvana Cumhuriyeti</skos:altLabel>
+	<skos:altLabel xml:lang="lv">Botsvāna</skos:altLabel>
+	<skos:altLabel xml:lang="id">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="cy">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="en">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="hu">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="it">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="mt">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="nl">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="pl">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ro">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="sk">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="sv">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="cs">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="da">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="et">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="fi">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="fr">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ms">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="nb">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="nn">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="af">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="eu">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ia">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="io">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ku">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="na">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="no">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="pt">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="sw">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="tn">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ht">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="kw">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="oc">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="tl">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ln">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="se">Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="tr">Botswana</skos:altLabel>
+	<skos:altLabel>British Protectorate of Bechuanaland</skos:altLabel>
+	<skos:altLabel>Britse Protektoraat van Betsjoeanaland</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bốt-xoa-na</skos:altLabel>
+	<skos:altLabel xml:lang="vi">Bốt-xoa-na (Botswana)</skos:altLabel>
+	<skos:altLabel xml:lang="zu">IButswana</skos:altLabel>
+	<skos:altLabel>Northern Bechuanaland</skos:altLabel>
+	<skos:altLabel>Republic of Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="gl">República de Botsuana - Republic of Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="ca">República de Botswana</skos:altLabel>
+	<skos:altLabel xml:lang="vo">Zvanän</skos:altLabel>
+	<skos:altLabel xml:lang="el">Μποτσουάνα</skos:altLabel>
+	<skos:altLabel xml:lang="be">Батсвана</skos:altLabel>
+	<skos:altLabel xml:lang="cv">Ботсвана</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ботсвана</skos:altLabel>
+	<skos:altLabel xml:lang="tg">Ботсвана</skos:altLabel>
+	<skos:altLabel xml:lang="uk">Ботсвана</skos:altLabel>
+	<skos:altLabel xml:lang="ru">Ботсвана</skos:altLabel>
+	<skos:altLabel xml:lang="bg">Ботсуана</skos:altLabel>
+	<skos:altLabel xml:lang="mk">Боцвана</skos:altLabel>
+	<skos:altLabel xml:lang="sr">Боцвана</skos:altLabel>
+	<skos:altLabel xml:lang="hy">Բոտսվանա</skos:altLabel>
+	<skos:altLabel xml:lang="he">בוטסואנה</skos:altLabel>
+	<skos:altLabel xml:lang="he">בוצוואנה</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بتسوانا</skos:altLabel>
+	<skos:altLabel xml:lang="ar">بوتسوانا</skos:altLabel>
+	<skos:altLabel xml:lang="fa">بوتسوانا</skos:altLabel>
+	<skos:altLabel xml:lang="ug">بوتسۋانا</skos:altLabel>
+	<skos:altLabel xml:lang="ur">بوٹسوانا</skos:altLabel>
+	<skos:altLabel xml:lang="ps">بوټسوانا</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बोत्सवाना</skos:altLabel>
+	<skos:altLabel xml:lang="ks">बोत्सवाना</skos:altLabel>
+	<skos:altLabel xml:lang="sa">बोत्सवाना</skos:altLabel>
+	<skos:altLabel xml:lang="hi">बोत्स्वाना</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বতসোয়ানা</skos:altLabel>
+	<skos:altLabel xml:lang="bn">বোত্‍সওয়ানা</skos:altLabel>
+	<skos:altLabel xml:lang="ta">போட்ஸ்வானா</skos:altLabel>
+	<skos:altLabel xml:lang="ml">ബോട്സ്വാന</skos:altLabel>
+	<skos:altLabel xml:lang="th">บอตสวานา</skos:altLabel>
+	<skos:altLabel xml:lang="th">ประเทศบอตสวานา</skos:altLabel>
+	<skos:altLabel xml:lang="lo">ບອັດສະວານາ</skos:altLabel>
+	<skos:altLabel xml:lang="bo">བོཙ་ཝ་ན།</skos:altLabel>
+	<skos:altLabel xml:lang="ka">ბოტსვანა</skos:altLabel>
+	<skos:altLabel xml:lang="am">ቦትስዋና</skos:altLabel>
+	<skos:altLabel xml:lang="km">បុតស្វាណា</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボツワナ</skos:altLabel>
+	<skos:altLabel xml:lang="ja">ボツワナ共和国</skos:altLabel>
+	<skos:altLabel xml:lang="zh">博茨瓦纳</skos:altLabel>
+	<skos:altLabel xml:lang="zh">波札那</skos:altLabel>
+	<skos:altLabel xml:lang="ko">보츠와나</skos:altLabel>
+	<skos:prefLabel>Republic of Botswana</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933868/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.46667</wgs:lat>
+	<wgs:long>23.26667</wgs:long>
+	<skos:prefLabel>Borokwe Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933879/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.66667</wgs:lat>
+	<wgs:long>23.16667</wgs:long>
+	<skos:prefLabel>Bokwi Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933886/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.66667</wgs:lat>
+	<wgs:long>23.1</wgs:long>
+	<skos:prefLabel>Bobo Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933903/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.56667</wgs:lat>
+	<wgs:long>22.93333</wgs:long>
+	<skos:prefLabel>Ai’Ao Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/933906/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-19.4</wgs:lat>
+	<wgs:long>23.41667</wgs:long>
+	<skos:prefLabel>Ad’Ao Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106233/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-24.74167</wgs:lat>
+	<wgs:long>25.79611</wgs:long>
+	<skos:prefLabel>Balete Tribal Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/1106234/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#A.ADMD"/>
+	<wgs:lat>-24.67889</wgs:lat>
+	<wgs:long>25.99</wgs:long>
+	<skos:prefLabel>Batlokwa Tribal Territory</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7575036/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.83927</wgs:lat>
+	<wgs:long>25.0786</wgs:long>
+	<skos:prefLabel>Crocodile Island</skos:prefLabel>
+</rdf:Description>
+
+<rdf:Description rdf:about="http://sws.geonames.org/7575070/">
+	<dcterms:isPartOf rdf:resource="http://sws.geonames.org/933860/"/>
+	<europeana:country>BW</europeana:country>
+	<europeana:division rdf:resource="http://www.geonames.org/ontology#T.ISL"/>
+	<wgs:lat>-17.81558</wgs:lat>
+	<wgs:long>25.13061</wgs:long>
+	<skos:altLabel>Kasikili</skos:altLabel>
+	<skos:altLabel>Sidudu</skos:altLabel>
+	<skos:prefLabel>Sidudu</skos:prefLabel>
+</rdf:Description>
+<!-- Resources: 47 
+(if a resource is described in two XML elements rdf:Descriptions then it will be counted twice) -->
+
+</rdf:RDF>

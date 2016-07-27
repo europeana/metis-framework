@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xml:lang="lv"
+            xmlns:rdf='http://www.w3.org/1999/02/22-rdf-syntax-ns#'
+            xmlns:rdfs='http://www.w3.org/2000/01/rdf-schema#'
+            xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+            xmlns="http://www.eionet.europa.eu/gemet/2004/06/gemet-schema.rdf#">
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/4044">
+<rdfs:label>CILVĒKU DARBĪBA UN IZSTRĀDĀJUMI, IETEKME UZ VIDI</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5499">
+<rdfs:label>DABISKĀ VIDE, ANTROPISKĀ VIDE</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/5306">
+<rdfs:label>PIEDERUMU SARAKSTS</rdfs:label>
+</SuperGroup>
+<SuperGroup rdf:about="http://www.eionet.europa.eu/gemet/supergroup/2894">
+<rdfs:label>SOCIĀLIE ASPEKTI, VIDES POLITIKAS PASĀKUMI</rdfs:label>
+</SuperGroup>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/96">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>ADMINISTRĀCIJA, PĀRVALDĪBA, VIRZIENU POLITIKAS, POLITIKA, IESTĀDES, PLĀNOŠANA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/234">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>LAUKSAIMNIECĪBA, MEŽSAIMNIECĪBA, LOPKOPĪBA, ZIVSAIMNIECĪBA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/618">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ATMOSFĒRA (gaiss, klimats)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/893">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>BIOSFĒRA (organismi, ekosistēmas)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1062">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ANTROPOSFĒRA (apbūvētā vide, apdzīvotas vietas, teritoriju plānošana</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1349">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ĶĪMIJA, VIELAS, PROCESI</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/1922">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>INFORMĀCIJA, IZGLĪTĪBA, KULTŪRA, INFORMĒTĪBA PAR VIDI</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2504">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>EKONOMIKA, FINANSES</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/2711">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ENERĢIJA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/3875">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>VESELĪBA, PĀRTIKA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4125">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>HIDROSFĒRA (saldūdens, jūras ūdens, ūdeņi)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4281">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>RŪPNIECĪBA, AMATNIECĪBA, TEHNOLOĢIJA, APRĪKOJUMS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4630">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>ZEME (ainava, ģeogrāfija)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4750">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>LIKUMDOŠANA, NORMAS, KONVENCIJAS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/4856">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>LITOSFĒRA (augsne, ģeoloģiskie procesi)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/6237">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>FIZIKĀLIE ASPEKTI, TROKSNIS, VIBRĀCIJAS, RADIĀCIJA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7007">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>REKREĀCIJA, TŪRISMS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7136">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>PĒTNIECĪBA, ZINĀTNES</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7243">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>RISKI, DROŠĪBA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7779">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>SABIEDRĪBA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/7956">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>KOSMOSS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8575">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>TIRDZNIECĪBA, PAKALPOJUMI</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/8603">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>SATIKSME, TRANSPORTS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/9117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>ATKRITUMI, PIESĀRŅOTĀJI, PIESĀRŅOJUMS</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10111">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>VIDE (dabiskā vide, atropiskā vide)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10112">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>IZSTRĀDĀJUMI, MATERIĀLI</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10114">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>REZULTĀTS, IETEKME</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10117">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>VISPĀRĪGI NOSACĪJUMI; kopējie nosacījumi</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/10118">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/4044" />
+<rdfs:label>RESURSI (resursu izmantošana)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/13109">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/2894" />
+<rdfs:label>VIDES POLITIKA</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14979">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5499" />
+<rdfs:label>LAIKS (hronoloģija)</rdfs:label>
+</Group>
+<Group rdf:about="http://www.eionet.europa.eu/gemet/group/14980">
+<subGroupOf rdf:resource="http://www.eionet.europa.eu/gemet/supergroup/5306" />
+<rdfs:label>FUNKCIONĀLIE NOSACĪJUMI</rdfs:label>
+</Group>
+<Theme rdfs:label="atkritumi" rdf:about="http://www.eionet.europa.eu/gemet/theme/39" />
+<Theme rdfs:label="augsne" rdf:about="http://www.eionet.europa.eu/gemet/theme/35" />
+<Theme rdfs:label="bioloģija" rdf:about="http://www.eionet.europa.eu/gemet/theme/4" />
+<Theme rdfs:label="cilvēka veselība" rdf:about="http://www.eionet.europa.eu/gemet/theme/17" />
+<Theme rdfs:label="dabiskā dinamika" rdf:about="http://www.eionet.europa.eu/gemet/theme/8" />
+<Theme rdfs:label="dabiskās teritorijas; ainava; ekosistēmas" rdf:about="http://www.eionet.europa.eu/gemet/theme/23" />
+<Theme rdfs:label="ēka; celtne" rdf:about="http://www.eionet.europa.eu/gemet/theme/5" />
+<Theme rdfs:label="ekonomika" rdf:about="http://www.eionet.europa.eu/gemet/theme/9" />
+<Theme rdfs:label="enerģija" rdf:about="http://www.eionet.europa.eu/gemet/theme/10" />
+<Theme rdfs:label="fizika" rdf:about="http://www.eionet.europa.eu/gemet/theme/25" />
+<Theme rdfs:label="gaiss" rdf:about="http://www.eionet.europa.eu/gemet/theme/3" />
+<Theme rdfs:label="ģeogrāfija" rdf:about="http://www.eionet.europa.eu/gemet/theme/16" />
+<Theme rdfs:label="informācija" rdf:about="http://www.eionet.europa.eu/gemet/theme/20" />
+<Theme rdfs:label="izpēte" rdf:about="http://www.eionet.europa.eu/gemet/theme/30" />
+<Theme rdfs:label="katastrofas; nelaimes gadījumi; risks" rdf:about="http://www.eionet.europa.eu/gemet/theme/32" />
+<Theme rdfs:label="ķīmija" rdf:about="http://www.eionet.europa.eu/gemet/theme/6" />
+<Theme rdfs:label="klimats" rdf:about="http://www.eionet.europa.eu/gemet/theme/7" />
+<Theme rdfs:label="lauksaimniecība" rdf:about="http://www.eionet.europa.eu/gemet/theme/2" />
+<Theme rdfs:label="likumdošana; tiesību akti" rdf:about="http://www.eionet.europa.eu/gemet/theme/21" />
+<Theme rdfs:label="lopkopība" rdf:about="http://www.eionet.europa.eu/gemet/theme/18" />
+<Theme rdfs:label="materiāli" rdf:about="http://www.eionet.europa.eu/gemet/theme/27" />
+<Theme rdfs:label="mežsaimniecība; mežkopība" rdf:about="http://www.eionet.europa.eu/gemet/theme/14" />
+<Theme rdfs:label="militārie aspekti" rdf:about="http://www.eionet.europa.eu/gemet/theme/22" />
+<Theme rdfs:label="pārtika; dzeramais ūdens" rdf:about="http://www.eionet.europa.eu/gemet/theme/13" />
+<Theme rdfs:label="piesārņojums" rdf:about="http://www.eionet.europa.eu/gemet/theme/26" />
+<Theme rdfs:label="pilsētvide; pilsētas dzīves stress" rdf:about="http://www.eionet.europa.eu/gemet/theme/38" />
+<Theme rdfs:label="radiācija" rdf:about="http://www.eionet.europa.eu/gemet/theme/28" />
+<Theme rdfs:label="resursi" rdf:about="http://www.eionet.europa.eu/gemet/theme/31" />
+<Theme rdfs:label="rūpniecība; nozare" rdf:about="http://www.eionet.europa.eu/gemet/theme/19" />
+<Theme rdfs:label="sociālie aspekti; iedzīvotāji" rdf:about="http://www.eionet.europa.eu/gemet/theme/34" />
+<Theme rdfs:label="telpa" rdf:about="http://www.eionet.europa.eu/gemet/theme/36" />
+<Theme rdfs:label="tirdzniecība; pakalpojumi" rdf:about="http://www.eionet.europa.eu/gemet/theme/33" />
+<Theme rdfs:label="transports" rdf:about="http://www.eionet.europa.eu/gemet/theme/37" />
+<Theme rdfs:label="troksnis; vibrācijas" rdf:about="http://www.eionet.europa.eu/gemet/theme/24" />
+<Theme rdfs:label="tūrisms" rdf:about="http://www.eionet.europa.eu/gemet/theme/29" />
+<Theme rdfs:label="ūdens" rdf:about="http://www.eionet.europa.eu/gemet/theme/40" />
+<Theme rdfs:label="vadība, administrācija" rdf:about="http://www.eionet.europa.eu/gemet/theme/1" />
+<Theme rdfs:label="vides politika" rdf:about="http://www.eionet.europa.eu/gemet/theme/11" />
+<Theme rdfs:label="vispārīgi" rdf:about="http://www.eionet.europa.eu/gemet/theme/15" />
+<Theme rdfs:label="zvejniecība" rdf:about="http://www.eionet.europa.eu/gemet/theme/12" />
+</rdf:RDF>
