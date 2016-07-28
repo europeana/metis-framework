@@ -1,4 +1,4 @@
-**Main Metis application and core**
+#Main Metis application and core
 This module includes the main application of the Metis client application
 It includes the main Metis UI as well as the organization, dataset and
 user management via LDAP.
@@ -13,4 +13,8 @@ The module is organized as follows:
  metis-framework-service | Main functionality for Metis application 
  metis-framework-ui | UI module for Metis 
 
+The Service layer of this module enables communication between the CRM system of Europeana and 
+its synchronization with the core Metis application (organizations, datasets and users)
+This is exposed as a REST API typically to be invoked by Metis UI and other external authenticated
+applications that require such access.
 
