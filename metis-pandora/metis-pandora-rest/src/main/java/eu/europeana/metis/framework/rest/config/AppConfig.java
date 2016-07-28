@@ -21,7 +21,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import eu.europeana.metis.framework.rest.utils.CustomObjectMapper;
+import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.FlagDao;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;

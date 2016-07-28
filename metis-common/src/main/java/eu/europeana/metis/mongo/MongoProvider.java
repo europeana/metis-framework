@@ -1,4 +1,4 @@
-/*
+package eu.europeana.metis.mongo;/*
  * Copyright 2007-2013 The Europeana Foundation
  *
  *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
@@ -24,6 +24,8 @@ import de.flapdoodle.embed.process.runtime.Network;
 
 import java.io.IOException;
 
+
+
 /**
  * Created by ymamakis on 3/17/16.
  */
@@ -32,11 +34,10 @@ public class MongoProvider {
     public static void start(){
 
         try {
-            int port = 10001;
+            int port = 10000;
             IMongodConfig conf = new MongodConfigBuilder().version(Version.Main.V3_0)
                     .net(new Net(port, Network.localhostIsIPv6()))
                     .build();
-//					(Version.V2_0_7, port, false);
 
             MongodStarter runtime = MongodStarter.getDefaultInstance();
 

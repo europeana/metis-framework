@@ -17,6 +17,7 @@
 package eu.europeana.enrichment.harvester.geonames;
 
 import eu.europeana.enrichment.harvester.transform.edm.place.PlaceTransformer;
+import eu.europeana.metis.json.CustomObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;

@@ -14,6 +14,8 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
+
+import eu.europeana.metis.mongo.MongoProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
 import org.springframework.context.annotation.Bean;

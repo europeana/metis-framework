@@ -4,6 +4,7 @@ import com.mongodb.MongoClient;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.FlagDao;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mongo.MongoProvider;
 import eu.europeana.metis.service.*;
 import org.mongodb.morphia.Morphia;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ import javax.annotation.PreDestroy;
 public class TestConfig {
 
     public TestConfig(){
-        MongoProvider.start(10000);
+        MongoProvider.start();
     }
 
     @Bean
@@ -78,7 +79,6 @@ public class TestConfig {
 
     @PreDestroy
     public void close(){
-        MongoProvider.clear();
         MongoProvider.stop();
     }
 }

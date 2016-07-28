@@ -14,24 +14,21 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.enrichment.harvester.geonames;
+package eu.europeana.metis.json;
 
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonSerializer;
-import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.bson.types.ObjectId;
 
-import java.io.IOException;
-
 /**
- * Custom serializer for object ids in Mongo
- * Created by ymamakis on 3/18/16.
+ * Created by ymamakis on 7/18/16.
  */
-public class ObjectIdSerializer extends JsonSerializer<ObjectId> {
+public class CustomObjectMapper extends ObjectMapper {
 
-    @Override
-    public void serialize(ObjectId value, JsonGenerator jgen, SerializerProvider provider) throws IOException, JsonProcessingException {
-        jgen.writeString(value.toString());
+    public CustomObjectMapper() {
+        SimpleModule module = new SimpleModule("ObjectIdmodule");
+        module.addSerializer(ObjectId.class, new ObjectIdSerializer());
+        this.registerModule(module);
     }
+
 }

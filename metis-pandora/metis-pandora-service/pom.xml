@@ -87,6 +87,12 @@
             <artifactId>commons-io</artifactId>
             <version>${version.commonsio}</version>
         </dependency>
+        <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>
