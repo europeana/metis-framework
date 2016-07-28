@@ -6,7 +6,7 @@ backends object model and a REST API.
 The organization of the modules is as follows:
 
 Module | Functionality
--|-
+---|---
 metis-pandora-common | Object model of Europeana Pandora
 metis-pandora-persistence | Persistence layer of Europeana Pandora
 metis-pandora-rest | REST API for Europeana Pandora

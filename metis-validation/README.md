@@ -5,7 +5,7 @@ The EDM-validation repository provides REST endpoints for validating documents a
 This is organized as follows:
 
 Module | Functionality
--|-
+---|---
 validation-client | REST client for the validation service
 validation-common | Object model for the validation service
 validation-rest | REST API for the validation service
