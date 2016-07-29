@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.framework.rest.client;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.framework.OrgDatasetDTO;
 import eu.europeana.metis.framework.common.Contact;
 import eu.europeana.metis.framework.dataset.Dataset;
@@ -28,6 +29,8 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+
+import static eu.europeana.metis.RestEndpoints.*;
 
 
 /**
@@ -54,7 +57,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity = template.exchange(hostUrl + "/organization",HttpMethod.POST,orgEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + ORGANIZATION,HttpMethod.POST,orgEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
         }
@@ -68,7 +71,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity =template.exchange(hostUrl + "/organization", HttpMethod.PUT, orgEntity, ResponseEntity.class);
+        ResponseEntity entity =template.exchange(hostUrl + ORGANIZATION, HttpMethod.PUT, orgEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
         }
@@ -83,7 +86,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> organizationHttpEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity = template.exchange(hostUrl + "/organization", HttpMethod.DELETE, organizationHttpEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + ORGANIZATION, HttpMethod.DELETE, organizationHttpEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }
@@ -96,7 +99,7 @@ public class DsOrgRestClient {
      */
     public List<Organization> getAllOrganizations() throws ServerException {
         try {
-            List<Organization> orgs =  template.getForObject(hostUrl + "/organizations", OrganizationList.class).getOrganizations();
+            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS, OrganizationList.class).getOrganizations();
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -111,7 +114,7 @@ public class DsOrgRestClient {
      */
     public List<Dataset> getDatasetsForOrganization(String id) throws ServerException {
         try {
-            List<Dataset> datasets = template.getForObject(hostUrl + "/organization/"+id+"/datasets", DatasetList.class).getDatasetList();
+            List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(ORGANIZATION_ID_DATASETS,id), DatasetList.class).getDatasetList();
             return datasets;
         } catch (Exception e) {
             throw new ServerException("Datasets could not be retrieved with error: " + e.getMessage());
@@ -126,7 +129,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationById(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + "/organization/"+id, Organization.class);
+            return template.getForObject(hostUrl + RestEndpoints.resolve(ORGANIZATION_ID_DATASETS,id), Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -140,7 +143,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationByOrganizationId(String orgId) throws ServerException {
         try {
-            return template.getForObject(hostUrl + "/organization?orgId="+orgId, Organization.class);
+            return template.getForObject(hostUrl + ORGANIZATION+ "?orgId="+orgId, Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -154,7 +157,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationFromCrm(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + "/organization/crm/"+id, Organization.class);
+            return template.getForObject(hostUrl + RestEndpoints.resolve(CRM_ORGANIZATION_ID,id), Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -167,7 +170,7 @@ public class DsOrgRestClient {
      */
     public List<Organization> getOrganizationsFromCrm() throws ServerException {
         try {
-            List<Organization> orgs = template.getForObject(hostUrl + "/organizations/crm", OrganizationList.class).getOrganizations();
+            List<Organization> orgs = template.getForObject(hostUrl + CRM_ORGANIZATIONS, OrganizationList.class).getOrganizations();
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -188,7 +191,7 @@ public class DsOrgRestClient {
         dto.setDataset(dataset);
         HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
 
-        ResponseEntity entity = template.exchange(hostUrl + "/dataset", HttpMethod.POST, datasetEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + DATASET, HttpMethod.POST, datasetEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }
@@ -203,7 +206,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Dataset> datasetEntity = new HttpEntity<>(dataset,headers);
-        ResponseEntity entity = template.exchange(hostUrl + "/dataset", HttpMethod.PUT, datasetEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + DATASET, HttpMethod.PUT, datasetEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.OK)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }
@@ -221,7 +224,7 @@ public class DsOrgRestClient {
         dto.setOrganization(org);
         dto.setDataset(dataset);
         HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
-        ResponseEntity entity = template.exchange(hostUrl + "/dataset", HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + DATASET, HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }
@@ -235,7 +238,7 @@ public class DsOrgRestClient {
      */
     public Dataset getDatasetByName(String name) throws ServerException{
         try {
-            return template.getForEntity(hostUrl + "/dataset/" + name, Dataset.class).getBody();
+            return template.getForEntity(hostUrl + RestEndpoints.resolve(DATASET_RETRIEVE, name), Dataset.class).getBody();
         } catch (Exception e){
             throw new ServerException("Dataset could not be retrieved with error: "+e.getMessage());
         }
@@ -250,7 +253,7 @@ public class DsOrgRestClient {
      */
     public Contact getUserByEmail(String email) throws ServerException{
         try{
-            return template.getForEntity(hostUrl+"/user/"+email,Contact.class).getBody();
+            return template.getForEntity(hostUrl+RestEndpoints.resolve(USERBYMAIL,email),Contact.class).getBody();
         } catch (Exception e){
             throw new ServerException("User could not be retrieved with error: "+e.getMessage());
         }

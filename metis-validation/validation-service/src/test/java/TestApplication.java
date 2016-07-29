@@ -41,7 +41,7 @@ public class TestApplication{
 
     @PostConstruct
     public void startup(){
-        MongoProvider.start();
+        MongoProvider.start(10006);
     }
 
     @PreDestroy

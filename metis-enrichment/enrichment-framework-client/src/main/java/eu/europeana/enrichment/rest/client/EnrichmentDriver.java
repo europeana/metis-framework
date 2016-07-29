@@ -21,23 +21,20 @@ import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.EntityWrapperList;
 import eu.europeana.enrichment.api.external.InputValue;
 import eu.europeana.enrichment.api.external.InputValueList;
-import eu.europeana.enrichment.api.external.web.EnrichmentError;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
+import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 
 /**
  * REST API wrapper class abstracting the REST calls and providing a clean POJO
@@ -47,8 +44,8 @@ import java.util.Map;
  */
 public class EnrichmentDriver {
 
-    private JerseyClient client = JerseyClientBuilder.createClient();
     private String path;
+    private RestTemplate template = new RestTemplate();
 
     public EnrichmentDriver(String path) {
         this.path = path;
@@ -57,7 +54,6 @@ public class EnrichmentDriver {
     /**
      * Enrich REST call invocation
      *
-     * @param path   The path the REST service is deployed
      * @param values The values to be enriched
      * @param toEdm  Whether the enrichments should be retrieved in JSON (parsable
      *               to POJO through Jackson) or XML (for copy pasting)
@@ -67,62 +63,29 @@ public class EnrichmentDriver {
      * @throws IOException
      */
     public List<EntityWrapper> enrich(List<InputValue> values,
-                                      boolean toEdm) throws JsonGenerationException,
-            JsonMappingException, IOException, UnknownException {
+                                      boolean toEdm) throws IOException, UnknownException {
         InputValueList inList = new InputValueList();
         inList.setInputValueList(values);
-        Form form = new Form();
-        form.param("input", new ObjectMapper().writeValueAsString(inList));
-        form.param("toXml", Boolean.toString(toEdm));
-        Response res = client
-                .target(path+"enrich")
-                .request()
-                .post(Entity
-                                .entity(form, MediaType.APPLICATION_FORM_URLENCODED),
-                        Response.class);
 
-        if (res.getStatus() == Status.OK.getStatusCode()) {
-            return new ObjectMapper().readValue(res.readEntity(String.class),
+
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("input", new ObjectMapper().writeValueAsString(inList));
+        map.add("toXml", "" + toEdm);
+        try {
+            return new ObjectMapper().readValue(template.postForObject(path + ENRICHMENT_ENRICH, map, String.class),
                     EntityWrapperList.class).getWrapperList();
-        } else {
-            EnrichmentError error = res.readEntity(EnrichmentError.class);
-            Class<? extends Exception> e = ExceptionGenerator.exceptions
-                    .get(error.getCause());
-
-            try {
-                Constructor<? extends Exception> c = e
-                        .getConstructor(String.class);
-                throw c.newInstance(error.getDetails());
-            } catch (SecurityException e1) {
-                throw new UnknownException(e1.getMessage());
-            } catch (NoSuchMethodException e1) {
-                throw new UnknownException(e1.getMessage());
-            } catch (IllegalArgumentException e1) {
-                throw new UnknownException(e1.getMessage());
-            } catch (Exception e1) {
-                throw new UnknownException(e1.getMessage());
-            }
-
+        } catch (Exception e){
+            throw new UnknownException(e.getMessage());
         }
     }
 
-    public EntityWrapper getByUri(String uri) throws IOException {
+    public String getByUri(String uri, boolean toXml) throws IOException {
 
-        Form form = new Form();
-        form.param("uri", uri);
-        form.param("toXml","true");
-        Response res = client
-                .target(path + "getByUri")
-                .request().post(Entity
-                                .entity(form, MediaType.APPLICATION_FORM_URLENCODED),
-                        Response.class);
-        if (res.getStatus() == Status.NO_CONTENT.getStatusCode()) {
-            return null;
-        } else {
-            String entity =res.readEntity(String.class);
-            return new ObjectMapper().readValue(entity,
-                    EntityWrapper.class);
-        }
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("uri", uri);
+        map.add("toXml", "" + toXml);
+        return template.postForObject(path + ENRICHMENT_BYURI, map, String.class);
+
     }
 
     private static class ExceptionGenerator {

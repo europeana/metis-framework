@@ -20,7 +20,9 @@ import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.common.Language;
 import eu.europeana.metis.framework.dao.DatasetDao;
-import eu.europeana.metis.framework.dataset.*;
+import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
+import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import org.junit.After;
@@ -44,7 +46,7 @@ public class TestDatasetDao {
     private Dataset ds;
     @Before
     public void prepare() {
-        MongoDBInstance.start();
+        eu.europeana.metis.mongo.MongoProvider.start(1000);
         try {
             MongoProvider provider = new MongoProvider("localhost",10000, "test",null,null);
             dsDao = new DatasetDao();
@@ -155,6 +157,6 @@ public class TestDatasetDao {
     }
     @After
     public void destroy(){
-        MongoDBInstance.stop();
+        eu.europeana.metis.mongo.MongoProvider.stop();
     }
 }

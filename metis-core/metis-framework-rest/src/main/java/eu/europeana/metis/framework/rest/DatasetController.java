@@ -28,6 +28,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import static eu.europeana.metis.RestEndpoints.DATASET;
+import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
+
 /**
  * The dataset controller
  * Created by ymamakis on 2/18/16.
@@ -42,7 +45,7 @@ public class DatasetController {
     /**
      * Method to create a dataset (OK)
      */
-    @RequestMapping (value = "/dataset",method = RequestMethod.POST, consumes = "application/json")
+    @RequestMapping (value = DATASET,method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value="Create a dataset")
     public ResponseEntity<Void> createDataset(@ApiParam @RequestBody OrgDatasetDTO dto){
@@ -54,7 +57,7 @@ public class DatasetController {
      * Update a dataset
      * @param ds The dataset to update
      */
-    @RequestMapping (value = "/dataset",method = RequestMethod.PUT, consumes = "application/json")
+    @RequestMapping (value = DATASET,method = RequestMethod.PUT, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value = "Update a dataset")
     public ResponseEntity<Void> updateDataset(@ApiParam @RequestBody Dataset ds){
@@ -66,7 +69,7 @@ public class DatasetController {
     /**
      * Delete a dataset
      */
-    @RequestMapping (value = "/dataset",method = RequestMethod.DELETE, consumes = "application/json")
+    @RequestMapping (value = DATASET,method = RequestMethod.DELETE, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value = "Delete a dataset from an organization")
     public ResponseEntity<Void> deleteDataset(@ApiParam @RequestBody OrgDatasetDTO dto){
@@ -79,7 +82,7 @@ public class DatasetController {
      * @param name The name of the dataset
      * @return The Dataset
      */
-    @RequestMapping (value = "/dataset/{name}",method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping (value = DATASET_RETRIEVE,method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Retrieve a dataset by name", response = Dataset.class)
     public Dataset getByName(@ApiParam("name") @PathVariable("name") String name) throws NoDatasetFoundException{

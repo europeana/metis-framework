@@ -50,7 +50,7 @@ public class TestOrganizationDao {
     private DatasetDao dsDao;
     @Before
     public void prepare() {
-        MongoDBInstance.start();
+        eu.europeana.metis.mongo.MongoProvider.start(10000);
         try {
             MongoProvider provider = new MongoProvider("localhost",10000, "test",null,null);
             orgDao = new OrganizationDao();
@@ -178,6 +178,6 @@ public class TestOrganizationDao {
     }
     @After
     public void destroy(){
-        MongoDBInstance.stop();
+        eu.europeana.metis.mongo.MongoProvider.stop();
     }
 }

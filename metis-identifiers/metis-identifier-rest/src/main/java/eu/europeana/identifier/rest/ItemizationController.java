@@ -21,6 +21,7 @@ import eu.europeana.identifier.service.ItemizationService;
 import eu.europeana.identifier.service.exceptions.DeduplicationException;
 import eu.europeana.itemization.Request;
 import eu.europeana.itemization.RequestResult;
+import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -56,7 +57,7 @@ public class ItemizationController {
      * @throws DeduplicationException
      * @throws JiBXException
      */
-    @RequestMapping(value = "/itemize/url", method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.ITEMIZE_URL, method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Itemize a remote tar.gz file", response = RequestResult.class)
     public RequestResult itemizeByUrl(@ApiParam("url") @RequestParam("url") String url) throws IdentifierException {
@@ -78,7 +79,7 @@ public class ItemizationController {
      * @throws DeduplicationException
      * @throws JiBXException
      */
-    @RequestMapping(value="/itemize/records", method = RequestMethod.POST)
+    @RequestMapping(value=RestEndpoints.ITEMIZE_RECORDS, method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Itemize a list of records", response = RequestResult.class)
     public RequestResult itemizeRecords(@ApiParam("records") @RequestBody Request request) throws IdentifierException {
@@ -100,7 +101,7 @@ public class ItemizationController {
      * @throws DeduplicationException
      * @throws JiBXException
      */
-    @RequestMapping(method = RequestMethod.POST,value = "/itemize/file")
+    @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.ITEMIZE_FILE)
     @ResponseBody
     @ApiOperation(value = "Itemize a file of records", response = RequestResult.class)
     public RequestResult itemizeFile(@ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IdentifierException {

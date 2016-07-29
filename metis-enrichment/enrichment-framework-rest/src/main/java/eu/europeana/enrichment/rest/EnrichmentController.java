@@ -23,6 +23,7 @@ import eu.europeana.corelib.solr.entity.TimespanImpl;
 import eu.europeana.enrichment.api.external.*;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
+import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -61,7 +62,7 @@ public class EnrichmentController {
 	 * @throws Exception
      */
     @ResponseStatus(value = HttpStatus.OK)
-	@RequestMapping(value = "/delete",method = RequestMethod.DELETE)
+	@RequestMapping(value = RestEndpoints.ENRICHMENT_DELETE,method = RequestMethod.DELETE)
 	@ApiOperation(value = "Delete a list of URIs")
 	public void delete(@ApiParam @RequestBody UriList values) throws Exception {
         EntityRemover remover = new EntityRemover(enricher.getEnricher());
@@ -76,11 +77,11 @@ public class EnrichmentController {
 	 * @return
 	 * @throws IOException
      */
-	@RequestMapping(value = "/getByUri", method = RequestMethod.POST)
+	@RequestMapping(value = RestEndpoints.ENRICHMENT_BYURI, method = RequestMethod.POST)
 	@ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EntityWrapper.class)
 	@ResponseBody
 	public String getByUri(@ApiParam("uri") @RequestParam("uri") String uri,
-						   @ApiParam("toXml") @RequestParam("toXml") boolean toEdm) throws IOException {
+						   @ApiParam("toXml") @RequestParam(value = "toXml", defaultValue = "false") boolean toEdm) throws IOException {
 
 		EntityWrapper wrapper = enricher.getByUri(uri);
 		if(wrapper!=null) {
@@ -113,7 +114,7 @@ public class EnrichmentController {
 	 * @return
 	 * @throws Exception
      */
-	@RequestMapping("/enrich")
+	@RequestMapping(value = RestEndpoints.ENRICHMENT_ENRICH,method=RequestMethod.POST)
 	@ResponseBody
 	@ApiOperation(value = "Enrich a series of field value pairs", response = EntityWrapperList.class)
     public String enrich(@ApiParam("input")@RequestParam("input") String input,

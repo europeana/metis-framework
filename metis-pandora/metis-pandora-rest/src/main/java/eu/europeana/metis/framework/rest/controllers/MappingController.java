@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.framework.rest.controllers;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.mapping.exceptions.MappingNotFoundException;
 import eu.europeana.metis.mapping.exceptions.SaveMappingFailedException;
 import eu.europeana.metis.mapping.model.Mapping;
@@ -34,6 +35,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
 
+import static eu.europeana.metis.RestEndpoints.*;
+
 /**
  * A REST Controller exposing a REST API for CRUD operations on Mapping and other functionality
  * Created by ymamakis on 6/13/16.
@@ -51,7 +54,7 @@ public class MappingController {
      * @return The id of the mapping
      * @throws SaveMappingFailedException
      */
-    @RequestMapping(value = "/mapping", method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
+    @RequestMapping(value = RestEndpoints.MAPPING, method = RequestMethod.POST, consumes = {MediaType.APPLICATION_JSON_VALUE})
     @ApiOperation(value = "Persist a mapping")
     @ResponseBody
     public String saveMapping(@ApiParam @RequestBody Mapping mapping) throws SaveMappingFailedException {
@@ -69,7 +72,7 @@ public class MappingController {
      * @return The id of the mapping
      * @throws SaveMappingFailedException
      */
-    @RequestMapping(value = "/mapping", method = RequestMethod.PUT)
+    @RequestMapping(value = RestEndpoints.MAPPING, method = RequestMethod.PUT)
     @ApiOperation(value = "Update a mapping")
     @ResponseBody
     public String updateMapping(@ApiParam @RequestBody Mapping mapping) throws SaveMappingFailedException {
@@ -86,7 +89,7 @@ public class MappingController {
      * @param id The id of the mapping to delete
      * @throws SaveMappingFailedException
      */
-    @RequestMapping(value = "/mapping/{mappingId}", method = RequestMethod.DELETE)
+    @RequestMapping(value = RestEndpoints.MAPPING_BYID, method = RequestMethod.DELETE)
     @ResponseStatus (HttpStatus.OK)
     @ApiOperation(value = "Delete a mapping")
     public void deleteMapping(@ApiParam("mappingId")@PathVariable(value = "mappingId") String id) throws SaveMappingFailedException {
@@ -105,7 +108,7 @@ public class MappingController {
      * @throws MappingNotFoundException
      */
     @ApiOperation(value = "Get a mapping by id")
-    @RequestMapping(value = "/mapping/{mappingId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = RestEndpoints.MAPPING_BYID, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Mapping getMappingById(@ApiParam("mappingId")@PathVariable(value = "mappingId") String id) throws MappingNotFoundException {
         Mapping mapping = mappingService.getByid(id);
@@ -124,7 +127,7 @@ public class MappingController {
      * @throws MappingNotFoundException
      */
     @ApiOperation(value = "Get a mapping for dataset")
-    @RequestMapping(value = "/mapping/dataset/{name}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = RestEndpoints.MAPPING_DATASETNAME, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public Mapping getMappingByName(@ApiParam("name") @PathVariable(value = "name") String name) throws MappingNotFoundException{
         Mapping mapping =mappingService.getByName(name);
@@ -141,7 +144,7 @@ public class MappingController {
      * @return The List of Mappings for this organization
      */
     @ApiOperation(value = "Get all the mappings by organization id")
-    @RequestMapping(value = "/mappings/organization/{orgId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = RestEndpoints.MAPPINGS_BYORGANIZATIONID, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<Mapping> getMappingsByOrganization(@ApiParam("orgId") @PathVariable(value = "orgId") String organizationId) {
         return mappingService.getMappingByOrganization(organizationId);
@@ -152,7 +155,7 @@ public class MappingController {
      * @param organizationId The id of the organization to search for
      * @return The list of names of the mappings for an organization
      */
-    @RequestMapping(value = "/mappings/names/organization/{orgId}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = RestEndpoints.MAPPINGS_NAMES_BYORGANIZATIONID, method = RequestMethod.GET, produces = "application/json")
     @ApiOperation(value = "Get all the mapping names by organization id")
     @ResponseBody
     public List<String> getMappingNamesByOrganization(@ApiParam("orgId") @PathVariable(value = "orgId") String organizationId) {
@@ -164,7 +167,7 @@ public class MappingController {
      * @return The names of the mappings
      */
     @ApiOperation(value = "Get all the mapping templates")
-    @RequestMapping(value = "/mapping/templates", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = MAPPING_TEMPLATES, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     public List<String> getTemplates() {
         return mappingService.getTemplates();
@@ -176,13 +179,13 @@ public class MappingController {
      * @param name The name of the mapping to clear from statistics and flags
      */
     @ApiOperation(value = "Clear the stastistics for a mapping")
-    @RequestMapping(value = "/mapping/statistics/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = MAPPING_STATISTICS_BYNAME, method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void clearValidationsStatistics(@ApiParam("name") @PathVariable(value = "name") String name) {
         mappingService.clearValidationStatistics(name);
     }
 
-    @RequestMapping(value = "/mapping/schematron", method = RequestMethod.POST)
+    @RequestMapping(value = MAPPING_SCHEMATRON, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Set the schematron rules for a mapping")
     public void setSchematronRulesForMapping(@ApiParam("mapping") @RequestBody Mapping mapping,
@@ -190,7 +193,7 @@ public class MappingController {
         mappingService.setSchematronRulesForMapping(mapping,rules);
     }
 
-    @RequestMapping(value = "/mapping/namespaces", method = RequestMethod.POST)
+    @RequestMapping(value = MAPPING_NAMESPACES, method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Set the namespaces for a mapping")
     public void setNamespacesForMapping(@ApiParam("mapping") @RequestBody Mapping mapping,

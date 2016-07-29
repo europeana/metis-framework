@@ -123,6 +123,11 @@
             <artifactId>javax.servlet-api</artifactId>
             <version>${version.servletapi}</version>
         </dependency>
+        <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
 </project>

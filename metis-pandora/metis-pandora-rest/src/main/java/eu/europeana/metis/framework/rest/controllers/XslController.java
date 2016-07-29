@@ -35,6 +35,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static eu.europeana.metis.RestEndpoints.XSL_GENERATE;
+import static eu.europeana.metis.RestEndpoints.XSL_MAPPINGID;
+
 /**
  * A Controller providing a method to convert a Mapping to an XSL
  * Created by ymamakis on 6/13/16.
@@ -55,7 +58,7 @@ public class XslController {
      * @throws MappingToXSLException
      */
     @ApiOperation(value = "Create an XSL from mapping")
-    @RequestMapping(value = "/xsl/generate",method = RequestMethod.POST)
+    @RequestMapping(value = XSL_GENERATE,method = RequestMethod.POST)
     public String createXSLFromMapping(@ApiParam @RequestBody Mapping mapping) throws MappingToXSLException {
         try {
             return generationService.generateXslFromMapping(mapping);
@@ -74,7 +77,7 @@ public class XslController {
      */
     @ApiOperation(value="Download the xsl for a mapping")
     @ResponseBody
-    @RequestMapping(value="/xsl/{mappingId}", method = RequestMethod.GET)
+    @RequestMapping(value=XSL_MAPPINGID, method = RequestMethod.GET)
     public void downloadXslForMapping(@PathVariable(value="mappingId") String mappingId, HttpServletResponse response)
             throws MappingNotFoundException, IOException, MappingToXSLException {
         Mapping mapping = mappingService.getByid(mappingId);

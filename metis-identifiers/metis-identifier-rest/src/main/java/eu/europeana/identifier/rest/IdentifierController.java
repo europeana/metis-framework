@@ -20,6 +20,7 @@ import eu.europeana.identifier.rest.exceptions.IdentifierException;
 import eu.europeana.identifier.service.IdentifierService;
 import eu.europeana.itemization.Request;
 import eu.europeana.itemization.RequestResult;
+import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -48,7 +49,7 @@ public class IdentifierController {
      * @return A Europeana identifier
      */
 
-    @RequestMapping(method = RequestMethod.GET, value = "/identifier/generate/{collectionId}/{recordId}")
+    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.IDENTIFIER_GENERATE)
     @ApiOperation(value = "Generate record identifier", response = String.class)
     @ResponseBody
     public String generateIdentifier(@ApiParam("collectionId") @PathVariable("collectionId") String collectionId,
@@ -64,7 +65,7 @@ public class IdentifierController {
      * @return The normalized record
      */
 
-    @RequestMapping(method = RequestMethod.POST,value = "/identifier/normalize/single")
+    @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.IDENTIFIER_NORMALIZE_SINGLE)
     @ResponseBody
     @ApiOperation(value = "Fix the identifiers of a record for internal semantic linking", response = String.class)
     public String normalize(@ApiParam("record") @RequestBody String record) throws IdentifierException {
@@ -82,7 +83,7 @@ public class IdentifierController {
      * @return
      */
 
-    @RequestMapping(value = "/identifier/normalize/batch", method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.IDENTIFIER_NORMALIZE_BATCH, method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Batch normalizations of records", response = RequestResult.class)
     public RequestResult normalize(@RequestBody Request records) throws IdentifierException {

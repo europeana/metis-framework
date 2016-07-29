@@ -31,6 +31,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
+import static eu.europeana.metis.RestEndpoints.STATISTICS_APPEND;
+import static eu.europeana.metis.RestEndpoints.STATISTICS_CALCULATE;
+
 /**
  * A statistics controller exposing a REST API to manage them for a given datset
  * Created by ymamakis on 6/16/16.
@@ -50,7 +53,7 @@ public class StatisticsController {
      * @throws IOException
      * @throws XMLStreamException
      */
-    @RequestMapping(method = RequestMethod.POST,value = "/statistics/calculate/{datasetId}",
+    @RequestMapping(method = RequestMethod.POST,value = STATISTICS_CALCULATE,
             produces = "application/json")
     @ApiOperation(value="Calculate the statistics for a dataset")
     @ResponseBody
@@ -61,12 +64,12 @@ public class StatisticsController {
     }
 
     /**
-     * Append the statistics to the fileds of a Mapping afetr the mapping is complete
+     * Append the statistics to the fileds of a Mapping after the mapping is complete
      * @param datasetId The dataset id
      * @param mapping The mapping to populate
      * @return The populated Mapping with the statistics. This mapping should then be validated in the validation controller
      */
-    @RequestMapping(method = RequestMethod.PUT,value = "/statistics/append/{datasetId}",
+    @RequestMapping(method = RequestMethod.PUT,value = STATISTICS_APPEND,
             produces = "application/json", consumes = "application/json")
     @ApiOperation(value = "Append statistics to a mapping")
     @ResponseBody

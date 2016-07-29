@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import io.swagger.annotations.Api;
@@ -52,7 +53,7 @@ public class DereferencingController {
      * @param uri The uri of the entity
      * @return The dereferenced entities
      */
-    @RequestMapping(method = RequestMethod.GET, value = "/dereference")
+    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.DEREFERENCE)
     @ResponseBody
     @ApiOperation(value = "Dereference a URI",response = String.class)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

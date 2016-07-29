@@ -17,11 +17,12 @@
 package eu.europeana.validation.rest;
 
 
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.validation.model.ValidationResult;
+import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
 import eu.europeana.validation.rest.exceptions.ServerException;
 import eu.europeana.validation.rest.exceptions.ValidationException;
-import eu.europeana.validation.model.ValidationResult;
-import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.service.ValidationExecutionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -45,6 +46,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
+import static eu.europeana.metis.RestEndpoints.SCHEMA_RECORDS_BATCH_VALIDATE;
+
 /**
  * REST API Implementation of the Validation Service
  */
@@ -66,7 +70,7 @@ public class ValidationController {
      * @param record The record to validate
      * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
      */
-    @RequestMapping(value = "/validate/{schema}",method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE,method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
@@ -98,7 +102,7 @@ public class ValidationController {
      * @return A Validation result List. If the service result is empty we assume that the success field is true
      */
 
-    @RequestMapping(method = RequestMethod.POST,value = "/validate/batch/{schema}")
+    @RequestMapping(method = RequestMethod.POST,value = SCHEMA_BATCH_VALIDATE)
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
     public ValidationResultList batchValidate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
@@ -141,7 +145,7 @@ public class ValidationController {
      * @param documents The list of records
      * @return The Validation results
      */
-    @RequestMapping(method = RequestMethod.POST,value = "/validate/batch/records/{schema}")
+    @RequestMapping(method = RequestMethod.POST,value = SCHEMA_RECORDS_BATCH_VALIDATE)
     @ResponseBody
     @ApiOperation(value = "Batch validate based on schema", response = ValidationResult.class)
     public ValidationResultList batchValidate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,

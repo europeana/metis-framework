@@ -47,11 +47,11 @@ public class MongoDereferencingManagementServiceTest {
     private EntityDao entityDao;
     @Before
     public void prepare() throws UnknownHostException {
-        MongoDBInstance.start();
+        eu.europeana.metis.mongo.MongoProvider.start(10002);
         service = new MongoDereferencingManagementService();
         jedis = Mockito.mock(Jedis.class);
         CacheDao cacheDao = new CacheDao(jedis);
-        MongoClient mongo = new MongoClient("localhost",10000);
+        MongoClient mongo = new MongoClient("localhost",10002);
         VocabularyDao vocDao = new VocabularyDao(mongo,"voctest");
         entityDao = new EntityDao(mongo,"voctest");
         ReflectionTestUtils.setField(service,"cacheDao",cacheDao);
@@ -175,7 +175,7 @@ public class MongoDereferencingManagementServiceTest {
 
     @After
     public void destroy(){
-        MongoDBInstance.stop();
+        eu.europeana.metis.mongo.MongoProvider.stop();
     }
 
 

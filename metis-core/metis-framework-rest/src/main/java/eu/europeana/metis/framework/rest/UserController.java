@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.io.IOException;
 import java.text.ParseException;
 
+import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
+
 /**
  * User management from Zoho
  * Created by ymamakis on 4/5/16.
@@ -48,7 +50,7 @@ public class UserController {
      * @throws IOException
      * @throws ParseException
      */
-    @RequestMapping(value = "/user/{email}", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = USERBYMAIL, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Retrieve a user from Zoho by email", response = Contact.class)
     public Contact getUserByEmail(@ApiParam("email") @PathVariable("email")String email) throws IOException, ParseException {

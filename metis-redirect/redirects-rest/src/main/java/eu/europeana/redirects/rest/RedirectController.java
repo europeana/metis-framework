@@ -16,6 +16,7 @@
  */
 package eu.europeana.redirects.rest;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.redirects.model.RedirectRequest;
 import eu.europeana.redirects.model.RedirectRequestList;
 import eu.europeana.redirects.model.RedirectResponse;
@@ -41,18 +42,18 @@ public class RedirectController {
     @Autowired
     private  RedirectService redirectService;
 
-    @RequestMapping(method = RequestMethod.POST,value = "/redirect/single")
+    @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.REDIRECT_SINGLE)
     @ResponseBody
     @ApiOperation(value="Generate a single redirect",response = RedirectResponse.class)
-    public RedirectResponse redirectSingle(@ApiParam("record") @RequestBody RedirectRequest request){
+    public RedirectResponse redirectSingle(@ApiParam @RequestBody RedirectRequest request){
             return redirectService.createRedirect(request);
 
     }
 
-    @RequestMapping(method = RequestMethod.POST,value = "/redirect/batch")
+    @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.REDIRECT_BATCH)
     @ResponseBody
     @ApiOperation(value="Generate batch redirects",response = RedirectResponseList.class)
-    public RedirectResponseList redirectBatch(@ApiParam("records") @RequestBody RedirectRequestList requestList){
+    public RedirectResponseList redirectBatch(@ApiParam @RequestBody RedirectRequestList requestList){
         return redirectService.createRedirects(requestList);
     }
 

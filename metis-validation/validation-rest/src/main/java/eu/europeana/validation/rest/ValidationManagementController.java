@@ -16,6 +16,7 @@
  */
 package eu.europeana.validation.rest;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.service.ValidationManagementService;
 import io.swagger.annotations.Api;
@@ -38,6 +39,9 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 
+import static eu.europeana.metis.RestEndpoints.SCHEMAS_ALL;
+import static eu.europeana.metis.RestEndpoints.SCHEMAS_MANAGE_BY_NAME;
+
 /**
  * Created by ymamakis on 3/14/16.
  */
@@ -48,7 +52,7 @@ public class ValidationManagementController {
     @Autowired
     private ValidationManagementService service;
 
-    @RequestMapping(value = "/manage/schemas/schema/download/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = RestEndpoints.SCHEMAS_DOWNLOAD_BY_NAME, method = RequestMethod.GET)
     @ApiOperation(value = "Download the schema", response = InputStreamResource.class)
     @ResponseBody
     public void getZip(@ApiParam("name") @PathVariable("name") String name,
@@ -64,7 +68,7 @@ public class ValidationManagementController {
         FileCopyUtils.copy(inputStream, response.getOutputStream());
     }
 
-    @RequestMapping(value = "/manage/schemas/schema/{name}", method = RequestMethod.POST)
+    @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.POST)
     @ApiOperation(value = "Create a new Schema")
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
@@ -76,7 +80,7 @@ public class ValidationManagementController {
         return URI.create("/manage/schemas/schema/download/" + name).toString();
     }
 
-    @RequestMapping(value = "/manage/schemas/schema/{name}", method = RequestMethod.PUT)
+    @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.PUT)
     @ApiParam(value = "Update a schema")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("schemaPath") @RequestParam("schemaPath") String schemaPath,
@@ -86,14 +90,14 @@ public class ValidationManagementController {
         service.updateSchema(name, schemaPath, schematronPath, version, zipFile.getInputStream());
     }
 
-    @RequestMapping(value = "/manage/schemas/schema/{name}", method = RequestMethod.DELETE)
+    @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a schema")
     @ResponseStatus(value = HttpStatus.OK)
     public void deleteSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("version") @RequestParam(value = "version", defaultValue = "undefined") String version) {
         service.deleteSchema(name, version);
     }
 
-    @RequestMapping(value = "/manage/schemas/schema/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.GET)
     @ApiOperation(value = "Get a schema", response = Schema.class)
     @ResponseBody
     public Schema getSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("name") @RequestParam(value = "version", defaultValue = "undefined") String version) {
@@ -101,7 +105,7 @@ public class ValidationManagementController {
     }
 
     @ApiOperation(value = "Get all available schemas", response = List.class)
-    @RequestMapping(method = RequestMethod.GET, value = "/manage/schemas/all")
+    @RequestMapping(method = RequestMethod.GET, value = SCHEMAS_ALL)
     @ResponseBody
     public List<Schema> getAllSchema() {
         return service.getAll();

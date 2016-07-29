@@ -31,10 +31,10 @@ import java.io.IOException;
  */
 public class MongoProvider {
     static MongodExecutable mongodExecutable;
-    public static void start(){
+    public static void start(int port){
 
         try {
-            int port = 10000;
+
             IMongodConfig conf = new MongodConfigBuilder().version(Version.Main.V3_0)
                     .net(new Net(port, Network.localhostIsIPv6()))
                     .build();

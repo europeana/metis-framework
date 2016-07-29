@@ -31,6 +31,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static eu.europeana.metis.RestEndpoints.*;
+
 
 /**
  * A Controller exposing a REST API for performing flagging of field values
@@ -51,7 +53,7 @@ public class ValidationController {
      * @return A List of flags
      */
     @ApiOperation(value = "Validate an attribute and retrieve all the flags", response = List.class)
-    @RequestMapping(value = "/validation/{mappingId}/attribute", method = RequestMethod.POST,
+    @RequestMapping(value = VALIDATE_ATTRIBUTE, method = RequestMethod.POST,
             consumes = "application/json",produces = "application/json")
     @ResponseBody
     public List<Flag> validateAttribute(@ApiParam("mappingId") @PathVariable(value = "mappingId") String mappingId,
@@ -65,7 +67,7 @@ public class ValidationController {
      * @param elem The element to validate
      * @return A List of Flags
      */
-    @RequestMapping(value = "/validation/{mappingId}/element", method = RequestMethod.POST,
+    @RequestMapping(value = VALIDATE_ELEMENT, method = RequestMethod.POST,
             consumes = "application/json",produces = "application/json")
     @ApiOperation(value = "Validate an element and retrieve all its flags", response = List.class)
     @ResponseBody
@@ -83,7 +85,7 @@ public class ValidationController {
      * @param attr The attribute to flag
      * @return The generated flag
      */
-    @RequestMapping(value = "/validation/{mappingId}/attribute/create/{value}/{flagType}", method = RequestMethod.POST,
+    @RequestMapping(value = VALIDATE_CREATE_ATTTRIBUTE_FLAG, method = RequestMethod.POST,
             consumes = "application/json",produces = "application/json")
     @ApiOperation(value = "Manually flag an attribute", response = Flag.class)
     @ResponseBody
@@ -104,7 +106,7 @@ public class ValidationController {
      * @param elem The element to flag
      * @return The generated flag
      */
-    @RequestMapping(value = "/validation/{mappingId}/element/create/{value}/{flagType}", method = RequestMethod.POST,
+    @RequestMapping(value = VALIDATE_CREATE_ELEMENT_FLAG, method = RequestMethod.POST,
             consumes = "application/json",produces = "application/json")
     @ApiOperation(value = "Create a flag for an element", response = Flag.class)
     public Flag createElementFlag(@ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
@@ -120,7 +122,7 @@ public class ValidationController {
      * @param value The value from which to delete the flag
      * @param attr The attribute from which to delete the flag
      */
-    @RequestMapping(value = "/validation/{mappingId}/attribute/{value}", method = RequestMethod.DELETE, consumes = "application/json")
+    @RequestMapping(value = VALIDATE_DELETE_ATTRIBUTE_FLAG, method = RequestMethod.DELETE, consumes = "application/json")
     @ApiOperation(value = "Delete a flag for an attribute")
     public void deleteAttributeFlag(@ApiParam("attribute") @RequestParam("attribute") Attribute attr,
                                     @ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
@@ -133,7 +135,7 @@ public class ValidationController {
      * @param value The value from which to delete the flag
      * @param elem The element from which to delete the flag
      */
-    @RequestMapping(value = "/validation/{mappingId}/element/{value}", method = RequestMethod.DELETE, consumes = "application/json")
+    @RequestMapping(value = VALIDATE_DELETE_ELEMENT_FLAG, method = RequestMethod.DELETE, consumes = "application/json")
     @ApiOperation(value = "Delete a flag for an element")
     public void deleteElementFlag(@ApiParam("element") @RequestParam("element") Element elem,
                                   @ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
@@ -146,7 +148,7 @@ public class ValidationController {
      * @param mapping The mapping to validate
      * @return The mapping with all the flags populated
      */
-    @RequestMapping(value = "/validation/validate", method = RequestMethod.POST,
+    @RequestMapping(value = VALIDATE_MAPPING, method = RequestMethod.POST,
             consumes = "application/json", produces = "application/json")
     @ApiOperation(value = "Validate a mapping against its flags")
     @ResponseBody

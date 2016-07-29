@@ -17,17 +17,13 @@
 package eu.europeana.redirects.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.redirects.model.RedirectRequest;
 import eu.europeana.redirects.model.RedirectRequestList;
 import eu.europeana.redirects.model.RedirectResponse;
 import eu.europeana.redirects.model.RedirectResponseList;
+import org.springframework.web.client.RestTemplate;
 
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Form;
 
 /**
  * Redirects REST client
@@ -35,7 +31,7 @@ import javax.ws.rs.core.Form;
  */
 public class RedirectsClient {
 
-    private Client client =  ClientBuilder.newBuilder().build();
+    private RestTemplate restTemplate = new RestTemplate();
     private Config config = new Config();
 
     /**
@@ -46,11 +42,8 @@ public class RedirectsClient {
      */
 
     public RedirectResponse redirectSingle(RedirectRequest request) throws JsonProcessingException{
-        WebTarget target  = client.target(config.getRedirectsPath()).path("redirect/single");
-        ObjectMapper mapper = new ObjectMapper();
-        Form form =new Form();
-        form.param("record", mapper.writeValueAsString(request));
-        return target.request().post(Entity.form(form)).readEntity(RedirectResponse.class);
+
+       return restTemplate.postForObject(config.getRedirectsPath()+ RestEndpoints.REDIRECT_SINGLE,request,RedirectResponse.class);
     }
 
     /**
@@ -60,10 +53,6 @@ public class RedirectsClient {
      * @throws JsonProcessingException
      */
     public RedirectResponseList redirectBatch(RedirectRequestList requests) throws JsonProcessingException{
-        WebTarget target  = client.target(config.getRedirectsPath()).path("redirect/batch");
-        ObjectMapper mapper = new ObjectMapper();
-        Form form =new Form();
-        form.param("records", mapper.writeValueAsString(requests));
-        return target.request().post(Entity.form(form)).readEntity(RedirectResponseList.class);
+        return restTemplate.postForObject(config.getRedirectsPath()+ RestEndpoints.REDIRECT_BATCH,requests,RedirectResponseList.class);
     }
 }

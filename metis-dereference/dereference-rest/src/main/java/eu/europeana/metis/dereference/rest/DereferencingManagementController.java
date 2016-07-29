@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import io.swagger.annotations.Api;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URLDecoder;
 import java.util.List;
+
+import static eu.europeana.metis.RestEndpoints.*;
 
 /**
  * REST controller for managing vocabularies and entities
@@ -46,7 +49,7 @@ public class DereferencingManagementController {
      * @param vocabulary The vocabulary to save
      * @return OK
      */
-    @RequestMapping(value = "/vocabulary",consumes = "application/json",method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.VOCABULARY,consumes = "application/json",method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Save a vocabulary")
     public void saveVocabulary(@ApiParam @RequestBody Vocabulary vocabulary){
@@ -60,7 +63,7 @@ public class DereferencingManagementController {
      * @param vocabulary The vocabulary to update
      * @return OK
      */
-    @RequestMapping(value = "/vocabulary",consumes = "application/json",method = RequestMethod.PUT)
+    @RequestMapping(value = RestEndpoints.VOCABULARY,consumes = "application/json",method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update a vocabulary")
     public void updateVocabulary(@ApiParam @RequestBody Vocabulary vocabulary){
@@ -72,7 +75,7 @@ public class DereferencingManagementController {
      * @param vocabulary The vocabulary to delete
      * @return OK
      */
-    @RequestMapping(value = "/vocabulary",consumes = "application/json",method = RequestMethod.DELETE)
+    @RequestMapping(value = RestEndpoints.VOCABULARY,consumes = "application/json",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete a vocabulary")
     public void deleteVocabulary(@ApiParam @RequestBody Vocabulary vocabulary){
@@ -84,7 +87,7 @@ public class DereferencingManagementController {
      * @param name The name of the vocabulary
      * @return The Vocabulary with this name
      */
-    @RequestMapping(value = "/vocabulary/{name}",produces = "application/json",method = RequestMethod.GET)
+    @RequestMapping(value = VOCABULARY_BYNAME,produces = "application/json",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Retrieve a vocabulary by name")
     public Vocabulary getVocabulary(@ApiParam("name") @PathVariable("name") String name){
@@ -95,7 +98,7 @@ public class DereferencingManagementController {
      * Retrieve a list of all the registered vocabularies
      * @return The List of all the registered vocabularies
      */
-    @RequestMapping(value = "/vocabularies",produces = "application/json",method = RequestMethod.GET)
+    @RequestMapping(value = VOCABULARIES,produces = "application/json",method = RequestMethod.GET)
     @ResponseBody
     @ApiOperation(value = "Retrieve all the vocabularies", response = List.class)
     public List<Vocabulary> getAllVocabularies(){
@@ -108,7 +111,7 @@ public class DereferencingManagementController {
      * @param uri The uri of the entity to delete
      * @return OK
      */
-    @RequestMapping(value = "/entity/{uri}",method = RequestMethod.DELETE)
+    @RequestMapping(value = ENTITY_DELETE,method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete an entity")
     public void deleteEntity(@ApiParam("uri") @PathVariable("uri") String uri){
@@ -121,7 +124,7 @@ public class DereferencingManagementController {
      * @param xml The xml of the entity
      * @return OK
      */
-    @RequestMapping(value="/entity",method = RequestMethod.PUT)
+    @RequestMapping(value=ENTITY,method = RequestMethod.PUT)
     @ResponseBody
     @ApiOperation(value = "Update an entity")
     public void updateEntity(@ApiParam("uri") @RequestParam(value = "uri") String uri,@ApiParam("xml") @RequestParam(value = "xml") String xml){
@@ -132,9 +135,9 @@ public class DereferencingManagementController {
      * Empty Cache
      * @return OK
      */
-    @RequestMapping(value="/cache",method = RequestMethod.DELETE)
+    @RequestMapping(value=CACHE_EMPTY,method = RequestMethod.DELETE)
     @ResponseBody
-    @ApiOperation(value = "Emtpy the cache")
+    @ApiOperation(value = "Empty the cache")
     public void emptyCache(){
         service.emptyCache();
     }

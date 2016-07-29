@@ -33,6 +33,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.Map;
 
+import static eu.europeana.metis.RestEndpoints.XSD_UPLOAD;
+import static eu.europeana.metis.RestEndpoints.XSD_URL;
+
 /**
  * A controller that exposes a REST API to load an XSD and generate a mapping from
  * Created by ymamakis on 6/13/16.
@@ -53,7 +56,7 @@ public class XsdController {
      * @throws IOException
      * @throws TemplateGenerationFailedException
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/xsd/upload")
+    @RequestMapping(method = RequestMethod.POST, value = XSD_UPLOAD)
     @ApiOperation(value = "Read and XSD from a tgz and generate a mapping")
     public String readFromFile(@ApiParam("rootFile") @RequestParam("rootFile") String rootFile,
                                @ApiParam("mappingName") @RequestParam("mappingName") String mappingName,
@@ -76,7 +79,7 @@ public class XsdController {
      * @throws IOException
      * @throws TemplateGenerationFailedException
      */
-    @RequestMapping(method = RequestMethod.POST, value = "/xsd/url")
+    @RequestMapping(method = RequestMethod.POST, value = XSD_URL)
     public String readFromUrl(@ApiParam("rootFile") @RequestParam("rootFile") String rootFile,
                               @ApiParam("mappingName") @RequestParam("mappingName") String mappingName,
                               @ApiParam @RequestBody MappingSchema schema,
