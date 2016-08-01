@@ -75,9 +75,9 @@ public class MappingController {
     @RequestMapping(value = RestEndpoints.MAPPING, method = RequestMethod.PUT)
     @ApiOperation(value = "Update a mapping")
     @ResponseBody
-    public String updateMapping(@ApiParam @RequestBody Mapping mapping) throws SaveMappingFailedException {
+    public void updateMapping(@ApiParam @RequestBody Mapping mapping) throws SaveMappingFailedException {
         try {
-            return mappingService.updateMapping(mapping);
+            mappingService.updateMapping(mapping);
         } catch (Exception e) {
             Logger.getGlobal().severe(e.getMessage());
             throw new SaveMappingFailedException(e.getMessage());

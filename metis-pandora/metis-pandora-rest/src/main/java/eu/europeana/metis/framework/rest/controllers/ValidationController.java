@@ -57,7 +57,7 @@ public class ValidationController {
             consumes = "application/json",produces = "application/json")
     @ResponseBody
     public List<Flag> validateAttribute(@ApiParam("mappingId") @PathVariable(value = "mappingId") String mappingId,
-                                        @ApiParam("attribute") @RequestParam("attribute") Attribute attr){
+                                        @ApiParam @RequestBody Attribute attr){
         return service.validateField(mappingId,attr);
     }
 
@@ -72,7 +72,7 @@ public class ValidationController {
     @ApiOperation(value = "Validate an element and retrieve all its flags", response = List.class)
     @ResponseBody
     public List<Flag> validateElement(@ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
-                                      @ApiParam("element") @RequestParam("element") Element elem){
+                                      @ApiParam @RequestBody Element elem){
         return service.validateField(mappingId,elem);
     }
 
@@ -93,7 +93,7 @@ public class ValidationController {
                                     @ApiParam("flagType") @PathVariable("flagType") String flagType,
                                     @ApiParam("value") @PathVariable("value") String value,
                                     @ApiParam("message") @RequestParam("message") String message,
-                                    @ApiParam("attribute") @RequestParam("attribute") Attribute attr){
+                                    @ApiParam @RequestBody Attribute attr){
         return service.createFlagForField(attr, FlagType.valueOf(flagType),value,message,mappingId);
     }
 
@@ -113,7 +113,7 @@ public class ValidationController {
                                   @ApiParam("flagType") @PathVariable("flagType") String flagType,
                                   @ApiParam("value") @PathVariable("value") String value,
                                   @ApiParam("message") @RequestParam("message") String message,
-                                  @ApiParam("attribute") @RequestParam("element") Element elem){
+                                  @ApiParam @RequestBody Element elem){
         return service.createFlagForField(elem, FlagType.valueOf(flagType),value,message,mappingId);
     }
     /**
@@ -124,7 +124,7 @@ public class ValidationController {
      */
     @RequestMapping(value = VALIDATE_DELETE_ATTRIBUTE_FLAG, method = RequestMethod.DELETE, consumes = "application/json")
     @ApiOperation(value = "Delete a flag for an attribute")
-    public void deleteAttributeFlag(@ApiParam("attribute") @RequestParam("attribute") Attribute attr,
+    public void deleteAttributeFlag(@ApiParam @RequestBody Attribute attr,
                                     @ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
                                     @ApiParam("value") @PathVariable("value") String value){
         service.deleteFlagForField(attr, mappingId, value);
@@ -137,7 +137,7 @@ public class ValidationController {
      */
     @RequestMapping(value = VALIDATE_DELETE_ELEMENT_FLAG, method = RequestMethod.DELETE, consumes = "application/json")
     @ApiOperation(value = "Delete a flag for an element")
-    public void deleteElementFlag(@ApiParam("element") @RequestParam("element") Element elem,
+    public void deleteElementFlag(@ApiParam @RequestBody Element elem,
                                   @ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
                                   @ApiParam("value") @PathVariable("value") String value){
         service.deleteFlagForField(elem, mappingId, value);
