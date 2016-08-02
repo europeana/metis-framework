@@ -65,7 +65,9 @@ public class RestClient {
      * @return The normalized EDM xml for the record
      */
     public String normalizeRecord(String edm) {
-        return template.postForObject(identifierEndpoint+RestEndpoints.IDENTIFIER_NORMALIZE_SINGLE,edm,String.class);
+        MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
+        parts.add("record", edm);
+        return template.postForObject(identifierEndpoint+RestEndpoints.IDENTIFIER_NORMALIZE_SINGLE,parts,String.class);
     }
 
     /**

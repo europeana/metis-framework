@@ -68,7 +68,7 @@ public class IdentifierController {
     @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.IDENTIFIER_NORMALIZE_SINGLE)
     @ResponseBody
     @ApiOperation(value = "Fix the identifiers of a record for internal semantic linking", response = String.class)
-    public String normalize(@ApiParam("record") @RequestBody String record) throws IdentifierException {
+    public String normalize(@ApiParam("record") @RequestParam("record") String record) throws IdentifierException {
         try {
             return idService.fixIdentifiers(record);
         } catch (JiBXException e) {
@@ -83,7 +83,7 @@ public class IdentifierController {
      * @return
      */
 
-    @RequestMapping(value = RestEndpoints.IDENTIFIER_NORMALIZE_BATCH, method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.IDENTIFIER_NORMALIZE_BATCH, method = RequestMethod.POST, consumes = "application/json")
     @ResponseBody
     @ApiOperation(value = "Batch normalizations of records", response = RequestResult.class)
     public RequestResult normalize(@RequestBody Request records) throws IdentifierException {
