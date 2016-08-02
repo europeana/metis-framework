@@ -18,14 +18,8 @@ package eu.europeana.enrichment.rest.client.main;
 
 import eu.europeana.enrichment.api.external.UriList;
 import org.apache.commons.io.FileUtils;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
+import org.springframework.web.client.RestTemplate;
 
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -38,7 +32,6 @@ import java.util.logging.Logger;
  */
 public class EntityRemover {
 
-    private final JerseyClient client = JerseyClientBuilder.createClient();
 
     public static void main(String... args) {
         if (args == null || args.length < 2) {
@@ -62,16 +55,10 @@ public class EntityRemover {
             UriList lst = new UriList();
             lst.setUris(urls);
 
-            Form form = new Form();
-            form.param("urls", new ObjectMapper().writeValueAsString(lst));
+            RestTemplate template = new RestTemplate();
+            template.delete(urlPath,lst);
 
-            Response resp = client
-                    .target(urlPath)
-                    .request()
-                    .post(Entity
-                            .entity(form, MediaType.APPLICATION_FORM_URLENCODED),
-                            Response.class);
-            System.out.println(resp.getStatus());
+
         } catch (IOException ex) {
             Logger.getLogger(EntityRemover.class.getName()).log(Level.SEVERE, null, ex);
         }

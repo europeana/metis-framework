@@ -16,25 +16,17 @@
  */
 package eu.europeana.enrichment.rest.client.main;
 
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.rest.client.EnrichmentDriver;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
-import org.glassfish.jersey.client.JerseyClient;
-import org.glassfish.jersey.client.JerseyClientBuilder;
 
-import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Form;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 import java.io.IOException;
 
 public class EnrichmentClient {
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
 
-		JerseyClient client = JerseyClientBuilder.createClient();
 		/*List<InputValue> values = new ArrayList<InputValue>();
 
 		InputValue val1 = new InputValue();
@@ -95,18 +87,6 @@ public class EnrichmentClient {
 		Form form = new Form();
 		form.param("uri", "http://data.europeana.eu/concept/base/96");
 		form.param("toXml", Boolean.toString(true));
-		Response res = client.target(
-				"http://136.243.103.29:8080/enrichment-framework-rest-0.1-SNAPSHOT/getByUri/")
-				.request()
-				.post(Entity.entity(form,MediaType.APPLICATION_FORM_URLENCODED), 
-						Response.class);
-		EntityWrapper entity = new ObjectMapper().readValue(res.readEntity(String.class),EntityWrapper.class);
-		EnrichmentDriver driver = new EnrichmentDriver("http://136.243.103.29:8080/enrichment-framework-rest-0.1-SNAPSHOT/");
-		EntityWrapper entityRet = driver.getByUri("http://vocab.getty.edu/aat/300177435");
-
-
-
-		System.out.println(entityRet.getContextualEntity());
 	}
 
 }

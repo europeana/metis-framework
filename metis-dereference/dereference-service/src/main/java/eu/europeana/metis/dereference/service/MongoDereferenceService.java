@@ -28,6 +28,7 @@ import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -120,7 +121,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     private String checkInEntityCollection(String uri) throws IOException{
-        EntityWrapper wrapper = driver.getByUri(uri);
+        EntityWrapper wrapper = new ObjectMapper().readValue(driver.getByUri(uri,false),EntityWrapper.class);
 
         return wrapper!=null?wrapper.getContextualEntity():null;
     }

@@ -51,7 +51,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.net.UnknownHostException;
 import java.util.List;
 
 /**
@@ -91,14 +90,10 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @Bean
     MongoClient getMongo(){
-        try {
 
                return  new MongoClient(new MongoClientURI(mongoUri));
 
-        } catch (UnknownHostException e) {
-           logger.error("Failed to connect to Mongo: " + e.getMessage());
-        }
-        return null;
+
     }
     @Override
     public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){

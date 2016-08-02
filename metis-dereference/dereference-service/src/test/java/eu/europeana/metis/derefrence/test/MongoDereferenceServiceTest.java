@@ -83,7 +83,8 @@ public class MongoDereferenceServiceTest {
         vocabularyDao.save(geonames);
         try {
             EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
-            Mockito.when(driver.getByUri(Mockito.anyString())).thenReturn(wrapper);
+
+            Mockito.when(driver.getByUri(Mockito.anyString(),false)).thenReturn("");
             Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
             List<String> result = service.dereference("http://sws.geonames.org/3020251");
             Assert.assertNotNull(result);

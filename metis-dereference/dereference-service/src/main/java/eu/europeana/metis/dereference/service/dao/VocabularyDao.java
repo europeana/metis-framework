@@ -81,10 +81,21 @@ public class VocabularyDao {
     public void update(Vocabulary entity) {
         Query<Vocabulary> query = ds.createQuery(Vocabulary.class).filter("name", entity.getName());
         UpdateOperations<Vocabulary> ops = ds.createUpdateOperations(Vocabulary.class);
-        ops.set("iterations", entity.getIterations());
-        ops.set("rules", entity.getRules());
-        ops.set("typeRules", entity.getTypeRules());
-        ops.set("type", entity.getType());
+
+            ops.set("iterations", entity.getIterations());
+        if(entity.getRules()!=null) {
+            ops.set("rules", entity.getRules());
+        } else {
+            ops.unset("rules");
+        }
+        if(entity.getTypeRules()!=null) {
+            ops.set("typeRules", entity.getTypeRules());
+        } else {
+            ops.unset("typeRules");
+        }
+        if(entity.getType()!=null) {
+            ops.set("type", entity.getType());
+        }
         ops.set("URI", entity.getURI());
         ops.set("xslt", entity.getXslt());
         ds.update(query, ops);
