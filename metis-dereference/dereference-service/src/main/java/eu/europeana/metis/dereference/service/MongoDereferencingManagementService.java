@@ -59,10 +59,10 @@ public class MongoDereferencingManagementService implements DereferencingManagem
     }
 
     @Override
-    public void deleteVocabulary(Vocabulary vocabulary) {
-        vocabularyDao.delete(vocabulary.getURI());
+    public void deleteVocabulary(String name) {
+        vocabularyDao.delete(name);
         cacheDao.emptyCache();
-        logger.info("Deleted vocabulary with name: " +vocabulary.getName());
+        logger.info("Deleted vocabulary with name: " +name);
     }
 
     @Override

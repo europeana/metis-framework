@@ -142,7 +142,7 @@ public class MongoDereferencingManagementServiceTest {
         service.saveVocabulary(voc);
         List<Vocabulary> retVoc = service.getAllVocabularies();
         Assert.assertEquals(1,retVoc.size());
-        service.deleteVocabulary(voc);
+        service.deleteVocabulary(voc.getName());
         List<Vocabulary> retVoc2 = service.getAllVocabularies();
         Assert.assertEquals(0,retVoc2.size());
     }

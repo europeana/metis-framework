@@ -39,9 +39,9 @@ public interface DereferencingManagementService {
 
     /**
      * Delete a vocabulary
-     * @param vocabulary The vocabulary to delete
+     * @param name The name of the vocabulary to delete
      */
-    void deleteVocabulary(Vocabulary vocabulary);
+    void deleteVocabulary(String name);
 
     /**
      * List all the vocabularies

@@ -72,14 +72,14 @@ public class DereferencingManagementController {
 
     /**
      * Delete a vocabulary
-     * @param vocabulary The vocabulary to delete
+     * @param name The vocabulary to delete
      * @return OK
      */
-    @RequestMapping(value = RestEndpoints.VOCABULARY,consumes = "application/json",method = RequestMethod.DELETE)
+    @RequestMapping(value = RestEndpoints.VOCABULARY_BYNAME, method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete a vocabulary")
-    public void deleteVocabulary(@ApiParam @RequestBody Vocabulary vocabulary){
-        service.deleteVocabulary(vocabulary);
+    public void deleteVocabulary(@ApiParam("name") @PathVariable("name") String name){
+        service.deleteVocabulary(name);
     }
 
     /**

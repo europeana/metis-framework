@@ -70,7 +70,7 @@ public class VocabularyDao {
      * @param name The name of the vocabulary to delete
      */
     public void delete(String name) {
-        ds.delete(ds.createQuery(Vocabulary.class).filter("URI", name));
+        ds.delete(ds.createQuery(Vocabulary.class).filter("name", name));
     }
 
     /**

@@ -26,6 +26,7 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -121,9 +122,13 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     private String checkInEntityCollection(String uri) throws IOException{
-        EntityWrapper wrapper = new ObjectMapper().readValue(driver.getByUri(uri,false),EntityWrapper.class);
+       String enriched = driver.getByUri(uri,false);
+        if(StringUtils.isNotEmpty(enriched)) {
+            EntityWrapper wrapper = new ObjectMapper().readValue(driver.getByUri(uri, false), EntityWrapper.class);
 
-        return wrapper!=null?wrapper.getContextualEntity():null;
+            return wrapper != null ? wrapper.getContextualEntity() : null;
+        }
+        return null;
     }
 
 }

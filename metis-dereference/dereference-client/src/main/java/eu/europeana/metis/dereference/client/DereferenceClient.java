@@ -79,10 +79,10 @@ public class DereferenceClient {
     /**
      * Delete a vocabulary
      *
-     * @param voc The vocabulary to delete
+     * @param name The vocabulary to delete
      */
-    public void deleteVocabulary(Vocabulary voc) {
-        restTemplate.delete(hostUrl + RestEndpoints.VOCABULARY, voc);
+    public void deleteVocabulary(String name) {
+        restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name));
     }
 
     /**

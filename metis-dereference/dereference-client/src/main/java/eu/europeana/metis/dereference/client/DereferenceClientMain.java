@@ -38,6 +38,7 @@ public class DereferenceClientMain {
             client.updateVocabulary(geonames);
             client.deleteEntity("http://sws.geonames.org/3020251");
             System.out.println(client.dereference("http://sws.geonames.org/3020251"));
+            client.deleteVocabulary("string");
         }catch (Exception e){
             e.printStackTrace();
         }
