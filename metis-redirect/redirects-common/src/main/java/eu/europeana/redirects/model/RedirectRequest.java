@@ -26,19 +26,15 @@ import java.util.Map;
  */
 @XmlRootElement
 public class RedirectRequest {
-    @XmlElement
+
     private String europeanaId;
-    @XmlElement
     private String fieldName;
-    @XmlElement
     private String fieldValue;
-    @XmlElement
     private Map<String,String> parameters;
 
-    @XmlElement
 
     private String collection;
-
+    @XmlElement
     public Map<String, String> getParameters() {
         return parameters;
     }
@@ -47,7 +43,7 @@ public class RedirectRequest {
     public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
-
+    @XmlElement
     public String getCollection() {
         return collection;
     }
@@ -56,7 +52,7 @@ public class RedirectRequest {
         this.collection = collection;
     }
 
-
+    @XmlElement
     public String getFieldName() {
         return fieldName;
     }
@@ -64,7 +60,7 @@ public class RedirectRequest {
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
     }
-
+    @XmlElement
     public String getFieldValue() {
         return fieldValue;
     }
@@ -72,7 +68,7 @@ public class RedirectRequest {
     public void setFieldValue(String fieldValue) {
         this.fieldValue = fieldValue;
     }
-
+    @XmlElement
     public String getEuropeanaId() {
         return europeanaId;
     }

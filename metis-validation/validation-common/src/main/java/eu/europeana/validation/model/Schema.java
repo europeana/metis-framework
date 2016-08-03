@@ -37,26 +37,23 @@ public class Schema {
     @Id
     private ObjectId id;
 
-    @XmlElement
+
     @Indexed(unique = true)
     private String name;
 
-    @XmlElement
     private String path;
 
-    @XmlElement
     private String schematronPath;
 
 
-    @XmlElement
     @Indexed(unique = false)
     private String version;
 
-    @XmlElement
+
     @XmlTransient
     @JsonIgnore
     private byte[] zip;
-
+    @XmlElement
     public ObjectId getId() {
         return id;
     }
@@ -64,7 +61,7 @@ public class Schema {
     public void setId(ObjectId id) {
         this.id = id;
     }
-
+    @XmlElement
     public String getName() {
         return name;
     }
@@ -72,7 +69,7 @@ public class Schema {
     public void setName(String name) {
         this.name = name;
     }
-
+    @XmlElement
     public String getPath() {
         return path;
     }
@@ -80,7 +77,7 @@ public class Schema {
     public void setPath(String path) {
         this.path = path;
     }
-
+    @XmlElement
     public String getSchematronPath() {
         return schematronPath;
     }
@@ -97,7 +94,7 @@ public class Schema {
     public void setZip(byte[] zip) {
         this.zip = zip;
     }
-
+    @XmlElement
     public String getVersion() {
         return version;
     }

@@ -40,6 +40,7 @@ import java.net.URI;
 import java.util.List;
 
 import static eu.europeana.metis.RestEndpoints.SCHEMAS_ALL;
+import static eu.europeana.metis.RestEndpoints.SCHEMAS_DOWNLOAD_BY_NAME;
 import static eu.europeana.metis.RestEndpoints.SCHEMAS_MANAGE_BY_NAME;
 
 /**
@@ -77,7 +78,7 @@ public class ValidationManagementController {
                                @ApiParam("version") @RequestParam("version") @DefaultValue("undefined") String version,
                                @ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IOException {
         service.createSchema(name, schemaPath, schematronPath, version, zipFile.getInputStream());
-        return URI.create("/manage/schemas/schema/download/" + name).toString();
+        return URI.create(RestEndpoints.resolve(SCHEMAS_DOWNLOAD_BY_NAME, name)).toString();
     }
 
     @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.PUT)

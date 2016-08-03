@@ -29,7 +29,7 @@ public class Config {
     public Config(){
         Properties props = new Properties();
         try {
-            props.load(Config.class.getResourceAsStream("redirects.properties"));
+            props.load(Config.class.getClassLoader().getResourceAsStream("redirects.properties"));
             redirectsPath= props.getProperty("redirects.path");
         } catch (IOException e) {
             e.printStackTrace();

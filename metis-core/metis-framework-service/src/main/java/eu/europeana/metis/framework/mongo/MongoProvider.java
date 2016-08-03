@@ -17,6 +17,7 @@
 package eu.europeana.metis.framework.mongo;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.framework.common.*;
@@ -75,6 +76,24 @@ public class MongoProvider {
 
     }
 
+    public MongoProvider(String uri,String db){
+        Morphia morphia = new Morphia();
+        morphia.map(Dataset.class);
+        morphia.map(Organization.class);
+        morphia.map(FtpDatasetMetadata.class);
+        morphia.map(FtpMetadata.class);
+        morphia.map(FolderMetadata.class);
+        morphia.map(HttpMetadata.class);
+        morphia.map(HarvestingMetadata.class);
+        morphia.map(OAIMetadata.class);
+        morphia.map(HttpDatasetMetadata.class);
+        morphia.map(OAIDatasetMetadata.class);
+        morphia.map(PrefLabel.class);
+        morphia.map(AltLabel.class);
+        MongoClient mongo=new MongoClient(new MongoClientURI(uri));
+        datastore = morphia.createDatastore(mongo,db);
+        datastore.ensureIndexes();
+    }
     /**
      * Retrieve the datastore connection to Mongo
      * @return The datastore connection to Mongo

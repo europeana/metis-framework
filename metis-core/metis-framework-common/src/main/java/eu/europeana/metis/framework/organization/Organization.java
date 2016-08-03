@@ -18,15 +18,12 @@
 package eu.europeana.metis.framework.organization;
 
 import eu.europeana.metis.framework.common.*;
-import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
-import eu.europeana.metis.framework.common.Language;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 
@@ -114,7 +111,7 @@ public class Organization {
 
     private GeographicLevel geographicLevel;
 
-    private URL website;
+    private String website;
 
     private Country country;
 
@@ -292,11 +289,11 @@ public class Organization {
         this.geographicLevel = geographicLevel;
     }
     @XmlElement
-    public URL getWebsite() {
+    public String getWebsite() {
         return website;
     }
 
-    public void setWebsite(URL website) {
+    public void setWebsite(String website) {
         this.website = website;
     }
     @XmlElement

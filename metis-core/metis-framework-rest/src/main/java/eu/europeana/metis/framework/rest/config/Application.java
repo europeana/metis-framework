@@ -16,14 +16,19 @@
  */
 package eu.europeana.metis.framework.rest.config;
 
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoClient;
 import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.framework.rest.RestConfig;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.OrganizationService;
-import eu.europeana.metis.framework.rest.RestConfig;
 import eu.europeana.metis.framework.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -87,7 +92,18 @@ public class Application extends WebMvcConfigurerAdapter {
     @Bean
     MongoProvider getMongoProvider(){
         try {
-            return  new MongoProvider(mongoHost,Integer.parseInt(mongoPort),db,username,password);
+            if(System.getenv().get("VCAP_SERVICES")==null) {
+                return new MongoProvider(mongoHost, Integer.parseInt(mongoPort), db, username, password);
+            } else {
+                JsonParser parser = new JsonParser();
+                JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
+                JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
+
+                JsonObject credentials = element.getAsJsonObject("credentials");
+                JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
+                String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
+                return new MongoProvider(uri.getAsString(),db);
+            }
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

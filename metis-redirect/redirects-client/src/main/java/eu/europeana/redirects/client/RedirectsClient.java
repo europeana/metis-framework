@@ -22,6 +22,9 @@ import eu.europeana.redirects.model.RedirectRequest;
 import eu.europeana.redirects.model.RedirectRequestList;
 import eu.europeana.redirects.model.RedirectResponse;
 import eu.europeana.redirects.model.RedirectResponseList;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -43,7 +46,10 @@ public class RedirectsClient {
 
     public RedirectResponse redirectSingle(RedirectRequest request) throws JsonProcessingException{
 
-       return restTemplate.postForObject(config.getRedirectsPath()+ RestEndpoints.REDIRECT_SINGLE,request,RedirectResponse.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<RedirectRequest> req = new HttpEntity<>(request, headers);
+       return restTemplate.postForEntity(config.getRedirectsPath()+ RestEndpoints.REDIRECT_SINGLE,req,RedirectResponse.class).getBody();
     }
 
     /**

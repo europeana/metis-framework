@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
+ * Attribute flag marking DTO
  * Created by ymamakis on 8/3/16.
  */
 @XmlRootElement

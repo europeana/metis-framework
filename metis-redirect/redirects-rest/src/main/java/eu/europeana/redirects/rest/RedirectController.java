@@ -26,6 +26,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +43,7 @@ public class RedirectController {
     @Autowired
     private  RedirectService redirectService;
 
-    @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.REDIRECT_SINGLE)
+    @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.REDIRECT_SINGLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     @ApiOperation(value="Generate a single redirect",response = RedirectResponse.class)
     public RedirectResponse redirectSingle(@ApiParam @RequestBody RedirectRequest request){

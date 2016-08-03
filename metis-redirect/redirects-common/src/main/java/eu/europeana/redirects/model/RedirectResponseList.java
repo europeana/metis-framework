@@ -26,9 +26,8 @@ import java.util.List;
  */
 @XmlRootElement
 public class RedirectResponseList {
-    @XmlElement
     private List<RedirectResponse> responseList;
-
+    @XmlElement
     public List<RedirectResponse> getResponseList() {
         return responseList;
     }

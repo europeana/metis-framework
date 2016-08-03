@@ -25,11 +25,9 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class RedirectResponse {
-    @XmlElement
     private String newId;
-    @XmlElement
     private String oldId;
-
+    @XmlElement
     public String getNewId() {
         return newId;
     }
@@ -37,7 +35,7 @@ public class RedirectResponse {
     public void setNewId(String newId) {
         this.newId = newId;
     }
-
+    @XmlElement
     public String getOldId() {
         return oldId;
     }

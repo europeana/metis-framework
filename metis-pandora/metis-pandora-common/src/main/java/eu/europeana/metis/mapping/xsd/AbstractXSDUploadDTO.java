@@ -7,6 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Map;
 
 /**
+ * DTO for generating Mapping tamplates from XSDs
  * Created by ymamakis on 8/3/16.
  */
 @XmlRootElement

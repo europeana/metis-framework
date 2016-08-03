@@ -1,7 +1,9 @@
 package eu.europeana.validation.client;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.validation.model.Schema;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
@@ -11,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -41,7 +44,7 @@ public class ValidationManagementClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_OCTET_STREAM));
         HttpEntity<String> entity = new HttpEntity<>(headers);
-        ResponseEntity<byte[]> response = template.exchange(RestEndpoints.resolve(
+        ResponseEntity<byte[]> response = template.exchange(validationEndpoint+RestEndpoints.resolve(
                 RestEndpoints.SCHEMAS_DOWNLOAD_BY_NAME,name)+"?version="+version, HttpMethod.GET, entity, byte[].class, "1");
         if(response.getStatusCode().equals(HttpStatus.OK))
         {
@@ -66,7 +69,9 @@ public class ValidationManagementClient {
         if(StringUtils.isNotEmpty(version)){
             params.add("version",version);
         }
-        params.add("file",file);
+        FileSystemResource resource = new FileSystemResource(file);
+        params.add("file",resource);
+
         return template.postForObject(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
                 name),params,String.class);
     }
@@ -109,12 +114,16 @@ public class ValidationManagementClient {
      * @param name The name of the schema to look for
      * @param version The version of the schema
      */
-    public void getSchemaByName(String name,String version){
+    public Schema getSchemaByName(String name,String version){
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         if(StringUtils.isNotEmpty(version)){
             params.add("version",version);
         }
-        template.getForObject(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
-                name),String.class,params);
+        return template.getForObject(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
+                name),Schema.class,params);
+    }
+
+    public List<Schema> getAll(){
+        return template.getForObject(validationEndpoint+RestEndpoints.SCHEMAS_ALL,List.class);
     }
 }

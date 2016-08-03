@@ -24,7 +24,6 @@ import eu.europeana.metis.framework.organization.Organization;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -83,7 +82,7 @@ public abstract class ZohoClient {
                     org.setGeographicLevel(GeographicLevel.getGeographicLevelFromName(field.getContent()));
                     break;
                 case ZohoFields.WEBSITE:
-                    org.setWebsite(new URL(field.getContent()));
+                    org.setWebsite(field.getContent());
                     break;
                 case ZohoFields.SECTOR:
                     org.setSector(Sector.getSectorFromName(field.getContent()));
