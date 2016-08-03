@@ -46,7 +46,7 @@ public class TestDatasetDao {
     private Dataset ds;
     @Before
     public void prepare() {
-        eu.europeana.metis.mongo.MongoProvider.start(1000);
+        eu.europeana.metis.mongo.MongoProvider.start(10000);
         try {
             MongoProvider provider = new MongoProvider("localhost",10000, "test",null,null);
             dsDao = new DatasetDao();
