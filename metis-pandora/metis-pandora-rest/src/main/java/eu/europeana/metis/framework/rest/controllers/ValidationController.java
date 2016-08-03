@@ -19,6 +19,8 @@ package eu.europeana.metis.framework.rest.controllers;
 import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.validation.AttributeFlagDTO;
+import eu.europeana.metis.mapping.validation.ElementFlagDTO;
 import eu.europeana.metis.mapping.validation.Flag;
 import eu.europeana.metis.mapping.validation.FlagType;
 import eu.europeana.metis.service.ValidationService;
@@ -81,7 +83,6 @@ public class ValidationController {
      * @param mappingId The mapping id
      * @param flagType The type of flag the user wants to apply
      * @param value The value on which to apply the flag
-     * @param message The message that accompanies the flag
      * @param attr The attribute to flag
      * @return The generated flag
      */
@@ -92,9 +93,8 @@ public class ValidationController {
     public Flag createAttributeFlag(@ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
                                     @ApiParam("flagType") @PathVariable("flagType") String flagType,
                                     @ApiParam("value") @PathVariable("value") String value,
-                                    @ApiParam("message") @RequestParam("message") String message,
-                                    @ApiParam @RequestBody Attribute attr){
-        return service.createFlagForField(attr, FlagType.valueOf(flagType),value,message,mappingId);
+                                    @ApiParam @RequestBody AttributeFlagDTO attr){
+        return service.createFlagForField(attr.getAttr(), FlagType.valueOf(flagType),value,attr.getMessage(),mappingId);
     }
 
     /**
@@ -102,7 +102,6 @@ public class ValidationController {
      * @param mappingId The mapping id
      * @param flagType The type of flag the user wants to apply
      * @param value The value on which to apply the flag
-     * @param message The message that accompanies the flag
      * @param elem The element to flag
      * @return The generated flag
      */
@@ -112,9 +111,8 @@ public class ValidationController {
     public Flag createElementFlag(@ApiParam("mappingId") @PathVariable("mappingId") String mappingId,
                                   @ApiParam("flagType") @PathVariable("flagType") String flagType,
                                   @ApiParam("value") @PathVariable("value") String value,
-                                  @ApiParam("message") @RequestParam("message") String message,
-                                  @ApiParam @RequestBody Element elem){
-        return service.createFlagForField(elem, FlagType.valueOf(flagType),value,message,mappingId);
+                                  @ApiParam @RequestBody ElementFlagDTO elem){
+        return service.createFlagForField(elem.getElem(), FlagType.valueOf(flagType),value,elem.getMessage(),mappingId);
     }
     /**
      * Delete a flag from an attribute

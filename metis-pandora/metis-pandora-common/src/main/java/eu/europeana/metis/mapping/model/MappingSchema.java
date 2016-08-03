@@ -114,7 +114,7 @@ public class MappingSchema extends Schema {
     public void setSchematronRules(Set<String> schematronRules) {
         this.schematronRules = schematronRules;
     }
-
+    @XmlElement
     public Map<String, String> getDocumentation() {
         return documentation;
     }

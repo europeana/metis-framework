@@ -185,19 +185,19 @@ public class MappingController {
         mappingService.clearValidationStatistics(name);
     }
 
-    @RequestMapping(value = MAPPING_SCHEMATRON, method = RequestMethod.POST)
+    @RequestMapping(value = MAPPING_SCHEMATRON, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Set the schematron rules for a mapping")
-    public void setSchematronRulesForMapping(@ApiParam("mapping") @RequestBody Mapping mapping,
+    public void setSchematronRulesForMapping(@ApiParam("mapping") @RequestParam("mapping") String mappingId,
                                              @ApiParam("rules") @RequestParam(value = "rules")Set<String> rules){
-        mappingService.setSchematronRulesForMapping(mapping,rules);
+        mappingService.setSchematronRulesForMapping(mappingId,rules);
     }
 
-    @RequestMapping(value = MAPPING_NAMESPACES, method = RequestMethod.POST)
+    @RequestMapping(value = MAPPING_NAMESPACES, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Set the namespaces for a mapping")
-    public void setNamespacesForMapping(@ApiParam("mapping") @RequestBody Mapping mapping,
+    public void setNamespacesForMapping(@ApiParam("mapping") @RequestParam("mapping") String mappingId,
                                         @ApiParam("namespaces") @RequestParam(value = "namespaces")Map<String,String> namespaces){
-        mappingService.setNamespacesForMapping(mapping,namespaces);
+        mappingService.setNamespacesForMapping(mappingId,namespaces);
     }
 }

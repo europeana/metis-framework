@@ -6,8 +6,13 @@ import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
 import eu.europeana.metis.mapping.model.MappingSchema;
 import eu.europeana.metis.mapping.statistics.DatasetStatistics;
+import eu.europeana.metis.mapping.validation.AttributeFlagDTO;
+import eu.europeana.metis.mapping.validation.ElementFlagDTO;
 import eu.europeana.metis.mapping.validation.Flag;
 import eu.europeana.metis.mapping.validation.FlagType;
+import eu.europeana.metis.mapping.xsd.FileXSDUploadDTO;
+import eu.europeana.metis.mapping.xsd.UrlXSDUploadDTO;
+import org.apache.commons.io.FileUtils;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.util.LinkedMultiValueMap;
@@ -74,16 +79,18 @@ public class PandoraClient {
         template.delete(restEndpoint + RestEndpoints.resolve(RestEndpoints.MAPPING_STATISTICS_BYNAME, name));
     }
 
-    public void setSchematroRulesForMapping(Mapping mapping, Set<String> rules) {
+    public void setSchematroRulesForMapping(String mappingId , Set<String> rules) {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("rules", rules);
-        template.postForObject(restEndpoint + RestEndpoints.MAPPING_SCHEMATRON, mapping, String.class, params);
+        params.add("mappingId",mappingId);
+        template.put(restEndpoint + RestEndpoints.MAPPING_SCHEMATRON, params);
     }
 
-    public void setNamespacesForMapping(Mapping mapping, Map<String, String> namespaces) {
+    public void setNamespacesForMapping(String mappingId, Map<String, String> namespaces) {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("namespaces", namespaces);
-        template.postForObject(restEndpoint + RestEndpoints.MAPPING_NAMESPACES, mapping, String.class, params);
+        params.add("mappingId",mappingId);
+        template.put(restEndpoint + RestEndpoints.MAPPING_NAMESPACES, params);
     }
 
     public DatasetStatistics calculateStatisticsForMapping(String datasetId, File file) {
@@ -109,17 +116,20 @@ public class PandoraClient {
     }
 
     public Flag createAttributeFlag(String mappingId, FlagType type, String value, String message, Attribute attr) {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        params.add("message", message);
+
+        AttributeFlagDTO dto = new AttributeFlagDTO();
+        dto.setAttr(attr);
+        dto.setMessage(message);
         return template.postForObject(restEndpoint + RestEndpoints.resolve(RestEndpoints.VALIDATE_CREATE_ATTTRIBUTE_FLAG, mappingId, value, type.name()),
-                attr, Flag.class, params);
+                dto, Flag.class);
     }
 
     public Flag createElementFlag(String mappingId, FlagType type, String value, String message, Element elem) {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        params.add("message", message);
+        ElementFlagDTO dto = new ElementFlagDTO();
+        dto.setMessage(message);
+        dto.setElem(elem);
         return template.postForObject(restEndpoint + RestEndpoints.resolve(RestEndpoints.VALIDATE_CREATE_ELEMENT_FLAG, mappingId, value, type.name()),
-                elem, Flag.class, params);
+                dto, Flag.class);
     }
 
     public void deleteAttributeFlag(String mappingId, String value, Attribute attr) {
@@ -135,28 +145,36 @@ public class PandoraClient {
                 mapping, Mapping.class);
     }
 
-    public Mapping uploadTemplateFromFile(String rootFile, String mappingName, String rootXPath, Map<String,String> namespaces,
-                                          File file, MappingSchema schema) {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        params.add("rootFile", rootFile);
-        params.add("mappingName", mappingName);
-        params.add("rootXPath", rootXPath);
-        params.add("namespaces", namespaces);
-        params.add("file", file);
+    public String uploadTemplateFromFile(String rootFile, String mappingName, String rootXPath, Map<String,String> namespaces,
+                                          File file, MappingSchema schema) throws IOException {
+        FileXSDUploadDTO dto = new FileXSDUploadDTO();
+        dto.setFile(FileUtils.readFileToByteArray(file));
+        dto.setMappingName(mappingName);
+        dto.setRootFile(rootFile);
+        dto.setNamespaces(namespaces);
+        dto.setRootXPath(rootXPath);
+        dto.setSchema(schema);
+        MultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type",MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<FileXSDUploadDTO> entity = new HttpEntity<>(dto,headers);
         return template.postForObject(restEndpoint + RestEndpoints.XSD_UPLOAD,
-                schema, Mapping.class,params);
+                entity, String.class);
     }
 
-    public Mapping uploadTemplateFromUrl(String rootFile, String mappingName, String rootXPath, Map<String,String> namespaces,
+    public String uploadTemplateFromUrl(String rootFile, String mappingName, String rootXPath, Map<String,String> namespaces,
                                          String url, MappingSchema schema) {
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        params.add("rootFile", rootFile);
-        params.add("mappingName", mappingName);
-        params.add("rootXPath", rootXPath);
-        params.add("namespaces", namespaces);
-        params.add("url", url);
+        UrlXSDUploadDTO dto = new UrlXSDUploadDTO();
+        dto.setUrl(url);
+        dto.setMappingName(mappingName);
+        dto.setRootFile(rootFile);
+        dto.setNamespaces(namespaces);
+        dto.setRootXPath(rootXPath);
+        dto.setSchema(schema);
+        MultiValueMap<String,String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type",MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<UrlXSDUploadDTO> entity = new HttpEntity<>(dto,headers);
         return template.postForObject(restEndpoint + RestEndpoints.XSD_URL,
-                schema, Mapping.class,params);
+                entity, String.class);
     }
 
     public String createXslFromMapping(Mapping mapping) {

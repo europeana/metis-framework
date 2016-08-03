@@ -159,6 +159,7 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         conv.setObjectMapper(new CustomObjectMapper());
         converters.add(conv);
 
+
         super.configureMessageConverters(converters);
     }
 
