@@ -71,13 +71,15 @@ public final class RestEndpoints {
     public final static String VALIDATE_DELETE_ELEMENT_FLAG ="/mapping/validation/{mappingId}/element/{value}";
 
     /* METIS SCHEMA VALIDATION ENDPOINT */
-
     public final static String SCHEMA_VALIDATE = "/schema/validate/{schema}";
     public final static String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";
     public final static String SCHEMA_RECORDS_BATCH_VALIDATE = "/schema/validate/batch/records/{schema}";
     public final static String SCHEMAS_DOWNLOAD_BY_NAME = "/schemas/download/schema/{name}";
     public final static String SCHEMAS_MANAGE_BY_NAME = "/schemas/schema/{name}";
     public final static String SCHEMAS_ALL = "/schemas/all";
+
+    /* METIS PREVIEW SERVICE ENDPOINT*/
+    public final static String PREVIEW_UPLOAD = "/preview/upload";
 
     public static String resolve(String endpoint, String... params){
         if(params==null || params.length==0){
