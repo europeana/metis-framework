@@ -1,0 +1,68 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+<div class="lc">
+	<!-- Start grid -->
+	<div class="grid-main">
+
+		<div class="l-content">
+
+		<div class="l-breadcrumbs">
+			{{> molecules/navigation/breadcrumbs}}
+		</div>
+		
+		<div id="maincontent" class="maincontent">
+			
+			<div class="textcontent prose">
+
+				<h1 class="title">{{ headline.medium }}</h1>
+
+				{{> organisms-article-body }}
+			</div>
+
+			<div class="section files">
+				<h2>Files</h2>
+				{{> molecules-file-list-moredata }}
+			</div>
+
+
+			{{> molecules-file-browser(title: "Files")}}
+
+			{{> molecules-related-images(title: "Next steps") }}
+
+
+		</div>
+		</div><!--
+
+	 --><div class="l-sidebar">
+	 		<div class="inner">
+
+				{{> molecules-help-contact(title: "Need help?") }}
+
+				<ul class="nav_tertiary js-sticky">
+					<li><a href="#inpage1">In-page link 1</a></li>
+					<li><a href="#inpage2">In-page link 2</a></li>
+					<li><a href="#inpage3">In-page link 3</a></li>
+					<li><a href="#inpage4">In-page link 4</a></li>
+					<li><a href="#inpage5">In-page link 5</a></li>
+					<li><a href="#inpage6">In-page link 6</a></li>
+					<li><a href="#inpage7">In-page link 7</a></li>
+				</ul>
+				
+			</div>
+
+		</div>
+	</div>
+	<!-- End grid -->
+</div>
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+

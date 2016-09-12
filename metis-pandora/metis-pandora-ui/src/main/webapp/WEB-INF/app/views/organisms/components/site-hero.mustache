@@ -1,0 +1,49 @@
+{{!
+
+Options for user selectable styling
+Various changes in style are applied by adding classes to the main outer site-hero container:
+<<< Add the class on the left to have the effect on the right >>>
+
+	Brand circles opacity:
+
+	no class (default) 	= 	50%
+	brand-opacity25 	=	25% opacity
+	brand-opacity50 	= 	50% opacity
+	brand-opacity75 	=	75% opacity
+	brand-opacity100 	=	100% opacity
+
+
+	Brand circles position/orientation:
+
+	default (no class) 	= 	top left
+	brand-topleft 		= 	top left
+	brand-topright 		= 	top right
+	brand-bottomleft 	= 	bottom left
+	brand-bottomright 	=	bottom right
+
+
+	Brand Circles colour:
+
+	default (no class) 	= 	site accent colour
+	brand-colour-site 	=	site accent colour
+	brand-colour-white 	=	white
+	brand-colour-black 	=	black
+
+
+ }}
+
+<div class="site-hero cf {{#content.hero_config}}{{brand_position}} {{brand_colour}} {{brand_opacity}}{{/content.hero_config}}" {{#content.hero_config}} style="background-image: url('{{hero_image}}');" {{/content.hero_config}} >
+
+	<div class="lc">
+		<div class="hero-text">
+			<h2><a href="#">{{ headline.short }}</a></h2>
+			<p>{{ excerpt.short}}</p>
+		</div>
+	</div>
+
+	{{#content.hero_config}}
+		{{>molecules/text/attribution}}
+		{{>molecules/media/brand-svg-assets}}
+	{{/content.hero_config}}
+
+</div>

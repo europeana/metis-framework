@@ -1,0 +1,50 @@
+<div class="container-large">
+	<table class="mapping-widget">
+		<tr class="mapping-widget-collapsed">
+			<td width="25%">
+				<table class="mapping-widget-mapping">
+					<tr class="item-label"><td class="normal-colored-dark"><div class="indent">Item Instance</div></td></tr>
+					<tr class="item-label"><td class="normal-colored">
+						<table class="card-controls">
+							<tr>
+								<td class="item-card-controls values-expand">Expand</td>
+								<td class="item-card-controls">Item</td>
+								<td class="item-card-controls">Source Item</td>
+							</tr>
+						</table>
+					</td></tr>
+				</table>
+			</td>
+			<td class="item-card-values">
+				{{#edm}}
+				<textarea id="xml" class="xml-view-source">
+				  {{data}}
+				</textarea>
+				{{/edm}}
+				<div id="xml-formatted" class="xml-view xml-view-short"></div>
+			</td>				
+		</tr>
+ 		<tr class="mapping-widget-expanded mapping-widget-mapping">
+			<td width="33%" class="normal-colored"><div class="indent">Item Instance</div></td>
+			<td width="33%"  class="normal-colored-dark values-collapse card-controls"><div class="indent">Collapse</div></td>
+			<td width="33%"  class="normal-colored">
+				<table class="card-controls">
+					<tr>
+						<td class="card-controls">Item</td>
+						<td class="card-controls">Item Source</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="3" class="mapping-widget mapping-widget-expanded mapping-widget-values">
+				{{#edm}}
+					<textarea id="xml" class="xml-view-source">
+				  		{{data}}
+					</textarea>
+				{{/edm}}
+				<div id="xml-formatted-expanded" class="xml-view xml-view-long"></div>
+			</td>
+		</tr>
+	 </table>
+</div>

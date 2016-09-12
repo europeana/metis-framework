@@ -1,0 +1,26 @@
+{{# item_type }}
+  <span data-href="{{url}} " class="highlight item-type">
+    {{# is_image }}
+    <svg class="icon icon-image">
+      <use xlink:href="#icon-image"></use>
+    </svg>
+    {{/ is_image }}
+    {{# is_audio }}
+    <svg class="icon icon-music">
+      <use xlink:href="#icon-music"></use>
+    </svg>
+    {{/ is_audio }}
+    {{# is_text }}
+    <svg class="icon icon-book">
+      <use xlink:href="#icon-book"></use>
+    </svg>
+    {{/ is_text }}
+    {{# is_video }}
+    <svg class="icon icon-tv">
+      <use xlink:href="#icon-tv"></use>
+    </svg>
+    {{/ is_video }}
+
+    {{item_type.name}}
+  </span>
+{{/ item_type }}

@@ -1,0 +1,7 @@
+<div class="field-value-cell first-line" {{#field_value_id}}id="{{.}}"{{/field_value_id}}>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css" media="all" rel="stylesheet" type="text/css">
+	<div>{{#tooltip}}{{>atoms/text/tooltip}}{{/tooltip}}</div> 
+	<div class="second-line">{{value_number}}</div>
+	<div class="flag"><a class="flag-link"  data-dropdown="#{{#dropdown}}{{menu_id}}{{/dropdown}}"><i class="fa fa-flag-o"></i></a></div>
+	<div>{{#dropdown}}{{>molecules/controls/dropdown-menu}}{{/dropdown}}</div>
+</div>

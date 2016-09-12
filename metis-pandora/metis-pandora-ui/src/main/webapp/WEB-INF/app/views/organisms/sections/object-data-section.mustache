@@ -1,0 +1,35 @@
+<div class="data-section cf">
+  <h3 class="subsection-label">
+    {{ title }}
+  </h3>
+  <div class="subsection-content">
+
+    <ul class="data-group">
+      {{#sections}}
+        <li>
+          <section>
+            <h4 class="data-header">{{#title }}{{.}}:{{/title }}</h4>
+            <ul class="comma-list data-group">
+              {{# items }}
+                <li {{#is_desc}}class="split-items"{{/is_desc}}>
+                  {{#url }}<a href="{{.}}">{{/url }}{{#ga_data}}<span class="ga-data" data-ga-metric="{{.}}">{{/ga_data}}{{ text }}{{#ga_data}}</span>{{/ga_data}}{{#url }}</a>{{/url }}{{#extra_info}}
+                    {{#life}}
+                      <span class="life-dates">
+                        ({{from.short}} {{#to.short}} — {{.}}{{/to.short}})
+                      </span>
+                    {{/life}}
+                    {{#biography}}
+                      <div class="biography">
+                        {{text}}
+                      </div>
+                    {{/biography}}
+                  {{/extra_info}}
+                  </li>
+              {{/ items}}
+            </ul>
+          </section>
+        </li>
+      {{/sections}}
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+
+
+<div class="button-bar">
+
+  <div class="button-bar__item">
+    <input id="option1" class="button-toggle" name="groupname" type="radio">
+    <label for="option1" class="button-bar__button">Grid</label>
+  </div>
+
+  <div class="button-bar__item">
+    <input id="option2" class="button-toggle" name="groupname" type="radio">
+    <label for="option2" class="button-bar__button">List</label>
+  </div>
+
+  <div class="button-bar__item">
+    <input id="option3" class="button-toggle" name="groupname" type="radio" checked>
+    <label for="option3" class="button-bar__button">Other</label>
+  </div>
+
+</div>
+
+
+
+<p>Styles can be used with any semantic markup, eg a list of links:</p>
+
+<ul class="button-bar">
+   <li class="button-bar__item">
+     <a href="" class="button-bar__button">
+       One
+     </a>
+   </li>
+   <li class="button-bar__item">
+     <a href="" class="button-bar__button is-active">
+       Two
+     </a>
+   </li>
+   <li class="button-bar__item">
+     <a href="" class="button-bar__button">
+       Three
+     </a>
+   </li>
+</ul>
+
+<p>With icons:</p>
+
+<div class="button-bar button-bar-small">
+
+    <div class="button-bar__item">
+        <input id="option1" class="button-toggle" name="groupicon" type="radio">
+        <label for="option1" class="button-bar__button">
+            <svg class="icon icon-delete">
+            <use xlink:href="#icon-delete"></use>
+            </svg>Grid
+        </label>
+    </div>
+
+  <div class="button-bar__item">
+    <input id="option2" class="button-toggle" name="groupicon" type="radio">
+    <label for="option2" class="button-bar__button">
+        <svg class="icon icon-delete">
+        <use xlink:href="#icon-delete"></use>
+        </svg>List
+    </label>
+  </div>
+
+</div>

@@ -1,0 +1,11 @@
+
+<div style="position:relative">
+  <div class="ve-base-chapter-nav{{#previous_page}} has-previous{{/previous_page}}{{#next_page}} has-next{{/next_page}}">
+    {{# previous_page }}
+      <a class="ve-chapter-nav-prev" {{#url}}href="{{.}}"{{/url}}><svg class="icon icon-previous"><use xlink:href="#icon-previous"/></svg>{{#title}}{{.}}{{/title}}</a>
+    {{/ previous_page }}
+    {{# next_page }}
+      <a class="ve-chapter-nav-next" {{#url}}href="{{.}}"{{/url}}>{{#title}}{{.}}{{/title}}<svg class="icon icon-next"><use xlink:href="#icon-next"/></svg></a>
+    {{/ next_page }}
+  </div>
+</div>

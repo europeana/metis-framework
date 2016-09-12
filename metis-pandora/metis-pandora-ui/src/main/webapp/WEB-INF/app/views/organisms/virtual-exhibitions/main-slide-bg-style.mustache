@@ -1,0 +1,51 @@
+<style scoped>
+  {{#breakpoint_pixels}}
+    {{#bg}}
+      @media only screen and (min-width: {{show_small}}) and (max-width: {{show_half}}) {
+        .ve-{{id}}{
+          background-image: url({{small.url}});
+        }
+      }
+      @media only screen and (min-width: {{show_half}}) and (max-width: {{show_full}}) {
+        .ve-{{id}}{
+          background-image: url({{half.url}});
+        }
+      }
+      @media only screen and (min-width: {{show_full}}) {
+        .ve-{{id}}{
+          background-image: url({{full.url}});
+        }
+      }
+    {{/bg}}
+    {{#bg-hr}}
+
+      @media only screen and (-webkit-min-device-pixel-ratio: {{dpr}})
+                         and (min--moz-device-pixel-ratio: {{dpr}})
+                         and (-o-min-device-pixel-ratio: {{2/1}})
+                         and (min-device-pixel-ratio: {{dpr}})
+                         and (min-width: {{show_small}}) {
+        .ve-{{id}}{
+          background-image: url({{smallx2.url}})
+        }
+      }
+      @media only screen and (-webkit-min-device-pixel-ratio: {{dpr}})
+                         and (min--moz-device-pixel-ratio: {{dpr}})
+                         and (-o-min-device-pixel-ratio: {{2/1}})
+                         and (min-device-pixel-ratio: {{dpr}})
+                         and (min-width: {{show_half}}) {
+        .ve-{{id}}{
+          background-image: url({{halfx2.url}})
+        }
+      }
+      @media only screen and (-webkit-min-device-pixel-ratio: {{dpr}})
+                         and (min--moz-device-pixel-ratio: {{dpr}})
+                         and (-o-min-device-pixel-ratio: {{2/1}})
+                         and (min-device-pixel-ratio: {{dpr}})
+                         and (min-width: {{show_full}}) {
+        .ve-{{id}}{
+          background-image: url({{fullx2.url}})
+        }
+      }
+    {{/bg-hr}}
+  {{/breakpoint_pixels}}
+</style>

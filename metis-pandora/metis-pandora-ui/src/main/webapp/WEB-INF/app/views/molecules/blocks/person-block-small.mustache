@@ -1,0 +1,23 @@
+<div class="l-person block block-thumb">
+    <div class="b-inner">
+		<div class="b-thumb">
+			<a href="">
+				{{> atoms-portrait }}
+			</a>
+		</div>
+		<div class="b-text">
+			<h2 class="person-name"><a href="#">{{name.first}} {{name.last}}</a></h2>
+			<div class="jobdetails">
+				<div class="job-title">{{ excerpt.vshort }}</div>
+			</div>
+
+			{{#medium}}
+			{{> molecules-meta-email }} 
+			{{> molecules-meta-phone-work }}
+			{{/medium}}
+
+			{{> molecules-meta-twitter-link }}
+		</div>
+	</div>
+</div>
+		

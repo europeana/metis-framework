@@ -1,0 +1,75 @@
+{{!
+
+Attribution block template
+
+scss: objects/attribution.scss
+Location specific styles should be scoped to the parent container to maintain re-usability
+
+Configuration options and content model:
+# # # # # # # # # # # # # # # #
+
+{
+
+	"attribution_url" : "http://europeana.eu", **REQUIRED** // url to item on europeana
+
+	// basic config
+	"attribution_text" : "This is the attribution string", // A string that contains attribution text/html
+
+	// advanced config
+	"attribution_title": "The Milkmaid", // This is the title of the work
+	"attribution_creator": "Johannes Vermeer", // This is the creator of the work
+	"attribution_institution": "Rijksmuseum", // Contributing institution
+
+
+	// license options:	only one should be active
+	// See licenses.mustache
+	"license_CC0": true
+	"license_CC_BY": true
+	"license_CC_BY_SA": true
+	"license_CC_BY_ND": true
+	"license_CC_BY_NC": true
+	"license_CC_BY_NC_SA": true
+	"license_CC_BY_NC_ND": true
+	"license_OOC": true
+	"license_PD_NC": true
+	"license_public": true
+	"license_RR_free": true
+	"license_RR_paid": true
+	"license_RR_restricted": true
+	"license_unknown": true
+	"license_orphan": true
+}
+
+# # # # # # # # # # # # # # # #
+
+}}
+
+{{#attribution_url}}
+
+
+
+<div class="attribution" tabindex="0">
+
+	<div class="attribution-toggle" >
+		<svg class="icon icon-help">
+	        <use xlink:href="#icon-help"></use>
+	    </svg>
+	    <h2 class="is-vishidden">About this image</h2>
+	</div>
+
+	<div class="attribution-content">
+
+		{{#attribution_title}}
+		<a href="{{attribution_url}}">{{attribution_title}}, {{attribution_creator}} <span class="origin">{{attribution_institution}}</span></a>
+		{{/attribution_title}}
+
+		{{^attribution_title}}
+		<a href="{{attribution_url}}">{{attribution_text}}</a>
+		{{/attribution_title}}
+
+		{{> molecules/icons/licenses }}
+
+	</div>
+
+</div>
+{{/attribution_url}}

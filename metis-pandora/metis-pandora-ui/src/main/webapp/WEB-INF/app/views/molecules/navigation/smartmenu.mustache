@@ -1,0 +1,50 @@
+{{!
+
+Add config stuff in here
+
+}}
+
+<ul id="{{menu_id}}" class="sm cf nav-access {{style_modifier}}">
+
+{{#items}}
+		<li>
+		<a {{#url}}href="{{url}}"{{/url}}  class="{{#is_current}} is-current {{/is_current}}" {{^tabindex}} tabindex="1" {{/tabindex}}{{#tabindex}} tabindex="{{tabindex}}" {{/tabindex}}>
+
+		{{#icon}}
+		<svg class="icon icon-{{icon}}">
+			<use xlink:href="#icon-{{icon}}"></use>
+		</svg>{{/icon}}<span class="link-text">{{text}}</span>
+		</a>
+
+			{{#submenu}}
+			<ul class="menu-sublevel caret">
+
+			{{#items}}
+
+				{{#is_divider}}
+				<li class="menu-divider"></li>
+				{{/is_divider}}
+
+				{{^is_divider}}
+
+				{{#subtitle}}
+				<li class="menu-subtitle">{{text}}</li>
+				{{/subtitle}}
+
+				{{#message}}
+				<li class="menu-message">{{text}}</li>
+				{{/message}}
+
+				{{#url}}
+				<li><a href="{{url}}" class="{{#is_morelink}} menu-more {{/is_morelink}}{{#is_current}} is-current {{/is_current}}"  tabindex="1">{{text}}</a></li>
+				{{/url}}
+
+				{{/is_divider}}
+
+			{{/items}}
+			</ul>
+			{{/submenu}}
+		</li>
+{{/items}}
+
+</ul>

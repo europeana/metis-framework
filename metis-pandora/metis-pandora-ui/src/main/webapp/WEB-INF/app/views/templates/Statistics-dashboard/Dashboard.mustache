@@ -1,0 +1,172 @@
+{{> atoms/iconography/svgicons-search }}
+{{> atoms/iconography/svgicons-user }}
+
+{{{ gon }}}
+
+{{> organisms/global/header_v2}}
+
+
+<main role="main" class="l-page">
+
+<div class="page_header">
+  <div class="lc">
+
+    <div class="dashboard-title">
+      <h1 class="project-title">{{ content.stats_source }}</h1>
+      <h2 class="graph-title">{{ content.charts.main_chart.title }}</h2>
+      {{# content.charts.main_chart }}
+          {{>molecules/components/tooltip-icon}}
+      {{/ content.charts.main_chart }}
+    </div>
+
+    {{! Main line chart }}
+    {{# content.charts.main_chart }}
+    <div class="big-graph">
+      {{> molecules/charts/pykchart }}
+    </div>
+    {{/ content.charts.main_chart }}
+
+  </div>
+</div>
+
+
+{{# content.stats_bar }}
+{{> organisms/sections/stats-bar }}
+{{/ content.stats_bar }}
+
+
+<div class="lc">
+  <div class="l-content">
+    <div class="maincontent">
+
+{{# content.numberedlist }}
+    <div class="section top25">
+
+      <div class="section-header cf">
+        <h3 class="section-title">{{ title }}
+        {{# description }}{{>molecules/components/tooltip-icon}}{{/ description }}
+        </h3>
+
+
+        <div class="results-filter">
+
+          <span class="madlib h4">Show results for</span>
+
+          <span class="madlib">
+            <select id="filter-month-select" class="js-filter_top_digital_objects">
+              <option value="">Full year</option>
+              <option value="" disabled="disabled">- - - - - - - -</option>
+              <option value="January">January</option>
+              <option value="February">February</option>
+              <option value="March">March</option>
+              <option value="April">April</option>
+              <option value="May">May</option>
+              <option value="June">June</option>
+              <option value="July">July</option>
+              <option value="August">August</option>
+              <option value="September">September</option>
+              <option value="October">October</option>
+              <option value="November">November</option>
+              <option value="December">December</option>
+            </select>
+          </span>
+
+          <span class="madlib h4">of</span>
+
+          <span class="madlib">
+            <select id="filter-year-select" class="js-filter_top_digital_objects">
+              <option value="2014">2014</option>
+              <option value="2015" selected="">2015</option>
+              <option value="2016">2016</option>
+            </select>
+          </span>
+        </div>
+      </div>
+
+      <ol class="results-list numbered numberstyle1 cf is-shortened js-showmore-panel">
+        {{#items}}
+        <li>{{> molecules/blocks/listitem-simple }}</li>
+        {{/items}}
+      </ol>
+
+      {{=<% %>=}}
+      <script id="top25-template" type="text/x-handlebars-template">
+        {{#each this}}
+        <li>
+          <div class="listitem media">
+            <img class="listitem-image media-figure" src="{{ image_root }}{{ image }}" alt="{{ title }}">
+            <div class="media-body">
+
+              {{#if url}}
+              <h3><a href="{{ url }}" target="_blank" class="external">{{ title }}</a></h3>
+              {{else}}
+              <h3>{{ title }}</h3>
+              {{/if}}
+
+              <div class="listitem-text">
+                {{ description }}
+              </div>
+
+              {{#if extra }}
+              <div class="listitem-extra">
+                {{ extra }}
+              </div>
+              {{/if}}
+            </div>
+          </div>
+        </li>
+        {{/each}}
+      </script>
+      <%={{ }}=%>
+
+      <a class="show-all h4 js-showmore" href="#" data-text-swap="▲ Show less">
+        ▼ Show all
+      </a>
+
+    </div>
+{{/ content.numberedlist }}
+
+
+{{# content.charts.topcountries }}
+    <div class="section chart-map">
+      {{> molecules/charts/pykchart }}
+    </div>
+{{/ content.charts.topcountries }}
+
+    </div>
+  </div>
+  {{! END l-content }}
+
+
+  <div class="l-sidebar sidebar cf">
+
+  {{# content.charts.total_items }}
+    {{> molecules/charts/pykchart }}
+  {{/ content.charts.total_items }}
+
+  {{# content.charts.open_for_reuse }}
+    {{> molecules/charts/pykchart }}
+  {{/ content.charts.open_for_reuse }}
+
+  {{# content.total_countries }}
+  {{> molecules/charts/display-number }}
+  {{/ content.total_countries }}
+
+  {{# content.total_providers }}
+  {{> molecules/charts/display-number }}
+  {{/ content.total_providers }}
+
+  {{# content.data_providers }}
+  {{> molecules/charts/display-number }}
+  {{/ content.data_providers }}
+
+  </div>
+  {{! end sidebar }}
+
+</div>
+</main>
+<!-- End Main -->
+
+
+{{> organisms/global/footer }}
+

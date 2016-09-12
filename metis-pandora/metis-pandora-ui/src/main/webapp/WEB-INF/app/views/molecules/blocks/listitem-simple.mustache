@@ -1,0 +1,22 @@
+<div class="listitem media">
+  <img class="listitem-image media-figure" src="{{ image_root }}{{ image }}" alt="{{ title }}">
+  <div class="media-body">
+
+  	{{# url }}
+  	<h3><a href="{{ url }}" target="_blank" class="external">{{ title }}</a></h3>
+  	{{/ url }}
+    {{^ url }}
+    <h3>{{ title }}</h3>
+    {{/ url }}
+
+  	<div class="listitem-text">
+  		{{ description }}
+  	</div>
+
+  	{{# extra }}
+  	<div class="listitem-extra">
+  		{{ . }}
+  	</div>
+  	{{/extra}}
+  </div>
+</div>

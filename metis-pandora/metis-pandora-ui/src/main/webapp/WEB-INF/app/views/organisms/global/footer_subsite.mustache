@@ -1,0 +1,69 @@
+{{# debug }}
+{{! Debug template }}
+    {{> atoms/utility/debug }}
+{{/ debug }}
+
+<!-- Start Footer -->
+<footer class="footer" role="contentinfo">
+    <div class="lc">
+        <div class="grid">
+
+            <div class="l-contact">
+                <h4 class="title">Empowered by:</h4>
+                <div class="footer_logo">
+                    <a href="http://europeana.eu"><img src="{{image_root}}europeana-logo-symbol.png" alt="Europeana - think culture" /></a>
+                </div>
+
+            </div>
+
+            <div class="l-content">
+
+                <div class="l-sitemap cf grid">
+                {{# navigation.footer.linklist1 }}{{> molecules/navigation/linklist-with-title }}{{/ navigation.footer.linklist1 }}
+                {{# navigation.footer.linklist2 }}{{> molecules/navigation/linklist-with-title }}{{/ navigation.footer.linklist2 }}
+                </div>
+
+            </div>
+
+            <div class="l-nextsteps">
+                {{# page_config.newsletter }}
+                <div class="signup">
+                    {{> molecules/forms/newsletter }}
+                </div>
+                {{/ page_config.newsletter }}
+
+                {{# navigation.footer.social }}
+                {{> molecules/navigation/social-links }}
+                {{/ navigation.footer.social }}
+            </div>
+        </div>
+    </div>
+    {{# navigation.footer.sponsorlist }}
+    <div class="lc">
+        <h4 class="title">{{ title }}</h4>
+        <div class="l-supportedby">
+        {{#items}}
+            <div class="gi">
+                <a href="{{url}}">
+                    <img src="{{image_root}}{{img.src}}" alt="{{img.alt}}" />
+                </a>
+            </div>
+        {{/items}}
+        </div>
+    </div>
+    {{/ navigation.footer.sponsorlist }}
+
+
+    <div class="sub-footer lc">
+        {{# navigation.footer.subfooter }}
+        <ul class="nav">
+            {{#items}}<li><a href="{{url}}">{{text}}</a></li>{{/items}}
+        </ul>
+        {{/ navigation.footer.subfooter }}
+
+        <p class="copyright">Co-financed by the European Union.</p>
+    </div>
+
+
+</footer>
+<!-- End Footer -->

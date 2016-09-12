@@ -1,0 +1,101 @@
+{{> atoms/iconography/svgicons-user }}
+
+
+{{> organisms/global/header_v2}}
+
+
+
+<main role="main" class="l-page no-sidebar">
+<div class="lc">
+
+  <section class="page_intro">
+    <h1>Be part of the Heritage in Motion competition NOW!</h1>
+    <p>Create an account, Submit your work, Compete and connect with other culture challengers</p>
+  </section>
+
+  <section class="login-register section">
+    <div class="inner">
+
+      <form class="form-login" action="login url">
+        <p>See, edit or complete your submission</p>
+        <h2>Log in here</h2>
+
+        <div class="input-wrapper-icon icon-user">
+          <input id="username" type="text" placeholder="Username" />
+        </div>
+
+        <div class="input-wrapper-icon icon-password">
+          <input id="password" type="password" placeholder="Password" />
+        </div>
+
+        <div class="form-controls cf">
+
+          <div class="l-keepmeloggedin">
+            <input type="checkbox" id="keepmeloggedin" checked class="left">
+            <label for="keepmeloggedin">Keep me logged in</label>
+          </div>
+
+          <div class="l-submitcol">
+            <button type="submit" class="btn btn-light pill">Log In &raquo;</button>
+          </div>
+        </div>
+
+        <a href="TODO: forgot password url here" class="form-forgotpass">Forgot your password?</a>
+
+      </form>
+
+      <form class="form-register" action="register url">
+        <p>Don't have an account?</p>
+        <h2>Register now</h2>
+
+        <div class="input-wrapper-icon icon-user">
+          <input id="username" type="text" placeholder="Username" />
+        </div>
+
+        <div class="input-wrapper-icon icon-password">
+          <input id="password" type="password" placeholder="Password" />
+        </div>
+
+        <div class="input-wrapper-icon icon-password">
+          <input id="password_confirm" type="password" placeholder="Confirm Password" />
+        </div>
+
+        <div class="form-controls cf">
+
+          <div class="l-submitcol">
+            <button type="submit" class="btn btn-light pill">Register &raquo;</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </section>
+
+
+  <div class="social-login lc">
+      <h4>Log in using:</h4>
+
+      <form name="login_oauth" method="post" action="/authentication/login">
+
+      <button type="submit" id="login_oauth_google" name="login_oauth[google]" class="icon-social members-oauth-provider google">
+      <svg class="icon icon-googleplus">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-googleplus"></use>
+      </svg>
+      </button>
+      <button type="submit" id="login_oauth_linkedin" name="login_oauth[linkedin]" class="icon-social members-oauth-provider linkedin">
+      <svg class="icon icon-linkedin">
+        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-linkedin"></use>
+      </svg>
+      </button>
+
+      <input type="hidden" id="login_oauth__token" name="login_oauth[_token]" value="TJWMo-_MwvjLECUFdt7qJrEYQU60DrXJar9uwF4iunI">
+
+      </form>
+    </div>
+
+  </div>
+  </main>
+  <!-- End Main -->
+
+
+  {{> organisms/global/footer_subsite }}

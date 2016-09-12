@@ -1,0 +1,94 @@
+<article class="search-list-item cf {{^ img.src }}missing-image{{/ img.src }}">
+
+  <div class="item-preview">
+    <div class="item-image">
+        <div class="thumb-square{{^ img.src }} text-only{{/ img.src }}">
+          <div class="inner">
+            <a class="link"
+               target="{{target}}"
+               href="{{object_url}}">
+               {{# img.src }}
+                 <img src="{{img.src}}"/>
+               {{/ img.src }}
+               {{^ img.src }}
+                 <span class="show-with-grid missing-image-text">
+                   {{ title }} {{#year.long}}<span class="date">({{ year.long }})</span>{{/year.long}}{{#agent}} | {{ agent }}{{/agent}}
+                   {{text.medium}}
+                 </span>
+               {{/ img.src }}
+            </a>
+          </div>
+        </div>
+    </div>
+  </div>
+
+
+  {{^ img.src }}
+  <div class="item-info show-with-grid">
+    {{>molecules/components/search/_search-listitem-icon}}
+  </div>
+  {{/ img.src }}
+
+
+  <div class="item-info {{^ img.src }}hide-with-grid{{/ img.src }}">
+
+    <h2><a href="{{object_url}}"{{#link_attrs}} {{name}}="{{value}}"{{/link_attrs}}>{{ title }} {{#year.long}}<span class="date">({{ year.long }})</span>{{/year.long}}{{#agent}} | {{ agent }}{{/agent}}</a>&nbsp;&nbsp;</h2>
+
+    {{#text}}
+    <p class="excerpt">
+       {{text.medium}}
+    </p>
+    {{/text}}
+
+    {{#concepts}}
+    <ul class="item-concepts comma-list">
+      {{#items}}
+      <li>{{text}}</li>
+      {{/items}}
+    </ul>
+    {{/concepts}}
+
+    {{#origin}}
+      {{#url}}
+      <div class="item-origin">
+      <a href="{{origin.url}}" class="external" target="_blank">{{ i18n.site.results.list.view-at-provider }} {{origin.text}}</a>
+      </div>
+      {{/url}}
+    {{/origin}}
+
+    <footer>
+      <div class="item-metadata">
+
+        {{>molecules/components/search/_search-listitem-icon}}
+
+        {{# channels.disabled }}
+          <span class="item-themes">
+            {{i18n.site.results.list.in-channel}}:
+            {{# items }}
+            <a href="{{url}}" class="highlight">{{text}}</a>,
+            {{/ items }}
+          </span>
+        {{/ channels.disabled }}
+      </div>
+
+      {{# menus.actions_disabled }}
+      <div class="item-actions">
+
+        <a href="path/to/save" class="action-save">
+          <svg class="icon icon-star">
+            <use xlink:href="#icon-star"></use>
+          </svg>{{i18n.site.results.actions.product-save}}
+        </a>
+
+        <div class="action-select">
+          <input type="checkbox" name="selected[]" id="itemx">
+        </div>
+      </div>
+      {{/ menus.actions_disabled }}
+
+    </footer>
+  </div>
+  <div class="item-agent-data show-with-grid">
+      <div class="item-agent">{{#agent}}{{.}}{{/agent}}{{^agent}}<br/>{{/agent}}</div>
+  </div>
+</article>

@@ -32,6 +32,8 @@
         <module>metis-pandora-service</module>
         <module>metis-pandora-rest</module>
         <module>metis-pandora-client</module>
+        <module>metis-pandora-utils</module>
+        <module>metis-pandora-ui</module>
     </modules>
     <packaging>pom</packaging>
     <build>

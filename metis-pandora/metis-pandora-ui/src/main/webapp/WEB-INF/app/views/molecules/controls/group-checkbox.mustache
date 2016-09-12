@@ -1,0 +1,44 @@
+{{!
+
+CHECKBOX GROUP COMPONENT
+
+Form control - A group of checkboxes - allows the user to select multiple confguration options.
+
+
+If injected data isn't present, the default is displayed and false is assumed.
+(There's no need to output data like: "select_one" : false or "is_disabled": false )
+
+
+Configuration options and content model:
+# # # # # # # # # # # # # # # #
+
+{
+    "title":"My Checkbox list title",   // Title of the group of check boxes eg. Language
+    "is_required": false                // required status state of the checkbox group
+    "name": "checkboxes[]"         		// name value for the checkbox group
+
+    "items": [    // Array of checkable items - one item will produce one checkbox
+        {
+            "text": "My option name",               // The name of the option eg. Rembrandt
+            "value": "Myoptionname",               	// The value of the option eg. rembrandt
+            "item_id": "option1",                   // ***** MUST BE UNIQUE ****** The value of the option eg. rembrandt
+            "is_checked": true,                     // checked/selected state of the checkbox
+            "is_disabled": true                     // enabled/disabled state of the checkbox
+
+        },
+    ]
+}
+]
+
+# # # # # # # # # # # # # # # #
+
+}}
+
+<fieldset class="control-group">
+  {{# title }}<legend class="title">{{ title }} {{#is_required}}<abbr title="Required">*</abbr>{{/is_required}}</legend>{{/ title }}
+  <ul class="group-checkbox">
+    {{#items}}
+      <li class="group-item"><label for="{{item_id}}"><input id="{{item_id}}" name="{{name}}" type="checkbox" value="{{value}}" {{#is_checked}} checked {{/is_checked}} {{#is_disabled}} checked {{/is_disabled}} autocomplete="off"> {{text}}</label></li>
+    {{/items}}
+  </ul>
+</fieldset>

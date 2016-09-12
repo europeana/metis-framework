@@ -1,0 +1,130 @@
+{{# navigation.global }}
+
+<div class="header-wrapper">
+
+{{> molecules/blocks/block-cookie-disclaimer }}
+
+<header class="header">
+
+  {{^options.oursites_hidden}}
+  <div class="menu-top">
+    {{> molecules/navigation/global-topdrawer }}
+  </div>
+  {{/options.oursites_hidden}}
+
+  <!-- Off canvas search bar -->
+  {{#options.search_active}}
+  {{> molecules/forms/global-search }}
+  {{/options.search_active}}
+
+  <!-- wrapper for navigation bar -->
+  <div class="cf">
+
+    {{# version.is_alpha }}
+      <a href="#banner" class="phase-flag alpha">BETA</a>
+    {{/ version.is_alpha }}
+    {{# version.is_beta }}
+      <a href="#banner" class="phase-flag beta">BETA</a>
+    {{/ version.is_beta }}
+
+    {{> atoms/images/logo }}
+
+    <!-- Primary navigation -->
+
+    {{# primary_nav }}
+      <nav role="navigation" class="nav_primary">
+        {{> molecules/navigation/smartmenu }}
+      </nav>
+    {{/ primary_nav }}
+
+
+    <div class="nav-global">
+      {{^options.oursites_hidden}}
+      <a href="#" class="nav-toggle nav-toggle-sites" aria-controls="oursites" aria-expanded="false" aria-haspopup="true" aria-label="open Our Sites panel" aria-owns="oursites"  tabindex="2">
+        <span class="link-text">{{i18n.global.our-sites}}</span>
+      </a>
+      {{/options.oursites_hidden}}
+
+      {{#options.search_active}}
+      <a href="#search" class="nav-toggle nav-toggle-search" aria-controls="searcharea" aria-expanded="false" aria-haspopup="true" aria-label="open search panel" aria-owns="searcharea"  tabindex="4">
+        <svg class="icon icon-search">
+          <use xlink:href="#icon-search"></use>
+        </svg>
+        <span class="is-vishidden">Search</span>
+      </a>
+      {{/options.search_active}}
+
+      {{#options.settings_active}}
+        <div class="nav-toggle nav-toggle-settings nav-utility">
+          {{#utility_nav}}
+          {{> molecules/navigation/smartmenu }}
+          {{/utility_nav}}
+        </div>
+      {{/options.settings_active}}
+
+      <a href="#" class="nav-toggle nav-toggle-menu" tabindex="1">
+        <svg class="icon icon-menu">
+          <use xlink:href="#icon-menu"></use>
+        </svg>
+        <span>Menu</span>
+      </a>
+    </div>
+  </div>
+</header>
+</div>
+
+
+
+<!-- Collapsed drawer menu -->
+<nav class="drawer menu-right nav_primary">
+
+{{#options.search_active}}
+  <div class="search">
+    {{> molecules/forms/search }}
+  </div>
+{{/options.search_active}}
+
+  <ul class="js-hack-smartmenu sm nav-access {{style_modifier}}">
+    {{#options.settings_active}}
+      {{#utility_nav}}
+      {{#items}}
+      {{^subtitle}}
+        <li><a href="{{#url}}{{.}}{{/url}}{{^url}}#{{/url}}" {{#is_current}}class="current"{{/is_current}}>{{text}}</a>
+        {{#submenu}}
+          <ul class="sub-menu">
+            {{#items}}
+            {{^subtitle}}
+              <li><a href="{{#url}}{{.}}{{/url}}{{^url}}#{{/url}}" {{#is_current}}class="current"{{/is_current}}>{{text}}</a></li>
+            {{/subtitle}}
+            {{/items}}
+          </ul>
+        {{/submenu}}
+        </li>
+      {{/subtitle}}
+      {{/items}}
+      {{/utility_nav}}
+    {{/options.settings_active}}
+
+    {{#primary_nav}}
+      {{#items}}
+      {{^subtitle}}
+        <li><a href="{{#url}}{{.}}{{/url}}{{^url}}#{{/url}}" {{#is_current}}class="current"{{/is_current}}>{{text}}</a>
+        {{#submenu}}
+          <ul class="sub-menu">
+          {{#items}}
+          {{^subtitle}}
+            <li><a href="{{#url}}{{.}}{{/url}}{{^url}}#{{/url}}" {{#is_current}}class="current"{{/is_current}}>{{text}}</a></li>
+          {{/subtitle}}
+          {{/items}}
+          </ul>
+        {{/submenu}}
+        </li>
+      {{/subtitle}}
+      {{/items}}
+    {{/primary_nav}}
+
+  </ul>
+
+</nav>
+
+{{/ navigation.global }}

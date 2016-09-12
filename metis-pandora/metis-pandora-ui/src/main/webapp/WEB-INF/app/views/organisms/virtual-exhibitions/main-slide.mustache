@@ -1,0 +1,181 @@
+{{#is_section}}
+  </section>
+  <noscript>
+    <a class="ve-anchor no-js" id="ve-anchor-{{id}}"></a>
+  </noscript>
+  <section class="ve-slide {{#is_first}}first{{/is_first}}">
+    <a class="ve-anchor" id="ve-anchor-{{id}}-js"></a>
+{{/is_section}}
+
+{{^is_section}}
+
+  {{#is_intro}}
+    {{> organisms/virtual-exhibitions/intro-slide}}
+  {{/is_intro}}
+
+  {{#is_promo}}
+    <div class="nav-to-full">
+      <a href="{{link}}">
+        {{#image}}
+          <img src="{{full.url}}"/>
+        {{/image}}
+      </a>
+      <span>{{text1}}{{#text2}}<br/>{{.}}{{/text2}}</span>
+      <a href="{{link}}">
+        <button>
+          <svg class="icon icon-eye">
+            <use xlink:href="#icon-eye"/>
+          </svg>
+          {{button_text}}
+        </button>
+      </a>
+    </div>
+  {{/is_promo}}
+
+  {{#is_quote}}
+    <div id="{{id}}" class="ve-base ve-base-quote {{type}} {{#is_full_section_element}}ve-full-height{{/is_full_section_element}}"{{#alchemy_id}} data-alchemy-element="{{.}}"{{/alchemy_id}}>
+      {{#is_full_section_element}}
+        <div class="centered-v-text">
+          <div class="centered-text">
+      {{/is_full_section_element}}
+
+      {{>atoms/text/quote}}
+
+      {{#is_full_section_element}}
+          </div>
+        </div>
+      {{/is_full_section_element}}
+    </div>
+  {{/is_quote}}
+
+  {{#is_text}}
+    <div id="{{id}}" class="ve-base ve-base-text {{type}}"{{#alchemy_id}} data-alchemy-element="{{.}}"{{/alchemy_id}}>
+      {{{body}}}
+    </div>
+  {{/is_text}}
+
+  {{#is_embed}}
+    <div id="{{id}}" class="ve-base ve-base-embed {{type}}"{{#alchemy_id}} data-alchemy-element="{{.}}"{{/alchemy_id}}>
+      {{{html}}}
+    </div>
+  {{/is_embed}}
+
+  {{#is_image}}
+    <div id="{{id}}" class="ve-base ve-base-image {{type}}{{#is_portrait}} portrait{{/is_portrait}}{{#is_landscape}} landscape{{/is_landscape}}"{{#alchemy_id}} data-alchemy-element="{{.}}"{{/alchemy_id}}>
+     <a id="ve-element-anchor-{{id}}" class="ve-element-anchor"></a>
+     <figure>
+       {{#image}}
+         <picture data-hi-res="{{#full}}{{url}}{{/full}}">
+          {{>atoms/images/responsive-srcset-picture}}
+         </picture>
+       {{/image}}
+       {{#image_credit}}
+         {{#caption}}
+            <figcaption>{{{.}}}</figcaption>
+         {{/caption}}
+       {{/image_credit}}
+     </figure>
+    </div>
+  {{/is_image}}
+
+  {{#is_image_compare}}
+    <div id="{{id}}" class="ve-base ve-base-compare">
+      {{> molecules/media/image-compare}}
+    </div>
+  {{/is_image_compare}}
+
+  {{#is_rich_image}}
+    <div id="{{id}}" class="ve-base ve-base-title-image-text cf {{type}}"{{#alchemy_id}} data-alchemy-element="{{.}}"{{/alchemy_id}}{{#background_colour}} style="background-color:{{.}}"{{/background_colour}} {{^background_colour}}style="background-color:#ddebee"{{/background_colour}}>
+
+      <div class="ve-title-group">
+        {{#title}}
+          <span class="ve-title">
+            {{.}}
+          </span>
+        {{/title}}
+        {{#subtitle}}
+          <span class="ve-subtitle">
+            {{{.}}}
+          </span>
+        {{/subtitle}}
+      </div>
+
+      <div class="ve-col-50-left">
+        <div class="inner">
+        {{#is_align_image_left}}
+          {{#image}}
+            <div class="ve-image">
+              <a id="ve-element-anchor-{{id}}" class="ve-element-anchor"></a>
+              <figure>
+                {{#image}}
+                  <img src="{{#thumbnail}}{{url}}{{/thumbnail}}" data-hi-res="{{#full}}{{url}}{{/full}}" {{#image_credit}}{{#stripped_caption}}alt="{{.}}"{{/stripped_caption}}{{/image_credit}}>
+                {{/image}}
+                {{#image_credit}}
+                  {{#caption}}
+                    <figcaption>{{{.}}}</figcaption>
+                  {{/caption}}
+                {{/image_credit}}
+              </figure>
+            </div>
+          {{/image}}
+        {{/is_align_image_left}}
+
+        {{#is_align_image_right}}
+           {{#body}}
+             <div class="ve-rich-image-text">
+               {{{.}}}
+             </div>
+           {{/body}}
+           {{#quote}}
+             <div id="{{id}}" class="ve-base-quote {{type}}">
+               {{>atoms/text/quote}}
+             </div>
+          {{/quote}}
+        {{/is_align_image_right}}
+        </div>
+      </div>
+
+      <div class="ve-col-50-right">
+        <div class="inner">
+          {{#is_align_image_left}}
+            {{#body}}
+              <div class="ve-rich-image-text">
+                {{{.}}}
+              </div>
+            {{/body}}
+            {{#quote}}
+              <div id="{{id}}" class="ve-base-quote {{type}}">
+                {{>atoms/text/quote}}
+              </div>
+            {{/quote}}
+          {{/is_align_image_left}}
+
+          {{#is_align_image_right}}
+            {{#image}}
+              <div class="ve-image">
+                <a id="ve-element-anchor-{{id}}" class="ve-element-anchor"></a>
+                <figure>
+                  {{#image}}
+                    <img src="{{#thumbnail}}{{url}}{{/thumbnail}}" data-hi-res="{{#full}}{{url}}{{/full}}" {{#image_credit}}{{#stripped_caption}}alt="{{.}}"{{/stripped_caption}}{{/image_credit}}>
+                  {{/image}}
+                  {{#image_credit}}
+                    {{#caption}}
+                      <figcaption>{{{.}}}</figcaption>
+                    {{/caption}}
+                  {{/image_credit}}
+                </figure>
+              </div>
+            {{/image}}
+          {{/is_align_image_right}}
+        </div>
+      </div>
+    </div>
+  {{/is_rich_image}}
+
+  {{^is_last}}
+    <span class="slide-nav slide-nav-next"><a class="ve-anchor-link" href="#ve-anchor-{{id}}"><svg class="icon icon-down"><use xlink:href="#icon-down"></use></svg></a></span>
+    <noscript>
+      <a class="ve-anchor no-js" id="ve-anchor-{{id}}"></a>
+    </noscript>
+  {{/is_last}}
+{{/is_section}}

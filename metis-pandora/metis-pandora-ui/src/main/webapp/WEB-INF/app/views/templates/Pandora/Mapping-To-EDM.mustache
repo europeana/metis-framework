@@ -1,0 +1,33 @@
+{{>atoms/meta/_head}}
+<div class="container-large">
+	{{> organisms/global/header}}
+    <ul class="breadcrumbs">
+	{{#breadcrumbs}}
+       	<li><a href="{{url}}">{{text}}</a></li>
+    {{/breadcrumbs}}
+    </ul>
+</div>
+<div class="container-large action_menu">
+    {{#action_menu}}
+      {{#sections}}
+      <div class="container-menu">
+		{{#menu}}
+			{{>molecules/controls/dropdown-menu}}
+		{{/menu}}
+      </div>
+      {{/sections}}
+      {{#search_box}}
+		<div class="container-search-box">
+			{{>molecules/forms/search}}
+		</div>
+      {{/search_box}}
+    {{/action_menu}}
+</div>
+
+<div class="menu_dropdown theme_select container_menu">
+	{{! molecules/controls/dropdown-menu}}
+</div>
+<div>
+	{{>organisms/pandora/mapping-card}}
+</div>
+{{>atoms/meta/_foot}}

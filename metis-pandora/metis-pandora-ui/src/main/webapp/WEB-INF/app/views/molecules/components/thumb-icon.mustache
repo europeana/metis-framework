@@ -1,0 +1,17 @@
+{{#thumbnail}}<img src="{{.}}"/>{{/thumbnail}}{{#playable}}<span title="  {{i18n.site.object.actions.open-media}}"
+            {{#is_audio}}  class="media-clickable-indicator audio"  {{/is_audio}}
+            {{#is_iiif}}   class="media-clickable-indicator iiif"   {{/is_iiif}}
+            {{#is_image}}  class="media-clickable-indicator image"  {{/is_image}}
+            {{#is_pdf}}    class="media-clickable-indicator pdf"    {{/is_pdf}}
+            {{#is_oembed}} class="media-clickable-indicator oembed" {{/is_oembed}}
+            {{#is_text}}   class="media-clickable-indicator text"   {{/is_text}}
+            {{#is_video}}  class="media-clickable-indicator video"  {{/is_video}}
+             >
+            {{#is_audio}} <svg class="icon icon-play"><use xlink:href="#icon-play"></use></svg>  {{/is_audio}}
+            {{#is_iiif}}  <svg class="icon icon-zoomin"><use xlink:href="#icon-zoomin"></use></svg>  {{/is_iiif}}
+            {{#is_image}} <svg class="icon icon-zoomin"><use xlink:href="#icon-zoomin"></use></svg>  {{/is_image}}
+            {{#is_pdf}}   <svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>  {{/is_pdf}}
+            {{#is_oembed}}<svg class="icon icon-play"><use xlink:href="#icon-play"></use></svg>  {{/is_oembed}}
+            {{#is_text}}  <svg class="icon icon-eye"><use xlink:href="#icon-eye"></use></svg>  {{/is_text}}
+            {{#is_video}} <svg class="icon icon-play"><use xlink:href="#icon-play"></use></svg>  {{/is_video}}
+             </span>{{/playable}}

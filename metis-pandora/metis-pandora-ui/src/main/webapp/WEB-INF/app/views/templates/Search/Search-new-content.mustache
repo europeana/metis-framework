@@ -1,0 +1,36 @@
+{{> atoms/iconography/svgicons-search }}
+
+{{> organisms/global/header_v2}}
+
+<div role="main">
+  {{>molecules/search/browse-breadcrumb.mustache}}
+
+<section class="static-header">
+  <div class="lc">
+    <h1 class="title">{{ content.title }}</h1>
+    <p>{{ content.description }}</p>
+  </div>
+</section>
+
+<section class="static-content section">
+<div class="lc">
+
+  {{#content.recent}}
+    <div class="table-links">
+      {{> molecules/navigation/linklist-table }}
+    </div>
+  {{/content.recent}}
+
+
+  <div class="prose">
+    {{{ content.text }}}
+  </div>
+
+
+</div>
+</section>
+
+</div>
+{{> organisms/sections/banner }}
+{{> organisms/global/footer_v2 }}
+{{> molecules/forms/feedback }}

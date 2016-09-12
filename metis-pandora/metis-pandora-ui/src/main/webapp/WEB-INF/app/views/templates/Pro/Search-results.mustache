@@ -1,0 +1,87 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+<div class="lc">
+	<!-- Start grid -->
+	<div class="grid-main">
+
+		<div class="l-content">
+
+			<div class="l-breadcrumbs">
+				{{> molecules/navigation/breadcrumbs}}
+				{{> molecules-sortby }}
+			</div>
+
+			<div class="l-filter filters">
+				<form action="#">
+				    <fieldset>
+				    <h4 class="title">Include:</h4>
+				        <ul class="nav">
+				            <li><label for="checkbox1">Pages <input id="checkbox1" name="checkbox" type="checkbox" checked="checked"></label></li>
+				            <li><label for="checkbox2">Documents <input id="checkbox2" name="checkbox" type="checkbox" checked="checked"></label></li>
+				            <li><label for="checkbox3">Blog Posts <input id="checkbox3" name="checkbox" type="checkbox" checked="checked"></label></li>
+				            <li><label for="checkbox4">Events <input id="checkbox4" name="checkbox" type="checkbox" checked="checked"></label></li>
+				        </ul>
+				    </fieldset>
+				</form>
+
+				{{# searchmistake }}
+					<div class="searchterms">
+						Did you mean "EDM documentation"? 
+						<div class="resultsnum">Showing <strong>75</strong> results for <strong>"EDM documentation"</strong></div>
+					</div>
+				{{/ searchmistake }}
+			</div>
+
+		<div id="maincontent" class="maincontent">
+
+			<div class="results">
+				<ul class="results-list">
+					
+						{{> molecules-pro-listitem(blog:true) }} 
+
+						{{> molecules-pro-listitem(event:true) }} 
+
+						{{> molecules-pro-listitem(publication:true) }} 
+
+						{{> molecules-pro-listitem(job:true) }} 
+
+						{{> molecules-pro-listitem(blog:true) }} 
+
+						{{> molecules-pro-listitem(blog:true) }} 
+
+						{{> molecules-pro-listitem(project:true) }} 
+
+						{{> molecules-pro-listitem(taskforce:true) }} 
+					
+				</ul>
+
+				{{> molecules-pagination }} 
+
+			</div>
+
+		</div>
+		</div><!--
+
+	 --><div class="l-sidebar">
+	 		<div class="inner">
+
+				
+				
+			</div>
+
+		</div>
+	</div>
+	<!-- End grid -->
+</div>
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+
