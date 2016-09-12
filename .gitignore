@@ -67,3 +67,7 @@
 /metis-core/metis-framework-common/target/
 /metis-identifiers/metis-identifier-common/target/
 /metis-core/metis-framework-rest-client/target/
+/.DS_Store
+/.project
+/.settings/
+/.gitignore
