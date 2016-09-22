@@ -31,7 +31,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = IsUriFunction.class, name = "isUriFunction"),
         @JsonSubTypes.Type(value = IsUrlFunction.class, name = "isUrlFunction"),
-        @JsonSubTypes.Type(value = IsEnumerationFunction.class, name = "isEnumerationFunction")
+        @JsonSubTypes.Type(value = IsEnumerationFunction.class, name = "isEnumerationFunction"),
+        @JsonSubTypes.Type(value = IsLanguageFunction.class,name = "isLanguageFunction"),
+        @JsonSubTypes.Type(value = IsDateTypeFunction.class,name = "isDateTypeFunction"),
+        @JsonSubTypes.Type(value = IsFloatFunction.class,name = "isFloatFunction"),
+        @JsonSubTypes.Type(value = IsBooleanFunction.class,name = "isBooleanFunction")
         })
 public interface ValidationFunction {
 

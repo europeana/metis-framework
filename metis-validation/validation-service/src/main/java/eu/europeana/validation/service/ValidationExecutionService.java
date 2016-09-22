@@ -17,6 +17,7 @@
 package eu.europeana.validation.service;
 
 
+import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,12 +45,22 @@ public class ValidationExecutionService {
      * @throws ExecutionException
      */
     public ValidationResult singleValidation(final String schema,final String version, final String document) throws InterruptedException,ExecutionException{
-            return submit(new Validator(schema, document, version, service,Configuration.getInstance().getResolver())).get();
+        try {
+            return submit(new Validator(schema, document, version, service, Configuration.getInstance().getResolver())).get();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     private Future<ValidationResult> submit(Validator validator) throws InterruptedException {
-        cs.submit(validator);
-        return cs.take();
+        try {
+            cs.submit(validator);
+            return cs.take();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -60,10 +71,10 @@ public class ValidationExecutionService {
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    public ValidationResultList batchValidation(final String schema, final String version, List<String> documents) throws InterruptedException,ExecutionException{
+    public ValidationResultList batchValidation(final String schema, final String version, List<Record> documents) throws InterruptedException,ExecutionException{
         List<ValidationResult> results = new ArrayList<>();
-        for(final String document : documents) {
-           cs.submit(new Validator(schema,document, version, service,Configuration.getInstance().getResolver()));
+        for(final Record document : documents) {
+           cs.submit(new Validator(schema,document.getRecord(), version, service,Configuration.getInstance().getResolver()));
         }
         for(int i=0;i<documents.size();i++) {
             Future<ValidationResult> future = cs.take();

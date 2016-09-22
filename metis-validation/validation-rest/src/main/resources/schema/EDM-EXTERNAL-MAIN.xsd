@@ -35,7 +35,7 @@
 	<complexType name="RDF">
 		<annotation>
 			<documentation> The RDF root element declaration </documentation>
-			<!-- Declared namespaces for schematron service -->
+			<!-- Declared namespaces for schematron validation -->
 			<appinfo>
 				<sch:title>Schematron validation</sch:title>
 				<sch:ns prefix="edm" uri="http://www.europeana.eu/schemas/edm/" />

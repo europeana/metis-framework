@@ -26,6 +26,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Properties;
 
 /**
@@ -55,8 +56,10 @@ public class RestClient {
      * @return The valid Europeana Identifier
      */
     public String generateIdentifier(String collectionId, String recordId) {
+        System.out.println(identifierEndpoint + RestEndpoints.resolve(
+                RestEndpoints.IDENTIFIER_GENERATE, collectionId, URLEncoder.encode(recordId)));
         return template.getForObject(identifierEndpoint + RestEndpoints.resolve(
-                RestEndpoints.IDENTIFIER_GENERATE, collectionId, recordId), String.class);
+                RestEndpoints.IDENTIFIER_GENERATE, collectionId, URLEncoder.encode(recordId)), String.class);
     }
 
     /**

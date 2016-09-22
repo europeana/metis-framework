@@ -512,7 +512,7 @@ public class XSDParser {
             if (namespace.length() > 0) {
                 attribute.setPrefix("@" + this.getPrefixForNamespace(namespace));
             }
-            attribute.setxPathFromRoot(xPath + attribute.getPrefix() + ":" + attribute.getName());
+            attribute.setxPathFromRoot(xPath + "/" +attribute.getPrefix() + ":" + attribute.getName());
 
             if (attributeUse.isRequired()) {
                 attribute.setMinOccurs(1);

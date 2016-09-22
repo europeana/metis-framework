@@ -36,7 +36,7 @@ public class XSLTGenerationService {
      */
     public String generateXslFromMapping(Mapping mapping){
         XSLTGenerator generator = new XSLTGenerator();
-        String xsl = generator.generate(mapping);
+        String xsl = generator.generateFromMappings(mapping);
         mapping.setXsl(xsl);
         service.updateMapping(mapping);
         return xsl;

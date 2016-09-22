@@ -21,8 +21,6 @@ import org.w3c.dom.ls.LSInput;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD loading
@@ -30,32 +28,26 @@ import java.util.Map;
  */
 public class OpenstackResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
-    private static final Logger logger =  Logger.getRootLogger();
-    private static Map<String,InputStream> cache;
+    private static final Logger logger = Logger.getRootLogger();
+
     public void setProvider(SwiftProvider provider) {
         this.provider = provider;
     }
 
     private SwiftProvider provider;
+
     @Override
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
         try {
-            if(cache==null){
-                cache= new HashMap<>();
-            }
+
             LSInput input = new ClasspathLSInput();
             InputStream stream;
-            if(!systemId.startsWith("http")) {
+            if (!systemId.startsWith("http")) {
 
-                stream = provider.getObjectApi().get(prefix+"/"+systemId).getPayload().openStream();
+                stream = provider.getObjectApi().get(prefix + "/" + systemId).getPayload().openStream();
 
-            }else {
-                if(cache.get(systemId)==null) {
-                    stream = this.getClass().getClassLoader().getResourceAsStream("xml.xsd");
-                    cache.put(systemId,stream);
-                } else {
-                    stream = cache.get(systemId);
-                }
+            } else {
+                stream = this.getClass().getClassLoader().getResourceAsStream("xml.xsd");
             }
             input.setPublicId(publicId);
             input.setSystemId(systemId);
@@ -63,11 +55,13 @@ public class OpenstackResourceResolver implements AbstractLSResourceResolver {
             input.setCharacterStream(new InputStreamReader(stream));
 
             return input;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             logger.error(e.getMessage());
-        } return null;
+        }
+        return null;
     }
+
     /**
      * @return the prefix
      */

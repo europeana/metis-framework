@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.mapping.validation;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -69,8 +70,9 @@ public class IsUriFunction implements ValidationFunction {
         this.type = type;
     }
 
-    @XmlElement
+    //@XmlElement
     @Override
+    @JsonIgnore
     public String getType() {
         return "isUriFunction";
     }

@@ -18,6 +18,7 @@ package eu.europeana.validation.rest;
 
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
@@ -37,7 +38,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.ws.rs.DefaultValue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -74,16 +74,16 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
-                             @ApiParam(value = "record") @RequestParam(value = "record") String record,
-                             @ApiParam(value="version")@RequestParam(value = "version",
-                                     defaultValue = "undefined")String version)
+                             @ApiParam @RequestBody Record record,
+                             @ApiParam(value="version")@PathVariable(value = "version")String version)
             throws ValidationException, ServerException {
         try {
             ValidationResult result = null;
-            result = validator.singleValidation(targetSchema, version, record);
+            result = validator.singleValidation(targetSchema, version, record.getRecord());
             if(result.isSuccess()) {
                 return result;
             } else {
+                logger.error(result.getMessage());
                 throw new ValidationException(result.getRecordId(),result.getMessage());
             }
         } catch (InterruptedException|ExecutionException e) {
@@ -106,7 +106,7 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
     public ValidationResultList batchValidate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
-                                  @ApiParam(value="version")@RequestParam(value = "version", defaultValue = "undefined") String version,
+                                  @ApiParam(value="version")@PathVariable(value = "version") String version,
                                   @ApiParam(value="file")@RequestParam("file") MultipartFile zipFile) throws ServerException, BatchValidationException {
 
 
@@ -118,9 +118,11 @@ public class ValidationController {
             file.extractAll(fileName);
             FileUtils.deleteQuietly(new File(fileName + ".zip"));
             File[] files = new File(fileName).listFiles();
-            List<String> xmls = new ArrayList<>();
+            List<Record> xmls = new ArrayList<>();
             for (File input : files) {
-                xmls.add(IOUtils.toString(new FileInputStream(input)));
+                Record record = new Record();
+                record.setRecord(IOUtils.toString(new FileInputStream(input)));
+                xmls.add(record);
             }
             ValidationResultList list = validator.batchValidation(targetSchema, version, xmls);
             if(list.getResultList()!=null||list.getResultList().size()==0){
@@ -149,8 +151,8 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Batch validate based on schema", response = ValidationResult.class)
     public ValidationResultList batchValidate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
-                                  @ApiParam(value="version")@PathVariable("version")@DefaultValue("undefined") String version,
-                                  @ApiParam(value="records")@RequestParam("records") List<String> documents)
+                                  @ApiParam(value="version")@PathVariable("version")String version,
+                                  @ApiParam(value="records")@RequestBody List<Record> documents)
             throws ServerException, BatchValidationException {
         try {
             ValidationResultList list = validator.batchValidation(targetSchema,version,documents);

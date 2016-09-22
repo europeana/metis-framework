@@ -48,7 +48,7 @@ import java.util.Properties;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class Enricher {
-	private static InternalEnricher enricher= new InternalEnricher();
+	private static RedisInternalEnricher enricher= new RedisInternalEnricher();
 	/**
 	 * Main enrichment method
 	 * 
@@ -67,7 +67,12 @@ public class Enricher {
 	}
 
 	public EntityWrapper getByUri(String uri){
-		return enricher.getByUri(uri);
+		try{
+			return enricher.getByUri(uri);
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public void clearCache() {
@@ -211,7 +216,7 @@ public class Enricher {
 			port = Integer.parseInt(args[1]);
 		}
 		if (!MongoDatabaseUtils.dbExists(host, port)) {
-			enricher = new InternalEnricher();
+			enricher = new RedisInternalEnricher();
 			File cacheDir = new File(path + "/tmp");
 			File baseDir = new File(path);
 			String placeFiles = "places/EU/*.rdf";
@@ -273,7 +278,7 @@ public class Enricher {
 		}
 
 	}
-	public static InternalEnricher getEnricher(){
+	public static RedisInternalEnricher getEnricher(){
 		return enricher;
 	}
 }

@@ -18,6 +18,7 @@ package eu.europeana.metis.mapping.utils;
 
 
 import eu.europeana.metis.mapping.model.*;
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 import java.util.*;
@@ -42,6 +43,7 @@ public class XSLTGenerator {
     public XSLUtils.Parameters parameters = new XSLUtils.Parameters();
     private HashMap<String, Boolean> options = new HashMap<String, Boolean>();
     private Stack<String> xpathPrefix = new Stack<String>();
+    private Map<String,List<String>> enumerations = new HashMap<>();
 
     /**
      * Default constructor
@@ -102,6 +104,7 @@ public class XSLTGenerator {
         parameters.reset();
         String stylesheetNamespace = "";
         StringBuilder sb = new StringBuilder();
+        setItemXPath(mapping.getTargetSchema().getRootPath().getXpath());
         if (mapping.getParameters() != null) {
             parameters = new XSLUtils.Parameters();
             parameters.setDefaults(mapping.getParameters());
@@ -135,7 +138,7 @@ public class XSLTGenerator {
      * @param match The element to create the template from
      * @return
      */
-    public String generateTemplate(Mapping template, String match) {
+    private String generateTemplate(Mapping template, String match) {
         String result;
         if (template != null) {
             xpathPrefix.push(match);
@@ -152,7 +155,7 @@ public class XSLTGenerator {
      * @param item Mapping handler for a mapping element.
      * @return XSL code.
      */
-    public String generate(Mapping item) {
+    private String generate(Mapping item) {
         String result = "";
         if (item.getMappings().isHasMappings()) {
             result += generateMappings(item, item.getTargetSchema().getMandatoryXpath());
@@ -160,17 +163,17 @@ public class XSLTGenerator {
         return result;
     }
 
-    private String generateMappings(Element elem, Set<String> mandatory) {
+    private String generateMappings(Element elem, Set<String> mandatory,String root) {
         String generatedMappings = "";
         String result = "";
         if ((elem.getMappings() != null && elem.getMappings().size() > 0) || (elem.getConditionalMappings() != null && elem.getConditionalMappings().size() > 0)) {
             if (elem.getMappings() != null && elem.getMappings().size() > 0) {
 
-                generatedMappings = generateWithMappings(elem, elem.getMappings());
+                generatedMappings = generateWithMappings(elem, elem.getMappings(),root);
                 result += generatedMappings;
             }
             if (elem.getConditionalMappings() != null && elem.getConditionalMappings().size() > 0) {
-                generatedMappings += generateWithMappings(elem, elem.getConditionalMappings());
+                generatedMappings += generateWithMappings(elem, elem.getConditionalMappings(),root);
                 String test = conditionTest(elem.getConditionalMappings());
                 if (test != null && test.length() > 0) {
                     result += XSLUtils.xslWhen(test, generatedMappings);
@@ -178,12 +181,14 @@ public class XSLTGenerator {
                     result += XSLUtils.xslOtherwise(generatedMappings);
                 }
             }
-            if (result.length() > 0) {
-                result = XSLUtils.xslChoose(result);
-            }
-        } else if (elem.isHasMapping()) {
-            result = generateWithInternalMappings(elem, mandatory);
+            //if (result.length() > 0) {
+            //    result = XSLUtils.xslChoose(result);
+            //}
         }
+        //else if (elem.isHasMapping()) {
+        //    result = generateWithInternalMappings(elem, mandatory);
+        //}
+        /*
         if (!this.getOption(OPTION_SKIP_CHECK_FOR_MISSING_MANDATORY_MAPPINGS)&&elem.isHasMapping()) {
 
             if (mandatory != null && mandatory.size() > 0) {
@@ -192,24 +197,29 @@ public class XSLTGenerator {
                     if (conditionTest.length() > 0) conditionTest += " and ";
                     conditionTest += normaliseXPath(xpath);
                 }
-                result = comment("Check for mandatory elements on " + elem.getPrefix() + ":" + elem.getName()) + XSLUtils.xslIf(conditionTest, result);
+                result = comment("Check for mandatory elements on " + elem.getPrefix() + ":" + elem.getName()) + XSLUtils.xslIf(StringUtils.substringAfter(conditionTest,root+"/"), result);
             }
-        }
+        }*/
         return result;
     }
 
-    private String generateWithInternalMappings(Element elem, Set<String> mandatory) {
+    private String generateWithInternalMappings(Element elem, Set<String> mandatory,String root) {
         String result = "";
         String name = elem.getPrefix() + ":" + elem.getName();
         String attr = "";
         String elemStr = "";
-        for (Attribute at : elem.getAttributes()) {
-            attr += generateAttribute(at);
+        if(elem.getAttributes()!=null) {
+            for (Attribute at : elem.getAttributes()) {
+                attr += generateAttribute(at);
+            }
         }
-        for (Element child : elem.getElements()) {
-            elemStr += generateMappings(child, mandatory);
+        if(elem.getElements()!=null) {
+            for (Element child : elem.getElements()) {
+                elemStr += generateMappings(child, mandatory,root);
+            }
         }
-        result += XSLUtils.xslForEach(name, XSLUtils.xslIfOptional("", XSLUtils.element(name, elemStr, attr)));
+      //  result += XSLUtils.xslForEach(name, XSLUtils.xslIfOptional("", XSLUtils.element(name, elemStr, attr)));
+        result += XSLUtils.xslForEach(name, XSLUtils.element(name, elemStr, attr));
         return result;
     }
 
@@ -225,7 +235,7 @@ public class XSLTGenerator {
                 }
             }
             for (Element elem : elements) {
-                result += generateMappings(elem, elem.getMandatoryXpath());
+                result += generateMappings(elem, elem.getMandatoryXpath(),item.getMappings().getRootElement());
             }
         }
         return result;
@@ -258,9 +268,9 @@ public class XSLTGenerator {
                 } else {
                     result += XSLUtils.xslOtherwise(generatedMappings);
                 }
-                if (result.length() > 0) {
-                    result = XSLUtils.xslChoose(result);
-                }
+                //if (result.length() > 0) {
+                //    result = XSLUtils.xslChoose(result);
+                //}
             } else if (item.getConditionalMappings() != null && item.getConditionalMappings().size() == 1) {
                 result = generateSingleCaseAttributeMapping(item, item.getConditionalMappings());
             }
@@ -268,19 +278,37 @@ public class XSLTGenerator {
         return result;
     }
 
-    private String generateWithMappings(Element item, List<? extends SimpleMapping> aCase) {
+    private String generateWithMappings(Element item, List<? extends SimpleMapping> aCase,String root) {
         String result = "";
         String name = item.getPrefix() + ":" + item.getName();
-        List<String> enumerations = item.getEnumerations();
+        boolean enumExists = false;
+        if(enumerations.containsKey(name)) {
+            enumExists = true;
+        } else {
+            enumerations.put(name, item.getEnumerations());
+        }
         if (aCase.size() > 0) {
             if (aCase.size() > 1) {
                 return generateWithMappingsConcat(item, aCase);
             } else {
                 IMapping simpleMapping = aCase.get(0);
                 if (simpleMapping.getType() == MappingType.XPATH) {
+                    String select = StringUtils.contains(((SimpleMapping)simpleMapping).getSourceField(),"/")?
+                            StringUtils.substringAfterLast(((SimpleMapping)simpleMapping).getSourceField(),"/"):
+                            ((SimpleMapping)simpleMapping).getSourceField();
                     xpathPrefix.push(name);
                     String attributes = generateAttributes(item);
-                    String content = XSLUtils.function(simpleMapping.getFunction());
+
+                    String content ="";
+
+
+                    if(item.getElements()!=null){
+                        for(Element elem:item.getElements()){
+                            content+=generateMappings(elem,elem.getMandatoryXpath(),root);
+                        }
+                    } else {
+                        content+=XSLUtils.function(simpleMapping.getFunction());
+                    }
                     String element = XSLUtils.element(name, content, attributes);
                     xpathPrefix.pop();
                     boolean hasValueMappings = simpleMapping.getValueMappings() != null;
@@ -293,13 +321,13 @@ public class XSLTGenerator {
                     } else {
                         result = element;
 
-                        if (enumerations != null) {
-                            XSLUtils.Variables.VariableSet set = variables.addEnumeration(enumerations, name);
+                        if (enumerations!=null && enumerations.get(name) != null && !enumExists) {
+                            XSLUtils.Variables.VariableSet set = variables.addEnumeration(enumerations.get(name), name);
                             result = set.enumeration(result);
                         }
                     }
                     result = XSLUtils.xslIfFirst(result);
-                    String select = "";
+
                     boolean tokenize = false;
                     Function function = simpleMapping.getFunction();
                     if (function != null && function.getType() == FunctionType.FUNCTION_CALL_TOKENIZE) {
@@ -318,7 +346,7 @@ public class XSLTGenerator {
                     if (tokenize)
                         result = XSLUtils.xslForEach(select, "<xsl:variable name=\"match\" select=\".\"/>" + result);
                     else
-                        result = XSLUtils.xslForEach(select, result);
+                        result = XSLUtils.xslIf(select,XSLUtils.xslForEach(select, result));
                 } else if (simpleMapping.getType() == MappingType.CONSTANT) {
                     result += XSLUtils.element(name, XSLUtils.constant(simpleMapping.getConstant()), generateAttributes(item));
                 } else if (simpleMapping.getType() == MappingType.PARAMETER) {
@@ -340,7 +368,7 @@ public class XSLTGenerator {
                 boolean hasValueMappings = mapping.getFunction() != null && mapping.getFunction().getType() == FunctionType.FUNCTION_CALL_VALUE;
                 if (mapping.getType() == MappingType.XPATH) {
                     String value = mapping.getSourceField();
-                    String select = normaliseXPath(value);
+                    String select = StringUtils.substringAfterLast(value,"/");
                     xpathPrefix.push(value);
                     String content = XSLUtils.function(mapping.getFunction());
                     if (hasValueMappings) {
@@ -361,7 +389,7 @@ public class XSLTGenerator {
                     result += XSLUtils.parameterValue(mapping.getParameter());
                 }
             }
-            result = XSLUtils.attribute(item.getPrefix() + ":" + item.getName(), result);
+            result = XSLUtils.attribute(StringUtils.substringAfter(item.getPrefix(),"@") + ":" + item.getName(), result);
             if (needsCheckIfEmpty) {
                 result = XSLUtils.xslIfOptional(check, result);
             }
