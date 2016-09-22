@@ -57,6 +57,9 @@ public class MetisLdapManagerConfig {
 	@Value("${ldap.manager.pwd}")
 	private String ldapPwd;
 
+	@Value("${ldap.manager.base.dn}")
+	private String ldapBaseDn;
+
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
 		return new PropertySourcesPlaceholderConfigurer();
@@ -83,6 +86,7 @@ public class MetisLdapManagerConfig {
 		LdapContextSource ldapContextSource = new LdapContextSource();
 		ldapContextSource.setUrl(ldapUrl);
 		ldapContextSource.setUserDn(ldapManagerDn);
+		//ldapContextSource.setBase(ldapBaseDn);
 		ldapContextSource.setPassword(ldapPwd);
 		return ldapContextSource;
 	}

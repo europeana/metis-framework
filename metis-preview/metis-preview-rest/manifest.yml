@@ -1,0 +1,15 @@
+---
+applications:
+- name: metis-preview-test
+  memory: 2048M
+  instances: 1
+  host: metis-preview-test
+  path: target/metis-preview-rest-1.0-SNAPSHOT.war
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
+  env:
+    mongohost: 136.243.131.91
+    mongoPort: 27017
+    maindb: europeana
+    previewPortalUrl: http://metis-preview-portal.cfapps.io/portal/en/search?view=grid&q=edm_datasetName%3A
+    crosswalkpath: EDM_external2internal_v2.xsl
+    solrUrl: http://136.243.131.91:8080/solr/search

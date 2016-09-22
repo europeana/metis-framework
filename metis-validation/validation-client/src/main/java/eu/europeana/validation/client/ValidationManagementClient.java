@@ -2,7 +2,6 @@ package eu.europeana.validation.client;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.validation.model.Schema;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -66,14 +65,11 @@ public class ValidationManagementClient {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("schemaPath",schemaPath);
         params.add("schematronPath",schematronPath);
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
         FileSystemResource resource = new FileSystemResource(file);
         params.add("file",resource);
 
         return template.postForObject(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
-                name),params,String.class);
+                name,version),params,String.class);
     }
     /**
      * Update a schema for a given version
@@ -87,12 +83,9 @@ public class ValidationManagementClient {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("schemaPath",schemaPath);
         params.add("schematronPath",schematronPath);
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
         params.add("file",file);
         template.put(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
-                name),params);
+                name,version),params);
     }
 
     /**
@@ -101,12 +94,9 @@ public class ValidationManagementClient {
      * @param version The version of the schema (can be null)
      */
     public void deleteSchemaByName(String name,String version){
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
+
         template.delete(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
-                name),params);
+                name,version));
     }
 
     /**
@@ -115,12 +105,9 @@ public class ValidationManagementClient {
      * @param version The version of the schema
      */
     public Schema getSchemaByName(String name,String version){
-        MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
+
         return template.getForObject(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
-                name),Schema.class,params);
+                name,version),Schema.class);
     }
 
     public List<Schema> getAll(){

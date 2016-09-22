@@ -16,8 +16,8 @@ public class EntityRemover {
 
     private static final String DEFAULT_HOST = "localhost";
     private static final int DEFAULT_PORT = 27017;
-    private InternalEnricher en;
-    public EntityRemover(InternalEnricher enricher){
+    private RedisInternalEnricher en;
+    public EntityRemover(RedisInternalEnricher enricher){
         en = enricher;
     }
 

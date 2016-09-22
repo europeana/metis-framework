@@ -225,6 +225,16 @@
             <artifactId>sesame-repository-http</artifactId>
             <version>${sesame.version}</version>
         </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.7.2</version>
+        </dependency>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>2.7.2</version>
+        </dependency>
     </dependencies>
     <properties>
         <enrichment.version>1.0-SNAPSHOT</enrichment.version>

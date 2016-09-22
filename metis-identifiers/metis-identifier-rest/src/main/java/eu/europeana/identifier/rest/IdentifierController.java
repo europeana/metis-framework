@@ -29,6 +29,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+
 
 /**
  * Identifier REST API
@@ -54,7 +56,7 @@ public class IdentifierController {
     @ResponseBody
     public String generateIdentifier(@ApiParam("collectionId") @PathVariable("collectionId") String collectionId,
                                        @ApiParam("recordId") @PathVariable("recordId") String recordId) {
-        return idService.generateIdentifier(collectionId, recordId);
+        return idService.generateIdentifier(collectionId, URLDecoder.decode(recordId));
     }
 
 

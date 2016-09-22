@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.DefaultValue;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -39,9 +38,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
 
-import static eu.europeana.metis.RestEndpoints.SCHEMAS_ALL;
-import static eu.europeana.metis.RestEndpoints.SCHEMAS_DOWNLOAD_BY_NAME;
-import static eu.europeana.metis.RestEndpoints.SCHEMAS_MANAGE_BY_NAME;
+import static eu.europeana.metis.RestEndpoints.*;
 
 /**
  * Created by ymamakis on 3/14/16.
@@ -57,8 +54,7 @@ public class ValidationManagementController {
     @ApiOperation(value = "Download the schema", response = InputStreamResource.class)
     @ResponseBody
     public void getZip(@ApiParam("name") @PathVariable("name") String name,
-                       @ApiParam("version") @RequestParam(value = "version",
-                               defaultValue = "undefined") String version, HttpServletResponse response) throws IOException {
+                       @ApiParam("version") @PathVariable(value = "version") String version, HttpServletResponse response) throws IOException {
         byte[] file = service.getZip(name, version);
         ByteArrayInputStream bain = new ByteArrayInputStream(file);
         String mimeType = "application/octet-stream";
@@ -74,18 +70,18 @@ public class ValidationManagementController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public String createSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("schemaPath") @RequestParam("schemaPath") String schemaPath,
-                               @ApiParam("schematronPath") @RequestParam("schematronPath") String schematronPath,
-                               @ApiParam("version") @RequestParam("version") @DefaultValue("undefined") String version,
+                               @ApiParam("schematronPath") @RequestParam(value = "schematronPath",required = false) String schematronPath,
+                               @ApiParam("version") @PathVariable("version") String version,
                                @ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IOException {
         service.createSchema(name, schemaPath, schematronPath, version, zipFile.getInputStream());
-        return URI.create(RestEndpoints.resolve(SCHEMAS_DOWNLOAD_BY_NAME, name)).toString();
+        return URI.create(RestEndpoints.resolve(SCHEMAS_DOWNLOAD_BY_NAME, name,version)).toString();
     }
 
     @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.PUT)
     @ApiParam(value = "Update a schema")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("schemaPath") @RequestParam("schemaPath") String schemaPath,
-                             @ApiParam("schematronPath") @RequestParam("schematronPath") String schematronPath, @ApiParam("version") @RequestParam(value = "version", defaultValue = "undefined") String version,
+                             @ApiParam("schematronPath") @RequestParam(value = "schematronPath",required = false) String schematronPath, @ApiParam("version") @PathVariable(value = "version") String version,
                              @ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IOException {
 
         service.updateSchema(name, schemaPath, schematronPath, version, zipFile.getInputStream());
@@ -94,14 +90,14 @@ public class ValidationManagementController {
     @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.DELETE)
     @ApiOperation(value = "Delete a schema")
     @ResponseStatus(value = HttpStatus.OK)
-    public void deleteSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("version") @RequestParam(value = "version", defaultValue = "undefined") String version) {
+    public void deleteSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("version") @PathVariable(value = "version") String version) {
         service.deleteSchema(name, version);
     }
 
     @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.GET)
     @ApiOperation(value = "Get a schema", response = Schema.class)
     @ResponseBody
-    public Schema getSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("name") @RequestParam(value = "version", defaultValue = "undefined") String version) {
+    public Schema getSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("name") @PathVariable(value = "version") String version) {
         return service.getSchemaByName(name, version);
     }
 

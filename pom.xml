@@ -90,6 +90,7 @@
         <module>metis-pandora</module>
         <module>metis-enrichment</module>
         <module>metis-common</module>
+        <module>metis-preview</module>
     </modules>
     <repositories>
         <repository>

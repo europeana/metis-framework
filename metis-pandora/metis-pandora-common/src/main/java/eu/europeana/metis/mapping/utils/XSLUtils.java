@@ -30,33 +30,36 @@ class XSLUtils {
     static final String OMIT_XML_DECLARATION = "<xsl:output omit-xml-declaration=\"yes\" />";
 
     static String xslStylesheet(String namespace, String excludeNamespaces, String content) {
-        if (excludeNamespaces != null && excludeNamespaces.length() > 0)
+        if (excludeNamespaces != null && excludeNamespaces.length() > 0) {
             excludeNamespaces = "exclude-result-prefixes=\"" + excludeNamespaces + "\"";
+        } else {
+            excludeNamespaces="";
+        }
 
         return XMLUtils.XML_HEADER +
                 "<xsl:stylesheet version=\"2.0\" xmlns:xsl=\"http://www.w3.org/1999/XSL/Transform\" " +
-                "xmlns:xalan=\"http://xml.apache.org/xalan\" " + namespace + " " + excludeNamespaces + ">" +
+                "xmlns:xalan=\"http://xml.apache.org/xalan\" " + namespace + " "+  excludeNamespaces + ">" +
                 content +
                 "</xsl:stylesheet>";
     }
 
     static String xslTemplate(String match, String content) {
-        return "<xsl:template match=\"" + match + "\">" + content + "</xsl:template>";
+        return "<xsl:template match=\"" + match + "\">\n" + content + "\n</xsl:template>";
     }
 
     static String rootElement(String rootElem, String content) {
-        return "<" + rootElem + ">" + content + "</" + rootElem + ">";
+        return "<" + rootElem + ">" + content + "</" + rootElem + ">\n";
     }
 
     static String xslApplyTemplates(String select) {
-        return "<xsl:apply-templates select=\"" + select + "\"/>";
+        return "<xsl:apply-templates select=\"" + select + "\"/>\n";
     }
 
     public static String element(String name, String content, String attributes) {
-        String result = "<" + name + ">";
-        if (attributes != null) result += attributes;
-        if (content != null) result += content;
-        result += "</" + name + ">";
+        String result = "<xsl:element name=\"" + name + "\">\n";
+        if (attributes != null) result += attributes+"\n";
+        if (content != null) result += content+"\n";
+        result += "</xsl:element>\n";
 
         return result;
     }
@@ -66,11 +69,11 @@ class XSLUtils {
     }
 
     public static String attribute(String name, String content) {
-        return "<xsl:attribute name=\"" + name + "\">" + content + "</xsl:attribute>";
+        return "<xsl:attribute name=\"" + name + "\">" + content + "</xsl:attribute>\n";
     }
 
     static String xslForEach(String select, String content) {
-        return "<xsl:for-each select=\"" + select + "\">" + content + "</xsl:for-each>";
+        return "<xsl:for-each select=\"" + select + "\">" + content + "</xsl:for-each>\n";
     }
 
 
@@ -201,9 +204,9 @@ class XSLUtils {
 
     static String xslValueOf(String select) {
         if (select == null) {
-            return "<xsl:value-of select=\".\"/>";
+            return "<xsl:value-of select=\".\"/>\n";
         } else {
-            return "<xsl:value-of select=\"" + select + "\"/>";
+            return "<xsl:value-of select=\"" + select + "\"/>\n";
         }
     }
 
@@ -254,7 +257,7 @@ class XSLUtils {
     }
 
     static String xslIf(String test, String content) {
-        return "<xsl:if test=\"" + test + "\">" + content + "</xsl:if>";
+        return "<xsl:if test=\"" + test + "\">" + content + "</xsl:if>\n";
     }
 
     /**
@@ -280,15 +283,15 @@ class XSLUtils {
     }
 
     static String xslWhen(String test, String content) {
-        return "<xsl:when test=\"" + test + "\">" + content + "</xsl:when>";
+        return "<xsl:when test=\"" + test + "\">" + content + "</xsl:when>\n";
     }
 
     static String xslOtherwise(String content) {
-        return "<xsl:otherwise>" + content + "</xsl:otherwise>";
+        return "<xsl:otherwise>" + content + "</xsl:otherwise>\n";
     }
 
     static String xslChoose(String content) {
-        return "<xsl:choose>" + content + "</xsl:choose>";
+        return "<xsl:choose>" + content + "</xsl:choose>\n";
     }
 
     static String escapeConstant(String c) {
@@ -309,7 +312,7 @@ class XSLUtils {
     }
 
     static String xslComment(String comment) {
-        return "<xsl:comment>" + comment + "</xsl:comment>";
+        return "<xsl:comment>" + comment + "</xsl:comment>\n";
     }
 
     /**
@@ -319,7 +322,7 @@ class XSLUtils {
      * @return
      */
     static String comment(String comment) {
-        return "<!-- " + XSLUtils.escapeConstant(comment) + " -->";
+        return "<!-- " + XSLUtils.escapeConstant(comment) + " -->\n";
     }
 
     private static String normaliseXPath(String string, String prefix) {

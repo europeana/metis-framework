@@ -19,17 +19,20 @@ package eu.europeana.validation.client;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
-import org.apache.commons.lang3.StringUtils;
-
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
@@ -58,13 +61,13 @@ public class ValidationClient {
      * @return The result of single record validation
      */
     public ValidationResult validateRecord(String schemaName, String record, String version){
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-        params.add("record",record);
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
-        return template.postForObject(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_VALIDATE,schemaName),
-                params,ValidationResult.class);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        Record record1  = new Record();
+        record1.setRecord(record);
+        HttpEntity<Record> entity = new HttpEntity<>(record1,headers);
+        return template.postForEntity(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_VALIDATE,schemaName,version),
+                entity,ValidationResult.class).getBody();
     }
 
     /**
@@ -75,16 +78,19 @@ public class ValidationClient {
      * @return A list of validation results
      */
     public ValidationResultList validateRecords(String schemaName, List<String> records, String version){
+        List<Record> records1 = new ArrayList<>();
+        for(String rec:records){
+            Record record = new Record();
+            record.setRecord( rec);
+            records1.add(record);
+        }
         MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
         try {
-            params.add("records",new ObjectMapper().writeValueAsString(records));
+            params.add("records",new ObjectMapper().writeValueAsString(records1));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
-        return template.postForObject(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_RECORDS_BATCH_VALIDATE,schemaName),
+        return template.postForObject(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_RECORDS_BATCH_VALIDATE,schemaName,version),
                 params,ValidationResultList.class);
     }
 
@@ -96,13 +102,9 @@ public class ValidationClient {
      * @return A list of validation results
      */
     public ValidationResultList validateRecordsInFile(String schemaName, File file, String version){
-        MultiValueMap<String,String> params = new LinkedMultiValueMap<>();
-            MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
+       MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
         parts.add("file", new FileSystemResource(file));
-        if(StringUtils.isNotEmpty(version)){
-            params.add("version",version);
-        }
-        return template.postForObject(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_BATCH_VALIDATE,schemaName),
-                params,ValidationResultList.class);
+        return template.postForObject(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_BATCH_VALIDATE,schemaName,version),
+                parts,ValidationResultList.class);
     }
 }

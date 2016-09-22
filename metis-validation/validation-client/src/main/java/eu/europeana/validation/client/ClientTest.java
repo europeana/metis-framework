@@ -16,10 +16,11 @@ public class ClientTest {
         ValidationClient client = new ValidationClient();
 
 
-        System.out.println(managementClient.getAll().size());
+
         try {
-            ValidationResult result = client.validateRecord("EDM-INTERNAL", FileUtils.readFileToString(new File("/home/ymamakis/git/metis-framework/metis-validation/validation-client/src/main/resources/Item_35834473_test.xml")),
-                    null
+
+            ValidationResult result = client.validateRecord("EDM-INTERNAL", FileUtils.readFileToString(new File("/home/ymamakis/git/metis-framework/metis-validation/validation-client/src/main/resources/test_internal.xml")),
+                    "undefined"
             );
             System.out.println(result.isSuccess());
             System.out.println(result.getRecordId());
