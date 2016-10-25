@@ -20,8 +20,6 @@ import eu.europeana.enrichment.service.Enricher;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.springframework.context.ApplicationContext;
 
 /**
  * Unit tests for enrichment REST API
@@ -40,10 +38,7 @@ public class EnrichmentResourceTest {
 	 */
 	@Before
 	public void mockUp() {
-		ApplicationContext applicationContext = ApplicationContextUtils
-				.getApplicationContext();
-		enricher = applicationContext.getBean(Enricher.class);
-		Mockito.reset(enricher);
+
 	}
 
 	/**

@@ -40,7 +40,7 @@ import java.util.List;
 /**
  * Configuration file for Jersey
  */
-@ComponentScan(basePackages = {"eu.europeana.validation.rest", "eu.europeana.validation.rest.excheptions.exceptionmappers"})
+@ComponentScan(basePackages = {"eu.europeana.validation.rest", "eu.europeana.validation.rest.exceptions.exceptionmappers"})
 @PropertySource("classpath:validation.properties")
 @EnableWebMvc
 @EnableSwagger2

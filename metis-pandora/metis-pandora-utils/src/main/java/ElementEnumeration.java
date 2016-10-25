@@ -71,15 +71,15 @@ public enum ElementEnumeration {
             return null;
         }
     },
-    CC_LICENCE_DEPRECATED_DATETYPE("cc:License/cc:deprecatedOn/@rdf:dateType") {
+    CC_LICENCE_DEPRECATED_DATETYPE("cc:License/cc:deprecatedOn/@rdf:datatype") {
         @Override
         public List<ValueDTO> getSourceFields() {
-            return ElementEnumeration.values("cc:License/cc:deprecatedOn/@rdf:dateType", false);
+            return ElementEnumeration.values("cc:License/cc:deprecatedOn/@rdf:datatype", false);
         }
 
         @Override
         public List<ValidationRule> getRules() {
-            return ElementEnumeration.constructDateTypeRules();
+            return null;
         }
     },
     CC_LICENCE_INHERITED("cc:License/odrl:inheritFrom") {
@@ -1713,7 +1713,7 @@ public enum ElementEnumeration {
     EDM_EUAGGR("edm:EuropeanaAggregation") {
         @Override
         public List<ValueDTO> getSourceFields() {
-            return ElementEnumeration.values("edm:EuropeanaAggregation", false);
+            return ElementEnumeration.values("ore:Aggregation", false);
         }
 
         @Override
@@ -1724,7 +1724,7 @@ public enum ElementEnumeration {
     EDM_EUAGGR_ABOUT("edm:EuropeanaAggregation/@rdf:about") {
         @Override
         public List<ValueDTO> getSourceFields() {
-            return ElementEnumeration.values("edm:EuropeanaAggregation/@rdf:about", false);
+            return ElementEnumeration.values("ore:Aggregation/@rdf:about", false);
         }
 
         @Override
@@ -1747,7 +1747,7 @@ public enum ElementEnumeration {
     EDM_EUAGGR_AGGRCHO("edm:EuropeanaAggregation/edm:aggregatedCHO") {
         @Override
         public List<ValueDTO> getSourceFields() {
-            return ElementEnumeration.values("edm:EuropeanaAggregation/edm:aggregatedCHO", false);
+            return ElementEnumeration.values("ore:Aggregation/edm:aggregatedCHO", false);
         }
 
         @Override
@@ -1758,7 +1758,7 @@ public enum ElementEnumeration {
     EDM_EUAGGR_AGGRCHO_RESOURCE("edm:EuropeanaAggregation/edm:aggregatedCHO/@rdf:resource") {
         @Override
         public List<ValueDTO> getSourceFields() {
-            return ElementEnumeration.values("edm:EuropeanaAggregation/edm:aggregatedCHO/@rdf:resource", false);
+            return ElementEnumeration.values("ore:Aggregation/edm:aggregatedCHO/@rdf:resource", false);
         }
 
         @Override

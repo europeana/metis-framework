@@ -70,8 +70,9 @@ public class InternalEnricher {
     private static Map<String, List<String>> conceptParents;
     private static Map<String, List<String>> placeParents;
     private static Map<String, List<String>> timespanParents;
+    private String mongoHost;
 
-    public InternalEnricher() {
+    public InternalEnricher(String mongoHost) {
         SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
         sm.addSerializer(new ObjectIdSerializer());
         obj.registerModule(sm);
@@ -92,6 +93,7 @@ public class InternalEnricher {
         placeSameAsCache = new ConcurrentHashMap<>();
         conceptSameAsCache = new ConcurrentHashMap<>();
         populate();
+        this.mongoHost = mongoHost;
     }
 
     public void remove(List<String> uris) {
@@ -152,10 +154,10 @@ public class InternalEnricher {
     }
 
     public void populate() {
-        Logger.getLogger("Initializing");
-        MongoDatabaseUtils.dbExists("localhost", 27017);
+        System.out.println("Initializing");
+        MongoDatabaseUtils.dbExists(mongoHost, 27017);
         List<MongoTerm> agentsMongo = MongoDatabaseUtils.getAllAgents();
-        Logger.getLogger(InternalEnricher.class.getName()).severe("Found agents: " + agentsMongo.size());
+        System.out.println("Found agents: " + agentsMongo.size());
         for (MongoTerm agent : agentsMongo) {
             try {
                 AgentTermList atl = (AgentTermList) MongoDatabaseUtils.findByCode(agent.getCodeUri(), "people");
@@ -190,7 +192,7 @@ public class InternalEnricher {
                             }
                         }
                     } catch (IOException var14) {
-                        Logger.getLogger(InternalEnricher.class.getName()).log(Level.SEVERE, (String) null, var14);
+                        var14.printStackTrace();
                     }
                 }
             } catch (MalformedURLException e) {
@@ -199,14 +201,10 @@ public class InternalEnricher {
 
         }
 
-        try {
-            Thread.sleep(10000L);
-        } catch (InterruptedException var13) {
-            Logger.getLogger(InternalEnricher.class.getName()).log(Level.SEVERE, (String) null, var13);
-        }
+
 
         List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
-        Logger.getLogger(InternalEnricher.class.getName()).severe("Found concepts: " + conceptsMongo1.size());
+        System.out.println("Found concepts: " + conceptsMongo1.size());
         for (MongoTerm concept : conceptsMongo1) {
             try {
                 ConceptTermList ctl = (ConceptTermList) MongoDatabaseUtils.findByCode(concept.getCodeUri(), "concept");
@@ -242,7 +240,7 @@ public class InternalEnricher {
                             }
                         }
                     } catch (IOException var12) {
-                        Logger.getLogger(InternalEnricher.class.getName()).log(Level.SEVERE, (String) null, var12);
+                        var12.printStackTrace();
                     }
                 }
             } catch (MalformedURLException e) {
@@ -258,7 +256,7 @@ public class InternalEnricher {
         }
 
         List<MongoTerm> placesMongo2 = MongoDatabaseUtils.getAllPlaces();
-        Logger.getLogger(InternalEnricher.class.getName()).severe("Found places: " + placesMongo2.size());
+        System.out.println("Found places: " + placesMongo2.size());
 
         for (MongoTerm place : placesMongo2) {
             try {
@@ -295,7 +293,7 @@ public class InternalEnricher {
                             }
                         }
                     } catch (IOException var10) {
-                        Logger.getLogger(InternalEnricher.class.getName()).log(Level.SEVERE, (String) null, var10);
+                        var10.printStackTrace();
                     }
                 }
             } catch (MalformedURLException e) {
@@ -310,7 +308,7 @@ public class InternalEnricher {
         }
 
         List<MongoTerm> timespanMongo3 = MongoDatabaseUtils.getAllTimespans();
-        Logger.getLogger(InternalEnricher.class.getName()).severe("Found timespans: " + timespanMongo3.size());
+        System.out.println("Found timespans: " + timespanMongo3.size());
 
 
         for (MongoTerm timespan : timespanMongo3) {
@@ -349,7 +347,7 @@ public class InternalEnricher {
                             }
                         }
                     } catch (IOException var8) {
-                        Logger.getLogger(InternalEnricher.class.getName()).log(Level.SEVERE, (String) null, var8);
+                        var8.printStackTrace();
                     }
                 }
             } catch (MalformedURLException e) {

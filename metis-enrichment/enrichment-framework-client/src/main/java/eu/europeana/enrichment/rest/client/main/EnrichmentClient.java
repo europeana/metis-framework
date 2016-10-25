@@ -16,18 +16,23 @@
  */
 package eu.europeana.enrichment.rest.client.main;
 
+import eu.europeana.enrichment.api.external.EntityClass;
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.enrichment.api.external.InputValueList;
+import eu.europeana.enrichment.rest.client.EnrichmentDriver;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 
-import javax.ws.rs.core.Form;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EnrichmentClient {
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
 
-		/*List<InputValue> values = new ArrayList<InputValue>();
+		List<InputValue> values = new ArrayList<InputValue>();
 
 		InputValue val1 = new InputValue();
 		val1.setOriginalField("proxy_dc_subject");
@@ -79,14 +84,19 @@ public class EnrichmentClient {
 		values.add(val6);
 		InputValueList inList = new InputValueList();
 		inList.setInputValueList(values);
-		*/
+		/*
 		ObjectMapper obj = new ObjectMapper();
 		
 		//client.register(InputValueList.class);
 		
 		Form form = new Form();
 		form.param("uri", "http://data.europeana.eu/concept/base/96");
-		form.param("toXml", Boolean.toString(true));
+		form.param("toXml", Boolean.toString(true));*/
+		EnrichmentDriver driver = new EnrichmentDriver("http://metis-enrichment-test.cfapps.io/");
+		List<EntityWrapper> wrapperList = driver.enrich(values,false);
+		for(EntityWrapper wrapper:wrapperList){
+			System.out.println(wrapper.getContextualEntity());
+		}
 	}
 
 }

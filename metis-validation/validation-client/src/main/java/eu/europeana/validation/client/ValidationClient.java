@@ -46,6 +46,7 @@ public class ValidationClient {
     public ValidationClient(){
         Properties props = new Properties();
         try {
+            template.setErrorHandler(new ValidationResponseHandler());
             props.load(this.getClass().getClassLoader().getResourceAsStream("validation.properties"));
             validationEndpoint = props.getProperty("validation.endpoint");
         } catch (IOException e) {
@@ -66,6 +67,9 @@ public class ValidationClient {
         Record record1  = new Record();
         record1.setRecord(record);
         HttpEntity<Record> entity = new HttpEntity<>(record1,headers);
+        //String response = template.postForEntity(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_VALIDATE,schemaName,version),
+        //        entity,String.class).getBody();
+
         return template.postForEntity(validationEndpoint+ RestEndpoints.resolve(RestEndpoints.SCHEMA_VALIDATE,schemaName,version),
                 entity,ValidationResult.class).getBody();
     }

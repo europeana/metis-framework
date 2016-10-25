@@ -22,6 +22,7 @@ import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.InputValue;
 import eu.europeana.enrichment.context.Namespaces;
 import eu.europeana.enrichment.path.Path;
+import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.rules.ObjectRuleImpl;
 import eu.europeana.enrichment.tagger.vocabularies.VocabularyOfPeople;
 import eu.europeana.enrichment.tagger.vocabularies.VocabularyOfPlaces;
@@ -31,6 +32,7 @@ import eu.europeana.enrichment.utils.MongoDatabaseUtils;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,7 +50,10 @@ import java.util.Properties;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class Enricher {
-	private static RedisInternalEnricher enricher= new RedisInternalEnricher();
+	@Autowired
+	private RedisInternalEnricher enricher;
+	@Autowired
+	private EnrichmentProxyClient client;
 	/**
 	 * Main enrichment method
 	 * 
@@ -64,6 +69,10 @@ public class Enricher {
 		List<EntityWrapper> entities = new ArrayList<EntityWrapper>();
 		entities.addAll(enricher.tag(values));
 		return entities;
+	}
+
+	public void recreate(){
+		client.populate();
 	}
 
 	public EntityWrapper getByUri(String uri){
@@ -215,8 +224,9 @@ public class Enricher {
 			host = args[0];
 			port = Integer.parseInt(args[1]);
 		}
+		System.out.println(host);
 		if (!MongoDatabaseUtils.dbExists(host, port)) {
-			enricher = new RedisInternalEnricher();
+			//enricher = new RedisInternalEnricher(host);
 			File cacheDir = new File(path + "/tmp");
 			File baseDir = new File(path);
 			String placeFiles = "places/EU/*.rdf";
@@ -278,7 +288,7 @@ public class Enricher {
 		}
 
 	}
-	public static RedisInternalEnricher getEnricher(){
+	public RedisInternalEnricher getEnricher(){
 		return enricher;
 	}
 }

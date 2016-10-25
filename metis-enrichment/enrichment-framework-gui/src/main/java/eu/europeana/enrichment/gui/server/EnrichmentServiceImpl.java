@@ -59,6 +59,7 @@ public class EnrichmentServiceImpl extends RemoteServiceServlet implements
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		System.out.println(props.getProperty("enrichment.rest"));
 		driver = new EnrichmentDriver(props.getProperty("enrichment.rest"));
 	}
 

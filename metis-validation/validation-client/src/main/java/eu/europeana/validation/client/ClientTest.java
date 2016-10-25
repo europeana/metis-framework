@@ -24,6 +24,7 @@ public class ClientTest {
             );
             System.out.println(result.isSuccess());
             System.out.println(result.getRecordId());
+            System.out.println(result.getMessage());
         } catch (IOException e) {
             e.printStackTrace();
         }
