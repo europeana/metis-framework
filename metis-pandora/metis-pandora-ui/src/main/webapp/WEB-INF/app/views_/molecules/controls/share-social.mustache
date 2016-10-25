@@ -1,0 +1,46 @@
+
+<ul class="social-share">
+  {{#facebook}}
+  <li>
+  <a class="icon-social" href="https://www.facebook.com/sharer/sharer.php?u={{url}}" title="Share to Facebook" target="_blank">
+    <svg class="icon icon-facebook">
+      <use xlink:href="#icon-facebook"></use>
+    </svg>
+    <span class="share-name is-vishidden">Facebook</span>
+  </a>
+  </li>
+  {{/facebook}}
+
+  {{#twitter}}
+  <li>
+  <a href="https://twitter.com/intent/tweet?text={{url}}" title="Share to Twitter" target="_blank">
+    <svg class="icon icon-twitter">
+      <use xlink:href="#icon-twitter"></use>
+    </svg>
+    <span class="share-name is-vishidden">Twitter</span>
+  </a>
+  </li>
+  {{/twitter}}
+
+  {{#pinterest}}
+  <li>
+   <a class="icon-social pinit" href= "https://www.pinterest.com/pin/create/button/" title="Share to Pinterest" data-pin-custom="true">
+    <svg class="icon icon-pinterest">
+      <use xlink:href="#icon-pinterest"></use>
+    </svg>
+  </a>
+  </li>
+
+  {{/pinterest}}
+
+  {{#googleplus}}
+  <li>
+  <a href="https://plus.google.com/share?url={{url}}" title="Share to Google+" target="_blank">
+    <svg class="icon icon-googleplus">
+      <use xlink:href="#icon-googleplus"></use>
+    </svg>
+    <span class="share-name is-vishidden">Google</span>
+  </a>
+  </li>
+  {{/googleplus}}
+</ul>

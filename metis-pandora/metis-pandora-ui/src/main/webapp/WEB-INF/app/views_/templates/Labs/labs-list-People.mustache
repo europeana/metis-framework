@@ -1,0 +1,68 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+<div class="lc">
+	<!-- Start grid -->
+	<div class="grid-main">
+
+		<div class="l-content">
+
+			<div class="l-breadcrumbs page_header">
+				{{> molecules/navigation/breadcrumbs}}
+			</div>
+
+			<div id="maincontent" class="maincontent">
+
+				<h1 class="title">{{ title }}</h1>
+
+				
+				<div class="team">
+					<h2>{{ subtitle }}</h2>
+
+					<ul class="results-list">
+						{{#listItems.six}}<li>{{> molecules-person-block-small(medium: true) }}</li>{{/listItems.six}}
+					</ul>
+				</div>
+
+				<div class="team">
+					<h2>{{ subtitle }}</h2>
+
+					<ul class="results-list">
+						{{#listItems.four}}<li>{{> molecules-person-block-small(medium: true) }}</li>{{/listItems.four}}
+					</ul>
+				</div>
+
+				<div class="team">
+					<h2>{{ subtitle }}</h2>
+
+					<ul class="results-list">
+						{{#listItems.four}}<li>{{> molecules-person-block-small(medium: true) }}</li>{{/listItems.four}}
+					</ul>
+				</div>	
+
+
+			</div>
+		</div><!--
+
+	 --><div class="l-sidebar">
+	 		<div class="inner">
+
+				{{> molecules-help-contact(title:"Need help?") }}
+				
+			</div>
+
+		</div>
+	</div>
+	<!-- End grid -->
+</div>
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+

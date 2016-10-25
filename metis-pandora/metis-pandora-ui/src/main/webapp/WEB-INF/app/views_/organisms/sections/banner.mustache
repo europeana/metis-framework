@@ -1,0 +1,16 @@
+{{# content.banner }}
+  <section class="banner" id="banner">
+    <div class="lc">
+      <div class="banner-info">
+        <h2>{{ content.banner.title }}</h2>
+        <p>{{{ content.banner.text }}}</p>
+      </div>
+
+      <div class="banner-link">
+        {{# content.banner.cta_url }}<a href="{{ . }}" class="btn btn-light pill">{{ content.banner.cta_text }}</a>{{/ content.banner.cta_url }}
+        {{^ content.banner.cta_url }}{{ content.banner.cta_text }}{{/ content.banner.cta_url }}
+      </div>
+
+    </div>
+  </section>
+{{/ content.banner }}

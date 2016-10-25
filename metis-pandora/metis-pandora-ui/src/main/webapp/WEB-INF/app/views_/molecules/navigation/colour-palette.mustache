@@ -1,0 +1,20 @@
+<div class="colour-palette">
+
+    <!--{{# title }}<div class="filter-name">{{ . }}</div>{{/ title }}-->
+
+    <ul class="filter-list">
+    {{#items}}
+        <li>
+            <a href="{{url}}" class="" style="background-color:{{hex}}">
+            <span class="">{{text}}</span>
+            {{#num_results}}
+            <span class="colour-results">({{.}})</span>
+            {{/num_results}}
+            </a>
+            <span class="colour-name">{{label}}<span class="colour-hex">{{hex}}</span></span>
+
+       </li>
+    {{/items}}
+    </ul>
+
+</div>

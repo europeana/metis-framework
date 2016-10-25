@@ -1,0 +1,15 @@
+<figure class="ve-chapter-selection">
+  {{#label}}<span class="ve-label">{{.}}</span>{{/label}}
+  <div class="ve-chapter-selection-content">
+    <div class="inner">
+      <div class="ve-chapter-selection-state">
+        {{#image.thumbnail.url}}<img src="{{.}}" />{{/image.thumbnail.url}}
+        <a href="{{url}}">
+          <div class="text-box title">
+            {{title}}
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</figure>

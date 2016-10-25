@@ -1,0 +1,43 @@
+{{> atoms/iconography/svgicons-pro}}
+{{> organisms-header }}
+
+<main role="main" class="l-page">
+<div class="lc">
+
+
+  <div class="grid-main">
+
+      <div class="l-content">
+        <div class="l-breadcrumbs">
+          {{> molecules/navigation/breadcrumbs}}
+          {{> molecules-sortby }}
+        </div>
+        <div id="maincontent" class="maincontent">
+          <ul class="results-list">
+            {{#listItems.ten}}
+              {{> molecules-pro-listitem }}
+            {{/listItems.ten}}
+          </ul>
+
+
+          {{> molecules-pagination }}
+        </div>
+      </div><!--
+
+     --><div class="l-sidebar">
+
+        <div class="subnav">
+
+          <h4>Filter by:</h4>
+          {{> molecules-tags-large }}
+        </div>
+
+      </div>
+
+    </div>
+
+
+</main>
+<!-- End Content -->
+
+{{> organisms-footer(newsletter: true) }}

@@ -1,0 +1,37 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+{{> organisms/components/site-hero }}
+
+
+<!-- Start Main page content -->
+<div  id="maincontent" role="main" class="labs-home">
+
+
+{{> organisms/sections/strapline }}
+
+{{#content.news}}
+{{> organisms/sections/news }}
+{{/content.news}}
+
+{{> organisms/sections/quickinfo }}
+
+
+<section class="section events-upcoming">
+	<div class="lc">
+
+		<h2 class="section-title">Upcoming Events</h2>
+
+		<div class="grid cf">
+		{{#listItems.two}}{{> molecules-event-block-small}}{{/listItems.two}}
+		</div>
+
+		<a class="link-more" href="events">More Events</a>
+
+	</div>
+</section>
+
+</div>
+
+{{> organisms/global/footer }}

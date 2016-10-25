@@ -1,0 +1,19 @@
+<div class="block block-inset {{#category}} {{style}} {{/category}}">
+    <a href="{{url}}" class="inner">
+		<div class="b-thumb">
+			<img src="{{image_root}}{{ image }}" alt="{{ img.alt }}" />
+
+			<div class="b-text">
+				<h2 class="headline">{{ headline.medium }}</h2>
+			</div>
+			{{#category}}
+				<div class="category-flag"><a href="{{url}}">{{text}}</a></div>
+			{{/category}}
+		</div>
+		{{# excerpt }}
+		<div class="excerpt">
+			<p>{{ excerpt.short }}</p>
+		</div>
+		{{/ excerpt}}
+	</a>
+</div>

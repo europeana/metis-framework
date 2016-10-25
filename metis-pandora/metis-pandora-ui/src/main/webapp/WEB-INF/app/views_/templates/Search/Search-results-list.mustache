@@ -1,0 +1,169 @@
+{{> atoms/iconography/svgicons-search }}
+
+{{> organisms/global/header_v2}}
+
+<div role="main" class="page l-page">
+
+    <section class="search-object">
+      <div class="object-nav cf">
+        <div class="object-nav-lists">
+          <ul class="breadcrumbs"
+            {{#channel_data}}
+                data-store-channel-label = "{{label}}"
+                data-store-channel-name  = "{{name}}"
+                data-store-channel-url   = "{{url}}"
+              {{/channel_data}}>
+            <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
+            {{#channel_data}}<li><a href="{{url}}">{{label}}</a></li>{{/channel_data}}
+            <li><span class="lastitem"><strong>{{i18n.site.navigation.breadcrumb.results_list}}</strong></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="search-hero">
+        <div class="searchbar">
+        {{> molecules/components/search/search-form }}
+
+        {{#facets_selected}}
+        <ul class="facets-selected cf">
+            {{#items}}
+                <li class="search-tag">
+                    {{#filter}}<span class="title">{{filter}}:</span>{{/filter}}
+                    {{value}}
+                    <a href="{{remove}}" data-role="remove"></a>
+                    <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
+                </li>
+            {{/items}}
+        </ul>
+        {{/facets_selected}}
+
+        </div>
+    </section>
+
+    <section class="search-results">
+        <div class="container">
+            <div class="results-list cf">
+
+                <!-- Start of results header - sort controls, actions etc. -->
+                <div class="results-header">
+
+                    {{# menus.actions_disabled }}
+                    <div class="action-select">
+                        <input type="checkbox" name="allselected" id="action_select_all">
+                    </div>
+                    {{/ menus.actions_disabled }}
+
+                    <div class="result-info">
+                        {{# has_single_result }}
+                          {{{ i18n.site.results.list.single-result }}}
+                        {{/ has_single_result }}
+
+                        {{# has_multiple_results }}
+                            {{! i18n.site.results.list.count-and-terms }}
+
+                            {{ i18n.site.results.list.count-and-terms-with-range }}
+
+                        {{/ has_multiple_results }}
+                    </div>
+                    <div class="result-controls">
+                      <div class="facet-menu">
+                        <a class="opener">Filter (<span class="active-filter-count">{{active_filter_count}}</span>)</a>
+                      </div>
+
+                      {{! List and grid view buttons }}
+                      {{# menus.viewoptions }}
+                        <div class="result-viewtype">
+                          {{> molecules/controls/buttonbar-viewtype }}
+                        </div>
+                      {{/ menus.viewoptions }}
+                      {{# menus.sort_disabled }}
+                        <div class="result-sort">
+                          {{> molecules/controls/dropdown-menu }}
+                        </div>
+                      {{/ menus.sort_disabled }}
+                    </div>
+                    {{#results_menu}}
+                      <div class="result-actions">
+                        <span class="results-menu-prefix">{{button_title_prefix}}</span>
+                        {{> molecules/controls/dropdown-menu }}
+                      </div>
+                    {{/results_menu}}
+
+                    {{#menus.viewoptions}}
+                      {{#tooltip}}
+                        <div class="tooltip-wrapper-grid">
+                          {{> atoms/text/tooltip }}
+                        </div>
+                      {{/tooltip}}
+                    {{/menus.viewoptions}}
+
+                </div>
+                <!-- End of results header -->
+
+                {{#has_results}}
+                  <ol class="result-items cf">
+                    {{# search_results }}
+                      <li>
+                        {{> molecules/components/search/search-listitem }}
+                      </li>
+                    {{/ search_results }}
+                  </ol>
+                {{/has_results}}
+
+                {{^has_results}}
+                    <div class="no-results">
+                        <h2>{{ i18n.site.results.list.empty }}</h2>
+                        <p>{{{ i18n.site.results.list.empty-with-terms }}}</p>
+                    </div>
+                {{/has_results}}
+
+                {{#has_results}}
+                    {{> molecules/navigation/pagination }}
+                {{/has_results}}
+
+            </div>
+
+            <div class="refine">
+                <h2>{{i18n.global.refine-your-search}}</h2>
+                {{#filters}}
+                    {{#simple}}
+                        {{> molecules/controls/filter-simple }}
+                    {{/simple}}
+
+                    {{#hierarchical}}
+                        {{> molecules/controls/filter-hierarchical }}
+                    {{/hierarchical}}
+
+                    {{#colour}}
+                        {{> molecules/controls/filter-colour }}
+                    {{/colour}}
+
+                    {{#tabbed}}
+                        {{> molecules/controls/filter-tabbed }}
+                    {{/tabbed}}
+
+                    {{#boolean}}
+                      <div class="filter-wrap">
+                        {{> molecules/controls/filter-boolean }}
+                      </div>
+                    {{/boolean}}
+
+                    {{#date}}
+                        {{> molecules/controls/filter-date }}
+                    {{/date}}
+
+                    {{#advanced}}
+                        {{> molecules/controls/filter-advanced }}
+                    {{/advanced}}
+
+                {{/filters}}
+
+            </div>
+        </div>
+    </section>
+</div>
+
+{{> organisms/sections/banner }}
+{{> organisms/global/footer_v2 }}
+{{> molecules/forms/feedback }}

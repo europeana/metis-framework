@@ -1,0 +1,5 @@
+<source srcset="{{thumbnail.url}}"     media="(min-width: {{breakpoint_pixels.img.show_thumbnail}}) and (max-width: {{breakpoint_pixels.img.show_small}})">
+<source srcset="{{small.url}}"         media="(min-width: {{breakpoint_pixels.img.show_small}})     and (max-width: {{breakpoint_pixels.img.show_half}})">
+<source srcset="{{half.url}}"          media="(min-width: {{breakpoint_pixels.img.show_half}})      and (max-width: {{breakpoint_pixels.img.show_full}})">
+<source srcset="{{full.url}}"          media="(min-width: {{breakpoint_pixels.img.show_full}})">
+<img src="{{full.url}}"{{#image_credit}}{{#stripped_caption}} alt="{{.}}"{{/stripped_caption}}{{/image_credit}}>

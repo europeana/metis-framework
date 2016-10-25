@@ -1,0 +1,24 @@
+<form action="{{form.action_url}}">
+<fieldset class="filter filter-date">
+  {{#form.hidden_inputs}}<input type="hidden" name="{{name}}" value="{{value}}">{{/form.hidden_inputs}}
+  <legend class="filter-name" data-filter-name="{{filter_name}}>{{ title }}{{#icon_link}} <a href="{{link_url}}"><svg class="icon {{icon}}"><use xlink:href="#{{icon}}"></use></svg></a>{{/icon_link}}</legend>
+
+  {{> molecules/navigation/sparkline }}
+
+
+  <div class="filter-controls">
+    <div class="control-group">
+      <label for="date-range-start">{{i18n.global.facet.year.from}}</label>
+      <input id="date-range-start" name="{{range.start.input_name}}" min="{{date_start}}" max="{{date_end}}" type="number" value="{{range.start.input_value}}">
+    </div>
+
+    <div class="control-group">
+      <label for="date-range-end">{{i18n.global.facet.year.to}}</label>
+      <input id="date-range-end" name="{{range.end.input_name}}" min="{{date_start}}" max="{{date_end}}" type="number" value="{{range.end.input_value}}">
+    </div>
+
+    <input type="submit" class="is-jshidden" />
+  </div>
+
+</fieldset>
+</form>

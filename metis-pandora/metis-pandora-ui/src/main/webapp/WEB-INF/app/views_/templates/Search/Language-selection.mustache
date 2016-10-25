@@ -1,0 +1,82 @@
+{{> atoms/iconography/svgicons-search }}
+
+{{> organisms/global/header_v2}}
+
+
+<div role="main">
+
+  <section class="block-content-header section">
+    <div class="lc">
+      <h1 class="title">{{ i18n.site.settings.title }}</h1>
+    </div>
+  </section>
+
+  <section class="static-content section">
+    <div class="lc">
+      <div class="prose">
+        <form id="settings-form" action="{{settings.language.form.action}}" method="PUT">
+          <input type="hidden" name="authenticity_token" value="{{settings.language.form.form_authenticity_token}}"/>
+          <div class="item-language">
+            <div class="field-container">
+              {{#settings.language.language_default}}
+                <label for="select">{{ i18n.site.settings.language.default }}</label>
+                <select id="locale" name="locale" autocomplete="off">
+                  <optgroup label="{{ i18n.site.settings.language.available }}">
+                    {{#items}}
+                      <option value="{{value}}" {{#selected}}selected="selected"{{/selected}}> {{ text }} </option>
+                    {{/items}}
+                  </optgroup>
+                </select>
+              {{/settings.language.language_default}}
+            </div>
+          </div>
+          {{#settings.language.language_translations.enabled}}
+          <div class="dropdown-divider"></div>
+          <div class="check-language">
+            {{#settings.language.language_translations}}
+              {{> molecules/controls/group-checkbox }}
+            {{/settings.language.language_translations}}
+            <p>{{ settings.language.language_translations.limit  }}</p>
+            <input class="pushbutton clear-auto-translate" type="button" value="{{i18n.site.settings.actions.clear-selection}}"/>
+          </div>
+          {{/settings.language.language_translations.enabled}}
+          {{#settings.language.language_itempages.enabled}}
+          <div class="dropdown-divider"></div>
+          <div class="check-language">
+            <div class="field-container">
+              {{#settings.language.language_itempages}}
+                <label for="select">{{ i18n.site.settings.language.auto-translate-page }}</label>
+                <div class="language_wrapper">
+                  <label for="{{item_id}}">
+                    <input id="{{item_id}}" name="{{item_id}}" type="checkbox" value="{{value}}" {{#is_checked}} checked {{/is_checked}} {{#is_disabled}} disabled {{/is_disabled}}> {{ label }}
+                  </label>
+                  <select id="select">
+                    <optgroup label="{{group_id}}">
+                      {{#items}}
+                        <option> {{ text }} </option>
+                      {{/items}}
+                    </optgroup>
+                  </select>
+                </div>
+              {{/settings.language.language_itempages}}
+            </div>
+          </div>
+          {{/settings.language.language_itempages.enabled}}
+          <input type="submit" value="{{i18n.site.settings.actions.save-settings}}"/>
+        </form>
+      </div>
+      <div class="sidebar settings-nav js-getstickywidth">
+        {{#navigation.secondary}}
+          <div class="js-sticky">
+            {{> molecules/navigation/nav-secondary }}
+          </div>
+        {{/navigation.secondary}}
+      </div>
+    </div>
+  </section>
+</div>
+
+{{> organisms/sections/banner }}
+
+{{> organisms/global/footer_v2 }}
+{{> molecules/forms/feedback }}

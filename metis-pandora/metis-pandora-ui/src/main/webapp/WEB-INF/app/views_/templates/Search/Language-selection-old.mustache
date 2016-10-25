@@ -1,0 +1,96 @@
+{{> atoms/iconography/svgicons-search }}
+
+{{> organisms/global/header_v2}}
+
+<div role="main" class="page l-page">
+
+    <section class="language-selection">
+        <div class="container">
+            <div class="results-list cf">
+
+              <form id="settings-form" action="{{settings.language.form.action}}" method="post">
+                  <input name="_method" type="hidden" value="{{settings.language.form.method}}" />
+                  <input type="hidden" name="authenticity_token" value="{{settings.language.form.form_authenticity_token}}"/>
+
+                  <div class="item-language">
+
+                      <h1>{{ settings.language.title }}</h1>
+
+                      <div class="field-container">
+                          {{#settings.language.language_default}}
+                          <label for="select">{{ title }}</label>
+                          <select id="locale" name="locale" autocomplete="off">
+                              <optgroup label="{{group_id}}">
+                                {{#items}}
+                                  <option value="{{value}}" {{#selected}}selected="selected"{{/selected}}> {{ text }} </option>
+                                {{/items}}
+                              </optgroup>
+                          </select>
+                          {{/settings.language.language_default}}
+                      </div>
+
+                    <div class="dropdown-divider"></div>
+
+                      <div class="check-language">
+
+                          {{#settings.language.language_options}}
+                              {{> molecules/controls/group-checkbox }}
+                          {{/settings.language.language_options}}
+
+                        <p>{{ settings.language.limit }}</p>
+
+                        <input class="pushbutton" type="submit" value="{{i18n.site.settings.actions.clear-selection}}"/>
+
+                      </div>
+
+                      <div class="dropdown-divider"></div>
+
+                      <div class="check-language">
+
+                        <div class="field-container">
+
+                          {{#settings.language.language_itempages}}
+
+                          <label for="select">{{ title }}</label>
+
+                          <div class="language_wrapper">
+                            <label for="{{item_id}}">
+                            <input id="{{item_id}}" name="{{item_id}}" type="checkbox" value="{{value}}" {{#is_checked}} checked {{/is_checked}} {{#is_disabled}} disabled {{/is_disabled}}> {{ label }}
+                            </label>
+
+                            <select id="select">
+                                <optgroup label="{{group_id}}">
+                                {{#items}}
+                                    <option> {{ text }} </option>
+                                {{/items}}
+                                </optgroup>
+                            </select>
+                            {{/settings.language.language_itempages}}
+                          </div>
+
+                        </div>
+
+                        <input type="submit" value="{{i18n.site.settings.actions.save-settings}}"/>
+
+                      </div>
+                  </div>
+               </form>
+            </div>
+
+            <div class="refine">
+                <h2>{{i18n.global.settings}}</h2>
+                <div class="filter">
+                  <a href="#languages-selection">{{i18n.global.facet.header.language}}</a>
+                  <div class="refine-advanced">
+                    <a href="#language-advanced">{{i18n.global.facet.more-refinements}}</a>
+                      {{! @TODO add advanced search }}
+                  </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+{{> organisms/sections/banner }}
+
+{{> organisms/global/footer }}

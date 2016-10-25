@@ -1,0 +1,75 @@
+{{> atoms/iconography/svgicons-search }}
+{{> atoms/iconography/svgicons-user }}
+
+{{> organisms/global/header_v2}}
+
+
+<div class="site-hero cf" style="background-image: url('{{image_root}}statistics/dashboard.jpg');" >
+
+	<div class="hero-content">
+		<h1 class="title">Europeana Statistics dashboard</h1>
+		<h2 class="subtitle">In depth insight into Europeana at a glance</h2>
+	</div>
+
+	<div class="attribution" tabindex="0">
+		<div class="attribution-toggle">
+		<svg class="icon icon-help">
+			<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-help"></use>
+		</svg>
+		<h2 class="is-vishidden">About this image</h2>
+		</div>
+
+		<div class="attribution-content">
+			<a href="http://www.europeana.eu/portal/record/9200387/BibliographicResource_3000117250606.html">Diagram from "Ladák, physical, statistical, and historical" <span class="origin">The British Library</span></a>
+			<a href="http://creativecommons.org/publicdomain/mark/1.0/" class="license icon-license-pd"> Public Domain </a>
+		</div>
+	</div>
+
+</div>
+
+<div class="section quickinfo">
+<div class="lc">
+
+	<div class="l-primaryaction">
+		<div class="primaryaction">
+
+
+			<h2>How do people use Europeana?</h2>
+			<p>Ever wondered what the most popular items in Europeana are or which country uses Europeana the most?</p>
+
+			<a class="btn button-join pill" href="/europeana">
+				Browse the Europeana stats
+			</a>
+
+		</div>
+	</div>
+
+
+{{# content.quicklinks }}
+	<div class="l-usefulinfo usefulinfo">
+
+		<h2>{{ title }}</h2>
+
+		{{# items }}
+		<div class="l-usefulinfo-item">
+			<div class="usefulinfo-item">
+
+				<h3>{{ title }}</h3>
+
+				<ul class="usefulinfo-links">
+				{{# items }}
+				<li><a href="{{ url }}">{{ text }}</a></li>
+				{{/ items }}
+				</ul>
+			</div>
+		</div>
+		{{/ items }}
+	</div>
+{{/ content.quicklinks }}
+
+</div>
+</div>
+
+
+{{> organisms/global/footer }}
+

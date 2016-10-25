@@ -1,0 +1,258 @@
+{{> atoms/iconography/svgicons-virtual-exhibitions}}
+{{> atoms/iconography/svgicons-user }}
+{{> organisms/global/header_v2}}
+
+<div id="desktop_detect"></div>
+
+<main role="main" class="l-page"{{#google_analytics_code}} data-ga-code="{{.}}"{{/google_analytics_code}}>
+
+  <div class="page_header">
+    {{>molecules/virtual-exhibitions/browse-breadcrumb.mustache}}
+  </div>
+
+  <div id="maincontent" class="maincontent">
+    {{# page_data }}
+      <div class="ve-slide-container{{#is_chapter}} ve-chapter{{/is_chapter}}{{#is_exhibition}} ve-exhibition{{/is_exhibition}}">
+
+        {{#is_foyer}}
+          <section class="ve-slide first">
+            {{#elements}}
+              {{#present}}
+                {{#items}}
+                  {{#is_featured_exhibition}}
+                    {{> organisms/virtual-exhibitions/intro-slide}}
+                  {{/is_featured_exhibition}}
+                {{/items}}
+              {{/present}}
+            {{/elements}}
+          </section>
+        {{/is_foyer}}
+
+        {{^is_foyer}}
+          {{^is_credit}}
+            {{# elements.present }}
+
+              {{! PROGRESS NAV }}
+
+              <h4 class="ve-progress-nav">
+                {{# elements.items }}
+                  {{^ is_section }}
+                    {{#is_first}}
+                      <a href="#ve-anchor-{{id}}-js"><span class="ve-state-button ve-state-button-on ve-first"></span>{{> templates/Exhibitions/SpeechBubble}}</a>
+                    {{/is_first}}
+                  {{/ is_section }}
+                {{/ elements.items }}
+                {{# elements.items }}
+                  {{# is_section }}
+                    <a href="#ve-anchor-{{id}}-js"{{#section_title}} title="{{.}}"{{/section_title}}><span class="ve-state-button {{^is_first}}ve-state-button-off{{/is_first}}"></span>{{> templates/Exhibitions/SpeechBubble}}</a>
+                  {{/ is_section }}
+                {{/ elements.items }}
+              </h4>
+
+              {{! SECTIONS }}
+
+              <section class="ve-slide first">
+                {{# elements.items }}
+                  {{#is_first}}
+                    <a class="ve-anchor" id="ve-anchor-{{id}}-js"></a>
+                  {{/is_first}}
+                {{/ elements.items }}
+                {{# elements.items }}
+                  {{> organisms/virtual-exhibitions/main-slide}}
+                {{/ elements.items }}
+              </section>
+
+            {{/ elements.present }}
+            <a id="ve-end"></a>
+          </div>
+
+          {{! NAV ELEMENTS }}
+
+          {{#is_exhibition}}
+            <div class="ve-chapter-selection-container">
+              <div class="ve-chapter-selection-container-inner cf">
+                {{#chapter_elements}}
+                  {{#present}}
+                    {{#items}}
+                      {{#is_chapter_nav}}
+                        {{> organisms/virtual-exhibitions/chapter-selection}}
+                      {{/is_chapter_nav}}
+                    {{/items}}
+                  {{/present}}
+                {{/chapter_elements}}
+              </div>
+              {{> templates/Exhibitions/Next-Prev-Chapter }}
+            </div>
+          {{/is_exhibition}}
+          {{#is_chapter}}
+            <div class="ve-chapter-selection-container cf">
+              {{> templates/Exhibitions/Next-Prev-Chapter }}
+            </div>
+          {{/is_chapter}}
+        {{/is_credit}}
+      {{/is_foyer}}
+
+      {{! FOYER CARDS }}
+
+      {{#is_foyer}}
+        <div class="ve-foyer-card-container cf">
+          {{#elements}}
+            {{#present}}
+              {{#items}}
+                {{#is_foyer_card}}
+                  {{> organisms/virtual-exhibitions/foyer-card}}
+                {{/is_foyer_card}}
+              {{/items}}
+            {{/present}}
+          {{/elements}}
+        </div>
+      {{/is_foyer}}
+
+      {{#is_credit}}
+        <div class="ve-credit-wrapper">
+        {{# elements }}
+          {{# present }}
+            {{# items }}
+              {{# is_credit_intro }}
+                  <div class="ve-credit-intro cf">
+                    {{#title}}
+                    <div class="ve-credit-title">
+                      <h1>{{.}}</h1>
+                    </div>
+                    {{/title}}
+                    <div class="ve-col-credit-left">
+                      <div class="inner">
+                        {{{body}}}
+                      </div>
+                    </div>
+                    <div class="ve-col-credit-right">
+                      <div class="inner">
+                        <figure>
+                        {{#partner_url}}<a href="{{.}}">{{/partner_url}}
+                          {{#image}}
+                            <picture data-hi-res="{{#full}}{{url}}{{/full}}">
+                              {{>atoms/images/responsive-srcset-picture}}
+                            </picture>
+                          {{/image}}
+                        {{#partner_url}}</a>{{/partner_url}}
+                        </figure>
+                      </div>
+                    </div>
+                  </div>
+              {{/ is_credit_intro }}
+            {{/ items }}
+          {{/ present }}
+        {{/ elements }}
+
+        {{# credit_elements.present }}
+          {{# credit_elements.items }}
+
+           <div class="ve-col-credit cf">
+              <div class="ve-col-credit-left">
+                <div class="inner">
+                  <figure>
+                    {{#image}}
+                      <picture data-hi-res="{{#full}}{{url}}{{/full}}">
+                        {{>atoms/images/responsive-srcset-picture}}
+                      </picture>
+                    {{/image}}
+                  </figure>
+                </div>
+              </div>
+              <div class="ve-col-credit-right">
+                <div class="inner">
+                  {{#image_credit}}
+                    <ul>
+                      {{#attribution_title}}
+                        <li class="ve-field">
+                          <h4 class="ve-field-label">Title</h4>
+                          {{#attribution_url}}
+                            <a href="{{.}}" target="_new">{{attribution_title}}</a>
+                          {{/attribution_url}}
+                          {{^attribution_url}}
+                            {{attribution_title}}
+                          {{/attribution_url}}
+                        </li>
+                      {{/attribution_title}}
+
+                      {{#attribution_creator}}
+                        <li class="ve-field">
+                          <h4 class="ve-field-label">Creator</h4> {{.}}
+                        </li>
+                      {{/attribution_creator}}
+
+                      {{#attribution_institution}}
+                        <li class="ve-field">
+                          <h4 class="ve-field-label">Source</h4>
+                          {{attribution_institution}}
+                        </li>
+                      {{/attribution_institution}}
+
+                      {{#country}}
+                      <li class="ve-field">
+                        <h4 class="ve-field-label">Country</h4>
+                        {{.}}
+                      </li>
+                      {{/country}}
+
+                      <li class="ve-field">
+                        <h4 class="ve-field-label">Rights</h4>
+                        {{>molecules/icons/licenses}}
+                      </li>
+
+                      {{#page_url}}
+                        <li class="ve-field bold">
+                          <a href="{{.}}#ve-element-anchor-{{id}}" target="_new">view in exhibition
+                        </li>
+                      {{/page_url}}
+
+                      {{#image}}
+                        <li class="ve-field">
+                          <a class="btn" download="Europeana-Exhibition-Image" href="{{#full}}{{url}}{{/full}}">
+                            <svg class="icon icon-download">
+                              <use xlink:href="#icon-download"></use>
+                            </svg>Download</a>
+                        </li>
+                      {{/image}}
+
+                    </ul>
+                  {{/image_credit}}
+                </div>
+              </div>
+            </div>
+          {{/ credit_elements.items }}
+        {{/ credit_elements.present }}
+        </div>
+      <div class="ve-chapter-selection-container cf">
+        {{> templates/Exhibitions/Next-Prev-Chapter }}
+      </div>
+
+
+      {{/is_credit}}
+
+    {{/ page_data }}
+
+
+    {{^is_foyer}}
+      {{#social}}
+        <div class="ve-social">
+          {{#text}}<h2 class="text">{{.}}</h2>{{/text}}
+          {{> molecules/controls/share-social }}
+        </div>
+      {{/social}}
+    {{/is_foyer}}
+
+  </div>
+</main>
+{{> molecules/components/photoswipe/photoswipe }}
+
+{{#is_foyer}}
+  {{> organisms/global/footer }}
+{{/is_foyer}}
+{{^is_foyer}}
+  {{#footer}}
+    <footer class="ve-footer footer" role="contentinfo">
+      {{> molecules/navigation/linklist-simple}}
+    </footer>
+  {{/footer}}
+{{/is_foyer}}

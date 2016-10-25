@@ -1,0 +1,73 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+<div class="lc">
+	<!-- Start grid -->
+	<div class="grid-main">
+
+		<div class="l-content">
+
+		<div class="l-breadcrumbs">
+			{{> molecules/navigation/breadcrumbs}}
+		</div>
+
+		<article id="maincontent" class="maincontent">
+			<div class="textcontent">
+
+				<div class="articleheader">
+
+					<h1 class="title">{{ headline.medium }}</h1>
+
+					<div class="item-meta-secondary">
+						{{> molecules-item-date }}
+						{{> molecules-item-tags }}
+						{{> molecules-item-comments }}
+					</div>
+
+				</div>
+
+				<div class="prose">
+				{{> organisms-article-body }}
+				</div>
+
+        <div class="item-meta-secondary">
+          {{> molecules-item-provider }}
+          {{> molecules-item-email }}
+          {{> molecules-item-website }}
+        </div>
+
+			</div>
+
+			{{> molecules-related-noimages(title: "Related Content") }}
+
+			<aside>
+				<<<<< TODO Disqus Comments go here >>>>>
+			</aside>
+
+
+		</article>
+		</div><!--
+
+	 --><div class="l-sidebar">
+	 		<div class="inner">
+
+				{{> molecules-help-contact(title: "Questions") }}
+
+
+			</div>
+
+		</div>
+	</div>
+	<!-- End grid -->
+</div>
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+

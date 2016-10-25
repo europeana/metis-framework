@@ -1,0 +1,481 @@
+{{> atoms/iconography/svgicons-search }}
+{{> organisms/global/header_v2}}
+
+<div role="main" class="search-object">
+  <div class="object-nav cf">
+    <div class="object-nav-lists">
+      <ul class="breadcrumbs">
+        <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
+        <li class="js-channel"><a href=""></a></li>
+        {{#navigation.back_url}}<li><a href="{{.}}">{{i18n.site.navigation.breadcrumb.results_list}}</a></li>{{/navigation.back_url}}
+        <li class="js-return"><a href="">{{i18n.site.navigation.breadcrumb.results_list}}</a></li>
+        <li><span class="lastitem"><strong>{{i18n.site.navigation.breadcrumb.item_detail}}</strong></span></li>
+      </ul>
+      {{>molecules/navigation/next-previous}}
+    </div>
+    {{>molecules/forms/search-item-navigation}}
+  </div>
+  {{#content}}
+    {{#object.media}}
+      <section class="object-display">
+        <div class="object-media-wrap {{#empty_item}} empty{{/empty_item}}{{#single_item}}single-item{{/single_item}} {{^single_item}}{{^empty_item}}multi-item{{/empty_item}}{{/single_item}}">
+          <a class="scroll-trigger trigger-chain"
+             data-enabled="true"
+             data-disable-when-fired="showMediaThumbs"
+             data-fire-on-open-params='{ "trigger": "scroll-trigger-media-items"}'></a>
+          {{^empty_item}}
+            <div class="media-viewer">
+              {{#single_item}}
+                {{#items}}
+                  <div class="single-item-thumb">
+                    {{> molecules/components/media-nav-item}}
+                  </div>
+                {{/items}}
+              {{/single_item}}
+
+              {{^single_item}}
+                {{#items}}
+                  {{#is_current}}
+                    <div class="multi-item-poster{{#playable}} contains-playable{{/playable}}">
+                      <a {{#playable}}class="playable"{{/playable}} {{#play_url}}data-uri="{{.}}"{{/play_url}}>
+                        {{>molecules/components/thumb-icon}}
+                      </a>
+                    </div>
+                  {{/is_current}}
+                {{/items}}
+              {{/single_item}}
+
+              {{#required_players}}
+                {{#iiif}}
+                  <div class="object-media-iiif is-hidden">
+                    {{> molecules/components/iiif/iiif }}
+                  </div>
+                {{/iiif}}
+
+                {{#image}}
+                  <div class="object-media-image is-hidden">
+                    {{> molecules/components/photoswipe/photoswipe }}
+                  </div>
+                {{/image}}
+
+                {{#video}}
+                  <div class="object-media-video is-hidden">
+                    {{> molecules/components/videojs/videojs }}
+                  </div>
+                {{/video}}
+
+                {{#midi}}
+                  <div class="object-media-midi is-hidden">
+                    {{> molecules/components/midi/midi }}
+                  </div>
+                {{/midi}}
+
+                {{#oembed}}
+                  <div class="object-media-oembed is-hidden" data-fullscreen-enter="{{i18n.global.actions.fullscreen-enter}}" data-fullscreen-exit="{{i18n.global.actions.fullscreen-exit}}">
+                    {{> molecules/components/oembed/oembed }}
+                  </div>
+                {{/oembed}}
+
+                {{#text}}
+                  <div class="object-media-text is-hidden">
+                    Text viewer here
+                  </div>
+                {{/text}}
+
+                {{#audio}}
+                  <div class="object-media-audio is-hidden">
+                   {{> molecules/components/videojs/videojs }}
+                  </div>
+                {{/audio}}
+
+                {{#pdf}}
+                  <div class="object-media-pdf is-hidden">
+                    {{> molecules/components/pdfjs/pdfjs-ui-thumbs-right }}
+                  </div>
+                {{/pdf}}
+              {{/required_players}}
+            </div>
+
+            {{^single_item}}
+              {{> molecules/components/media-nav}}
+            {{/single_item}}
+
+          {{/empty_item}}
+
+          {{#empty_item}}
+            {{#thumbnail}}<img src={{.}}>{{/thumbnail}}
+            {{^thumbnail}}<br/><br/>{{/thumbnail}}
+          {{/empty_item}}
+        </div>
+      </section>
+
+      {{^empty_item}}
+        <section>
+          <div class="object-media-info section is-current">
+            <div class="object-downloads">
+              {{#has_downloadable_media}}
+              <a class="download-button btn alt {{^has_downloadable_media}}is-disabled{{/has_downloadable_media}}"
+                 download="Europeana-Media"
+                {{#items}}
+                  {{#is_current}}
+                    {{#download}}
+                      href="{{url}}"
+                    {{/download}}
+                  {{/is_current}}
+                {{/items}}>
+                <svg class="icon icon-download">
+                  <use xlink:href="#icon-download"></use>
+                </svg>
+                {{ i18n.site.object.actions.download }}
+              </a>
+              {{/has_downloadable_media}}
+              {{#items}}
+                {{#is_current}}
+                  <div class="media-info-tab">
+                    <div class="lc">
+                      {{# rights }}
+                        <div class="info-license">
+                          <h4>
+                            {{ i18n.global.facet.header.reusability }}
+                          </h4>
+                          <p>{{ license_human }}</p>
+                          <div class="object-license">{{> molecules/icons/licenses }}</div>
+                        </div>
+                      {{/ rights }}
+
+                      <div class="info-attribute">
+                        <h4 class="title">{{ i18n.site.object.actions.attribute-author }}</h4>
+                        {{#technical_metadata}}
+                          {{> molecules/controls/attribution-widget }}
+                        {{/technical_metadata}}
+                      </div>
+
+                      <div class="info-support">
+                          {{> molecules/metadata/file-detail }}
+                      </div>
+                    </div>
+                  </div>
+                {{/is_current}}
+              {{/items}}
+            </div>
+            <div class="object-techdata">
+              <a class="js-showhide show-button" href="#">
+                <svg class="icon icon-info">
+                  <use xlink:href="#icon-info"></use>
+                </svg>
+                {{ i18n.site.object.actions.media-metadata }}
+              </a>
+              {{#items}}
+                {{#is_current}}
+                  <div class="media-info-tab">
+                    <div class="lc">
+                      <div class="info-primary">
+                        <h3>{{ i18n.site.object.actions.media-metadata }}</h3>
+                      </div>
+                      <div class="info-secondary">
+                        <ul class="object-techdata-list">
+                          <li {{^technical_metadata.dc_creator}}class="is-disabled"{{/technical_metadata.dc_creator}}><span class="label tech-meta-creator">{{i18n.site.object.meta-label.creator}}</span>  <span class="val">{{#technical_metadata}}{{dc_creator}}{{/technical_metadata}}</span></li>
+                          <li {{^technical_metadata.dc_description}}class="is-disabled"{{/technical_metadata.dc_description}}><span class="label tech-meta-description">{{i18n.site.object.meta-label.description}}</span>  <span class="val">{{#technical_metadata}}{{dc_description}}{{/technical_metadata}}</span></li>
+                          <li {{^technical_metadata.format}}class="is-disabled"{{/technical_metadata.format}}      ><span class="label tech-meta-format"    >{{i18n.site.object.meta-label.format}}</span>     <span class="val">{{#technical_metadata}}{{format}}{{/technical_metadata}}</span></li>
+                          <li {{^technical_metadata.file_size}}class="is-disabled"{{/technical_metadata.file_size}}><span class="label tech-meta-filesize"  >{{i18n.site.object.meta-label.file-size}}</span>  <span class="val">{{#technical_metadata}}{{#file_size}}{{.}} {{file_unit}}{{/file_size}}{{/technical_metadata}}</span></li>
+                          <li {{^technical_metadata.codec}}class="is-disabled"{{/technical_metadata.codec}}        ><span class="label tech-meta-codec"     >{{i18n.site.object.meta-label.codec}}</span>      <span class="val">{{#technical_metadata}}{{codec}}{{/technical_metadata}}</span></li>
+                          <!--
+                          <li {{^technical_metadata.fps}}class="is-disabled"{{/technical_metadata.fps}}            ><span class="label tech-meta-fps"       >{{i18n.site.object.meta-label.fps}}</span>        <span class="val">{{#technical_metadata}}{{fps}} {{fps_unit}}{{/technical_metadata}}</span></li>
+                          -->
+                          <li {{^technical_metadata.width}}class="is-disabled"{{/technical_metadata.width}}        ><span class="label tech-meta-dimensions">{{i18n.site.object.meta-label.dimensions}}</span> <span class="val">{{#technical_metadata}}{{width}} × {{height}} {{size_unit}}{{/technical_metadata}}</span></li>
+                          <li {{^technical_metadata.runtime}}class="is-disabled"{{/technical_metadata.runtime}}    ><span class="label tech-meta-runtime"   >{{i18n.site.object.meta-label.runtime}}</span>    <span class="val">{{#technical_metadata}}{{runtime}} {{runtime_unit}}{{/technical_metadata}}</span></li>
+
+                          <li {{^technical_metadata.dc_source}}class="is-disabled"{{/technical_metadata.dc_source}}><span class="label tech-meta-source">{{i18n.site.object.meta-label.source}}</span>  <span class="val">{{#technical_metadata}}{{dc_description}}{{/technical_metadata}}</span></li>
+
+                          <li {{^technical_metadata.dc_rights}}class="is-disabled"{{/technical_metadata.dc_rights}}><span class="label tech-meta-dc-rights">{{i18n.site.object.meta-label.rights}}</span>  <span class="val">{{#technical_metadata}}{{dc_rights}}{{/technical_metadata}}</span></li>
+                          <li {{^technical_metadata.edm_rights}}class="is-disabled"{{/technical_metadata.edm_rights}}><span class="label tech-meta-edm-rights" data-mustache="#molecules-icons-licenses-js">{{i18n.site.object.meta-label.rights}}</span>  <span class="val val-rights">{{#technical_metadata}}{{edm_rights}}{{/technical_metadata}}</span></li>
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div id="molecules-icons-licenses-js">{{> molecules/icons/licenses-js }}</div>
+
+                {{/is_current}}
+              {{/items}}
+            </div>
+          </div>
+        </section>
+      {{/empty_item}}
+
+      {{^items}}
+        <section>
+          <div class="object-media-info section is-current">
+            <div class="object-downloads">
+            </div>
+          </div>
+        </section>
+      {{/items}}
+
+    {{/object.media}}
+
+    {{! Main object text info section }}
+    <section class="section object-details">
+      <div class="lc">
+        <div class="object-overview">
+          {{#object}}
+            <div class="data-section no-border object-title cf">
+              <h3 class="subsection-label"> {{i18n.site.object.meta-label.title}} </h3>
+              <div class="subsection-content">
+                {{# title }}
+                  <h2 class="object-title" property="http://purl.org/dc/elements/1.1/title dc:title">{{title}}</h2>
+                {{/ title }}
+                {{# subtitle }}
+                  <div class="subtitle">{{subtitle}}</div>
+                {{/ subtitle }}
+              </div>
+            </div>
+            {{#description}}
+              {{> organisms/sections/object-data-section }}
+            {{/description}}
+
+            {{#people}}
+              {{> organisms/sections/object-data-section }}
+            {{/people}}
+
+            {{#concepts }}
+              {{> organisms/sections/object-data-section }}
+            {{/concepts }}
+
+            {{#properties }}
+              {{> organisms/sections/object-data-section }}
+            {{/properties }}
+
+            {{#dates }}
+              {{> organisms/sections/object-data-section }}
+            {{/dates }}
+
+            {{#places }}
+              {{> organisms/sections/object-data-section }}
+            {{/places }}
+
+            {{#provenance}}
+              {{> organisms/sections/object-data-section }}
+            {{/provenance}}
+
+            {{#copyright}}
+              {{> organisms/sections/object-data-section }}
+            {{/copyright}}
+
+            {{#refs_rels}}
+              {{> organisms/sections/object-data-section }}
+            {{/refs_rels}}
+
+            {{#meta_additional}}
+              {{#present}}
+                <div class="map-section">
+                  <h3 class="subsection-label">
+                    {{i18n.site.object.meta-label.location}}
+                  </h3>
+                  <div class="object-info">
+                    {{#places}}
+                      <ul class="data-group">
+                        {{#sections}}
+                          <li>
+                            <section>
+                              <h4 class="data-header">{{#title }}{{.}}:{{/title }}</h4>
+                              <ul class="comma-list data-group">
+                                {{# items }}
+                                  <li>
+                                    {{#url }}<a href="{{.}}">{{/url }}{{ text }}{{#url }}</a>{{/url }}{{#extra_info}}
+                                      {{#life}}
+                                        <span class="life-dates">
+                                          ({{from.short}} {{#to.short}} — {{.}}{{/to.short}})
+                                        </span>
+                                      {{/life}}
+                                      {{#biography}}
+                                        <div class="biography">
+                                          {{text}}
+                                        </div>
+                                      {{/biography}}
+                                    {{/extra_info}}
+                                  </li>
+                                {{/ items}}
+                              </ul>
+                            </section>
+                          </li>
+                        {{/sections}}
+                      </ul>
+                    {{/places}}
+
+                    {{#geo.long_and_lat}} {{! check both present }}
+                      <a class="scroll-trigger"
+                         id="scroll-trigger-map"
+                         data-enabled="true"
+                         data-fire-on-open="showMap"
+                         data-fire-on-open-params='{
+                          "longitude":{{geo.longitude}}, "latitude": {{geo.latitude}}, "labels": { "n":"{{geo.labels.points.n}}", "s":"{{geo.labels.points.s}}", "e":"{{geo.labels.points.e}}", "w":"{{geo.labels.points.w}}" }
+                         }'
+                        ></a>
+                      <span id="js-map-place-name" class="is-hidden">{{geo.placeName}}</span>
+                      <div id="map">
+                        <div><b>{{geo.labels.longitude}}</b> {{#geo.longitude}}{{.}}{{/geo.longitude}}</div>
+                        <div><b>{{geo.labels.latitude}}</b> {{#geo.latitude}}{{.}}{{/geo.latitude}}</div>
+                      </div>
+                      <a class="scroll-trigger trigger-chain"
+                        data-enabled="true"
+                        data-disable-when-fired="showMap"
+                        data-fire-on-open-params='{"trigger": "scroll-trigger-map"}'></a>
+                    {{/geo.long_and_lat}}
+                  </div>
+                </div>
+              {{/present}}
+            {{/meta_additional}}
+          {{/object}}
+        </div>
+        {{! end of object info column }}
+
+        <div class="object-actions cf">
+          <input type="hidden" name="js_edm_is_shown_by" value="{{data.edm_is_shown_by}}"/>
+          {{# object.origin }}
+            <div class="object-origin" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xhv="http://www.w3.org/1999/xhtml/vocab#">
+              <h4>{{ i18n.site.object.meta-label.provided-by }}</h4>
+              {{#logo}}
+                <a href="{{url}}"><img class="logo-institution" src="{{image_root}}{{logo}}" alt="{{institution_name}} logo"></a>
+              {{/logo}}
+              {{#institution_name_and_link}}
+                {{{ i18n.site.object.meta-label.provided-by-detail }}}
+              {{/institution_name_and_link}}
+              {{^institution_name_and_link}}
+                {{#institution_name}}
+                  {{{ i18n.site.object.meta-label.provided-by-detail-no-link }}}
+                  {{#disabled}}
+                    <a href="{{institution_canned_search}}"
+                       property="cc:attributionName"
+                       rel="cc:attributionURL">{{institution_name}}</a>
+                  {{/disabled}}
+                  {{institution_name}}
+                  <span resource="http://www.europeana.eu/rights/pd-usage-guide/" rel="cc:useGuidelines"></span>
+                {{/institution_name}}
+              {{/institution_name_and_link}}
+            </div>
+          {{/ object.origin }}
+          {{# object.rights }}
+            <div class="object-rights">
+              <h4>{{ i18n.global.facet.header.reusability }}</h4>
+              {{license_human}}
+              <div class="object-license">{{> molecules/icons/licenses }}</div>
+            </div>
+          {{/ object.rights }}
+          {{# object.tags }}
+            <div class="object-tags">
+              <ul class="nav">
+                {{#items}}
+                  <li><a href="{{url}}" class="tag">{{text}}</a></li>
+                {{/items}}
+              </ul>
+            </div>
+          {{/ object.tags }}
+
+          {{#object.media}}
+            {{#items}}
+              {{#technical_metadata.colours}}
+                {{> molecules/controls/colour-search }}
+              {{/technical_metadata.colours}}
+            {{/items}}
+            {{> molecules/controls/colour-search-template }}
+          {{/object.media}}
+
+          {{# object.further_actions }}
+            <div class="object-furtheractions">
+              {{> molecules/controls/dropdown-menu }}
+            </div>
+          {{/ object.further_actions }}
+
+          {{# object.social_share }}
+            <div class="object-social">
+              <h4>{{{ i18n.global.share }}}</h4>
+              {{> molecules/controls/share-social }}
+            </div>
+          {{/ object.social_share }}
+        </div>
+        {{! end object actions }}
+      </div>
+
+      <div class="lc data-border">
+
+        {{#content.hierarchy}}
+          <div class="data-section no-border">
+            <div class="hierarchy cf">
+              <div class="subsection-label">
+               {{i18n.site.object.hierarchy.title}}
+                <a class="scroll-trigger"
+                    data-enabled="true"
+                    data-fire-on-open="showHierarchy"
+                    data-fire-on-open-params='{"label_up": "{{ i18n.site.object.hierarchy.view-items-above }}", "label_down": "{{i18n.site.object.hierarchy.view-items-below}}"}'
+                ></a>
+              </div>
+              <div class="subsection-content">
+                <div class="hierarchy-objects" style="display:none;">{{.}}</div>
+              </div>
+            </div>
+          </div>
+        {{/content.hierarchy}}
+
+        {{#content.similar}}
+          <div class="data-section no-border">
+            <div class="mlt cf">
+              <div class="subsection-label">
+                {{title}}
+                <a id="scroll-trigger-mlt"
+                   class="scroll-trigger"
+                   data-enabled="true"
+                   data-fire-on-open="showMLT"
+                   data-fire-on-open-params='{ "loadUrl": "{{more_items_load}}", "total_available": "{{more_items_total}}", "template": "mlt", "svg": true}'
+                ></a>
+              </div>
+              <div class="subsection-content">
+                <div class="js-carousel more-like-this">
+                  <ul class="cf">
+                    {{#items}}
+                      <li class="js-carousel-item">
+                        <div class="mlt-img-div height-to-width" style="background-image: url({{img.src}})">
+                          <div class="inner"><a class="link" href="{{url}}">&nbsp;</a></div>
+                        </div>
+                        {{#title}}
+                        <span class="js-carousel-title">
+                          <a href="{{url}}">{{.}}</a>
+                        </span>
+                        {{/title}}
+                      </li>
+                    {{/items}}
+                  </ul>
+                </div>
+                <a class="scroll-trigger trigger-chain"
+                   data-enabled="true"
+                   data-disable-when-fired="showMLT"
+                   data-fire-on-open-params='{ "trigger": "scroll-trigger-mlt"}'></a>
+              </div>
+            </div>
+            <div class="show-more-mlt"><a href="{{more_items_query}}">{{ i18n.site.object.show-more-similar-items }}… ({{more_items_total_formatted}})</a></div>
+          </div>
+        {{/content.similar}}
+      </div>
+
+      {{#content.named_entities}}
+        <div class="lc data-border">
+          <div class="data-section no-border">
+            <div class="cf">
+              <div class="subsection-label">
+                {{i18n.site.object.named-entities.title}}
+              </div>
+              <div class="subsection-content">
+                  {{>molecules/navigation/foldable-list}}
+              </div>
+            </div>
+          </div>
+        </div>
+      {{/content.named_entities}}
+
+    </section>
+  {{/content}}
+</div>
+{{> organisms/sections/banner }}
+{{> organisms/global/footer_v2 }}
+{{> molecules/forms/feedback }}
