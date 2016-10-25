@@ -6,7 +6,7 @@
 {{> organisms/global/header_v2}}
 
 
-<main role="main" class="l-page">
+<main role="main" id="maincontent" class="l-page">
 
 <div class="page_header">
   <div class="lc">
@@ -53,8 +53,9 @@
           <span class="madlib h4">Show results for</span>
 
           <span class="madlib">
+            <label for="filter-month-select" class="is-vishidden">Month</label>
             <select id="filter-month-select" class="js-filter_top_digital_objects">
-              <option value="">Full year</option>
+              <option value="">All Months</option>
               <option value="" disabled="disabled">- - - - - - - -</option>
               <option value="January">January</option>
               <option value="February">February</option>
@@ -74,6 +75,7 @@
           <span class="madlib h4">of</span>
 
           <span class="madlib">
+          <label for="filter-year-select" class="is-vishidden">Year</label>
             <select id="filter-year-select" class="js-filter_top_digital_objects">
               <option value="2014">2014</option>
               <option value="2015" selected="">2015</option>

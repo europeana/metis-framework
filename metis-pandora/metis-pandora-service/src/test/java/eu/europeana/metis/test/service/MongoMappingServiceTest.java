@@ -192,7 +192,7 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
     private <T extends Attribute> T appendStatisticsAndFlags(T child,String mappingId) {
         Statistics statistics = new Statistics();
         statistics.setXpath(child.getxPathFromRoot());
-        Set<StatisticsValue> values = new HashSet<>();
+        List<StatisticsValue> values = new ArrayList<>();
         StatisticsValue value = new StatisticsValue();
         value.setOccurence(10);
         value.setValue("test");

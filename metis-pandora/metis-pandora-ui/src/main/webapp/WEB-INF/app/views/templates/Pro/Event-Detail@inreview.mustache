@@ -1,6 +1,6 @@
 {{> atoms/iconography/svgicons-pro}}
 
-{{> organisms/global/header}}
+{{> organisms/global/header_v2}}
 
 
 
@@ -12,7 +12,7 @@
 <div class="lc">
 	<!-- Start grid -->
 	<div class="grid-main">
-		
+
 
 		<div class="l-content">
 
@@ -21,14 +21,14 @@
 		</div>
 
 		{{> organisms-event-map }}
-		
+
 		<div id="maincontent" class="maincontent">
 			<div class="textcontent">
 
 				<div class="articleheader">
 					<div class="cf">
-						{{> molecules-event-date}}
 						<h1 class="title">{{ headline.medium }}</h1>
+						{{> molecules-event-date}}
 					</div>
 
 					{{> molecules-address }}
@@ -81,7 +81,7 @@
 
 				{{> molecules-help-contact(title: "Need Help?") }}
 				{{> molecules-help-contact }}
-				
+
 			</div>
 
 		</div>

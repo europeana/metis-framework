@@ -36,12 +36,12 @@ public class NavigationTopMenu {
 		}
 	}
 	
-	public NavigationTopMenu(String text, String url) {
-		this(text, url, null, null, null, null, null, null);
+	public NavigationTopMenu(String text, String url, Boolean is_current) {
+		this(text, url, is_current, null, null, null, null, null);
 	}
 	
-	public NavigationTopMenu(String text, String url, List<NavigationTopMenu> submenu) {
-		this(text, url, null, null, null, null, submenu, null);
+	public NavigationTopMenu(String text, String url, Boolean is_current, List<NavigationTopMenu> submenu) {
+		this(text, url, is_current, null, null, null, submenu, null);
 	}
 	
 	public NavigationTopMenu(Boolean is_divider) {

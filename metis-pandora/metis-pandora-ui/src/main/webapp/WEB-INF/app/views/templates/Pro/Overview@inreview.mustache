@@ -1,6 +1,6 @@
 {{> atoms/iconography/svgicons-pro}}
 
-{{> organisms/global/header}}
+{{> organisms/global/header_v2}}
 
 
 
@@ -27,7 +27,7 @@
                 <ul class="l-next_options">
                     {{#listItems.six}}<li>{{> molecules-link-block-text(excerpt: true) }}</li>{{/listItems.six}}
                 </ul>
-                
+
 
             </div>
         </div><!--
@@ -35,8 +35,8 @@
      --><div class="l-sidebar">
             <div class="inner">
 
-                {{> molecules-help-contact(title:"Need help?") }}
-                
+                {{> molecules/components/pro/help-contact(title:"Need help?") }}
+
             </div>
 
         </div>

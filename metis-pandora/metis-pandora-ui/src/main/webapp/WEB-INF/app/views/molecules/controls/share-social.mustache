@@ -2,32 +2,33 @@
 <ul class="social-share">
   {{#facebook}}
   <li>
-  <a class="icon-social" href="https://www.facebook.com/sharer/sharer.php?u={{url}}" title="Share to Facebook" target="_blank">
+  <a class="icon-social" href="https://www.facebook.com/sharer/sharer.php?u={{url}}" target="_blank">
     <svg class="icon icon-facebook">
       <use xlink:href="#icon-facebook"></use>
     </svg>
-    <span class="share-name is-vishidden">Facebook</span>
+    <span class="share-name is-vishidden">Share to Facebook</span>
   </a>
   </li>
   {{/facebook}}
 
   {{#twitter}}
   <li>
-  <a href="https://twitter.com/intent/tweet?text={{url}}" title="Share to Twitter" target="_blank">
+  <a href="https://twitter.com/intent/tweet?text={{url}}" target="_blank">
     <svg class="icon icon-twitter">
       <use xlink:href="#icon-twitter"></use>
     </svg>
-    <span class="share-name is-vishidden">Twitter</span>
+    <span class="share-name is-vishidden">Share to Twitter</span>
   </a>
   </li>
   {{/twitter}}
 
   {{#pinterest}}
   <li>
-   <a class="icon-social pinit" href= "https://www.pinterest.com/pin/create/button/" title="Share to Pinterest" data-pin-custom="true">
+   <a class="icon-social pinit" href= "https://www.pinterest.com/pin/create/button/" data-pin-custom="true">
     <svg class="icon icon-pinterest">
       <use xlink:href="#icon-pinterest"></use>
     </svg>
+    <span class="share-name is-vishidden">Share to Pinterest</span>
   </a>
   </li>
 
@@ -35,12 +36,24 @@
 
   {{#googleplus}}
   <li>
-  <a href="https://plus.google.com/share?url={{url}}" title="Share to Google+" target="_blank">
+  <a href="https://plus.google.com/share?url={{url}}" target="_blank">
     <svg class="icon icon-googleplus">
       <use xlink:href="#icon-googleplus"></use>
     </svg>
-    <span class="share-name is-vishidden">Google</span>
+    <span class="share-name is-vishidden">Share to Google Plus</span>
   </a>
   </li>
   {{/googleplus}}
+
+  {{#tumblr}}
+    <li>
+      <a class="tumblr-share-button" href="https://www.tumblr.com/share" target="_blank">
+        <svg class="icon icon-tumblr">
+          <use xlink:href="#icon-tumblr"></use>
+        </svg>
+        <span class="share-name is-vishidden">Share to Tumblr</span>
+      </a>
+    </li>
+  {{/tumblr}}
+
 </ul>

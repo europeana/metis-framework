@@ -29,6 +29,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * XMLUtils
@@ -100,9 +102,9 @@ public class XMLUtils {
                             }
 
                             stats.setXpath(parent + "@" + attrPrefix + ":" + attrName);
-                            Set<StatisticsValue> values = stats.getValues();
+                            List<StatisticsValue> values = stats.getValues();
                             if (values == null) {
-                                values = new HashSet<>();
+                                values = new ArrayList<>();
                             }
                             boolean isContained = false;
                             for (StatisticsValue value : values) {
@@ -132,9 +134,9 @@ public class XMLUtils {
                         stats = new Statistics();
                     }
                     stats.setXpath(parent);
-                    Set<StatisticsValue> values = stats.getValues();
+                    List<StatisticsValue> values = stats.getValues();
                     if (values == null) {
-                        values = new HashSet<>();
+                        values = new ArrayList<>();
                     }
                     boolean isContained = false;
                     for (StatisticsValue value : values) {

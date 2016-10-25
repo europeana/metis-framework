@@ -51,10 +51,10 @@ public class MetisMappingUtil {
 	public static List<Map<String, String>> buildSimplePairs(List<Entry<String, String>> pairs, String name1, String name2) {
 		List<Map<String, String>> map = new ArrayList<>();
 		for (Entry<String, String> pair : pairs) {
-			Map<String, String> jsMap = new HashMap<>();
-			jsMap.put(name1, pair.getKey());
-			jsMap.put(name2, pair.getValue());
-			map.add(jsMap);
+			Map<String, String> builtMap = new HashMap<>();
+			builtMap.put(name1, pair.getKey());
+			builtMap.put(name2, pair.getValue());
+			map.add(builtMap);
 		}
 		return map;
 	}

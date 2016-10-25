@@ -1,3 +1,5 @@
+<h4 class="title">{{ i18n.global.newsletter.signup }}</h4>
+
 <form
    method="post"
    action="{{newsletter.form.action}}"
@@ -39,32 +41,31 @@
      };
    </script>
 
-  <label for="mce-EMAIL" class="title">{{i18n.global.newsletter.signup}}</label>
+  <label for="mce-EMAIL" class="field-label">{{i18n.global.email-address}}:</label>
 
   <div class="inline-container">
-    <input placeholder="{{i18n.global.email-address}}"
-           type="email"
-           name="EMAIL"
-           value=""
-           id="mce-EMAIL"
-           class="js-placeholder newsletter-field" />
+    <input type="email" name="EMAIL" value="" id="mce-EMAIL" class="newsletter-field" aria-required="true"/>
     <button class="newsletter-submit">
       <svg class="icon icon-check">
         <use xlink:href="#icon-check"></use>
       </svg>
+      <span class="is-vishidden">{{i18n.global.newsletter.submit-alt}}</span>
     </button>
   </div>
 
   {{#newsletter.form.language_op}}
-  <div class="newsletter-options">
-      <input type="radio" name="LANGUAGE" value="English" id="mce-LANGUAGE-0" />
+  <fieldset class="newsletter-options">
+      <legend class="is-vishidden">{{i18n.global.newsletter.choose-language}}:</legend>
+
+      <input type="radio" name="LANGUAGE" value="English" id="mce-LANGUAGE-0" checked="checked"/>
       <label for="mce-LANGUAGE-0">
           {{i18n.global.language-english}}
       </label>
+
       <input type="radio" name="LANGUAGE" value="French" id="mce-LANGUAGE-1" />
       <label for="mce-LANGUAGE-1">
           {{i18n.global.language-french}}
       </label>
-  </div>
+  </fieldset>
   {{/newsletter.form.language_op}}
 </form>

@@ -1,178 +1,47 @@
-<div class="container-large">
-	<table class="mapping-widget">
-		<tr class="mapping-widget-collapsed">
-			<td>
-				<table class="mapping-widget-mapping">
-					<tr class="mapping-card-label"><td class="normal-colored test-item-colored"><div class="indent">{{mapping_key}}</div></td></tr>
-					<tr class="mapping-card-label"><td class="normal-colored-dark test-item-colored-dark"><div class="indent">{{mapping_value}}</div></td></tr>
-					<tr class="mapping-card-label"><td class="normal-colored test-item-colored">
-						<table class="card-controls">
-							<tr>
-								<td class="mapping-card-controls values-expand">Values</td>
-								<td class="mapping-card-controls">
-									<span style="font-family: 'Times New Roman', Times, serif;  font-style: italic; font-size:20px;">f</span>
-									<span style="font-family: 'Times New Roman', Times, serif;  font-size:10px;">x</span>
-								</td>
-								<td class="mapping-card-controls">if</td>
-							</tr>
-						</table>
-					</td></tr>
-				</table>
+<div class="container-large" {{#object_id}}id="{{.}}"{{/object_id}}>
+	<table class="card-component">
+		<tr class="widget-collapsed">
+			<td class="mapping-card-controls">
+				<div class="card-label normal-colored indent">{{prefix}}:{{name}}</div>
+				<div class="card-label normal-colored-dark indent">HardCode!</div>
+				<div class="card-buttons normal-colored">
+					<div class="values-expand card-button">Values</div>
+					<div class="mapping-card-function card-button"><span class="mapping-card-f">f</span><span class="mapping-card-x">x</span></div>
+					<div class="if card-button">if</div>
+				</div>
 			</td>
 			<td class="mapping-card-values">
-				<table class="mapping-widget-values">
-				
-				
-
-			<!-- 	ATTENTION! NEEDS TO BE REFACTORED! CHANGE ALL <td>-s TO <div>-s!  -->
-
-
-<!-- 			
-
-		<div class="card_field_value">
-						
-					</div> -->
+				<div class="mapping-field-item-container">
 					{{#field_value_cells}}
-						<tr>
-						{{#items_line_1}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_1}}
-						</tr>
-						<tr>
-						{{#items_line_2}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_2}}
-						</tr>
+						<div  class="mapping-field-item">
+							{{>molecules/pandora/field-value}}
+						</div>
 					{{/field_value_cells}}
-				</table>
-			</td>				
-		</tr>
- 	<tr class="mapping-widget-expanded mapping-widget-mapping">
-			<td width="33%" class="normal-colored"><div class="indent">edm:ProvidedCHO</div></td>
-			<td width="33%"  class="normal-colored-dark"><div class="indent">edm:ProvidedCHO</div></td>
-			<td width="33%"  class="normal-colored">
-				<table class="card-controls">
-					<tr>
-						<td class="mapping-card-controls values-collapse">Values</td>
-						<td class="mapping-card-controls">
-							<span style="font-family: 'Times New Roman', Times, serif;  font-style: italic; font-size:20px;">f</span>
-							<span style="font-family: 'Times New Roman', Times, serif;  font-size:10px;">x</span>
-						</td>
-						<td class="mapping-card-controls">if</td>
-					</tr>
-				</table>
+				</div>
 			</td>
 		</tr>
-		<tr>
-			<td colspan="3">
-				<table class="mapping-widget mapping-widget-expanded mapping-widget-values">
+		<tr class="widget-expanded">
+			<td class="card-controls-expanded">
+				<div class="card-label normal-colored indent">{{prefix}}:{{name}}</div>
+				<div class="card-label normal-colored-dark indent">HardCode!</div>
+				<div class="normal-colored values-collapse card-button">Values</div>
+				<div class="normal-colored mapping-card-function card-button"><span class="mapping-card-f">f</span><span class="mapping-card-x">x</span></div>
+				<div class="normal-colored if card-button">if</div>			
+			</td>
+		</tr>
+		<tr class="widget-expanded">
+			<td class="mapping-card-values">
+				<div class="mapping-field-item-container-expanded">
 					{{#field_value_cells}}
-						<tr>
-						{{#items_line_1}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_1}}
-						</tr>
-						<tr>
-						{{#items_line_2}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_2}}
-						</tr>
-						<tr>
-						{{#items_line_3}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_3}}
-						</tr>
-						<tr>
-						{{#items_line_4}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_4}}
-						</tr>
-						<tr>
-						{{#items_line_5}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_5}}
-						</tr>
-						<tr>
-						{{#items_line_6}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_6}}
-						</tr>
-						<tr>
-						{{#items_line_7}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_7}}
-						</tr>
-						<tr>
-						{{#items_line_8}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_8}}
-						</tr>
-						<tr>
-						{{#items_line_9}}
-							<td  id="test-item">
-							{{#field_value_cell}}
-								{{>molecules/pandora/field-value}}
-							{{/field_value_cell}}
-							</td>
-						{{/items_line_9}}
-						</tr>
+						<div  class="mapping-field-item-expanded">
+							{{>molecules/pandora/field-value}}
+						</div>
 					{{/field_value_cells}}
-					<tr>
-						<td class="mapping-widget-paging" colspan="5">
-							  <ol class="pagination">
-								<li class="arrow "><a href="prevurl"> ← </a></li>
-								<li class="is-current"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li class="is-disabled"><a href="#">&hellip;</a></li>
-								<li><a href="#">15</a></li>
-								<li class="arrow"><a href="nexturl"> → </a></li>
-							</ol>
-						</td>
-					</tr>
-				</table>
+				</div>
 			</td>
 		</tr>
 	 </table>
+	 <div class="mapping-card-dropdown">
+		 {{#dropdown}}{{>molecules/controls/dropdown-menu}}{{/dropdown}}
+	 </div>
 </div>

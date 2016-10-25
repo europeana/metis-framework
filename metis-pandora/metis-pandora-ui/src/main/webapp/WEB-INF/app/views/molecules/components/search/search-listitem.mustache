@@ -2,26 +2,26 @@
 
   <div class="item-preview">
     <div class="item-image">
-        <div class="thumb-square{{^ img.src }} text-only{{/ img.src }}">
-          <div class="inner">
-            <a class="link"
-               target="{{target}}"
-               href="{{object_url}}">
-               {{# img.src }}
-                 <img src="{{img.src}}"/>
-               {{/ img.src }}
-               {{^ img.src }}
-                 <span class="show-with-grid missing-image-text">
-                   {{ title }} {{#year.long}}<span class="date">({{ year.long }})</span>{{/year.long}}{{#agent}} | {{ agent }}{{/agent}}
-                   {{text.medium}}
-                 </span>
-               {{/ img.src }}
-            </a>
-          </div>
-        </div>
+      <div class="inner">
+
+      {{# img.src }}
+        <a class="link" target="{{target}}" href="{{object_url}}" tabindex="-1">
+           <img src="{{img.src}}" alt="{{ title }}" />
+        </a>
+      {{/ img.src }}
+
+      {{^ img.src }}
+        <a class="link show-with-grid" target="{{target}}" href="{{object_url}}">
+             <span class="missing-image-text show-with-grid">
+               {{ title }} {{#year.long}}<span class="date">({{ year.long }})</span>{{/year.long}}{{#agent}} | {{ agent }}{{/agent}}
+               {{text.medium}}
+             </span>
+        </a>
+      {{/ img.src }}
+
+      </div>
     </div>
   </div>
-
 
   {{^ img.src }}
   <div class="item-info show-with-grid">
@@ -32,7 +32,11 @@
 
   <div class="item-info {{^ img.src }}hide-with-grid{{/ img.src }}">
 
-    <h2><a href="{{object_url}}"{{#link_attrs}} {{name}}="{{value}}"{{/link_attrs}}>{{ title }} {{#year.long}}<span class="date">({{ year.long }})</span>{{/year.long}}{{#agent}} | {{ agent }}{{/agent}}</a>&nbsp;&nbsp;</h2>
+    <h2><a href="{{object_url}}"{{#link_attrs}} {{name}}="{{value}}"{{/link_attrs}}>{{ title }} {{#year.long}}<span class="date">({{ year.long }})</span>{{/year.long}}<span class="hide-with-grid">{{#agent}} | {{ agent }}{{/agent}}</span></a></h2>
+
+    {{#agent}}
+      <h3 class="show-with-grid"><a href="{{object_url}}"{{#link_attrs}} {{name}}="{{value}}"{{/link_attrs}}>{{ . }}</a></h3>
+    {{/agent}}
 
     {{#text}}
     <p class="excerpt">
@@ -88,7 +92,9 @@
 
     </footer>
   </div>
+
   <div class="item-agent-data show-with-grid">
       <div class="item-agent">{{#agent}}{{.}}{{/agent}}{{^agent}}<br/>{{/agent}}</div>
   </div>
+
 </article>

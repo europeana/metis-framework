@@ -39,6 +39,19 @@ public class DropdownMenu {
 		item.put("divider", divider);
 		items.add(item);
 	}
+	
+	public void addMenuItem(String text, String url) {
+		Map<String, Object> item = new HashMap<>();
+		item.put("url", url);
+		item.put("text", text);
+		items.add(item);
+	}
+	
+	public void addMenuItem(Boolean divider) {
+		Map<String, Object> item = new HashMap<>();
+		item.put("divider", divider);
+		items.add(item);
+	}
 
 	public String getMenu_id() {
 		return menu_id;

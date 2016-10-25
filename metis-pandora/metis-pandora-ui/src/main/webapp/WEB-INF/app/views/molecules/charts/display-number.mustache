@@ -17,13 +17,13 @@
 {{#trend}}
 		{{#positive}}
 		<div class="stat-trend up">
-			▲ {{value}}
+			<span class="is-vishidden">Increase of </span><span class="stat-value">{{value}}</span>
 		</div>
 		{{/positive}}
 
 		{{#negative}}
 		<div class="stat-trend down">
-			▼ {{value}}
+			<span class="is-vishidden">Decrease of </span><span class="stat-value">{{value}}</span>
 		</div>
 		{{/negative}}
 {{/trend}}

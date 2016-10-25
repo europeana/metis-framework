@@ -48,9 +48,20 @@ public class NavigationTop {
 		this.global.put("logo", logo);
 		
 		Map<String, Object> primary_nav = new HashMap<>();
-		primary_nav.put("menu_id", menuId);
 		primary_nav.put("items", items);
+		primary_nav.put("menu_id", menuId);
 		this.global.put("primary_nav", primary_nav);
+
+		Map<String,Object> utilityNav = new HashMap<>();
+		utilityNav.put("menu_id", "settings-menu");
+		utilityNav.put("style_modifier", "caret-right");
+		utilityNav.put("tabindex", "6");
+		Map<String, String> utilityNavItems = new HashMap<>();
+		utilityNavItems.put("url", "#");
+		utilityNavItems.put("text", "Wiki");
+		utilityNavItems.put("icon", "settings");
+		utilityNav.put("items", utilityNavItems);
+		this.global.put("utility_nav", utilityNav);
 	}
 
 	public String getHome_url() {

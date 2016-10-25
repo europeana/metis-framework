@@ -8,7 +8,7 @@ Add config stuff in here
 
 {{#items}}
 		<li>
-		<a {{#url}}href="{{url}}"{{/url}}  class="{{#is_current}} is-current {{/is_current}}" {{^tabindex}} tabindex="1" {{/tabindex}}{{#tabindex}} tabindex="{{tabindex}}" {{/tabindex}}>
+		<a {{#url}}href="{{url}}"{{/url}}  class="{{#is_current}} is-current {{/is_current}}">
 
 		{{#icon}}
 		<svg class="icon icon-{{icon}}">
@@ -36,7 +36,7 @@ Add config stuff in here
 				{{/message}}
 
 				{{#url}}
-				<li><a href="{{url}}" class="{{#is_morelink}} menu-more {{/is_morelink}}{{#is_current}} is-current {{/is_current}}"  tabindex="1">{{text}}</a></li>
+				<li><a href="{{url}}" class="{{#is_morelink}} menu-more {{/is_morelink}}{{#is_current}} is-current {{/is_current}}">{{text}}</a></li>
 				{{/url}}
 
 				{{/is_divider}}

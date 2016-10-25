@@ -1,6 +1,6 @@
 {{> atoms/iconography/svgicons-pro}}
 
-{{> organisms/global/header}}
+{{> organisms/global/header_v2}}
 
 
 
@@ -30,38 +30,39 @@
 				    </fieldset>
 				</form>
 
-				{{# searchmistake }}
-					<div class="searchterms">
-						Did you mean "EDM documentation"? 
-						<div class="resultsnum">Showing <strong>75</strong> results for <strong>"EDM documentation"</strong></div>
-					</div>
-				{{/ searchmistake }}
+				<div class="searchterms">
+					{{# searchmistake }}
+						Did you mean "EDM documentation"?
+					{{/ searchmistake }}
+
+					<div class="resultsnum">Showing <strong>75</strong> results for <strong>"EDM documentation"</strong></div>
+				</div>
 			</div>
 
 		<div id="maincontent" class="maincontent">
 
 			<div class="results">
 				<ul class="results-list">
-					
-						{{> molecules-pro-listitem(blog:true) }} 
 
-						{{> molecules-pro-listitem(event:true) }} 
+						{{> molecules-pro-listitem(blog:true) }}
 
-						{{> molecules-pro-listitem(publication:true) }} 
+						{{> molecules-pro-listitem(event:true) }}
 
-						{{> molecules-pro-listitem(job:true) }} 
+						{{> molecules-pro-listitem(publication:true) }}
 
-						{{> molecules-pro-listitem(blog:true) }} 
+						{{> molecules-pro-listitem(job:true) }}
 
-						{{> molecules-pro-listitem(blog:true) }} 
+						{{> molecules-pro-listitem(blog:true) }}
 
-						{{> molecules-pro-listitem(project:true) }} 
+						{{> molecules-pro-listitem(blog:true) }}
 
-						{{> molecules-pro-listitem(taskforce:true) }} 
-					
+						{{> molecules-pro-listitem(project:true) }}
+
+						{{> molecules-pro-listitem(taskforce:true) }}
+
 				</ul>
 
-				{{> molecules-pagination }} 
+				{{> molecules-pagination }}
 
 			</div>
 
@@ -71,8 +72,8 @@
 	 --><div class="l-sidebar">
 	 		<div class="inner">
 
-				
-				
+
+
 			</div>
 
 		</div>

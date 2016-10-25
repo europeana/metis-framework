@@ -9,6 +9,8 @@
       <use xlink:href="#icon-file"></use>
     </svg>
 
+    <span class="is-vishidden">{{ i18n.site.object.actions.download }} </span>
+
     {{#technical_metadata}}
     <span class="file-type">
       {{#format}}{{.}}{{/format}}
@@ -23,7 +25,6 @@
   <div class="file-info">
 
     {{#download}}
-
       {{i18n.site.object.actions.download-started}}.
       <a href="{{url}}" class="file-title" download="Europeana-Media">
         {{i18n.site.object.actions.download-retry}}

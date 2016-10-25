@@ -1,4 +1,5 @@
 {{# navigation.global }}
+<a href="#maincontent" class="skip-main is-vishidden">{{ i18n.global.actions.skip-to-main }}</a>
 
 <div class="header-wrapper">
 
@@ -21,10 +22,10 @@
   <div class="cf">
 
     {{# version.is_alpha }}
-      <a href="#banner" class="phase-flag alpha">BETA</a>
+      <a href="#banner" class="phase-flag alpha" tabindex="-1">BETA</a>
     {{/ version.is_alpha }}
     {{# version.is_beta }}
-      <a href="#banner" class="phase-flag beta">BETA</a>
+      <a href="#banner" class="phase-flag beta" tabindex="-1">BETA</a>
     {{/ version.is_beta }}
 
     {{> atoms/images/logo }}
@@ -40,13 +41,13 @@
 
     <div class="nav-global">
       {{^options.oursites_hidden}}
-      <a href="#" class="nav-toggle nav-toggle-sites" aria-controls="oursites" aria-expanded="false" aria-haspopup="true" aria-label="open Our Sites panel" aria-owns="oursites"  tabindex="2">
-        <span class="link-text">{{i18n.global.our-sites}}</span>
+      <a href="#" id="oursites_button" class="nav-toggle nav-toggle-sites" aria-controls="oursites" aria-expanded="false">
+        <span class="link-text">{{i18n.global.our-sites}}</span><span class="js-panelstate is-vishidden">(open panel)</span>
       </a>
       {{/options.oursites_hidden}}
 
       {{#options.search_active}}
-      <a href="#search" class="nav-toggle nav-toggle-search" aria-controls="searcharea" aria-expanded="false" aria-haspopup="true" aria-label="open search panel" aria-owns="searcharea"  tabindex="4">
+      <a href="#search" class="nav-toggle nav-toggle-search" aria-controls="searcharea" aria-label="Open search panel">
         <svg class="icon icon-search">
           <use xlink:href="#icon-search"></use>
         </svg>
@@ -62,7 +63,7 @@
         </div>
       {{/options.settings_active}}
 
-      <a href="#" class="nav-toggle nav-toggle-menu" tabindex="1">
+      <a href="#" class="nav-toggle nav-toggle-menu">
         <svg class="icon icon-menu">
           <use xlink:href="#icon-menu"></use>
         </svg>

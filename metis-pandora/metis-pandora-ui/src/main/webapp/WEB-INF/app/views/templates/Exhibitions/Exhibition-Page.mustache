@@ -12,7 +12,7 @@
 
   <div id="maincontent" class="maincontent">
     {{# page_data }}
-      <div class="ve-slide-container{{#is_chapter}} ve-chapter{{/is_chapter}}{{#is_exhibition}} ve-exhibition{{/is_exhibition}}">
+      <div class="ve-slide-container{{#is_chapter}} ve-chapter{{/is_chapter}}{{#is_exhibition}} ve-exhibition{{/is_exhibition}}{{#is_foyer}} ve-foyer{{/is_foyer}}">
 
         {{#is_foyer}}
           <section class="ve-slide first">
@@ -68,7 +68,6 @@
 
           {{! NAV ELEMENTS }}
 
-          {{#is_exhibition}}
             <div class="ve-chapter-selection-container">
               <div class="ve-chapter-selection-container-inner cf">
                 {{#chapter_elements}}
@@ -83,12 +82,6 @@
               </div>
               {{> templates/Exhibitions/Next-Prev-Chapter }}
             </div>
-          {{/is_exhibition}}
-          {{#is_chapter}}
-            <div class="ve-chapter-selection-container cf">
-              {{> templates/Exhibitions/Next-Prev-Chapter }}
-            </div>
-          {{/is_chapter}}
         {{/is_credit}}
       {{/is_foyer}}
 
@@ -246,13 +239,16 @@
 </main>
 {{> molecules/components/photoswipe/photoswipe }}
 
-{{#is_foyer}}
-  {{> organisms/global/footer }}
-{{/is_foyer}}
-{{^is_foyer}}
-  {{#footer}}
-    <footer class="ve-footer footer" role="contentinfo">
-      {{> molecules/navigation/linklist-simple}}
-    </footer>
-  {{/footer}}
-{{/is_foyer}}
+{{# page_data }}
+  {{#is_foyer}}
+    {{> organisms/global/footer_v2 }}
+    {{> molecules/forms/feedback }}
+  {{/is_foyer}}
+  {{^is_foyer}}
+    {{#footer}}
+      <footer class="ve-footer footer" role="contentinfo">
+        {{> molecules/navigation/linklist-simple}}
+      </footer>
+    {{/footer}}
+  {{/is_foyer}}
+{{/ page_data }}

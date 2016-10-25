@@ -23,13 +23,13 @@
       {{#has_original}}
       <ul class="search-tags js-search-tags">
 
-          <li class="search-tag">{{input_original.value}}<a href="{{input_original.remove}}" data-role="remove"></a></li>
+          <li class="search-tag">{{input_original.value}}<a href="{{input_original.remove}}" data-role="remove"><span class="is-vishidden">Remove {{input_original.value}}</span></a></li>
 
         {{#input_values}}
           <li class="search-tag">
           {{value}}
           <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
-          <a href="{{remove}}" data-role="remove"></a>
+          <a href="{{remove}}" data-role="remove"><span class="is-vishidden">Remove {{value}}</span></a>
           </li>
         {{/input_values}}
 
@@ -81,6 +81,7 @@
                 <svg class="icon {{icon}}">
                   <use xlink:href="#{{icon}}"></use>
                 </svg>
+                <span class="is-vishidden">{{ text }}</span>
               </a>
             </div>
           {{/items}}

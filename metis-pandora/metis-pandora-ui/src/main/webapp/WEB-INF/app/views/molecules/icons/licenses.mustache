@@ -51,6 +51,7 @@ license options: ONLY ONE should be active
 
 }}
 
+
 {{#license_CC0}}
   <a href="{{license_url}}" class="license icon-license-zero" {{>molecules/icons/rel_attribute}}>{{license_name}}
   {{^license_name}} CC0 {{/license_name}}</a>
@@ -139,4 +140,41 @@ license options: ONLY ONE should be active
   {{license_name}}
   {{^license_name}} Orphan work {{/license_name}}</a>
 {{/license_orphan}}
+
+{{#license_RS_INC_EDU}}
+  <a href="{{license_url}}" class="license icon-license-rr" {{>molecules/icons/rel_attribute}}><span class="icon-license-rs-inc-edu"></span>
+  {{license_name}}
+  {{^license_name}} In Copyright - Educational Use Permitted {{/license_name}}</a>
+{{/license_RS_INC_EDU}}
+
+{{#license_RS_NOC_NC}}
+  <a href="{{license_url}}" class="license icon-license-rr" {{>molecules/icons/rel_attribute}}><span class="icon-license-rs-noc-nc"></span>
+  {{license_name}}
+  {{^license_name}} No Copyright - Non-Commercial Use Only {{/license_name}}</a>
+{{/license_RS_NOC_NC}}
+
+{{#license_RS_NOC_OKLR}}
+  <a href="{{license_url}}" class="license icon-license-rr" {{>molecules/icons/rel_attribute}}><span class="icon-license-rs-noc-oklr"></span>
+  {{license_name}}
+  {{^license_name}} No Copyright - Other Known Legal Restrictions {{/license_name}}</a>
+{{/license_RS_NOC_OKLR}}
+
+{{#license_RS_INC}}
+  <a href="{{license_url}}" class="license icon-license-rr" {{>molecules/icons/rel_attribute}}><span class="icon-license-rs-inc"></span>
+  {{license_name}}
+  {{^license_name}} In Copyright {{/license_name}}</a>
+{{/license_RS_INC}}
+
+{{#license_RS_INC_OW_EU}}
+  <a href="{{license_url}}" class="license icon-license-rr" {{>molecules/icons/rel_attribute}}><span class="icon-license-rs-inc-ow-eu"></span>
+  {{license_name}}
+  {{^license_name}} In Copyright - EU Orphan Work {{/license_name}}</a>
+{{/license_RS_INC_OW_EU}}
+
+{{#license_RS_CNE}}
+  <a href="{{license_url}}" class="license icon-license-rr" {{>molecules/icons/rel_attribute}}><span class="icon-license-rs-cne"></span>
+  {{license_name}}
+  {{^license_name}} Copyright Not Evaluated {{/license_name}}</a>
+{{/license_RS_CNE}}
+
 <span rel="cc:useGuidelines" resource="http://www.europeana.eu/rights/pd-usage-guide/"></span>

@@ -17,12 +17,16 @@
   </div>
   {{#content}}
     {{#object.media}}
-      <section class="object-display">
+      <section class="object-display" id="maincontent">
         <div class="object-media-wrap {{#empty_item}} empty{{/empty_item}}{{#single_item}}single-item{{/single_item}} {{^single_item}}{{^empty_item}}multi-item{{/empty_item}}{{/single_item}}">
           <a class="scroll-trigger trigger-chain"
              data-enabled="true"
              data-disable-when-fired="showMediaThumbs"
              data-fire-on-open-params='{ "trigger": "scroll-trigger-media-items"}'></a>
+
+          {{#empty_item}}
+           <span class="no-preview">{{{empty_item_more_link}}}</span>
+          {{/empty_item}}
           {{^empty_item}}
             <div class="media-viewer">
               {{#single_item}}
@@ -113,9 +117,10 @@
         <section>
           <div class="object-media-info section is-current">
             <div class="object-downloads">
+
               {{#has_downloadable_media}}
               <a class="download-button btn alt {{^has_downloadable_media}}is-disabled{{/has_downloadable_media}}"
-                 download="Europeana-Media"
+                 download="Europeana-Media" aria-expanded="false" aria-controls="panel_download" role="button"
                 {{#items}}
                   {{#is_current}}
                     {{#download}}
@@ -126,25 +131,24 @@
                 <svg class="icon icon-download">
                   <use xlink:href="#icon-download"></use>
                 </svg>
-                {{ i18n.site.object.actions.download }}
+                {{ i18n.site.object.actions.download }}<span class="is-vishidden"> menu</span>
               </a>
               {{/has_downloadable_media}}
+
               {{#items}}
                 {{#is_current}}
-                  <div class="media-info-tab">
+                  <div class="media-info-tab" id="panel_download" aria-hidden="true">
                     <div class="lc">
                       {{# rights }}
                         <div class="info-license">
-                          <h4>
-                            {{ i18n.global.facet.header.reusability }}
-                          </h4>
+                          <h4>{{ i18n.global.facet.header.reusability }}</h4>
                           <p>{{ license_human }}</p>
                           <div class="object-license">{{> molecules/icons/licenses }}</div>
                         </div>
                       {{/ rights }}
 
                       <div class="info-attribute">
-                        <h4 class="title">{{ i18n.site.object.actions.attribute-author }}</h4>
+                        <h4 class="title"><label for="input_attribution">{{ i18n.site.object.actions.attribute-author }}</label></h4>
                         {{#technical_metadata}}
                           {{> molecules/controls/attribution-widget }}
                         {{/technical_metadata}}
@@ -158,19 +162,24 @@
                 {{/is_current}}
               {{/items}}
             </div>
+
+
+
+
             <div class="object-techdata">
-              <a class="js-showhide show-button" href="#">
+
+              <a class="show-button" href="#" aria-expanded="false" aria-controls="technical_metadata" role="button">
                 <svg class="icon icon-info">
                   <use xlink:href="#icon-info"></use>
                 </svg>
                 {{ i18n.site.object.actions.media-metadata }}
               </a>
+
               {{#items}}
                 {{#is_current}}
-                  <div class="media-info-tab">
+                  <div class="media-info-tab" aria-hidden="true" id="technical_metadata">
                     <div class="lc">
                       <div class="info-primary">
-                        <h3>{{ i18n.site.object.actions.media-metadata }}</h3>
                       </div>
                       <div class="info-secondary">
                         <ul class="object-techdata-list">

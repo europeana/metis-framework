@@ -73,7 +73,7 @@ public class ValidationServiceTest {
         StatisticsValue statistics = new StatisticsValue();
         statistics.setValue("test cannot be uri");
         statistics.setOccurence(10l);
-        Set<StatisticsValue> stats = new HashSet<>();
+        List<StatisticsValue> stats = new ArrayList<>();
         stats.add(statistics);
         Statistics s = new Statistics();
         s.setValues(stats);
@@ -101,7 +101,7 @@ public class ValidationServiceTest {
         StatisticsValue statistics = new StatisticsValue();
         statistics.setValue("test cannot be uri");
         statistics.setOccurence(10l);
-        Set<StatisticsValue> stats = new HashSet<>();
+        List<StatisticsValue> stats = new ArrayList<>();
         stats.add(statistics);
         Statistics s = new Statistics();
         s.setValues(stats);
@@ -132,7 +132,7 @@ public class ValidationServiceTest {
         StatisticsValue statistics = new StatisticsValue();
         statistics.setValue("test cannot be uri");
         statistics.setOccurence(10l);
-        Set<StatisticsValue> stats = new HashSet<>();
+        List<StatisticsValue> stats = new ArrayList<>();
         stats.add(statistics);
         Statistics s = new Statistics();
         s.setValues(stats);

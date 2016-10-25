@@ -9,9 +9,10 @@
         <div class="object-nav-lists">
           <ul class="breadcrumbs"
             {{#channel_data}}
-                data-store-channel-label = "{{label}}"
-                data-store-channel-name  = "{{name}}"
-                data-store-channel-url   = "{{url}}"
+                data-store-channel-label    = "{{label}}"
+                data-store-channel-name     = "{{name}}"
+                data-store-channel-url      = "{{url}}"
+                data-store-channel-def-view = "{{def_view}}"
               {{/channel_data}}>
             <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
             {{#channel_data}}<li><a href="{{url}}">{{label}}</a></li>{{/channel_data}}
@@ -21,7 +22,7 @@
       </div>
     </section>
 
-    <section class="search-hero">
+    <section class="search-hero {{#hero}}{{#hero_image}} has-bgimage{{/hero_image}}{{/hero}}" {{#hero}} style="background-image: url('{{hero_image}}');" {{/hero}}>
         <div class="searchbar">
         {{> molecules/components/search/search-form }}
 
@@ -31,7 +32,7 @@
                 <li class="search-tag">
                     {{#filter}}<span class="title">{{filter}}:</span>{{/filter}}
                     {{value}}
-                    <a href="{{remove}}" data-role="remove"></a>
+                    <a href="{{remove}}" data-role="remove"><span class="is-vishidden">Remove {{value}}</span></a>
                     <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
                 </li>
             {{/items}}
@@ -41,7 +42,7 @@
         </div>
     </section>
 
-    <section class="search-results">
+    <section class="search-results" id="maincontent">
         <div class="container">
             <div class="results-list cf">
 
@@ -90,19 +91,14 @@
                       </div>
                     {{/results_menu}}
 
-                    {{#menus.viewoptions}}
-                      {{#tooltip}}
-                        <div class="tooltip-wrapper-grid">
-                          {{> atoms/text/tooltip }}
-                        </div>
-                      {{/tooltip}}
-                    {{/menus.viewoptions}}
-
                 </div>
                 <!-- End of results header -->
 
                 {{#has_results}}
                   <ol class="result-items cf">
+
+                    <li class="grid-sizer"></li>
+
                     {{# search_results }}
                       <li>
                         {{> molecules/components/search/search-listitem }}
@@ -150,7 +146,7 @@
                     {{/boolean}}
 
                     {{#date}}
-                        {{> molecules/controls/filter-date }}
+                      {{> molecules/controls/filter-date }}
                     {{/date}}
 
                     {{#advanced}}
