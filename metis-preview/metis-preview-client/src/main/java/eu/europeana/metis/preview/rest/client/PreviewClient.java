@@ -32,15 +32,19 @@ public class PreviewClient {
      * @param recordFile The records to persist
      * @param collectionId The collection id (can be null)
      * @param edmExternal Whether the records are in EDM-External
+     * @param crosswalk The path of the crosswalk (null or EDM_external2internal_v2_repox.xsl)
      * @return The result with the preview URL
      */
-    public ExtendedValidationResult previewRecords(File recordFile, String collectionId, boolean edmExternal){
+    public ExtendedValidationResult previewRecords(File recordFile, String collectionId, boolean edmExternal, String crosswalk){
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
         parts.add("file", new FileSystemResource(recordFile));
         if(StringUtils.isNotEmpty(collectionId)) {
             parts.add("collectionId", collectionId);
         }
         parts.add("edmExternal", edmExternal);
+        if(StringUtils.isNotEmpty(crosswalk)) {
+            parts.add("crosswalk", crosswalk);
+        }
         return restTemplate.postForObject(previewUrl+ RestEndpoints.PREVIEW_UPLOAD,
                 parts,ExtendedValidationResult.class);
     }

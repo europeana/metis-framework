@@ -49,12 +49,17 @@ import java.util.logging.Logger;
  * Enrichment REST API
  */
 @Api("/")
-@Controller(value = "/")
+@Controller
 public class EnrichmentController {
 	Logger log = Logger.getLogger(this.getClass().getName());
 	@Autowired
 	private  Enricher enricher;
 
+	@ResponseStatus(value = HttpStatus.OK)
+	@RequestMapping(value = "/recreate",method = RequestMethod.GET)
+	public void recreate(){
+		enricher.recreate();
+	}
 
 	/**
 	 * Delete uris

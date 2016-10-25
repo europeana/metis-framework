@@ -21,6 +21,9 @@ import eu.europeana.validation.model.ValidationResult;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.jclouds.io.Payload;
+import org.jclouds.openstack.swift.v1.domain.SwiftObject;
+import org.jclouds.openstack.swift.v1.features.ObjectApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -78,7 +81,6 @@ public class Validator implements Callable<ValidationResult> {
      */
     private ValidationResult validate() {
         logger.info("Validation started");
-
         InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream(document.getBytes()));
         try {
@@ -200,7 +202,12 @@ class EDMParser {
             factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
             factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
             if (resolver.getClass().isAssignableFrom(OpenstackResourceResolver.class)) {
-                return factory.newSchema(new StreamSource(resolver.getSwiftProvider().getObjectApi().get(path).getPayload().openStream())).newValidator();
+                SwiftProvider provider = resolver.getSwiftProvider();
+                ObjectApi api = provider.getObjectApi();
+                SwiftObject object = api.get(path);
+                System.out.println(path);
+                Payload load = object.getPayload();
+                return factory.newSchema(new StreamSource(load.openStream())).newValidator();
             }
             return factory.newSchema(new StreamSource(new FileInputStream(path))).newValidator();
         } catch (Exception e) {

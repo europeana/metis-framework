@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by ymamakis on 9/6/16.
@@ -39,7 +40,7 @@ public class PreviewServiceTest {
         mockDao = Mockito.mock(RecordDao.class);
         mockValidationClient = Mockito.mock(ValidationClient.class);
         mockIdentifierClient = Mockito.mock(RestClient.class);
-        service = new PreviewService("test/", "test");
+        service = new PreviewService("test/");
         ReflectionTestUtils.setField(service, "dao", mockDao, RecordDao.class);
         ReflectionTestUtils.setField(service, "identifierClient", mockIdentifierClient, RestClient.class);
         ReflectionTestUtils.setField(service, "validationClient", mockValidationClient, ValidationClient.class);
@@ -61,11 +62,15 @@ public class PreviewServiceTest {
             }).when(mockDao).createRecord(Mockito.anyObject());
             List<String> records = new ArrayList<>();
             records.add(record);
-            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false);
-            Assert.assertEquals("test/12345", extendedValidationResult.getPortalUrl());
+            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false,"test");
+            Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
             Assert.assertEquals(0,extendedValidationResult.getResultList().size());
             Assert.assertEquals(true,extendedValidationResult.isSuccess());
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 

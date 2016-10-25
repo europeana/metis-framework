@@ -2880,7 +2880,7 @@
 </xsl:if>
 </xsl:for-each>
 </xsl:if>
-<xsl:if test="edm:EuropeanaAggregation"><xsl:for-each select="edm:EuropeanaAggregation"><xsl:if test="position() = 1"><xsl:element name="edm:EuropeanaAggregation">
+<xsl:if test="ore:Aggregation"><xsl:for-each select="ore:Aggregation"><xsl:if test="position() = 1"><xsl:element name="edm:EuropeanaAggregation">
 <xsl:if test="@rdf:about"><xsl:attribute name="rdf:about"><xsl:for-each select="@rdf:about"><xsl:if test="position() = 1"><xsl:value-of select="."/>
 </xsl:if>
 </xsl:for-each>
@@ -2942,6 +2942,11 @@
 </xsl:for-each>
 </xsl:if>
 <xsl:if test="cc:deprecatedOn"><xsl:for-each select="cc:deprecatedOn"><xsl:if test="position() = 1"><xsl:element name="cc:deprecatedOn">
+<xsl:if test="@rdf:datatype"><xsl:attribute name="rdf:datatype"><xsl:for-each select="@rdf:datatype"><xsl:if test="position() = 1"><xsl:value-of select="."/>
+</xsl:if>
+</xsl:for-each>
+</xsl:attribute>
+</xsl:if>
 
 <xsl:value-of select="."/>
 

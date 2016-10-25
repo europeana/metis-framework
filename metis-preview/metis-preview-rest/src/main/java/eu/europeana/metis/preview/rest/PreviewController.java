@@ -1,5 +1,6 @@
 package eu.europeana.metis.preview.rest;
 
+import eu.europeana.metis.preview.exceptions.PreviewValidationException;
 import eu.europeana.metis.preview.service.ExtendedValidationResult;
 import eu.europeana.metis.preview.service.PreviewService;
 import io.swagger.annotations.Api;
@@ -28,6 +29,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Preview service REST controller
@@ -62,11 +64,16 @@ public class PreviewController {
     @ApiOperation(value = "Validation Result with preview URL", response = ExtendedValidationResult.class)
     public ExtendedValidationResult createRecords(@ApiParam @RequestParam("file") MultipartFile file,
                                                   @ApiParam @RequestParam(value = "collectionId", defaultValue = "") String collectionId,
-                                                  @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal",defaultValue = "true")boolean applyCrosswalk)
-            throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException,
-            IllegalAccessException, ParserConfigurationException, TransformerException, SolrServerException, ZipException {
+                                                  @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal",defaultValue = "true")boolean applyCrosswalk,
+                                                  @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath)
+            throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException,PreviewValidationException,
+            IllegalAccessException, ParserConfigurationException, TransformerException, SolrServerException, ZipException, ExecutionException, InterruptedException {
         List<String> records = readFileToStringList(file);
-        return service.createRecords(records,collectionId,applyCrosswalk);
+        ExtendedValidationResult result = service.createRecords(records,collectionId,applyCrosswalk, crosswalkPath);
+        if(!result.isSuccess()){
+            throw new PreviewValidationException(result);
+        }
+        return result;
     }
 
     private List<String> readFileToStringList(MultipartFile zipFile) throws IOException, ZipException {

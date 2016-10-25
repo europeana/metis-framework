@@ -33,6 +33,7 @@
         <module>enrichment-framework-client</module>
         <module>enrichment-framework-gui</module>
         <module>enrichment-framework-knowledgebase</module>
+        <module>enrichment-framework-proxy</module>
     </modules>
 
     <dependencies>

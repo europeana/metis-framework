@@ -52,7 +52,7 @@ import java.util.List;
 /**
  * Configuration file for Spring MVC
  */
-@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest"})
+@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest","eu.europeana.metis.preview.exceptions.handler"})
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
@@ -73,14 +73,13 @@ public class Application extends WebMvcConfigurerAdapter {
 
     private static String previewPortalUrl;
 
-    private static String crosswalkPath;
 
     private static String solrUrl;
 
     @Bean
     PreviewService previewService(){
         try {
-            return new PreviewService(previewPortalUrl,crosswalkPath);
+            return new PreviewService(previewPortalUrl);
         } catch (JiBXException e) {
             e.printStackTrace();
         }
@@ -171,7 +170,6 @@ public class Application extends WebMvcConfigurerAdapter {
 
             previewPortalUrl=System.getenv().get("previewPortalUrl");
 
-            crosswalkPath=System.getenv().get("crosswalkpath");
 
             solrUrl=System.getenv().get("solrUrl");
 

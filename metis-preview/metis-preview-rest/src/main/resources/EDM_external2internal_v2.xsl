@@ -31,9 +31,9 @@
     <!-- DYNAMIC VARIABLES -->
     <!-- IDs -->
     <xsl:variable name="id_PCHO"
-                  select="/repox:exportedRecords/repox:record/repox:metadata/record/edm:ProvidedCHO/@rdf:about"/>
+                  select="/edm:ProvidedCHO/@rdf:about"/>
     <xsl:variable name="id_aggregation"
-                  select="/repox:exportedRecords/repox:record/repox:metadata/record/ore:Aggregation/@rdf:about"/>
+                  select="/ore:Aggregation/@rdf:about"/>
 
 
     <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
@@ -42,7 +42,7 @@
 
     <!-- ROOT MATCH -->
     <xsl:template match="/">
-        <xsl:apply-templates select="/repox:exportedRecords/repox:record/repox:metadata/record"/>
+        <xsl:apply-templates select="."/>
         <!--<xsl:apply-templates select="." mode="main"/>-->
     </xsl:template>
 
