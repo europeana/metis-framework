@@ -1,0 +1,69 @@
+<div id="{{id}}" class="ve-intro ve-base ve-{{id}} {{type}}{{#is_featured_exhibition}} ve-base-foyer-main{{/is_featured_exhibition}}"{{#alchemy_id}} data-alchemy-element="{{.}}"{{/alchemy_id}}{{#growl_message}} data-growl-msg="{{.}}"{{/growl_message}}{{^growl_message}} data-growl-msg="Scroll down to continue"{{/growl_message}}>
+
+  {{#image}}
+    {{>organisms/virtual-exhibitions/main-slide-bg-style }}
+    <a id="ve-element-anchor-{{id}}" class="ve-element-anchor"></a>
+
+    <picture class="ve-intro-image">
+      {{#is_featured_exhibition}}{{#link}}<a href="{{.}}">{{/link}}{{/is_featured_exhibition}}
+        {{>atoms/images/responsive-srcset-picture}}
+      {{#is_featured_exhibition}}{{#link}}</a>{{/link}}{{/is_featured_exhibition}}
+
+      {{#image_credit}}
+        <div class="ve-image-credit">
+         {{>molecules/text/attribution}}
+        </div>
+      {{/image_credit}}
+    </picture>
+
+  {{/image}}
+</div>
+<div class="ve-base ve-base-intro-texts">
+
+  {{#image_credit}}
+    <div class="ve-image-credit{{#is_foyer}} foyer{{/is_foyer}}">
+     {{>molecules/text/attribution}}
+    </div>
+  {{/image_credit}}
+
+  <div class="ve-title-group{{#title}} has-title{{/title}}{{#subtitle}} has-subtitle{{/subtitle}}">
+    {{#title}}
+      {{#is_featured_exhibition}}{{#link}}<a href="{{.}}">{{/link}}{{/is_featured_exhibition}}
+        <span class="ve-title">
+          {{.}}
+        </span>
+      {{#is_featured_exhibition}}{{#link}}</a>{{/link}}{{/is_featured_exhibition}}
+    {{/title}}
+    {{#subtitle}}
+      {{#is_featured_exhibition}}{{#link}}<a href="{{.}}">{{/link}}{{/is_featured_exhibition}}
+        <span class="ve-subtitle">
+          {{{.}}}
+        </span>
+      {{#is_featured_exhibition}}{{#link}}</a>{{/link}}{{/is_featured_exhibition}}
+    {{/subtitle}}
+  </div>
+
+  {{#intro_description}}
+    <!--
+    <div class="ve-description">
+      {{{.}}}
+    </div>
+     -->
+  {{/intro_description}}
+
+  <div class="ve-branding">
+    {{#label}}
+      <span class="ve-label">{{.}}</span>
+    {{/label}}
+
+    {{#partner_image}}
+      {{#partner_url}}<a class="ve-partner-logo" href="{{.}}">{{/partner_url}}{{#thumbnail.url}}<img src="{{.}}">{{/thumbnail.url}}{{#partner_url}}</a>{{/partner_url}}
+    {{/partner_image}}
+  </div>
+</div>
+
+{{#intro_description}}
+  <div class="ve-base-text ve-intro-full-description intro-disabled">
+    {{{.}}}
+  </div>
+{{/intro_description}}

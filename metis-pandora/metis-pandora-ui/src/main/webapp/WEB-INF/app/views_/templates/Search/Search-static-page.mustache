@@ -1,0 +1,54 @@
+{{> atoms/iconography/svgicons-search }}
+{{> organisms/global/header_v2}}
+
+<div role="main">
+
+<section class="search-object">
+  <div class="object-nav cf">
+    <div class="object-nav-lists">
+
+      <ul class="breadcrumbs">
+        <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
+        <li><span class="lastitem"><strong>{{content.title}}</strong></span></li>
+      </ul>
+    </div>
+  </div>
+
+</section>
+
+<section class="static-header">
+  <div class="lc">
+    <h1 class="title">{{ content.title }}</h1>
+    <p>{{ content.description }}</p>
+  </div>
+</section>
+
+<section class="static-content section">
+  <div class="lc">
+
+    {{# content.text }}
+    <div class="prose">
+      {{{ . }}}
+    </div>
+    {{/ content.text }}
+
+    {{{ content.text_full_width }}}
+
+    {{#navigation.secondary}}
+      <div class="sidebar js-getstickywidth">
+         <div class="js-sticky">
+        {{> molecules/navigation/nav-secondary }}
+        </div>
+      </div>
+    {{/navigation.secondary}}
+
+  </div>
+</section>
+
+</div>
+<!-- End Main -->
+
+{{> organisms/sections/banner }}
+
+{{> organisms/global/footer_v2 }}
+{{> molecules/forms/feedback }}

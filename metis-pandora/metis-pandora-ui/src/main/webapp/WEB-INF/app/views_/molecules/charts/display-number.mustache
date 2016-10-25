@@ -1,0 +1,31 @@
+<figure class="stat-display {{style_modifier}} cf">
+	<figcaption>
+
+		<span class="stat-title">{{ title }}</span>
+
+{{#description}}
+	{{>molecules/components/tooltip-icon}}
+{{/description}}
+
+	</figcaption>
+
+	<div class="stat-wrapper">
+		<span class="stat-number">
+			{{ value }}
+		</span>
+
+{{#trend}}
+		{{#positive}}
+		<div class="stat-trend up">
+			▲ {{value}}
+		</div>
+		{{/positive}}
+
+		{{#negative}}
+		<div class="stat-trend down">
+			▼ {{value}}
+		</div>
+		{{/negative}}
+{{/trend}}
+	</div>
+</figure>

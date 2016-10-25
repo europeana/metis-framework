@@ -1,0 +1,115 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header }}
+
+{{> organisms-site-hero }}
+
+<!-- Start Main page content -->
+<main  id="maincontent" role="main" class="pro-home">
+
+
+<div class="promo-abouteuropeana section">
+<div class="lc">
+
+	Europeana Research is all about ..........
+
+</div>
+</div>
+
+<div class="section home-collections">
+	<div class="lc">
+
+	<h2 class="section-title">Collections</h2>
+
+	<div class="grid cf">
+
+		<div class="l-collections">
+			<div class="grid">
+
+			<div class="l-post">
+				<div class="block block-inset">
+				    <a href="#" class="inner">
+						<div class="b-thumb">
+							{{> atoms-landscape-4x3 }} 
+
+							<div class="b-text">
+								<h2 class="headline">{{ headline.medium }}</h2>
+							</div>
+						</div>
+					</a>
+					<div class="excerpt">
+						Provided by: <a href="#" class="external">Providername here</a>
+					</div>
+				</div>
+			</div><!--
+
+			--><div class="l-post">
+				<div class="block block-inset">
+				    <a href="#" class="inner">
+						<div class="b-thumb">
+							{{> atoms-landscape-4x3 }} 
+
+							<div class="b-text">
+								<h2 class="headline">{{ headline.medium }}</h2>
+							</div>
+						</div>
+					</a>
+					<div class="excerpt">
+						Provided by: <a href="#" class="external">Providername here</a>
+					</div>
+				</div>
+			</div>
+
+
+			</div>
+
+			<a class="link-more" href="{{ link.ListPage~blog }}">See all Collections</a>
+		</div>
+
+	</div>
+	</div>
+</div>
+
+<div class="section home-news">
+	<div class="lc">
+
+	<h2 class="section-title">What's New</h2>
+
+	<div class="l-news">
+
+		<div class="block block-thumb">
+			<div class="b-thumb">
+				<a href="link_to_blog_post_here">{{> atoms-landscape-4x3 }}</a>
+			</div>
+			<div class="b-text">
+
+				<h2 class="headline"><a href="link_to_blog_post_here">{{ headline.short }}</a> </h2>
+
+				<p>{{ excerpt.long }}</p>
+
+				<div class="item-meta-primary">
+					{{> molecules-item-author }}
+					{{> molecules-item-readtime }}
+				</div>
+
+				<div class="item-meta-secondary">
+					{{> molecules-item-date }}
+					{{> molecules-item-tags }}
+					{{> molecules-item-comments }}
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+
+	<a class="link-more" href="{{ link.ListPage~blog }}">More from the Research Blog</a>
+		
+	</div>
+</div>
+
+
+<!-- End main content -->
+</main>
+
+{{> organisms/global/footer }}

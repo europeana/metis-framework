@@ -1,0 +1,44 @@
+{{!
+Navigation - Next/Previous
+
+Configuration options and content model:
+# # # # # # # # # # # # # # # #
+
+"navigation":{      // pagination should be within the navigation object
+    "next_prev":{
+        "next_url": "next_url_here",
+        "prev_url": "prev_url_here",
+    }
+    "back_url": "back_url_here"
+}
+# # # # # # # # # # # # # # # #
+
+}}
+<ul class="next-previous nav">
+  {{#navigation.next_prev.prev_url}}
+  <li class="previous">
+    <a class="btn btn2" href="{{navigation.next_prev.prev_url}}"{{#navigation.next_prev.prev_link_attrs}} {{name}}="{{value}}"{{/navigation.next_prev.prev_link_attrs}}>
+    <span aria-hidden="true"><svg class="icon icon-previous"><use xlink:href="#icon-previous"></use></svg></span>
+    </a>
+  </li>
+  {{/navigation.next_prev.prev_url}}
+
+  {{#navigation.next_prev.next_url}}
+  <li class="next">
+    <a class="btn btn2" href="{{navigation.next_prev.next_url}}"{{#navigation.next_prev.next_link_attrs}} {{name}}="{{value}}"{{/navigation.next_prev.next_link_attrs}}><span aria-hidden="true"><svg class="icon icon-next"><use xlink:href="#icon-next"></use></svg></span></a>
+  </li>
+  {{/navigation.next_prev.next_url}}
+
+
+  {{^navigation.next_prev}}
+  <li class="js-previous">
+    <a class="btn btn2" href="{{navigation.next_prev.prev_url}}"{{#navigation.next_prev.prev_link_attrs}} {{name}}="{{value}}"{{/navigation.next_prev.prev_link_attrs}}>
+    <span aria-hidden="true"><svg class="icon icon-previous"><use xlink:href="#icon-previous"></use></svg></span>
+    </a>
+  </li>
+  <li class="js-next">
+    <a class="btn btn2" href="{{navigation.next_prev.next_url}}"{{#navigation.next_prev.next_link_attrs}} {{name}}="{{value}}"{{/navigation.next_prev.next_link_attrs}}><span aria-hidden="true"><svg class="icon icon-next"><use xlink:href="#icon-next"></use></svg></span></a>
+  </li>
+  {{/navigation.next_prev}}
+
+</ul>

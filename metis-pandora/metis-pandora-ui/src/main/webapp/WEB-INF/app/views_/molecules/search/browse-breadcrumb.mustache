@@ -1,0 +1,13 @@
+<section>
+  <div class="object-nav cf">
+    <div class="object-nav-lists">
+      <ul class="breadcrumbs">
+        <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
+        <li><span class="lastitem"><strong>{{content.title}}</strong></span></li>
+      </ul>
+      {{#collection_filter_options}}
+        {{>molecules/forms/filterby}}
+      {{/collection_filter_options}}
+    </div>
+  </div>
+</section>

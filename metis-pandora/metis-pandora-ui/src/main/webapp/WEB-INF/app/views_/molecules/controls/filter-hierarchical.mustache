@@ -1,0 +1,136 @@
+{{!
+
+FILTER COMPONENT - Hierarchical
+
+Behaviour:
+Should display a list of properties that the search results can be filterable by, eg: Type
+When one of them is selected, the search results will update to filter by the selected facet. eg: Paintings
+
+If the top level element:
+   is_checked
+is true then sub-items become visible unless:
+   hidden_item_data
+is present.
+
+For sub-items to become automatically visible when
+   hidden_item_data
+is present then
+  has_subselection
+has to be present ()and true)
+
+On selection:
+Other top level options in the hierarchical filter are hidden.
+The selected facet is highlighted as selected.
+The selected facet displays a "remove" button.
+Relevant secondary filter types are displayed in a visual hierarchy that associates them with the selected top level facet. eg. Orientation, Painting medium (watercolour, oils etc.), Colour
+When the selected facet is removed the search results are updated to the previous state.
+
+
+Configuration options and content model:
+# # # # # # # # # # # # # # # #
+
+"filters":[
+    {
+        "hierarchical": true,        // Selects the Hierachical filter type (this one)
+        "filter_id": "artist",       // a unique id name for this filter
+        "title":"Artist",            // Title of the filter group eg. Artist
+        "items": [                   // Array of filterable options - visible on initial load
+            {
+                                                        // All possible configuration options are listed below
+                                                        // miss out any that are not needed
+
+                "url":"http://linktofilterapplied",     // The url to go to with the filter applied - fallback for no js use case
+                "text": "My option name",               // The name of the option eg. Rembrandt
+                "num_results": "1234",                  // number of results in the filtered set - can be a string or int eg. "15K" or 10000
+                "is_checked": true,                     // checked/selected state of the option
+                "is_disabled": true                     // enabled/disabled state of the option
+                "related_filters": [                    // filter_ids to show when selected
+                    "colour", "orientation"
+                ]
+            },
+            ...Add more visible items here
+        ],
+        "has_subfilters": true,     // flag to output subfilters
+        "filters": [
+            // this is the next level of filters (in the same format as the outer filter array) This will allow us to specify filter types that apply when an item within the parent filter is selected. These will be filters that make sense for the current selection. eg. Orientation or Colour options for a selection of "Painting".
+            // which filters are shown is specified by the filter_ids in related_filters in the item array (see above)
+            {more filters here, most will be type: simple}
+        ]
+    },
+    ...Add more filters here
+]
+
+# # # # # # # # # # # # # # # #
+
+
+
+}}
+<div class="filter filter-hierarchical js-filter-hierarchical{{#select_one}} radiobuttons{{/select_one}}{{^select_one}} checkboxes{{/select_one}}{{^filter_open}} filter-closed{{/filter_open}}">
+
+    <div class="filter-name" data-filter-name="{{name}}">{{#title}}{{.}}{{/title}}{{#tooltip}}{{>atoms/text/tooltip}}{{/tooltip}}{{#icon_link}} <a class="filter-name-icon" href="{{link_url}}"><svg class="icon {{icon}}"><use xlink:href="#{{icon}}"></use></svg></a>{{/icon_link}}
+      {{> molecules/controls/filter-mobile-summary}}
+    </div>
+
+    <ul class="filter-list filter-wrap">
+    {{#items}}
+        {{#is_separator}}
+          <li class="filter-item-separator">
+          </li>
+        {{/is_separator}}
+        {{^is_separator}}
+
+        <li>
+            <a href="{{url}}" class="filter-item {{#is_checked}} is-checked {{/is_checked}}{{#is_disabled}} is-disabled {{/is_disabled}}" {{#is_checked}} aria-checked="true" {{/is_checked}} {{^is_checked}} aria-checked="false" {{/is_checked}}>{{text}}
+            {{#num_results}}
+            <span class="filter-num">({{num_results}})</span>
+            {{/num_results}}
+            </a>
+
+            {{#has_subfilters}}
+            <ul class="subfilters js-nested-filters {{^hidden_item_data}}{{^is_checked}} is-jshidden {{/is_checked}}{{/hidden_item_data}}{{#hidden_item_data}}{{^has_subselection}} is-jshidden {{/has_subselection}}{{/hidden_item_data}}  ">
+                {{#filters}}
+                    {{#simple}}
+                        {{> molecules/controls/filter-simple }}
+                    {{/simple}}
+
+                    {{#colour}}
+                        {{> molecules/controls/filter-colour }}
+                    {{/colour}}
+
+                    {{#tabbed}}
+                        {{> molecules/controls/filter-tabbed }}
+                    {{/tabbed}}
+                {{/filters}}
+            </ul>
+            {{/has_subfilters}}
+        </li>
+        {{/is_separator}}
+    {{/items}}
+
+    {{#extra_items}}
+      <li>
+        <ul class="filter-extrafields js-showhide-panel is-jshidden">
+        {{#items}}
+            <li>
+                <a href="{{url}}" class="filter-item {{#is_checked}} is-checked {{/is_checked}}{{#is_disabled}} is-disabled {{/is_disabled}}">{{text}}
+                {{#num_results}}
+                <span class="filter-num">{{num_results}}</span>
+                {{/num_results}}
+                </a>
+            </li>
+        {{/items}}
+        </ul>
+      </li>
+    {{/extra_items}}
+
+    </ul>
+
+    {{#extra_items}}
+        <a class="js-showhide filter-moreless" href="#" data-text-swap="{{i18n.site.results.list.less}}">{{i18n.site.results.list.more}}</a>
+    {{/extra_items}}
+
+    {{#hidden_item_data}}
+        <a class="js-showhide-nested filter-moreless" href="#" data-text-swap="{{label_hide_specific}}" data-text-original="{{label_show_specific}}">{{#has_subselection}}{{label_hide_specific}}{{/has_subselection}}{{^has_subselection}}{{label_show_specific}}{{/has_subselection}}</a>
+    {{/hidden_item_data}}
+
+</div>

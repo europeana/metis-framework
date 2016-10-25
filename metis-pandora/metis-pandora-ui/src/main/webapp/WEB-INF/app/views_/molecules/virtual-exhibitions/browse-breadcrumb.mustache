@@ -1,0 +1,20 @@
+<section>
+  <div class="ve-nav cf">
+    <div class="ve-nav-lists">
+      <ul class="breadcrumbs">
+        {{#breadcrumbs}}
+          {{^is_last}}
+            <li>
+              <a href="{{url}}">{{#is_first}}<svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{/is_first}}{{title}}</a>
+            </li>
+          {{/is_last}}
+          {{#is_last}}
+            <li>
+              <span class="lastitem"><strong>{{title}}</strong></span>
+            </li>
+          {{/is_last}}
+        {{/breadcrumbs}}
+      </ul>
+    </div>
+  </div>
+</section>

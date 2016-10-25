@@ -1,0 +1,26 @@
+{{#tooltip}}
+  <div class="eu-tooltip-container">
+    {{#tooltipped_text}}
+    <a {{#link_class}}class="eu-tooltip-anchor {{.}}"{{/link_class}}{{^link_class}} class="eu-tooltip-anchor" {{/link_class}}{{#link_url}}href="{{.}}" {{/link_url}}>
+      {{^icon_first}}
+        {{tooltipped_text}}
+      {{/icon_first}}{{#icon}}
+      <svg class="icon {{.}}">
+        <use xlink:href="#{{.}}"></use>
+      </svg>{{/icon}}{{#icon_first}}{{tooltipped_text}}{{/icon_first}}
+    </a>
+    {{/tooltipped_text}}
+    <div {{#tooltip_id}}data-tooltip-id="{{.}}"{{/tooltip_id}}
+         class="eu-tooltip{{#persistent}} persistent{{/persistent}}{{^icon_first}}{{^trailing}} right-aligned{{/trailing}}{{/icon_first}}{{#trailing}} trailing{{/trailing}}">
+        {{#link_url}}
+          <a href="{{.}}">{{tooltip_text}}</a>
+        {{/link_url}}
+        {{^link_url}}
+          {{tooltip_text}}
+        {{/link_url}}
+      {{#persistent}}
+        <a data-role="remove"></a>
+      {{/persistent}}
+    </div>
+  </div>
+{{/tooltip}}

@@ -1,0 +1,48 @@
+{{> atoms/iconography/svgicons-pro}}
+{{> organisms-header }}
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+
+<section class="page_header">
+  <div class="lc">
+    {{> molecules/navigation/breadcrumbs}}
+  </div>
+</section>
+
+{{> molecules-block-content-header }}
+
+	<!-- Start grid -->
+	<div class="grid-wrapper">
+    <div class="grid">
+
+
+      <article id="maincontent" class="maincontent">
+        <div class="textcontent">
+
+          <div class="prose">
+          <p>Unfortunately we haven't been able to find what you are looking for, please check the spelling, or have a look at some content that may interest you.
+          </p>
+          </div>
+        </div>
+
+        {{> molecules-related-noimages(title: "Things you may find interesting:") }}
+
+
+      </article>
+<!--
+
+     --><div class="sidebar">
+
+        </div>
+    </div>
+  </div>
+	<!-- End grid -->
+
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+

@@ -1,0 +1,79 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+<div class="lc">
+	<!-- Start grid -->
+	<div class="grid-main">
+
+		<div class="l-content">
+
+			<div class="l-breadcrumbs">
+				{{> molecules/navigation/breadcrumbs}}
+				{{> molecules-sortby }}
+			</div>
+
+		<div id="maincontent" class="maincontent">
+
+			{{# job }}
+			{{> molecules-meta-RSS }}
+			{{/ job }}
+
+			{{# event }}
+			{{> molecules-meta-RSS }}
+			{{/ event }}
+
+			{{# publication }}
+			{{> molecules-meta-RSS }}
+			{{/ publication }}
+
+			{{# blog }}
+			{{> molecules-meta-RSS }}
+			{{/ blog }}
+
+
+			<div class="results">
+
+				{{# intro }}
+				<div class="page-intro">
+                     <h1 class="title">List Page title</h1>
+                    <p>{{ excerpt.short }}</p>
+                </div>
+                {{/ intro }}
+
+				<ul class="results-list">
+					{{#listItems.ten}}
+						{{> molecules-pro-listitem }} 
+					{{/listItems.ten}}
+				</ul>
+
+				{{> molecules-pagination }} 
+
+			</div>
+
+			{{> molecules-related-images(title: "Related") }}
+
+		</div>
+		</div><!--
+
+	 --><div class="l-sidebar">
+	 		<div class="inner">
+
+				{{> molecules-help-contact(title:"Need help?") }}
+				
+			</div>
+
+		</div>
+	</div>
+	<!-- End grid -->
+</div>
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+

@@ -1,0 +1,16 @@
+<style>
+.recusive-item{
+  margin-left: 2em;
+}
+</style>
+
+{{#item}}
+<div class="recusive-item">
+  <span>{{name}}</span>
+  {{#children}}
+    {{#items}}
+      {{> templates/Search/Recursive}}
+    {{/items}}
+  {{/children}}
+</div>
+{{/item}}

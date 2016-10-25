@@ -1,0 +1,15 @@
+<div class="promo-block promo-block-image {{#is_channel}}item-channel {{/is_channel}}{{#is_exhibition}}item-exhibition {{/is_exhibition}}{{#is_new}}item-new {{/is_new}}{{#is_partner}}item-partner {{/is_partner}}{{#is_featured_site}}item-featuredsite {{/is_featured_site}} {{class_custom}} contrast" {{#bg_image}}style="background-image: url({{bg_image}}); "{{/bg_image}}>
+  <a href="{{url}}" {{#is_external}}target="_new"{{/is_external}}>
+    {{#comingsoon}}
+    <div class="corner-ribbon alternate">Coming Soon</div>
+    {{/comingsoon}}
+    <div class="inner">
+      <span class="title">{{title}}{{^subtitle}}{{#is_external}} <svg class="icon icon-linkout"><use xlink:href="#icon-linkout"/></svg>{{/is_external}}{{/subtitle}}</span>
+      {{#subtitle}}
+        <span class="subtitle">{{subtitle}}{{#is_external}} <svg class="icon icon-linkout"><use xlink:href="#icon-linkout"/></svg>{{/is_external}}</span>
+      {{/subtitle}}
+    </div>
+  </a>
+  <div class="category-flag">{{#is_collection}}Thematic collections{{/is_collection}}{{#is_exhibition}}Exhibition{{/is_exhibition}}{{#is_new}}What's New{{/is_new}}{{#is_partner}}Our Partners{{/is_partner}}{{#is_featured_site}}Featured Site{{/is_featured_site}}{{#is_app}}App{{/is_app}}{{#is_timeline}}Timeline{{/is_timeline}}{{#is_playlist}}Playlist{{/is_playlist}}{{#is_gallery}}Gallery{{/is_gallery}}{{#is_channel}}Channel{{/is_channel}}
+  </div>
+</div>

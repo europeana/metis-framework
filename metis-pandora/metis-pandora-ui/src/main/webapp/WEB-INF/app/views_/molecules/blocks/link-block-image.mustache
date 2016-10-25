@@ -1,0 +1,13 @@
+<div class="link-block-image link-block {{class_custom}}">
+    <a href="{{url}}" class="b-inner">
+		<div class="b-thumb" {{#img}}style="background-image: url({{image_root}}{{ src }}); "{{/img}}></div>
+		<div class="b-text">
+			{{# headline }}
+			<h2 class="item-title">{{ headline.medium }}</h2>
+			{{/ headline }}
+			{{# excerpt }}
+			<p>{{ excerpt.short }}</p>
+			{{/ excerpt}}
+		</div>
+	</a>
+</div>

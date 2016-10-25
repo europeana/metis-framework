@@ -1,0 +1,85 @@
+{{> molecules/blocks/block-cookie-disclaimer }}
+
+<header class="header">
+
+<div class="menu-top">
+  {{> molecules/navigation/global-topdrawer }}
+</div>
+
+<!-- Off canvas search bar -->
+
+{{> molecules/forms/global-search }}
+
+
+<!-- wrapper for navigation bar -->
+<div class="cf">
+
+
+  {{> atoms/images/logo }}
+
+
+  <div class="nav-global">
+
+    <a href="#" class="nav-toggle nav-toggle-sites">
+      <span>{{i18n.global.our-sites}}</span>
+    </a>
+
+
+    <a href="#search" class="nav-toggle nav-toggle-search">
+      <svg class="icon icon-search">
+        <use xlink:href="#icon-search"></use>
+      </svg>
+      <span class="is-vishidden">Search</span>
+    </a>
+
+
+    {{#globalnav_options.myeuropeana}}
+    <a href="#" class="nav-toggle nav-toggle-settings">
+      <svg class="icon icon-settings">
+        <use xlink:href="#icon-settings"></use>
+      </svg>
+      <span>My Europeana</span>
+    </a>
+    {{/globalnav_options.myeuropeana}}
+
+    <a href="#" class="nav-toggle nav-toggle-menu">
+      <svg class="icon icon-menu">
+        <use xlink:href="#icon-menu"></use>
+      </svg>
+      <span>Menu</span>
+    </a>
+
+  </div>
+
+  <nav id="nav" class="nav_primary nav">
+    <ul>
+      <li><a href="#" class="current" >{{i18n.global.home}}</a></li>
+      <li><a href="#">Primary1</a></li>
+      <li><a href="#">Primary2</a></li>
+      <li><a href="#">Primary3</a></li>
+    </ul>
+  </nav>
+
+
+</div>
+</header>
+
+
+<nav class="drawer menu-right">
+
+  <div class="search">
+    {{> molecules/forms/search }}
+  </div>
+
+    <ul class="nav_primary">
+        <li><a href="#" class="current">Primary 1</a></li>
+        <li><a href="#">Primary 2</a></li>
+        <li><a href="#">Primary 3</a></li>
+    </ul>
+
+    <ul class="nav_secondary">
+        <li><a href="#">Secondary 1</a></li>
+        <li><a href="#">Secondary 2</a></li>
+        <li><a href="#">Secondary 3</a></li>
+    </ul>
+</nav>

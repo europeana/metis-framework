@@ -1,0 +1,73 @@
+{{# debug }}
+{{! Debug template }}
+    {{> atoms/utility/debug }}
+{{/ debug }}
+
+<!-- Start Footer -->
+<footer class="footer" role="contentinfo">
+    <div class="lc">
+        <div class="grid">
+
+            <div class="l-contact">
+                <div class="footer_logo">
+                    <a href="/"><img src="{{image_root}}europeana-logo-default.svg" alt="Europeana - think culture" /></a>
+                </div>
+
+                <div class="address">
+                    Europeana Foundation<br>
+                    Prins Willem-Alexanderhof 5<br>
+                    2595 BE Den Haag<br>
+                    Netherlands
+                </div>
+
+            </div><!--
+
+         --><div class="l-content">
+
+                <div class="l-sitemap cf grid">
+                {{# navigation.footer.linklist1 }}{{> molecules/navigation/linklist-with-title }}{{/ navigation.footer.linklist1 }}<!--
+             -->{{# navigation.footer.linklist2 }}{{> molecules/navigation/linklist-with-title }}{{/ navigation.footer.linklist2 }}
+                </div>
+
+                <div class="grid">
+                    <div class="l-mission">
+                        <h4 class="title">{{i18n.global.mission-title}}</h4>
+                        <p>{{i18n.global.mission}}</p>
+                    </div><!--
+
+                 --><div class="l-othersites">
+                        {{# navigation.footer.othersites }}
+                        {{> molecules/navigation/linklist-with-title }}
+                        {{/ navigation.footer.othersites }}
+                    </div>
+                </div>
+            </div><!--
+
+         --><div class="l-nextsteps">
+                {{# page_config.newsletter }}
+                <div class="signup">
+                    {{> molecules/forms/newsletter }}
+                </div>
+                {{/ page_config.newsletter }}
+
+                {{# navigation.footer.social }}
+                {{> molecules/navigation/social-links }}
+                {{/ navigation.footer.social }}
+            </div>
+        </div>
+    </div>
+
+
+    <div class="sub-footer lc">
+        {{# navigation.footer.subfooter }}
+        <ul class="nav">
+            {{#items}}<li><a href="{{url}}">{{text}}</a></li>{{/items}}
+        </ul>
+        {{/ navigation.footer.subfooter }}
+
+        <p class="copyright">Co-funded by the European Union.</p>
+    </div>
+
+
+</footer>
+<!-- End Footer -->

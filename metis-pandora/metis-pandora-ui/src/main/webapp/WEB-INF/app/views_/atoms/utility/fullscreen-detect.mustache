@@ -1,0 +1,56 @@
+<style>
+body {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+}
+#wrap {
+  width: 100%;
+  background: #FFF;
+  padding: 40px;
+}
+</style>
+<script>
+var db, isfullscreen = false;
+function toggleFullScreen(){
+  db = document.body;
+  if(isfullscreen == false){
+    if(db.requestFullScreen){
+        db.requestFullScreen();
+    } else if(db.webkitRequestFullscreen){
+        db.webkitRequestFullscreen();
+    } else if(db.mozRequestFullScreen){
+        db.mozRequestFullScreen();
+    } else if(db.msRequestFullscreen){
+        db.msRequestFullscreen();
+    }
+    isfullscreen = true;
+    wrap.style.width = window.screen.width+"px";
+    wrap.style.height = window.screen.height+"px";
+  } else {
+    if(document.cancelFullScreen){
+        document.cancelFullScreen();
+    } else if(document.exitFullScreen){
+        document.exitFullScreen();
+    } else if(document.mozCancelFullScreen){
+        document.mozCancelFullScreen();
+    } else if(document.webkitCancelFullScreen){
+        document.webkitCancelFullScreen();
+    } else if(document.msExitFullscreen){
+        document.msExitFullscreen();
+    }
+    isfullscreen = false;
+    wrap.style.width = "100%";
+    wrap.style.height = "auto";
+  }
+}
+</script>
+
+  <div id="wrap">
+    <h2>Fullscreen Desktop Application</h2>
+    <h3>My web page with desktop fullscreen feature</h3>
+    <button onclick="toggleFullScreen()" ontouchstart="toggleFullScreen()">Toggle Full Screen</button>
+  </div>
+
+  <div>

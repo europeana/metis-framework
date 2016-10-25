@@ -1,0 +1,38 @@
+{{> atoms/iconography/svgicons-search }}
+{{> organisms/global/header_v2}}
+
+<div role="main" class="portal-down">
+
+<section class="static-header">
+  <div class="lc">
+    <h1 class="title">{{ content.title }}</h1>
+
+    <ul>
+      <li>Europeana Collections is unavailable at the moment, please check back soon.</li>
+      <li>Europeana Collections ist im Moment nicht verfügbar , bitte kommen Sie bald wieder.</li>
+      <li>Europeana Kolekcje jest w danym momencie niedostępny , proszę spróbować później.</li>
+      <li>Europeana Collezioni non è disponibile al momento, si prega di riprovare presto.</li>
+      <li>Europeana Colecciones no está disponible en este momento, por favor, vuelva pronto.</li>
+      <li>Europeana Collections est indisponible pour le moment, s'il vous plaît vérifier bientôt de retour.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="static-content section">
+  <div class="lc">
+    <div>
+      <figure>
+        <img src="/images_versionless/portal_down_screaming_child.png" alt="{{ content.alt }}" />
+        <figcaption>{{ content.caption }}</figcaption>
+      </figure>
+
+      <div class="portal-down-social">
+        {{> organisms/sections/social-share }}
+      </div>
+    </div>
+  </div>
+</section>
+
+  {{> organisms/global/footer_v2 }}
+</div>
+<!-- End Main -->

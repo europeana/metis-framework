@@ -1,0 +1,60 @@
+{{!
+
+Attribution Widget
+
+Behaviour:
+Displays license attribution code for the user to copy and paste to make it easy for users to attribute licensed works.
+
+On clicking the Text/HTML buttons:
+- The contents of the data-e-licence-content data attribute of the clicked on button in the button bar is added into the input value.
+- An is-active class is added to the clicked on button and removed from other buttons in the button bar.
+- The is-active class is added to the input field
+- The input field contents are selected ready for the user to copy/paste
+- The input field is given focus
+
+
+
+Configuration options and content model:
+# # # # # # # # # # # # # # # #
+
+{
+
+  // attribution_html = HTML version of the attribution content
+
+  "attribution_html": "<a href=\"http://www.europeana.eu/portal/record/xxx\">dc:title</a>. dc:creator. <a href=\"edm:isshownat\">edm:dataProvider</a>. <a href=\"edm:rights\" rel=\"xhv:license http://www.europeana.eu/schemas/edm/rights\">rightslabel</a>",
+
+  // attribution_plain = Plain text version of the attribution content
+
+  "attribution_plain": "The Milkmaid - http://www.europeana.eu/portal/record/90402/SK_A_2344.html . Vermeer, Johannes. Rijksmuseum - http://www.rijksmuseum.nl/collectie/SK-A-2344. Public Domain - http://creativecommons.org/publicdomain/mark/1.0/ ."
+}
+
+# # # # # # # # # # # # # # # #
+
+
+}}
+
+<div class="js-attribution-widget widget-attribution">
+
+  <div class="input-attr-wrapper" aria-disabled="false">
+    <input class="input-attr is-active" type="text" tabindex="0" aria-disabled="false" value="{{ attribution_plain }}">
+  </div>
+
+  <ul class="button-bar button-bar-small">
+   <li class="button-bar__item">
+     <a href="#" class="button-bar__button is-active attribution-fmt plain" data-e-licence-content='{{ attribution_plain }}'>
+        <svg class="icon icon-plaintext">
+          <use xlink:href="#icon-plaintext"></use>
+        </svg>
+       {{ i18n.site.object.actions.attribute-plaintext }}
+     </a>
+   </li>
+   <li class="button-bar__item">
+     <a href="#" class="button-bar__button attribution-fmt html" data-e-licence-content="{{ attribution_html }}">
+        <svg class="icon icon-html">
+          <use xlink:href="#icon-html"></use>
+        </svg>
+       {{ i18n.site.object.actions.attribute-html }}
+     </a>
+   </li>
+  </ul>
+</div>

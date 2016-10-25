@@ -1,0 +1,61 @@
+<figure class="ve-foyer-card">
+
+  {{#state_1_label}}<span class="ve-label">{{.}}</span>{{/state_1_label}}
+
+  <div class="ve-foyer-card-content">
+
+    <div class="inner">
+
+      <span class="ve-card-nav ve-card-nav-left">
+        <svg class="icon icon-previous"><use xlink:href="#icon-previous"></use></svg>
+      </span>
+      <span class="ve-card-nav ve-card-nav-right">
+        <svg class="icon icon-next"><use xlink:href="#icon-next"></use></svg>
+      </span>
+
+      <div class="ve-state-buttons">
+        <span class="ve-state-0 ve-state-button-on"></span>
+        <span class="ve-state-1 ve-state-button-off"></span>
+        <span class="ve-state-2 ve-state-button-off"></span>
+      </div>
+
+      <div class="ve-foyer-card-state">
+        <img src="{{state_1_image.thumbnail.url}}" />
+        {{#state_1_title}}
+          <div class="text-box title">
+          {{#url}}
+              <a href="{{url}}">{{state_1_title}}</a>
+          {{/url}}
+          {{^url}}
+              {{state_1_title}}
+          {{/url}}
+          </div>
+        {{/state_1_title}}
+      </div>
+
+      <div class="ve-foyer-card-state hide-right{{#state_2_body}} shaded{{/state_2_body}}">
+        <img src="{{state_2_image.thumbnail.url}}" />
+        {{#state_2_body}}
+          <div class="text-box description">
+          {{#url}}
+              <a href="{{url}}">{{{state_2_body}}}</a>
+          {{/url}}
+          {{^url}}
+              {{state_2_body}}
+          {{/url}}
+          </div>
+        {{/state_2_body}}
+      </div>
+
+      <div class="ve-foyer-card-state hide-right">
+        <img src="{{state_3_image.thumbnail.url}}" />
+          <div class="text-box credits">
+          {{#url}}
+              <a href="{{url}}"><img src="{{state_3_logo.thumbnail.url}}" /></a>
+          {{/url}}
+          </div>
+      </div>
+    </div>
+  </div>
+
+</figure>

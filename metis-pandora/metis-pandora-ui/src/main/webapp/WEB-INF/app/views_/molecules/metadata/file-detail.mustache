@@ -1,0 +1,43 @@
+<div class="file-detail">
+<div class="inner">
+
+  {{#download}}
+  <a class="file-icon" href="{{url}}" download="Europeana-Media">
+  {{/download}}
+
+    <svg class="icon icon-file">
+      <use xlink:href="#icon-file"></use>
+    </svg>
+
+    {{#technical_metadata}}
+    <span class="file-type">
+      {{#format}}{{.}}{{/format}}
+      {{^format}}?{{/format}}
+    </span>
+    {{/technical_metadata}}
+
+  {{#download}}
+  </a>
+  {{/download}}
+
+  <div class="file-info">
+
+    {{#download}}
+
+      {{i18n.site.object.actions.download-started}}.
+      <a href="{{url}}" class="file-title" download="Europeana-Media">
+        {{i18n.site.object.actions.download-retry}}
+      </a>
+    {{/download}}
+
+
+    {{#technical_metadata}}
+    <ul class="file-meta">
+      <li>{{width}} × {{height}} {{size_unit}}</li>
+      <li>{{file_size}} {{file_unit}}</li>
+    </ul>
+    {{/technical_metadata}}
+  </div>
+
+</div>
+</div>

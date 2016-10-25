@@ -1,0 +1,8 @@
+  <div class="filterby">
+      <label for="list_filterby">{{i18n.global.actions.filter-by}}:</label>
+      <select id="list_filterby">
+        {{#options}}
+              <option value="{{value}}" {{#selected}}selected{{/selected}}>{{label}}</option>
+        {{/options}}
+      </select>
+  </div>

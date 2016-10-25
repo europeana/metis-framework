@@ -1,0 +1,134 @@
+{{> atoms/iconography/svgicons-pro}}
+
+{{> organisms/global/header}}
+
+
+
+<!-- Start content -->
+<main role="main" class="l-page">
+<div class="lc">
+	<!-- Start grid -->
+	<div class="grid-main">
+
+		<div class="l-content">
+
+		<div class="l-breadcrumbs">
+			{{> molecules/navigation/breadcrumbs}}
+		</div>
+		
+
+		<div id="maincontent" class="maincontent">
+
+			<h1 class="title">Europeana Staff</h1>
+			
+
+			<div class="section contact-detail">
+
+			 <div class="l-contact-photo">
+					<img src="http://placeimg.com/300/400/people" alt="photo of firsty" class="photo"/>
+				</div><!--
+
+			 --><div class="l-contact">
+
+					<div class="contact-methods cf">
+
+						<h2 class="fn">{{name.first}} {{name.last}}</h2>
+
+						<div class="jobdetails">
+							<div class="job-title">Programme Manager</div>
+							<div class="job-department">Human resources</div>
+							{{> molecules-meta-email }}
+						</div>
+
+						<div class="contact-internal">
+							{{> molecules-meta-phone-work }} 
+							{{> molecules-meta-phone-mobile }}
+						</div>
+
+						<ul class="contact-external">
+							<li><a href="twitter"><svg class="icon icon-twitter"><use xlink:href="#icon-twitter"></use></svg>@firsty</a></li>
+							<li><a href="#"><svg class="icon icon-skype"><use xlink:href="#icon-skype"></use></svg>Skype me</a></li>
+							<li><a href=""><svg class="icon icon-linkedin"><use xlink:href="#icon-linkedin"></use></svg>Firsty linked in name</a></li>
+						</ul>
+
+					</div>
+
+					<div class="contact-additional">
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione deserunt voluptate cum adipisci maiores eveniet repellendus sed quo. Soluta reprehenderit, voluptatem harum iste! Eligendi quo architecto ad molestiae minima incidunt.</p>
+
+						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora, excepturi officia adipisci repellendus eveniet suscipit exercitationem ducimus sint, vitae tenetur. Fugit aliquam fuga iusto soluta itaque at. Nihil quas molestias, minima doloribus dolores facilis provident rem ea optio at inventore!</p>
+
+						<ul class="nav">
+							<li><a href="#">Link to website</a></li>
+							<li><a href="#">Link to another site</a></li>
+						</ul>		
+					</div>
+					
+
+
+				</div>
+			</div>
+
+
+			<div class="section">
+				<h2>Speaking at</h2>
+
+				<div class="results">
+					<ul class="results-list">
+						{{#listItems.three}}
+							{{> molecules-pro-listitem(event: true) }} 
+						{{/listItems.three}}
+					</ul>
+				</div>
+
+			</div>
+
+			<div class="section">
+
+				<h2>Publications</h2>
+
+				<ul class="results-list">
+					{{#listItems.two}}
+						{{> molecules-pro-listitem(publication: true) }} 
+					{{/listItems.two}}
+				</ul>
+
+			</div>
+
+
+			<div class="section">
+
+				<h2>Blog posts</h2>
+
+				<ul class="results-list">
+					{{#listItems.three}}
+						{{> molecules-pro-listitem(blog: true) }} 
+					{{/listItems.three}}
+				</ul>
+
+				{{> molecules-pagination }}
+
+			</div>
+
+			
+
+		</div>
+		</div><!--
+
+	 --><div class="l-sidebar">
+			<div class="inner">
+			
+				{{> molecules-help-contact(title: "Need Help?") }}
+				
+			</div>
+
+		</div>
+	</div>
+	<!-- End grid -->
+</div>
+</main>
+<!-- End Content -->
+
+
+{{> organisms/global/footer }}
+

@@ -1,0 +1,70 @@
+<form
+   method="post"
+   action="{{newsletter.form.action}}"
+   class="inline-form newsletter-form"
+   id="mc-embedded-subscribe-form"
+   name="mc-embedded-subscribe-form"
+   target="_blank"
+   noValidate="true"
+   onsubmit="return checkForm()">
+
+   <script type="text/javascript">
+
+     // Inline javascript for simplicity in porting to externally developed sites.
+     //   Note: (there is dependency on jquery here that should be satisfied by whoever uses this molecule)
+
+     var checkForm = function(form_obj) {
+       var why = "";
+       var email = $('#mce-EMAIL');
+       var filter=/^[a-z0-9_\-\.\+]+@[a-z0-9_\-\.]+\.[a-z]{2,4}$/i;
+
+       if (email.val().length==0) {
+         why += "* {{i18n.global.newsletter.email-address-required}}\n";
+       }
+       else if (!filter.test(email.val())) {
+         why += "* {{i18n.global.newsletter.email-address-invalid}}\n";
+       }
+
+       {{#newsletter.form.language_op}}
+       if (!$('#mce-LANGUAGE-0').is(':checked') && !$('#mce-LANGUAGE-1').is(':checked')) {
+         why += "* {{i18n.global.newsletter.language-required}}\n";
+       }
+       {{/newsletter.form.language_op}}
+
+       if (why != "") {
+         alert(why);
+         return false;
+       }
+       return true;
+     };
+   </script>
+
+  <label for="mce-EMAIL" class="title">{{i18n.global.newsletter.signup}}</label>
+
+  <div class="inline-container">
+    <input placeholder="{{i18n.global.email-address}}"
+           type="email"
+           name="EMAIL"
+           value=""
+           id="mce-EMAIL"
+           class="js-placeholder newsletter-field" />
+    <button class="newsletter-submit">
+      <svg class="icon icon-check">
+        <use xlink:href="#icon-check"></use>
+      </svg>
+    </button>
+  </div>
+
+  {{#newsletter.form.language_op}}
+  <div class="newsletter-options">
+      <input type="radio" name="LANGUAGE" value="English" id="mce-LANGUAGE-0" />
+      <label for="mce-LANGUAGE-0">
+          {{i18n.global.language-english}}
+      </label>
+      <input type="radio" name="LANGUAGE" value="French" id="mce-LANGUAGE-1" />
+      <label for="mce-LANGUAGE-1">
+          {{i18n.global.language-french}}
+      </label>
+  </div>
+  {{/newsletter.form.language_op}}
+</form>

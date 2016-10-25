@@ -1,0 +1,91 @@
+<form action="{{form_search.action}}" class="search-multiterm">
+  <div class="inputarea js-hitarea">
+
+    {{#grid_view_active}}
+        <input type="hidden" name="view" value="grid"/>
+    {{/grid_view_active}}
+
+    {{#input_search}}
+
+      {{#has_original}}
+          <input type="hidden" name="q" value="{{input_original.value}}"/>
+      {{/has_original}}
+
+      {{^has_original}}
+      <input class="search-input js-search-input js-placeholder" type="text"
+      {{#title}}title="{{title}}" {{/title}}
+      {{#input_name}}name="{{input_name}}" {{/input_name}}
+      {{#placeholder}}placeholder="{{placeholder}}" {{/placeholder}}
+      />
+      {{/has_original}}
+
+
+      {{#has_original}}
+      <ul class="search-tags js-search-tags">
+
+          <li class="search-tag">{{input_original.value}}<a href="{{input_original.remove}}" data-role="remove"></a></li>
+
+        {{#input_values}}
+          <li class="search-tag">
+          {{value}}
+          <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
+          <a href="{{remove}}" data-role="remove"></a>
+          </li>
+        {{/input_values}}
+
+
+        <li class="search-input-item">
+          <input class="search-input js-search-input js-placeholder" type="text"
+          {{#title}}title="{{title}}" {{/title}}
+          {{#input_name}}name="{{input_name}}" {{/input_name}}
+          {{#placeholder}}placeholder="{{placeholder}}" {{/placeholder}}/>
+        </li>
+
+      </ul>
+      {{/has_original}}
+
+
+    {{/input_search}}
+
+  </div>
+
+  <div class="submitarea">
+    <button type="submit" class="search-submit">
+      <svg class="icon icon-search">
+        <use xlink:href="#icon-search"></use>
+      </svg>
+      <span class="is-vishidden">{{i18n.global.search-area.search-button-image-alt}}</span>
+    </button>
+  </div>
+
+  {{#browse_menu}}
+    <nav role="navigation">
+      {{> molecules/navigation/smartmenu }}
+    </nav>
+  {{/browse_menu}}
+
+  {{# form_search.hidden }}
+  <input type="hidden" name="{{ hidden_name }}" value="{{ hidden_value }}" />
+  {{/ form_search.hidden }}
+</form>
+
+{{#browse_menu}}
+  <div class="browse-menu-mobile">
+    {{#items}}
+      <span class="text-mobile">{{text_mobile}}</span>
+      <div class="browse-options">
+        {{#submenu}}
+          {{#items}}
+            <div class="browse-option">
+              <a href="{{url}}">
+                <svg class="icon {{icon}}">
+                  <use xlink:href="#{{icon}}"></use>
+                </svg>
+              </a>
+            </div>
+          {{/items}}
+        {{/submenu}}
+      </div>
+    {{/items}}
+  </div>
+{{/browse_menu}}

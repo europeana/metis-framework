@@ -1,0 +1,186 @@
+{{> atoms/iconography/svgicons-search }}
+
+{{> organisms/global/header_v2}}
+
+
+<section class="search-object above-hero">
+  <div class="object-nav cf">
+    <div class="object-nav-lists">
+      <ul class="breadcrumbs">
+        <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
+        <li><span class="lastitem"><strong>{{content.channel_info.name}}</strong></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="hero-nopad search-hero {{#content.hero_config}}{{brand_position}} {{brand_colour}} {{brand_opacity}}{{/content.hero_config}}" {{#content.hero_config}} style="background-image: url('{{hero_image}}');" {{/content.hero_config}}>
+
+  <div class="hero-contents">
+
+    <h1><span class="inabox">{{content.channel_info.name}}</span></h1>
+
+    <div class="searchbar">
+    {{> molecules/components/search/search-form }}
+    </div>
+
+    {{#content.strapline}}
+    <div class="strapline">
+      {{{.}}}
+    </div>
+    {{/content.strapline}}
+  </div>
+
+  {{#content.hero_config}}
+    {{>molecules/text/attribution}}
+    {{>molecules/media/brand-svg-assets}}
+  {{/content.hero_config}}
+
+</section>
+
+{{#content.channel_info}}
+<section class="channel-info section">
+
+  {{#content.channel_entry}}
+   {{#grouped_items}}
+  <ul class="browse-entry-list lc{{#is_single_type}} single-type{{/is_single_type}}">
+      {{#items}}
+      <li class="list-item">
+        {{> molecules/blocks/browse-entry }}
+        <a href="{{more_link}}" class="browse-entries-more">{{more_text}}</a>
+      </li>
+      {{/items}}
+
+      <li class="list-item-more">
+        {{> molecules/blocks/browse-entry-more }}
+      </li>
+
+  </ul>
+   {{/grouped_items}}
+  {{/content.channel_entry}}
+
+</section>
+{{/content.channel_info}}
+
+{{# content.promoted }}
+<section class="exhibitions-list cf lc">
+<ul class="promo-list">
+  {{#items}}
+  <li class="list-item {{#wide}}list-item-wide{{/wide}}">
+    {{> molecules/blocks/promo-module }}
+  </li>
+  {{/items}}
+</ul>
+</section>
+{{/ content.promoted }}
+
+{{#content.channel_info}}
+<section class="channel-info section">
+  <div class="channel-intro lc">
+
+    <div class="channel-newstuff">
+      {{#recent}}
+        {{> molecules/navigation/linklist-with-title }}
+      {{/recent}}
+    </div>
+
+
+    <div class="channel-description">
+      <div class="channel-description-text">
+        {{{description}}}
+      </div>
+
+      {{# content.channel_info.credits }}
+        <div class="channel-credits comma-list">
+          <span class="title">{{title}}</span>
+          <ul class="credit-list">
+          {{#items}}
+          <li><a href="{{url}}" class="external">{{text}}</a></li>
+          {{/items}}
+          </ul>
+        </div>
+      {{/ content.channel_info.credits }}
+    </div>
+
+    {{#stats}}
+    <div class="channel-stats">
+      <ul>
+        {{#items}}
+        <li><a href="{{url}}"><span class="number">{{count}} </span>{{text}}</a></li>
+        {{/items}}
+      </ul>
+    </div>
+    {{/stats}}
+
+
+  </div>
+</section>
+
+<section class="channel-info section">
+  {{# content }}
+    <div class="channel-intro section-divider lc">
+      <div class="about-collection" style="visibility:hidden;">
+        &nbsp;
+      </div>
+      <div class="collection-social">
+        {{> organisms/sections/social-share }}
+      </div>
+    </div>
+  {{/ content }}
+</section>
+
+{{/content.channel_info}}
+
+{{#content.carousel}}
+<section class="tumblr-feed-section section">
+  <div class="lc">
+    <h2 class="section-title">{{title}} <a class="link-more" href="{{ tumblr_url }}">{{i18n.site.more}}</a></h2>
+  </div>
+  <div class="mlt cf lc">
+    <a id="scroll-trigger-carousel"
+       class="scroll-trigger"
+       data-enabled="true"
+       data-fire-on-open="showCarousel"
+       data-fire-on-open-params='{ "loadUrl": "{{more_items_load}}", "total_available": "{{more_items_total}}", "template": "tumblr", "svg": true, "minSpacingPx": 30}'
+    ></a>
+    <div class="js-carousel tumblr-feed">
+      <ul class="cf">
+        {{#items}}
+          <li class="js-carousel-item">
+            <div class="mlt-img-div height-to-width" style="background-image: url({{img.src}})">
+              <div class="inner"><a class="link" href="{{url}}">&nbsp;</a></div>
+            </div>
+            {{#title}}
+            <span class="js-carousel-title">
+              <a href="{{url}}">{{.}}</a>
+            </span>
+            {{/title}}
+          </li>
+        {{/items}}
+      </ul>
+    </div>
+    <a class="scroll-trigger trigger-chain"
+       data-enabled="true"
+       data-disable-when-fired="showCarousel"
+       data-fire-on-open-params='{ "trigger": "scroll-trigger-carousel"}'></a>
+  </div>
+</section>
+{{/content.carousel}}
+
+{{#content.news}}
+<div class="section news">
+  <div class="lc">
+
+  <h2 class="section-title">{{i18n.site.news}} <a class="link-more" href="{{ blogurl }}">{{i18n.site.more}}</a></h2>
+
+  <ul class="cf">
+    {{#items}}<li class="news-item">{{> molecules/blocks/link-block-image}}</li>{{/items}}
+  </ul>
+  </div>
+</div>
+{{/content.news}}
+
+{{> organisms/sections/banner }}
+
+{{> organisms/global/footer_v2 }}
+{{> molecules/forms/feedback }}

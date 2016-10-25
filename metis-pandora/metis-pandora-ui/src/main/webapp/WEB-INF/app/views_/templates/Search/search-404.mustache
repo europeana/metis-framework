@@ -1,0 +1,43 @@
+{{> atoms/iconography/svgicons-search }}
+
+{{> organisms/global/header_v2}}
+
+
+<div role="main">
+
+
+
+  <section class="section page-header section-box">
+    <div class="lc">
+      <h1 class="title">{{ content.intro }}</h1>
+      <p>{{ content.text }}</p>
+    </div>
+  </section>
+
+    <section class="search-hero">
+        <div class="searchbar">
+        {{> molecules/components/search/search-form }}
+        </div>
+    </section>
+
+
+  {{#content.channel_entry}}
+  <section class="channel-info section">
+    <ul class="browse-entry-list lc">
+      {{#items}}
+      <li class="list-item">
+        {{> molecules/blocks/browse-entry }}
+      </li>
+      {{/items}}
+    </ul>
+  </section>
+  {{/content.channel_entry}}
+
+</div>
+<!-- End Main -->
+
+{{> organisms/sections/banner }}
+
+
+{{> organisms/global/footer_v2 }}
+
