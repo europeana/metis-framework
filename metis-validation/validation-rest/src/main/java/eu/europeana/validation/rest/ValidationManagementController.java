@@ -77,7 +77,8 @@ public class ValidationManagementController {
         return URI.create(RestEndpoints.resolve(SCHEMAS_DOWNLOAD_BY_NAME, name,version)).toString();
     }
 
-    @RequestMapping(value = SCHEMAS_MANAGE_BY_NAME, method = RequestMethod.PUT)
+    //This should be a put but see https://issues.apache.org/jira/browse/FILEUPLOAD-214
+    @RequestMapping(value = SCHEMAS_UPDATE_BY_NAME, method = RequestMethod.POST)
     @ApiParam(value = "Update a schema")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("schemaPath") @RequestParam("schemaPath") String schemaPath,
