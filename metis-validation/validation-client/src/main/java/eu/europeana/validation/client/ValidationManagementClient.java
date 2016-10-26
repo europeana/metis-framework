@@ -83,9 +83,11 @@ public class ValidationManagementClient {
         MultiValueMap<String, Object> params = new LinkedMultiValueMap<>();
         params.add("schemaPath",schemaPath);
         params.add("schematronPath",schematronPath);
-        params.add("file",file);
-        template.put(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_MANAGE_BY_NAME,
-                name,version),params);
+        FileSystemResource resource = new FileSystemResource(file);
+        params.add("file",resource);
+
+         template.postForObject(validationEndpoint+RestEndpoints.resolve(RestEndpoints.SCHEMAS_UPDATE_BY_NAME,
+                name,version),params,String.class);
     }
 
     /**

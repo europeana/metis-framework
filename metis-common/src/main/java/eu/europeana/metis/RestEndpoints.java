@@ -76,6 +76,7 @@ public final class RestEndpoints {
     public final static String SCHEMA_RECORDS_BATCH_VALIDATE = "/schema/validate/batch/records/{schema}/{version}";
     public final static String SCHEMAS_DOWNLOAD_BY_NAME = "/schemas/download/schema/{name}/{version}";
     public final static String SCHEMAS_MANAGE_BY_NAME = "/schemas/schema/{name}/{version}";
+    public final static String SCHEMAS_UPDATE_BY_NAME = "/schemas/schema/update/{name}/{version}";
     public final static String SCHEMAS_ALL = "/schemas/all";
 
     /* METIS PREVIEW SERVICE ENDPOINT*/
