@@ -52,16 +52,16 @@ public class NavigationTop {
 		primary_nav.put("menu_id", menuId);
 		this.global.put("primary_nav", primary_nav);
 
-		Map<String,Object> utilityNav = new HashMap<>();
-		utilityNav.put("menu_id", "settings-menu");
-		utilityNav.put("style_modifier", "caret-right");
-		utilityNav.put("tabindex", "6");
-		Map<String, String> utilityNavItems = new HashMap<>();
-		utilityNavItems.put("url", "#");
-		utilityNavItems.put("text", "Wiki");
-		utilityNavItems.put("icon", "settings");
-		utilityNav.put("items", utilityNavItems);
-		this.global.put("utility_nav", utilityNav);
+		Map<String,Object> utility_nav = new HashMap<>();
+		utility_nav.put("menu_id", "settings-menu");
+		utility_nav.put("style_modifier", "caret-right");
+		utility_nav.put("tabindex", "6");
+		Map<String, String> utility_nav_items = new HashMap<>();
+		utility_nav_items.put("url", "#");
+		utility_nav_items.put("text", "Wiki");
+		utility_nav_items.put("icon", "settings");
+		utility_nav.put("items", utility_nav_items);
+		this.global.put("utility_nav", utility_nav);
 	}
 
 	public String getHome_url() {
