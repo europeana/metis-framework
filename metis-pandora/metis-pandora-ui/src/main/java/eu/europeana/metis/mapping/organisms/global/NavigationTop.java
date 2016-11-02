@@ -1,5 +1,6 @@
 package eu.europeana.metis.mapping.organisms.global;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,14 +53,37 @@ public class NavigationTop {
 		primary_nav.put("menu_id", menuId);
 		this.global.put("primary_nav", primary_nav);
 
-		Map<String,Object> utility_nav = new HashMap<>();
+		Map<String, Object> utility_nav = new HashMap<>();
 		utility_nav.put("menu_id", "settings-menu");
 		utility_nav.put("style_modifier", "caret-right");
 		utility_nav.put("tabindex", "6");
-		Map<String, String> utility_nav_items = new HashMap<>();
+		Map<String, Object> utility_nav_items = new HashMap<>();
 		utility_nav_items.put("url", "#");
-		utility_nav_items.put("text", "Wiki");
+		utility_nav_items.put("text", "Settings");
 		utility_nav_items.put("icon", "settings");
+		
+		List<NavigationTopMenu> utility_nav_menu = Arrays.asList(
+				new NavigationTopMenu("My Profile", "#", false),
+				new NavigationTopMenu("Logout", "#", true));		
+		Map<String, List<NavigationTopMenu>> submenu = new HashMap<>();
+		submenu.put("items", utility_nav_menu);
+		utility_nav_items.put("submenu", submenu);
+//		"submenu": {
+//            "items": [
+//              {
+//                "text": "My Profile",
+//                "url": "#"
+//              },
+//              {
+//                "is_divider": true
+//              },
+//              {
+//                "text": "Logout",
+//                "url": "#"
+//              }
+//            ]
+//          }
+		
 		utility_nav.put("items", utility_nav_items);
 		this.global.put("utility_nav", utility_nav);
 	}

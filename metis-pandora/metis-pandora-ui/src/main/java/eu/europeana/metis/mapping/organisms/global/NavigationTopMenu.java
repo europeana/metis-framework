@@ -107,9 +107,12 @@ public class NavigationTopMenu {
 	@Override
 	public String toString() {
 		StringBuilder menuBuilder = new StringBuilder();
-		menuBuilder.append(this.text + "(" + this.subtitle + " - " + this.message + ")" + "\n");
-		if (this.submenu != null) {
-			menuBuilder.append("\t" + this.submenu.toString())	.append("\n");	
+		menuBuilder.append(this.text);
+		if (this.subtitle != null || this.message != null) {
+			menuBuilder.append(" (subtitle: " + this.subtitle + "; message: " + this.message + ")");
+		}
+		if (this.submenu != null && this.submenu instanceof Map) {
+			menuBuilder.append(" " + this.submenu.toString());	
 		}
 		return menuBuilder.toString();
 	}
