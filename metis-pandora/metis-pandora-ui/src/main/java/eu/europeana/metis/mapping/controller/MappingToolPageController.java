@@ -38,7 +38,7 @@ public class MappingToolPageController {
     public ModelAndView homePage() {
         ModelAndView modelAndView = new ModelAndView("templates/Pandora/Mapping-To-EDM");
         modelAndView.addAllObjects((new MappingToEdmPage()).buildModel());
-//        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
         return modelAndView;
     }
 	
@@ -50,7 +50,7 @@ public class MappingToolPageController {
     public ModelAndView newDatasetPage() {
         ModelAndView modelAndView = new ModelAndView("templates/Pandora/New-Dataset-Page");
         modelAndView.addAllObjects((new NewDatasetPage()).buildModel());
-        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+//        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
         return modelAndView;
     }
 
@@ -60,9 +60,10 @@ public class MappingToolPageController {
 	 */
 	@RequestMapping(value = "/all-datasets-page")
     public ModelAndView allDatasetsPage() {
-        ModelAndView modelAndView = new ModelAndView("templates/Pandora/All-Datasets-Page");
+		//TODO the All Datasets template doesn't exist anymore so for a sub the New Dataset template is used here
+        ModelAndView modelAndView = new ModelAndView("templates/Pandora/New-Dataset-Page");
         modelAndView.addAllObjects((new AllDatasetsPage()).buildModel());
-        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+//        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
         return modelAndView;
     }
 }

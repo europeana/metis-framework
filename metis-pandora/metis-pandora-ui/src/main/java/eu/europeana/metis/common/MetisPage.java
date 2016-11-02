@@ -28,6 +28,9 @@ public abstract class MetisPage extends AbstractMetisPage {
 	public List<Entry<String, String>> resolveJsFiles() {
 		return Arrays.asList(new SimpleEntry<String, String>("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js", 
 				"https://europeanastyleguidetest.a.cdnify.io/js/modules/main/templates/main-pandora"));
+		//to test the java app with a local styleguide assets!
+//		return Arrays.asList(new SimpleEntry<String, String>("http://localhost/js/modules/require.js", 
+//				"http://localhost/js/modules/main/templates/main-pandora"));
 	}
 
 	@Override
@@ -52,16 +55,16 @@ public abstract class MetisPage extends AbstractMetisPage {
 		header.addNextPrev("next_url_here", "prev_url_here", "results_url_here");
 		
 		List<NavigationTopMenu> items = new ArrayList<>();
-		items.add(new NavigationTopMenu("New Dataset", "/new-dataset-page", (current != null && current == 0), null, null, null, null, false));
-		items.add(new NavigationTopMenu("All Datasets", "/all-datasets-page", (current != null && current == 1), null, null, null, null, false));
+		items.add(new NavigationTopMenu("New Dataset", "/new-dataset-page", (current != null && current == 0), null, null, null, null));
+		items.add(new NavigationTopMenu("All Datasets", "/all-datasets-page", (current != null && current == 1), null, null, null, null));
 		List<NavigationTopMenu> submenu = Arrays.asList(
-				new NavigationTopMenu("Organizations", "#", null, null, true, null, null, null),
-				new NavigationTopMenu("Users", "#", null, null, null, true, null, null),
+				new NavigationTopMenu("Organizations", "#", null, null, null, null, null),
+				new NavigationTopMenu("Users", "#", null, null, null, null, null),
 				new NavigationTopMenu(true),
 				new NavigationTopMenu("Crosswalks", null, null),
 				new NavigationTopMenu("Entities", "#", null),
-				new NavigationTopMenu("Schemas", "#", null));
-		items.add(new NavigationTopMenu("Management", "#", (current != null && current == 2), null, null, null, submenu, null));
+				new NavigationTopMenu("Schemas (XSD)", "#", null));
+		items.add(new NavigationTopMenu("Management", "#", (current != null && current == 2), null, null, null, submenu));
 		header.addGlobal(false, true, "#", "Europeana Pandora", "main-menu", items);		
 		return header;
 	}

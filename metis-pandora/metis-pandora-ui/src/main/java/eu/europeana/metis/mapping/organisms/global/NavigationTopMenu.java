@@ -20,32 +20,32 @@ public class NavigationTopMenu {
 	
 	private Object submenu;
 
-	public NavigationTopMenu(String text, String url, Boolean is_current, Boolean is_divider, Boolean subtitle, Boolean message, List<NavigationTopMenu> items, Boolean hasSubmenu) {
+	public NavigationTopMenu(String text, String url, Boolean is_current, Boolean is_divider, Boolean subtitle, Boolean message, List<NavigationTopMenu> items) {
 		this.text = text;
 		this.url = url;
 		this.is_current = is_current;
 		this.is_divider = is_divider;
 		this.subtitle = subtitle;
 		this.message = message;
-		if (hasSubmenu != null && !hasSubmenu) {
-			this.submenu = false;
-		} else if (items != null) {
+		if (items != null && !items.isEmpty()) {
 			Map<String, List<NavigationTopMenu>> subMenu = new HashMap<String, List<NavigationTopMenu>>();
 			subMenu.put("items", items);
 			this.submenu = subMenu;
+		} else {
+			this.submenu = false;
 		}
 	}
 	
 	public NavigationTopMenu(String text, String url, Boolean is_current) {
-		this(text, url, is_current, null, null, null, null, null);
+		this(text, url, is_current, null, null, null, null);
 	}
 	
 	public NavigationTopMenu(String text, String url, Boolean is_current, List<NavigationTopMenu> submenu) {
-		this(text, url, is_current, null, null, null, submenu, null);
+		this(text, url, is_current, null, null, null, submenu);
 	}
 	
 	public NavigationTopMenu(Boolean is_divider) {
-		this(null, null, null, is_divider, null, null, null, null);
+		this(null, null, null, is_divider, null, null, null);
 	}
 
 	public String getText() {
@@ -96,11 +96,21 @@ public class NavigationTopMenu {
 		this.message = message;
 	}
 
-	public Object getSumbenu() {
+	public Object getSubmenu() {
 		return submenu;
 	}
 
 	public void setSubmenu(Object submenu) {
 		this.submenu = submenu;
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder menuBuilder = new StringBuilder();
+		menuBuilder.append(this.text + "(" + this.subtitle + " - " + this.message + ")" + "\n");
+		if (this.submenu != null) {
+			menuBuilder.append("\t" + this.submenu.toString())	.append("\n");	
+		}
+		return menuBuilder.toString();
 	}
 }
