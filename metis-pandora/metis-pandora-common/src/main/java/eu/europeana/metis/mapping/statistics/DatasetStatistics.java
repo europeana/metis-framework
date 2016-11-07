@@ -17,10 +17,7 @@
 package eu.europeana.metis.mapping.statistics;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -40,7 +37,7 @@ public class DatasetStatistics {
     @Indexed
     private String datasetId;
 
-    @Embedded
+    @Reference
     private Map<String,Statistics> statistics;
 
     /**
