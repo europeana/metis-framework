@@ -82,6 +82,8 @@ public final class RestEndpoints {
     /* METIS PREVIEW SERVICE ENDPOINT*/
     public final static String PREVIEW_UPLOAD = "/upload";
 
+    public final static String LINKCHECK = "/linkcheck";
+
     public static String resolve(String endpoint, String... params){
         if(params==null || params.length==0){
             return endpoint;

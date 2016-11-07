@@ -91,6 +91,7 @@
         <module>metis-enrichment</module>
         <module>metis-common</module>
         <module>metis-preview</module>
+        <module>metis-link-checking</module>
     </modules>
     <repositories>
         <repository>

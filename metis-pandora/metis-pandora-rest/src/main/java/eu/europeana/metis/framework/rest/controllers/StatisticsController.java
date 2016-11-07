@@ -78,5 +78,11 @@ public class StatisticsController {
         return service.appendStatisticsToMapping(datasetId,mapping);
     }
 
-
+    @RequestMapping(method = RequestMethod.GET,value = "/statistics/{datasetId}",
+            produces = "application/json")
+    @ApiOperation(value = "Get statistics")
+    @ResponseBody
+    public DatasetStatistics getStatistics(@ApiParam("datasetId") @PathVariable(value = "datasetId") String datasetId) {
+        return service.get(datasetId);
+    }
 }

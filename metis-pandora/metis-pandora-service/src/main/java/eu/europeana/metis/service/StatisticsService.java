@@ -21,6 +21,7 @@ import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
 import eu.europeana.metis.mapping.model.Mappings;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
 import eu.europeana.metis.mapping.statistics.DatasetStatistics;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.utils.XMLUtils;
@@ -44,7 +45,8 @@ public class StatisticsService {
 
     @Autowired
     private DatasetStatisticsDao dao;
-
+    @Autowired
+    private StatisticsDao statisticsDao;
     @Autowired
     private MongoMappingService mappingService;
 
@@ -63,6 +65,10 @@ public class StatisticsService {
             XMLUtils.analyzeRecord(record,statisticsMap);
         }
         statistics.setStatistics(statisticsMap);
+        for(Map.Entry<String,Statistics> statisticsEntry:statisticsMap.entrySet()){
+            statisticsDao.save(statisticsEntry.getValue());
+
+        }
         dao.save(statistics);
         return statistics;
     }
@@ -88,6 +94,10 @@ public class StatisticsService {
         }
         mappingService.updateMapping(mapping);
         return mapping;
+    }
+
+    public DatasetStatistics get(String datasetId){
+        return dao.findOne("datasetId",datasetId);
     }
 
     private <T extends Attribute> List<T> populateFieldStatistics(List<T> fields,DatasetStatistics statistics){
