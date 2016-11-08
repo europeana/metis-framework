@@ -19,7 +19,10 @@ package eu.europeana.metis.framework.rest.controllers;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.mapping.exceptions.MappingNotFoundException;
 import eu.europeana.metis.mapping.exceptions.SaveMappingFailedException;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.service.MongoMappingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,6 +53,7 @@ public class MappingController {
 
     /**
      * Persist a mapping
+     *
      * @param mapping The mapping to persist
      * @return The id of the mapping
      * @throws SaveMappingFailedException
@@ -68,6 +72,7 @@ public class MappingController {
 
     /**
      * Update a mapping
+     *
      * @param mapping The mapping to udpate
      * @return The id of the mapping
      * @throws SaveMappingFailedException
@@ -86,13 +91,14 @@ public class MappingController {
 
     /**
      * Delete a mapping
+     *
      * @param id The id of the mapping to delete
      * @throws SaveMappingFailedException
      */
     @RequestMapping(value = RestEndpoints.MAPPING_BYID, method = RequestMethod.DELETE)
-    @ResponseStatus (HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete a mapping")
-    public void deleteMapping(@ApiParam("mappingId")@PathVariable(value = "mappingId") String id) throws SaveMappingFailedException {
+    public void deleteMapping(@ApiParam("mappingId") @PathVariable(value = "mappingId") String id) throws SaveMappingFailedException {
         try {
             mappingService.deleteMapping(id);
         } catch (Exception e) {
@@ -103,6 +109,7 @@ public class MappingController {
 
     /**
      * Get a mapping by id
+     *
      * @param id The id of the mapping to retrieve
      * @return The mapping with the given id
      * @throws MappingNotFoundException
@@ -110,7 +117,7 @@ public class MappingController {
     @ApiOperation(value = "Get a mapping by id")
     @RequestMapping(value = RestEndpoints.MAPPING_BYID, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Mapping getMappingById(@ApiParam("mappingId")@PathVariable(value = "mappingId") String id) throws MappingNotFoundException {
+    public Mapping getMappingById(@ApiParam("mappingId") @PathVariable(value = "mappingId") String id) throws MappingNotFoundException {
         Mapping mapping = mappingService.getByid(id);
         if (mapping != null) {
             return mapping;
@@ -122,6 +129,7 @@ public class MappingController {
 
     /**
      * Retrieve a mapping by name
+     *
      * @param name The name of the mapping to retrieve
      * @return The Mapping with the given name
      * @throws MappingNotFoundException
@@ -129,8 +137,8 @@ public class MappingController {
     @ApiOperation(value = "Get a mapping for dataset")
     @RequestMapping(value = RestEndpoints.MAPPING_DATASETNAME, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public Mapping getMappingByName(@ApiParam("name") @PathVariable(value = "name") String name) throws MappingNotFoundException{
-        Mapping mapping =mappingService.getByName(name);
+    public Mapping getMappingByName(@ApiParam("name") @PathVariable(value = "name") String name) throws MappingNotFoundException {
+        Mapping mapping = mappingService.getByName(name);
         if (mapping != null) {
             return mapping;
         } else {
@@ -140,6 +148,7 @@ public class MappingController {
 
     /**
      * Get the mappings of an organization
+     *
      * @param organizationId The id of the organization to search for
      * @return The List of Mappings for this organization
      */
@@ -152,6 +161,7 @@ public class MappingController {
 
     /**
      * Get the names of the mappings for an organization
+     *
      * @param organizationId The id of the organization to search for
      * @return The list of names of the mappings for an organization
      */
@@ -164,6 +174,7 @@ public class MappingController {
 
     /**
      * Get all the mapping templates (empty mappings)
+     *
      * @return The names of the mappings
      */
     @ApiOperation(value = "Get all the mapping templates")
@@ -176,6 +187,7 @@ public class MappingController {
     /**
      * Clear the validation statistics and flags for a mapping with a given name
      * The flags will be reloaded if they still apply after the mapping is completed
+     *
      * @param name The name of the mapping to clear from statistics and flags
      */
     @ApiOperation(value = "Clear the stastistics for a mapping")
@@ -189,15 +201,31 @@ public class MappingController {
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Set the schematron rules for a mapping")
     public void setSchematronRulesForMapping(@ApiParam("mapping") @RequestParam("mapping") String mappingId,
-                                             @ApiParam("rules") @RequestParam(value = "rules")Set<String> rules){
-        mappingService.setSchematronRulesForMapping(mappingId,rules);
+                                             @ApiParam("rules") @RequestParam(value = "rules") Set<String> rules) {
+        mappingService.setSchematronRulesForMapping(mappingId, rules);
     }
 
     @RequestMapping(value = MAPPING_NAMESPACES, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     @ApiOperation(value = "Set the namespaces for a mapping")
     public void setNamespacesForMapping(@ApiParam("mapping") @RequestParam("mapping") String mappingId,
-                                        @ApiParam("namespaces") @RequestParam(value = "namespaces")Map<String,String> namespaces){
-        mappingService.setNamespacesForMapping(mappingId,namespaces);
+                                        @ApiParam("namespaces") @RequestParam(value = "namespaces") Map<String, String> namespaces) {
+        mappingService.setNamespacesForMapping(mappingId, namespaces);
+    }
+
+    @RequestMapping(value = MAPPING_STATISTICS_ELEMENT, method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "Get statistics for an Element")
+    public Statistics getStatisticsForElement(@ApiParam("datasetId") @PathVariable("datasetId") String dataset,
+                                              @ApiParam @RequestBody Element element) {
+        return mappingService.getStatisticsForField(element, dataset);
+    }
+
+    @RequestMapping(value = MAPPING_STATISTICS_ATTRIBUTE, method = RequestMethod.POST)
+    @ResponseBody
+    @ApiOperation(value = "Get statistics for an Attribute")
+    public Statistics getStatisticsForAttribute(@ApiParam("datasetId") @PathVariable("datasetId") String dataset,
+                                                @ApiParam @RequestBody Attribute attribute) {
+        return mappingService.getStatisticsForField(attribute, dataset);
     }
 }

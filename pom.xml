@@ -149,6 +149,14 @@
                 <enabled>false</enabled>
             </releases>
         </repository>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <name>sonatype-snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
     </repositories>
     <!-- Github connection -->
     <scm>
@@ -175,7 +183,7 @@
         <version.corelib>2.3-SNAPSHOT</version.corelib>
         <version.servletapi>3.1.0</version.servletapi>
         <version.commons-fileupload>1.3</version.commons-fileupload>
-        <version.morphia>1.1.1</version.morphia>
+        <version.morphia>1.3.0-SNAPSHOT</version.morphia>
         <version.xsom>20140925</version.xsom>
         <version.commonscompress>1.11</version.commonscompress>
         <version.springSecurity>3.2.8.RELEASE</version.springSecurity>

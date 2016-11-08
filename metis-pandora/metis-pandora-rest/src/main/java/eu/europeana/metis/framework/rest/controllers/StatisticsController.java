@@ -16,7 +16,6 @@
  */
 package eu.europeana.metis.framework.rest.controllers;
 
-import eu.europeana.metis.mapping.model.Mapping;
 import eu.europeana.metis.mapping.statistics.DatasetStatistics;
 import eu.europeana.metis.service.StatisticsService;
 import eu.europeana.metis.utils.ArchiveUtils;
@@ -31,7 +30,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.xml.stream.XMLStreamException;
 import java.io.IOException;
 
-import static eu.europeana.metis.RestEndpoints.STATISTICS_APPEND;
 import static eu.europeana.metis.RestEndpoints.STATISTICS_CALCULATE;
 
 /**
@@ -63,26 +61,14 @@ public class StatisticsController {
         return service.calculateStatistics(datasetId, ArchiveUtils.extractRecords(file.getInputStream()));
     }
 
-    /**
-     * Append the statistics to the fileds of a Mapping after the mapping is complete
-     * @param datasetId The dataset id
-     * @param mapping The mapping to populate
-     * @return The populated Mapping with the statistics. This mapping should then be validated in the validation controller
-     */
-    @RequestMapping(method = RequestMethod.PUT,value = STATISTICS_APPEND,
-            produces = "application/json", consumes = "application/json")
-    @ApiOperation(value = "Append statistics to a mapping")
-    @ResponseBody
-    public Mapping appendStatisticsToMapping(@ApiParam("datasetId") @PathVariable(value = "datasetId") String datasetId,
-                                             @ApiParam @RequestBody Mapping mapping) {
-        return service.appendStatisticsToMapping(datasetId,mapping);
-    }
+
 
     @RequestMapping(method = RequestMethod.GET,value = "/statistics/{datasetId}",
             produces = "application/json")
     @ApiOperation(value = "Get statistics")
     @ResponseBody
-    public DatasetStatistics getStatistics(@ApiParam("datasetId") @PathVariable(value = "datasetId") String datasetId) {
-        return service.get(datasetId);
+    public DatasetStatistics getStatistics(@ApiParam("datasetId") @PathVariable(value = "datasetId") String datasetId,
+                                           @RequestParam(value = "from") int from,@RequestParam(value="to") int to) {
+        return service.get(datasetId,from, to);
     }
 }

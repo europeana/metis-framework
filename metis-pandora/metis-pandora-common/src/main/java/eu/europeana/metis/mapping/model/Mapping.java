@@ -17,10 +17,7 @@
 package eu.europeana.metis.mapping.model;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -50,10 +47,10 @@ public class Mapping {
     private String organization;
     @Indexed(unique = false)
     private String dataset;
-    @Embedded
+    @Reference
     private Mappings mappings;
     private String xsl;
-    @Embedded
+    @Reference
     private MappingSchema targetSchema;
     private Map<String,String> parameters;
 

@@ -81,7 +81,7 @@ public class XMLUtils {
      * @param map The map of statistics already gathered during analysis of previous records of the dataset
      * @throws XMLStreamException
      */
-    public static void analyzeRecord(String record, Map<String, Statistics> map) throws XMLStreamException {
+    public static void analyzeRecord(String dataset,String record, Map<String, Statistics> map) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newFactory();
         XMLStreamReader reader = factory.createXMLStreamReader(new ByteArrayInputStream(record.getBytes()));
         String parent = "";
@@ -98,6 +98,7 @@ public class XMLUtils {
                                 stats = map.get(parent + "@" + attrPrefix + ":" + attrName);
                             } else {
                                 stats = new Statistics();
+                                stats.setDatasetId(dataset);
                                 stats.setId(new ObjectId());
                             }
 
@@ -133,6 +134,7 @@ public class XMLUtils {
                         stats = map.get(parent);
                     } else {
                         stats = new Statistics();
+                        stats.setDatasetId(dataset);
                         stats.setId(new ObjectId());
                     }
                     stats.setXpath(parent);

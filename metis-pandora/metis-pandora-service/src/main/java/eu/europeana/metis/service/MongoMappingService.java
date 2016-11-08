@@ -16,11 +16,10 @@
  */
 package eu.europeana.metis.service;
 
-import eu.europeana.metis.mapping.model.Attribute;
-import eu.europeana.metis.mapping.model.Element;
-import eu.europeana.metis.mapping.model.Mapping;
-import eu.europeana.metis.mapping.model.Mappings;
+import eu.europeana.metis.mapping.model.*;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
+import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.utils.MongoUpdateUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
@@ -42,6 +41,8 @@ public class MongoMappingService {
     @Autowired
     private MongoMappingDao dao;
 
+    @Autowired
+    private StatisticsDao dsDao;
     /**
      * Save a mapping
      *
@@ -140,9 +141,24 @@ public class MongoMappingService {
         return mapping;
     }
 
+    public <T extends Attribute> Statistics getStatisticsForField(T field,String dataset){
+        Query<Statistics> q= dsDao.getDatastore().createQuery(Statistics.class);
+        if(field.getMappings()!=null){
+            SimpleMapping mapping = field.getMappings().get(0);
+
+            q.filter("datasetId",dataset).filter("xpath",mapping.getSourceField());
+            return dsDao.findOne(q);
+        }
+        if(field.getConditionalMappings()!=null){
+            ConditionMapping mapping = field.getConditionalMappings().get(0);
+            q.filter("datasetId",dataset).filter("xpath",mapping.getSourceField());
+            return dsDao.findOne(q);
+        }
+        return null;
+    }
+
     private <T extends Attribute> T clearFieldStatistics(T field) {
         field.setFlags(null);
-        field.setStatistics(null);
         if (field instanceof Element) {
             List<Attribute> attrs = ((Element) field).getAttributes();
             List<Element> elems = ((Element) field).getElements();
