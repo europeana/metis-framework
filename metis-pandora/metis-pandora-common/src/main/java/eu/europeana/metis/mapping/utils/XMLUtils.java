@@ -145,7 +145,7 @@ public class XMLUtils {
                     boolean isContained = false;
                     for (StatisticsValue value : values) {
 
-                        if (StringUtils.equals(value.getValue(), new String(reader.getTextCharacters()))) {
+                        if (StringUtils.equals(value.getValue(), reader.getText())) {
                             isContained = true;
                             value.setOccurence(value.getOccurence() + 1);
                             break;
@@ -154,7 +154,7 @@ public class XMLUtils {
                     if (!isContained) {
                         StatisticsValue value = new StatisticsValue();
                         value.setOccurence(1);
-                        value.setValue(new String(reader.getTextCharacters()));
+                        value.setValue(reader.getText());
                         value.setId(new ObjectId());
                         values.add(value);
                         stats.setValues(values);

@@ -4,6 +4,7 @@ import com.mongodb.MongoClient;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.FlagDao;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
 import eu.europeana.metis.mongo.MongoProvider;
 import eu.europeana.metis.service.*;
 import org.mongodb.morphia.Morphia;
@@ -56,6 +57,14 @@ public class TestConfig {
         return new MongoMappingDao(morphia, client, "mapping-test");
     }
 
+    @Bean
+    StatisticsDao getStatisticsDao(){
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient("localhost", 10005);
+        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new StatisticsDao(morphia,client,"statistics-test");
+    }
     @Bean
     FlagDao getFlagDao() {
         Morphia morphia = new Morphia();

@@ -78,7 +78,6 @@ public class ValidationServiceTest {
         Statistics s = new Statistics();
         s.setValues(stats);
         s.setXpath("/rdf:RDF/edm:ProvidedCHO");
-        element.setStatistics(s);
         Assert.assertEquals(1,service.validateField("testMappingId",element).size());
     }
 
@@ -106,7 +105,6 @@ public class ValidationServiceTest {
         Statistics s = new Statistics();
         s.setValues(stats);
         s.setXpath("/rdf:RDF/edm:ProvidedCHO");
-        element.setStatistics(s);
         Assert.assertEquals(1,service.validateField("testMappingId",element).size());
     }
 
@@ -137,7 +135,6 @@ public class ValidationServiceTest {
         Statistics s = new Statistics();
         s.setValues(stats);
         s.setXpath("/rdf:RDF/edm:ProvidedCHO");
-        element.setStatistics(s);
         Assert.assertEquals(1,service.validateField("testMappingId",element).size());
     }
 }

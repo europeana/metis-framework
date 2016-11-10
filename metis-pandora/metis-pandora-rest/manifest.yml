@@ -7,4 +7,4 @@ applications:
   path: target/metis-pandora-rest-1.0-SNAPSHOT.war
   buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
   services:
-    - annotation-test-mongo
+    - pandora-mongodb
