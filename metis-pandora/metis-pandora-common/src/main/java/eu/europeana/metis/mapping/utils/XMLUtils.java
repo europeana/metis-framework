@@ -19,18 +19,17 @@ package eu.europeana.metis.mapping.utils;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
 import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import java.io.ByteArrayInputStream;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
 
 /**
  * XMLUtils
@@ -99,6 +98,7 @@ public class XMLUtils {
                                 stats = map.get(parent + "@" + attrPrefix + ":" + attrName);
                             } else {
                                 stats = new Statistics();
+                                stats.setId(new ObjectId());
                             }
 
                             stats.setXpath(parent + "@" + attrPrefix + ":" + attrName);
@@ -119,6 +119,7 @@ public class XMLUtils {
                                 StatisticsValue value = new StatisticsValue();
                                 value.setOccurence(1);
                                 value.setValue(reader.getAttributeValue(i));
+                                value.setId(new ObjectId());
                                 values.add(value);
                                 stats.setValues(values);
                                 map.put(parent + "@" + attrPrefix + ":" + attrName, stats);
@@ -132,6 +133,7 @@ public class XMLUtils {
                         stats = map.get(parent);
                     } else {
                         stats = new Statistics();
+                        stats.setId(new ObjectId());
                     }
                     stats.setXpath(parent);
                     List<StatisticsValue> values = stats.getValues();
@@ -151,6 +153,7 @@ public class XMLUtils {
                         StatisticsValue value = new StatisticsValue();
                         value.setOccurence(1);
                         value.setValue(new String(reader.getTextCharacters()));
+                        value.setId(new ObjectId());
                         values.add(value);
                         stats.setValues(values);
                         map.put(parent, stats);

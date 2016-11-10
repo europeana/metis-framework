@@ -117,3 +117,13 @@
 /metis-common/target/
 /metis-common/metis-common.iml
 /lib/
+/metis-link-checking/linkchecking-client/src/main/java/eu/europeana/metis/linkchecking/client/LicheckingClientTest.java
+/metis-link-checking/linkchecking-client/linkchecking-client.iml
+/metis-link-checking/linkchecking-rest/linkchecking-rest.iml
+/metis-link-checking/linkchecking-service/linkchecking-service.iml
+/metis-link-checking/metis-link-checking.iml
+/metis-link-checking/link-checking-model/link-checking-model.iml
+/metis-link-checking/link-checking-model/target/
+/metis-link-checking/linkchecking-client/target/
+/metis-link-checking/linkchecking-rest/target/
+/metis-link-checking/linkchecking-service/target/

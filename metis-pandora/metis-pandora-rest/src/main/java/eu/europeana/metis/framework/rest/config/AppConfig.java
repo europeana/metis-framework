@@ -25,6 +25,7 @@ import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.FlagDao;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
 import eu.europeana.metis.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
@@ -137,7 +138,15 @@ public class AppConfig extends WebMvcConfigurerAdapter {
                 .mapPackage("java.math.BigInteger",true);
         return new DatasetStatisticsDao(morphia, client, db);
     }
-
+    @Bean
+    StatisticsDao getStatisticsDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient(new MongoClientURI(uri));
+        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
+                .mapPackage("eu.europeana.metis.mapping.model", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new StatisticsDao(morphia, client, db);
+    }
     @Bean
     StatisticsService getStatisticsService() {
         return new StatisticsService();

@@ -1,0 +1,8 @@
+---
+applications:
+- name: metis-linkchecking-test
+  memory: 2048M
+  instances: 1
+  host: metis-linkchecking-test
+  path: target/linkchecking-rest-1.0-SNAPSHOT.war
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
