@@ -17,13 +17,14 @@
 
 package eu.europeana.metis.ui.ldap.dao;
 
-import eu.europeana.metis.ui.ldap.domain.User;
-import org.springframework.ldap.core.LdapTemplate;
-
 import java.util.List;
 
+import org.springframework.ldap.core.LdapTemplate;
+
+import eu.europeana.metis.ui.ldap.domain.Group;
+import eu.europeana.metis.ui.ldap.domain.User;
+
 public interface UserDao {
-	
    void create(User user);
 
    void update(User user);
@@ -34,7 +35,11 @@ public interface UserDao {
 
    List<User> findAll();
 
-   User findByPrimaryKey(String email, String fullname);
+   User findByPrimaryKey(String email);
 
    LdapTemplate getLdapTemplate();
+   
+   void addUserRole(User user, Group group);
+   
+   void removeUserRole(User user, Group group);
 }

@@ -17,32 +17,37 @@
 
 package eu.europeana.metis.ui.ldap.dao.impl;
 
-import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.domain.Group;
-import eu.europeana.metis.ui.ldap.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ldap.core.AttributesMapper;
-import org.springframework.ldap.core.DirContextOperations;
-import org.springframework.ldap.core.LdapTemplate;
-import org.springframework.ldap.support.LdapNameBuilder;
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
+
+import java.util.List;
 
 import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
 import javax.naming.ldap.LdapName;
-import java.util.List;
 
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ldap.core.AttributesMapper;
+import org.springframework.ldap.core.DirContextOperations;
+import org.springframework.ldap.core.LdapTemplate;
+import org.springframework.ldap.support.LdapNameBuilder;
+
+import eu.europeana.metis.ui.ldap.dao.UserDao;
+import eu.europeana.metis.ui.ldap.domain.Group;
+import eu.europeana.metis.ui.ldap.domain.User;
 
 public class UserDaoImpl implements UserDao {
 
     @Autowired
     private LdapTemplate ldapTemplate;
 
+    /**
+     * FIXME Currently for test reasons every newly created user is automatically added to admin group (for testing).
+     */
     @Override
     public void create(User user) {
-        LdapName userDn = buildDn(user.getFullName());
+        LdapName userDn = buildDn(user.getEmail());
         user.setDn(userDn);
         LdapName groupDn = buildRoleDn("europeana_admin");
         Group grp = ldapTemplate.findByDn(groupDn, Group.class);
@@ -52,14 +57,12 @@ public class UserDaoImpl implements UserDao {
         DirContextOperations context = ldapTemplate.lookupContext(groupDn);
         updateGroup(grp, context);
         ldapTemplate.modifyAttributes(context);
-
-
         ldapTemplate.bind(userDn,null,buildUser(user));
     }
 
     @Override
     public void update(User user) {
-        LdapName dn = buildDn(user.getFullName());
+        LdapName dn = buildDn(user.getEmail());
         DirContextOperations context = ldapTemplate.lookupContext(dn);
         updateUser(user, context);
         ldapTemplate.modifyAttributes(context);
@@ -88,21 +91,43 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public User findByPrimaryKey(String email, String fullname) {
-        LdapName dn = buildDn(fullname);
-        return ldapTemplate.findByDn(dn, User.class);
-
+    public User findByPrimaryKey(String email) {
+        LdapName dn = buildDn(email);
+        User findByDn;
+        try {
+        	findByDn = ldapTemplate.findByDn(dn, User.class);			
+		} catch (Exception e) {
+			findByDn = null;
+		}
+		return findByDn;
+    }
+    
+    @Override
+    public LdapTemplate getLdapTemplate() {
+    	return ldapTemplate;
+    	
     }
 
+    @Override
+    public void addUserRole(User user, Group group) {
+    	// TODO Auto-generated method stub
+    }
+    
+    @Override
+    public void removeUserRole(User user, Group group) {
+    	// TODO Auto-generated method stub
+    }
+    
+    
     private LdapName buildDn(User user) {
-        return buildDn(user.getFullName());
+        return buildDn(user.getEmail());
     }
 
-    private LdapName buildDn(String fullname) {
+    private LdapName buildDn(String email) {
         return LdapNameBuilder.newInstance()
                 .add("ou", "metis_authentication")
                 .add("ou", "users")
-                .add("cn", fullname)
+                .add("cn", email)
                 .build();
     }
 
@@ -134,9 +159,9 @@ public class UserDaoImpl implements UserDao {
             ocattr.add("person");
             ocattr.add("inetOrgPerson");
             attrs.put(ocattr);
-            attrs.put("cn", user.getFullName());
+            attrs.put("cn", user.getEmail());
             attrs.put("sn", user.getLastName());
-            attrs.put("uid",user.getFullName().toLowerCase());
+            attrs.put("uid",user.getEmail().toLowerCase());
             attrs.put("givenName",user.getFullName());
             attrs.put("userPassword",user.getPasswordB());
             attrs.put("mail",user.getEmail());
@@ -148,12 +173,5 @@ public class UserDaoImpl implements UserDao {
 
     private void updateGroup(Group group, DirContextOperations context) {
         context.setAttributeValues("member", group.getMembers().toArray(new String[]{}));
-    }
-
-
-    @Override
-    public LdapTemplate getLdapTemplate() {
-        return ldapTemplate;
-
     }
 }

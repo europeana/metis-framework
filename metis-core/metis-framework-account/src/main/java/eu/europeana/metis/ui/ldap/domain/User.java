@@ -42,8 +42,8 @@ public class User {
     @Id
     private LdapName dn;
 
-    @Attribute(name = "cn")
-    @DnAttribute(value = "cn", index = 2)
+    @Attribute(name = "givenName")
+//    @DnAttribute(value = "cn", index = 2)
     private String fullName;
 
 
@@ -67,6 +67,7 @@ public class User {
     private String description;  
 
     @Attribute(name = "mail")
+    @DnAttribute(value = "cn", index = 2)
     private String email;
 
     public LdapName getDn() {

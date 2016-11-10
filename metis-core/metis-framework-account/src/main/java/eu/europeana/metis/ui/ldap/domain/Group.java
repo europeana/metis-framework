@@ -82,7 +82,28 @@ public class Group {
     public void setMembers(List<String> members) {
         this.members = members;
     }
-
+    
+    public void addMember(String member) {
+    	for (String memb: this.members) {
+    		if (memb.equals(member)) {
+    			return;
+    		}
+    	}
+    	this.members.add(member);
+    }
+    
+    public void removeMember(String member) {
+    	this.members.remove(member);
+    }
+    
+    public void updateMember(String oldMember, String newMember) {
+    	if (oldMember == null || newMember == null || oldMember.equals(newMember)) {
+    		return;
+    	}
+    	removeMember(oldMember);
+    	addMember(newMember);
+    }
+    
     public LdapName getDn() {
         return dn;
     }
