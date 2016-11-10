@@ -19,6 +19,7 @@ public final class RestEndpoints {
     public final static String CRM_ORGANIZATION_ID = "/crm/organization/{orgId}";
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
     public final static String USERBYMAIL="/user/{email}";
+    public final static String USERBYID ="/contact/{id}";
 
     /* METIS-DEREFERENCE Endpoints*/
     public final static String DEREFERENCE="/dereference";
