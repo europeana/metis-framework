@@ -37,7 +37,7 @@ import java.util.Set;
  * Created by ymamakis on 6/13/16.
  */
 @Service
-public class MongoMappingService {
+public class MongoMappingService implements MappingService {
     @Autowired
     private MongoMappingDao dao;
 
@@ -49,6 +49,7 @@ public class MongoMappingService {
      * @param mapping the mapping to save
      * @return The id of the mapping
      */
+    @Override
     public String saveMapping(Mapping mapping) {
         return dao.save(mapping).getId().toString();
     }
@@ -59,6 +60,7 @@ public class MongoMappingService {
      * @param mapping The mapping to update
      * @return The id of the mapping
      */
+    @Override
     public String updateMapping(Mapping mapping) {
         UpdateOperations<Mapping> ops = dao.createUpdateOperations();
         Query<Mapping> query = dao.createQuery();
@@ -79,6 +81,7 @@ public class MongoMappingService {
      *
      * @param id The id to delete
      */
+    @Override
     public void deleteMapping(String id) {
         dao.deleteById(new ObjectId(id));
     }
@@ -89,6 +92,7 @@ public class MongoMappingService {
      * @param id The id to search for
      * @return The Mapping
      */
+    @Override
     public Mapping getByid(String id) {
         return dao.get(new ObjectId(id));
     }
@@ -99,6 +103,7 @@ public class MongoMappingService {
      * @param name The name of the mapping to search for
      * @return The Mapping
      */
+    @Override
     public Mapping getByName(String name) {
         return dao.findOne(dao.createQuery().filter("name", name));
     }
@@ -109,6 +114,7 @@ public class MongoMappingService {
      * @param organization The organization id to search for
      * @return A list of mappings
      */
+    @Override
     public List<Mapping> getMappingByOrganization(String organization) {
         return dao.find(dao.createQuery().filter("organization", organization)).asList();
     }
@@ -118,6 +124,7 @@ public class MongoMappingService {
      *
      * @param name The name of the mapping
      */
+    @Override
     public Mapping clearValidationStatistics(String name) {
         Mapping mapping = getByName(name);
         if (mapping.getMappings() != null) {
@@ -141,7 +148,8 @@ public class MongoMappingService {
         return mapping;
     }
 
-    public <T extends Attribute> Statistics getStatisticsForField(T field,String dataset){
+    @Override
+    public <T extends Attribute> Statistics getStatisticsForField(T field, String dataset){
         Query<Statistics> q= dsDao.getDatastore().createQuery(Statistics.class);
         if(field.getMappings()!=null){
             SimpleMapping mapping = field.getMappings().get(0);
@@ -187,6 +195,7 @@ public class MongoMappingService {
      * @param organization The organization to search for
      * @return The list of names of all the mappings for this organization
      */
+    @Override
     public List<String> getMappingNamesByOrganization(String organization) {
         return convertMappingsToStrings(getMappingByOrganization(organization));
 
@@ -197,6 +206,7 @@ public class MongoMappingService {
      *
      * @return The names of all the templates
      */
+    @Override
     public List<String> getTemplates() {
         return convertMappingsToStrings(dao.find(dao.createQuery().field("name").startsWith("template_")).asList());
     }
@@ -212,12 +222,14 @@ public class MongoMappingService {
         return null;
     }
 
+    @Override
     public String setSchematronRulesForMapping(String mappingId, Set<String> schematronRules) {
         Mapping mapping = getByid(mappingId);
         mapping.setSchematronRules(schematronRules);
         return updateMapping(mapping);
     }
 
+    @Override
     public String setNamespacesForMapping(String mappingId, Map<String, String> namespaces) {
         Mapping mapping = getByid(mappingId);
         mapping.getMappings().setNamespaces(namespaces);

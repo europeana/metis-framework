@@ -94,15 +94,15 @@ public class XMLUtils {
                             String attrPrefix = reader.getAttributePrefix(i);
                             String attrName = reader.getAttributeLocalName(i);
                             Statistics stats;
-                            if (map.containsKey(parent + "@" + attrPrefix + ":" + attrName)) {
-                                stats = map.get(parent + "@" + attrPrefix + ":" + attrName);
+                            if (map.containsKey(parent + "/@" + attrPrefix + ":" + attrName)) {
+                                stats = map.get(parent + "/@" + attrPrefix + ":" + attrName);
                             } else {
                                 stats = new Statistics();
                                 stats.setDatasetId(dataset);
                                 stats.setId(new ObjectId());
                             }
 
-                            stats.setXpath(parent + "@" + attrPrefix + ":" + attrName);
+                            stats.setXpath(parent + "/@" + attrPrefix + ":" + attrName);
                             List<StatisticsValue> values = stats.getValues();
                             if (values == null) {
                                 values = new ArrayList<>();
@@ -123,7 +123,7 @@ public class XMLUtils {
                                 value.setId(new ObjectId());
                                 values.add(value);
                                 stats.setValues(values);
-                                map.put(parent + "@" + attrPrefix + ":" + attrName, stats);
+                                map.put(parent + "/@" + attrPrefix + ":" + attrName, stats);
                             }
                         }
                     }
