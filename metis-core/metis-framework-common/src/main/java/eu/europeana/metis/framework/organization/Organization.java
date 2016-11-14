@@ -119,6 +119,22 @@ public class Organization {
 
     private Boolean deaSigned;
 
+    @Reference
+    private Contact contact;
+
+    @Embedded
+    private Address address;
+
+    private Scope scope;
+
+    private boolean dea;
+
+    private boolean deaSent;
+
+    private String deaNotes;
+
+    private String technicalContact;
+
     @XmlElement
     public ObjectId getId() {
         return id;
@@ -319,5 +335,70 @@ public class Organization {
 
     public void setDeaSigned(Boolean deaSigned) {
         this.deaSigned = deaSigned;
+    }
+
+    @XmlElement
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    @XmlElement
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    @XmlElement
+    public Scope getScope() {
+        return scope;
+    }
+
+    public void setScope(Scope scope) {
+        this.scope = scope;
+    }
+
+
+
+    public void setDea(boolean dea) {
+        this.dea = dea;
+    }
+
+    @XmlElement
+    public String getDeaNotes() {
+        return deaNotes;
+    }
+
+    public void setDeaNotes(String deaNotes) {
+        this.deaNotes = deaNotes;
+    }
+
+    @XmlElement
+    public boolean isDea() {
+        return dea;
+    }
+
+    @XmlElement
+    public boolean isDeaSent() {
+        return deaSent;
+    }
+
+    public void setDeaSent(boolean deaSent) {
+        this.deaSent = deaSent;
+    }
+
+    @XmlElement
+    public String getTechnicalContact() {
+        return technicalContact;
+    }
+
+    public void setTechnicalContact(String technicalContact) {
+        this.technicalContact = technicalContact;
     }
 }
