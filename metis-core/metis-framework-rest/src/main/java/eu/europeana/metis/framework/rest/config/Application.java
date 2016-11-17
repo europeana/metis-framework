@@ -20,15 +20,19 @@ package eu.europeana.metis.framework.rest.config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
-import eu.europeana.metis.framework.dao.DatasetDao;
-import eu.europeana.metis.framework.dao.OrganizationDao;
-import eu.europeana.metis.framework.dao.ZohoClient;
+import eu.europeana.metis.framework.dao.*;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.rest.RestConfig;
 import eu.europeana.metis.framework.service.DatasetService;
+import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.service.OrganizationService;
 import eu.europeana.metis.framework.service.UserService;
+import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
+import eu.europeana.metis.framework.workflow.Execution;
+import eu.europeana.metis.framework.workflow.FailedRecords;
+import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
 import org.apache.commons.lang.StringUtils;
+import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.*;
@@ -37,6 +41,8 @@ import org.springframework.core.annotation.Order;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.plugin.core.config.EnablePluginRegistries;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -59,6 +65,8 @@ import java.util.List;
 @PropertySource("classpath:metis.properties")
 @EnableWebMvc
 @EnableSwagger2
+@EnablePluginRegistries(AbstractMetisWorkflow.class)
+@EnableScheduling
 public class Application extends WebMvcConfigurerAdapter {
 
     @Value("${mongo.host}")
@@ -71,6 +79,7 @@ public class Application extends WebMvcConfigurerAdapter {
     private String username;
     @Value("${mongo.pass}")
     private String password;
+    private MongoProvider provider;
 
     @Autowired
     @Lazy
@@ -89,11 +98,12 @@ public class Application extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
-    @Bean
+    @Bean(name = "mongoProvider")
     MongoProvider getMongoProvider(){
         try {
             if(System.getenv().get("VCAP_SERVICES")==null) {
-                return new MongoProvider(mongoHost, Integer.parseInt(mongoPort), db, username, password);
+                provider = new MongoProvider(mongoHost, Integer.parseInt(mongoPort), db, username, password);
+                return provider;
             } else {
                 JsonParser parser = new JsonParser();
                 JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
@@ -102,7 +112,8 @@ public class Application extends WebMvcConfigurerAdapter {
                 JsonObject credentials = element.getAsJsonObject("credentials");
                 JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
                 String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
-                return new MongoProvider(uri.getAsString(),db);
+                provider = new MongoProvider(uri.getAsString(),db);
+                return provider;
             }
         } catch (UnknownHostException e) {
             e.printStackTrace();
@@ -120,6 +131,21 @@ public class Application extends WebMvcConfigurerAdapter {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("metis.properties"));
         return propertySourcesPlaceholderConfigurer;
+    }
+
+    @Bean
+    @DependsOn(value = "mongoProvider")
+    public ExecutionDao getExecutionDao(){
+        Morphia morphia = new Morphia();
+        morphia.map(Execution.class);
+        return new ExecutionDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
+    }
+    @Bean
+    @DependsOn(value = "mongoProvider")
+    public FailedRecordsDao getFailedRecordsDao(){
+        Morphia morphia = new Morphia();
+        morphia.map(FailedRecords.class);
+        return new FailedRecordsDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
     }
     @Bean
     public DatasetDao getDatasetDao(){
@@ -144,6 +170,16 @@ public class Application extends WebMvcConfigurerAdapter {
     @Bean
     public UserService getUserService(){
         return new UserService();
+    }
+
+    @Bean
+    public Orchestrator getOrchestrator(){
+        return new Orchestrator();
+    }
+
+    @Bean
+    public VoidMetisWorkflow getVoidMetisWorkflow(){
+        return new VoidMetisWorkflow();
     }
 
     @Bean

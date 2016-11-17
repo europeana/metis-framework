@@ -1,21 +1,38 @@
 package eu.europeana.metis.framework.workflow;
 
+import org.springframework.plugin.core.Plugin;
+
 import java.util.Map;
 
 /**
+ * This interface specifies the minimum o plugin should support so that it can be plugged in the Metis workflow registry
+ * and can be accessible via the REST API of Metis
  * Created by ymamakis on 11/9/16.
  */
-public interface AbstractMetisWorkflow {
+public interface AbstractMetisWorkflow extends Plugin<String> {
 
-    void process();
+    /**
+     * The name of the workflow. Important as this is used to select the workflow
+     * @return The name of the workflow
+     */
+    String getName();
 
-    ExecutionStatistics progress();
+    /**
+     * The parameters of the workflow
+     * @param parameters The parameters of the workflow
+     */
+    void setParameters(Map<String,String> parameters);
 
-    boolean isActive();
-
-    boolean isFinished();
-
-    void setParameters();
-
+    /**
+     * Set the parameters of the workflow
+     * @return The parameters of the workflow
+     */
     Map<String, String> getParameters();
+
+    /**
+     * The business logic that the Workflow implements. This is where the connection to the Europeana Cloud DPS REST API
+     * is implemented.
+     */
+    void execute();
+
 }
