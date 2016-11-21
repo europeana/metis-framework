@@ -25,14 +25,14 @@ public class OrchestratorController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_TRIGGER_OPERATION, consumes = "application/json")
     public String execute(@PathVariable("datasetId") String datasetId, @PathVariable("operation") String operation,
-                                @RequestBody(required = false) Map<String, String> params) throws NoDatasetFoundException {
+                                @RequestBody(required = false) Map<String, List<String>> params) throws NoDatasetFoundException {
         return orchestrator.execute(datasetId, operation, params);
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_SCHEDULE, consumes = "application/json")
     public String schedule(@PathVariable("datasetId") String datasetId, @PathVariable("operation") String operation,
-                          @RequestBody(required = false) Map<String, String> params,@PathVariable("millis")long millis) throws NoDatasetFoundException {
+                          @RequestBody(required = false) Map<String, List<String>> params,@PathVariable("millis")long millis) throws NoDatasetFoundException {
         return orchestrator.schedule(datasetId, operation, params,millis);
     }
 

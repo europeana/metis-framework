@@ -8,6 +8,7 @@ import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -83,7 +84,7 @@ public class Execution {
     /**
      * The execution parameters
      */
-    private Map<String,String> executionParameters;
+    private Map<String,List<String>> executionParameters;
 
     /**
      * The statistics for this execution
@@ -171,11 +172,11 @@ public class Execution {
         this.statisticsUrl = statisticsUrl;
     }
 
-    public Map<String, String> getExecutionParameters() {
+    public Map<String, List<String>> getExecutionParameters() {
         return executionParameters;
     }
 
-    public void setExecutionParameters(Map<String, String> executionParameters) {
+    public void setExecutionParameters(Map<String, List<String>> executionParameters) {
         this.executionParameters = executionParameters;
     }
 

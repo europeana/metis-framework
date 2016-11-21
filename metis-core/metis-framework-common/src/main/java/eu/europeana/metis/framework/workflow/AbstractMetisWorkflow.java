@@ -2,6 +2,7 @@ package eu.europeana.metis.framework.workflow;
 
 import org.springframework.plugin.core.Plugin;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,18 +22,20 @@ public interface AbstractMetisWorkflow extends Plugin<String> {
      * The parameters of the workflow
      * @param parameters The parameters of the workflow
      */
-    void setParameters(Map<String,String> parameters);
+    void setParameters(Map<String,List<String>> parameters);
 
     /**
      * Set the parameters of the workflow
      * @return The parameters of the workflow
      */
-    Map<String, String> getParameters();
+    Map<String, List<String>> getParameters();
 
     /**
      * The business logic that the Workflow implements. This is where the connection to the Europeana Cloud DPS REST API
      * is implemented.
      */
     void execute();
+
+    CloudStatistics monitor(String cloudUrl);
 
 }

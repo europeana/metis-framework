@@ -1,5 +1,6 @@
 package eu.europeana.metis.framework.workflow;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,12 +19,12 @@ public class VoidMetisWorkflow implements AbstractMetisWorkflow {
     }
 
     @Override
-    public void setParameters(Map<String, String> parameters) {
+    public void setParameters(Map<String, List<String>> parameters) {
 
     }
 
     @Override
-    public Map<String, String> getParameters() {
+    public Map<String, List<String>> getParameters() {
         return null;
     }
 
@@ -31,6 +32,12 @@ public class VoidMetisWorkflow implements AbstractMetisWorkflow {
     public void execute() {
         System.out.println("Welcome to the jungle");
     }
+
+    @Override
+    public CloudStatistics monitor(String cloudUrl) {
+        return null;
+    }
+
 
     @Override
     public boolean supports(String s) {

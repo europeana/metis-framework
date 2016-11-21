@@ -45,7 +45,7 @@ public class Orchestrator {
      * @param params The execution parameters
      * @return The URL that the execution is available through
      */
-    public String execute(String datasetId, String name, Map<String, String> params) throws NoDatasetFoundException {
+    public String execute(String datasetId, String name, Map<String, List<String>> params) throws NoDatasetFoundException {
         if(datasetService.exists(datasetId)) {
             AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(name);
             Execution execution = new Execution();
@@ -228,7 +228,7 @@ public class Orchestrator {
      * @param milliseconds The number of milliseconds after which the execution will be triggered
      * @return The List of executions that correspond to the query
      */
-    public String schedule(String datasetId, String name, Map<String, String> params, long milliseconds) throws NoDatasetFoundException {
+    public String schedule(String datasetId, String name, Map<String, List<String>> params, long milliseconds) throws NoDatasetFoundException {
         if(datasetService.exists(datasetId)) {
             Execution execution = new Execution();
             execution.setId(new ObjectId());
