@@ -36,6 +36,6 @@ public interface AbstractMetisWorkflow extends Plugin<String> {
      */
     void execute();
 
-    CloudStatistics monitor(String cloudUrl);
+    CloudStatistics monitor(String dataseId);
 
 }

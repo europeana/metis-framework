@@ -3,10 +3,7 @@ package eu.europeana.metis.framework.service;
 import eu.europeana.metis.framework.dao.ExecutionDao;
 import eu.europeana.metis.framework.dao.FailedRecordsDao;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
-import eu.europeana.metis.framework.workflow.Execution;
-import eu.europeana.metis.framework.workflow.ExecutionStatistics;
-import eu.europeana.metis.framework.workflow.FailedRecords;
+import eu.europeana.metis.framework.workflow.*;
 import org.apache.commons.lang.StringUtils;
 
 import org.bson.types.ObjectId;
@@ -46,7 +43,8 @@ public class Orchestrator {
      * @return The URL that the execution is available through
      */
     public String execute(String datasetId, String name, Map<String, List<String>> params) throws NoDatasetFoundException {
-        if(datasetService.exists(datasetId)) {
+       // if(datasetService.exists(datasetId)) {
+        if(true){
             AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(name);
             Execution execution = new Execution();
             execution.setId(new ObjectId());
@@ -129,7 +127,8 @@ public class Orchestrator {
      * @return The List of executions that correspond to the query
      */
     public List<Execution> getAllExecutionsForDataset(String datasetId, int offset, int limit) throws NoDatasetFoundException {
-        if(datasetService.exists(datasetId)) {
+        //if(datasetService.exists(datasetId)) {
+        if(true){
             return getExecutions(datasetId, offset, limit, null, null, null, null, null);
         }
         throw new NoDatasetFoundException(datasetId);
@@ -165,15 +164,30 @@ public class Orchestrator {
                 if (stats == null) {
                     stats = new ExecutionStatistics();
                 }
-                //TODO: test to be populated from cloud per execution id
-                stats.setProcessed(0L);
-                stats.setCreated(0L);
-                stats.setDeleted(0L);
-                stats.setUpdated(0L);
+                AbstractMetisWorkflow workflow=  (AbstractMetisWorkflow)registry.getPluginFor(activeExecution.getWorkflow());
+                CloudStatistics statistics =workflow.monitor(activeExecution.getDatasetId());
+                stats.setProcessed(statistics.getProcessed());
+                stats.setCreated(statistics.getCreated());
+                stats.setDeleted(statistics.getDeleted());
+                stats.setUpdated(statistics.getUpdated());
                 ops.add("statistics", stats);
                 executionDao.update(executionDao.createQuery().filter("id", activeExecution.getId()), ops);
+                if(statistics.getFailedRecords().size()>0){
+                    FailedRecords failedRecords = getFailed(activeExecution.getId().toString());
+                    if(failedRecords == null) {
+                        failedRecords=new FailedRecords();
+                    }
+                    failedRecords.setRecords(statistics.getFailedRecords());
+                    failedRecords.setExecutionId(activeExecution.getId().toString());
+                    failedRecords.setId(new ObjectId());
+                    failedRecordsDao.save(failedRecords);
+                }
             }
         }
+    }
+
+    private FailedRecords getFailed(String s) {
+        return failedRecordsDao.findOne("executionId",s);
     }
 
     /**
@@ -229,7 +243,8 @@ public class Orchestrator {
      * @return The List of executions that correspond to the query
      */
     public String schedule(String datasetId, String name, Map<String, List<String>> params, long milliseconds) throws NoDatasetFoundException {
-        if(datasetService.exists(datasetId)) {
+      //  if(datasetService.exists(datasetId)) {
+        if(true){
             Execution execution = new Execution();
             execution.setId(new ObjectId());
             execution.setDatasetId(datasetId);

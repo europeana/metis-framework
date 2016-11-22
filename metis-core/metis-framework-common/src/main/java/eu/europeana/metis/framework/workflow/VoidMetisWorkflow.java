@@ -34,7 +34,7 @@ public class VoidMetisWorkflow implements AbstractMetisWorkflow {
     }
 
     @Override
-    public CloudStatistics monitor(String cloudUrl) {
+    public CloudStatistics monitor(String datasetId) {
         return null;
     }
 

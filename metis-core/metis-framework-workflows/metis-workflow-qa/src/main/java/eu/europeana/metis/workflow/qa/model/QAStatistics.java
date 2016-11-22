@@ -1,11 +1,13 @@
-package eu.europeana.metis.framework.workflow;
+package eu.europeana.metis.workflow.qa.model;
+
+import eu.europeana.metis.framework.workflow.CloudStatistics;
+
+import java.util.List;
 
 /**
- * The statistics for a given execution
- * Created by ymamakis on 11/9/16.
+ * Created by ymamakis on 11/22/16.
  */
-public class ExecutionStatistics {
-
+public class QAStatistics implements CloudStatistics {
     /**
      * number of deleted records in this execution
      */
@@ -29,6 +31,10 @@ public class ExecutionStatistics {
     private Long failed;
 
     private String status;
+
+    private String sessionId;
+
+    private List<String> failedRecords;
 
     public Long getDeleted() {
         return deleted;
@@ -76,5 +82,22 @@ public class ExecutionStatistics {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getSessionId() {
+        return sessionId;
+    }
+
+    public void setSessionId(String sessionId) {
+        this.sessionId = sessionId;
+    }
+
+    public void setFailedRecords(List<String> records){
+        this.failedRecords = records;
+    }
+
+    @Override
+    public List<String> getFailedRecords() {
+        return failedRecords;
     }
 }

@@ -31,6 +31,7 @@ import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
+import eu.europeana.metis.workflow.qa.QAWorkflow;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -182,6 +183,10 @@ public class Application extends WebMvcConfigurerAdapter {
         return new VoidMetisWorkflow();
     }
 
+    @Bean
+    public QAWorkflow getStatisticsWorkflow(){
+        return new QAWorkflow();
+    }
     @Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)
