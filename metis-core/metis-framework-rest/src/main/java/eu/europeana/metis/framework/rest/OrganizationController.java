@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.framework.rest;
 
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
@@ -92,7 +93,19 @@ public class OrganizationController {
         list.setOrganizations(organizationService.getAllOrganizations());
         return list;
     }
-
+    /**
+     * Get all the organizations
+     *
+     * @return All the registered organizations in METIS
+     */
+    @RequestMapping(value = ORGANIZATIONS, method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
+    public OrganizationList getAllOrganizationsByCountry(String isoCode) throws NoOrganizationExceptionFound {
+        OrganizationList list = new OrganizationList();
+        list.setOrganizations(organizationService.getAllOrganizationsByCountry(Country.toCountry(isoCode)));
+        return list;
+    }
     /**
      * Get all the datasets for an organization
      *

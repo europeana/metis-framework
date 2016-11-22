@@ -61,6 +61,7 @@ public class TestOrganizationDao {
             org.setDatasets(new ArrayList<Dataset>());
             org.setOrganizationUri("testUri");
             org.setHarvestingMetadata(new HarvestingMetadata());
+            org.setCountry(Country.ALBANIA);
             ds = new Dataset();
             ds.setAccepted(true);
             ds.setAssignedToLdapId("Lemmy");
@@ -156,6 +157,16 @@ public class TestOrganizationDao {
         Assert.assertTrue(getAll.size()==1);
     }
 
+    @Test
+    public void testGetAllByCountry(){
+        dsDao.create(ds);
+        List<Dataset> datasets = new ArrayList<>();
+        datasets.add(dsDao.getByName(ds.getName()));
+        org.setDatasets(datasets);
+        orgDao.create(org);
+        List<Organization> getAll = orgDao.getAllByCountry(Country.ALBANIA);
+        Assert.assertTrue(getAll.size()==1);
+    }
     @Test
     public void testUpdate(){
         dsDao.create(ds);

@@ -45,7 +45,7 @@ public class Organization {
     /**
      * The organization ID
      */
-    @Indexed (unique = true)
+    @Indexed(unique = true)
     private String organizationId;
 
     /**
@@ -113,27 +113,15 @@ public class Organization {
 
     private String website;
 
+    @Indexed
     private Country country;
 
     private Language language;
-
-    private Boolean deaSigned;
-
-    @Reference
-    private Contact contact;
-
-    @Embedded
-    private Address address;
 
     private Scope scope;
 
     private boolean dea;
 
-    private boolean deaSent;
-
-    private String deaNotes;
-
-    private String technicalContact;
 
     @XmlElement
     public ObjectId getId() {
@@ -143,6 +131,7 @@ public class Organization {
     public void setId(ObjectId id) {
         this.id = id;
     }
+
     @XmlElement
     public String getOrganizationId() {
         return organizationId;
@@ -151,6 +140,7 @@ public class Organization {
     public void setOrganizationId(String organizationId) {
         this.organizationId = organizationId;
     }
+
     @XmlElement
     public String getOrganizationUri() {
         return organizationUri;
@@ -159,6 +149,7 @@ public class Organization {
     public void setOrganizationUri(String organizationUri) {
         this.organizationUri = organizationUri;
     }
+
     @XmlElement
     public HarvestingMetadata getHarvestingMetadata() {
         return harvestingMetadata;
@@ -167,6 +158,7 @@ public class Organization {
     public void setHarvestingMetadata(HarvestingMetadata harvestingMetadata) {
         this.harvestingMetadata = harvestingMetadata;
     }
+
     @XmlElement
     public List<Dataset> getDatasets() {
         return datasets;
@@ -247,6 +239,7 @@ public class Organization {
     public void setPrefLabel(List<PrefLabel> prefLabel) {
         this.prefLabel = prefLabel;
     }
+
     @XmlElement
     public List<AltLabel> getAltLabel() {
         return altLabel;
@@ -255,6 +248,7 @@ public class Organization {
     public void setAltLabel(List<AltLabel> altLabel) {
         this.altLabel = altLabel;
     }
+
     @XmlElement
     public String[] getSameAs() {
         return sameAs;
@@ -263,6 +257,7 @@ public class Organization {
     public void setSameAs(String[] sameAs) {
         this.sameAs = sameAs;
     }
+
     @XmlElement
     public String getDescription() {
         return description;
@@ -280,6 +275,7 @@ public class Organization {
     public void setLogoLocation(String logoLocation) {
         this.logoLocation = logoLocation;
     }
+
     @XmlElement
     public Domain getDomain() {
         return domain;
@@ -288,6 +284,7 @@ public class Organization {
     public void setDomain(Domain domain) {
         this.domain = domain;
     }
+
     @XmlElement
     public Sector getSector() {
         return sector;
@@ -296,6 +293,7 @@ public class Organization {
     public void setSector(Sector sector) {
         this.sector = sector;
     }
+
     @XmlElement
     public GeographicLevel getGeographicLevel() {
         return geographicLevel;
@@ -304,6 +302,7 @@ public class Organization {
     public void setGeographicLevel(GeographicLevel geographicLevel) {
         this.geographicLevel = geographicLevel;
     }
+
     @XmlElement
     public String getWebsite() {
         return website;
@@ -312,6 +311,7 @@ public class Organization {
     public void setWebsite(String website) {
         this.website = website;
     }
+
     @XmlElement
     public Country getCountry() {
         return country;
@@ -320,6 +320,7 @@ public class Organization {
     public void setCountry(Country country) {
         this.country = country;
     }
+
     @XmlElement
     public Language getLanguage() {
         return language;
@@ -327,32 +328,6 @@ public class Organization {
 
     public void setLanguage(Language language) {
         this.language = language;
-    }
-    @XmlElement
-    public Boolean isDeaSigned() {
-        return deaSigned;
-    }
-
-    public void setDeaSigned(Boolean deaSigned) {
-        this.deaSigned = deaSigned;
-    }
-
-    @XmlElement
-    public Contact getContact() {
-        return contact;
-    }
-
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
-
-    @XmlElement
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
     }
 
     @XmlElement
@@ -365,40 +340,12 @@ public class Organization {
     }
 
 
-
     public void setDea(boolean dea) {
         this.dea = dea;
     }
 
     @XmlElement
-    public String getDeaNotes() {
-        return deaNotes;
-    }
-
-    public void setDeaNotes(String deaNotes) {
-        this.deaNotes = deaNotes;
-    }
-
-    @XmlElement
     public boolean isDea() {
         return dea;
-    }
-
-    @XmlElement
-    public boolean isDeaSent() {
-        return deaSent;
-    }
-
-    public void setDeaSent(boolean deaSent) {
-        this.deaSent = deaSent;
-    }
-
-    @XmlElement
-    public String getTechnicalContact() {
-        return technicalContact;
-    }
-
-    public void setTechnicalContact(String technicalContact) {
-        this.technicalContact = technicalContact;
     }
 }
