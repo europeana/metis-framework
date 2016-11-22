@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.framework.test;
 
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dataset.Dataset;
@@ -123,6 +124,22 @@ public class TestOrganizationService {
         try {
             Organization orgRet = service.getOrganizationById("string");
             Assert.assertEquals(org, orgRet);
+        } catch (NoOrganizationExceptionFound e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testRetrieveOrgByCountry(){
+        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        List<Organization> orgs = new ArrayList<>();
+        orgs.add(org);
+        orgs.add(org);
+        orgs.add(org);
+        Mockito.when(organizationDao.getAllByCountry(Country.ALBANIA)).thenReturn(orgs);
+        try {
+            List<Organization> orgRet = service.getAllOrganizationsByCountry(Country.ALBANIA);
+            Assert.assertEquals(orgs, orgRet);
         } catch (NoOrganizationExceptionFound e) {
             e.printStackTrace();
         }

@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.framework.dao;
 
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
@@ -140,11 +141,7 @@ public class OrganizationDao implements MetisDao<Organization> {
         } else {
             ops.unset("language");
         }
-        if(organization.isDeaSigned()!=null){
-            ops.set("deaSigned",organization.isDeaSigned());
-        } else {
-            ops.unset("deaSigned");
-        }
+
 
         ops.set("acronym",organization.getAcronym());
         ops.set("created",organization.getCreated());
@@ -170,6 +167,13 @@ public class OrganizationDao implements MetisDao<Organization> {
         return provider.getDatastore().find(Organization.class).asList();
     }
 
+    /**
+     * Retrieve all the organizations
+     * @return A list of all the organizations
+     */
+    public List<Organization> getAllByCountry(Country country) {
+        return provider.getDatastore().find(Organization.class).filter("country",country).asList();
+    }
 
     /**
      * Get an organization by its organization Id

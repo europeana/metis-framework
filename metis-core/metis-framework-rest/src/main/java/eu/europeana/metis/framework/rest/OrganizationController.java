@@ -16,10 +16,12 @@
  */
 package eu.europeana.metis.framework.rest;
 
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.organization.OrganizationList;
+import eu.europeana.metis.framework.rest.utils.JsonUtils;
 import eu.europeana.metis.framework.service.OrganizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -90,7 +93,19 @@ public class OrganizationController {
         list.setOrganizations(organizationService.getAllOrganizations());
         return list;
     }
-
+    /**
+     * Get all the organizations
+     *
+     * @return All the registered organizations in METIS
+     */
+    @RequestMapping(value = ORGANIZATIONS, method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
+    public OrganizationList getAllOrganizationsByCountry(String isoCode) throws NoOrganizationExceptionFound {
+        OrganizationList list = new OrganizationList();
+        list.setOrganizations(organizationService.getAllOrganizationsByCountry(Country.toCountry(isoCode)));
+        return list;
+    }
     /**
      * Get all the datasets for an organization
      *
@@ -115,8 +130,8 @@ public class OrganizationController {
     @RequestMapping(value = ORGANIZATION_ID, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Get an organization by id", response = Organization.class)
-    public Organization getOrganizationById(@ApiParam("id") @PathVariable("id") String id) throws NoOrganizationExceptionFound {
-        return organizationService.getOrganizationById(id);
+    public ModelAndView getOrganizationById(@ApiParam("id") @PathVariable("id") String id,@ApiParam("profile")@RequestParam("profile")String profile) throws NoOrganizationExceptionFound {
+        return JsonUtils.toJson(organizationService.getOrganizationById(id));
     }
 
     /**

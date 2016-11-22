@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.framework.common;
 
+import org.mongodb.morphia.annotations.Indexed;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,6 +32,8 @@ public class Contact {
     private String firstName;
     private String lastName;
     private String email;
+    private String skypeId;
+    private String website;
 
     @XmlElement
     public String getFirstName() {
@@ -55,4 +59,23 @@ public class Contact {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @XmlElement
+    public String getSkypeId() {
+        return skypeId;
+    }
+
+    public void setSkypeId(String skypeId) {
+        this.skypeId = skypeId;
+    }
+
+    @XmlElement
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
 }

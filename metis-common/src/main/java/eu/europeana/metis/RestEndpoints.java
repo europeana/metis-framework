@@ -14,11 +14,13 @@ public final class RestEndpoints {
     public final static String DATASET_RETRIEVE = "/dataset/{name}";
     public final static String ORGANIZATION = "/organization";
     public final static String ORGANIZATIONS = "/organizations";
+    public final static String ORGANIZATIONS_ISOCODE = "/organizations/{country}";
     public final static String ORGANIZATION_ID ="/organization/{id}";
     public final static String ORGANIZATION_ID_DATASETS="/organization/{id}/datasets";
     public final static String CRM_ORGANIZATION_ID = "/crm/organization/{orgId}";
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
     public final static String USERBYMAIL="/user/{email}";
+    public final static String USERBYID ="/contact/{id}";
 
     /* METIS-DEREFERENCE Endpoints*/
     public final static String DEREFERENCE="/dereference";
