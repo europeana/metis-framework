@@ -17,25 +17,23 @@
 
 package eu.europeana.metis.ui.ldap.dao.impl;
 
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
-
-import java.util.List;
-
-import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.BasicAttribute;
-import javax.naming.directory.BasicAttributes;
-import javax.naming.ldap.LdapName;
-
+import eu.europeana.metis.ui.ldap.dao.UserDao;
+import eu.europeana.metis.ui.ldap.domain.Group;
+import eu.europeana.metis.ui.ldap.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.support.LdapNameBuilder;
 
-import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.domain.Group;
-import eu.europeana.metis.ui.ldap.domain.User;
+import javax.naming.NamingException;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
+import javax.naming.ldap.LdapName;
+import java.util.List;
+
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 public class UserDaoImpl implements UserDao {
 
@@ -68,6 +66,18 @@ public class UserDaoImpl implements UserDao {
         ldapTemplate.modifyAttributes(context);
     }
 
+    @Override
+    public void disable(String email){
+        User user = findByPrimaryKey(email);
+        user.setActive(false);
+    }
+
+    @Override
+    public void approve(String email){
+        User user = findByPrimaryKey(email);
+        user.setApproved(true);
+        user.setActive(true);
+    }
     @Override
     public void delete(User user) {
         ldapTemplate.delete(ldapTemplate.findByDn(buildDn(user), User.class));
@@ -148,7 +158,11 @@ public class UserDaoImpl implements UserDao {
         context.setAttributeValue("description", user.getDescription());
         context.setAttributeValue("sn", user.getLastName());
         context.setAttributeValue("userPassword", user.getPasswordB());
+        context.setAttributeValue("Active",user.isActive());
+        context.setAttributeValue("Approved",user.isApproved());
     }
+
+
 
     private Attributes buildUser(User user){
             Attributes attrs = new BasicAttributes();
