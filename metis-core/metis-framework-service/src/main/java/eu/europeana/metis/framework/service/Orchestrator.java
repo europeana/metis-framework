@@ -53,6 +53,13 @@ public class Orchestrator {
             execution.setStartedAt(new Date());
             execution.setUpdatedAt(new Date());
             execution.setActive(true);
+            if(params==null){
+                params = new HashMap<>();
+            }
+            List<String> paramList = new ArrayList<>();
+            paramList.add(datasetId);
+            params.put(WorkflowParameters.DATASET,paramList);
+            workflow.setParameters(params);
             execution.setStatisticsUrl("/" + execution.getId().toString());
             execution.setExecutionParameters(params);
             executionDao.save(execution);

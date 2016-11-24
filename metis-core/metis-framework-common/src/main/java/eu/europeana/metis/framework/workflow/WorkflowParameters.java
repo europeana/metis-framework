@@ -5,4 +5,5 @@ package eu.europeana.metis.framework.workflow;
  */
 public final class WorkflowParameters {
 
+    public final static String DATASET="dataset";
 }

@@ -2,6 +2,7 @@ package eu.europeana.metis.workflow.qa;
 
 import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.framework.workflow.CloudStatistics;
+import eu.europeana.metis.framework.workflow.WorkflowParameters;
 import eu.europeana.metis.workflow.qa.model.MeasuringResponse;
 import eu.europeana.metis.workflow.qa.model.QAParams;
 import eu.europeana.metis.workflow.qa.model.QAStatistics;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -27,6 +29,12 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     private static Map<String,QAStatistics> statistics = new ConcurrentHashMap<>();
     private static List<String> activeStatistics = new ArrayList<>();
 
+    public QAWorkflow(){
+        List<String> endpoint = new ArrayList<>();
+        endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
+        params = new HashMap<>();
+        params.put(QAParams.QA_ENDPOINT,endpoint);
+    }
     @Override
     public String getName() {
         return name;
@@ -36,7 +44,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     public void setParameters(Map<String, List<String>> parameters) {
         this.params = parameters;
         List<String> endpoint = new ArrayList<>();
-        endpoint.add("http://144.76.218.178:8080/europeana-qa");
+        endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
         params.put(QAParams.QA_ENDPOINT,endpoint);
     }
 
@@ -57,12 +65,12 @@ public class QAWorkflow implements AbstractMetisWorkflow {
         qaStatistics.setFailedRecords(new CopyOnWriteArrayList<String>());
         qaStatistics.setFailed(0L);
         qaStatistics.setProcessed(0L);
-        statistics.put(QAParams.QA_DATASET,qaStatistics);
+        statistics.put(WorkflowParameters.DATASET,qaStatistics);
         for(String record:records){
             ResponseEntity<MeasuringResponse> entity = template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
-                    + "/batch"+record+"?sessionId="+sessionId, MeasuringResponse.class);
+                    +record+"?sessionId="+sessionId, MeasuringResponse.class);
 
-            qaStatistics = statistics.get(QAParams.QA_DATASET);
+            qaStatistics = statistics.get(WorkflowParameters.DATASET);
             if(entity.getStatusCode()== HttpStatus.OK && StringUtils.equals(entity.getBody().getResult(),"success")){
                 qaStatistics.setProcessed(qaStatistics.getProcessed()+1);
             } else {
@@ -71,16 +79,16 @@ public class QAWorkflow implements AbstractMetisWorkflow {
                 failed.add(record);
                 qaStatistics.setFailedRecords(failed);
             }
-            statistics.put(QAParams.QA_DATASET,qaStatistics);
+            statistics.put(WorkflowParameters.DATASET,qaStatistics);
         }
         template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
                 + "/measuring/"+qaStatistics+"/stop", MeasuringResponse.class);
         template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
                 + "/analyzing/"+qaStatistics+"/start", MeasuringResponse.class);
-        qaStatistics = statistics.get(QAParams.QA_DATASET);
+        qaStatistics = statistics.get(WorkflowParameters.DATASET);
         qaStatistics.setStatus("analyzing");
-        statistics.put(QAParams.QA_DATASET,qaStatistics);
-        activeStatistics.add(QAParams.QA_DATASET);
+        statistics.put(WorkflowParameters.DATASET,qaStatistics);
+        activeStatistics.add(WorkflowParameters.DATASET);
     }
 
     @Override
