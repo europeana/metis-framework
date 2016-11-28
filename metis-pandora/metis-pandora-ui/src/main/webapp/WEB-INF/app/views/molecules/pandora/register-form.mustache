@@ -1,0 +1,29 @@
+<form action="register" method="post" role="form" class="metis-register-form">
+	<fieldset>
+		<legend  class="register-form-header">Register</legend>
+		{{#register_err_duplicate_user}}<div class="error-message">{{.}}</div>{{/register_err_duplicate_user}}
+		<div class="field-container">
+			<label for="fullName">First Name*:</label>
+			<input id="fullName" type='text' name='fullName' placeholder="Type your first name"/>
+		</div>
+		<div class="field-container">
+			<label for="lastName">Last Name*:</label>
+			<input id="lastName" type='text' name='lastName' placeholder="Type your last name"/>
+		</div>
+		<div class="field-container">
+			<label for="email">Email*:</label>
+			<input id="email" type='email' name='email' placeholder="Type your email"/>
+		</div>
+		<div class="field-container">
+			<label for="password">Password:</label>
+			<input id="password" type='password' name='password' placeholder="Type your password"/>
+		</div>
+		<div class="field-container">
+			<label><input type="checkbox" id="network_member_checkbox" value="network_member_checkbox"> I am a Europeana Network member</label>
+		</div>
+		<div class="field-container">
+			<button type="submit">Submit</button>
+			<button type="reset">Reset</button>
+		</div>
+	</fieldset>
+</form>

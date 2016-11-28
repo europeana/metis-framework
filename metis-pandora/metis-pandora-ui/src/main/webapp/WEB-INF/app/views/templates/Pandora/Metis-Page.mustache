@@ -1,0 +1,35 @@
+{{#is_java}}
+	{{>atoms/meta/_head}}
+{{/is_java}}
+<div class="working-space">
+	<div class="container-large">
+		{{#metis_header}}
+			{{> organisms/global/header_v2}}
+		{{/metis_header}}
+	    <ul class="breadcrumbs">
+		{{#breadcrumbs}}
+	       	<li><a href="{{url}}">{{text}}</a></li>
+	    {{/breadcrumbs}}
+	    </ul>
+	</div>
+	{{#landing_page_content}}
+		{{#is_login}}
+		<div>
+			{{> molecules/pandora/login-form}}
+		</div>
+		{{/is_login}}
+		{{#is_register}}
+		<div>
+			{{> molecules/pandora/register-form}}
+		</div>
+		{{/is_register}}
+		{{#is_profile}}
+		<div>
+			{{> molecules/pandora/profile-form}}
+		</div>
+		{{/is_profile}}
+	{{/landing_page_content}}
+</div>
+{{#is_java}}
+	{{>atoms/meta/_foot}}
+{{/is_java}}
