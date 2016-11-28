@@ -78,7 +78,17 @@
         </pluginManagement>
     </build>
     <dependencies>
-        <!-- Spring core & mvc -->
+		<dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-framework-account</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+        	<groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-framework-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <!-- Spring core, security, ldap & mvc -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -106,7 +116,41 @@
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${version.springSecurity}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ldap</groupId>
+            <artifactId>spring-ldap-core</artifactId>
+            <version>${version.springLdap}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ldap</groupId>
+            <artifactId>spring-ldap-odm</artifactId>
+            <version>${version.springLdap}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ldap</groupId>
+            <artifactId>spring-ldap-test</artifactId>
+            <version>${version.springLdap}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-ldap</artifactId>
+            <version>${version.springSecurity}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${version.springSecurity}</version>
+        </dependency>
+         <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${version.springSecurity}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>

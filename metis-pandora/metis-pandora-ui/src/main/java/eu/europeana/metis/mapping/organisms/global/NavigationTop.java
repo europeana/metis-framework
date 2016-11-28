@@ -1,6 +1,5 @@
 package eu.europeana.metis.mapping.organisms.global;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,22 +36,37 @@ public class NavigationTop {
 		next_prev.put("results_url", results_url);
 	}
 	
-	public void addGlobal(Boolean search_active, Boolean settings_active, String logoUrl, String logoText, String menuId, List<NavigationTopMenu> items) {
+	public void addGlobal(Boolean search_active, Boolean settings_active, String logoUrl, String logoText, String menuId, List<NavigationTopMenu> items, List<NavigationTopMenu> utilityItems) {
+		addOptions(search_active, settings_active);
+		addLogo(logoUrl, logoText);
+		addPrimaryNavMenu(menuId, items);
+		addUtilityNavMenu(utilityItems);
+	}
+
+	private void addOptions(Boolean search_active, Boolean settings_active) {
 		Map<String, Object> options = new HashMap<>();
 		options.put("search_active", search_active);
 		options.put("settings_active", settings_active);
 		this.global.put("options", options);
-		
+	}
+
+	
+	private void addLogo(String logoUrl, String logoText) {
 		Map<String, String> logo = new HashMap<>();
 		logo.put("url", logoUrl);
 		logo.put("text", logoText);
 		this.global.put("logo", logo);
-		
+	}
+
+	private void addPrimaryNavMenu(String menuId, List<NavigationTopMenu> items) {
 		Map<String, Object> primary_nav = new HashMap<>();
 		primary_nav.put("items", items);
 		primary_nav.put("menu_id", menuId);
 		this.global.put("primary_nav", primary_nav);
+	}
 
+	public void addUtilityNavMenu(List<NavigationTopMenu> utilityItems) {
+		this.global.remove("utility_nav");
 		Map<String, Object> utility_nav = new HashMap<>();
 		utility_nav.put("menu_id", "settings-menu");
 		utility_nav.put("style_modifier", "caret-right");
@@ -62,28 +76,9 @@ public class NavigationTop {
 		utility_nav_items.put("text", "Settings");
 		utility_nav_items.put("icon", "settings");
 		
-		List<NavigationTopMenu> utility_nav_menu = Arrays.asList(
-				new NavigationTopMenu("My Profile", "#", false),
-				new NavigationTopMenu("Logout", "#", true));		
 		Map<String, List<NavigationTopMenu>> submenu = new HashMap<>();
-		submenu.put("items", utility_nav_menu);
+		submenu.put("items", utilityItems);
 		utility_nav_items.put("submenu", submenu);
-//		"submenu": {
-//            "items": [
-//              {
-//                "text": "My Profile",
-//                "url": "#"
-//              },
-//              {
-//                "is_divider": true
-//              },
-//              {
-//                "text": "Logout",
-//                "url": "#"
-//              }
-//            ]
-//          }
-		
 		utility_nav.put("items", utility_nav_items);
 		this.global.put("utility_nav", utility_nav);
 	}
