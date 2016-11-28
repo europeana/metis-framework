@@ -70,6 +70,7 @@ public class UserDaoImpl implements UserDao {
     public void disable(String email){
         User user = findByPrimaryKey(email);
         user.setActive(false);
+        update(user);
     }
 
     @Override
@@ -77,6 +78,7 @@ public class UserDaoImpl implements UserDao {
         User user = findByPrimaryKey(email);
         user.setApproved(true);
         user.setActive(true);
+        update(user);
     }
     @Override
     public void delete(User user) {

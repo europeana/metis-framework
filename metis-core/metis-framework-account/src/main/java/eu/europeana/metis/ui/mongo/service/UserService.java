@@ -29,51 +29,91 @@ public class UserService {
     @Autowired
     private RoleRequestDao roleRequestDao;
 
-    public void updateUserFromDTO(UserDTO userDto){
-        if(userDto.getUser()!=null) {
-           updateUserInLdap(userDto.getUser());
+    /**
+     * Updates a user in LDAP and MongoDB
+     *
+     * @param userDto The user representations wrapper
+     */
+    public void updateUserFromDTO(UserDTO userDto) {
+        if (userDto.getUser() != null) {
+            updateUserInLdap(userDto.getUser());
         }
-        if(userDto.getDbUser()!=null){
+        if (userDto.getDbUser() != null) {
             updateUserInMongo(userDto.getDbUser());
         }
     }
 
-    public void deleteUser(String email){
+    /**
+     * Deactivate a user in LDAP
+     *
+     * @param email the email of the user
+     */
+    public void deleteUser(String email) {
         userDao.disable(email);
     }
 
-    public void createLdapUser(User user){
+    /**
+     * Create a user in LDAP
+     *
+     * @param user The user to create
+     */
+    public void createLdapUser(User user) {
         userDao.create(user);
     }
 
-    public void createDBUser(DBUser dbUser, RoleRequest... requests){
+    /**
+     * Create a user in MongoDB
+     *
+     * @param dbUser   The user in MongoDB
+     * @param requests The request for specific roles in organizations
+     */
+    public void createDBUser(DBUser dbUser, RoleRequest... requests) {
         dbUserDao.save(dbUser);
-        if(requests!=null){
-            for (RoleRequest request:requests) {
+        if (requests != null) {
+            for (RoleRequest request : requests) {
                 createRequest(request);
             }
         }
     }
 
-    public void createRequest(RoleRequest request){
+    /**
+     * Create a request for a role in an organization
+     *
+     * @param request The request for a role in an organization
+     */
+    public void createRequest(RoleRequest request) {
         roleRequestDao.save(request);
     }
 
-    public List<RoleRequest> getUserRequests(String email){
+    /**
+     * Get user role requests
+     *
+     * @param email The email of the user
+     * @return The list of role requests for a user
+     */
+    public List<RoleRequest> getUserRequests(String email) {
         Query<RoleRequest> requestQuery = roleRequestDao.createQuery();
-        requestQuery.filter("userId",email);
+        requestQuery.filter("userId", email);
         return roleRequestDao.find(requestQuery).asList();
     }
 
-    public void approveRequest(RoleRequest request){
+    /**
+     * Approve a request for a role in an organization
+     *
+     * @param request The user request to approve
+     */
+    public void approveRequest(RoleRequest request) {
         UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
-        ops.set("requestStatus","approved");
+        ops.set("requestStatus", "approved");
         Query<RoleRequest> query = roleRequestDao.createQuery();
-        query.filter("id",request.getId());
-        roleRequestDao.update(query,ops);
-        DBUser user = dbUserDao.findOne("userId",request.getUserId());
-        if(user!=null) {
+        query.filter("id", request.getId());
+        roleRequestDao.update(query, ops);
+        DBUser user = dbUserDao.findOne("email", request.getUserId());
+        if (user != null) {
             List<String> orgIds = user.getOrganizations();
+            if(orgIds ==null){
+                orgIds = new ArrayList<>();
+            }
             orgIds.add(request.getOrganizationId());
             user.setOrganizations(orgIds);
             updateUserInMongo(user);
@@ -81,88 +121,143 @@ public class UserService {
 
     }
 
-    public void approveUser(String email){
+    /**
+     * Approve a user
+     *
+     * @param email The email of tghe user to approve
+     */
+    public void approveUser(String email) {
         userDao.approve(email);
         List<RoleRequest> requests = getUserRequests(email);
-        List<String> orgIds = new ArrayList<>();
-        for(RoleRequest request:requests){
+        for (RoleRequest request : requests) {
             approveRequest(request);
         }
 
     }
 
-    private void updateUserInMongo(DBUser user){
+    private void updateUserInMongo(DBUser user) {
         UpdateOperations<DBUser> ops = dbUserDao.createUpdateOperations();
         Query<DBUser> query = dbUserDao.createQuery();
         query.filter("id", user.getId());
-        if(user.getCountry()!=null) {
+        if (user.getCountry() != null) {
             ops.set("country", user.getCountry());
         } else {
             ops.unset("country");
         }
-        ops.set("modified",new Date());
-        if(user.getEuropeanaNetworkMember()!=null) {
+        ops.set("modified", new Date());
+        if (user.getEuropeanaNetworkMember() != null) {
             ops.set("europeanaNetworkMember", user.getEuropeanaNetworkMember());
         } else {
             ops.unset("europeanaNetworkMember");
         }
-        if(user.getNotes()!=null) {
+        if (user.getNotes() != null) {
             ops.set("notes", user.getNotes());
         } else {
             ops.unset("notes");
         }
-        if(user.getSkypeId()!=null) {
+        if (user.getSkypeId() != null) {
             ops.set("skypeId", user.getSkypeId());
         } else {
             ops.unset("skypeId");
         }
-        if(user.getOrganizations()!=null) {
+        if (user.getOrganizations() != null) {
             ops.set("organizations", user.getOrganizations());
         } else {
             ops.unset("organizations");
         }
-        dbUserDao.update(query,ops);
+        dbUserDao.update(query, ops);
     }
 
-    private void updateUserInLdap(User user){
+    private void updateUserInLdap(User user) {
         userDao.update(user);
     }
 
-    public UserDTO getUser(String email){
+    /**
+     * Retrieve a user
+     *
+     * @param email The email of the user
+     * @return A user representation as it exists in LDAP and MongoDb
+     */
+    public UserDTO getUser(String email) {
         UserDTO userDto = new UserDTO();
         userDto.setUser(userDao.findByPrimaryKey(email));
-        userDto.setDbUser(dbUserDao.findOne("email",email));
+        userDto.setDbUser(dbUserDao.findOne("email", email));
         return userDto;
     }
 
-    public List<RoleRequest>getAllRequests(int from, int to){
+    /**
+     * Get all requests (paginated)
+     *
+     * @param from The offset
+     * @param to   Until
+     * @return The list of all requests
+     */
+    public List<RoleRequest> getAllRequests(Integer from, Integer to) {
         Query<RoleRequest> requestQuery = roleRequestDao.createQuery();
-        requestQuery.offset(from);
-        requestQuery.limit(to-from);
+        if (from != null) {
+            requestQuery.offset(from);
+            if (to != null) {
+                requestQuery.limit(to - from);
+            }
+        }
         return roleRequestDao.find(requestQuery).asList();
     }
 
-    public List<RoleRequest> getAllPendingRequests(int from, int to){
+    /**
+     * Get all pending requests (paginated)
+     *
+     * @param from The offset
+     * @param to   Until
+     * @return The list of all pending requests
+     */
+    public List<RoleRequest> getAllPendingRequests(Integer from, Integer to) {
         Query<RoleRequest> requestQuery = roleRequestDao.createQuery();
-        requestQuery.offset(from);
-        requestQuery.limit(to-from);
-        requestQuery.filter("requestStatus","pending");
+        if(from!=null) {
+            requestQuery.offset(from);
+            if(to!=null) {
+                requestQuery.limit(to - from);
+            }
+        }
+        requestQuery.filter("requestStatus", "pending");
         return roleRequestDao.find(requestQuery).asList();
     }
-
-    public List<RoleRequest> getAllPendingRequestsForUser(String email, int from, int to){
+    /**
+     * Get all pending requests (paginated) for user
+     *
+     * @param email The email of the user
+     * @param from The offset
+     * @param to   Until
+     * @return The list of all pending requests for a user
+     */
+    public List<RoleRequest> getAllPendingRequestsForUser(String email, Integer from, Integer to) {
         Query<RoleRequest> requestQuery = roleRequestDao.createQuery();
-        requestQuery.offset(from);
-        requestQuery.limit(to-from);
-        requestQuery.filter("email",email);
-        requestQuery.filter("requestStatus","pending");
+        if(from!=null) {
+            requestQuery.offset(from);
+            if(to!=null) {
+                requestQuery.limit(to - from);
+            }
+        }
+        requestQuery.filter("userId", email);
+        requestQuery.filter("requestStatus", "pending");
         return roleRequestDao.find(requestQuery).asList();
     }
-
-    public List<RoleRequest> getAllRequestsForUser(String email){
+    /**
+     * Get all  requests (paginated) for user
+     *
+     * @param email The email of the user
+     * @param from The offset
+     * @param to   Until
+     * @return The list of all pending requests for a user
+     */
+    public List<RoleRequest> getAllRequestsForUser(String email, Integer from, Integer to) {
         Query<RoleRequest> requestQuery = roleRequestDao.createQuery();
-        requestQuery.filter("email",email);
-        requestQuery.filter("requestStatus","pending");
+        requestQuery.filter("userId", email);
+        if(from!=null) {
+            requestQuery.offset(from);
+            if(to!=null) {
+                requestQuery.limit(to - from);
+            }
+        }
         return roleRequestDao.find(requestQuery).asList();
     }
 

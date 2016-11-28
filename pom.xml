@@ -178,8 +178,8 @@
         <version.morphia>1.1.1</version.morphia>
         <version.xsom>20140925</version.xsom>
         <version.commonscompress>1.11</version.commonscompress>
-        <version.springSecurity>3.2.8.RELEASE</version.springSecurity>
-        <version.springLdap>2.1.0.RELEASE</version.springLdap>
+        <version.springSecurity>4.2.0.RELEASE</version.springSecurity>
+        <version.springLdap>2.2.0.RELEASE</version.springLdap>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

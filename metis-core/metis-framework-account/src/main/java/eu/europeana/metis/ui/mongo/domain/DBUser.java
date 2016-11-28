@@ -1,7 +1,8 @@
 package eu.europeana.metis.ui.mongo.domain;
 
-import com.sun.corba.se.spi.ior.ObjectId;
+
 import eu.europeana.metis.framework.common.Country;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
@@ -10,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Mongo representation of a user with information not necessary to be stored in LDAP
  * Created by ymamakis on 11/24/16.
  */
 @Entity
@@ -17,14 +19,38 @@ public class DBUser {
 
     @Id
     private ObjectId id;
+    /**
+     * The email of the user
+     */
     @Indexed
     private String email;
+    /**
+     * The country of the user
+     */
     private Country country;
+    /**
+     * The skypeId of the user
+     */
     private String skypeId;
+    /**
+     * Whether the user is a Europeana Network member
+     */
     private Boolean europeanaNetworkMember;
+    /**
+     * Notes with regards to the user
+     */
     private String notes;
+    /**
+     * When the user was created
+     */
     private Date created;
+    /**
+     * When the user was modified
+     */
     private Date modified;
+    /**
+     * The list of all the available organizations
+     */
     @Indexed
     private List<String> organizations;
 
