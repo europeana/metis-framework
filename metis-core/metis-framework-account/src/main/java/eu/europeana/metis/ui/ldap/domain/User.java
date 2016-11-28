@@ -70,6 +70,12 @@ public class User {
     @DnAttribute(value = "cn", index = 2)
     private String email;
 
+    @Attribute(name="Active")
+    private boolean active;
+
+    @Attribute(name="Approved")
+    private boolean approved;
+
     public LdapName getDn() {
         return dn;
     }
@@ -153,5 +159,21 @@ public class User {
 
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }

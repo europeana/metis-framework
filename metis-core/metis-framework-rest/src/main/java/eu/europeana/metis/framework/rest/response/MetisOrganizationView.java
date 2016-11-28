@@ -96,15 +96,9 @@ public class MetisOrganizationView extends PublicOrganizationView{
 
     public static MetisOrganizationView generateResponse(Organization organization){
         MetisOrganizationView view = new MetisOrganizationView();
-        view.setAddress(organization.getAddress());
         view.setDea(organization.isDea());
-        view.setDeaNotes(organization.getDeaNotes());
-        view.setMainContact(organization.getContact());
         view.setMetadata(organization.getHarvestingMetadata());
-        view.setDeaSent(organization.isDeaSent());
-        view.setDeaSigned(organization.isDeaSigned());
         view.setOrganizationId(organization.getOrganizationId());
-        view.setTechnicalContact(organization.getTechnicalContact());
 
         return view;
     }
