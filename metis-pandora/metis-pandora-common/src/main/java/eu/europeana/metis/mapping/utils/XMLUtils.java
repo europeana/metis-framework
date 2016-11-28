@@ -81,7 +81,7 @@ public class XMLUtils {
      * @param map The map of statistics already gathered during analysis of previous records of the dataset
      * @throws XMLStreamException
      */
-    public static void analyzeRecord(String record, Map<String, Statistics> map) throws XMLStreamException {
+    public static void analyzeRecord(String dataset,String record, Map<String, Statistics> map) throws XMLStreamException {
         XMLInputFactory factory = XMLInputFactory.newFactory();
         XMLStreamReader reader = factory.createXMLStreamReader(new ByteArrayInputStream(record.getBytes()));
         String parent = "";
@@ -94,14 +94,15 @@ public class XMLUtils {
                             String attrPrefix = reader.getAttributePrefix(i);
                             String attrName = reader.getAttributeLocalName(i);
                             Statistics stats;
-                            if (map.containsKey(parent + "@" + attrPrefix + ":" + attrName)) {
-                                stats = map.get(parent + "@" + attrPrefix + ":" + attrName);
+                            if (map.containsKey(parent + "/@" + attrPrefix + ":" + attrName)) {
+                                stats = map.get(parent + "/@" + attrPrefix + ":" + attrName);
                             } else {
                                 stats = new Statistics();
+                                stats.setDatasetId(dataset);
                                 stats.setId(new ObjectId());
                             }
 
-                            stats.setXpath(parent + "@" + attrPrefix + ":" + attrName);
+                            stats.setXpath(parent + "/@" + attrPrefix + ":" + attrName);
                             List<StatisticsValue> values = stats.getValues();
                             if (values == null) {
                                 values = new ArrayList<>();
@@ -122,7 +123,7 @@ public class XMLUtils {
                                 value.setId(new ObjectId());
                                 values.add(value);
                                 stats.setValues(values);
-                                map.put(parent + "@" + attrPrefix + ":" + attrName, stats);
+                                map.put(parent + "/@" + attrPrefix + ":" + attrName, stats);
                             }
                         }
                     }
@@ -133,6 +134,7 @@ public class XMLUtils {
                         stats = map.get(parent);
                     } else {
                         stats = new Statistics();
+                        stats.setDatasetId(dataset);
                         stats.setId(new ObjectId());
                     }
                     stats.setXpath(parent);
@@ -143,7 +145,7 @@ public class XMLUtils {
                     boolean isContained = false;
                     for (StatisticsValue value : values) {
 
-                        if (StringUtils.equals(value.getValue(), new String(reader.getTextCharacters()))) {
+                        if (StringUtils.equals(value.getValue(), reader.getText())) {
                             isContained = true;
                             value.setOccurence(value.getOccurence() + 1);
                             break;
@@ -152,7 +154,7 @@ public class XMLUtils {
                     if (!isContained) {
                         StatisticsValue value = new StatisticsValue();
                         value.setOccurence(1);
-                        value.setValue(new String(reader.getTextCharacters()));
+                        value.setValue(reader.getText());
                         value.setId(new ObjectId());
                         values.add(value);
                         stats.setValues(values);

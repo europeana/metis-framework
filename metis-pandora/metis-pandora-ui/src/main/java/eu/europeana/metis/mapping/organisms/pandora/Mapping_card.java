@@ -8,6 +8,7 @@ import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
 import eu.europeana.metis.mapping.molecules.pandora.FieldValue;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
+import eu.europeana.metis.mapping.util.MappingCardStub;
 
 /**
  * 
@@ -29,7 +30,7 @@ public class Mapping_card {
 //	private List<Mapping_card> child_cards;
 
 	public Mapping_card(Element element, int offset, int count) {		
-		Statistics statistics = element.getStatistics();
+		Statistics statistics = MappingCardStub.getStatistics();
 		this.xpath = statistics.getXpath();
 		this.prefix = element.getPrefix();
 		this.name = element.getName();

@@ -38,9 +38,9 @@ import java.util.Map;
 public class Mappings {
     @Id
     private ObjectId id;
-    @Embedded
+    @Reference
     private List<Element> elements;
-    @Embedded
+    @Reference
     private List<Attribute> attributes;
     @Transient
     private Map<String,String> namespaces = new HashMap<>();

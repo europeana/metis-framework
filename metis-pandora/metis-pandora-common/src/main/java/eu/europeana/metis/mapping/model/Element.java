@@ -16,8 +16,8 @@
  */
 package eu.europeana.metis.mapping.model;
 
-import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Reference;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -37,9 +37,9 @@ import java.util.Set;
 public class Element extends Attribute {
 
 
-    @Embedded
+    @Reference
     private List<Element> elements;
-    @Embedded
+    @Reference
     private List<Attribute> attributes;
     private Set<String> mandatoryXpath;
     private String type;

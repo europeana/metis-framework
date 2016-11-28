@@ -31,9 +31,9 @@
     <!-- DYNAMIC VARIABLES -->
     <!-- IDs -->
     <xsl:variable name="id_PCHO"
-                  select="/edm:ProvidedCHO/@rdf:about"/>
+                  select="/rdf:RDF/edm:ProvidedCHO/@rdf:about"/>
     <xsl:variable name="id_aggregation"
-                  select="/ore:Aggregation/@rdf:about"/>
+                  select="/rdf:RDF/ore:Aggregation/@rdf:about"/>
 
 
     <!--XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX-->
@@ -48,7 +48,7 @@
 
 
     <!-- MAIN TEMPLATE -->
-    <xsl:template match="record">
+    <xsl:template match="/">
 
         <!-- rdf:RDF, id: 0 -->
         <xsl:element name="rdf:RDF">
@@ -99,29 +99,29 @@
             </xsl:element>
 
             <!-- edm:WebResource -->
-            <xsl:copy-of select="edm:WebResource"/>
+            <xsl:copy-of select="rdf:RDF/edm:WebResource"/>
 
             <!-- edm:Agent -->
-            <xsl:copy-of select="edm:Agent"/>
+            <xsl:copy-of select="rdf:RDF/edm:Agent"/>
 
             <!-- edm:Place -->
-            <xsl:copy-of select="edm:Place"/>
+            <xsl:copy-of select="rdf:RDF/edm:Place"/>
 
             <!-- edm:TimeSpan -->
-            <xsl:copy-of select="edm:TimeSpan"/>
+            <xsl:copy-of select="rdf:RDF/edm:TimeSpan"/>
 
             <!-- skos:Concept -->
-            <xsl:copy-of select="skos:Concept"/>
+            <xsl:copy-of select="rdf:RDF/skos:Concept"/>
 
             <!-- ore:Aggregation -->
-            <xsl:copy-of select="ore:Aggregation"/>
+            <xsl:copy-of select="rdf:RDF/ore:Aggregation"/>
 
             <!-- ore:Proxy -->
             <xsl:element name="ore:Proxy">
                 <xsl:attribute name="rdf:about">
                     <xsl:value-of select="$id_PCHO"/>
                 </xsl:attribute>
-                <xsl:copy-of select="edm:ProvidedCHO/*[not(self::owl:sameAs | self::edm:type)]"/>
+                <xsl:copy-of select="rdf:RDF/edm:ProvidedCHO/*[not(self::owl:sameAs | self::edm:type)]"/>
 
                 <xsl:element name="ore:proxyFor">
                     <xsl:attribute name="rdf:resource">
@@ -135,8 +135,8 @@
                     </xsl:attribute>
                 </xsl:element>
 
-                <xsl:copy-of select="edm:ProvidedCHO/edm:type"/>
-                <xsl:copy-of select="edm:ProvidedCHO/owl:sameAs"/>
+                <xsl:copy-of select="rdf:RDF/edm:ProvidedCHO/edm:type"/>
+                <xsl:copy-of select="rdf:RDF/edm:ProvidedCHO/owl:sameAs"/>
 
             </xsl:element>
 
@@ -161,10 +161,10 @@
             </xsl:element>
 
             <!-- cc:License -->
-            <xsl:copy-of select="cc:License"/>
+            <xsl:copy-of select="rdf:RDF/cc:License"/>
 
             <!-- svcs:Service -->
-            <xsl:copy-of select="svcs:Service"/>
+            <xsl:copy-of select="rdf:RDF/svcs:Service"/>
 
             <!-- ./rdf:RDF -->
         </xsl:element>

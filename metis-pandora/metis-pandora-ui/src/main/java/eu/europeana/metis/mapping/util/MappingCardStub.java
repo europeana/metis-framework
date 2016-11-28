@@ -11,13 +11,13 @@ import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
 
 public class MappingCardStub {
-
+	private static Statistics statistics = new Statistics();
 	public static Mapping_card buildMappingCardModel() {
 		Element element = new Element();
 		element.setPrefix("@rdf");
 		element.setName("about");
 		
-		Statistics statistics = new Statistics();
+
 		List<StatisticsValue> values = new ArrayList<>();
 		
 		StatisticsValue value0 = new StatisticsValue();
@@ -93,9 +93,13 @@ public class MappingCardStub {
 		values.add(value11);
 		
 		statistics.setValues(values);
-		element.setStatistics(statistics);
+		//element.setStatistics(statistics);
 		//add one child element to the root element;
 //		element.setElements(Arrays.asList(element));
 		return new Mapping_card(element, 0, 10);
+	}
+
+	public static Statistics getStatistics() {
+		return statistics;
 	}
 }

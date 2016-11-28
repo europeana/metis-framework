@@ -58,6 +58,8 @@ public final class RestEndpoints {
     public final static String MAPPING_STATISTICS_BYNAME="/mapping/statistics/{name}";
     public final static String MAPPING_SCHEMATRON="/mapping/schematron";
     public final static String MAPPING_NAMESPACES="/mapping/namespaces";
+    public final static String MAPPING_STATISTICS_ELEMENT="/mapping/statistics/{datasetId}/element";
+    public final static String MAPPING_STATISTICS_ATTRIBUTE="/mapping/statistics/{datasetId}/attribute";
     public final static String STATISTICS_CALCULATE="/statistics/calculate/{datasetId}";
     public final static String STATISTICS_APPEND="/statistics/append/{datasetId}";
     public final static String VALIDATE_ATTRIBUTE="/mapping/validation/{mappingId}/attribute";

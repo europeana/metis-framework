@@ -17,13 +17,20 @@
 package eu.europeana.metis.service;
 
 import eu.europeana.metis.mapping.common.Value;
-import eu.europeana.metis.mapping.model.*;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.Mappings;
 import eu.europeana.metis.mapping.persistence.FlagDao;
+import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
+import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
 import eu.europeana.metis.mapping.validation.Flag;
 import eu.europeana.metis.mapping.validation.FlagType;
 import eu.europeana.metis.mapping.validation.ValidationRule;
 import org.apache.commons.lang.StringUtils;
+import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +47,11 @@ public class ValidationService {
     @Autowired
     private FlagDao dao;
 
+    @Autowired
+    private StatisticsDao dsDao;
+
+    @Autowired
+    private MongoMappingDao mappingDao;
     /**
      * Create a flag for a field
      * @param field The field to create the flag for
@@ -96,9 +108,16 @@ public class ValidationService {
      * @return A list of flags for the field
      */
     public <T extends Attribute> List<Flag> validateField(String mappingId, T field) {
+        Mapping mapping = mappingDao.findOne("_id",mappingId);
+        String dataset = mapping.getDataset();
+        String xpath = extractXpathFromField(field);
+        Query<Statistics> statQuery = dsDao.getDatastore().createQuery(Statistics.class);
+        statQuery.filter("datasetId",dataset).filter("xpath",xpath);
+        Statistics statistics = dsDao.find(statQuery).get();
+
         List<Flag> flags = new ArrayList<>();
         if (field.getRules() != null && field.getRules().size() > 0) {
-            for (StatisticsValue oneStat : field.getStatistics().getValues()) {
+            for (StatisticsValue oneStat : statistics.getValues()) {
                 for (ValidationRule rule : field.getRules()) {
                     Flag flag = checkIfValid(mappingId, field, rule, oneStat.getValue());
                     if (flag != null) {
@@ -108,6 +127,16 @@ public class ValidationService {
             }
         }
         return flags;
+    }
+
+    private <T extends Attribute> String extractXpathFromField(T field) {
+        if(field.getMappings()!=null){
+            return field.getMappings().get(0).getSourceField();
+        }
+        if(field.getConditionalMappings()!=null){
+            return field.getConditionalMappings().get(0).getSourceField();
+        }
+        return null;
     }
 
     private <T extends Attribute> Flag checkIfValid(String mappingId, T field, ValidationRule rule, String value) {
@@ -162,10 +191,9 @@ public class ValidationService {
 
         List<T> fieldsCopy = new ArrayList<>();
         for (T field : fields) {
-            if (field.getStatistics() != null && field.getStatistics().getValues() != null) {
+
                 List<Flag> flags = validateField(name, field);
                 field.setFlags(flags);
-            }
             if (field.getClass().isAssignableFrom(Element.class)) {
                 List<Attribute> attrs = ((Element) field).getAttributes();
                 List<Element> elems = ((Element) field).getElements();

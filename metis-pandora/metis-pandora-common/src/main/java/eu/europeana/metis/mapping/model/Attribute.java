@@ -16,13 +16,13 @@
  */
 package eu.europeana.metis.mapping.model;
 
-import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.validation.Flag;
 import eu.europeana.metis.mapping.validation.ValidationRule;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -42,6 +42,7 @@ public class Attribute {
     private String namespace;
     private String prefix;
     private String name;
+    @Indexed
     private String xPathFromRoot;
     private String description;
     private List<String> enumerations;
@@ -53,8 +54,6 @@ public class Attribute {
     @Embedded
     private List<ConditionMapping> conditionalMappings;
     private String annotations;
-    @Embedded
-    private Statistics statistics;
 
     @Embedded
     private List<ValidationRule> rules;
@@ -281,24 +280,6 @@ public class Attribute {
      */
     public void setAnnotations(String annotations) {
         this.annotations = annotations;
-    }
-
-    /**
-     * Get the statistics for the field. This are only available after a mapping has
-     * been generated for the field, according to the values of the original field
-     * @return The statistics for the field
-     */
-    @XmlElement
-    public Statistics getStatistics() {
-        return statistics;
-    }
-
-    /**
-     * Set the statistics for the field
-     * @param statistics The statistics for the field
-     */
-    public void setStatistics(Statistics statistics) {
-        this.statistics = statistics;
     }
 
     /**

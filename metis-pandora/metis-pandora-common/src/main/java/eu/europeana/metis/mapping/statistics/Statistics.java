@@ -16,15 +16,14 @@
  */
 package eu.europeana.metis.mapping.statistics;
 
-import java.util.List;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * A representation of the field values for a field
@@ -37,6 +36,8 @@ public class Statistics {
     @Id
     private ObjectId id;
     private List<StatisticsValue> values;
+    @Indexed
+    private String datasetId;
     @Indexed
     private String xpath;
 
@@ -79,6 +80,7 @@ public class Statistics {
      * The XPath of the field
      * @return The XPath of the field
      */
+    @XmlElement
     public String getXpath() {
         return xpath;
     }
@@ -89,5 +91,15 @@ public class Statistics {
      */
     public void setXpath(String xpath) {
         this.xpath = xpath;
+    }
+
+
+    @XmlElement
+    public String getDatasetId() {
+        return datasetId;
+    }
+
+    public void setDatasetId(String datasetId) {
+        this.datasetId = datasetId;
     }
 }

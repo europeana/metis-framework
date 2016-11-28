@@ -180,12 +180,10 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
         m.setMappings(mappings);
         service.saveMapping(m);
         Mapping ret1 = service.getByName(m.getName());
-        Assert.assertNotNull(ret1.getMappings().getElements().get(0).getStatistics());
         Assert.assertEquals(3,ret1.getMappings().getElements().get(0).getFlags().size());
         ret1 = service.clearValidationStatistics(ret1.getName());
         service.updateMapping(ret1);
         Mapping ret = service.getByName(ret1.getName());
-        Assert.assertNull(ret.getMappings().getElements().get(0).getStatistics());
         Assert.assertNull(ret.getMappings().getElements().get(0).getFlags());
     }
 
@@ -198,7 +196,6 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
         value.setValue("test");
         values.add(value);
         statistics.setValues(values);
-        child.setStatistics(statistics);
         Flag flag = new Flag();
         flag.setMappingId(mappingId);
         Value val = new Value();

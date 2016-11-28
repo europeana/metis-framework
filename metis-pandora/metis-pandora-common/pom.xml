@@ -62,12 +62,13 @@
             <groupId>xom</groupId>
             <artifactId>xom</artifactId>
             <version>1.2.5</version>
+            <!--
             <exclusions>
                 <exclusion>
                     <artifactId>xalan</artifactId>
                     <groupId>xalan</groupId>
                 </exclusion>
-            </exclusions>
+            </exclusions>-->
         </dependency>
         <dependency>
             <groupId>net.sf.saxon</groupId>
