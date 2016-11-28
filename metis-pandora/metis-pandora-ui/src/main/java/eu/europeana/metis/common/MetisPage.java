@@ -21,6 +21,7 @@ public abstract class MetisPage extends AbstractMetisPage {
 	@Override
 	public List<Entry<String, String>> resolveCssFiles() {
 		return Arrays.asList(new SimpleEntry<String, String>("https://europeanastyleguidetest.a.cdnify.io/css/pandora/screen.css", "all"),
+//		return Arrays.asList(new SimpleEntry<String, String>("http://localhost/css/pandora/screen.css", "all"),
 				new SimpleEntry<String, String>("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css", "all"));
 	}
 
@@ -41,7 +42,7 @@ public abstract class MetisPage extends AbstractMetisPage {
 	@Override
 	public List<Entry<String, String>> resolveBreadcrumbs() {
 		List<Entry<String, String>> breadcrumbs = new ArrayList<>();
-		breadcrumbs.add(new SimpleEntry<String, String>("Home", "/home-page"));
+		breadcrumbs.add(new SimpleEntry<String, String>("Home", "/"));
 		return breadcrumbs;
 	}
 
@@ -65,7 +66,9 @@ public abstract class MetisPage extends AbstractMetisPage {
 				new NavigationTopMenu("Entities", "#", null),
 				new NavigationTopMenu("Schemas (XSD)", "#", null));
 		items.add(new NavigationTopMenu("Management", "#", (current != null && current == 2), null, null, null, submenu));
-		header.addGlobal(false, true, "#", "Europeana Pandora", "main-menu", items);		
+		header.addGlobal(false, true, "#", "Europeana Metis", "main-menu", items, buildUtilityNavigation());		
 		return header;
 	}
+	
+	public abstract List<NavigationTopMenu> buildUtilityNavigation();
 }

@@ -1,12 +1,15 @@
 package eu.europeana.metis.page;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
+import eu.europeana.metis.mapping.organisms.global.NavigationTop;
+import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.Mapping_card;
 import eu.europeana.metis.mapping.util.MappingCardStub;
 
@@ -78,5 +81,12 @@ public class MappingToEdmPage extends MetisPage {
 		searchBox.put("search_box_label", "Search Label");
 		searchBox.put("search_box_hidden", "Search Hidden");
 		return searchBox;
+	}
+	
+	@Override
+	public List<NavigationTopMenu> buildUtilityNavigation() {
+		return Arrays.asList(
+				new NavigationTopMenu("Register", "/register", false),
+				new NavigationTopMenu("Login", "/login", true));
 	}
 }
