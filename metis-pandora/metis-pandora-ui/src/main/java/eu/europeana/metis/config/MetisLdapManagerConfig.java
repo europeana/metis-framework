@@ -30,6 +30,11 @@ import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
 
+/**
+ * The configuration is for Metis User authentication properties.
+ * @author alena
+ *
+ */
 @Configuration
 @PropertySource("classpath:/authentication.properties")
 public class MetisLdapManagerConfig {

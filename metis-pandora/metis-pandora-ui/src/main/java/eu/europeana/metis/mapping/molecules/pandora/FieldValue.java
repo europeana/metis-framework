@@ -8,7 +8,7 @@ import java.util.Map;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
 
 /**
- * 
+ * Java model representing a field value component: "/molecules/pandora/field-value".
  * @author alena
  *
  */

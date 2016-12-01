@@ -26,6 +26,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * This configuration sets up Metis web pages authorization.
+ * @author alena
+ *
+ */
 @Configuration
 @EnableWebSecurity
 public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {

@@ -46,9 +46,6 @@ public abstract class MetisPage extends AbstractMetisPage {
 		return breadcrumbs;
 	}
 
-	/**
-	 * @return Metis header object model.
-	 */
 	@Override
 	public NavigationTop buildHeader() {
 		Byte current = resolveCurrentPage();
@@ -70,5 +67,9 @@ public abstract class MetisPage extends AbstractMetisPage {
 		return header;
 	}
 	
+	/**
+	 * The method builds the model for the top-right menu Settings on a Metis page.
+	 * @return the list utility navigation menu items.
+	 */
 	public abstract List<NavigationTopMenu> buildUtilityNavigation();
 }

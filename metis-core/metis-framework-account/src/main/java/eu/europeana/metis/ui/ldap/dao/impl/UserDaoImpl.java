@@ -47,7 +47,7 @@ public class UserDaoImpl implements UserDao {
     public void create(User user) {
         LdapName userDn = buildDn(user.getEmail());
         user.setDn(userDn);
-        LdapName groupDn = buildRoleDn("europeana_admin");
+        LdapName groupDn = buildRoleDn("EUROPEANA_ADMIN");
         Group grp = ldapTemplate.findByDn(groupDn, Group.class);
         List<String> members = grp.getMembers();
         members.add(user.getDn().toString() + ",dc=europeana,dc=eu");
@@ -136,6 +136,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     private LdapName buildDn(String email) {
+    	if (email == null) {
+    		return null;
+    	}
         return LdapNameBuilder.newInstance()
                 .add("ou", "metis_authentication")
                 .add("ou", "users")

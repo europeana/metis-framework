@@ -1,0 +1,31 @@
+<div class="row metis-style-select">
+    <div class="col-md-12">
+        <div class="subject-info-box-1">
+            <label>Available Organizations</label>
+            <select multiple class="form-control" id="lstBox1">
+                {{#selection_list}}
+                    <option value="{{value}}">{{title}}</option>
+                {{/selection_list}}
+            </select>
+        </div>
+        <div class="subject-info-arrows text-center">
+            <br />
+            <br />
+            <input type='button' id='btnAllRight' value='>>' class="btn btn-default" />
+            <br />
+            <input type='button' id='btnRight' value='>' class="btn btn-default" />
+            <br />
+            <input type='button' id='btnLeft' value='<' class="btn btn-default" />
+            <br />
+            <input type='button' id='btnAllLeft' value='<<' class="btn btn-default" />
+        </div>
+
+        <div class="subject-info-box-2">
+            <label>Selected Organizations</label>
+            <select multiple class="form-control" id="lstBox2">
+
+            </select>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

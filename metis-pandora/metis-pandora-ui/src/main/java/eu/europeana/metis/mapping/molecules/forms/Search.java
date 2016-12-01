@@ -1,7 +1,7 @@
 package eu.europeana.metis.mapping.molecules.forms;
 
 /**
- * 
+ * Java model representing search box component: "/molecules/forms/search".
  * @author alena
  *
  */

@@ -104,7 +104,7 @@ public class MetisPageController {
 //    	}
     	userDao.create(user);
     	logger.info("*** User created: " + user.getFullName() + " ***");
-    	logger.info("*** User found: " + userDao.findByPrimaryKey(user.getEmail(), user.getFullName()) + " ***");
+    	logger.info("*** User found: " + userDao.findByPrimaryKey(user.getEmail()) + " ***");
     	return "login";
 
     }
