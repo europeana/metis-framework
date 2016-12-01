@@ -35,4 +35,6 @@ public interface MappingService {
     String setSchematronRulesForMapping(String mappingId, Set<String> schematronRules);
 
     String setNamespacesForMapping(String mappingId, Map<String, String> namespaces);
+
+    void uploadXslForMapping(String mappingId, String xsl);
 }

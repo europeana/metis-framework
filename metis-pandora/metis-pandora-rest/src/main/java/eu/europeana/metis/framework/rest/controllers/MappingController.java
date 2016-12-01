@@ -228,4 +228,11 @@ public class MappingController {
                                                 @ApiParam @RequestBody Attribute attribute) {
         return mappingService.getStatisticsForField(attribute, dataset);
     }
+
+    @RequestMapping(value=XSL_MAPPINGID,method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ApiOperation(value = "Upload an XSL for a mapping")
+    public void uploadXsl(@ApiParam("mappingId")@RequestParam String mappingId,@ApiParam @RequestBody String xsl){
+        mappingService.uploadXslForMapping(mappingId,xsl);
+    }
 }

@@ -236,5 +236,11 @@ public class MongoMappingService implements MappingService {
         return updateMapping(mapping);
     }
 
+    @Override
+    public void uploadXslForMapping(String mappingId, String xsl){
+        Mapping mapping = getByid(mappingId);
+        mapping.setXsl(xsl);
+        updateMapping(mapping);
+    }
 }
 

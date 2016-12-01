@@ -91,4 +91,9 @@ public class ExampleMappingService implements MappingService {
     public String setNamespacesForMapping(String mappingId, Map<String, String> namespaces) {
         return null;
     }
+
+    @Override
+    public void uploadXslForMapping(String mappingId, String xsl) {
+
+    }
 }
