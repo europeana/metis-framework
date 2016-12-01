@@ -28,7 +28,7 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	@Override
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		context.register(MetisSecurityConfig.class, MetisWebMvcConfig.class, MetisLdapManagerConfig.class);
+		context.register(MetisSecurityConfig.class, MetisWebMvcConfig.class, MetisLdapManagerConfig.class, MetisCMSConfig.class);
 		return context;
 	}
 	

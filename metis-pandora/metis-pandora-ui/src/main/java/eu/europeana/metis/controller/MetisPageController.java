@@ -1,5 +1,6 @@
 package eu.europeana.metis.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import eu.europeana.metis.mapping.util.MetisMappingUtil;
+import eu.europeana.metis.framework.organization.Organization;
+import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
+import eu.europeana.metis.framework.rest.client.ServerException;
 import eu.europeana.metis.page.AllDatasetsPage;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
@@ -25,7 +28,7 @@ import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 
 /**
- * 
+ * Metis web pages controller.
  * @author alena
  *
  */
@@ -36,6 +39,9 @@ public class MetisPageController {
 	
 	@Autowired
     private UserDao userDao;
+	
+	@Autowired
+	private DsOrgRestClient dsOrgRestClient;
 	
 //	@Autowired
 //	private LdapUserDetailsManager ldapUserDetailsManager;
@@ -175,6 +181,20 @@ public class MetisPageController {
     	
     	logger.info("*** User updated: " + user.getFullName() + " ***");	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
+		List<String> organizations = new ArrayList<>();
+		try {
+			List<Organization> allOrganizations = dsOrgRestClient.getAllOrganizations();
+			if (allOrganizations != null && !allOrganizations.isEmpty()) {
+				for (Organization o : allOrganizations) {
+					organizations.add(o.getName());
+				}
+			}
+		} catch (ServerException e) {
+			logger.error("ERROR: *** Zoho server exception: " + e.getMessage() + " ***");
+		} catch (Exception e) {
+			logger.error("ERROR: *** CMS exception: " + e.getMessage() + " ***");
+		}
+		metisLandingPage.buildOrganizationsList(organizations);
 //		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     	return modelAndView;
     }

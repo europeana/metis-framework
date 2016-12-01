@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ * Java model representing a navigation bar component: "/organisms/global/navigation-top-accessible".
  * @author alena
  *
  */

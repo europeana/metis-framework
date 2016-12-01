@@ -24,7 +24,8 @@ import com.github.mjeanroy.springmvc.view.mustache.handlebars.HandlebarsCompiler
 import eu.europeana.metis.controller.MetisPageController;
 
 /**
- * 
+ * Web MVC configuration of Metis web application.
+ * Handlebars is taken as a Java framework for rendering Mustache templates.
  * @author alena
  *
  */

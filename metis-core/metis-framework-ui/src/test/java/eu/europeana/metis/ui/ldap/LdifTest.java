@@ -59,7 +59,7 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
 		try {
 			LdapTemplate tmp = userDao.getLdapTemplate();
 			userDao.create(user);
-			User newUser = userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
+			User newUser = userDao.findByPrimaryKey("john.doe@europeana.eu");
 			List<User> users = userDao.findAll();
 			assertEquals(5,users.size());
 			assertEquals("john.doe@europeana.eu", newUser.getEmail());
@@ -71,7 +71,7 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
 			userDao.update(newUser);
 			List<User> usersNew = userDao.findAll();
 			assertEquals(5,usersNew.size());
-			User result = userDao.findByPrimaryKey("john.doe@europeana.eu", "John");
+			User result = userDao.findByPrimaryKey("john.doe@europeana.eu");
 			assertEquals("Doe2", result.getLastName());
 			assertEquals("Added new description", result.getDescription());
 			Assert.assertTrue(tmp.authenticate("cn=John,ou=users,ou=metis_authentication", "(&(objectclass=person)(objectclass=inetOrgPerson)(objectclass=organizationalPerson)(objectclass=top))"
@@ -83,7 +83,7 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
 		finally {
 			userDao.delete(user);
 			try {
-				Assert.assertNull(userDao.findByPrimaryKey("john.doe@europeana.eu", "John"));
+				Assert.assertNull(userDao.findByPrimaryKey("john.doe@europeana.eu"));
 				fail("NameNotFoundException for embedded LDAP or RuntimeException for normal LDAP");
 			} catch (NameNotFoundException e) {
 				//e.printStackTrace();
@@ -111,7 +111,7 @@ public class LdifTest extends AbstractJUnit4SpringContextTests {
 
 	@Test
 	public void testFindByPrimaryKey() {
-		User result = userDao.findByPrimaryKey("alena.fedasenka@europeana.eu", "Alena");
+		User result = userDao.findByPrimaryKey("alena.fedasenka@europeana.eu");
 		assertEquals("Fedasenka", result.getLastName());
 		assertEquals("alena.fedasenka@europeana.eu", result.getEmail());
 	}

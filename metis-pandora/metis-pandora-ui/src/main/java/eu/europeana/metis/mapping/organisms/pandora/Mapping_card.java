@@ -11,7 +11,7 @@ import eu.europeana.metis.mapping.statistics.StatisticsValue;
 import eu.europeana.metis.mapping.util.MappingCardStub;
 
 /**
- * 
+ * Java model representing a mapping card component: "/organisms/pandora/mapping-card".
  * @author alena
  *
  */
