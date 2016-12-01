@@ -53,6 +53,10 @@ public class DereferenceClient {
 
     }
 
+    public DereferenceClient(String hostUrl){
+        restTemplate = new RestTemplate();
+        this.hostUrl = hostUrl;
+    }
 
     /**
      * Create a vocabulary
@@ -143,4 +147,6 @@ public class DereferenceClient {
         }
         return restTemplate.getForObject(hostUrl + DEREFERENCE+"?uri=" + uriString, String.class);
     }
+
+
 }

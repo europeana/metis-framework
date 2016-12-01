@@ -121,6 +121,7 @@
             </releases>
         </repository>
 
+
         <!-- Europeana Labs Java.net Maven 2 Repository (mirror) -->
         <repository>
             <id>maven2-repository.dev.java.net</id>

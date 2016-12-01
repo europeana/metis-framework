@@ -34,6 +34,7 @@
         <module>metis-framework-rest</module>
         <module>metis-framework-ui</module>
         <module>metis-framework-rest-client</module>
+        <module>metis-framework-workflows</module>
     </modules>
     <packaging>pom</packaging>
 

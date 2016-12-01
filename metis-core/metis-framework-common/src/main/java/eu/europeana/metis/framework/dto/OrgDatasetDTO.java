@@ -15,7 +15,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.framework;
+package eu.europeana.metis.framework.dto;
 
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.organization.Organization;
