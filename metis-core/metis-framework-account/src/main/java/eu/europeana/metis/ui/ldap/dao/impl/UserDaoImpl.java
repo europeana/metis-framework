@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
         DirContextOperations context = ldapTemplate.lookupContext(groupDn);
         updateGroup(grp, context);
         ldapTemplate.modifyAttributes(context);
-        ldapTemplate.bind(userDn,null,buildUser(user));
+        ldapTemplate.bind(userDn, null, buildUser(user));
     }
 
     @Override
@@ -164,8 +164,8 @@ public class UserDaoImpl implements UserDao {
         context.setAttributeValue("sn", user.getLastName());
         context.setAttributeValue("givenName", user.getFullName());
         context.setAttributeValue("userPassword", user.getPasswordB());
-        context.setAttributeValue("Active", (user.isActive() + "").toUpperCase());
-        context.setAttributeValue("Approved", (user.isApproved() + "").toUpperCase());
+//        context.setAttributeValue("Active", (user.isActive() + "").toUpperCase());
+//        context.setAttributeValue("Approved", (user.isApproved() + "").toUpperCase());
     }
 
 
@@ -181,12 +181,10 @@ public class UserDaoImpl implements UserDao {
             attrs.put(ocattr);
             attrs.put("cn", user.getEmail());
             attrs.put("sn", user.getLastName());
-            attrs.put("uid",user.getEmail().toLowerCase());
-            attrs.put("givenName",user.getFullName());
-            attrs.put("userPassword",user.getPasswordB());
-            attrs.put("mail",user.getEmail());
-            attrs.put("Active", user.isActive());
-            attrs.put("Approved", user.isApproved());
+            attrs.put("uid", user.getEmail().toLowerCase());
+            attrs.put("givenName", user.getFullName());
+            attrs.put("userPassword", user.getPasswordB());
+            attrs.put("mail", user.getEmail());
             if(user.getDescription() != null) {
                 attrs.put("description", user.getDescription());
             }

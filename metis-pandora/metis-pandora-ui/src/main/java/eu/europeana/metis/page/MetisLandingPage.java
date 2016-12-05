@@ -90,15 +90,15 @@ public class MetisLandingPage extends MetisPage {
 		switch(this.pageView) {
 		case REGISTER:
 			utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		case LOGIN:
 			utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		case PROFILE:
 			utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", false));
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		default: 
 			if (user != null) {
@@ -117,6 +117,9 @@ public class MetisLandingPage extends MetisPage {
 	 * The content for the User Login page.
 	 */
 	private void buildLoginPageContent() {
+		if (isAuthError) {
+			contentMap.put("login_err_authenticate", ERROR_AUTH);
+		}
 		if (this.user == null) {
 			return;
 		}
@@ -126,9 +129,6 @@ public class MetisLandingPage extends MetisPage {
 		String password = user.getPassword();
 		contentMap.put("password", password);
 		
-		if (isAuthError) {
-			contentMap.put("login_err_authenticate", ERROR_AUTH);
-		}
 	}
 	
 	/**
