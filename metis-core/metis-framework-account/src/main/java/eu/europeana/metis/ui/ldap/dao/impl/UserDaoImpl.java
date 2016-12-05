@@ -162,9 +162,10 @@ public class UserDaoImpl implements UserDao {
         context.setAttributeValue("mail", user.getEmail());
         context.setAttributeValue("description", user.getDescription());
         context.setAttributeValue("sn", user.getLastName());
+        context.setAttributeValue("givenName", user.getFullName());
         context.setAttributeValue("userPassword", user.getPasswordB());
-        context.setAttributeValue("Active",user.isActive());
-        context.setAttributeValue("Approved",user.isApproved());
+        context.setAttributeValue("Active", (user.isActive() + "").toUpperCase());
+        context.setAttributeValue("Approved", (user.isApproved() + "").toUpperCase());
     }
 
 
@@ -184,7 +185,9 @@ public class UserDaoImpl implements UserDao {
             attrs.put("givenName",user.getFullName());
             attrs.put("userPassword",user.getPasswordB());
             attrs.put("mail",user.getEmail());
-            if(user.getDescription()!=null) {
+            attrs.put("Active", user.isActive());
+            attrs.put("Approved", user.isApproved());
+            if(user.getDescription() != null) {
                 attrs.put("description", user.getDescription());
             }
             return attrs;

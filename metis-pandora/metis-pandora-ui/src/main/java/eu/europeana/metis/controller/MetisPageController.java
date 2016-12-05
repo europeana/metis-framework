@@ -203,7 +203,7 @@ public class MetisPageController {
     public ModelAndView updateUser(@ModelAttribute User user, Model model) { 
     	model.addAttribute("user", user);
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
-    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE);
+    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	User userFound = userDao.findByPrimaryKey(user.getEmail());
     	if (userFound != null) {
     		userDao.update(user);
