@@ -126,8 +126,8 @@ public class MetisLandingPage extends MetisPage {
 		String email = this.user.getEmail();
 		contentMap.put("email", email);			
 
-		String password = user.getPassword();
-		contentMap.put("password", password);
+//		byte[] password = user.getPassword();
+//		contentMap.put("password", password);
 		
 	}
 	
