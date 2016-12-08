@@ -57,7 +57,7 @@
                                 </artifactItem>
                             </artifactItems>
                             <overWriteIfNewer>true</overWriteIfNewer>
-                            <outputDirectory>${project.basedir}/src/main/webapp</outputDirectory>
+                            <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
