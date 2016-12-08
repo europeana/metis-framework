@@ -1,13 +1,25 @@
 package eu.europeana.metis.workflow.qa.model;
 
 import eu.europeana.metis.framework.workflow.CloudStatistics;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 
 import java.util.List;
 
 /**
  * Created by ymamakis on 11/22/16.
  */
+@Entity
 public class QAStatistics implements CloudStatistics {
+    @Id
+    private ObjectId id;
+
+
+    @Indexed
+    private String executionId;
+
     /**
      * number of deleted records in this execution
      */
@@ -99,5 +111,22 @@ public class QAStatistics implements CloudStatistics {
     @Override
     public List<String> getFailedRecords() {
         return failedRecords;
+    }
+
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(ObjectId id) {
+        this.id = id;
+    }
+
+    public String getExecutionId() {
+        return executionId;
+    }
+
+    public void setExecutionId(String executionId) {
+        this.executionId = executionId;
     }
 }
