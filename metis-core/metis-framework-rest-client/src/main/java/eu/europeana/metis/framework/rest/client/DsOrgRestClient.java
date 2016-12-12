@@ -17,7 +17,7 @@
 package eu.europeana.metis.framework.rest.client;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.framework.OrgDatasetDTO;
+import eu.europeana.metis.framework.dto.OrgDatasetDTO;
 import eu.europeana.metis.framework.common.Contact;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.DatasetList;

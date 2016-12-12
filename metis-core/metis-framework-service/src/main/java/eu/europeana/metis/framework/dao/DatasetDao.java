@@ -149,4 +149,8 @@ public class DatasetDao implements MetisDao<Dataset> {
         return organization;
     }
 
+    public boolean exists(String name){
+        return provider.getDatastore().find(Dataset.class).filter("name",name).get()!=null;
+    }
+
 }

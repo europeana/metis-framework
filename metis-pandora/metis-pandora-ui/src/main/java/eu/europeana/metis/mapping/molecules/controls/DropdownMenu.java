@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 
+ * Java model representing Mustache drop-down menu component: "/molecules/controls/dropdown-menu".
  * @author alena
  *
  */

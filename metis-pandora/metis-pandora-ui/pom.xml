@@ -57,7 +57,7 @@
                                 </artifactItem>
                             </artifactItems>
                             <overWriteIfNewer>true</overWriteIfNewer>
-                            <outputDirectory>${project.basedir}/src/main/webapp</outputDirectory>
+                            <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -88,6 +88,17 @@
             <artifactId>metis-framework-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+		<dependency>
+        	<groupId>eu.europeana.metis</groupId>
+			<artifactId>metis-pandora-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+ 		<dependency>
+        	<groupId>eu.europeana.metis</groupId>
+			<artifactId>metis-framework-rest-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		
         <!-- Spring core, security, ldap & mvc -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -219,11 +230,10 @@
 	        <version>2.2.3</version>
 	    </dependency>
 	    
-        <!-- Metis Mapping Back-End -->
-		<dependency>
-        	<groupId>eu.europeana.metis</groupId>
-			<artifactId>metis-pandora-common</artifactId>
-			<version>1.0-SNAPSHOT</version>
-		</dependency>
+	   <dependency>
+			<groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.0</version>
+        </dependency>
 	</dependencies>
 </project>

@@ -83,4 +83,12 @@ public class DatasetService {
         return dataset;
     }
 
+    /**
+     * Check if a dataset exists
+     * @param name The dataset identifier
+     * @return true if it exists false otherwise
+     */
+    public boolean exists(String name){
+        return dsDao.exists(name);
+    }
 }

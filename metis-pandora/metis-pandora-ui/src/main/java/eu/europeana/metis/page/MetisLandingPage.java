@@ -1,5 +1,6 @@
 package eu.europeana.metis.page;
 
+import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,8 +11,15 @@ import java.util.Map.Entry;
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
+import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.ui.ldap.domain.User;
 
+/**
+ * This web-page represents a Metis Landing page and all user account pages like: Login page,
+ * User Profile page, Register User page.
+ * @author alena
+ *
+ */
 public class MetisLandingPage extends MetisPage {
 	
 	private PageView pageView = PageView.EMPTY;
@@ -82,50 +90,59 @@ public class MetisLandingPage extends MetisPage {
 		switch(this.pageView) {
 		case REGISTER:
 			utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		case LOGIN:
 			utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		case PROFILE:
 			utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", false));
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		default: 
 			if (user != null) {
 				utilityNavigationMenu.add(new NavigationTopMenu("Profile", "/profile", true));
 				utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", true));
 			} else {
+				utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
 				utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));				
 			}
-			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/home", true));
 			break;
 		}
 		return utilityNavigationMenu;
 	}
 
+	/**
+	 * The content for the User Login page.
+	 */
 	private void buildLoginPageContent() {
+		if (isAuthError) {
+			contentMap.put("login_err_authenticate", ERROR_AUTH);
+		}
 		if (this.user == null) {
 			return;
 		}
 		String email = this.user.getEmail();
 		contentMap.put("email", email);			
 
-		String password = user.getPassword();
-		contentMap.put("password", password);
+//		byte[] password = user.getPassword();
+//		contentMap.put("password", password);
 		
-		if (isAuthError) {
-			contentMap.put("login_err_authenticate", ERROR_AUTH);
-		}
 	}
 	
+	/**
+	 * The content for the Register User page.
+	 */
 	private void buildRegisterPageContent() {
 		if (isDuplicateUser) {
 			contentMap.put("register_err_duplicate_user", ERROR_DUPLICATE_USER);
 		}
 	}
 	
+	/**
+	 * The content for the User Profile page.
+	 */
 	private void buildProfilePageContent() {
 		if (this.user == null) {
 			return;
@@ -145,12 +162,26 @@ public class MetisLandingPage extends MetisPage {
 			country.put("value", c.getIsoCode());
 			country.put("text", c.getName());
 			//FIXME add the check if the country is chosen! Waiting for Yorgos' implementation of Metis DBUser
-			if (false) {
-				country.put("selected", "selected");
-			}
+//			if (false) {
+//				country.put("selected", "selected");
+//			}
 			countries.add(country);
 		}
 		contentMap.put("countries", countries);
+	}
+	
+	/**
+	 * Transforms the list of organizations to a mustache model.
+	 * @param organizations
+	 */
+	public void buildOrganizationsList(List<String> organizations) {
+		if (organizations != null && !organizations.isEmpty()) {
+			List<Entry<String, String>> pairs = new ArrayList<>();
+			for (int i = 0; i < organizations.size(); i ++) {
+				pairs.add(new AbstractMap.SimpleEntry<String, String>(i + "", organizations.get(i)));
+			}
+			contentMap.put("selection_list", MetisMappingUtil.buildSimplePairs(pairs, "value", "title"));
+		}
 	}
 	
 	public Boolean getIsDuplicateUser() {

@@ -17,26 +17,29 @@
 
 package eu.europeana.metis.ui.ldap.dao.impl;
 
-import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.domain.Group;
-import eu.europeana.metis.ui.ldap.domain.User;
+import static org.springframework.ldap.query.LdapQueryBuilder.query;
+
+import java.util.List;
+
+import javax.naming.NamingException;
+import javax.naming.directory.Attribute;
+import javax.naming.directory.Attributes;
+import javax.naming.directory.BasicAttribute;
+import javax.naming.directory.BasicAttributes;
+import javax.naming.ldap.LdapName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.support.LdapNameBuilder;
 
-import javax.naming.NamingException;
-import javax.naming.directory.Attributes;
-import javax.naming.directory.BasicAttribute;
-import javax.naming.directory.BasicAttributes;
-import javax.naming.ldap.LdapName;
-import java.util.List;
-
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
+import eu.europeana.metis.ui.ldap.dao.UserDao;
+import eu.europeana.metis.ui.ldap.domain.Group;
+import eu.europeana.metis.ui.ldap.domain.User;
 
 public class UserDaoImpl implements UserDao {
-
+	
     @Autowired
     private LdapTemplate ldapTemplate;
 
@@ -47,7 +50,7 @@ public class UserDaoImpl implements UserDao {
     public void create(User user) {
         LdapName userDn = buildDn(user.getEmail());
         user.setDn(userDn);
-        LdapName groupDn = buildRoleDn("europeana_admin");
+        LdapName groupDn = buildRoleDn("EUROPEANA_ADMIN");
         Group grp = ldapTemplate.findByDn(groupDn, Group.class);
         List<String> members = grp.getMembers();
         members.add(user.getDn().toString() + ",dc=europeana,dc=eu");
@@ -55,7 +58,7 @@ public class UserDaoImpl implements UserDao {
         DirContextOperations context = ldapTemplate.lookupContext(groupDn);
         updateGroup(grp, context);
         ldapTemplate.modifyAttributes(context);
-        ldapTemplate.bind(userDn,null,buildUser(user));
+        ldapTemplate.bind(userDn, null, buildUser(user));
     }
 
     @Override
@@ -136,6 +139,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     private LdapName buildDn(String email) {
+    	if (email == null) {
+    		return null;
+    	}
         return LdapNameBuilder.newInstance()
                 .add("ou", "metis_authentication")
                 .add("ou", "users")
@@ -159,9 +165,12 @@ public class UserDaoImpl implements UserDao {
         context.setAttributeValue("mail", user.getEmail());
         context.setAttributeValue("description", user.getDescription());
         context.setAttributeValue("sn", user.getLastName());
-        context.setAttributeValue("userPassword", user.getPasswordB());
-        context.setAttributeValue("Active",user.isActive());
-        context.setAttributeValue("Approved",user.isApproved());
+        context.setAttributeValue("givenName", user.getFullName());
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+        	context.setAttributeValue("userPassword", user.getPassword());        	
+        }
+        context.setAttributeValue("Active", (user.isActive() + "").toUpperCase());
+        context.setAttributeValue("Approved", (user.isApproved() + "").toUpperCase());
     }
 
 
@@ -174,14 +183,20 @@ public class UserDaoImpl implements UserDao {
             ocattr.add("organizationalPerson");
             ocattr.add("person");
             ocattr.add("inetOrgPerson");
+            ocattr.add("metisUser");
             attrs.put(ocattr);
             attrs.put("cn", user.getEmail());
             attrs.put("sn", user.getLastName());
-            attrs.put("uid",user.getEmail().toLowerCase());
-            attrs.put("givenName",user.getFullName());
-            attrs.put("userPassword",user.getPasswordB());
-            attrs.put("mail",user.getEmail());
-            if(user.getDescription()!=null) {
+            attrs.put("uid", user.getEmail().toLowerCase());
+            attrs.put("givenName", user.getFullName());
+            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            	attrs.put("userPassword", user.getPassword());
+            }
+            attrs.put("mail", user.getEmail());
+            attrs.put("Active", (user.isActive() + "").toUpperCase());
+            attrs.put("Approved", (user.isApproved() + "").toUpperCase());
+            
+            if(user.getDescription() != null) {
                 attrs.put("description", user.getDescription());
             }
             return attrs;

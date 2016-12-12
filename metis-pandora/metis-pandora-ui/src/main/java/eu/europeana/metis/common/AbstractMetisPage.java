@@ -86,15 +86,33 @@ public abstract class AbstractMetisPage {
 		this.breadcrumbs = resolveBreadcrumbs();
 	}
 
+	/**
+	 * @return list of css-files to apply for a Metis page.
+	 */
 	public abstract List<Entry<String, String>> resolveCssFiles();
 	
+	/**
+	 * @return list of js-files to apply for a Metis page.
+	 */
 	public abstract List<Entry<String, String>> resolveJsFiles();
 	
+	/**
+	 * @return list of js-vars to apply for a Metis page.
+	 */
 	public abstract List<Entry<String, String>> resolveJsVars();
 	
+	/**
+	 * @return list of breadcrumbs for Metis page.
+	 */
 	public abstract List<Entry<String, String>> resolveBreadcrumbs();
 	
+	/**
+	 * @param model is to populate the content of a main body of a Metis page.
+	 */
 	public abstract void addPageContent(Map<String, Object> model);
 	
+	/**
+	 * @return Metis header object model.
+	 */
 	public abstract NavigationTop buildHeader();
 }

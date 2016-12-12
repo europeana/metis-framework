@@ -16,7 +16,7 @@
  */
 package eu.europeana.metis.framework.rest;
 
-import eu.europeana.metis.framework.OrgDatasetDTO;
+import eu.europeana.metis.framework.dto.OrgDatasetDTO;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.service.DatasetService;

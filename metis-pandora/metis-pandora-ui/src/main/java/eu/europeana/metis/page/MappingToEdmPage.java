@@ -8,7 +8,6 @@ import java.util.Map;
 
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
-import eu.europeana.metis.mapping.organisms.global.NavigationTop;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.Mapping_card;
 import eu.europeana.metis.mapping.util.MappingCardStub;
