@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:adms="http://www.w3.org/ns/adms#"
+         xmlns:cc="http://creativecommons.org/ns#"
+         xmlns:crm="http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:dcat="http://www.w3.org/ns/dcat#"
+         xmlns:dcterms="http://purl.org/dc/terms/"
+         xmlns:doap="http://usefulinc.com/ns/doap#"
+         xmlns:edm="http://www.europeana.eu/schemas/edm/"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:odrl="http://www.w3.org/ns/odrl/2/"
+         xmlns:ore="http://www.openarchives.org/ore/terms/"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+         xmlns:svcs="http://rdfs.org/sioc/services#"
+         xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#"
+         xmlns:xalan="http://xml.apache.org/xalan"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+   <edm:ProvidedCHO rdf:about="ivrla:3827"/>
+   <edm:WebResource rdf:about="https://iiif.ucd.ie/loris/ivrla:3828/full/full/0/default.jpg">
+      <dc:format>image/jpeg</dc:format>
+      <dcterms:extent xml:lang="en">1 still image : digital</dcterms:extent>
+      <dcterms:extent>6070x3884 pixels</dcterms:extent>
+      <dcterms:extent>68 MB</dcterms:extent>
+      <dcterms:extent>21.5 x 33.5 (cm)</dcterms:extent>
+      <dcterms:isReferencedBy rdf:resource="https://data.ucd.ie/api/img/manifests/ivrla:3827"/>
+      <svcs:has_service rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828"/>
+   </edm:WebResource>
+   <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85078106#concept">
+      <skos:prefLabel xml:lang="en">Logic</skos:prefLabel>
+   </skos:Concept>
+   <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85091626#concept">
+      <skos:prefLabel xml:lang="en">Newspapers Sections, columns, etc Reviews</skos:prefLabel>
+   </skos:Concept>
+   <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85033035#concept">
+      <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+   </skos:Concept>
+   <skos:Concept rdf:about="http://id.loc.gov/authorities/subjects/sh85033035#concept">
+      <skos:prefLabel xml:lang="en">Correspondence</skos:prefLabel>
+   </skos:Concept>
+   <ore:Aggregation rdf:about="ivrla:3827_Aggregation">
+      <edm:aggregatedCHO rdf:resource="ivrla:3827"/>
+      <edm:dataProvider>UCD Library</edm:dataProvider>
+      <edm:dataProvider>University College Dublin</edm:dataProvider>
+      <edm:isShownAt rdf:resource="https://digital.ucd.ie/view/ivrla:3827"/>
+      <edm:isShownBy rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828/full/full/0/default.jpg"/>
+      <edm:object rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828/full/600,/0/default.jpg"/>
+      <edm:provider>University College Dublin</edm:provider>
+      <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+   </ore:Aggregation>
+   <ore:Proxy rdf:about="ivrla:3827">
+      <dc:description xml:lang="en">Physical location: UCD Library, UCD Library Special Collections, UCD Letters, UCD L 1</dc:description>
+      <dc:format xml:lang="en">1 letter 21.5 x 33.5</dc:format>
+      <dc:format>image/jpeg</dc:format>
+      <dc:identifier>OB_1000000_SC</dc:identifier>
+      <dc:identifier>EADseries:IVRLA10-I:1</dc:identifier>
+      <dc:identifier>ivrla:3827</dc:identifier>
+      <dc:identifier>http://digital.ucd.ie/view/ivrla:3827</dc:identifier>
+      <dc:language>en</dc:language>
+      <dc:rights xml:lang="en">© University College Dublin, National University of Ireland, Dublin. Copyright and reproduction rights for this digital resource are held by University College Dublin and administered by UCD Archives, UCD James Joyce Library, Belfield, Dublin 4, Ireland.</dc:rights>
+      <dc:rights xml:lang="en">To use for commercial purposes, please contact the UCD Digital Library</dc:rights>
+      <dc:rights xml:lang="en">Suggested credit: "[Letter from John Henry Newman (Oriel College) to Dr Richard Whately, commenting on and enclosing notes on a review on 'Dr Whateley's Logic', in the Edinburgh Review of April 1833 ]," held by UCD Archives. © University College Dublin. Digital content: © University College Dublin, published by UCD Library, University College Dublin &lt;http://digital.ucd.ie/view/ivrla:3827&gt;</dc:rights>
+      <dc:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/">Use of this resource is governed by the Creative Commons - Attribution, Non-Commercial, ShareAlike (BY-NC-SA) license.</dc:rights>
+      <dc:source xml:lang="en">UCD Library, University College Dublin UCD Library, University College Dublin</dc:source>
+      <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85078106#concept"/>
+      <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85091626#concept"/>
+      <dc:subject rdf:resource="http://id.loc.gov/authorities/subjects/sh85033035#concept"/>
+      <dc:subject xml:lang="en">Whately, Richard, 1787-1863</dc:subject>
+      <dc:subject xml:lang="en">Newman, John Henry, 1801-1890--Correspondence</dc:subject>
+      <dc:subject xml:lang="en">Whately, Richard, 1787-1863--Correspondence</dc:subject>
+      <dc:subject xml:lang="en">Logic</dc:subject>
+      <dc:subject xml:lang="en">Newspapers--Sections, columns, etc--Reviews</dc:subject>
+      <dc:subject xml:lang="en">Correspondence</dc:subject>
+      <dc:title xml:lang="en">[Letter from John Henry Newman (Oriel College) to Dr. Richard Whately, commenting on and enclosing notes on a review on 'Dr. Whateley's Logic', in the Edinburgh Review of April 1833 .]</dc:title>
+      <dc:type xml:lang="en">text</dc:type>
+      <dc:type xml:lang="en">Correspondence</dc:type>
+      <dcterms:isPartOf rdf:resource="ivrla:3573"/>
+      <dc:contributor rdf:resource="http://viaf.org/viaf/17227308" rdfs:label="Author"/>
+      <dc:contributor rdf:resource="http://viaf.org/viaf/22950329" rdfs:label="Author"/>
+      <edm:type>TEXT</edm:type>
+   </ore:Proxy>
+   <edm:EuropeanaAggregation rdf:about="ivrla:3827_EuropeanaAggregation">
+      <edm:aggregatedCHO rdf:resource="ivrla:3827"/>
+      <edm:country>Ireland</edm:country>
+      <edm:language>en</edm:language>
+      <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
+   </edm:EuropeanaAggregation>
+   <svcs:Service rdf:about="https://iiif.ucd.ie/loris/ivrla:3828">
+      <dcterms:conformsTo rdf:resource="http://iiif.io/api/image"/>
+      <dcterms:isReferencedBy rdf:resource="https://data.ucd.ie/api/img/manifests/ivrla:3827"/>
+      <doap:implements rdf:resource="http://iiif.io/api/image/2/level2.json"/>
+   </svcs:Service>
+</rdf:RDF>
