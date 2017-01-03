@@ -59,6 +59,9 @@ public class Orchestrator {
             List<String> paramList = new ArrayList<>();
             paramList.add(datasetId);
             params.put(WorkflowParameters.DATASET,paramList);
+            List<String> executionParams = new ArrayList<>();
+            executionParams.add(execution.getId().toString());
+            params.put(WorkflowParameters.EXECUTION,executionParams);
             workflow.setParameters(params);
             execution.setStatisticsUrl("/" + execution.getId().toString());
             execution.setExecutionParameters(params);
@@ -166,7 +169,7 @@ public class Orchestrator {
         if (activeExecutions != null && activeExecutions.size() > 0) {
             for (Execution activeExecution : activeExecutions) {
                 UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
-                ops.add("updatedAt", new Date());
+                ops.set("updatedAt", new Date());
                 ExecutionStatistics stats = activeExecution.getStatistics();
                 if (stats == null) {
                     stats = new ExecutionStatistics();
@@ -177,7 +180,11 @@ public class Orchestrator {
                 stats.setCreated(statistics.getCreated());
                 stats.setDeleted(statistics.getDeleted());
                 stats.setUpdated(statistics.getUpdated());
-                ops.add("statistics", stats);
+                ops.set("statistics", stats);
+                if(StringUtils.equals(stats.getStatus(),"finished")){
+                    ops.set("finishedAt",new Date());
+                    ops.set("active",false);
+                }
                 executionDao.update(executionDao.createQuery().filter("id", activeExecution.getId()), ops);
                 if(statistics.getFailedRecords().size()>0){
                     FailedRecords failedRecords = getFailed(activeExecution.getId().toString());
@@ -276,7 +283,7 @@ public class Orchestrator {
         ops.set("cancelled", true);
         ops.set("finishedAt", new Date());
         //TODO set cancelled in Europeana Cloud
-        executionDao.update(executionDao.createQuery().filter("id", id), ops);
+        executionDao.update(executionDao.createQuery().filter("id", new ObjectId(id)), ops);
     }
 
     /**
