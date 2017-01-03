@@ -15,8 +15,10 @@ import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 @Configuration
 public class MetisCMSConfig {
 
+	private String hostURL = "http://metis-framework-test.cfapps.io";
+	
 	@Bean
 	public DsOrgRestClient dsOrgRestClient() {
-		return new DsOrgRestClient("http://metis-framework-test.cfapps.io");
+		return new DsOrgRestClient(hostURL);
 	}
 }

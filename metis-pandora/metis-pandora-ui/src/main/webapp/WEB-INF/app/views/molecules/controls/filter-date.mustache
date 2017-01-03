@@ -10,24 +10,18 @@
     <div class="filter-controls">
       <div class="control-group date from">
         <label for="date-range-start">{{i18n.global.facet.year.from}}</label>
-        <input id="date-range-start" name="{{range.start.input_name}}" type="number" value="{{range.start.input_value}}">
+        <input id="date-range-start" name="{{range.start.input_name}}" type="number" autocomplete="off" value="{{range.start.input_value}}">
       </div>
 
       <div class="control-group date to">
         <label for="date-range-end">{{i18n.global.facet.year.to}}</label>
-        <input id="date-range-end" name="{{range.end.input_name}}" type="number" value="{{range.end.input_value}}">
+        <input id="date-range-end" name="{{range.end.input_name}}" type="number" autocomplete="off" value="{{range.end.input_value}}">
       </div>
 
       <div class="control-group submit">
         <button type="submit" form="date-facet-form" value="Submit">
           <svg class="icon icon-check"><use xlink:href="#icon-check"></use></svg>
         </button>
-
-<!--
-
-         {{{i18n.global.facet.filter}}}
- -->
-
       </div>
     </div>
 

@@ -27,9 +27,6 @@ import org.springframework.security.ldap.DefaultLdapUsernameToDnMapper;
 import org.springframework.security.ldap.userdetails.InetOrgPersonContextMapper;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
 
-import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
-
 /**
  * The configuration is for Metis User authentication properties.
  * @author alena
@@ -76,7 +73,6 @@ public class MetisLdapManagerConfig {
 		LdapContextSource ldapContextSource = new LdapContextSource();
 		ldapContextSource.setUrl(ldapUrl);
 		ldapContextSource.setUserDn(ldapManagerDn);
-		//ldapContextSource.setBase(ldapBaseDn);
 		ldapContextSource.setPassword(ldapPwd);
 		return ldapContextSource;
 	}
@@ -93,7 +89,7 @@ public class MetisLdapManagerConfig {
 	
 	@Bean
 	public DefaultLdapUsernameToDnMapper defaultLdapUsernameToDnMapper() {
-	    return new DefaultLdapUsernameToDnMapper("ou=users", "uid");// "uid"
+	    return new DefaultLdapUsernameToDnMapper("ou=users", "uid"); // "uid"
 	}
 
 	@Bean
@@ -106,30 +102,4 @@ public class MetisLdapManagerConfig {
 	    userManager.setGroupMemberAttributeName("member");
 	    return userManager;
 	}
-	
-	@Bean
-	public UserDao userDao() {
-		return new UserDaoImpl();
-	}
-
-//	@Bean
-//	public EmbeddedLdapServerFactoryBean embeddedLdapServer() {
-//		EmbeddedLdapServerFactoryBean embeddedLdapServerFactoryBean = new EmbeddedLdapServerFactoryBean();
-//		embeddedLdapServerFactoryBean.setPartitionName("example");
-//		embeddedLdapServerFactoryBean.setPartitionSuffix(base);
-//		embeddedLdapServerFactoryBean.setPort(18880);		
-//		return embeddedLdapServerFactoryBean;
-//	}
-//	
-//	@Bean
-//	@DependsOn("embeddedLdapServer")
-//	public LdifPopulator ldifPopulator() {
-//		LdifPopulator ldifPopulator = new LdifPopulator();
-//		ldifPopulator.setContextSource(contextSource());
-//		ldifPopulator.setResource(new ClassPathResource("/metis-ldap.ldif"));
-//		ldifPopulator.setBase(base);
-//		ldifPopulator.setDefaultBase("dc=europeana,dc=eu");
-//		ldifPopulator.setClean(Boolean.valueOf(clean));
-//		return ldifPopulator;
-//	}
 }

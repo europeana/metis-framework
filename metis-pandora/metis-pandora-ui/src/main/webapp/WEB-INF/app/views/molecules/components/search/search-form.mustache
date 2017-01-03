@@ -1,4 +1,21 @@
-<form action="{{form_search.action}}" class="search-multiterm">
+<form action="{{form_search.action}}"
+
+  {{^form_search.autocomplete}}
+    class="search-multiterm"
+  {{/form_search.autocomplete}}
+
+  {{#form_search.autocomplete}}
+    class="search-multiterm scroll-trigger"
+    data-enabled="true"
+    data-enabled="true"
+    data-fire-on-open="addAutocomplete"
+    data-fire-on-open-params='{
+     "url": "{{url}}",
+     "translations":{ "Agent":"{{translations.agents}}", "Place":"{{translations.places}}", "Concepts":"{{translations.concepts}}" }
+    }'
+  {{/form_search.autocomplete}}
+
+  >
   <div class="inputarea js-hitarea">
 
     {{#grid_view_active}}
@@ -8,31 +25,33 @@
     {{#input_search}}
 
       {{#has_original}}
-          <input type="hidden" name="q" value="{{input_original.value}}"/>
+        <input type="hidden" name="q" value="{{input_original.value}}"/>
       {{/has_original}}
 
-      {{^has_original}}
-      <input class="search-input js-search-input js-placeholder" type="text"
-      {{#title}}title="{{title}}" {{/title}}
-      {{#input_name}}name="{{input_name}}" {{/input_name}}
-      {{#placeholder}}placeholder="{{placeholder}}" {{/placeholder}}
-      />
-      {{/has_original}}
-
-
-      {{#has_original}}
       <ul class="search-tags js-search-tags">
-
-          <li class="search-tag">{{input_original.value}}<a href="{{input_original.remove}}" data-role="remove"><span class="is-vishidden">Remove {{input_original.value}}</span></a></li>
-
         {{#input_values}}
-          <li class="search-tag">
-          {{value}}
-          <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
-          <a href="{{remove}}" data-role="remove"><span class="is-vishidden">Remove {{value}}</span></a>
-          </li>
+          {{#is_mlt}}
+            <li class="search-tag mlt">
+              {{i18n.site.navigation.breadcrumb.results_list_mlt}}
+              <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
+              <a href="{{remove}}" class="mlt_remove" data-role="remove"><span class="is-vishidden">Remove {{value}}</span></a>
+            </li>
+        {{/is_mlt}}
         {{/input_values}}
 
+        {{#input_values}}
+          {{^is_mlt}}
+            <li class="search-tag">
+              {{value}}
+              <input type="hidden" name="{{name}}" value="{{value}}" class="js-hidden-search-term"/>
+              <a href="{{remove}}" data-role="remove"><span class="is-vishidden">Remove {{value}}</span></a>
+            </li>
+          {{/is_mlt}}
+        {{/input_values}}
+
+        {{#input_original.value}}
+          <li class="search-tag">{{.}}<a href="{{input_original.remove}}" data-role="remove"><span class="is-vishidden">Remove {{.}}</span></a></li>
+        {{/input_original.value}}
 
         <li class="search-input-item">
           <input class="search-input js-search-input js-placeholder" type="text"
@@ -40,10 +59,7 @@
           {{#input_name}}name="{{input_name}}" {{/input_name}}
           {{#placeholder}}placeholder="{{placeholder}}" {{/placeholder}}/>
         </li>
-
       </ul>
-      {{/has_original}}
-
 
     {{/input_search}}
 

@@ -1,8 +1,8 @@
 {{#show_bars}}
   <div class="sparkline">
-    <div class="sparkline-data">
+    <div class="sparkline-data{{#show_borders}} borders{{/show_borders}}">
         {{#data}}
-        <a class="index" href="{{url}}" title="{{value}}"><span class="count" style="height: {{percent_of_max}}%;">{{value}}</span> </a>
+        <a class="index" {{#url}}href="{{.}}"{{/url}} title="{{value}}"><span class="count" style="height: {{percent_of_max}}%;">{{value}}</span> </a>
         {{/data}}
     </div>
 

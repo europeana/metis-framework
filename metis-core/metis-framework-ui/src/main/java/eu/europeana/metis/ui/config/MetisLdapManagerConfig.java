@@ -16,8 +16,6 @@
  */
 package eu.europeana.metis.ui.config;
 
-import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,22 +63,6 @@ public class MetisLdapManagerConfig {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-
-	/*
-	@Bean
-	public LdapContextSource contextSource() {
-	    LdapContextSource ldapContextSource = new LdapContextSource();
-	    ldapContextSource.setUrl(url);
-	    ldapContextSource.setBase(base);
-	    ldapContextSource.setUserDn(dn);
-	    ldapContextSource.setPassword(pwd);
-	    return ldapContextSource;
-	}
-
-
-*/
-
-
 	@Bean
 	public LdapContextSource contextSource() {
 		LdapContextSource ldapContextSource = new LdapContextSource();
@@ -118,6 +100,16 @@ public class MetisLdapManagerConfig {
 
 	/*
 	@Bean
+	public LdapContextSource contextSource() {
+		LdapContextSource ldapContextSource = new LdapContextSource();
+		ldapContextSource.setUrl(url);
+		ldapContextSource.setBase(base);
+		ldapContextSource.setUserDn(dn);
+		ldapContextSource.setPassword(pwd);
+		return ldapContextSource;
+	}
+
+	@Bean
 	public EmbeddedLdapServerFactoryBean embeddedLdapServer() {
 		EmbeddedLdapServerFactoryBean embeddedLdapServerFactoryBean = new EmbeddedLdapServerFactoryBean();
 		embeddedLdapServerFactoryBean.setPartitionName("example");
@@ -137,11 +129,5 @@ public class MetisLdapManagerConfig {
 		ldifPopulator.setClean(Boolean.valueOf(clean));
 		return ldifPopulator;
 	}
-
-*/
-	
-	@Bean
-	public UserDao userDao() {
-		return new UserDaoImpl();
-	}
+	*/
 }

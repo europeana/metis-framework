@@ -2,6 +2,8 @@
 {{> organisms/global/header_v2}}
 
 <div role="main" class="search-object">
+  {{> molecules/components/search/search-form-navbar }}
+  <!--
   <div class="object-nav cf">
     <div class="object-nav-lists">
       <ul class="breadcrumbs">
@@ -15,6 +17,7 @@
     </div>
     {{>molecules/forms/search-item-navigation}}
   </div>
+  -->
   {{#content}}
     {{#object.media}}
       <section class="object-display" id="maincontent">
@@ -264,6 +267,10 @@
               {{> organisms/sections/object-data-section }}
             {{/places }}
 
+            {{#annotations}}
+              {{> organisms/sections/object-data-section }}
+            {{/annotations}}
+
             {{#provenance}}
               {{> organisms/sections/object-data-section }}
             {{/provenance}}
@@ -323,7 +330,8 @@
                          }'
                         ></a>
                       <span id="js-map-place-name" class="is-hidden">{{geo.placeName}}</span>
-                      <div id="map">
+                      <a id="map" style="bottom:4.8em; position: relative;"></a>
+                      <div class="map">
                         <div><b>{{geo.labels.longitude}}</b> {{#geo.longitude}}{{.}}{{/geo.longitude}}</div>
                         <div><b>{{geo.labels.latitude}}</b> {{#geo.latitude}}{{.}}{{/geo.latitude}}</div>
                       </div>

@@ -1,6 +1,13 @@
 <div class="data-section cf">
   <h3 class="subsection-label">
     {{ title }}
+    {{#info}}
+      <a class="eu-tooltip-anchor" href="{{.}}">
+        <svg class="icon icon-help">
+          <use xlink:href="#icon-help"/>
+        </svg>
+      </a>
+    {{/info}}
   </h3>
   <div class="subsection-content">
 
@@ -11,7 +18,7 @@
             {{#title }}<h4 class="data-header">{{.}}:</h4>{{/title }}
             <ul class="comma-list data-group">
               {{# items }}
-                <li {{#is_desc}}class="split-items"{{/is_desc}}>
+                <li {{#is_desc}}class="split-items"{{/is_desc}} {{#preserve_case}}class="preserve-case"{{/preserve_case}}>
 
                   {{#url }}<a href="{{.}}">{{/url }}{{#ga_data}}<span class="ga-data" data-ga-metric="{{.}}">{{/ga_data}}{{ text }}{{#ga_data}}</span>{{/ga_data}}{{#url }}</a>{{/url }}
 
