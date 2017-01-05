@@ -17,7 +17,7 @@
 		</div>
 		<div class="field-container">
 			<label for="skype">Skype:</label>
-			<input id="skype" type='text' name='skype' placeholder="Type your skype account"/>
+			<input id="skype" type='text' name='skype' placeholder="Type your skype account" {{#skype}}value="{{.}}"{{/skype}}/>
 		</div>
 		<div class="field-container">
 			<select class="select-dropdown" id="user-profile-country-select" name="country" autocomplete="off">

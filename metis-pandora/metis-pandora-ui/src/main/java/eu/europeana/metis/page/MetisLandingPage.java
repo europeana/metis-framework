@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.common.UserProfile;
 import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
@@ -24,7 +25,7 @@ public class MetisLandingPage extends MetisPage {
 	
 	private PageView pageView = PageView.EMPTY;
 	
-	private User user;
+	private UserProfile user;
 	
 	private Boolean isDuplicateUser = false;
 	
@@ -45,7 +46,7 @@ public class MetisLandingPage extends MetisPage {
 		this(pageView, null);
 	}
 
-	public MetisLandingPage(PageView pageView, User user) {
+	public MetisLandingPage(PageView pageView, UserProfile user) {
 		super();
 		this.pageView = pageView;
 		this.user = user;
@@ -156,6 +157,11 @@ public class MetisLandingPage extends MetisPage {
 		String lastName = user.getLastName();
 		contentMap.put("lastName", lastName);
 		
+		if (user instanceof UserProfile) {
+			contentMap.put("skype", ((UserProfile)user).getSkype());
+			//TODO add other DBUser fields.
+		}
+		
 		List<Map<String, String>> countries = new ArrayList<>();
 		for(Country c: Country.values()) {
 			Map<String, String> country = new HashMap<>();
@@ -208,11 +214,11 @@ public class MetisLandingPage extends MetisPage {
 		this.pageView = pageView;
 	}
 
-	public User getUser() {
+	public UserProfile getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserProfile user) {
 		this.user = user;
 	}
 }

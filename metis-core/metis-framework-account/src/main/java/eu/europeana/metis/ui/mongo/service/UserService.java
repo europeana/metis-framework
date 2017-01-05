@@ -1,5 +1,14 @@
 package eu.europeana.metis.ui.mongo.service;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
@@ -7,14 +16,6 @@ import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by ymamakis on 11/24/16.
@@ -60,21 +61,21 @@ public class UserService {
     public void createLdapUser(User user) {
         userDao.create(user);
     }
-
-    /**
-     * Create a user in MongoDB
-     *
-     * @param dbUser   The user in MongoDB
-     * @param requests The request for specific roles in organizations
-     */
-    public void createDBUser(DBUser dbUser, RoleRequest... requests) {
-        dbUserDao.save(dbUser);
-        if (requests != null) {
-            for (RoleRequest request : requests) {
-                createRequest(request);
-            }
-        }
-    }
+//
+//    /**
+//     * Create a user in MongoDB
+//     *
+//     * @param dbUser   The user in MongoDB
+//     * @param requests The request for specific roles in organizations
+//     */
+//    public void createDBUser(DBUser dbUser, RoleRequest... requests) {
+//        dbUserDao.save(dbUser);
+//        if (requests != null) {
+//            for (RoleRequest request : requests) {
+//                createRequest(request);
+//            }
+//        }
+//    }
 
     /**
      * Create a request for a role in an organization
@@ -165,7 +166,7 @@ public class UserService {
         } else {
             ops.unset("organizations");
         }
-        dbUserDao.update(query, ops);
+        dbUserDao.getDatastore().update(query, ops, true);       	
     }
 
     private void updateUserInLdap(User user) {

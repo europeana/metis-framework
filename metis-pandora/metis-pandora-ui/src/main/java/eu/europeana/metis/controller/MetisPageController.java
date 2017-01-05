@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import eu.europeana.metis.common.UserProfile;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 import eu.europeana.metis.framework.rest.client.ServerException;
@@ -25,7 +26,6 @@ import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.NewDatasetPage;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.ldap.domain.User;
-import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 
@@ -67,7 +67,10 @@ public class MetisPageController {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String primaryKey = principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl)principal).getUsername() : null;
 		ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
-		MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.EMPTY, userService.getUser(primaryKey).getUser());
+		UserDTO userDTO = userService.getUser(primaryKey);
+		UserProfile userProfile =new UserProfile();
+		userProfile.init(userDTO);
+		MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.EMPTY, userProfile);
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
 		return modelAndView;
     }
@@ -118,7 +121,10 @@ public class MetisPageController {
     public ModelAndView login(HttpServletRequest request, Model model) {
         ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
         String email = request.getParameter("email");
-        MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN, userService.getUser(email).getUser());
+        UserDTO userDTO = userService.getUser(email);
+        UserProfile userProfile = new UserProfile();
+        userProfile.init(userDTO);
+        MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN, userProfile);
         String authError = request.getParameter("authentication_error");
         if (authError != null && authError.equals("true")) {
         	metisLandingPage.setIsAuthError(true);     	
@@ -141,12 +147,12 @@ public class MetisPageController {
     }
     
     @RequestMapping(value = "/register", method=RequestMethod.POST)
-    public ModelAndView registerUser(@ModelAttribute User user, Model model) { 
+    public ModelAndView registerUser(@ModelAttribute UserProfile user, Model model) { 
     	model.addAttribute("user", user);
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
     	UserDTO userDTO = userService.getUser(user.getEmail());
-		User userFound = userDTO != null ? userDTO.getUser() : null;;
+		User userFound = userDTO != null ? userDTO.getUser() : null;
     	if (userFound != null) {
             metisLandingPage.setIsDuplicateUser(true);
             modelAndView.addAllObjects(metisLandingPage.buildModel());
@@ -173,11 +179,12 @@ public class MetisPageController {
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	String primaryKey = principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl)principal).getUsername() : null;
     	UserDTO userDTO = userService.getUser(primaryKey);
-		User user = userDTO != null ? userDTO.getUser() : null;
+    	UserProfile userProfile = new UserProfile();
+    	userProfile.init(userDTO);
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
-    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
+    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);
     	
-    	logger.info("*** User updated: " + user.getFullName() + " ***");	
+    	logger.info("*** User profile: " + userProfile.getFullName() + " ***");	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
 		List<String> organizations = new ArrayList<>();
 		try {
@@ -198,23 +205,17 @@ public class MetisPageController {
     }
     
     @RequestMapping(value = "/profile", method=RequestMethod.POST)
-    public ModelAndView updateUser(@ModelAttribute User user, Model model) { 
+    public ModelAndView updateUser(@ModelAttribute UserProfile user, Model model) { 
     	model.addAttribute("user", user);
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	UserDTO userDTO = userService.getUser(user.getEmail());
-		User userFound = userDTO != null ? userDTO.getUser() : null;
-    	if (userFound != null) {
-    		UserDTO userWrapper = new UserDTO();
-    		userWrapper.setUser(user);
-    		//TODO get DBUser from the form
-    		userWrapper.setDbUser(new DBUser());
-    		userService.updateUserFromDTO(userWrapper);
-            modelAndView.addAllObjects(metisLandingPage.buildModel());
-    		return modelAndView;
+    	if (user != null) {
+    		userDTO.setUser(user);    		
     	}
+    	userService.updateUserFromDTO(userDTO);
     	logger.info("*** User updated: " + user.getFullName() + " ***");
-    	    	
+     	    	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
 		modelAndView.setViewName("redirect:login?email="+ user.getEmail());
     	return modelAndView;
