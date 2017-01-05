@@ -6,6 +6,7 @@ import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
@@ -75,7 +76,7 @@ public class PreviewService {
      * @throws ParserConfigurationException
      */
     public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath) throws JiBXException, IllegalAccessException, IOException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, TransformerException, ParserConfigurationException, InterruptedException, ExecutionException {
-        if (collectionId == null) {
+        if (StringUtils.isEmpty(collectionId)) {
             collectionId = CollectionUtils.generateCollectionId();
         }
         ExtendedValidationResult list = new ExtendedValidationResult();
