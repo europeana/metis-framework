@@ -143,7 +143,34 @@ public class RecordDao {
         params.add("q","*:*");
         server.deleteByQuery(params.toString());
         server.commit();
-        clearData(".*");
+        clearAll();
+    }
+
+    private void clearAll() {
+        this.mongoServer.getDatastore().getDB().getCollection("record")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Proxy")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Aggregation")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("EuropeanaAggregation")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("PhysicalThing")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Agent")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Concept")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Place")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Timespan")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("WebResource")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Service")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("License")
+                .remove(new BasicDBObject());
     }
 
     private void clearData(String collection) {

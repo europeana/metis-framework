@@ -37,7 +37,7 @@ public final class RestEndpoints {
     public final static String ENRICHMENT_ENRICH="/enrich";
 
     /* METIS IDENTIFIER ITEMIZATION Endpoint */
-    public final static String IDENTIFIER_GENERATE ="/identifier/generate/{collectionId}/{recordId}";
+    public final static String IDENTIFIER_GENERATE ="/identifier/generate/{collectionId}";
     public final static String IDENTIFIER_NORMALIZE_SINGLE = "/identifier/normalize/single";
     public final static String IDENTIFIER_NORMALIZE_BATCH = "/identifier/normalize/batch";
     public final static String ITEMIZE_URL = "/itemize/url";
