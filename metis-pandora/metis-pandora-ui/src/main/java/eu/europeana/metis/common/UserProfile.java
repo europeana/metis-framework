@@ -22,9 +22,7 @@ public class UserProfile extends User {
 
     private List<String> organizations;
     
-    public UserProfile() {
-		// TODO Auto-generated constructor stub
-	}
+//    public UserProfile() { }
     
     public void init(UserDTO userDTO) {
 		User user = userDTO.getUser();

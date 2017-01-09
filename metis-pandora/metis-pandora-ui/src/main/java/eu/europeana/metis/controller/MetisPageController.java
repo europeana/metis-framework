@@ -6,11 +6,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,6 +28,7 @@ import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.NewDatasetPage;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.ldap.domain.User;
+import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 
@@ -205,19 +208,35 @@ public class MetisPageController {
     }
     
     @RequestMapping(value = "/profile", method=RequestMethod.POST)
-    public ModelAndView updateUser(@ModelAttribute UserProfile user, Model model) { 
+    public ModelAndView updateUser(@ModelAttribute UserProfile user, BindingResult result, Model model) { 
     	model.addAttribute("user", user);
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	UserDTO userDTO = userService.getUser(user.getEmail());
-    	if (user != null) {
-    		userDTO.setUser(user);    		
+    	if (user != null && userDTO != null) {
+    		User ldapUser = userDTO.getUser();
+    		if (ldapUser != null) {
+    			ldapUser.setFullName(user.getFullName());
+    			ldapUser.setLastName(user.getLastName());
+    			ldapUser.setPassword(user.getPassword());
+    		}	
+    		userDTO.setUser(ldapUser);		
+
+    		DBUser dbUser = userDTO.getDbUser();
+    		if (dbUser == null) {
+    			dbUser = new DBUser();
+    			dbUser.setId(new ObjectId());;
+    			dbUser.setEmail(user.getEmail());
+    		}
+    		dbUser.setCountry(user.getCountry());
+    		dbUser.setSkypeId(user.getSkype());
+    		userDTO.setDbUser(dbUser);
     	}
     	userService.updateUserFromDTO(userDTO);
     	logger.info("*** User updated: " + user.getFullName() + " ***");
      	    	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
-		modelAndView.setViewName("redirect:login?email="+ user.getEmail());
+		modelAndView.setViewName("redirect:/");
     	return modelAndView;
     }
 }

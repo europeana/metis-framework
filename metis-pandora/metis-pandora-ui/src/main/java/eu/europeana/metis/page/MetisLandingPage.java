@@ -102,7 +102,7 @@ public class MetisLandingPage extends MetisPage {
 			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		default: 
-			if (user != null) {
+			if (user != null && user.getEmail() != null) {
 				utilityNavigationMenu.add(new NavigationTopMenu("Profile", "/profile", true));
 				utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", true));
 			} else {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,9 +39,9 @@ public class UserService {
     public void updateUserFromDTO(UserDTO userDto) {
         if (userDto.getUser() != null) {
             updateUserInLdap(userDto.getUser());
-        }
-        if (userDto.getDbUser() != null) {
-            updateUserInMongo(userDto.getDbUser());
+            if (userDto.getDbUser() != null) {
+            	updateUserInMongo(userDto.getDbUser());            	
+            }
         }
     }
 
@@ -139,7 +140,7 @@ public class UserService {
     private void updateUserInMongo(DBUser user) {
         UpdateOperations<DBUser> ops = dbUserDao.createUpdateOperations();
         Query<DBUser> query = dbUserDao.createQuery();
-        query.filter("id", user.getId());
+        query.filter("id", user.getId());        	
         if (user.getCountry() != null) {
             ops.set("country", user.getCountry());
         } else {
@@ -166,7 +167,10 @@ public class UserService {
         } else {
             ops.unset("organizations");
         }
-        dbUserDao.getDatastore().update(query, ops, true);       	
+        if (user.getEmail() != null) {
+        	ops.set("email", user.getEmail());
+        	dbUserDao.getDatastore().update(query, ops, true);       	
+        }
     }
 
     private void updateUserInLdap(User user) {
