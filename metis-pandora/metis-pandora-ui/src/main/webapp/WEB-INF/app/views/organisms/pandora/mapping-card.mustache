@@ -1,6 +1,6 @@
 <div class="container-large" {{#object_id}}id="{{.}}"{{/object_id}}>
 	<table class="card-component">
-		<tr class="widget-collapsed">
+		<tr class="widget-collapsed" {{#object_id}}object_id="{{.}}"{{/object_id}}>
 			<td class="mapping-card-controls">
 				<div class="card-label normal-colored indent">{{prefix}}:{{name}}</div>
 				<div class="card-label normal-colored-dark indent">HardCode!</div>
@@ -20,7 +20,7 @@
 				</div>
 			</td>
 		</tr>
-		<tr class="widget-expanded">
+		<tr class="widget-expanded" {{#object_id}}object_id="{{.}}"{{/object_id}}>
 			<td class="card-controls-expanded">
 				<div class="card-label normal-colored indent">{{prefix}}:{{name}}</div>
 				<div class="card-label normal-colored-dark indent">HardCode!</div>
@@ -29,7 +29,7 @@
 				<div class="normal-colored if card-button">if</div>			
 			</td>
 		</tr>
-		<tr class="widget-expanded">
+		<tr class="widget-expanded" {{#object_id}}object_id="{{.}}"{{/object_id}}>
 			<td class="mapping-card-values">
 				<div class="mapping-field-item-container-expanded">
 					{{#field_value_cells}}

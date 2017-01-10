@@ -1,14 +1,15 @@
 package eu.europeana.metis.ui.mongo.domain;
 
 
-import eu.europeana.metis.framework.common.Country;
+import java.util.Date;
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
-import java.util.Date;
-import java.util.List;
+import eu.europeana.metis.framework.common.Country;
 
 /**
  * Mongo representation of a user with information not necessary to be stored in LDAP

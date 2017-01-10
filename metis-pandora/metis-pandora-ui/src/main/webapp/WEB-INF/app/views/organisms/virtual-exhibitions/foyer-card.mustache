@@ -8,9 +8,11 @@
 
       <span class="ve-card-nav ve-card-nav-left">
         <svg class="icon icon-previous"><use xlink:href="#icon-previous"></use></svg>
+        <span class="is-vishidden">{{i18n.global.actions.previous}}</span>
       </span>
       <span class="ve-card-nav ve-card-nav-right">
         <svg class="icon icon-next"><use xlink:href="#icon-next"></use></svg>
+        <span class="is-vishidden">{{i18n.global.actions.next}}</span>
       </span>
 
       <div class="ve-state-buttons">
@@ -20,7 +22,7 @@
       </div>
 
       <div class="ve-foyer-card-state">
-        <img src="{{state_1_image.thumbnail.url}}" />
+        <img src="{{state_1_image.thumbnail.url}}" alt=""/>
         {{#state_1_title}}
           <div class="text-box title">
           {{#url}}
@@ -34,7 +36,7 @@
       </div>
 
       <div class="ve-foyer-card-state hide-right{{#state_2_body}} shaded{{/state_2_body}}">
-        <img src="{{state_2_image.thumbnail.url}}" />
+        <img src="{{state_2_image.thumbnail.url}}" alt=""/>
         {{#state_2_body}}
           <div class="text-box description">
           {{#url}}
@@ -48,10 +50,10 @@
       </div>
 
       <div class="ve-foyer-card-state hide-right">
-        <img src="{{state_3_image.thumbnail.url}}" />
+        <img src="{{state_3_image.thumbnail.url}}" alt=""/>
           <div class="text-box credits">
           {{#url}}
-              <a href="{{url}}"><img src="{{state_3_logo.thumbnail.url}}" /></a>
+              <a href="{{url}}"><img src="{{state_3_logo.thumbnail.url}}" alt="" /></a>
           {{/url}}
           </div>
       </div>

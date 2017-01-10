@@ -98,6 +98,11 @@
 			<artifactId>metis-framework-rest-client</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+        	<groupId>eu.europeana.metis</groupId>
+			<artifactId>metis-framework-service</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 		
         <!-- Spring core, security, ldap & mvc -->
         <dependency>

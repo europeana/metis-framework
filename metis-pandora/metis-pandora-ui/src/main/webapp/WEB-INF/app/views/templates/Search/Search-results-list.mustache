@@ -16,7 +16,13 @@
               {{/channel_data}}>
             <li><a href="{{navigation.home_url}}"><svg class="icon icon-home"><use xlink:href="#icon-home"></use></svg>{{i18n.site.navigation.breadcrumb.return_home}}</a></li>
             {{#channel_data}}<li><a href="{{url}}">{{label}}</a></li>{{/channel_data}}
-            <li><span class="lastitem"><strong>{{i18n.site.navigation.breadcrumb.results_list}}</strong></span></li>
+            {{#mlt_src}}
+              <li><a href="{{.}}">{{i18n.site.navigation.breadcrumb.item_detail}}</a></li>
+              <li><span class="lastitem"><strong>{{i18n.site.navigation.breadcrumb.results_list_mlt}}</strong></span></li>
+            {{/mlt_src}}
+            {{^mlt_src}}
+              <li><span class="lastitem"><strong>{{i18n.site.navigation.breadcrumb.results_list}}</strong></span></li>
+            {{/mlt_src}}
           </ul>
         </div>
       </div>

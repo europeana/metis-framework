@@ -17,7 +17,7 @@
 		</div>
 		<div class="field-container">
 			<label for="skype">Skype:</label>
-			<input id="skype" type='text' name='skype' placeholder="Type your skype account"/>
+			<input id="skype" type='text' name='skype' placeholder="Type your skype account" {{#skype}}value="{{.}}"{{/skype}}/>
 		</div>
 		<div class="field-container">
 			<select class="select-dropdown" id="user-profile-country-select" name="country" autocomplete="off">
@@ -44,15 +44,15 @@
 			<a class="user-profile-update-password">Change Password >></a>
 		</div>
 		<div class="field-container user-profile-password">
-			<label for="password">Old Password:</label>
-			<input id="password" type='password' name='password' placeholder="Old password"/>
+			<label for="password_old">Old Password:</label>
+			<input id="password_old" type='password' name='password_old' placeholder="Old password"/>
 		</div>		
 		<div class="field-container user-profile-password">
-			<label for="password">New Password:</label>
-			<input id="password_new" type='password' name='password' placeholder="New password"/>
+			<label for="password_new">New Password:</label>
+			<input id="password_new" type='password' name='password_new' placeholder="New password"/>
 		</div>		
 		<div class="field-container user-profile-password">
-			<label for="password">Confirm Password:</label>
+			<label for="password_new2">Confirm Password:</label>
 			<input id="password_new2" type='password' name='password' placeholder="New password"/>
 		</div>
 		<div class="field-container">

@@ -26,9 +26,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-
 /**
- * This configuration sets up Metis web pages authorization.
+ * This configuration sets up Metis web pages LDAP authorization.
  * @author alena
  *
  */
@@ -53,7 +52,6 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 		public void init(AuthenticationManagerBuilder auth) throws Exception {		
 			auth.ldapAuthentication()
 			.contextSource()
-			//ldif("classpath:metis-ldap.ldif").root("dc=europeana,dc=eu")	//for testing only
 			.url(url).managerDn(managerDN).managerPassword(managerPWD) 
 			.and()
             .userSearchBase("ou=users,ou=metis_authentication")

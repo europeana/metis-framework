@@ -7,7 +7,7 @@
 <main role="main" class="l-page"{{#google_analytics_code}} data-ga-code="{{.}}"{{/google_analytics_code}}>
 
   <div class="page_header">
-    {{>molecules/virtual-exhibitions/browse-breadcrumb.mustache}}
+    {{>molecules/virtual-exhibitions/browse-breadcrumb}}
   </div>
 
   <div id="maincontent" class="maincontent">
@@ -34,20 +34,20 @@
 
               {{! PROGRESS NAV }}
 
-              <h4 class="ve-progress-nav">
+              <div class="ve-progress-nav">
                 {{# elements.items }}
                   {{^ is_section }}
                     {{#is_first}}
-                      <a href="#ve-anchor-{{id}}-js"><span class="ve-state-button ve-state-button-on ve-first"></span>{{> templates/Exhibitions/SpeechBubble}}</a>
+                      <a href="#ve-anchor-{{id}}-js"><span class="is-vishidden">Skip to Start</span><span class="ve-state-button ve-state-button-on ve-first"></span>{{> templates/Exhibitions/SpeechBubble}}</a>
                     {{/is_first}}
                   {{/ is_section }}
                 {{/ elements.items }}
                 {{# elements.items }}
                   {{# is_section }}
-                    <a href="#ve-anchor-{{id}}-js"{{#section_title}} title="{{.}}"{{/section_title}}><span class="ve-state-button {{^is_first}}ve-state-button-off{{/is_first}}"></span>{{> templates/Exhibitions/SpeechBubble}}</a>
+                    <a href="#ve-anchor-{{id}}-js">{{#section_title}}<span class="is-vishidden">Skip to {{.}}</span>{{/section_title}}<span class="ve-state-button {{^is_first}}ve-state-button-off{{/is_first}}"></span>{{> templates/Exhibitions/SpeechBubble}}</a>
                   {{/ is_section }}
                 {{/ elements.items }}
-              </h4>
+              </div>
 
               {{! SECTIONS }}
 
