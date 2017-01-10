@@ -52,7 +52,7 @@ public class DBUser {
      * The list of all the available organizations
      */
     @Indexed
-    private List<String> organizations;
+    private List<OrganizationRole> organizations;
 
     public ObjectId getId() {
         return id;
@@ -118,11 +118,11 @@ public class DBUser {
         this.modified = modified;
     }
 
-    public List<String> getOrganizations() {
+    public List<OrganizationRole> getOrganizationRoles() {
         return organizations;
     }
 
-    public void setOrganizations(List<String> organizations) {
+    public void setOrganizationRoles(List<OrganizationRole> organizations) {
         this.organizations = organizations;
     }
 }

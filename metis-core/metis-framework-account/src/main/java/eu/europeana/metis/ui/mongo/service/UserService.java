@@ -5,6 +5,7 @@ import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import org.mongodb.morphia.query.Query;
@@ -102,7 +103,7 @@ public class UserService {
      *
      * @param request The user request to approve
      */
-    public void approveRequest(RoleRequest request) {
+    public void approveRequest(RoleRequest request, String role) {
         UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
         ops.set("requestStatus", "approved");
         Query<RoleRequest> query = roleRequestDao.createQuery();
@@ -110,28 +111,28 @@ public class UserService {
         roleRequestDao.update(query, ops);
         DBUser user = dbUserDao.findOne("email", request.getUserId());
         if (user != null) {
-            List<String> orgIds = user.getOrganizations();
+            List<OrganizationRole> orgIds = user.getOrganizationRoles();
             if(orgIds ==null){
                 orgIds = new ArrayList<>();
             }
-            orgIds.add(request.getOrganizationId());
-            user.setOrganizations(orgIds);
+            OrganizationRole orgRole = new OrganizationRole();
+            orgRole.setOrganizationId(request.getOrganizationId());
+            orgRole.setRole(role);
+            orgIds.add(orgRole);
+            user.setOrganizationRoles(orgIds);
             updateUserInMongo(user);
         }
 
     }
 
+
     /**
      * Approve a user
      *
-     * @param email The email of tghe user to approve
+     * @param email The email of the user to approve
      */
     public void approveUser(String email) {
         userDao.approve(email);
-        List<RoleRequest> requests = getUserRequests(email);
-        for (RoleRequest request : requests) {
-            approveRequest(request);
-        }
 
     }
 
@@ -160,8 +161,8 @@ public class UserService {
         } else {
             ops.unset("skypeId");
         }
-        if (user.getOrganizations() != null) {
-            ops.set("organizations", user.getOrganizations());
+        if (user.getOrganizationRoles() != null) {
+            ops.set("organizationRoles", user.getOrganizationRoles());
         } else {
             ops.unset("organizations");
         }

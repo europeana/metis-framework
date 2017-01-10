@@ -28,10 +28,6 @@ public class RoleRequest {
     @Indexed
     private String userId;
 
-    /**
-     * The role
-     */
-    private String role;
 
     /**
      * The request date
@@ -68,13 +64,6 @@ public class RoleRequest {
         this.userId = userId;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public Date getRequestDate() {
         return requestDate;
