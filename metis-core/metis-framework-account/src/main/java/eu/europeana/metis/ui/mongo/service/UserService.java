@@ -112,7 +112,7 @@ public class UserService {
         updateRequest(request, null,"rejected");
     }
 
-    public void updateRequest(RoleRequest request,String role, String status){
+    private void updateRequest(RoleRequest request,String role, String status){
         UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
         ops.set("requestStatus", status);
         Query<RoleRequest> query = roleRequestDao.createQuery();
