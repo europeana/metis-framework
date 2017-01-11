@@ -108,7 +108,7 @@ public class UserService {
         updateRequest(request,role,"approved");
     }
 
-    public void rejectReques(RoleRequest request){
+    public void rejectRequest(RoleRequest request){
         updateRequest(request, null,"rejected");
     }
 
