@@ -8,6 +8,7 @@ import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,27 +105,47 @@ public class UserService {
      * @param request The user request to approve
      */
     public void approveRequest(RoleRequest request, String role) {
+        updateRequest(request,role,"approved");
+    }
+
+    public void rejectReques(RoleRequest request){
+        updateRequest(request, null,"rejected");
+    }
+
+    public void updateRequest(RoleRequest request,String role, String status){
         UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
-        ops.set("requestStatus", "approved");
+        ops.set("requestStatus", status);
         Query<RoleRequest> query = roleRequestDao.createQuery();
         query.filter("id", request.getId());
         roleRequestDao.update(query, ops);
-        DBUser user = dbUserDao.findOne("email", request.getUserId());
-        if (user != null) {
-            List<OrganizationRole> orgIds = user.getOrganizationRoles();
-            if(orgIds ==null){
-                orgIds = new ArrayList<>();
+        if (!StringUtils.equals("rejected",status)) {
+            DBUser user = dbUserDao.findOne("email", request.getUserId());
+            if (user != null) {
+                List<OrganizationRole> orgIds = user.getOrganizationRoles();
+
+                if (!request.isDeleteRequest()) {
+                    if (orgIds == null) {
+                        orgIds = new ArrayList<>();
+                    }
+                    OrganizationRole orgRole = new OrganizationRole();
+                    orgRole.setOrganizationId(request.getOrganizationId());
+                    orgRole.setRole(role);
+                    orgIds.add(orgRole);
+                    user.setOrganizationRoles(orgIds);
+
+                } else {
+                    List<OrganizationRole> newRoles = new ArrayList<>();
+                    for (OrganizationRole checkRole:orgIds){
+                        if(!StringUtils.equals(request.getOrganizationId(),checkRole.getOrganizationId())){
+                            newRoles.add(checkRole);
+                        }
+                    }
+                    user.setOrganizationRoles(newRoles);
+                }
+                updateUserInMongo(user);
             }
-            OrganizationRole orgRole = new OrganizationRole();
-            orgRole.setOrganizationId(request.getOrganizationId());
-            orgRole.setRole(role);
-            orgIds.add(orgRole);
-            user.setOrganizationRoles(orgIds);
-            updateUserInMongo(user);
         }
-
     }
-
 
     /**
      * Approve a user

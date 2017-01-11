@@ -40,6 +40,9 @@ public class RoleRequest {
     @Indexed
     private String requestStatus;
 
+    private boolean deleteRequest;
+
+
     public ObjectId getId() {
         return id;
     }
@@ -79,5 +82,13 @@ public class RoleRequest {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public boolean isDeleteRequest() {
+        return deleteRequest;
+    }
+
+    public void setDeleteRequest(boolean deleteRequest) {
+        this.deleteRequest = deleteRequest;
     }
 }
