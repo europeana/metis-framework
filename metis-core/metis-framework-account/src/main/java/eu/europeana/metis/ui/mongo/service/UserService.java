@@ -9,6 +9,7 @@ import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,9 +82,18 @@ public class UserService {
     /**
      * Create a request for a role in an organization
      *
-     * @param request The request for a role in an organization
+     * @param userId The user identifier
+     * @param organizationId The organization identifier
+     * @param isDeleteRequest If it is a delete request
      */
-    public void createRequest(RoleRequest request) {
+    public void createRequest(String userId,String organizationId, boolean isDeleteRequest) {
+        RoleRequest request = new RoleRequest();
+        request.setUserId(userId);
+        request.setOrganizationId(organizationId);
+        request.setRequestStatus("pending");
+        request.setRequestDate(new Date());
+        request.setId(new ObjectId());
+        request.setDeleteRequest(isDeleteRequest);
         roleRequestDao.save(request);
     }
 
@@ -108,6 +118,10 @@ public class UserService {
         updateRequest(request,role,"approved");
     }
 
+    /**
+     * Reject a role request
+     * @param request The request to reject
+     */
     public void rejectRequest(RoleRequest request){
         updateRequest(request, null,"rejected");
     }
