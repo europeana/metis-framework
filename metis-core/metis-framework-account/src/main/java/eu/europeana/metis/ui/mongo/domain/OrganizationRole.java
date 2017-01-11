@@ -1,8 +1,11 @@
 package eu.europeana.metis.ui.mongo.domain;
 
+import org.mongodb.morphia.annotations.Entity;
+
 /**
  * Created by ymamakis on 10-1-17.
  */
+@Entity
 public class OrganizationRole {
 
     private String role;

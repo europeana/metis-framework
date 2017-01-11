@@ -1,15 +1,15 @@
 package eu.europeana.metis.ui.mongo.domain;
 
 
-import java.util.Date;
-import java.util.List;
-
+import eu.europeana.metis.framework.common.Country;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
-import eu.europeana.metis.framework.common.Country;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Mongo representation of a user with information not necessary to be stored in LDAP
@@ -53,6 +53,7 @@ public class DBUser {
      * The list of all the available organizations
      */
     @Indexed
+    @Embedded
     private List<OrganizationRole> organizations;
 
     public ObjectId getId() {
