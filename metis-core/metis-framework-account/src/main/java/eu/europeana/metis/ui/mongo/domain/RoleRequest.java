@@ -1,9 +1,7 @@
 package eu.europeana.metis.ui.mongo.domain;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.*;
 
 import java.util.Date;
 
@@ -12,6 +10,7 @@ import java.util.Date;
  * Created by ymamakis on 11/24/16.
  */
 @Entity
+@Indexes(@Index(options = @IndexOptions(unique = true), fields = {@Field("organizationId"),@Field("userId")}))
 public class RoleRequest {
     @Id
     private ObjectId id;
@@ -20,12 +19,14 @@ public class RoleRequest {
      * The id of the organization
      */
     @Indexed
+    @Property
     private String organizationId;
 
     /**
      * The id of a user
      */
     @Indexed
+    @Property
     private String userId;
 
 
