@@ -1,10 +1,12 @@
 package eu.europeana.metis.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,7 @@ import eu.europeana.metis.page.NewDatasetPage;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 
@@ -228,6 +231,38 @@ public class MetisPageController {
     			dbUser.setId(new ObjectId());;
     			dbUser.setEmail(user.getEmail());
     		}
+    		String orgs = user.getOrganization();
+    		List<String> organizations = new ArrayList<>();
+    		if (orgs != null) {
+    			String[] split = orgs.split(",");
+    			for (int i = 0; i < split.length; i++) {
+    				split[i] = split[i].trim();    				
+    			}
+    			organizations.addAll(Arrays.asList(split));
+    		}
+    		List<String> dbUserOrganizations = new ArrayList<>();
+    		List<OrganizationRole> organizationRoles = dbUser.getOrganizationRoles();
+    		if (organizationRoles != null) {
+    			for (OrganizationRole or: organizationRoles) {
+    				String organizationId = or.getOrganizationId();
+    				if (organizationId != null && !organizationId.isEmpty()) {
+    					dbUserOrganizations.add(organizationId);    				
+    				}
+    			}    			
+    		}
+			// if the list of organization is changed in the user profile we
+			// create a role request for organizations that are added and create
+			// a deletion request for the organizations that are removed from
+			// the user profile 
+    		if (dbUserOrganizations.size() != organizations.size() || !CollectionUtils.disjunction(organizations, dbUserOrganizations).isEmpty()) {
+    			for (String org: organizations) {
+					userService.createRequest(dbUser.getEmail(), org, false);
+    			}
+    			for (Object org: CollectionUtils.subtract(dbUserOrganizations, organizations)) {
+    				userService.createRequest(dbUser.getEmail(), (String)org, true);
+    			}
+    		}
+    		//dbUser.setOrganizations(organizations);
     		dbUser.setCountry(user.getCountry());
     		dbUser.setSkypeId(user.getSkype());
     		userDTO.setDbUser(dbUser);
@@ -236,7 +271,6 @@ public class MetisPageController {
     	logger.info("*** User updated: " + user.getFullName() + " ***");
      	    	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
-		modelAndView.setViewName("redirect:/");
     	return modelAndView;
     }
 }

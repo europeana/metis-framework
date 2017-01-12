@@ -54,7 +54,7 @@ public class DBUser {
      */
     @Indexed
     @Embedded
-    private List<OrganizationRole> organizations;
+    private List<OrganizationRole> organizationRoles;
 
     public ObjectId getId() {
         return id;
@@ -121,10 +121,10 @@ public class DBUser {
     }
 
     public List<OrganizationRole> getOrganizationRoles() {
-        return organizations;
+        return organizationRoles;
     }
 
-    public void setOrganizationRoles(List<OrganizationRole> organizations) {
-        this.organizations = organizations;
+    public void setOrganizationRoles(List<OrganizationRole> organizationRoles) {
+        this.organizationRoles = organizationRoles;
     }
 }
