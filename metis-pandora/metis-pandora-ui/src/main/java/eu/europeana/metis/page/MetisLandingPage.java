@@ -161,16 +161,15 @@ public class MetisLandingPage extends MetisPage {
 			contentMap.put("skype", ((UserProfile)user).getSkype());
 			//TODO add other DBUser fields.
 		}
-		
+		Country userCountry = Country.toCountry(this.user.getCountry());
 		List<Map<String, String>> countries = new ArrayList<>();
 		for(Country c: Country.values()) {
 			Map<String, String> country = new HashMap<>();
+			if (userCountry != null && userCountry.getName().equals(c.getName())) {
+				country.put("selected", "selected");
+			}
 			country.put("value", c.getIsoCode());
 			country.put("text", c.getName());
-			//FIXME add the check if the country is chosen! Waiting for Yorgos' implementation of Metis DBUser
-//			if (false) {
-//				country.put("selected", "selected");
-//			}
 			countries.add(country);
 		}
 		contentMap.put("countries", countries);

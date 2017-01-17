@@ -27,11 +27,11 @@ public abstract class MetisPage extends AbstractMetisPage {
 
 	@Override
 	public List<Entry<String, String>> resolveJsFiles() {
-//		return Arrays.asList(new SimpleEntry<String, String>("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js", 
-//				"https://europeanastyleguidetest.a.cdnify.io/js/modules/main/templates/main-pandora"));
+		return Arrays.asList(new SimpleEntry<String, String>("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js", 
+				"https://europeanastyleguidetest.a.cdnify.io/js/modules/main/templates/main-pandora"));
 		//to test the java app with a local styleguide assets!
-		return Arrays.asList(new SimpleEntry<String, String>("http://localhost/js/modules/require.js", 
-				"http://localhost/js/modules/main/templates/main-pandora"));
+//		return Arrays.asList(new SimpleEntry<String, String>("http://localhost/js/modules/require.js", 
+//				"http://localhost/js/modules/main/templates/main-pandora"));
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import eu.europeana.metis.common.UserProfile;
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 import eu.europeana.metis.framework.rest.client.ServerException;
@@ -263,7 +264,7 @@ public class MetisPageController {
     			}
     		}
     		//dbUser.setOrganizations(organizations);
-    		dbUser.setCountry(user.getCountry());
+    		dbUser.setCountry(Country.toCountry(user.getCountry()));
     		dbUser.setSkypeId(user.getSkype());
     		userDTO.setDbUser(dbUser);
     	}

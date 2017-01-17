@@ -16,7 +16,7 @@ import eu.europeana.metis.ui.mongo.domain.UserDTO;
  */
 public class UserProfile extends User {
 
-    private Country country;
+    private String country;
 
     private String skype;
 
@@ -38,11 +38,11 @@ public class UserProfile extends User {
 		}
 	}
     
-	public Country getCountry() {
+	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(Country country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
@@ -84,8 +84,10 @@ public class UserProfile extends User {
 	}
 
 	public void setDBUser(DBUser dbUser) {
-		// TODO Auto-generated method stub
-		setCountry(dbUser.getCountry());
+		Country c = dbUser.getCountry();
+		if ( c != null  ) {
+			setCountry(c.getName());			
+		}
 		setSkype(dbUser.getSkypeId());
 		setEuropeanaNetworkMember(dbUser.getEuropeanaNetworkMember());
 		List<OrganizationRole> organizationRoles = dbUser.getOrganizationRoles();
