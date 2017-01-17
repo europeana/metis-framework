@@ -22,8 +22,12 @@ import com.google.gson.JsonPrimitive;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.ServerAddress;
+import eu.europeana.features.ObjectStorageClient;
+import eu.europeana.features.S3ObjectStorageClient;
+import eu.europeana.features.SwiftObjectStorageClient;
 import eu.europeana.validation.model.Schema;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.SystemUtils;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -40,7 +44,7 @@ public class Configuration {
     private static Configuration INSTANCE;
     private static AbstractSchemaDao dao;
     private static AbstractLSResourceResolver resolver;
-    private static SwiftProvider provider;
+    private static ObjectStorageClient objectStorageClient;
 
     private Configuration() {
         Properties properties = new Properties();
@@ -64,17 +68,17 @@ public class Configuration {
 
                 JsonObject credentials = element.getAsJsonObject("credentials");
                 JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
-                String mongoUsername = StringUtils.substringBetween(uri.getAsString(),"mongodb://",":");
+                String mongoUsername = StringUtils.substringBetween(uri.getAsString(), "mongodb://", ":");
 
-                String mongoPassword = StringUtils.substringBetween(uri.getAsString(),mongoUsername+":","@");
+                String mongoPassword = StringUtils.substringBetween(uri.getAsString(), mongoUsername + ":", "@");
 
-                String mongoHost = StringUtils.substringBetween(uri.getAsString(),mongoPassword+"@",":");
+                String mongoHost = StringUtils.substringBetween(uri.getAsString(), mongoPassword + "@", ":");
 
-                int mongoPort = Integer.parseInt(StringUtils.substringBetween(uri.getAsString(),mongoHost+":","/"));
+                int mongoPort = Integer.parseInt(StringUtils.substringBetween(uri.getAsString(), mongoHost + ":", "/"));
 
-                String mongoDb = StringUtils.substringAfterLast(uri.getAsString(),"/");
+                String mongoDb = StringUtils.substringAfterLast(uri.getAsString(), "/");
                 Logger.getGlobal().severe(mongoDb);
-              //  ServerAddress address = new ServerAddress(mongoHost, mongoPort);
+                //  ServerAddress address = new ServerAddress(mongoHost, mongoPort);
                 MongoClient client = new MongoClient(new MongoClientURI(uri.getAsString()));
                 /*MongoCredential credential =MongoCredential.createMongoCRCredential(mongoUsername,"admin",mongoPassword.toCharArray());
                 List<MongoCredential> credentialList = new ArrayList<>();
@@ -86,19 +90,28 @@ public class Configuration {
                 Datastore datastore = morphia.createDatastore(client, mongoDb);
 
                 datastore.ensureIndexes();
-                dao = new OpenstackSchemaDao(datastore, System.getenv("rootPath"));
+                dao = new ObjectStorageSchemaDao(datastore, System.getenv("rootPath"));
+                if (System.getenv("swift_authentication_uri") != null) {
+                    String authUri = System.getenv().get("swift_authentication_uri");
+                    String availabilityZone = System.getenv().get("swift_availability_zone");
+                    String tenantname = System.getenv("swift_tenantname");
+                    String username = System.getenv("swift_username");
+                    String password = System.getenv("swift_password");
 
-                String authUri = System.getenv().get("swift_authentication_uri");
-                String availabilityZone = System.getenv().get("swift_availability_zone");
-                String tenantname = System.getenv("swift_tenantname");
-                String username = System.getenv("swift_username");
-                String password = System.getenv("swift_password");
-                provider = new SwiftProvider(authUri, username, password, "schemas", availabilityZone, tenantname);
-                resolver = new OpenstackResourceResolver();
-                ((OpenstackResourceResolver) resolver).setProvider(provider);
+                    objectStorageClient = new SwiftObjectStorageClient(authUri, username, password,
+                            "rootPath", availabilityZone, tenantname);
+                } else {
+                    String clientKey = System.getenv("s3_client_key");
+                    String secretKey = System.getenv("s3_secret_key");
+                    String region = System.getenv("s3_region");
+                    String bucket = System.getenv("s3_bucket");
+                    objectStorageClient = new S3ObjectStorageClient(clientKey,secretKey,region,bucket);
+                }
+                resolver = new ObjectStorageResourceResolver();
+                ((ObjectStorageResourceResolver) resolver).setClient(objectStorageClient);
 
 
-                ((OpenstackSchemaDao) dao).setProvider(provider);
+                ((ObjectStorageSchemaDao) dao).setClient(objectStorageClient);
             }
         } catch (IOException e) {
             e.printStackTrace();

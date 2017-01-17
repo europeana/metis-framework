@@ -16,6 +16,7 @@
  */
 package eu.europeana.validation.service;
 
+import eu.europeana.features.ObjectStorageClient;
 import org.apache.log4j.Logger;
 import org.w3c.dom.ls.LSInput;
 
@@ -70,9 +71,10 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
     }
 
     @Override
-    public SwiftProvider getSwiftProvider() {
+    public ObjectStorageClient getObjectStorageClient() {
         return null;
     }
+
 
     /**
      * @param prefix the prefix to set

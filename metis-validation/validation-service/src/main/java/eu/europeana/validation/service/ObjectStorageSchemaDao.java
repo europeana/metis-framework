@@ -1,5 +1,6 @@
 package eu.europeana.validation.service;
 
+import eu.europeana.features.ObjectStorageClient;
 import org.apache.commons.io.FileUtils;
 import org.jclouds.io.payloads.InputStreamPayload;
 import org.mongodb.morphia.Datastore;
@@ -13,23 +14,19 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 /**
- * Openstack Schema loader dao
- * Created by ymamakis on 3/21/16.
+ * Created by gmamakis on 16-1-17.
  */
-public class OpenstackSchemaDao extends AbstractSchemaDao {
-
-    public void setProvider(SwiftProvider provider) {
-        this.provider = provider;
+public class ObjectStorageSchemaDao extends AbstractSchemaDao {
+    private ObjectStorageClient client;
+    public void setClient(ObjectStorageClient client){
+        this.client = client;
     }
-
-    private SwiftProvider provider;
-    public OpenstackSchemaDao(Datastore datastore, String rootPath){
+    public ObjectStorageSchemaDao(Datastore datastore, String rootPath){
         super(datastore,rootPath);
 
     }
-
     @Override
-    public void unzipFile(String fullPath, byte[] b) throws IOException {
+    public void unzipFile(String path, byte[] b) throws IOException {
         File tmp = new File("/tmp/"+new Date().getTime()+".zip");
         FileUtils.writeByteArrayToFile(tmp,b);
         ZipFile zip = new ZipFile(tmp);
@@ -37,15 +34,13 @@ public class OpenstackSchemaDao extends AbstractSchemaDao {
         while(entries.hasMoreElements()){
             ZipEntry entry = entries.nextElement();
             if(entry.isDirectory()){
-               //DO NOTHING
+                //DO NOTHING
             } else {
                 InputStream zipStream = zip.getInputStream(entry);
-                provider.getObjectApi().put(fullPath+"/"+entry.getName(),new InputStreamPayload(zipStream));
+                client.put(path+"/"+entry.getName(),new InputStreamPayload(zipStream));
 
             }
         }
         FileUtils.deleteQuietly(tmp);
     }
-
-
 }
