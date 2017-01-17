@@ -55,7 +55,9 @@ public class UserServiceTest {
         }).when(userDao).create(ldapUser(false,false));
         Mockito.when(userDao.findByPrimaryKey("test@test.com")).thenReturn(ldapUser(false,false));
         service.createLdapUser(ldapUser(false,false));
-        service.updateUserFromDTO(userDto());
+        UserDTO userDto = new UserDTO();
+        userDto.setDbUser(dbUser());
+		service.updateUserFromDTO(userDto);
         UserDTO dto = service.getUser("test@test.com");
         DBUser dbUser = dto.getDbUser();
         dbUser.setSkypeId("newSkypeId");
@@ -64,7 +66,9 @@ public class UserServiceTest {
 
     @Test
     public void testDBUser(){
-        service.updateUserFromDTO(userDto());
+        UserDTO userDto = new UserDTO();
+        userDto.setDbUser(dbUser());
+		service.updateUserFromDTO(userDto);
         UserDTO dto = service.getUser("test@test.com");
         Assert.assertEquals(dto.getDbUser().getCountry(),Country.ALBANIA);
         Assert.assertTrue(dto.getDbUser().getEuropeanaNetworkMember());
@@ -74,19 +78,20 @@ public class UserServiceTest {
     @Test
     public void testDBUserWithRequest(){
         RoleRequest request = roleRequest();
-        service.updateUserFromDTO(userDto());
+        UserDTO userDto = new UserDTO();
+        userDto.setDbUser(dbUser());
+		service.updateUserFromDTO(userDto);
         UserDTO dto = service.getUser("test@test.com");
         Assert.assertEquals(dto.getDbUser().getCountry(),Country.ALBANIA);
         Assert.assertTrue(dto.getDbUser().getEuropeanaNetworkMember());
         Assert.assertEquals(dto.getDbUser().getNotes(),"test notes");
         Assert.assertEquals(dto.getDbUser().getSkypeId(),"testSkypeId");
-        service.createRequest(request);
         List<RoleRequest> retRequests = service.getUserRequests("test@test.com");
         Assert.assertEquals(retRequests.size(),1);
         Assert.assertEquals(retRequests.get(0).getOrganizationId(),request.getOrganizationId());
         Assert.assertEquals(retRequests.get(0).getRequestStatus(),request.getRequestStatus());
         Assert.assertEquals(retRequests.get(0).getRequestDate(),request.getRequestDate());
-        Assert.assertEquals(retRequests.get(0).getRole(), request.getRole());
+        Assert.assertEquals(retRequests.get(0).getRequestStatus(), request.getRequestStatus());
         Assert.assertEquals(retRequests.get(0).getUserId(),request.getUserId());
         Assert.assertEquals(1,service.getAllRequestsForUser("test@test.com",0,10).size());
         Assert.assertEquals(1,service.getAllPendingRequestsForUser("test@test.com",0,10).size());
@@ -119,7 +124,9 @@ public class UserServiceTest {
         }).when(userDao).approve(ldapUser(false,false).getEmail());
         Mockito.when(userDao.findByPrimaryKey("test@test.com")).thenReturn(ldapUser(true,true));
         service.createLdapUser(ldapUser(false,false));
-        service.updateUserFromDTO(userDto());
+        UserDTO userDto = new UserDTO();
+        userDto.setDbUser(dbUser());
+		service.updateUserFromDTO(userDto);
         service.approveUser("test@test.com");
         UserDTO userDTO = service.getUser("test@test.com");
         Assert.assertTrue(userDTO.getUser().isActive());
@@ -160,18 +167,10 @@ public class UserServiceTest {
         return dbUser;
     }
 
-    private UserDTO userDto(){
-        UserDTO user = new UserDTO();
-        user.setUser(ldapUser(false,true));
-        user.setDbUser(dbUser());
-        return user;
-    }
-
     private RoleRequest roleRequest(){
         RoleRequest request = new RoleRequest();
         request.setRequestDate(new Date());
         request.setOrganizationId("orgId");
-        request.setRole("testrole");
         request.setRequestStatus("pending");
         request.setUserId("test@test.com");
         return request;
