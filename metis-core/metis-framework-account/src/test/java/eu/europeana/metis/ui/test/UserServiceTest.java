@@ -131,7 +131,6 @@ public class UserServiceTest {
         UserDTO userDTO = service.getUser("test@test.com");
         Assert.assertTrue(userDTO.getUser().isActive());
         Assert.assertTrue(userDTO.getUser().isApproved());
-
     }
 
     @Test

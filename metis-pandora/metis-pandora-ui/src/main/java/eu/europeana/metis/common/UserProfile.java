@@ -1,10 +1,12 @@
 package eu.europeana.metis.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 
 /**
@@ -14,17 +16,16 @@ import eu.europeana.metis.ui.mongo.domain.UserDTO;
  */
 public class UserProfile extends User {
 
-    private Country country;
+    private String country;
 
     private String skype;
 
     private Boolean europeanaNetworkMember;
 
-    private List<String> organizations;
+    //FIXME after we change the organizations widget there will be a list of organizations binding.
+    private String organization;
     
-    public UserProfile() {
-		// TODO Auto-generated constructor stub
-	}
+//    public UserProfile() { }
     
     public void init(UserDTO userDTO) {
 		User user = userDTO.getUser();
@@ -33,15 +34,15 @@ public class UserProfile extends User {
 		}
 		DBUser dbUser = userDTO.getDbUser();
 		if (dbUser  != null) {
-			setDBUser(dbUser);			
+			setDBUser(dbUser);
 		}
 	}
     
-	public Country getCountry() {
+	public String getCountry() {
 		return country;
 	}
 
-	public void setCountry(Country country) {
+	public void setCountry(String country) {
 		this.country = country;
 	}
 
@@ -61,12 +62,12 @@ public class UserProfile extends User {
 		this.europeanaNetworkMember = europeanaNetworkMember;
 	}
 
-	public List<String> getOrganizations() {
-		return organizations;
+	public String getOrganization() {
+		return organization;
 	}
 
-	public void setOrganizations(List<String> organizations) {
-		this.organizations = organizations;
+	public void setOrganization(String organization) {
+		this.organization = organization;
 	}
 	
 	public void setLdapUser(User user) {
@@ -83,10 +84,28 @@ public class UserProfile extends User {
 	}
 
 	public void setDBUser(DBUser dbUser) {
-		// TODO Auto-generated method stub
-		setCountry(dbUser.getCountry());
+		Country c = dbUser.getCountry();
+		if ( c != null  ) {
+			setCountry(c.getName());			
+		}
 		setSkype(dbUser.getSkypeId());
 		setEuropeanaNetworkMember(dbUser.getEuropeanaNetworkMember());
-		setOrganizations(dbUser.getOrganizations());
+		List<OrganizationRole> organizationRoles = dbUser.getOrganizationRoles();
+		List<String> organizations = new ArrayList<String>();
+		if (organizationRoles != null) {
+			for (OrganizationRole or: organizationRoles) {
+				if (or.getOrganizationId() != null) {
+					organizations.add(or.getOrganizationId());				
+				}
+			}			
+		}
+		StringBuilder orgs = new StringBuilder();
+		if (!organizations.isEmpty()) {
+			for (int i = 0; i < organizations.size() - 1; i++) {
+				orgs.append(organizations.get(i)).append(",");
+			}
+			orgs.append(organizations.get(organizations.size() - 1));						
+		}
+		setOrganization(orgs.toString());
 	}
 }

@@ -1,22 +1,27 @@
 package eu.europeana.metis.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import eu.europeana.metis.common.UserProfile;
+import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 import eu.europeana.metis.framework.rest.client.ServerException;
@@ -26,6 +31,8 @@ import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.NewDatasetPage;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.ldap.domain.User;
+import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 
@@ -205,19 +212,66 @@ public class MetisPageController {
     }
     
     @RequestMapping(value = "/profile", method=RequestMethod.POST)
-    public ModelAndView updateUser(@ModelAttribute UserProfile user, Model model) { 
+    public ModelAndView updateUser(@ModelAttribute UserProfile user, BindingResult result, Model model) { 
     	model.addAttribute("user", user);
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	UserDTO userDTO = userService.getUser(user.getEmail());
-    	if (user != null) {
-    		userDTO.setUser(user);    		
+    	if (user != null && userDTO != null) {
+    		User ldapUser = userDTO.getUser();
+    		if (ldapUser != null) {
+    			ldapUser.setFullName(user.getFullName());
+    			ldapUser.setLastName(user.getLastName());
+    			ldapUser.setPassword(user.getPassword());
+    		}	
+    		userDTO.setUser(ldapUser);		
+
+    		DBUser dbUser = userDTO.getDbUser();
+    		if (dbUser == null) {
+    			dbUser = new DBUser();
+    			dbUser.setId(new ObjectId());;
+    			dbUser.setEmail(user.getEmail());
+    		}
+    		String orgs = user.getOrganization();
+    		List<String> organizations = new ArrayList<>();
+    		if (orgs != null) {
+    			String[] split = orgs.split(",");
+    			for (int i = 0; i < split.length; i++) {
+    				split[i] = split[i].trim();    				
+    			}
+    			organizations.addAll(Arrays.asList(split));
+    		}
+    		List<String> dbUserOrganizations = new ArrayList<>();
+    		List<OrganizationRole> organizationRoles = dbUser.getOrganizationRoles();
+    		if (organizationRoles != null) {
+    			for (OrganizationRole or: organizationRoles) {
+    				String organizationId = or.getOrganizationId();
+    				if (organizationId != null && !organizationId.isEmpty()) {
+    					dbUserOrganizations.add(organizationId);    				
+    				}
+    			}    			
+    		}
+			// if the list of organization is changed in the user profile we
+			// create a role request for organizations that are added and create
+			// a deletion request for the organizations that are removed from
+			// the user profile 
+    		if (dbUserOrganizations.size() != organizations.size() || !CollectionUtils.disjunction(organizations, dbUserOrganizations).isEmpty()) {
+    			for (String org: organizations) {
+					userService.createRequest(dbUser.getEmail(), org, false);
+    			}
+    			for (Object org: CollectionUtils.subtract(dbUserOrganizations, organizations)) {
+    				userService.createRequest(dbUser.getEmail(), (String)org, true);
+    			}
+    		}
+    		//dbUser.setOrganizations(organizations);
+    		dbUser.setCountry(Country.toCountry(user.getCountry()));
+    		dbUser.setSkypeId(user.getSkype());
+    		userDTO.setDbUser(dbUser);
     	}
     	userService.updateUserFromDTO(userDTO);
     	logger.info("*** User updated: " + user.getFullName() + " ***");
      	    	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
-		modelAndView.setViewName("redirect:login?email="+ user.getEmail());
     	return modelAndView;
     }
 }

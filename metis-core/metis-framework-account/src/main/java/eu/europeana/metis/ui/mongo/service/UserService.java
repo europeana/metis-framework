@@ -1,21 +1,23 @@
 package eu.europeana.metis.ui.mongo.service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * Created by ymamakis on 11/24/16.
@@ -38,9 +40,9 @@ public class UserService {
     public void updateUserFromDTO(UserDTO userDto) {
         if (userDto.getUser() != null) {
             updateUserInLdap(userDto.getUser());
-        }
-        if (userDto.getDbUser() != null) {
-            updateUserInMongo(userDto.getDbUser());
+            if (userDto.getDbUser() != null) {
+            	updateUserInMongo(userDto.getDbUser());            	
+            }
         }
     }
 
@@ -80,9 +82,18 @@ public class UserService {
     /**
      * Create a request for a role in an organization
      *
-     * @param request The request for a role in an organization
+     * @param userId The user identifier
+     * @param organizationId The organization identifier
+     * @param isDeleteRequest If it is a delete request
      */
-    public void createRequest(RoleRequest request) {
+    public void createRequest(String userId,String organizationId, boolean isDeleteRequest) {
+        RoleRequest request = new RoleRequest();
+        request.setUserId(userId);
+        request.setOrganizationId(organizationId);
+        request.setRequestStatus("pending");
+        request.setRequestDate(new Date());
+        request.setId(new ObjectId());
+        request.setDeleteRequest(isDeleteRequest);
         roleRequestDao.save(request);
     }
 
@@ -103,43 +114,68 @@ public class UserService {
      *
      * @param request The user request to approve
      */
-    public void approveRequest(RoleRequest request) {
-        UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
-        ops.set("requestStatus", "approved");
-        Query<RoleRequest> query = roleRequestDao.createQuery();
-        query.filter("id", request.getId());
-        roleRequestDao.update(query, ops);
-        DBUser user = dbUserDao.findOne("email", request.getUserId());
-        if (user != null) {
-            List<String> orgIds = user.getOrganizations();
-            if(orgIds ==null){
-                orgIds = new ArrayList<>();
-            }
-            orgIds.add(request.getOrganizationId());
-            user.setOrganizations(orgIds);
-            updateUserInMongo(user);
-        }
+    public void approveRequest(RoleRequest request, String role) {
+        updateRequest(request,role,"approved");
+    }
 
+    /**
+     * Reject a role request
+     * @param request The request to reject
+     */
+    public void rejectRequest(RoleRequest request){
+        updateRequest(request, null,"rejected");
+    }
+
+    private void updateRequest(RoleRequest request,String role, String status){
+        UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
+        ops.set("requestStatus", status);
+        Query<RoleRequest> query = roleRequestDao.createQuery();
+        query.filter("userId", request.getUserId());
+        query.filter("organizationId",request.getOrganizationId());
+        roleRequestDao.getDatastore().update(query, ops,true);
+        if (!StringUtils.equals("rejected",status)) {
+            DBUser user = dbUserDao.findOne("email", request.getUserId());
+            if (user != null) {
+                List<OrganizationRole> orgIds = user.getOrganizationRoles();
+
+                if (!request.isDeleteRequest()) {
+                    if (orgIds == null) {
+                        orgIds = new ArrayList<>();
+                    }
+                    OrganizationRole orgRole = new OrganizationRole();
+                    orgRole.setOrganizationId(request.getOrganizationId());
+                    orgRole.setRole(role);
+                    orgIds.add(orgRole);
+                    user.setOrganizationRoles(orgIds);
+
+                } else {
+                    List<OrganizationRole> newRoles = new ArrayList<>();
+                    for (OrganizationRole checkRole:orgIds){
+                        if(!StringUtils.equals(request.getOrganizationId(),checkRole.getOrganizationId())){
+                            newRoles.add(checkRole);
+                        }
+                    }
+                    user.setOrganizationRoles(newRoles);
+                }
+                updateUserInMongo(user);
+            }
+        }
     }
 
     /**
      * Approve a user
      *
-     * @param email The email of tghe user to approve
+     * @param email The email of the user to approve
      */
     public void approveUser(String email) {
         userDao.approve(email);
-        List<RoleRequest> requests = getUserRequests(email);
-        for (RoleRequest request : requests) {
-            approveRequest(request);
-        }
 
     }
 
     private void updateUserInMongo(DBUser user) {
         UpdateOperations<DBUser> ops = dbUserDao.createUpdateOperations();
         Query<DBUser> query = dbUserDao.createQuery();
-        query.filter("id", user.getId());
+        query.filter("id", user.getId());        	
         if (user.getCountry() != null) {
             ops.set("country", user.getCountry());
         } else {
@@ -161,12 +197,15 @@ public class UserService {
         } else {
             ops.unset("skypeId");
         }
-        if (user.getOrganizations() != null) {
-            ops.set("organizations", user.getOrganizations());
+        if (user.getOrganizationRoles() != null) {
+            ops.set("organizationRoles", user.getOrganizationRoles());
         } else {
-            ops.unset("organizations");
+            ops.unset("organizationRoles");
         }
-        dbUserDao.getDatastore().update(query, ops, true);       	
+        if (user.getEmail() != null) {
+        	ops.set("email", user.getEmail());
+        	dbUserDao.getDatastore().update(query, ops, true);       	
+        }
     }
 
     private void updateUserInLdap(User user) {

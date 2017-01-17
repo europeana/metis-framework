@@ -19,6 +19,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: org.mongodb.morphia:morphia:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:bson:3.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:3.0.4" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.2.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:4.2.5.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:4.2.5.RELEASE" level="project" />
@@ -33,25 +37,23 @@
     <orderEntry type="library" name="Maven: relaxngDatatype:relaxngDatatype:20020414" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="module" module-name="metis-pandora-common" />
-    <orderEntry type="library" name="Maven: org.mongodb.morphia:morphia:1.1.1" level="project" />
+    <orderEntry type="library" name="Maven: org.mongodb.morphia:morphia:1.3.0-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: cglib:cglib-nodep:2.2.2" level="project" />
     <orderEntry type="library" name="Maven: com.thoughtworks.proxytoys:proxytoys:1.0" level="project" />
-    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="module" module-name="validation-common" />
     <orderEntry type="library" name="Maven: commons-validator:commons-validator:1.4.1" level="project" />
     <orderEntry type="library" name="Maven: commons-beanutils:commons-beanutils:1.8.3" level="project" />
     <orderEntry type="library" name="Maven: commons-digester:commons-digester:1.8.1" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2.1" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:bson:3.0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:3.0.4" level="project" />
     <orderEntry type="library" name="Maven: xom:xom:1.2.5" level="project" />
     <orderEntry type="library" name="Maven: xml-apis:xml-apis:1.3.03" level="project" />
     <orderEntry type="library" name="Maven: xerces:xercesImpl:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: xalan:xalan:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: net.sf.saxon:saxon:8.7" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-core:2.3.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-compress:1.11" level="project" />
     <orderEntry type="module" module-name="metis-pandora-persistence" />
+    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.4.0-rc1" level="project" />
     <orderEntry type="library" name="Maven: commons-io:commons-io:2.4" level="project" />
     <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.3" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.1.0" level="project" />
@@ -74,11 +76,11 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.6.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.6.5" level="project" />
     <orderEntry type="module" module-name="metis-common" />
-    <orderEntry type="library" name="Maven: org.mongodb:mongo-java-driver:3.2.2" level="project" />
     <orderEntry type="library" name="Maven: de.flapdoodle.embed:de.flapdoodle.embed.mongo:1.50.5" level="project" />
     <orderEntry type="library" name="Maven: de.flapdoodle.embed:de.flapdoodle.embed.process:1.50.2" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.1" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna:4.0.0" level="project" />
     <orderEntry type="library" name="Maven: net.java.dev.jna:jna-platform:4.0.0" level="project" />
+    <orderEntry type="library" name="Maven: commons-lang:commons-lang:2.6" level="project" />
   </component>
 </module>

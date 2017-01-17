@@ -1,9 +1,7 @@
 package eu.europeana.metis.ui.mongo.domain;
 
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.*;
 
 import java.util.Date;
 
@@ -12,6 +10,7 @@ import java.util.Date;
  * Created by ymamakis on 11/24/16.
  */
 @Entity
+@Indexes(@Index(options = @IndexOptions(unique = true), fields = {@Field("organizationId"),@Field("userId")}))
 public class RoleRequest {
     @Id
     private ObjectId id;
@@ -20,18 +19,16 @@ public class RoleRequest {
      * The id of the organization
      */
     @Indexed
+    @Property
     private String organizationId;
 
     /**
      * The id of a user
      */
     @Indexed
+    @Property
     private String userId;
 
-    /**
-     * The role
-     */
-    private String role;
 
     /**
      * The request date
@@ -43,6 +40,9 @@ public class RoleRequest {
      */
     @Indexed
     private String requestStatus;
+
+    private boolean deleteRequest;
+
 
     public ObjectId getId() {
         return id;
@@ -68,13 +68,6 @@ public class RoleRequest {
         this.userId = userId;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
 
     public Date getRequestDate() {
         return requestDate;
@@ -90,5 +83,13 @@ public class RoleRequest {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
+    }
+
+    public boolean isDeleteRequest() {
+        return deleteRequest;
+    }
+
+    public void setDeleteRequest(boolean deleteRequest) {
+        this.deleteRequest = deleteRequest;
     }
 }
