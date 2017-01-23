@@ -31,6 +31,7 @@ import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
+import eu.europeana.metis.mail.config.MailConfig;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
@@ -68,6 +69,7 @@ import java.util.List;
 @EnableSwagger2
 @EnablePluginRegistries(AbstractMetisWorkflow.class)
 @EnableScheduling
+@Import({MailConfig.class})
 public class Application extends WebMvcConfigurerAdapter {
 
     @Value("${mongo.host}")
