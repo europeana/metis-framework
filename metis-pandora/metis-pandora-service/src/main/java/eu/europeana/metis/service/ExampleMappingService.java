@@ -39,6 +39,11 @@ public class ExampleMappingService implements MappingService {
 
     @Override
     public Mapping getByName(String name) {
+        try {
+            return new ObjectMapper().readValue(this.getClass().getClassLoader().getResourceAsStream("test_mapping.json"),Mapping.class);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
