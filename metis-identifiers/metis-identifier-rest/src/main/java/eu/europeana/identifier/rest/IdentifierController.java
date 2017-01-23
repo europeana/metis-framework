@@ -55,7 +55,7 @@ public class IdentifierController {
     @ApiOperation(value = "Generate record identifier", response = String.class)
     @ResponseBody
     public String generateIdentifier(@ApiParam("collectionId") @PathVariable("collectionId") String collectionId,
-                                       @ApiParam("recordId") @PathVariable("recordId") String recordId) {
+                                       @ApiParam("recordId") @RequestParam("recordId") String recordId) {
         return idService.generateIdentifier(collectionId, URLDecoder.decode(recordId));
     }
 

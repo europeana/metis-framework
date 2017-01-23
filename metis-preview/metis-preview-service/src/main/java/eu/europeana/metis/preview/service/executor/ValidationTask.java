@@ -10,6 +10,7 @@ import eu.europeana.metis.preview.service.ExtendedValidationResult;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
@@ -72,8 +73,8 @@ public class ValidationTask implements Callable {
      * Execution of transformation, id-generation and validation for Europeana Preview Service
      */
     @Override
-    public ExtendedValidationResult call() {
-        try {
+    public ExtendedValidationResult call() throws IOException, TransformerException, ParserConfigurationException, JiBXException, IllegalAccessException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException {
+
             IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
             if (applyCrosswalk) {
                 XsltTransformer transformer = new XsltTransformer();
@@ -84,21 +85,27 @@ public class ValidationTask implements Callable {
             if (result.isSuccess()) {
                 RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(record));
                 String id = identifierClient.generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout()).replace("\"", "");
-                rdf.getProvidedCHOList().get(0).setAbout(id);
-                FullBeanImpl fBean = new MongoConstructor()
-                        .constructFullBean(rdf);
-                fBean.setAbout(id);
-                fBean.setEuropeanaCollectionName(new String[]{collectionId});
-                recordDao.createRecord(fBean);
+                if(StringUtils.isNotEmpty(id)) {
+                    rdf.getProvidedCHOList().get(0).setAbout(id);
+                    FullBeanImpl fBean = new MongoConstructor()
+                            .constructFullBean(rdf);
+                    fBean.setAbout(id);
+                    fBean.setEuropeanaCollectionName(new String[]{collectionId});
+                    recordDao.createRecord(fBean);
+                } else {
+                    ValidationResult result1 =new ValidationResult();
+                    result1.setSuccess(false);
+                    result1.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
+                    result1.setMessage("Id generation failed. Record not persisted");
+                    validationResults.add(result1);
+                    list.setSuccess(false);
+                }
             } else {
                 validationResults.add(result);
                 list.setSuccess(false);
             }
 
-        } catch (TransformerException | ParserConfigurationException | IOException | InvocationTargetException
-                | InstantiationException | JiBXException | SolrServerException | IllegalAccessException | NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+
         return list;
     }
 }

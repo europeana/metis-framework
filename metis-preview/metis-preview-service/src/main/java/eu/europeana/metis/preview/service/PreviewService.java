@@ -36,7 +36,6 @@ public class PreviewService {
      * Constructor for the preview service
      *
      * @param previewPortalUrl The preview portal URL
-     * @param crosswalkPath    The crosswalk between EDM-External and EDM-INTERNAL
      */
     public PreviewService(String previewPortalUrl) throws JiBXException {
         bfact = BindingDirectory.getFactory(RDF.class);
@@ -103,7 +102,7 @@ public class PreviewService {
      * @throws IOException
      * @throws SolrServerException
      */
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Scheduled(cron = "00 00 * * *")
     public void deleteRecords() throws IOException, SolrServerException {
         dao.deleteRecordIdsByTimestamp();
     }
