@@ -3,6 +3,7 @@ package eu.europeana.metis.ui.mongo.domain;
 
 import eu.europeana.metis.framework.common.Country;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
@@ -52,7 +53,8 @@ public class DBUser {
      * The list of all the available organizations
      */
     @Indexed
-    private List<String> organizations;
+    @Embedded
+    private List<OrganizationRole> organizationRoles;
 
     public ObjectId getId() {
         return id;
@@ -118,11 +120,11 @@ public class DBUser {
         this.modified = modified;
     }
 
-    public List<String> getOrganizations() {
-        return organizations;
+    public List<OrganizationRole> getOrganizationRoles() {
+        return organizationRoles;
     }
 
-    public void setOrganizations(List<String> organizations) {
-        this.organizations = organizations;
+    public void setOrganizationRoles(List<OrganizationRole> organizationRoles) {
+        this.organizationRoles = organizationRoles;
     }
 }

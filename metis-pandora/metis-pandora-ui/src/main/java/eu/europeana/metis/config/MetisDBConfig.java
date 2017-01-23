@@ -70,20 +70,21 @@ public class MetisDBConfig {
     @Bean(name = "mongoProvider")
     MongoProvider mongoProvider(){
         try {
-            if(System.getenv().get("VCAP_SERVICES")==null) {
+        	//FIXME this piece of code below is commented in order to have the app running in Pivotal server!
+//            if(System.getenv().get("VCAP_SERVICES")==null) {
                 provider = new MongoProvider(mongoHost, Integer.parseInt(mongoPort), db, username, password);
                 return provider;
-            } else {
-                JsonParser parser = new JsonParser();
-                JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-                JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
-
-                JsonObject credentials = element.getAsJsonObject("credentials");
-                JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
-                String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
-                provider = new MongoProvider(uri.getAsString(),db);
-                return provider;
-            }
+//            } else {
+//                JsonParser parser = new JsonParser();
+//                JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
+//                JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
+//
+//                JsonObject credentials = element.getAsJsonObject("credentials");
+//                JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
+//                String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
+//                provider = new MongoProvider(uri.getAsString(),db);
+//                return provider;
+//            }
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }
