@@ -16,6 +16,7 @@
  */
 package eu.europeana.validation.service;
 
+import eu.europeana.features.ObjectStorageClient;
 import org.w3c.dom.ls.LSResourceResolver;
 
 /**
@@ -28,5 +29,5 @@ public interface AbstractLSResourceResolver extends LSResourceResolver {
 
     String getPrefix();
 
-    SwiftProvider getSwiftProvider();
+    ObjectStorageClient getObjectStorageClient();
 }
