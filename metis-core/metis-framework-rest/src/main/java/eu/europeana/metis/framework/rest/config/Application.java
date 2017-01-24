@@ -20,6 +20,7 @@ package eu.europeana.metis.framework.rest.config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import eu.europeana.metis.framework.cache.JedisProvider;
 import eu.europeana.metis.framework.dao.*;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.rest.RestConfig;
@@ -83,7 +84,12 @@ public class Application extends WebMvcConfigurerAdapter {
     @Value("${mongo.pass}")
     private String password;
     private MongoProvider provider;
-
+    @Value ("${redis.host}")
+    private String redisHost;
+    @Value("${redis.port}")
+    private int redisPort;
+    @Value("${redis.password}")
+    private String redisPassword;
     @Autowired
     @Lazy
     private RestConfig restConfig;
@@ -134,6 +140,21 @@ public class Application extends WebMvcConfigurerAdapter {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
         propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("metis.properties"));
         return propertySourcesPlaceholderConfigurer;
+    }
+
+    @Bean
+    JedisProvider getJedisProvider(){
+        if(System.getenv().get("VCAP_SERVICES")!=null){
+            JsonParser parser = new JsonParser();
+            JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
+            JsonObject element = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
+            JsonObject credentials = element.getAsJsonObject("credentials");
+            redisHost = credentials.getAsJsonPrimitive("hostname").getAsString();
+            redisPassword = credentials.getAsJsonPrimitive("password").getAsString();
+            redisPort = credentials.getAsJsonPrimitive("port").getAsInt();
+
+        }
+        return new JedisProvider(redisHost,redisPassword,redisPort);
     }
 
     @Bean
