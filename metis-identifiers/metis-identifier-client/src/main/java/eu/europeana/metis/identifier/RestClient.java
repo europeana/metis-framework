@@ -58,10 +58,9 @@ public class RestClient {
      * @return The valid Europeana Identifier
      */
     public String generateIdentifier(String collectionId, String recordId) {
-        Map<String,String> params = new HashMap<>();
-        params.put("recordId",recordId);
+
         return template.getForObject(identifierEndpoint + RestEndpoints.resolve(
-                RestEndpoints.IDENTIFIER_GENERATE, collectionId), String.class,recordId);
+                RestEndpoints.IDENTIFIER_GENERATE, collectionId)+"?recordId="+recordId, String.class);
     }
 
     /**

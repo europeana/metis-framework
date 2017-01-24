@@ -1,13 +1,11 @@
 package eu.europeana.metis.ui.mongo.service;
 
+import eu.europeana.metis.framework.common.Role;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
-import eu.europeana.metis.ui.mongo.domain.DBUser;
-import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
-import eu.europeana.metis.ui.mongo.domain.RoleRequest;
-import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import eu.europeana.metis.ui.mongo.domain.*;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
@@ -98,6 +96,21 @@ public class UserService {
     }
 
     /**
+     * Filter out the roles that can be assigned to Organization
+     * @param role The role of the organization
+     * @return The Roles that can be assigned to the user
+     */
+    public List<Roles> getRolesFromOrganizationRole(Role role){
+        List<Roles> roles = new ArrayList<>();
+        for(Roles roleToCheck: Roles.values()){
+            if (roleToCheck.isAssignableTo(role)){
+                roles.add(roleToCheck);
+            }
+        }
+        return roles;
+    }
+
+    /**
      * Get user role requests
      *
      * @param email The email of the user
@@ -114,7 +127,7 @@ public class UserService {
      *
      * @param request The user request to approve
      */
-    public void approveRequest(RoleRequest request, String role) {
+    public void approveRequest(RoleRequest request, Roles role) {
         updateRequest(request,role,"approved");
     }
 
@@ -126,7 +139,7 @@ public class UserService {
         updateRequest(request, null,"rejected");
     }
 
-    private void updateRequest(RoleRequest request,String role, String status){
+    private void updateRequest(RoleRequest request, Roles role, String status){
         UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
         ops.set("requestStatus", status);
         Query<RoleRequest> query = roleRequestDao.createQuery();
