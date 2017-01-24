@@ -8,14 +8,14 @@ import org.mongodb.morphia.annotations.Entity;
 @Entity
 public class OrganizationRole {
 
-    private String role;
+    private Roles role;
     private String organizationId;
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 

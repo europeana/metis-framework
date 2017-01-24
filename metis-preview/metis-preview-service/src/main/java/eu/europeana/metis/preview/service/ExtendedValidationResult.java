@@ -4,6 +4,7 @@ import eu.europeana.validation.model.ValidationResultList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Date;
 
 /**
  * Extended class with preview URL for preview service
@@ -12,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class ExtendedValidationResult extends ValidationResultList {
     private String portalUrl;
+    private Date date;
 
     /**
      * The portal url
@@ -28,5 +30,13 @@ public class ExtendedValidationResult extends ValidationResultList {
      */
     public void setPortalUrl(String portalUrl) {
         this.portalUrl = portalUrl;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }

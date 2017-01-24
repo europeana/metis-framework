@@ -18,14 +18,14 @@
 package eu.europeana.metis.framework.common;
 
 /**
- * A role of a suppling institution to Europeana
+ * A role of a supplying institution to Europeana
  * Created by ymamakis on 4/4/16.
  */
 public enum Role {
 
-    CONTENT_PROVIDER("Content provider"),DATA_AGGREGATOR("Data aggregator"),
-    FINANCIAL_PARTNER("Financial partner / sponsor"),POLICY_MAKER("Policy maker"),
-    THINK_TANK("Think tank / Knowledge organisation / Creative");
+    CONTENT_PROVIDER("Content provider"),DIRECT_PROVIDER("Direct Provider"),DATA_AGGREGATOR("Data aggregator"),
+    FINANCIAL_PARTNER("Financial partner"),POLICY_MAKER("Policy maker"),
+    CONSULTANT("Consultant"),OTHER("Other"),EUROPEANA("Europeana");
 
     private String name;
 

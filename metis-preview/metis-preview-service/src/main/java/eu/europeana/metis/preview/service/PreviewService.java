@@ -11,6 +11,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.*;
 
@@ -93,6 +97,9 @@ public class PreviewService {
         dao.commit();
         list.setResultList(results);
         list.setPortalUrl(previewPortalUrl + collectionId + "*");
+        DateTime date = new DateTime();
+        Date nextDay = date.toDateMidnight().plusDays(1).toDate();
+        list.setDate(nextDay);
         return list;
     }
 
@@ -102,7 +109,7 @@ public class PreviewService {
      * @throws IOException
      * @throws SolrServerException
      */
-    @Scheduled(cron = "00 00 * * *")
+    @Scheduled(cron = "00 00 * * * *")
     public void deleteRecords() throws IOException, SolrServerException {
         dao.deleteRecordIdsByTimestamp();
     }

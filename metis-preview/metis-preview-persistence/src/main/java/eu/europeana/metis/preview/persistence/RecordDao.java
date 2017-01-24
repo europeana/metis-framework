@@ -8,6 +8,7 @@ import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.ProvidedCHO;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
@@ -51,13 +52,13 @@ public class RecordDao {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
+    public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, MongoDBException {
         SolrInputDocument doc =solrDocumentHandler.generate((FullBeanImpl) fBean);
         doc.setField("europeana_id",fBean.getAbout());
-
         server.add(doc);
         FullBean fixed = fixIdentifiers(fBean);
-        beanHandler.saveEdmClasses((FullBeanImpl)fixed,true);
+
+        beanHandler.saveEdmClasses((FullBeanImpl)fixed,mongoServer.getFullBean(fBean.getAbout())==null);
         mongoServer.getDatastore().save(fixed);
 
     }
@@ -117,7 +118,7 @@ public class RecordDao {
      * @throws IllegalAccessException
      * @throws SolrServerException
      */
-    public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException {
+    public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException, MongoDBException {
         for(FullBean fBean:fBeans){
             createRecord(fBean);
         }
