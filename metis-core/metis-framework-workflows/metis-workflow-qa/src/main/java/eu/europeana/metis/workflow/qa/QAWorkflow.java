@@ -37,7 +37,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
         endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
         params = new HashMap<>();
         params.put(QAParams.QA_ENDPOINT,endpoint);
-        activeStatistics.addAll(cache.getAll("datasets"));
+        activeStatistics.addAll(cache.getAll("qa-datasets"));
     }
     @Override
     public String getName() {
@@ -93,7 +93,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
         qaStatistics.setStatus("analyzing");
         statistics.put(WorkflowParameters.DATASET,qaStatistics);
         activeStatistics.add(params.get(WorkflowParameters.DATASET).get(0));
-        cache.set("datasets", params.get(WorkflowParameters.DATASET).get(0),params.get(WorkflowParameters.DATASET).get(0));
+        cache.set("qa-datasets", params.get(WorkflowParameters.DATASET).get(0),params.get(WorkflowParameters.DATASET).get(0));
     }
 
     @Override
@@ -104,7 +104,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
                     + "/analyzing/"+qaStatistics.getSessionId()+"/status", MeasuringResponse.class).getBody();
             if(StringUtils.equals(response.getResult(),"ready")){
                 activeStatistics.remove(datasetId);
-                cache.remove("datasets",datasetId);
+                cache.remove("qa-datasets",datasetId);
                 qaStatistics.setStatus("finished");
                 statistics.put(datasetId,qaStatistics);
                 return qaStatistics;
