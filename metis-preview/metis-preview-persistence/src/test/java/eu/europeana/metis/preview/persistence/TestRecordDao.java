@@ -1,6 +1,7 @@
 package eu.europeana.metis.preview.persistence;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.metis.mongo.MongoProvider;
@@ -75,6 +76,8 @@ public class TestRecordDao {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (MongoDBException e) {
             e.printStackTrace();
         }
     }

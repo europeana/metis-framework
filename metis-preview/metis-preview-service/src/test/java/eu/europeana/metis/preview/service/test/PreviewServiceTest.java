@@ -1,5 +1,6 @@
 package eu.europeana.metis.preview.service.test;
 
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.ExtendedValidationResult;
@@ -71,6 +72,8 @@ public class PreviewServiceTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (MongoDBException e) {
             e.printStackTrace();
         }
 
