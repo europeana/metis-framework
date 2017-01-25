@@ -1,16 +1,16 @@
 # Eclipse
-.classpath
-.project
-.settings/
+*.classpath
+*.project
+*.settings/
 
 # Intellij
-.idea/
+**/.idea/
 *.iml
 *.iws
 
 # Mac
-.DS_Store
+*.DS_Store
 
 # Maven
-log/
-target/
+**/log/
+**/target/
