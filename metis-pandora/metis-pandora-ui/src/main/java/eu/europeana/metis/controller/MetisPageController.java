@@ -10,6 +10,9 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSendException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
@@ -25,6 +28,7 @@ import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 import eu.europeana.metis.framework.rest.client.ServerException;
+import eu.europeana.metis.mail.notification.MetisMailType;
 import eu.europeana.metis.page.AllDatasetsPage;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
@@ -52,6 +56,12 @@ public class MetisPageController {
 	@Autowired
 	private DsOrgRestClient dsOrgRestClient;
 	
+	@Autowired
+	private JavaMailSender javaMailSender;
+
+	@Autowired
+	private SimpleMailMessage simpleMailMessage;
+	
 	/**
 	 * View resolves Mapping_To_EDM page.
 	 * @return
@@ -60,7 +70,7 @@ public class MetisPageController {
     public ModelAndView mappingsPage() {
         ModelAndView modelAndView = new ModelAndView("templates/Pandora/Mapping-To-EDM");
         modelAndView.addAllObjects((new MappingToEdmPage()).buildModel());
-//        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+//        System.out.println(MetisMappingUtil.toJson(MappingCard.buildMappingCardModel()));
         return modelAndView;
     }
 	
@@ -254,14 +264,40 @@ public class MetisPageController {
 			// if the list of organization is changed in the user profile we
 			// create a role request for organizations that are added and create
 			// a deletion request for the organizations that are removed from
-			// the user profile 
-    		if (dbUserOrganizations.size() != organizations.size() || !CollectionUtils.disjunction(organizations, dbUserOrganizations).isEmpty()) {
-    			for (String org: organizations) {
-					userService.createRequest(dbUser.getEmail(), org, false);
-    			}
-    			for (Object org: CollectionUtils.subtract(dbUserOrganizations, organizations)) {
-    				userService.createRequest(dbUser.getEmail(), (String)org, true);
-    			}
+			// the user profile
+    		if (!dbUserOrganizations.isEmpty() || !organizations.isEmpty()) {
+    			if (dbUserOrganizations.size() != organizations.size() || !CollectionUtils.disjunction(organizations, dbUserOrganizations).isEmpty()) {
+    				for (Object org: CollectionUtils.subtract(organizations, dbUserOrganizations)) {
+    					userService.createRequest(dbUser.getEmail(), (String)org, false);
+    				}
+    				for (Object org: CollectionUtils.subtract(dbUserOrganizations, organizations)) {
+    					userService.createRequest(dbUser.getEmail(), (String)org, true);
+    				}
+    				//mailing notification service
+    				simpleMailMessage.setSubject(MetisMailType.ADMIN_ROLE_REQUEST_PENDING.getMailSubject(user.getFullName(), user.getLastName()));
+    				simpleMailMessage.setText(MetisMailType.ADMIN_ROLE_REQUEST_PENDING.getMailText(user.getFullName(), user.getLastName()));
+
+    				List<String> allAdminUsers = userService.getAllAdminUsers();
+    				simpleMailMessage.setTo(allAdminUsers.toArray(new String[allAdminUsers.size()]));  
+    				try {
+    					javaMailSender.send(simpleMailMessage);
+    					logger.info("*** Email notification for the role request pending been sent to all Metis Europeana admins ***");
+       				} catch (MailSendException e) {
+       					logger.warn("*** The email address of one or more Europeana admins is incorrect! ***");
+       				} catch (Exception e) {
+       					logger.error(e.getMessage());
+       				}
+
+    				simpleMailMessage.setSubject(MetisMailType.USER_ROLE_REQUEST_PENDING.getMailSubject(user.getFullName(), user.getLastName()));
+    				simpleMailMessage.setText(MetisMailType.USER_ROLE_REQUEST_PENDING.getMailText(user.getFullName(), user.getLastName()));
+    				simpleMailMessage.setTo(user.getEmail());
+    				try {
+    					javaMailSender.send(simpleMailMessage);
+    				} catch (MailSendException e) {
+       					logger.warn("*** The email address of the user is incorrect! ***");
+       				}
+    				logger.info("*** Email notification for the role request pending been sent to the user: " + user.getEmail() + " ***");
+    			}    			
     		}
     		//dbUser.setOrganizations(organizations);
     		dbUser.setCountry(Country.toCountry(user.getCountry()));

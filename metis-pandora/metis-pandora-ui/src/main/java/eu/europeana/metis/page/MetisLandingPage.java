@@ -13,7 +13,6 @@ import eu.europeana.metis.common.UserProfile;
 import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
-import eu.europeana.metis.ui.ldap.domain.User;
 
 /**
  * This web-page represents a Metis Landing page and all user account pages like: Login page,

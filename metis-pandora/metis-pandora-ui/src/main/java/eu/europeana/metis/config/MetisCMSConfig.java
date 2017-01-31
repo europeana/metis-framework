@@ -2,7 +2,6 @@ package eu.europeana.metis.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 

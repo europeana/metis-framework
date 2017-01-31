@@ -19,6 +19,8 @@ package eu.europeana.metis.ui.ldap.dao;
 
 import eu.europeana.metis.ui.ldap.domain.Group;
 import eu.europeana.metis.ui.ldap.domain.User;
+import eu.europeana.metis.ui.mongo.domain.Roles;
+
 import org.springframework.ldap.core.LdapTemplate;
 
 import java.util.List;
@@ -41,6 +43,10 @@ public interface UserDao {
    void addUserRole(User user, Group group);
    
    void removeUserRole(User user, Group group);
+   
    void disable(String email);
+   
    void approve(String email);
+   
+   List<String> findUsersByRole(Roles userRole);
 }

@@ -314,5 +314,7 @@ public class UserService {
         return roleRequestDao.find(requestQuery).asList();
     }
 
-
+    public List<String> getAllAdminUsers() {
+    	return userDao.findUsersByRole(Roles.EUROPEANA_ADMIN);
+    }
 }

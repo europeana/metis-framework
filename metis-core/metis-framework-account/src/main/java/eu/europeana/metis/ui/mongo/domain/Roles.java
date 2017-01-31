@@ -8,49 +8,49 @@ import eu.europeana.metis.framework.common.Role;
  */
 public enum Roles {
 
-    DATA_PROVIDER_CONTACT("Data Provider Contact"){
+    DATA_PROVIDER_CONTACT("Data Provider Contact", "hub_contact"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.CONTENT_PROVIDER==role;
         }
     },
-    PROVIDER_VIEWER("Provider Viewer"){
+    PROVIDER_VIEWER("Provider Viewer", "hub_viewer"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.DATA_AGGREGATOR==role||Role.DIRECT_PROVIDER==role;
         }
     },
-    PROVIDER_DATA_OFFICER("Provider Data Officer"){
+    PROVIDER_DATA_OFFICER("Provider Data Officer", "hub_data_officer"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.DATA_AGGREGATOR==role||Role.DIRECT_PROVIDER==role;
         }
     },
-    PROVIDER_ADMIN("Provider Admin"){
+    PROVIDER_ADMIN("Provider Admin", "hub_admin"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.DATA_AGGREGATOR==role||Role.DIRECT_PROVIDER==role;
         }
     },
-    EUROPEANA_VIEWER("Europeana Viewer"){
+    EUROPEANA_VIEWER("Europeana Viewer", "europeana_viewer"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.EUROPEANA==role;
         }
     },
-    EUROPEANA_DATA_OFFICER("Europeana Data Officer"){
+    EUROPEANA_DATA_OFFICER("Europeana Data Officer", "europeana_data_officer"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.DATA_AGGREGATOR==role||Role.DIRECT_PROVIDER==role;
         }
     },
-    EUROPEANA_ADMIN("Europeana Admin"){
+    EUROPEANA_ADMIN("Europeana Admin", "europeana_admin"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.DATA_AGGREGATOR==role||Role.DIRECT_PROVIDER==role;
         }
     },
-    LEMMY("Europeana Super Admin"){
+    LEMMY("Europeana Super Admin", "lemmy"){
         @Override
         public boolean isAssignableTo(Role role) {
             return Role.DATA_AGGREGATOR==role||Role.DIRECT_PROVIDER==role;
@@ -58,9 +58,12 @@ public enum Roles {
     };
 
     private String name;
+    
+    private String ldapName;
 
-    Roles(String name){
+    Roles(String name, String ldapName) {
         this.name = name;
+        this.ldapName = ldapName;
     }
 
     public String getName(){
@@ -68,4 +71,8 @@ public enum Roles {
     }
 
     public abstract boolean isAssignableTo(Role role);
+
+	public String getLdapName() {
+		return ldapName;
+	}
 }

@@ -73,7 +73,10 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
 	
 	@Bean  
     public ViewResolver getViewResolver(ResourceLoader resourceLoader, MustacheCompiler mustacheCompiler) {
-		return new MustacheViewResolver(mustacheCompiler);
+		MustacheViewResolver mustacheViewResolver = new MustacheViewResolver(mustacheCompiler);
+//		mustacheViewResolver.setCharacterEncoding("UTF-8");
+		mustacheViewResolver.setContentType("text/html; charset=UTF-8");
+		return mustacheViewResolver;
     }
 
     @Override
