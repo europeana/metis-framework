@@ -1,7 +1,7 @@
 package eu.europeana.metis.preview.rest;
 
 import eu.europeana.metis.preview.exceptions.PreviewValidationException;
-import eu.europeana.metis.preview.service.ExtendedValidationResult;
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.service.PreviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

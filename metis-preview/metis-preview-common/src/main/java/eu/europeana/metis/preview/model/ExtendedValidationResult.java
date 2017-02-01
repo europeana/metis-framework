@@ -1,4 +1,4 @@
-package eu.europeana.metis.preview.service;
+package eu.europeana.metis.preview.model;
 
 import eu.europeana.validation.model.ValidationResultList;
 
