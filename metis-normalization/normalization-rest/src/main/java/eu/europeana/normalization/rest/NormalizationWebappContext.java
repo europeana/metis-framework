@@ -6,8 +6,10 @@ import javax.servlet.ServletException;
 
 import eu.europeana.normalization.NormalizationService;
 import eu.europeana.normalization.cleaning.DuplicateStatementCleaning;
+import eu.europeana.normalization.cleaning.MarkupTagsCleaning;
 import eu.europeana.normalization.cleaning.TrimAndEmptyValueCleaning;
 import eu.europeana.normalization.language.LanguageNormalizer;
+import eu.europeana.normalization.language.LanguageNormalizer.SupportedOperations;
 import eu.europeana.normalization.language.LanguagesVocabulary;
 import eu.europeana.normalization.normalizers.ChainedNormalization;
 import io.swagger.jaxrs.config.BeanConfig;
@@ -21,11 +23,13 @@ public class NormalizationWebappContext  implements ServletContextListener {
 		String targetVocabString = event.getServletContext().getInitParameter("normalization.language.target.vocabulary");
 		Float minimumConfidence = Float.valueOf( event.getServletContext().getInitParameter("normalization.language.target.confidence"));
 		LanguageNormalizer languageNorm = new LanguageNormalizer(LanguagesVocabulary.valueOf(targetVocabString), minimumConfidence);
-
+		languageNorm.setOperations(SupportedOperations.ALL);
+		
 		TrimAndEmptyValueCleaning spacesCleaner=new TrimAndEmptyValueCleaning();
 		DuplicateStatementCleaning dupStatementsCleaner=new DuplicateStatementCleaning();
+		MarkupTagsCleaning markupStatementsCleaner=new MarkupTagsCleaning();
 		
-		ChainedNormalization chainedNormalizer = new ChainedNormalization(spacesCleaner.toEdmRecordNormalizer(), dupStatementsCleaner, languageNorm.toEdmRecordNormalizer());
+		ChainedNormalization chainedNormalizer = new ChainedNormalization(spacesCleaner.toEdmRecordNormalizer(), markupStatementsCleaner.toEdmRecordNormalizer(), dupStatementsCleaner, languageNorm.toEdmRecordNormalizer());
 
 		service = new NormalizationService(chainedNormalizer);
 		

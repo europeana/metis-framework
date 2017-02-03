@@ -9,6 +9,7 @@ import java.util.List;
 import eu.europeana.normalization.NormalizeDetails;
 import eu.europeana.normalization.RecordNormalization;
 import eu.europeana.normalization.ValueNormalization;
+import eu.europeana.normalization.language.nal.AmbiguousLabelMatchException;
 import eu.europeana.normalization.language.nal.EuropeanLanguagesNal;
 import eu.europeana.normalization.language.nal.LanguageMatcher;
 import eu.europeana.normalization.normalizers.ValueToRecordNormalizationWrapper;
@@ -28,11 +29,10 @@ public class LanguageNormalizer implements ValueNormalization {
     @SuppressWarnings("unused")
 	private static java.util.logging.Logger log = java.util.logging.Logger.getLogger(LanguageNormalizer.class.getName());
 
-    LanguagesVocabulary               targetVocab;
     Float               minimumConfidence;
     LanguageMatcher                         normalizer;
     
-    SupportedOperations operations=SupportedOperations.DC_LANGUAGE;
+    SupportedOperations operations=SupportedOperations.ALL;
     
     
     /**
@@ -42,8 +42,9 @@ public class LanguageNormalizer implements ValueNormalization {
      */
     public LanguageNormalizer(LanguagesVocabulary targetVocab, Float minimumConfidence) {
         super();
-        this.targetVocab = targetVocab;
-        normalizer = new LanguageMatcher(new EuropeanLanguagesNal(), targetVocab);
+        EuropeanLanguagesNal matchingVocab = new EuropeanLanguagesNal();
+        matchingVocab.setTargetVocabulary(targetVocab);
+		normalizer = new LanguageMatcher(matchingVocab);
 
     }
 
@@ -65,22 +66,27 @@ public class LanguageNormalizer implements ValueNormalization {
         } else if (normalized != null) {
             res.add(new NormalizeDetails(normalized, 0.98f));
         } else {
-            List<String> normalizeds = normalizer.findLabelMatches(lbl);
-            if (!normalizeds.isEmpty()) {
-                res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
-            } else {
-// if (!lbl.endsWith("[Metadata]") && !lbl.endsWith("[Resource]")) {// Some invalid values that were
-// present when research was underway. Ingestion will clean these values later
-                normalizeds = normalizer.findLabelAllWordMatches(lbl);
-                if (!normalizeds.isEmpty()) {
-                    res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
-                }else {
-	                normalizeds = normalizer.findLabelWordMatches(lbl);
+            List<String> normalizeds;
+			try {
+				normalizeds = normalizer.findLabelMatches(lbl);
+	            if (!normalizeds.isEmpty()) {
+	                res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
+	            } else {
+	// if (!lbl.endsWith("[Metadata]") && !lbl.endsWith("[Resource]")) {// Some invalid values that were
+	// present when research was underway. Ingestion will clean these values later
+	                normalizeds = normalizer.findLabelAllWordMatches(lbl);
 	                if (!normalizeds.isEmpty()) {
-	                	res.addAll(NormalizeDetails.newList(normalizeds, 0.85f));
+	                    res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
+	                }else {
+		                normalizeds = normalizer.findLabelWordMatches(lbl);
+		                if (!normalizeds.isEmpty()) {
+		                	res.addAll(NormalizeDetails.newList(normalizeds, 0.85f));
+		                }
 	                }
-                }
-            }
+	            }
+			} catch (AmbiguousLabelMatchException e) {
+            	res.add(new NormalizeDetails(e.getAmbigouosMatches().get(0), 1f / (float)e.getAmbigouosMatches().size()));
+			}
         }
         if(minimumConfidence!=null)
 	        for(int i=0 ; i<res.size() ; i++) {
@@ -117,6 +123,11 @@ public class LanguageNormalizer implements ValueNormalization {
 		}
     	ValueToRecordNormalizationWrapper dcLanguageNorm=new ValueToRecordNormalizationWrapper(this, false, dcLanguageQuery);
     	return dcLanguageNorm;
+	}
+
+	public LanguageNormalizer setOperations(SupportedOperations operations) {
+		this.operations = operations;
+		return this;
 	}
 
 }

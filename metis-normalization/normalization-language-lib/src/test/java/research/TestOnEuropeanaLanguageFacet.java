@@ -27,22 +27,19 @@ public class TestOnEuropeanaLanguageFacet {
 
     public static void main(String[] args) throws Exception {
 
+    	LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_3;
         EuropeanLanguagesNal europaEuLanguagesNal = new EuropeanLanguagesNal();
-        LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_3;
-		LanguageMatcher normalizer = new LanguageMatcher(europaEuLanguagesNal,
-                targetVocab);
-		europaEuLanguagesNal.initNormalizedIndex(targetVocab);
+        europaEuLanguagesNal.setTargetVocabulary(targetVocab);
+        europaEuLanguagesNal.initNormalizedIndex();
+		LanguageMatcher normalizer = new LanguageMatcher(europaEuLanguagesNal);
         normalizer.printStats();
 
-        ObjectMapper mapper = new ObjectMapper();
 
         CsvExporter exporter=new CsvExporter(new File("target"), europaEuLanguagesNal);
         try {
-            Map<String, Object> map = mapper.readValue(new File(
+            Map<String, Object> map = JsonUtil.readJsonMap(new File(
 //                    "src/research/europeana_language_facet_2015.json"),
-            		"src/research/europeana_language_facet_2016.json"),
-                    new TypeReference<Map<String, Object>>() {
-                    });
+            		"src/research/europeana_language_facet_2016.json"));
 
             int okCnt = 0;
             int normalizedFromCodeCnt = 0;
@@ -50,7 +47,6 @@ public class TestOnEuropeanaLanguageFacet {
             int normalizedWordCnt = 0;
             int normalizedWordAllCnt = 0;
             int noMatchCnt = 0;
-            int strangeValsCnt = 0;
 
             List<Map<String, Object>> facets = (List<Map<String, Object>>)map.get("facets");
             List<Map<String, Object>> labels = (List<Map<String, Object>>)facets.get(0).get(
@@ -101,16 +97,13 @@ public class TestOnEuropeanaLanguageFacet {
             System.out.println("normalizedWordAllCnt " + normalizedWordAllCnt);
             System.out.println("normalizedWordCnt " + normalizedWordCnt);
             System.out.println("no match " + noMatchCnt);
-            System.out.println("strange vals " + strangeValsCnt);
             
             //open dclang fields file,
 //            for each rec
 //               see if it is in the match cases
 //               if so, add as example the uri, if max examples not reached
 //               
-//               
 //            expor final  result to a csv
-            
             
             exporter.gatherCases(new File("C:\\Users\\nfrei\\Data\\ore_Proxy.dc_language.csv.gz"));
             exporter.exportEvaluationCsv(new File("target"));

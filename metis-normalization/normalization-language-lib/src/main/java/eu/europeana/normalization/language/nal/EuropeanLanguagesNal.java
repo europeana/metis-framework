@@ -32,8 +32,9 @@ public class EuropeanLanguagesNal {
     List<NalLanguage>                       deprecatedLanguages = new ArrayList<NalLanguage>();
     
     LanguagesVocabulary targetVocabulary;
-    
+
     Map<String, NalLanguage> normalizedIndex;
+    Map<String, NalLanguage> isoCodeIndex;
 
     /**
      * Creates a new instance of this class.
@@ -55,6 +56,7 @@ public class EuropeanLanguagesNal {
 			throw new RuntimeException(e.getMessage(), e);
 		}
         processDom(langNalDom);
+        initIsoCodeIndex();
     }
 
     /**
@@ -109,17 +111,35 @@ public class EuropeanLanguagesNal {
         return deprecatedLanguages;
     }
 
-	public synchronized void initNormalizedIndex(LanguagesVocabulary target) {
-		targetVocabulary=target;
+    public synchronized void setTargetVocabulary(LanguagesVocabulary target) {
+    	targetVocabulary=target;
+    }
+    
+	public synchronized void initNormalizedIndex() {
 		if(normalizedIndex==null) {
 			normalizedIndex=new Hashtable<>();
 			for(NalLanguage l: getLanguages()) {
-				String normalizedLanguageId = l.getNormalizedLanguageId(target);
+				String normalizedLanguageId = l.getNormalizedLanguageId(targetVocabulary);
 				if (normalizedLanguageId!=null)
 					normalizedIndex.put(normalizedLanguageId, l);
 			}
 		}
 	}
+	
+	private void initIsoCodeIndex() {
+		isoCodeIndex=new Hashtable<>();
+		for(NalLanguage l: getLanguages()) {
+			 if (l.getIso6391() != null) 
+		            isoCodeIndex.put(l.getIso6391(), l);
+			 if (l.getIso6392b() != null) 
+				 isoCodeIndex.put(l.getIso6392b(), l);
+			 if (l.getIso6392t() != null) 
+				 isoCodeIndex.put(l.getIso6392t(), l);
+			 if (l.getIso6393() != null) 
+				 isoCodeIndex.put(l.getIso6393(), l);
+		}
+	}
+	
 
     public NalLanguage lookupNormalizedLanguageId(String normalizedLanguageId) {
     	 return normalizedIndex.get(normalizedLanguageId);
@@ -127,6 +147,10 @@ public class EuropeanLanguagesNal {
 
 	public LanguagesVocabulary getTargetVocabulary() {
 		return targetVocabulary;
+	}
+
+	public NalLanguage lookupIsoCode(String code) {
+		return isoCodeIndex.get(code);
 	}
     
 }

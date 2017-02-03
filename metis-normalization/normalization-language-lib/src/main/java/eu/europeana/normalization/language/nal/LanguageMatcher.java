@@ -22,28 +22,33 @@ import eu.europeana.normalization.util.nlp.IndexUtilUnicode;
  * @since 16/03/2016
  */
 public class LanguageMatcher {
+	
+	public enum AmbiguityHandling { NO_MATCH, CHOOSE_FIRST, MATCH_ON_COREFERENCE }
+	
     private static java.util.logging.Logger log               = java.util.logging.Logger.getLogger(LanguageMatcher.class.getName());
 
     protected static final Pattern LOCALE_CODE_PATTERN=Pattern.compile("\\s*(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\s*");
     
+    private Map<String, String>             targetIsoCodes          = new HashMap<String, String>();
     private Map<String, String>             isoCodes          = new HashMap<String, String>();
     private Map<String, String>             unambiguousLabels = new HashMap<String, String>();
     private MapOfLists<String, String>      ambiguousLabels   = new MapOfLists<String, String>();
 
     EuropeanLanguagesNal                    matchVocab;
-    LanguagesVocabulary               target;
     
     int minimumLabelLength=4;
 
+    AmbiguityHandling ambiguityHandling=AmbiguityHandling.NO_MATCH;
+    
+    
     /**
      * Creates a new instance of this class.
      * 
      * @param matchingVocab
      */
-    public LanguageMatcher(EuropeanLanguagesNal matchingVocab, LanguagesVocabulary target) {
+    public LanguageMatcher(EuropeanLanguagesNal matchingVocab) {
         super();
         this.matchVocab = matchingVocab;
-        this.target = target;
         initIndex();
     }
 
@@ -60,7 +65,7 @@ public class LanguageMatcher {
      * @param l
      */
     protected void index(NalLanguage l) {
-        String norm = l.getNormalizedLanguageId(target);
+        String norm = l.getNormalizedLanguageId(matchVocab.getTargetVocabulary());
         if(norm==null)
         	return;
 
@@ -72,10 +77,11 @@ public class LanguageMatcher {
             String labelNorm = normalizeLabelForIndex(label);
             if (ambiguousLabels.containsKey(labelNorm))
                 ambiguousLabels.putIfNotExists(labelNorm, norm);
-            else if (unambiguousLabels.containsKey(labelNorm) &&
-                     !unambiguousLabels.get(labelNorm).equals(norm)) {
-                ambiguousLabels.put(labelNorm, norm);
-                ambiguousLabels.put(labelNorm, unambiguousLabels.remove(labelNorm));
+            else if (unambiguousLabels.containsKey(labelNorm)) {
+            	if(!unambiguousLabels.get(labelNorm).equals(norm)) {
+	                ambiguousLabels.put(labelNorm, norm);
+	                ambiguousLabels.put(labelNorm, unambiguousLabels.remove(labelNorm));
+            	}
             } else {
                 unambiguousLabels.put(labelNorm, norm);
             }
@@ -84,23 +90,31 @@ public class LanguageMatcher {
             if (isoCodes.containsKey(l.getIso6391()) && !isoCodes.get(l.getIso6391()).equals(norm))
                 throw new RuntimeException("ambig iso code!!! : " + l.getIso6391());
             isoCodes.put(l.getIso6391(), norm);
+            if(matchVocab.getTargetVocabulary()==LanguagesVocabulary.ISO_639_1)
+            	targetIsoCodes.put(l.getIso6391(), norm);
         }
         if (l.getIso6392b() != null) {
             if (isoCodes.containsKey(l.getIso6392b()) &&
                 !isoCodes.get(l.getIso6392b()).equals(norm))
                 throw new RuntimeException("ambig iso code!!! : " + l.getIso6392b());
             isoCodes.put(l.getIso6392b(), norm);
+            if(matchVocab.getTargetVocabulary()==LanguagesVocabulary.ISO_639_2b)
+            	targetIsoCodes.put(l.getIso6392b(), norm);
         }
         if (l.getIso6392t() != null) {
             if (isoCodes.containsKey(l.getIso6392t()) &&
                 !isoCodes.get(l.getIso6392t()).equals(norm))
                 throw new RuntimeException("ambig iso code!!! : " + l.getIso6392t());
             isoCodes.put(l.getIso6392t(), norm);
+            if(matchVocab.getTargetVocabulary()==LanguagesVocabulary.ISO_639_2t)
+            	targetIsoCodes.put(l.getIso6392t(), norm);
         }
         if (l.getIso6393() != null) {
             if (isoCodes.containsKey(l.getIso6393()) && !isoCodes.get(l.getIso6393()).equals(norm))
                 throw new RuntimeException("ambig iso code!!! : " + l.getIso6393());
             isoCodes.put(l.getIso6393(), norm);
+            if(matchVocab.getTargetVocabulary()==LanguagesVocabulary.ISO_639_3)
+            	targetIsoCodes.put(l.getIso6393(), norm);
         }
     }
 
@@ -115,7 +129,7 @@ public class LanguageMatcher {
         System.out.println(sb.toString());
     }
 
-    public List<String> findLabelMatches(String value) {
+    public List<String> findLabelMatches(String value) throws AmbiguousLabelMatchException {
         String valueNorm = normalizeLabelForIndex(value);
         String match = unambiguousLabels.get(valueNorm);
         if (match == null) {
@@ -124,7 +138,8 @@ public class LanguageMatcher {
             else {
                 List<String> matches = ambiguousLabels.get(valueNorm);
                 if (matches == null) return Collections.EMPTY_LIST;
-                return matches;
+                throw new AmbiguousLabelMatchException(matches);
+//                return matches;
             }
         }
         ArrayList<String> ret = new ArrayList<String>(1);
@@ -151,6 +166,21 @@ public class LanguageMatcher {
         return isoCodes.get(valueNorm);
     }
 
+    public String findTargetIsoCodeMatch(String valueP, String nonNormalizedValue) {
+    	String value = valueP.trim();
+    	if (value.length() > 3 || value.length() < 2) {
+    		if(nonNormalizedValue!=null) {
+    			Matcher matcher = LOCALE_CODE_PATTERN.matcher(value);
+    			if (matcher.matches()) {
+    				return targetIsoCodes.get(matcher.group(1));
+    			}
+    		} 
+    		return null;
+    	}
+    	String valueNorm = value.toLowerCase();
+    	return targetIsoCodes.get(valueNorm);
+    }
+    
     /**
      * @param value
      * @return
@@ -163,24 +193,42 @@ public class LanguageMatcher {
         String lblEnc = normalizeLabelForIndex(lbl);
         String[] words = lblEnc.split("\\s+");
 
-        HashSet<String> foundMatches = new HashSet<String>(10);
+        HashSet<String> foundMatchesLabels = new HashSet<String>(10);
+        HashSet<String> foundMatchesCodes = new HashSet<String>(10);
         for (int j = 0; j < words.length; j++) {
             String wrd = words[j];
             if (j == 0 || j == words.length - 1) {
                 String findIsoCodeMatch = findIsoCodeMatch(wrd, null);
                 if (findIsoCodeMatch != null) { 
-                	foundMatches.add(findIsoCodeMatch);
+                	foundMatchesCodes.add(findIsoCodeMatch);
                 	continue;
                 }
             }
 // if (wrd.length()>2)
-            List<String> labelMatches = findLabelMatches(wrd);
-            if (labelMatches.isEmpty()) 
-            	return Collections.emptyList();
-			foundMatches.addAll(labelMatches);
-        }
 
-        return new ArrayList<String>(foundMatches);
+            List<String> labelMatches;
+			try {
+				labelMatches = findLabelMatches(wrd);
+	            if (!labelMatches.isEmpty()) 
+	            	foundMatchesLabels.add(labelMatches.get(0));
+            	return Collections.emptyList();
+			} catch (AmbiguousLabelMatchException e) {
+            	if(ambiguityHandling==AmbiguityHandling.NO_MATCH)
+            		return Collections.emptyList();
+            	else if(ambiguityHandling==AmbiguityHandling.MATCH_ON_COREFERENCE)
+            		return Collections.emptyList();//TODO
+            	else if(ambiguityHandling==AmbiguityHandling.CHOOSE_FIRST)
+        			foundMatchesLabels.add(e.getAmbigouosMatches().get(0));
+            	else
+            		throw new RuntimeException("not implemented: "+ambiguityHandling);
+			}
+        }
+        if (foundMatchesCodes.isEmpty() && !foundMatchesLabels.isEmpty())
+        	return new ArrayList<String>(foundMatchesLabels);
+        if (!foundMatchesCodes.isEmpty() && foundMatchesLabels.isEmpty())
+        	return new ArrayList<String>(foundMatchesCodes);
+
+                return Collections.emptyList();//only considers matches when only labels are detected, ore only codes are detected.
     }
     
     
@@ -202,13 +250,30 @@ public class LanguageMatcher {
             }
 
 // if (wrd.length()>2)
-            foundMatches.addAll(findLabelMatches(wrd));
+            List<String> labelMatches;
+			try {
+				labelMatches = findLabelMatches(wrd);
+	            if (!labelMatches.isEmpty()) 
+	            	foundMatches.add(labelMatches.get(0));
+			} catch (AmbiguousLabelMatchException e) {
+				if(ambiguityHandling==AmbiguityHandling.NO_MATCH) {
+            	} else if(ambiguityHandling==AmbiguityHandling.MATCH_ON_COREFERENCE)
+            		throw new RuntimeException("not implemented: "+ambiguityHandling);
+            	else if(ambiguityHandling==AmbiguityHandling.CHOOSE_FIRST)
+        			foundMatches.add(e.getAmbigouosMatches().get(0));
+            	else
+            		throw new RuntimeException("not implemented: "+ambiguityHandling);
+			}
         }
-
         return new ArrayList<String>(foundMatches);
     }
 
 	public void setMinimumLabelLength(int minimumLabelLength) {
 		this.minimumLabelLength = minimumLabelLength;
 	}
+
+	public void setAmbiguityHandling(AmbiguityHandling ambiguityHandling) {
+		this.ambiguityHandling = ambiguityHandling;
+	}
+
 }
