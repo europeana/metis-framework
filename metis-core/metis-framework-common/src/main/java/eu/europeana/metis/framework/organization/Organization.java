@@ -81,6 +81,7 @@ public class Organization {
     /**
      * Role
      */
+    @Indexed
     private List<Role> roles;
 
     /**

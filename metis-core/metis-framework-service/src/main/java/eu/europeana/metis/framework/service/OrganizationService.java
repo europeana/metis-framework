@@ -17,6 +17,7 @@
 package eu.europeana.metis.framework.service;
 
 import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.framework.common.Role;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoClient;
 import eu.europeana.metis.framework.dataset.Dataset;
@@ -76,6 +77,10 @@ public class OrganizationService {
             throw new NoOrganizationExceptionFound("No organization found in METIS");
         }
         return organizations;
+    }
+
+    public List<Organization> getAllProviders(Role... roles){
+        return orgDao.getAllProviders(roles);
     }
     /**
      * List all the organizations

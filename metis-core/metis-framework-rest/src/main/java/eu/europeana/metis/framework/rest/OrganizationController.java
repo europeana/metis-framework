@@ -17,11 +17,13 @@
 package eu.europeana.metis.framework.rest;
 
 import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.framework.common.Role;
 import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.organization.OrganizationList;
 import eu.europeana.metis.framework.rest.utils.JsonUtils;
+import eu.europeana.metis.framework.rest.utils.ProviderUtils;
 import eu.europeana.metis.framework.service.OrganizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -34,6 +36,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.List;
 
 import static eu.europeana.metis.RestEndpoints.*;
 
@@ -106,6 +109,33 @@ public class OrganizationController {
         list.setOrganizations(organizationService.getAllOrganizationsByCountry(Country.toCountry(isoCode)));
         return list;
     }
+
+
+    /**
+     * Get all the organizations for specific roles
+     *
+     * @return All the registered organizations in METIS
+     */
+    @RequestMapping(value = ORGANIZATIONS, method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
+    public OrganizationList getAllOrganizationsByRoles(@RequestParam("role") List<String> roles) throws NoOrganizationExceptionFound {
+        OrganizationList list = new OrganizationList();
+        if (roles != null) {
+            Role[] role = new Role[roles.size()];
+            int i=0;
+            for(String reqRole:roles){
+                if(ProviderUtils.getRoleFromString(reqRole)!=null){
+                    role[i]= ProviderUtils.getRoleFromString(reqRole);
+                }
+                i++;
+            }
+
+            list.setOrganizations(organizationService.getAllProviders(role));
+            return list;
+        }
+        throw new NoOrganizationExceptionFound("No organization matching the criteria was found");
+    }
     /**
      * Get all the datasets for an organization
      *
@@ -175,5 +205,6 @@ public class OrganizationController {
         list.setOrganizations(organizationService.getAllOrganizationsFromCRM());
         return list;
     }
+
 
 }

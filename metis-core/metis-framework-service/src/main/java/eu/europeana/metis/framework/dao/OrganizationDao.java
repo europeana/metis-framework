@@ -17,15 +17,18 @@
 package eu.europeana.metis.framework.dao;
 
 import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.framework.common.Role;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -175,6 +178,11 @@ public class OrganizationDao implements MetisDao<Organization> {
         return provider.getDatastore().find(Organization.class).filter("country",country).asList();
     }
 
+
+    public List<Organization> getAllProviders(Role... roles){
+
+        return provider.getDatastore().find(Organization.class).field("roles").hasAnyOf(Arrays.asList(roles)).asList();
+    }
     /**
      * Get an organization by its organization Id
      * @param organizationId The organization id
