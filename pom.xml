@@ -92,6 +92,7 @@
         <module>metis-common</module>
         <module>metis-preview</module>
         <module>metis-link-checking</module>
+        <module>metis-normalization</module>
     </modules>
     <repositories>
         <repository>
