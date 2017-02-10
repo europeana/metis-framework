@@ -20,18 +20,17 @@ package eu.europeana.metis.framework.rest.config;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import eu.europeana.metis.framework.api.MetisKey;
 import eu.europeana.metis.framework.cache.JedisProvider;
 import eu.europeana.metis.framework.dao.*;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.rest.RestConfig;
-import eu.europeana.metis.framework.service.DatasetService;
-import eu.europeana.metis.framework.service.Orchestrator;
-import eu.europeana.metis.framework.service.OrganizationService;
-import eu.europeana.metis.framework.service.UserService;
+import eu.europeana.metis.framework.service.*;
 import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
+import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.mail.config.MailConfig;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
 import org.apache.commons.lang.StringUtils;
@@ -46,9 +45,13 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.plugin.core.config.EnablePluginRegistries;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.BeanNameViewResolver;
+import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -58,6 +61,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Spring configuration class
@@ -142,9 +146,10 @@ public class Application extends WebMvcConfigurerAdapter {
         return propertySourcesPlaceholderConfigurer;
     }
 
-    @Bean
+    @Bean (name="jedisProvider")
     JedisProvider getJedisProvider(){
         if(System.getenv().get("VCAP_SERVICES")!=null){
+            Logger.getGlobal().info("Reading from cloud");
             JsonParser parser = new JsonParser();
             JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
             JsonObject element = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
@@ -152,9 +157,21 @@ public class Application extends WebMvcConfigurerAdapter {
             redisHost = credentials.getAsJsonPrimitive("hostname").getAsString();
             redisPassword = credentials.getAsJsonPrimitive("password").getAsString();
             redisPort = credentials.getAsJsonPrimitive("port").getAsInt();
-
         }
         return new JedisProvider(redisHost,redisPassword,redisPort);
+    }
+
+    @Bean
+    public View json() {
+        MappingJackson2JsonView view = new MappingJackson2JsonView();
+        view.setPrettyPrint(true);
+        view.setObjectMapper(new CustomObjectMapper());
+        return view;
+    }
+
+    @Bean
+    public ViewResolver viewResolver() {
+        return new BeanNameViewResolver();
     }
 
     @Bean
@@ -170,6 +187,13 @@ public class Application extends WebMvcConfigurerAdapter {
         Morphia morphia = new Morphia();
         morphia.map(FailedRecords.class);
         return new FailedRecordsDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
+    }
+    @Bean
+    @DependsOn(value = "mongoProvider")
+    public AuthorizationDao getAuthorizationDao(){
+        Morphia morphia = new Morphia();
+        morphia.map(MetisKey.class);
+        return new AuthorizationDao();
     }
     @Bean
     public DatasetDao getDatasetDao(){
@@ -192,6 +216,10 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    public MetisAuthorizationService getMetisAuthorizationService() {
+        return new MetisAuthorizationService();
+    }
+    @Bean
     public UserService getUserService(){
         return new UserService();
     }
@@ -207,9 +235,11 @@ public class Application extends WebMvcConfigurerAdapter {
     }
 
     @Bean
+    @DependsOn("jedisProvider")
     public QAWorkflow getStatisticsWorkflow(){
         return new QAWorkflow();
     }
+
     @Bean
     public Docket api(){
         return new Docket(DocumentationType.SWAGGER_2)

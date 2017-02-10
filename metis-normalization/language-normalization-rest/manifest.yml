@@ -1,8 +1,0 @@
----
-applications:
-- name: metis-language-normalization-test
-  memory: 2048M
-  instances: 1
-  host: metis-language-normalization-test
-  path: target/language-normalization-rest-1.0-SNAPSHOT.war
-  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8

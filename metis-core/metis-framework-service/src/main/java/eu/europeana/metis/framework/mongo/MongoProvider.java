@@ -20,6 +20,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import eu.europeana.metis.framework.api.MetisKey;
 import eu.europeana.metis.framework.common.*;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.FtpDatasetMetadata;
@@ -60,6 +61,7 @@ public class MongoProvider {
         morphia.map(OAIDatasetMetadata.class);
         morphia.map(PrefLabel.class);
         morphia.map(AltLabel.class);
+        morphia.map(MetisKey.class);
         MongoClient mongo;
         if(StringUtils.isEmpty(username)){
             mongo = new MongoClient(host, port);
