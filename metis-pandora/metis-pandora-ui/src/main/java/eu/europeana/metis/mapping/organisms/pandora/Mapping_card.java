@@ -3,12 +3,16 @@ package eu.europeana.metis.mapping.organisms.pandora;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bson.types.ObjectId;
+
+import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.MappingType;
+import eu.europeana.metis.mapping.model.SimpleMapping;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
 import eu.europeana.metis.mapping.molecules.pandora.FieldValue;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
-import eu.europeana.metis.mapping.util.MappingCardStub;
 
 /**
  * Java model representing a mapping card component: "/organisms/pandora/mapping-card".
@@ -16,6 +20,8 @@ import eu.europeana.metis.mapping.util.MappingCardStub;
  *
  */
 public class Mapping_card {
+	
+	private String object_id;
 
 	private String prefix;
 
@@ -23,35 +29,54 @@ public class Mapping_card {
 	
 	private String xpath;
 	
+	private String depth;
+	
+	//TODO delete this after Eduardo removes it from a Sylegyuide template
 	private DropdownMenu dropdown;
 
 	private List<FieldValue> field_value_cells;
-	
-//	private List<Mapping_card> child_cards;
 
-	public Mapping_card(Element element, int offset, int count) {		
-		Statistics statistics = MappingCardStub.getStatistics();
-		this.xpath = statistics.getXpath();
-		this.prefix = element.getPrefix();
-		this.name = element.getName();
+	public Mapping_card(Attribute field, Statistics statistics, int offset, int count, Integer depth) {
+		if (depth == null) {
+			this.depth = "depth_0";
+		} else {
+			this.depth = "depth_" + depth;
+		}
+		if (field == null) {
+			return;
+		}
+		//FIXME!
+		if (field.getId() == null) {
+			field.setId(new ObjectId());
+		}
+		this.setObject_id(field.getId().toString());
+		this.prefix = field.getPrefix();
+		this.name = field.getName();
+		List<SimpleMapping> mappings = field.getMappings();
+		if (mappings != null && !mappings.isEmpty()) {
+			for (SimpleMapping simpleMapping : mappings) {
+				if (simpleMapping.getType() == MappingType.XPATH) {
+					this.xpath = simpleMapping.getSourceField();
+					break;
+				}	
+			}			
+		}
 		this.dropdown = buildFlagDropdown();
 		List<FieldValue> fields = new ArrayList<>();
 		int i = 0;
-		for (StatisticsValue value : statistics.getValues()) {
-			if (i < offset) {
-				continue;
-			}
-			if (i >= count) {
-				break;
-			}
-			fields.add(new FieldValue(value.getId().toHexString(), value.getValue(), value.getOccurence()));
-			i++;
+		if (statistics != null && statistics.getValues() != null && !statistics.getValues().isEmpty()) {
+			for (StatisticsValue value : statistics.getValues()) {
+				if (i < offset) {
+					continue;
+				}
+				if (i >= count) {
+					break;
+				}
+				fields.add(new FieldValue(value.getId().toHexString(), value.getValue(), value.getOccurence()));
+				i++;
+			}			
 		}
 		this.field_value_cells = fields;
-//		this.child_cards = new ArrayList<>();
-//		for (Element el : element.getElements()) {
-//			this.child_cards.add(new Mapping_card(el, offset, count));
-//		}
 	}
 
 	/**
@@ -66,6 +91,14 @@ public class Mapping_card {
 		menu.addMenuItem(true);
 		menu.addMenuItem("Remove all marks", "#");
 		return menu;
+	}
+	
+	public String getObject_id() {
+		return object_id;
+	}
+	
+	public void setObject_id(String object_id) {
+		this.object_id = object_id;
 	}
 	
 	public String getPrefix() {
@@ -107,12 +140,12 @@ public class Mapping_card {
 	public void setDropdown(DropdownMenu dropdown) {
 		this.dropdown = dropdown;
 	}
-	
-//	public List<Mapping_card> getChild_cards() {
-//		return child_cards;
-//	}
-//
-//	public void setChild_cards(List<Mapping_card> child_cards) {
-//		this.child_cards = child_cards;
-//	}
+
+	public String getDepth() {
+		return depth;
+	}
+
+	public void setDepth(String depth) {
+		this.depth = depth;
+	}
 }

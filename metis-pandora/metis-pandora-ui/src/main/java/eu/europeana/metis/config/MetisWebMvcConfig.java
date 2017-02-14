@@ -1,13 +1,16 @@
 package eu.europeana.metis.config;
 
+import java.nio.charset.Charset;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.ResourceLoader;
-import org.springframework.http.converter.BufferedImageHttpMessageConverter;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -22,6 +25,7 @@ import com.github.mjeanroy.springmvc.view.mustache.core.DefaultTemplateLoader;
 import com.github.mjeanroy.springmvc.view.mustache.handlebars.HandlebarsCompiler;
 
 import eu.europeana.metis.controller.MetisPageController;
+import eu.europeana.metis.controller.MetisUserPageController;
 
 /**
  * Web MVC configuration of Metis web application.
@@ -32,25 +36,37 @@ import eu.europeana.metis.controller.MetisPageController;
 @Configuration
 @EnableWebMvc
 public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
+	@Override
+	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+		configurer.enable();	
+	}
+	
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		StringHttpMessageConverter converter = new StringHttpMessageConverter();
+		converter.setSupportedMediaTypes(Arrays.asList(new MediaType("text", "plain", Charset.forName("UTF-8"))));
+		converters.add(converter);
+		super.configureMessageConverters(converters);
+	}
+	
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
-		configurer.enable();	
+	@Bean
+	public MetisPageController pandoraPageController(){
+		return new MetisPageController();
 	}
 
 	@Bean
-	public MetisPageController pandoraPageController(){
-		MetisPageController controller = new MetisPageController();
-		return controller;
-	}
-
-	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		converters.add(new BufferedImageHttpMessageConverter());
+	public MetisUserPageController userPageController(){
+		return new MetisUserPageController();
 	}
 	
 	@Bean
@@ -77,10 +93,5 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
 //		mustacheViewResolver.setCharacterEncoding("UTF-8");
 		mustacheViewResolver.setContentType("text/html; charset=UTF-8");
 		return mustacheViewResolver;
-    }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
     }
 }

@@ -25,6 +25,8 @@ public class FieldValue {
 	private static final String TOOLTIPPED_TEXT = "tooltipped_text";
 	
 	private static final int limit = 50;
+	
+	//TODO Add field value status after Eduardo adds it to the model
 
 	public FieldValue(String object_id, String tooltip_text, long occurence) {
 		this.object_id = object_id;

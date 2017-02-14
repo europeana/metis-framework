@@ -31,6 +31,7 @@ public class MetisMailConfig {
         javaMailSender.setPort(Integer.parseInt(port));
         javaMailSender.setUsername(user);
         javaMailSender.setPassword(password);
+        javaMailSender.setDefaultEncoding("UTF-8");
         return javaMailSender;
     }
 

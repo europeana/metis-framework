@@ -6,11 +6,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.controller.MetisPageController;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Mapping;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.Mapping_card;
+import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.util.MappingCardStub;
+import eu.europeana.metis.service.MappingService;
 
 /**
  * 
@@ -18,6 +27,13 @@ import eu.europeana.metis.mapping.util.MappingCardStub;
  *
  */
 public class MappingToEdmPage extends MetisPage {
+	final static Logger logger = Logger.getLogger(MappingToEdmPage.class);
+	
+	private MappingService mappingService;
+	
+	private static final int DEFAULT_COUNT = 20;
+	
+	private static final int DEFAULT_OFFSET = 0;
 	
 	//FIXME
 	@Override
@@ -32,8 +48,41 @@ public class MappingToEdmPage extends MetisPage {
 	}
 	
 	//FIXME mapping card currently is generated with a stub data.
-	private Mapping_card buildMappingCard() {
-		return MappingCardStub.buildMappingCardModel();
+	public List<Mapping_card> buildMappingCard() {
+//		return MappingCardStub.buildMappingCardModel();
+		List<Mapping_card> displayList = new ArrayList<>();
+		
+		Mapping testMapping = getMappingService().getByName(null);
+		List<Attribute> attributes = testMapping.getMappings().getAttributes();
+		List<Element> elements = testMapping.getMappings().getElements();
+		addChildFields(displayList, attributes, elements, 0);
+//		System.out.println(MetisMappingUtil.toJson(displayList));
+		return displayList;
+	}
+	
+	private void addChildFields(List<Mapping_card> displayList, List<Attribute> attributes,  List<Element> elements, int depth) {
+		if (attributes != null && !attributes.isEmpty()) {
+			for (Attribute attribute : attributes) {
+				Statistics statistics = getMappingService().getStatisticsForField(attribute, null);
+				if (statistics != null) {
+					displayList.add(new Mapping_card(attribute, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));	
+					logger.info("*** FIELD IS ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; DEPTH: "+ depth + " ***");				
+				} else {
+					logger.info("*** FIELD IS NOT ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; ***");
+				}
+			}			
+		}
+		if (elements != null && !elements.isEmpty()) {
+			for (Element element : elements) {
+				Statistics statistics = getMappingService().getStatisticsForField(element, null);
+				if (element.isHasMapping()) {
+					displayList.add(new Mapping_card(element, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));			
+				} else {
+					logger.info("*** FIELD IS NOT ADDED: " + element.getPrefix() + ":" + element.getName() + "; ***");
+				}
+				addChildFields(displayList, element.getAttributes(), element.getElements(), depth + 1);
+			}			
+		}
 	}
 	
 	private Object buildActionMenu() {
@@ -87,5 +136,13 @@ public class MappingToEdmPage extends MetisPage {
 		return Arrays.asList(
 				new NavigationTopMenu("Register", "/register", false),
 				new NavigationTopMenu("Login", "/login", true));
+	}
+
+	public MappingService getMappingService() {
+		return mappingService;
+	}
+
+	public void setMappingService(MappingService mappingService) {
+		this.mappingService = mappingService;
 	}
 }

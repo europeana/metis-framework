@@ -9,6 +9,8 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 
 import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.service.ExampleMappingService;
+import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
@@ -25,7 +27,7 @@ import eu.europeana.metis.ui.mongo.service.UserService;
  */
 @Configuration
 @PropertySource("classpath:/mongoDB.properties")
-public class MetisDBConfig {
+public class MetisConfig {
 	
 
     @Value("${mongo.host}")
@@ -89,5 +91,10 @@ public class MetisDBConfig {
     @Bean
     public UserService userService() {
     	return new UserService();
+    }
+    
+    @Bean
+    public MappingService mappingService() {
+    	return new ExampleMappingService();
     }
 }
