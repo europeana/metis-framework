@@ -34,12 +34,12 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-edm-definitions</artifactId>
-            <version>2.3-SNAPSHOT</version>
+            <version>${version.corelib}</version>
         </dependency>
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-storage</artifactId>
-            <version>2.3-SNAPSHOT</version>
+            <version>${version.corelib}</version>
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>

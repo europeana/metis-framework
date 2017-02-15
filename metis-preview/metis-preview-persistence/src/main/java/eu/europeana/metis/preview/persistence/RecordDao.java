@@ -9,6 +9,7 @@ import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.ProvidedCHO;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
@@ -52,7 +53,7 @@ public class RecordDao {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, MongoDBException {
+    public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, MongoDBException, MongoRuntimeException {
         SolrInputDocument doc =solrDocumentHandler.generate((FullBeanImpl) fBean);
         doc.setField("europeana_id",fBean.getAbout());
         server.add(doc);
@@ -118,7 +119,7 @@ public class RecordDao {
      * @throws IllegalAccessException
      * @throws SolrServerException
      */
-    public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException, MongoDBException {
+    public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException, MongoDBException, MongoRuntimeException {
         for(FullBean fBean:fBeans){
             createRecord(fBean);
         }
