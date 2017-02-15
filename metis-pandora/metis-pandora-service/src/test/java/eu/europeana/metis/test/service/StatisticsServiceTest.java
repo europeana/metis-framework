@@ -5,6 +5,7 @@ import eu.europeana.metis.service.StatisticsService;
 import eu.europeana.metis.test.configuration.TestConfig;
 import eu.europeana.metis.utils.ArchiveUtils;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class StatisticsServiceTest {
     StatisticsService service;
 
     @Test
+    @Ignore
     public void testCalculateStatistics() throws IOException, XMLStreamException {
        List<String> records =  ArchiveUtils.extractRecords(this.getClass().getClassLoader().
                 getResourceAsStream("Repox_Import_2059205-valid_items_transform_8313.tgz"));
