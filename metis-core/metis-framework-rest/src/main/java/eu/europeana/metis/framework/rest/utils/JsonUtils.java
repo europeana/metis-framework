@@ -5,7 +5,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,25 +15,21 @@ import java.util.Map;
  */
 public class JsonUtils {
 
-    public static ModelAndView toJson(Object object) {
+    public static ModelAndView toJson(List<ModelAndView> object) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        try {
-            return toJson(objectMapper.writeValueAsString(object));
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+        String resultPage = "json";
+        ModelAndView view = new ModelAndView(resultPage);
+        int i=0;
+        List<Map<String,Object>> orgs = new ArrayList<>();
+        for(ModelAndView obj:object){
+            orgs.add(obj.getModel());
+            i++;
         }
-        String resultPage = "json";
-        Map<String, Object> model = new HashMap<>();
-        return new ModelAndView(resultPage, model);
-
+        view.addObject("resultCount",i);
+        view.addObject("results",orgs);
+        return view;
     }
 
-    public static ModelAndView toJson(String json) {
-        String resultPage = "json";
-        Map<String, Object> model = new HashMap<>();
-        model.put("json", json);
-        return new ModelAndView(resultPage, model);
-    }
 
 }

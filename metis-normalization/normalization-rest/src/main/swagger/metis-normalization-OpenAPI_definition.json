@@ -1,0 +1,67 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Metis Normalization",
+        "description": "Metis Normalization Service API",
+        "version": "1.0.0"
+    },
+    "host": "localhost",
+    "schemes": [
+        "http"
+    ],
+    "basePath": "/api",    
+	"consumes": [
+        "application/xml"
+    ],
+    "produces": [
+        "application/xml"
+    ],
+    "paths": {
+        "/normalize": {
+            "post": {
+                "summary": "Normalizes an EDM XML record",
+                "description": "Normalizes an EDM XML record",
+                "parameters": [
+                    {
+                        "name": "record",
+                        "in": "body",
+                        "description": "An EDM XML record",
+                        "required": true,
+                        "type": "string"
+                    }    
+                ],
+                "tags": [
+                    "Record"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The normalized record",
+						"type": "string"
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        } 
+    },
+    "definitions": {
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "fields": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -104,12 +104,12 @@ public class PreviewService {
     }
 
     /**
-     * Delete records every 24 hrs
+     * Delete records at midnight every 24 hrs
      *
      * @throws IOException
      * @throws SolrServerException
      */
-    @Scheduled(cron = "00 00 * * * *")
+    @Scheduled(cron = "00 00 00 * * *")
     public void deleteRecords() throws IOException, SolrServerException {
         dao.deleteRecordIdsByTimestamp();
     }

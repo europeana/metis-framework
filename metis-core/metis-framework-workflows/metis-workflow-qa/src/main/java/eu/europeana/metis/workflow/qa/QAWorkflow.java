@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
 
 /**
  * Created by ymamakis on 11/22/16.
@@ -30,6 +32,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     private RestTemplate template = new RestTemplate();
     private static Map<String,QAStatistics> statistics = new ConcurrentHashMap<>();
     private static List<String> activeStatistics = new ArrayList<>();
+
     @Autowired
     private JedisProvider cache;
     public QAWorkflow(){
@@ -37,7 +40,14 @@ public class QAWorkflow implements AbstractMetisWorkflow {
         endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
         params = new HashMap<>();
         params.put(QAParams.QA_ENDPOINT,endpoint);
-        activeStatistics.addAll(cache.getAll("qa-datasets"));
+
+    }
+
+    @PostConstruct
+    public void initCache(){
+        if (cache.getAll("qa-datasets")!=null) {
+            activeStatistics.addAll(cache.getAll("qa-datasets"));
+        }
     }
     @Override
     public String getName() {

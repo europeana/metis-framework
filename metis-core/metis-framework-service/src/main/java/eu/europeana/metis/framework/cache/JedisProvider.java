@@ -4,6 +4,7 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Redis Connection provider
@@ -15,42 +16,48 @@ public class JedisProvider {
 
     /**
      * Default constructor for Redis
+     *
      * @param hostname Hostname
      * @param password Password
-     * @param port Port
+     * @param port     Port
      */
-    public JedisProvider(String hostname,String password, int port){
-        jedis = new Jedis(hostname,port);
+    public JedisProvider(String hostname, String password, int port) {
+        jedis = new Jedis(hostname, port);
         jedis.auth(password);
         jedis.connect();
-
+        Logger.getAnonymousLogger().info("Redis cache is connected: " +jedis.isConnected());
     }
 
     /**
      * Get all the values from a given key
+     *
      * @param key The key to get the values from
      * @return The list of values associated in this key
      */
-    public List<String> getAll(String key){
-        return jedis.hvals(key);
+    public List<String> getAll(String key) {
+        if (jedis.exists(key))
+            return jedis.hvals(key);
+        return null;
     }
 
     /**
      * Add a specific value to a keyset
-     * @param key The key to access
+     *
+     * @param key   The key to access
      * @param field The field to add
      * @param value The value for the field
      */
-    public void set(String key, String field, String value){
-        jedis.hset(key,field,value);
+    public void set(String key, String field, String value) {
+        jedis.hset(key, field, value);
     }
 
     /**
      * Remove a specific field from a key
-     * @param key The key to access
-     * @param field  The field to remove
+     *
+     * @param key   The key to access
+     * @param field The field to remove
      */
-    public void remove(String key, String field){
-        jedis.hdel(key,field);
+    public void remove(String key, String field) {
+        jedis.hdel(key, field);
     }
 }
