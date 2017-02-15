@@ -48,7 +48,7 @@ public class TestRecordDao {
         try {
             IBindingFactory factory =  BindingDirectory.getFactory(RDF.class);
             IUnmarshallingContext uctx = factory.createUnmarshallingContext();
-            StringReader reader = new StringReader(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("Item_5791754.xml")));
+            StringReader reader = new StringReader(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("BibliographicResource_2000081662432.rdf")));
             RDF rdf = (RDF) uctx.unmarshalDocument(reader);
             rdf.getProvidedCHOList().get(0).setAbout("/12345/" + rdf.getProvidedCHOList().get(0).getAbout());
             FullBeanImpl fBean = new MongoConstructor()

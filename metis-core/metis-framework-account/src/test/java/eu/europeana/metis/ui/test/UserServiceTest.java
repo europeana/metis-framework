@@ -9,6 +9,7 @@ import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import eu.europeana.metis.ui.test.config.TestApplication;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -46,6 +47,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Ignore
     public void testLdapCreate(){
         Mockito.doAnswer(new Answer() {
             @Override
@@ -65,6 +67,7 @@ public class UserServiceTest {
     }
 
     @Test
+    @Ignore
     public void testDBUser(){
         UserDTO userDto = new UserDTO();
         userDto.setDbUser(dbUser());
@@ -76,6 +79,7 @@ public class UserServiceTest {
         Assert.assertEquals(dto.getDbUser().getSkypeId(),"testSkypeId");
     }
     @Test
+    @Ignore
     public void testDBUserWithRequest(){
         RoleRequest request = roleRequest();
         UserDTO userDto = new UserDTO();

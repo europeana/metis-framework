@@ -115,9 +115,7 @@ public class Application extends WebMvcConfigurerAdapter {
 
             client = new MongoClient(mongoHost,Integer.parseInt(mongoPort));
             return new EdmMongoServerImpl(client,maindb,mongoUsername,mongoPassword);
-        } catch (UnknownHostException e) {
-            e.printStackTrace();
-        } catch (MongoDBException e) {
+        }  catch (MongoDBException e) {
             e.printStackTrace();
         }
         return null;

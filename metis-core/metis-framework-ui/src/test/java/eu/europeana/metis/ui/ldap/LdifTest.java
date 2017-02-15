@@ -19,6 +19,7 @@ import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = TestMetisLdapManagerConfig.class, loader = AnnotationConfigContextLoader.class)
 public class LdifTest extends AbstractJUnit4SpringContextTests {

@@ -38,33 +38,41 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
 
     @Test
     public void testGetById() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Assert.assertNotNull(service.getByid(id));
     }
 
     @Test
     public void testGetByName() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Assert.assertNotNull(service.getByName("template_EDM-INTERNAL-TEST"));
     }
 
     @Test
     public void testTemplates() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Assert.assertNotNull(service.getTemplates());
     }
 
     @Test
     public void testSaveMapping() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Mapping m = service.getByid(id);
         m.setObjId(new ObjectId());
         m.setName("test");
@@ -76,9 +84,11 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
 
     @Test
     public void testDeleteMapping() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Mapping m = service.getByid(id);
         m.setObjId(new ObjectId());
         m.setName("test");
@@ -91,9 +101,11 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
     }
     @Test
     public void testUpdateMapping() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Mapping m = service.getByid(id);
         m.setObjId(new ObjectId());
         m.setName("test");
@@ -109,9 +121,11 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
     }
     @Test
     public void testGetMappingByOrganization() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Mapping m = service.getByid(id);
         m.setObjId(new ObjectId());
         m.setName("test");
@@ -129,9 +143,11 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
 
     @Test
     public void testGetMappingNamesByOrganization() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Mapping m = service.getByid(id);
         m.setObjId(new ObjectId());
         m.setName("test");
@@ -150,9 +166,11 @@ public class MongoMappingServiceTest extends AbstractMappingTest {
 
     @Test
     public void testClearValidationStatistics() throws IOException {
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = xsdService.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                         .getClassLoader().getResource("schema.tar.gz").getFile())),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema,generateNamespaces());
         Mapping m = service.getByid(id);
         m.setObjId(new ObjectId());
         m.setName("test");

@@ -17,8 +17,7 @@
 package eu.europeana.metis.service;
 
 import eu.europeana.metis.mapping.model.*;
-import eu.europeana.metis.mapping.persistence.MongoMappingDao;
-import eu.europeana.metis.mapping.persistence.StatisticsDao;
+import eu.europeana.metis.mapping.persistence.*;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.utils.MongoUpdateUtils;
 import org.bson.types.ObjectId;
@@ -42,6 +41,18 @@ public class MongoMappingService implements MappingService {
     private MongoMappingDao dao;
 
     @Autowired
+    private MappingsDao mappingsDao;
+
+    @Autowired
+    private MappingSchemaDao mappingsSchemaDao;
+
+    @Autowired
+    private ElementDao elementDao;
+
+    @Autowired
+    private AttributeDao attributeDao;
+
+    @Autowired
     private StatisticsDao dsDao;
     /**
      * Save a mapping
@@ -51,6 +62,9 @@ public class MongoMappingService implements MappingService {
      */
     @Override
     public String saveMapping(Mapping mapping) {
+        persistElementsAndAttributes(mapping.getMappings());
+        mappingsDao.save(mapping.getMappings());
+        mappingsSchemaDao.save(mapping.getTargetSchema());
         return dao.save(mapping).getId().toString();
     }
 
@@ -72,6 +86,10 @@ public class MongoMappingService implements MappingService {
         MongoUpdateUtils.update(ops, "parameters", mapping.getParameters());
         MongoUpdateUtils.update(ops, "targetSchema", mapping.getTargetSchema());
         MongoUpdateUtils.update(ops, "xsl", mapping.getXsl());
+        persistElementsAndAttributes(mapping.getMappings());
+        //TODO: update?
+        //mappingsDao.(mapping.getMappings());
+        //mappingsSchemaDao.save(mapping.getTargetSchema());
         dao.update(query.filter("_id", mapping.getObjId()), ops);
         return mapping.getObjId().toString();
     }
@@ -241,6 +259,35 @@ public class MongoMappingService implements MappingService {
         Mapping mapping = getByid(mappingId);
         mapping.setXsl(xsl);
         updateMapping(mapping);
+    }
+
+
+    private void persistElementsAndAttributes(Mappings mappings){
+        if(mappings.getAttributes()!=null){
+            for(Attribute attr: mappings.getAttributes()){
+                attributeDao.save(attr);
+            }
+        }
+        if(mappings.getElements()!=null){
+            for(Element elem:mappings.getElements()){
+                persistElementsAndAttributes(elem);
+                elementDao.save(elem);
+            }
+        }
+    }
+
+    private void persistElementsAndAttributes(Element element){
+        if(element.getAttributes()!=null){
+            for(Attribute attr: element.getAttributes()){
+                attributeDao.save(attr);
+            }
+        }
+        if(element.getElements()!=null){
+            for(Element elem:element.getElements()){
+                persistElementsAndAttributes(elem);
+                elementDao.save(elem);
+            }
+        }
     }
 }
 

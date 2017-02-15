@@ -31,9 +31,11 @@ public class XSDServiceTest extends AbstractMappingTest{
     MongoMappingDao dao;
     @Test
     public void test() throws IOException{
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
             String id = service.generateTemplateFromTgz(FileUtils.readFileToByteArray(new File(this.getClass()
                     .getClassLoader().getResource("schema.tar.gz").getFile())),
-                    "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(),generateNamespaces());
+                    "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema ,generateNamespaces());
             Mapping mapping = dao.get(new ObjectId(id));
             Assert.assertEquals("template_EDM-INTERNAL-TEST",mapping.getName());
             Assert.assertNotNull(mapping.getMappings());
@@ -46,9 +48,10 @@ public class XSDServiceTest extends AbstractMappingTest{
 
     @Test
     public void testUrl() throws IOException {
-
+        MappingSchema schema = new MappingSchema();
+        schema.setId(new ObjectId());
         String id = service.generateTemplateFromTgzUrl(this.getClass().getClassLoader().getResource("schema.tar.gz").toString(),
-                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", new MappingSchema(), generateNamespaces());
+                "schema/EDM-INTERNAL.xsd", "EDM-INTERNAL-TEST","RDF", schema, generateNamespaces());
         Mapping mapping = dao.get(new ObjectId(id));
         Assert.assertEquals("template_EDM-INTERNAL-TEST",mapping.getName());
         Assert.assertNotNull(mapping.getMappings());

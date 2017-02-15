@@ -107,7 +107,7 @@ public class Validator implements Callable<ValidationResult> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             return constructValidationError(document, e);
         }
         return constructOk();
