@@ -173,7 +173,7 @@
         <version.spring>4.2.5.RELEASE</version.spring>
         <version.junit>4.12</version.junit>
         <version.log4j>1.2.17</version.log4j>
-        <version.embeddedMongo>1.50.5</version.embeddedMongo>
+        <version.embeddedMongo>2.0.0</version.embeddedMongo>
         <version.commonsio>2.4</version.commonsio>
         <version.commonslang>2.6</version.commonslang>
         <version.gson>2.2.1</version.gson>
