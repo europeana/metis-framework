@@ -78,18 +78,20 @@ public class PreviewService {
      * @throws TransformerException
      * @throws ParserConfigurationException
      */
-    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath) throws JiBXException, IllegalAccessException, IOException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, TransformerException, ParserConfigurationException, InterruptedException, ExecutionException {
+    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords) throws JiBXException, IllegalAccessException, IOException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, TransformerException, ParserConfigurationException, InterruptedException, ExecutionException {
         if (StringUtils.isEmpty(collectionId)) {
             collectionId = CollectionUtils.generateCollectionId();
         }
         ExtendedValidationResult list = new ExtendedValidationResult();
+        List<String> ids = new CopyOnWriteArrayList<>();
+        list.setRecords(ids);
         list.setSuccess(true);
         List<ValidationResult> results = new CopyOnWriteArrayList<>();
         dao.deleteCollection(collectionId);
         dao.commit();
         for (String record : records) {
             ValidationTask task = new ValidationTask(results, applyCrosswalk, bfact, record, identifierClient,
-                    validationClient, dao, collectionId, crosswalkPath, list);
+                    validationClient, dao, collectionId, crosswalkPath, list,individualRecords);
             cs.submit(task);
             Future<ExtendedValidationResult> future = cs.take();
             future.get();

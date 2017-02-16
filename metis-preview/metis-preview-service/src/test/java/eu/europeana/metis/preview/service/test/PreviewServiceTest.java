@@ -63,7 +63,7 @@ public class PreviewServiceTest {
             }).when(mockDao).createRecord(Mockito.anyObject());
             List<String> records = new ArrayList<>();
             records.add(record);
-            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false,"test");
+            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false,"test",false);
             Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
             Assert.assertEquals(0,extendedValidationResult.getResultList().size());
             Assert.assertEquals(true,extendedValidationResult.isSuccess());
