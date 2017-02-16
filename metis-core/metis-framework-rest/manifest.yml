@@ -1,9 +1,9 @@
 ---
 applications:
-- name: metis-framework-test-mamakis
+- name: metis-framework-test
   memory: 2048M
   instances: 1
-  host: metis-framework-test-mamakis
+  host: metis-framework-test
   path: target/metis-framework-rest-1.0-SNAPSHOT.war
   buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
   services:
