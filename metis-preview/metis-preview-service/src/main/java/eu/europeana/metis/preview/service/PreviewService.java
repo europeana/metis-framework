@@ -2,6 +2,7 @@ package eu.europeana.metis.preview.service;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.metis.identifier.RestClient;
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
 import eu.europeana.validation.client.ValidationClient;
@@ -20,9 +21,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.concurrent.*;
 
