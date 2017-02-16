@@ -1,10 +1,8 @@
 package eu.europeana.metis.test.configuration;
 
 import com.mongodb.MongoClient;
-import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
-import eu.europeana.metis.mapping.persistence.FlagDao;
-import eu.europeana.metis.mapping.persistence.MongoMappingDao;
-import eu.europeana.metis.mapping.persistence.StatisticsDao;
+import com.mongodb.MongoClientURI;
+import eu.europeana.metis.mapping.persistence.*;
 import eu.europeana.metis.mongo.MongoProvider;
 import eu.europeana.metis.service.*;
 import org.mongodb.morphia.Morphia;
@@ -56,7 +54,41 @@ public class TestConfig {
                 .mapPackage("java.math.BigInteger",true);
         return new MongoMappingDao(morphia, client, "mapping-test");
     }
+    @Bean
+    MappingsDao getMappingsDao(){
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient("localhost", 10005);
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new MappingsDao(morphia, client, "mapping-test");
+    }
 
+    @Bean
+    MappingSchemaDao getMappingSchemaDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient("localhost", 10005);
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new MappingSchemaDao(morphia, client, "mapping-test");
+    }
+
+    @Bean
+    ElementDao getElementDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient("localhost", 10005);
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new ElementDao(morphia, client, "mapping-test");
+    }
+
+    @Bean
+    AttributeDao getAttributeDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient("localhost", 10005);
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new AttributeDao(morphia, client, "mapping-test");
+    }
     @Bean
     StatisticsDao getStatisticsDao(){
         Morphia morphia = new Morphia();

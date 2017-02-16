@@ -16,9 +16,8 @@
  */
 package eu.europeana.metis.service;
 
-import eu.europeana.metis.mapping.model.Mapping;
-import eu.europeana.metis.mapping.model.MappingSchema;
-import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.model.*;
+import eu.europeana.metis.mapping.persistence.*;
 import eu.europeana.metis.utils.ArchiveUtils;
 import eu.europeana.metis.xsd.XSDParser;
 import org.apache.commons.io.FileUtils;
@@ -44,6 +43,19 @@ public class XSDService {
     @Autowired
     private MongoMappingDao dao;
 
+    @Autowired
+    private MappingsDao mappingsDao;
+
+    @Autowired
+    private MappingSchemaDao mappingsSchemaDao;
+
+    @Autowired
+    private ElementDao elementDao;
+
+    @Autowired
+    private AttributeDao attributeDao;
+
+
     private String repository="/tmp";
 
     /**
@@ -60,6 +72,9 @@ public class XSDService {
         ArchiveUtils.extract(fileName,repository+"/"+mappingName+"/");
         XSDParser parser = new XSDParser(repository+"/"+mappingName +"/"+rootFile);
         Mapping mapping = parser.buildTemplate(schema,"template_"+mappingName,rootXPath,namespaces);
+        persistElementsAndAttributes(mapping.getMappings());
+        mappingsDao.save(mapping.getMappings());
+        mappingsSchemaDao.save(mapping.getTargetSchema());
         return dao.save(mapping).getId().toString();
     }
     /**
@@ -86,5 +101,33 @@ public class XSDService {
         return bytes;
     }
 
+
+    private void persistElementsAndAttributes(Mappings mappings){
+        if(mappings.getAttributes()!=null){
+            for(Attribute attr: mappings.getAttributes()){
+                attributeDao.save(attr);
+            }
+        }
+        if(mappings.getElements()!=null){
+            for(Element elem:mappings.getElements()){
+                persistElementsAndAttributes(elem);
+                elementDao.save(elem);
+            }
+        }
+    }
+
+    private void persistElementsAndAttributes(Element element){
+        if(element.getAttributes()!=null){
+            for(Attribute attr: element.getAttributes()){
+                attributeDao.save(attr);
+            }
+        }
+        if(element.getElements()!=null){
+            for(Element elem:element.getElements()){
+                persistElementsAndAttributes(elem);
+                elementDao.save(elem);
+            }
+        }
+    }
 
 }

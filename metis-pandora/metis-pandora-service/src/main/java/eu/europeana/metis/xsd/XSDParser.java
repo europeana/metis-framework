@@ -23,6 +23,7 @@ import com.sun.xml.xsom.util.DomAnnotationParserFactory;
 import eu.europeana.metis.mapping.model.*;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.bson.types.ObjectId;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.*;
@@ -295,10 +296,11 @@ public class XSDParser {
     private Mapping buildTemplate(MappingSchema schema, String name,
                                  XSElementDecl rootElementDecl) {
         Mapping result = new Mapping();
+        result.setObjId(new ObjectId());
         String root = rootElementDecl.getName();
 
         Mappings mappings = new Mappings();
-
+        mappings.setId(new ObjectId());
         result.setName("template_" + root);
         mappings.setNamespaces(namespaces);
         result.setTargetSchema(schema);

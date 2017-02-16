@@ -22,10 +22,7 @@ import com.google.gson.JsonPrimitive;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import eu.europeana.metis.json.CustomObjectMapper;
-import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
-import eu.europeana.metis.mapping.persistence.FlagDao;
-import eu.europeana.metis.mapping.persistence.MongoMappingDao;
-import eu.europeana.metis.mapping.persistence.StatisticsDao;
+import eu.europeana.metis.mapping.persistence.*;
 import eu.europeana.metis.service.*;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
@@ -85,6 +82,39 @@ public class AppConfig extends WebMvcConfigurerAdapter {
         morphia.mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
         return new MongoMappingDao(morphia, client, db);
+    }
+    @Bean
+    MappingsDao getMappingsDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient(new MongoClientURI(uri));
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new MappingsDao(morphia, client, db);
+    }
+
+    @Bean
+    ElementDao getElementDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient(new MongoClientURI(uri));
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new ElementDao(morphia, client, db);
+    }
+    @Bean
+    AttributeDao getAttributeDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient(new MongoClientURI(uri));
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new AttributeDao(morphia, client, db);
+    }
+    @Bean
+    MappingSchemaDao getMappingSchemaDao() {
+        Morphia morphia = new Morphia();
+        MongoClient client = new MongoClient(new MongoClientURI(uri));
+        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+                .mapPackage("java.math.BigInteger",true);
+        return new MappingSchemaDao(morphia, client, db);
     }
     @Bean
     public CommonsMultipartResolver multipartResolver(){

@@ -35,8 +35,7 @@ import java.util.Set;
 @XmlRootElement
 public class MappingSchema extends Schema {
 
-    @Id
-    private ObjectId id;
+
 
     @Embedded
     private XPathHolder rootPath;
@@ -44,23 +43,6 @@ public class MappingSchema extends Schema {
     private Set<String> schematronRules;
     private Map<String,String> documentation;
 
-    /**
-     * The id of the mapping schema
-     * @return  the id of the mapping schema
-     */
-    @Override
-    public ObjectId getId() {
-        return id;
-    }
-
-    /**
-     * The id of the mapping schema
-     * @param id The id of the mapping schema
-     */
-    @Override
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
 
     /**
      * The root XPath

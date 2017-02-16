@@ -2,6 +2,7 @@ package eu.europeana.metis.preview.service.executor;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
@@ -74,7 +75,7 @@ public class ValidationTask implements Callable {
      * Execution of transformation, id-generation and validation for Europeana Preview Service
      */
     @Override
-    public ExtendedValidationResult call() throws IOException, TransformerException, ParserConfigurationException, JiBXException, IllegalAccessException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, MongoDBException {
+    public ExtendedValidationResult call() throws IOException, TransformerException, ParserConfigurationException, JiBXException, IllegalAccessException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, MongoDBException, MongoRuntimeException {
 
             IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
             if (applyCrosswalk) {

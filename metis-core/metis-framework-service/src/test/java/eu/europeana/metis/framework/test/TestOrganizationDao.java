@@ -50,9 +50,9 @@ public class TestOrganizationDao {
     private DatasetDao dsDao;
     @Before
     public void prepare() {
-        eu.europeana.metis.mongo.MongoProvider.start(10000);
+        eu.europeana.metis.mongo.MongoProvider.start(10010);
         try {
-            MongoProvider provider = new MongoProvider("localhost",10000, "test",null,null);
+            MongoProvider provider = new MongoProvider("localhost",10010, "test",null,null);
             orgDao = new OrganizationDao();
             ReflectionTestUtils.setField(orgDao,"provider",provider);
 

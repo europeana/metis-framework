@@ -2,6 +2,7 @@ package eu.europeana.metis.preview.persistence;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.metis.mongo.MongoProvider;
@@ -47,7 +48,7 @@ public class TestRecordDao {
         try {
             IBindingFactory factory =  BindingDirectory.getFactory(RDF.class);
             IUnmarshallingContext uctx = factory.createUnmarshallingContext();
-            StringReader reader = new StringReader(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("Item_5791754.xml")));
+            StringReader reader = new StringReader(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("BibliographicResource_2000081662432.rdf")));
             RDF rdf = (RDF) uctx.unmarshalDocument(reader);
             rdf.getProvidedCHOList().get(0).setAbout("/12345/" + rdf.getProvidedCHOList().get(0).getAbout());
             FullBeanImpl fBean = new MongoConstructor()
@@ -78,6 +79,8 @@ public class TestRecordDao {
         } catch (SolrServerException e) {
             e.printStackTrace();
         } catch (MongoDBException e) {
+            e.printStackTrace();
+        } catch (MongoRuntimeException e) {
             e.printStackTrace();
         }
     }

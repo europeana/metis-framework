@@ -43,6 +43,8 @@ import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.List;
 
+import static org.mockito.Matchers.eq;
+
 /**
  * Created by ymamakis on 12-2-16.
  */
@@ -84,7 +86,7 @@ public class MongoDereferenceServiceTest {
         try {
             EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
 
-            Mockito.when(driver.getByUri(Mockito.anyString(),false)).thenReturn("");
+            Mockito.when(driver.getByUri(Mockito.anyString(),eq(false))).thenReturn("");
             Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
             List<String> result = service.dereference("http://sws.geonames.org/3020251");
             Assert.assertNotNull(result);
