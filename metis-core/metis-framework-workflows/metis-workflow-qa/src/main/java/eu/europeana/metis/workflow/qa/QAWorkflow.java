@@ -73,6 +73,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
         MeasuringResponse response = template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
                 + "/measuring/start", MeasuringResponse.class).getBody();
         String sessionId =response.getSessionId();
+        qaStatistics.setSessionId(sessionId);
         qaStatistics.setStatus(response.getStatus());
         List<String> records = params.get(QAParams.QA_RECORDS);
         qaStatistics.setCreated(new Long(records.size()));
@@ -96,9 +97,9 @@ public class QAWorkflow implements AbstractMetisWorkflow {
             statistics.put(params.get(WorkflowParameters.DATASET).get(0),qaStatistics);
         }
         template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
-                + "/measuring/"+qaStatistics+"/stop", MeasuringResponse.class);
+                + "/measuring/"+qaStatistics.getSessionId()+"/stop", MeasuringResponse.class);
         template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
-                + "/analyzing/"+qaStatistics+"/start", MeasuringResponse.class);
+                + "/analyzing/"+qaStatistics.getSessionId()+"/start", MeasuringResponse.class);
         qaStatistics = statistics.get(params.get(WorkflowParameters.DATASET).get(0));
         qaStatistics.setStatus("analyzing");
         statistics.put(WorkflowParameters.DATASET,qaStatistics);
