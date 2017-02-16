@@ -48,6 +48,11 @@
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-preview-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-identifier-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

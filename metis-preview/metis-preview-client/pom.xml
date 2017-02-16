@@ -10,10 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>metis-preview-client</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>../metis-preview-common</module>
-    </modules>
     <dependencies>
         <dependency>
             <groupId>eu.europeana.metis</groupId>

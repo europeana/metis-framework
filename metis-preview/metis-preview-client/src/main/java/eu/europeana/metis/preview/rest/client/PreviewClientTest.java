@@ -1,7 +1,7 @@
 package eu.europeana.metis.preview.rest.client;
 
-import eu.europeana.metis.preview.service.ExtendedValidationResult;
 
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import java.io.File;
 
 /**
