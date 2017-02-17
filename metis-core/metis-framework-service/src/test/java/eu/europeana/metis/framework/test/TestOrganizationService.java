@@ -62,6 +62,7 @@ public class TestOrganizationService {
         org.setDatasets(new ArrayList<Dataset>());
         org.setOrganizationUri("testUri");
         org.setHarvestingMetadata(new HarvestingMetadata());
+        org.setOptInIIIF(true);
 
 
     }
@@ -115,6 +116,14 @@ public class TestOrganizationService {
         } catch (NoOrganizationExceptionFound e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void testRetrieveOptin() {
+        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(organizationDao.getById("string")).thenReturn(org);
+            boolean optedIn = service.isOptedInForIIIF("string");
+            Assert.assertTrue(optedIn);
     }
 
     @Test

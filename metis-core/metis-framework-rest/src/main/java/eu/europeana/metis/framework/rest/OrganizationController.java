@@ -288,6 +288,21 @@ public class OrganizationController {
         throw new NoApiKeyFoundException(apikey);
     }
 
+    /**
+     * Check whether an organization is opted in for using the Image Service of Europeana or not
+     * @param id The id of the organization
+     * @return true if opted in, false otherwise
+     */
+    @RequestMapping(value = ORGANIZATION_OPTED_IN, method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @ApiOperation(value="Check whether an organization is opted-in for IIIF or not")
+    public ModelAndView isOptedIn(@PathVariable("id") String id){
+        ModelAndView view = new ModelAndView("json");
+        view.addObject("result",organizationService.isOptedInForIIIF(id));
+        return view;
+    }
+
+
     private ModelAndView constructModelAndViewForList(MetisKey key, List<Organization> orgs) throws InstantiationException, IllegalAccessException {
         if(key.getProfile().equals(Profile.PUBLIC)){
             List<ModelAndView> organizationViews = new ArrayList<>();
