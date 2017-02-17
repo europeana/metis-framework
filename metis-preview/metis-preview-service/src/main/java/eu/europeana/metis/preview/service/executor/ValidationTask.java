@@ -42,7 +42,7 @@ public class ValidationTask implements Callable {
     private String collectionId;
     private String crosswalkPath;
     private ExtendedValidationResult list;
-
+    private boolean requestRecordId;
     /**
      * Default constructor of the validation service
      * @param resultsCache A threadsafe List of results
@@ -58,7 +58,7 @@ public class ValidationTask implements Callable {
      */
     public ValidationTask(List<ValidationResult> resultsCache, boolean applyCrosswalk, IBindingFactory bFact,
                           String record, RestClient identifierClient, ValidationClient validationClient,
-                          RecordDao recordDao, String collectionId, String crosswalkPath, ExtendedValidationResult list) {
+                          RecordDao recordDao, String collectionId, String crosswalkPath, ExtendedValidationResult list,boolean requestRecordId) {
         validationResults = resultsCache;
         this.applyCrosswalk = applyCrosswalk;
         this.bFact = bFact;
@@ -69,6 +69,7 @@ public class ValidationTask implements Callable {
         this.collectionId = collectionId;
         this.crosswalkPath = crosswalkPath;
         this.list = list;
+        this.requestRecordId =requestRecordId;
     }
 
     /**
@@ -94,6 +95,11 @@ public class ValidationTask implements Callable {
                     fBean.setAbout(id);
                     fBean.setEuropeanaCollectionName(new String[]{collectionId});
                     recordDao.createRecord(fBean);
+                    if(requestRecordId){
+                        List<String> records = list.getRecords();
+                        records.add(fBean.getAbout());
+                        list.setRecords(records);
+                    }
                 } else {
                     ValidationResult result1 =new ValidationResult();
                     result1.setSuccess(false);

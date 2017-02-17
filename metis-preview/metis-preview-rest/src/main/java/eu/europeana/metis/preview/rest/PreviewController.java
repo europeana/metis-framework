@@ -65,11 +65,12 @@ public class PreviewController {
     public ExtendedValidationResult createRecords(@ApiParam @RequestParam("file") MultipartFile file,
                                                   @ApiParam @RequestParam(value = "collectionId", defaultValue = "") String collectionId,
                                                   @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal",defaultValue = "true")boolean applyCrosswalk,
-                                                  @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath)
+                                                  @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath,
+                                                  @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean individualRecords)
             throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException,PreviewValidationException,
             IllegalAccessException, ParserConfigurationException, TransformerException, SolrServerException, ZipException, ExecutionException, InterruptedException {
         List<String> records = readFileToStringList(file);
-        ExtendedValidationResult result = service.createRecords(records,collectionId,applyCrosswalk, crosswalkPath);
+        ExtendedValidationResult result = service.createRecords(records,collectionId,applyCrosswalk, crosswalkPath,individualRecords);
         if(!result.isSuccess()){
             throw new PreviewValidationException(result);
         }
