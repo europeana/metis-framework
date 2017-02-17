@@ -304,4 +304,18 @@ public class DsOrgRestClient {
         }
 
     }
+
+    /**
+     * Check whether an organization has opted in for the Image Service of Europeana
+     * @param id The id of the organization
+     * @return true if opted in false otherwise
+     * @throws ServerException
+     */
+    public boolean isOptedIn(String id) throws ServerException{
+        try {
+            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATION_OPTED_IN, id), OptedInResponse.class).getBody().isResult();
+        } catch (Exception e){
+            throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
+        }
+    }
 }

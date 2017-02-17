@@ -157,4 +157,14 @@ public class OrganizationService {
         }
         return organizations;
     }
+
+    /**
+     * Check whether an organization has opted in or not
+     * @param organizationId The organization id to check for
+     * @return true if opted in false otherwise
+     */
+    public boolean isOptedInForIIIF(String organizationId){
+        Organization org = orgDao.getById(organizationId);
+        return org != null && org.isOptInIIIF();
+    }
 }
