@@ -11,14 +11,13 @@ import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
 import eu.europeana.metis.mongo.MongoProvider;
+import java.net.UnknownHostException;
 import org.mockito.Mockito;
 import org.mongodb.morphia.Morphia;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.plugin.core.config.EnablePluginRegistries;
-
-import java.net.UnknownHostException;
 
 /**
  * Created by ymamakis on 11/17/16.
@@ -51,6 +50,7 @@ public class TestAppConfig {
         morphia.map(FailedRecords.class);
         return new FailedRecordsDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
     }
+
     @Bean
     public DatasetService service(){
         return Mockito.mock(DatasetService.class);
