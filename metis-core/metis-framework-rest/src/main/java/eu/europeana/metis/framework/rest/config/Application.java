@@ -112,8 +112,8 @@ public class Application extends WebMvcConfigurerAdapter {
   @Value("${redis.password}")
   private String redisPassword;
 
-  @Value("${ecloud.baseurl}")
-  private String ecloudBaseUrl;
+  @Value("${ecloud.baseMcsUrl}")
+  private String ecloudBaseMcsUrl;
   @Value("${ecloud.username}")
   private String ecloudUsername;
   @Value("${ecloud.password}")
@@ -239,7 +239,7 @@ public class Application extends WebMvcConfigurerAdapter {
 
   @Bean
   DataSetServiceClient dataSetServiceClient() {
-    return new DataSetServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
+    return new DataSetServiceClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
   }
 
   @Bean
