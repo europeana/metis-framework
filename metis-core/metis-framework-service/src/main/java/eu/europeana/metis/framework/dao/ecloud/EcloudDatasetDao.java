@@ -99,4 +99,8 @@ public class EcloudDatasetDao implements MetisDao<DataSet, String>{
     }
     return false;
   }
+
+  public String getEcloudProvider() {
+    return ecloudProvider;
+  }
 }
