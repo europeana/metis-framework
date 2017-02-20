@@ -16,8 +16,6 @@
  */
 package eu.europeana.metis.framework.dao;
 
-import eu.europeana.cloud.common.model.DataSet;
-import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
@@ -44,20 +42,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Autowired
   private MongoProvider provider;
 
-  @Autowired
-  private EcloudDatasetDao ecloudDatasetDao;
-
   @Override
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = provider.getDatastore().save(dataset);
-
-    //Create in ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getName());
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDataset.setDescription(dataset.getDescription());
-    ecloudDatasetDao.create(ecloudDataset);
-
     LOGGER.info("Dataset '" + dataset.getName() + "' created with Provider '" + dataset.getDataProvider() + "' and Description '" + dataset.getDescription() + "' in Mongo");
     return datasetKey.getId().toString();
   }
@@ -130,13 +117,6 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("deaSigned", dataset.isDeaSigned());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
 
-    //Update in ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getName());
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDataset.setDescription(dataset.getDescription());
-    ecloudDatasetDao.update(ecloudDataset);
-
     LOGGER.info("Dataset '" + dataset.getName() + "' updated with Provider '" + dataset.getDataProvider() + "' and Description '" + dataset.getDescription() + "' in Mongo");
     return StringUtils.isNotEmpty(updateResults.getNewId().toString()) ? updateResults.getNewId().toString() : dataset.getId().toString();
   }
@@ -150,14 +130,6 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public boolean delete(Dataset dataset) {
     provider.getDatastore().delete(
         provider.getDatastore().createQuery(Dataset.class).filter("name", dataset.getName()));
-
-    //Delete from ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getName());
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDataset.setDescription(dataset.getDescription());
-    ecloudDatasetDao.delete(ecloudDataset);
-
     LOGGER.info("Dataset '" + dataset.getName() + "' deleted with Provider '" + dataset.getDataProvider() + "' from Mongo");
     return true;
   }
