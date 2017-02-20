@@ -21,7 +21,6 @@ import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
@@ -118,7 +117,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
 
     LOGGER.info("Dataset '" + dataset.getName() + "' updated with Provider '" + dataset.getDataProvider() + "' and Description '" + dataset.getDescription() + "' in Mongo");
-    return StringUtils.isNotEmpty(updateResults.getNewId().toString()) ? updateResults.getNewId().toString() : dataset.getId().toString();
+    Object newId = updateResults.getNewId();
+    return newId != null ? updateResults.getNewId().toString() : dataset.getId().toString();
   }
 
   @Override

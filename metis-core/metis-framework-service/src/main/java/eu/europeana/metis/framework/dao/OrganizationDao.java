@@ -25,7 +25,6 @@ import eu.europeana.metis.framework.organization.Organization;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
@@ -156,8 +155,8 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     provider.getDatastore().update(q, ops);
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
     LOGGER.info("Organization '" + organization.getOrganizationId() + "' updated in Mongo");
-    return StringUtils.isNotEmpty(updateResults.getNewId().toString()) ? updateResults.getNewId()
-        .toString() : organization.getId().toString();
+    Object newId = updateResults.getNewId();
+    return newId != null ? updateResults.getNewId().toString() : organization.getId().toString();
   }
 
   @Override
