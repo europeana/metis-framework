@@ -103,4 +103,8 @@ public class EcloudDatasetDao implements MetisDao<DataSet, String>{
   public String getEcloudProvider() {
     return ecloudProvider;
   }
+
+  public void setEcloudProvider(String ecloudProvider) {
+    this.ecloudProvider = ecloudProvider;
+  }
 }
