@@ -4,6 +4,7 @@ import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.framework.dao.MetisDao;
+import java.net.URI;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,8 +28,10 @@ public class EcloudDatasetDao implements MetisDao<DataSet, String>{
   @Override
   public String create(DataSet dataSet) {
     try {
-      dataSetServiceClient.createDataSet(ecloudProvider, dataSet.getId(), dataSet.getDescription());
+      URI datasetUri = dataSetServiceClient
+          .createDataSet(ecloudProvider, dataSet.getId(), dataSet.getDescription());
       LOGGER.info("Dataset '" + dataSet.getId() + "' created with Provider '" + ecloudProvider + "' and Description '" + dataSet.getDescription() + "' in ECloud");
+      return datasetUri.toString();
     } catch (MCSException ex) {
       LOGGER.error("Provider '" + ecloudProvider + "'could not create Dataset '" + dataSet.getId()
           + "'in ECloud", ex);
@@ -42,6 +45,7 @@ public class EcloudDatasetDao implements MetisDao<DataSet, String>{
       dataSetServiceClient
           .updateDescriptionOfDataSet(ecloudProvider, dataSet.getId(), dataSet.getDescription());
       LOGGER.info("Dataset '" + dataSet.getId() + "' updated with Provider '" + ecloudProvider + "' and Description '" + dataSet.getDescription() + "' in ECloud");
+      return dataSet.getId();
     } catch (MCSException ex) {
       LOGGER.error(
           "Provider '" + ecloudProvider + "' could not update description of Dataset '" + dataSet.getId()
@@ -74,6 +78,7 @@ public class EcloudDatasetDao implements MetisDao<DataSet, String>{
     try {
       dataSetServiceClient.deleteDataSet(ecloudProvider, dataSet.getId());
       LOGGER.info("Dataset '" + dataSet.getId() + "' deleted with Provider '" + ecloudProvider + "' from ECloud");
+      return true;
     } catch (MCSException ex) {
       LOGGER.error("Provider '" + ecloudProvider + "' could not delete Dataset '" + dataSet.getId()
           + "' in ECloud", ex);
