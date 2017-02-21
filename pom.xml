@@ -48,6 +48,13 @@
       <artifactId>log4j-core</artifactId>
       <version>${version.log4j}</version>
     </dependency>
+    <dependency>
+      <groupId>software.betamax</groupId>
+      <artifactId>betamax-junit</artifactId>
+      <version>${version.betamax}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 
   <build>
@@ -213,6 +220,7 @@
   </scm>
 
   <properties>
+    <version.betamax>2.0.1</version.betamax>
     <version.slf4j>1.7.23</version.slf4j>
     <version.log4j>2.8</version.log4j>
     <version.spring>4.2.5.RELEASE</version.spring>

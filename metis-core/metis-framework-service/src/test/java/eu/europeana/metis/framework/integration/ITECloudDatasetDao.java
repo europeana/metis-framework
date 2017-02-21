@@ -12,10 +12,13 @@ import java.util.Properties;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.test.util.ReflectionTestUtils;
+import software.betamax.junit.Betamax;
+import software.betamax.junit.RecorderRule;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -23,6 +26,8 @@ import org.springframework.test.util.ReflectionTestUtils;
  */
 public class ITECloudDatasetDao {
   private final static Logger LOGGER = LoggerFactory.getLogger(ITECloudDatasetDao.class);
+  @Rule
+  public RecorderRule recorder = new RecorderRule();
 
   private static EcloudDatasetDao ecloudDatasetDao;
   private static DataSetServiceClient dataSetServiceClient;
@@ -72,6 +77,7 @@ public class ITECloudDatasetDao {
   }
 
   @Test
+  @Betamax(tape = "createDataset")
   public void testCreateDataset() {
     String uri = ecloudDatasetDao.create(dataSet);
     Assert.assertNotNull(uri);
@@ -79,6 +85,7 @@ public class ITECloudDatasetDao {
   }
 
   @Test
+  @Betamax(tape = "getDatastById")
   public void testGetDatasetById() {
     ecloudDatasetDao.create(dataSet);
     DataSet ds = ecloudDatasetDao.getById(dataSet.getId());
@@ -89,6 +96,7 @@ public class ITECloudDatasetDao {
   }
 
   @Test
+  @Betamax(tape = "updateDataset")
   public void testUpdateDataset() {
     ecloudDatasetDao.create(dataSet);
     dataSet.setDescription("changed");
@@ -99,6 +107,7 @@ public class ITECloudDatasetDao {
   }
 
   @Test
+  @Betamax(tape = "deleteDataset")
   public void testDeleteDataset() {
     ecloudDatasetDao.create(dataSet);
     boolean deleted = ecloudDatasetDao.delete(dataSet);

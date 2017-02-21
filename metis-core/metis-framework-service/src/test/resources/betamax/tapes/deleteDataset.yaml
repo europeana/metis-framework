@@ -1,0 +1,51 @@
+!tape
+name: deleteDataset
+interactions:
+- recorded: 2017-02-21T15:23:25.410Z
+  request:
+    method: POST
+    uri: http://localhost:8080/mcs;/data-providers/sprovider1s/data-sets
+    headers:
+      Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+      Authorization: Basic YWRtaW46ZWNsb3VkX2FkbWlu
+      Content-Length: '49'
+      Content-Type: application/x-www-form-urlencoded
+      Host: localhost:8080
+      Proxy-Connection: keep-alive
+      User-Agent: Jersey/2.23.1 (HttpUrlConnection 1.8.0_91)
+    body: dataSetId=sdataset1s&description=test_description
+  response:
+    status: 201
+    headers:
+      Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+      Content-Length: '0'
+      Date: Tue, 21 Feb 2017 15:23:24 GMT
+      Expires: '0'
+      Location: http://localhost:8080/mcs;/data-providers/sprovider1s/data-sets/sdataset1s
+      Pragma: no-cache
+      Server: Apache-Coyote/1.1
+      X-Content-Type-Options: nosniff
+      X-Frame-Options: DENY
+      X-XSS-Protection: 1; mode=block
+- recorded: 2017-02-21T15:23:25.482Z
+  request:
+    method: DELETE
+    uri: http://localhost:8080/mcs;/data-providers/sprovider1s/data-sets/sdataset1s
+    headers:
+      Accept: text/html, image/gif, image/jpeg, *; q=.2, */*; q=.2
+      Authorization: Basic YWRtaW46ZWNsb3VkX2FkbWlu
+      Content-Length: '0'
+      Host: localhost:8080
+      Proxy-Connection: keep-alive
+      User-Agent: Jersey/2.23.1 (HttpUrlConnection 1.8.0_91)
+  response:
+    status: 204
+    headers:
+      Cache-Control: no-cache, no-store, max-age=0, must-revalidate
+      Date: Tue, 21 Feb 2017 15:23:24 GMT
+      Expires: '0'
+      Pragma: no-cache
+      Server: Apache-Coyote/1.1
+      X-Content-Type-Options: nosniff
+      X-Frame-Options: DENY
+      X-XSS-Protection: 1; mode=block
