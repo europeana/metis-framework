@@ -9,10 +9,9 @@ import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
-import org.junit.Rule;
+import org.junit.ClassRule;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,8 +25,8 @@ import software.betamax.junit.RecorderRule;
  */
 public class ITECloudDatasetDao {
   private final static Logger LOGGER = LoggerFactory.getLogger(ITECloudDatasetDao.class);
-  @Rule
-  public RecorderRule recorder = new RecorderRule();
+  @ClassRule
+  public static RecorderRule recorder = new RecorderRule();
 
   private static EcloudDatasetDao ecloudDatasetDao;
   private static DataSetServiceClient dataSetServiceClient;
@@ -58,18 +57,6 @@ public class ITECloudDatasetDao {
     ReflectionTestUtils.setField(ecloudDatasetDao,"dataSetServiceClient",dataSetServiceClient);
     ecloudDatasetDao.setEcloudProvider(properties.getProperty(ecloudProviderf));
 
-    try {
-      uisClient.createProvider("sprovider1s",
-          new DataProviderProperties("sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s",
-              "sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s"));
-    } catch (CloudException e) {
-      if (e.getMessage().equals("PROVIDER_ALREADY_EXISTS")) {
-        LOGGER.info("Provider not created already existent");
-      } else {
-        return;
-      }
-    }
-
     dataSet = new DataSet();
     dataSet.setId("sdataset1s");
     dataSet.setProviderId(ecloudDatasetDao.getEcloudProvider());
@@ -78,7 +65,8 @@ public class ITECloudDatasetDao {
 
   @Test
   @Betamax(tape = "createDataset")
-  public void testCreateDataset() {
+  public void testCreateDataset(){
+    createTestProvider();
     String uri = ecloudDatasetDao.create(dataSet);
     Assert.assertNotNull(uri);
     ecloudDatasetDao.delete(dataSet);
@@ -87,6 +75,7 @@ public class ITECloudDatasetDao {
   @Test
   @Betamax(tape = "getDatastById")
   public void testGetDatasetById() {
+    createTestProvider();
     ecloudDatasetDao.create(dataSet);
     DataSet ds = ecloudDatasetDao.getById(dataSet.getId());
     Assert.assertEquals(dataSet.getId(), ds.getId());
@@ -98,28 +87,39 @@ public class ITECloudDatasetDao {
   @Test
   @Betamax(tape = "updateDataset")
   public void testUpdateDataset() {
+    createTestProvider();
     ecloudDatasetDao.create(dataSet);
     dataSet.setDescription("changed");
     String id = ecloudDatasetDao.update(dataSet);
     Assert.assertNotNull(id);
     DataSet ds = ecloudDatasetDao.getById(dataSet.getId());
     Assert.assertEquals(dataSet.getDescription(), ds.getDescription());
+    ecloudDatasetDao.delete(dataSet);
   }
 
   @Test
   @Betamax(tape = "deleteDataset")
   public void testDeleteDataset() {
+    createTestProvider();
     ecloudDatasetDao.create(dataSet);
     boolean deleted = ecloudDatasetDao.delete(dataSet);
     Assert.assertTrue(deleted);
   }
 
-  @AfterClass
-  public static void afterTests() {
-    // TODO: 20-2-17 Delete provider when done. UIS client doesn't support it yet.
-
-    //Delete dataset
-    ecloudDatasetDao.delete(dataSet);
+  // TODO: 21-2-17 Remove when delete provider is available
+  private void createTestProvider()
+  {
+    try {
+      uisClient.createProvider("sprovider1s",
+          new DataProviderProperties("sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s",
+              "sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s"));
+    } catch (CloudException e) {
+      if (e.getMessage().equals("PROVIDER_ALREADY_EXISTS")) {
+        LOGGER.info("Provider not created already existent");
+      } else {
+        return;
+      }
+    }
   }
 
 }
