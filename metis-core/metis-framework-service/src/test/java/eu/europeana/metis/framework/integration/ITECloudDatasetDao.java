@@ -1,4 +1,4 @@
-package eu.europeana.metis.framework.test;
+package eu.europeana.metis.framework.integration;
 
 import eu.europeana.cloud.client.uis.rest.CloudException;
 import eu.europeana.cloud.client.uis.rest.UISClient;
@@ -21,8 +21,8 @@ import org.springframework.test.util.ReflectionTestUtils;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-02-20
  */
-public class TestECloudDatasetDao {
-  private final static Logger LOGGER = LoggerFactory.getLogger(TestECloudDatasetDao.class);
+public class ITECloudDatasetDao {
+  private final static Logger LOGGER = LoggerFactory.getLogger(ITECloudDatasetDao.class);
 
   private static EcloudDatasetDao ecloudDatasetDao;
   private static DataSetServiceClient dataSetServiceClient;
@@ -39,7 +39,7 @@ public class TestECloudDatasetDao {
   public static void beforeTests() throws IOException {
     Properties properties = new Properties();
     InputStream input = null;
-    input = TestECloudDatasetDao.class.getClassLoader().getResourceAsStream(ecloudPropertiesFile);
+    input = ITECloudDatasetDao.class.getClassLoader().getResourceAsStream(ecloudPropertiesFile);
 
     if(input==null){
       LOGGER.error("Unable to find properties file: " + ecloudPropertiesFile);
