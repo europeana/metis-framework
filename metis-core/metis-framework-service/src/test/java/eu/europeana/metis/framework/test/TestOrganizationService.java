@@ -24,6 +24,7 @@ import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.OrganizationService;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +34,7 @@ import org.mockito.stubbing.Answer;
 import org.mongodb.morphia.Datastore;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,7 +78,13 @@ public class TestOrganizationService {
                 return null;
             }
         }).when(organizationDao).create(org);
-        service.createOrganization(org);
+        try {
+            service.createOrganization(org);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -89,7 +97,13 @@ public class TestOrganizationService {
                 return null;
             }
         }).when(organizationDao).update(org);
-        service.updateOrganization(org);
+        try {
+            service.updateOrganization(org);
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -102,7 +116,13 @@ public class TestOrganizationService {
                 return null;
             }
         }).when(organizationDao).delete(org);
-        service.deleteOrganization(org);
+        try {
+            service.deleteOrganization(org);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
