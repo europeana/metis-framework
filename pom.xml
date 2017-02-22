@@ -58,6 +58,15 @@
                 <version>2.5.3</version>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven.compiler.plugin}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
     <reporting>
         <plugins>
@@ -170,6 +179,7 @@
 
 
     <properties>
+        <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
         <version.spring>4.2.5.RELEASE</version.spring>
         <version.junit>4.12</version.junit>
         <version.log4j>1.2.17</version.log4j>
