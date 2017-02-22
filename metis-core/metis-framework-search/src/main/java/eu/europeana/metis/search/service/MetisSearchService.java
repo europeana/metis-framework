@@ -29,7 +29,7 @@ public class MetisSearchService {
     public List<OrganizationSearchBean> getSuggestions(String searchTerm) throws IOException, SolrServerException {
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("searchlabel:*"+searchTerm+"*");
-        solrQuery.setFields("id","endlabel");
+        solrQuery.setFields("id","englabel");
         QueryResponse resp = solrClient.query(solrQuery);
         return resp.getBeans(OrganizationSearchBean.class);
     }
@@ -47,10 +47,12 @@ public class MetisSearchService {
         searchBean.setEngLabel(engLabel);
         searchBean.setOrganizationId(id);
         searchBean.setSearchLabels(searchLabels);
-        solrClient.addBean(searchBean,50);
+        solrClient.addBean(searchBean);
+        solrClient.commit();
     }
 
     public void deleteFromSearch(String id) throws IOException, SolrServerException {
         solrClient.deleteByQuery("id:"+id);
+        solrClient.commit();
     }
 }
