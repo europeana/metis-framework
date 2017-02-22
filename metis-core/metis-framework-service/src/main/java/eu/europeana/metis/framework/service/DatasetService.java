@@ -16,15 +16,16 @@
  */
 package eu.europeana.metis.framework.service;
 
+import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
+import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.organization.Organization;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * Service for storing datasets
@@ -37,6 +38,9 @@ public class DatasetService {
     private DatasetDao dsDao;
 
     @Autowired
+    private EcloudDatasetDao ecloudDatasetDao;
+
+    @Autowired
     private OrganizationDao orgDao;
 
     /**
@@ -47,6 +51,13 @@ public class DatasetService {
     public void createDataset(Organization org, Dataset ds){
         dsDao.createDatasetForOrganization(org,ds);
         orgDao.update(org);
+
+        //Create in ECloud
+        DataSet ecloudDataset = new DataSet();
+        ecloudDataset.setId(ds.getName());
+        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+        ecloudDataset.setDescription(ds.getDescription());
+        ecloudDatasetDao.create(ecloudDataset);
     }
 
     /**
@@ -55,6 +66,13 @@ public class DatasetService {
      */
     public void updateDataset(Dataset ds){
         dsDao.update(ds);
+
+        //Update in ECloud
+        DataSet ecloudDataset = new DataSet();
+        ecloudDataset.setId(ds.getName());
+        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+        ecloudDataset.setDescription(ds.getDescription());
+        ecloudDatasetDao.update(ecloudDataset);
     }
 
     /**
@@ -68,6 +86,13 @@ public class DatasetService {
         datasetList.remove(ds);
         org.setDatasets(datasetList);
         orgDao.update(org);
+
+        //Delete from ECloud
+        DataSet ecloudDataset = new DataSet();
+        ecloudDataset.setId(ds.getName());
+        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+        ecloudDataset.setDescription(ds.getDescription());
+        ecloudDatasetDao.delete(ecloudDataset);
     }
 
     /**

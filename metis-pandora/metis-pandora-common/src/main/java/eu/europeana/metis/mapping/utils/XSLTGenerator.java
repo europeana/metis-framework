@@ -17,19 +17,32 @@
 package eu.europeana.metis.mapping.utils;
 
 
-import eu.europeana.metis.mapping.model.*;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-
-import java.util.*;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Clause;
+import eu.europeana.metis.mapping.model.ConditionMapping;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Function;
+import eu.europeana.metis.mapping.model.FunctionType;
+import eu.europeana.metis.mapping.model.IMapping;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.MappingType;
+import eu.europeana.metis.mapping.model.SimpleMapping;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Stack;
 import java.util.regex.Matcher;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * XSLT generator from a {@link Mapping}
  * TODO: beautify the code
  */
 public class XSLTGenerator {
-    public static final Logger log = Logger.getLogger(XSLTGenerator.class);
+    public static final Logger log = LoggerFactory.getLogger(XSLTGenerator.class);
 
     public static final String OPTION_ADD_COMMENTS = "xsl.generator.addComments";
     public static final String OPTION_ADD_XSL_DEBUG_COMMENTS = "xsl.generator.addXslDebugComments";
@@ -53,7 +66,7 @@ public class XSLTGenerator {
         this.setOption(OPTION_ADD_XSL_DEBUG_COMMENTS, false);
         this.setOption(OPTION_COMPUTE_ITEM_XPATH_IF_NOT_SET, false);
         this.setOption(OPTION_SKIP_CHECK_FOR_MISSING_MANDATORY_MAPPINGS, false);
-        log.debug(this.options);
+        log.debug(options.toString());
     }
 
 

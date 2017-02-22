@@ -1,25 +1,22 @@
 package eu.europeana.metis.framework.test;
 
-import eu.europeana.metis.framework.dao.ExecutionDao;
 import eu.europeana.metis.framework.dao.FailedRecordsDao;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.plugin.core.OrderAwarePluginRegistry;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by ymamakis on 11/17/16.
@@ -27,15 +24,10 @@ import java.util.List;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestAppConfig.class})
 public class TestOrchestrator {
-
-    @Autowired
-    private ExecutionDao executionDao;
     @Autowired
     private DatasetService datasetService;
     @Autowired
     private FailedRecordsDao failedRecordsDao;
-    @Autowired
-    private OrderAwarePluginRegistry registry;
     @Autowired
     private Orchestrator orchestrator;
 
