@@ -17,32 +17,64 @@
 package eu.europeana.metis.xsd;
 
 
-import com.sun.xml.xsom.*;
+import com.sun.xml.xsom.XSAttributeDecl;
+import com.sun.xml.xsom.XSAttributeUse;
+import com.sun.xml.xsom.XSComplexType;
+import com.sun.xml.xsom.XSContentType;
+import com.sun.xml.xsom.XSElementDecl;
+import com.sun.xml.xsom.XSFacet;
+import com.sun.xml.xsom.XSModelGroup;
+import com.sun.xml.xsom.XSParticle;
+import com.sun.xml.xsom.XSRestrictionSimpleType;
+import com.sun.xml.xsom.XSSchema;
+import com.sun.xml.xsom.XSSchemaSet;
+import com.sun.xml.xsom.XSSimpleType;
+import com.sun.xml.xsom.XSTerm;
+import com.sun.xml.xsom.XSType;
 import com.sun.xml.xsom.parser.XSOMParser;
 import com.sun.xml.xsom.util.DomAnnotationParserFactory;
-import eu.europeana.metis.mapping.model.*;
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
-import org.bson.types.ObjectId;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.*;
-
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.MappingSchema;
+import eu.europeana.metis.mapping.model.Mappings;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-import java.io.*;
-import java.math.BigInteger;
-import java.util.*;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.EntityResolver;
+import org.xml.sax.ErrorHandler;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 /**
  * An XSD Parser to Mapping template
  */
 public class XSDParser {
-    private static final Logger log = Logger.getLogger(XSDParser.class.getName());
+    public static final Logger log = LoggerFactory.getLogger(XSDParser.class);
 
     private XSOMParser parser = new XSOMParser();
     private XSSchemaSet schemaSet = null;
