@@ -45,6 +45,7 @@
                     <formats>
                         <format>xml</format>
                     </formats>
+                    <check/>
                 </configuration>
             </plugin>
             <plugin>
@@ -78,6 +79,7 @@
                     <formats>
                         <format>xml</format>
                     </formats>
+                    <check/>
                 </configuration>
                 <reportSets>
                     <reportSet>
