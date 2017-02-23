@@ -16,16 +16,23 @@
  */
 package eu.europeana.metis.framework.test;
 
+import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.common.Language;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
-import eu.europeana.metis.framework.dataset.*;
+import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
+import eu.europeana.metis.framework.dataset.Dataset;
+import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
+import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.DatasetService;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,10 +42,6 @@ import org.mockito.stubbing.Answer;
 import org.mongodb.morphia.Datastore;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 /**
  * Created by ymamakis on 2/19/16.
  */
@@ -46,6 +49,7 @@ public class TestDatasetService {
     private MongoProvider mongoProvider;
     private OrganizationDao organizationDao;
     private DatasetDao datasetDao;
+    private EcloudDatasetDao ecloudDatasetDao;
     private DatasetService service;
     private Datastore datastore;
     private Organization org;
@@ -56,12 +60,14 @@ public class TestDatasetService {
         mongoProvider = Mockito.mock(MongoProvider.class);
         organizationDao = Mockito.mock(OrganizationDao.class);
         datasetDao = Mockito.mock(DatasetDao.class);
+        ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
         ReflectionTestUtils.setField(organizationDao,"provider",mongoProvider);
         ReflectionTestUtils.setField(datasetDao,"provider",mongoProvider);
         service = new DatasetService();
         datastore = Mockito.mock(Datastore.class);
         ReflectionTestUtils.setField(service,"orgDao",organizationDao);
         ReflectionTestUtils.setField(service,"dsDao",datasetDao);
+        ReflectionTestUtils.setField(service,"ecloudDatasetDao",ecloudDatasetDao);
         org = new Organization();
         org.setOrganizationId("orgId");
         org.setDatasets(new ArrayList<Dataset>());
@@ -116,6 +122,7 @@ public class TestDatasetService {
                 return null;
             }
         }).when(organizationDao).update(org);
+        Mockito.when(ecloudDatasetDao.create(Mockito.any(DataSet.class))).thenReturn(null);
         service.createDataset(org,ds);
     }
 
@@ -135,6 +142,7 @@ public class TestDatasetService {
                 return null;
             }
         }).when(organizationDao).update(org);
+        Mockito.when(ecloudDatasetDao.delete(Mockito.any(DataSet.class))).thenReturn(true);
         service.deleteDataset(org,ds);
     }
 
@@ -148,6 +156,7 @@ public class TestDatasetService {
                 return null;
             }
         }).when(datasetDao).update(ds);
+        Mockito.when(ecloudDatasetDao.update(Mockito.any(DataSet.class))).thenReturn(null);
         service.updateDataset(ds);
     }
 

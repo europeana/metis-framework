@@ -33,11 +33,11 @@
             <artifactId>xsom</artifactId>
             <version>${version.xsom}</version>
         </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${version.log4j}</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>log4j</groupId>-->
+            <!--<artifactId>log4j</artifactId>-->
+            <!--<version>${version.log4j}</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-pandora-common</artifactId>
