@@ -2,45 +2,54 @@ package eu.europeana.metis.framework.test;
 
 import eu.europeana.metis.framework.dao.ExecutionDao;
 import eu.europeana.metis.framework.dao.FailedRecordsDao;
+import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.plugin.core.OrderAwarePluginRegistry;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
+import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.mockito.Mockito;
+import org.mongodb.morphia.Morphia;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Created by ymamakis on 11/17/16.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestAppConfig.class})
 public class TestOrchestrator {
+    private static ExecutionDao executionDao;
+    private static DatasetService datasetService;
+    private static FailedRecordsDao failedRecordsDao;
+    private static Orchestrator orchestrator;
 
-    @Autowired
-    private ExecutionDao executionDao;
-    @Autowired
-    private DatasetService datasetService;
-    @Autowired
-    private FailedRecordsDao failedRecordsDao;
-    @Autowired
-    private OrderAwarePluginRegistry registry;
-    @Autowired
-    private Orchestrator orchestrator;
+    @BeforeClass
+    public static void prepare() throws UnknownHostException {
+        eu.europeana.metis.mongo.MongoProvider.start(10005);
+        MongoProvider provider = new MongoProvider("localhost",10005, "test",null,null);
+        Morphia morphia = new Morphia();
+        executionDao = new ExecutionDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
+
+        Morphia morphia2 = new Morphia();
+        morphia.map(FailedRecords.class);
+        failedRecordsDao =  new FailedRecordsDao(provider.getDatastore().getMongo(),morphia2,provider.getDatastore().getDB().getName());
+        datasetService = Mockito.mock(DatasetService.class);
+        orchestrator = new Orchestrator();
+        ReflectionTestUtils.setField(orchestrator,"executionDao",executionDao);
+        ReflectionTestUtils.setField(orchestrator,"datasetService",datasetService);
+        ReflectionTestUtils.setField(orchestrator,"failedRecordsDao",failedRecordsDao);
+    }
 
     @Test
-    public void testCreationOfExecution(){
+    public void testCreationOfExecution() throws NoDatasetFoundException {
         Mockito.when(datasetService.exists("test")).thenReturn(true);
         Mockito.when(datasetService.exists("tests")).thenReturn(true);
         try {
@@ -76,5 +85,11 @@ public class TestOrchestrator {
         } catch (Exception e){
             //DO NOTHING
         }
+    }
+
+    @AfterClass
+    public static void after()
+    {
+        eu.europeana.metis.mongo.MongoProvider.stop();
     }
 }

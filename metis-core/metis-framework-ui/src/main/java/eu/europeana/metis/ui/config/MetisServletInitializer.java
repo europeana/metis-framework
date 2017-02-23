@@ -16,14 +16,13 @@
  */
 package eu.europeana.metis.ui.config;
 
-import eu.europeana.metis.ui.mongo.MongoDBInstance;
+import eu.europeana.metis.mongo.MongoProvider;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
-
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 public class MetisServletInitializer extends AbstractDispatcherServletInitializer {
 
@@ -50,7 +49,7 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		registerProxyFilter(servletContext, "springSecurityFilterChain");
-		MongoDBInstance.start();
+		MongoProvider.stop();
 	}
 
 	private void registerProxyFilter(ServletContext servletContext, String name) {

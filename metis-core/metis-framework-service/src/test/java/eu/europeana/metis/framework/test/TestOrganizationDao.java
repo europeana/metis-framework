@@ -28,31 +28,31 @@ import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
-import org.apache.commons.lang.StringUtils;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Created by ymamakis on 2/19/16.
  */
 public class TestOrganizationDao {
-    private Organization org;
-    private Dataset ds;
-    private OrganizationDao orgDao;
-    private DatasetDao dsDao;
-    @Before
-    public void prepare() {
-        eu.europeana.metis.mongo.MongoProvider.start(10010);
+    private static Organization org;
+    private static Dataset ds;
+    private static OrganizationDao orgDao;
+    private static DatasetDao dsDao;
+
+    @BeforeClass
+    public static void prepare() {
+        eu.europeana.metis.mongo.MongoProvider.start(10002);
         try {
-            MongoProvider provider = new MongoProvider("localhost",10010, "test",null,null);
+            MongoProvider provider = new MongoProvider("localhost",10002, "test",null,null);
             orgDao = new OrganizationDao();
             ReflectionTestUtils.setField(orgDao,"provider",provider);
 
@@ -187,8 +187,8 @@ public class TestOrganizationDao {
 
         Assert.assertTrue(StringUtils.equals(organization.getOrganizationUri(),"testNew"));
     }
-    @After
-    public void destroy(){
+    @AfterClass
+    public static void destroy(){
         eu.europeana.metis.mongo.MongoProvider.stop();
     }
 }
