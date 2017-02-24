@@ -25,31 +25,36 @@ import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
-
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.junit.AfterClass;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.springframework.test.util.ReflectionTestUtils;
 
 /**
  * Created by ymamakis on 2/19/16.
  */
 public class TestDatasetDao {
 
-    private DatasetDao dsDao;
-    private Organization org;
-    private Dataset ds;
-    @Before
-    public void prepare() {
+    private static DatasetDao dsDao;
+    private static Organization org;
+    private static Dataset ds;
+    private static eu.europeana.metis.mongo.MongoProvider mongoProvider;
 
-        eu.europeana.metis.mongo.MongoProvider.start(10011);
+    @BeforeClass
+    public static void prepare() throws IOException {
+
+        int port = NetworkUtil.getAvailableLocalPort();
+        mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
+        mongoProvider.start(port);
         try {
-            MongoProvider provider = new MongoProvider("localhost",10011, "test",null,null);
+            MongoProvider provider = new MongoProvider("localhost",port, "test",null,null);
             dsDao = new DatasetDao();
             org = new Organization();
             org.setOrganizationId("orgId");
@@ -156,8 +161,8 @@ public class TestDatasetDao {
         dsRet = dsDao.getByName(ds.getName());
         Assert.assertNull(dsRet);
     }
-    @After
-    public void destroy(){
-        eu.europeana.metis.mongo.MongoProvider.stop();
+    @AfterClass
+    public static void destroy(){
+        mongoProvider.stop();
     }
 }

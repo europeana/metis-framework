@@ -14,41 +14,49 @@ package eu.europeana.metis.mongo;/*
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
+
+import de.flapdoodle.embed.mongo.Command;
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodStarter;
-import de.flapdoodle.embed.mongo.config.IMongodConfig;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.config.RuntimeConfigBuilder;
 import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.process.config.IRuntimeConfig;
+import de.flapdoodle.embed.process.config.io.ProcessOutput;
 import de.flapdoodle.embed.process.runtime.Network;
-
 import java.io.IOException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * Created by ymamakis on 3/17/16.
  */
 public class MongoProvider {
-    static MongodExecutable mongodExecutable;
-    public static void start(int port){
 
-        try {
+  private MongodExecutable mongodExecutable;
+  private final Logger LOGGER = LoggerFactory.getLogger(MongoProvider.class);
 
-            IMongodConfig conf = new MongodConfigBuilder().version(Version.Main.V3_0)
-                    .net(new Net(port, Network.localhostIsIPv6()))
-                    .build();
+  public void start(int port) {
+    if (mongodExecutable == null) {
+      try {
+        IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
+            .defaultsWithLogger(Command.MongoD, LOGGER)
+            .processOutput(ProcessOutput.getDefaultInstanceSilent())
+            .build();
 
-            MongodStarter runtime = MongodStarter.getDefaultInstance();
-
-            mongodExecutable = runtime.prepare(conf);
-            mongodExecutable.start();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+        MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
+        mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_5_1)
+            .net(new Net("localhost", port, Network.localhostIsIPv6())).build());
+        mongodExecutable.start();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+  }
 
-    public static void stop(){
-        mongodExecutable.stop();
-    }
+  public void stop() {
+    mongodExecutable.stop();
+  }
 }

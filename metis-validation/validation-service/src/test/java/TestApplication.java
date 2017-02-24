@@ -16,8 +16,10 @@
  */
 
 import eu.europeana.metis.mongo.MongoProvider;
+import eu.europeana.metis.utils.NetworkUtil;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
+import java.io.IOException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,24 +30,37 @@ import javax.annotation.PreDestroy;
  * Created by ymamakis on 7/14/16.
  */
 @Configuration
-public class TestApplication{
-    @Bean
-    ValidationManagementService getValidationManagementService(){
-        return new ValidationManagementService();
-    }
+public class TestApplication {
 
-    @Bean
-    ValidationExecutionService getValidationExecutionService(){
-        return new ValidationExecutionService();
-    }
+  private final int port;
+  private MongoProvider mongoProvider;
 
-    @PostConstruct
-    public void startup(){
-        MongoProvider.start(10006);
-    }
+  public TestApplication() throws IOException {
+    port = NetworkUtil.getAvailableLocalPort();
+    mongoProvider = new MongoProvider();
+    mongoProvider.start(port);
+  }
 
-    @PreDestroy
-    public void shutdown(){
-        MongoProvider.stop();
-    }
+  @Bean
+  ValidationManagementService getValidationManagementService() {
+    ValidationManagementService validationManagementService = new ValidationManagementService(
+        eu.europeana.validation.service.Configuration
+            .getInstance("localhost", port, "validation", "/tmp/schema"));
+
+    return validationManagementService;
+  }
+
+  @Bean
+  ValidationExecutionService getValidationExecutionService() {
+    return new ValidationExecutionService();
+  }
+
+  @PostConstruct
+  public void startup() throws IOException {
+  }
+
+  @PreDestroy
+  public void shutdown() {
+    mongoProvider.stop();
+  }
 }
