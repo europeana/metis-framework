@@ -309,4 +309,12 @@ public class Orchestrator {
         }
         return Collections.emptyList();
     }
+
+    public boolean uploadRecords(List<String> records){
+        return true;
+    }
+
+    public boolean deleteRecords(List<String> ids){
+        return true;
+    }
 }

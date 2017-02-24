@@ -222,4 +222,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     throw new NoOrganizationExceptionFound("No organization found with id: " + organizationId);
   }
 
+  public Organization getOrganizationForDataset(String datasetId){
+    return provider.getDatastore().find(Organization.class).filter("datasets.$id",datasetId).get();
+  }
 }

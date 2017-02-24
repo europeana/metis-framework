@@ -17,6 +17,7 @@ public class MetisKey {
     private String apiKey;
     private Profile profile;
     private Options options;
+    private String userEmail;
 
     public ObjectId getObjId() {
         return objId;
@@ -48,5 +49,13 @@ public class MetisKey {
 
     public void setOptions(Options options) {
         this.options = options;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 }

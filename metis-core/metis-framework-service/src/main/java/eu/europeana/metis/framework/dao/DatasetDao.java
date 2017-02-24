@@ -145,6 +145,15 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   /**
+   * Retrieve a dataset by key
+   *
+   * @param key The name of the dataset
+   * @return The dataset with the specific name
+   */
+  public Dataset getByKey(String key) {
+    return provider.getDatastore().find(Dataset.class).filter("datasetKey", key).get();
+  }
+  /**
    * Create a dataset for an organization
    *
    * @param organization The organization to assign the dataset to
