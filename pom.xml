@@ -96,14 +96,6 @@
         <parallel>classes</parallel>
         <threadCount>8</threadCount>
         </configuration>
-        <!--<executions>-->
-          <!--<execution>-->
-            <!--<id>default-test</id>-->
-            <!--<configuration>-->
-              <!--<skip>true</skip>-->
-            <!--</configuration>-->
-          <!--</execution>-->
-        <!--</executions>-->
       </plugin>
     </plugins>
     <pluginManagement>
