@@ -49,7 +49,7 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		super.onStartup(servletContext);
 		registerProxyFilter(servletContext, "springSecurityFilterChain");
-		MongoProvider.stop();
+//		MongoProvider.stop();
 	}
 
 	private void registerProxyFilter(ServletContext servletContext, String name) {

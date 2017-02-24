@@ -25,6 +25,8 @@ import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,13 +45,16 @@ public class TestDatasetDao {
     private static DatasetDao dsDao;
     private static Organization org;
     private static Dataset ds;
+    private static eu.europeana.metis.mongo.MongoProvider mongoProvider;
 
     @BeforeClass
-    public static void prepare() {
+    public static void prepare() throws IOException {
 
-        eu.europeana.metis.mongo.MongoProvider.start(10001);
+        int port = NetworkUtil.getAvailableLocalPort();
+        mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
+        mongoProvider.start(port);
         try {
-            MongoProvider provider = new MongoProvider("localhost",10001, "test",null,null);
+            MongoProvider provider = new MongoProvider("localhost",port, "test",null,null);
             dsDao = new DatasetDao();
             org = new Organization();
             org.setOrganizationId("orgId");
@@ -158,6 +163,6 @@ public class TestDatasetDao {
     }
     @AfterClass
     public static void destroy(){
-        eu.europeana.metis.mongo.MongoProvider.stop();
+        mongoProvider.stop();
     }
 }

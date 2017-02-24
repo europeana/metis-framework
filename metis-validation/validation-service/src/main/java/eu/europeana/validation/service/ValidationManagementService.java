@@ -27,8 +27,17 @@ import java.util.List;
  * Created by ymamakis on 3/14/16.
  */
 public class ValidationManagementService {
-    private AbstractSchemaDao dao=Configuration.getInstance().getDao();
+    private AbstractSchemaDao dao;
 
+    public ValidationManagementService(Configuration configuration)
+    {
+        dao = configuration.getDao();
+    }
+
+    public ValidationManagementService()
+    {
+        dao = Configuration.getInstance().getDao();
+    }
     public void setDao(AbstractSchemaDao dao){
         this.dao = dao;
     }

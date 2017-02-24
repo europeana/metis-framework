@@ -34,25 +34,29 @@ import org.slf4j.LoggerFactory;
  * Created by ymamakis on 3/17/16.
  */
 public class MongoProvider {
-    static MongodExecutable mongodExecutable;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MongoProvider.class);
-    public static void start(int port){
 
-        try {
-            IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
-                .defaultsWithLogger(Command.MongoD, LOGGER)
-                .processOutput(ProcessOutput.getDefaultInstanceSilent())
-                .build();
+  private MongodExecutable mongodExecutable;
+  private final Logger LOGGER = LoggerFactory.getLogger(MongoProvider.class);
 
-            MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
-            mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_5_1).net(new Net(port, Network.localhostIsIPv6())).build());
-            mongodExecutable.start();
-        } catch (IOException e){
-            e.printStackTrace();
-        }
+  public void start(int port) {
+    if (mongodExecutable == null) {
+      try {
+        IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
+            .defaultsWithLogger(Command.MongoD, LOGGER)
+            .processOutput(ProcessOutput.getDefaultInstanceSilent())
+            .build();
+
+        MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
+        mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_5_1)
+            .net(new Net("localhost", port, Network.localhostIsIPv6())).build());
+        mongodExecutable.start();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
     }
+  }
 
-    public static void stop(){
-        mongodExecutable.stop();
-    }
+  public void stop() {
+    mongodExecutable.stop();
+  }
 }

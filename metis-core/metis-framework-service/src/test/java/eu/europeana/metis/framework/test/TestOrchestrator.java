@@ -8,7 +8,8 @@ import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
-import java.net.UnknownHostException;
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -30,11 +31,14 @@ public class TestOrchestrator {
     private static DatasetService datasetService;
     private static FailedRecordsDao failedRecordsDao;
     private static Orchestrator orchestrator;
+    private static eu.europeana.metis.mongo.MongoProvider mongoProvider;
 
     @BeforeClass
-    public static void prepare() throws UnknownHostException {
-        eu.europeana.metis.mongo.MongoProvider.start(10005);
-        MongoProvider provider = new MongoProvider("localhost",10005, "test",null,null);
+    public static void prepare() throws IOException, InterruptedException {
+        int port = NetworkUtil.getAvailableLocalPort();
+        mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
+        mongoProvider.start(port);
+        MongoProvider provider = new MongoProvider("localhost",port, "test",null,null);
         Morphia morphia = new Morphia();
         executionDao = new ExecutionDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
 
@@ -90,6 +94,6 @@ public class TestOrchestrator {
     @AfterClass
     public static void after()
     {
-        eu.europeana.metis.mongo.MongoProvider.stop();
+        mongoProvider.stop();
     }
 }
