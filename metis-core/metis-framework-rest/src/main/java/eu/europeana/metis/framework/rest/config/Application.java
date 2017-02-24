@@ -43,6 +43,7 @@ import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.mail.config.MailConfig;
+import eu.europeana.metis.search.config.SearchApplication;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -91,7 +92,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnablePluginRegistries(AbstractMetisWorkflow.class)
 @EnableScheduling
-@Import({MailConfig.class})
+@Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter {
 
   @Value("${mongo.host}")

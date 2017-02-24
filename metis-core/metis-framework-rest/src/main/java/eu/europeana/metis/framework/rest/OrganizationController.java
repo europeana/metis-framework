@@ -36,6 +36,7 @@ import eu.europeana.metis.framework.service.OrganizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -69,7 +70,7 @@ public class OrganizationController {
     @RequestMapping(value = ORGANIZATION, method = RequestMethod.POST, consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Create an organization in METIS")
-    public void createOrganization(@ApiParam @RequestBody Organization organization, @PathVariable("apikey") String apikey) throws NoApiKeyFoundException, NotAuthorizedException {
+    public void createOrganization(@ApiParam @RequestBody Organization organization, @PathVariable("apikey") String apikey) throws NoApiKeyFoundException, NotAuthorizedException, IOException, SolrServerException {
         MetisKey key = authorizationService.getKeyFromId(apikey);
         if(key!=null) {
             if (key.getOptions().equals(Options.WRITE)) {
@@ -90,7 +91,7 @@ public class OrganizationController {
     @RequestMapping(value = ORGANIZATION, method = RequestMethod.DELETE, consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete an organization")
-    public void deleteOrganization(@ApiParam @RequestBody Organization organization, @PathVariable("apikey")String apikey) throws NotAuthorizedException, NoApiKeyFoundException {
+    public void deleteOrganization(@ApiParam @RequestBody Organization organization, @PathVariable("apikey")String apikey) throws NotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException {
         MetisKey key = authorizationService.getKeyFromId(apikey);
         if(key!=null) {
             if (key.getOptions().equals(Options.WRITE)) {
@@ -111,7 +112,7 @@ public class OrganizationController {
     @RequestMapping(value = ORGANIZATION, method = RequestMethod.PUT, consumes = "application/json")
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Update an organization")
-    public void updateOrganization(@RequestBody Organization organization, @PathVariable("apikey")String apikey) throws NotAuthorizedException, NoApiKeyFoundException {
+    public void updateOrganization(@RequestBody Organization organization, @PathVariable("apikey")String apikey) throws NotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException {
         MetisKey key = authorizationService.getKeyFromId(apikey);
         if(key!=null) {
             if (key.getOptions().equals(Options.WRITE)) {
@@ -302,6 +303,11 @@ public class OrganizationController {
         return view;
     }
 
+    public ModelAndView suggestOrganizations(@PathVariable("suggestTerm") String suggestTerm) throws IOException, SolrServerException {
+        ModelAndView view = new ModelAndView("json");
+        view.addObject("suggestions",organizationService.suggestOrganizations(suggestTerm));
+        return view;
+    }
 
     private ModelAndView constructModelAndViewForList(MetisKey key, List<Organization> orgs) throws InstantiationException, IllegalAccessException {
         if(key.getProfile().equals(Profile.PUBLIC)){

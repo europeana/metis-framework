@@ -25,6 +25,7 @@ import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.organization.OrganizationList;
 import eu.europeana.metis.framework.rest.ServerError;
+import eu.europeana.metis.search.common.OrganizationSearchBean;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.*;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -318,4 +319,13 @@ public class DsOrgRestClient {
             throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
         }
     }
+
+    public List<OrganizationSearchBean> suggestOrganizations(String term) throws ServerException{
+        try {
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATION_SUGGEST,term), List.class);
+        } catch (Exception e) {
+            throw new ServerException("Organization suggestions could not be retrieved with error: " + e.getMessage());
+        }
+    }
+
 }
