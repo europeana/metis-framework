@@ -12,5 +12,3 @@ cache:
 install: true
 script:
   - mvn install -DskipITs -Dmaven.javadoc.skip=true -B -V
-after_success:
-  - mvn clean cobertura:cobertura -DskipITs -B -q
