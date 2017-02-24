@@ -11,6 +11,6 @@ cache:
     - $HOME/.m2
 install: true
 script:
-  - mvn install -DskipITs -Dmaven.javadoc.skip=true -B -V
+  - mvn install cobertura:cobertura -DskipITs -Dmaven.javadoc.skip=true -B -V
 #after_success:
 #  - mvn clean cobertura:cobertura -B -DskipITs -q
