@@ -15,6 +15,8 @@ import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
+import org.apache.lucene.search.Query;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
@@ -141,9 +143,9 @@ public class RecordDao {
      * @throws IOException
      */
     public void deleteRecordIdsByTimestamp() throws SolrServerException, IOException {
-        ModifiableSolrParams params = new ModifiableSolrParams();
-        params.add("q","*:*");
-        server.deleteByQuery(params.toString());
+        SolrQuery query = new SolrQuery();
+        query.setQuery("*:*");
+        server.deleteByQuery(query.getQuery());
         server.commit();
         clearAll();
     }
