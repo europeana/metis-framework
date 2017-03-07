@@ -2,7 +2,6 @@ package eu.europeana.metis.framework.test;
 
 import static org.mockito.Mockito.when;
 
-import eu.europeana.cloud.client.uis.rest.CloudException;
 import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
 import java.net.URISyntaxException;
@@ -23,7 +22,7 @@ public class TestEcloudDatasetDao {
   private static String returnedUri = "returnedUriOfDatasetLocation";
 
   @BeforeClass
-  public static void beforeTests() throws CloudException, URISyntaxException {
+  public static void beforeTests() throws URISyntaxException {
     ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
 
     dataSet = new DataSet();
@@ -52,13 +51,13 @@ public class TestEcloudDatasetDao {
   }
 
   @Test
-  public void testCreateDataset() throws CloudException {
+  public void testCreateDataset() {
     Assert.assertEquals(returnedUri, ecloudDatasetDao.create(dataSet));
     ecloudDatasetDao.delete(dataSet);
   }
 
   @Test
-  public void testGetDatasetById() throws CloudException {
+  public void testGetDatasetById() {
     ecloudDatasetDao.create(dataSet);
     DataSet retrievedDataset = ecloudDatasetDao.getById(dataSet.getId());
     Assert.assertEquals(dataSet.getId(), retrievedDataset.getId());
@@ -68,38 +67,38 @@ public class TestEcloudDatasetDao {
   }
 
   @Test
-  public void testUpdateDataset() throws CloudException {
+  public void testUpdateDataset() {
     ecloudDatasetDao.create(dataSet);
     Assert.assertEquals(dataSet.getId(), ecloudDatasetDao.update(datasetUpdated));
     ecloudDatasetDao.delete(dataSet);
   }
 
   @Test
-  public void testDeleteDataset() throws CloudException {
+  public void testDeleteDataset() {
     ecloudDatasetDao.create(dataSet);
     Assert.assertEquals(true, ecloudDatasetDao.delete(dataSet));
   }
 
   //Errors
   @Test
-  public void testCreateDatasetError() throws CloudException {
+  public void testCreateDatasetError() {
     Assert.assertNull(ecloudDatasetDao.create(errorDataSet));
   }
 
   @Test
-  public void testGetDatasetByIdError() throws CloudException {
+  public void testGetDatasetByIdError() {
     ecloudDatasetDao.create(errorDataSet);
     Assert.assertNull(ecloudDatasetDao.getById(errorDataSet.getId()));
   }
 
   @Test
-  public void testUpdateDatasetError() throws CloudException {
+  public void testUpdateDatasetError() {
     ecloudDatasetDao.create(errorDataSet);
     Assert.assertNull(ecloudDatasetDao.update(errorDataSet));
   }
 
   @Test
-  public void testDeleteDatasetError() throws CloudException {
+  public void testDeleteDatasetError() {
     ecloudDatasetDao.create(errorDataSet);
     Assert.assertFalse(ecloudDatasetDao.delete(errorDataSet));
   }
