@@ -1,8 +1,7 @@
 package eu.europeana.metis.framework.integration;
 
-import eu.europeana.cloud.client.uis.rest.CloudException;
-import eu.europeana.cloud.client.uis.rest.UISClient;
-import eu.europeana.cloud.common.model.DataProviderProperties;
+//import eu.europeana.cloud.client.uis.rest.CloudException;
+//import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
@@ -23,6 +22,9 @@ import software.betamax.junit.RecorderRule;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-02-20
  */
+// TODO: 7-3-17 Fix tests by adding create and delete provider when uis is ready to be used
+//  Currently the uis dependency does not permit the deployment of framework-rest because of
+//  some spring issues with applicationContext.xml
 public class ITECloudDatasetDao {
   private final static Logger LOGGER = LoggerFactory.getLogger(ITECloudDatasetDao.class);
   @ClassRule
@@ -30,7 +32,7 @@ public class ITECloudDatasetDao {
 
   private static EcloudDatasetDao ecloudDatasetDao;
   private static DataSetServiceClient dataSetServiceClient;
-  private static UISClient uisClient;
+//  private static UISClient uisClient;
   private static DataSet dataSet;
   private static String baseMcsf = "ecloud.baseMcsUrl";
   private static String baseUisf = "ecloud.baseUisUrl";
@@ -51,7 +53,7 @@ public class ITECloudDatasetDao {
     }
 
     properties.load(input);
-    uisClient = new UISClient(properties.getProperty(baseUisf), properties.getProperty(usernamef), properties.getProperty(passwordf));
+//    uisClient = new UISClient(properties.getProperty(baseUisf), properties.getProperty(usernamef), properties.getProperty(passwordf));
     ecloudDatasetDao = new EcloudDatasetDao();
     dataSetServiceClient = new DataSetServiceClient(properties.getProperty(baseMcsf), properties.getProperty(usernamef), properties.getProperty(passwordf));
     ReflectionTestUtils.setField(ecloudDatasetDao,"dataSetServiceClient",dataSetServiceClient);
@@ -66,7 +68,7 @@ public class ITECloudDatasetDao {
   @Test
   @Betamax(tape = "createDataset")
   public void testCreateDataset(){
-    createTestProvider();
+//    createTestProvider();
     String uri = ecloudDatasetDao.create(dataSet);
     Assert.assertNotNull(uri);
     ecloudDatasetDao.delete(dataSet);
@@ -75,7 +77,7 @@ public class ITECloudDatasetDao {
   @Test
   @Betamax(tape = "getDatastById")
   public void testGetDatasetById() {
-    createTestProvider();
+//    createTestProvider();
     ecloudDatasetDao.create(dataSet);
     DataSet ds = ecloudDatasetDao.getById(dataSet.getId());
     Assert.assertEquals(dataSet.getId(), ds.getId());
@@ -87,7 +89,7 @@ public class ITECloudDatasetDao {
   @Test
   @Betamax(tape = "updateDataset")
   public void testUpdateDataset() {
-    createTestProvider();
+//    createTestProvider();
     ecloudDatasetDao.create(dataSet);
     dataSet.setDescription("changed");
     String id = ecloudDatasetDao.update(dataSet);
@@ -100,26 +102,26 @@ public class ITECloudDatasetDao {
   @Test
   @Betamax(tape = "deleteDataset")
   public void testDeleteDataset() {
-    createTestProvider();
+//    createTestProvider();
     ecloudDatasetDao.create(dataSet);
     boolean deleted = ecloudDatasetDao.delete(dataSet);
     Assert.assertTrue(deleted);
   }
 
   // TODO: 21-2-17 Remove when delete provider is available
-  private void createTestProvider()
-  {
-    try {
-      uisClient.createProvider("sprovider1s",
-          new DataProviderProperties("sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s",
-              "sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s"));
-    } catch (CloudException e) {
-      if (e.getMessage().equals("PROVIDER_ALREADY_EXISTS")) {
-        LOGGER.info("Provider not created already existent");
-      } else {
-        return;
-      }
-    }
-  }
+//  private void createTestProvider()
+//  {
+//    try {
+//      uisClient.createProvider("sprovider1s",
+//          new DataProviderProperties("sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s",
+//              "sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s"));
+//    } catch (CloudException e) {
+//      if (e.getMessage().equals("PROVIDER_ALREADY_EXISTS")) {
+//        LOGGER.info("Provider not created already existent");
+//      } else {
+//        return;
+//      }
+//    }
+//  }
 
 }

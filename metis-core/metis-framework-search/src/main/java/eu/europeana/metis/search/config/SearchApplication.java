@@ -1,5 +1,6 @@
 package eu.europeana.metis.search.config;
 
+import eu.europeana.metis.search.service.MetisSearchService;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,10 +18,13 @@ public class SearchApplication {
 
     @Bean
     public SolrClient getSolrClient(){
-        if(System.getenv().containsKey("VCAP_SERVICES")){
-            solrurl = System.getenv().get("solr_url");
-        }
-        return new HttpSolrClient.Builder().withBaseSolrUrl(System.getenv().get(solrurl)).build();
+        return new HttpSolrClient.Builder().withBaseSolrUrl(solrurl).build();
+    }
+
+    @Bean
+    public MetisSearchService getMetisSearchService()
+    {
+        return new MetisSearchService();
     }
 
 
