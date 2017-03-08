@@ -122,7 +122,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     private String checkInEntityCollection(String uri) throws IOException{
-       String enriched = driver.getByUri(uri,false);
+       String enriched = driver.getByUri(uri,true);
         if(StringUtils.isNotEmpty(enriched)) {
             EntityWrapper wrapper = new ObjectMapper().readValue(driver.getByUri(uri, false), EntityWrapper.class);
 

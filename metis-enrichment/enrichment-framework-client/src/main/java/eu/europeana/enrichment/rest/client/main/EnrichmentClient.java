@@ -16,9 +16,9 @@
  */
 package eu.europeana.enrichment.rest.client.main;
 
-import eu.europeana.enrichment.api.external.EntityClass;
+import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.rest.client.EnrichmentDriver;
 import org.codehaus.jackson.JsonGenerationException;

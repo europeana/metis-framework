@@ -16,6 +16,7 @@
  */
 package eu.europeana.enrichment.api.external;
 
+import eu.europeana.metis.utils.InputValue;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.xml.bind.annotation.XmlRootElement;
