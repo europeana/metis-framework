@@ -1,24 +1,38 @@
 package eu.europeana.metis.test.configuration;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
-import eu.europeana.metis.mapping.persistence.*;
+import eu.europeana.metis.mapping.persistence.AttributeDao;
+import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
+import eu.europeana.metis.mapping.persistence.ElementDao;
+import eu.europeana.metis.mapping.persistence.FlagDao;
+import eu.europeana.metis.mapping.persistence.MappingSchemaDao;
+import eu.europeana.metis.mapping.persistence.MappingsDao;
+import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
 import eu.europeana.metis.mongo.MongoProvider;
-import eu.europeana.metis.service.*;
+import eu.europeana.metis.service.MongoMappingService;
+import eu.europeana.metis.service.StatisticsService;
+import eu.europeana.metis.service.ValidationService;
+import eu.europeana.metis.service.XSDService;
+import eu.europeana.metis.service.XSLTGenerationService;
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
+import javax.annotation.PreDestroy;
 import org.mongodb.morphia.Morphia;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import javax.annotation.PreDestroy;
 
 /**
  * Created by ymamakis on 6/27/16.
  */
 @Configuration
 public class TestConfig {
-
-    public TestConfig(){
-        MongoProvider.start(10005);
+    private final int port;
+    private MongoProvider mongoProvider;
+    public TestConfig() throws IOException {
+        port = NetworkUtil.getAvailableLocalPort();
+        mongoProvider = new MongoProvider();
+        mongoProvider.start(port);
     }
 
     @Bean
@@ -49,7 +63,7 @@ public class TestConfig {
     @Bean
     MongoMappingDao getMongoMappingDao(){
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
         return new MongoMappingDao(morphia, client, "mapping-test");
@@ -57,7 +71,7 @@ public class TestConfig {
     @Bean
     MappingsDao getMappingsDao(){
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
         return new MappingsDao(morphia, client, "mapping-test");
@@ -66,7 +80,7 @@ public class TestConfig {
     @Bean
     MappingSchemaDao getMappingSchemaDao() {
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
         return new MappingSchemaDao(morphia, client, "mapping-test");
@@ -75,7 +89,7 @@ public class TestConfig {
     @Bean
     ElementDao getElementDao() {
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
         return new ElementDao(morphia, client, "mapping-test");
@@ -84,7 +98,7 @@ public class TestConfig {
     @Bean
     AttributeDao getAttributeDao() {
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
         return new AttributeDao(morphia, client, "mapping-test");
@@ -92,7 +106,7 @@ public class TestConfig {
     @Bean
     StatisticsDao getStatisticsDao(){
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
                 .mapPackage("java.math.BigInteger",true);
         return new StatisticsDao(morphia,client,"statistics-test");
@@ -100,7 +114,7 @@ public class TestConfig {
     @Bean
     FlagDao getFlagDao() {
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost", 10005);
+        MongoClient client = new MongoClient("localhost", port);
         morphia.mapPackage("eu.europeana.metis.mapping.validation", true)
                 .mapPackage("eu.europeana.metis.mapping.common", true)
                 .mapPackage("java.math.BigInteger",true);
@@ -111,7 +125,7 @@ public class TestConfig {
     @Bean
     DatasetStatisticsDao getDatasetStatisticsDao() {
         Morphia morphia = new Morphia();
-        MongoClient client = new MongoClient("localhost",10005);
+        MongoClient client = new MongoClient("localhost",port);
         morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
                 .mapPackage("eu.europeana.metis.mapping.model", true)
                 .mapPackage("java.math.BigInteger",true);
@@ -120,6 +134,6 @@ public class TestConfig {
 
     @PreDestroy
     public void close(){
-        MongoProvider.stop();
+        mongoProvider.stop();
     }
 }

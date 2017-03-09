@@ -43,6 +43,7 @@ import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.mail.config.MailConfig;
+import eu.europeana.metis.search.config.SearchApplication;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
 import java.net.UnknownHostException;
 import java.util.List;
@@ -58,10 +59,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.plugin.core.config.EnablePluginRegistries;
@@ -86,12 +84,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.framework.rest"})
-@PropertySource("classpath:metis.properties")
+@PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
 @EnableSwagger2
 @EnablePluginRegistries(AbstractMetisWorkflow.class)
 @EnableScheduling
-@Import({MailConfig.class})
+@Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter {
 
   @Value("${mongo.host}")
@@ -167,15 +165,6 @@ public class Application extends WebMvcConfigurerAdapter {
   @Order(100)
   ZohoClient getZohoRestClient() {
     return restConfig.getZohoClient();
-  }
-
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer properties() {
-    PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-    Resource[] resources = new ClassPathResource[]{new ClassPathResource("metis.properties"),
-        new ClassPathResource("ecloud.properties")};
-    propertySourcesPlaceholderConfigurer.setLocations(resources);
-    return propertySourcesPlaceholderConfigurer;
   }
 
   @Bean(name = "jedisProvider")

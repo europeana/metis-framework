@@ -24,6 +24,9 @@ import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.OrganizationService;
+import eu.europeana.metis.search.service.MetisSearchService;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.bson.types.ObjectId;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,6 +36,7 @@ import org.mockito.stubbing.Answer;
 import org.mongodb.morphia.Datastore;
 import org.springframework.test.util.ReflectionTestUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +52,7 @@ public class TestOrganizationService {
     private OrganizationService service;
     private Datastore datastore;
     private Organization org;
+    private MetisSearchService searchService;
 
     @Before
     public void prepare() {
@@ -56,8 +61,11 @@ public class TestOrganizationService {
         ReflectionTestUtils.setField(organizationDao, "provider", mongoProvider);
         service = new OrganizationService();
         datastore = Mockito.mock(Datastore.class);
+        searchService=Mockito.mock(MetisSearchService.class);
         ReflectionTestUtils.setField(service, "orgDao", organizationDao);
+        ReflectionTestUtils.setField(service, "searchService",searchService);
         org = new Organization();
+        org.setId(new ObjectId());
         org.setOrganizationId("orgId");
         org.setDatasets(new ArrayList<Dataset>());
         org.setOrganizationUri("testUri");
@@ -76,7 +84,20 @@ public class TestOrganizationService {
                 return null;
             }
         }).when(organizationDao).create(org);
-        service.createOrganization(org);
+
+        try {
+            Mockito.doAnswer(new Answer<Object>() {
+                @Override
+                public Object answer(InvocationOnMock invocation) throws Throwable {
+                    return null;
+                }
+            }).when(searchService).addOrganizationForSearch(Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
+            service.createOrganization(org);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -89,7 +110,19 @@ public class TestOrganizationService {
                 return null;
             }
         }).when(organizationDao).update(org);
-        service.updateOrganization(org);
+        try {
+            Mockito.doAnswer(new Answer<Object>() {
+                @Override
+                public Object answer(InvocationOnMock invocation) throws Throwable {
+                    return null;
+                }
+            }).when(searchService).addOrganizationForSearch(Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
+            service.updateOrganization(org);
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test
@@ -102,7 +135,19 @@ public class TestOrganizationService {
                 return null;
             }
         }).when(organizationDao).delete(org);
-        service.deleteOrganization(org);
+        try {
+            Mockito.doAnswer(new Answer<Object>() {
+                @Override
+                public Object answer(InvocationOnMock invocation) throws Throwable {
+                    return null;
+                }
+            }).when(searchService).deleteFromSearch(Mockito.anyString());
+            service.deleteOrganization(org);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Test

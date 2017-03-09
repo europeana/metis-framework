@@ -5,7 +5,9 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.metis.mongo.MongoProvider;
+import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -15,7 +17,6 @@ import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,10 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by ymamakis on 9/5/16.
@@ -85,11 +82,11 @@ public class TestRecordDao {
         }
     }
 
-    @After
-    public void destroy(){
-        //FIXME Disabling the deletion because of the Mongo replication failing in flapdoodle currently
-        //MongoReplicaSet.stop();
-
-        MongoProvider.stop();
-    }
+//    @After
+//    public void destroy(){
+//        //FIXME Disabling the deletion because of the Mongo replication failing in flapdoodle currently
+//        //MongoReplicaSet.stop();
+//
+//        mongoProvider.stop();
+//    }
 }

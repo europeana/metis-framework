@@ -7,6 +7,10 @@ import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.metis.mongo.MongoProvider;
+import eu.europeana.metis.utils.NetworkUtil;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.core.CoreContainer;
@@ -14,18 +18,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
-import java.net.UnknownHostException;
-
 /**
  * Created by ymamakis on 9/5/16.
  */
 @Configuration
 public class AppConfig {
-    public AppConfig(){
+    private final int port;
+    private MongoProvider mongoProvider;
+    public AppConfig() throws IOException {
         //FIXME replacing with single instance until the replica problem is resolved
         //MongoReplicaSet.start(10000);
-
-        MongoProvider.start(10000);
+        port = NetworkUtil.getAvailableLocalPort();
+        mongoProvider = new MongoProvider();
+        mongoProvider.start(port);
     }
     @Bean
     @DependsOn("edmMongoServer")
@@ -38,7 +43,7 @@ public class AppConfig {
         MongoClient client = null;
         try {
 
-            client = new MongoClient("127.0.0.1", 10000);
+            client = new MongoClient("127.0.0.1", port);
             return new EdmMongoServerImpl(client, "test_db", null, null);
         } catch (MongoDBException e) {
             e.printStackTrace();
@@ -66,5 +71,10 @@ public class AppConfig {
     @Bean
     RecordDao recordDao() {
         return new RecordDao();
+    }
+
+    @PreDestroy
+    public void shutdown() {
+        mongoProvider.stop();
     }
 }

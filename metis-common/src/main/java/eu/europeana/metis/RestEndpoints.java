@@ -19,6 +19,7 @@ public final class RestEndpoints {
     public final static String ORGANIZATION_ID ="/organization/{id}";
     public final static String ORGANIZATION_ID_DATASETS="/organization/{id}/datasets";
     public final static String ORGANIZATION_OPTED_IN="/organization/{id}/optin";
+    public final static String ORGANIZATION_SUGGEST = "/organizations/suggest/{suggestTerm}";
     public final static String CRM_ORGANIZATION_ID = "/crm/organization/{orgId}";
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
     public final static String USERBYMAIL="/user/{email}";
