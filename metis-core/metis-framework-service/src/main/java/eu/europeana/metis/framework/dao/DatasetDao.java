@@ -165,4 +165,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public boolean exists(String name) {
     return provider.getDatastore().find(Dataset.class).filter("name", name).get() != null;
   }
+
+  /**
+   * Filter datasets by data provider
+   * @param dataProvider The data provider id to search for
+   * @return The list of datasets that the organization is a data provider
+   */
+  public List<Dataset> getByDataProviderId(String dataProvider){
+    return provider.getDatastore().find(Dataset.class).filter("dataProvider",dataProvider).asList();
+  }
 }

@@ -139,6 +139,7 @@ public class OrganizationService {
         return orgDao.getAllDatasetsByOrganization(orgId);
     }
 
+
     /**
      * Get an organization by id
      * @param id The id to search for
@@ -215,5 +216,15 @@ public class OrganizationService {
      */
     public List<OrganizationSearchBean> suggestOrganizations(String searchTerm) throws IOException, SolrServerException {
         return searchService.getSuggestions(searchTerm);
+    }
+
+    /**
+     * Get the organizations refered to by a dataset
+     * @param datasetId The dataset Id to search for
+     * @param providerId The ddata provider for this dataset <code>{@link Dataset#dataProvider}</code>
+     * @return
+     */
+    public List<Organization> getByDatasetId(String datasetId,String providerId){
+        return orgDao.getAllOrganizationsFromDataset(datasetId, providerId);
     }
 }
