@@ -9,7 +9,6 @@ import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.metis.mongo.MongoProvider;
 import eu.europeana.metis.utils.NetworkUtil;
 import java.io.IOException;
-import java.net.UnknownHostException;
 import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
@@ -46,8 +45,6 @@ public class AppConfig {
             client = new MongoClient("127.0.0.1", port);
             return new EdmMongoServerImpl(client, "test_db", null, null);
         } catch (MongoDBException e) {
-            e.printStackTrace();
-        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
         return null;

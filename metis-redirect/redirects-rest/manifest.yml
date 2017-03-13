@@ -1,14 +1,14 @@
 ---
 applications:
-- name: metis-redirect-test
+- name: metis-redirect-rest-test
   memory: 2048M
   instances: 1
-  host: metis-redirect-test
+  host: metis-redirect-rest-test
   path: target/redirects-rest-1.0-SNAPSHOT.war
   buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
   services:
     - annotation-test-mongo
   env:
-    solrProduction: http://sol1.ingest.eanadev.org:9090/solr
+    solrProduction: http://sol1.ingest.eanadev.org:9191/solr
     solrCore: search_test
     zookeeperProduction: sol1.ingest.eanadev.org:2181,sol2.ingest.eanadev.org:2181

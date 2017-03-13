@@ -26,6 +26,7 @@ import eu.europeana.enrichment.api.external.InputValue;
 import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.internal.*;
 import eu.europeana.enrichment.utils.MongoDatabaseUtils;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.Version;
@@ -574,6 +575,13 @@ public class RedisInternalEnricher {
 
     private ObjectMapper getObjectMapper() {
         return obj;
+    }
+
+    @PreDestroy
+    public void close()
+    {
+        if(jedis != null)
+            jedis.close();
     }
 
 

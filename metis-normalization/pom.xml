@@ -7,7 +7,7 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 
-	<artifactId>normalization</artifactId>
+	<artifactId>metis-normalization</artifactId>
 	<packaging>pom</packaging>
 	<modules>
 		<module>normalization-util</module>

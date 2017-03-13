@@ -32,12 +32,6 @@
             <groupId>eu.europeana.metis</groupId>
             <artifactId>redirects-common</artifactId>
             <version>${project.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>mongo-java-driver</artifactId>
-                    <groupId>org.mongodb</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
@@ -49,6 +43,11 @@
                     <groupId>org.mongodb</groupId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.mongodb</groupId>
+            <artifactId>mongo-java-driver</artifactId>
+            <version>3.4.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.solr</groupId>
@@ -90,11 +89,6 @@
             <artifactId>spring-test</artifactId>
             <version>${version.spring}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>2.13.3</version>
         </dependency>
     </dependencies>
 </project>

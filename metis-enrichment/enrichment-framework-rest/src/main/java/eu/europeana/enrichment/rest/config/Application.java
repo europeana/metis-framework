@@ -21,10 +21,11 @@ import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.enrichment.service.RedisProvider;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.*;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
@@ -39,94 +40,84 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan (basePackages = {"eu.europeana.enrichment.rest","eu.europeana.enrichment.rest.exception"})
+@ComponentScan(basePackages = {"eu.europeana.enrichment.rest",
+    "eu.europeana.enrichment.rest.exception"})
 @PropertySource("classpath:enrichment.properties")
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter {
+  @Value("${enrichment.mongoDb}")
+  private String enrichmentMongo;
+  @Value("${redis.host}")
+  private String redisHost;
+  @Value("${redis.port}")
+  private int redisPort;
+  @Value("${redis.password}")
+  private String redisPassword;
+  @Value("${memcache.host}")
+  private String memcacheHost;
+  @Value("${memcache.port}")
+  private int memcachePort;
 
+  @Value(("${enrichment.proxy}"))
+  private String enrichmentProxy;
 
-    @Value("${enrichment.mongo}")
-    private static String enrichmentMongo;
-    @Value("${redis.host}")
-    private static String redisHost;
-    @Value("${redis.port}")
-    private static int redisPort;
-    @Value("${redis.password}")
-    private static String redisPassword;
-    @Value("${memcache.host}")
-    private static String memcacheHost;
-    @Value("${memcache.port}")
-    private static int memcachePort;
+  public Application() {
+    if (System.getenv().get("VCAP_SERVICES") != null) {
+    }
+  }
 
-    @Value(("${enrichment.proxy}"))
-    private static String enrichmentProxy;
-    @Bean
-    @DependsOn("redisInternalEnricher")
-    Enricher enricher(){
-        Enricher enricher = new Enricher("");
-        try {
-            enricher.init("Europeana",enrichmentMongo,"27017");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return enricher;
+  @Bean
+  @DependsOn("redisInternalEnricher")
+  Enricher enricher() {
+    Enricher enricher = new Enricher("");
+    try {
+      enricher.init("Europeana", enrichmentMongo, "27017");
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+    return enricher;
+  }
 
-    @Bean
-    @Order(1)
-    public static PropertySourcesPlaceholderConfigurer properties() {
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        if (System.getenv().get("VCAP_SERVICES") == null) {
-            propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("enrichment.properties"));
-        } else {
-            enrichmentMongo= System.getenv().get("enrichment_mongoDb");
-            redisHost= System.getenv().get("redis_host");
-            redisPort=Integer.parseInt(System.getenv().get("redis_port"));
-            memcacheHost = System.getenv().get("memcache_host");
-            memcachePort=Integer.parseInt(System.getenv().get("memcache_port"));
-            enrichmentProxy = System.getenv().get("enrichment_proxy");
-        }
-        return propertySourcesPlaceholderConfigurer;
-    }
+  RedisProvider getRedisProvider() {
+    return new RedisProvider(redisHost, redisPort, redisPassword);
+  }
 
+  // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
+  @Bean(name = "redisInternalEnricher")
+  RedisInternalEnricher getRedisInternalEnricher() {
+    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider());
+  }
 
-    RedisProvider getRedisProvider(){
-        return new RedisProvider(redisHost, redisPort, redisPassword);
-    }
-   // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
-    @Bean(name = "redisInternalEnricher")
-    RedisInternalEnricher getRedisInternalEnricher(){
-        return new RedisInternalEnricher(enrichmentMongo,getRedisProvider());
-    }
-    @Bean
-    EnrichmentProxyClient getEnrichmentProxyClient(){
-        return new EnrichmentProxyClient(enrichmentProxy);
-    }
-    //@Bean(name = "memcachedInternalEnricher")
-    //MemcachedInternalEnricher getMemcachedInternalEnricher(){
-    //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
-    //}
-    @Bean
-    public Docket api(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/.*"))
-                .build()
-                .apiInfo(apiInfo());
-    }
+  @Bean
+  EnrichmentProxyClient getEnrichmentProxyClient() {
+    return new EnrichmentProxyClient(enrichmentProxy);
+  }
 
-    private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-                "Enrichment REST API",
-                "Enrichment REST API for Europeana",
-                "v1",
-                "API TOS",
-                "development@europeana.eu",
-                "EUPL Licence v1.1",
-                ""
-        );
-        return apiInfo;
-    }
+  //@Bean(name = "memcachedInternalEnricher")
+  //MemcachedInternalEnricher getMemcachedInternalEnricher(){
+  //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
+  //}
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.regex("/.*"))
+        .build()
+        .apiInfo(apiInfo());
+  }
+
+  private ApiInfo apiInfo() {
+    ApiInfo apiInfo = new ApiInfo(
+        "Enrichment REST API",
+        "Enrichment REST API for Europeana",
+        "v1",
+        "API TOS",
+        "development@europeana.eu",
+        "EUPL Licence v1.1",
+        ""
+    );
+    return apiInfo;
+  }
 }

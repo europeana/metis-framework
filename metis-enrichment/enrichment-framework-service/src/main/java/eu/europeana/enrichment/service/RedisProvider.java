@@ -16,6 +16,8 @@
  */
 package eu.europeana.enrichment.service;
 
+import javax.annotation.PreDestroy;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -55,7 +57,11 @@ public class RedisProvider {
 		poolConfig.setTimeBetweenEvictionRunsMillis(60000);
 
 		// Create the jedisPool
-		pool = new JedisPool(poolConfig, host, port, 600000, password);
+		if (StringUtils.isNotEmpty(password))
+			pool = new JedisPool(poolConfig, host, port, 600000, password);
+		else
+			pool = new JedisPool(poolConfig, host, port, 600000);
+
 
 	}
 
@@ -70,6 +76,13 @@ public class RedisProvider {
 		System.out.println("Jedis is:" +jedis==null+"\n\n\n\n\n\n");
 		return jedis;
 	}
+
+	@PreDestroy
+	public void close()
+  {
+    if (pool != null && !pool.isClosed())
+      pool.close();
+  }
 	
 	/**
 	 * Return the jedis resource to the resource pool
