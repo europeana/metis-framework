@@ -15,9 +15,10 @@ import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 public class MetisCMSConfig {
 
 	private String hostURL = "http://metis-framework-test.cfapps.io";
-	private String apikey="";
+	private String apikey="api2demo";
+	
 	@Bean
 	public DsOrgRestClient dsOrgRestClient() {
-		return new DsOrgRestClient(hostURL,apikey);
+		return new DsOrgRestClient(hostURL, apikey);
 	}
 }

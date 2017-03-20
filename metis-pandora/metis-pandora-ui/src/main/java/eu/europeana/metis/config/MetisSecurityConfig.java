@@ -26,6 +26,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import eu.europeana.metis.ui.mongo.domain.Roles;
+
 /**
  * This configuration sets up Metis web pages LDAP authorization.
  * @author alena
@@ -70,16 +72,23 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
-		http.authorizeRequests()
-				.antMatchers("/profile").authenticated()
-//				.hasAnyRole("EUROPEANA_ADMIN","EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN", "HUB_VIEWER", "HUB_DATA_OFFICER")
-				.anyRequest().permitAll()
-				.and()
-				.logout().logoutSuccessUrl("/login").permitAll()
-				.and().formLogin().loginProcessingUrl("/login")
-				.loginPage("/login").defaultSuccessUrl("/").failureUrl("/login?authentication_error=true").permitAll()
-				.and()
+			http.authorizeRequests()
+					.antMatchers("/profile")
+						.hasAnyRole("EUROPEANA_ADMIN","EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN", "HUB_VIEWER", "HUB_DATA_OFFICER")
+						.anyRequest().authenticated().anyRequest().permitAll()
+					.antMatchers("/profile").authenticated()
+					.antMatchers("/register").permitAll()
+					.antMatchers("/mappings-page").permitAll() //TODO the mapping page is public for now only for test reasons
+					.antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name()).anyRequest().authenticated()
+					.and()
+				.logout()
+					.logoutSuccessUrl("/login").permitAll()
+					.and()
+				.formLogin().loginProcessingUrl("/login")
+						.loginPage("/login").defaultSuccessUrl("/")
+						.failureUrl("/login?authentication_error=true").permitAll()
+					.and()
 				.csrf().disable();
-		// @formatter:on
+			// @formatter:on
 	}
 }
