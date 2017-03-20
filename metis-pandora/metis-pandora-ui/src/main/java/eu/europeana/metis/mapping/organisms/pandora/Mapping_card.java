@@ -6,7 +6,6 @@ import java.util.List;
 import org.bson.types.ObjectId;
 
 import eu.europeana.metis.mapping.model.Attribute;
-import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.MappingType;
 import eu.europeana.metis.mapping.model.SimpleMapping;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;

@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.controller.MetisPageController;
 import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
@@ -18,7 +16,6 @@ import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.Mapping_card;
 import eu.europeana.metis.mapping.statistics.Statistics;
-import eu.europeana.metis.mapping.util.MappingCardStub;
 import eu.europeana.metis.service.MappingService;
 
 /**
@@ -57,6 +54,7 @@ public class MappingToEdmPage extends MetisPage {
 		List<Element> elements = testMapping.getMappings().getElements();
 		addChildFields(displayList, attributes, elements, 0);
 //		System.out.println(MetisMappingUtil.toJson(displayList));
+		logger.info("*** MAPPING IS BUILT! ***");
 		return displayList;
 	}
 	
@@ -66,9 +64,7 @@ public class MappingToEdmPage extends MetisPage {
 				Statistics statistics = getMappingService().getStatisticsForField(attribute, null);
 				if (statistics != null) {
 					displayList.add(new Mapping_card(attribute, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));	
-					logger.info("*** FIELD IS ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; DEPTH: "+ depth + " ***");				
-				} else {
-					logger.info("*** FIELD IS NOT ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; ***");
+					logger.info("*** ATTRIBUTE IS ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; DEPTH: "+ depth + " ***");				
 				}
 			}			
 		}
@@ -76,9 +72,8 @@ public class MappingToEdmPage extends MetisPage {
 			for (Element element : elements) {
 				Statistics statistics = getMappingService().getStatisticsForField(element, null);
 				if (element.isHasMapping()) {
-					displayList.add(new Mapping_card(element, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));			
-				} else {
-					logger.info("*** FIELD IS NOT ADDED: " + element.getPrefix() + ":" + element.getName() + "; ***");
+					displayList.add(new Mapping_card(element, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));
+					logger.info("*** ELEMENT IS ADDED: " + element.getPrefix() + ":" + element.getName() + "; DEPTH: "+ depth + " ***");
 				}
 				addChildFields(displayList, element.getAttributes(), element.getElements(), depth + 1);
 			}			
