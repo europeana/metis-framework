@@ -138,6 +138,14 @@ public class UserService {
     public void rejectRequest(RoleRequest request){
         updateRequest(request, null,"rejected");
     }
+    
+    public DBUser getUserByRequestID(String id) {
+    	RoleRequest roleRequest = roleRequestDao.findOne("_id", new ObjectId(id));
+    	if (roleRequest == null) {
+    		return null;
+    	}
+    	return dbUserDao.findOne("email", roleRequest.getUserId());
+    }
 
     private void updateRequest(RoleRequest request, Roles role, String status){
         UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
