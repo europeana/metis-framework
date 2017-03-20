@@ -9,9 +9,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.common.UserProfile;
 import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.mapping.atoms.pandora.UserRequest;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
+import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
 
 /**
@@ -25,6 +26,8 @@ public class MetisLandingPage extends MetisPage {
 	private PageView pageView = PageView.EMPTY;
 	
 	private UserProfile user;
+	
+	private List<UserRequest> request;
 	
 	private Boolean isDuplicateUser = false;
 	
@@ -42,11 +45,29 @@ public class MetisLandingPage extends MetisPage {
 	}
 	
 	public MetisLandingPage(PageView pageView) {
-		this(pageView, null);
+		super();
+		this.pageView = pageView;
 	}
 
 	public MetisLandingPage(PageView pageView, UserProfile user) {
-		super();
+		this(pageView);
+		this.user = user;
+	}
+	
+	public MetisLandingPage(PageView pageView, List<UserRequest> userRequests) {
+		this(pageView);
+		this.pageView = pageView;
+		this.request = userRequests;
+	}
+	
+	/**
+	 * FIXME when the user profile form is unified with user approve form this constructor will be removed
+	 * @param pageView
+	 * @param user
+	 * @boolean isApprove - just to distinguish this constructor from the other
+	 */
+	public MetisLandingPage(PageView pageView, UserProfile user, boolean isApprove) {
+		this(pageView);
 		this.pageView = pageView;
 		this.user = user;
 	}
@@ -56,7 +77,9 @@ public class MetisLandingPage extends MetisPage {
 		if (this.pageView == PageView.EMPTY) {
 			return;
 		}
-		this.contentMap = new HashMap<>();
+		if (this.contentMap == null) {
+			this.contentMap = new HashMap<>();			
+		}
 		switch (pageView) {
 		case LOGIN: 
 			contentMap.put("is_login", true);
@@ -69,6 +92,14 @@ public class MetisLandingPage extends MetisPage {
 		case PROFILE: 
 			contentMap.put("is_profile", true);
 			buildProfilePageContent();
+			break;
+		case REQUESTS: 
+			contentMap.put("is_requests", true);
+			buildRequestsPageContent();
+			break;
+		case USER_APPROVE: 
+			contentMap.put("is_request_approve", true);
+			buildApproveRequestsPageContent();
 			break;
 		default: 
 			break;
@@ -97,6 +128,10 @@ public class MetisLandingPage extends MetisPage {
 			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
 		case PROFILE:
+			utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", false));
+			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
+			break;
+		case REQUESTS:
 			utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", false));
 			utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
 			break;
@@ -174,6 +209,46 @@ public class MetisLandingPage extends MetisPage {
 		contentMap.put("countries", countries);
 	}
 	
+
+	private void buildRequestsPageContent() {
+		if (this.request == null) {
+			return;
+		} else {
+			contentMap.put("request", this.request);
+		}
+	}
+	
+	private void buildApproveRequestsPageContent() {
+		if (this.user == null) {
+			return;
+		}
+		String email = this.user.getEmail();
+		contentMap.put("email", email);			
+
+		String fullName = user.getFullName();
+		contentMap.put("fullName", fullName);
+		
+		String lastName = user.getLastName();
+		contentMap.put("lastName", lastName);
+		
+		if (user instanceof UserProfile) {
+			contentMap.put("skype", ((UserProfile)user).getSkype());
+			//TODO add other DBUser fields.
+		}
+		Country userCountry = Country.toCountry(this.user.getCountry());
+		List<Map<String, String>> countries = new ArrayList<>();
+		for(Country c: Country.values()) {
+			Map<String, String> country = new HashMap<>();
+			if (userCountry != null && userCountry.getName().equals(c.getName())) {
+				country.put("selected", "selected");
+			}
+			country.put("value", c.getIsoCode());
+			country.put("text", c.getName());
+			countries.add(country);
+		}
+		contentMap.put("countries", countries);
+	}
+	
 	/**
 	 * Transforms the list of organizations to a mustache model.
 	 * @param organizations
@@ -183,6 +258,9 @@ public class MetisLandingPage extends MetisPage {
 			List<Entry<String, String>> pairs = new ArrayList<>();
 			for (int i = 0; i < organizations.size(); i ++) {
 				pairs.add(new AbstractMap.SimpleEntry<String, String>(i + "", organizations.get(i)));
+			}
+			if (this.contentMap == null) {
+				this.contentMap = new HashMap<>();
 			}
 			contentMap.put("selection_list", MetisMappingUtil.buildSimplePairs(pairs, "value", "title"));
 		}
@@ -218,5 +296,13 @@ public class MetisLandingPage extends MetisPage {
 
 	public void setUser(UserProfile user) {
 		this.user = user;
+	}
+
+	public List<UserRequest> getRequest() {
+		return request;
+	}
+
+	public void setRequest(List<UserRequest> request) {
+		this.request = request;
 	}
 }

@@ -1,15 +1,15 @@
 package eu.europeana.metis.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
-import java.util.function.Predicate;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.collections.PredicateUtils;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +26,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.common.base.Predicates;
-
-import eu.europeana.metis.common.UserProfile;
 import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.framework.common.Role;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 import eu.europeana.metis.framework.rest.client.ServerException;
 import eu.europeana.metis.mail.notification.MetisMailType;
+import eu.europeana.metis.mapping.atoms.pandora.UserRequest;
+import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
+import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 
@@ -132,7 +133,8 @@ public class MetisUserPageController {
     	logger.info("*** User created: " + user.getFullName() + " ***");
     	
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
-		modelAndView.setViewName("redirect:login?email="+ user.getEmail());
+//		modelAndView.setViewName("redirect:login?email="+ user.getEmail());
+		modelAndView.setViewName("redirect:/");
     	return modelAndView;
     }
     
@@ -152,7 +154,7 @@ public class MetisUserPageController {
     	
     	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);    	
-		metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList() );
+		metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
 //		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
 		modelAndView.addAllObjects(metisLandingPage.buildModel());		
     	return modelAndView;
@@ -203,6 +205,93 @@ public class MetisUserPageController {
     }
     
     /**
+     * 
+     * @param user
+     * @param result
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/profile", method=RequestMethod.GET, params="userId")
+    public ModelAndView requestApproveUser(String userId, Model model) {
+    	logger.info("User Profile To Approve: " + userId);
+    	//TODO
+    	DBUser userByID = userService.getUserByRequestID(userId);
+    	UserDTO userDTO = userService.getUser(userByID.getEmail());
+    	UserProfile userProfile = new UserProfile();
+    	userProfile.init(userDTO);
+    	logger.info("*** User profile opened: " + userProfile.getFullName() + " ***");
+    	
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.USER_APPROVE, userProfile);    	
+		metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
+//		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+		modelAndView.addAllObjects(metisLandingPage.buildModel());		
+    	return modelAndView;
+    }
+    
+    /**
+     * 
+     * @param userId
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/profile", method=RequestMethod.PUT, params="userId")
+    public ModelAndView requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
+    	//TODO
+    	model.addAttribute("user", user);
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
+    	UserDTO userDTO = userService.getUser(user.getEmail());
+    	if (user != null && userDTO != null) {
+    		//update user in LDAP
+    		User ldapUser = userDTO.getUser();
+    		if (ldapUser != null) {
+    			ldapUser.setFullName(user.getFullName());
+    			ldapUser.setLastName(user.getLastName());
+    			ldapUser.setPassword(user.getPassword());
+    		} else {
+    			logger.error("ERROR: LDAP User " + user.getEmail() + " not found!");
+    		}
+    		userDTO.setUser(ldapUser);		
+
+    		//update user in database
+    		DBUser dbUser = userDTO.getDbUser();
+    		if (dbUser == null) {
+    			dbUser = new DBUser();
+    			dbUser.setId(new ObjectId());
+    		}
+    		dbUser.setEmail(user.getEmail());
+    		dbUser.setCountry(Country.toCountry(user.getCountry()));
+    		dbUser.setSkypeId(user.getSkype());
+    		dbUser.setOrganizationRoles(resolveUserOrganizationRoles(user, dbUser));
+    		userDTO.setDbUser(dbUser);
+    	}
+    	return null;
+    }
+    
+    /**
+     * 
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/requests", method=RequestMethod.GET)
+    public ModelAndView userRequests(Model model) {
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	List<UserRequest> userRequestsList = new ArrayList<>();
+    	List<RoleRequest> allRequests = userService.getAllRequests(null, null);
+    	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+    	for (RoleRequest rr: allRequests) {
+    		Date requestDate = rr.getRequestDate();
+			userRequestsList.add(new UserRequest(rr.getId().toString(), rr.getUserId(), rr.getOrganizationId(),
+					format.format(requestDate), rr.isDeleteRequest(), rr.getRequestStatus()));
+    	}
+    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REQUESTS, userRequestsList);
+        modelAndView.addAllObjects(metisLandingPage.buildModel());
+//        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+    	return modelAndView;
+    }
+    
+    /**
      * Method retrieves the list of organizations from Zoho.
      * TODO: return the filtered list of organizations (only the organizations of specific type).
      * @return
@@ -210,9 +299,10 @@ public class MetisUserPageController {
     private List<String> buildAvailableOrganizationsList() {
     	List<String> organizations = new ArrayList<>();
 		try {
-			List<Organization> allOrganizations = dsOrgRestClient.getAllOrganizations();
-			if (allOrganizations != null && !allOrganizations.isEmpty()) {
-				for (Organization o : allOrganizations) {
+			List<Role> roles = Arrays.asList(Role.DATA_AGGREGATOR, Role.CONTENT_PROVIDER, Role.DIRECT_PROVIDER, Role.EUROPEANA);
+			List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
+			if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
+				for (Organization o : organizationsByRoles) {
 					organizations.add(o.getName());
 				}
 			}
@@ -254,6 +344,8 @@ public class MetisUserPageController {
 			}
 			sendEmailNotifications(user); 
 		}
+		
+		
 		List<OrganizationRole> newOrganizationRoles = new ArrayList<>();
 		for (String organization: organizationsToKeepUnchanged) {
 			for (OrganizationRole organizationRole : oldOrganizationRoles) {
@@ -305,6 +397,8 @@ public class MetisUserPageController {
 				logger.warn("*** The email address of the user is incorrect! ***");
 		}
     }
+    
+    
     
     /**
      * Method resolves the new organization list that user belongs to.

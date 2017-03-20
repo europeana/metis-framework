@@ -1,4 +1,4 @@
-package eu.europeana.metis.common;
+package eu.europeana.metis.mapping.organisms.pandora;
 
 import java.util.ArrayList;
 import java.util.List;

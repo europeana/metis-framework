@@ -6,5 +6,5 @@ package eu.europeana.metis.page;
  *
  */
 public enum PageView {
-	EMPTY, LOGIN, REGISTER, PROFILE;
+	EMPTY, LOGIN, REGISTER, PROFILE, REQUESTS, USER_APPROVE;
 }

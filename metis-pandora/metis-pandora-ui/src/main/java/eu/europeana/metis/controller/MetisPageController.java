@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import eu.europeana.metis.common.UserProfile;
+import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.AllDatasetsPage;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
