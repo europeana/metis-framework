@@ -17,9 +17,9 @@
 package eu.europeana.enrichment.gui.server;
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import eu.europeana.enrichment.api.external.EntityClass;
+import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.gui.client.EnrichmentService;
 import eu.europeana.enrichment.gui.shared.EntityWrapperDTO;
 import eu.europeana.enrichment.gui.shared.InputValueDTO;

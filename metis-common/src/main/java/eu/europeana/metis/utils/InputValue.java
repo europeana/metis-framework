@@ -14,8 +14,9 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.enrichment.api.external;
+package eu.europeana.metis.utils;
 
+import eu.europeana.metis.utils.EntityClass;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 

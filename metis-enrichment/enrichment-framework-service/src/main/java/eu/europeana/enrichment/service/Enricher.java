@@ -19,7 +19,7 @@ import eu.europeana.enrichment.api.Factory;
 import eu.europeana.enrichment.api.ObjectRule;
 import eu.europeana.enrichment.api.Task;
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.context.Namespaces;
 import eu.europeana.enrichment.path.Path;
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;

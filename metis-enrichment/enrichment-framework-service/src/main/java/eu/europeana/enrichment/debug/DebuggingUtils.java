@@ -3,10 +3,9 @@ package eu.europeana.enrichment.debug;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.enrichment.api.external.EntityClass;
+import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.service.Enricher;
 
 public class DebuggingUtils {

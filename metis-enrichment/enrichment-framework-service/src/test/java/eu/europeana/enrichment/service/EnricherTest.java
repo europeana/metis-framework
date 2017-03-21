@@ -7,7 +7,7 @@ package eu.europeana.enrichment.service;
 //import de.flapdoodle.embed.mongo.config.Net;
 //import de.flapdoodle.embed.mongo.config.processlistener.ProcessListenerBuilder;
 //import de.flapdoodle.embed.mongo.distribution.Version;
-//import eu.europeana.enrichment.api.external.EntityClass;
+//import eu.europeana.metis.utils.EntityClass;
 //import eu.europeana.enrichment.api.external.EntityWrapper;
 //import eu.europeana.enrichment.api.external.InputValue;
 //import org.junit.After;
