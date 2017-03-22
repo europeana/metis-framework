@@ -104,6 +104,8 @@ public final class RestEndpoints {
     public final static String ORCHESTRATION_RANGE_DATASET="/orchestration/range/{datasetId}";
     public final static String ORCHESTRATION_OPERATIONS="/orchestration/operations";
     public final static String ORCHESTRATION_FAILED="/orchestration/failed/{executionId}";
+    public final static String ORCHESTRATION_UPLOAD="/orchestration/record/upload/{apikey}/{datasetkey}";
+    public final static String ORCHESTRATION_DELETE="/orchestration/record/delete/{apikey}/{datasetkey}";
 
     public static String resolve(String endpoint, String... params){
         if(params==null || params.length==0){

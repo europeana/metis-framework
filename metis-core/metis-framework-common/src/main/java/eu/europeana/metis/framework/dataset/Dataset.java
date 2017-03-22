@@ -59,6 +59,14 @@ public class Dataset {
     private boolean deaSigned;
 
     /**
+     * The dataset key for delivery to Europeana Orchestrator
+     * This key is going to be crosschecked with the Metiskey for rights
+     * and the organization
+     */
+    @Indexed
+    private String datasetKey;
+
+    /**
      * List of subjects for the dataset
      */
     private List<String> subject;
@@ -375,5 +383,14 @@ public class Dataset {
 
     public void setAcceptanceStep(Boolean acceptanceStep) {
         this.acceptanceStep = acceptanceStep;
+    }
+
+    @XmlElement
+    public String getDatasetKey() {
+        return datasetKey;
+    }
+
+    public void setDatasetKey(String datasetKey) {
+        this.datasetKey = datasetKey;
     }
 }

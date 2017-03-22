@@ -139,6 +139,10 @@ public class OrganizationService {
         return orgDao.getAllDatasetsByOrganization(orgId);
     }
 
+    public Organization getOrganizationForDataset(String datasetId){
+        return orgDao.getOrganizationForDataset(datasetId);
+    }
+
     /**
      * Get an organization by id
      * @param id The id to search for

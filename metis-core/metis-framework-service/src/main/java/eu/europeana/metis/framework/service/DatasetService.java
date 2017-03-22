@@ -109,6 +109,18 @@ public class DatasetService {
     }
 
     /**
+     * Get Dataset by datasetKey
+     * @param key The key of the dataset
+     * @return The Dataset
+     */
+    public Dataset getByDatasetkey(String key) throws NoDatasetFoundException{
+        Dataset dataset = dsDao.getByName(key);
+        if(dataset==null){
+            throw new NoDatasetFoundException(key);
+        }
+        return dataset;
+    }
+    /**
      * Check if a dataset exists
      * @param name The dataset identifier
      * @return true if it exists false otherwise
