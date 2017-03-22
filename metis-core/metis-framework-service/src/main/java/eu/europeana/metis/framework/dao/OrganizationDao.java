@@ -233,7 +233,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
    * @return The full list of organizations for this dataset
    */
   public List<Organization> getAllOrganizationsFromDataset(String datasetId, String dataProviderId){
-    List<Organization> orgs = provider.getDatastore().find(Organization.class).filter("datasets._id",datasetId).asList();
+    List<Organization> orgs = provider.getDatastore().find(Organization.class).filter("datasets.$id",datasetId).asList();
     if(orgs==null){
       orgs = new ArrayList<>();
     }

@@ -304,6 +304,13 @@ public class OrganizationController {
         return view;
     }
 
+    /**
+     * Autosuggestions for organizations
+     * @param suggestTerm The term to get the suggestions for
+     * @return The List of organizations that fit in the suggestion
+     * @throws IOException
+     * @throws SolrServerException
+     */
     @RequestMapping(value = ORGANIZATION_SUGGEST, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Suggest Organizations")
@@ -312,6 +319,17 @@ public class OrganizationController {
         view.addObject("suggestions", organizationService.suggestOrganizations(suggestTerm));
         return view;
     }
+
+    /**
+     * Retrieve organizations by dataset and data provider id
+     * @param datasetId The dataset Id
+     * @param dataproviderId The data provider id
+     * @param apikey The API key
+     * @return The lsit of organizatios fro a given dataset
+     * @throws NoApiKeyFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
     @RequestMapping(value = ORGANIZATIONS_BYDATASET, method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
     @ApiOperation(value = "Get organizations that refer to a dataset as provider")
