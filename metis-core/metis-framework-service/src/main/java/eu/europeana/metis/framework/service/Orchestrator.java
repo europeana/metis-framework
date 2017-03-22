@@ -1,9 +1,15 @@
 package eu.europeana.metis.framework.service;
 
+import eu.europeana.cloud.common.model.Representation;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.MCSClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.framework.dao.ExecutionDao;
 import eu.europeana.metis.framework.dao.FailedRecordsDao;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.framework.workflow.*;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
 import org.bson.types.ObjectId;
@@ -15,7 +21,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.plugin.core.OrderAwarePluginRegistry;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
+import java.net.URI;
 import java.util.*;
 
 /**
@@ -35,6 +49,10 @@ public class Orchestrator {
     @Qualifier("abstractMetisWorkflowRegistry")
     private OrderAwarePluginRegistry registry;
 
+    //TODO: these need to be Spring beans
+    RecordServiceClient recordClient = new RecordServiceClient("");
+    DataSetServiceClient dsClient = new DataSetServiceClient("");
+    //UNTIL HERE
     /**
      * Execute the worklow that supports the selected operation
      * @param datasetId The dataset Id for which to create the workflow execution
@@ -310,11 +328,36 @@ public class Orchestrator {
         return Collections.emptyList();
     }
 
-    public boolean uploadRecords(List<String> records){
+    public boolean uploadRecords(String datasetName, List<String> records) throws IOException, SAXException, ParserConfigurationException, MCSException {
+
+        for(String record:records){
+            String cloudId = createOrGetCloudIdFromUIS(record);
+            recordClient.createRepresentation(cloudId,"EDM-EXTERNAL","Europeana");//Here it retrieves URI. Now we need to get the version!!
+            Representation rep = recordClient.getRepresentation(cloudId,"EDM-EXTERNAL");
+            dsClient.assignRepresentationToDataSet("Europeana",datasetName,cloudId,"EDM-EXTERNAL",rep.getVersion());
+        }
         return true;
     }
 
-    public boolean deleteRecords(List<String> ids){
+    private String createOrGetCloudIdFromUIS(String record) throws ParserConfigurationException, IOException, SAXException {
+        // Record is in EDM External.. dont use Jibx as you would need to rebuild them for
+        // External and it can be complicated
+        // Trust that the records have been validated unless requested otherwise. In this case
+        // just use DOM to read the id and check if it exists in the cloud or not
+
+        Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(IOUtils.toInputStream(record));
+        Node pCHO = doc.getDocumentElement().getElementsByTagName("edm:ProvidedCHO").item(0);
+        String id = pCHO.getAttributes().getNamedItem("rdf:about").getTextContent();
+
+        //TODO: Here check in Cloud if it exists
+        //If not create and give back cloudId
+        return id;
+    }
+
+    public boolean deleteRecords(List<String> ids) throws IOException, SAXException, ParserConfigurationException, MCSException {
+        for(String id:ids){
+            recordClient.deleteRepresentation(createOrGetCloudIdFromUIS(id),"EDM-EXTERNAL");
+        }
         return true;
     }
 }

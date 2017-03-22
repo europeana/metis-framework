@@ -1,5 +1,6 @@
 package eu.europeana.metis.framework.rest;
 
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.framework.api.MetisKey;
 import eu.europeana.metis.framework.api.Options;
@@ -17,8 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.xml.sax.SAXException;
 
 import javax.ws.rs.Path;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,51 +127,53 @@ public class OrchestratorController {
     @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_UPLOAD)
     public boolean uploadRecordsToCloud(@RequestBody List<String> records,
                                         @PathVariable("datasetkey") String datasetKey,
-                                        @PathVariable("apikey") String apikey) {
-        return checkKeysValidity(datasetKey, apikey) && orchestrator.uploadRecords(records);
+                                        @PathVariable("apikey") String apikey) throws SAXException, ParserConfigurationException, MCSException, IOException {
+        String datasetName = checkKeysValidity(datasetKey, apikey);
+        return  datasetName !=null && orchestrator.uploadRecords(datasetName,records);
     }
 
-    private boolean checkKeysValidity(String datasetKey, String apikey) {
+    private String checkKeysValidity(String datasetKey, String apikey) {
         MetisKey metisKey = authorizationService.getKeyFromId(apikey);
         if (metisKey == null || metisKey.getOptions().equals(Options.READ)) {
-            return false;
+            return null;
         }
 
         String userMail = metisKey.getUserEmail();
         try {
             Dataset ds = datasetService.getByDatasetkey(datasetKey);
             if (ds == null) {
-                return false;
+                return null;
             }
             UserDTO user = userService.getUser(userMail);
             if (user == null) {
-                return false;
+                return null;
             }
             List<OrganizationRole> userRoles = user.getDbUser().getOrganizationRoles();
             if (userRoles == null) {
-                return false;
+                return null;
             }
             Organization org = organizationService.getOrganizationForDataset(ds.getId().toString());
             if (org == null) {
-                return false;
+                return null;
             }
             for (OrganizationRole role : userRoles) {
                 if (StringUtils.equals(role.getOrganizationId(), org.getOrganizationId())) {
-                    return true;
+                    return ds.getName();
                 }
             }
         } catch (NoDatasetFoundException e) {
-            return false;
+            return null;
         }
-        return false;
+        return null;
     }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.DELETE, value = RestEndpoints.ORCHESTRATION_DELETE)
     public boolean deleteRecordsToCloud(@RequestBody List<String> records,
                                         @PathVariable("datasetkey") String datasetKey,
-                                        @PathVariable("apikey") String apikey) {
-        return checkKeysValidity(datasetKey, apikey) && orchestrator.deleteRecords(records);
+                                        @PathVariable("apikey") String apikey) throws SAXException, ParserConfigurationException, MCSException, IOException {
+        String datasetName = checkKeysValidity(datasetKey, apikey);
+        return datasetName!=null && orchestrator.deleteRecords(records);
     }
 
 }
