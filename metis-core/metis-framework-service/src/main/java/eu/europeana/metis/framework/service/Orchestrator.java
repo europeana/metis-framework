@@ -45,7 +45,7 @@ public class Orchestrator {
     public String execute(String datasetId, String name, Map<String, List<String>> params) throws NoDatasetFoundException {
        // if(datasetService.exists(datasetId)) {
         if(true){
-            AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(name);
+            MetisWorkflow workflow = (MetisWorkflow) registry.getPluginFor(name);
             Execution execution = new Execution();
             execution.setId(new ObjectId());
             execution.setDatasetId(datasetId);
@@ -60,10 +60,11 @@ public class Orchestrator {
             paramList.add(datasetId);
             params.put(WorkflowParameters.DATASET,paramList);
             workflow.setParameters(params);
-            execution.setStatisticsUrl("/" + execution.getId().toString());
+            String statisticsUrl = workflow.execute();
+            execution.setStatisticsUrl(statisticsUrl);
             execution.setExecutionParameters(params);
             executionDao.save(execution);
-            workflow.execute();
+
             return execution.getStatisticsUrl();
         }
             throw new NoDatasetFoundException(datasetId);
@@ -77,7 +78,7 @@ public class Orchestrator {
         List<Execution> executions = getExecutions(null, null, null, null, null, new Date(), null, false);
         if (executions != null && executions.size() > 0) {
             for (Execution execution : executions) {
-                AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(execution.getWorkflow());
+                MetisWorkflow workflow = (MetisWorkflow) registry.getPluginFor(execution.getWorkflow());
                 UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
                 ops.set("startedAt", new Date());
                 ops.set("updatedAt", new Date());
@@ -171,7 +172,7 @@ public class Orchestrator {
                 if (stats == null) {
                     stats = new ExecutionStatistics();
                 }
-                AbstractMetisWorkflow workflow=  (AbstractMetisWorkflow)registry.getPluginFor(activeExecution.getWorkflow());
+                MetisWorkflow workflow=  (MetisWorkflow)registry.getPluginFor(activeExecution.getWorkflow());
                 CloudStatistics statistics =workflow.monitor(activeExecution.getDatasetId());
                 stats.setProcessed(statistics.getProcessed());
                 stats.setCreated(statistics.getCreated());
@@ -284,9 +285,9 @@ public class Orchestrator {
      * @return The List of workflows
      */
     public List<String> getAvailableWorkflows() {
-        List<AbstractMetisWorkflow> plugins = registry.getPlugins();
+        List<MetisWorkflow> plugins = registry.getPlugins();
         List<String> operations = new ArrayList<>();
-        for (AbstractMetisWorkflow plugin : plugins) {
+        for (MetisWorkflow plugin : plugins) {
             operations.add(plugin.getName());
         }
         return operations;

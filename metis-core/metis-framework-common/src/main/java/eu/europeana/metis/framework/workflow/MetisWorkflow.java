@@ -10,7 +10,7 @@ import java.util.Map;
  * and can be accessible via the REST API of Metis
  * Created by ymamakis on 11/9/16.
  */
-public interface AbstractMetisWorkflow extends Plugin<String> {
+public interface MetisWorkflow extends Plugin<String> {
 
     /**
      * The name of the workflow. Important as this is used to select the workflow
@@ -34,7 +34,7 @@ public interface AbstractMetisWorkflow extends Plugin<String> {
      * The business logic that the Workflow implements. This is where the connection to the Europeana Cloud DPS REST API
      * is implemented.
      */
-    void execute();
+    String execute();
 
     CloudStatistics monitor(String dataseId);
 

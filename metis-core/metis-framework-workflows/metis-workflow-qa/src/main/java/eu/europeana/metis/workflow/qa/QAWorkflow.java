@@ -1,6 +1,6 @@
 package eu.europeana.metis.workflow.qa;
 
-import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
+import eu.europeana.metis.framework.workflow.MetisWorkflow;
 import eu.europeana.metis.framework.workflow.CloudStatistics;
 import eu.europeana.metis.framework.workflow.WorkflowParameters;
 import eu.europeana.metis.framework.cache.JedisProvider;
@@ -21,12 +21,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 
 /**
  * Created by ymamakis on 11/22/16.
  */
-public class QAWorkflow implements AbstractMetisWorkflow {
+public class QAWorkflow implements MetisWorkflow {
     private String name = "qa";
     private Map<String, List<String>> params;
     private RestTemplate template = new RestTemplate();
@@ -68,7 +67,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         QAStatistics qaStatistics = new QAStatistics();
         MeasuringResponse response = template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
                 + "/measuring/start", MeasuringResponse.class).getBody();
@@ -105,6 +104,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
         statistics.put(WorkflowParameters.DATASET,qaStatistics);
         activeStatistics.add(params.get(WorkflowParameters.DATASET).get(0));
         cache.set("qa-datasets", params.get(WorkflowParameters.DATASET).get(0),params.get(WorkflowParameters.DATASET).get(0));
+        return "";
     }
 
     @Override

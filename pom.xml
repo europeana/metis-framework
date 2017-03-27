@@ -154,6 +154,7 @@
     <module>metis-preview</module>
     <module>metis-link-checking</module>
     <module>metis-normalization</module>
+    <module>metis-remote-execution</module>
   </modules>
   <repositories>
     <repository>
