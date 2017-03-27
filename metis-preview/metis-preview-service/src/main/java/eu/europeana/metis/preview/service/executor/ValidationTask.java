@@ -26,6 +26,7 @@ import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.logging.Logger;
 
 /**
  * Task for the multi-threaded implementation of the validation service
