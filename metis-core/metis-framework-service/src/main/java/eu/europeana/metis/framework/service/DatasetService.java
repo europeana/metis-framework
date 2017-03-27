@@ -109,6 +109,15 @@ public class DatasetService {
     }
 
     /**
+     * Retrieve the datasets an organization is a data provider for
+     * @param dataProviderId The data provider id
+     * @return The list of datasets the provider is a data provider for
+     */
+    public List<Dataset> getDatasetsByDataProviderId(String dataProviderId){
+        return dsDao.getByDataProviderId(dataProviderId);
+    }
+
+    /**
      * Check if a dataset exists
      * @param name The dataset identifier
      * @return true if it exists false otherwise

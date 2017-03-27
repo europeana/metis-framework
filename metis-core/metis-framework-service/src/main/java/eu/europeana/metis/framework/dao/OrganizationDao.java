@@ -22,9 +22,13 @@ import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
@@ -222,4 +226,20 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     throw new NoOrganizationExceptionFound("No organization found with id: " + organizationId);
   }
 
+  /**
+   * Get all the organizations referred to by a dataset
+   * @param datasetId The datasetId to search the organizations for
+   * @param dataProviderId The dataprovider id for the dataset <code>{@link Dataset#dataProvider}</code>
+   * @return The full list of organizations for this dataset
+   */
+  public List<Organization> getAllOrganizationsFromDataset(String datasetId, String dataProviderId){
+    List<Organization> orgs = provider.getDatastore().find(Organization.class).filter("datasets.$id",datasetId).asList();
+    if(orgs==null){
+      orgs = new ArrayList<>();
+    }
+    if(StringUtils.isNotEmpty(dataProviderId)) {
+      orgs.add(getById(dataProviderId));
+    }
+    return orgs;
+  }
 }

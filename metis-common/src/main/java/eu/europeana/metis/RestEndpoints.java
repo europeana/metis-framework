@@ -12,6 +12,7 @@ public final class RestEndpoints {
 
     public final static String DATASET ="/dataset";
     public final static String DATASET_RETRIEVE = "/dataset/{name}";
+    public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
     public final static String ORGANIZATION = "/organization/{apikey}";
     public final static String ORGANIZATIONS = "/organizations";
     public final static String ORGANIZATIONS_ISOCODE = "/organizations/country";
@@ -24,6 +25,7 @@ public final class RestEndpoints {
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
     public final static String USERBYMAIL="/user/{email}";
     public final static String USERBYID ="/contact/{id}";
+    public final static String ORGANIZATIONS_BYDATASET="/organizations/dataset/{id}";
 
     /* METIS-DEREFERENCE Endpoints*/
     public final static String DEREFERENCE="/dereference";
