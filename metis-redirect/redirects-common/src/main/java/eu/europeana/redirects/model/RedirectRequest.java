@@ -34,6 +34,11 @@ public class RedirectRequest {
 
 
     private String collection;
+
+    /**
+     * The execution parameters for the redirects
+     * @return
+     */
     @XmlElement
     public Map<String, String> getParameters() {
         return parameters;
@@ -43,6 +48,11 @@ public class RedirectRequest {
     public void setParameters(Map<String, String> parameters) {
         this.parameters = parameters;
     }
+
+    /**
+     * The collection to limit search for (in case of modified dataset identifier)
+     * @return
+     */
     @XmlElement
     public String getCollection() {
         return collection;
@@ -52,6 +62,10 @@ public class RedirectRequest {
         this.collection = collection;
     }
 
+    /**
+     * The field name to search for
+     * @return
+     */
     @XmlElement
     public String getFieldName() {
         return fieldName;
@@ -60,6 +74,11 @@ public class RedirectRequest {
     public void setFieldName(String fieldName) {
         this.fieldName = fieldName;
     }
+
+    /**
+     * The field value to search for
+     * @return
+     */
     @XmlElement
     public String getFieldValue() {
         return fieldValue;
@@ -68,6 +87,11 @@ public class RedirectRequest {
     public void setFieldValue(String fieldValue) {
         this.fieldValue = fieldValue;
     }
+
+    /**
+     * The Europeana Identifier to generate the redirect
+     * @return
+     */
     @XmlElement
     public String getEuropeanaId() {
         return europeanaId;

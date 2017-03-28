@@ -5,6 +5,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.client.solrj.util.ClientUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class MetisSearchService {
      */
     public List<OrganizationSearchBean> getSuggestions(String searchTerm) throws IOException, SolrServerException {
         SolrQuery solrQuery = new SolrQuery();
-        solrQuery.setQuery("searchlabel:*"+searchTerm+"*");
+        solrQuery.setQuery("searchlabel:*"+ ClientUtils.escapeQueryChars(searchTerm)+"*");
         solrQuery.setFields("id","englabel");
         QueryResponse resp = solrClient.query(solrQuery);
         return resp.getBeans(OrganizationSearchBean.class);
