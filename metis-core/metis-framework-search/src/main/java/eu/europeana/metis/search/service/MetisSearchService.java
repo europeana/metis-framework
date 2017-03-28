@@ -28,7 +28,7 @@ public class MetisSearchService {
      */
     public List<OrganizationSearchBean> getSuggestions(String searchTerm) throws IOException, SolrServerException {
         SolrQuery solrQuery = new SolrQuery();
-        solrQuery.setQuery("searchlabel:*"+searchTerm+"*");
+        solrQuery.setQuery("restlabel:*"+searchTerm+"*");
         solrQuery.setFields("id","englabel");
         QueryResponse resp = solrClient.query(solrQuery);
         return resp.getBeans(OrganizationSearchBean.class);
