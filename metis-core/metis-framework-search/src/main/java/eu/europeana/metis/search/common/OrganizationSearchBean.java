@@ -14,7 +14,7 @@ public class OrganizationSearchBean {
     @Field("englabel")
     private String engLabel;
 
-    @Field("restlabel")
+    @Field("searchlabel")
     private List<String> searchLabels;
 
     public String getOrganizationId() {
