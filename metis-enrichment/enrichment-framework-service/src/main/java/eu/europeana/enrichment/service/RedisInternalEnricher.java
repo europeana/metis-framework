@@ -59,22 +59,24 @@ public class RedisInternalEnricher {
 
     private  Jedis jedis;
     private String mongoHost;
-    public RedisInternalEnricher(String mongoHost, RedisProvider provider) {
+    public RedisInternalEnricher(String mongoHost, RedisProvider provider, boolean populate) {
         this.mongoHost = mongoHost;
         SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
         sm.addSerializer(new ObjectIdSerializer());
         obj.registerModule(sm);
         jedis = provider.getJedis();
-        if(!(jedis.exists("enrichmentstatus") && StringUtils.equals(jedis.get("enrichmentstatus"),"started"))){
+        if(populate) {
+          if (!(jedis.exists("enrichmentstatus") && StringUtils
+              .equals(jedis.get("enrichmentstatus"), "started"))) {
             System.out.println("Status does not exist");
 
             populate();
-        } else {
+          } else {
             System.out.println(jedis.exists("enrichmentstatus"));
             System.out.println(jedis.get("enrichmentstatus"));
             System.out.println("Status exists");
+          }
         }
-
     }
 
     public String check(){

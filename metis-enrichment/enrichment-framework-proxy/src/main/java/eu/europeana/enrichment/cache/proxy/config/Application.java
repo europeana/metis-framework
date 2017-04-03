@@ -68,7 +68,7 @@ public class Application extends WebMvcConfigurerAdapter {
    // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
     @Bean(name = "redisInternalEnricher")
     RedisInternalEnricher getRedisInternalEnricher(){
-        return new RedisInternalEnricher(enrichmentMongo,getRedisProvider());
+        return new RedisInternalEnricher(enrichmentMongo,getRedisProvider(), true);
     }
     //@Bean(name = "memcachedInternalEnricher")
     //MemcachedInternalEnricher getMemcachedInternalEnricher(){

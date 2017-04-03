@@ -55,11 +55,11 @@ public class EnrichmentController {
 	@Autowired
 	private  Enricher enricher;
 
-	@ResponseStatus(value = HttpStatus.OK)
-	@RequestMapping(value = "/recreate",method = RequestMethod.GET)
-	public void recreate(){
-		enricher.recreate();
-	}
+//	@ResponseStatus(value = HttpStatus.OK)
+//	@RequestMapping(value = "/recreate",method = RequestMethod.GET)
+//	public void recreate(){
+//		enricher.recreate();
+//	}
 
 	/**
 	 * Delete uris

@@ -71,11 +71,11 @@ public class Application extends WebMvcConfigurerAdapter {
   @DependsOn("redisInternalEnricher")
   Enricher enricher() {
     Enricher enricher = new Enricher("");
-    try {
-      enricher.init("Europeana", enrichmentMongo, "27017");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+//    try {
+//      enricher.init("Europeana", enrichmentMongo, "27017");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
     return enricher;
   }
 
@@ -86,7 +86,7 @@ public class Application extends WebMvcConfigurerAdapter {
   // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider());
+    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), false);
   }
 
   @Bean
