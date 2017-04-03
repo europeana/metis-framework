@@ -66,8 +66,7 @@ public class RedisInternalEnricher {
         obj.registerModule(sm);
         jedis = provider.getJedis();
         if(populate) {
-          if (!(jedis.exists("enrichmentstatus") && StringUtils
-              .equals(jedis.get("enrichmentstatus"), "started"))) {
+          if (!jedis.exists("enrichmentstatus") || (!StringUtils.equals(jedis.get("enrichmentstatus"), "started") && !StringUtils.equals(jedis.get("enrichmentstatus"), "finished"))) {
             System.out.println("Status does not exist");
 
             populate();
