@@ -40,10 +40,10 @@ public class RedisProvider {
 		this.host = host;
 		this.port = port;
 		this.password = password;
-		getPool();
+		this.pool = getPool(host, port, password);
 	}
 
-	private JedisPool getPool() {
+	private JedisPool getPool(String host, int port, String password) {
 		if (pool == null) {
 			JedisPoolConfig poolConfig = new JedisPoolConfig();
 			// 'Borrowed' from http://www.ncolomer.net/2011/07/time-to-redis/
@@ -88,9 +88,9 @@ public class RedisProvider {
 			return jedis;
 		}
 		catch (Exception e){
-			pool.close();
-			Jedis jedis = getPool().getResource();
-			return jedis;
+			close();
+			pool = getPool(host, port, password);
+			return pool.getResource();
 		}
 	}
 
