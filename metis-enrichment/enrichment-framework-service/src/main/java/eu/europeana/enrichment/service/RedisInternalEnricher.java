@@ -71,8 +71,8 @@ public class RedisInternalEnricher {
 
             populate();
           } else {
-            System.out.println(jedis.exists("enrichmentstatus"));
-            System.out.println(jedis.get("enrichmentstatus"));
+            System.out.println("enrichmentstatus value exists: " + jedis.exists("enrichmentstatus"));
+            System.out.println("enrichmentstatus value is: " + jedis.get("enrichmentstatus"));
             System.out.println("Status exists");
           }
         }

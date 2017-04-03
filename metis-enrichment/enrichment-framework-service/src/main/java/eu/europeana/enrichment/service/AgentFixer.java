@@ -21,13 +21,15 @@ import com.mongodb.Mongo;
 import eu.europeana.corelib.definitions.edm.entity.Agent;
 import eu.europeana.enrichment.api.internal.AgentTermList;
 import eu.europeana.enrichment.api.internal.MongoTerm;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.mongojack.DBCursor;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
-
-import java.net.UnknownHostException;
-import java.util.*;
 
 /**
  * Created by ymamakis on 8/5/15.
@@ -37,11 +39,7 @@ public class AgentFixer {
         public static void main (String[] args){
             JacksonDBCollection<AgentTermList, String> cColl;
             Mongo mongo = null;
-            try {
-                mongo = new Mongo("144.76.50.251", 27017);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
+            mongo = new Mongo("144.76.50.251", 27017);
             DB db = mongo.getDB("annocultor_db");
             cColl = JacksonDBCollection.wrap(
                     db.getCollection("TermList"),
