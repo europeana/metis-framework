@@ -119,7 +119,7 @@ public class EnrichmentController {
 	 * @return
 	 * @throws Exception
      */
-	@RequestMapping(value = RestEndpoints.ENRICHMENT_ENRICH,method=RequestMethod.POST)
+	@RequestMapping(value = RestEndpoints.ENRICHMENT_ENRICH, method=RequestMethod.POST, produces = "text/plain;charset=UTF-8")
 	@ResponseBody
 	@ApiOperation(value = "Enrich a series of field value pairs", response = EntityWrapperList.class)
     public String enrich(@ApiParam("input")@RequestParam("input") String input,
@@ -128,7 +128,8 @@ public class EnrichmentController {
 			ObjectMapper mapper = new ObjectMapper();
 			InputValueList values = mapper.readValue(input,
 					InputValueList.class);
-			EntityWrapperList response = new EntityWrapperList();List<EntityWrapper> wrapperList = enricher.tagExternal(values
+			EntityWrapperList response = new EntityWrapperList();
+			List<EntityWrapper> wrapperList = enricher.tagExternal(values
 					.getInputValueList());
 
 			ObjectMapper objIdMapper = new ObjectMapper();
