@@ -77,6 +77,7 @@ public class NavigationTop {
 		Map<String, Object> utility_nav_items = new HashMap<>();
 		utility_nav_items.put("url", "#");
 		utility_nav_items.put("text", "Sign In");
+		utility_nav_items.put("fontawesome", true);
 		utility_nav_items.put("icon", "user");
 		
 		Map<String, List<NavigationTopMenu>> submenu = new HashMap<>();
