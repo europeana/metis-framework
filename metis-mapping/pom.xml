@@ -32,6 +32,7 @@
         <module>metis-mapping-service</module>
         <module>metis-mapping-rest</module>
         <module>metis-mapping-rest-client</module>
+        <module>metis-mapping-utils</module>
     </modules>
     <packaging>pom</packaging>
     <build>
