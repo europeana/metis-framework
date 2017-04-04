@@ -16,6 +16,14 @@
  */
 package eu.europeana.metis.framework.rest.controllers;
 
+import static eu.europeana.metis.RestEndpoints.MAPPING_NAMESPACES;
+import static eu.europeana.metis.RestEndpoints.MAPPING_SCHEMATRON;
+import static eu.europeana.metis.RestEndpoints.MAPPING_STATISTICS_ATTRIBUTE;
+import static eu.europeana.metis.RestEndpoints.MAPPING_STATISTICS_BYNAME;
+import static eu.europeana.metis.RestEndpoints.MAPPING_STATISTICS_ELEMENT;
+import static eu.europeana.metis.RestEndpoints.MAPPING_TEMPLATES;
+import static eu.europeana.metis.RestEndpoints.XSL_MAPPINGID;
+
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.mapping.exceptions.MappingNotFoundException;
 import eu.europeana.metis.mapping.exceptions.SaveMappingFailedException;
@@ -27,18 +35,21 @@ import eu.europeana.metis.service.MongoMappingService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.logging.Logger;
-
-import static eu.europeana.metis.RestEndpoints.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * A REST Controller exposing a REST API for CRUD operations on Mapping and other functionality

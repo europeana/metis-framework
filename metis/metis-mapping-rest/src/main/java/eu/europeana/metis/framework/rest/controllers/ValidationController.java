@@ -16,6 +16,14 @@
  */
 package eu.europeana.metis.framework.rest.controllers;
 
+import static eu.europeana.metis.RestEndpoints.VALIDATE_ATTRIBUTE;
+import static eu.europeana.metis.RestEndpoints.VALIDATE_CREATE_ATTTRIBUTE_FLAG;
+import static eu.europeana.metis.RestEndpoints.VALIDATE_CREATE_ELEMENT_FLAG;
+import static eu.europeana.metis.RestEndpoints.VALIDATE_DELETE_ATTRIBUTE_FLAG;
+import static eu.europeana.metis.RestEndpoints.VALIDATE_DELETE_ELEMENT_FLAG;
+import static eu.europeana.metis.RestEndpoints.VALIDATE_ELEMENT;
+import static eu.europeana.metis.RestEndpoints.VALIDATE_MAPPING;
+
 import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
@@ -27,13 +35,14 @@ import eu.europeana.metis.service.ValidationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
-import static eu.europeana.metis.RestEndpoints.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 /**
