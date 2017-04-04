@@ -148,7 +148,8 @@
     <module>metis-redirect</module>
     <module>metis-identifiers</module>
     <module>metis-validation</module>
-    <module>metis-pandora</module>
+    <module>metis-ui</module>
+    <module>metis-mapping</module>
     <module>metis-enrichment</module>
     <module>metis-common</module>
     <module>metis-preview</module>
