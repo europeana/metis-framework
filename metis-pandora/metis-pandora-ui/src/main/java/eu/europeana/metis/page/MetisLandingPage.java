@@ -23,7 +23,7 @@ import eu.europeana.metis.mapping.util.MetisMappingUtil;
  */
 public class MetisLandingPage extends MetisPage {
 	
-	private PageView pageView = PageView.EMPTY;
+	private PageView pageView = PageView.HOME;
 	
 	private UserProfile user;
 	
@@ -74,13 +74,14 @@ public class MetisLandingPage extends MetisPage {
 	
 	@Override
 	public void addPageContent(Map<String, Object> model) {
-		if (this.pageView == PageView.EMPTY) {
-			return;
-		}
 		if (this.contentMap == null) {
 			this.contentMap = new HashMap<>();			
 		}
 		switch (pageView) {
+		case HOME: 
+			contentMap.put("is_home", true);
+			buildHomePageContent();
+			break;
 		case LOGIN: 
 			contentMap.put("is_login", true);
 			buildLoginPageContent();
@@ -108,6 +109,9 @@ public class MetisLandingPage extends MetisPage {
 		model.put("landing_page_content", contentMap);
 	}
 
+	/**
+	 * In the current Metis design there is no need for the bread-crumbs.
+	 */
 	@Override
 	public List<Entry<String, String>> resolveBreadcrumbs() {
 		List<Entry<String, String>> breadcrumbs = new ArrayList<>();
@@ -148,6 +152,34 @@ public class MetisLandingPage extends MetisPage {
 		return utilityNavigationMenu;
 	}
 
+	
+	/**
+	 * The content for the User Login page.
+	 */
+	private void buildHomePageContent() {
+		Map<String, String> hero_config = new HashMap<>();
+		hero_config.put("hero_image", "https://europeana-styleguide-test.s3.amazonaws.com/images/metis/metis-hero.png");
+		hero_config.put("brand_colour", "brand-colour-site");
+		hero_config.put("brand_position", "brand-bottomleft");
+		hero_config.put("brand_opacity", "brand-opacity100");
+		hero_config.put("attribution_text", "Cyclopides metis L., Cyclopides qua... Museum Fur Naturkunde Berlin");
+		hero_config.put("attribution_url", "http://europeana.eu");
+		hero_config.put("license_CC-ND-NC-SA", "true");
+		
+		Map<String, String> banner = new HashMap<>();
+		banner.put("title","What can you do with Metis?");
+		banner.put("text", "Ever wondered how to automagicsally digest huge amounts of data with the push of a button?");
+		banner.put("info_link", "Learn more about Metis");
+		banner.put("info_url", "#");
+		banner.put("cta_url", "#");
+		banner.put("cta_text", "Register to metis here");
+		
+		Map<String, Map<String, String>> content = new HashMap<>();
+		content.put("hero_config", hero_config);
+		content.put("banner", banner);
+		contentMap.put("content", content);
+	}
+	
 	/**
 	 * The content for the User Login page.
 	 */

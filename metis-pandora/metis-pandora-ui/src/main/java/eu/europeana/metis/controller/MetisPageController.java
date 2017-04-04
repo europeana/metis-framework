@@ -57,11 +57,11 @@ public class MetisPageController {
     public ModelAndView homePage() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		String primaryKey = principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl)principal).getUsername() : null;
-		ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+		ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
 		UserDTO userDTO = userService.getUser(primaryKey);
 		UserProfile userProfile =new UserProfile();
 		userProfile.init(userDTO);
-		MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.EMPTY, userProfile);
+		MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME, userProfile);
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
 		return modelAndView;
     }
@@ -98,8 +98,8 @@ public class MetisPageController {
      */
     @RequestMapping(value = "/europeana-metis")
     public ModelAndView metis(Model model) {
-        ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
-        modelAndView.addAllObjects((new MetisLandingPage(PageView.EMPTY)).buildModel());
+        ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+        modelAndView.addAllObjects((new MetisLandingPage(PageView.HOME)).buildModel());
         return modelAndView;
     }
 }

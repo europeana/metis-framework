@@ -45,11 +45,11 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	}
 	
 	private void registerCharacterEncodingFilter(ServletContext servletContext) {
-		EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
 		characterEncodingFilter.setForceEncoding(true);
 		FilterRegistration.Dynamic characterEncoding = servletContext.addFilter("characterEncoding", characterEncodingFilter);
+		EnumSet<DispatcherType> dispatcherTypes = EnumSet.of(DispatcherType.REQUEST, DispatcherType.FORWARD);
 		characterEncoding.addMappingForUrlPatterns(dispatcherTypes, true, "/*");		
 	}
 	

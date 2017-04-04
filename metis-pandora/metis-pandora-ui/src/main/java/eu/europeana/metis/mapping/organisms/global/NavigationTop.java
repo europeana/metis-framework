@@ -36,17 +36,20 @@ public class NavigationTop {
 		next_prev.put("results_url", results_url);
 	}
 	
-	public void addGlobal(Boolean search_active, Boolean settings_active, String logoUrl, String logoText, String menuId, List<NavigationTopMenu> items, List<NavigationTopMenu> utilityItems) {
-		addOptions(search_active, settings_active);
+	public void addGlobal(Boolean search_active, Boolean settings_active, Boolean oursites_hidden, String logoUrl, String logoText, String menuId, List<NavigationTopMenu> items, List<NavigationTopMenu> utilityItems) {
+		addOptions(search_active, settings_active, oursites_hidden);
 		addLogo(logoUrl, logoText);
-		addPrimaryNavMenu(menuId, items);
+		if (items != null && !items.isEmpty()) {
+			addPrimaryNavMenu(menuId, items);			
+		}
 		addUtilityNavMenu(utilityItems);
 	}
 
-	private void addOptions(Boolean search_active, Boolean settings_active) {
+	private void addOptions(Boolean search_active, Boolean settings_active, Boolean oursites_hidden) {
 		Map<String, Object> options = new HashMap<>();
 		options.put("search_active", search_active);
 		options.put("settings_active", settings_active);
+		options.put("oursites_hidden", oursites_hidden);
 		this.global.put("options", options);
 	}
 
@@ -73,8 +76,8 @@ public class NavigationTop {
 		utility_nav.put("tabindex", "6");
 		Map<String, Object> utility_nav_items = new HashMap<>();
 		utility_nav_items.put("url", "#");
-		utility_nav_items.put("text", "Settings");
-		utility_nav_items.put("icon", "settings");
+		utility_nav_items.put("text", "Sign In");
+		utility_nav_items.put("icon", "user");
 		
 		Map<String, List<NavigationTopMenu>> submenu = new HashMap<>();
 		submenu.put("items", utilityItems);

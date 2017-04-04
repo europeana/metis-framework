@@ -22,8 +22,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import eu.europeana.metis.framework.common.Country;
@@ -34,8 +36,10 @@ import eu.europeana.metis.framework.rest.client.ServerException;
 import eu.europeana.metis.mail.notification.MetisMailType;
 import eu.europeana.metis.mapping.atoms.pandora.UserRequest;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
+import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
+import eu.europeana.metis.search.common.OrganizationSearchBean;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
@@ -71,7 +75,7 @@ public class MetisUserPageController {
      */
     @RequestMapping(value = "/login")
     public ModelAndView login(HttpServletRequest request, Model model) {
-        ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+        ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
         String email = request.getParameter("email");
         UserDTO userDTO = userService.getUser(email);
         UserProfile userProfile = new UserProfile();
@@ -92,7 +96,7 @@ public class MetisUserPageController {
      */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public ModelAndView register(Model model) {
-        ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+        ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
         MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
 		modelAndView.addAllObjects(metisLandingPage.buildModel());
         return modelAndView;
@@ -105,8 +109,8 @@ public class MetisUserPageController {
      */
     @RequestMapping(value = "/logout")
     public ModelAndView logout(Model model) {
-    	 ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
-         MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.EMPTY);
+    	 ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+         MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME);
          modelAndView.addAllObjects(metisLandingPage.buildModel());
          return modelAndView;
     }
@@ -120,7 +124,7 @@ public class MetisUserPageController {
     @RequestMapping(value = "/register", method=RequestMethod.POST)
     public ModelAndView registerUser(@ModelAttribute UserProfile user, Model model) { 
     	model.addAttribute("user", user);
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
     	UserDTO userDTO = userService.getUser(user.getEmail());
 		User userFound = userDTO != null ? userDTO.getUser() : null;
@@ -152,7 +156,7 @@ public class MetisUserPageController {
     	userProfile.init(userDTO);
     	logger.info("*** User profile opened: " + userProfile.getFullName() + " ***");
     	
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);    	
 		metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
 //		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
@@ -170,7 +174,7 @@ public class MetisUserPageController {
     @RequestMapping(value = "/profile", method=RequestMethod.POST)
     public ModelAndView updateUser(@ModelAttribute UserProfile user, BindingResult result, Model model) {
     	model.addAttribute("user", user);
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	UserDTO userDTO = userService.getUser(user.getEmail());
     	if (user != null && userDTO != null) {
@@ -213,6 +217,9 @@ public class MetisUserPageController {
      */
     @RequestMapping(value = "/profile", method=RequestMethod.GET, params="userId")
     public ModelAndView requestApproveUser(String userId, Model model) {
+    	//FIXME remove the line below. this is just for test reasons
+    	suggestOrganizationsViaAjax("Lib");
+    	
     	logger.info("User Profile To Approve: " + userId);
     	//TODO
     	DBUser userByID = userService.getUserByRequestID(userId);
@@ -221,11 +228,12 @@ public class MetisUserPageController {
     	userProfile.init(userDTO);
     	logger.info("*** User profile opened: " + userProfile.getFullName() + " ***");
     	
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.USER_APPROVE, userProfile);    	
 		metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
 //		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
 		modelAndView.addAllObjects(metisLandingPage.buildModel());		
+//		System.out.println(MetisMappingUtil.toJson(metisLandingPage.buildModel()));
     	return modelAndView;
     }
     
@@ -239,7 +247,7 @@ public class MetisUserPageController {
     public ModelAndView requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
     	//TODO
     	model.addAttribute("user", user);
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	UserDTO userDTO = userService.getUser(user.getEmail());
     	if (user != null && userDTO != null) {
@@ -276,7 +284,7 @@ public class MetisUserPageController {
      */
     @RequestMapping(value = "/requests", method=RequestMethod.GET)
     public ModelAndView userRequests(Model model) {
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Page");
+    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     	List<UserRequest> userRequestsList = new ArrayList<>();
     	List<RoleRequest> allRequests = userService.getAllRequests(null, null);
     	SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
@@ -290,6 +298,17 @@ public class MetisUserPageController {
 //        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     	return modelAndView;
     }
+    
+	@ResponseBody
+	@RequestMapping(value = "/profile/suggestOrganizations")
+	public String suggestOrganizationsViaAjax(@RequestBody String searchTerm) {
+		String result = "";
+		//logic
+		List<Organization> orgs = suggestOrganizations(searchTerm);
+		System.out.println(MetisMappingUtil.toJson(orgs));
+		return result;
+
+	}
     
     /**
      * Method retrieves the list of organizations from Zoho.
@@ -312,6 +331,27 @@ public class MetisUserPageController {
 			logger.error("ERROR: *** CMS exception: " + e.getMessage() + " ***");
 		}
 		return organizations;
+    }
+    
+    /**
+     * 
+     * @param term
+     * @return
+     */
+    private List<Organization> suggestOrganizations(String term) {
+    	List<Organization> suggestedOrganizations = new ArrayList<>();
+    	try {
+			List<OrganizationSearchBean> suggestOrganizations = dsOrgRestClient.suggestOrganizations(term);
+			for (OrganizationSearchBean searchBean: suggestOrganizations) {
+				Organization orgById = dsOrgRestClient.getOrganizationByOrganizationId(searchBean.getOrganizationId());
+				if (orgById != null) {
+					suggestedOrganizations.add(orgById);
+				}
+			}
+		} catch (ServerException e) {
+			logger.error(e.getMessage());
+		}
+    	return suggestedOrganizations;
     }
     
     /**

@@ -73,6 +73,7 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		// @formatter:off
 			http.authorizeRequests()
+					.antMatchers("/").permitAll()
 					.antMatchers("/profile")
 						.hasAnyRole("EUROPEANA_ADMIN","EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN", "HUB_VIEWER", "HUB_DATA_OFFICER")
 						.anyRequest().authenticated().anyRequest().permitAll()
