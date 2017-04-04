@@ -35,7 +35,7 @@ public class PandoraClient {
         Properties props = new Properties();
         try {
             props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
-            restEndpoint = props.getProperty("pandora.rest");
+            restEndpoint = props.getProperty("mapping.rest.url");
         } catch (IOException e) {
             e.printStackTrace();
         }
