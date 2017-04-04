@@ -1,9 +1,10 @@
 package eu.europeana.metis.config;
 
+import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
+import org.springframework.context.annotation.PropertySource;
 
 /**
  * The configuration represents the communication of Metis with Europeana CMS (currently with Zoho).
@@ -12,10 +13,12 @@ import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
  *
  */
 @Configuration
-public class MetisCMSConfig {
-
-	private String hostURL = "http://metis-framework-rest-test.cfapps.io";
-	private String apikey="api2demo";
+@PropertySource("classpath:/orchestrator.properties")
+public class MetisOrchestratorConfig {
+	@Value("${metis.orchestrator.url}")
+	private String hostURL;
+	@Value("${metis.orchestrator.apikey}")
+	private String apikey;
 	
 	@Bean
 	public DsOrgRestClient dsOrgRestClient() {
