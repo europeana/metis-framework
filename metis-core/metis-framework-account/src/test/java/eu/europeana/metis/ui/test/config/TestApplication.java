@@ -1,7 +1,7 @@
 package eu.europeana.metis.ui.test.config;
 
 import com.mongodb.MongoClient;
-import eu.europeana.metis.mongo.MongoProvider;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
@@ -9,7 +9,6 @@ import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.service.UserService;
-import eu.europeana.metis.utils.NetworkUtil;
 import java.io.IOException;
 import javax.annotation.PreDestroy;
 import org.mockito.Mockito;
@@ -24,19 +23,21 @@ import org.springframework.ldap.core.LdapTemplate;
  */
 @Configuration
 public class TestApplication {
-    private final int port;
-    private MongoProvider mongoProvider;
+    private final String mongoHost;
+    private final int mongoPort;
+    private EmbeddedLocalhostMongo embeddedLocalhostMongo;
     public TestApplication() throws IOException {
-        port = NetworkUtil.getAvailableLocalPort();
-        mongoProvider = new MongoProvider();
-        mongoProvider.start(port);
+        embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+        embeddedLocalhostMongo.start();
+        mongoHost = embeddedLocalhostMongo.getMongoHost();
+        mongoPort = embeddedLocalhostMongo.getMongoPort();
     }
 
     @Bean
     public DBUserDao dbUserDao(){
         Morphia morphia = new Morphia();
         morphia.map(DBUser.class);
-        Datastore ds = morphia.createDatastore(new MongoClient("localhost", port),"test");
+        Datastore ds = morphia.createDatastore(new MongoClient(mongoHost, mongoPort),"test");
         return new DBUserDao(DBUser.class,ds);
     }
 
@@ -44,7 +45,7 @@ public class TestApplication {
     public RoleRequestDao roleRequestDao(){
         Morphia morphia = new Morphia();
         morphia.map(RoleRequest.class);
-        Datastore ds = morphia.createDatastore(new MongoClient("localhost", port),"test");
+        Datastore ds = morphia.createDatastore(new MongoClient("localhost", mongoPort),"test");
         return new RoleRequestDao(RoleRequest.class,ds);
     }
 
@@ -64,6 +65,6 @@ public class TestApplication {
     }
     @PreDestroy
     public void stop(){
-        mongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 }

@@ -8,7 +8,7 @@ import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,14 +31,15 @@ public class TestOrchestrator {
     private static DatasetService datasetService;
     private static FailedRecordsDao failedRecordsDao;
     private static Orchestrator orchestrator;
-    private static eu.europeana.metis.mongo.MongoProvider mongoProvider;
+    private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
     @BeforeClass
     public static void prepare() throws IOException, InterruptedException {
-        int port = NetworkUtil.getAvailableLocalPort();
-        mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
-        mongoProvider.start(port);
-        MongoProvider provider = new MongoProvider("localhost",port, "test",null,null);
+        embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+        embeddedLocalhostMongo.start();
+        String mongoHost = embeddedLocalhostMongo.getMongoHost();
+        int mongoPort = embeddedLocalhostMongo.getMongoPort();
+        MongoProvider provider = new MongoProvider(mongoHost, mongoPort, "test",null,null);
         Morphia morphia = new Morphia();
         executionDao = new ExecutionDao(provider.getDatastore().getMongo(),morphia,provider.getDatastore().getDB().getName());
 
@@ -94,6 +95,6 @@ public class TestOrchestrator {
     @AfterClass
     public static void after()
     {
-        mongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 }

@@ -25,6 +25,7 @@ import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.process.config.IRuntimeConfig;
 import de.flapdoodle.embed.process.config.io.ProcessOutput;
 import de.flapdoodle.embed.process.runtime.Network;
+import eu.europeana.metis.utils.NetworkUtil;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +34,16 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by ymamakis on 3/17/16.
  */
-public class MongoProvider {
-
+public class EmbeddedLocalhostMongo {
   private MongodExecutable mongodExecutable;
-  private final Logger LOGGER = LoggerFactory.getLogger(MongoProvider.class);
+  private final String mongoHost = "127.0.0.1";
+  private int mongoPort;
+  private final Logger LOGGER = LoggerFactory.getLogger(EmbeddedLocalhostMongo.class);
 
-  public void start(int port) {
+  public void start() throws IOException {
     if (mongodExecutable == null) {
       try {
+        mongoPort = NetworkUtil.getAvailableLocalPort();
         IRuntimeConfig runtimeConfig = new RuntimeConfigBuilder()
             .defaultsWithLogger(Command.MongoD, LOGGER)
             .processOutput(ProcessOutput.getDefaultInstanceSilent())
@@ -48,12 +51,20 @@ public class MongoProvider {
 
         MongodStarter runtime = MongodStarter.getInstance(runtimeConfig);
         mongodExecutable = runtime.prepare(new MongodConfigBuilder().version(Version.V3_5_1)
-            .net(new Net("localhost", port, Network.localhostIsIPv6())).build());
+            .net(new Net(mongoHost, mongoPort, Network.localhostIsIPv6())).build());
         mongodExecutable.start();
       } catch (IOException e) {
         e.printStackTrace();
       }
     }
+  }
+
+  public String getMongoHost() {
+    return mongoHost;
+  }
+
+  public int getMongoPort() {
+    return mongoPort;
   }
 
   public void stop() {

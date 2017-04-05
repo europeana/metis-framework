@@ -28,7 +28,7 @@ import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,16 +48,16 @@ public class TestOrganizationDao {
     private static Dataset ds;
     private static OrganizationDao orgDao;
     private static DatasetDao dsDao;
-    private static eu.europeana.metis.mongo.MongoProvider mongoProvider;
-    private static int port;
+    private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
     @BeforeClass
     public static void prepare() throws IOException {
-        port = NetworkUtil.getAvailableLocalPort();
-        mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
-        mongoProvider.start(port);
+        embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+        embeddedLocalhostMongo.start();
+        String mongoHost = embeddedLocalhostMongo.getMongoHost();
+        int mongoPort = embeddedLocalhostMongo.getMongoPort();
         try {
-            MongoProvider provider = new MongoProvider("localhost",port, "test",null,null);
+            MongoProvider provider = new MongoProvider(mongoHost, mongoPort, "test",null,null);
             orgDao = new OrganizationDao();
             ReflectionTestUtils.setField(orgDao,"provider",provider);
 
@@ -194,6 +194,6 @@ public class TestOrganizationDao {
     }
     @AfterClass
     public static void destroy(){
-        mongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 }
