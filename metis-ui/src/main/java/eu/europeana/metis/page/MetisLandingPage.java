@@ -158,7 +158,7 @@ public class MetisLandingPage extends MetisPage {
 	 */
 	private void buildHomePageContent() {
 		Map<String, String> hero_config = new HashMap<>();
-		hero_config.put("hero_image", "https://europeana-styleguide-test.s3.amazonaws.com/images/metis/metis-hero.png");
+		hero_config.put("hero_image", "https://europeana-styleguide-test.s3.amazonaws.com/images/metis/hero_metis_1600x650_jade.png");
 		hero_config.put("brand_colour", "brand-colour-site");
 		hero_config.put("brand_position", "brand-bottomleft");
 		hero_config.put("brand_opacity", "brand-opacity100");

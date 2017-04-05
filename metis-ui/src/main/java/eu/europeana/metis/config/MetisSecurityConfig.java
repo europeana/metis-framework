@@ -74,11 +74,10 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 		// @formatter:off
 			http.authorizeRequests()
 					.antMatchers("/").permitAll()
+					.antMatchers("/register").permitAll()
 					.antMatchers("/profile")
 						.hasAnyRole("EUROPEANA_ADMIN","EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN", "HUB_VIEWER", "HUB_DATA_OFFICER")
 						.anyRequest().authenticated().anyRequest().permitAll()
-					.antMatchers("/profile").authenticated()
-					.antMatchers("/register").permitAll()
 					.antMatchers("/mappings-page").permitAll() //TODO the mapping page is public for now only for test reasons
 					.antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name()).anyRequest().authenticated()
 					.and()
