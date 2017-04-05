@@ -25,7 +25,7 @@ import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.mongo.MongoProvider;
 import eu.europeana.metis.framework.organization.Organization;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -41,20 +41,19 @@ import org.springframework.test.util.ReflectionTestUtils;
  * Created by ymamakis on 2/19/16.
  */
 public class TestDatasetDao {
-
     private static DatasetDao dsDao;
     private static Organization org;
     private static Dataset ds;
-    private static eu.europeana.metis.mongo.MongoProvider mongoProvider;
+    private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
     @BeforeClass
     public static void prepare() throws IOException {
-
-        int port = NetworkUtil.getAvailableLocalPort();
-        mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
-        mongoProvider.start(port);
+        embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+        embeddedLocalhostMongo.start();
+        String mongoHost = embeddedLocalhostMongo.getMongoHost();
+        int mongoPort = embeddedLocalhostMongo.getMongoPort();
         try {
-            MongoProvider provider = new MongoProvider("localhost",port, "test",null,null);
+            MongoProvider provider = new MongoProvider(mongoHost, mongoPort, "test",null,null);
             dsDao = new DatasetDao();
             org = new Organization();
             org.setOrganizationId("orgId");
@@ -163,6 +162,6 @@ public class TestDatasetDao {
     }
     @AfterClass
     public static void destroy(){
-        mongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 }

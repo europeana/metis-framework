@@ -15,16 +15,14 @@
  *  the Licence.
  */
 
-import eu.europeana.metis.mongo.MongoProvider;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
 import java.io.IOException;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * Created by ymamakis on 7/14/16.
@@ -32,20 +30,22 @@ import javax.annotation.PreDestroy;
 @Configuration
 public class TestApplication {
 
-  private final int port;
-  private MongoProvider mongoProvider;
+  private final String mongoHost;
+  private final int mongoPort;
+  private EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
   public TestApplication() throws IOException {
-    port = NetworkUtil.getAvailableLocalPort();
-    mongoProvider = new MongoProvider();
-    mongoProvider.start(port);
+    embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+    embeddedLocalhostMongo.start();
+    mongoHost = embeddedLocalhostMongo.getMongoHost();
+    mongoPort = embeddedLocalhostMongo.getMongoPort();
   }
 
   @Bean
   ValidationManagementService getValidationManagementService() {
     ValidationManagementService validationManagementService = new ValidationManagementService(
         eu.europeana.validation.service.Configuration
-            .getInstance("localhost", port, "validation", "/tmp/schema"));
+            .getInstance(mongoHost, mongoPort, "validation", "/tmp/schema"));
 
     return validationManagementService;
   }
@@ -61,6 +61,6 @@ public class TestApplication {
 
   @PreDestroy
   public void shutdown() {
-    mongoProvider.stop();
+    embeddedLocalhostMongo.stop();
   }
 }

@@ -30,8 +30,7 @@ import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.mongo.MongoProvider;
-import eu.europeana.metis.utils.NetworkUtil;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.List;
 import javax.xml.parsers.ParserConfigurationException;
@@ -55,13 +54,14 @@ public class MongoDereferenceServiceTest {
     private Jedis jedis;
     private CacheDao cacheDao;
     private EnrichmentDriver driver;
-    private MongoProvider mongoProvider = new eu.europeana.metis.mongo.MongoProvider();
+    private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     @Before
     public void prepare() throws IOException {
-        int port = NetworkUtil.getAvailableLocalPort();
-        mongoProvider.start(port);
-        vocabularyDao = new VocabularyDao(new MongoClient("localhost", port), "voctest");
-        entityDao = new EntityDao(new MongoClient("localhost", port), "voctest");
+        embeddedLocalhostMongo.start();
+        String mongoHost = embeddedLocalhostMongo.getMongoHost();
+        int mongoPort = embeddedLocalhostMongo.getMongoPort();
+        vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
+        entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
         jedis = Mockito.mock(Jedis.class);
         cacheDao = new CacheDao(jedis);
         RdfRetriever retriever = new RdfRetriever();
@@ -112,7 +112,7 @@ public class MongoDereferenceServiceTest {
 
     @After
     public void destroy() {
-        mongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 
 }

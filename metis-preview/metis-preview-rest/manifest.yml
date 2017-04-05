@@ -6,9 +6,3 @@ applications:
   host: metis-preview-rest-test
   path: target/metis-preview-rest-1.0-SNAPSHOT.war
   buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
-  env:
-    mongohost: 136.243.131.91
-    mongoPort: 27017
-    maindb: europeana
-    previewPortalUrl: http://metis-preview-portal.cfapps.io/portal/en/search?view=grid&q=edm_datasetName%3A
-    solrUrl: http://136.243.131.91:8080/solr/search

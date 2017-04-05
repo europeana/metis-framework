@@ -72,7 +72,7 @@ public class MetisConfig {
 //                JsonObject credentials = element.getAsJsonObject("credentials");
 //                JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
 //                String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
-//                provider = new MongoProvider(uri.getAsString(),db);
+//                provider = new EmbeddedLocalhostMongo(uri.getAsString(),db);
 //                return provider;
 //            }
     } catch (UnknownHostException e) {

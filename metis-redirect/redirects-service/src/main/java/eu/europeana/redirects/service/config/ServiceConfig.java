@@ -53,15 +53,28 @@ public class ServiceConfig {
             if(System.getenv().get("VCAP_SERVICES")==null) {
                 props = new Properties();
                 props.load(ServiceConfig.class.getClassLoader().getResourceAsStream("redirects.properties"));
-                MongoCredential credential = MongoCredential.createCredential(props.getProperty("mongo.username"), props.getProperty("mongo.db"), props.getProperty("mongo.password").toCharArray());
-                ServerAddress address = new ServerAddress(props.getProperty("mongo.host"), Integer.parseInt(props.getProperty("mongo.port")));
-                MongoClient mongo = new MongoClient(address, Arrays.asList(credential));
-                mongoServer = new EuropeanaIdMongoServerImpl(mongo, props.getProperty("mongo.db"),
-                        props.getProperty("mongo.username"), props.getProperty("mongo.password"));
-                if (StringUtils.isNotEmpty(props.getProperty("mongo.username"))) {
-                    collectionMongoServer = new CollectionMongoServerImpl(mongo, props.getProperty("mongo.collections.db"));
+                String mongoHost = props.getProperty("mongo.host");
+                String mongoUsername = props.getProperty("mongo.username");
+                String mongoPassword = props.getProperty("mongo.password");
+                String mongoDb = props.getProperty("mongo.db");
+                String mongoCollectionsDb = props.getProperty("mongo.collections.db");
+                String mongoPort = props.getProperty("mongo.port");
+
+                ServerAddress address = new ServerAddress(mongoHost,Integer.parseInt(mongoPort));
+                MongoCredential mongoCredential;
+                MongoClient mongoClient;
+                if(StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
+                    mongoCredential = MongoCredential
+                        .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
+                    mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
+                }
+                else
+                    mongoClient = new MongoClient(address);
+                mongoServer =  new EuropeanaIdMongoServerImpl(mongoClient, mongoDb);
+                if (StringUtils.isNotEmpty(mongoUsername)) {
+                    collectionMongoServer = new CollectionMongoServerImpl(mongoClient, mongoCollectionsDb);
                 } else {
-                    collectionMongoServer = new CollectionMongoServerImpl(mongo, props.getProperty("mongo.collections.db"));
+                    collectionMongoServer = new CollectionMongoServerImpl(mongoClient, mongoCollectionsDb);
                 }
 
                 LBHttpSolrServer lbTargetProduction = new LBHttpSolrServer(props.getProperty("solr.production"));
@@ -85,8 +98,7 @@ public class ServiceConfig {
                 MongoCredential credential = MongoCredential.createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
                 ServerAddress address = new ServerAddress(mongoHost, mongoPort);
                 MongoClient mongo = new MongoClient(address, Arrays.asList(credential));
-                mongoServer = new EuropeanaIdMongoServerImpl(mongo, mongoDb,
-                        mongoUsername, mongoPassword);
+                mongoServer = new EuropeanaIdMongoServerImpl(mongo, mongoDb);
                 if (StringUtils.isNotEmpty(mongoUsername)) {
                     collectionMongoServer = new CollectionMongoServerImpl(mongo,mongoDb);
                 } else {
