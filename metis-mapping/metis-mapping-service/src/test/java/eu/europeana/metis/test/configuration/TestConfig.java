@@ -2,8 +2,15 @@ package eu.europeana.metis.test.configuration;
 
 import com.mongodb.MongoClient;
 import eu.europeana.metis.mapping.common.Value;
-import eu.europeana.metis.mapping.validation.*;
-import eu.europeana.metis.mapping.model.*;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Clause;
+import eu.europeana.metis.mapping.model.Function;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.Mappings;
+import eu.europeana.metis.mapping.model.SimpleMapping;
+import eu.europeana.metis.mapping.model.ValueMapping;
+import eu.europeana.metis.mapping.model.ValueMappings;
+import eu.europeana.metis.mapping.model.XPathHolder;
 import eu.europeana.metis.mapping.persistence.AttributeDao;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.ElementDao;
@@ -15,6 +22,15 @@ import eu.europeana.metis.mapping.persistence.StatisticsDao;
 import eu.europeana.metis.mapping.statistics.DatasetStatistics;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
+import eu.europeana.metis.mapping.validation.Flag;
+import eu.europeana.metis.mapping.validation.IsBooleanFunction;
+import eu.europeana.metis.mapping.validation.IsDateTypeFunction;
+import eu.europeana.metis.mapping.validation.IsEnumerationFunction;
+import eu.europeana.metis.mapping.validation.IsFloatFunction;
+import eu.europeana.metis.mapping.validation.IsLanguageFunction;
+import eu.europeana.metis.mapping.validation.IsUriFunction;
+import eu.europeana.metis.mapping.validation.IsUrlFunction;
+import eu.europeana.metis.mapping.validation.ValidationRule;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import eu.europeana.metis.service.MongoMappingService;
 import eu.europeana.metis.service.StatisticsService;
@@ -134,11 +150,13 @@ public class TestConfig {
     Morphia morphia = new Morphia();
     MongoClient client = new MongoClient(mongoHost, mongoPort);
     morphia.map(Value.class);
-    morphia.mapPackage("eu.europeana.metis.mapping.validation", true);
+    morphia.map(Flag.class)
+        .map(IsBooleanFunction.class).map(IsDateTypeFunction.class).map(IsEnumerationFunction.class)
+        .map(IsFloatFunction.class).map(IsLanguageFunction.class).map(IsUriFunction.class).map(IsUrlFunction.class)
+        .map(ValidationRule.class);
 //        morphia.mapPackage("eu.europeana.metis.mapping.validation", true)
 //                .mapPackage("eu.europeana.metis.mapping.common", true)
 //                .mapPackage("java.math.BigInteger",true);
-
     return new FlagDao(morphia, client, "flag-test");
   }
 
@@ -147,7 +165,10 @@ public class TestConfig {
     Morphia morphia = new Morphia();
     MongoClient client = new MongoClient(mongoHost, mongoPort);
     morphia.map(Statistics.class).map(StatisticsValue.class).map(DatasetStatistics.class);
-    morphia.mapPackage("eu.europeana.metis.mapping.model", true);
+    morphia.map(Attribute.class).map(Clause.class)
+        .map(Function.class).map(Mapping.class).map(Mappings.class)
+        .map(SimpleMapping.class).map(ValueMapping.class)
+        .map(ValueMappings.class).map(XPathHolder.class);
 //        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
 //                .mapPackage("eu.europeana.metis.mapping.model", true)
 //                .mapPackage("java.math.BigInteger",true);
