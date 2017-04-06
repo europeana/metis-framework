@@ -2,6 +2,8 @@ package eu.europeana.metis.test.configuration;
 
 import com.mongodb.MongoClient;
 import eu.europeana.metis.mapping.common.Value;
+import eu.europeana.metis.mapping.validation.*;
+import eu.europeana.metis.mapping.model.*;
 import eu.europeana.metis.mapping.persistence.AttributeDao;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.ElementDao;
