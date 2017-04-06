@@ -4,11 +4,23 @@ package eu.europeana.metis.test.service;
  * Created by ymamakis on 6/27/16.
  */
 
-import eu.europeana.metis.mapping.model.*;
+import eu.europeana.metis.mapping.model.Clause;
+import eu.europeana.metis.mapping.model.ConditionMapping;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Function;
+import eu.europeana.metis.mapping.model.FunctionType;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.MappingSchema;
+import eu.europeana.metis.mapping.model.MappingType;
+import eu.europeana.metis.mapping.model.XPathHolder;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;
 import eu.europeana.metis.service.XSDService;
 import eu.europeana.metis.service.XSLTGenerationService;
 import eu.europeana.metis.test.configuration.TestConfig;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.io.FileUtils;
 import org.bson.types.ObjectId;
 import org.junit.Test;
@@ -16,11 +28,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes={TestConfig.class})

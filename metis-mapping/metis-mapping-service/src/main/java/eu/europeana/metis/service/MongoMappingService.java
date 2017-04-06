@@ -16,20 +16,29 @@
  */
 package eu.europeana.metis.service;
 
-import eu.europeana.metis.mapping.model.*;
-import eu.europeana.metis.mapping.persistence.*;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.ConditionMapping;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.Mappings;
+import eu.europeana.metis.mapping.model.SimpleMapping;
+import eu.europeana.metis.mapping.persistence.AttributeDao;
+import eu.europeana.metis.mapping.persistence.ElementDao;
+import eu.europeana.metis.mapping.persistence.MappingSchemaDao;
+import eu.europeana.metis.mapping.persistence.MappingsDao;
+import eu.europeana.metis.mapping.persistence.MongoMappingDao;
+import eu.europeana.metis.mapping.persistence.StatisticsDao;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.utils.MongoUpdateUtils;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * A service that wraps the Mongomapping DAO
