@@ -1,6 +1,8 @@
 package eu.europeana.metis.test.configuration;
 
 import com.mongodb.MongoClient;
+import eu.europeana.metis.mapping.common.Value;
+import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.persistence.AttributeDao;
 import eu.europeana.metis.mapping.persistence.DatasetStatisticsDao;
 import eu.europeana.metis.mapping.persistence.ElementDao;
@@ -9,6 +11,8 @@ import eu.europeana.metis.mapping.persistence.MappingSchemaDao;
 import eu.europeana.metis.mapping.persistence.MappingsDao;
 import eu.europeana.metis.mapping.persistence.MongoMappingDao;
 import eu.europeana.metis.mapping.persistence.StatisticsDao;
+import eu.europeana.metis.mapping.statistics.Statistics;
+import eu.europeana.metis.mapping.validation.ValidationRule;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import eu.europeana.metis.service.MongoMappingService;
 import eu.europeana.metis.service.StatisticsService;
@@ -16,6 +20,7 @@ import eu.europeana.metis.service.ValidationService;
 import eu.europeana.metis.service.XSDService;
 import eu.europeana.metis.service.XSLTGenerationService;
 import java.io.IOException;
+import java.math.BigInteger;
 import javax.annotation.PreDestroy;
 import org.mongodb.morphia.Morphia;
 import org.springframework.context.annotation.Bean;
@@ -65,16 +70,18 @@ public class TestConfig {
     MongoMappingDao getMongoMappingDao(){
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.map(Value.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new MongoMappingDao(morphia, client, "mapping-test");
     }
     @Bean
     MappingsDao getMappingsDao(){
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.map(Value.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new MappingsDao(morphia, client, "mapping-test");
     }
 
@@ -82,8 +89,9 @@ public class TestConfig {
     MappingSchemaDao getMappingSchemaDao() {
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.map(Value.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new MappingSchemaDao(morphia, client, "mapping-test");
     }
 
@@ -91,8 +99,9 @@ public class TestConfig {
     ElementDao getElementDao() {
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.map(Value.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new ElementDao(morphia, client, "mapping-test");
     }
 
@@ -100,25 +109,28 @@ public class TestConfig {
     AttributeDao getAttributeDao() {
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.map(Value.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.common", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new AttributeDao(morphia, client, "mapping-test");
     }
     @Bean
     StatisticsDao getStatisticsDao(){
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.mapPackageFromClass(Statistics.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new StatisticsDao(morphia,client,"statistics-test");
     }
     @Bean
     FlagDao getFlagDao() {
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.validation", true)
-                .mapPackage("eu.europeana.metis.mapping.common", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.mapPackageFromClass(Value.class).mapPackageFromClass(ValidationRule.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.validation", true)
+//                .mapPackage("eu.europeana.metis.mapping.common", true)
+//                .mapPackage("java.math.BigInteger",true);
 
         return new FlagDao(morphia, client, "flag-test");
     }
@@ -127,9 +139,10 @@ public class TestConfig {
     DatasetStatisticsDao getDatasetStatisticsDao() {
         Morphia morphia = new Morphia();
         MongoClient client = new MongoClient(mongoHost, mongoPort);
-        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
-                .mapPackage("eu.europeana.metis.mapping.model", true)
-                .mapPackage("java.math.BigInteger",true);
+        morphia.mapPackageFromClass(Statistics.class).mapPackageFromClass(Element.class).map(BigInteger.class);
+//        morphia.mapPackage("eu.europeana.metis.mapping.statistics", true)
+//                .mapPackage("eu.europeana.metis.mapping.model", true)
+//                .mapPackage("java.math.BigInteger",true);
         return new DatasetStatisticsDao(morphia, client, "statistics-test");
     }
 
