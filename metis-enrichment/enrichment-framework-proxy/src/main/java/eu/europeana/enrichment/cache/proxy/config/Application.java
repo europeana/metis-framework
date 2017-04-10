@@ -23,8 +23,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -34,11 +32,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 @ComponentScan (basePackages = {"eu.europeana.enrichment.cache.proxy"})
-@PropertySource("classpath:enrichment.properties")
+@PropertySource("classpath:enrichment.proxy.properties")
 @EnableWebMvc
 public class Application extends WebMvcConfigurerAdapter {
-
-
     @Value("${enrichment.mongo}")
     private  String enrichmentMongo;
     @Value("${redis.host}")
@@ -51,16 +47,6 @@ public class Application extends WebMvcConfigurerAdapter {
     private  String memcacheHost;
     //@Value("${memcache.port}")
     private  int memcachePort;
-
-
-
-    @Bean
-    @Order(1)
-    public static PropertySourcesPlaceholderConfigurer properties() {
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        return propertySourcesPlaceholderConfigurer;
-    }
-
 
     RedisProvider getRedisProvider(){
         return new RedisProvider(redisHost, redisPort, redisPassword);
