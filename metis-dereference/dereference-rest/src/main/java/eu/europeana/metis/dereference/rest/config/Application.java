@@ -16,22 +16,22 @@
  */
 package eu.europeana.metis.dereference.rest.config;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import eu.europeana.enrichment.rest.client.EnrichmentDriver;
+import eu.europeana.metis.RedisProvider;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.dereference.service.utils.RedisProvider;
+import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -55,134 +55,155 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan (basePackages = {"eu.europeana.metis.dereference.rest","eu.europeana.metis.dereference.rest.exceptions"})
+@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest",
+    "eu.europeana.metis.dereference.rest.exceptions"})
 @PropertySource("classpath:dereferencing.properties")
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+  //Redis
+  @Value("${redis.host}")
+  private String redisHost;
+  @Value("${redis.port}")
+  private int redisPort;
+  @Value("${redis.password}")
+  private String redisPassword;
 
-    Logger logger = Logger.getLogger(Application.class);
+  //Mongo
+  @Value("${mongo.host}")
+  private String mongoHost;
+  @Value("${mongo.port}")
+  private int mongoPort;
+  @Value("${mongo.username}")
+  private String mongoUsername;
+  @Value("${mongo.password}")
+  private String mongoPassword;
+  @Value("${mongo.db}")
+  private String mongoDb;
+  @Value("${entity.db}")
+  private String entityDb;
+  @Value("${vocabulary.db}")
+  private String vocabularyDb;
 
-    @Value("${redis.host}")
-    private static String redisHost;
-    @Value("${redis.port}")
-    private static int redisPort;
-    @Value("${redis.password}")
-    private static String redisPassword;
-    @Value("${mongoUri}")
-    private static String mongoUri;
-    @Value("${entity.db}")
-    private static String entityDb;
-    @Value("${vocabulary.db}")
-    private static String vocabularyDb;
+  @Value("${enrichment.url}")
+  private String enrichmentUrl;
+  private MongoClientURI mongoClientURI;
+  private RedisProvider redisProvider;
 
-    @Value("${enrichment.url}")
-    private static String enrichmentUrl;
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    if (System.getenv().get("VCAP_SERVICES") != null) {
+      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
+          System.getenv().get("VCAP_SERVICES"));
 
-    /**
-     * Used for overwriting properties if cloud foundry environment is used
-     * @throws Exception
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (System.getenv().get("VCAP_SERVICES") != null) {
-            JsonParser parser = new JsonParser();
-            JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-            JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
-
-            JsonObject credentials = element.getAsJsonObject("credentials");
-            JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
-            mongoUri= uri.getAsString();
-            String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
-            vocabularyDb = db;
-            entityDb = db;
-            JsonObject redisElement = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
-            JsonObject redisCredentials = redisElement.getAsJsonObject("credentials");
-            redisHost = redisCredentials.get("hostname").getAsString();
-            redisPort = Integer.parseInt(redisCredentials.get("port").getAsString());
-            redisPassword= redisCredentials.get("password").getAsString();
-        }
+      mongoClientURI = vcapServices.getMongoClientUriFromService();
+      vocabularyDb = mongoClientURI.getDatabase();
+      entityDb = mongoClientURI.getDatabase();
+      redisProvider = vcapServices.getRedisProviderFromService();
     }
+  }
 
-    @Bean
-    EnrichmentDriver getEnrichmentDriver(){
-        return new EnrichmentDriver(enrichmentUrl);
+  @Bean
+  EnrichmentDriver getEnrichmentDriver() {
+    return new EnrichmentDriver(enrichmentUrl);
+  }
+
+  @Bean
+  MongoClient getMongo() {
+    if (mongoClientURI != null) {
+      return new MongoClient(mongoClientURI);
+    } else {
+      ServerAddress address = new ServerAddress(mongoHost, mongoPort);
+      MongoCredential mongoCredential;
+      MongoClient mongoClient;
+      if (StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
+        mongoCredential = MongoCredential
+            .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
+        mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
+      } else {
+        mongoClient = new MongoClient(address);
+      }
+
+      return mongoClient;
     }
+  }
 
-    @Bean
-    MongoClient getMongo(){
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.add(new MappingJackson2HttpMessageConverter());
 
-               return  new MongoClient(new MongoClientURI(mongoUri));
+    super.configureMessageConverters(converters);
+  }
 
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
 
-    }
-    @Override
-    public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
-        converters.add(new MappingJackson2HttpMessageConverter());
+  @Bean
+  RdfRetriever getRdfRetriever() {
+    return new RdfRetriever();
+  }
 
-        super.configureMessageConverters(converters);
-    }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
+  @Bean
+  CacheDao getCacheDao() {
+    return new CacheDao(getRedisProvider().getJedis());
+  }
 
-    @Bean
-    RdfRetriever getRdfRetriever(){
-        return new RdfRetriever();
-    }
-    @Bean
-    CacheDao getCacheDao(){
-        Logger.getLogger(this.getClass()).error(redisHost+redisPassword+redisPort);
+  @Bean
+  RedisProvider getRedisProvider() {
+    if (redisProvider != null)
+      return redisProvider;
+    else
+      return new RedisProvider(redisHost, redisPort, redisPassword);
+  }
 
-        return new CacheDao(getRedisProvider().getJedis());
-    }
+  @Bean
+  EntityDao getEntityDao() {
+    return new EntityDao(getMongo(), entityDb);
+  }
 
-    @Bean
-    RedisProvider getRedisProvider(){
-        return new RedisProvider(redisHost, redisPort, redisPassword);
-    }
+  @Bean
+  VocabularyDao getVocabularyDao() {
+    return new VocabularyDao(getMongo(), vocabularyDb);
+  }
 
-    @Bean
-    EntityDao getEntityDao(){
-        return new EntityDao(getMongo(), entityDb);
-    }
+  @Bean
+  MongoDereferenceService getMongoDereferenceService() {
+    return new MongoDereferenceService();
+  }
 
-    @Bean
-    VocabularyDao getVocabularyDao(){
-        return new VocabularyDao(getMongo(), vocabularyDb);
-    }
+  @Bean
+  MongoDereferencingManagementService getMongoDereferencingManagementService() {
+    return new MongoDereferencingManagementService();
+  }
 
-    @Bean
-    MongoDereferenceService getMongoDereferenceService(){
-        return new MongoDereferenceService();
-    }
-    @Bean
-    MongoDereferencingManagementService getMongoDereferencingManagementService(){
-        return new MongoDereferencingManagementService();
-    }
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.regex("/.*"))
+        .build()
+        .apiInfo(apiInfo());
+  }
 
-    @Bean
-    public Docket api(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/.*"))
-                .build()
-                .apiInfo(apiInfo());
-    }
-
-    private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-                "Dereference REST API",
-                "Dereference REST API for Europeana",
-                "v1",
-                "API TOS",
-                "development@europeana.eu",
-                "EUPL Licence v1.1",
-                ""
-        );
-        return apiInfo;
-    }
+  private ApiInfo apiInfo() {
+    ApiInfo apiInfo = new ApiInfo(
+        "Dereference REST API",
+        "Dereference REST API for Europeana",
+        "v1",
+        "API TOS",
+        "development@europeana.eu",
+        "EUPL Licence v1.1",
+        ""
+    );
+    return apiInfo;
+  }
 }

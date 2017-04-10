@@ -19,7 +19,7 @@ package eu.europeana.enrichment.rest.config;
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.service.RedisProvider;
+import eu.europeana.metis.RedisProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

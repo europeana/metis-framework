@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.enrichment.service;
+package eu.europeana.metis;
 
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;

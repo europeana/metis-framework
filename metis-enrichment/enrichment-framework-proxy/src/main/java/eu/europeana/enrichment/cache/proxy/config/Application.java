@@ -17,7 +17,7 @@
 package eu.europeana.enrichment.cache.proxy.config;
 
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.service.RedisProvider;
+import eu.europeana.metis.RedisProvider;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
