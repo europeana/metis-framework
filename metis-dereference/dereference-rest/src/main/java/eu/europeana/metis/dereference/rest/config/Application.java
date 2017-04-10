@@ -78,8 +78,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String mongoUsername;
   @Value("${mongo.password}")
   private String mongoPassword;
-  @Value("${mongo.db}")
-  private String mongoDb;
   @Value("${entity.db}")
   private String entityDb;
   @Value("${vocabulary.db}")
@@ -111,8 +109,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new EnrichmentDriver(enrichmentUrl);
   }
 
-  @Bean
-  MongoClient getMongo() {
+  MongoClient getEntityMongoClient() {
+    return getMongoClient(entityDb);
+  }
+
+  MongoClient getVocabularyMongoClient() {
+    return getMongoClient(vocabularyDb);
+  }
+
+  private MongoClient getMongoClient(String mongoDb) {
     if (mongoClientURI != null) {
       return new MongoClient(mongoClientURI);
     } else {
@@ -166,12 +171,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   EntityDao getEntityDao() {
-    return new EntityDao(getMongo(), entityDb);
+    return new EntityDao(getEntityMongoClient(), entityDb);
   }
 
   @Bean
   VocabularyDao getVocabularyDao() {
-    return new VocabularyDao(getMongo(), vocabularyDb);
+    return new VocabularyDao(getVocabularyMongoClient(), vocabularyDb);
   }
 
   @Bean
