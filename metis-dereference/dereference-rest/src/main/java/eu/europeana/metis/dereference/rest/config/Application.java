@@ -29,16 +29,15 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.utils.RedisProvider;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.annotation.Order;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -51,8 +50,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.List;
-
 /**
  * Spring configuration class
  * Created by ymamakis on 12-2-16.
@@ -62,7 +59,7 @@ import java.util.List;
 @PropertySource("classpath:dereferencing.properties")
 @EnableWebMvc
 @EnableSwagger2
-public class Application extends WebMvcConfigurerAdapter {
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
     Logger logger = Logger.getLogger(Application.class);
 
@@ -72,20 +69,44 @@ public class Application extends WebMvcConfigurerAdapter {
     private static int redisPort;
     @Value("${redis.password}")
     private static String redisPassword;
-    @Value("${entity.db}")
-    private static String enDb;
-
-    @Value("${vocabulary.db}")
-    private static String vocDb;
-
-    @Value("${enrichment.path}")
-    private static String enrichmentPath;
     @Value("${mongoUri}")
     private static String mongoUri;
+    @Value("${entity.db}")
+    private static String entityDb;
+    @Value("${vocabulary.db}")
+    private static String vocabularyDb;
+
+    @Value("${enrichment.url}")
+    private static String enrichmentUrl;
+
+    /**
+     * Used for overwriting properties if cloud foundry environment is used
+     * @throws Exception
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        if (System.getenv().get("VCAP_SERVICES") != null) {
+            JsonParser parser = new JsonParser();
+            JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
+            JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
+
+            JsonObject credentials = element.getAsJsonObject("credentials");
+            JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
+            mongoUri= uri.getAsString();
+            String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
+            vocabularyDb = db;
+            entityDb = db;
+            JsonObject redisElement = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
+            JsonObject redisCredentials = redisElement.getAsJsonObject("credentials");
+            redisHost = redisCredentials.get("hostname").getAsString();
+            redisPort = Integer.parseInt(redisCredentials.get("port").getAsString());
+            redisPassword= redisCredentials.get("password").getAsString();
+        }
+    }
 
     @Bean
     EnrichmentDriver getEnrichmentDriver(){
-        return new EnrichmentDriver(enrichmentPath);
+        return new EnrichmentDriver(enrichmentUrl);
     }
 
     @Bean
@@ -107,35 +128,6 @@ public class Application extends WebMvcConfigurerAdapter {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-
-    @Bean
-    @Order(1)
-    public static PropertySourcesPlaceholderConfigurer properties() {
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        if(System.getenv().get("VCAP_SERVICES")==null) {
-            propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("dereferencing.properties"));
-        } else {
-            JsonParser parser = new JsonParser();
-            JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-            JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
-
-            JsonObject credentials = element.getAsJsonObject("credentials");
-            JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
-            mongoUri= uri.getAsString();
-            String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
-            vocDb = db;
-            enDb = db;
-            enrichmentPath =System.getenv().get("enrichmentpath");
-            JsonObject redisElement = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
-            JsonObject redisCredentials = redisElement.getAsJsonObject("credentials");
-            redisHost = redisCredentials.get("hostname").getAsString();
-            redisPort = Integer.parseInt(redisCredentials.get("port").getAsString());
-            redisPassword= redisCredentials.get("password").getAsString();
-
-        }
-
-        return propertySourcesPlaceholderConfigurer;
-    }
     @Bean
     RdfRetriever getRdfRetriever(){
         return new RdfRetriever();
@@ -154,12 +146,12 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @Bean
     EntityDao getEntityDao(){
-        return new EntityDao(getMongo(),enDb);
+        return new EntityDao(getMongo(), entityDb);
     }
 
     @Bean
     VocabularyDao getVocabularyDao(){
-        return new VocabularyDao(getMongo(),vocDb);
+        return new VocabularyDao(getMongo(), vocabularyDb);
     }
 
     @Bean
