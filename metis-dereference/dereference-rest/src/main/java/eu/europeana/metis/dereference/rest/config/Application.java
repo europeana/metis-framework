@@ -93,9 +93,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws Exception {
-    if (System.getenv().get("VCAP_SERVICES") != null) {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-          System.getenv().get("VCAP_SERVICES"));
+          vcapServicesJson);
 
       mongoClientURI = vcapServices.getMongoClientUriFromService();
       vocabularyDb = mongoClientURI.getDatabase();

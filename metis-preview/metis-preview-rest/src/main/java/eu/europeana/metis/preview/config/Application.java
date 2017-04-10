@@ -58,139 +58,147 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Configuration file for Spring MVC
  */
-@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest","eu.europeana.metis.preview.exceptions.handler"})
+@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest",
+    "eu.europeana.metis.preview.exceptions.handler"})
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
 @Configuration
 @EnableScheduling
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
-    @Value("${mongo.host}")
-    private String mongoHost;
-    @Value("${mongo.port}")
-    private String mongoPort;
-    @Value("${mongo.username}")
-    private String mongoUsername;
-    @Value("${mongo.password}")
-    private String mongoPassword;
-    @Value("${mongo.db}")
-    private String mongoDb;
-    @Value("${preview.portal.url}")
-    private String previewPortalUrl;
-    @Value("${solr.search.url}")
-    private String solrSearchUrl;
 
-    /**
-     * Used for overwriting properties if cloud foundry environment is used
-     * @throws Exception
-     */
-    @Override
-    public void afterPropertiesSet() throws Exception {
-        if (System.getenv().get("VCAP_SERVICES") != null) {
-        }
-    }
+  @Value("${mongo.host}")
+  private String mongoHost;
+  @Value("${mongo.port}")
+  private String mongoPort;
+  @Value("${mongo.username}")
+  private String mongoUsername;
+  @Value("${mongo.password}")
+  private String mongoPassword;
+  @Value("${mongo.db}")
+  private String mongoDb;
+  @Value("${preview.portal.url}")
+  private String previewPortalUrl;
+  @Value("${solr.search.url}")
+  private String solrSearchUrl;
 
-    @Bean
-    PreviewService previewService(){
-        try {
-            return new PreviewService(previewPortalUrl);
-        } catch (JiBXException e) {
-            e.printStackTrace();
-        }
-        return null;
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
     }
+  }
 
-    @Bean
-    RecordDao recordDao(){
-        return new RecordDao();
+  @Bean
+  PreviewService previewService() {
+    try {
+      return new PreviewService(previewPortalUrl);
+    } catch (JiBXException e) {
+      e.printStackTrace();
     }
-    @Bean
-     RestClient restClient(){
-        return new RestClient();
-    }
+    return null;
+  }
 
-    @Bean
-     ValidationClient validationClient(){
-        return new ValidationClient();
-    }
+  @Bean
+  RecordDao recordDao() {
+    return new RecordDao();
+  }
 
-    @Bean
-    @DependsOn("edmMongoServer")
-     FullBeanHandler fullBeanHandler(){
-        return new FullBeanHandler(edmMongoServer());
-    }
+  @Bean
+  RestClient restClient() {
+    return new RestClient();
+  }
 
-    @Bean(name = "edmMongoServer")
-     EdmMongoServer edmMongoServer(){
-        try {
-            ServerAddress address = new ServerAddress(mongoHost,Integer.parseInt(mongoPort));
-            MongoCredential mongoCredential;
-            MongoClient mongoClient;
-            if(StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
-                mongoCredential = MongoCredential
-                    .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
-                mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
-            }
-            else
-                mongoClient = new MongoClient(address);
+  @Bean
+  ValidationClient validationClient() {
+    return new ValidationClient();
+  }
 
-            return new EdmMongoServerImpl(mongoClient, mongoDb);
-        }  catch (MongoDBException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+  @Bean
+  @DependsOn("edmMongoServer")
+  FullBeanHandler fullBeanHandler() {
+    return new FullBeanHandler(edmMongoServer());
+  }
 
-    @Bean
-    @DependsOn(value = "solrServer")
-     SolrDocumentHandler solrDocumentHandler(){
-        return new SolrDocumentHandler(solrServer());
-    }
+  @Bean(name = "edmMongoServer")
+  EdmMongoServer edmMongoServer() {
+    try {
+      ServerAddress address = new ServerAddress(mongoHost, Integer.parseInt(mongoPort));
+      MongoCredential mongoCredential;
+      MongoClient mongoClient;
+      if (StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
+        mongoCredential = MongoCredential
+            .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
+        mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
+      } else {
+        mongoClient = new MongoClient(address);
+      }
 
-    @Bean(name = "solrServer")
-     SolrServer solrServer(){
-        HttpSolrServer server = new HttpSolrServer(solrSearchUrl);
-        return server;
+      return new EdmMongoServerImpl(mongoClient, mongoDb);
+    } catch (MongoDBException e) {
+      e.printStackTrace();
     }
-    @Override
-    public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
-        converters.add(new MappingJackson2HttpMessageConverter());
+    return null;
+  }
 
-        super.configureMessageConverters(converters);
-    }
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
-        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
-    }
-    @Bean
-    public CommonsMultipartResolver multipartResolver(){
-        CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-        commonsMultipartResolver.setDefaultEncoding("utf-8");
-        commonsMultipartResolver.setMaxUploadSize(50000000);
-        return commonsMultipartResolver;
-    }
+  @Bean
+  @DependsOn(value = "solrServer")
+  SolrDocumentHandler solrDocumentHandler() {
+    return new SolrDocumentHandler(solrServer());
+  }
 
-    @Bean
-    public Docket api(){
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.regex("/.*"))
-                .build()
-                .apiInfo(apiInfo());
-    }
+  @Bean(name = "solrServer")
+  SolrServer solrServer() {
+    HttpSolrServer server = new HttpSolrServer(solrSearchUrl);
+    return server;
+  }
 
-    private ApiInfo apiInfo() {
-        ApiInfo apiInfo = new ApiInfo(
-                "Preview REST API",
-                "Preview REST API for Europeana",
-                "v1",
-                "API TOS",
-                "development@europeana.eu",
-                "EUPL Licence v1.1",
-                ""
-        );
-        return apiInfo;
-    }
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.add(new MappingJackson2HttpMessageConverter());
+
+    super.configureMessageConverters(converters);
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean
+  public CommonsMultipartResolver multipartResolver() {
+    CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+    commonsMultipartResolver.setDefaultEncoding("utf-8");
+    commonsMultipartResolver.setMaxUploadSize(50000000);
+    return commonsMultipartResolver;
+  }
+
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.regex("/.*"))
+        .build()
+        .apiInfo(apiInfo());
+  }
+
+  private ApiInfo apiInfo() {
+    ApiInfo apiInfo = new ApiInfo(
+        "Preview REST API",
+        "Preview REST API for Europeana",
+        "v1",
+        "API TOS",
+        "development@europeana.eu",
+        "EUPL Licence v1.1",
+        ""
+    );
+    return apiInfo;
+  }
 }

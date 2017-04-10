@@ -18,6 +18,8 @@ package eu.europeana.enrichment.cache.proxy.config;
 
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.metis.RedisProvider;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -31,34 +33,46 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan (basePackages = {"eu.europeana.enrichment.cache.proxy"})
+@ComponentScan(basePackages = {"eu.europeana.enrichment.cache.proxy"})
 @PropertySource("classpath:enrichment.proxy.properties")
 @EnableWebMvc
-public class Application extends WebMvcConfigurerAdapter {
-    @Value("${enrichment.mongo}")
-    private  String enrichmentMongo;
-    @Value("${redis.host}")
-    private  String redisHost;
-    @Value("${redis.port}")
-    private  int redisPort;
-    //@Value("${redis.password}")
-    private  String redisPassword;
-    //@Value("${memcache.host}")
-    private  String memcacheHost;
-    //@Value("${memcache.port}")
-    private  int memcachePort;
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
-    RedisProvider getRedisProvider(){
-        return new RedisProvider(redisHost, redisPort, redisPassword);
+  @Value("${enrichment.mongo}")
+  private String enrichmentMongo;
+  @Value("${redis.host}")
+  private String redisHost;
+  @Value("${redis.port}")
+  private int redisPort;
+  //@Value("${redis.password}")
+  private String redisPassword;
+  //@Value("${memcache.host}")
+  private String memcacheHost;
+  //@Value("${memcache.port}")
+  private int memcachePort;
+
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
     }
-   // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
-    @Bean(name = "redisInternalEnricher")
-    RedisInternalEnricher getRedisInternalEnricher(){
-        return new RedisInternalEnricher(enrichmentMongo,getRedisProvider(), true);
-    }
-    //@Bean(name = "memcachedInternalEnricher")
-    //MemcachedInternalEnricher getMemcachedInternalEnricher(){
-    //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
-    //}
+  }
+
+  RedisProvider getRedisProvider() {
+    return new RedisProvider(redisHost, redisPort, redisPassword);
+  }
+
+  // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
+  @Bean(name = "redisInternalEnricher")
+  RedisInternalEnricher getRedisInternalEnricher() {
+    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), true);
+  }
+  //@Bean(name = "memcachedInternalEnricher")
+  //MemcachedInternalEnricher getMemcachedInternalEnricher(){
+  //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
+  //}
 
 }
