@@ -24,19 +24,19 @@ public class Footer {
 		footer.put("linklist1", linklist1);
 		
 		Map<String, Object> linklist2 = new HashMap<>();
-		linklist1.put("title", linkListTitle2);
-		linklist1.put("items", MetisMappingUtil.buildSimplePairs(linkList2, "text", "url"));
+		linklist2.put("title", linkListTitle2);
+		linklist2.put("items", MetisMappingUtil.buildSimplePairs(linkList2, "text", "url"));
 		footer.put("linklist2", linklist2);
 		
 		Map<String, Object> linklist3 = new HashMap<>();
-		linklist1.put("title", linkListTitle3);
-		linklist1.put("items", MetisMappingUtil.buildSimplePairs(linkList3, "text", "url"));
+		linklist3.put("title", linkListTitle3);
+		linklist3.put("items", MetisMappingUtil.buildSimplePairs(linkList3, "text", "url"));
 		footer.put("linklist3", linklist3);
 		
 		footer.put("social", social);
 		
 		Map<String, Object> subfooter = new HashMap<>();
-		linklist1.put("items", MetisMappingUtil.buildSimplePairs(subFooter, "text", "url"));
+		subfooter.put("items", MetisMappingUtil.buildSimplePairs(subFooter, "text", "url"));
 		footer.put("subfooter", subfooter);
 		
 		this.navigation.put("footer", footer);

@@ -163,12 +163,13 @@ public class MetisLandingPage extends MetisPage {
 		hero_config.put("brand_position", "brand-bottomleft");
 		hero_config.put("brand_opacity", "brand-opacity100");
 		hero_config.put("attribution_text", "Cyclopides metis L., Cyclopides qua... Museum Fur Naturkunde Berlin");
-		hero_config.put("attribution_url", "http://europeana.eu");
-		hero_config.put("license_CC-ND-NC-SA", "true");
+		hero_config.put("attribution_url", "http://www.europeana.eu/portal/fr/record/11622/_MFN_DRAWERS_MFN_GERMANY_http___coll_mfn_berlin_de_u_MFNB_Lep_Hesperiidae_D146.html");
+		hero_config.put("license_CC0", "true");
+//		hero_config.put("license_public", "false");
 		
 		Map<String, String> banner = new HashMap<>();
 		banner.put("title","What can you do with Metis?");
-		banner.put("text", "Ever wondered how to automagicsally digest huge amounts of data with the push of a button?");
+		banner.put("text", "Ever wondered how to automatically digest huge amounts of data with the push of a button?");
 		banner.put("info_link", "Learn more about Metis");
 		banner.put("info_url", "#");
 		banner.put("cta_url", "#");

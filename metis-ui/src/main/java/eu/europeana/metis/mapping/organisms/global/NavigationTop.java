@@ -1,8 +1,11 @@
 package eu.europeana.metis.mapping.organisms.global;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import eu.europeana.metis.mapping.util.MetisMappingUtil;
 
 /**
  * Java model representing a navigation bar component: "/organisms/global/navigation-top-accessible".
@@ -74,15 +77,18 @@ public class NavigationTop {
 		utility_nav.put("menu_id", "settings-menu");
 		utility_nav.put("style_modifier", "caret-right");
 		utility_nav.put("tabindex", "6");
-		Map<String, Object> utility_nav_items = new HashMap<>();
-		utility_nav_items.put("url", "#");
-		utility_nav_items.put("text", "Sign In");
-		utility_nav_items.put("fontawesome", true);
-		utility_nav_items.put("icon", "user");
+		List<Map<String, Object>> utility_nav_items = new ArrayList<>();
+		Map<String, Object> utility_nav_title = new HashMap<>();
+		utility_nav_title.put("url", "#");
+		utility_nav_title.put("text", "Sign In");
+		utility_nav_title.put("fontawesome", true);
+		utility_nav_title.put("icon", "users");
 		
 		Map<String, List<NavigationTopMenu>> submenu = new HashMap<>();
 		submenu.put("items", utilityItems);
-		utility_nav_items.put("submenu", submenu);
+		utility_nav_title.put("submenu", submenu);
+		
+		utility_nav_items.add(utility_nav_title);
 		utility_nav.put("items", utility_nav_items);
 		this.global.put("utility_nav", utility_nav);
 	}
