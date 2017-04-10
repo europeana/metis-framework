@@ -73,6 +73,11 @@ public abstract class AbstractMetisPage {
 		modelMap.put(js_vars, MetisMappingUtil.buildSimplePairs(jsVars, "name", "value"));
 		modelMap.put(bread_crumbs, MetisMappingUtil.buildSimplePairs(breadcrumbs, "text", "url"));
 		
+		//newsletter
+		Map<String, Boolean> page_config = new HashMap<>();
+		page_config.put("newsletter", true);
+		modelMap.put("page_config", page_config);
+		
 		//"beta" label
 		Map<String, String> versions = new HashMap<>();
 		versions.put("is_alpha", "false");
@@ -101,14 +106,26 @@ public abstract class AbstractMetisPage {
 		modelMap.put(metis_header, navigationMap);
 		
 		//our sites
-		Map<String, String> ourSites = new HashMap<>();
+		Map<String, Object> ourSites = new HashMap<>();
 //		ourSites.put("our-sites", "Our Sites");
 		ourSites.put("mission",
 				"We transform the world with culture! We want to build on Europe’s "
 				+ "rich heritage and make it easier for people to use, whether for work, "
 				+ "for learning or just for fun.");
 		ourSites.put("mission-title", "Our mission");
-		Map<String, Map<String, String>> i18nMap = new HashMap<>();
+		
+		//newsletter
+		Map<String, String> newsletter = new HashMap<>();
+		newsletter.put("signup", "Sign up for our newsletter");
+		newsletter.put("submit-alt", "Subscribe");
+		newsletter.put("choose-language", "Choose a language");
+		newsletter.put("email-address-invalid", "Please enter a valid email address.");
+		newsletter.put("email-address-required", "Please enter your email address.");
+		newsletter.put("language-required", "Please choose a language for your newsletter.");
+		ourSites.put("newsletter", newsletter);
+		ourSites.put("find-us-elsewhere", "Find us elsewhere");
+		
+		Map<String, Map<String, Object>> i18nMap = new HashMap<>();
 		i18nMap.put("global", ourSites);
 		modelMap.put(i18n, i18nMap);
 		

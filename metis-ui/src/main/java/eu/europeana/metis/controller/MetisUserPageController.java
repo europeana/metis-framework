@@ -243,12 +243,11 @@ public class MetisUserPageController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/profile", method=RequestMethod.PUT, params="userId")
-    public ModelAndView requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
-    	//TODO
+    @RequestMapping(value = "/profile", method=RequestMethod.POST, params="userId")
+    public void requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
     	model.addAttribute("user", user);
-    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
+//    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+//    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     	UserDTO userDTO = userService.getUser(user.getEmail());
     	if (user != null && userDTO != null) {
     		//update user in LDAP
@@ -274,7 +273,7 @@ public class MetisUserPageController {
     		dbUser.setOrganizationRoles(resolveUserOrganizationRoles(user, dbUser));
     		userDTO.setDbUser(dbUser);
     	}
-    	return null;
+//    	return null;
     }
     
     /**
