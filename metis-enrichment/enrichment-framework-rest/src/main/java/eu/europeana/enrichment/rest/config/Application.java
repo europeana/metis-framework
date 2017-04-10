@@ -29,6 +29,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
@@ -99,6 +100,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   EnrichmentProxyClient getEnrichmentProxyClient() {
     return new EnrichmentProxyClient(enrichmentProxyUrl);
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
   }
 
   @Bean

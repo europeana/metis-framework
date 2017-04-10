@@ -25,6 +25,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -69,6 +70,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
     return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), true);
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
   }
   //@Bean(name = "memcachedInternalEnricher")
   //MemcachedInternalEnricher getMemcachedInternalEnricher(){
