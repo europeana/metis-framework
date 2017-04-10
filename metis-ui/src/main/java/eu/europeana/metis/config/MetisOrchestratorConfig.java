@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
  * The configuration represents the communication of Metis with Europeana CMS (currently with Zoho).
@@ -23,5 +24,10 @@ public class MetisOrchestratorConfig {
 	@Bean
 	public DsOrgRestClient dsOrgRestClient() {
 		return new DsOrgRestClient(hostURL, apikey);
+	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
 	}
 }

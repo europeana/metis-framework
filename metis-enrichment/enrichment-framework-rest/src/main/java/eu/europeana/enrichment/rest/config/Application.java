@@ -19,7 +19,7 @@ package eu.europeana.enrichment.rest.config;
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.metis.RedisProvider;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;

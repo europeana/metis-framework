@@ -1,7 +1,7 @@
 package eu.europeana.metis.utils;
 
 import com.mongodb.MongoClientURI;
-import eu.europeana.metis.RedisProvider;
+import eu.europeana.metis.cache.redis.RedisProvider;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)

@@ -27,7 +27,7 @@ import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.framework.dataset.WorkflowStatus;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.DatasetService;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ import org.springframework.test.util.ReflectionTestUtils;
  * Created by ymamakis on 2/19/16.
  */
 public class TestDatasetService {
-    private MongoProvider mongoProvider;
+    private MorphiaDatastoreProvider morphiaDatastoreProvider;
     private OrganizationDao organizationDao;
     private DatasetDao datasetDao;
     private EcloudDatasetDao ecloudDatasetDao;
@@ -57,12 +57,12 @@ public class TestDatasetService {
 
     @Before
     public void prepare(){
-        mongoProvider = Mockito.mock(MongoProvider.class);
+        morphiaDatastoreProvider = Mockito.mock(MorphiaDatastoreProvider.class);
         organizationDao = Mockito.mock(OrganizationDao.class);
         datasetDao = Mockito.mock(DatasetDao.class);
         ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
-        ReflectionTestUtils.setField(organizationDao,"provider",mongoProvider);
-        ReflectionTestUtils.setField(datasetDao,"provider",mongoProvider);
+        ReflectionTestUtils.setField(organizationDao,"provider", morphiaDatastoreProvider);
+        ReflectionTestUtils.setField(datasetDao,"provider", morphiaDatastoreProvider);
         service = new DatasetService();
         datastore = Mockito.mock(Datastore.class);
         ReflectionTestUtils.setField(service,"orgDao",organizationDao);
@@ -108,7 +108,7 @@ public class TestDatasetService {
     @Test
     public void testCreate(){
 
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
             @Override
@@ -128,7 +128,7 @@ public class TestDatasetService {
 
     @Test
     public  void testDelete(){
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
             @Override
@@ -148,7 +148,7 @@ public class TestDatasetService {
 
     @Test
     public  void testUpdate(){
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
             @Override
@@ -162,7 +162,7 @@ public class TestDatasetService {
 
     @Test
     public  void testRetrieve(){
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.when(datasetDao.getByName("name")).thenReturn(ds);
 

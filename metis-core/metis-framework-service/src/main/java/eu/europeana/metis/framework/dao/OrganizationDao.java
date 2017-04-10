@@ -20,7 +20,7 @@ import eu.europeana.metis.framework.common.Country;
 import eu.europeana.metis.framework.common.Role;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
-import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.framework.organization.Organization;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
 
   @Autowired
-  private MongoProvider provider;
+  private MorphiaDatastoreProvider provider;
 
   @Override
   public String create(Organization organization) {

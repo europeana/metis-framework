@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis;
+package eu.europeana.metis.cache.redis;
 
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
@@ -31,10 +31,10 @@ import redis.clients.jedis.JedisPoolConfig;
 @Component
 public class RedisProvider {
 
-	JedisPool pool;
-	String host;
-	int port;
-	String password;
+	private JedisPool pool;
+	private String host;
+	private int port;
+	private String password;
 
 	public RedisProvider(String host, int port, String password) {
 		this.host = host;

@@ -9,5 +9,3 @@ applications:
   services:
     - annotation-test-mongo
     - radio-test-redis
-  env:
-    SPRING_PROFILES_ACTIVE: development

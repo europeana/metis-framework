@@ -3,7 +3,7 @@ package eu.europeana.metis.workflow.qa;
 import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.framework.workflow.CloudStatistics;
 import eu.europeana.metis.framework.workflow.WorkflowParameters;
-import eu.europeana.metis.framework.cache.JedisProvider;
+import eu.europeana.metis.cache.redis.JedisProviderUtils;
 import eu.europeana.metis.workflow.qa.model.MeasuringResponse;
 import eu.europeana.metis.workflow.qa.model.QAParams;
 import eu.europeana.metis.workflow.qa.model.QAStatistics;
@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.logging.Logger;
 
 /**
  * Created by ymamakis on 11/22/16.
@@ -34,7 +33,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     private static List<String> activeStatistics = new ArrayList<>();
 
     @Autowired
-    private JedisProvider cache;
+    private JedisProviderUtils cache;
     public QAWorkflow(){
         List<String> endpoint = new ArrayList<>();
         endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");

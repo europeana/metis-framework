@@ -21,7 +21,7 @@ import com.mongodb.MongoClientURI;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import eu.europeana.enrichment.rest.client.EnrichmentDriver;
-import eu.europeana.metis.RedisProvider;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import eu.europeana.metis.dereference.service.dao.CacheDao;

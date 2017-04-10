@@ -1,7 +1,7 @@
 package eu.europeana.metis.framework.dao;
 
 import eu.europeana.metis.framework.api.MetisKey;
-import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
@@ -18,7 +18,7 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
     private final Logger LOGGER = LoggerFactory.getLogger(AuthorizationDao.class);
 
     @Autowired
-    private MongoProvider provider;
+    private MorphiaDatastoreProvider provider;
     @Override
     public String create(MetisKey metisKey) {
         Key<MetisKey> metisKeyKey = provider.getDatastore().save(metisKey);

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.mongodb.MongoClientURI;
-import eu.europeana.metis.RedisProvider;
+import eu.europeana.metis.cache.redis.RedisProvider;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
