@@ -59,7 +59,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.mongoDb}")
   private String enrichmentMongo;
-  @Value(("${enrichment.proxy.url}"))
+  @Value("${enrichment.proxy.url}")
   private String enrichmentProxyUrl;
 
   private RedisProvider redisProvider;
