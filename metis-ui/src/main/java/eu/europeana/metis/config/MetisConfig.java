@@ -1,9 +1,7 @@
 package eu.europeana.metis.config;
 
-import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.service.ExampleMappingService;
 import eu.europeana.metis.service.MappingService;
@@ -15,7 +13,6 @@ import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import java.util.Arrays;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,8 +32,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @PropertySource("classpath:mongo.properties")
 public class MetisConfig implements InitializingBean {
   //Mongo
-  @Value("${mongo.host}")
-  private String mongoHost;
+  @Value("${mongo.hosts}")
+  private String mongoHosts;
   @Value("${mongo.port}")
   private int mongoPort;
   @Value("${mongo.username}")
@@ -46,8 +43,8 @@ public class MetisConfig implements InitializingBean {
   @Value("${mongo.db}")
   private String mongoDb;
 
-  private MongoClientURI mongoClientURI;
-  private MorphiaDatastoreProvider provider;
+  private MongoProviderImpl mongoProvider;
+  private MorphiaDatastoreProvider moprhiaDatastoreProvider;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -58,8 +55,25 @@ public class MetisConfig implements InitializingBean {
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
           vcapServicesJson);
-      mongoClientURI = vcapServices.getMongoClientUriFromService();
+
+      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
+      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+      mongoPort = Integer
+          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+      mongoUsername = mongoClientURI.getUsername();
+      mongoPassword = String.valueOf(mongoClientURI.getPassword());
+      mongoDb = mongoClientURI.getDatabase();
     }
+
+    String[] mongoHostsArray = mongoHosts.split(",");
+    StringBuilder mongoPorts = new StringBuilder();
+    for (int i = 0; i < mongoHostsArray.length; i++) {
+      mongoPorts.append(mongoPort + ",");
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoPassword);
   }
 
   @Bean
@@ -70,35 +84,19 @@ public class MetisConfig implements InitializingBean {
   @Bean
   @DependsOn(value = "morphiaDatastoreProvider")
   public DBUserDao dbUserDao() {
-    return new DBUserDao(DBUser.class, provider.getDatastore());
+    return new DBUserDao(DBUser.class, moprhiaDatastoreProvider.getDatastore());
   }
 
   @Bean
   @DependsOn(value = "morphiaDatastoreProvider")
   public RoleRequestDao roleRequestDao() {
-    return new RoleRequestDao(RoleRequest.class, provider.getDatastore());
+    return new RoleRequestDao(RoleRequest.class, moprhiaDatastoreProvider.getDatastore());
   }
 
   @Bean(name = "morphiaDatastoreProvider")
   MorphiaDatastoreProvider getMongoProvider() {
-    if (mongoClientURI != null) {
-      provider = new MorphiaDatastoreProvider(new MongoClient(mongoClientURI),
-          mongoClientURI.getDatabase());
-      return provider;
-    } else {
-      ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-      MongoCredential mongoCredential;
-      MongoClient mongoClient;
-      if (StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
-        mongoCredential = MongoCredential
-            .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
-        mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
-      } else {
-        mongoClient = new MongoClient(address);
-      }
-      provider = new MorphiaDatastoreProvider(mongoClient, mongoDb);
-      return provider;
-    }
+      moprhiaDatastoreProvider = new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+      return moprhiaDatastoreProvider;
   }
 
   @Bean

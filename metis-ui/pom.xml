@@ -275,5 +275,10 @@
       <artifactId>jackson-annotations</artifactId>
       <version>2.8.6</version>
     </dependency>
+    <dependency>
+      <groupId>eu.europeana.corelib</groupId>
+      <artifactId>corelib-common-storage</artifactId>
+      <version>2.6.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 </project>
