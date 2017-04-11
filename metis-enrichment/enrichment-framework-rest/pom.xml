@@ -62,7 +62,6 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-storage</artifactId>
-            <version>${version.corelib}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.solr</groupId>

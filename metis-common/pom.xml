@@ -40,7 +40,6 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-edm-definitions</artifactId>
-            <version>${version.corelib}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>

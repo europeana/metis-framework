@@ -36,7 +36,6 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-lookup</artifactId>
-            <version>${version.corelib}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>mongo-java-driver</artifactId>

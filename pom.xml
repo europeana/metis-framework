@@ -112,6 +112,36 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-storage</artifactId>
+        <version>${version.corelib}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-common-storage</artifactId>
+        <version>${version.corelib}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-definitions</artifactId>
+        <version>${version.corelib}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-edm-definitions</artifactId>
+        <version>${version.corelib}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-utils</artifactId>
+        <version>${version.corelib}</version>
+      </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-lookup</artifactId>
+        <version>${version.corelib}</version>
+      </dependency>
+      <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>${version.junit}</version>
