@@ -17,11 +17,9 @@
 package eu.europeana.metis.framework.rest.config;
 
 
-import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.metis.cache.redis.JedisProviderUtils;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.framework.api.MetisKey;
@@ -48,7 +46,6 @@ import eu.europeana.metis.mail.config.MailConfig;
 import eu.europeana.metis.search.config.SearchApplication;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
@@ -105,8 +102,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String redisPassword;
 
   //Mongo
-  @Value("${mongo.host}")
-  private String mongoHost;
+  @Value("${mongo.hosts}")
+  private String mongoHosts;
   @Value("${mongo.port}")
   private int mongoPort;
   @Value("${mongo.username}")
@@ -125,7 +122,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String ecloudPassword;
 
   private MorphiaDatastoreProvider provider;
-  private MongoClientURI mongoClientURI;
+  private MongoProviderImpl mongoProvider;
   private RedisProvider redisProvider;
 
   @Autowired
@@ -142,31 +139,36 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
           vcapServicesJson);
 
-      mongoClientURI = vcapServices.getMongoClientUriFromService();
+      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
+      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+      mongoPort = Integer
+          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+      mongoUsername = mongoClientURI.getUsername();
+      mongoPassword = String.valueOf(mongoClientURI.getPassword());
+      mongoDb = mongoClientURI.getDatabase();
+
       redisProvider = vcapServices.getRedisProviderFromService();
     }
+
+    String[] mongoHostsArray = mongoHosts.split(",");
+    StringBuilder mongoPorts = new StringBuilder();
+    for (int i = 0; i < mongoHostsArray.length; i++) {
+      mongoPorts.append(mongoPort + ",");
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoPassword);
+
+    if(redisProvider == null)
+      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
   }
+
 
   @Bean(name = "morphiaDatastoreProvider")
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    if (mongoClientURI != null) {
-      provider = new MorphiaDatastoreProvider(new MongoClient(mongoClientURI),
-          mongoClientURI.getDatabase());
-      return provider;
-    } else {
-      ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-      MongoCredential mongoCredential;
-      MongoClient mongoClient;
-      if (StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
-        mongoCredential = MongoCredential
-            .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
-        mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
-      } else {
-        mongoClient = new MongoClient(address);
-      }
-      provider = new MorphiaDatastoreProvider(mongoClient, mongoDb);
-      return provider;
-    }
+    provider = new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+    return provider;
   }
 
   @Bean
@@ -177,12 +179,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean(name = "jedisProviderUtils")
   JedisProviderUtils getJedisProviderUtils() {
-    if (redisProvider != null) {
       return new JedisProviderUtils(redisProvider.getJedis());
-    } else {
-      RedisProvider redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
-      return new JedisProviderUtils(redisProvider.getJedis());
-    }
   }
 
   @Bean

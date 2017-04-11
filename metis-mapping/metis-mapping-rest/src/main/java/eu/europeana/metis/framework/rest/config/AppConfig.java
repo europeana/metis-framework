@@ -94,7 +94,8 @@ public class AppConfig extends WebMvcConfigurerAdapter implements InitializingBe
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
       String mongoHostAndPort = mongoClientURI.getHosts().get(0);
       mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
-      mongoPort = Integer.parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+      mongoPort = Integer
+          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
       mongoUsername = mongoClientURI.getUsername();
       mongoPassword = String.valueOf(mongoClientURI.getPassword());
       mongoDb = mongoClientURI.getDatabase();
@@ -102,10 +103,12 @@ public class AppConfig extends WebMvcConfigurerAdapter implements InitializingBe
 
     String[] mongoHostsArray = mongoHosts.split(",");
     StringBuilder mongoPorts = new StringBuilder();
-    for (int i = 0; i < mongoHostsArray.length; i++)
+    for (int i = 0; i < mongoHostsArray.length; i++) {
       mongoPorts.append(mongoPort + ",");
-    mongoPorts.replace(mongoPorts.lastIndexOf(","),mongoPorts.lastIndexOf(","), "");
-    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername, mongoPassword);
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoPassword);
   }
 
   @Bean

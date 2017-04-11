@@ -75,6 +75,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
           vcapServicesJson);
       redisProvider = vcapServices.getRedisProviderFromService();
     }
+
+    if(redisProvider == null)
+      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Bean
@@ -86,10 +89,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   RedisProvider getRedisProvider() {
-    if (redisProvider != null)
       return redisProvider;
-    else
-      return new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Bean(name = "redisInternalEnricher")

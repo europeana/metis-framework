@@ -18,8 +18,7 @@ package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
-import com.mongodb.MongoCredential;
-import com.mongodb.ServerAddress;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.enrichment.rest.client.EnrichmentDriver;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
@@ -29,7 +28,6 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import java.util.Arrays;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -71,8 +69,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String redisPassword;
 
   //Mongo
-  @Value("${mongo.host}")
-  private String mongoHost;
+  @Value("${mongo.hosts}")
+  private String mongoHosts;
   @Value("${mongo.port}")
   private int mongoPort;
   @Value("${mongo.username}")
@@ -86,7 +84,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.url}")
   private String enrichmentUrl;
-  private MongoClientURI mongoClientURI;
+  private MongoProviderImpl mongoProviderEntity;
+  private MongoProviderImpl mongoProviderVocabulary;
   private RedisProvider redisProvider;
 
   /**
@@ -99,11 +98,32 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
           vcapServicesJson);
 
-      mongoClientURI = vcapServices.getMongoClientUriFromService();
+      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
+      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+      mongoPort = Integer
+          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+      mongoUsername = mongoClientURI.getUsername();
+      mongoPassword = String.valueOf(mongoClientURI.getPassword());
       vocabularyDb = mongoClientURI.getDatabase();
       entityDb = mongoClientURI.getDatabase();
+
       redisProvider = vcapServices.getRedisProviderFromService();
     }
+
+    String[] mongoHostsArray = mongoHosts.split(",");
+    StringBuilder mongoPorts = new StringBuilder();
+    for (int i = 0; i < mongoHostsArray.length; i++) {
+      mongoPorts.append(mongoPort + ",");
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb, mongoUsername,
+        mongoPassword);
+    mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), vocabularyDb, mongoUsername,
+        mongoPassword);
+
+    if(redisProvider == null)
+      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Bean
@@ -112,30 +132,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   MongoClient getEntityMongoClient() {
-    return getMongoClient(entityDb);
+    return mongoProviderEntity.getMongo();
   }
 
   MongoClient getVocabularyMongoClient() {
-    return getMongoClient(vocabularyDb);
-  }
-
-  private MongoClient getMongoClient(String mongoDb) {
-    if (mongoClientURI != null) {
-      return new MongoClient(mongoClientURI);
-    } else {
-      ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-      MongoCredential mongoCredential;
-      MongoClient mongoClient;
-      if (StringUtils.isNotEmpty(mongoUsername) && StringUtils.isNotEmpty(mongoPassword)) {
-        mongoCredential = MongoCredential
-            .createCredential(mongoUsername, mongoDb, mongoPassword.toCharArray());
-        mongoClient = new MongoClient(address, Arrays.asList(mongoCredential));
-      } else {
-        mongoClient = new MongoClient(address);
-      }
-
-      return mongoClient;
-    }
+    return mongoProviderVocabulary.getMongo();
   }
 
   @Override
@@ -165,10 +166,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   RedisProvider getRedisProvider() {
-    if (redisProvider != null)
       return redisProvider;
-    else
-      return new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Bean
