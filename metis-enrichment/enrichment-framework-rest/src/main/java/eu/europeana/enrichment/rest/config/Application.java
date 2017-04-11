@@ -19,13 +19,17 @@ package eu.europeana.enrichment.rest.config;
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.service.RedisProvider;
+import eu.europeana.metis.cache.redis.RedisProvider;
+import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
@@ -45,45 +49,49 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource("classpath:enrichment.properties")
 @EnableWebMvc
 @EnableSwagger2
-public class Application extends WebMvcConfigurerAdapter {
-  @Value("${enrichment.mongoDb}")
-  private String enrichmentMongo;
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
   private int redisPort;
   @Value("${redis.password}")
   private String redisPassword;
-  @Value("${memcache.host}")
-  private String memcacheHost;
-  @Value("${memcache.port}")
-  private int memcachePort;
 
-  @Value(("${enrichment.proxy}"))
-  private String enrichmentProxy;
+  @Value("${enrichment.mongoDb}")
+  private String enrichmentMongo;
+  @Value("${enrichment.proxy.url}")
+  private String enrichmentProxyUrl;
 
-  public Application() {
-    if (System.getenv().get("VCAP_SERVICES") != null) {
+  private RedisProvider redisProvider;
+
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
+      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
+          vcapServicesJson);
+      redisProvider = vcapServices.getRedisProviderFromService();
     }
+
+    if(redisProvider == null)
+      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
   }
 
   @Bean
   @DependsOn("redisInternalEnricher")
   Enricher enricher() {
     Enricher enricher = new Enricher("");
-//    try {
-//      enricher.init("Europeana", enrichmentMongo, "27017");
-//    } catch (Exception e) {
-//      e.printStackTrace();
-//    }
     return enricher;
   }
 
+  @Bean
   RedisProvider getRedisProvider() {
-    return new RedisProvider(redisHost, redisPort, redisPassword);
+      return redisProvider;
   }
 
-  // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
     return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), false);
@@ -91,13 +99,14 @@ public class Application extends WebMvcConfigurerAdapter {
 
   @Bean
   EnrichmentProxyClient getEnrichmentProxyClient() {
-    return new EnrichmentProxyClient(enrichmentProxy);
+    return new EnrichmentProxyClient(enrichmentProxyUrl);
   }
 
-  //@Bean(name = "memcachedInternalEnricher")
-  //MemcachedInternalEnricher getMemcachedInternalEnricher(){
-  //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
-  //}
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
+
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)

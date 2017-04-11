@@ -75,6 +75,10 @@
             <artifactId>metis-common</artifactId>
             <version>${project.version}</version>
         </dependency>
+      <dependency>
+        <groupId>eu.europeana.corelib</groupId>
+        <artifactId>corelib-common-storage</artifactId>
+      </dependency>
     </dependencies>
     <build>
         <plugins>

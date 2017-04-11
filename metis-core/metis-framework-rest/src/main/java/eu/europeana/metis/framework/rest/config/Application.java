@@ -17,12 +17,12 @@
 package eu.europeana.metis.framework.rest.config;
 
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
+import com.mongodb.MongoClientURI;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.metis.cache.redis.JedisProviderUtils;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.framework.api.MetisKey;
-import eu.europeana.metis.framework.cache.JedisProvider;
 import eu.europeana.metis.framework.dao.AuthorizationDao;
 import eu.europeana.metis.framework.dao.DatasetDao;
 import eu.europeana.metis.framework.dao.ExecutionDao;
@@ -30,7 +30,7 @@ import eu.europeana.metis.framework.dao.FailedRecordsDao;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoClient;
 import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
-import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.framework.rest.RestConfig;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.MetisAuthorizationService;
@@ -44,12 +44,12 @@ import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.mail.config.MailConfig;
 import eu.europeana.metis.search.config.SearchApplication;
+import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
-import java.net.UnknownHostException;
 import java.util.List;
-import java.util.logging.Logger;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -59,6 +59,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -90,19 +91,9 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnablePluginRegistries(AbstractMetisWorkflow.class)
 @EnableScheduling
 @Import({MailConfig.class, SearchApplication.class})
-public class Application extends WebMvcConfigurerAdapter {
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
-  @Value("${mongo.host}")
-  private String mongoHost;
-  @Value("${mongo.port}")
-  private String mongoPort;
-  @Value("${mongo.db}")
-  private String db;
-  @Value("${mongo.username}")
-  private String username;
-  @Value("${mongo.pass}")
-  private String password;
-  private MongoProvider provider;
+  //Redis
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
@@ -110,6 +101,19 @@ public class Application extends WebMvcConfigurerAdapter {
   @Value("${redis.password}")
   private String redisPassword;
 
+  //Mongo
+  @Value("${mongo.hosts}")
+  private String mongoHosts;
+  @Value("${mongo.port}")
+  private int mongoPort;
+  @Value("${mongo.username}")
+  private String mongoUsername;
+  @Value("${mongo.password}")
+  private String mongoPassword;
+  @Value("${mongo.db}")
+  private String mongoDb;
+
+  //Ecloud
   @Value("${ecloud.baseMcsUrl}")
   private String ecloudBaseMcsUrl;
   @Value("${ecloud.username}")
@@ -117,48 +121,54 @@ public class Application extends WebMvcConfigurerAdapter {
   @Value("${ecloud.password}")
   private String ecloudPassword;
 
+  private MorphiaDatastoreProvider provider;
+  private MongoProviderImpl mongoProvider;
+  private RedisProvider redisProvider;
+
   @Autowired
   @Lazy
   private RestConfig restConfig;
 
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
   @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+  public void afterPropertiesSet() throws Exception {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
+      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
+          vcapServicesJson);
 
-    converters.add(new MappingJackson2HttpMessageConverter());
+      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
+      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+      mongoPort = Integer
+          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+      mongoUsername = mongoClientURI.getUsername();
+      mongoPassword = String.valueOf(mongoClientURI.getPassword());
+      mongoDb = mongoClientURI.getDatabase();
 
-    super.configureMessageConverters(converters);
-  }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-
-  @Bean(name = "mongoProvider")
-  MongoProvider getMongoProvider() {
-    try {
-      if (System.getenv().get("VCAP_SERVICES") == null) {
-        provider = new MongoProvider(mongoHost, Integer.parseInt(mongoPort), db, username,
-            password);
-        return provider;
-      } else {
-        JsonParser parser = new JsonParser();
-        JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-        JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
-
-        JsonObject credentials = element.getAsJsonObject("credentials");
-        JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
-        String db = StringUtils.substringAfterLast(uri.getAsString(), "/");
-        provider = new MongoProvider(uri.getAsString(), db);
-        return provider;
-      }
-    } catch (UnknownHostException e) {
-      e.printStackTrace();
+      redisProvider = vcapServices.getRedisProviderFromService();
     }
-    return null;
+
+    String[] mongoHostsArray = mongoHosts.split(",");
+    StringBuilder mongoPorts = new StringBuilder();
+    for (int i = 0; i < mongoHostsArray.length; i++) {
+      mongoPorts.append(mongoPort + ",");
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoPassword);
+
+    if(redisProvider == null)
+      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
+  }
+
+
+  @Bean(name = "morphiaDatastoreProvider")
+  MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
+    provider = new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+    return provider;
   }
 
   @Bean
@@ -167,19 +177,9 @@ public class Application extends WebMvcConfigurerAdapter {
     return restConfig.getZohoClient();
   }
 
-  @Bean(name = "jedisProvider")
-  JedisProvider getJedisProvider() {
-    if (System.getenv().get("VCAP_SERVICES") != null) {
-      Logger.getGlobal().info("Reading from cloud");
-      JsonParser parser = new JsonParser();
-      JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-      JsonObject element = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
-      JsonObject credentials = element.getAsJsonObject("credentials");
-      redisHost = credentials.getAsJsonPrimitive("hostname").getAsString();
-      redisPassword = credentials.getAsJsonPrimitive("password").getAsString();
-      redisPort = credentials.getAsJsonPrimitive("port").getAsInt();
-    }
-    return new JedisProvider(redisHost, redisPassword, redisPort);
+  @Bean(name = "jedisProviderUtils")
+  JedisProviderUtils getJedisProviderUtils() {
+      return new JedisProviderUtils(redisProvider.getJedis());
   }
 
   @Bean
@@ -196,7 +196,7 @@ public class Application extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  @DependsOn(value = "mongoProvider")
+  @DependsOn(value = "morphiaDatastoreProvider")
   public ExecutionDao getExecutionDao() {
     Morphia morphia = new Morphia();
     morphia.map(Execution.class);
@@ -205,7 +205,7 @@ public class Application extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  @DependsOn(value = "mongoProvider")
+  @DependsOn(value = "morphiaDatastoreProvider")
   public FailedRecordsDao getFailedRecordsDao() {
     Morphia morphia = new Morphia();
     morphia.map(FailedRecords.class);
@@ -214,7 +214,7 @@ public class Application extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  @DependsOn(value = "mongoProvider")
+  @DependsOn(value = "morphiaDatastoreProvider")
   public AuthorizationDao getAuthorizationDao() {
     Morphia morphia = new Morphia();
     morphia.map(MetisKey.class);
@@ -233,7 +233,7 @@ public class Application extends WebMvcConfigurerAdapter {
 
   @Bean
   @DependsOn(value = "dataSetServiceClient")
-  EcloudDatasetDao ecloudDatasetDao(){
+  EcloudDatasetDao ecloudDatasetDao() {
     return new EcloudDatasetDao();
   }
 
@@ -273,9 +273,29 @@ public class Application extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  @DependsOn("jedisProvider")
+  @DependsOn("jedisProviderUtils")
   public QAWorkflow getStatisticsWorkflow() {
     return new QAWorkflow();
+  }
+
+
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.add(new MappingJackson2HttpMessageConverter());
+    super.configureMessageConverters(converters);
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
   }
 
   @Bean

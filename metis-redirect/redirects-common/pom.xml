@@ -30,7 +30,6 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-definitions</artifactId>
-            <version>${version.corelib}</version>
             <exclusions>
                 <exclusion>
                     <artifactId>mongo-java-driver</artifactId>

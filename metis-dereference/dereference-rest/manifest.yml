@@ -9,5 +9,3 @@ applications:
   services:
     - portal-test-redis
     - annotation-test-mongo
-  env:
-    enrichmentpath: http://136.243.103.29:8080/enrichment-framework-rest-0.1-SNAPSHOT/

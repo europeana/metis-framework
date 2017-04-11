@@ -21,7 +21,7 @@ import eu.europeana.metis.framework.common.HarvestingMetadata;
 import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoOrganizationExceptionFound;
-import eu.europeana.metis.framework.mongo.MongoProvider;
+import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.service.OrganizationService;
 import eu.europeana.metis.search.service.MetisSearchService;
@@ -47,7 +47,7 @@ import java.util.List;
 
 public class TestOrganizationService {
 
-    private MongoProvider mongoProvider;
+    private MorphiaDatastoreProvider morphiaDatastoreProvider;
     private OrganizationDao organizationDao;
     private OrganizationService service;
     private Datastore datastore;
@@ -56,9 +56,9 @@ public class TestOrganizationService {
 
     @Before
     public void prepare() {
-        mongoProvider = Mockito.mock(MongoProvider.class);
+        morphiaDatastoreProvider = Mockito.mock(MorphiaDatastoreProvider.class);
         organizationDao = Mockito.mock(OrganizationDao.class);
-        ReflectionTestUtils.setField(organizationDao, "provider", mongoProvider);
+        ReflectionTestUtils.setField(organizationDao, "provider", morphiaDatastoreProvider);
         service = new OrganizationService();
         datastore = Mockito.mock(Datastore.class);
         searchService=Mockito.mock(MetisSearchService.class);
@@ -77,7 +77,7 @@ public class TestOrganizationService {
 
     @Test
     public void testOrganizationCreation() {
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         Mockito.doAnswer(new Answer<Object>() {
             @Override
             public Object answer(InvocationOnMock invocation) throws Throwable {
@@ -102,7 +102,7 @@ public class TestOrganizationService {
 
     @Test
     public void testOrganizationUpdate() {
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
             @Override
@@ -127,7 +127,7 @@ public class TestOrganizationService {
 
     @Test
     public void testOrganizationDelete() {
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
             @Override
@@ -152,7 +152,7 @@ public class TestOrganizationService {
 
     @Test
     public void testRetrieveOrgByOrgId() {
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getByOrganizationId("string")).thenReturn(org);
 
         try {
@@ -165,7 +165,7 @@ public class TestOrganizationService {
 
     @Test
     public void testRetrieveOptin() {
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getById("string")).thenReturn(org);
             boolean optedIn = service.isOptedInForIIIF("string");
             Assert.assertTrue(optedIn);
@@ -173,7 +173,7 @@ public class TestOrganizationService {
 
     @Test
     public void testRetrieveOrgById() {
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getById("string")).thenReturn(org);
         try {
             Organization orgRet = service.getOrganizationById("string");
@@ -185,7 +185,7 @@ public class TestOrganizationService {
 
     @Test
     public void testRetrieveOrgByCountry(){
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         List<Organization> orgs = new ArrayList<>();
         orgs.add(org);
         orgs.add(org);
@@ -206,7 +206,7 @@ public class TestOrganizationService {
         orgs.add(org);
         orgs.add(org);
         orgs.add(org);
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getAll()).thenReturn(orgs);
         try {
             List<Organization> orgRet = service.getAllOrganizations();
@@ -225,7 +225,7 @@ public class TestOrganizationService {
         datasets.add(new Dataset());
         datasets.add(new Dataset());
         org.setDatasets(datasets);
-        Mockito.when(mongoProvider.getDatastore()).thenReturn(datastore);
+        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         try {
             Mockito.when(organizationDao.getAllDatasetsByOrganization("string")).thenReturn(org.getDatasets());
 

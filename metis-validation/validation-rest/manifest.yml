@@ -8,9 +8,3 @@ applications:
   buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
   services:
     - annotation-test-mongo
-  env:
-    rootPath: tmp
-    s3_client_key: AKIAITVY2AAAGQI2MYYQ
-    s3_secret_key: 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
-    s3_region: eu-central-1
-    s3_bucket: europeana-metis-objectstorage

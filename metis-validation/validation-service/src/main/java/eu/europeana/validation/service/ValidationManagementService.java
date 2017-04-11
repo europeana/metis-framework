@@ -17,7 +17,6 @@
 package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -27,41 +26,41 @@ import java.util.List;
  * Created by ymamakis on 3/14/16.
  */
 public class ValidationManagementService {
-    private AbstractSchemaDao dao;
+    private AbstractSchemaDao abstractSchemaDao;
 
-    public ValidationManagementService(Configuration configuration)
+    public ValidationManagementService(AbstractSchemaDao abstractSchemaDao)
     {
-        dao = configuration.getDao();
+        this.abstractSchemaDao = abstractSchemaDao;
     }
 
-    public ValidationManagementService()
-    {
-        dao = Configuration.getInstance().getDao();
-    }
+//    public ValidationManagementService()
+//    {
+//        this.abstractSchemaDao = Configuration.getInstance().getDao();
+//    }
     public void setDao(AbstractSchemaDao dao){
-        this.dao = dao;
+        this.abstractSchemaDao = dao;
     }
     public List<Schema> getAll(){
-        return dao.getAll();
+        return abstractSchemaDao.getAll();
     }
 
     public Schema getSchemaByName(String name,String version){
-        return dao.getSchemaByName(name,version);
+        return abstractSchemaDao.getSchemaByName(name,version);
     }
 
     public void createSchema(String name, String path, String schematronPath, String version,InputStream file) throws IOException {
-        dao.createSchema(name, path, schematronPath,version,file);
+        abstractSchemaDao.createSchema(name, path, schematronPath,version,file);
     }
 
     public void updateSchema(String name, String path, String schematronPath, String version, InputStream file) throws IOException {
-        dao.updateSchema(name, path, schematronPath, version, file);
+        abstractSchemaDao.updateSchema(name, path, schematronPath, version, file);
     }
 
     public void deleteSchema(String name,String version){
-        dao.deleteSchema(name, version);
+        abstractSchemaDao.deleteSchema(name, version);
     }
 
     public byte[] getZip(String name, String version){
-        return dao.getZip(name,version);
+        return abstractSchemaDao.getZip(name,version);
     }
 }

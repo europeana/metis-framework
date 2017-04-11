@@ -30,7 +30,6 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-definitions</artifactId>
-            <version>${version.corelib}</version>
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>

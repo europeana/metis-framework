@@ -17,14 +17,15 @@
 package eu.europeana.enrichment.cache.proxy.config;
 
 import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.enrichment.service.RedisProvider;
+import eu.europeana.metis.cache.redis.RedisProvider;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -33,46 +34,51 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan (basePackages = {"eu.europeana.enrichment.cache.proxy"})
-@PropertySource("classpath:enrichment.properties")
+@ComponentScan(basePackages = {"eu.europeana.enrichment.cache.proxy"})
+@PropertySource("classpath:enrichment.proxy.properties")
 @EnableWebMvc
-public class Application extends WebMvcConfigurerAdapter {
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
+  @Value("${enrichment.mongo}")
+  private String enrichmentMongo;
+  @Value("${redis.host}")
+  private String redisHost;
+  @Value("${redis.port}")
+  private int redisPort;
+  //@Value("${redis.password}")
+  private String redisPassword;
+  //@Value("${memcache.host}")
+  private String memcacheHost;
+  //@Value("${memcache.port}")
+  private int memcachePort;
 
-    @Value("${enrichment.mongo}")
-    private  String enrichmentMongo;
-    @Value("${redis.host}")
-    private  String redisHost;
-    @Value("${redis.port}")
-    private  int redisPort;
-    //@Value("${redis.password}")
-    private  String redisPassword;
-    //@Value("${memcache.host}")
-    private  String memcacheHost;
-    //@Value("${memcache.port}")
-    private  int memcachePort;
-
-
-
-    @Bean
-    @Order(1)
-    public static PropertySourcesPlaceholderConfigurer properties() {
-        PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        return propertySourcesPlaceholderConfigurer;
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
     }
+  }
 
+  RedisProvider getRedisProvider() {
+    return new RedisProvider(redisHost, redisPort, redisPassword);
+  }
 
-    RedisProvider getRedisProvider(){
-        return new RedisProvider(redisHost, redisPort, redisPassword);
-    }
-   // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
-    @Bean(name = "redisInternalEnricher")
-    RedisInternalEnricher getRedisInternalEnricher(){
-        return new RedisInternalEnricher(enrichmentMongo,getRedisProvider(), true);
-    }
-    //@Bean(name = "memcachedInternalEnricher")
-    //MemcachedInternalEnricher getMemcachedInternalEnricher(){
-    //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
-    //}
+  // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
+  @Bean(name = "redisInternalEnricher")
+  RedisInternalEnricher getRedisInternalEnricher() {
+    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), true);
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
+  //@Bean(name = "memcachedInternalEnricher")
+  //MemcachedInternalEnricher getMemcachedInternalEnricher(){
+  //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
+  //}
 
 }

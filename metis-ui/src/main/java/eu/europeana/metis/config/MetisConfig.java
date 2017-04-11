@@ -1,6 +1,8 @@
 package eu.europeana.metis.config;
 
-import eu.europeana.metis.framework.mongo.MongoProvider;
+import com.mongodb.MongoClientURI;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.service.ExampleMappingService;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
@@ -10,12 +12,15 @@ import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.service.UserService;
-import java.net.UnknownHostException;
+import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
  * The configuration is for DB access (MongoDB), where the user account data such as Skype account,
@@ -24,21 +29,52 @@ import org.springframework.context.annotation.PropertySource;
  * @author alena
  */
 @Configuration
-@PropertySource("classpath:/mongo.properties")
-public class MetisConfig {
-
-  @Value("${mongo.host}")
-  private String mongoHost;
+@PropertySource("classpath:mongo.properties")
+public class MetisConfig implements InitializingBean {
+  //Mongo
+  @Value("${mongo.hosts}")
+  private String mongoHosts;
   @Value("${mongo.port}")
-  private String mongoPort;
-  @Value("${mongo.db}")
-  private String db;
+  private int mongoPort;
   @Value("${mongo.username}")
-  private String username;
+  private String mongoUsername;
   @Value("${mongo.password}")
-  private String password;
+  private String mongoPassword;
+  @Value("${mongo.db}")
+  private String mongoDb;
 
-  private MongoProvider provider;
+  private MongoProviderImpl mongoProvider;
+  private MorphiaDatastoreProvider moprhiaDatastoreProvider;
+
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() throws Exception {
+    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
+      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
+          vcapServicesJson);
+
+      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
+      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+      mongoPort = Integer
+          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+      mongoUsername = mongoClientURI.getUsername();
+      mongoPassword = String.valueOf(mongoClientURI.getPassword());
+      mongoDb = mongoClientURI.getDatabase();
+    }
+
+    String[] mongoHostsArray = mongoHosts.split(",");
+    StringBuilder mongoPorts = new StringBuilder();
+    for (int i = 0; i < mongoHostsArray.length; i++) {
+      mongoPorts.append(mongoPort + ",");
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoPassword);
+  }
 
   @Bean
   public UserDao userDao() {
@@ -46,39 +82,21 @@ public class MetisConfig {
   }
 
   @Bean
-  @DependsOn(value = "mongoProvider")
+  @DependsOn(value = "morphiaDatastoreProvider")
   public DBUserDao dbUserDao() {
-    return new DBUserDao(DBUser.class, provider.getDatastore());
+    return new DBUserDao(DBUser.class, moprhiaDatastoreProvider.getDatastore());
   }
 
   @Bean
-  @DependsOn(value = "mongoProvider")
+  @DependsOn(value = "morphiaDatastoreProvider")
   public RoleRequestDao roleRequestDao() {
-    return new RoleRequestDao(RoleRequest.class, provider.getDatastore());
+    return new RoleRequestDao(RoleRequest.class, moprhiaDatastoreProvider.getDatastore());
   }
 
-  @Bean(name = "mongoProvider")
-  MongoProvider mongoProvider() {
-    try {
-      //FIXME this piece of code below is commented in order to have the app running in Pivotal server!
-//            if(System.getenv().get("VCAP_SERVICES")==null) {
-      provider = new MongoProvider(mongoHost, Integer.parseInt(mongoPort), db, username, password);
-      return provider;
-//            } else {
-//                JsonParser parser = new JsonParser();
-//                JsonObject object = parser.parse(System.getenv().get("VCAP_SERVICES")).getAsJsonObject();
-//                JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
-//
-//                JsonObject credentials = element.getAsJsonObject("credentials");
-//                JsonPrimitive uri = credentials.getAsJsonPrimitive("uri");
-//                String db = StringUtils.substringAfterLast(uri.getAsString(),"/");
-//                provider = new EmbeddedLocalhostMongo(uri.getAsString(),db);
-//                return provider;
-//            }
-    } catch (UnknownHostException e) {
-      e.printStackTrace();
-    }
-    return null;
+  @Bean(name = "morphiaDatastoreProvider")
+  MorphiaDatastoreProvider getMongoProvider() {
+      moprhiaDatastoreProvider = new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+      return moprhiaDatastoreProvider;
   }
 
   @Bean
@@ -89,6 +107,11 @@ public class MetisConfig {
   @Bean
   public MappingService mappingService() {
     return new ExampleMappingService();
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
   }
 
 }

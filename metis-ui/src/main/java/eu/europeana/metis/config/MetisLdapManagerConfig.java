@@ -35,38 +35,24 @@ import org.springframework.security.ldap.userdetails.LdapUserDetailsManager;
 @Configuration
 @PropertySource("classpath:/authentication.properties")
 public class MetisLdapManagerConfig {
-
 	@Value("${ldif.url}")
 	private String url;
-	
 	@Value("${ldif.dn}")
 	private String dn;
-	
 	@Value("${ldif.pwd}")
 	private String pwd;
-	
 	@Value("${ldif.base}")
 	private String base;
-	
 	@Value("${ldif.clean}")
 	private String clean;
-
 	@Value("${ldap.url}")
 	private String ldapUrl;
-
 	@Value("${ldap.manager.dn}")
 	private String ldapManagerDn;
-
 	@Value("${ldap.manager.pwd}")
 	private String ldapPwd;
-
 	@Value("${ldap.manager.base.dn}")
 	private String ldapBaseDn;
-
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
 
 	@Bean
 	public LdapContextSource contextSource() {
@@ -101,5 +87,10 @@ public class MetisLdapManagerConfig {
 	    userManager.setGroupRoleAttributeName("cn");
 	    userManager.setGroupMemberAttributeName("member");
 	    return userManager;
+	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
 	}
 }

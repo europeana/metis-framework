@@ -16,17 +16,18 @@
  */
 package eu.europeana.metis.config;
 
+import eu.europeana.metis.ui.mongo.domain.Roles;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import eu.europeana.metis.ui.mongo.domain.Roles;
 
 /**
  * This configuration sets up Metis web pages LDAP authorization.
@@ -40,13 +41,10 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Configuration
 	@PropertySource("classpath:authentication.properties")
 	protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-		
 		@Value("${ldap.url}")
 		private String url;
-		
 		@Value("${ldap.manager.dn}")
 		private String managerDN;
-		
 		@Value("${ldap.manager.pwd}")
 		private String managerPWD;
 		
@@ -90,5 +88,10 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 					.and()
 				.csrf().disable();
 			// @formatter:on
+	}
+
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
 	}
 }
