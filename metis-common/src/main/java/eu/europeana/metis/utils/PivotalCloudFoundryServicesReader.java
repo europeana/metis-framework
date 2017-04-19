@@ -21,6 +21,8 @@ public class PivotalCloudFoundryServicesReader implements CloudFoundryServicesRe
   public MongoClientURI getMongoClientUriFromService() {
     JsonParser parser = new JsonParser();
     JsonObject object = parser.parse(vcapJson).getAsJsonObject();
+    if (!object.has("mlab"))
+      return null;
     JsonObject element = object.getAsJsonArray("mlab").get(0).getAsJsonObject();
 
     JsonObject credentials = element.getAsJsonObject("credentials");
@@ -34,6 +36,8 @@ public class PivotalCloudFoundryServicesReader implements CloudFoundryServicesRe
   public RedisProvider getRedisProviderFromService() {
     JsonParser parser = new JsonParser();
     JsonObject object = parser.parse(vcapJson).getAsJsonObject();
+    if (!object.has("rediscloud"))
+      return null;
     JsonObject redisElement = object.getAsJsonArray("rediscloud").get(0).getAsJsonObject();
     JsonObject redisCredentials = redisElement.getAsJsonObject("credentials");
     String redisHost = redisCredentials.get("hostname").getAsString();

@@ -140,15 +140,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
           vcapServicesJson);
 
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
-      mongoPort = Integer
-          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
-      mongoUsername = mongoClientURI.getUsername();
-      mongoPassword = String.valueOf(mongoClientURI.getPassword());
-      mongoDb = mongoClientURI.getDatabase();
+      if (mongoClientURI != null) {
+        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+        mongoPort = Integer
+            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+        mongoUsername = mongoClientURI.getUsername();
+        mongoPassword = String.valueOf(mongoClientURI.getPassword());
+        mongoDb = mongoClientURI.getDatabase();
+      }
 
-      redisProvider = vcapServices.getRedisProviderFromService();
+      RedisProvider redisProviderFromService = vcapServices.getRedisProviderFromService();
+      if (redisProviderFromService != null) {
+        redisProvider = vcapServices.getRedisProviderFromService();
+      }
     }
 
     String[] mongoHostsArray = mongoHosts.split(",");
