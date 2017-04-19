@@ -16,6 +16,7 @@
  */
 package eu.europeana.redirects.rest.config;
 
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.lookup.impl.CollectionMongoServerImpl;
 import eu.europeana.corelib.lookup.impl.EuropeanaIdMongoServerImpl;
@@ -27,6 +28,7 @@ import eu.europeana.redirects.service.RedirectService;
 import eu.europeana.redirects.service.mongo.MongoRedirectService;
 import java.net.MalformedURLException;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
@@ -108,10 +110,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
             mongoPorts.append(mongoPort + ",");
         }
         mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+        MongoClientOptions.Builder options = MongoClientOptions.builder();
+        options.socketKeepAlive(true);
         mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-            mongoPassword);
+            mongoPassword, options);
         mongoProviderCollections = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoCollectionsDb, mongoUsername,
-            mongoPassword);
+            mongoPassword, options);
     }
 
     @Bean(name = "mongoServer")
@@ -166,6 +170,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
                 .paths(PathSelectors.regex("/.*"))
                 .build()
                 .apiInfo(apiInfo());
+    }
+
+    @PreDestroy
+    public void close()
+    {
+        if (mongoProvider != null)
+            mongoProvider.close();
+        if (mongoProviderCollections != null)
+            mongoProviderCollections.close();
     }
 
     private ApiInfo apiInfo() {

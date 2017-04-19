@@ -17,6 +17,7 @@
 package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.enrichment.rest.client.EnrichmentDriver;
@@ -29,6 +30,7 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -123,12 +125,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       mongoPorts.append(mongoPort + ",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    MongoClientOptions.Builder options = MongoClientOptions.builder();
+    options.socketKeepAlive(true);
     mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb,
         mongoUsername,
-        mongoPassword);
+        mongoPassword, options);
     mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), vocabularyDb,
         mongoUsername,
-        mongoPassword);
+        mongoPassword, options);
 
     if (redisProvider == null) {
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
@@ -211,6 +215,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .paths(PathSelectors.regex("/.*"))
         .build()
         .apiInfo(apiInfo());
+  }
+
+  @PreDestroy
+  public void close()
+  {
+    if (mongoProviderVocabulary != null)
+      mongoProviderVocabulary.close();
+    if (mongoProviderEntity != null)
+      mongoProviderEntity.close();
   }
 
   private ApiInfo apiInfo() {

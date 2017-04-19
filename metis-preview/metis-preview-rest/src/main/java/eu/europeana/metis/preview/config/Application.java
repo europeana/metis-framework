@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.preview.config;
 
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
@@ -29,6 +30,7 @@ import eu.europeana.metis.preview.service.PreviewService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.validation.client.ValidationClient;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
@@ -112,8 +114,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       mongoPorts.append(mongoPort + ",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    MongoClientOptions.Builder options = MongoClientOptions.builder();
+    options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword);
+        mongoPassword, options);
   }
 
   @Bean
@@ -200,6 +204,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .paths(PathSelectors.regex("/.*"))
         .build()
         .apiInfo(apiInfo());
+  }
+
+  @PreDestroy
+  public void close()
+  {
+    if (mongoProvider != null)
+      mongoProvider.close();
   }
 
   private ApiInfo apiInfo() {

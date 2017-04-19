@@ -1,5 +1,6 @@
 package eu.europeana.metis.config;
 
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
@@ -13,6 +14,7 @@ import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -74,8 +76,10 @@ public class MetisConfig implements InitializingBean {
       mongoPorts.append(mongoPort + ",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    MongoClientOptions.Builder options = MongoClientOptions.builder();
+    options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword);
+        mongoPassword, options);
   }
 
   @Bean
@@ -114,6 +118,13 @@ public class MetisConfig implements InitializingBean {
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
+  }
+
+  @PreDestroy
+  public void close()
+  {
+    if (mongoProvider != null)
+      mongoProvider.close();
   }
 
 }

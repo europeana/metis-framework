@@ -16,6 +16,7 @@
  */
 package eu.europeana.validation.rest.config;
 
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.features.ObjectStorageClient;
@@ -33,6 +34,7 @@ import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
 import eu.europeana.validation.utils.EnableSchemaStorage;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
@@ -138,8 +140,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       mongoPorts.append(mongoPort + ",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    MongoClientOptions.Builder options = MongoClientOptions.builder();
+    options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword);
+        mongoPassword, options);
   }
 
   @Bean(name = "abstractSchemaDao")
@@ -231,6 +235,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .paths(PathSelectors.regex("/.*"))
         .build()
         .apiInfo(apiInfo());
+  }
+
+  @PreDestroy
+  public void close()
+  {
+    if (mongoProvider != null)
+      mongoProvider.close();
   }
 
   private ApiInfo apiInfo() {

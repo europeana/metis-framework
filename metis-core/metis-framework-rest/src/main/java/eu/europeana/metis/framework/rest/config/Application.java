@@ -17,6 +17,7 @@
 package eu.europeana.metis.framework.rest.config;
 
 
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
@@ -47,6 +48,7 @@ import eu.europeana.metis.search.config.SearchApplication;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.InitializingBean;
@@ -162,8 +164,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       mongoPorts.append(mongoPort + ",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    MongoClientOptions.Builder options = MongoClientOptions.builder();
+    options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword);
+        mongoPassword, options);
 
     if(redisProvider == null)
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
@@ -311,6 +315,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .paths(PathSelectors.regex("/.*"))
         .build()
         .apiInfo(apiInfo());
+  }
+
+  @PreDestroy
+  public void close()
+  {
+    if (mongoProvider != null)
+      mongoProvider.close();
   }
 
   private ApiInfo apiInfo() {
