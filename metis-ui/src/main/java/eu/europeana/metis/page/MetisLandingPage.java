@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.framework.common.Country;
-import eu.europeana.metis.mapping.atoms.pandora.UserRequest;
+import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;

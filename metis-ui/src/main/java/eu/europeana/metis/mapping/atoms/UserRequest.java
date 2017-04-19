@@ -1,4 +1,4 @@
-package eu.europeana.metis.mapping.atoms.pandora;
+package eu.europeana.metis.mapping.atoms;
 
 /**
  * Class represents the model for the user organization affiliation requests table.

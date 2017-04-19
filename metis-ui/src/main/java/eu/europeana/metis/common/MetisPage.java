@@ -55,20 +55,6 @@ public abstract class MetisPage extends AbstractMetisPage {
 		//commented for the new design!
 		NavigationTop header = new NavigationTop("#", "Home", true);
 		header.addNextPrev("next_url_here", "prev_url_here", "results_url_here");
-		
-//		List<NavigationTopMenu> items = new ArrayList<>();
-//		Byte current = resolveCurrentPage();
-//		items.add(new NavigationTopMenu("New Dataset", "/new-dataset-page", (current != null && current == 0), null, null, null, null));
-//		items.add(new NavigationTopMenu("All Datasets", "/all-datasets-page", (current != null && current == 1), null, null, null, null));
-//		List<NavigationTopMenu> submenu = Arrays.asList(
-//				new NavigationTopMenu("Organizations", "/", null, null, null, null, null),
-//				new NavigationTopMenu("Users", "#", null, null, null, null, null),
-//				new NavigationTopMenu("User requests", "/requests", null, null, null, null, null),
-//				new NavigationTopMenu(true),
-//				new NavigationTopMenu("Crosswalks", null, null),
-//				new NavigationTopMenu("Entities", "#", null),
-//				new NavigationTopMenu("Schemas (XSD)", "#", null));
-//		items.add(new NavigationTopMenu("Management", "#", (current != null && current == 2), null, null, null, submenu));
 		header.addGlobal(false, true, true, "#", "Europeana Metis", "main-menu", null, buildUtilityNavigation());		
 		return header;
 	}
@@ -111,6 +97,20 @@ public abstract class MetisPage extends AbstractMetisPage {
 						linkList2, linkListTitle2, 
 						linkList3, linkListTitle3, 
 						subFooter, social);
+	}
+	
+	/**
+	 * Welcome message for a logged in user
+	 * @param user_name
+	 * @return
+	 */
+	// TODO move this method to Metis Dashboard page implementation when it is ready.
+	protected Map<String, String> createWelcomeMessage(String user_name) {
+		Map<String, String> welcome_message = new HashMap<>();
+		welcome_message.put("text_first", text_first);
+		welcome_message.put("user_name", user_name != null && !user_name.isEmpty() ? user_name : "User");
+		welcome_message.put("text_end", text_end);
+		return welcome_message;
 	}
 	
 	/**

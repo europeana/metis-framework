@@ -34,7 +34,7 @@ import eu.europeana.metis.framework.organization.Organization;
 import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
 import eu.europeana.metis.framework.rest.client.ServerException;
 import eu.europeana.metis.mail.notification.MetisMailType;
-import eu.europeana.metis.mapping.atoms.pandora.UserRequest;
+import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.page.MetisLandingPage;
@@ -217,9 +217,6 @@ public class MetisUserPageController {
      */
     @RequestMapping(value = "/profile", method=RequestMethod.GET, params="userId")
     public ModelAndView requestApproveUser(String userId, Model model) {
-    	//FIXME remove the line below. this is just for test reasons
-    	suggestOrganizationsViaAjax("Lib");
-    	
     	logger.info("User Profile To Approve: " + userId);
     	//TODO
     	DBUser userByID = userService.getUserByRequestID(userId);
@@ -298,12 +295,14 @@ public class MetisUserPageController {
     	return modelAndView;
     }
     
+    //TODO the method implementation is not finished yet
 	@ResponseBody
 	@RequestMapping(value = "/profile/suggestOrganizations")
 	public String suggestOrganizationsViaAjax(@RequestBody String searchTerm) {
 		String result = "";
 		//logic
 		List<Organization> orgs = suggestOrganizations(searchTerm);
+		//FIXME comment the line below
 		System.out.println(MetisMappingUtil.toJson(orgs));
 		return result;
 

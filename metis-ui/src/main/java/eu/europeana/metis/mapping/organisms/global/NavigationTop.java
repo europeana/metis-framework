@@ -81,6 +81,7 @@ public class NavigationTop {
 		Map<String, Object> utility_nav_title = new HashMap<>();
 		utility_nav_title.put("url", "#");
 		utility_nav_title.put("text", "Sign In");
+		utility_nav_title.put("icon_class", "svg-icon-user-signin");
 		utility_nav_title.put("fontawesome", true);
 		utility_nav_title.put("icon", "users");
 		

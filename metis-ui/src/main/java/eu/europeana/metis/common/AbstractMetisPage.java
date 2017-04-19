@@ -53,6 +53,12 @@ public abstract class AbstractMetisPage {
 	private List<Entry<String, String>> jsVars;
 	
 	private List<Entry<String, String>> breadcrumbs;
+	
+	/**
+	 * Welcome message head and tail.
+	 */
+	protected static final String text_first = "Welcome ";
+	protected static final String text_end = " let's ingest a world of Culture!";
 
 	/**
 	 * 
