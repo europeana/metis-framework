@@ -60,6 +60,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+
   //Redis
   @Value("${redis.host}")
   private String redisHost;
@@ -99,16 +100,21 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
           vcapServicesJson);
 
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
-      mongoPort = Integer
-          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
-      mongoUsername = mongoClientURI.getUsername();
-      mongoPassword = String.valueOf(mongoClientURI.getPassword());
-      vocabularyDb = mongoClientURI.getDatabase();
-      entityDb = mongoClientURI.getDatabase();
+      if (mongoClientURI != null) {
+        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+        mongoPort = Integer
+            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+        mongoUsername = mongoClientURI.getUsername();
+        mongoPassword = String.valueOf(mongoClientURI.getPassword());
+        vocabularyDb = mongoClientURI.getDatabase();
+        entityDb = mongoClientURI.getDatabase();
+      }
 
-      redisProvider = vcapServices.getRedisProviderFromService();
+      RedisProvider redisProviderFromService = vcapServices.getRedisProviderFromService();
+      if (redisProviderFromService != null) {
+        redisProvider = redisProviderFromService;
+      }
     }
 
     String[] mongoHostsArray = mongoHosts.split(",");
@@ -117,13 +123,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       mongoPorts.append(mongoPort + ",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
-    mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb, mongoUsername,
+    mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb,
+        mongoUsername,
         mongoPassword);
-    mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), vocabularyDb, mongoUsername,
+    mongoProviderVocabulary = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), vocabularyDb,
+        mongoUsername,
         mongoPassword);
 
-    if(redisProvider == null)
+    if (redisProvider == null) {
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
+    }
   }
 
   @Bean
@@ -166,7 +175,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   RedisProvider getRedisProvider() {
-      return redisProvider;
+    return redisProvider;
   }
 
   @Bean

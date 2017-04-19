@@ -92,13 +92,15 @@ public class AppConfig extends WebMvcConfigurerAdapter implements InitializingBe
           vcapServicesJson);
 
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-      mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
-      mongoPort = Integer
-          .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
-      mongoUsername = mongoClientURI.getUsername();
-      mongoPassword = String.valueOf(mongoClientURI.getPassword());
-      mongoDb = mongoClientURI.getDatabase();
+      if (mongoClientURI != null) {
+        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+        mongoPort = Integer
+            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+        mongoUsername = mongoClientURI.getUsername();
+        mongoPassword = String.valueOf(mongoClientURI.getPassword());
+        mongoDb = mongoClientURI.getDatabase();
+      }
     }
 
     String[] mongoHostsArray = mongoHosts.split(",");

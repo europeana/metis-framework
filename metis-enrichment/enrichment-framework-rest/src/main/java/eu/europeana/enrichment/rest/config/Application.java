@@ -73,7 +73,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
           vcapServicesJson);
-      redisProvider = vcapServices.getRedisProviderFromService();
+      RedisProvider redisProviderFromService = vcapServices.getRedisProviderFromService();
+      if (redisProviderFromService != null) {
+        redisProvider = vcapServices.getRedisProviderFromService();
+      }
     }
 
     if(redisProvider == null)
