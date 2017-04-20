@@ -1,12 +1,8 @@
 ---
 applications:
-- name: metis-framework-test
+- name: metis-framework-rest-test
   memory: 2048M
   instances: 1
-  host: metis-framework-test
+  host: metis-framework-rest-test
   path: target/metis-framework-rest-1.0-SNAPSHOT.war
   buildpack: https://github.com/europeana/java-buildpack.git#feat/java8
-  services:
-    - annotation-test-mongo
-  env:
-    SPRING_PROFILES_ACTIVE: development

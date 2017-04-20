@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.framework.common;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Countries supported by METIS
  * Created by ymamakis on 2/17/16.
@@ -57,7 +59,7 @@ public enum Country {
     
     public static Country toCountry(String isoCode) {
     	for (Country country: Country.values()) {
-    		if (country.getIsoCode().equals(isoCode)) {
+    		if (StringUtils.equals(country.getIsoCode(),isoCode)) {
     			return country;
     		}
     	}

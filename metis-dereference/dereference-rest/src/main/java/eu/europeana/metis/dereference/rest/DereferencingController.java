@@ -24,17 +24,16 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,18 +49,42 @@ public class DereferencingController {
 
     /**
      * Dereference a record given a URI
+     *
      * @param uri The uri of the entity
      * @return The dereferenced entities
      */
     @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.DEREFERENCE)
     @ResponseBody
-    @ApiOperation(value = "Dereference a URI",response = String.class)
+    @ApiOperation(value = "Dereference a URI", response = String.class)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public List<String> dereference(@ApiParam("uri") @RequestParam("uri") String uri) throws DereferenceException {
         try {
-            return mongoDereferenceService.dereference(URLDecoder.decode(uri,"UTF-8"));
-        } catch (TransformerException | ParserConfigurationException |IOException e){
-            throw new DereferenceException(e.getMessage(),uri);
+            return mongoDereferenceService.dereference(URLDecoder.decode(uri, "UTF-8"));
+        } catch (TransformerException | ParserConfigurationException | IOException e) {
+            throw new DereferenceException(e.getMessage(), uri);
         }
+    }
+
+    /**
+     * Dereference a record given a URI
+     *
+     * @param uris The uris to dereference
+     * @return The dereferenced entities
+     */
+    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.DEREFERENCE)
+    @ResponseBody
+    @ApiOperation(value = "Dereference a list URI", response = String.class)
+    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+    public List<String> dereference(@RequestBody List<String> uris) throws DereferenceException {
+        List<String> dereferencedEntities = new ArrayList<>();
+
+        for (String uri : uris) {
+            try {
+                dereferencedEntities.addAll(dereference(URLDecoder.decode(uri, "UTF-8")));
+            } catch (UnsupportedEncodingException e) {
+                throw new DereferenceException(e.getMessage(),uri);
+            }
+        }
+        return dereferencedEntities;
     }
 }

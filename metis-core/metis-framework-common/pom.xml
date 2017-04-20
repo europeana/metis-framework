@@ -31,7 +31,7 @@
         <dependency>
             <groupId>org.mongodb.morphia</groupId>
             <artifactId>morphia</artifactId>
-            <version>1.3.0-SNAPSHOT</version>
+            <version>${version.morphia}</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>

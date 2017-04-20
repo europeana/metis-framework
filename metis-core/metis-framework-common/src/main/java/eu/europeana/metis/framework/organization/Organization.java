@@ -81,6 +81,7 @@ public class Organization {
     /**
      * Role
      */
+    @Indexed
     private List<Role> roles;
 
     /**
@@ -122,6 +123,8 @@ public class Organization {
 
     private boolean dea;
 
+    @Indexed
+    private boolean optInIIIF;
 
     @XmlElement
     public ObjectId getId() {
@@ -347,5 +350,14 @@ public class Organization {
     @XmlElement
     public boolean isDea() {
         return dea;
+    }
+
+    @XmlElement
+    public boolean isOptInIIIF() {
+        return optInIIIF;
+    }
+
+    public void setOptInIIIF(boolean optInIIIF) {
+        this.optInIIIF = optInIIIF;
     }
 }

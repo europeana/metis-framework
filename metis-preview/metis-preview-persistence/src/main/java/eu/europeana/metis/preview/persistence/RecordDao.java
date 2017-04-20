@@ -8,22 +8,23 @@ import eu.europeana.corelib.definitions.edm.entity.Aggregation;
 import eu.europeana.corelib.definitions.edm.entity.EuropeanaAggregation;
 import eu.europeana.corelib.definitions.edm.entity.ProvidedCHO;
 import eu.europeana.corelib.definitions.edm.entity.Proxy;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.params.ModifiableSolrParams;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Record persistence DAO
@@ -32,13 +33,13 @@ import java.util.regex.Pattern;
 public class RecordDao {
 
     @Autowired
-    private FullBeanHandler beanHandler;
+    private FullBeanHandler mongoBeanHandler;
 
     @Autowired
     private SolrDocumentHandler solrDocumentHandler;
 
     @Autowired
-    private SolrServer server;
+    private SolrServer solrServer;
 
     @Autowired
     private EdmMongoServer mongoServer;
@@ -51,13 +52,14 @@ public class RecordDao {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
-    public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException {
+    public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, MongoDBException, MongoRuntimeException {
         SolrInputDocument doc =solrDocumentHandler.generate((FullBeanImpl) fBean);
         doc.setField("europeana_id",fBean.getAbout());
-
-        server.add(doc);
+        solrServer.add(doc);
         FullBean fixed = fixIdentifiers(fBean);
-        beanHandler.saveEdmClasses((FullBeanImpl)fixed,true);
+
+        mongoBeanHandler
+            .saveEdmClasses((FullBeanImpl)fixed,mongoServer.getFullBean(fBean.getAbout())==null);
         mongoServer.getDatastore().save(fixed);
 
     }
@@ -98,16 +100,16 @@ public class RecordDao {
      * @param recordId The id of the record to remove
      */
     public void deleteRecord(String recordId){
-        beanHandler.removeRecordById(server,recordId);
+        mongoBeanHandler.removeRecordById(solrServer,recordId);
     }
 
     public void deleteCollection(String collectionName) throws IOException, SolrServerException {
-        server.deleteByQuery("edm_datasetName:"+collectionName+"*");
+        solrServer.deleteByQuery("edm_datasetName:"+collectionName+"*");
         clearData(collectionName);
     }
 
     public void commit() throws IOException, SolrServerException {
-        server.commit();
+        solrServer.commit();
     }
     /**
      * Create records
@@ -117,7 +119,7 @@ public class RecordDao {
      * @throws IllegalAccessException
      * @throws SolrServerException
      */
-    public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException {
+    public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException, MongoDBException, MongoRuntimeException {
         for(FullBean fBean:fBeans){
             createRecord(fBean);
         }
@@ -139,11 +141,38 @@ public class RecordDao {
      * @throws IOException
      */
     public void deleteRecordIdsByTimestamp() throws SolrServerException, IOException {
-        ModifiableSolrParams params = new ModifiableSolrParams();
-        params.add("q","*:*");
-        server.deleteByQuery(params.toString());
-        server.commit();
-        clearData(".*");
+        SolrQuery query = new SolrQuery();
+        query.setQuery("*:*");
+        solrServer.deleteByQuery(query.getQuery());
+        solrServer.commit();
+        clearAll();
+    }
+
+    private void clearAll() {
+        this.mongoServer.getDatastore().getDB().getCollection("record")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Proxy")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Aggregation")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("EuropeanaAggregation")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("PhysicalThing")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Agent")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Concept")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Place")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Timespan")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("WebResource")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("Service")
+                .remove(new BasicDBObject());
+        this.mongoServer.getDatastore().getDB().getCollection("License")
+                .remove(new BasicDBObject());
     }
 
     private void clearData(String collection) {

@@ -92,6 +92,18 @@ public class Execution {
     @Embedded
     private ExecutionStatistics statistics;
 
+    @Indexed
+    private String operatorEmail;
+
+    public String getOperatorEmail() {
+        return operatorEmail;
+    }
+
+    public void setOperatorEmail(String operatorEmail) {
+        this.operatorEmail = operatorEmail;
+    }
+
+
     public ObjectId getId() {
         return id;
     }

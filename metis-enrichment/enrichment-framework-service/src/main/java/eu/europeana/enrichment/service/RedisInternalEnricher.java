@@ -20,12 +20,14 @@ import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.enrichment.api.external.EntityClass;
+import eu.europeana.metis.cache.redis.RedisProvider;
+import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 import eu.europeana.enrichment.api.internal.*;
 import eu.europeana.enrichment.utils.MongoDatabaseUtils;
+import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.Version;
@@ -58,22 +60,23 @@ public class RedisInternalEnricher {
 
     private  Jedis jedis;
     private String mongoHost;
-    public RedisInternalEnricher(String mongoHost, RedisProvider provider) {
+    public RedisInternalEnricher(String mongoHost, RedisProvider provider, boolean populate) {
         this.mongoHost = mongoHost;
         SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
         sm.addSerializer(new ObjectIdSerializer());
         obj.registerModule(sm);
         jedis = provider.getJedis();
-        if(!(jedis.exists("enrichmentstatus") && StringUtils.equals(jedis.get("enrichmentstatus"),"started"))){
+        if(populate) {
+          if (!jedis.exists("enrichmentstatus") || (!StringUtils.equals(jedis.get("enrichmentstatus"), "started") && !StringUtils.equals(jedis.get("enrichmentstatus"), "finished"))) {
             System.out.println("Status does not exist");
 
             populate();
-        } else {
-            System.out.println(jedis.exists("enrichmentstatus"));
-            System.out.println(jedis.get("enrichmentstatus"));
+          } else {
+            System.out.println("enrichmentstatus value exists: " + jedis.exists("enrichmentstatus"));
+            System.out.println("enrichmentstatus value is: " + jedis.get("enrichmentstatus"));
             System.out.println("Status exists");
+          }
         }
-
     }
 
     public String check(){
@@ -574,6 +577,13 @@ public class RedisInternalEnricher {
 
     private ObjectMapper getObjectMapper() {
         return obj;
+    }
+
+    @PreDestroy
+    public void close()
+    {
+        if(jedis != null)
+            jedis.close();
     }
 
 

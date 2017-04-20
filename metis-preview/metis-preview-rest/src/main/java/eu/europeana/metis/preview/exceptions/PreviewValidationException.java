@@ -1,6 +1,7 @@
 package eu.europeana.metis.preview.exceptions;
 
-import eu.europeana.metis.preview.service.ExtendedValidationResult;
+
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 
 /**
  * Created by ymamakis on 9/29/16.

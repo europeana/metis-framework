@@ -19,7 +19,7 @@ package eu.europeana.enrichment.rest.client;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.EntityWrapperList;
-import eu.europeana.enrichment.api.external.InputValue;
+import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.api.external.InputValueList;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;

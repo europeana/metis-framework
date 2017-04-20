@@ -16,6 +16,8 @@
  */
 package eu.europeana.metis.derefrence.test;
 
+import static org.mockito.Matchers.eq;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import eu.europeana.enrichment.api.external.EntityWrapper;
@@ -28,6 +30,11 @@ import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import java.io.IOException;
+import java.util.List;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Assert;
@@ -36,12 +43,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.test.util.ReflectionTestUtils;
 import redis.clients.jedis.Jedis;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.List;
 
 /**
  * Created by ymamakis on 12-2-16.
@@ -53,12 +54,14 @@ public class MongoDereferenceServiceTest {
     private Jedis jedis;
     private CacheDao cacheDao;
     private EnrichmentDriver driver;
+    private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     @Before
-    public void prepare() throws UnknownHostException {
-
-        eu.europeana.metis.mongo.MongoProvider.start(10001);
-        vocabularyDao = new VocabularyDao(new MongoClient("localhost", 10001), "voctest");
-        entityDao = new EntityDao(new MongoClient("localhost", 10001), "voctest");
+    public void prepare() throws IOException {
+        embeddedLocalhostMongo.start();
+        String mongoHost = embeddedLocalhostMongo.getMongoHost();
+        int mongoPort = embeddedLocalhostMongo.getMongoPort();
+        vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
+        entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
         jedis = Mockito.mock(Jedis.class);
         cacheDao = new CacheDao(jedis);
         RdfRetriever retriever = new RdfRetriever();
@@ -84,7 +87,7 @@ public class MongoDereferenceServiceTest {
         try {
             EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
 
-            Mockito.when(driver.getByUri(Mockito.anyString(),false)).thenReturn("");
+            Mockito.when(driver.getByUri(Mockito.anyString(),eq(false))).thenReturn("");
             Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
             List<String> result = service.dereference("http://sws.geonames.org/3020251");
             Assert.assertNotNull(result);
@@ -109,7 +112,7 @@ public class MongoDereferenceServiceTest {
 
     @After
     public void destroy() {
-        eu.europeana.metis.mongo.MongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 
 }

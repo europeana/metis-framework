@@ -18,6 +18,7 @@ package eu.europeana.redirects.service.mongo;
 
 import eu.europeana.corelib.tools.lookuptable.CollectionMongoServer;
 import eu.europeana.corelib.tools.lookuptable.EuropeanaId;
+import eu.europeana.corelib.tools.lookuptable.EuropeanaIdMongoServer;
 import eu.europeana.corelib.utils.EuropeanaUriUtils;
 import eu.europeana.redirects.model.RedirectRequest;
 import eu.europeana.redirects.model.RedirectRequestList;
@@ -26,18 +27,17 @@ import eu.europeana.redirects.model.RedirectResponseList;
 import eu.europeana.redirects.params.ControlledParams;
 import eu.europeana.redirects.service.RedirectService;
 import eu.europeana.redirects.service.StringTransformationUtils;
-import eu.europeana.redirects.service.config.ServiceConfig;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.client.solrj.util.ClientUtils;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.ModifiableSolrParams;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Mongo Implementation of the Europeana Redirect Service
@@ -46,10 +46,11 @@ import java.util.List;
  */
 public class MongoRedirectService implements RedirectService {
     @Autowired
-    private ServiceConfig serviceConfig;
-
-
-
+    private EuropeanaIdMongoServer mongoServer;
+    @Autowired
+    private CloudSolrServer productionSolrServer;
+    @Autowired
+    private CollectionMongoServer collectionMongoServer;
 
     /**
      * Handle a request for a redirect
@@ -67,7 +68,7 @@ public class MongoRedirectService implements RedirectService {
 
 
         //FIRST CHECK IF THERE IS A COLLECTION NAME CHANGE
-        CollectionMongoServer mongoServer = serviceConfig.getCollectionMongoServer();
+        CollectionMongoServer mongoServer = collectionMongoServer;
         String oldCollectionId = mongoServer.findOldCollectionId(request.getCollection());
         if (oldCollectionId != null) {
             finalId = EuropeanaUriUtils.createEuropeanaId(oldCollectionId, StringUtils.substringAfterLast(newId, "/"));
@@ -109,7 +110,7 @@ public class MongoRedirectService implements RedirectService {
         params.set("rows", 1);
         params.set("fl", "europeana_id");
         try {
-            QueryResponse resp = serviceConfig.getProductionSolrServer().query(params);
+            QueryResponse resp = productionSolrServer.query(params);
             SolrDocumentList list = resp.getResults();
             if (list.getNumFound() == 1) {
                 return list.get(0).getFieldValue("europeana_id").toString();
@@ -128,13 +129,13 @@ public class MongoRedirectService implements RedirectService {
      * @return The old identifier or null if the redirect was not generated (already existing EuropeanaId)
      */
     private String generateEuropeanaId(String newId, String oldId) {
-        EuropeanaId id = serviceConfig.getMongoServer().retrieveEuropeanaIdFromOld(oldId);
+        EuropeanaId id = mongoServer.retrieveEuropeanaIdFromOld(oldId);
         if (id == null || !StringUtils.equals(id.getNewId(), newId)) {
             EuropeanaId europeanaId = new EuropeanaId();
             europeanaId.setOldId(oldId);
             europeanaId.setNewId(newId);
             europeanaId.setTimestamp(new Date().getTime());
-            serviceConfig.getMongoServer().saveEuropeanaId(europeanaId);
+            mongoServer.saveEuropeanaId(europeanaId);
             return oldId;
         }
         return null;

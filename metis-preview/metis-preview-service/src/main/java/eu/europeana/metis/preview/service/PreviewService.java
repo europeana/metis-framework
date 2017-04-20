@@ -2,24 +2,33 @@ package eu.europeana.metis.preview.service;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.metis.identifier.RestClient;
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import javax.annotation.PreDestroy;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.concurrent.*;
 
 /**
  * The Preview Service implementation to upload (and potentially transform from EDM-External to EDM-Internal) records
@@ -35,7 +44,6 @@ public class PreviewService {
      * Constructor for the preview service
      *
      * @param previewPortalUrl The preview portal URL
-     * @param crosswalkPath    The crosswalk between EDM-External and EDM-INTERNAL
      */
     public PreviewService(String previewPortalUrl) throws JiBXException {
         bfact = BindingDirectory.getFactory(RDF.class);
@@ -74,18 +82,20 @@ public class PreviewService {
      * @throws TransformerException
      * @throws ParserConfigurationException
      */
-    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath) throws JiBXException, IllegalAccessException, IOException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, TransformerException, ParserConfigurationException, InterruptedException, ExecutionException {
-        if (collectionId == null) {
+    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords) throws JiBXException, IllegalAccessException, IOException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, TransformerException, ParserConfigurationException, InterruptedException, ExecutionException {
+        if (StringUtils.isEmpty(collectionId)) {
             collectionId = CollectionUtils.generateCollectionId();
         }
         ExtendedValidationResult list = new ExtendedValidationResult();
+        List<String> ids = new CopyOnWriteArrayList<>();
+        list.setRecords(ids);
         list.setSuccess(true);
         List<ValidationResult> results = new CopyOnWriteArrayList<>();
         dao.deleteCollection(collectionId);
         dao.commit();
         for (String record : records) {
             ValidationTask task = new ValidationTask(results, applyCrosswalk, bfact, record, identifierClient,
-                    validationClient, dao, collectionId, crosswalkPath, list);
+                    validationClient, dao, collectionId, crosswalkPath, list,individualRecords);
             cs.submit(task);
             Future<ExtendedValidationResult> future = cs.take();
             future.get();
@@ -93,17 +103,27 @@ public class PreviewService {
         dao.commit();
         list.setResultList(results);
         list.setPortalUrl(previewPortalUrl + collectionId + "*");
+        DateTime date = new DateTime();
+        Date nextDay = date.toDateMidnight().plusDays(1).toDate();
+        list.setDate(nextDay);
         return list;
     }
 
     /**
-     * Delete records every 24 hrs
+     * Delete records at midnight every 24 hrs
      *
      * @throws IOException
      * @throws SolrServerException
      */
-    @Scheduled(fixedRate = 24 * 60 * 60 * 1000)
+    @Scheduled(cron = "00 00 00 * * *")
     public void deleteRecords() throws IOException, SolrServerException {
         dao.deleteRecordIdsByTimestamp();
+    }
+
+    @PreDestroy
+    public void close()
+    {
+        if (executor != null)
+            executor.shutdown();
     }
 }

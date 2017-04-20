@@ -1,7 +1,7 @@
 package eu.europeana.metis.preview.rest.client;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.preview.service.ExtendedValidationResult;
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.util.LinkedMultiValueMap;
@@ -35,7 +35,7 @@ public class PreviewClient {
      * @param crosswalk The path of the crosswalk (null or EDM_external2internal_v2_repox.xsl)
      * @return The result with the preview URL
      */
-    public ExtendedValidationResult previewRecords(File recordFile, String collectionId, boolean edmExternal, String crosswalk){
+    public ExtendedValidationResult previewRecords(File recordFile, String collectionId, boolean edmExternal, String crosswalk, boolean individualRecords){
         MultiValueMap<String, Object> parts = new LinkedMultiValueMap<>();
         parts.add("file", new FileSystemResource(recordFile));
         if(StringUtils.isNotEmpty(collectionId)) {
@@ -45,6 +45,7 @@ public class PreviewClient {
         if(StringUtils.isNotEmpty(crosswalk)) {
             parts.add("crosswalk", crosswalk);
         }
+        parts.add("individualRecords",individualRecords);
         return restTemplate.postForObject(previewUrl+ RestEndpoints.PREVIEW_UPLOAD,
                 parts,ExtendedValidationResult.class);
     }

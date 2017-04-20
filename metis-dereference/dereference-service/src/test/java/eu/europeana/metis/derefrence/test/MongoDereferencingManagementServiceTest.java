@@ -24,6 +24,9 @@ import eu.europeana.metis.dereference.service.MongoDereferencingManagementServic
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
+import java.io.IOException;
+import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,9 +37,6 @@ import org.mockito.stubbing.Answer;
 import org.springframework.test.util.ReflectionTestUtils;
 import redis.clients.jedis.Jedis;
 
-import java.net.UnknownHostException;
-import java.util.List;
-
 /**
  * Created by ymamakis on 2/22/16.
  */
@@ -45,13 +45,16 @@ public class MongoDereferencingManagementServiceTest {
     private MongoDereferencingManagementService service;
     private Jedis jedis;
     private EntityDao entityDao;
+    private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     @Before
-    public void prepare() throws UnknownHostException {
-        eu.europeana.metis.mongo.MongoProvider.start(10002);
+    public void prepare() throws IOException {
+        embeddedLocalhostMongo.start();
+        String mongoHost = embeddedLocalhostMongo.getMongoHost();
+        int mongoPort = embeddedLocalhostMongo.getMongoPort();
         service = new MongoDereferencingManagementService();
         jedis = Mockito.mock(Jedis.class);
         CacheDao cacheDao = new CacheDao(jedis);
-        MongoClient mongo = new MongoClient("localhost",10002);
+        MongoClient mongo = new MongoClient(mongoHost, mongoPort);
         VocabularyDao vocDao = new VocabularyDao(mongo,"voctest");
         entityDao = new EntityDao(mongo,"voctest");
         ReflectionTestUtils.setField(service,"cacheDao",cacheDao);
@@ -175,7 +178,7 @@ public class MongoDereferencingManagementServiceTest {
 
     @After
     public void destroy(){
-        eu.europeana.metis.mongo.MongoProvider.stop();
+        embeddedLocalhostMongo.stop();
     }
 
 

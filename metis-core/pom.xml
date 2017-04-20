@@ -32,9 +32,10 @@
         <module>metis-framework-common</module>
         <module>metis-framework-service</module>
         <module>metis-framework-rest</module>
-        <module>metis-framework-ui</module>
         <module>metis-framework-rest-client</module>
         <module>metis-framework-workflows</module>
+        <module>metis-framework-mail</module>
+        <module>metis-framework-search</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -12,6 +12,7 @@
     <artifactId>metis-preview</artifactId>
     <packaging>pom</packaging>
     <modules>
+        <module>metis-preview-common</module>
         <module>metis-preview-service</module>
         <module>metis-preview-rest</module>
         <module>metis-preview-client</module>

@@ -21,9 +21,7 @@ import eu.europeana.validation.model.ValidationResult;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-import org.jclouds.io.Payload;
-import org.jclouds.openstack.swift.v1.domain.SwiftObject;
-import org.jclouds.openstack.swift.v1.features.ObjectApi;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -90,9 +88,9 @@ public class Validator implements Callable<ValidationResult> {
             if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {
 
                 StringReader reader = null;
-                if (resolver.getClass().isAssignableFrom(OpenstackResourceResolver.class)) {
-                    reader = new StringReader(IOUtils.toString(resolver.getSwiftProvider().getObjectApi()
-                            .get(savedSchema.getSchematronPath()).getPayload().openStream()));
+                if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
+                    reader = new StringReader(IOUtils.toString(resolver.getObjectStorageClient().
+                            get(savedSchema.getSchematronPath()).get().getPayload().openStream()));
                 } else {
                     reader = new StringReader(IOUtils.toString(new FileInputStream(savedSchema.getSchematronPath())));
                 }
@@ -109,7 +107,7 @@ public class Validator implements Callable<ValidationResult> {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+          //  e.printStackTrace();
             return constructValidationError(document, e);
         }
         return constructOk();
@@ -176,7 +174,7 @@ class EDMParser {
             DocumentBuilderFactory parseFactory = DocumentBuilderFactory.newInstance();
 
             parseFactory.setNamespaceAware(true);
-           parseFactory.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
+            parseFactory.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
             parseFactory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
 
             return parseFactory.newDocumentBuilder();
@@ -201,13 +199,9 @@ class EDMParser {
             factory.setResourceResolver(resolver);
             factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
             factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
-            if (resolver.getClass().isAssignableFrom(OpenstackResourceResolver.class)) {
-                SwiftProvider provider = resolver.getSwiftProvider();
-                ObjectApi api = provider.getObjectApi();
-                SwiftObject object = api.get(path);
-                System.out.println(path);
-                Payload load = object.getPayload();
-                return factory.newSchema(new StreamSource(load.openStream())).newValidator();
+            if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
+                return factory.newSchema(new StreamSource(resolver.getObjectStorageClient().
+                        get(path).get().getPayload().openStream())).newValidator();
             }
             return factory.newSchema(new StreamSource(new FileInputStream(path))).newValidator();
         } catch (Exception e) {

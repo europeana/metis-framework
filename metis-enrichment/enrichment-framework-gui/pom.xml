@@ -19,7 +19,6 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <artifactId>enrichment-framework-gui</artifactId>
-    <name>Europeana Enrichment Framework REST GUI</name>
     <parent>
         <artifactId>metis-enrichment</artifactId>
         <groupId>eu.europeana.metis</groupId>
@@ -58,7 +57,6 @@
         <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-storage</artifactId>
-            <version>${version.corelib}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.solr</groupId>
@@ -101,7 +99,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>

@@ -42,7 +42,7 @@ public class Orchestrator {
      * @param params The execution parameters
      * @return The URL that the execution is available through
      */
-    public String execute(String datasetId, String name, Map<String, List<String>> params) throws NoDatasetFoundException {
+    public String execute(String datasetId, String name, String operatorMail, Map<String, List<String>> params) throws NoDatasetFoundException {
        // if(datasetService.exists(datasetId)) {
         if(true){
             AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(name);
@@ -53,6 +53,7 @@ public class Orchestrator {
             execution.setStartedAt(new Date());
             execution.setUpdatedAt(new Date());
             execution.setActive(true);
+            execution.setOperatorEmail(operatorMail);
             if(params==null){
                 params = new HashMap<>();
             }
@@ -77,7 +78,7 @@ public class Orchestrator {
      */
     @Scheduled(fixedDelay = 3600000)
     public void executeScheduled() {
-        List<Execution> executions = getExecutions(null, null, null, null, null, new Date(), null, false);
+        List<Execution> executions = getExecutions(null, null, null, null, null, new Date(), null, false,null,null);
         if (executions != null && executions.size() > 0) {
             for (Execution execution : executions) {
                 AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(execution.getWorkflow());
@@ -96,9 +97,32 @@ public class Orchestrator {
      * Get all active executions (not finished or cancelled)
      * @return
      */
-    public List<Execution> getActiveExecutions() {
-        return getExecutions(null, null, null, null, null, null, true, false);
+    public List<Execution> getActiveExecutions(String operatorEmail) {
+        return getExecutions(null, null, null, null, null, null, true, false,null,operatorEmail);
     }
+    /**
+     * Get all cancelled executions
+     * @return
+     */
+    public List<Execution> getCancelledExecutions(String operatorEmail) {
+        return getExecutions(null, null, null, null, null, null, false, true,null,operatorEmail);
+    }
+
+    /**
+     * Get all finished executions
+     * @return
+     */
+    public List<Execution> getFinishedExecutions(String operatorEmail) {
+        return getExecutions(null, null, null, null, new Date(), null, false, null,null, operatorEmail);
+    }
+    /**
+     * Get all executions by workflow
+     * @return
+     */
+    public List<Execution> getByWorkflowExecutions(String workflow,String operatorEmail) {
+        return getExecutions(null, null, null, null, null, null, false, null,workflow, operatorEmail);
+    }
+
 
     /**
      * Get a specific execution
@@ -115,8 +139,8 @@ public class Orchestrator {
      * @param end The final date
      * @return The list of executions that matches the search criteria
      */
-    public List<Execution> getExecutionsByDates(Date start, Date end) {
-        return getExecutions(null, null, null, start, end, null, null, null);
+    public List<Execution> getExecutionsByDates(Date start, Date end, String operatorEmail) {
+        return getExecutions(null, null, null, start, end, null, null, null,null,operatorEmail);
     }
 
     /**
@@ -125,8 +149,8 @@ public class Orchestrator {
      * @param limit The number of results to retrieve
      * @return The List of executions that correspond to the query
      */
-    public List<Execution> getAllExecutions(int offset, int limit) {
-        return getExecutions(null, offset, limit, null, null, null, null, null);
+    public List<Execution> getAllExecutions(int offset, int limit,String operatorEmail) {
+        return getExecutions(null, offset, limit, null, null, null, null, null,null,operatorEmail);
     }
 
     /**
@@ -136,10 +160,10 @@ public class Orchestrator {
      * @param limit The number of results to retrieve
      * @return The List of executions that correspond to the query
      */
-    public List<Execution> getAllExecutionsForDataset(String datasetId, int offset, int limit) throws NoDatasetFoundException {
+    public List<Execution> getAllExecutionsForDataset(String datasetId, int offset, int limit,String operatorEmail) throws NoDatasetFoundException {
         //if(datasetService.exists(datasetId)) {
         if(true){
-            return getExecutions(datasetId, offset, limit, null, null, null, null, null);
+            return getExecutions(datasetId, offset, limit, null, null, null, null, null,null, operatorEmail);
         }
         throw new NoDatasetFoundException(datasetId);
     }
@@ -153,9 +177,9 @@ public class Orchestrator {
      * @param end The end date
      * @return The List of executions that correspond to the query
      */
-    public List<Execution> getAllExecutionsForDatasetByDates(String datasetId, int offset, int limit, Date start, Date end) throws NoDatasetFoundException {
+    public List<Execution> getAllExecutionsForDatasetByDates(String datasetId, int offset, int limit, Date start, Date end,String operatorEmail) throws NoDatasetFoundException {
         if(datasetService.exists(datasetId)) {
-            return getExecutions(datasetId, offset, limit, start, end, null, null, null);
+            return getExecutions(datasetId, offset, limit, start, end, null, null, null,null, operatorEmail);
         }
         throw new NoDatasetFoundException(datasetId);
     }
@@ -165,7 +189,7 @@ public class Orchestrator {
      */
     @Scheduled(fixedDelay = 10000)
     private void updateActiveExecutions() {
-        List<Execution> activeExecutions = getActiveExecutions();
+        List<Execution> activeExecutions = getActiveExecutions(null);
         if (activeExecutions != null && activeExecutions.size() > 0) {
             for (Execution activeExecution : activeExecutions) {
                 UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
@@ -217,7 +241,7 @@ public class Orchestrator {
      * @return The list of exectuions that conform to this criteria
      */
     private List<Execution> getExecutions(String datasetId, Integer offset, Integer limit, Date start, Date end, Date scheduled, Boolean active,
-                                          Boolean cancelled) {
+                                          Boolean cancelled,String workflow,String operatorEmail) {
         Query<Execution> query = executionDao.createQuery();
         if (offset != null) {
             query.offset(offset);
@@ -232,7 +256,7 @@ public class Orchestrator {
             query.field("startedAt").greaterThanOrEq(start);
         }
         if (end != null) {
-            query.field("finishedAt").greaterThanOrEq(end);
+            query.field("finishedAt").lessThanOrEq(end);
         }
         if (scheduled != null) {
             query.field("scheduledAt").lessThanOrEq(scheduled);
@@ -245,6 +269,13 @@ public class Orchestrator {
         if (cancelled != null) {
             query.filter("cancelled", cancelled);
         }
+        if(workflow!=null){
+            query.filter("workflow",workflow);
+        }
+
+        if(operatorEmail!=null){
+            query.filter("operatorEmail",operatorEmail);
+        }
         return executionDao.find(query).asList();
     }
 
@@ -256,13 +287,14 @@ public class Orchestrator {
      * @param milliseconds The number of milliseconds after which the execution will be triggered
      * @return The List of executions that correspond to the query
      */
-    public String schedule(String datasetId, String name, Map<String, List<String>> params, long milliseconds) throws NoDatasetFoundException {
+    public String schedule(String datasetId, String name, String operatorMail, Map<String, List<String>> params, long milliseconds) throws NoDatasetFoundException {
       //  if(datasetService.exists(datasetId)) {
         if(true){
             Execution execution = new Execution();
             execution.setId(new ObjectId());
             execution.setDatasetId(datasetId);
             execution.setWorkflow(name);
+            execution.setOperatorEmail(operatorMail);
             long when = new Date().getTime() + milliseconds;
             execution.setScheduledAt(new Date(when));
             execution.setActive(false);

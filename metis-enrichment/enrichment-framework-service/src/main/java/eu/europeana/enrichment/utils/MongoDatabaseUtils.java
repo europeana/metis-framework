@@ -24,23 +24,37 @@ import eu.europeana.corelib.solr.entity.AgentImpl;
 import eu.europeana.corelib.solr.entity.ConceptImpl;
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.enrichment.api.internal.*;
-import eu.europeana.enrichment.tagger.vocabularies.*;
+import eu.europeana.enrichment.api.internal.AgentTermList;
+import eu.europeana.enrichment.api.internal.ConceptTermList;
+import eu.europeana.enrichment.api.internal.MongoTerm;
+import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.PlaceTermList;
+import eu.europeana.enrichment.api.internal.Term;
+import eu.europeana.enrichment.api.internal.TermList;
+import eu.europeana.enrichment.api.internal.TimespanTermList;
+import eu.europeana.enrichment.tagger.vocabularies.AbstractVocabulary;
+import eu.europeana.enrichment.tagger.vocabularies.VocabularyOfPeople;
+import eu.europeana.enrichment.tagger.vocabularies.VocabularyOfPlaces;
+import eu.europeana.enrichment.tagger.vocabularies.VocabularyOfTerms;
+import eu.europeana.enrichment.tagger.vocabularies.VocabularyOfTime;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.TimeZone;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.commons.lang.StringUtils;
 import org.jibx.runtime.JiBXException;
 import org.mongojack.DBCursor;
 import org.mongojack.DBRef;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
-
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.UnknownHostException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 
 
 /**
@@ -138,9 +152,6 @@ public class MongoDatabaseUtils<T> {
                 }
             }
             return true;
-        } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
         } catch (MongoException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

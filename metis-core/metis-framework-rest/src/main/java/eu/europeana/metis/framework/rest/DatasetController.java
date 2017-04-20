@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.framework.rest;
 
+import eu.europeana.metis.framework.dataset.DatasetList;
 import eu.europeana.metis.framework.dto.OrgDatasetDTO;
 import eu.europeana.metis.framework.dataset.Dataset;
 import eu.europeana.metis.framework.exceptions.NoDatasetFoundException;
@@ -29,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import static eu.europeana.metis.RestEndpoints.DATASET;
+import static eu.europeana.metis.RestEndpoints.DATASET_BYPROVIDER;
 import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
 
 /**
@@ -87,5 +89,13 @@ public class DatasetController {
     @ApiOperation(value = "Retrieve a dataset by name", response = Dataset.class)
     public Dataset getByName(@ApiParam("name") @PathVariable("name") String name) throws NoDatasetFoundException{
         return datasetService.getByName(name);
+    }
+    @RequestMapping (value = DATASET_BYPROVIDER,method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    @ApiOperation(value = "Retrieve datasets by data providers", response = DatasetList.class)
+    public DatasetList getByDataProviderId(@PathVariable("dataProviderId") String dataProviderId){
+        DatasetList lst = new DatasetList();
+        lst.setDatasetList(datasetService.getDatasetsByDataProviderId(dataProviderId));
+        return lst;
     }
 }

@@ -10,10 +10,11 @@ import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import eu.europeana.normalization.language.LanguagesVocabulary;
-import research.JsonUtil;
+//import research.JsonUtil;
 
 public class DatasetPreprocessor {
-	
+    //TODO this one does not compile
+	/**
 	HashMap<String, HashSet<String>> partialWordMatches=new HashMap<>();
 	
 	public DatasetPreprocessor() {
@@ -75,6 +76,6 @@ public class DatasetPreprocessor {
             e.printStackTrace();
         }
     }
-
+*/
 	
 }

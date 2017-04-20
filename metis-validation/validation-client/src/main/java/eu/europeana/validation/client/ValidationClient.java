@@ -54,6 +54,11 @@ public class ValidationClient {
         }
     }
 
+    public ValidationClient(String validationEndpoint){
+        this.validationEndpoint = validationEndpoint;
+        template.setErrorHandler(new ValidationResponseHandler());
+    }
+
     /**
      * Validate a single record against a schema
      * @param schemaName The schema name to validate the record against

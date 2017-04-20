@@ -19,10 +19,10 @@ package eu.europeana.metis.ui.ldap.dao.impl;
 
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.NamingException;
-import javax.naming.directory.Attribute;
 import javax.naming.directory.Attributes;
 import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.BasicAttributes;
@@ -37,6 +37,7 @@ import org.springframework.ldap.support.LdapNameBuilder;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.Group;
 import eu.europeana.metis.ui.ldap.domain.User;
+import eu.europeana.metis.ui.mongo.domain.Roles;
 
 public class UserDaoImpl implements UserDao {
 	
@@ -50,14 +51,14 @@ public class UserDaoImpl implements UserDao {
     public void create(User user) {
         LdapName userDn = buildDn(user.getEmail());
         user.setDn(userDn);
-        LdapName groupDn = buildRoleDn("EUROPEANA_ADMIN");
-        Group grp = ldapTemplate.findByDn(groupDn, Group.class);
-        List<String> members = grp.getMembers();
-        members.add(user.getDn().toString() + ",dc=europeana,dc=eu");
-        grp.setMembers(members);
-        DirContextOperations context = ldapTemplate.lookupContext(groupDn);
-        updateGroup(grp, context);
-        ldapTemplate.modifyAttributes(context);
+//        LdapName groupDn = buildRoleDn("EUROPEANA_ADMIN");
+//        Group grp = ldapTemplate.findByDn(groupDn, Group.class);
+//        List<String> members = grp.getMembers();
+//        members.add(user.getDn().toString() + ",dc=europeana,dc=eu");
+//        grp.setMembers(members);
+//        DirContextOperations context = ldapTemplate.lookupContext(groupDn);
+//        updateGroup(grp, context);
+//        ldapTemplate.modifyAttributes(context);
         ldapTemplate.bind(userDn, null, buildUser(user));
     }
 
@@ -125,12 +126,42 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUserRole(User user, Group group) {
-    	// TODO Auto-generated method stub
+      List<String> members = group.getMembers();
+      members.add(user.getDn().toString() + ",dc=europeana,dc=eu");
+      group.setMembers(members);
+      DirContextOperations context = ldapTemplate.lookupContext(group.getDn());
+      updateGroup(group, context);
+      ldapTemplate.modifyAttributes(context);
     }
     
     @Override
     public void removeUserRole(User user, Group group) {
-    	// TODO Auto-generated method stub
+    	//TODO test this!
+    	List<String> members = group.getMembers();
+        members.remove(user.getDn().toString() + ",dc=europeana,dc=eu");
+        group.setMembers(members);
+        DirContextOperations context = ldapTemplate.lookupContext(group.getDn());
+        updateGroup(group, context);
+        ldapTemplate.modifyAttributes(context);
+    }
+    
+/**
+ *    The user dn in a role group looks as follows:
+ *    "cn=email@europeana.eu,ou=users,ou=metis_authentication,dc=europeana,dc=eu"
+ */
+    @Override
+    public List<String> findUsersByRole(Roles userRole) {
+      List<String> members = ldapTemplate.findByDn(buildRoleDn(userRole.getLdapName()), Group.class).getMembers();
+      List<String> emails = new ArrayList<>();
+      if (members != null && !members.isEmpty()) {
+    	  for (String member : members) {
+    		  String cn = member.split(",")[0];
+    		  if (cn.length() > 2) {
+    			  emails.add(cn.substring(3));    			  
+    		  }
+    	  }    	  
+      }
+      return emails;
     }
     
     

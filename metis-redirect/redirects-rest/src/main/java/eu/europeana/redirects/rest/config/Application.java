@@ -16,12 +16,30 @@
  */
 package eu.europeana.redirects.rest.config;
 
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientURI;
+import eu.europeana.corelib.lookup.impl.CollectionMongoServerImpl;
+import eu.europeana.corelib.lookup.impl.EuropeanaIdMongoServerImpl;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.tools.lookuptable.CollectionMongoServer;
+import eu.europeana.corelib.tools.lookuptable.EuropeanaIdMongoServer;
+import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.redirects.service.RedirectService;
-import eu.europeana.redirects.service.config.ServiceConfig;
 import eu.europeana.redirects.service.mongo.MongoRedirectService;
-import org.springframework.context.annotation.*;
+import java.net.MalformedURLException;
+import java.util.List;
+import javax.annotation.PreDestroy;
+import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.impl.CloudSolrServer;
+import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -34,25 +52,99 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.List;
-
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.redirects.rest"})
 @PropertySource("classpath:redirects.properties")
 @EnableWebMvc
 @EnableSwagger2
-public class Application extends WebMvcConfigurerAdapter {
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
+    @Value("${mongo.hosts}")
+    private String mongoHosts;
+    @Value("${mongo.port}")
+    private int mongoPort;
+    @Value("${mongo.username}")
+    private String mongoUsername;
+    @Value("${mongo.password}")
+    private String mongoPassword;
+    @Value("${mongo.db}")
+    private String mongoDb;
+    @Value("${mongo.collections.db}")
+    private String mongoCollectionsDb;
 
-    @Bean (name = "serviceConfig")
-    ServiceConfig getServiceConfig(){
-        return new ServiceConfig();
+    @Value("${zookeeper.production}")
+    private String zookeeperProduction;
+    @Value("${solr.production}")
+    private String solrProduction;
+    @Value("${solr.production.core}")
+    private String solrProductionCore;
+
+    private MongoProviderImpl mongoProvider;
+    private MongoProviderImpl mongoProviderCollections;
+
+    /**
+     * Used for overwriting properties if cloud foundry environment is used
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
+        if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
+            PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
+                vcapServicesJson);
+
+            MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
+            if (mongoClientURI != null) {
+                String mongoHostAndPort = mongoClientURI.getHosts().get(0);
+                mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+                mongoPort = Integer
+                    .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+                mongoUsername = mongoClientURI.getUsername();
+                mongoPassword = String.valueOf(mongoClientURI.getPassword());
+                mongoDb = mongoClientURI.getDatabase();
+                mongoCollectionsDb = mongoClientURI.getDatabase();
+            }
+        }
+
+        String[] mongoHostsArray = mongoHosts.split(",");
+        StringBuilder mongoPorts = new StringBuilder();
+        for (int i = 0; i < mongoHostsArray.length; i++) {
+            mongoPorts.append(mongoPort + ",");
+        }
+        mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+        MongoClientOptions.Builder options = MongoClientOptions.builder();
+        options.socketKeepAlive(true);
+        mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+            mongoPassword, options);
+        mongoProviderCollections = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoCollectionsDb, mongoUsername,
+            mongoPassword, options);
+    }
+
+    @Bean(name = "mongoServer")
+    public EuropeanaIdMongoServer getMongoServer() {
+        return new EuropeanaIdMongoServerImpl(mongoProvider.getMongo(), mongoDb);
+    }
+
+    @Bean(name = "collectionMongoServer")
+    public CollectionMongoServer getCollectionMongoServer() {
+        return new CollectionMongoServerImpl(mongoProviderCollections.getMongo(), mongoCollectionsDb);
+    }
+
+    @Bean(name = "productionSolrServer")
+    public CloudSolrServer getProductionSolrServer() throws MalformedURLException {
+        LBHttpSolrServer lbTargetProduction = new LBHttpSolrServer(solrProduction);
+        CloudSolrServer productionSolrServer;
+        productionSolrServer = new CloudSolrServer(zookeeperProduction, lbTargetProduction);
+        productionSolrServer.setDefaultCollection(solrProductionCore);
+        productionSolrServer.connect();
+
+        return productionSolrServer;
     }
 
     @Bean
-    @DependsOn(value = "serviceConfig")
+    @DependsOn(value = {"mongoServer", "collectionMongoServer", "productionSolrServer"})
     RedirectService getRedirectService(){
         return new MongoRedirectService();
     }
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
@@ -61,14 +153,12 @@ public class Application extends WebMvcConfigurerAdapter {
     @Override
     public  void configureMessageConverters(List<HttpMessageConverter<?>> converters){
         converters.add(new MappingJackson2HttpMessageConverter());
-
         super.configureMessageConverters(converters);
     }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer properties() {
         PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer = new PropertySourcesPlaceholderConfigurer();
-        propertySourcesPlaceholderConfigurer.setLocation(new ClassPathResource("redirects.properties"));
         return propertySourcesPlaceholderConfigurer;
     }
 
@@ -80,6 +170,15 @@ public class Application extends WebMvcConfigurerAdapter {
                 .paths(PathSelectors.regex("/.*"))
                 .build()
                 .apiInfo(apiInfo());
+    }
+
+    @PreDestroy
+    public void close()
+    {
+        if (mongoProvider != null)
+            mongoProvider.close();
+        if (mongoProviderCollections != null)
+            mongoProviderCollections.close();
     }
 
     private ApiInfo apiInfo() {

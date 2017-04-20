@@ -1,9 +1,13 @@
 package eu.europeana.metis.preview.persistence;
 
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.metis.mongo.MongoProvider;
+import java.io.IOException;
+import java.io.StringReader;
+import java.lang.reflect.InvocationTargetException;
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -13,7 +17,6 @@ import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-
-import java.io.IOException;
-import java.io.StringReader;
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Created by ymamakis on 9/5/16.
@@ -46,7 +45,7 @@ public class TestRecordDao {
         try {
             IBindingFactory factory =  BindingDirectory.getFactory(RDF.class);
             IUnmarshallingContext uctx = factory.createUnmarshallingContext();
-            StringReader reader = new StringReader(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("Item_5791754.xml")));
+            StringReader reader = new StringReader(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("BibliographicResource_2000081662432.rdf")));
             RDF rdf = (RDF) uctx.unmarshalDocument(reader);
             rdf.getProvidedCHOList().get(0).setAbout("/12345/" + rdf.getProvidedCHOList().get(0).getAbout());
             FullBeanImpl fBean = new MongoConstructor()
@@ -76,14 +75,18 @@ public class TestRecordDao {
             e.printStackTrace();
         } catch (SolrServerException e) {
             e.printStackTrace();
+        } catch (MongoDBException e) {
+            e.printStackTrace();
+        } catch (MongoRuntimeException e) {
+            e.printStackTrace();
         }
     }
 
-    @After
-    public void destroy(){
-        //FIXME Disabling the deletion because of the Mongo replication failing in flapdoodle currently
-        //MongoReplicaSet.stop();
-
-        MongoProvider.stop();
-    }
+//    @After
+//    public void destroy(){
+//        //FIXME Disabling the deletion because of the Mongo replication failing in flapdoodle currently
+//        //MongoReplicaSet.stop();
+//
+//        mongoProvider.stop();
+//    }
 }

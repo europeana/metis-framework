@@ -1,73 +1,16 @@
+# Eclipse
+*.classpath
+*.project
+*.settings/
 
-/.idea/
-/metis-framework.iml
-/metis-validation/metis-validation.iml
-/metis-validation/validation-service/target/
-/metis-validation/validation-service/validation-rest (1).iml
-/metis-validation/validation-service/validation-service.iml
-/metis-validation/validation-rest/validation-rest.iml
-/metis-validation/validation-rest/target/
-/metis-validation/validation-common/target/
-/metis-validation/validation-common/validation-common.iml
-/metis-validation/validation-client/validation-client.iml
-/metis-validation/validation-client/target/
-/metis-redirect/redirects-client/redirects-client.iml
-/metis-redirect/redirects-client/target/
-/metis-redirect/redirects-common/redirects-common.iml
-/metis-redirect/redirects-common/target/
-/metis-redirect/redirects-rest/redirects-rest.iml
-/metis-redirect/redirects-rest/target/
-/metis-redirect/redirects-service/redirects-service.iml
-/metis-redirect/redirects-service/target/
-/metis-redirect/europeana-redirect.iml
-/metis-pandora/metis-pandora-persistence/metis-mapping-persistence.iml
-/metis-pandora/metis-pandora-rest/metis-mapping-rest.iml
-/metis-pandora/metis-pandora-service/metis-mapping-service.iml
-/metis-pandora/metis-pandora-common/metis-mapping-common.iml
-/metis-pandora/metis-mapping-framework.iml
-/metis-dereference/dereference-common/target/
-/metis-identifiers/metis-identifier-client/target/
-/metis-hierarchies/hierarchies (1) (eu.europeana.metis).iml
-/metis-dereference/dereference-rest/target/
-/metis-core/core.iml
-/metis-identifiers/metis-identifier-service/metis-identifier-service.iml
-/metis-hierarchies/hierarchies-common/hierarchies-common (1).iml
-/metis-dereference/dereference-client/target/
-/metis-dereference/dereference-service/dereference-service.iml
-/metis-dereference/dereference-service/target/
-/metis-core/metis-framework-rest/target/
-/metis-dereference/dereference-client/dereference-client.iml
-/metis-hierarchies/hierarchies (1).iml
-/metis-hierarchies/hierarchies-generation/target/
-/metis-dereference/dereference.iml
-/metis-core/metis-framework-service/target/
-/metis-core/metis-framework-rest/metis-framework-rest.iml
-/metis-hierarchies/hierarchies-common/hierarchies-common (1) (eu.europeana.metis).iml
-/metis-core/metis-framework-account/target/
-/metis-dereference/dereference-common/dereference-common.iml
-/metis-identifiers/metis-identifier-common/metis-identifier-common.iml
-/metis-identifiers/metis-identifier-client/metis-identifier-client.iml
-/metis-core/metis-framework-ui/metis-framework-ui.iml
-/metis-core/metis-framework-service/metis-framework-service.iml
-/metis-core/hierarchies (1) (eu.europeana.metis).iml
-/metis-core/metis-framework-ui/target/
-/metis-hierarchies/hierarchies-service/target/
-/metis-hierarchies/hierarchies-generation/hierarchies-generation (1).iml
-/metis-dereference/dereference-rest/dereference-rest.iml
-/metis-identifiers/metis-identifier.iml
-/metis-identifiers/metis-identifier-rest/metis-identifier-rest.iml
-/metis-identifiers/metis-identifier-service/target/
-/metis-core/metis-framework-rest-client/metis-framework-rest-client.iml
-/metis-hierarchies/hierarchies-service/hierarchies-service (1).iml
-/metis-hierarchies/hierarchies-common/target/
-/metis-identifiers/metis-identifier-rest/target/
-/metis-hierarchies/hierarchies-generation/hierarchies-generation (1) (eu.europeana.metis).iml
-/metis-core/metis-framework-account/metis-framework-account.iml
-/metis-core/metis-framework-common/metis-framework-common.iml
-/metis-core/metis-framework-common/target/
-/metis-identifiers/metis-identifier-common/target/
-/metis-core/metis-framework-rest-client/target/
-/.DS_Store
-/.project
-/.settings/
-/.gitignore
+# Intellij
+**/.idea/
+*.iml
+*.iws
+
+# Mac
+*.DS_Store
+
+# Maven
+**/log/
+**/target/

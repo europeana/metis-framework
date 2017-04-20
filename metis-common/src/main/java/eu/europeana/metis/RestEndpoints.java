@@ -12,15 +12,20 @@ public final class RestEndpoints {
 
     public final static String DATASET ="/dataset";
     public final static String DATASET_RETRIEVE = "/dataset/{name}";
-    public final static String ORGANIZATION = "/organization";
+    public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
+    public final static String ORGANIZATION = "/organization/{apikey}";
     public final static String ORGANIZATIONS = "/organizations";
-    public final static String ORGANIZATIONS_ISOCODE = "/organizations/{country}";
+    public final static String ORGANIZATIONS_ISOCODE = "/organizations/country";
+    public final static String ORGANIZATIONS_ROLES = "/organizations/roles";
     public final static String ORGANIZATION_ID ="/organization/{id}";
     public final static String ORGANIZATION_ID_DATASETS="/organization/{id}/datasets";
+    public final static String ORGANIZATION_OPTED_IN="/organization/{id}/optin";
+    public final static String ORGANIZATION_SUGGEST = "/organizations/suggest/{suggestTerm}";
     public final static String CRM_ORGANIZATION_ID = "/crm/organization/{orgId}";
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
     public final static String USERBYMAIL="/user/{email}";
     public final static String USERBYID ="/contact/{id}";
+    public final static String ORGANIZATIONS_BYDATASET="/organizations/dataset/{id}";
 
     /* METIS-DEREFERENCE Endpoints*/
     public final static String DEREFERENCE="/dereference";
@@ -37,7 +42,7 @@ public final class RestEndpoints {
     public final static String ENRICHMENT_ENRICH="/enrich";
 
     /* METIS IDENTIFIER ITEMIZATION Endpoint */
-    public final static String IDENTIFIER_GENERATE ="/identifier/generate/{collectionId}/{recordId}";
+    public final static String IDENTIFIER_GENERATE ="/identifier/generate/{collectionId}";
     public final static String IDENTIFIER_NORMALIZE_SINGLE = "/identifier/normalize/single";
     public final static String IDENTIFIER_NORMALIZE_BATCH = "/identifier/normalize/batch";
     public final static String ITEMIZE_URL = "/itemize/url";

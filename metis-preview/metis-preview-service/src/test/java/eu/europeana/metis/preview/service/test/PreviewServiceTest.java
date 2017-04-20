@@ -1,11 +1,20 @@
 package eu.europeana.metis.preview.service.test;
 
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.metis.identifier.RestClient;
+import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.ExtendedValidationResult;
 import eu.europeana.metis.preview.service.PreviewService;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.JiBXException;
@@ -17,13 +26,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
+//import eu.europeana.metis.preview.service.ExtendedValidationResult;
 
 /**
  * Created by ymamakis on 9/6/16.
@@ -62,7 +65,7 @@ public class PreviewServiceTest {
             }).when(mockDao).createRecord(Mockito.anyObject());
             List<String> records = new ArrayList<>();
             records.add(record);
-            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false,"test");
+            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false,"test",false);
             Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
             Assert.assertEquals(0,extendedValidationResult.getResultList().size());
             Assert.assertEquals(true,extendedValidationResult.isSuccess());
@@ -71,6 +74,10 @@ public class PreviewServiceTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (MongoDBException e) {
+            e.printStackTrace();
+        } catch (MongoRuntimeException e) {
             e.printStackTrace();
         }
 
