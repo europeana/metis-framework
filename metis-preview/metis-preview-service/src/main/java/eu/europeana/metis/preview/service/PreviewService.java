@@ -7,6 +7,19 @@ import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import javax.annotation.PreDestroy;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.BindingDirectory;
@@ -16,14 +29,6 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
-import java.util.List;
-import java.util.concurrent.*;
 
 /**
  * The Preview Service implementation to upload (and potentially transform from EDM-External to EDM-Internal) records
@@ -113,5 +118,12 @@ public class PreviewService {
     @Scheduled(cron = "00 00 00 * * *")
     public void deleteRecords() throws IOException, SolrServerException {
         dao.deleteRecordIdsByTimestamp();
+    }
+
+    @PreDestroy
+    public void close()
+    {
+        if (executor != null)
+            executor.shutdown();
     }
 }
