@@ -38,7 +38,7 @@ import eu.europeana.metis.framework.service.MetisAuthorizationService;
 import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.service.OrganizationService;
 import eu.europeana.metis.framework.service.UserService;
-import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
+import eu.europeana.metis.framework.workflow.MetisWorkflow;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
 import eu.europeana.metis.framework.workflow.VoidMetisWorkflow;
@@ -90,7 +90,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
 @EnableSwagger2
-@EnablePluginRegistries(AbstractMetisWorkflow.class)
+@EnablePluginRegistries(MetisWorkflow.class)
 @EnableScheduling
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {

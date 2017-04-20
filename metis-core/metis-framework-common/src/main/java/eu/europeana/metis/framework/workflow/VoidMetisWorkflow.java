@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Created by ymamakis on 11/15/16.
  */
-public class VoidMetisWorkflow implements AbstractMetisWorkflow {
+public class VoidMetisWorkflow implements MetisWorkflow {
     private String name;
 
     public VoidMetisWorkflow(){
@@ -29,8 +29,9 @@ public class VoidMetisWorkflow implements AbstractMetisWorkflow {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         System.out.println("Welcome to the jungle");
+        return "";
     }
 
     @Override
