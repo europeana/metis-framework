@@ -15,19 +15,16 @@ import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
-import org.apache.lucene.search.Query;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
-import org.apache.solr.common.params.ModifiableSolrParams;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Record persistence DAO
@@ -36,13 +33,13 @@ import java.util.regex.Pattern;
 public class RecordDao {
 
     @Autowired
-    private FullBeanHandler beanHandler;
+    private FullBeanHandler mongoBeanHandler;
 
     @Autowired
     private SolrDocumentHandler solrDocumentHandler;
 
     @Autowired
-    private SolrServer server;
+    private SolrServer solrServer;
 
     @Autowired
     private EdmMongoServer mongoServer;
@@ -58,10 +55,11 @@ public class RecordDao {
     public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, MongoDBException, MongoRuntimeException {
         SolrInputDocument doc =solrDocumentHandler.generate((FullBeanImpl) fBean);
         doc.setField("europeana_id",fBean.getAbout());
-        server.add(doc);
+        solrServer.add(doc);
         FullBean fixed = fixIdentifiers(fBean);
 
-        beanHandler.saveEdmClasses((FullBeanImpl)fixed,mongoServer.getFullBean(fBean.getAbout())==null);
+        mongoBeanHandler
+            .saveEdmClasses((FullBeanImpl)fixed,mongoServer.getFullBean(fBean.getAbout())==null);
         mongoServer.getDatastore().save(fixed);
 
     }
@@ -102,16 +100,16 @@ public class RecordDao {
      * @param recordId The id of the record to remove
      */
     public void deleteRecord(String recordId){
-        beanHandler.removeRecordById(server,recordId);
+        mongoBeanHandler.removeRecordById(solrServer,recordId);
     }
 
     public void deleteCollection(String collectionName) throws IOException, SolrServerException {
-        server.deleteByQuery("edm_datasetName:"+collectionName+"*");
+        solrServer.deleteByQuery("edm_datasetName:"+collectionName+"*");
         clearData(collectionName);
     }
 
     public void commit() throws IOException, SolrServerException {
-        server.commit();
+        solrServer.commit();
     }
     /**
      * Create records
@@ -145,8 +143,8 @@ public class RecordDao {
     public void deleteRecordIdsByTimestamp() throws SolrServerException, IOException {
         SolrQuery query = new SolrQuery();
         query.setQuery("*:*");
-        server.deleteByQuery(query.getQuery());
-        server.commit();
+        solrServer.deleteByQuery(query.getQuery());
+        solrServer.commit();
         clearAll();
     }
 

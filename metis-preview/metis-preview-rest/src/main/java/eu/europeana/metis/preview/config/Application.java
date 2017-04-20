@@ -35,6 +35,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -68,6 +70,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableScheduling
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+  private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   @Value("${mongo.hosts}")
   private String mongoHosts;
@@ -85,6 +88,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String solrSearchUrl;
 
   private MongoProviderImpl mongoProvider;
+  private HttpSolrServer solrServer;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -105,6 +109,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         mongoUsername = mongoClientURI.getUsername();
         mongoPassword = String.valueOf(mongoClientURI.getPassword());
         mongoDb = mongoClientURI.getDatabase();
+        LOGGER.info("Using Cloud Foundry Mongo");
       }
     }
 
@@ -164,8 +169,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean(name = "solrServer")
   SolrServer solrServer() {
-    HttpSolrServer server = new HttpSolrServer(solrSearchUrl);
-    return server;
+    solrServer = new HttpSolrServer(solrSearchUrl);
+    return solrServer;
   }
 
   @Override
@@ -209,8 +214,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @PreDestroy
   public void close()
   {
+    LOGGER.info("Closing connections..");
     if (mongoProvider != null)
       mongoProvider.close();
+    if (solrServer != null)
+      solrServer.shutdown();
   }
 
   private ApiInfo apiInfo() {
