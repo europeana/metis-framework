@@ -148,7 +148,7 @@ public class MetisUserPageController {
      * @return
      */
     @RequestMapping(value = "/profile", method=RequestMethod.GET)
-    public ModelAndView proflie(Model model) {
+    public ModelAndView profile(Model model) {
     	Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     	String primaryKey = principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl)principal).getUsername() : null;
     	UserDTO userDTO = userService.getUser(primaryKey);
@@ -297,15 +297,14 @@ public class MetisUserPageController {
     
     //TODO the method implementation is not finished yet
 	@ResponseBody
-	@RequestMapping(value = "/profile/suggestOrganizations")
-	public String suggestOrganizationsViaAjax(@RequestBody String searchTerm) {
+	@RequestMapping(value = "/profile/suggestOrganizations", method=RequestMethod.GET, params="searchTerm")
+	public String suggestOrganizationsViaAjax(@RequestBody String response, String searchTerm) {
 		String result = "";
 		//logic
 		List<Organization> orgs = suggestOrganizations(searchTerm);
 		//FIXME comment the line below
 		System.out.println(MetisMappingUtil.toJson(orgs));
 		return result;
-
 	}
     
     /**
