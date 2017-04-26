@@ -80,12 +80,12 @@
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-framework-account</artifactId>
+      <artifactId>metis-core-account</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-framework-common</artifactId>
+      <artifactId>metis-core-common</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
@@ -95,12 +95,12 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-framework-rest-client</artifactId>
+      <artifactId>metis-core-rest-client</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-framework-service</artifactId>
+      <artifactId>metis-core-service</artifactId>
       <version>${project.version}</version>
     </dependency>
 

@@ -26,10 +26,10 @@
 	<artifactId>metis-validation</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>validation-rest</module>
-		<module>validation-client</module>
-		<module>validation-common</module>
-		<module>validation-service</module>
+		<module>metis-validation-rest</module>
+		<module>metis-validation-client</module>
+		<module>metis-validation-common</module>
+		<module>metis-validation-service</module>
 	</modules>
 
 	<properties>

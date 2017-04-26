@@ -29,10 +29,10 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>dereference-common</module>
-        <module>dereference-service</module>
-        <module>dereference-rest</module>
-        <module>dereference-client</module>
+        <module>metis-dereference-common</module>
+        <module>metis-dereference-service</module>
+        <module>metis-dereference-rest</module>
+        <module>metis-dereference-client</module>
     </modules>
     <build>
         <plugins>

@@ -27,13 +27,13 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>enrichment-framework-service</module>
-        <module>enrichment-framework-common</module>
-        <module>enrichment-framework-rest</module>
-        <module>enrichment-framework-client</module>
-        <module>enrichment-framework-gui</module>
-        <module>enrichment-framework-knowledgebase</module>
-        <module>enrichment-framework-proxy</module>
+        <module>metis-enrichment-service</module>
+        <module>metis-enrichment-common</module>
+        <module>metis-enrichment-rest</module>
+        <module>metis-enrichment-client</module>
+        <module>metis-enrichment-ui</module>
+        <module>metis-enrichment-knowledgebase</module>
+        <module>metis-enrichment-proxy</module>
     </modules>
 
     <dependencies>

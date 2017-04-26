@@ -10,12 +10,12 @@
 	<artifactId>metis-normalization</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>normalization-util</module>
-		<module>normalization-lib</module>
-		<module>normalization-language-lib</module>
-		<module>normalization-cleaning-lib</module>
-		<module>normalization-rest</module>
-		<module>normalization-client</module>
+		<module>metis-normalization-util</module>
+		<module>metis-normalization-lib</module>
+		<module>metis-normalization-language-lib</module>
+		<module>metis-normalization-cleaning-lib</module>
+		<module>metis-normalization-rest</module>
+		<module>metis-normalization-client</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

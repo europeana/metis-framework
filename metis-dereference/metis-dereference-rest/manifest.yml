@@ -1,0 +1,8 @@
+---
+applications:
+- name: metis-dereference-rest-test
+  memory: 2048M
+  instances: 1
+  host: metis-dereference-rest-test
+  path: target/metis-dereference-rest-1.0-SNAPSHOT.war
+  buildpack: https://github.com/europeana/java-buildpack.git#feat/java8

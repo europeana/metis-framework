@@ -31,10 +31,10 @@
 	</properties>
 
 	<modules>
-		<module>redirects-common</module>
-		<module>redirects-service</module>
-		<module>redirects-rest</module>
-		<module>redirects-client</module>
+		<module>metis-redirect-common</module>
+		<module>metis-redirect-service</module>
+		<module>metis-redirect-rest</module>
+		<module>metis-redirect-client</module>
 	</modules>
 	<build>
 		<plugins>

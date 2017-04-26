@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+		 Copyright 2007-2013 The Europeana Foundation
+
+		  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
+		  by the European Commission;
+		  You may not use this work except in compliance with the Licence.
+
+		  You may obtain a copy of the Licence at:
+		  http://joinup.ec.europa.eu/software/page/eupl
+
+		  Unless required by applicable law or agreed to in writing, software distributed under
+		  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
+		  any kind, either express or implied.
+		  See the Licence for the specific language governing permissions and limitations under
+		  the Licence.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>metis-hierarchies</artifactId>
+        <groupId>eu.europeana.metis</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>metis-hierarchies-generation</artifactId>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>3.0.0-M02</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.neo4j.test</groupId>
+            <artifactId>neo4j-harness</artifactId>
+            <version>3.0.0-M02</version>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>jsr311-api</artifactId>
+                    <groupId>org.neo4j.3rdparty.javax.ws.rs</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+            <version>2.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.7</version>
+        </dependency>
+        <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-hierarchies-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.hk2</groupId>
+            <artifactId>hk2</artifactId>
+            <version>2.5.0-b03</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-client</artifactId>
+            <version>2.22.1</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>

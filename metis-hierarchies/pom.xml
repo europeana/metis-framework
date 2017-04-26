@@ -28,9 +28,9 @@
     <artifactId>metis-hierarchies</artifactId>
 
     <modules>
-        <module>hierarchies-common</module>
-        <module>hierarchies-generation</module>
-        <module>hierarchies-service</module>
+        <module>metis-hierarchies-common</module>
+        <module>metis-hierarchies-generation</module>
+        <module>metis-hierarchies-service</module>
     </modules>
     <packaging>pom</packaging>
 

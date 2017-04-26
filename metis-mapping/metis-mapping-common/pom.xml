@@ -45,7 +45,7 @@
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>
-            <artifactId>validation-common</artifactId>
+            <artifactId>metis-validation-common</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
