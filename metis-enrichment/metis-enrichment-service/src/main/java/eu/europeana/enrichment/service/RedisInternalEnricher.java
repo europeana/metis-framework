@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.Version;
@@ -62,22 +61,25 @@ public class RedisInternalEnricher {
   private final Logger LOGGER = LoggerFactory.getLogger(RedisInternalEnricher.class);
 
   private final static ObjectMapper obj = new ObjectMapper();
-  private Jedis jedis;
+//  private Jedis jedis;
   private String mongoHost;
+  private RedisProvider redisProvider;
 
   public RedisInternalEnricher(String mongoHost, RedisProvider provider, boolean populate) {
     this.mongoHost = mongoHost;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
     obj.registerModule(sm);
-    jedis = provider.getJedis();
+    redisProvider = provider;
     if (populate) {
+      Jedis jedis = redisProvider.getJedis();
       if (!jedis.exists("enrichmentstatus") || (
           !StringUtils.equals(jedis.get("enrichmentstatus"), "started") && !StringUtils
               .equals(jedis.get("enrichmentstatus"), "finished"))) {
         LOGGER.info(
             "Redis status 'enrichmentstatus' does not exist or is not in a 'started' or 'finished' state.");
         LOGGER.info("Re-populating Redis from Mongo");
+        jedis.close();
         populate();
       } else {
         LOGGER.info("Status 'enrichmentstatus' exists with value: " + check());
@@ -86,16 +88,22 @@ public class RedisInternalEnricher {
   }
 
   public String check() {
-    return jedis.get("enrichmentstatus");
+    Jedis jedis = redisProvider.getJedis();
+    String status = jedis.get("enrichmentstatus");
+    jedis.close();
+    return status;
   }
 
   public void recreate() {
     LOGGER.info("Recreate triggered.");
+    Jedis jedis = redisProvider.getJedis();
     jedis.del("enrichmentstatus");
+    jedis.close();
     populate();
   }
 
   public void remove(List<String> uris) {
+    Jedis jedis = redisProvider.getJedis();
     for (String str : uris) {
       jedis.del("concept:parent:" + str);
       jedis.del("agent:parent:" + str);
@@ -121,20 +129,19 @@ public class RedisInternalEnricher {
       for (String key : timespanKeys) {
         jedis.srem(key, str);
       }
-
     }
+    jedis.close();
   }
 
   public void populate() {
     long startTime = System.currentTimeMillis();
-    if (!jedis.isConnected()) {
-      jedis.connect();
-    }
+    Jedis jedis = redisProvider.getJedis();
     jedis.set("enrichmentstatus", "started");
     LOGGER.info("Initializing population of Redis from Mongo.");
     MongoDatabaseUtils.dbExists(mongoHost, 27017);
     List<MongoTerm> agentsMongo = MongoDatabaseUtils.getAllAgents();
-    LOGGER.info("Found agents: " + agentsMongo.size());
+    int totalAgents = agentsMongo.size();
+    LOGGER.info("Found agents: " + totalAgents);
     int i = 0;
     for (MongoTerm agent : agentsMongo) {
       try {
@@ -149,9 +156,6 @@ public class RedisInternalEnricher {
                 this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
             ag.setUrl(agent.getCodeUri());
             ag.setOriginalValue(agent.getOriginalLabel());
-            if (!jedis.isConnected()) {
-              jedis.connect();
-            }
             jedis.sadd("agent:entity:def:" + agent.getLabel(), agent.getCodeUri());
             if (agent.getLang() != null) {
               jedis.sadd("agent:entity:" + agent.getLang() + ":" + agent.getLabel(),
@@ -173,7 +177,7 @@ public class RedisInternalEnricher {
         }
         i++;
         if (i % 100 == 0) {
-          LOGGER.info("Agents added: " + i);
+          LOGGER.info("Agents added: " + i + " out of: " + totalAgents);
         }
       } catch (MalformedURLException e) {
         e.printStackTrace();
@@ -181,7 +185,8 @@ public class RedisInternalEnricher {
     }
 
     List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
-    LOGGER.info("Found concepts: " + conceptsMongo1.size());
+    int totalConcepts = conceptsMongo1.size();
+    LOGGER.info("Found concepts: " + totalConcepts);
     i = 0;
     for (MongoTerm concept : conceptsMongo1) {
       try {
@@ -196,9 +201,6 @@ public class RedisInternalEnricher {
                 this.getObjectMapper().writeValueAsString(ctl.getRepresentation()));
             i$.setUrl(concept.getCodeUri());
             i$.setOriginalValue(concept.getOriginalLabel());
-            if (!jedis.isConnected()) {
-              jedis.connect();
-            }
             jedis.sadd("concept:entity:def:" + concept.getLabel(), concept.getCodeUri());
             if (concept.getLang() != null) {
               jedis.sadd("concept:entity:" + concept.getLang() + ":" + concept.getLabel(),
@@ -220,16 +222,16 @@ public class RedisInternalEnricher {
         }
         i++;
         if (i % 100 == 0) {
-          LOGGER.info("Concepts added: " + i);
+          LOGGER.info("Concepts added: " + i + " out of: " + totalConcepts);
         }
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
-
     }
 
     List<MongoTerm> placesMongo2 = MongoDatabaseUtils.getAllPlaces();
-    LOGGER.info("Found places: " + placesMongo2.size());
+    int totalPlaces = placesMongo2.size();
+    LOGGER.info("Found places: " + totalPlaces);
     i = 0;
     for (MongoTerm place : placesMongo2) {
       try {
@@ -244,9 +246,6 @@ public class RedisInternalEnricher {
                 this.getObjectMapper().writeValueAsString(ptl.getRepresentation()));
             entry.setUrl(place.getCodeUri());
             entry.setOriginalValue(place.getOriginalLabel());
-            if (!jedis.isConnected()) {
-              jedis.connect();
-            }
             jedis.sadd("place:entity:def:" + place.getLabel(), place.getCodeUri());
             if (place.getLang() != null) {
               jedis.sadd("place:entity:" + place.getLang() + ":" + place.getLabel(),
@@ -268,7 +267,7 @@ public class RedisInternalEnricher {
         }
         i++;
         if (i % 100 == 0) {
-          LOGGER.info("Places added: " + i);
+          LOGGER.info("Places added: " + i + " out of: " + totalPlaces);
         }
       } catch (MalformedURLException e) {
         e.printStackTrace();
@@ -276,7 +275,8 @@ public class RedisInternalEnricher {
     }
 
     List<MongoTerm> timespanMongo3 = MongoDatabaseUtils.getAllTimespans();
-    LOGGER.info("Found timespans: " + timespanMongo3.size());
+    int totalTimespans = timespanMongo3.size();
+    LOGGER.info("Found timespans: " + totalTimespans);
     i = 0;
     for (MongoTerm timespan : timespanMongo3) {
       try {
@@ -291,9 +291,6 @@ public class RedisInternalEnricher {
                 this.getObjectMapper().writeValueAsString(tsl.getRepresentation()));
             ex.setOriginalValue(timespan.getOriginalLabel());
             ex.setUrl(timespan.getCodeUri());
-            if (!jedis.isConnected()) {
-              jedis.connect();
-            }
             jedis.sadd("timespan:entity:def:" + timespan.getLabel(), timespan.getCodeUri());
             if (timespan.getLang() != null) {
               jedis.sadd("timespan:entity:" + timespan.getLang() + ":" + timespan.getLabel(),
@@ -316,13 +313,14 @@ public class RedisInternalEnricher {
         }
         i++;
         if (i % 100 == 0) {
-          LOGGER.info("Timespans added: " + i);
+          LOGGER.info("Timespans added: " + i + " out of: " + totalTimespans);
         }
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
     }
     jedis.set("enrichmentstatus", "finished");
+    jedis.close();
 
     int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / 1000);
     int seconds = totalSeconds % 60;
@@ -380,11 +378,9 @@ public class RedisInternalEnricher {
       JsonMappingException, IOException {
     Set<EntityWrapper> concepts = new HashSet<>();
 
+    Jedis jedis = redisProvider.getJedis();
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
-    }
-    if (!jedis.isConnected()) {
-      jedis.connect();
     }
     if (jedis.exists("concept:entity:" + lang + ":" + value)) {
       Set<String> urisToCheck = jedis.smembers("concept:entity:" + lang + ":" + value);
@@ -400,9 +396,9 @@ public class RedisInternalEnricher {
             concepts.add(parentEntity);
           }
         }
-
       }
     }
+    jedis.close();
     List<EntityWrapper> list = new ArrayList<>();
     list.addAll(concepts);
     return list;
@@ -429,6 +425,7 @@ public class RedisInternalEnricher {
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
     }
+    Jedis jedis = redisProvider.getJedis();
     if (!jedis.isConnected()) {
       jedis.connect();
     }
@@ -450,6 +447,7 @@ public class RedisInternalEnricher {
       }
     }
 
+    jedis.close();
     List list = new ArrayList<>();
     list.addAll(agents);
     return list;
@@ -476,6 +474,7 @@ public class RedisInternalEnricher {
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
     }
+    Jedis jedis = redisProvider.getJedis();
     if (!jedis.isConnected()) {
       jedis.connect();
     }
@@ -493,10 +492,10 @@ public class RedisInternalEnricher {
             places.add(parentEntity);
           }
         }
-
       }
     }
 
+    jedis.close();
     List list = new ArrayList<>();
     list.addAll(places);
     return list;
@@ -524,6 +523,7 @@ public class RedisInternalEnricher {
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
     }
+    Jedis jedis = redisProvider.getJedis();
     if (!jedis.isConnected()) {
       jedis.connect();
     }
@@ -545,6 +545,7 @@ public class RedisInternalEnricher {
       }
     }
 
+    jedis.close();
     List list = new ArrayList<>();
     list.addAll(timespans);
     return list;
@@ -571,52 +572,43 @@ public class RedisInternalEnricher {
   }
 
   public EntityWrapper getByUri(String uri) throws IOException {
-    if (!jedis.isConnected()) {
-      jedis.connect();
-    }
+    Jedis jedis = redisProvider.getJedis();
+    EntityWrapper entityWrapper = null;
     if (jedis.hexists("agent:uri", uri)) {
-      return obj.readValue(jedis.hget("agent:uri", uri), EntityWrapper.class);
+      entityWrapper = obj
+          .readValue(jedis.hget("agent:uri", uri), EntityWrapper.class);
     }
     if (jedis.hexists("concept:uri", uri)) {
-      return obj.readValue(jedis.hget("concept:uri", uri), EntityWrapper.class);
+      entityWrapper = obj.readValue(jedis.hget("concept:uri", uri), EntityWrapper.class);
     }
     if (jedis.hexists("timespan:uri", uri)) {
-      return obj.readValue(jedis.hget("timespan:uri", uri), EntityWrapper.class);
+      entityWrapper = obj.readValue(jedis.hget("timespan:uri", uri), EntityWrapper.class);
     }
     if (jedis.hexists("place:uri", uri)) {
-      return obj.readValue(jedis.hget("place:uri", uri), EntityWrapper.class);
+      entityWrapper = obj.readValue(jedis.hget("place:uri", uri), EntityWrapper.class);
     }
 
     if (jedis.hexists("agent:sameas", uri)) {
-      return obj
+      entityWrapper = obj
           .readValue(jedis.hget("agent:uri", jedis.hget("agent:sameas", uri)), EntityWrapper.class);
     }
     if (jedis.hexists("concept:sameas", uri)) {
-      return obj.readValue(jedis.hget("concept:uri", jedis.hget("concept:sameas", uri)),
+      entityWrapper = obj.readValue(jedis.hget("concept:uri", jedis.hget("concept:sameas", uri)),
           EntityWrapper.class);
     }
     if (jedis.hexists("timespan:sameas", uri)) {
-      return obj.readValue(jedis.hget("timespan:uri", jedis.hget("timespan:sameas", uri)),
+      entityWrapper = obj.readValue(jedis.hget("timespan:uri", jedis.hget("timespan:sameas", uri)),
           EntityWrapper.class);
     }
     if (jedis.hexists("place:sameas", uri)) {
-      return obj
+      entityWrapper = obj
           .readValue(jedis.hget("place:uri", jedis.hget("place:sameas", uri)), EntityWrapper.class);
     }
-
-    return null;
+    jedis.close();
+    return entityWrapper;
   }
 
   private ObjectMapper getObjectMapper() {
     return obj;
   }
-
-  @PreDestroy
-  public void close() {
-    if (jedis != null) {
-      jedis.close();
-    }
-  }
-
-
 }

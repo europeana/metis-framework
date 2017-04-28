@@ -25,6 +25,13 @@
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
+                <configuration>
+                    <url>http://metis-storage.eanadev.org:8080/manager/text</url>
+                    <server>TomcatServer</server>
+                    <path>/metis-enrichment-proxy-rest-test</path>
+                    <username>tomcat</username>
+                    <password>admin12</password>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -52,7 +59,7 @@
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
-            <version>2.7.2</version>
+            <version>2.9.0</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>

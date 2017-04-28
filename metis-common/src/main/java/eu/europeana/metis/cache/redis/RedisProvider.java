@@ -95,9 +95,9 @@ public class RedisProvider {
 	 * @return Jedis
 	 */
 	public Jedis getJedis() {
-
-		try (Jedis jedis = pool.getResource()) {
-			return jedis;
+		LOGGER.info("Requesting a new jedis connection");
+		try {
+			return pool.getResource();
 		}
 		catch (Exception e){
 			close();
