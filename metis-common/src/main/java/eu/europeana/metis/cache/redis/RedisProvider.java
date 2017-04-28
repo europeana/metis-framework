@@ -18,6 +18,8 @@ package eu.europeana.metis.cache.redis;
 
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
@@ -30,6 +32,7 @@ import redis.clients.jedis.JedisPoolConfig;
  */
 @Component
 public class RedisProvider {
+	private final Logger LOGGER = LoggerFactory.getLogger(RedisProvider.class);
 
 	private JedisPool pool;
 	private String host;
@@ -45,6 +48,7 @@ public class RedisProvider {
 
 	private JedisPool getPool(String host, int port, String password) {
 		if (pool == null) {
+			LOGGER.info("Get new pool from Redis" + (StringUtils.isNotEmpty(password)?" using a password.":".") + " Host:" + host + ", port:" + port);
 			JedisPoolConfig poolConfig = new JedisPoolConfig();
 			// 'Borrowed' from http://www.ncolomer.net/2011/07/time-to-redis/
 			// Tests whether connection is dead when connection

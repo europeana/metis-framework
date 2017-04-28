@@ -22,6 +22,8 @@ import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -50,6 +52,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+  private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
@@ -77,6 +81,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       if (redisProviderFromService != null) {
         redisProvider = vcapServices.getRedisProviderFromService();
       }
+      LOGGER.info("Using Cloud Foundry Redis");
     }
 
     if(redisProvider == null)
