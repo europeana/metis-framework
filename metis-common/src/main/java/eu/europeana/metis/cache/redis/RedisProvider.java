@@ -24,6 +24,7 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
+import redis.clients.jedis.exceptions.JedisConnectionException;
 
 /**
  * Provides a Java Redis (Jedis) implementation for writing items to cache
@@ -76,6 +77,13 @@ public class RedisProvider {
 				pool = new JedisPool(poolConfig, host, port, 600000, password);
 			else
 				pool = new JedisPool(poolConfig, host, port, 600000);
+		}
+
+		//Check if connection works
+		try {
+			pool.getResource();
+		} catch (JedisConnectionException e) {
+			LOGGER.error("Cannot get resource from pool..", e);
 		}
 
 		return pool;

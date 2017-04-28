@@ -128,7 +128,7 @@ public class RedisInternalEnricher {
   }
 
   public void populate() {
-
+    long startTime = System.currentTimeMillis();
     if (!jedis.isConnected()) {
       jedis.connect();
     }
@@ -173,14 +173,13 @@ public class RedisInternalEnricher {
             var14.printStackTrace();
           }
         }
-        if (i % 100 == 0) {
-          LOGGER.info("Agents added: ", i);
-        }
         i++;
+        if (i % 100 == 0) {
+          LOGGER.info("Agents added: " + i);
+        }
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
-
     }
 
     List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
@@ -221,10 +220,10 @@ public class RedisInternalEnricher {
             var12.printStackTrace();
           }
         }
-        if (i % 100 == 0) {
-          LOGGER.info("Concepts added: ", i);
-        }
         i++;
+        if (i % 100 == 0) {
+          LOGGER.info("Concepts added: " + i);
+        }
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
@@ -269,10 +268,10 @@ public class RedisInternalEnricher {
             var10.printStackTrace();
           }
         }
-        if (i % 100 == 0) {
-          LOGGER.info("Places added: ", i);
-        }
         i++;
+        if (i % 100 == 0) {
+          LOGGER.info("Places added: " + i);
+        }
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
@@ -317,15 +316,20 @@ public class RedisInternalEnricher {
             var8.printStackTrace();
           }
         }
-        if (i % 100 == 0) {
-          LOGGER.info("Timespans added: ", i);
-        }
         i++;
+        if (i % 100 == 0) {
+          LOGGER.info("Timespans added: " + i);
+        }
       } catch (MalformedURLException e) {
         e.printStackTrace();
       }
     }
     jedis.set("enrichmentstatus", "finished");
+
+    int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / 1000);
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds - seconds) / 60;
+    LOGGER.info("Time spent in populating Redis. minutes:" + minutes + ", seconds:" + seconds);
   }
 
 
