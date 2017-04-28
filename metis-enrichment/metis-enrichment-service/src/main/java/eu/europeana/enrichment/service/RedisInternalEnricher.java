@@ -59,11 +59,9 @@ import redis.clients.jedis.Jedis;
 @SuppressWarnings("rawtypes")
 @Component
 public class RedisInternalEnricher {
-
   private final Logger LOGGER = LoggerFactory.getLogger(RedisInternalEnricher.class);
 
   private final static ObjectMapper obj = new ObjectMapper();
-
   private Jedis jedis;
   private String mongoHost;
 

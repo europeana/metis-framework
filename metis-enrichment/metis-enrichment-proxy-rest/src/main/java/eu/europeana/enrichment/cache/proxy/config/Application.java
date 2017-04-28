@@ -52,6 +52,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   //@Value("${memcache.port}")
   private int memcachePort;
 
+  private RedisProvider redisProvider;
+
   /**
    * Used for overwriting properties if cloud foundry environment is used
    */
@@ -63,7 +65,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   RedisProvider getRedisProvider() {
-    return new RedisProvider(redisHost, redisPort, redisPassword);
+    redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
+    return redisProvider;
   }
 
   // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
