@@ -196,7 +196,7 @@ public class UserDaoImpl implements UserDao {
         context.setAttributeValue("mail", user.getEmail());
         context.setAttributeValue("description", user.getDescription());
         context.setAttributeValue("sn", user.getLastName());
-        context.setAttributeValue("givenName", user.getFullName());
+        context.setAttributeValue("givenName", user.getGivenName());
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
         	context.setAttributeValue("userPassword", user.getPassword());        	
         }
@@ -219,7 +219,7 @@ public class UserDaoImpl implements UserDao {
             attrs.put("cn", user.getEmail());
             attrs.put("sn", user.getLastName());
             attrs.put("uid", user.getEmail().toLowerCase());
-            attrs.put("givenName", user.getFullName());
+            attrs.put("givenName", user.getGivenName());
             if (user.getPassword() != null && !user.getPassword().isEmpty()) {
             	attrs.put("userPassword", user.getPassword());
             }

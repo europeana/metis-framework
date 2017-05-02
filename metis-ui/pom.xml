@@ -41,10 +41,10 @@
         <version>2.10</version>
         <executions>
           <execution>
-            <id>copy-installed</id>
-            <phase>install</phase>
+            <id>dependency-unpack</id>
+            <phase>package</phase>
             <goals>
-              <goal>copy</goal>
+              <!--<goal>copy</goal>-->
               <goal>unpack</goal>
             </goals>
             <configuration>
@@ -54,10 +54,11 @@
                   <artifactId>europeana-java-styleguide</artifactId>
                   <version>1.0-SNAPSHOT</version>
                   <type>jar</type>
+                  <overWrite>true</overWrite>
+                  <!--<overWriteIfNewer>true</overWriteIfNewer>-->
+                  <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF</outputDirectory>
                 </artifactItem>
               </artifactItems>
-              <overWriteIfNewer>true</overWriteIfNewer>
-              <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF</outputDirectory>
             </configuration>
           </execution>
         </executions>
@@ -78,6 +79,11 @@
     </pluginManagement>
   </build>
   <dependencies>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>europeana-java-styleguide</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-core-account</artifactId>
