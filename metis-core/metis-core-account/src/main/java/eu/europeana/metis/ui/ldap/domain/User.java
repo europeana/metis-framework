@@ -32,148 +32,148 @@ import org.springframework.security.authentication.encoding.LdapShaPasswordEncod
 /**
  * LDAP Template: dn:
  * cn=Cecile,ou=users,ou=metis_authentication,{dc=europeana,dc=eu} dn:
- * cn={fullName},ou=users,ou=metis_authentication,{base_dn}
- * 
- * @author alena
+ * cn={givenName},ou=users,ou=metis_authentication,{base_dn}
  *
+ * @author alena
  */
-@Entry(objectClasses = { "person", "inetOrgPerson", "organizationalPerson", "top", "metisUser" })
+@Entry(objectClasses = {"person", "inetOrgPerson", "organizationalPerson", "top", "metisUser"})
 public class User {
-	@Id
-	private LdapName dn;
 
-	@Attribute(name = "givenName")
-	// @DnAttribute(value = "cn", index = 2)
-	private String fullName;
+  @Id
+  private LdapName dn;
 
-	@Attribute(name = "ou")
-	@DnAttribute(value = "ou", index = 1)
-	private String usersDn;
+  @Attribute(name = "givenName")
+  // @DnAttribute(value = "cn", index = 2)
+  private String givenName;
 
-	@Attribute(name = "ou")
-	@DnAttribute(value = "ou", index = 0)
-	private String metisAuthenticationDn;
+  @Attribute(name = "ou")
+  @DnAttribute(value = "ou", index = 1)
+  private String usersDn;
 
-	@Attribute(name = "sn")
-	private String lastName;
+  @Attribute(name = "ou")
+  @DnAttribute(value = "ou", index = 0)
+  private String metisAuthenticationDn;
 
-	@Attribute(name = "userPassword")
-	private byte[] passwordB;
+  @Attribute(name = "sn")
+  private String lastName;
 
-	private String password;
+  @Attribute(name = "userPassword")
+  private byte[] passwordB;
 
-	@Attribute(name = "description")
-	private String description;
+  private String password;
 
-	@Attribute(name = "mail")
-	@DnAttribute(value = "cn", index = 2)
-	private String email;
+  @Attribute(name = "description")
+  private String description;
 
-	@Attribute(name = "Active")
-	private boolean active;
+  @Attribute(name = "mail")
+  @DnAttribute(value = "cn", index = 2)
+  private String email;
 
-	@Attribute(name = "Approved")
-	private boolean approved;
+  @Attribute(name = "Active")
+  private boolean active;
 
-	public LdapName getDn() {
-		return dn;
-	}
+  @Attribute(name = "Approved")
+  private boolean approved;
 
-	public void setDn(LdapName dn) {
-		this.dn = dn;
-	}
+  public LdapName getDn() {
+    return dn;
+  }
 
-	public String getDescription() {
-		return description;
-	}
+  public void setDn(LdapName dn) {
+    this.dn = dn;
+  }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+  public String getDescription() {
+    return description;
+  }
 
-	public String getFullName() {
-		return fullName;
-	}
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
+  public String getGivenName() {
+    return givenName;
+  }
 
-	public String getUsersDn() {
-		return usersDn;
-	}
+  public void setGivenName(String givenName) {
+    this.givenName = givenName;
+  }
 
-	public void setUsersDn(String usersDn) {
-		this.usersDn = usersDn;
-	}
+  public String getUsersDn() {
+    return usersDn;
+  }
 
-	public String getMetisAuthenticationDn() {
-		return metisAuthenticationDn;
-	}
+  public void setUsersDn(String usersDn) {
+    this.usersDn = usersDn;
+  }
 
-	public void setMetisAuthenticationDn(String metisAuthenticationDn) {
-		this.metisAuthenticationDn = metisAuthenticationDn;
-	}
+  public String getMetisAuthenticationDn() {
+    return metisAuthenticationDn;
+  }
 
-	public String getLastName() {
-		return lastName;
-	}
+  public void setMetisAuthenticationDn(String metisAuthenticationDn) {
+    this.metisAuthenticationDn = metisAuthenticationDn;
+  }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+  public String getLastName() {
+    return lastName;
+  }
 
-	public String getEmail() {
-		return email;
-	}
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+  public String getEmail() {
+    return email;
+  }
 
-	public String getPassword() {
-		return this.passwordB != null ? new String(this.passwordB) : this.password;
-	}
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-	public void setPassword(String password) {
-		if (password != null && !password.isEmpty()) {
-			LdapShaPasswordEncoder enc = new LdapShaPasswordEncoder();
-			String pass = enc.encodePassword(password, null);
-			this.passwordB = pass.getBytes();
-			this.password = pass;
-		}
-	}
+  public String getPassword() {
+    return this.passwordB != null ? new String(this.passwordB) : this.password;
+  }
 
-	public byte[] getPasswordB() {
-		this.password = new String(passwordB);
-		return this.passwordB;
-	}
+  public void setPassword(String password) {
+    if (password != null && !password.isEmpty()) {
+      LdapShaPasswordEncoder enc = new LdapShaPasswordEncoder();
+      String pass = enc.encodePassword(password, null);
+      this.passwordB = pass.getBytes();
+      this.password = pass;
+    }
+  }
 
-	public boolean equals(Object obj) {
-		return EqualsBuilder.reflectionEquals(this, obj);
-	}
+  public byte[] getPasswordB() {
+    this.password = new String(passwordB);
+    return this.passwordB;
+  }
 
-	public int hashCode() {
-		return HashCodeBuilder.reflectionHashCode(this);
-	}
+  public boolean equals(Object obj) {
+    return EqualsBuilder.reflectionEquals(this, obj);
+  }
 
-	public String toString() {
-		return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-	}
+  public int hashCode() {
+    return HashCodeBuilder.reflectionHashCode(this);
+  }
 
-	public boolean isActive() {
-		return active;
-	}
+  public String toString() {
+    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+  }
 
-	public void setActive(boolean active) {
-		this.active = active;
-	}
+  public boolean isActive() {
+    return active;
+  }
 
-	public boolean isApproved() {
-		return approved;
-	}
+  public void setActive(boolean active) {
+    this.active = active;
+  }
 
-	public void setApproved(boolean approved) {
-		this.approved = approved;
-	}
+  public boolean isApproved() {
+    return approved;
+  }
+
+  public void setApproved(boolean approved) {
+    this.approved = approved;
+  }
 }

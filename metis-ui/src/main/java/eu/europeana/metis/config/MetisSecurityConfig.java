@@ -31,67 +31,67 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 /**
  * This configuration sets up Metis web pages LDAP authorization.
- * @author alena
  *
+ * @author alena
  */
 @Configuration
 @EnableWebSecurity
 public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 
-	@Configuration
-	@PropertySource("classpath:authentication.properties")
-	protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-		@Value("${ldap.url}")
-		private String url;
-		@Value("${ldap.manager.dn}")
-		private String managerDN;
-		@Value("${ldap.manager.pwd}")
-		private String managerPWD;
-		
-		@Override
-		public void init(AuthenticationManagerBuilder auth) throws Exception {		
-			auth.ldapAuthentication()
-			.contextSource()
-			.url(url).managerDn(managerDN).managerPassword(managerPWD) 
-			.and()
-            .userSearchBase("ou=users,ou=metis_authentication")
-            .userSearchFilter("(uid={0})")
-            .groupSearchBase("ou=roles,ou=metis_authentication")
-            .groupRoleAttribute("cn")
-            .groupSearchFilter("(member={0})");
-		}
-	}
+  @Configuration
+  @PropertySource("classpath:authentication.properties")
+  protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/resources/**");
-	}
+    @Value("${ldap.url}")
+    private String url;
+    @Value("${ldap.manager.dn}")
+    private String managerDN;
+    @Value("${ldap.manager.pwd}")
+    private String managerPWD;
 
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		// @formatter:off
-			http.authorizeRequests()
-					.antMatchers("/").permitAll()
-					.antMatchers("/register").permitAll()
-					.antMatchers("/profile")
-						.hasAnyRole("EUROPEANA_ADMIN","EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN", "HUB_VIEWER", "HUB_DATA_OFFICER")
-						.anyRequest().authenticated().anyRequest().permitAll()
-					.antMatchers("/mappings-page").permitAll() //TODO the mapping page is public for now only for test reasons
-					.antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name()).anyRequest().authenticated()
-					.and()
-				.logout()
-					.logoutSuccessUrl("/login").permitAll()
-					.and()
-				.formLogin().loginProcessingUrl("/login")
-						.loginPage("/login").defaultSuccessUrl("/")
-						.failureUrl("/login?authentication_error=true").permitAll()
-					.and()
-				.csrf().disable();
-			// @formatter:on
-	}
+    @Override
+    public void init(AuthenticationManagerBuilder auth) throws Exception {
+      auth.ldapAuthentication()
+          .contextSource()
+          .url(url).managerDn(managerDN).managerPassword(managerPWD)
+          .and()
+          .userSearchBase("ou=users,ou=metis_authentication")
+          .userSearchFilter("(uid={0})")
+          .groupSearchBase("ou=roles,ou=metis_authentication")
+          .groupRoleAttribute("cn")
+          .groupSearchFilter("(member={0})");
+    }
+  }
 
-	@Bean
-	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-		return new PropertySourcesPlaceholderConfigurer();
-	}
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring().antMatchers("/resources/**");
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    // @formatter:off
+    http.authorizeRequests()
+        .antMatchers("/", "/register", "/mappings-page").permitAll()
+        .antMatchers("/profile")
+        .hasAnyRole("EUROPEANA_ADMIN", "EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN",
+            "HUB_VIEWER", "HUB_DATA_OFFICER")
+        .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name()).anyRequest().authenticated()
+        .antMatchers("/dashboard").authenticated()
+        .and()
+        .logout()
+        .logoutSuccessUrl("/").permitAll()
+        .and()
+        .formLogin().loginProcessingUrl("/login")
+        .loginPage("/login").defaultSuccessUrl("/dashboard")
+        .failureUrl("/login?authentication_error=true").permitAll()
+        .and()
+        .csrf().disable();
+    // @formatter:on
+  }
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 }
