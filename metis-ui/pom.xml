@@ -34,17 +34,48 @@
           <testTarget>1.8</testTarget>
         </configuration>
       </plugin>
-
+      <!--Removes java styleguide dependency and downloads again. This is done because-->
+      <!--the resolve of an updated snapshot in the artifactory is not working, probably-->
+      <!--because this dependency is not used internally like code and it's only used for unpacking-->
+      <!--templates.
+      IF A LOCAL BUILD OF THE JAVA-STYLEGUIDE IS REQUIRED, THEN THIS PLUGIN SHOULD BE COMMENTED OUT-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>2.10</version>
         <executions>
           <execution>
-            <id>dependency-unpack</id>
-            <phase>package</phase>
+            <id>dependency-purge-local-dependency</id>
+            <phase>clean</phase>
             <goals>
-              <!--<goal>copy</goal>-->
+              <goal>purge-local-repository</goal>
+            </goals>
+            <configuration>
+              <manualIncludes>
+                <manualInclude>eu.europeana.metis:europeana-java-styleguide</manualInclude>
+              </manualIncludes>
+            </configuration>
+          </execution>
+          <execution>
+            <id>dependency-get</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>get</goal>
+            </goals>
+            <configuration>
+              <groupId>eu.europeana.metis</groupId>
+              <artifactId>europeana-java-styleguide</artifactId>
+              <version>1.0-SNAPSHOT</version>
+              <packaging>jar</packaging>
+              <remoteRepositories>
+                artifactory.eanadev.org-snapshot::default::http://artifactory.eanadev.org/artifactory/libs-snapshot-local
+              </remoteRepositories>
+            </configuration>
+          </execution>
+          <execution>
+            <id>dependency-unpack</id>
+            <phase>prepare-package</phase>
+            <goals>
               <goal>unpack</goal>
             </goals>
             <configuration>
@@ -53,9 +84,7 @@
                   <groupId>eu.europeana.metis</groupId>
                   <artifactId>europeana-java-styleguide</artifactId>
                   <version>1.0-SNAPSHOT</version>
-                  <type>jar</type>
                   <overWrite>true</overWrite>
-                  <!--<overWriteIfNewer>true</overWriteIfNewer>-->
                   <outputDirectory>${project.basedir}/src/main/webapp/WEB-INF</outputDirectory>
                 </artifactItem>
               </artifactItems>
@@ -78,11 +107,25 @@
       </plugins>
     </pluginManagement>
   </build>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>artifactory.eanadev.org.corelibs.eu.snapshot</id>
+      <name>artifactory.eanadev.org.libs-snapshot-local</name>
+      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
+    </repository>
+  </repositories>
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
       <artifactId>europeana-java-styleguide</artifactId>
       <version>1.0-SNAPSHOT</version>
+      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
