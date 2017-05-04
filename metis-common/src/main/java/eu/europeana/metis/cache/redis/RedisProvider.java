@@ -48,7 +48,7 @@ public class RedisProvider {
 	}
 
 	private JedisPool getPool(String host, int port, String password) {
-		if (pool == null) {
+		if (pool == null || pool.isClosed()) {
 			LOGGER.info("Get new pool from Redis" + (StringUtils.isNotEmpty(password)?" using a password.":".") + " Host:" + host + ", port:" + port);
 			JedisPoolConfig poolConfig = new JedisPoolConfig();
 			// 'Borrowed' from http://www.ncolomer.net/2011/07/time-to-redis/
