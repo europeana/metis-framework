@@ -17,11 +17,21 @@
 package eu.europeana.metis.framework.rest;
 
 import eu.europeana.metis.framework.dao.ZohoClient;
+import eu.europeana.metis.framework.dao.ZohoMockClient;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 /**
- * Configuration class enabling different Zoho REST clients (In memory or production)
+ * In-memory implementation of Zoho rest
  * Created by ymamakis on 6/6/16.
  */
-public interface RestConfig {
-    ZohoClient getZohoClient();
+@Component
+@Profile("development")
+public class InMemoryZohoZohoRestConfig implements ZohoRestConfig {
+    @Override
+    public ZohoClient getZohoClient() {
+        ZohoMockClient client = new ZohoMockClient();
+        client.populate();
+        return client;
+    }
 }

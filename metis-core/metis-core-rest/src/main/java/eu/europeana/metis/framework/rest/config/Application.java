@@ -32,7 +32,7 @@ import eu.europeana.metis.framework.dao.OrganizationDao;
 import eu.europeana.metis.framework.dao.ZohoClient;
 import eu.europeana.metis.framework.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.framework.rest.RestConfig;
+import eu.europeana.metis.framework.rest.ZohoRestConfig;
 import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.MetisAuthorizationService;
 import eu.europeana.metis.framework.service.Orchestrator;
@@ -129,7 +129,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Autowired
   @Lazy
-  private RestConfig restConfig;
+  private ZohoRestConfig zohoRestConfig;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -183,7 +183,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @Order(100)
   ZohoClient getZohoRestClient() {
-    return restConfig.getZohoClient();
+    return zohoRestConfig.getZohoClient();
   }
 
   @Bean(name = "jedisProviderUtils")
