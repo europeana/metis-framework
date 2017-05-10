@@ -6,22 +6,6 @@ import eu.europeana.metis.preview.service.PreviewService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import net.lingala.zip4j.core.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.jibx.runtime.JiBXException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -30,6 +14,23 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
+import net.lingala.zip4j.core.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * Preview service REST controller
@@ -38,6 +39,7 @@ import java.util.concurrent.ExecutionException;
 @Controller(value = "/preview")
 @Api(value = "/preview", description = "Preview service REST API")
 public class PreviewController {
+    private final Logger LOGGER = LoggerFactory.getLogger(PreviewController.class);
 
     @Autowired
     private PreviewService service;
@@ -77,18 +79,23 @@ public class PreviewController {
         return result;
     }
 
-    private List<String> readFileToStringList(MultipartFile zipFile) throws IOException, ZipException {
-        String fileName = "/tmp/" + zipFile.getName() + "/" + new Date().getTime();
-        FileUtils.copyInputStreamToFile(zipFile.getInputStream(), new File(fileName + ".zip"));
+    private List<String> readFileToStringList(MultipartFile multipartFile) throws IOException, ZipException {
+        String prefix = String.valueOf(new Date().getTime());
+        File tempFile = File.createTempFile(prefix, ".zip");
+        FileUtils.copyInputStreamToFile(multipartFile.getInputStream(), tempFile);
+        LOGGER.info("Temp file: " + tempFile + " created.");
 
-        ZipFile file = new ZipFile(fileName + ".zip");
-        file.extractAll(fileName);
-        FileUtils.deleteQuietly(new File(fileName + ".zip"));
-        File[] files = new File(fileName).listFiles();
+        ZipFile zipFile = new ZipFile(tempFile);
+        File unzippedDirectory = new File(tempFile.getParent(), prefix + "-unzipped");
+        zipFile.extractAll(unzippedDirectory.getAbsolutePath());
+        LOGGER.info("Unzipped contents into: " + unzippedDirectory);
+        FileUtils.deleteQuietly(tempFile);
+        File[] files = unzippedDirectory.listFiles();
         List<String> xmls = new ArrayList<>();
         for (File input : files) {
             xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
+        FileUtils.deleteQuietly(unzippedDirectory);
         return xmls;
     }
 

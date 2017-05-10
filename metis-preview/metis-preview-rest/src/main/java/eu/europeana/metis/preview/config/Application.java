@@ -70,6 +70,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 @EnableScheduling
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+
   private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   @Value("${mongo.hosts}")
@@ -158,7 +159,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean(name = "edmMongoServer")
   EdmMongoServer edmMongoServer() throws MongoDBException {
-      return new EdmMongoServerImpl(mongoProvider.getMongo(), mongoDb);
+    return new EdmMongoServerImpl(mongoProvider.getMongo(), mongoDb);
   }
 
   @Bean
@@ -176,7 +177,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
-
     super.configureMessageConverters(converters);
   }
 
@@ -212,13 +212,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @PreDestroy
-  public void close()
-  {
+  public void close() {
     LOGGER.info("Closing connections..");
-    if (mongoProvider != null)
+    if (mongoProvider != null) {
       mongoProvider.close();
-    if (solrServer != null)
+    }
+    if (solrServer != null) {
       solrServer.shutdown();
+    }
   }
 
   private ApiInfo apiInfo() {

@@ -104,7 +104,7 @@ public class PreviewService {
         list.setResultList(results);
         list.setPortalUrl(previewPortalUrl + collectionId + "*");
         DateTime date = new DateTime();
-        Date nextDay = date.toDateMidnight().plusDays(1).toDate();
+        Date nextDay = date.toDate();
         list.setDate(nextDay);
         return list;
     }
