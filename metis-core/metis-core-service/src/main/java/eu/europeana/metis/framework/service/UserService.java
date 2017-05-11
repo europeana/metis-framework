@@ -18,10 +18,9 @@ package eu.europeana.metis.framework.service;
 
 import eu.europeana.metis.framework.common.Contact;
 import eu.europeana.metis.framework.dao.ZohoClient;
-import org.springframework.beans.factory.annotation.Autowired;
-
+import eu.europeana.metis.framework.exceptions.UserNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * User service
@@ -31,7 +30,8 @@ public class UserService {
     @Autowired
     private ZohoClient restClient;
 
-    public Contact getUserByEmail(String email) throws IOException, ParseException {
+    public Contact getUserByEmail(String email)
+        throws UserNotFoundException, IOException {
         return restClient.getContactByEmail(email);
     }
 }

@@ -65,8 +65,8 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.plugin.core.config.EnablePluginRegistries;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -91,7 +91,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 @EnablePluginRegistries(AbstractMetisWorkflow.class)
-@EnableScheduling
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
@@ -291,6 +290,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
+    converters.add(new MappingJackson2XmlHttpMessageConverter());
     super.configureMessageConverters(converters);
   }
 
