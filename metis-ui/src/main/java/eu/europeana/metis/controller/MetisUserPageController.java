@@ -1,18 +1,18 @@
 package eu.europeana.metis.controller;
 
-import eu.europeana.metis.framework.common.Country;
-import eu.europeana.metis.framework.common.Role;
-import eu.europeana.metis.framework.organization.Organization;
-import eu.europeana.metis.framework.rest.client.DsOrgRestClient;
-import eu.europeana.metis.framework.rest.client.ServerException;
-import eu.europeana.metis.mail.notification.MetisMailType;
+import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.rest.client.DsOrgRestClient;
+import eu.europeana.metis.core.rest.client.ServerException;
+import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
-import eu.europeana.metis.search.common.OrganizationSearchBean;
+import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.OrganizationRole;

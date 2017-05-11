@@ -1,6 +1,6 @@
 package eu.europeana.metis.ui.test;
 
-import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;

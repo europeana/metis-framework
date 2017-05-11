@@ -1,14 +1,9 @@
 package eu.europeana.metis.search.test;
 
-import eu.europeana.metis.search.service.MetisSearchService;
+import eu.europeana.metis.core.search.service.MetisSearchService;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 
-import org.apache.solr.schema.FieldProperties;
-import org.apache.solr.schema.FieldType;
-import org.apache.solr.schema.SchemaField;
-import org.apache.solr.schema.StrField;
-import org.apache.solr.search.FieldParams;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

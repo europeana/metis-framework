@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;

@@ -1,6 +1,6 @@
 package eu.europeana.metis.workflow.qa.model;
 
-import eu.europeana.metis.framework.workflow.CloudStatistics;
+import eu.europeana.metis.core.workflow.CloudStatistics;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;

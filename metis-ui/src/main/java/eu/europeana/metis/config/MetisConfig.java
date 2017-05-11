@@ -3,7 +3,7 @@ package eu.europeana.metis.config;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-import eu.europeana.metis.framework.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.service.ExampleMappingService;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.ldap.dao.UserDao;

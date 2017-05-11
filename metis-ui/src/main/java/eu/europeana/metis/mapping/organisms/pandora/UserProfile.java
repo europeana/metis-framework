@@ -3,7 +3,7 @@ package eu.europeana.metis.mapping.organisms.pandora;
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.europeana.metis.framework.common.Country;
+import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.OrganizationRole;

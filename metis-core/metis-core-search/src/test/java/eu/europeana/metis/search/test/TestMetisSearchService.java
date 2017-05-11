@@ -1,6 +1,6 @@
 package eu.europeana.metis.search.test;
 
-import eu.europeana.metis.search.service.MetisSearchService;
+import eu.europeana.metis.core.search.service.MetisSearchService;
 import junit.framework.Assert;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.junit.Test;

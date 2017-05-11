@@ -1,6 +1,6 @@
 package eu.europeana.metis.ui.mongo.domain;
 
-import eu.europeana.metis.framework.common.Role;
+import eu.europeana.metis.core.common.Role;
 
 /**
  * Roles for Europeana user management

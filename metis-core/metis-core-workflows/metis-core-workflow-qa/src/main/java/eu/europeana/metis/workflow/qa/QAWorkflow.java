@@ -1,8 +1,8 @@
 package eu.europeana.metis.workflow.qa;
 
-import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
-import eu.europeana.metis.framework.workflow.CloudStatistics;
-import eu.europeana.metis.framework.workflow.WorkflowParameters;
+import eu.europeana.metis.core.workflow.AbstractMetisWorkflow;
+import eu.europeana.metis.core.workflow.CloudStatistics;
+import eu.europeana.metis.core.workflow.WorkflowParameters;
 import eu.europeana.metis.cache.redis.JedisProviderUtils;
 import eu.europeana.metis.workflow.qa.model.MeasuringResponse;
 import eu.europeana.metis.workflow.qa.model.QAParams;

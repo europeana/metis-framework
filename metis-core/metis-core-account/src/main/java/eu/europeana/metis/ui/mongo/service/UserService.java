@@ -1,6 +1,6 @@
 package eu.europeana.metis.ui.mongo.service;
 
-import eu.europeana.metis.framework.common.Role;
+import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
