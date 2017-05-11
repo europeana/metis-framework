@@ -20,14 +20,11 @@ package eu.europeana.metis.core.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * No Organization was found either in METIS or in CRM
- * Created by ymamakis on 2/25/16.
- */
 @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No organization found")
-public class NoOrganizationExceptionFound extends Exception {
+public class NoOrganizationFoundException extends Exception {
+    private static final long serialVersionUID = -3332292346834265371L;
 
-    public NoOrganizationExceptionFound(String message){
+    public NoOrganizationFoundException(String message){
         super(message);
     }
 }

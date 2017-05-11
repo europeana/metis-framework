@@ -10,21 +10,10 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 @JacksonXmlRootElement(localName="error")
 public class StructuredExceptionWrapper {
   @JacksonXmlProperty
-  private int code;
-  @JacksonXmlProperty
   private String message;
 
-  public StructuredExceptionWrapper(int code, String message) {
-    this.code = code;
+  public StructuredExceptionWrapper(String message) {
     this.message = message;
-  }
-
-  public int getCode() {
-    return code;
-  }
-
-  public void setCode(int code) {
-    this.code = code;
   }
 
   public String getMessage() {

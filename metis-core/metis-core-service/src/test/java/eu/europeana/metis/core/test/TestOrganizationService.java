@@ -20,7 +20,7 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.NoOrganizationExceptionFound;
+import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.service.OrganizationService;
@@ -71,8 +71,6 @@ public class TestOrganizationService {
         org.setOrganizationUri("testUri");
         org.setHarvestingMetadata(new HarvestingMetadata());
         org.setOptInIIIF(true);
-
-
     }
 
     @Test
@@ -158,7 +156,7 @@ public class TestOrganizationService {
         try {
             Organization orgRet = service.getOrganizationByOrganizationId("string");
             Assert.assertEquals(org, orgRet);
-        } catch (NoOrganizationExceptionFound e) {
+        } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
         }
     }
@@ -178,7 +176,7 @@ public class TestOrganizationService {
         try {
             Organization orgRet = service.getOrganizationById("string");
             Assert.assertEquals(org, orgRet);
-        } catch (NoOrganizationExceptionFound e) {
+        } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
         }
     }
@@ -194,7 +192,7 @@ public class TestOrganizationService {
         try {
             List<Organization> orgRet = service.getAllOrganizationsByCountry(Country.ALBANIA);
             Assert.assertEquals(orgs, orgRet);
-        } catch (NoOrganizationExceptionFound e) {
+        } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
         }
     }
@@ -211,7 +209,7 @@ public class TestOrganizationService {
         try {
             List<Organization> orgRet = service.getAllOrganizations();
             Assert.assertEquals(orgs, orgRet);
-        } catch (NoOrganizationExceptionFound e) {
+        } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
         }
 
@@ -231,7 +229,7 @@ public class TestOrganizationService {
 
             List<Dataset> datasetsRet = service.getDatasetsByOrganization("string");
             Assert.assertEquals(datasets, datasetsRet);
-        } catch (NoOrganizationExceptionFound e) {
+        } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
         }
     }

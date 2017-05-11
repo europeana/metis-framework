@@ -40,8 +40,8 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
     }
 
     @Override
-    public MetisKey getById(String id) {
-        return provider.getDatastore().find(MetisKey.class).filter("apiKey",id).get();
+    public MetisKey getById(String apiKey) {
+        return provider.getDatastore().find(MetisKey.class).filter("apiKey",apiKey).get();
     }
 
     @Override

@@ -27,7 +27,7 @@ import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.core.dataset.WorkflowStatus;
-import eu.europeana.metis.core.exceptions.NoOrganizationExceptionFound;
+import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -144,7 +144,7 @@ public class TestOrganizationDao {
     try {
       List<Dataset> dsRet = orgDao.getAllDatasetsByOrganization(org.getOrganizationId());
       Assert.assertTrue(dsRet.size() == 1);
-    } catch (NoOrganizationExceptionFound e) {
+    } catch (NoOrganizationFoundException e) {
       e.printStackTrace();
     }
   }

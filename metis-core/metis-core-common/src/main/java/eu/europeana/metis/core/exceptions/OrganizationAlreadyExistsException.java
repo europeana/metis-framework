@@ -20,10 +20,15 @@ package eu.europeana.metis.core.exceptions;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No dataset found")
-public class NoDatasetFoundException extends Exception {
+/**
+ * No Organization was found either in METIS or in CRM
+ * Created by ymamakis on 2/25/16.
+ */
+@ResponseStatus(value= HttpStatus.CONFLICT, reason="Organization already exists")
+public class OrganizationAlreadyExistsException extends Exception {
     private static final long serialVersionUID = -3332292346834265371L;
-    public NoDatasetFoundException(String name){
-        super("No dataset found with name: "+name);
+
+    public OrganizationAlreadyExistsException(String organizationId){
+        super("Organization with organizationId " + organizationId + " already exists");
     }
 }

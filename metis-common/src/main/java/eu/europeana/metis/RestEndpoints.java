@@ -13,7 +13,7 @@ public final class RestEndpoints {
     public final static String DATASET ="/dataset";
     public final static String DATASET_RETRIEVE = "/dataset/{name}";
     public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
-    public final static String ORGANIZATION = "/organization/{apikey}";
+    public final static String ORGANIZATION = "/organization";
     public final static String ORGANIZATIONS = "/organizations";
     public final static String ORGANIZATIONS_ISOCODE = "/organizations/country";
     public final static String ORGANIZATIONS_ROLES = "/organizations/roles";

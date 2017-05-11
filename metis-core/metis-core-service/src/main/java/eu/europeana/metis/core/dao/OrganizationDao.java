@@ -19,7 +19,7 @@ package eu.europeana.metis.core.dao;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.NoOrganizationExceptionFound;
+import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 
@@ -218,12 +218,12 @@ public class OrganizationDao implements MetisDao<Organization, String> {
    * @return The datasets for this organization
    */
   public List<Dataset> getAllDatasetsByOrganization(String organizationId)
-      throws NoOrganizationExceptionFound {
+      throws NoOrganizationFoundException {
     Organization org = getByOrganizationId(organizationId);
     if (org != null) {
       return org.getDatasets();
     }
-    throw new NoOrganizationExceptionFound("No organization found with id: " + organizationId);
+    throw new NoOrganizationFoundException("No organization found with id: " + organizationId);
   }
 
   /**
