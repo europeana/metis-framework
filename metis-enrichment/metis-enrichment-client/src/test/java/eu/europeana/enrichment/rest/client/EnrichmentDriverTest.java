@@ -19,20 +19,17 @@ package eu.europeana.enrichment.rest.client;
 import co.freeside.betamax.Betamax;
 import co.freeside.betamax.Recorder;
 import co.freeside.betamax.TapeMode;
-import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.metis.utils.InputValue;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import org.junit.Assert;
+import org.junit.Rule;
+import org.junit.Test;
 
 public class EnrichmentDriverTest {
 
@@ -41,8 +38,7 @@ public class EnrichmentDriverTest {
 
 	@Test
 	@Betamax(tape = "testEnrich.yaml", mode = TapeMode.READ_WRITE)
-	public void test() throws JsonGenerationException, JsonMappingException,
-			IOException {
+	public void test() throws IOException {
 		Properties props = new Properties();
 		props.load(new FileInputStream("src/test/resources/test.properties"));
 		String basePath = props.getProperty("base.path");
