@@ -66,6 +66,7 @@ public class OrganizationService {
   private void saveInSolr(Organization org) throws IOException, SolrServerException {
     String id = org.getId().toString();
     String englabel = org.getName();
+    String organizationId = org.getOrganizationId();
     List<String> searchLabel = new ArrayList<>();
     searchLabel.add(englabel);
     if (org.getPrefLabel() != null) {
@@ -78,7 +79,7 @@ public class OrganizationService {
         searchLabel.add(label.getLabel());
       }
     }
-    searchService.addOrganizationForSearch(id, englabel, searchLabel);
+    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
     LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
   }
 
@@ -92,19 +93,15 @@ public class OrganizationService {
     saveInSolr(org);
   }
 
-  /**
-   * Delete an organization
-   *
-   * @param org The organization to delete
-   */
   public void deleteOrganization(Organization org) throws IOException, SolrServerException {
-
     orgDao.delete(org);
-    deleteFromSolr(org);
+    searchService.deleteFromSearch(org.getId().toString());
   }
 
-  private void deleteFromSolr(Organization org) throws IOException, SolrServerException {
-    searchService.deleteFromSearch(org.getId().toString());
+  public void deleteOrganizationByOrganizationId(String organizationId)
+      throws IOException, SolrServerException {
+    orgDao.deleteByOrganizationId(organizationId);
+    searchService.deleteFromSearchByOrganizationId(organizationId);
   }
 
   /**

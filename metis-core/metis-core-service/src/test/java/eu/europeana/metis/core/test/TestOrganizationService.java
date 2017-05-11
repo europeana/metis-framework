@@ -89,7 +89,7 @@ public class TestOrganizationService {
                 public Object answer(InvocationOnMock invocation) throws Throwable {
                     return null;
                 }
-            }).when(searchService).addOrganizationForSearch(Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
+            }).when(searchService).addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
             service.createOrganization(org);
         } catch (IOException e) {
             e.printStackTrace();
@@ -114,7 +114,7 @@ public class TestOrganizationService {
                 public Object answer(InvocationOnMock invocation) throws Throwable {
                     return null;
                 }
-            }).when(searchService).addOrganizationForSearch(Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
+            }).when(searchService).addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
             service.updateOrganization(org);
         } catch (SolrServerException e) {
             e.printStackTrace();

@@ -29,7 +29,7 @@ public class TestMetisSearchService {
         searchLabels.add("test");
 
         try {
-            searchService.addOrganizationForSearch("testId","testLabel",searchLabels);
+            searchService.addOrganizationForSearch("testId", "testOrganizationId", "testLabel",searchLabels);
             Assert.assertEquals(1,searchService.getSuggestions("tes").size());
             Assert.assertEquals("testLabel",searchService.getSuggestions("tes").get(0).getEngLabel());
 

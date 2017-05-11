@@ -32,7 +32,6 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.api.Profile;
-import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.core.dataset.DatasetList;
@@ -97,7 +96,7 @@ public class OrganizationController {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
   @ResponseStatus(HttpStatus.CREATED)
   @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response", response = Contact.class),
+      @ApiResponse(code = 201, message = "Successful response"),
       @ApiResponse(code = 401, message = "Api Key not authorized"),
       @ApiResponse(code = 406, message = "Bad content"),
       @ApiResponse(code = 409, message = "Organization already exists")})
@@ -134,16 +133,24 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = ORGANIZATION, method = RequestMethod.DELETE, consumes = "application/json")
-  @ResponseStatus(HttpStatus.OK)
+  @RequestMapping(value = RestEndpoints.ORGANIZATION_ID, method = RequestMethod.DELETE)
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ApiResponses(value = {
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+  })
   @ApiOperation(value = "Delete an organization")
-  public void deleteOrganization(@ApiParam @RequestBody Organization organization,
-      @PathVariable("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException {
+  public void deleteOrganization(@PathVariable("id"
+  ) String organizationId, @QueryParam("apikey") String apikey)
+      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (key.getOptions().equals(Options.WRITE)) {
-        organizationService.deleteOrganization(organization);
+        organizationService.deleteOrganizationByOrganizationId(organizationId);
+        LOGGER.info("Organization with id " + organizationId + " deleted");
       } else {
         throw new ApiKeyNotAuthorizedException(apikey);
       }

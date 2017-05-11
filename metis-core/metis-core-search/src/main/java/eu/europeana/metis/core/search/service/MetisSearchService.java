@@ -43,10 +43,11 @@ public class MetisSearchService {
      * @throws IOException
      * @throws SolrServerException
      */
-    public void addOrganizationForSearch(String id, String engLabel, List<String> searchLabels) throws IOException, SolrServerException {
+    public void addOrganizationForSearch(String id, String organizationId, String engLabel, List<String> searchLabels) throws IOException, SolrServerException {
         OrganizationSearchBean searchBean = new OrganizationSearchBean();
+        searchBean.setId(id);
+        searchBean.setOrganizationId(organizationId);
         searchBean.setEngLabel(engLabel);
-        searchBean.setOrganizationId(id);
         searchBean.setSearchLabels(searchLabels);
         solrClient.addBean(searchBean);
         solrClient.commit();
@@ -54,6 +55,12 @@ public class MetisSearchService {
 
     public void deleteFromSearch(String id) throws IOException, SolrServerException {
         solrClient.deleteByQuery("id:"+id);
+        solrClient.commit();
+    }
+
+    public void deleteFromSearchByOrganizationId(String organizationId)
+        throws IOException, SolrServerException {
+        solrClient.deleteByQuery("organization_id:"+organizationId);
         solrClient.commit();
     }
 }

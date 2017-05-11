@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.core.dao;
 
+import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -173,6 +174,15 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     provider.getDatastore().delete(organization);
     LOGGER.info("Organization '" + organization.getName() + "' deleted from Mongo");
     return true;
+  }
+
+  public boolean deleteByOrganizationId(String organizationId)
+  {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.filter("organizationId", organizationId);
+    WriteResult delete = provider.getDatastore().delete(query);
+    LOGGER.info("Organization '" + organizationId + "' deleted from Mongo");
+    return delete.getN() == 1;
   }
 
   /**

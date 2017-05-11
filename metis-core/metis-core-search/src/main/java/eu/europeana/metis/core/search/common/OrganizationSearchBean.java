@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class OrganizationSearchBean {
     @Field("id")
+    private String id;
+
+    @Field("organization_id")
     private String organizationId;
 
     @Field("englabel")
@@ -16,6 +19,14 @@ public class OrganizationSearchBean {
 
     @Field("searchlabel")
     private List<String> searchLabels;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getOrganizationId() {
         return organizationId;

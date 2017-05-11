@@ -342,7 +342,7 @@ public class MetisUserPageController {
           .suggestOrganizations(term);
       for (OrganizationSearchBean searchBean : suggestOrganizations) {
         Organization orgById = dsOrgRestClient
-            .getOrganizationByOrganizationId(searchBean.getOrganizationId());
+            .getOrganizationByOrganizationId(searchBean.getId());
         if (orgById != null) {
           suggestedOrganizations.add(orgById);
         }
