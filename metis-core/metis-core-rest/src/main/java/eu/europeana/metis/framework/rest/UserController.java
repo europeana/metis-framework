@@ -16,22 +16,24 @@
  */
 package eu.europeana.metis.framework.rest;
 
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.framework.common.Contact;
+import eu.europeana.metis.framework.exceptions.UserNotFoundException;
 import eu.europeana.metis.framework.service.UserService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import java.io.IOException;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.io.IOException;
-import java.text.ParseException;
-
-import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 
 /**
  * User management from Zoho
@@ -40,20 +42,22 @@ import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 @Controller
 @Api("/")
 public class UserController {
-    @Autowired
-    private UserService userService;
 
-    /**
-     * Get a user by email
-     * @param email The email of the user
-     * @return
-     * @throws IOException
-     * @throws ParseException
-     */
-    @RequestMapping(value = USERBYMAIL, method = RequestMethod.GET, produces = "application/json")
-    @ResponseBody
-    @ApiOperation(value = "Retrieve a user from Zoho by email", response = Contact.class)
-    public Contact getUserByEmail(@ApiParam("email") @PathVariable("email")String email) throws IOException, ParseException {
-        return userService.getUserByEmail(email);
-    }
+  @Autowired
+  private UserService userService;
+
+  @RequestMapping(value = RestEndpoints.USER, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response", response = Contact.class),
+      @ApiResponse(code = 404, message = "User not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "email", value = "User's email", dataType = "string", paramType = "query"),
+  })
+  @ApiOperation(value = "Get a user from Zoho by email")
+  public Contact getUserByEmail(@QueryParam("email") String email)
+      throws IOException, UserNotFoundException {
+    return userService.getUserByEmail(email);
+  }
 }

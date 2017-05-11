@@ -105,7 +105,7 @@ public class ZohoRestClient extends ZohoClient{
     }
 
     @Override
-    public Contact getContactByEmail(String email) throws ParseException,IOException{
+    public Contact getContactByEmail(String email) throws IOException {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
         ZohoContactResponse resp = new ZohoContactResponse();

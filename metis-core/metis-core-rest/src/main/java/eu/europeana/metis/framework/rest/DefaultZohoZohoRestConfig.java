@@ -14,31 +14,29 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-
 package eu.europeana.metis.framework.rest;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import javax.servlet.http.HttpServletRequest;
+import eu.europeana.metis.framework.dao.ZohoClient;
+import eu.europeana.metis.framework.dao.ZohoRestClient;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 /**
- * Generic Exception Handler
- * Created by ymamakis on 2/25/16.
+ * Production configuration for Zoho
+ * Created by ymamakis on 6/6/16.
  */
-@Controller
-public class ExceptionHandlerController {
-
-    @ExceptionHandler(Exception.class)
-    @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ServerError handleException(HttpServletRequest req, Exception exception){
-        return new ServerError(exception.getMessage(),req.getRequestURI());
+@Component
+@Profile("production")
+public class DefaultZohoZohoRestConfig implements ZohoRestConfig {
+    @Value("${crm.scope}")
+    private String scope;
+    @Value("${crm.authtoken}")
+    private String authtoken;
+    @Value("${crm.baseUrl}")
+    private String baseUrl;
+    @Override
+    public ZohoClient getZohoClient() {
+        return new ZohoRestClient(baseUrl,authtoken,scope);
     }
-
 }
-
-

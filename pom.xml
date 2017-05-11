@@ -289,7 +289,7 @@
     <version.gson>2.8.0</version.gson>
     <version.openstack>1.9.0</version.openstack>
     <version.swagger>2.6.1</version.swagger>
-    <version.jackson>2.6.5</version.jackson>
+    <version.jackson>2.8.8</version.jackson>
     <version.powermock>1.6.4</version.powermock>
     <version.mockito>1.10.19</version.mockito>
     <version.corelib>2.6.1-SNAPSHOT</version.corelib>

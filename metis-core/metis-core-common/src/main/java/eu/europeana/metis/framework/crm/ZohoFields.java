@@ -37,4 +37,5 @@ public class ZohoFields {
     public static final String EMAIL = "Email";
     public static final String FIRSTNAME="First Name";
     public static final String LASTNAME="Last Name";
+    public static final String SKYPEID="Skype Id";
 }

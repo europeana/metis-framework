@@ -27,7 +27,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Profile("development")
-public class InMemoryZohoRestConfig implements RestConfig{
+public class InMemoryZohoZohoRestConfig implements ZohoRestConfig {
     @Override
     public ZohoClient getZohoClient() {
         ZohoMockClient client = new ZohoMockClient();
