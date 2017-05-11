@@ -202,7 +202,7 @@ public class ZohoMockClient extends ZohoClient {
 
   @Override
   public Contact getContactByEmail(String email) throws UserNotFoundException {
-    if(email != null && !email.equalsIgnoreCase(contactList.get(0).getEmail()))
+    if(email == null || !email.equalsIgnoreCase(contactList.get(0).getEmail()))
       throw new UserNotFoundException(email);
 
     return contactList.get(0);

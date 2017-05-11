@@ -55,7 +55,7 @@ public class UserController {
   @ApiImplicitParams({
       @ApiImplicitParam(name = "email", value = "User's email", dataType = "string", paramType = "query"),
   })
-  @ApiOperation(value = "Retrieve a user from Zoho by email")
+  @ApiOperation(value = "Get a user from Zoho by email")
   public Contact getUserByEmail(@QueryParam("email") String email)
       throws IOException, UserNotFoundException {
     return userService.getUserByEmail(email);
