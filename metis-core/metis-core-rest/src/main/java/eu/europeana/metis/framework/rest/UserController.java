@@ -19,7 +19,7 @@ package eu.europeana.metis.framework.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.framework.common.Contact;
 import eu.europeana.metis.framework.exceptions.UserNotFoundException;
-import eu.europeana.metis.framework.service.UserService;
+import eu.europeana.metis.framework.service.CrmUserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 
   @Autowired
-  private UserService userService;
+  private CrmUserService crmUserService;
 
   @RequestMapping(value = RestEndpoints.USER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
@@ -58,6 +58,6 @@ public class UserController {
   @ApiOperation(value = "Get a user from Zoho by email")
   public Contact getUserByEmail(@QueryParam("email") String email)
       throws IOException, UserNotFoundException {
-    return userService.getUserByEmail(email);
+    return crmUserService.getUserByEmail(email);
   }
 }

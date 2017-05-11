@@ -37,7 +37,7 @@ import eu.europeana.metis.framework.service.DatasetService;
 import eu.europeana.metis.framework.service.MetisAuthorizationService;
 import eu.europeana.metis.framework.service.Orchestrator;
 import eu.europeana.metis.framework.service.OrganizationService;
-import eu.europeana.metis.framework.service.UserService;
+import eu.europeana.metis.framework.service.CrmUserService;
 import eu.europeana.metis.framework.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.framework.workflow.Execution;
 import eu.europeana.metis.framework.workflow.FailedRecords;
@@ -266,8 +266,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public UserService getUserService() {
-    return new UserService();
+  public CrmUserService getCrmUserService() {
+    return new CrmUserService();
   }
 
   @Bean

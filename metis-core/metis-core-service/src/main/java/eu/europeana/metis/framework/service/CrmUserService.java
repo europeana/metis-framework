@@ -26,7 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * User service
  * Created by ymamakis on 4/5/16.
  */
-public class UserService {
+public class CrmUserService {
     @Autowired
     private ZohoClient restClient;
 
