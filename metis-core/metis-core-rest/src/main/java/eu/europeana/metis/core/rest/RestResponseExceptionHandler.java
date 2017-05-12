@@ -9,6 +9,8 @@ import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,5 +27,17 @@ public class RestResponseExceptionHandler {
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex) {
     return new StructuredExceptionWrapper(ex.getMessage());
+  }
+
+  @ExceptionHandler(HttpMessageNotReadableException.class)
+  @ResponseBody
+  public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException ex) {
+    return new StructuredExceptionWrapper("Message body not readable. It is missing or malformed\n" + ex.getMessage());
+  }
+
+  @ExceptionHandler(MissingServletRequestParameterException.class)
+  @ResponseBody
+  public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex) {
+    return new StructuredExceptionWrapper(ex.getParameterName() + " parameter is missing");
   }
 }
