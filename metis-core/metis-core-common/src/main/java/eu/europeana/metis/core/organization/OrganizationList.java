@@ -17,25 +17,53 @@
 
 package eu.europeana.metis.core.organization;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 
 /**
  * An organization List wrapper
  * Created by ymamakis on 3/2/16.
  */
-@XmlRootElement
 public class OrganizationList {
 
-    private List<Organization> organizations;
+  @JacksonXmlElementWrapper(localName = "Organizations")
+  @JacksonXmlProperty(localName = "Organization")
+  private List<Organization> organizations;
+  private String nextPage;
+  private int resultSet;
 
-    @XmlElement
-    public List<Organization> getOrganizations() {
-        return organizations;
+  public void setOrganizationsAndLastPage(List<Organization> organizations) {
+    if (organizations != null && organizations.size() != 0) {
+      nextPage = organizations.get(organizations.size() - 1).getId().toString();
+      resultSet = organizations.size();
+    } else {
+      nextPage = null;
     }
+    this.organizations = organizations;
+  }
 
-    public void setOrganizations(List<Organization> organizations) {
-        this.organizations = organizations;
-    }
+  public List<Organization> getOrganizations() {
+    return organizations;
+  }
+
+  public void setOrganizations(List<Organization> organizations) {
+    this.organizations = organizations;
+  }
+
+  public String getNextPage() {
+    return nextPage;
+  }
+
+  public void setNextPage(String nextPage) {
+    this.nextPage = nextPage;
+  }
+
+  public int getResultSet() {
+    return resultSet;
+  }
+
+  public void setResultSet(int resultSet) {
+    this.resultSet = resultSet;
+  }
 }

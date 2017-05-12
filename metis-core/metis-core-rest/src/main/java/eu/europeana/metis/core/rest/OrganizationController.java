@@ -19,11 +19,9 @@ package eu.europeana.metis.core.rest;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_BYDATASET;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ISOCODE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_OPTED_IN;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_SUGGEST;
@@ -92,7 +90,7 @@ public class OrganizationController {
   @Autowired
   private MetisAuthorizationService authorizationService;
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATION, method = RequestMethod.POST, consumes = {
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
   @ResponseStatus(HttpStatus.CREATED)
   @ApiResponses(value = {
@@ -134,7 +132,7 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATION_ID, method = RequestMethod.DELETE)
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
@@ -160,7 +158,7 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
@@ -179,8 +177,12 @@ public class OrganizationController {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (key.getOptions().equals(Options.WRITE)) {
-        if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization.getOrganizationId().equals(organizationId))
-          throw new BadContentException("OrganinazationId in body " + organization.getOrganizationId() + " is different from parameter " + organizationId);
+        if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization
+            .getOrganizationId().equals(organizationId)) {
+          throw new BadContentException(
+              "OrganinazationId in body " + organization.getOrganizationId()
+                  + " is different from parameter " + organizationId);
+        }
         organization.setOrganizationId(organizationId);
 
         //Check if exists first
@@ -195,22 +197,35 @@ public class OrganizationController {
     }
   }
 
-  /**
-   * Get all the organizations
-   *
-   * @return All the registered organizations in METIS
-   */
-  @RequestMapping(value = ORGANIZATIONS, method = RequestMethod.GET, produces = "application/json")
-
-  @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
-  public ModelAndView getAllOrganizations(@RequestParam("apikey") String apikey)
-      throws NoOrganizationFoundException, NoApiKeyFoundException, InstantiationException, IllegalAccessException {
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query", required = false)
+  })
+  @ApiOperation(value = "Get all organizations")
+  public OrganizationList getAllOrganizations(@QueryParam("nextPage"
+  ) String nextPage, @QueryParam("apikey") String apikey)
+      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      List<Organization> orgs = organizationService.getAllOrganizations();
-      return constructModelAndViewForList(key, orgs);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
+      OrganizationList organizationList = new OrganizationList();
+      organizationList.setOrganizationsAndLastPage(organizations);
+      LOGGER.info("All organizations returned");
+      return organizationList;
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
     }
-    throw new NoApiKeyFoundException(apikey);
+
   }
 
   /**
@@ -223,7 +238,8 @@ public class OrganizationController {
   @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
   public ModelAndView getAllOrganizationsByCountry(@RequestParam("isoCode") String isoCode,
       @RequestParam("apikey") String apikey)
-      throws NoOrganizationFoundException, IllegalAccessException, InstantiationException, NoApiKeyFoundException {
+      throws
+      NoOrganizationFoundException, IllegalAccessException, InstantiationException, NoApiKeyFoundException {
 
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
@@ -235,7 +251,6 @@ public class OrganizationController {
 
   }
 
-
   /**
    * Get all the organizations for specific roles
    *
@@ -246,7 +261,8 @@ public class OrganizationController {
   @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationList.class)
   public ModelAndView getAllOrganizationsByRoles(@RequestParam("role") List<String> roles,
       @RequestParam("apikey") String apikey)
-      throws NoOrganizationFoundException, NoApiKeyFoundException, IllegalAccessException, InstantiationException {
+      throws
+      NoOrganizationFoundException, NoApiKeyFoundException, IllegalAccessException, InstantiationException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (roles != null) {
@@ -289,12 +305,13 @@ public class OrganizationController {
    * @param id The id of the organization to retrieve
    * @return The organization with the specified id
    */
-  @RequestMapping(value = ORGANIZATION_ID, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
   @ApiOperation(value = "Get an organization by id", response = Organization.class)
   public ModelAndView getOrganizationById(@ApiParam("id") @PathVariable("id") String id,
       @ApiParam("apikey") @RequestParam("apikey") String apikey)
-      throws NoApiKeyFoundException, NoOrganizationFoundException, InstantiationException, IllegalAccessException {
+      throws
+      NoApiKeyFoundException, NoOrganizationFoundException, InstantiationException, IllegalAccessException {
     Organization org = organizationService.getOrganizationById(id);
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
@@ -320,7 +337,8 @@ public class OrganizationController {
   public ModelAndView getOrganizationByOrganizationId(
       @ApiParam("orgId") @RequestParam(value = "orgId") String id,
       @RequestParam("apikey") String apikey)
-      throws NoOrganizationFoundException, InstantiationException, IllegalAccessException, NoApiKeyFoundException {
+      throws
+      NoOrganizationFoundException, InstantiationException, IllegalAccessException, NoApiKeyFoundException {
     Organization org = organizationService.getOrganizationByOrganizationId(id);
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
@@ -345,7 +363,8 @@ public class OrganizationController {
   public ModelAndView getOrganizationByOrganizationIdFromCRM(
       @ApiParam("orgId") @PathVariable(value = "orgId") String id,
       @RequestParam("apikey") String apikey)
-      throws NoOrganizationFoundException, IOException, ParseException, InstantiationException, IllegalAccessException, NoApiKeyFoundException {
+      throws
+      NoOrganizationFoundException, IOException, ParseException, InstantiationException, IllegalAccessException, NoApiKeyFoundException {
     Organization org = organizationService.getOrganizationByIdFromCRM(id);
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
@@ -367,7 +386,8 @@ public class OrganizationController {
   @ResponseBody
   @ApiOperation(value = "Retrieve all the organizations from CRM", response = OrganizationList.class)
   public ModelAndView getOrganizationsFromCRM(@RequestParam("apikey") String apikey)
-      throws NoOrganizationFoundException, IOException, ParseException, IllegalAccessException, InstantiationException, NoApiKeyFoundException {
+      throws
+      NoOrganizationFoundException, IOException, ParseException, IllegalAccessException, InstantiationException, NoApiKeyFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       return constructModelAndViewForList(key, organizationService.getAllOrganizationsFromCRM());

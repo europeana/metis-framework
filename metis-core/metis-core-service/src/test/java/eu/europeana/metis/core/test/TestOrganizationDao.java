@@ -157,7 +157,7 @@ public class TestOrganizationDao {
     org.setDatasets(datasets);
     orgDao.create(org);
 
-    List<Organization> getAll = orgDao.getAll();
+    List<Organization> getAll = orgDao.getAll(null);
 
     Assert.assertTrue(getAll.size() == 1);
   }

@@ -16,23 +16,36 @@
  */
 package eu.europeana.metis.core.rest.client;
 
+import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
+import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
+import static eu.europeana.metis.RestEndpoints.DATASET;
+import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATION;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ISOCODE;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
+import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
+
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.common.Role;
-import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.common.Contact;
+import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetList;
+import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ServerError;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-
-import static eu.europeana.metis.RestEndpoints.*;
 
 
 /**
@@ -172,7 +185,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationById(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(ORGANIZATION_ID,id)+"apikey="+apikey,
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ID,id)+"apikey="+apikey,
                     Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());

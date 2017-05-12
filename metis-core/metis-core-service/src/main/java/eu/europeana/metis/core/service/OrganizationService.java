@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -120,15 +121,13 @@ public class OrganizationService {
     searchService.deleteFromSearchByOrganizationId(organizationId);
   }
 
-  /**
-   * List all the organizations
-   *
-   * @return Retrieve all the organizations
-   */
-  public List<Organization> getAllOrganizations() throws NoOrganizationFoundException {
-    List<Organization> organizations = orgDao.getAll();
-    if (organizations == null || organizations.size() == 0) {
-      throw new NoOrganizationFoundException("No organization found in METIS");
+  public List<Organization> getAllOrganizations(String nextPage)
+      throws NoOrganizationFoundException {
+    List<Organization> organizations = orgDao.getAll(nextPage);
+    if ((organizations == null || organizations.size() == 0) && StringUtils.isNotEmpty(nextPage)) {
+      return organizations;
+    } else if (organizations == null || organizations.size() == 0) {
+      throw new NoOrganizationFoundException("No organizations found!");
     }
     return organizations;
   }

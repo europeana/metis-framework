@@ -46,6 +46,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OrganizationDao implements MetisDao<Organization, String> {
 
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
+  private final int ORGANIZATIONS_PER_REQUEST = 5;
 
   @Autowired
   private MorphiaDatastoreProvider provider;
@@ -174,8 +175,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     return true;
   }
 
-  public boolean deleteByOrganizationId(String organizationId)
-  {
+  public boolean deleteByOrganizationId(String organizationId) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.filter("organizationId", organizationId);
     WriteResult delete = provider.getDatastore().delete(query);
@@ -188,8 +188,13 @@ public class OrganizationDao implements MetisDao<Organization, String> {
    *
    * @return A list of all the organizations
    */
-  public List<Organization> getAll() {
-    return provider.getDatastore().find(Organization.class).asList();
+  public List<Organization> getAll(String nextPage) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.order("_id").limit(ORGANIZATIONS_PER_REQUEST);
+    if (!StringUtils.isEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList();
   }
 
   /**
@@ -236,16 +241,20 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   /**
    * Get all the organizations referred to by a dataset
+   *
    * @param datasetId The datasetId to search the organizations for
-   * @param dataProviderId The dataprovider id for the dataset <code>{@link Dataset#dataProvider}</code>
+   * @param dataProviderId The dataprovider id for the dataset <code>{@link
+   * Dataset#dataProvider}</code>
    * @return The full list of organizations for this dataset
    */
-  public List<Organization> getAllOrganizationsFromDataset(String datasetId, String dataProviderId){
-    List<Organization> orgs = provider.getDatastore().find(Organization.class).filter("datasets.$id",datasetId).asList();
-    if(orgs==null){
+  public List<Organization> getAllOrganizationsFromDataset(String datasetId,
+      String dataProviderId) {
+    List<Organization> orgs = provider.getDatastore().find(Organization.class)
+        .filter("datasets.$id", datasetId).asList();
+    if (orgs == null) {
       orgs = new ArrayList<>();
     }
-    if(StringUtils.isNotEmpty(dataProviderId)) {
+    if (StringUtils.isNotEmpty(dataProviderId)) {
       orgs.add(getById(dataProviderId));
     }
     return orgs;

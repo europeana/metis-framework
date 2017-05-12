@@ -32,7 +32,6 @@ import eu.europeana.metis.core.dataset.Dataset;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -44,7 +43,6 @@ import org.mongodb.morphia.annotations.Reference;
  * The Organization representation in METIS
  * Created by ymamakis on 2/17/16.
  */
-@XmlRootElement
 @Entity
 public class Organization {
     @Id

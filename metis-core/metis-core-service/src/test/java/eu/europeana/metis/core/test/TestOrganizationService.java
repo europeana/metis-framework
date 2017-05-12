@@ -205,9 +205,9 @@ public class TestOrganizationService {
         orgs.add(org);
         orgs.add(org);
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getAll()).thenReturn(orgs);
+        Mockito.when(organizationDao.getAll(null)).thenReturn(orgs);
         try {
-            List<Organization> orgRet = service.getAllOrganizations();
+            List<Organization> orgRet = service.getAllOrganizations(null);
             Assert.assertEquals(orgs, orgRet);
         } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
