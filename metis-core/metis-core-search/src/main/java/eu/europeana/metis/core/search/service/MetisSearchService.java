@@ -53,6 +53,15 @@ public class MetisSearchService {
         solrClient.commit();
     }
 
+    public String findSolrIdByOrganizationId(String organizationId)
+        throws IOException, SolrServerException {
+        SolrQuery solrQuery = new SolrQuery();
+        solrQuery.setQuery("organization_id:"+ ClientUtils.escapeQueryChars(organizationId));
+        solrQuery.setFields("id");
+        QueryResponse resp = solrClient.query(solrQuery);
+        return resp.getBeans(OrganizationSearchBean.class).get(0).getId();
+    }
+
     public void deleteFromSearch(String id) throws IOException, SolrServerException {
         solrClient.deleteByQuery("id:"+id);
         solrClient.commit();

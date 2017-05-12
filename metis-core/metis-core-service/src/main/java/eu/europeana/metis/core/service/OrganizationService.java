@@ -83,14 +83,30 @@ public class OrganizationService {
     LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
   }
 
-  /**
-   * Update an organization
-   *
-   * @param org The organization to update
-   */
+  private void updateInSolr(Organization org) throws IOException, SolrServerException {
+    String id = searchService
+        .findSolrIdByOrganizationId(org.getOrganizationId());
+    String englabel = org.getName();
+    String organizationId = org.getOrganizationId();
+    List<String> searchLabel = new ArrayList<>();
+    searchLabel.add(englabel);
+    if (org.getPrefLabel() != null) {
+      for (PrefLabel label : org.getPrefLabel()) {
+        searchLabel.add(label.getLabel());
+      }
+    }
+    if (org.getAltLabel() != null) {
+      for (AltLabel label : org.getAltLabel()) {
+        searchLabel.add(label.getLabel());
+      }
+    }
+    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
+    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+  }
+
   public void updateOrganization(Organization org) throws SolrServerException, IOException {
     orgDao.update(org);
-    saveInSolr(org);
+    updateInSolr(org);
   }
 
   public void deleteOrganization(Organization org) throws IOException, SolrServerException {

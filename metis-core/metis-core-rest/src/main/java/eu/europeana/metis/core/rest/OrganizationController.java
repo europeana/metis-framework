@@ -120,8 +120,9 @@ public class OrganizationController {
           LOGGER.info("Organization not found, so can be created");
         }
 
-        if (StringUtils.isEmpty(organization.getOrganizationId()))
+        if (StringUtils.isEmpty(organization.getOrganizationId())) {
           throw new BadContentException("OrganizationId cannot be null");
+        }
 
         organizationService.createOrganization(organization);
         LOGGER.info("Organization with id " + organization.getOrganizationId() + " created");
@@ -159,21 +160,33 @@ public class OrganizationController {
     }
   }
 
-  /**
-   * Update an organization
-   *
-   * @param organization The organization to update
-   */
-  @RequestMapping(value = ORGANIZATION, method = RequestMethod.PUT, consumes = "application/json")
-  @ResponseStatus(HttpStatus.OK)
+  @RequestMapping(value = RestEndpoints.ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ApiResponses(value = {
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 404, message = "Organization not found"),
+      @ApiResponse(code = 406, message = "Bad content")
+  })
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+  })
   @ApiOperation(value = "Update an organization")
-  public void updateOrganization(@RequestBody Organization organization,
-      @PathVariable("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException {
+  public void updateOrganization(@RequestBody Organization organization, @PathVariable("id"
+  ) String organizationId, @QueryParam("apikey") String apikey)
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (key.getOptions().equals(Options.WRITE)) {
+        if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization.getOrganizationId().equals(organizationId))
+          throw new BadContentException("OrganinazationId in body " + organization.getOrganizationId() + " is different from parameter " + organizationId);
+        organization.setOrganizationId(organizationId);
+
+        //Check if exists first
+        organizationService.getOrganizationByOrganizationId(organization.getOrganizationId());
         organizationService.updateOrganization(organization);
+        LOGGER.info("Organization with id " + organizationId + " updated");
       } else {
         throw new ApiKeyNotAuthorizedException(apikey);
       }

@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * Enumeration denoting the geographical level of a  provider
  * Created by ymamakis on 4/4/16.
@@ -36,6 +38,16 @@ public enum GeographicLevel {
     public static GeographicLevel getGeographicLevelFromName(String name){
         for (GeographicLevel gl:GeographicLevel.values()) {
             if(gl.getName().equals(name)){
+                return gl;
+            }
+        }
+        return null;
+    }
+
+    @JsonCreator
+    public static GeographicLevel getGeographicLevelFromEnumName(String name){
+        for (GeographicLevel gl:GeographicLevel.values()) {
+            if(gl.name().equalsIgnoreCase(name)){
                 return gl;
             }
         }

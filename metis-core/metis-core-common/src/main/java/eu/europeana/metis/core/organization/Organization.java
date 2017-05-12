@@ -17,6 +17,7 @@
 
 package eu.europeana.metis.core.organization;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
@@ -46,17 +47,9 @@ import org.mongodb.morphia.annotations.Reference;
 @XmlRootElement
 @Entity
 public class Organization {
-
-    /**
-     * Id
-     */
     @Id
     private ObjectId id;
 
-
-    /**
-     * The organization ID
-     */
     @Indexed(unique = true)
     private String organizationId;
 
@@ -70,30 +63,16 @@ public class Organization {
      */
     private HarvestingMetadata harvestingMetadata;
 
-    /**
-     * The name of the organization
-     */
     private String name;
 
-    /**
-     * Created
-     */
     private Date created;
 
-    /**
-     * Updated
-     */
     private Date modified;
 
-    /**
-     * Acronym
-     */
     private String acronym;
 
-    /**
-     * Role
-     */
     @Indexed
+    @JacksonXmlProperty(localName = "roles")
     private List<Role> roles;
 
     /**
@@ -107,11 +86,14 @@ public class Organization {
     private String updatedByLdapId;
 
     @Embedded
+    @JacksonXmlProperty(localName = "prefLabels")
     private List<PrefLabel> prefLabel;
 
     @Embedded
+    @JacksonXmlProperty(localName = "altLabels")
     private List<AltLabel> altLabel;
 
+    @JacksonXmlProperty(localName = "sameAsList")
     private String[] sameAs;
 
     private String description;

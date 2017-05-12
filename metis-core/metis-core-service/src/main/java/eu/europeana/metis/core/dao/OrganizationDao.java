@@ -73,7 +73,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     } else {
       ops.unset("organizationUri");
     }
-    if (organization.getDatasets() != null || organization.getDatasets().size() != 0) {
+    if (organization.getDatasets() != null && organization.getDatasets().size() != 0) {
       ops.set("datasets", organization.getDatasets());
     } else {
       ops.unset("datasets");
@@ -155,13 +155,11 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     }
 
     ops.set("acronym", organization.getAcronym());
-    ops.set("created", organization.getCreated());
     ops.set("modified", new Date());
     provider.getDatastore().update(q, ops);
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
     LOGGER.info("Organization '" + organization.getOrganizationId() + "' updated in Mongo");
-    Object newId = updateResults.getNewId();
-    return newId != null ? updateResults.getNewId().toString() : organization.getId().toString();
+    return String.valueOf(updateResults.getUpdatedCount());
   }
 
   @Override

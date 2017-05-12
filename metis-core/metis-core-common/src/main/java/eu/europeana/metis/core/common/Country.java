@@ -17,6 +17,7 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -69,6 +70,16 @@ public enum Country {
     public static Country getCountryFromName(String name){
         for (Country country:Country.values()) {
             if(country.getName().equals(name)){
+                return country;
+            }
+        }
+        return null;
+    }
+
+    @JsonCreator
+    public static Country getCountryFromEnumName(String name){
+        for (Country country:Country.values()) {
+            if(country.name().equalsIgnoreCase(name)){
                 return country;
             }
         }

@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * The sector the institution belongs to
  * Created by ymamakis on 4/4/16.
@@ -37,6 +39,16 @@ public enum Sector {
     public static Sector getSectorFromName(String name){
         for (Sector sector:Sector.values()) {
             if(sector.getName().equals(name)){
+                return sector;
+            }
+        }
+        return null;
+    }
+
+    @JsonCreator
+    public static Sector getSectorFromEnumName(String name){
+        for (Sector sector:Sector.values()) {
+            if(sector.name().equalsIgnoreCase(name)){
                 return sector;
             }
         }
