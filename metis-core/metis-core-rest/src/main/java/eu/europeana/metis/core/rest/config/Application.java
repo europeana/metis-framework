@@ -314,6 +314,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.regex("/.*"))
         .build()
+        .useDefaultResponseMessages(false)
         .apiInfo(apiInfo());
   }
 
