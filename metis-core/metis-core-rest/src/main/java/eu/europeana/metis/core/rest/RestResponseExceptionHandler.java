@@ -8,12 +8,14 @@ import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.StructuredExceptionWrapper;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import java.io.IOException;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,7 +30,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class RestResponseExceptionHandler {
 
   @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class, NoApiKeyFoundException.class, IOException.class,
-      SolrServerException.class, OrganizationAlreadyExistsException.class,
+      SolrServerException.class, OrganizationAlreadyExistsException.class, ServletException.class,
       NoOrganizationFoundException.class, BadContentException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex, HttpServletResponse response) {
@@ -49,5 +51,12 @@ public class RestResponseExceptionHandler {
   public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex, HttpServletResponse response) {
     response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper(ex.getParameterName() + " parameter is missing");
+  }
+
+  @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+  @ResponseBody
+  public StructuredExceptionWrapper handleMissingParams(HttpRequestMethodNotSupportedException ex, HttpServletResponse response) {
+    response.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());
+    return new StructuredExceptionWrapper("Method not allowed: " + ex.getMessage());
   }
 }

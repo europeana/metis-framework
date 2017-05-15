@@ -116,7 +116,7 @@ public class ITECloudDatasetDao {
 //          new DataProviderProperties("sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s",
 //              "sprovider1s", "sprovider1s", "sprovider1s", "sprovider1s"));
 //    } catch (CloudException e) {
-//      if (e.getMessage().equals("PROVIDER_ALREADY_EXISTS")) {
+//      if (e.getError().equals("PROVIDER_ALREADY_EXISTS")) {
 //        LOGGER.info("Provider not created already existent");
 //      } else {
 //        return;
