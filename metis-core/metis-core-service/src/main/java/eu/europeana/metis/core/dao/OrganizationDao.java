@@ -18,7 +18,7 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -80,10 +80,10 @@ public class OrganizationDao implements MetisDao<Organization, String> {
       ops.unset("datasets");
     }
     ops.set("name", organization.getName());
-    if (organization.getRoles() != null) {
-      ops.set("roles", organization.getRoles());
+    if (organization.getOrganizationRoles() != null) {
+      ops.set("organizationRoles", organization.getOrganizationRoles());
     } else {
-      ops.unset("roles");
+      ops.unset("organizationRoles");
     }
     if (organization.getCreatedByLdapId() != null) {
       ops.set("createdByLdapId", organization.getCreatedByLdapId());
@@ -207,10 +207,10 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   }
 
 
-  public List<Organization> getAllProviders(Role... roles) {
+  public List<Organization> getAllProviders(OrganizationRole... organizationRoles) {
 
-    return provider.getDatastore().find(Organization.class).field("roles")
-        .hasAnyOf(Arrays.asList(roles)).asList();
+    return provider.getDatastore().find(Organization.class).field("organizationRoles")
+        .hasAnyOf(Arrays.asList(organizationRoles)).asList();
   }
 
   /**

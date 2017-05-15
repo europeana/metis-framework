@@ -19,7 +19,7 @@ package eu.europeana.metis.core.service;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.PrefLabel;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -132,8 +132,8 @@ public class OrganizationService {
     return organizations;
   }
 
-  public List<Organization> getAllProviders(Role... roles) {
-    return orgDao.getAllProviders(roles);
+  public List<Organization> getAllProviders(OrganizationRole... organizationRoles) {
+    return orgDao.getAllProviders(organizationRoles);
   }
 
   /**

@@ -29,7 +29,7 @@ import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.common.Contact;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetList;
 import eu.europeana.metis.core.dto.OrgDatasetDTO;
@@ -148,11 +148,11 @@ public class DsOrgRestClient {
      * @return The list of all the organizations stored in METIS
      * @throws ServerException
      */
-    public List<Organization> getAllOrganizationsByRoles(List<Role> roles) throws ServerException {
+    public List<Organization> getAllOrganizationsByRoles(List<OrganizationRole> organizationRoles) throws ServerException {
         try {
             String roleParam="role=";
-            for(Role role: roles){
-                roleParam+=role.toString().toLowerCase()+",";
+            for(OrganizationRole organizationRole : organizationRoles){
+                roleParam+= organizationRole.toString().toLowerCase()+",";
             }
 
             List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_ROLES+"?apikey="+apikey+"&"+StringUtils.substringBeforeLast(roleParam,","), OrganizationListResponse.class).getResults();

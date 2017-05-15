@@ -20,7 +20,7 @@ public class PublicOrganizationView{
         view.addObject("description",organization.getDescription());
         view.addObject("domain",organization.getDomain());
         view.addObject("country",organization.getCountry());
-        view.addObject("role",organization.getRoles());
+        view.addObject("role",organization.getOrganizationRoles());
         view.addObject("geographicLevel",organization.getGeographicLevel());
         view.addObject("logoLocation",organization.getLogoLocation());
         view.addObject("name",organization.getName());

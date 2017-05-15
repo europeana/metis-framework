@@ -24,8 +24,8 @@ import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
-import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.core.common.Scope;
 import eu.europeana.metis.core.common.Sector;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -70,8 +70,8 @@ public class Organization {
     private String acronym;
 
     @Indexed
-    @JacksonXmlProperty(localName = "roles")
-    private List<Role> roles;
+    @JacksonXmlProperty(localName = "organizationRoles")
+    private List<OrganizationRole> organizationRoles;
 
     /**
      * The datasets associated with the organization
@@ -200,12 +200,12 @@ public class Organization {
     }
 
     @XmlElement
-    public List<Role> getRoles() {
-        return roles;
+    public List<OrganizationRole> getOrganizationRoles() {
+        return organizationRoles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setOrganizationRoles(List<OrganizationRole> organizationRoles) {
+        this.organizationRoles = organizationRoles;
     }
 
     @XmlElement

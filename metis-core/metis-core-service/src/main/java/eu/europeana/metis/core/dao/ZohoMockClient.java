@@ -21,7 +21,7 @@ import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.Sector;
 import eu.europeana.metis.core.crm.ContactResponse;
 import eu.europeana.metis.core.crm.ContactResult;
@@ -111,7 +111,7 @@ public class ZohoMockClient extends ZohoClient {
     fields.add(updatedTime);
     Field role = new Field();
     role.setVal(ZohoFields.ROLE);
-    role.setContent(Role.CONTENT_PROVIDER.getName());
+    role.setContent(OrganizationRole.CONTENT_PROVIDER.getName());
     fields.add(role);
     Field country = new Field();
     country.setVal(ZohoFields.COUNTRY);

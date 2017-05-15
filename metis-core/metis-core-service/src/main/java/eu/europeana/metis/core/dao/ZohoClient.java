@@ -20,7 +20,7 @@ import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.Sector;
 import eu.europeana.metis.core.crm.Field;
 import eu.europeana.metis.core.crm.Row;
@@ -73,11 +73,11 @@ public abstract class ZohoClient {
           break;
         case ZohoFields.ROLE:
           List<String> roles = Arrays.asList(field.getContent().split(";"));
-          List<Role> metisRoles = new ArrayList<>();
+          List<OrganizationRole> metisRoles = new ArrayList<>();
           for (String role : roles) {
-            metisRoles.add(Role.getRoleFromName(role));
+            metisRoles.add(OrganizationRole.getRoleFromName(role));
           }
-          org.setRoles(metisRoles);
+          org.setOrganizationRoles(metisRoles);
           break;
         case ZohoFields.COUNTRY:
           org.setCountry(Country.getCountryFromName(field.getContent()));

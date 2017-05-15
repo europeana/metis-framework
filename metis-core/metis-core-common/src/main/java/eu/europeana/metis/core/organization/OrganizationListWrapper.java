@@ -25,18 +25,18 @@ import java.util.List;
  * An organization List wrapper
  * Created by ymamakis on 3/2/16.
  */
-public class OrganizationList {
+public class OrganizationListWrapper {
 
   @JacksonXmlElementWrapper(localName = "Organizations")
   @JacksonXmlProperty(localName = "Organization")
   private List<Organization> organizations;
   private String nextPage;
-  private int resultSet;
+  private int listSize;
 
   public void setOrganizationsAndLastPage(List<Organization> organizations) {
     if (organizations != null && organizations.size() != 0) {
       nextPage = organizations.get(organizations.size() - 1).getId().toString();
-      resultSet = organizations.size();
+      listSize = organizations.size();
     } else {
       nextPage = null;
     }
@@ -59,11 +59,11 @@ public class OrganizationList {
     this.nextPage = nextPage;
   }
 
-  public int getResultSet() {
-    return resultSet;
+  public int getListSize() {
+    return listSize;
   }
 
-  public void setResultSet(int resultSet) {
-    this.resultSet = resultSet;
+  public void setListSize(int listSize) {
+    this.listSize = listSize;
   }
 }

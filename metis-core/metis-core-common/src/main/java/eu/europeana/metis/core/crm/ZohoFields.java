@@ -26,7 +26,7 @@ public class ZohoFields {
     public static final String ID = "CUSTOMMODULE1_ID";
     public static final String NAME = "CustomModule1 Name";
     public static final String ACRONYM = "Acronym";
-    public static final String ROLE = "Role";
+    public static final String ROLE = "OrganizationRole";
     public static final String CREATEDTIME="Created Time";
     public static final String MODIFIEDTIME="Modified Time";
     public static final String GEOGRAPHICLEVEL = "Geographic Level";

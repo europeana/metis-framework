@@ -1,6 +1,5 @@
 package eu.europeana.metis.ui.mongo.service;
 
-import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.dao.DBUserDao;
@@ -97,13 +96,14 @@ public class UserService {
 
     /**
      * Filter out the roles that can be assigned to Organization
-     * @param role The role of the organization
+     * @param organizationRole The organizationRole of the organization
      * @return The Roles that can be assigned to the user
      */
-    public List<Roles> getRolesFromOrganizationRole(Role role){
+    public List<Roles> getRolesFromOrganizationRole(
+        eu.europeana.metis.core.common.OrganizationRole organizationRole){
         List<Roles> roles = new ArrayList<>();
         for(Roles roleToCheck: Roles.values()){
-            if (roleToCheck.isAssignableTo(role)){
+            if (roleToCheck.isAssignableTo(organizationRole)){
                 roles.add(roleToCheck);
             }
         }
@@ -157,26 +157,26 @@ public class UserService {
         if (!StringUtils.equals("rejected",status)) {
             DBUser user = dbUserDao.findOne("email", request.getUserId());
             if (user != null) {
-                List<OrganizationRole> orgIds = user.getOrganizationRoles();
+                List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> orgIds = user.getOrganizationRoles();
 
                 if (!request.isDeleteRequest()) {
                     if (orgIds == null) {
                         orgIds = new ArrayList<>();
                     }
-                    OrganizationRole orgRole = new OrganizationRole();
-                    orgRole.setOrganizationId(request.getOrganizationId());
-                    orgRole.setRole(role);
-                    orgIds.add(orgRole);
+                    eu.europeana.metis.ui.mongo.domain.OrganizationRole organizationRole = new eu.europeana.metis.ui.mongo.domain.OrganizationRole();
+                    organizationRole.setOrganizationId(request.getOrganizationId());
+                    organizationRole.setRole(role);
+                    orgIds.add(organizationRole);
                     user.setOrganizationRoles(orgIds);
 
                 } else {
-                    List<OrganizationRole> newRoles = new ArrayList<>();
-                    for (OrganizationRole checkRole:orgIds){
-                        if(!StringUtils.equals(request.getOrganizationId(),checkRole.getOrganizationId())){
-                            newRoles.add(checkRole);
+                    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> newOrganizationRoles = new ArrayList<>();
+                    for (eu.europeana.metis.ui.mongo.domain.OrganizationRole checkOrganizationRole :orgIds){
+                        if(!StringUtils.equals(request.getOrganizationId(), checkOrganizationRole.getOrganizationId())){
+                            newOrganizationRoles.add(checkOrganizationRole);
                         }
                     }
-                    user.setOrganizationRoles(newRoles);
+                    user.setOrganizationRoles(newOrganizationRoles);
                 }
                 updateUserInMongo(user);
             }
