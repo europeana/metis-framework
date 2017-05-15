@@ -33,9 +33,14 @@ public class OrganizationListWrapper {
   private String nextPage;
   private int listSize;
 
-  public void setOrganizationsAndLastPage(List<Organization> organizations) {
+  public void setOrganizationsAndLastPage(List<Organization> organizations,
+      int organizationPerRequestLimit) {
     if (organizations != null && organizations.size() != 0) {
-      nextPage = organizations.get(organizations.size() - 1).getId().toString();
+      if (organizations.size() < organizationPerRequestLimit) {
+        nextPage = null;
+      } else {
+        nextPage = organizations.get(organizations.size() - 1).getId().toString();
+      }
       listSize = organizations.size();
     } else {
       nextPage = null;

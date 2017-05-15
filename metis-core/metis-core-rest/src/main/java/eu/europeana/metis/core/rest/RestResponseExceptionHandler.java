@@ -39,13 +39,15 @@ public class RestResponseExceptionHandler {
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException ex) {
+  public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException ex, HttpServletResponse response) {
+    response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper("Message body not readable. It is missing or malformed\n" + ex.getMessage());
   }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex) {
+  public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex, HttpServletResponse response) {
+    response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper(ex.getParameterName() + " parameter is missing");
   }
 }

@@ -48,7 +48,7 @@ public class OrganizationService {
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationService.class);
 
   @Autowired
-  private OrganizationDao orgDao;
+  private OrganizationDao organizationDao;
 
   @Autowired
   private ZohoClient restClient;
@@ -57,7 +57,7 @@ public class OrganizationService {
   private MetisSearchService searchService;
 
   public void createOrganization(Organization org) throws IOException, SolrServerException {
-    orgDao.create(org);
+    organizationDao.create(org);
     saveInSolr(org);
   }
 
@@ -106,24 +106,24 @@ public class OrganizationService {
   }
 
   public void updateOrganization(Organization org) throws SolrServerException, IOException {
-    orgDao.update(org);
+    organizationDao.update(org);
     updateInSolr(org);
   }
 
   public void deleteOrganization(Organization org) throws IOException, SolrServerException {
-    orgDao.delete(org);
+    organizationDao.delete(org);
     searchService.deleteFromSearch(org.getId().toString());
   }
 
   public void deleteOrganizationByOrganizationId(String organizationId)
       throws IOException, SolrServerException {
-    orgDao.deleteByOrganizationId(organizationId);
+    organizationDao.deleteByOrganizationId(organizationId);
     searchService.deleteFromSearchByOrganizationId(organizationId);
   }
 
   public List<Organization> getAllOrganizations(String nextPage)
       throws NoOrganizationFoundException {
-    List<Organization> organizations = orgDao.getAll(nextPage);
+    List<Organization> organizations = organizationDao.getAllOrganizations(nextPage);
     if ((organizations == null || organizations.size() == 0) && StringUtils.isNotEmpty(nextPage)) {
       return organizations;
     } else if (organizations == null || organizations.size() == 0) {
@@ -132,13 +132,21 @@ public class OrganizationService {
     return organizations;
   }
 
-  public List<Organization> getAllProviders(OrganizationRole... organizationRoles) {
-    return orgDao.getAllProviders(organizationRoles);
+  public List<Organization> getAllOrganizationsByOrganizationRole(
+      List<OrganizationRole> organizationRoles, String nextPage)
+      throws NoOrganizationFoundException {
+    List<Organization> organizations = organizationDao
+        .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
+    if (organizations == null || organizations.size() == 0) {
+      throw new NoOrganizationFoundException("No organizations found!");
+    }
+    return organizations;
   }
 
   public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage)
       throws NoOrganizationFoundException {
-    List<Organization> organizations = orgDao.getAllOrganizationsByCountry(country, nextPage);
+    List<Organization> organizations = organizationDao
+        .getAllOrganizationsByCountry(country, nextPage);
     if (organizations == null || organizations.size() == 0) {
       throw new NoOrganizationFoundException("No organizations found!");
     }
@@ -152,7 +160,7 @@ public class OrganizationService {
    * @return The datasets for that organization
    */
   public List<Dataset> getDatasetsByOrganization(String orgId) throws NoOrganizationFoundException {
-    return orgDao.getAllDatasetsByOrganization(orgId);
+    return organizationDao.getAllDatasetsByOrganization(orgId);
   }
 
 
@@ -163,7 +171,7 @@ public class OrganizationService {
    * @return The organization with the requested id
    */
   public Organization getOrganizationById(String id) throws NoOrganizationFoundException {
-    Organization organization = orgDao.getById(id);
+    Organization organization = organizationDao.getById(id);
     if (organization == null) {
       throw new NoOrganizationFoundException("No organization found with id: " + id + " in METIS");
     }
@@ -173,7 +181,7 @@ public class OrganizationService {
   public Organization getOrganizationByOrganizationId(String id)
       throws NoOrganizationFoundException {
 
-    Organization organization = orgDao.getByOrganizationId(id);
+    Organization organization = organizationDao.getByOrganizationId(id);
     if (organization == null) {
       throw new NoOrganizationFoundException(
           "No organization found with organization id: " + id + " in METIS");
@@ -218,7 +226,7 @@ public class OrganizationService {
    * @return true if opted in false otherwise
    */
   public boolean isOptedInForIIIF(String organizationId) {
-    Organization org = orgDao.getById(organizationId);
+    Organization org = organizationDao.getById(organizationId);
     return org != null && org.isOptInIIIF();
   }
 
@@ -242,6 +250,10 @@ public class OrganizationService {
    * Dataset#dataProvider}</code>
    */
   public List<Organization> getByDatasetId(String datasetId, String providerId) {
-    return orgDao.getAllOrganizationsFromDataset(datasetId, providerId);
+    return organizationDao.getAllOrganizationsFromDataset(datasetId, providerId);
+  }
+
+  public int getOrganizationPerRequestLimit() {
+    return organizationDao.getOrganizationsPerRequest();
   }
 }

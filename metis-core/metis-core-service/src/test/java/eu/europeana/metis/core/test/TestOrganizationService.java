@@ -40,11 +40,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * Created by ymamakis on 2/19/16.
- */
-
 public class TestOrganizationService {
 
     private MorphiaDatastoreProvider morphiaDatastoreProvider;
@@ -205,7 +200,7 @@ public class TestOrganizationService {
         orgs.add(org);
         orgs.add(org);
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getAll(null)).thenReturn(orgs);
+        Mockito.when(organizationDao.getAllOrganizations(null)).thenReturn(orgs);
         try {
             List<Organization> orgRet = service.getAllOrganizations(null);
             Assert.assertEquals(orgs, orgRet);

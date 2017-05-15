@@ -23,12 +23,9 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -46,10 +43,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OrganizationDao implements MetisDao<Organization, String> {
 
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
-  private final int ORGANIZATIONS_PER_REQUEST = 5;
+  private int organizationsPerRequest = 5;
 
   @Autowired
   private MorphiaDatastoreProvider provider;
+
+  public OrganizationDao(int organizationsPerRequest) {
+    this.organizationsPerRequest = organizationsPerRequest;
+  }
 
   @Override
   public String create(Organization organization) {
@@ -188,9 +189,9 @@ public class OrganizationDao implements MetisDao<Organization, String> {
    *
    * @return A list of all the organizations
    */
-  public List<Organization> getAll(String nextPage) {
+  public List<Organization> getAllOrganizations(String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.order("_id").limit(ORGANIZATIONS_PER_REQUEST);
+    query.order("_id").limit(organizationsPerRequest);
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
@@ -199,7 +200,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.filter("country", country).order("_id").limit(ORGANIZATIONS_PER_REQUEST);
+    query.filter("country", country).order("_id").limit(organizationsPerRequest);
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
@@ -207,10 +208,14 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   }
 
 
-  public List<Organization> getAllProviders(OrganizationRole... organizationRoles) {
-
-    return provider.getDatastore().find(Organization.class).field("organizationRoles")
-        .hasAnyOf(Arrays.asList(organizationRoles)).asList();
+  public List<Organization> getAllOrganizationsByOrganizationRole(List<OrganizationRole> organizationRoles, String nextPage) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.field("organizationRoles")
+        .hasAnyOf(organizationRoles).order("_id").limit(organizationsPerRequest);
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList();
   }
 
   /**
@@ -258,5 +263,21 @@ public class OrganizationDao implements MetisDao<Organization, String> {
       orgs.add(getById(dataProviderId));
     }
     return orgs;
+  }
+
+  public int getOrganizationsPerRequest() {
+    return organizationsPerRequest;
+  }
+
+  public void setOrganizationsPerRequest(int organizationsPerRequest) {
+    this.organizationsPerRequest = organizationsPerRequest;
+  }
+
+  public MorphiaDatastoreProvider getProvider() {
+    return provider;
+  }
+
+  public void setProvider(MorphiaDatastoreProvider provider) {
+    this.provider = provider;
   }
 }

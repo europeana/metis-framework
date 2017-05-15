@@ -42,9 +42,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-/**
- * Created by ymamakis on 2/19/16.
- */
 public class TestOrganizationDao {
 
   private static Organization org;
@@ -62,7 +59,7 @@ public class TestOrganizationDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    orgDao = new OrganizationDao();
+    orgDao = new OrganizationDao(5);
     ReflectionTestUtils.setField(orgDao, "provider", provider);
 
     org = new Organization();
@@ -157,7 +154,7 @@ public class TestOrganizationDao {
     org.setDatasets(datasets);
     orgDao.create(org);
 
-    List<Organization> getAll = orgDao.getAll(null);
+    List<Organization> getAll = orgDao.getAllOrganizations(null);
 
     Assert.assertTrue(getAll.size() == 1);
   }
