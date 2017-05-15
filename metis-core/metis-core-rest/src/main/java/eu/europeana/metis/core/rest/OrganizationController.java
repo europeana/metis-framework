@@ -130,17 +130,17 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.DELETE)
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
       @ApiResponse(code = 401, message = "Api Key not authorized")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Delete an organization by organization Id")
-  public void deleteOrganization(@PathVariable("id"
+  public void deleteOrganization(@PathVariable("organizationId"
   ) String organizationId, @QueryParam("apikey") String apikey)
       throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
@@ -156,7 +156,7 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.PUT, consumes = {
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
@@ -166,10 +166,10 @@ public class OrganizationController {
   })
   @ApiImplicitParams({
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Update an organization by organization Id")
-  public void updateOrganization(@RequestBody Organization organization, @PathVariable("id"
+  public void updateOrganization(@RequestBody Organization organization, @PathVariable("organizationId"
   ) String organizationId, @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
@@ -226,7 +226,7 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -236,11 +236,11 @@ public class OrganizationController {
       @ApiResponse(code = 404, message = "Organization not found")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Get an organization by organization Id", response = Organization.class)
   public Organization getOrganizationByOrganizationId(
-      @PathVariable("id") String organizationId, @QueryParam("apikey") String apikey)
+      @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
