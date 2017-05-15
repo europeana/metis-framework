@@ -18,8 +18,8 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -36,13 +36,13 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * Organization service
  * Created by ymamakis on 2/17/16.
  */
-@Component
+@Service
 public class OrganizationService {
 
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationService.class);
@@ -136,16 +136,11 @@ public class OrganizationService {
     return orgDao.getAllProviders(organizationRoles);
   }
 
-  /**
-   * List all the organizations
-   *
-   * @return Retrieve all the organizations
-   */
-  public List<Organization> getAllOrganizationsByCountry(Country country)
+  public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage)
       throws NoOrganizationFoundException {
-    List<Organization> organizations = orgDao.getAllByCountry(country);
+    List<Organization> organizations = orgDao.getAllOrganizationsByCountry(country, nextPage);
     if (organizations == null || organizations.size() == 0) {
-      throw new NoOrganizationFoundException("No organization found in METIS");
+      throw new NoOrganizationFoundException("No organizations found!");
     }
     return organizations;
   }

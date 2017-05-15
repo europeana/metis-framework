@@ -15,8 +15,8 @@ public final class RestEndpoints {
     public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
     public final static String ORGANIZATION = "/organization";
     public final static String ORGANIZATIONS = "/organizations";
-    public final static String ORGANIZATIONS_ID = "/organizations/{id}";
-    public final static String ORGANIZATIONS_ISOCODE = "/organizations/country";
+    public final static String ORGANIZATIONS_ORGANIZATION_ID = "/organizations/{organizationId}";
+    public final static String ORGANIZATIONS_COUNTRY_ISOCODE = "/organizations/country/{isoCode}";
     public final static String ORGANIZATIONS_ROLES = "/organizations/roles";
 //    public final static String ORGANIZATION_ID ="/organization/{id}";
     public final static String ORGANIZATION_ID_DATASETS="/organization/{id}/datasets";

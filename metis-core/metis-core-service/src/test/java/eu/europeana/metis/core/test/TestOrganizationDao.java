@@ -169,7 +169,7 @@ public class TestOrganizationDao {
     datasets.add(dsDao.getByName(ds.getName()));
     org.setDatasets(datasets);
     orgDao.create(org);
-    List<Organization> getAll = orgDao.getAllByCountry(Country.ALBANIA);
+    List<Organization> getAll = orgDao.getAllOrganizationsByCountry(Country.ALBANIA, null);
     Assert.assertTrue(getAll.size() == 1);
   }
 

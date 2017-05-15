@@ -188,9 +188,9 @@ public class TestOrganizationService {
         orgs.add(org);
         orgs.add(org);
         orgs.add(org);
-        Mockito.when(organizationDao.getAllByCountry(Country.ALBANIA)).thenReturn(orgs);
+        Mockito.when(organizationDao.getAllOrganizationsByCountry(Country.ALBANIA, null)).thenReturn(orgs);
         try {
-            List<Organization> orgRet = service.getAllOrganizationsByCountry(Country.ALBANIA);
+            List<Organization> orgRet = service.getAllOrganizationsByCountry(Country.ALBANIA, null);
             Assert.assertEquals(orgs, orgRet);
         } catch (NoOrganizationFoundException e) {
             e.printStackTrace();

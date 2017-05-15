@@ -191,19 +191,19 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   public List<Organization> getAll(String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.order("_id").limit(ORGANIZATIONS_PER_REQUEST);
-    if (!StringUtils.isEmpty(nextPage)) {
+    if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
     return query.asList();
   }
 
-  /**
-   * Retrieve all the organizations
-   *
-   * @return A list of all the organizations
-   */
-  public List<Organization> getAllByCountry(Country country) {
-    return provider.getDatastore().find(Organization.class).filter("country", country).asList();
+  public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.filter("country", country).order("_id").limit(ORGANIZATIONS_PER_REQUEST);
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList();
   }
 
 

@@ -9,12 +9,16 @@ import eu.europeana.metis.core.exceptions.StructuredExceptionWrapper;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.solr.client.solrj.SolrServerException;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -27,7 +31,9 @@ public class RestResponseExceptionHandler {
       SolrServerException.class, OrganizationAlreadyExistsException.class,
       NoOrganizationFoundException.class, BadContentException.class})
   @ResponseBody
-  public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex) {
+  public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex, HttpServletResponse response) {
+    HttpStatus status = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class).value();
+    response.setStatus(status.value());
     return new StructuredExceptionWrapper(ex.getMessage());
   }
 

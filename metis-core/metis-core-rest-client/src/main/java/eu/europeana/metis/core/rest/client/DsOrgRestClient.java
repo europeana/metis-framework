@@ -22,7 +22,7 @@ import static eu.europeana.metis.RestEndpoints.DATASET;
 import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ISOCODE;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
@@ -136,7 +136,8 @@ public class DsOrgRestClient {
     public List<Organization> getAllOrganizationsByIsoCode(String isoCode) throws ServerException {
         try {
 
-            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_ISOCODE+"?apikey="+apikey+"&isoCode="+isoCode, OrganizationListResponse.class).getResults();
+            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_COUNTRY_ISOCODE
+                +"?apikey="+apikey+"&isoCode="+isoCode, OrganizationListResponse.class).getResults();
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -185,7 +186,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationById(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ID,id)+"apikey="+apikey,
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID,id)+"apikey="+apikey,
                     Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());

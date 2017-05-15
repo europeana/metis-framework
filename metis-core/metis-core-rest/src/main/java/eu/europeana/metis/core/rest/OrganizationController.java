@@ -19,7 +19,6 @@ package eu.europeana.metis.core.rest;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_BYDATASET;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ISOCODE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_OPTED_IN;
@@ -255,27 +254,37 @@ public class OrganizationController {
     }
   }
 
-
-  /**
-   * Get all the organizations
-   *
-   * @return All the registered organizations in METIS
-   */
-  @RequestMapping(value = ORGANIZATIONS_ISOCODE, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "Retrieve all the organizations from METIS", response = OrganizationListWrapper.class)
-  public ModelAndView getAllOrganizationsByCountry(@RequestParam("isoCode") String isoCode,
-      @RequestParam("apikey") String apikey)
-      throws
-      NoOrganizationFoundException, IllegalAccessException, InstantiationException, NoApiKeyFoundException {
-
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query", required = false),
+      @ApiImplicitParam(name = "isoCode", value = "IsoCode", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Get all organizations by county isoCode", response = OrganizationListWrapper.class)
+  public OrganizationListWrapper getAllOrganizationsByCountryIsoCode(@PathVariable("isoCode") String isoCode, @QueryParam("nextPage"
+  ) String nextPage, @QueryParam("apikey") String apikey)
+      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      List<Organization> orgs = organizationService
-          .getAllOrganizationsByCountry(Country.toCountry(isoCode));
-      return constructModelAndViewForList(key, orgs);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      List<Organization> organizations = organizationService
+          .getAllOrganizationsByCountry(Country.toCountry(isoCode), nextPage);
+      OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
+      organizationListWrapper.setOrganizationsAndLastPage(organizations);
+      LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
+          + " organizations returned, using batch nextPage: " + nextPage);
+      return organizationListWrapper;
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
     }
-    throw new NoApiKeyFoundException(apikey);
 
   }
 
