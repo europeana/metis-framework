@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -29,6 +31,7 @@ import org.mongodb.morphia.annotations.Id;
 public class Label<T> {
 
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
     private String lang;
     private T label;

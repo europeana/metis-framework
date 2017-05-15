@@ -17,6 +17,7 @@
 
 package eu.europeana.metis.core.organization;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
@@ -46,6 +47,7 @@ import org.mongodb.morphia.annotations.Reference;
 @Entity
 public class Organization {
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
 
     @Indexed(unique = true)

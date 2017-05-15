@@ -18,7 +18,6 @@ package eu.europeana.metis.core.rest;
 
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_BYDATASET;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ISOCODE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
@@ -140,7 +139,7 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Delete an organization")
+  @ApiOperation(value = "Delete an organization by organization Id")
   public void deleteOrganization(@PathVariable("id"
   ) String organizationId, @QueryParam("apikey") String apikey)
       throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
@@ -169,7 +168,7 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Update an organization")
+  @ApiOperation(value = "Update an organization by organization Id")
   public void updateOrganization(@RequestBody Organization organization, @PathVariable("id"
   ) String organizationId, @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException {
@@ -217,15 +216,45 @@ public class OrganizationController {
       List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
       OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
       organizationListWrapper.setOrganizationsAndLastPage(organizations);
-      LOGGER.info("Batch of: " + organizationListWrapper.getListSize() + " organizations returned, using batch nextPage: " + nextPage);
+      LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
+          + " organizations returned, using batch nextPage: " + nextPage);
       return organizationListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {
       throw new ApiKeyNotAuthorizedException(apikey);
     }
-
   }
+
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized"),
+      @ApiResponse(code = 404, message = "Organization not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "id", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Get an organization by organization Id", response = Organization.class)
+  public Organization getOrganizationByOrganizationId(
+      @PathVariable("id") String organizationId, @QueryParam("apikey") String apikey)
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      Organization organization = organizationService.getOrganizationByOrganizationId(organizationId);
+      LOGGER.info("Organization with id " + organizationId + " found");
+      return organization;
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
+  }
+
 
   /**
    * Get all the organizations
@@ -296,58 +325,6 @@ public class OrganizationController {
     DatasetList list = new DatasetList();
     list.setDatasetList(organizationService.getDatasetsByOrganization(id));
     return list;
-  }
-
-  /**
-   * Retrieve the organization with a specific id (datasets are transient)
-   *
-   * @param id The id of the organization to retrieve
-   * @return The organization with the specified id
-   */
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ID, method = RequestMethod.GET, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Get an organization by id", response = Organization.class)
-  public ModelAndView getOrganizationById(@ApiParam("id") @PathVariable("id") String id,
-      @ApiParam("apikey") @RequestParam("apikey") String apikey)
-      throws
-      NoApiKeyFoundException, NoOrganizationFoundException, InstantiationException, IllegalAccessException {
-    Organization org = organizationService.getOrganizationById(id);
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getProfile().equals(Profile.PUBLIC)) {
-        return PublicOrganizationView.generateResponse(org);
-      } else {
-        return MetisOrganizationView.generateResponse(org);
-      }
-    }
-    throw new NoApiKeyFoundException(apikey);
-
-  }
-
-  /**
-   * Retrieve the organization with a specific organization id (datasets are transient)
-   *
-   * @param id The organization id of the organization to retrieve
-   * @return The organization with the specified id
-   */
-  @RequestMapping(value = ORGANIZATION, method = RequestMethod.GET, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Retrieve an organization by its CRM id", response = Organization.class)
-  public ModelAndView getOrganizationByOrganizationId(
-      @ApiParam("orgId") @RequestParam(value = "orgId") String id,
-      @RequestParam("apikey") String apikey)
-      throws
-      NoOrganizationFoundException, InstantiationException, IllegalAccessException, NoApiKeyFoundException {
-    Organization org = organizationService.getOrganizationByOrganizationId(id);
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getProfile().equals(Profile.PUBLIC)) {
-        return PublicOrganizationView.generateResponse(org);
-      } else {
-        return MetisOrganizationView.generateResponse(org);
-      }
-    }
-    throw new NoApiKeyFoundException(apikey);
   }
 
   /**
