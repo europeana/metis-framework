@@ -214,7 +214,8 @@ public class OrganizationController {
         .equals(Options.READ))) {
       List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
       OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
-      organizationListWrapper.setOrganizationsAndLastPage(organizations, organizationService.getOrganizationPerRequestLimit());
+      organizationListWrapper.setOrganizationsAndLastPage(organizations,
+          organizationService.getOrganizationPerRequestLimit());
       LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
           + " organizations returned, using batch nextPage: " + nextPage);
       return organizationListWrapper;
@@ -290,8 +291,7 @@ public class OrganizationController {
     }
   }
 
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ROLES, method = RequestMethod.POST, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON}, consumes = {
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ROLES, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -302,25 +302,27 @@ public class OrganizationController {
   @ApiImplicitParams({
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
+      @ApiImplicitParam(name = "organizationRoles", value = "comma separated values, e.g. CONTENT_PROVIDER,EUROPEANA", allowMultiple = true, dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Get all organizations by organization roles", response = OrganizationListWrapper.class)
   public OrganizationListWrapper getAllOrganizationsByOrganizationRoles(
-      @RequestBody List<OrganizationRole> organizationRoles, @QueryParam("nextPage") String nextPage,
+      @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
+      @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
       throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
       if (organizationRoles != null) {
-        List<Organization> organizations = organizationService.getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
+        List<Organization> organizations = organizationService
+            .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
         OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
         organizationListWrapper.setOrganizationsAndLastPage(organizations,
             organizationService.getOrganizationPerRequestLimit());
         LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
             + " organizations returned, using batch nextPage: " + nextPage);
         return organizationListWrapper;
-      }
-      else {
+      } else {
         throw new BadContentException("Organization roles malformed or empty");
       }
     } else if (key == null) {
