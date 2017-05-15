@@ -1,12 +1,10 @@
 package eu.europeana.metis.core.search.common;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import java.util.List;
 import org.apache.solr.client.solrj.beans.Field;
 
-import java.util.List;
-
-/**
- * Created by gmamakis on 21-2-17.
- */
+@JsonIgnoreProperties(value = { "id", "searchlabel" })
 public class OrganizationSearchBean {
     @Field("id")
     private String id;

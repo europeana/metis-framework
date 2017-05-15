@@ -335,7 +335,7 @@ public class DsOrgRestClient {
 
     public List<OrganizationSearchBean> suggestOrganizations(String term) throws ServerException{
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATION_SUGGEST,term), Suggestions.class).getSuggestions();
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_SUGGEST,term), Suggestions.class).getSuggestions();
         } catch (Exception e) {
             throw new ServerException("Organization suggestions could not be retrieved with error: " + e.getMessage());
         }

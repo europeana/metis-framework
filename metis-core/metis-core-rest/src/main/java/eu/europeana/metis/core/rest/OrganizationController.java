@@ -21,7 +21,6 @@ import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_BYDATASET;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_OPTED_IN;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION_SUGGEST;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
@@ -40,6 +39,8 @@ import eu.europeana.metis.core.organization.OrganizationListWrapper;
 import eu.europeana.metis.core.rest.response.MetisOrganizationView;
 import eu.europeana.metis.core.rest.response.PublicOrganizationView;
 import eu.europeana.metis.core.rest.utils.JsonUtils;
+import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrganizationService;
 import io.swagger.annotations.Api;
@@ -332,6 +333,35 @@ public class OrganizationController {
     }
   }
 
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_SUGGEST, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "searchTerm", value = "search value to get suggestions from", dataType = "string", paramType = "query")
+  })
+  @ApiOperation(value = "Suggest Organizations by a search term")
+  public OrganizationSearchListWrapper suggestOrganizations(@QueryParam("searchTerm") String searchTerm,
+      @QueryParam("apikey") String apikey)
+      throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      List<OrganizationSearchBean> organizationSearchBeans = organizationService
+          .suggestOrganizations(searchTerm);
+      return new OrganizationSearchListWrapper(organizationSearchBeans);
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
+  }
+
+
   /**
    * Get all the datasets for an organization
    *
@@ -404,22 +434,6 @@ public class OrganizationController {
   public ModelAndView isOptedIn(@PathVariable("id") String id) {
     ModelAndView view = new ModelAndView("json");
     view.addObject("result", organizationService.isOptedInForIIIF(id));
-    return view;
-  }
-
-  /**
-   * Autosuggestions for organizations
-   *
-   * @param suggestTerm The term to get the suggestions for
-   * @return The List of organizations that fit in the suggestion
-   */
-  @RequestMapping(value = ORGANIZATION_SUGGEST, method = RequestMethod.GET, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Suggest Organizations")
-  public ModelAndView suggestOrganizations(@PathVariable("suggestTerm") String suggestTerm)
-      throws IOException, SolrServerException {
-    ModelAndView view = new ModelAndView("json");
-    view.addObject("suggestions", organizationService.suggestOrganizations(suggestTerm));
     return view;
   }
 

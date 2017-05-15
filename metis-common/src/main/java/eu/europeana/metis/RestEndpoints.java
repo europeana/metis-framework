@@ -18,10 +18,10 @@ public final class RestEndpoints {
     public final static String ORGANIZATIONS_ORGANIZATION_ID = "/organizations/{organizationId}";
     public final static String ORGANIZATIONS_COUNTRY_ISOCODE = "/organizations/country/{isoCode}";
     public final static String ORGANIZATIONS_ROLES = "/organizations/roles";
+    public final static String ORGANIZATIONS_SUGGEST = "/organizations/suggest";
 //    public final static String ORGANIZATION_ID ="/organization/{id}";
     public final static String ORGANIZATION_ID_DATASETS="/organization/{id}/datasets";
     public final static String ORGANIZATION_OPTED_IN="/organization/{id}/optin";
-    public final static String ORGANIZATION_SUGGEST = "/organizations/suggest/{suggestTerm}";
     public final static String CRM_ORGANIZATION_ID = "/crm/organization/{orgId}";
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
     public final static String USER="/user";

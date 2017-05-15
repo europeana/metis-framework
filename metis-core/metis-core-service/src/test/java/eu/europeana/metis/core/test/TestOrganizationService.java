@@ -57,7 +57,7 @@ public class TestOrganizationService {
         service = new OrganizationService();
         datastore = Mockito.mock(Datastore.class);
         searchService=Mockito.mock(MetisSearchService.class);
-        ReflectionTestUtils.setField(service, "orgDao", organizationDao);
+        ReflectionTestUtils.setField(service, "organizationDao", organizationDao);
         ReflectionTestUtils.setField(service, "searchService",searchService);
         org = new Organization();
         org.setId(new ObjectId());
