@@ -24,7 +24,9 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
+import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.search.service.MetisSearchService;
@@ -157,7 +159,8 @@ public class OrganizationService {
     return organizations;
   }
 
-  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) throws NoOrganizationFoundException {
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage)
+      throws NoOrganizationFoundException {
     return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
@@ -249,6 +252,43 @@ public class OrganizationService {
    */
   public List<Organization> getByDatasetId(String datasetId, String providerId) {
     return organizationDao.getAllOrganizationsFromDataset(datasetId, providerId);
+  }
+
+  public void checkRestrictionsOnCreate(Organization organization)
+      throws BadContentException, OrganizationAlreadyExistsException {
+    try {
+      Organization storedOrganization = getOrganizationByOrganizationId(
+          organization.getOrganizationId());
+      if (storedOrganization != null) {
+        throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
+      }
+    } catch (NoOrganizationFoundException e) {
+      LOGGER.info("Organization not found, so it can be created");
+    }
+    if (StringUtils.isEmpty(organization.getOrganizationId())) {
+      throw new BadContentException("OrganizationId cannot be null");
+    } else if (organization.getDatasetNames() != null
+        && organization.getDatasetNames().size() != 0) {
+      throw new BadContentException("The field 'datasetNames' is not allowed on creation");
+    }
+  }
+
+  public void checkRestrictionsOnUpdate(Organization organization, String organizationId)
+      throws BadContentException, NoOrganizationFoundException {
+    if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization
+        .getOrganizationId().equals(organizationId)) {
+      throw new BadContentException(
+          "OrganinazationId in body " + organization.getOrganizationId()
+              + " is different from parameter " + organizationId);
+    }
+    else if (organization.getDatasetNames() != null
+        && organization.getDatasetNames().size() != 0) {
+      throw new BadContentException("The field 'datasetNames' is not allowed on update");
+    }
+    organization.setOrganizationId(organizationId);
+
+    //Check if it exist and if not throws exception
+    getOrganizationByOrganizationId(organization.getOrganizationId());
   }
 
   public int getOrganizationsPerRequestLimit() {

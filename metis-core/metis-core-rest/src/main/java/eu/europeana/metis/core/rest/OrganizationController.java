@@ -56,7 +56,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,20 +106,7 @@ public class OrganizationController {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (key.getOptions().equals(Options.WRITE)) {
-        try {
-          Organization storedOrganization = organizationService
-              .getOrganizationByOrganizationId(organization.getOrganizationId());
-          if (storedOrganization != null) {
-            throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
-          }
-        } catch (NoOrganizationFoundException e) {
-          LOGGER.info("Organization not found, so can be created");
-        }
-
-        if (StringUtils.isEmpty(organization.getOrganizationId())) {
-          throw new BadContentException("OrganizationId cannot be null");
-        }
-
+        organizationService.checkRestrictionsOnCreate(organization);
         organizationService.createOrganization(organization);
         LOGGER.info("Organization with id " + organization.getOrganizationId() + " created");
       } else {
@@ -177,16 +163,7 @@ public class OrganizationController {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (key.getOptions().equals(Options.WRITE)) {
-        if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization
-            .getOrganizationId().equals(organizationId)) {
-          throw new BadContentException(
-              "OrganinazationId in body " + organization.getOrganizationId()
-                  + " is different from parameter " + organizationId);
-        }
-        organization.setOrganizationId(organizationId);
-
-        //Check if exists first
-        organizationService.getOrganizationByOrganizationId(organization.getOrganizationId());
+        organizationService.checkRestrictionsOnUpdate(organization, organizationId);
         organizationService.updateOrganization(organization);
         LOGGER.info("Organization with id " + organizationId + " updated");
       } else {
@@ -377,7 +354,7 @@ public class OrganizationController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
       @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Get all the dataset by organization Id", response = DatasetListWrapper.class)
+  @ApiOperation(value = "Get all the datasets by organization Id", response = DatasetListWrapper.class)
   public DatasetListWrapper getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)

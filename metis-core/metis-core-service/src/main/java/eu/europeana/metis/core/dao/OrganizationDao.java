@@ -74,11 +74,6 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     } else {
       ops.unset("organizationUri");
     }
-    if (organization.getDatasetNames() != null && organization.getDatasetNames().size() != 0) {
-      ops.set("datasetNames", organization.getDatasetNames());
-    } else {
-      ops.unset("datasetNames");
-    }
     ops.set("name", organization.getName());
     if (organization.getOrganizationRoles() != null) {
       ops.set("organizationRoles", organization.getOrganizationRoles());
