@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.search.config;
 
+import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.service.MetisSearchService;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -24,7 +25,7 @@ public class SearchApplication {
     @Bean
     public MetisSearchService getMetisSearchService()
     {
-        return new MetisSearchService();
+        return new MetisSearchService(RequestLimits.SUGGEST_TERMS_PER_REQUEST.getLimit());
     }
 
 

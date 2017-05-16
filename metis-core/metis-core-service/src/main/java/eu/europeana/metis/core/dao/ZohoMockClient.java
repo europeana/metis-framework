@@ -196,8 +196,15 @@ public class ZohoMockClient extends ZohoClient {
   }
 
   @Override
-  public Organization getOrganizationById(String id) throws ParseException, IOException {
-    return organizationList.get(0);
+  public Organization getOrganizationById(String organizationId) throws ParseException, IOException {
+    for (Organization organization :
+        organizationList) {
+      if (organization.getOrganizationId().equalsIgnoreCase(organizationId))
+      {
+        return organization;
+      }
+    }
+    return null;
   }
 
   @Override

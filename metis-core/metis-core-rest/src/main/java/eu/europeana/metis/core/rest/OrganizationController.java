@@ -16,9 +16,6 @@
  */
 package eu.europeana.metis.core.rest;
 
-import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
-import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
-
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
@@ -45,7 +42,6 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
@@ -332,6 +328,7 @@ public class OrganizationController {
         .equals(Options.READ))) {
       List<OrganizationSearchBean> organizationSearchBeans = organizationService
           .suggestOrganizations(searchTerm);
+      LOGGER.info("Found " + organizationSearchBeans.size() + " suggestions");
       return new OrganizationSearchListWrapper(organizationSearchBeans);
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
@@ -365,6 +362,8 @@ public class OrganizationController {
       datasetListWrapper.setDatasetsAndLastPage(
           organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
           datasetService.getDatasetsPerRequestLimit());
+      LOGGER.info("Batch of: " + datasetListWrapper.getListSize()
+          + " datasets returned, using batch nextPage: " + nextPage);
       return datasetListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
@@ -385,13 +384,44 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Check if an organization is opted-in for IIIF or not",  response = ResultMap.class)
-  public ResultMap<Boolean> isOrganizationIdOptedIn(@PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
+  @ApiOperation(value = "Check if an organization is opted-in for IIIF or not", response = ResultMap.class)
+  public ResultMap<Boolean> isOrganizationIdOptedIn(
+      @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
       throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
-      return new ResultMap<>(Collections.singletonMap("optInIIIF", organizationService.isOptedInIIIF(organizationId)));
+      return new ResultMap<>(
+          Collections.singletonMap("optInIIIF", organizationService.isOptedInIIIF(organizationId)));
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
+  }
+
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized"),
+      @ApiResponse(code = 404, message = "Organization not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Retrieve an organization from CRM", response = Organization.class)
+  public Organization getOrganizationByOrganizationIdFromCRM(
+      @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
+      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      Organization organization = organizationService.getOrganizationByIdFromCRM(organizationId);
+      LOGGER.info("Organization with id " + organizationId + " found in CRM");
+      return organization;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {
@@ -400,37 +430,11 @@ public class OrganizationController {
   }
 
   /**
-   * Retrieve the organization with a specific organization from CRM
-   *
-   * @param id The organization id of the organization to retrieve
-   * @return The organization with the specified id
-   */
-  @RequestMapping(value = CRM_ORGANIZATION_ID, method = RequestMethod.GET, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Retrieve an organization from CRM", response = Organization.class)
-  public ModelAndView getOrganizationByOrganizationIdFromCRM(
-      @ApiParam("orgId") @PathVariable(value = "orgId") String id,
-      @RequestParam("apikey") String apikey)
-      throws
-      NoOrganizationFoundException, IOException, ParseException, InstantiationException, IllegalAccessException, NoApiKeyFoundException {
-    Organization org = organizationService.getOrganizationByIdFromCRM(id);
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getProfile().equals(Profile.PUBLIC)) {
-        return PublicOrganizationView.generateResponse(org);
-      } else {
-        return MetisOrganizationView.generateResponse(org);
-      }
-    }
-    throw new NoApiKeyFoundException(apikey);
-  }
-
-  /**
    * Retrieve all the organizations from CRM
    *
    * @return The organization with the specified id
    */
-  @RequestMapping(value = CRM_ORGANIZATIONS, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
   @ApiOperation(value = "Retrieve all the organizations from CRM", response = OrganizationListWrapper.class)
   public ModelAndView getOrganizationsFromCRM(@RequestParam("apikey") String apikey)

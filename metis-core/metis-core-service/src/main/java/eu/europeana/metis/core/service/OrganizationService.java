@@ -190,18 +190,12 @@ public class OrganizationService {
     return organization;
   }
 
-  /**
-   * Get an organization from CRM
-   *
-   * @param id The organization to retrieve from CRM
-   * @return The organization as its kept in CRM
-   */
-  public Organization getOrganizationByIdFromCRM(String id)
-      throws ParseException, IOException, NoOrganizationFoundException {
-    Organization organization = restClient.getOrganizationById(id);
+  public Organization getOrganizationByIdFromCRM(String organizationId)
+      throws IOException, ParseException, NoOrganizationFoundException {
+    Organization organization = restClient.getOrganizationById(organizationId);
     if (organization == null) {
       throw new NoOrganizationFoundException(
-          "No organization found with organization id: " + id + " in CRM");
+          "No organization found with organization id: " + organizationId + " in CRM");
     }
     return organization;
   }

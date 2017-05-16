@@ -33,6 +33,7 @@ import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
 import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;

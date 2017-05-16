@@ -20,6 +20,12 @@ public class MetisSearchService {
     @Autowired
     private SolrClient solrClient;
 
+    private int suggestTermsPerRequest = 10;
+
+    public MetisSearchService(int suggestTermsPerRequest) {
+        this.suggestTermsPerRequest = suggestTermsPerRequest;
+    }
+
     /**
      * Get suggestion for a given organization based on its search term
      * @param searchTerm The search term
@@ -31,7 +37,7 @@ public class MetisSearchService {
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("searchlabel:*"+ ClientUtils.escapeQueryChars(searchTerm)+"*");
         solrQuery.setFields("id", "organization_id", "englabel");
-        solrQuery.setStart(0).setRows(10);
+        solrQuery.setStart(0).setRows(suggestTermsPerRequest);
         QueryResponse resp = solrClient.query(solrQuery);
         return resp.getBeans(OrganizationSearchBean.class);
     }
