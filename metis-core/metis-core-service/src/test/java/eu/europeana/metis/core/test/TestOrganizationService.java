@@ -161,10 +161,10 @@ public class TestOrganizationService {
     }
 
     @Test
-    public void testRetrieveOptin() {
+    public void testRetrieveOptin() throws NoOrganizationFoundException {
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         Mockito.when(organizationDao.getById("string")).thenReturn(org);
-            boolean optedIn = service.isOptedInForIIIF("string");
+            boolean optedIn = service.isOptedInIIIF("string");
             Assert.assertTrue(optedIn);
     }
 

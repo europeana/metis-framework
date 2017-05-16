@@ -20,11 +20,10 @@ import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.DATASET;
 import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
 import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 
 import eu.europeana.metis.RestEndpoints;
@@ -75,7 +74,7 @@ public class DsOrgRestClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
         ResponseEntity entity = template.exchange(hostUrl +
-                RestEndpoints.resolve(ORGANIZATION,apikey),HttpMethod.POST,orgEntity,
+                RestEndpoints.resolve(ORGANIZATIONS,apikey),HttpMethod.POST,orgEntity,
                 ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
@@ -90,7 +89,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity =template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATION,apikey),
+        ResponseEntity entity =template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATIONS,apikey),
                 HttpMethod.PUT, orgEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
@@ -106,7 +105,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> organizationHttpEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity = template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATION,apikey),
+        ResponseEntity entity = template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATIONS,apikey),
                 HttpMethod.DELETE, organizationHttpEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
@@ -202,7 +201,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationByOrganizationId(String orgId) throws ServerException {
         try {
-            return template.getForObject(hostUrl + ORGANIZATION+ "?orgId="+orgId+"&apikey="+apikey, Organization.class);
+            return template.getForObject(hostUrl + ORGANIZATIONS+ "?orgId="+orgId+"&apikey="+apikey, Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }

@@ -161,9 +161,9 @@ public class OrganizationService {
 
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage)
       throws NoOrganizationFoundException {
+    getOrganizationByOrganizationId(organizationId);
     return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
-
 
   /**
    * Get an organization by id
@@ -179,13 +179,13 @@ public class OrganizationService {
     return organization;
   }
 
-  public Organization getOrganizationByOrganizationId(String id)
+  public Organization getOrganizationByOrganizationId(String organizationId)
       throws NoOrganizationFoundException {
 
-    Organization organization = organizationDao.getByOrganizationId(id);
+    Organization organization = organizationDao.getByOrganizationId(organizationId);
     if (organization == null) {
       throw new NoOrganizationFoundException(
-          "No organization found with organization id: " + id + " in METIS");
+          "No organization found with organization id: " + organizationId + " in METIS");
     }
     return organization;
   }
@@ -220,15 +220,14 @@ public class OrganizationService {
     return organizations;
   }
 
-  /**
-   * Check whether an organization has opted in or not
-   *
-   * @param organizationId The organization id to check for
-   * @return true if opted in false otherwise
-   */
-  public boolean isOptedInForIIIF(String organizationId) {
-    Organization org = organizationDao.getById(organizationId);
-    return org != null && org.isOptInIIIF();
+  public boolean isOptedInIIIF(String organizationId) throws NoOrganizationFoundException {
+    Organization organization = organizationDao
+        .getOrganizationOptInIIIFByOrganizationId(organizationId);
+    if (organization == null) {
+      throw new NoOrganizationFoundException(
+          "No organization found with organization id: " + organizationId + " in METIS");
+    }
+    return organization.isOptInIIIF();
   }
 
   /**
@@ -241,17 +240,6 @@ public class OrganizationService {
   public List<OrganizationSearchBean> suggestOrganizations(String searchTerm)
       throws IOException, SolrServerException {
     return searchService.getSuggestions(searchTerm);
-  }
-
-  /**
-   * Get the organizations refered to by a dataset
-   *
-   * @param datasetId The dataset Id to search for
-   * @param providerId The ddata provider for this dataset <code>{@link
-   * Dataset#dataProvider}</code>
-   */
-  public List<Organization> getByDatasetId(String datasetId, String providerId) {
-    return organizationDao.getAllOrganizationsFromDataset(datasetId, providerId);
   }
 
   public void checkRestrictionsOnCreate(Organization organization)

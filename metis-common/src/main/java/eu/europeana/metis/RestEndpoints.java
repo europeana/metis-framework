@@ -10,24 +10,23 @@ public final class RestEndpoints {
 
     /* METIS-CORE Endopoints*/
 
-    public final static String DATASET ="/dataset";
-    public final static String DATASET_RETRIEVE = "/dataset/{name}";
-    public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
-    public final static String ORGANIZATION = "/organization";
+    //Organizations
     public final static String ORGANIZATIONS = "/organizations";
     public final static String ORGANIZATIONS_ORGANIZATION_ID = "/organizations/{organizationId}";
     public final static String ORGANIZATIONS_COUNTRY_ISOCODE = "/organizations/country/{isoCode}";
     public final static String ORGANIZATIONS_ROLES = "/organizations/roles";
     public final static String ORGANIZATIONS_SUGGEST = "/organizations/suggest";
-//    public final static String ORGANIZATION_ID ="/organization/{id}";
     public final static String ORGANIZATIONS_ORGANIZATION_ID_DATASETS ="/organizations/{organizationId}/datasets";
-    public final static String ORGANIZATION_OPTED_IN="/organization/{id}/optin";
+    public final static String ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF ="/organizations/{organizationId}/optInIIIF";
     public final static String CRM_ORGANIZATION_ID = "/crm/organization/{orgId}";
     public final static String CRM_ORGANIZATIONS="/crm/organizations";
+
+    public final static String DATASET ="/dataset";
+    public final static String DATASET_RETRIEVE = "/dataset/{name}";
+    public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
     public final static String USER="/user";
     public final static String USERBYMAIL="/user/{email}";
     public final static String USERBYID ="/contact/{id}";
-    public final static String ORGANIZATIONS_BYDATASET="/organizations/dataset/{id}";
 
     /* METIS-DEREFERENCE Endpoints*/
     public final static String DEREFERENCE="/dereference";

@@ -18,8 +18,6 @@ package eu.europeana.metis.core.rest;
 
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_BYDATASET;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION_OPTED_IN;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
@@ -53,6 +51,7 @@ import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
@@ -374,6 +373,32 @@ public class OrganizationController {
     }
   }
 
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized"),
+      @ApiResponse(code = 404, message = "Organization not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Check if an organization is opted-in for IIIF or not",  response = ResultMap.class)
+  public ResultMap<Boolean> isOrganizationIdOptedIn(@PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
+      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      return new ResultMap<>(Collections.singletonMap("optInIIIF", organizationService.isOptedInIIIF(organizationId)));
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
+  }
+
   /**
    * Retrieve the organization with a specific organization from CRM
    *
@@ -414,45 +439,6 @@ public class OrganizationController {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       return constructModelAndViewForList(key, organizationService.getAllOrganizationsFromCRM());
-    }
-    throw new NoApiKeyFoundException(apikey);
-  }
-
-  /**
-   * Check whether an organization is opted in for using the Image Service of Europeana or not
-   *
-   * @param id The id of the organization
-   * @return true if opted in, false otherwise
-   */
-  @RequestMapping(value = ORGANIZATION_OPTED_IN, method = RequestMethod.GET, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Check whether an organization is opted-in for IIIF or not")
-  public ModelAndView isOptedIn(@PathVariable("id") String id) {
-    ModelAndView view = new ModelAndView("json");
-    view.addObject("result", organizationService.isOptedInForIIIF(id));
-    return view;
-  }
-
-  /**
-   * Retrieve organizations by dataset and data provider id
-   *
-   * @param datasetId The dataset Id
-   * @param dataproviderId The data provider id
-   * @param apikey The API key
-   * @return The lsit of organizatios fro a given dataset
-   */
-  @RequestMapping(value = ORGANIZATIONS_BYDATASET, method = RequestMethod.GET, produces = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Get organizations that refer to a dataset as provider")
-  public ModelAndView getOrganizationsByDatasetId(@PathVariable("id") String datasetId,
-      @RequestParam("dataProviderId") String dataproviderId,
-      @RequestParam("apikey") String apikey)
-      throws NoApiKeyFoundException, IllegalAccessException, InstantiationException {
-
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      List<Organization> orgs = organizationService.getByDatasetId(datasetId, dataproviderId);
-      return constructModelAndViewForList(key, orgs);
     }
     throw new NoApiKeyFoundException(apikey);
   }

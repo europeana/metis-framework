@@ -17,7 +17,6 @@
 package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.List;
@@ -184,8 +183,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return provider.getDatastore().find(Dataset.class).filter("dataProvider",dataProvider).asList();
   }
 
-  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage)
-      throws NoOrganizationFoundException {
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
     Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {

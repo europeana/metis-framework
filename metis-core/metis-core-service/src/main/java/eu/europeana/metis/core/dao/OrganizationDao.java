@@ -19,10 +19,8 @@ package eu.europeana.metis.core.dao;
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
-import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -212,25 +210,11 @@ public class OrganizationDao implements MetisDao<Organization, String> {
         .get();
   }
 
-  /**
-   * Get all the organizations referred to by a dataset
-   *
-   * @param datasetId The datasetId to search the organizations for
-   * @param dataProviderId The dataprovider id for the dataset <code>{@link
-   * Dataset#dataProvider}</code>
-   * @return The full list of organizations for this dataset
-   */
-  public List<Organization> getAllOrganizationsFromDataset(String datasetId,
-      String dataProviderId) {
-    List<Organization> orgs = provider.getDatastore().find(Organization.class)
-        .filter("datasets.$id", datasetId).asList();
-    if (orgs == null) {
-      orgs = new ArrayList<>();
-    }
-    if (StringUtils.isNotEmpty(dataProviderId)) {
-      orgs.add(getById(dataProviderId));
-    }
-    return orgs;
+  public Organization getOrganizationOptInIIIFByOrganizationId(String organizationId)
+  {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.field("organizationId").equal(organizationId).project("optInIIIF", true);
+    return query.get();
   }
 
   public int getOrganizationsPerRequest() {
