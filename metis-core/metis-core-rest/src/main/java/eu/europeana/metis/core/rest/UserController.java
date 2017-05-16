@@ -47,7 +47,7 @@ public class UserController {
   private CrmUserService crmUserService;
 
   @RequestMapping(value = RestEndpoints.USER, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Successful response", response = Contact.class),

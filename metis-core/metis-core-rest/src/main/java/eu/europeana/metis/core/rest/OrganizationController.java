@@ -88,7 +88,7 @@ public class OrganizationController {
   private MetisAuthorizationService authorizationService;
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
@@ -143,7 +143,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
@@ -174,7 +174,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
@@ -206,7 +206,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
@@ -236,7 +236,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
@@ -271,7 +271,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ROLES, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
@@ -312,7 +312,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_SUGGEST, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
@@ -341,7 +341,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
@@ -374,7 +374,7 @@ public class OrganizationController {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   @ApiResponses(value = {
