@@ -18,213 +18,250 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.NoOrganizationExceptionFound;
+import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
+import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.search.service.MetisSearchService;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Organization service
  * Created by ymamakis on 2/17/16.
  */
-@Component
+@Service
 public class OrganizationService {
 
-    @Autowired
-    private OrganizationDao orgDao;
+  private final Logger LOGGER = LoggerFactory.getLogger(OrganizationService.class);
 
-    @Autowired
-    private ZohoClient restClient;
+  @Autowired
+  private OrganizationDao organizationDao;
 
-    @Autowired
-    private MetisSearchService searchService;
+  @Autowired
+  private DatasetDao datasetDao;
 
-    /**
-     * Create an organization
-     * @param org The organization to create
-     */
-    public void createOrganization(Organization org) throws IOException, SolrServerException {
-        saveInSolr(org);
-        orgDao.create(org);
+  @Autowired
+  private ZohoClient restClient;
+
+  @Autowired
+  private MetisSearchService searchService;
+
+  public void createOrganization(Organization org) throws IOException, SolrServerException {
+    organizationDao.create(org);
+    saveInSolr(org);
+  }
+
+  /**
+   * Saves organization search labels in solr
+   */
+  private void saveInSolr(Organization org) throws IOException, SolrServerException {
+    String id = org.getId().toString();
+    String englabel = org.getName();
+    String organizationId = org.getOrganizationId();
+    List<String> searchLabel = new ArrayList<>();
+    searchLabel.add(englabel);
+    if (org.getPrefLabel() != null) {
+      for (PrefLabel label : org.getPrefLabel()) {
+        searchLabel.add(label.getLabel());
+      }
     }
-
-    private void saveInSolr(Organization org) throws IOException, SolrServerException {
-        String id = org.getId().toString();
-        String englabel = org.getName();
-        List<String> restlabel = new ArrayList<>();
-        restlabel.add(englabel);
-        if(org.getPrefLabel()!=null) {
-            for (PrefLabel label : org.getPrefLabel()) {
-                restlabel.add(label.getLabel());
-            }
-        }
-        if(org.getAltLabel()!=null){
-            for(AltLabel label:org.getAltLabel()){
-                restlabel.add(label.getLabel());
-            }
-        }
-
-        searchService.addOrganizationForSearch(id,englabel,restlabel);
+    if (org.getAltLabel() != null) {
+      for (AltLabel label : org.getAltLabel()) {
+        searchLabel.add(label.getLabel());
+      }
     }
+    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
+    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+  }
 
-    /**
-     * Update an organization
-     * @param org The organization to update
-     */
-    public void updateOrganization(Organization org) throws SolrServerException,IOException{
-
-        orgDao.update(org);
-        saveInSolr(org);
+  private void updateInSolr(Organization org) throws IOException, SolrServerException {
+    String id = searchService
+        .findSolrIdByOrganizationId(org.getOrganizationId());
+    String englabel = org.getName();
+    String organizationId = org.getOrganizationId();
+    List<String> searchLabel = new ArrayList<>();
+    searchLabel.add(englabel);
+    if (org.getPrefLabel() != null) {
+      for (PrefLabel label : org.getPrefLabel()) {
+        searchLabel.add(label.getLabel());
+      }
     }
-
-    /**
-     * Delete an organization
-     * @param org The organization to delete
-     */
-    public void deleteOrganization(Organization org) throws IOException, SolrServerException {
-
-        orgDao.delete(org);
-        deleteFromSolr(org);
+    if (org.getAltLabel() != null) {
+      for (AltLabel label : org.getAltLabel()) {
+        searchLabel.add(label.getLabel());
+      }
     }
+    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
+    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+  }
 
-    private void deleteFromSolr(Organization org) throws IOException, SolrServerException {
-        searchService.deleteFromSearch(org.getId().toString());
-    }
+  public void updateOrganization(Organization org) throws SolrServerException, IOException {
+    organizationDao.update(org);
+    updateInSolr(org);
+  }
 
-    /**
-     * List all the organizations
-     * @return Retrieve all the organizations
-     */
-    public List<Organization> getAllOrganizations() throws NoOrganizationExceptionFound{
-        List<Organization> organizations = orgDao.getAll();
-        if(organizations == null||organizations.size()==0){
-            throw new NoOrganizationExceptionFound("No organization found in METIS");
-        }
-        return organizations;
-    }
+  public void deleteOrganization(Organization org) throws IOException, SolrServerException {
+    organizationDao.delete(org);
+    searchService.deleteFromSearch(org.getId().toString());
+  }
 
-    public List<Organization> getAllProviders(Role... roles){
-        return orgDao.getAllProviders(roles);
-    }
-    /**
-     * List all the organizations
-     * @return Retrieve all the organizations
-     */
-    public List<Organization> getAllOrganizationsByCountry(Country country) throws NoOrganizationExceptionFound{
-        List<Organization> organizations = orgDao.getAllByCountry(country);
-        if(organizations == null||organizations.size()==0){
-            throw new NoOrganizationExceptionFound("No organization found in METIS");
-        }
-        return organizations;
-    }
-    /**
-     * Get all the datasets of an organization
-     * @param orgId The organization id to search on
-     * @return The datasets for that organization
-     */
-    public List<Dataset> getDatasetsByOrganization(String orgId) throws NoOrganizationExceptionFound{
-        return orgDao.getAllDatasetsByOrganization(orgId);
-    }
+  public void deleteOrganizationByOrganizationId(String organizationId)
+      throws IOException, SolrServerException {
+    organizationDao.deleteByOrganizationId(organizationId);
+    searchService.deleteFromSearchByOrganizationId(organizationId);
+  }
 
-
-    /**
-     * Get an organization by id
-     * @param id The id to search for
-     * @return The organization with the requested id
-     */
-    public Organization getOrganizationById(String id)throws NoOrganizationExceptionFound{
-        Organization organization = orgDao.getById(id);
-        if(organization == null){
-            throw new NoOrganizationExceptionFound("No organization found with id: "+id+" in METIS");
-        }
-        return  organization;
+  public List<Organization> getAllOrganizations(String nextPage)
+      throws NoOrganizationFoundException {
+    List<Organization> organizations = organizationDao.getAllOrganizations(nextPage);
+    if ((organizations == null || organizations.size() == 0) && StringUtils.isNotEmpty(nextPage)) {
+      return organizations;
+    } else if (organizations == null || organizations.size() == 0) {
+      throw new NoOrganizationFoundException("No organizations found!");
     }
+    return organizations;
+  }
 
-    /**
-     * Get an organization by its organization Id
-     * @param id The organization id to search on
-     * @return The organization with that organization id
-     */
-    public Organization getOrganizationByOrganizationId(String id) throws NoOrganizationExceptionFound{
-
-        Organization organization= orgDao.getByOrganizationId(id);
-        if(organization == null){
-            throw new NoOrganizationExceptionFound("No organization found with organization id: "+id+" in METIS");
-        }
-        return  organization;
+  public List<Organization> getAllOrganizationsByOrganizationRole(
+      List<OrganizationRole> organizationRoles, String nextPage)
+      throws NoOrganizationFoundException {
+    List<Organization> organizations = organizationDao
+        .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
+    if (organizations == null || organizations.size() == 0) {
+      throw new NoOrganizationFoundException("No organizations found!");
     }
+    return organizations;
+  }
 
-    /**
-     * Get an organization from CRM
-     * @param id The organization to retrieve from CRM
-     * @return The organization as its kept in CRM
-     * @throws ParseException
-     * @throws IOException
-     */
-    public Organization getOrganizationByIdFromCRM(String id) throws ParseException,IOException, NoOrganizationExceptionFound{
-        Organization organization= restClient.getOrganizationById(id);
-        if(organization == null){
-            throw new NoOrganizationExceptionFound("No organization found with organization id: "+id+" in CRM");
-        }
-        return  organization;
+  public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage)
+      throws NoOrganizationFoundException {
+    List<Organization> organizations = organizationDao
+        .getAllOrganizationsByCountry(country, nextPage);
+    if (organizations == null || organizations.size() == 0) {
+      throw new NoOrganizationFoundException("No organizations found!");
     }
+    return organizations;
+  }
 
-    /**
-     * Get all organizations from CRM
-     * @return GEt the list of all the organizations for CRM
-     * @throws ParseException
-     * @throws IOException
-     */
-    public List<Organization> getAllOrganizationsFromCRM() throws ParseException,IOException,NoOrganizationExceptionFound {
-        List<Organization> organizations= restClient.getAllOrganizations();
-        if(organizations == null||organizations.size()==0){
-            throw new NoOrganizationExceptionFound("No organization found in CRM");
-        }
-        return organizations;
-    }
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage)
+      throws NoOrganizationFoundException {
+    getOrganizationByOrganizationId(organizationId);
+    return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
+  }
 
-    /**
-     * Check whether an organization has opted in or not
-     * @param organizationId The organization id to check for
-     * @return true if opted in false otherwise
-     */
-    public boolean isOptedInForIIIF(String organizationId){
-        Organization org = orgDao.getById(organizationId);
-        return org != null && org.isOptInIIIF();
+  /**
+   * Get an organization by id
+   *
+   * @param id The id to search for
+   * @return The organization with the requested id
+   */
+  public Organization getOrganizationById(String id) throws NoOrganizationFoundException {
+    Organization organization = organizationDao.getById(id);
+    if (organization == null) {
+      throw new NoOrganizationFoundException("No organization found with id: " + id + " in METIS");
     }
+    return organization;
+  }
 
-    /**
-     * Return organizations based on a specific search term
-     * @param searchTerm The search term
-     * @return The list of organizations that correspond to the term.
-     *          For performance reasons only the id and the english name are returned
-     * @throws IOException
-     * @throws SolrServerException
-     */
-    public List<OrganizationSearchBean> suggestOrganizations(String searchTerm) throws IOException, SolrServerException {
-        return searchService.getSuggestions(searchTerm);
-    }
+  public Organization getOrganizationByOrganizationId(String organizationId)
+      throws NoOrganizationFoundException {
 
-    /**
-     * Get the organizations refered to by a dataset
-     * @param datasetId The dataset Id to search for
-     * @param providerId The ddata provider for this dataset <code>{@link Dataset#dataProvider}</code>
-     * @return
-     */
-    public List<Organization> getByDatasetId(String datasetId,String providerId){
-        return orgDao.getAllOrganizationsFromDataset(datasetId, providerId);
+    Organization organization = organizationDao.getByOrganizationId(organizationId);
+    if (organization == null) {
+      throw new NoOrganizationFoundException(
+          "No organization found with organization id: " + organizationId + " in METIS");
     }
+    return organization;
+  }
+
+  public Organization getOrganizationByIdFromCRM(String organizationId)
+      throws IOException, ParseException, NoOrganizationFoundException {
+    Organization organization = restClient.getOrganizationById(organizationId);
+    if (organization == null) {
+      throw new NoOrganizationFoundException(
+          "No organization found with organization id: " + organizationId + " in CRM");
+    }
+    return organization;
+  }
+
+  public List<Organization> getAllOrganizationsFromCRM()
+      throws ParseException, IOException, NoOrganizationFoundException {
+    List<Organization> organizations = restClient.getAllOrganizations();
+    if (organizations == null || organizations.size() == 0) {
+      throw new NoOrganizationFoundException("No organization found in CRM");
+    }
+    return organizations;
+  }
+
+  public boolean isOptedInIIIF(String organizationId) throws NoOrganizationFoundException {
+    Organization organization = organizationDao
+        .getOrganizationOptInIIIFByOrganizationId(organizationId);
+    if (organization == null) {
+      throw new NoOrganizationFoundException(
+          "No organization found with organization id: " + organizationId + " in METIS");
+    }
+    return organization.isOptInIIIF();
+  }
+
+  public List<OrganizationSearchBean> suggestOrganizations(String searchTerm)
+      throws IOException, SolrServerException {
+    return searchService.getSuggestions(searchTerm);
+  }
+
+  public void checkRestrictionsOnCreate(Organization organization)
+      throws BadContentException, OrganizationAlreadyExistsException {
+    try {
+      Organization storedOrganization = getOrganizationByOrganizationId(
+          organization.getOrganizationId());
+      if (storedOrganization != null) {
+        throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
+      }
+    } catch (NoOrganizationFoundException e) {
+      LOGGER.info("Organization not found, so it can be created");
+    }
+    if (StringUtils.isEmpty(organization.getOrganizationId())) {
+      throw new BadContentException("OrganizationId cannot be null");
+    } else if (organization.getDatasetNames() != null
+        && organization.getDatasetNames().size() != 0) {
+      throw new BadContentException("The field 'datasetNames' is not allowed on creation");
+    }
+  }
+
+  public void checkRestrictionsOnUpdate(Organization organization, String organizationId)
+      throws BadContentException, NoOrganizationFoundException {
+    if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization
+        .getOrganizationId().equals(organizationId)) {
+      throw new BadContentException(
+          "OrganinazationId in body " + organization.getOrganizationId()
+              + " is different from parameter " + organizationId);
+    }
+    else if (organization.getDatasetNames() != null
+        && organization.getDatasetNames().size() != 0) {
+      throw new BadContentException("The field 'datasetNames' is not allowed on update");
+    }
+    organization.setOrganizationId(organizationId);
+
+    //Check if it exist and if not throws exception
+    getOrganizationByOrganizationId(organization.getOrganizationId());
+  }
+
+  public int getOrganizationsPerRequestLimit() {
+    return organizationDao.getOrganizationsPerRequest();
+  }
 }

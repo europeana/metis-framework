@@ -20,6 +20,12 @@ public class MetisSearchService {
     @Autowired
     private SolrClient solrClient;
 
+    private int suggestTermsPerRequest = 10;
+
+    public MetisSearchService(int suggestTermsPerRequest) {
+        this.suggestTermsPerRequest = suggestTermsPerRequest;
+    }
+
     /**
      * Get suggestion for a given organization based on its search term
      * @param searchTerm The search term
@@ -30,7 +36,8 @@ public class MetisSearchService {
     public List<OrganizationSearchBean> getSuggestions(String searchTerm) throws IOException, SolrServerException {
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.setQuery("searchlabel:*"+ ClientUtils.escapeQueryChars(searchTerm)+"*");
-        solrQuery.setFields("id","englabel");
+        solrQuery.setFields("id", "organization_id", "englabel");
+        solrQuery.setStart(0).setRows(suggestTermsPerRequest);
         QueryResponse resp = solrClient.query(solrQuery);
         return resp.getBeans(OrganizationSearchBean.class);
     }
@@ -43,17 +50,33 @@ public class MetisSearchService {
      * @throws IOException
      * @throws SolrServerException
      */
-    public void addOrganizationForSearch(String id, String engLabel, List<String> searchLabels) throws IOException, SolrServerException {
+    public void addOrganizationForSearch(String id, String organizationId, String engLabel, List<String> searchLabels) throws IOException, SolrServerException {
         OrganizationSearchBean searchBean = new OrganizationSearchBean();
+        searchBean.setId(id);
+        searchBean.setOrganizationId(organizationId);
         searchBean.setEngLabel(engLabel);
-        searchBean.setOrganizationId(id);
         searchBean.setSearchLabels(searchLabels);
         solrClient.addBean(searchBean);
         solrClient.commit();
     }
 
+    public String findSolrIdByOrganizationId(String organizationId)
+        throws IOException, SolrServerException {
+        SolrQuery solrQuery = new SolrQuery();
+        solrQuery.setQuery("organization_id:"+ ClientUtils.escapeQueryChars(organizationId));
+        solrQuery.setFields("id");
+        QueryResponse resp = solrClient.query(solrQuery);
+        return resp.getBeans(OrganizationSearchBean.class).get(0).getId();
+    }
+
     public void deleteFromSearch(String id) throws IOException, SolrServerException {
         solrClient.deleteByQuery("id:"+id);
+        solrClient.commit();
+    }
+
+    public void deleteFromSearchByOrganizationId(String organizationId)
+        throws IOException, SolrServerException {
+        solrClient.deleteByQuery("organization_id:"+organizationId);
         solrClient.commit();
     }
 }

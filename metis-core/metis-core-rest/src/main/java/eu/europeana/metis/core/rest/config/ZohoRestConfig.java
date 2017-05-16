@@ -14,28 +14,14 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
+package eu.europeana.metis.core.rest.config;
 
-package eu.europeana.metis.core.organization;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
+import eu.europeana.metis.core.dao.ZohoClient;
 
 /**
- * An organization List wrapper
- * Created by ymamakis on 3/2/16.
+ * Configuration class enabling different Zoho REST clients (In memory or production)
+ * Created by ymamakis on 6/6/16.
  */
-@XmlRootElement
-public class OrganizationList {
-
-    private List<Organization> organizations;
-
-    @XmlElement
-    public List<Organization> getOrganizations() {
-        return organizations;
-    }
-
-    public void setOrganizations(List<Organization> organizations) {
-        this.organizations = organizations;
-    }
+public interface ZohoRestConfig {
+    ZohoClient getZohoClient();
 }

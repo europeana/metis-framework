@@ -14,24 +14,17 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.core.rest;
 
-import eu.europeana.metis.core.dao.ZohoClient;
-import eu.europeana.metis.core.dao.ZohoMockClient;
-import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Component;
+package eu.europeana.metis.core.exceptions;
 
-/**
- * In-memory implementation of Zoho rest
- * Created by ymamakis on 6/6/16.
- */
-@Component
-@Profile("development")
-public class InMemoryZohoZohoRestConfig implements ZohoRestConfig {
-    @Override
-    public ZohoClient getZohoClient() {
-        ZohoMockClient client = new ZohoMockClient();
-        client.populate();
-        return client;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No organization found")
+public class NoOrganizationFoundException extends Exception {
+    private static final long serialVersionUID = -3332292346834265371L;
+
+    public NoOrganizationFoundException(String message){
+        super(message);
     }
 }

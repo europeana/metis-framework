@@ -1,7 +1,7 @@
 package eu.europeana.metis.controller;
 
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
 import eu.europeana.metis.core.rest.client.ServerException;
@@ -15,7 +15,6 @@ import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
-import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -313,9 +312,9 @@ public class MetisUserPageController {
   private List<String> buildAvailableOrganizationsList() {
     List<String> organizations = new ArrayList<>();
     try {
-      List<Role> roles = Arrays
-          .asList(Role.DATA_AGGREGATOR, Role.CONTENT_PROVIDER, Role.DIRECT_PROVIDER,
-              Role.EUROPEANA);
+      List<OrganizationRole> roles = Arrays
+          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER, OrganizationRole.DIRECT_PROVIDER,
+              OrganizationRole.EUROPEANA);
       List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
       if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
         for (Organization o : organizationsByRoles) {
@@ -342,7 +341,7 @@ public class MetisUserPageController {
           .suggestOrganizations(term);
       for (OrganizationSearchBean searchBean : suggestOrganizations) {
         Organization orgById = dsOrgRestClient
-            .getOrganizationByOrganizationId(searchBean.getOrganizationId());
+            .getOrganizationByOrganizationId(searchBean.getId());
         if (orgById != null) {
           suggestedOrganizations.add(orgById);
         }
@@ -356,12 +355,12 @@ public class MetisUserPageController {
   /**
    * Method creates user role requests and resolves the new list of organization roles.
    */
-  private List<OrganizationRole> resolveUserOrganizationRoles(UserProfile user, DBUser dbUser) {
-    List<OrganizationRole> oldOrganizationRoles = dbUser.getOrganizationRoles();
+  private List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> resolveUserOrganizationRoles(UserProfile user, DBUser dbUser) {
+    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> oldOrganizationRoles = dbUser.getOrganizationRoles();
     List<String> newOrganizationsList = resolveUserOrganizations(user);
     List<String> oldOrganizationsList = new ArrayList<>();
     if (oldOrganizationRoles != null && !oldOrganizationRoles.isEmpty()) {
-      for (OrganizationRole o : oldOrganizationRoles) {
+      for (eu.europeana.metis.ui.mongo.domain.OrganizationRole o : oldOrganizationRoles) {
         oldOrganizationsList.add(o.getOrganizationId());
       }
     }
@@ -384,16 +383,16 @@ public class MetisUserPageController {
       sendEmailNotifications(user);
     }
 
-    List<OrganizationRole> newOrganizationRoles = new ArrayList<>();
+    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> newOrganizationRoles = new ArrayList<>();
     for (String organization : organizationsToKeepUnchanged) {
-      for (OrganizationRole organizationRole : oldOrganizationRoles) {
+      for (eu.europeana.metis.ui.mongo.domain.OrganizationRole organizationRole : oldOrganizationRoles) {
         if (organizationRole.getOrganizationId().equals(organization)) {
           newOrganizationRoles.add(organizationRole);
         }
       }
     }
     for (String organization : organizationsToAdd) {
-      OrganizationRole or = new OrganizationRole();
+      eu.europeana.metis.ui.mongo.domain.OrganizationRole or = new eu.europeana.metis.ui.mongo.domain.OrganizationRole();
       or.setOrganizationId(organization);
       or.setRole(null);
       newOrganizationRoles.add(or);

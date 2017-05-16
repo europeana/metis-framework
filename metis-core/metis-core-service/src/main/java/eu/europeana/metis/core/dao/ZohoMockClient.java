@@ -21,7 +21,7 @@ import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.Sector;
 import eu.europeana.metis.core.crm.ContactResponse;
 import eu.europeana.metis.core.crm.ContactResult;
@@ -111,7 +111,7 @@ public class ZohoMockClient extends ZohoClient {
     fields.add(updatedTime);
     Field role = new Field();
     role.setVal(ZohoFields.ROLE);
-    role.setContent(Role.CONTENT_PROVIDER.getName());
+    role.setContent(OrganizationRole.CONTENT_PROVIDER.getName());
     fields.add(role);
     Field country = new Field();
     country.setVal(ZohoFields.COUNTRY);
@@ -196,8 +196,15 @@ public class ZohoMockClient extends ZohoClient {
   }
 
   @Override
-  public Organization getOrganizationById(String id) throws ParseException, IOException {
-    return organizationList.get(0);
+  public Organization getOrganizationById(String organizationId) throws ParseException, IOException {
+    for (Organization organization :
+        organizationList) {
+      if (organization.getOrganizationId().equalsIgnoreCase(organizationId))
+      {
+        return organization;
+      }
+    }
+    return null;
   }
 
   @Override

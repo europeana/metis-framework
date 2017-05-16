@@ -16,18 +16,13 @@
  */
 package eu.europeana.metis.core.dao;
 
+import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.Role;
-import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.NoOrganizationExceptionFound;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -45,9 +40,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OrganizationDao implements MetisDao<Organization, String> {
 
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
+  private int organizationsPerRequest = 5;
 
   @Autowired
   private MorphiaDatastoreProvider provider;
+
+  public OrganizationDao(int organizationsPerRequest) {
+    this.organizationsPerRequest = organizationsPerRequest;
+  }
 
   @Override
   public String create(Organization organization) {
@@ -72,16 +72,11 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     } else {
       ops.unset("organizationUri");
     }
-    if (organization.getDatasets() != null || organization.getDatasets().size() != 0) {
-      ops.set("datasets", organization.getDatasets());
-    } else {
-      ops.unset("datasets");
-    }
     ops.set("name", organization.getName());
-    if (organization.getRoles() != null) {
-      ops.set("roles", organization.getRoles());
+    if (organization.getOrganizationRoles() != null) {
+      ops.set("organizationRoles", organization.getOrganizationRoles());
     } else {
-      ops.unset("roles");
+      ops.unset("organizationRoles");
     }
     if (organization.getCreatedByLdapId() != null) {
       ops.set("createdByLdapId", organization.getCreatedByLdapId());
@@ -154,13 +149,11 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     }
 
     ops.set("acronym", organization.getAcronym());
-    ops.set("created", organization.getCreated());
     ops.set("modified", new Date());
     provider.getDatastore().update(q, ops);
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
     LOGGER.info("Organization '" + organization.getOrganizationId() + "' updated in Mongo");
-    Object newId = updateResults.getNewId();
-    return newId != null ? updateResults.getNewId().toString() : organization.getId().toString();
+    return String.valueOf(updateResults.getUpdatedCount());
   }
 
   @Override
@@ -175,71 +168,68 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     return true;
   }
 
-  /**
-   * Retrieve all the organizations
-   *
-   * @return A list of all the organizations
-   */
-  public List<Organization> getAll() {
-    return provider.getDatastore().find(Organization.class).asList();
+  public boolean deleteByOrganizationId(String organizationId) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.filter("organizationId", organizationId);
+    WriteResult delete = provider.getDatastore().delete(query);
+    LOGGER.info("Organization '" + organizationId + "' deleted from Mongo");
+    return delete.getN() == 1;
   }
 
-  /**
-   * Retrieve all the organizations
-   *
-   * @return A list of all the organizations
-   */
-  public List<Organization> getAllByCountry(Country country) {
-    return provider.getDatastore().find(Organization.class).filter("country", country).asList();
+  public List<Organization> getAllOrganizations(String nextPage) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.order("_id").limit(organizationsPerRequest);
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList();
+  }
+
+  public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.filter("country", country).order("_id").limit(organizationsPerRequest);
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList();
   }
 
 
-  public List<Organization> getAllProviders(Role... roles) {
-
-    return provider.getDatastore().find(Organization.class).field("roles")
-        .hasAnyOf(Arrays.asList(roles)).asList();
+  public List<Organization> getAllOrganizationsByOrganizationRole(List<OrganizationRole> organizationRoles, String nextPage) {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.field("organizationRoles")
+        .hasAnyOf(organizationRoles).order("_id").limit(organizationsPerRequest);
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList();
   }
 
-  /**
-   * Get an organization by its organization Id
-   *
-   * @param organizationId The organization id
-   * @return The organization
-   */
   public Organization getByOrganizationId(String organizationId) {
     return provider.getDatastore().find(Organization.class).filter("organizationId", organizationId)
         .get();
   }
 
-  /**
-   * Get all the datasets for an organization
-   *
-   * @param organizationId The id to retrieve the datasets for
-   * @return The datasets for this organization
-   */
-  public List<Dataset> getAllDatasetsByOrganization(String organizationId)
-      throws NoOrganizationExceptionFound {
-    Organization org = getByOrganizationId(organizationId);
-    if (org != null) {
-      return org.getDatasets();
-    }
-    throw new NoOrganizationExceptionFound("No organization found with id: " + organizationId);
+  public Organization getOrganizationOptInIIIFByOrganizationId(String organizationId)
+  {
+    Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
+    query.field("organizationId").equal(organizationId).project("optInIIIF", true);
+    return query.get();
   }
 
-  /**
-   * Get all the organizations referred to by a dataset
-   * @param datasetId The datasetId to search the organizations for
-   * @param dataProviderId The dataprovider id for the dataset <code>{@link Dataset#dataProvider}</code>
-   * @return The full list of organizations for this dataset
-   */
-  public List<Organization> getAllOrganizationsFromDataset(String datasetId, String dataProviderId){
-    List<Organization> orgs = provider.getDatastore().find(Organization.class).filter("datasets.$id",datasetId).asList();
-    if(orgs==null){
-      orgs = new ArrayList<>();
-    }
-    if(StringUtils.isNotEmpty(dataProviderId)) {
-      orgs.add(getById(dataProviderId));
-    }
-    return orgs;
+  public int getOrganizationsPerRequest() {
+    return organizationsPerRequest;
+  }
+
+  public void setOrganizationsPerRequest(int organizationsPerRequest) {
+    this.organizationsPerRequest = organizationsPerRequest;
+  }
+
+  public MorphiaDatastoreProvider getProvider() {
+    return provider;
+  }
+
+  public void setProvider(MorphiaDatastoreProvider provider) {
+    this.provider = provider;
   }
 }

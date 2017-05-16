@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -31,6 +33,7 @@ import javax.xml.bind.annotation.XmlElement;
 public class HarvestingMetadata {
 
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
     /**
      * Harvesting type (controlled list)

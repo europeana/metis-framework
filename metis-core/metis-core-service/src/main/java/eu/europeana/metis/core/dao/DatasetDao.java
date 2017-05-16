@@ -19,10 +19,13 @@ package eu.europeana.metis.core.dao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
@@ -37,9 +40,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class DatasetDao implements MetisDao<Dataset, String> {
 
   private final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
+  private int datasetsPerRequest = 5;
 
   @Autowired
   private MorphiaDatastoreProvider provider;
+
+  public DatasetDao(int datasetsPerRequest) {
+    this.datasetsPerRequest = datasetsPerRequest;
+  }
 
   @Override
   public String create(Dataset dataset) {
@@ -153,12 +161,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public Organization createDatasetForOrganization(Organization organization, Dataset dataset) {
     create(dataset);
-    List<Dataset> ds = organization.getDatasets();
+    Set<String> ds = organization.getDatasetNames();
     if (ds == null) {
-      ds = new ArrayList<>();
+      ds = new TreeSet<>();
     }
-    ds.add(getByName(dataset.getName()));
-    organization.setDatasets(ds);
+    ds.add(dataset.getName());
+    organization.setDatasetNames(ds);
     return organization;
   }
 
@@ -173,5 +181,22 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    */
   public List<Dataset> getByDataProviderId(String dataProvider){
     return provider.getDatastore().find(Dataset.class).filter("dataProvider",dataProvider).asList();
+  }
+
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
+    Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
+    query.field("organizationId").equal(organizationId).order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(datasetsPerRequest));
+  }
+
+  public int getDatasetsPerRequest() {
+    return datasetsPerRequest;
+  }
+
+  public void setDatasetsPerRequest(int datasetsPerRequest) {
+    this.datasetsPerRequest = datasetsPerRequest;
   }
 }

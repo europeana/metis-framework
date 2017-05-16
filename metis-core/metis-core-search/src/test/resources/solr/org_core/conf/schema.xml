@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="orgs" version="1.6">
     <field name="id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
+    <field name="organization_id" type="string" indexed="true" stored="true" required="true" multiValued="false" />
     <field name="_version_" type="long" indexed="false" stored="false"/>
     <field name="englabel" type="string" indexed="true" stored="true"/>
-    <field name="searchlabel" type="strings" indexed="true" stored="true"/>
+    <field name="searchlabel" type="c_text" multiValued="true" indexed="true" stored="true"/>
     <uniqueKey>id</uniqueKey>
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
     <fieldType name="long" class="solr.TrieLongField" positionIncrementGap="0" docValues="true" precisionStep="0"/>
     <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true" />
+    <fieldType name="c_text" class="solr.TextField">
+        <analyzer type="index">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+        <analyzer type="query">
+            <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+            <filter class="solr.LowerCaseFilterFactory"/>
+        </analyzer>
+    </fieldType>
 </schema>

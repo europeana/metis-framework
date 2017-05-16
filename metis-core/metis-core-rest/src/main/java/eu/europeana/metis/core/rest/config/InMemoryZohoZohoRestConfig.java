@@ -14,14 +14,24 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.config;
 
 import eu.europeana.metis.core.dao.ZohoClient;
+import eu.europeana.metis.core.dao.ZohoMockClient;
+import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Component;
 
 /**
- * Configuration class enabling different Zoho REST clients (In memory or production)
+ * In-memory implementation of Zoho rest
  * Created by ymamakis on 6/6/16.
  */
-public interface ZohoRestConfig {
-    ZohoClient getZohoClient();
+@Component
+@Profile("development")
+public class InMemoryZohoZohoRestConfig implements ZohoRestConfig {
+    @Override
+    public ZohoClient getZohoClient() {
+        ZohoMockClient client = new ZohoMockClient();
+        client.populate();
+        return client;
+    }
 }

@@ -63,5 +63,10 @@
             <artifactId>metis-dereference-client</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
+      <dependency>
+        <groupId>io.swagger</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>1.5.5</version>
+      </dependency>
     </dependencies>
 </project>

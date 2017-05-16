@@ -17,19 +17,21 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * A role of a supplying institution to Europeana
  * Created by ymamakis on 4/4/16.
  */
-public enum Role {
+public enum OrganizationRole {
 
-    CONTENT_PROVIDER("Content provider"),DIRECT_PROVIDER("Direct Provider"),DATA_AGGREGATOR("Data aggregator"),
+    CONTENT_PROVIDER("Content Provider"),DIRECT_PROVIDER("Direct Provider"),DATA_AGGREGATOR("Data aggregator"),
     FINANCIAL_PARTNER("Financial partner"),POLICY_MAKER("Policy maker"),
     CONSULTANT("Consultant"),OTHER("Other"),EUROPEANA("Europeana");
 
     private String name;
 
-    Role(String name){
+    OrganizationRole(String name){
         this.name = name;
     }
 
@@ -37,12 +39,24 @@ public enum Role {
         return this.name;
     }
 
-    public static Role getRoleFromName(String name){
-        for (Role role:Role.values()) {
-            if(role.getName().equals(name)){
+    public static OrganizationRole getRoleFromName(String name){
+        for (OrganizationRole role: OrganizationRole.values()) {
+            if(role.getName().equalsIgnoreCase(name)){
                 return role;
             }
         }
         return null;
     }
+
+    @JsonCreator
+    public static OrganizationRole getRoleFromEnumName(String name){
+        for (OrganizationRole role: OrganizationRole.values()) {
+            if(role.name().equalsIgnoreCase(name)){
+                return role;
+            }
+        }
+        return null;
+    }
+
+
 }

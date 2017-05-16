@@ -23,7 +23,6 @@ import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.metis.cache.redis.JedisProviderUtils;
 import eu.europeana.metis.cache.redis.RedisProvider;
-import eu.europeana.metis.core.rest.ZohoRestConfig;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -32,24 +31,26 @@ import eu.europeana.metis.core.dao.FailedRecordsDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
+import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.search.config.SearchApplication;
+import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.Orchestrator;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.workflow.AbstractMetisWorkflow;
 import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.FailedRecords;
 import eu.europeana.metis.core.workflow.VoidMetisWorkflow;
 import eu.europeana.metis.json.CustomObjectMapper;
-import eu.europeana.metis.core.mail.config.MailConfig;
-import eu.europeana.metis.core.search.config.SearchApplication;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.metis.workflow.qa.QAWorkflow;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,7 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -159,8 +161,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
     String[] mongoHostsArray = mongoHosts.split(",");
     StringBuilder mongoPorts = new StringBuilder();
-    for (int i = 0; i < mongoHostsArray.length; i++) {
-      mongoPorts.append(mongoPort + ",");
+    for (String aMongoHostsArray : mongoHostsArray) {
+      mongoPorts.append(mongoPort).append(",");
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
     MongoClientOptions.Builder options = MongoClientOptions.builder();
@@ -231,7 +233,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetDao getDatasetDao() {
-    return new DatasetDao();
+    return new DatasetDao(RequestLimits.DATASETS_PER_REQUEST.getLimit());
   }
 
   @Bean
@@ -247,7 +249,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public OrganizationDao getOrganizationDao() {
-    return new OrganizationDao();
+    return new OrganizationDao(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
   }
 
   @Bean
@@ -314,6 +316,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.regex("/.*"))
         .build()
+        .directModelSubstitute(ObjectId.class, String.class)
+        .useDefaultResponseMessages(false)
         .apiInfo(apiInfo());
   }
 
@@ -325,15 +329,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Metis framework REST API",
         "Metis framework REST API for Europeana",
         "v1",
         "API TOS",
-        "development@europeana.eu",
+        new Contact("development", "europeana.eu","development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );
-    return apiInfo;
   }
 }

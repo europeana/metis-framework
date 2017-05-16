@@ -16,23 +16,33 @@
  */
 package eu.europeana.metis.core.rest.client;
 
+import static eu.europeana.metis.RestEndpoints.DATASET;
+import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
+import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
+
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.common.Role;
-import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.common.Contact;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetList;
+import eu.europeana.metis.core.dataset.DatasetListWrapper;
+import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ServerError;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import java.util.List;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
-
-import static eu.europeana.metis.RestEndpoints.*;
 
 
 /**
@@ -62,7 +72,7 @@ public class DsOrgRestClient {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
         ResponseEntity entity = template.exchange(hostUrl +
-                RestEndpoints.resolve(ORGANIZATION,apikey),HttpMethod.POST,orgEntity,
+                RestEndpoints.resolve(ORGANIZATIONS,apikey),HttpMethod.POST,orgEntity,
                 ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
@@ -77,7 +87,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity =template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATION,apikey),
+        ResponseEntity entity =template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATIONS,apikey),
                 HttpMethod.PUT, orgEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
@@ -93,7 +103,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> organizationHttpEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity = template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATION,apikey),
+        ResponseEntity entity = template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATIONS,apikey),
                 HttpMethod.DELETE, organizationHttpEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
@@ -123,7 +133,8 @@ public class DsOrgRestClient {
     public List<Organization> getAllOrganizationsByIsoCode(String isoCode) throws ServerException {
         try {
 
-            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_ISOCODE+"?apikey="+apikey+"&isoCode="+isoCode, OrganizationListResponse.class).getResults();
+            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_COUNTRY_ISOCODE
+                +"?apikey="+apikey+"&isoCode="+isoCode, OrganizationListResponse.class).getResults();
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -135,11 +146,11 @@ public class DsOrgRestClient {
      * @return The list of all the organizations stored in METIS
      * @throws ServerException
      */
-    public List<Organization> getAllOrganizationsByRoles(List<Role> roles) throws ServerException {
+    public List<Organization> getAllOrganizationsByRoles(List<OrganizationRole> organizationRoles) throws ServerException {
         try {
             String roleParam="role=";
-            for(Role role: roles){
-                roleParam+=role.toString().toLowerCase()+",";
+            for(OrganizationRole organizationRole : organizationRoles){
+                roleParam+= organizationRole.toString().toLowerCase()+",";
             }
 
             List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_ROLES+"?apikey="+apikey+"&"+StringUtils.substringBeforeLast(roleParam,","), OrganizationListResponse.class).getResults();
@@ -157,7 +168,8 @@ public class DsOrgRestClient {
      */
     public List<Dataset> getDatasetsForOrganization(String id) throws ServerException {
         try {
-            List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(ORGANIZATION_ID_DATASETS,id), DatasetList.class).getDatasetList();
+            List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(
+                ORGANIZATIONS_ORGANIZATION_ID_DATASETS,id), DatasetListWrapper.class).getDatasets();
             return datasets;
         } catch (Exception e) {
             throw new ServerException("Datasets could not be retrieved with error: " + e.getMessage());
@@ -172,7 +184,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationById(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(ORGANIZATION_ID,id)+"apikey="+apikey,
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID,id)+"apikey="+apikey,
                     Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
@@ -187,7 +199,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationByOrganizationId(String orgId) throws ServerException {
         try {
-            return template.getForObject(hostUrl + ORGANIZATION+ "?orgId="+orgId+"&apikey="+apikey, Organization.class);
+            return template.getForObject(hostUrl + ORGANIZATIONS+ "?orgId="+orgId+"&apikey="+apikey, Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -201,7 +213,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationFromCrm(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(CRM_ORGANIZATION_ID,id)+"?apikey="+apikey, Organization.class);
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID,id)+"?apikey="+apikey, Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -215,7 +227,7 @@ public class DsOrgRestClient {
     public List<Organization> getOrganizationsFromCrm() throws ServerException {
         try {
 
-            List<Organization> orgs = template.getForObject(hostUrl + CRM_ORGANIZATIONS, OrganizationListResponse.class).getResults();
+            List<Organization> orgs = template.getForObject(hostUrl + RestEndpoints.ORGANIZATIONS_CRM, OrganizationListResponse.class).getResults();
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -313,7 +325,7 @@ public class DsOrgRestClient {
      */
     public boolean isOptedIn(String id) throws ServerException{
         try {
-            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATION_OPTED_IN, id), OptedInResponse.class).getBody().isResult();
+            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, id), OptedInResponse.class).getBody().isResult();
         } catch (Exception e){
             throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
         }
@@ -321,7 +333,7 @@ public class DsOrgRestClient {
 
     public List<OrganizationSearchBean> suggestOrganizations(String term) throws ServerException{
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATION_SUGGEST,term), Suggestions.class).getSuggestions();
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_SUGGEST,term), Suggestions.class).getSuggestions();
         } catch (Exception e) {
             throw new ServerException("Organization suggestions could not be retrieved with error: " + e.getMessage());
         }

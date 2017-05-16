@@ -21,13 +21,12 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
-import eu.europeana.metis.core.common.Role;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.core.dataset.WorkflowStatus;
-import eu.europeana.metis.core.exceptions.NoOrganizationExceptionFound;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -35,6 +34,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -42,9 +43,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-/**
- * Created by ymamakis on 2/19/16.
- */
 public class TestOrganizationDao {
 
   private static Organization org;
@@ -62,12 +60,12 @@ public class TestOrganizationDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    orgDao = new OrganizationDao();
+    orgDao = new OrganizationDao(5);
     ReflectionTestUtils.setField(orgDao, "provider", provider);
 
     org = new Organization();
     org.setOrganizationId("orgId");
-    org.setDatasets(new ArrayList<Dataset>());
+    org.setDatasetNames(new TreeSet<String>());
     org.setOrganizationUri("testUri");
     org.setHarvestingMetadata(new HarvestingMetadata());
     org.setCountry(Country.ALBANIA);
@@ -103,7 +101,7 @@ public class TestOrganizationDao {
     ds.setUpdated(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
 
-    dsDao = new DatasetDao();
+    dsDao = new DatasetDao(5);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
 
   }
@@ -111,23 +109,23 @@ public class TestOrganizationDao {
   @Test
   public void testCreateRetrieveOrg() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
     Organization retOrg = orgDao.getByOrganizationId(org.getOrganizationId());
     Assert.assertEquals(org.getOrganizationId(), retOrg.getOrganizationId());
     Assert.assertEquals(org.getOrganizationUri(), retOrg.getOrganizationUri());
-    Assert.assertEquals(org.getDatasets().size(), retOrg.getDatasets().size());
+    Assert.assertEquals(org.getDatasetNames().size(), retOrg.getDatasetNames().size());
   }
 
 
   @Test
   public void testDeleteOrganization() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
     orgDao.delete(org);
     Assert.assertNull(orgDao.getByOrganizationId(org.getOrganizationId()));
@@ -136,28 +134,25 @@ public class TestOrganizationDao {
   @Test
   public void testDatasets() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
 
-    try {
-      List<Dataset> dsRet = orgDao.getAllDatasetsByOrganization(org.getOrganizationId());
-      Assert.assertTrue(dsRet.size() == 1);
-    } catch (NoOrganizationExceptionFound e) {
-      e.printStackTrace();
-    }
+    List<Dataset> allDatasetsByOrganizationId = dsDao
+        .getAllDatasetsByOrganizationId(org.getOrganizationId(), null);
+    Assert.assertTrue(allDatasetsByOrganizationId.size() == 1);
   }
 
   @Test
   public void testGetAll() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
 
-    List<Organization> getAll = orgDao.getAll();
+    List<Organization> getAll = orgDao.getAllOrganizations(null);
 
     Assert.assertTrue(getAll.size() == 1);
   }
@@ -165,28 +160,28 @@ public class TestOrganizationDao {
   @Test
   public void testGetAllByCountry() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
-    List<Organization> getAll = orgDao.getAllByCountry(Country.ALBANIA);
+    List<Organization> getAll = orgDao.getAllOrganizationsByCountry(Country.ALBANIA, null);
     Assert.assertTrue(getAll.size() == 1);
   }
 
   @Test
   public void testUpdate() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
 
     org.setOrganizationUri("testNew");
     org.setName("name");
     org.setModified(new Date());
     org.setCreated(new Date());
-    List<Role> roles = new ArrayList<>();
-    org.setRoles(roles);
+    List<OrganizationRole> organizationRoles = new ArrayList<>();
+    org.setOrganizationRoles(organizationRoles);
     org.setAcronym("acronym");
     orgDao.update(org);
     Organization organization = orgDao.getByOrganizationId(org.getOrganizationId());

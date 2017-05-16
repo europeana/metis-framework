@@ -17,46 +17,38 @@
 
 package eu.europeana.metis.core.organization;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
-import eu.europeana.metis.core.common.Role;
 import eu.europeana.metis.core.common.Scope;
 import eu.europeana.metis.core.common.Sector;
-import eu.europeana.metis.core.dataset.Dataset;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Reference;
 
 /**
  * The Organization representation in METIS
  * Created by ymamakis on 2/17/16.
  */
-@XmlRootElement
 @Entity
 public class Organization {
-
-    /**
-     * Id
-     */
     @Id
+    @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
 
-
-    /**
-     * The organization ID
-     */
     @Indexed(unique = true)
     private String organizationId;
 
@@ -70,48 +62,36 @@ public class Organization {
      */
     private HarvestingMetadata harvestingMetadata;
 
-    /**
-     * The name of the organization
-     */
     private String name;
 
-    /**
-     * Created
-     */
     private Date created;
 
-    /**
-     * Updated
-     */
     private Date modified;
 
-    /**
-     * Acronym
-     */
     private String acronym;
 
-    /**
-     * Role
-     */
     @Indexed
-    private List<Role> roles;
+    @JacksonXmlProperty(localName = "organizationRoles")
+    private List<OrganizationRole> organizationRoles;
 
     /**
      * The datasets associated with the organization
      */
-    @Reference
-    private List<Dataset> datasets;
+    private Set<String> datasetNames;
 
     private String createdByLdapId;
 
     private String updatedByLdapId;
 
     @Embedded
+    @JacksonXmlProperty(localName = "prefLabels")
     private List<PrefLabel> prefLabel;
 
     @Embedded
+    @JacksonXmlProperty(localName = "altLabels")
     private List<AltLabel> altLabel;
 
+    @JacksonXmlProperty(localName = "sameAsList")
     private String[] sameAs;
 
     private String description;
@@ -174,13 +154,12 @@ public class Organization {
         this.harvestingMetadata = harvestingMetadata;
     }
 
-    @XmlElement
-    public List<Dataset> getDatasets() {
-        return datasets;
+    public Set<String> getDatasetNames() {
+        return datasetNames;
     }
 
-    public void setDatasets(List<Dataset> datasets) {
-        this.datasets = datasets;
+    public void setDatasetNames(Set<String> datasetNames) {
+        this.datasetNames = datasetNames;
     }
 
     @XmlElement
@@ -220,12 +199,12 @@ public class Organization {
     }
 
     @XmlElement
-    public List<Role> getRoles() {
-        return roles;
+    public List<OrganizationRole> getOrganizationRoles() {
+        return organizationRoles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
+    public void setOrganizationRoles(List<OrganizationRole> organizationRoles) {
+        this.organizationRoles = organizationRoles;
     }
 
     @XmlElement

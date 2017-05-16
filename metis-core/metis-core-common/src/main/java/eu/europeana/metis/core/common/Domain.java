@@ -17,6 +17,8 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 /**
  * A provider domain
  * Created by ymamakis on 4/4/16.
@@ -39,6 +41,16 @@ public enum Domain {
     public static Domain getDomainFromName(String name){
         for (Domain domain:Domain.values()) {
             if(domain.getName().equals(name)){
+                return domain;
+            }
+        }
+        return null;
+    }
+
+    @JsonCreator
+    public static Domain getDomainFromEnumName(String name){
+        for (Domain domain:Domain.values()) {
+            if(domain.name().equalsIgnoreCase(name)){
                 return domain;
             }
         }

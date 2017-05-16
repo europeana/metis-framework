@@ -15,27 +15,20 @@
  *  the Licence.
  */
 
-package eu.europeana.metis.core.dataset;
+package eu.europeana.metis.core.exceptions;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * List of Datasets wrapper
- * Created by ymamakis on 3/2/16.
+ * No Organization was found either in METIS or in CRM
+ * Created by ymamakis on 2/25/16.
  */
-@XmlRootElement
-public class DatasetList {
+@ResponseStatus(value= HttpStatus.CONFLICT, reason="Organization already exists")
+public class OrganizationAlreadyExistsException extends Exception {
+    private static final long serialVersionUID = -3332292346834265371L;
 
-    private List<Dataset> datasetList;
-
-    public List<Dataset> getDatasetList() {
-        return datasetList;
-    }
-
-    @XmlElement
-    public void setDatasetList(List<Dataset> datasetList) {
-        this.datasetList = datasetList;
+    public OrganizationAlreadyExistsException(String organizationId){
+        super("Organization with organizationId " + organizationId + " already exists");
     }
 }
