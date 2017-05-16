@@ -33,7 +33,6 @@ import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.ZohoRestConfig;
 import eu.europeana.metis.core.search.config.SearchApplication;
 import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;
@@ -95,8 +94,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnablePluginRegistries(AbstractMetisWorkflow.class)
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
-  private final int ORGANIZATIONS_PER_REQUEST = 5;
-  private final int DATASET_PER_REQUEST = 5;
 
   //Redis
   @Value("${redis.host}")
@@ -235,7 +232,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetDao getDatasetDao() {
-    return new DatasetDao(DATASET_PER_REQUEST);
+    return new DatasetDao(RequestLimits.DATASETS_PER_REQUEST.getLimit());
   }
 
   @Bean
@@ -251,7 +248,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public OrganizationDao getOrganizationDao() {
-    return new OrganizationDao(ORGANIZATIONS_PER_REQUEST);
+    return new OrganizationDao(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
   }
 
   @Bean

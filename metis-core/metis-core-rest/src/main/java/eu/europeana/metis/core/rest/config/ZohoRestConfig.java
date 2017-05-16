@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.core.rest;
+package eu.europeana.metis.core.rest.config;
 
 import eu.europeana.metis.core.dao.ZohoClient;
 
