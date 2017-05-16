@@ -16,9 +16,13 @@
  */
 package eu.europeana.metis.core.rest;
 
-import eu.europeana.metis.core.dataset.DatasetList;
-import eu.europeana.metis.core.dto.OrgDatasetDTO;
+import static eu.europeana.metis.RestEndpoints.DATASET;
+import static eu.europeana.metis.RestEndpoints.DATASET_BYPROVIDER;
+import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
+
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetListWrapper;
+import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
 import io.swagger.annotations.Api;
@@ -27,11 +31,11 @@ import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
-import static eu.europeana.metis.RestEndpoints.DATASET;
-import static eu.europeana.metis.RestEndpoints.DATASET_BYPROVIDER;
-import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * The dataset controller
@@ -92,10 +96,10 @@ public class DatasetController {
     }
     @RequestMapping (value = DATASET_BYPROVIDER,method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    @ApiOperation(value = "Retrieve datasets by data providers", response = DatasetList.class)
-    public DatasetList getByDataProviderId(@PathVariable("dataProviderId") String dataProviderId){
-        DatasetList lst = new DatasetList();
-        lst.setDatasetList(datasetService.getDatasetsByDataProviderId(dataProviderId));
+    @ApiOperation(value = "Retrieve datasets by data providers", response = DatasetListWrapper.class)
+    public DatasetListWrapper getByDataProviderId(@PathVariable("dataProviderId") String dataProviderId){
+        DatasetListWrapper lst = new DatasetListWrapper();
+        lst.setDatasets(datasetService.getDatasetsByDataProviderId(dataProviderId));
         return lst;
     }
 }

@@ -96,6 +96,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
   private final int ORGANIZATIONS_PER_REQUEST = 5;
+  private final int DATASET_PER_REQUEST = 5;
 
   //Redis
   @Value("${redis.host}")
@@ -234,7 +235,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetDao getDatasetDao() {
-    return new DatasetDao();
+    return new DatasetDao(DATASET_PER_REQUEST);
   }
 
   @Bean

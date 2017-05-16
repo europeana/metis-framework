@@ -19,7 +19,6 @@ package eu.europeana.metis.core.rest;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_BYDATASET;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATION_OPTED_IN;
 
 import eu.europeana.metis.RestEndpoints;
@@ -28,7 +27,7 @@ import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.api.Profile;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
-import eu.europeana.metis.core.dataset.DatasetList;
+import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
@@ -41,6 +40,7 @@ import eu.europeana.metis.core.rest.response.PublicOrganizationView;
 import eu.europeana.metis.core.rest.utils.JsonUtils;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
+import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrganizationService;
 import io.swagger.annotations.Api;
@@ -84,6 +84,8 @@ public class OrganizationController {
 
   @Autowired
   private OrganizationService organizationService;
+  @Autowired
+  private DatasetService datasetService;
   @Autowired
   private MetisAuthorizationService authorizationService;
 
@@ -216,7 +218,7 @@ public class OrganizationController {
       List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
       OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
       organizationListWrapper.setOrganizationsAndLastPage(organizations,
-          organizationService.getOrganizationPerRequestLimit());
+          organizationService.getOrganizationsPerRequestLimit());
       LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
           + " organizations returned, using batch nextPage: " + nextPage);
       return organizationListWrapper;
@@ -281,7 +283,7 @@ public class OrganizationController {
           .getAllOrganizationsByCountry(Country.toCountry(isoCode), nextPage);
       OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
       organizationListWrapper.setOrganizationsAndLastPage(organizations,
-          organizationService.getOrganizationPerRequestLimit());
+          organizationService.getOrganizationsPerRequestLimit());
       LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
           + " organizations returned, using batch nextPage: " + nextPage);
       return organizationListWrapper;
@@ -319,7 +321,7 @@ public class OrganizationController {
             .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
         OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
         organizationListWrapper.setOrganizationsAndLastPage(organizations,
-            organizationService.getOrganizationPerRequestLimit());
+            organizationService.getOrganizationsPerRequestLimit());
         LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
             + " organizations returned, using batch nextPage: " + nextPage);
         return organizationListWrapper;
@@ -345,7 +347,8 @@ public class OrganizationController {
       @ApiImplicitParam(name = "searchTerm", value = "search value to get suggestions from", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Suggest Organizations by a search term")
-  public OrganizationSearchListWrapper suggestOrganizations(@QueryParam("searchTerm") String searchTerm,
+  public OrganizationSearchListWrapper suggestOrganizations(
+      @QueryParam("searchTerm") String searchTerm,
       @QueryParam("apikey") String apikey)
       throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
@@ -361,21 +364,37 @@ public class OrganizationController {
     }
   }
 
-
-  /**
-   * Get all the datasets for an organization
-   *
-   * @param id The id of the organization
-   * @return The datasets of the organization with the provided it
-   */
-  @RequestMapping(value = ORGANIZATION_ID_DATASETS, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "Get the datasets of an organization", response = DatasetList.class)
-  public DatasetList getDatasetsByOrganization(@ApiParam("id") @PathVariable("id") String id)
-      throws NoOrganizationFoundException {
-    DatasetList list = new DatasetList();
-    list.setDatasetList(organizationService.getDatasetsByOrganization(id));
-    return list;
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized"),
+      @ApiResponse(code = 404, message = "Organization not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
+      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Get all the dataset by organization Id", response = DatasetListWrapper.class)
+  public DatasetListWrapper getAllDatasetsByOrganizationId(
+      @PathVariable("organizationId") String organizationId,
+      @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      DatasetListWrapper datasetListWrapper = new DatasetListWrapper();
+      datasetListWrapper.setDatasetsAndLastPage(
+          organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
+          datasetService.getDatasetsPerRequestLimit());
+      return datasetListWrapper;
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
   }
 
   /**

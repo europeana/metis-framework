@@ -29,16 +29,15 @@ import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.common.Scope;
 import eu.europeana.metis.core.common.Sector;
-import eu.europeana.metis.core.dataset.Dataset;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Reference;
 
 /**
  * The Organization representation in METIS
@@ -78,8 +77,7 @@ public class Organization {
     /**
      * The datasets associated with the organization
      */
-    @Reference
-    private List<Dataset> datasets;
+    private Set<String> datasetNames;
 
     private String createdByLdapId;
 
@@ -156,13 +154,12 @@ public class Organization {
         this.harvestingMetadata = harvestingMetadata;
     }
 
-    @XmlElement
-    public List<Dataset> getDatasets() {
-        return datasets;
+    public Set<String> getDatasetNames() {
+        return datasetNames;
     }
 
-    public void setDatasets(List<Dataset> datasets) {
-        this.datasets = datasets;
+    public void setDatasetNames(Set<String> datasetNames) {
+        this.datasetNames = datasetNames;
     }
 
     @XmlElement

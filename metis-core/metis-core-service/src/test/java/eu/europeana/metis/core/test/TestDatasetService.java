@@ -33,6 +33,7 @@ import eu.europeana.metis.core.service.DatasetService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +71,7 @@ public class TestDatasetService {
         ReflectionTestUtils.setField(service,"ecloudDatasetDao",ecloudDatasetDao);
         org = new Organization();
         org.setOrganizationId("orgId");
-        org.setDatasets(new ArrayList<Dataset>());
+        org.setDatasetNames(new TreeSet<String>());
         org.setOrganizationUri("testUri");
         org.setHarvestingMetadata(new HarvestingMetadata());
         ds = new Dataset();

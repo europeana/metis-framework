@@ -17,363 +17,374 @@
 
 package eu.europeana.metis.core.dataset;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import java.util.Date;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.Date;
-import java.util.List;
-
 /**
  * The Dataset representation
  * Created by ymamakis on 2/17/16.
  */
-@XmlRootElement
 @Entity
 public class Dataset {
 
+  @Id
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId id;
+  /**
+   * The name of the dataset
+   */
+  @Indexed(unique = true)
+  private String name;
 
-    @Id
-    private ObjectId id;
-    /**
-     * The name of the dataset
-     */
-    @Indexed (unique = true)
-    private String name;
+  /**
+   * Identical to the organizationId from Organization class
+   */
+  @Indexed
+  private String organizationId;
 
-    /**
-     * Data providers associated with this dataset
-     */
-    @Indexed
-    private String dataProvider;
+  /**
+   * Data providers associated with this dataset
+   */
+  @Indexed
+  private String dataProvider;
 
-    /**
-     * Providers have signed DEA for the dataset
-     */
-    private boolean deaSigned;
+  /**
+   * Providers have signed DEA for the dataset
+   */
+  private boolean deaSigned;
 
-    /**
-     * List of subjects for the dataset
-     */
-    private List<String> subject;
+  /**
+   * List of subjects for the dataset
+   */
+  private List<String> subject;
 
-    /**
-     * The source of the dataset
-     */
-    private List<String> source;
+  /**
+   * The source of the dataset
+   */
+  private List<String> source;
 
-    /**
-     * When was the dataset created
-     */
-    private Date created;
+  /**
+   * When was the dataset created
+   */
+  private Date created;
 
-    /**
-     * When was the dataset updated
-     */
-    private Date updated;
+  /**
+   * When was the dataset updated
+   */
+  private Date updated;
 
-    /**
-     * What dataset replaces it (ID)
-     */
-    private String replacedBy;
+  /**
+   * What dataset replaces it (ID)
+   */
+  private String replacedBy;
 
-    /**
-     * Description of the dataset
-     */
-    private String description;
+  /**
+   * Description of the dataset
+   */
+  private String description;
 
-    /**
-     * Notes for the dataset
-     */
-    private String notes;
+  /**
+   * Notes for the dataset
+   */
+  private String notes;
 
-    /**
-     * User id that created the dataset
-     */
-    @Indexed
-    private String createdByLdapId;
+  /**
+   * User id that created the dataset
+   */
+  @Indexed
+  private String createdByLdapId;
 
-    /**
-     * User id to process the dataset
-     */
-    @Indexed
-    private String assignedToLdapId;
+  /**
+   * User id to process the dataset
+   */
+  @Indexed
+  private String assignedToLdapId;
 
-    /**
-     * When it ws first published
-     */
-    private Date firstPublished;
+  /**
+   * When it ws first published
+   */
+  private Date firstPublished;
 
-    /**
-     * When it was last published
-     */
-    private Date lastPublished;
+  /**
+   * When it was last published
+   */
+  private Date lastPublished;
 
-    /**
-     * How many records were published
-     */
-    private int recordsPublished;
+  /**
+   * How many records were published
+   */
+  private int recordsPublished;
 
-    /**
-     * When it was harvested
-     */
-    private Date harvestedAt;
+  /**
+   * When it was harvested
+   */
+  private Date harvestedAt;
 
-    /**
-     * When it was submitted
-     */
-    private Date submittedAt;
+  /**
+   * When it was submitted
+   */
+  private Date submittedAt;
 
-    /**
-     * How many records were submitted
-     */
-    private int recordsSubmitted;
+  /**
+   * How many records were submitted
+   */
+  private int recordsSubmitted;
 
-    /**
-     * Has the provider accepted it
-     */
-    private boolean accepted;
+  /**
+   * Has the provider accepted it
+   */
+  private boolean accepted;
 
-    /**
-     * Data Quality Assurance
-     */
-    private List<String> DQA;
+  /**
+   * Data Quality Assurance
+   */
+  private List<String> DQA;
 
-    /**
-     * Harvesting metadata (override the organizational metadata)
-     */
-    private HarvestingMetadata metadata;
+  /**
+   * Harvesting metadata (override the organizational metadata)
+   */
+  private HarvestingMetadata metadata;
 
-    /**
-     * The workflow status
-     */
-    private WorkflowStatus workflowStatus;
+  /**
+   * The workflow status
+   */
+  private WorkflowStatus workflowStatus;
 
-    /**
-     * The country of the dataset
-     */
-    private Country country;
+  /**
+   * The country of the dataset
+   */
+  private Country country;
 
-    /**
-     * The language of the dataset
-     */
-    private Language language;
+  /**
+   * The language of the dataset
+   */
+  private Language language;
 
-    private Boolean acceptanceStep;
+  private Boolean acceptanceStep;
 
-    @XmlElement
-    public ObjectId getId() {
-        return id;
-    }
+  public ObjectId getId() {
+    return id;
+  }
 
-    public void setId(ObjectId id) {
-        this.id = id;
-    }
-    @XmlElement
-    public String getName() {
-        return name;
-    }
+  public void setId(ObjectId id) {
+    this.id = id;
+  }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-    @XmlElement
-    public String getDataProvider() {
-        return dataProvider;
-    }
+  public String getName() {
+    return name;
+  }
 
-    public void setDataProvider(String dataProvider) {
-        this.dataProvider = dataProvider;
-    }
-    @XmlElement
-    public boolean isDeaSigned() {
-        return deaSigned;
-    }
+  public void setName(String name) {
+    this.name = name;
+  }
 
-    public void setDeaSigned(boolean deaSigned) {
-        this.deaSigned = deaSigned;
-    }
-    @XmlElement
-    public List<String> getSubject() {
-        return subject;
-    }
+  public String getOrganizationId() {
+    return organizationId;
+  }
 
-    public void setSubject(List<String> subject) {
-        this.subject = subject;
-    }
-    @XmlElement
-    public List<String> getSource() {
-        return source;
-    }
+  public void setOrganizationId(String organizationId) {
+    this.organizationId = organizationId;
+  }
 
-    public void setSource(List<String> source) {
-        this.source = source;
-    }
-    @XmlElement
-    public Date getCreated() {
-        return created;
-    }
+  public String getDataProvider() {
+    return dataProvider;
+  }
 
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-    @XmlElement
-    public Date getUpdated() {
-        return updated;
-    }
+  public void setDataProvider(String dataProvider) {
+    this.dataProvider = dataProvider;
+  }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-    @XmlElement
-    public String getReplacedBy() {
-        return replacedBy;
-    }
+  public boolean isDeaSigned() {
+    return deaSigned;
+  }
 
-    public void setReplacedBy(String replacedBy) {
-        this.replacedBy = replacedBy;
-    }
-    @XmlElement
-    public String getDescription() {
-        return description;
-    }
+  public void setDeaSigned(boolean deaSigned) {
+    this.deaSigned = deaSigned;
+  }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    @XmlElement
-    public String getNotes() {
-        return notes;
-    }
+  public List<String> getSubject() {
+    return subject;
+  }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-    @XmlElement
-    public String getCreatedByLdapId() {
-        return createdByLdapId;
-    }
+  public void setSubject(List<String> subject) {
+    this.subject = subject;
+  }
 
-    public void setCreatedByLdapId(String createdByLdapId) {
-        this.createdByLdapId = createdByLdapId;
-    }
-    @XmlElement
-    public String getAssignedToLdapId() {
-        return assignedToLdapId;
-    }
+  public List<String> getSource() {
+    return source;
+  }
 
-    public void setAssignedToLdapId(String assignedToLdapId) {
-        this.assignedToLdapId = assignedToLdapId;
-    }
-    @XmlElement
-    public Date getFirstPublished() {
-        return firstPublished;
-    }
+  public void setSource(List<String> source) {
+    this.source = source;
+  }
 
-    public void setFirstPublished(Date firstPublished) {
-        this.firstPublished = firstPublished;
-    }
-    @XmlElement
-    public Date getLastPublished() {
-        return lastPublished;
-    }
+  public Date getCreated() {
+    return created;
+  }
 
-    public void setLastPublished(Date lastPublished) {
-        this.lastPublished = lastPublished;
-    }
-    @XmlElement
-    public int getRecordsPublished() {
-        return recordsPublished;
-    }
+  public void setCreated(Date created) {
+    this.created = created;
+  }
 
-    public void setRecordsPublished(int recordsPublished) {
-        this.recordsPublished = recordsPublished;
-    }
-    @XmlElement
-    public Date getHarvestedAt() {
-        return harvestedAt;
-    }
+  public Date getUpdated() {
+    return updated;
+  }
 
-    public void setHarvestedAt(Date harvestedAt) {
-        this.harvestedAt = harvestedAt;
-    }
-    @XmlElement
-    public Date getSubmittedAt() {
-        return submittedAt;
-    }
+  public void setUpdated(Date updated) {
+    this.updated = updated;
+  }
 
-    public void setSubmittedAt(Date submittedAt) {
-        this.submittedAt = submittedAt;
-    }
-    @XmlElement
-    public int getRecordsSubmitted() {
-        return recordsSubmitted;
-    }
+  public String getReplacedBy() {
+    return replacedBy;
+  }
 
-    public void setRecordsSubmitted(int recordsSubmitted) {
-        this.recordsSubmitted = recordsSubmitted;
-    }
-    @XmlElement
-    public boolean isAccepted() {
-        return accepted;
-    }
+  public void setReplacedBy(String replacedBy) {
+    this.replacedBy = replacedBy;
+  }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
-    }
-    @XmlElement
-    public List<String> getDQA() {
-        return DQA;
-    }
+  public String getDescription() {
+    return description;
+  }
 
-    public void setDQA(List<String> DQA) {
-        this.DQA = DQA;
-    }
-    @XmlElement
-    public HarvestingMetadata getMetadata() {
-        return metadata;
-    }
+  public void setDescription(String description) {
+    this.description = description;
+  }
 
-    public void setMetadata(HarvestingMetadata metadata) {
-        this.metadata = metadata;
-    }
-    @XmlElement
-    public WorkflowStatus getWorkflowStatus() {
-        return workflowStatus;
-    }
+  public String getNotes() {
+    return notes;
+  }
 
-    public void setWorkflowStatus(WorkflowStatus workflowStatus) {
-        this.workflowStatus = workflowStatus;
-    }
-    @XmlElement
-    public Country getCountry() {
-        return country;
-    }
+  public void setNotes(String notes) {
+    this.notes = notes;
+  }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
-    @XmlElement
-    public Language getLanguage() {
-        return language;
-    }
+  public String getCreatedByLdapId() {
+    return createdByLdapId;
+  }
 
-    public void setLanguage(Language language) {
-        this.language = language;
-    }
+  public void setCreatedByLdapId(String createdByLdapId) {
+    this.createdByLdapId = createdByLdapId;
+  }
 
-    @XmlElement
-    public Boolean getAcceptanceStep() {
-        return acceptanceStep;
-    }
+  public String getAssignedToLdapId() {
+    return assignedToLdapId;
+  }
 
-    public void setAcceptanceStep(Boolean acceptanceStep) {
-        this.acceptanceStep = acceptanceStep;
-    }
+  public void setAssignedToLdapId(String assignedToLdapId) {
+    this.assignedToLdapId = assignedToLdapId;
+  }
+
+  public Date getFirstPublished() {
+    return firstPublished;
+  }
+
+  public void setFirstPublished(Date firstPublished) {
+    this.firstPublished = firstPublished;
+  }
+
+  public Date getLastPublished() {
+    return lastPublished;
+  }
+
+  public void setLastPublished(Date lastPublished) {
+    this.lastPublished = lastPublished;
+  }
+
+  public int getRecordsPublished() {
+    return recordsPublished;
+  }
+
+  public void setRecordsPublished(int recordsPublished) {
+    this.recordsPublished = recordsPublished;
+  }
+
+  public Date getHarvestedAt() {
+    return harvestedAt;
+  }
+
+  public void setHarvestedAt(Date harvestedAt) {
+    this.harvestedAt = harvestedAt;
+  }
+
+  public Date getSubmittedAt() {
+    return submittedAt;
+  }
+
+  public void setSubmittedAt(Date submittedAt) {
+    this.submittedAt = submittedAt;
+  }
+
+  public int getRecordsSubmitted() {
+    return recordsSubmitted;
+  }
+
+  public void setRecordsSubmitted(int recordsSubmitted) {
+    this.recordsSubmitted = recordsSubmitted;
+  }
+
+  public boolean isAccepted() {
+    return accepted;
+  }
+
+  public void setAccepted(boolean accepted) {
+    this.accepted = accepted;
+  }
+
+  public List<String> getDQA() {
+    return DQA;
+  }
+
+  public void setDQA(List<String> DQA) {
+    this.DQA = DQA;
+  }
+
+  public HarvestingMetadata getMetadata() {
+    return metadata;
+  }
+
+  public void setMetadata(HarvestingMetadata metadata) {
+    this.metadata = metadata;
+  }
+
+  public WorkflowStatus getWorkflowStatus() {
+    return workflowStatus;
+  }
+
+  public void setWorkflowStatus(WorkflowStatus workflowStatus) {
+    this.workflowStatus = workflowStatus;
+  }
+
+  public Country getCountry() {
+    return country;
+  }
+
+  public void setCountry(Country country) {
+    this.country = country;
+  }
+
+  public Language getLanguage() {
+    return language;
+  }
+
+  public void setLanguage(Language language) {
+    this.language = language;
+  }
+
+
+  public Boolean getAcceptanceStep() {
+    return acceptanceStep;
+  }
+
+  public void setAcceptanceStep(Boolean acceptanceStep) {
+    this.acceptanceStep = acceptanceStep;
+  }
 }

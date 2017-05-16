@@ -24,6 +24,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -82,9 +83,9 @@ public class DatasetService {
      */
     public void deleteDataset(Organization org, Dataset ds){
         dsDao.delete(ds);
-        List<Dataset> datasetList = org.getDatasets();
+        Set<String> datasetList = org.getDatasetNames();
         datasetList.remove(ds);
-        org.setDatasets(datasetList);
+        org.setDatasetNames(datasetList);
         orgDao.update(org);
 
         //Delete from ECloud
@@ -124,5 +125,10 @@ public class DatasetService {
      */
     public boolean exists(String name){
         return dsDao.exists(name);
+    }
+
+
+    public int getDatasetsPerRequestLimit() {
+        return dsDao.getDatasetsPerRequest();
     }
 }

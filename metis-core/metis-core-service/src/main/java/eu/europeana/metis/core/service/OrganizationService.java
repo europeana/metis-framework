@@ -20,6 +20,7 @@ import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
+import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -49,6 +50,9 @@ public class OrganizationService {
 
   @Autowired
   private OrganizationDao organizationDao;
+
+  @Autowired
+  private DatasetDao datasetDao;
 
   @Autowired
   private ZohoClient restClient;
@@ -153,14 +157,8 @@ public class OrganizationService {
     return organizations;
   }
 
-  /**
-   * Get all the datasets of an organization
-   *
-   * @param orgId The organization id to search on
-   * @return The datasets for that organization
-   */
-  public List<Dataset> getDatasetsByOrganization(String orgId) throws NoOrganizationFoundException {
-    return organizationDao.getAllDatasetsByOrganization(orgId);
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) throws NoOrganizationFoundException {
+    return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
 
@@ -253,7 +251,7 @@ public class OrganizationService {
     return organizationDao.getAllOrganizationsFromDataset(datasetId, providerId);
   }
 
-  public int getOrganizationPerRequestLimit() {
+  public int getOrganizationsPerRequestLimit() {
     return organizationDao.getOrganizationsPerRequest();
   }
 }

@@ -20,7 +20,6 @@ import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.ArrayList;
@@ -75,10 +74,10 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     } else {
       ops.unset("organizationUri");
     }
-    if (organization.getDatasets() != null && organization.getDatasets().size() != 0) {
-      ops.set("datasets", organization.getDatasets());
+    if (organization.getDatasetNames() != null && organization.getDatasetNames().size() != 0) {
+      ops.set("datasetNames", organization.getDatasetNames());
     } else {
-      ops.unset("datasets");
+      ops.unset("datasetNames");
     }
     ops.set("name", organization.getName());
     if (organization.getOrganizationRoles() != null) {
@@ -184,11 +183,6 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     return delete.getN() == 1;
   }
 
-  /**
-   * Retrieve all the organizations
-   *
-   * @return A list of all the organizations
-   */
   public List<Organization> getAllOrganizations(String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.order("_id").limit(organizationsPerRequest);
@@ -218,30 +212,9 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     return query.asList();
   }
 
-  /**
-   * Get an organization by its organization Id
-   *
-   * @param organizationId The organization id
-   * @return The organization
-   */
   public Organization getByOrganizationId(String organizationId) {
     return provider.getDatastore().find(Organization.class).filter("organizationId", organizationId)
         .get();
-  }
-
-  /**
-   * Get all the datasets for an organization
-   *
-   * @param organizationId The id to retrieve the datasets for
-   * @return The datasets for this organization
-   */
-  public List<Dataset> getAllDatasetsByOrganization(String organizationId)
-      throws NoOrganizationFoundException {
-    Organization org = getByOrganizationId(organizationId);
-    if (org != null) {
-      return org.getDatasets();
-    }
-    throw new NoOrganizationFoundException("No organization found with id: " + organizationId);
   }
 
   /**

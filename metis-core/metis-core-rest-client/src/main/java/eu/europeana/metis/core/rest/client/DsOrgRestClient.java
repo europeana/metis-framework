@@ -24,14 +24,14 @@ import static eu.europeana.metis.RestEndpoints.ORGANIZATION;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATION_ID_DATASETS;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetList;
+import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ServerError;
@@ -171,7 +171,8 @@ public class DsOrgRestClient {
      */
     public List<Dataset> getDatasetsForOrganization(String id) throws ServerException {
         try {
-            List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(ORGANIZATION_ID_DATASETS,id), DatasetList.class).getDatasetList();
+            List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(
+                ORGANIZATIONS_ORGANIZATION_ID_DATASETS,id), DatasetListWrapper.class).getDatasets();
             return datasets;
         } catch (Exception e) {
             throw new ServerException("Datasets could not be retrieved with error: " + e.getMessage());

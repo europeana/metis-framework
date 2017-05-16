@@ -35,6 +35,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -64,7 +66,7 @@ public class TestOrganizationDao {
 
     org = new Organization();
     org.setOrganizationId("orgId");
-    org.setDatasets(new ArrayList<Dataset>());
+    org.setDatasetNames(new TreeSet<String>());
     org.setOrganizationUri("testUri");
     org.setHarvestingMetadata(new HarvestingMetadata());
     org.setCountry(Country.ALBANIA);
@@ -100,7 +102,7 @@ public class TestOrganizationDao {
     ds.setUpdated(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
 
-    dsDao = new DatasetDao();
+    dsDao = new DatasetDao(5);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
 
   }
@@ -108,23 +110,23 @@ public class TestOrganizationDao {
   @Test
   public void testCreateRetrieveOrg() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
     Organization retOrg = orgDao.getByOrganizationId(org.getOrganizationId());
     Assert.assertEquals(org.getOrganizationId(), retOrg.getOrganizationId());
     Assert.assertEquals(org.getOrganizationUri(), retOrg.getOrganizationUri());
-    Assert.assertEquals(org.getDatasets().size(), retOrg.getDatasets().size());
+    Assert.assertEquals(org.getDatasetNames().size(), retOrg.getDatasetNames().size());
   }
 
 
   @Test
   public void testDeleteOrganization() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
     orgDao.delete(org);
     Assert.assertNull(orgDao.getByOrganizationId(org.getOrganizationId()));
@@ -133,14 +135,15 @@ public class TestOrganizationDao {
   @Test
   public void testDatasets() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
 
     try {
-      List<Dataset> dsRet = orgDao.getAllDatasetsByOrganization(org.getOrganizationId());
-      Assert.assertTrue(dsRet.size() == 1);
+      List<Dataset> allDatasetsByOrganizationId = dsDao
+          .getAllDatasetsByOrganizationId(org.getOrganizationId(), null);
+      Assert.assertTrue(allDatasetsByOrganizationId.size() == 1);
     } catch (NoOrganizationFoundException e) {
       e.printStackTrace();
     }
@@ -149,9 +152,9 @@ public class TestOrganizationDao {
   @Test
   public void testGetAll() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
 
     List<Organization> getAll = orgDao.getAllOrganizations(null);
@@ -162,9 +165,9 @@ public class TestOrganizationDao {
   @Test
   public void testGetAllByCountry() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
     List<Organization> getAll = orgDao.getAllOrganizationsByCountry(Country.ALBANIA, null);
     Assert.assertTrue(getAll.size() == 1);
@@ -173,9 +176,9 @@ public class TestOrganizationDao {
   @Test
   public void testUpdate() {
     dsDao.create(ds);
-    List<Dataset> datasets = new ArrayList<>();
-    datasets.add(dsDao.getByName(ds.getName()));
-    org.setDatasets(datasets);
+    Set<String> datasets = new TreeSet<>();
+    datasets.add(ds.getName());
+    org.setDatasetNames(datasets);
     orgDao.create(org);
 
     org.setOrganizationUri("testNew");

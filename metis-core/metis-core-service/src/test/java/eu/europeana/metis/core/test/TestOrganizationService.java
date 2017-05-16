@@ -18,13 +18,18 @@ package eu.europeana.metis.core.test;
 
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.HarvestingMetadata;
+import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.service.OrganizationService;
 import eu.europeana.metis.core.search.service.MetisSearchService;
+import eu.europeana.metis.core.service.OrganizationService;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.bson.types.ObjectId;
 import org.junit.Assert;
@@ -36,14 +41,11 @@ import org.mockito.stubbing.Answer;
 import org.mongodb.morphia.Datastore;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 public class TestOrganizationService {
 
     private MorphiaDatastoreProvider morphiaDatastoreProvider;
     private OrganizationDao organizationDao;
+    private DatasetDao datasetDao;
     private OrganizationService service;
     private Datastore datastore;
     private Organization org;
@@ -54,6 +56,8 @@ public class TestOrganizationService {
         morphiaDatastoreProvider = Mockito.mock(MorphiaDatastoreProvider.class);
         organizationDao = Mockito.mock(OrganizationDao.class);
         ReflectionTestUtils.setField(organizationDao, "provider", morphiaDatastoreProvider);
+        datasetDao = Mockito.mock(DatasetDao.class);
+        ReflectionTestUtils.setField(datasetDao, "provider", morphiaDatastoreProvider);
         service = new OrganizationService();
         datastore = Mockito.mock(Datastore.class);
         searchService=Mockito.mock(MetisSearchService.class);
@@ -62,7 +66,7 @@ public class TestOrganizationService {
         org = new Organization();
         org.setId(new ObjectId());
         org.setOrganizationId("orgId");
-        org.setDatasets(new ArrayList<Dataset>());
+        org.setDatasetNames(new TreeSet<String>());
         org.setOrganizationUri("testUri");
         org.setHarvestingMetadata(new HarvestingMetadata());
         org.setOptInIIIF(true);
@@ -217,12 +221,11 @@ public class TestOrganizationService {
         datasets.add(new Dataset());
         datasets.add(new Dataset());
         datasets.add(new Dataset());
-        org.setDatasets(datasets);
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         try {
-            Mockito.when(organizationDao.getAllDatasetsByOrganization("string")).thenReturn(org.getDatasets());
+            Mockito.when(datasetDao.getAllDatasetsByOrganizationId("string", null)).thenReturn(datasets);
 
-            List<Dataset> datasetsRet = service.getDatasetsByOrganization("string");
+            List<Dataset> datasetsRet = service.getAllDatasetsByOrganizationId("string", null);
             Assert.assertEquals(datasets, datasetsRet);
         } catch (NoOrganizationFoundException e) {
             e.printStackTrace();
