@@ -83,9 +83,9 @@ public class DatasetService {
      */
     public void deleteDataset(Organization org, Dataset ds){
         dsDao.delete(ds);
-        Set<String> datasetList = org.getDatasetNames();
-        datasetList.remove(ds);
-        org.setDatasetNames(datasetList);
+        Set<String> datasetSet = org.getDatasetNames();
+        datasetSet.remove(ds.getName());
+        org.setDatasetNames(datasetSet);
         orgDao.update(org);
 
         //Delete from ECloud

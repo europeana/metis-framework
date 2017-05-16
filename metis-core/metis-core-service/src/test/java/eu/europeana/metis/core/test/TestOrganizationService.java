@@ -163,7 +163,7 @@ public class TestOrganizationService {
     @Test
     public void testRetrieveOptin() throws NoOrganizationFoundException {
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getById("string")).thenReturn(org);
+        Mockito.when(organizationDao.getOrganizationOptInIIIFByOrganizationId("string")).thenReturn(org);
             boolean optedIn = service.isOptedInIIIF("string");
             Assert.assertTrue(optedIn);
     }
@@ -223,6 +223,7 @@ public class TestOrganizationService {
         datasets.add(new Dataset());
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
         try {
+            Mockito.when(service.getOrganizationByOrganizationId("string")).thenReturn(new Organization());
             Mockito.when(datasetDao.getAllDatasetsByOrganizationId("string", null)).thenReturn(datasets);
 
             List<Dataset> datasetsRet = service.getAllDatasetsByOrganizationId("string", null);

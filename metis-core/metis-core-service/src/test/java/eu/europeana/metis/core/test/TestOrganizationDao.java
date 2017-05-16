@@ -70,6 +70,7 @@ public class TestOrganizationDao {
     org.setHarvestingMetadata(new HarvestingMetadata());
     org.setCountry(Country.ALBANIA);
     ds = new Dataset();
+    ds.setOrganizationId(org.getOrganizationId());
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
     ds.setCountry(Country.ALBANIA);
