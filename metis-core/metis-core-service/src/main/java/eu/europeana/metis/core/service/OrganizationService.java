@@ -200,11 +200,6 @@ public class OrganizationService {
     return organization;
   }
 
-  /**
-   * Get all organizations from CRM
-   *
-   * @return GEt the list of all the organizations for CRM
-   */
   public List<Organization> getAllOrganizationsFromCRM()
       throws ParseException, IOException, NoOrganizationFoundException {
     List<Organization> organizations = restClient.getAllOrganizations();
@@ -224,13 +219,6 @@ public class OrganizationService {
     return organization.isOptInIIIF();
   }
 
-  /**
-   * Return organizations based on a specific search term
-   *
-   * @param searchTerm The search term
-   * @return The list of organizations that correspond to the term. For performance reasons only the
-   * id and the english name are returned
-   */
   public List<OrganizationSearchBean> suggestOrganizations(String searchTerm)
       throws IOException, SolrServerException {
     return searchService.getSuggestions(searchTerm);

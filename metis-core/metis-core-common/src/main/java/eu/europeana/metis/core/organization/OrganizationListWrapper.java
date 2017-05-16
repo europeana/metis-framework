@@ -54,6 +54,8 @@ public class OrganizationListWrapper {
 
   public void setOrganizations(List<Organization> organizations) {
     this.organizations = organizations;
+    if (organizations != null)
+      this.listSize = organizations.size();
   }
 
   public String getNextPage() {

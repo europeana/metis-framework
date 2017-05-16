@@ -16,8 +16,6 @@
  */
 package eu.europeana.metis.core.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATIONS;
-import static eu.europeana.metis.RestEndpoints.CRM_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.DATASET;
 import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
@@ -215,7 +213,7 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationFromCrm(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(CRM_ORGANIZATION_ID,id)+"?apikey="+apikey, Organization.class);
+            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID,id)+"?apikey="+apikey, Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -229,7 +227,7 @@ public class DsOrgRestClient {
     public List<Organization> getOrganizationsFromCrm() throws ServerException {
         try {
 
-            List<Organization> orgs = template.getForObject(hostUrl + CRM_ORGANIZATIONS, OrganizationListResponse.class).getResults();
+            List<Organization> orgs = template.getForObject(hostUrl + RestEndpoints.ORGANIZATIONS_CRM, OrganizationListResponse.class).getResults();
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -327,7 +325,7 @@ public class DsOrgRestClient {
      */
     public boolean isOptedIn(String id) throws ServerException{
         try {
-            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATION_OPTED_IN, id), OptedInResponse.class).getBody().isResult();
+            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, id), OptedInResponse.class).getBody().isResult();
         } catch (Exception e){
             throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
         }

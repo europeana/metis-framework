@@ -19,7 +19,6 @@ package eu.europeana.metis.core.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
-import eu.europeana.metis.core.api.Profile;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.DatasetListWrapper;
@@ -30,9 +29,6 @@ import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.organization.OrganizationListWrapper;
-import eu.europeana.metis.core.rest.response.MetisOrganizationView;
-import eu.europeana.metis.core.rest.response.PublicOrganizationView;
-import eu.europeana.metis.core.rest.utils.JsonUtils;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
 import eu.europeana.metis.core.service.DatasetService;
@@ -46,7 +42,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.QueryParam;
@@ -64,7 +59,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * The organization controller
@@ -412,7 +406,7 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Retrieve an organization from CRM", response = Organization.class)
+  @ApiOperation(value = "Get an organization from CRM", response = Organization.class)
   public Organization getOrganizationByOrganizationIdFromCRM(
       @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
       throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
@@ -429,39 +423,48 @@ public class OrganizationController {
     }
   }
 
-  /**
-   * Retrieve all the organizations from CRM
-   *
-   * @return The organization with the specified id
-   */
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiOperation(value = "Retrieve all the organizations from CRM", response = OrganizationListWrapper.class)
-  public ModelAndView getOrganizationsFromCRM(@RequestParam("apikey") String apikey)
-      throws
-      NoOrganizationFoundException, IOException, ParseException, IllegalAccessException, InstantiationException, NoApiKeyFoundException {
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true)
+  })
+  @ApiOperation(value = "Get all organizations from CRM", response = OrganizationListWrapper.class)
+  public OrganizationListWrapper getAllOrganizationsFromCRM(@RequestParam("apikey") String apikey)
+      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      return constructModelAndViewForList(key, organizationService.getAllOrganizationsFromCRM());
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      List<Organization> organizations = organizationService.getAllOrganizationsFromCRM();
+      OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
+      organizationListWrapper.setOrganizations(organizations);
+      return organizationListWrapper;
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
     }
-    throw new NoApiKeyFoundException(apikey);
   }
 
-  private ModelAndView constructModelAndViewForList(MetisKey key, List<Organization> orgs)
-      throws InstantiationException, IllegalAccessException {
-    if (key.getProfile().equals(Profile.PUBLIC)) {
-      List<ModelAndView> organizationViews = new ArrayList<>();
-      for (Organization org : orgs) {
-        organizationViews.add(PublicOrganizationView.generateResponse(org));
-      }
-      return JsonUtils.toJson(organizationViews);
-    } else {
-      List<ModelAndView> organizationViews = new ArrayList<>();
-      for (Organization org : orgs) {
-        organizationViews.add(MetisOrganizationView.generateResponse(org));
-      }
-      return JsonUtils.toJson(organizationViews);
-    }
-  }
+//  private ModelAndView constructModelAndViewForList(MetisKey key, List<Organization> orgs)
+//      throws InstantiationException, IllegalAccessException {
+//    if (key.getProfile().equals(Profile.PUBLIC)) {
+//      List<ModelAndView> organizationViews = new ArrayList<>();
+//      for (Organization org : orgs) {
+//        organizationViews.add(PublicOrganizationView.generateResponse(org));
+//      }
+//      return JsonUtils.toJson(organizationViews);
+//    } else {
+//      List<ModelAndView> organizationViews = new ArrayList<>();
+//      for (Organization org : orgs) {
+//        organizationViews.add(MetisOrganizationView.generateResponse(org));
+//      }
+//      return JsonUtils.toJson(organizationViews);
+//    }
+//  }
 
 }
