@@ -66,7 +66,7 @@ public class TestDatasetDao {
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
     ds.setCountry(Country.ALBANIA);
-    ds.setCreated(new Date(1000));
+    ds.setCreatedDate(new Date(1000));
     ds.setCreatedByLdapId("Lemmy");
     ds.setDataProvider("prov");
     ds.setDeaSigned(true);
@@ -79,7 +79,7 @@ public class TestDatasetDao {
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
     ds.setMetadata(new OAIDatasetMetadata());
-    ds.setName("testName");
+    ds.setDatasetName("testName");
     ds.setNotes("test Notes");
     ds.setPublishedRecords(100);
     ds.setSubmittedRecords(199);
@@ -91,7 +91,7 @@ public class TestDatasetDao {
     subjects.add("testSubject");
     ds.setSubjects(subjects);
     ds.setSubmissionDate(new Date(1000));
-    ds.setUpdated(new Date(1000));
+    ds.setUpdatedDate(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
   }
@@ -100,11 +100,11 @@ public class TestDatasetDao {
   @Test
   public void testCreateRetrieveDataset() {
     dsDao.create(ds);
-    Dataset dsRet = dsDao.getDatasetByName(ds.getName());
-    Assert.assertEquals(ds.getName(), dsRet.getName());
+    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
+    Assert.assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
     Assert.assertEquals(ds.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
     Assert.assertEquals(ds.getCountry(), dsRet.getCountry());
-    Assert.assertEquals(ds.getCreated(), dsRet.getCreated());
+    Assert.assertEquals(ds.getCreatedDate(), dsRet.getCreatedDate());
     Assert.assertEquals(ds.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
     Assert.assertEquals(ds.getDataProvider(), dsRet.getDataProvider());
     Assert.assertEquals(ds.getDqas(), dsRet.getDqas());
@@ -119,7 +119,7 @@ public class TestDatasetDao {
     Assert.assertEquals(ds.getSources(), dsRet.getSources());
     Assert.assertEquals(ds.getSubjects(), dsRet.getSubjects());
     Assert.assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
-    Assert.assertEquals(ds.getUpdated(), dsRet.getUpdated());
+    Assert.assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
     Assert.assertEquals(ds.getWorkflowStatus(), dsRet.getWorkflowStatus());
   }
 
@@ -129,11 +129,11 @@ public class TestDatasetDao {
     dsDao.create(ds);
     ds.setWorkflowStatus(WorkflowStatus.CREATED);
     dsDao.update(ds);
-    Dataset dsRet = dsDao.getDatasetByName(ds.getName());
-    Assert.assertEquals(ds.getName(), dsRet.getName());
+    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
+    Assert.assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
     Assert.assertEquals(ds.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
     Assert.assertEquals(ds.getCountry(), dsRet.getCountry());
-    Assert.assertEquals(ds.getCreated(), dsRet.getCreated());
+    Assert.assertEquals(ds.getCreatedDate(), dsRet.getCreatedDate());
     Assert.assertEquals(ds.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
     Assert.assertEquals(ds.getDataProvider(), dsRet.getDataProvider());
     Assert.assertEquals(ds.getDqas(), dsRet.getDqas());
@@ -148,16 +148,16 @@ public class TestDatasetDao {
     Assert.assertEquals(ds.getSources(), dsRet.getSources());
     Assert.assertEquals(ds.getSubjects(), dsRet.getSubjects());
     Assert.assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
-    Assert.assertEquals(ds.getUpdated(), dsRet.getUpdated());
+    Assert.assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
     Assert.assertEquals(ds.getWorkflowStatus(), dsRet.getWorkflowStatus());
   }
 
   @Test
   public void testDeleteDataset() {
     dsDao.create(ds);
-    Dataset dsRet = dsDao.getDatasetByName(ds.getName());
+    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
     dsDao.delete(dsRet);
-    dsRet = dsDao.getDatasetByName(ds.getName());
+    dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
     Assert.assertNull(dsRet);
   }
 

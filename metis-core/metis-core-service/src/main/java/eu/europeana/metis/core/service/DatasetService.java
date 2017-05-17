@@ -57,38 +57,42 @@ public class DatasetService {
 
   public void createDataset(Dataset dataset, String organizationId) {
     datasetDao.create(dataset);
-    organizationService.updateOrganizationDatasetNamesList(organizationId, dataset.getName());
+    organizationService
+        .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
 
     //Create in ECloud
-//        DataSet ecloudDataset = new DataSet();
-//        ecloudDataset.setId(dataset.getName());
-//        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//        ecloudDataset.setDescription(dataset.getDescription());
-//        ecloudDatasetDao.create(ecloudDataset);
+//    DataSet ecloudDataset = new DataSet();
+//    ecloudDataset.setId(dataset.getName());
+//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+//    ecloudDataset.setDescription(dataset.getDescription());
+//    ecloudDatasetDao.create(ecloudDataset);
   }
 
   public void createDatasetForOrganization(Dataset dataset, String organizationId)
       throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
     checkRestrictionsOnCreate(dataset, organizationId);
     dataset.setOrganizationId(organizationId);
-    dataset.setCreated(new Date());
+    dataset.setCreatedDate(new Date());
     createDataset(dataset, organizationId);
   }
 
-  /**
-   * Update a dataset
-   *
-   * @param ds The dataset to update
-   */
-  public void updateDataset(Dataset ds) {
-    datasetDao.update(ds);
+  public void updateDataset(Dataset dataset) {
+    datasetDao.update(dataset);
 
     //Update in ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(ds.getName());
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDataset.setDescription(ds.getDescription());
-    ecloudDatasetDao.update(ecloudDataset);
+//    DataSet ecloudDataset = new DataSet();
+//    ecloudDataset.setId(ds.getDatasetName());
+//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+//    ecloudDataset.setDescription(ds.getDescription());
+//    ecloudDatasetDao.update(ecloudDataset);
+  }
+
+  public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
+      throws BadContentException, NoDatasetFoundException {
+    checkRestrictionsOnUpdate(dataset, datasetName);
+    dataset.setDatasetName(datasetName);
+    dataset.setUpdatedDate(new Date());
+    updateDataset(dataset);
   }
 
   /**
@@ -100,20 +104,20 @@ public class DatasetService {
   public void deleteDataset(Organization org, Dataset ds) {
     datasetDao.delete(ds);
     Set<String> datasetSet = org.getDatasetNames();
-    datasetSet.remove(ds.getName());
+    datasetSet.remove(ds.getDatasetName());
     org.setDatasetNames(datasetSet);
 //        organizationService.update(org);
 
     //Delete from ECloud
     DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(ds.getName());
+    ecloudDataset.setId(ds.getDatasetName());
     ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
     ecloudDataset.setDescription(ds.getDescription());
     ecloudDatasetDao.delete(ecloudDataset);
   }
 
   public Dataset getDatasetByName(String name) throws NoDatasetFoundException {
-    Dataset dataset = datasetDao.getDatasetByName(name);
+    Dataset dataset = datasetDao.getDatasetByDatasetName(name);
     if (dataset == null) {
       throw new NoDatasetFoundException(
           "No dataset found with name: " + name + " in METIS");
@@ -133,13 +137,13 @@ public class DatasetService {
 
   public void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException {
-    if (StringUtils.isEmpty(dataset.getName())) {
-      throw new BadContentException("Dataset field 'name' cannot be empty");
-    } else if (dataset.getCreated() != null || dataset.getUpdated() != null
+    if (StringUtils.isEmpty(dataset.getDatasetName())) {
+      throw new BadContentException("Dataset field 'datasetName' cannot be empty");
+    } else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null
         || dataset.getFirstPublished() != null || dataset.getLastPublished() != null
         || dataset.getHarvestedAt() != null || dataset.getSubmissionDate() != null) {
       throw new BadContentException(
-          "Dataset fields 'created', 'updated', 'firstPublished', 'lastPublished', 'harvestedAt', 'submittedAt' should be empty");
+          "Dataset fields 'createdDate', 'updatedDate', 'firstPublished', 'lastPublished', 'harvestedAt', 'submittedAt' should be empty");
     } else if (dataset.getSubmittedRecords() != 0 || dataset.getPublishedRecords() != 0) {
       throw new BadContentException(
           "Dataset fields 'submittedRecords', 'publishedRecords' should be 0");
@@ -152,14 +156,36 @@ public class DatasetService {
     }
     //Check if organization exists first
     organizationService.getOrganizationByOrganizationId(organizationId);
-    if (existsDatasetByDatasetName(dataset.getName())) {
-      throw new DatasetAlreadyExistsException(dataset.getName());
+    if (existsDatasetByDatasetName(dataset.getDatasetName())) {
+      throw new DatasetAlreadyExistsException(dataset.getDatasetName());
     }
     LOGGER.info("Dataset not found, so it can be created");
   }
 
+  public void checkRestrictionsOnUpdate(Dataset dataset, String datasetName)
+      throws BadContentException, NoDatasetFoundException {
+    if (StringUtils.isNotEmpty(dataset.getDatasetName()) && !dataset
+        .getDatasetName().equals(datasetName)) {
+      throw new BadContentException(
+          "DatasetName in body " + dataset.getDatasetName()
+              + " is different from parameter " + datasetName);
+    }
+    else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
+      throw new BadContentException(
+          "Dataset fields 'createdDate', 'updatedDate' should be empty");
+    }
+// else if (dataset.getSubmittedRecords() != 0 || dataset.getPublishedRecords() != 0) {
+//      throw new BadContentException(
+//          "Dataset fields 'submittedRecords', 'publishedRecords' should be 0");
+//    }
+
+    if (!existsDatasetByDatasetName(datasetName)) {
+      throw new NoDatasetFoundException(datasetName);
+    }
+  }
+
   public boolean existsDatasetByDatasetName(String datasetName) {
-    return datasetDao.existsDatasetByName(datasetName);
+    return datasetDao.existsDatasetByDatasetName(datasetName);
   }
 
   public int getDatasetsPerRequestLimit() {

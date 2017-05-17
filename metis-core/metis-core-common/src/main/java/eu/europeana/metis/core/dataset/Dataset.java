@@ -45,7 +45,7 @@ public class Dataset {
    * The name of the dataset
    */
   @Indexed(unique = true)
-  private String name;
+  private String datasetName;
 
   /**
    * Identical to the organizationId from Organization class
@@ -81,12 +81,12 @@ public class Dataset {
   /**
    * When was the dataset created
    */
-  private Date created;
+  private Date createdDate;
 
   /**
    * When was the dataset updated
    */
-  private Date updated;
+  private Date updatedDate;
 
   /**
    * What dataset replaces it (ID)
@@ -187,12 +187,12 @@ public class Dataset {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getDatasetName() {
+    return datasetName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setDatasetName(String datasetName) {
+    this.datasetName = datasetName;
   }
 
   public String getOrganizationId() {
@@ -235,20 +235,20 @@ public class Dataset {
     this.sources = sources;
   }
 
-  public Date getCreated() {
-    return created;
+  public Date getCreatedDate() {
+    return createdDate;
   }
 
-  public void setCreated(Date created) {
-    this.created = created;
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
 
-  public Date getUpdated() {
-    return updated;
+  public Date getUpdatedDate() {
+    return updatedDate;
   }
 
-  public void setUpdated(Date updated) {
-    this.updated = updated;
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate;
   }
 
   public String getReplacedBy() {

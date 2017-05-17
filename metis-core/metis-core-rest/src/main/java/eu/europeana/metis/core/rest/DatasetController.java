@@ -17,8 +17,8 @@
 package eu.europeana.metis.core.rest;
 
 import static eu.europeana.metis.RestEndpoints.DATASETS;
+import static eu.europeana.metis.RestEndpoints.DATASETS_DATASETNAME;
 import static eu.europeana.metis.RestEndpoints.DATASET_BYPROVIDER;
-import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
@@ -63,6 +63,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Controller
 @Api("/")
 public class DatasetController {
+
   private final Logger LOGGER = LoggerFactory.getLogger(DatasetController.class);
 
   private final DatasetService datasetService;
@@ -88,14 +89,16 @@ public class DatasetController {
       @ApiImplicitParam(name = "organizationId", value = "organizationId for which the dataset will belong", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Create a dataset for an organization Id")
-  public void createDatasetForOrganization(@RequestBody Dataset dataset, @QueryParam("organizationId"
-  ) String organizationId, @QueryParam("apikey") String apikey)
+  public void createDatasetForOrganization(@RequestBody Dataset dataset,
+      @QueryParam("organizationId"
+      ) String organizationId, @QueryParam("apikey") String apikey)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
       if (key.getOptions().equals(Options.WRITE)) {
         datasetService.createDatasetForOrganization(dataset, organizationId);
-        LOGGER.info("Dataset with name " + dataset.getName() + " for organizationId " + organizationId + " created");
+        LOGGER.info("Dataset with name " + dataset.getDatasetName() + " for organizationId "
+            + organizationId + " created");
       } else {
         throw new ApiKeyNotAuthorizedException(apikey);
       }
@@ -104,17 +107,34 @@ public class DatasetController {
     }
   }
 
-  /**
-   * Update a dataset
-   *
-   * @param ds The dataset to update
-   */
-  @RequestMapping(value = DATASETS, method = RequestMethod.PUT, consumes = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Update a dataset")
-  public ResponseEntity<Void> updateDataset(@ApiParam @RequestBody Dataset ds) {
-    datasetService.updateDataset(ds);
-    return ResponseEntity.ok().build();
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.PUT, consumes = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ApiResponses(value = {
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 404, message = "Dataset not found"),
+      @ApiResponse(code = 406, message = "Bad content")
+  })
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Update a dataset by dataset name")
+  public void updateDataset(@RequestBody Dataset dataset,
+      @PathVariable("datasetName"
+      ) String datasetName, @QueryParam("apikey") String apikey)
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null) {
+      if (key.getOptions().equals(Options.WRITE)) {
+        datasetService.updateDatasetByDatasetName(dataset, datasetName);
+        LOGGER.info("Dataset with datasetName " + datasetName + " updated");
+      } else {
+        throw new ApiKeyNotAuthorizedException(apikey);
+      }
+    } else {
+      throw new NoApiKeyFoundException(apikey);
+    }
 
   }
 
@@ -135,7 +155,7 @@ public class DatasetController {
    * @param name The name of the dataset
    * @return The Dataset
    */
-  @RequestMapping(value = DATASET_RETRIEVE, method = RequestMethod.GET, produces = "application/json")
+  @RequestMapping(value = DATASETS_DATASETNAME, method = RequestMethod.GET, produces = "application/json")
   @ResponseBody
   @ApiOperation(value = "Retrieve a dataset by name", response = Dataset.class)
   public Dataset getByName(@ApiParam("name") @PathVariable("name") String name)

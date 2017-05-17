@@ -75,7 +75,7 @@ public class TestOrganizationDao {
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
     ds.setCountry(Country.ALBANIA);
-    ds.setCreated(new Date(1000));
+    ds.setCreatedDate(new Date(1000));
     ds.setCreatedByLdapId("Lemmy");
     ds.setDataProvider("prov");
     ds.setDeaSigned(true);
@@ -88,7 +88,7 @@ public class TestOrganizationDao {
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
     ds.setMetadata(new OAIDatasetMetadata());
-    ds.setName("testName");
+    ds.setDatasetName("testName");
     ds.setNotes("test Notes");
     ds.setPublishedRecords(100);
     ds.setSubmittedRecords(199);
@@ -100,7 +100,7 @@ public class TestOrganizationDao {
     subjects.add("testSubject");
     ds.setSubjects(subjects);
     ds.setSubmissionDate(new Date(1000));
-    ds.setUpdated(new Date(1000));
+    ds.setUpdatedDate(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
 
     dsDao = new DatasetDao(provider);
@@ -113,7 +113,7 @@ public class TestOrganizationDao {
   public void testCreateRetrieveOrg() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
     Organization retOrg = orgDao.getByOrganizationId(org.getOrganizationId());
@@ -127,7 +127,7 @@ public class TestOrganizationDao {
   public void testDeleteOrganization() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
     orgDao.delete(org);
@@ -138,7 +138,7 @@ public class TestOrganizationDao {
   public void testDatasets() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
 
@@ -151,7 +151,7 @@ public class TestOrganizationDao {
   public void testGetAll() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
 
@@ -164,7 +164,7 @@ public class TestOrganizationDao {
   public void testGetAllByCountry() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
     List<Organization> getAll = orgDao.getAllOrganizationsByCountry(Country.ALBANIA, null);
@@ -175,7 +175,7 @@ public class TestOrganizationDao {
   public void testUpdate() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
 

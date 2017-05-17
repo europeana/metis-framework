@@ -17,7 +17,7 @@
 package eu.europeana.metis.core.rest.client;
 
 import static eu.europeana.metis.RestEndpoints.DATASETS;
-import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
+import static eu.europeana.metis.RestEndpoints.DATASETS_DATASETNAME;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS;
@@ -295,7 +295,7 @@ public class DsOrgRestClient {
      */
     public Dataset getDatasetByName(String name) throws ServerException{
         try {
-            return template.getForEntity(hostUrl + RestEndpoints.resolve(DATASET_RETRIEVE, name), Dataset.class).getBody();
+            return template.getForEntity(hostUrl + RestEndpoints.resolve(DATASETS_DATASETNAME, name), Dataset.class).getBody();
         } catch (Exception e){
             throw new ServerException("Dataset could not be retrieved with error: "+e.getMessage());
         }

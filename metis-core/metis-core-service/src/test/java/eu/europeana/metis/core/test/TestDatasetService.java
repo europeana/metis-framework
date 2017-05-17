@@ -79,7 +79,7 @@ public class TestDatasetService {
         ds.setAccepted(true);
         ds.setAssignedToLdapId("Lemmy");
         ds.setCountry(Country.ALBANIA);
-        ds.setCreated(new Date(1000));
+        ds.setCreatedDate(new Date(1000));
         ds.setCreatedByLdapId("Lemmy");
         ds.setDataProvider("prov");
         ds.setDeaSigned(true);
@@ -92,7 +92,7 @@ public class TestDatasetService {
         ds.setLanguage(Language.AR);
         ds.setLastPublished(new Date(1000));
         ds.setMetadata(new OAIDatasetMetadata());
-        ds.setName("testName");
+        ds.setDatasetName("testName");
         ds.setNotes("test Notes");
         ds.setPublishedRecords(100);
         ds.setSubmittedRecords(199);
@@ -104,7 +104,7 @@ public class TestDatasetService {
         subjects.add("testSubject");
         ds.setSubjects(subjects);
         ds.setSubmissionDate(new Date(1000));
-        ds.setUpdated(new Date(1000));
+        ds.setUpdatedDate(new Date(1000));
         ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
     }
     @Test
@@ -154,7 +154,7 @@ public class TestDatasetService {
     public  void testRetrieve(){
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
-        Mockito.when(datasetDao.getDatasetByName("name")).thenReturn(ds);
+        Mockito.when(datasetDao.getDatasetByDatasetName("name")).thenReturn(ds);
 
         try {
             Dataset retDataset = service.getDatasetByName("name");

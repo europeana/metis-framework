@@ -49,7 +49,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = provider.getDatastore().save(dataset);
-    LOGGER.info("Dataset '" + dataset.getName() + "' created with OrganizationId '" + dataset
+    LOGGER.info("Dataset '" + dataset.getDatasetName() + "' created with OrganizationId '" + dataset
         .getOrganizationId() + "' and Provider '" + dataset.getDataProvider()
         + "' and Description '" + dataset.getDescription() + "' in Mongo");
     return datasetKey.getId().toString();
@@ -59,14 +59,14 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public String update(Dataset dataset) {
     UpdateOperations<Dataset> ops = provider.getDatastore().createUpdateOperations(Dataset.class);
     Query<Dataset> q = provider.getDatastore().find(Dataset.class)
-        .filter("name", dataset.getName());
+        .filter("datasetName", dataset.getDatasetName());
     if (dataset.getAssignedToLdapId() != null) {
       ops.set("assignedToLdapId", dataset.getAssignedToLdapId());
     } else {
       ops.unset("assignedToLdapId");
     }
     ops.set("createdByLdapId", dataset.getCreatedByLdapId());
-    ops.set("created", dataset.getCreated());
+//    ops.set("createdDate", dataset.getCreated());
     ops.set("country", dataset.getCountry());
     ops.set("dataProvider", dataset.getDataProvider());
     ops.set("description", dataset.getDescription());
@@ -117,17 +117,16 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       ops.unset("submissionDate");
     }
 
-    ops.set("updated", dataset.getUpdated());
+    ops.set("updatedDate", dataset.getUpdatedDate());
     ops.set("workflowStatus", dataset.getWorkflowStatus());
     ops.set("accepted", dataset.isAccepted());
     ops.set("deaSigned", dataset.isDeaSigned());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
 
     LOGGER.info(
-        "Dataset '" + dataset.getName() + "' updated with Provider '" + dataset.getDataProvider()
+        "Dataset '" + dataset.getDatasetName() + "' updated with Provider '" + dataset.getDataProvider()
             + "' and Description '" + dataset.getDescription() + "' in Mongo");
-    Object newId = updateResults.getNewId();
-    return newId != null ? updateResults.getNewId().toString() : dataset.getId().toString();
+    return String.valueOf(updateResults.getUpdatedCount());
   }
 
   @Override
@@ -138,19 +137,19 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public boolean delete(Dataset dataset) {
     provider.getDatastore().delete(
-        provider.getDatastore().createQuery(Dataset.class).filter("name", dataset.getName()));
+        provider.getDatastore().createQuery(Dataset.class).filter("datasetName", dataset.getDatasetName()));
     LOGGER.info(
-        "Dataset '" + dataset.getName() + "' deleted with Provider '" + dataset.getDataProvider()
+        "Dataset '" + dataset.getDatasetName() + "' deleted with Provider '" + dataset.getDataProvider()
             + "' from Mongo");
     return true;
   }
 
-  public Dataset getDatasetByName(String name) {
-    return provider.getDatastore().find(Dataset.class).filter("name", name).get();
+  public Dataset getDatasetByDatasetName(String datasetName) {
+    return provider.getDatastore().find(Dataset.class).filter("datasetName", datasetName).get();
   }
 
-  public boolean existsDatasetByName(String name) {
-    return provider.getDatastore().find(Dataset.class).field("name").equal(name).project("_id", true).get() != null;
+  public boolean existsDatasetByDatasetName(String datasetName) {
+    return provider.getDatastore().find(Dataset.class).field("datasetName").equal(datasetName).project("_id", true).get() != null;
   }
 
   /**
