@@ -102,7 +102,7 @@ public class TestOrganizationDao {
     ds.setUpdated(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
 
-    dsDao = new DatasetDao(5);
+    dsDao = new DatasetDao(provider, 5);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
 
   }

@@ -54,8 +54,8 @@ public class ITECloudDatasetDao {
 
     properties.load(input);
 //    uisClient = new UISClient(properties.getProperty(baseUisf), properties.getProperty(usernamef), properties.getProperty(passwordf));
-    ecloudDatasetDao = new EcloudDatasetDao();
     dataSetServiceClient = new DataSetServiceClient(properties.getProperty(baseMcsf), properties.getProperty(usernamef), properties.getProperty(passwordf));
+    ecloudDatasetDao = new EcloudDatasetDao(dataSetServiceClient);
     ReflectionTestUtils.setField(ecloudDatasetDao,"dataSetServiceClient",dataSetServiceClient);
     ecloudDatasetDao.setEcloudProvider(properties.getProperty(ecloudProviderf));
 

@@ -35,14 +35,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatasetService {
 
-    @Autowired
-    private DatasetDao dsDao;
+    private final DatasetDao datasetDao;
+    private final EcloudDatasetDao ecloudDatasetDao;
+    private final OrganizationDao organizationDao;
 
     @Autowired
-    private EcloudDatasetDao ecloudDatasetDao;
-
-    @Autowired
-    private OrganizationDao orgDao;
+    public DatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
+        OrganizationDao organizationDao) {
+        this.datasetDao = datasetDao;
+        this.ecloudDatasetDao = ecloudDatasetDao;
+        this.organizationDao = organizationDao;
+    }
 
     /**
      * Create a dataset for an organization
@@ -50,8 +53,8 @@ public class DatasetService {
      * @param ds The dataset to persist
      */
     public void createDataset(Organization org, Dataset ds){
-        dsDao.createDatasetForOrganization(org,ds);
-        orgDao.update(org);
+        datasetDao.createDatasetForOrganization(org,ds);
+        organizationDao.update(org);
 
         //Create in ECloud
         DataSet ecloudDataset = new DataSet();
@@ -66,7 +69,7 @@ public class DatasetService {
      * @param ds The dataset to update
      */
     public void updateDataset(Dataset ds){
-        dsDao.update(ds);
+        datasetDao.update(ds);
 
         //Update in ECloud
         DataSet ecloudDataset = new DataSet();
@@ -82,11 +85,11 @@ public class DatasetService {
      * @param ds The dataset to delete
      */
     public void deleteDataset(Organization org, Dataset ds){
-        dsDao.delete(ds);
+        datasetDao.delete(ds);
         Set<String> datasetSet = org.getDatasetNames();
         datasetSet.remove(ds.getName());
         org.setDatasetNames(datasetSet);
-        orgDao.update(org);
+        organizationDao.update(org);
 
         //Delete from ECloud
         DataSet ecloudDataset = new DataSet();
@@ -102,7 +105,7 @@ public class DatasetService {
      * @return The Dataset
      */
     public Dataset getByName(String name) throws NoDatasetFoundException{
-        Dataset dataset = dsDao.getByName(name);
+        Dataset dataset = datasetDao.getByName(name);
         if(dataset==null){
             throw new NoDatasetFoundException(name);
         }
@@ -115,7 +118,7 @@ public class DatasetService {
      * @return The list of datasets the provider is a data provider for
      */
     public List<Dataset> getDatasetsByDataProviderId(String dataProviderId){
-        return dsDao.getByDataProviderId(dataProviderId);
+        return datasetDao.getByDataProviderId(dataProviderId);
     }
 
     /**
@@ -124,11 +127,11 @@ public class DatasetService {
      * @return true if it exists false otherwise
      */
     public boolean exists(String name){
-        return dsDao.exists(name);
+        return datasetDao.exists(name);
     }
 
 
     public int getDatasetsPerRequestLimit() {
-        return dsDao.getDatasetsPerRequest();
+        return datasetDao.getDatasetsPerRequest();
     }
 }

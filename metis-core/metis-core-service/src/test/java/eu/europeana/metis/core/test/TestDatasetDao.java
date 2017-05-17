@@ -58,7 +58,7 @@ public class TestDatasetDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    dsDao = new DatasetDao(5);
+    dsDao = new DatasetDao(provider, 5);
     org = new Organization();
     org.setOrganizationId("orgId");
     org.setDatasetNames(new TreeSet<String>());

@@ -42,11 +42,12 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   private final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
   private int datasetsPerRequest = 5;
 
-  @Autowired
-  private MorphiaDatastoreProvider provider;
+  private final MorphiaDatastoreProvider provider;
 
-  public DatasetDao(int datasetsPerRequest) {
+  @Autowired
+  public DatasetDao(MorphiaDatastoreProvider provider, int datasetsPerRequest) {
     this.datasetsPerRequest = datasetsPerRequest;
+    this.provider = provider;
   }
 
   @Override

@@ -19,11 +19,15 @@ public class EcloudDatasetDao implements MetisDao<DataSet, String> {
 
   private final Logger LOGGER = LoggerFactory.getLogger(EcloudDatasetDao.class);
 
-  @Autowired
-  private DataSetServiceClient dataSetServiceClient;
+  private final DataSetServiceClient dataSetServiceClient;
 
   @Value("${ecloud.provider}")
   private String ecloudProvider;
+
+  @Autowired
+  public EcloudDatasetDao(DataSetServiceClient dataSetServiceClient) {
+    this.dataSetServiceClient = dataSetServiceClient;
+  }
 
   @Override
   public String create(DataSet dataSet) {

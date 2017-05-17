@@ -45,8 +45,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Api("/")
 public class DatasetController {
 
+    private final DatasetService datasetService;
+
     @Autowired
-    private DatasetService datasetService;
+    public DatasetController(DatasetService datasetService) {
+        this.datasetService = datasetService;
+    }
 
     /**
      * Method to create a dataset (OK)

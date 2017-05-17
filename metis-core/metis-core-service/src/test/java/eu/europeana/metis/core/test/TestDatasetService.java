@@ -64,7 +64,7 @@ public class TestDatasetService {
         ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
         ReflectionTestUtils.setField(organizationDao,"provider", morphiaDatastoreProvider);
         ReflectionTestUtils.setField(datasetDao,"provider", morphiaDatastoreProvider);
-        service = new DatasetService();
+        service = new DatasetService(datasetDao, ecloudDatasetDao, organizationDao);
         datastore = Mockito.mock(Datastore.class);
         ReflectionTestUtils.setField(service,"orgDao",organizationDao);
         ReflectionTestUtils.setField(service,"dsDao",datasetDao);
