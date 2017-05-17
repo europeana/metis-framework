@@ -17,9 +17,14 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.core.api.MetisKey;
+import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.common.Contact;
+import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
+import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import eu.europeana.metis.core.service.CrmUserService;
+import eu.europeana.metis.core.service.MetisAuthorizationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -44,10 +49,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class UserController {
 
   private final CrmUserService crmUserService;
+  private final MetisAuthorizationService authorizationService;
 
   @Autowired
-  public UserController(CrmUserService crmUserService) {
+  public UserController(CrmUserService crmUserService,
+      MetisAuthorizationService authorizationService) {
     this.crmUserService = crmUserService;
+    this.authorizationService = authorizationService;
   }
 
   @RequestMapping(value = RestEndpoints.USER, method = RequestMethod.GET, produces = {
@@ -57,11 +65,21 @@ public class UserController {
       @ApiResponse(code = 200, message = "Successful response", response = Contact.class),
       @ApiResponse(code = 404, message = "User not found")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "email", value = "User's email", dataType = "string", paramType = "query"),
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "email", value = "User's email", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Get a user from Zoho by email")
-  public Contact getUserByEmail(@QueryParam("email") String email)
-      throws IOException, UserNotFoundException {
-    return crmUserService.getUserByEmail(email);
+  public Contact getUserByEmail(@QueryParam("email") String email,
+      @QueryParam("apikey") String apikey)
+      throws IOException, UserNotFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      return crmUserService.getUserByEmail(email);
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
   }
 }
