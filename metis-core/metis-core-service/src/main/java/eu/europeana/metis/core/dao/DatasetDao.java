@@ -18,10 +18,7 @@ package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.organization.Organization;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -45,15 +42,16 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   private final MorphiaDatastoreProvider provider;
 
   @Autowired
-  public DatasetDao(MorphiaDatastoreProvider provider, int datasetsPerRequest) {
-    this.datasetsPerRequest = datasetsPerRequest;
+  public DatasetDao(MorphiaDatastoreProvider provider) {
     this.provider = provider;
   }
 
   @Override
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = provider.getDatastore().save(dataset);
-    LOGGER.info("Dataset '" + dataset.getName() + "' created with Provider '" + dataset.getDataProvider() + "' and Description '" + dataset.getDescription() + "' in Mongo");
+    LOGGER.info("Dataset '" + dataset.getName() + "' created with OrganizationId '" + dataset
+        .getOrganizationId() + "' and Provider '" + dataset.getDataProvider()
+        + "' and Description '" + dataset.getDescription() + "' in Mongo");
     return datasetKey.getId().toString();
   }
 
@@ -72,10 +70,10 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("country", dataset.getCountry());
     ops.set("dataProvider", dataset.getDataProvider());
     ops.set("description", dataset.getDescription());
-    if (dataset.getDQA() != null) {
-      ops.set("DQA", dataset.getDQA());
+    if (dataset.getDqas() != null) {
+      ops.set("dqas", dataset.getDqas());
     } else {
-      ops.unset("DQA");
+      ops.unset("dqas");
     }
     if (dataset.getFirstPublished() != null) {
       ops.set("firstPublished", dataset.getFirstPublished());
@@ -95,28 +93,28 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     }
     ops.set("metadata", dataset.getMetadata());
     ops.set("notes", dataset.getNotes());
-    ops.set("recordsPublished", dataset.getRecordsPublished());
-    ops.set("recordsSubmitted", dataset.getRecordsSubmitted());
+    ops.set("publishedRecords", dataset.getPublishedRecords());
+    ops.set("submittedRecords", dataset.getSubmittedRecords());
     if (dataset.getReplacedBy() != null) {
       ops.set("replacedBy", dataset.getReplacedBy());
     } else {
       ops.unset("replacedBy");
     }
 
-    if (dataset.getSource() != null) {
-      ops.set("source", dataset.getSource());
+    if (dataset.getSources() != null) {
+      ops.set("sources", dataset.getSources());
     } else {
-      ops.unset("source");
+      ops.unset("sources");
     }
-    if (dataset.getSubject() != null) {
-      ops.set("subject", dataset.getSubject());
+    if (dataset.getSubjects() != null) {
+      ops.set("subjects", dataset.getSubjects());
     } else {
-      ops.unset("subject");
+      ops.unset("subjects");
     }
-    if (dataset.getSubmittedAt() != null) {
-      ops.set("submittedAt", dataset.getSubmittedAt());
+    if (dataset.getSubmissionDate() != null) {
+      ops.set("submissionDate", dataset.getSubmissionDate());
     } else {
-      ops.unset("submittedAt");
+      ops.unset("submissionDate");
     }
 
     ops.set("updated", dataset.getUpdated());
@@ -125,7 +123,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("deaSigned", dataset.isDeaSigned());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
 
-    LOGGER.info("Dataset '" + dataset.getName() + "' updated with Provider '" + dataset.getDataProvider() + "' and Description '" + dataset.getDescription() + "' in Mongo");
+    LOGGER.info(
+        "Dataset '" + dataset.getName() + "' updated with Provider '" + dataset.getDataProvider()
+            + "' and Description '" + dataset.getDescription() + "' in Mongo");
     Object newId = updateResults.getNewId();
     return newId != null ? updateResults.getNewId().toString() : dataset.getId().toString();
   }
@@ -139,49 +139,29 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public boolean delete(Dataset dataset) {
     provider.getDatastore().delete(
         provider.getDatastore().createQuery(Dataset.class).filter("name", dataset.getName()));
-    LOGGER.info("Dataset '" + dataset.getName() + "' deleted with Provider '" + dataset.getDataProvider() + "' from Mongo");
+    LOGGER.info(
+        "Dataset '" + dataset.getName() + "' deleted with Provider '" + dataset.getDataProvider()
+            + "' from Mongo");
     return true;
   }
 
-  /**
-   * Retrieve a dataset by name
-   *
-   * @param name The name of the dataset
-   * @return The dataset with the specific name
-   */
-  public Dataset getByName(String name) {
+  public Dataset getDatasetByName(String name) {
     return provider.getDatastore().find(Dataset.class).filter("name", name).get();
   }
 
-  /**
-   * Create a dataset for an organization
-   *
-   * @param organization The organization to assign the dataset to
-   * @param dataset The dataset to persist
-   * @return The organization to update
-   */
-  public Organization createDatasetForOrganization(Organization organization, Dataset dataset) {
-    create(dataset);
-    Set<String> ds = organization.getDatasetNames();
-    if (ds == null) {
-      ds = new TreeSet<>();
-    }
-    ds.add(dataset.getName());
-    organization.setDatasetNames(ds);
-    return organization;
-  }
-
-  public boolean exists(String name) {
-    return provider.getDatastore().find(Dataset.class).filter("name", name).get() != null;
+  public boolean existsDatasetByName(String name) {
+    return provider.getDatastore().find(Dataset.class).field("name").equal(name).project("_id", true).get() != null;
   }
 
   /**
    * Filter datasets by data provider
+   *
    * @param dataProvider The data provider id to search for
    * @return The list of datasets that the organization is a data provider
    */
-  public List<Dataset> getByDataProviderId(String dataProvider){
-    return provider.getDatastore().find(Dataset.class).filter("dataProvider",dataProvider).asList();
+  public List<Dataset> getByDataProviderId(String dataProvider) {
+    return provider.getDatastore().find(Dataset.class).filter("dataProvider", dataProvider)
+        .asList();
   }
 
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {

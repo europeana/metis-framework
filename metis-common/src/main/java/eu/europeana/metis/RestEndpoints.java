@@ -21,7 +21,7 @@ public final class RestEndpoints {
   public final static String ORGANIZATIONS_CRM_ORGANIZATION_ID = "/organizations/crm/{organizationId}";
   public final static String ORGANIZATIONS_CRM = "/organizations/crm";
 
-  public final static String DATASET = "/dataset";
+  public final static String DATASETS = "/datasets";
   public final static String DATASET_RETRIEVE = "/dataset/{name}";
   public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
   public final static String USER = "/user";

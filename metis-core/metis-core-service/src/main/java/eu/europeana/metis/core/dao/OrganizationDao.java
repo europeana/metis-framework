@@ -45,8 +45,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   private final MorphiaDatastoreProvider provider;
 
   @Autowired
-  public OrganizationDao(MorphiaDatastoreProvider provider, int organizationsPerRequest) {
-    this.organizationsPerRequest = organizationsPerRequest;
+  public OrganizationDao(MorphiaDatastoreProvider provider) {
     this.provider = provider;
   }
 
@@ -151,7 +150,6 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
     ops.set("acronym", organization.getAcronym());
     ops.set("modified", new Date());
-    provider.getDatastore().update(q, ops);
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
     LOGGER.info("Organization '" + organization.getOrganizationId() + "' updated in Mongo");
     return String.valueOf(updateResults.getUpdatedCount());
@@ -167,6 +165,19 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     provider.getDatastore().delete(organization);
     LOGGER.info("Organization '" + organization.getName() + "' deleted from Mongo");
     return true;
+  }
+
+  public String updateOrganizationDatasetNamesList(String organizationId, String datasetName)
+  {
+    Query<Organization> query = provider.getDatastore().find(Organization.class)
+        .filter("organizationId", organizationId);
+    UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
+        .createUpdateOperations(Organization.class);
+    organizationUpdateOperations.addToSet("datasetNames", datasetName);
+    UpdateResults updateResults = provider.getDatastore().update(query, organizationUpdateOperations);
+    LOGGER.info("Organization '" + organizationId + "' datasetNames updated in Mongo");
+    return String.valueOf(updateResults.getUpdatedCount());
+
   }
 
   public boolean deleteByOrganizationId(String organizationId) {

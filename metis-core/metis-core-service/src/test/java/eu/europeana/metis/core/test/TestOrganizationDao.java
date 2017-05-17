@@ -60,7 +60,8 @@ public class TestOrganizationDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    orgDao = new OrganizationDao(provider,5);
+    orgDao = new OrganizationDao(provider);
+    orgDao.setOrganizationsPerRequest(5);
     ReflectionTestUtils.setField(orgDao, "provider", provider);
 
     org = new Organization();
@@ -81,7 +82,7 @@ public class TestOrganizationDao {
     ds.setDescription("Test description");
     List<String> DQA = new ArrayList<>();
     DQA.add("test DQA");
-    ds.setDQA(DQA);
+    ds.setDqas(DQA);
     ds.setFirstPublished(new Date(1000));
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
@@ -89,20 +90,21 @@ public class TestOrganizationDao {
     ds.setMetadata(new OAIDatasetMetadata());
     ds.setName("testName");
     ds.setNotes("test Notes");
-    ds.setRecordsPublished(100);
-    ds.setRecordsSubmitted(199);
+    ds.setPublishedRecords(100);
+    ds.setSubmittedRecords(199);
     ds.setReplacedBy("replacedBY");
     List<String> sources = new ArrayList<>();
     sources.add("testSource");
-    ds.setSource(sources);
+    ds.setSources(sources);
     List<String> subjects = new ArrayList<>();
     subjects.add("testSubject");
-    ds.setSubject(subjects);
-    ds.setSubmittedAt(new Date(1000));
+    ds.setSubjects(subjects);
+    ds.setSubmissionDate(new Date(1000));
     ds.setUpdated(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
 
-    dsDao = new DatasetDao(provider, 5);
+    dsDao = new DatasetDao(provider);
+    dsDao.setDatasetsPerRequest(5);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
 
   }

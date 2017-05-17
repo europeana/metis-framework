@@ -228,7 +228,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new DatasetDao(morphiaDatastoreProvider, RequestLimits.DATASETS_PER_REQUEST.getLimit());
+    DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
+    datasetDao.setDatasetsPerRequest(RequestLimits.DATASETS_PER_REQUEST.getLimit());
+    return datasetDao;
   }
 
   @Bean
@@ -243,14 +245,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new OrganizationDao(morphiaDatastoreProvider,
-        RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
+    OrganizationDao organizationDao = new OrganizationDao(morphiaDatastoreProvider);
+    organizationDao.setOrganizationsPerRequest(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
+    return organizationDao;
   }
 
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
-      OrganizationDao organizationDao) {
-    return new DatasetService(datasetDao, ecloudDatasetDao, organizationDao);
+      OrganizationService organizationService) {
+    return new DatasetService(datasetDao, ecloudDatasetDao, organizationService);
   }
 
   @Bean

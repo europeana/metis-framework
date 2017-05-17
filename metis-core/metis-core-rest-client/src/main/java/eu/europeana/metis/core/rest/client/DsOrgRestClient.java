@@ -16,7 +16,7 @@
  */
 package eu.europeana.metis.core.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.DATASET;
+import static eu.europeana.metis.RestEndpoints.DATASETS;
 import static eu.europeana.metis.RestEndpoints.DATASET_RETRIEVE;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
@@ -248,7 +248,7 @@ public class DsOrgRestClient {
         dto.setDataset(dataset);
         HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
 
-        ResponseEntity entity = template.exchange(hostUrl + DATASET, HttpMethod.POST, datasetEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.POST, datasetEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }
@@ -263,7 +263,7 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Dataset> datasetEntity = new HttpEntity<>(dataset,headers);
-        ResponseEntity entity = template.exchange(hostUrl + DATASET, HttpMethod.PUT, datasetEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.PUT, datasetEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.OK)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }
@@ -281,7 +281,7 @@ public class DsOrgRestClient {
         dto.setOrganization(org);
         dto.setDataset(dataset);
         HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
-        ResponseEntity entity = template.exchange(hostUrl + DATASET, HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
+        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
         }

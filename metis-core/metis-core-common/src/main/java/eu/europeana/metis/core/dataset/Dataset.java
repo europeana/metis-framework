@@ -18,6 +18,8 @@
 package eu.europeana.metis.core.dataset;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
@@ -65,12 +67,16 @@ public class Dataset {
   /**
    * List of subjects for the dataset
    */
-  private List<String> subject;
+  @JacksonXmlElementWrapper(localName = "subjects")
+  @JacksonXmlProperty(localName = "subject")
+  private List<String> subjects;
 
   /**
    * The source of the dataset
    */
-  private List<String> source;
+  @JacksonXmlElementWrapper(localName = "sources")
+  @JacksonXmlProperty(localName = "source")
+  private List<String> sources;
 
   /**
    * When was the dataset created
@@ -122,7 +128,7 @@ public class Dataset {
   /**
    * How many records were published
    */
-  private int recordsPublished;
+  private int publishedRecords;
 
   /**
    * When it was harvested
@@ -132,12 +138,12 @@ public class Dataset {
   /**
    * When it was submitted
    */
-  private Date submittedAt;
+  private Date submissionDate;
 
   /**
    * How many records were submitted
    */
-  private int recordsSubmitted;
+  private int submittedRecords;
 
   /**
    * Has the provider accepted it
@@ -147,7 +153,9 @@ public class Dataset {
   /**
    * Data Quality Assurance
    */
-  private List<String> DQA;
+  @JacksonXmlElementWrapper(localName = "dqas")
+  @JacksonXmlProperty(localName = "dqa")
+  private List<String> dqas;
 
   /**
    * Harvesting metadata (override the organizational metadata)
@@ -211,20 +219,20 @@ public class Dataset {
     this.deaSigned = deaSigned;
   }
 
-  public List<String> getSubject() {
-    return subject;
+  public List<String> getSubjects() {
+    return subjects;
   }
 
-  public void setSubject(List<String> subject) {
-    this.subject = subject;
+  public void setSubjects(List<String> subjects) {
+    this.subjects = subjects;
   }
 
-  public List<String> getSource() {
-    return source;
+  public List<String> getSources() {
+    return sources;
   }
 
-  public void setSource(List<String> source) {
-    this.source = source;
+  public void setSources(List<String> sources) {
+    this.sources = sources;
   }
 
   public Date getCreated() {
@@ -299,12 +307,12 @@ public class Dataset {
     this.lastPublished = lastPublished;
   }
 
-  public int getRecordsPublished() {
-    return recordsPublished;
+  public int getPublishedRecords() {
+    return publishedRecords;
   }
 
-  public void setRecordsPublished(int recordsPublished) {
-    this.recordsPublished = recordsPublished;
+  public void setPublishedRecords(int publishedRecords) {
+    this.publishedRecords = publishedRecords;
   }
 
   public Date getHarvestedAt() {
@@ -315,20 +323,20 @@ public class Dataset {
     this.harvestedAt = harvestedAt;
   }
 
-  public Date getSubmittedAt() {
-    return submittedAt;
+  public Date getSubmissionDate() {
+    return submissionDate;
   }
 
-  public void setSubmittedAt(Date submittedAt) {
-    this.submittedAt = submittedAt;
+  public void setSubmissionDate(Date submissionDate) {
+    this.submissionDate = submissionDate;
   }
 
-  public int getRecordsSubmitted() {
-    return recordsSubmitted;
+  public int getSubmittedRecords() {
+    return submittedRecords;
   }
 
-  public void setRecordsSubmitted(int recordsSubmitted) {
-    this.recordsSubmitted = recordsSubmitted;
+  public void setSubmittedRecords(int submittedRecords) {
+    this.submittedRecords = submittedRecords;
   }
 
   public boolean isAccepted() {
@@ -339,12 +347,12 @@ public class Dataset {
     this.accepted = accepted;
   }
 
-  public List<String> getDQA() {
-    return DQA;
+  public List<String> getDqas() {
+    return dqas;
   }
 
-  public void setDQA(List<String> DQA) {
-    this.DQA = DQA;
+  public void setDqas(List<String> dqas) {
+    this.dqas = dqas;
   }
 
   public HarvestingMetadata getMetadata() {

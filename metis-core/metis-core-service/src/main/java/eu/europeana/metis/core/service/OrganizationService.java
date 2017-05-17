@@ -119,6 +119,10 @@ public class OrganizationService {
     updateInSolr(org);
   }
 
+  public void updateOrganizationDatasetNamesList(String organizationId, String datasetName) {
+    organizationDao.updateOrganizationDatasetNamesList(organizationId, datasetName);
+  }
+
   public void deleteOrganization(Organization org) throws IOException, SolrServerException {
     organizationDao.delete(org);
     searchService.deleteFromSearch(org.getId().toString());
@@ -253,8 +257,7 @@ public class OrganizationService {
       throw new BadContentException(
           "OrganinazationId in body " + organization.getOrganizationId()
               + " is different from parameter " + organizationId);
-    }
-    else if (organization.getDatasetNames() != null
+    } else if (organization.getDatasetNames() != null
         && organization.getDatasetNames().size() != 0) {
       throw new BadContentException("The field 'datasetNames' is not allowed on update");
     }

@@ -186,7 +186,7 @@ public class Orchestrator {
      * @return The List of executions that correspond to the query
      */
     public List<Execution> getAllExecutionsForDatasetByDates(String datasetId, int offset, int limit, Date start, Date end,String operatorEmail) throws NoDatasetFoundException {
-        if(datasetService.exists(datasetId)) {
+        if(datasetService.existsDatasetByDatasetName(datasetId)) {
             return getExecutions(datasetId, offset, limit, start, end, null, null, null,null, operatorEmail);
         }
         throw new NoDatasetFoundException(datasetId);

@@ -25,9 +25,6 @@ import org.mockito.Mockito;
 import org.mongodb.morphia.Morphia;
 import org.springframework.test.util.ReflectionTestUtils;
 
-/**
- * Created by ymamakis on 11/17/16.
- */
 public class TestOrchestrator {
 
   private static ExecutionDao executionDao;
@@ -62,8 +59,8 @@ public class TestOrchestrator {
 
   @Test
   public void testCreationOfExecution() throws NoDatasetFoundException {
-    Mockito.when(datasetService.exists("test")).thenReturn(true);
-    Mockito.when(datasetService.exists("tests")).thenReturn(true);
+    Mockito.when(datasetService.existsDatasetByDatasetName("test")).thenReturn(true);
+    Mockito.when(datasetService.existsDatasetByDatasetName("tests")).thenReturn(true);
     try {
       String id = orchestrator.execute("test", "void", null, null);
       Assert.assertNotNull(id);
