@@ -35,6 +35,7 @@ import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
+import eu.europeana.metis.core.search.service.MetisSearchService;
 import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
@@ -60,10 +61,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
@@ -124,12 +124,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${ecloud.password}")
   private String ecloudPassword;
 
-  private MorphiaDatastoreProvider provider;
   private MongoProviderImpl mongoProvider;
   private RedisProvider redisProvider;
 
   @Autowired
-  @Lazy
   private ZohoRestConfig zohoRestConfig;
 
   /**
@@ -170,26 +168,26 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
         mongoPassword, options);
 
-    if(redisProvider == null)
+    if (redisProvider == null) {
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
+    }
   }
 
 
-  @Bean(name = "morphiaDatastoreProvider")
+  @Bean
+  @Scope("singleton")
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    provider = new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
-    return provider;
+    return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
   }
 
   @Bean
-  @Order(100)
   ZohoClient getZohoRestClient() {
     return zohoRestConfig.getZohoClient();
   }
 
   @Bean(name = "jedisProviderUtils")
   JedisProviderUtils getJedisProviderUtils() {
-      return new JedisProviderUtils(redisProvider.getJedis());
+    return new JedisProviderUtils(redisProvider.getJedis());
   }
 
   @Bean
@@ -206,25 +204,23 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  @DependsOn(value = "morphiaDatastoreProvider")
-  public ExecutionDao getExecutionDao() {
+  public ExecutionDao getExecutionDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     Morphia morphia = new Morphia();
     morphia.map(Execution.class);
-    return new ExecutionDao(provider.getDatastore().getMongo(), morphia,
-        provider.getDatastore().getDB().getName());
+    return new ExecutionDao(morphiaDatastoreProvider.getDatastore().getMongo(), morphia,
+        morphiaDatastoreProvider.getDatastore().getDB().getName());
   }
 
   @Bean
-  @DependsOn(value = "morphiaDatastoreProvider")
-  public FailedRecordsDao getFailedRecordsDao() {
+  public FailedRecordsDao getFailedRecordsDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     Morphia morphia = new Morphia();
     morphia.map(FailedRecords.class);
-    return new FailedRecordsDao(provider.getDatastore().getMongo(), morphia,
-        provider.getDatastore().getDB().getName());
+    return new FailedRecordsDao(morphiaDatastoreProvider.getDatastore().getMongo(), morphia,
+        morphiaDatastoreProvider.getDatastore().getDB().getName());
   }
 
   @Bean
-  @DependsOn(value = "morphiaDatastoreProvider")
+//  @DependsOn(value = "morphiaDatastoreProvider")
   public AuthorizationDao getAuthorizationDao() {
     Morphia morphia = new Morphia();
     morphia.map(MetisKey.class);
@@ -248,8 +244,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public OrganizationDao getOrganizationDao() {
-    return new OrganizationDao(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
+//  @DependsOn(value = "morphiaDatastoreProvider")
+  public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new OrganizationDao(morphiaDatastoreProvider,
+        RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
   }
 
   @Bean
@@ -258,8 +256,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public OrganizationService getOrganizationService() {
-    return new OrganizationService();
+  public OrganizationService getOrganizationService(OrganizationDao organizationDao,
+      DatasetDao datasetDao, ZohoClient zohoClient, MetisSearchService metisSearchService) {
+    return new OrganizationService(organizationDao, datasetDao, zohoClient, metisSearchService);
   }
 
   @Bean
@@ -268,8 +267,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public CrmUserService getCrmUserService() {
-    return new CrmUserService();
+  public CrmUserService getCrmUserService(ZohoClient zohoClient) {
+    return new CrmUserService(zohoClient);
   }
 
   @Bean
@@ -322,10 +321,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @PreDestroy
-  public void close()
-  {
-    if (mongoProvider != null)
+  public void close() {
+    if (mongoProvider != null) {
       mongoProvider.close();
+    }
   }
 
   private ApiInfo apiInfo() {
@@ -334,7 +333,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         "Metis framework REST API for Europeana",
         "v1",
         "API TOS",
-        new Contact("development", "europeana.eu","development@europeana.eu"),
+        new Contact("development", "europeana.eu", "development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );

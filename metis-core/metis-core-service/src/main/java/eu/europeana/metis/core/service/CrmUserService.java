@@ -27,8 +27,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by ymamakis on 4/5/16.
  */
 public class CrmUserService {
+    private final ZohoClient restClient;
+
     @Autowired
-    private ZohoClient restClient;
+    public CrmUserService(ZohoClient restClient) {
+        this.restClient = restClient;
+    }
 
     public Contact getUserByEmail(String email)
         throws UserNotFoundException, IOException {

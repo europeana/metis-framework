@@ -43,8 +43,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Api("/")
 public class UserController {
 
+  private final CrmUserService crmUserService;
+
   @Autowired
-  private CrmUserService crmUserService;
+  public UserController(CrmUserService crmUserService) {
+    this.crmUserService = crmUserService;
+  }
 
   @RequestMapping(value = RestEndpoints.USER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})

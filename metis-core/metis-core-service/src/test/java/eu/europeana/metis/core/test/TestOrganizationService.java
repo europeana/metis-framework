@@ -20,6 +20,7 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
+import eu.europeana.metis.core.dao.ZohoMockClient;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -58,7 +59,7 @@ public class TestOrganizationService {
         ReflectionTestUtils.setField(organizationDao, "provider", morphiaDatastoreProvider);
         datasetDao = Mockito.mock(DatasetDao.class);
         ReflectionTestUtils.setField(datasetDao, "provider", morphiaDatastoreProvider);
-        service = new OrganizationService();
+        service = new OrganizationService(organizationDao, datasetDao, new ZohoMockClient(), searchService);
         datastore = Mockito.mock(Datastore.class);
         searchService=Mockito.mock(MetisSearchService.class);
         ReflectionTestUtils.setField(service, "organizationDao", organizationDao);

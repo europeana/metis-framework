@@ -60,7 +60,7 @@ public class TestOrganizationDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    orgDao = new OrganizationDao(5);
+    orgDao = new OrganizationDao(provider,5);
     ReflectionTestUtils.setField(orgDao, "provider", provider);
 
     org = new Organization();

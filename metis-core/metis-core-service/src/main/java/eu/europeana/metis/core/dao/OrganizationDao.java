@@ -42,11 +42,12 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
   private int organizationsPerRequest = 5;
 
-  @Autowired
-  private MorphiaDatastoreProvider provider;
+  private final MorphiaDatastoreProvider provider;
 
-  public OrganizationDao(int organizationsPerRequest) {
+  @Autowired
+  public OrganizationDao(MorphiaDatastoreProvider provider, int organizationsPerRequest) {
     this.organizationsPerRequest = organizationsPerRequest;
+    this.provider = provider;
   }
 
   @Override
@@ -223,13 +224,5 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   public void setOrganizationsPerRequest(int organizationsPerRequest) {
     this.organizationsPerRequest = organizationsPerRequest;
-  }
-
-  public MorphiaDatastoreProvider getProvider() {
-    return provider;
-  }
-
-  public void setProvider(MorphiaDatastoreProvider provider) {
-    this.provider = provider;
   }
 }

@@ -50,17 +50,20 @@ public class OrganizationService {
 
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationService.class);
 
-  @Autowired
   private OrganizationDao organizationDao;
-
-  @Autowired
   private DatasetDao datasetDao;
-
-  @Autowired
   private ZohoClient restClient;
+  private MetisSearchService searchService;
 
   @Autowired
-  private MetisSearchService searchService;
+  public OrganizationService(OrganizationDao organizationDao,
+      DatasetDao datasetDao, ZohoClient restClient,
+      MetisSearchService searchService) {
+    this.organizationDao = organizationDao;
+    this.datasetDao = datasetDao;
+    this.restClient = restClient;
+    this.searchService = searchService;
+  }
 
   public void createOrganization(Organization org) throws IOException, SolrServerException {
     organizationDao.create(org);

@@ -70,12 +70,19 @@ public class OrganizationController {
 
   private final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
 
-  @Autowired
   private OrganizationService organizationService;
-  @Autowired
   private DatasetService datasetService;
-  @Autowired
   private MetisAuthorizationService authorizationService;
+
+  @Autowired
+  public OrganizationController(
+      OrganizationService organizationService,
+      DatasetService datasetService,
+      MetisAuthorizationService authorizationService) {
+    this.organizationService = organizationService;
+    this.datasetService = datasetService;
+    this.authorizationService = authorizationService;
+  }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -466,5 +473,4 @@ public class OrganizationController {
 //      return JsonUtils.toJson(organizationViews);
 //    }
 //  }
-
 }
