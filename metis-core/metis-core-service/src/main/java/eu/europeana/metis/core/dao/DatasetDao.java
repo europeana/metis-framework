@@ -146,6 +146,19 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return true;
   }
 
+  public String updateDatasetName(String datasetName, String newDatasetName) {
+    UpdateOperations<Dataset> datasetUpdateOperations = provider.getDatastore()
+        .createUpdateOperations(Dataset.class);
+    Query<Dataset> query = provider.getDatastore().find(Dataset.class)
+        .filter("datasetName", datasetName);
+    datasetUpdateOperations.set("datasetName", newDatasetName);
+    UpdateResults updateResults = provider.getDatastore().update(query, datasetUpdateOperations);
+
+    LOGGER.info(
+        "Dataset with datasetName '" + datasetName + "' renamed to '" + newDatasetName + "'");
+    return String.valueOf(updateResults.getUpdatedCount());
+  }
+
   public boolean deleteDatasetByDatasetName(String datasetName) {
     Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
     query.field("datasetName").equal(datasetName);

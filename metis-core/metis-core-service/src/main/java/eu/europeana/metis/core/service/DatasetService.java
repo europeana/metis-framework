@@ -59,7 +59,7 @@ public class DatasetService {
 
     //Create in ECloud
 //    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(dataset.getName());
+//    ecloudDataset.setId(dataset.getDatasetName());
 //    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
 //    ecloudDataset.setDescription(dataset.getDescription());
 //    ecloudDatasetDao.create(ecloudDataset);
@@ -90,6 +90,14 @@ public class DatasetService {
     dataset.setDatasetName(datasetName);
     dataset.setUpdatedDate(new Date());
     updateDataset(dataset);
+  }
+
+  public void updateDatasetName(String datasetName, String newDatasetName)
+      throws NoDatasetFoundException {
+    Dataset dataset = getDatasetByName(datasetName);
+    datasetDao.updateDatasetName(datasetName, newDatasetName);
+    organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
+    organizationService.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
   }
 
   public void deleteDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {

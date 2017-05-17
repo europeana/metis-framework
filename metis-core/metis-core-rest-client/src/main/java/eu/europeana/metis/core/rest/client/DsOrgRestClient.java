@@ -29,7 +29,6 @@ import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetListWrapper;
-import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ServerError;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
@@ -235,24 +234,24 @@ public class DsOrgRestClient {
     }
 
 
-    /**
-     * Create a dataset (OK)
-     *
-     * @param dataset The dataset to create
-     */
-    public void createDataset(Organization org ,Dataset dataset) throws ServerException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        OrgDatasetDTO dto = new OrgDatasetDTO();
-        dto.setOrganization(org);
-        dto.setDataset(dataset);
-        HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
-
-        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.POST, datasetEntity, ResponseEntity.class);
-        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
-            throw new ServerException(((ServerError) entity.getBody()).getMessage());
-        }
-    }
+//    /**
+//     * Create a dataset (OK)
+//     *
+//     * @param dataset The dataset to create
+//     */
+//    public void createDataset(Organization org ,Dataset dataset) throws ServerException {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        OrgDatasetDTO dto = new OrgDatasetDTO();
+//        dto.setOrganization(org);
+//        dto.setDataset(dataset);
+//        HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
+//
+//        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.POST, datasetEntity, ResponseEntity.class);
+//        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+//            throw new ServerException(((ServerError) entity.getBody()).getMessage());
+//        }
+//    }
 
     /**
      * Update a dataset (OK)
@@ -269,23 +268,23 @@ public class DsOrgRestClient {
         }
     }
 
-    /**
-     * Delete a dataset (OK)
-     * @param dataset the dataset to delete
-     * @throws ServerException
-     */
-    public void deleteDataset(Organization org,Dataset dataset) throws ServerException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        OrgDatasetDTO dto = new OrgDatasetDTO();
-        dto.setOrganization(org);
-        dto.setDataset(dataset);
-        HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
-        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
-        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
-            throw new ServerException(((ServerError) entity.getBody()).getMessage());
-        }
-    }
+//    /**
+//     * Delete a dataset (OK)
+//     * @param dataset the dataset to delete
+//     * @throws ServerException
+//     */
+//    public void deleteDataset(Organization org,Dataset dataset) throws ServerException {
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        OrgDatasetDTO dto = new OrgDatasetDTO();
+//        dto.setOrganization(org);
+//        dto.setDataset(dataset);
+//        HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
+//        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
+//        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+//            throw new ServerException(((ServerError) entity.getBody()).getMessage());
+//        }
+//    }
 
     /**
      * Get a dataset by its name (OK)
@@ -317,19 +316,19 @@ public class DsOrgRestClient {
 
     }
 
-    /**
-     * Check whether an organization has opted in for the Image Service of Europeana
-     * @param id The id of the organization
-     * @return true if opted in false otherwise
-     * @throws ServerException
-     */
-    public boolean isOptedIn(String id) throws ServerException{
-        try {
-            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, id), OptedInResponse.class).getBody().isResult();
-        } catch (Exception e){
-            throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
-        }
-    }
+//    /**
+//     * Check whether an organization has opted in for the Image Service of Europeana
+//     * @param id The id of the organization
+//     * @return true if opted in false otherwise
+//     * @throws ServerException
+//     */
+//    public boolean isOptedIn(String id) throws ServerException{
+//        try {
+//            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, id), OptedInResponse.class).getBody().isResult();
+//        } catch (Exception e){
+//            throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
+//        }
+//    }
 
     public List<OrganizationSearchBean> suggestOrganizations(String term) throws ServerException{
         try {

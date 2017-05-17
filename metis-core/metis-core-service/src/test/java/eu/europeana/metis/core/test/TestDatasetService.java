@@ -27,6 +27,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.core.dataset.WorkflowStatus;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.service.DatasetService;
@@ -117,21 +118,14 @@ public class TestDatasetService {
     }
 
     @Test
-    public  void testDelete() throws NoDatasetFoundException {
+    public  void testDelete() throws NoDatasetFoundException, NoOrganizationFoundException {
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
-        Mockito.doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(datasetDao).delete(ds);
-        Mockito.doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(organizationDao).update(org);
+        Mockito.when(datasetDao.getDatasetByDatasetName(Mockito.any(String.class))).thenReturn(ds);
+        Mockito.when(datasetDao.deleteDatasetByDatasetName(Mockito.any(String.class))).thenReturn(true);
+        Mockito.when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class))).thenReturn(null);
+        Mockito.doNothing().when(organizationService).removeOrganizationDatasetNameFromList(Mockito.any(String.class), Mockito.any(String.class));
+
         Mockito.when(ecloudDatasetDao.delete(Mockito.any(DataSet.class))).thenReturn(true);
         service.deleteDatasetByDatasetName(ds.getDatasetName());
     }
