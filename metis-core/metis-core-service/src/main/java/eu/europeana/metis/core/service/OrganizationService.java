@@ -123,6 +123,10 @@ public class OrganizationService {
     organizationDao.updateOrganizationDatasetNamesList(organizationId, datasetName);
   }
 
+  public void removeOrganizationDatasetNameFromList(String organizationId, String datasetName) {
+    organizationDao.removeOrganizationDatasetNameFromList(organizationId, datasetName);
+  }
+
   public void deleteOrganization(Organization org) throws IOException, SolrServerException {
     organizationDao.delete(org);
     searchService.deleteFromSearch(org.getId().toString());

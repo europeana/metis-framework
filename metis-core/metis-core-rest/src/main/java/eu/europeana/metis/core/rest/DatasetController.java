@@ -16,7 +16,6 @@
  */
 package eu.europeana.metis.core.rest;
 
-import static eu.europeana.metis.RestEndpoints.DATASETS;
 import static eu.europeana.metis.RestEndpoints.DATASETS_DATASETNAME;
 import static eu.europeana.metis.RestEndpoints.DATASET_BYPROVIDER;
 
@@ -25,7 +24,6 @@ import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetListWrapper;
-import eu.europeana.metis.core.dto.OrgDatasetDTO;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -47,7 +45,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -138,15 +135,30 @@ public class DatasetController {
 
   }
 
-  /**
-   * Delete a dataset
-   */
-  @RequestMapping(value = DATASETS, method = RequestMethod.DELETE, consumes = "application/json")
-  @ResponseBody
-  @ApiOperation(value = "Delete a dataset from an organization")
-  public ResponseEntity<Void> deleteDataset(@ApiParam @RequestBody OrgDatasetDTO dto) {
-    datasetService.deleteDataset(dto.getOrganization(), dto.getDataset());
-    return ResponseEntity.noContent().build();
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.DELETE )
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ApiResponses(value = {
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Delete a dataset by dataset name")
+  public void deleteDataset(@PathVariable("datasetName"
+  ) String datasetName, @QueryParam("apikey") String apikey)
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null) {
+      if (key.getOptions().equals(Options.WRITE)) {
+        datasetService.deleteDatasetByDatasetName(datasetName);
+        LOGGER.info("Dataset with datasetName " + datasetName + " deleted");
+      } else {
+        throw new ApiKeyNotAuthorizedException(apikey);
+      }
+    } else {
+      throw new NoApiKeyFoundException(apikey);
+    }
   }
 
   /**

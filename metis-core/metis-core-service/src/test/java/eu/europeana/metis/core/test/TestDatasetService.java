@@ -117,7 +117,7 @@ public class TestDatasetService {
     }
 
     @Test
-    public  void testDelete(){
+    public  void testDelete() throws NoDatasetFoundException {
         Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
         Mockito.doAnswer(new Answer<Object>() {
@@ -133,7 +133,7 @@ public class TestDatasetService {
             }
         }).when(organizationDao).update(org);
         Mockito.when(ecloudDatasetDao.delete(Mockito.any(DataSet.class))).thenReturn(true);
-        service.deleteDataset(org,ds);
+        service.deleteDatasetByDatasetName(ds.getDatasetName());
     }
 
     @Test

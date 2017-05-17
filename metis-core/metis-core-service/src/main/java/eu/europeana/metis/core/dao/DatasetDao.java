@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.core.dao;
 
+import com.mongodb.WriteResult;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import java.util.List;
@@ -124,7 +125,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
 
     LOGGER.info(
-        "Dataset '" + dataset.getDatasetName() + "' updated with Provider '" + dataset.getDataProvider()
+        "Dataset '" + dataset.getDatasetName() + "' updated with Provider '" + dataset
+            .getDataProvider()
             + "' and Description '" + dataset.getDescription() + "' in Mongo");
     return String.valueOf(updateResults.getUpdatedCount());
   }
@@ -137,11 +139,19 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public boolean delete(Dataset dataset) {
     provider.getDatastore().delete(
-        provider.getDatastore().createQuery(Dataset.class).filter("datasetName", dataset.getDatasetName()));
-    LOGGER.info(
-        "Dataset '" + dataset.getDatasetName() + "' deleted with Provider '" + dataset.getDataProvider()
-            + "' from Mongo");
+        provider.getDatastore().createQuery(Dataset.class).field("datasetName")
+            .equal(dataset.getDatasetName()));
+    LOGGER.info("Dataset '" + dataset.getDatasetName() + "' deleted with organizationId '" + dataset
+        .getOrganizationId() + "' from Mongo");
     return true;
+  }
+
+  public boolean deleteDatasetByDatasetName(String datasetName) {
+    Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
+    query.field("datasetName").equal(datasetName);
+    WriteResult delete = provider.getDatastore().delete(query);
+    LOGGER.info("Dataset '" + datasetName + "' deleted from Mongo");
+    return delete.getN() == 1;
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) {
@@ -149,7 +159,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   public boolean existsDatasetByDatasetName(String datasetName) {
-    return provider.getDatastore().find(Dataset.class).field("datasetName").equal(datasetName).project("_id", true).get() != null;
+    return provider.getDatastore().find(Dataset.class).field("datasetName").equal(datasetName)
+        .project("_id", true).get() != null;
   }
 
   /**
