@@ -27,48 +27,48 @@ import java.util.List;
  */
 public class DatasetListWrapper {
 
-    @JacksonXmlElementWrapper(localName = "Datasets")
-    @JacksonXmlProperty(localName = "Dataset")
-    private List<Dataset> datasets;
-    private String nextPage;
-    private int listSize;
+  @JacksonXmlElementWrapper(localName = "Datasets")
+  @JacksonXmlProperty(localName = "Dataset")
+  private List<Dataset> datasets;
+  private String nextPage;
+  private int listSize;
 
-    public void setDatasetsAndLastPage(List<Dataset> datasets,
-        int datasetsPerRequestLimit) {
-        if (datasets != null && datasets.size() != 0) {
-            if (datasets.size() < datasetsPerRequestLimit) {
-                nextPage = null;
-            } else {
-                nextPage = datasets.get(datasets.size() - 1).getId().toString();
-            }
-            listSize = datasets.size();
-        } else {
-            nextPage = null;
-        }
-        this.datasets = datasets;
+  public void setDatasetsAndLastPage(List<Dataset> datasets,
+      int datasetsPerRequestLimit) {
+    if (datasets != null && datasets.size() != 0) {
+      if (datasets.size() < datasetsPerRequestLimit) {
+        nextPage = null;
+      } else {
+        nextPage = datasets.get(datasets.size() - 1).getId().toString();
+      }
+      listSize = datasets.size();
+    } else {
+      nextPage = null;
     }
+    this.datasets = datasets;
+  }
 
-    public List<Dataset> getDatasets() {
-        return datasets;
-    }
+  public List<Dataset> getDatasets() {
+    return datasets;
+  }
 
-    public void setDatasets(List<Dataset> datasets) {
-        this.datasets = datasets;
-    }
+  public void setDatasets(List<Dataset> datasets) {
+    this.datasets = datasets;
+  }
 
-    public String getNextPage() {
-        return nextPage;
-    }
+  public String getNextPage() {
+    return nextPage;
+  }
 
-    public void setNextPage(String nextPage) {
-        this.nextPage = nextPage;
-    }
+  public void setNextPage(String nextPage) {
+    this.nextPage = nextPage;
+  }
 
-    public int getListSize() {
-        return listSize;
-    }
+  public int getListSize() {
+    return listSize;
+  }
 
-    public void setListSize(int listSize) {
-        this.listSize = listSize;
-    }
+  public void setListSize(int listSize) {
+    this.listSize = listSize;
+  }
 }

@@ -127,17 +127,16 @@ public class DatasetService {
     return dataset;
   }
 
-  /**
-   * Retrieve the datasets an organization is a data provider for
-   *
-   * @param dataProviderId The data provider id
-   * @return The list of datasets the provider is a data provider for
-   */
-  public List<Dataset> getDatasetsByDataProviderId(String dataProviderId) {
-    return datasetDao.getByDataProviderId(dataProviderId);
+  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage)
+      throws NoDatasetFoundException {
+    List<Dataset> datasets = datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
+    if ((datasets == null || datasets.size() == 0) && StringUtils.isEmpty(nextPage)) {
+      throw new NoDatasetFoundException("No datasets found for dataProvider " + dataProvider);
+    }
+    return datasets;
   }
 
-  public void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
+  private void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException {
     if (StringUtils.isEmpty(dataset.getDatasetName())) {
       throw new BadContentException("Dataset field 'datasetName' cannot be empty");
@@ -164,7 +163,7 @@ public class DatasetService {
     LOGGER.info("Dataset not found, so it can be created");
   }
 
-  public void checkRestrictionsOnUpdate(Dataset dataset, String datasetName)
+  private void checkRestrictionsOnUpdate(Dataset dataset, String datasetName)
       throws BadContentException, NoDatasetFoundException {
     if (StringUtils.isNotEmpty(dataset.getDatasetName()) && !dataset
         .getDatasetName().equals(datasetName)) {

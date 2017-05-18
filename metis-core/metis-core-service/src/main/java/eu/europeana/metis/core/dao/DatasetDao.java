@@ -176,15 +176,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .project("_id", true).get() != null;
   }
 
-  /**
-   * Filter datasets by data provider
-   *
-   * @param dataProvider The data provider id to search for
-   * @return The list of datasets that the organization is a data provider
-   */
-  public List<Dataset> getByDataProviderId(String dataProvider) {
-    return provider.getDatastore().find(Dataset.class).filter("dataProvider", dataProvider)
-        .asList();
+  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {
+    Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
+    query.field("dataProvider").equal(dataProvider).order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(datasetsPerRequest));
   }
 
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {

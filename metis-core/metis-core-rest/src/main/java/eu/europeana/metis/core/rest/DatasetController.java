@@ -20,6 +20,7 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -48,10 +49,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * The dataset controller
- * Created by ymamakis on 2/18/16.
- */
 @Controller
 @Api("/")
 public class DatasetController {
@@ -151,7 +148,9 @@ public class DatasetController {
       if (key.getOptions().equals(Options.WRITE)) {
         datasetService.updateDatasetName(datasetName, newDatasetName);
         LOGGER
-            .info("Dataset with datasetName '" + datasetName + "' updated name to '" + newDatasetName + "'");
+            .info(
+                "Dataset with datasetName '" + datasetName + "' updated name to '" + newDatasetName
+                    + "'");
       } else {
         throw new ApiKeyNotAuthorizedException(apikey);
       }
@@ -199,7 +198,8 @@ public class DatasetController {
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Get a dataset by datasetName", response = Dataset.class)
-  public Dataset getByDatasetName(@PathVariable("datasetName") String datasetName, @QueryParam("apikey") String apikey)
+  public Dataset getByDatasetName(@PathVariable("datasetName") String datasetName,
+      @QueryParam("apikey") String apikey)
       throws NoDatasetFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
@@ -214,13 +214,37 @@ public class DatasetController {
     }
   }
 
-//  @RequestMapping(value = DATASET_BYPROVIDER, method = RequestMethod.GET, produces = "application/json")
-//  @ResponseBody
-//  @ApiOperation(value = "Retrieve datasets by data providers", response = DatasetListWrapper.class)
-//  public DatasetListWrapper getByDataProviderId(
-//      @PathVariable("dataProviderId") String dataProviderId) {
-//    DatasetListWrapper lst = new DatasetListWrapper();
-//    lst.setDatasets(datasetService.getDatasetsByDataProviderId(dataProviderId));
-//    return lst;
-//  }
+  @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "dataProvider", value = "dataProvider", dataType = "string", paramType = "path", required = true),
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
+  })
+  @ApiOperation(value = "Get all datasets by dataProvider", response = DatasetListWrapper.class)
+  public DatasetListWrapper getAllDatasetsByDataProvider(@PathVariable("dataProvider") String dataProvider,
+      @QueryParam("nextPage"
+      ) String nextPage, @QueryParam("apikey") String apikey)
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoDatasetFoundException {
+    MetisKey key = authorizationService.getKeyFromId(apikey);
+    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
+        .equals(Options.READ))) {
+      DatasetListWrapper datasetListWrapper = new DatasetListWrapper();
+      datasetListWrapper
+          .setDatasetsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
+              datasetService.getDatasetsPerRequestLimit());
+      LOGGER.info("Batch of: " + datasetListWrapper.getListSize()
+          + " datasets returned, using batch nextPage: " + nextPage);
+      return datasetListWrapper;
+    } else if (key == null) {
+      throw new NoApiKeyFoundException(apikey);
+    } else {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
+  }
 }

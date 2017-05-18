@@ -25,7 +25,7 @@ public final class RestEndpoints {
   public final static String DATASETS = "/datasets";
   public final static String DATASETS_DATASETNAME = "/datasets/{datasetName}";
   public final static String DATASETS_DATASETNAME_UPDATENAME = "/datasets/{datasetName}/updateName";
-  public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
+  public final static String DATASETS_DATAPROVIDER = "/datasets/dataProvider/{dataProvider}";
 
   //Users
   public final static String USER = "/user";
