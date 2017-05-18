@@ -21,12 +21,15 @@ public final class RestEndpoints {
   public final static String ORGANIZATIONS_CRM_ORGANIZATION_ID = "/organizations/crm/{organizationId}";
   public final static String ORGANIZATIONS_CRM = "/organizations/crm";
 
-  public final static String DATASET = "/dataset";
-  public final static String DATASET_RETRIEVE = "/dataset/{name}";
-  public final static String DATASET_BYPROVIDER = "/datasets/{dataProviderId}";
+  //Datasets
+  public final static String DATASETS = "/datasets";
+  public final static String DATASETS_DATASETNAME = "/datasets/{datasetName}";
+  public final static String DATASETS_DATASETNAME_UPDATENAME = "/datasets/{datasetName}/updateName";
+  public final static String DATASETS_DATAPROVIDER = "/datasets/dataProvider/{dataProvider}";
+
+  //Users
   public final static String USER = "/user";
   public final static String USERBYMAIL = "/user/{email}";
-  public final static String USERBYID = "/contact/{id}";
 
   /* METIS-DEREFERENCE Endpoints*/
   public final static String DEREFERENCE = "/dereference";

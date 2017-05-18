@@ -45,8 +45,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   private final MorphiaDatastoreProvider provider;
 
   @Autowired
-  public OrganizationDao(MorphiaDatastoreProvider provider, int organizationsPerRequest) {
-    this.organizationsPerRequest = organizationsPerRequest;
+  public OrganizationDao(MorphiaDatastoreProvider provider) {
     this.provider = provider;
   }
 
@@ -151,7 +150,6 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
     ops.set("acronym", organization.getAcronym());
     ops.set("modified", new Date());
-    provider.getDatastore().update(q, ops);
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
     LOGGER.info("Organization '" + organization.getOrganizationId() + "' updated in Mongo");
     return String.valueOf(updateResults.getUpdatedCount());
@@ -167,6 +165,32 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     provider.getDatastore().delete(organization);
     LOGGER.info("Organization '" + organization.getName() + "' deleted from Mongo");
     return true;
+  }
+
+  public String updateOrganizationDatasetNamesList(String organizationId, String datasetName) {
+    Query<Organization> query = provider.getDatastore().find(Organization.class)
+        .filter("organizationId", organizationId);
+    UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
+        .createUpdateOperations(Organization.class);
+    organizationUpdateOperations.addToSet("datasetNames", datasetName);
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, organizationUpdateOperations);
+    LOGGER.info("Organization '" + organizationId + "' datasetNames updated in Mongo");
+    return String.valueOf(updateResults.getUpdatedCount());
+
+  }
+
+  public String removeOrganizationDatasetNameFromList(String organizationId, String datasetName) {
+    Query<Organization> query = provider.getDatastore().find(Organization.class)
+        .field("organizationId").equal(organizationId);
+    UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
+        .createUpdateOperations(Organization.class);
+    organizationUpdateOperations.removeAll("datasetNames", datasetName);
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, organizationUpdateOperations);
+    LOGGER.info("DatasetName '" + datasetName + "' removed from Organization '" + organizationId + "' datasetNames");
+    return String.valueOf(updateResults.getUpdatedCount());
+
   }
 
   public boolean deleteByOrganizationId(String organizationId) {
@@ -196,7 +220,8 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   }
 
 
-  public List<Organization> getAllOrganizationsByOrganizationRole(List<OrganizationRole> organizationRoles, String nextPage) {
+  public List<Organization> getAllOrganizationsByOrganizationRole(
+      List<OrganizationRole> organizationRoles, String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.field("organizationRoles")
         .hasAnyOf(organizationRoles).order("_id").limit(organizationsPerRequest);
@@ -211,8 +236,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
         .get();
   }
 
-  public Organization getOrganizationOptInIIIFByOrganizationId(String organizationId)
-  {
+  public Organization getOrganizationOptInIIIFByOrganizationId(String organizationId) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.field("organizationId").equal(organizationId).project("optInIIIF", true);
     return query.get();

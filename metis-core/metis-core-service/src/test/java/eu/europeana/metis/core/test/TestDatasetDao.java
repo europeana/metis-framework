@@ -39,9 +39,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.test.util.ReflectionTestUtils;
 
-/**
- * Created by ymamakis on 2/19/16.
- */
 public class TestDatasetDao {
 
   private static DatasetDao dsDao;
@@ -58,7 +55,8 @@ public class TestDatasetDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    dsDao = new DatasetDao(5);
+    dsDao = new DatasetDao(provider);
+    dsDao.setDatasetsPerRequest(5);
     org = new Organization();
     org.setOrganizationId("orgId");
     org.setDatasetNames(new TreeSet<String>());
@@ -68,32 +66,32 @@ public class TestDatasetDao {
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
     ds.setCountry(Country.ALBANIA);
-    ds.setCreated(new Date(1000));
+    ds.setCreatedDate(new Date(1000));
     ds.setCreatedByLdapId("Lemmy");
     ds.setDataProvider("prov");
     ds.setDeaSigned(true);
     ds.setDescription("Test description");
     List<String> DQA = new ArrayList<>();
     DQA.add("test DQA");
-    ds.setDQA(DQA);
+    ds.setDqas(DQA);
     ds.setFirstPublished(new Date(1000));
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
     ds.setMetadata(new OAIDatasetMetadata());
-    ds.setName("testName");
+    ds.setDatasetName("testName");
     ds.setNotes("test Notes");
-    ds.setRecordsPublished(100);
-    ds.setRecordsSubmitted(199);
+    ds.setPublishedRecords(100);
+    ds.setSubmittedRecords(199);
     ds.setReplacedBy("replacedBY");
     List<String> sources = new ArrayList<>();
     sources.add("testSource");
-    ds.setSource(sources);
+    ds.setSources(sources);
     List<String> subjects = new ArrayList<>();
     subjects.add("testSubject");
-    ds.setSubject(subjects);
-    ds.setSubmittedAt(new Date(1000));
-    ds.setUpdated(new Date(1000));
+    ds.setSubjects(subjects);
+    ds.setSubmissionDate(new Date(1000));
+    ds.setUpdatedDate(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
   }
@@ -101,65 +99,65 @@ public class TestDatasetDao {
 
   @Test
   public void testCreateRetrieveDataset() {
-    dsDao.createDatasetForOrganization(org, ds);
-    Dataset dsRet = dsDao.getByName(ds.getName());
-    Assert.assertEquals(ds.getName(), dsRet.getName());
+    dsDao.create(ds);
+    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
+    Assert.assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
     Assert.assertEquals(ds.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
     Assert.assertEquals(ds.getCountry(), dsRet.getCountry());
-    Assert.assertEquals(ds.getCreated(), dsRet.getCreated());
+    Assert.assertEquals(ds.getCreatedDate(), dsRet.getCreatedDate());
     Assert.assertEquals(ds.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
     Assert.assertEquals(ds.getDataProvider(), dsRet.getDataProvider());
-    Assert.assertEquals(ds.getDQA(), dsRet.getDQA());
+    Assert.assertEquals(ds.getDqas(), dsRet.getDqas());
     Assert.assertEquals(ds.getDescription(), ds.getDescription());
     Assert.assertEquals(ds.getFirstPublished(), dsRet.getFirstPublished());
     Assert.assertEquals(ds.getLanguage(), dsRet.getLanguage());
     Assert.assertEquals(ds.getLastPublished(), dsRet.getLastPublished());
     Assert.assertEquals(ds.getNotes(), dsRet.getNotes());
-    Assert.assertEquals(ds.getRecordsPublished(), ds.getRecordsPublished());
-    Assert.assertEquals(ds.getRecordsSubmitted(), ds.getRecordsSubmitted());
+    Assert.assertEquals(ds.getPublishedRecords(), ds.getPublishedRecords());
+    Assert.assertEquals(ds.getSubmittedRecords(), ds.getSubmittedRecords());
     Assert.assertEquals(ds.getReplacedBy(), ds.getReplacedBy());
-    Assert.assertEquals(ds.getSource(), dsRet.getSource());
-    Assert.assertEquals(ds.getSubject(), dsRet.getSubject());
-    Assert.assertEquals(ds.getSubmittedAt(), dsRet.getSubmittedAt());
-    Assert.assertEquals(ds.getUpdated(), dsRet.getUpdated());
+    Assert.assertEquals(ds.getSources(), dsRet.getSources());
+    Assert.assertEquals(ds.getSubjects(), dsRet.getSubjects());
+    Assert.assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
+    Assert.assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
     Assert.assertEquals(ds.getWorkflowStatus(), dsRet.getWorkflowStatus());
   }
 
 
   @Test
   public void testUpdateRetrieveDataset() {
-    dsDao.createDatasetForOrganization(org, ds);
+    dsDao.create(ds);
     ds.setWorkflowStatus(WorkflowStatus.CREATED);
     dsDao.update(ds);
-    Dataset dsRet = dsDao.getByName(ds.getName());
-    Assert.assertEquals(ds.getName(), dsRet.getName());
+    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
+    Assert.assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
     Assert.assertEquals(ds.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
     Assert.assertEquals(ds.getCountry(), dsRet.getCountry());
-    Assert.assertEquals(ds.getCreated(), dsRet.getCreated());
+    Assert.assertEquals(ds.getCreatedDate(), dsRet.getCreatedDate());
     Assert.assertEquals(ds.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
     Assert.assertEquals(ds.getDataProvider(), dsRet.getDataProvider());
-    Assert.assertEquals(ds.getDQA(), dsRet.getDQA());
+    Assert.assertEquals(ds.getDqas(), dsRet.getDqas());
     Assert.assertEquals(ds.getDescription(), ds.getDescription());
     Assert.assertEquals(ds.getFirstPublished(), dsRet.getFirstPublished());
     Assert.assertEquals(ds.getLanguage(), dsRet.getLanguage());
     Assert.assertEquals(ds.getLastPublished(), dsRet.getLastPublished());
     Assert.assertEquals(ds.getNotes(), dsRet.getNotes());
-    Assert.assertEquals(ds.getRecordsPublished(), ds.getRecordsPublished());
-    Assert.assertEquals(ds.getRecordsSubmitted(), ds.getRecordsSubmitted());
+    Assert.assertEquals(ds.getPublishedRecords(), ds.getPublishedRecords());
+    Assert.assertEquals(ds.getSubmittedRecords(), ds.getSubmittedRecords());
     Assert.assertEquals(ds.getReplacedBy(), ds.getReplacedBy());
-    Assert.assertEquals(ds.getSource(), dsRet.getSource());
-    Assert.assertEquals(ds.getSubject(), dsRet.getSubject());
-    Assert.assertEquals(ds.getSubmittedAt(), dsRet.getSubmittedAt());
-    Assert.assertEquals(ds.getUpdated(), dsRet.getUpdated());
+    Assert.assertEquals(ds.getSources(), dsRet.getSources());
+    Assert.assertEquals(ds.getSubjects(), dsRet.getSubjects());
+    Assert.assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
+    Assert.assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
     Assert.assertEquals(ds.getWorkflowStatus(), dsRet.getWorkflowStatus());
   }
 
   @Test
   public void testDeleteDataset() {
-    dsDao.createDatasetForOrganization(org, ds);
-    Dataset dsRet = dsDao.getByName(ds.getName());
+    dsDao.create(ds);
+    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
     dsDao.delete(dsRet);
-    dsRet = dsDao.getByName(ds.getName());
+    dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
     Assert.assertNull(dsRet);
   }
 

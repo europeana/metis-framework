@@ -60,7 +60,8 @@ public class TestOrganizationDao {
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
-    orgDao = new OrganizationDao(provider,5);
+    orgDao = new OrganizationDao(provider);
+    orgDao.setOrganizationsPerRequest(5);
     ReflectionTestUtils.setField(orgDao, "provider", provider);
 
     org = new Organization();
@@ -74,35 +75,36 @@ public class TestOrganizationDao {
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
     ds.setCountry(Country.ALBANIA);
-    ds.setCreated(new Date(1000));
+    ds.setCreatedDate(new Date(1000));
     ds.setCreatedByLdapId("Lemmy");
     ds.setDataProvider("prov");
     ds.setDeaSigned(true);
     ds.setDescription("Test description");
     List<String> DQA = new ArrayList<>();
     DQA.add("test DQA");
-    ds.setDQA(DQA);
+    ds.setDqas(DQA);
     ds.setFirstPublished(new Date(1000));
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
     ds.setMetadata(new OAIDatasetMetadata());
-    ds.setName("testName");
+    ds.setDatasetName("testName");
     ds.setNotes("test Notes");
-    ds.setRecordsPublished(100);
-    ds.setRecordsSubmitted(199);
+    ds.setPublishedRecords(100);
+    ds.setSubmittedRecords(199);
     ds.setReplacedBy("replacedBY");
     List<String> sources = new ArrayList<>();
     sources.add("testSource");
-    ds.setSource(sources);
+    ds.setSources(sources);
     List<String> subjects = new ArrayList<>();
     subjects.add("testSubject");
-    ds.setSubject(subjects);
-    ds.setSubmittedAt(new Date(1000));
-    ds.setUpdated(new Date(1000));
+    ds.setSubjects(subjects);
+    ds.setSubmissionDate(new Date(1000));
+    ds.setUpdatedDate(new Date(1000));
     ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
 
-    dsDao = new DatasetDao(5);
+    dsDao = new DatasetDao(provider);
+    dsDao.setDatasetsPerRequest(5);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
 
   }
@@ -111,7 +113,7 @@ public class TestOrganizationDao {
   public void testCreateRetrieveOrg() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
     Organization retOrg = orgDao.getByOrganizationId(org.getOrganizationId());
@@ -125,7 +127,7 @@ public class TestOrganizationDao {
   public void testDeleteOrganization() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
     orgDao.delete(org);
@@ -136,7 +138,7 @@ public class TestOrganizationDao {
   public void testDatasets() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
 
@@ -149,7 +151,7 @@ public class TestOrganizationDao {
   public void testGetAll() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
 
@@ -162,7 +164,7 @@ public class TestOrganizationDao {
   public void testGetAllByCountry() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
     List<Organization> getAll = orgDao.getAllOrganizationsByCountry(Country.ALBANIA, null);
@@ -173,7 +175,7 @@ public class TestOrganizationDao {
   public void testUpdate() {
     dsDao.create(ds);
     Set<String> datasets = new TreeSet<>();
-    datasets.add(ds.getName());
+    datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
 

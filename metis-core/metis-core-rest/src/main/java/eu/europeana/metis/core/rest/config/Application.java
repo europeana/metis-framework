@@ -220,7 +220,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-//  @DependsOn(value = "morphiaDatastoreProvider")
   public AuthorizationDao getAuthorizationDao() {
     Morphia morphia = new Morphia();
     morphia.map(MetisKey.class);
@@ -228,8 +227,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public DatasetDao getDatasetDao() {
-    return new DatasetDao(RequestLimits.DATASETS_PER_REQUEST.getLimit());
+  public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
+    datasetDao.setDatasetsPerRequest(RequestLimits.DATASETS_PER_REQUEST.getLimit());
+    return datasetDao;
   }
 
   @Bean
@@ -238,21 +239,21 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  @DependsOn(value = "dataSetServiceClient")
-  EcloudDatasetDao ecloudDatasetDao() {
-    return new EcloudDatasetDao();
+  EcloudDatasetDao ecloudDatasetDao(DataSetServiceClient dataSetServiceClient) {
+    return new EcloudDatasetDao(dataSetServiceClient);
   }
 
   @Bean
-//  @DependsOn(value = "morphiaDatastoreProvider")
   public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new OrganizationDao(morphiaDatastoreProvider,
-        RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
+    OrganizationDao organizationDao = new OrganizationDao(morphiaDatastoreProvider);
+    organizationDao.setOrganizationsPerRequest(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
+    return organizationDao;
   }
 
   @Bean
-  public DatasetService getDatasetService() {
-    return new DatasetService();
+  public DatasetService getDatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
+      OrganizationService organizationService) {
+    return new DatasetService(datasetDao, ecloudDatasetDao, organizationService);
   }
 
   @Bean

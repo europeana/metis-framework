@@ -18,13 +18,17 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
+import java.util.Date;
 import java.util.List;
-import java.util.Set;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,100 +39,155 @@ import org.springframework.stereotype.Component;
 @Component
 public class DatasetService {
 
-    @Autowired
-    private DatasetDao dsDao;
+  private final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
-    @Autowired
-    private EcloudDatasetDao ecloudDatasetDao;
+  private final DatasetDao datasetDao;
+  private final EcloudDatasetDao ecloudDatasetDao;
+  private final OrganizationService organizationService;
 
-    @Autowired
-    private OrganizationDao orgDao;
+  @Autowired
+  public DatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
+      OrganizationService organizationService) {
+    this.datasetDao = datasetDao;
+    this.ecloudDatasetDao = ecloudDatasetDao;
+    this.organizationService = organizationService;
+  }
 
-    /**
-     * Create a dataset for an organization
-     * @param org The organization to assign the dataset to
-     * @param ds The dataset to persist
-     */
-    public void createDataset(Organization org, Dataset ds){
-        dsDao.createDatasetForOrganization(org,ds);
-        orgDao.update(org);
+  public void createDataset(Dataset dataset, String organizationId) {
+    datasetDao.create(dataset);
+    organizationService
+        .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
 
-        //Create in ECloud
-        DataSet ecloudDataset = new DataSet();
-        ecloudDataset.setId(ds.getName());
-        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-        ecloudDataset.setDescription(ds.getDescription());
-        ecloudDatasetDao.create(ecloudDataset);
+    //Create in ECloud
+    DataSet ecloudDataset = new DataSet();
+    ecloudDataset.setId(dataset.getDatasetName());
+    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+    ecloudDataset.setDescription(dataset.getDescription());
+    ecloudDatasetDao.create(ecloudDataset);
+  }
+
+  public void createDatasetForOrganization(Dataset dataset, String organizationId)
+      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+    checkRestrictionsOnCreate(dataset, organizationId);
+    dataset.setOrganizationId(organizationId);
+    dataset.setCreatedDate(new Date());
+    createDataset(dataset, organizationId);
+  }
+
+  public void updateDataset(Dataset dataset) {
+    datasetDao.update(dataset);
+
+    //Update in ECloud
+    DataSet ecloudDataset = new DataSet();
+    ecloudDataset.setId(dataset.getDatasetName());
+    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+    ecloudDataset.setDescription(dataset.getDescription());
+    ecloudDatasetDao.update(ecloudDataset);
+  }
+
+  public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
+      throws BadContentException, NoDatasetFoundException {
+    checkRestrictionsOnUpdate(dataset, datasetName);
+    dataset.setDatasetName(datasetName);
+    dataset.setUpdatedDate(new Date());
+    updateDataset(dataset);
+  }
+
+  public void updateDatasetName(String datasetName, String newDatasetName)
+      throws NoDatasetFoundException {
+    Dataset dataset = getDatasetByName(datasetName);
+    datasetDao.updateDatasetName(datasetName, newDatasetName);
+    organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
+    organizationService.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
+
+    // TODO: 18-5-17 UPDATE DATASETNAME IN ECLOUD WHEN AVAILABLE CALL
+  }
+
+  public void deleteDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
+    Dataset dataset = getDatasetByName(datasetName);
+    datasetDao.deleteDatasetByDatasetName(datasetName);
+    try {
+      organizationService.getOrganizationByOrganizationId(dataset.getOrganizationId());
+    } catch (NoOrganizationFoundException e) {
+      LOGGER.warn("Did not find organization with OrganizationId '" + dataset.getOrganizationId() + "' stated in dataset '" + datasetName + "' to be deleted");
+    }
+    organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), dataset.getDatasetName());
+
+    //Delete from ECloud
+    DataSet ecloudDataset = new DataSet();
+    ecloudDataset.setId(datasetName);
+    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+    ecloudDatasetDao.delete(ecloudDataset);
+  }
+
+  public Dataset getDatasetByName(String name) throws NoDatasetFoundException {
+    Dataset dataset = datasetDao.getDatasetByDatasetName(name);
+    if (dataset == null) {
+      throw new NoDatasetFoundException(
+          "No dataset found with datasetName: " + name + " in METIS");
+    }
+    return dataset;
+  }
+
+  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage)
+      throws NoDatasetFoundException {
+    List<Dataset> datasets = datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
+    if ((datasets == null || datasets.size() == 0) && StringUtils.isEmpty(nextPage)) {
+      throw new NoDatasetFoundException("No datasets found for dataProvider " + dataProvider);
+    }
+    return datasets;
+  }
+
+  private void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
+      throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException {
+    if (StringUtils.isEmpty(dataset.getDatasetName())) {
+      throw new BadContentException("Dataset field 'datasetName' cannot be empty");
+    } else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null
+        || dataset.getFirstPublished() != null || dataset.getLastPublished() != null
+        || dataset.getHarvestedAt() != null || dataset.getSubmissionDate() != null) {
+      throw new BadContentException(
+          "Dataset fields 'createdDate', 'updatedDate', 'firstPublished', 'lastPublished', 'harvestedAt', 'submittedAt' should be empty");
+    } else if (dataset.getSubmittedRecords() != 0 || dataset.getPublishedRecords() != 0) {
+      throw new BadContentException(
+          "Dataset fields 'submittedRecords', 'publishedRecords' should be 0");
+    }
+    if (StringUtils.isNotEmpty(dataset.getOrganizationId()) && !dataset
+        .getOrganizationId().equals(organizationId)) {
+      throw new BadContentException(
+          "OrganinazationId in body " + dataset.getOrganizationId()
+              + " is different from parameter " + organizationId);
+    }
+    //Check if organization exists first
+    organizationService.getOrganizationByOrganizationId(organizationId);
+    if (existsDatasetByDatasetName(dataset.getDatasetName())) {
+      throw new DatasetAlreadyExistsException(dataset.getDatasetName());
+    }
+    LOGGER.info("Dataset not found, so it can be created");
+  }
+
+  private void checkRestrictionsOnUpdate(Dataset dataset, String datasetName)
+      throws BadContentException, NoDatasetFoundException {
+    if (StringUtils.isNotEmpty(dataset.getDatasetName()) && !dataset
+        .getDatasetName().equals(datasetName)) {
+      throw new BadContentException(
+          "DatasetName in body " + dataset.getDatasetName()
+              + " is different from parameter " + datasetName);
+    }
+    else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
+      throw new BadContentException(
+          "Dataset fields 'createdDate', 'updatedDate' should be empty");
     }
 
-    /**
-     * Update a dataset
-     * @param ds The dataset to update
-     */
-    public void updateDataset(Dataset ds){
-        dsDao.update(ds);
-
-        //Update in ECloud
-        DataSet ecloudDataset = new DataSet();
-        ecloudDataset.setId(ds.getName());
-        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-        ecloudDataset.setDescription(ds.getDescription());
-        ecloudDatasetDao.update(ecloudDataset);
+    if (!existsDatasetByDatasetName(datasetName)) {
+      throw new NoDatasetFoundException(datasetName);
     }
+  }
 
-    /**
-     * Delete a dataset
-     * @param org The organization the dataset is assigned to
-     * @param ds The dataset to delete
-     */
-    public void deleteDataset(Organization org, Dataset ds){
-        dsDao.delete(ds);
-        Set<String> datasetSet = org.getDatasetNames();
-        datasetSet.remove(ds.getName());
-        org.setDatasetNames(datasetSet);
-        orgDao.update(org);
+  public boolean existsDatasetByDatasetName(String datasetName) {
+    return datasetDao.existsDatasetByDatasetName(datasetName);
+  }
 
-        //Delete from ECloud
-        DataSet ecloudDataset = new DataSet();
-        ecloudDataset.setId(ds.getName());
-        ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-        ecloudDataset.setDescription(ds.getDescription());
-        ecloudDatasetDao.delete(ecloudDataset);
-    }
-
-    /**
-     * Get Dataset by name
-     * @param name The name of the dataset
-     * @return The Dataset
-     */
-    public Dataset getByName(String name) throws NoDatasetFoundException{
-        Dataset dataset = dsDao.getByName(name);
-        if(dataset==null){
-            throw new NoDatasetFoundException(name);
-        }
-        return dataset;
-    }
-
-    /**
-     * Retrieve the datasets an organization is a data provider for
-     * @param dataProviderId The data provider id
-     * @return The list of datasets the provider is a data provider for
-     */
-    public List<Dataset> getDatasetsByDataProviderId(String dataProviderId){
-        return dsDao.getByDataProviderId(dataProviderId);
-    }
-
-    /**
-     * Check if a dataset exists
-     * @param name The dataset identifier
-     * @return true if it exists false otherwise
-     */
-    public boolean exists(String name){
-        return dsDao.exists(name);
-    }
-
-
-    public int getDatasetsPerRequestLimit() {
-        return dsDao.getDatasetsPerRequest();
-    }
+  public int getDatasetsPerRequestLimit() {
+    return datasetDao.getDatasetsPerRequest();
+  }
 }
