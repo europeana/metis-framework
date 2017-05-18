@@ -94,9 +94,7 @@ public class TestOrganizationService {
           .addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
               Mockito.anyList());
       service.createOrganization(org);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (SolrServerException e) {
+    } catch (IOException | SolrServerException e) {
       e.printStackTrace();
     }
   }
@@ -121,9 +119,7 @@ public class TestOrganizationService {
           .addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
               Mockito.anyList());
       service.updateOrganization(org);
-    } catch (SolrServerException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
+    } catch (SolrServerException | IOException e) {
       e.printStackTrace();
     }
   }
@@ -146,9 +142,7 @@ public class TestOrganizationService {
         }
       }).when(searchService).deleteFromSearch(Mockito.anyString());
       service.deleteOrganization(org);
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (SolrServerException e) {
+    } catch (IOException | SolrServerException e) {
       e.printStackTrace();
     }
   }
@@ -156,7 +150,7 @@ public class TestOrganizationService {
   @Test
   public void testRetrieveOrgByOrgId() {
     Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-    Mockito.when(organizationDao.getByOrganizationId("string")).thenReturn(org);
+    Mockito.when(organizationDao.getOrganizationByOrganizationId("string")).thenReturn(org);
 
     try {
       Organization orgRet = service.getOrganizationByOrganizationId("string");
@@ -173,18 +167,6 @@ public class TestOrganizationService {
         .thenReturn(org);
     boolean optedIn = service.isOptedInIIIF("string");
     Assert.assertTrue(optedIn);
-  }
-
-  @Test
-  public void testRetrieveOrgById() {
-    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-    Mockito.when(organizationDao.getById("string")).thenReturn(org);
-    try {
-      Organization orgRet = service.getOrganizationById("string");
-      Assert.assertEquals(org, orgRet);
-    } catch (NoOrganizationFoundException e) {
-      e.printStackTrace();
-    }
   }
 
   @Test

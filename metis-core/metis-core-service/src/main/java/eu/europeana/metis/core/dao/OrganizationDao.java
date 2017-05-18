@@ -19,6 +19,7 @@ package eu.europeana.metis.core.dao;
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.Date;
@@ -232,10 +233,15 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     return query.asList(new FindOptions().limit(organizationsPerRequest));
   }
 
-  public Organization getByOrganizationId(String organizationId) {
+  public Organization getOrganizationByOrganizationId(String organizationId) {
     return provider.getDatastore().find(Organization.class).field("organizationId")
         .equal(organizationId)
         .get();
+  }
+
+  public boolean existsOrganizationByOrganizationId(String organizationId) {
+    return provider.getDatastore().find(Dataset.class).field("organizationId").equal(organizationId)
+        .project("_id", true).get() != null;
   }
 
   public Organization getOrganizationOptInIIIFByOrganizationId(String organizationId) {

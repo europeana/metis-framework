@@ -67,13 +67,10 @@ public class OrganizationService {
 
   public void createOrganization(Organization org) throws IOException, SolrServerException {
     organizationDao.create(org);
-    saveInSolr(org);
+    saveSearchTermsInSolr(org);
   }
 
-  /**
-   * Saves organization search labels in solr
-   */
-  private void saveInSolr(Organization org) throws IOException, SolrServerException {
+  private void saveSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
     String id = org.getId().toString();
     String englabel = org.getName();
     String organizationId = org.getOrganizationId();
@@ -93,7 +90,7 @@ public class OrganizationService {
     LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
   }
 
-  private void updateInSolr(Organization org) throws IOException, SolrServerException {
+  private void updateSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
     String id = searchService
         .findSolrIdByOrganizationId(org.getOrganizationId());
     String englabel = org.getName();
@@ -116,7 +113,7 @@ public class OrganizationService {
 
   public void updateOrganization(Organization org) throws SolrServerException, IOException {
     organizationDao.update(org);
-    updateInSolr(org);
+    updateSearchTermsInSolr(org);
   }
 
   public void updateOrganizationDatasetNamesList(String organizationId, String datasetName) {
@@ -157,24 +154,10 @@ public class OrganizationService {
     return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
-  /**
-   * Get an organization by id
-   *
-   * @param id The id to search for
-   * @return The organization with the requested id
-   */
-  public Organization getOrganizationById(String id) throws NoOrganizationFoundException {
-    Organization organization = organizationDao.getById(id);
-    if (organization == null) {
-      throw new NoOrganizationFoundException("No organization found with id: " + id + " in METIS");
-    }
-    return organization;
-  }
-
   public Organization getOrganizationByOrganizationId(String organizationId)
       throws NoOrganizationFoundException {
 
-    Organization organization = organizationDao.getByOrganizationId(organizationId);
+    Organization organization = organizationDao.getOrganizationByOrganizationId(organizationId);
     if (organization == null) {
       throw new NoOrganizationFoundException(
           "No organization found with organization id: " + organizationId + " in METIS");
@@ -214,13 +197,9 @@ public class OrganizationService {
 
   public void checkRestrictionsOnCreate(Organization organization)
       throws BadContentException, OrganizationAlreadyExistsException {
-    try {
-      Organization storedOrganization = getOrganizationByOrganizationId(
-          organization.getOrganizationId());
-      if (storedOrganization != null) {
-        throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
-      }
-    } catch (NoOrganizationFoundException e) {
+    if (existsOrganizaitonByOrganizationId(organization.getOrganizationId())) {
+      throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
+    } else {
       LOGGER.info("Organization not found, so it can be created");
     }
     if (StringUtils.isEmpty(organization.getOrganizationId())) {
@@ -246,6 +225,10 @@ public class OrganizationService {
 
     //Check if it exist and if not throws exception
     getOrganizationByOrganizationId(organization.getOrganizationId());
+  }
+
+  private boolean existsOrganizaitonByOrganizationId(String organizationId) {
+    return organizationDao.existsOrganizationByOrganizationId(organizationId);
   }
 
   public int getOrganizationsPerRequestLimit() {

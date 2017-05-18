@@ -116,7 +116,7 @@ public class TestOrganizationDao {
     datasets.add(ds.getDatasetName());
     org.setDatasetNames(datasets);
     orgDao.create(org);
-    Organization retOrg = orgDao.getByOrganizationId(org.getOrganizationId());
+    Organization retOrg = orgDao.getOrganizationByOrganizationId(org.getOrganizationId());
     Assert.assertEquals(org.getOrganizationId(), retOrg.getOrganizationId());
     Assert.assertEquals(org.getOrganizationUri(), retOrg.getOrganizationUri());
     Assert.assertEquals(org.getDatasetNames().size(), retOrg.getDatasetNames().size());
@@ -131,7 +131,7 @@ public class TestOrganizationDao {
     org.setDatasetNames(datasets);
     orgDao.create(org);
     orgDao.delete(org);
-    Assert.assertNull(orgDao.getByOrganizationId(org.getOrganizationId()));
+    Assert.assertNull(orgDao.getOrganizationByOrganizationId(org.getOrganizationId()));
   }
 
   @Test
@@ -187,7 +187,7 @@ public class TestOrganizationDao {
     org.setOrganizationRoles(organizationRoles);
     org.setAcronym("acronym");
     orgDao.update(org);
-    Organization organization = orgDao.getByOrganizationId(org.getOrganizationId());
+    Organization organization = orgDao.getOrganizationByOrganizationId(org.getOrganizationId());
 
     Assert.assertTrue(StringUtils.equals(organization.getOrganizationUri(), "testNew"));
   }
