@@ -252,8 +252,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
-      OrganizationService organizationService) {
-    return new DatasetService(datasetDao, ecloudDatasetDao, organizationService);
+      OrganizationDao organizationDao) {
+    return new DatasetService(datasetDao, ecloudDatasetDao, organizationDao);
   }
 
   @Bean

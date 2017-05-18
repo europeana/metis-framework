@@ -51,7 +51,7 @@ public class TestDatasetService {
     private OrganizationService organizationService;
     private DatasetDao datasetDao;
     private EcloudDatasetDao ecloudDatasetDao;
-    private DatasetService service;
+    private DatasetService datasetService;
     private Datastore datastore;
     private Organization org;
     private Dataset ds;
@@ -65,11 +65,8 @@ public class TestDatasetService {
         ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
         ReflectionTestUtils.setField(organizationDao,"provider", morphiaDatastoreProvider);
         ReflectionTestUtils.setField(datasetDao,"provider", morphiaDatastoreProvider);
-        service = new DatasetService(datasetDao, ecloudDatasetDao, organizationService);
+        datasetService = new DatasetService(datasetDao, ecloudDatasetDao, organizationDao);
         datastore = Mockito.mock(Datastore.class);
-        ReflectionTestUtils.setField(service,"organizationService",organizationService);
-        ReflectionTestUtils.setField(service,"datasetDao",datasetDao);
-        ReflectionTestUtils.setField(service,"ecloudDatasetDao",ecloudDatasetDao);
         org = new Organization();
         org.setOrganizationId("orgId");
         org.setDatasetNames(new TreeSet<String>());
@@ -114,7 +111,7 @@ public class TestDatasetService {
         Mockito.when(datasetDao.create(Mockito.any(Dataset.class))).thenReturn(null);
         Mockito.when(organizationDao.updateOrganizationDatasetNamesList(Mockito.any(String.class), Mockito.any(String.class))).thenReturn(null);
         Mockito.when(ecloudDatasetDao.create(Mockito.any(DataSet.class))).thenReturn(null);
-        service.createDataset(ds, org.getOrganizationId());
+        datasetService.createDataset(ds, org.getOrganizationId());
     }
 
     @Test
@@ -127,7 +124,7 @@ public class TestDatasetService {
         Mockito.doNothing().when(organizationService).removeOrganizationDatasetNameFromList(Mockito.any(String.class), Mockito.any(String.class));
 
         Mockito.when(ecloudDatasetDao.delete(Mockito.any(DataSet.class))).thenReturn(true);
-        service.deleteDatasetByDatasetName(ds.getDatasetName());
+        datasetService.deleteDatasetByDatasetName(ds.getDatasetName());
     }
 
     @Test
@@ -141,7 +138,7 @@ public class TestDatasetService {
             }
         }).when(datasetDao).update(ds);
         Mockito.when(ecloudDatasetDao.update(Mockito.any(DataSet.class))).thenReturn(null);
-        service.updateDataset(ds);
+        datasetService.updateDataset(ds);
     }
 
     @Test
@@ -151,7 +148,7 @@ public class TestDatasetService {
         Mockito.when(datasetDao.getDatasetByDatasetName("name")).thenReturn(ds);
 
         try {
-            Dataset retDataset = service.getDatasetByName("name");
+            Dataset retDataset = datasetService.getDatasetByName("name");
             Assert.assertEquals(ds, retDataset);
         } catch (NoDatasetFoundException e){
             e.printStackTrace();

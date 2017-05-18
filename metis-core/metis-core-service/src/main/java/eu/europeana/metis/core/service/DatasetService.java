@@ -18,12 +18,14 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
+import eu.europeana.metis.core.organization.Organization;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -43,19 +45,19 @@ public class DatasetService {
 
   private final DatasetDao datasetDao;
   private final EcloudDatasetDao ecloudDatasetDao;
-  private final OrganizationService organizationService;
+  private final OrganizationDao organizationDao;
 
   @Autowired
   public DatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
-      OrganizationService organizationService) {
+      OrganizationDao organizationDao) {
     this.datasetDao = datasetDao;
     this.ecloudDatasetDao = ecloudDatasetDao;
-    this.organizationService = organizationService;
+    this.organizationDao = organizationDao;
   }
 
   public void createDataset(Dataset dataset, String organizationId) {
     datasetDao.create(dataset);
-    organizationService
+    organizationDao
         .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
 
     //Create in ECloud
@@ -97,8 +99,8 @@ public class DatasetService {
       throws NoDatasetFoundException {
     Dataset dataset = getDatasetByName(datasetName);
     datasetDao.updateDatasetName(datasetName, newDatasetName);
-    organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
-    organizationService.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
+    organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
+    organizationDao.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
 
     // TODO: 18-5-17 UPDATE DATASETNAME IN ECLOUD WHEN AVAILABLE CALL
   }
@@ -106,12 +108,14 @@ public class DatasetService {
   public void deleteDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
     Dataset dataset = getDatasetByName(datasetName);
     datasetDao.deleteDatasetByDatasetName(datasetName);
-    try {
-      organizationService.getOrganizationByOrganizationId(dataset.getOrganizationId());
-    } catch (NoOrganizationFoundException e) {
-      LOGGER.warn("Did not find organization with OrganizationId '" + dataset.getOrganizationId() + "' stated in dataset '" + datasetName + "' to be deleted");
+    Organization organization = organizationDao
+        .getOrganizationByOrganizationId(dataset.getOrganizationId());
+    if (organization == null) {
+      LOGGER.warn("Did not find organization with OrganizationId '" + dataset.getOrganizationId()
+          + "' stated in dataset '" + datasetName + "' to be deleted");
     }
-    organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), dataset.getDatasetName());
+    organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(),
+        dataset.getDatasetName());
 
     //Delete from ECloud
     DataSet ecloudDataset = new DataSet();
@@ -129,7 +133,7 @@ public class DatasetService {
     return dataset;
   }
 
-  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage){
+  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {
     return datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
 
@@ -154,7 +158,11 @@ public class DatasetService {
               + " is different from parameter " + organizationId);
     }
     //Check if organization exists first
-    organizationService.getOrganizationByOrganizationId(organizationId);
+    Organization organization = organizationDao.getOrganizationByOrganizationId(organizationId);
+    if (organization == null) {
+      throw new NoOrganizationFoundException(
+          "No organization found with organization id: " + organizationId + " in METIS");
+    }
     if (existsDatasetByDatasetName(dataset.getDatasetName())) {
       throw new DatasetAlreadyExistsException(dataset.getDatasetName());
     }
@@ -168,8 +176,7 @@ public class DatasetService {
       throw new BadContentException(
           "DatasetName in body " + dataset.getDatasetName()
               + " is different from parameter " + datasetName);
-    }
-    else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
+    } else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
       throw new BadContentException(
           "Dataset fields 'createdDate', 'updatedDate' should be empty");
     }
@@ -177,6 +184,10 @@ public class DatasetService {
     if (!existsDatasetByDatasetName(datasetName)) {
       throw new NoDatasetFoundException(datasetName);
     }
+  }
+
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
+    return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
   public boolean existsDatasetByDatasetName(String datasetName) {
