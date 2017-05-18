@@ -456,21 +456,4 @@ public class OrganizationController {
       throw new ApiKeyNotAuthorizedException(apikey);
     }
   }
-
-//  private ModelAndView constructModelAndViewForList(MetisKey key, List<Organization> orgs)
-//      throws InstantiationException, IllegalAccessException {
-//    if (key.getProfile().equals(Profile.PUBLIC)) {
-//      List<ModelAndView> organizationViews = new ArrayList<>();
-//      for (Organization org : orgs) {
-//        organizationViews.add(PublicOrganizationView.generateResponse(org));
-//      }
-//      return JsonUtils.toJson(organizationViews);
-//    } else {
-//      List<ModelAndView> organizationViews = new ArrayList<>();
-//      for (Organization org : orgs) {
-//        organizationViews.add(MetisOrganizationView.generateResponse(org));
-//      }
-//      return JsonUtils.toJson(organizationViews);
-//    }
-//  }
 }

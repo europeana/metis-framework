@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
@@ -59,7 +60,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   @Override
   public String update(Organization organization) {
     Query<Organization> q = provider.getDatastore().find(Organization.class)
-        .filter("organizationId", organization.getOrganizationId());
+        .field("organizationId").equal(organization.getOrganizationId());
     UpdateOperations<Organization> ops = provider.getDatastore()
         .createUpdateOperations(Organization.class);
     if (organization.getHarvestingMetadata() != null) {
@@ -157,7 +158,8 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   @Override
   public Organization getById(String id) {
-    return provider.getDatastore().find(Organization.class).filter("_id", new ObjectId(id)).get();
+    return provider.getDatastore().find(Organization.class).field("_id").equal(new ObjectId(id))
+        .get();
   }
 
   @Override
@@ -169,7 +171,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   public String updateOrganizationDatasetNamesList(String organizationId, String datasetName) {
     Query<Organization> query = provider.getDatastore().find(Organization.class)
-        .filter("organizationId", organizationId);
+        .field("organizationId").equal(organizationId);
     UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
         .createUpdateOperations(Organization.class);
     organizationUpdateOperations.addToSet("datasetNames", datasetName);
@@ -180,7 +182,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   }
 
-  public String removeOrganizationDatasetNameFromList(String organizationId, String datasetName) {
+  public void removeOrganizationDatasetNameFromList(String organizationId, String datasetName) {
     Query<Organization> query = provider.getDatastore().find(Organization.class)
         .field("organizationId").equal(organizationId);
     UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
@@ -188,35 +190,34 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     organizationUpdateOperations.removeAll("datasetNames", datasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, organizationUpdateOperations);
-    LOGGER.info("DatasetName '" + datasetName + "' removed from Organization '" + organizationId + "' datasetNames");
-    return String.valueOf(updateResults.getUpdatedCount());
+    LOGGER.info("DatasetName '" + datasetName + "' removed from Organization's '" + organizationId
+        + "' datasetNames. (UpdateResults: " + updateResults.getUpdatedCount() + ")");
 
   }
 
-  public boolean deleteByOrganizationId(String organizationId) {
+  public void deleteByOrganizationId(String organizationId) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.filter("organizationId", organizationId);
+    query.field("organizationId").equal(organizationId);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("Organization '" + organizationId + "' deleted from Mongo");
-    return delete.getN() == 1;
+    LOGGER.info("Organization '" + organizationId + "' deleted from Mongo. (WriteResult: " + delete.getN() + ")");
   }
 
   public List<Organization> getAllOrganizations(String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.order("_id").limit(organizationsPerRequest);
+    query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
-    return query.asList();
+    return query.asList(new FindOptions().limit(organizationsPerRequest));
   }
 
   public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.filter("country", country).order("_id").limit(organizationsPerRequest);
+    query.field("country").equal(country).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
-    return query.asList();
+    return query.asList(new FindOptions().limit(organizationsPerRequest));
   }
 
 
@@ -224,15 +225,16 @@ public class OrganizationDao implements MetisDao<Organization, String> {
       List<OrganizationRole> organizationRoles, String nextPage) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.field("organizationRoles")
-        .hasAnyOf(organizationRoles).order("_id").limit(organizationsPerRequest);
+        .hasAnyOf(organizationRoles).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
-    return query.asList();
+    return query.asList(new FindOptions().limit(organizationsPerRequest));
   }
 
   public Organization getByOrganizationId(String organizationId) {
-    return provider.getDatastore().find(Organization.class).filter("organizationId", organizationId)
+    return provider.getDatastore().find(Organization.class).field("organizationId")
+        .equal(organizationId)
         .get();
   }
 
