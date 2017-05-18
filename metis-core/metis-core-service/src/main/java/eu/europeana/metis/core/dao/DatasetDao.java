@@ -168,7 +168,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) {
-    return provider.getDatastore().find(Dataset.class).filter("datasetName", datasetName).get();
+    return provider.getDatastore().find(Dataset.class).field("datasetName").equal(datasetName).get();
   }
 
   public boolean existsDatasetByDatasetName(String datasetName) {

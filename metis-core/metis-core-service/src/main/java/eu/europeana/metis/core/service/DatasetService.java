@@ -122,7 +122,7 @@ public class DatasetService {
     Dataset dataset = datasetDao.getDatasetByDatasetName(name);
     if (dataset == null) {
       throw new NoDatasetFoundException(
-          "No dataset found with name: " + name + " in METIS");
+          "No dataset found with datasetName: " + name + " in METIS");
     }
     return dataset;
   }
