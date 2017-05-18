@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.core.service;
 
+import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -58,11 +59,11 @@ public class DatasetService {
         .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
 
     //Create in ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(dataset.getDatasetName());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(dataset.getDescription());
-//    ecloudDatasetDao.create(ecloudDataset);
+    DataSet ecloudDataset = new DataSet();
+    ecloudDataset.setId(dataset.getDatasetName());
+    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+    ecloudDataset.setDescription(dataset.getDescription());
+    ecloudDatasetDao.create(ecloudDataset);
   }
 
   public void createDatasetForOrganization(Dataset dataset, String organizationId)
@@ -77,11 +78,11 @@ public class DatasetService {
     datasetDao.update(dataset);
 
     //Update in ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(ds.getDatasetName());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(ds.getDescription());
-//    ecloudDatasetDao.update(ecloudDataset);
+    DataSet ecloudDataset = new DataSet();
+    ecloudDataset.setId(dataset.getDatasetName());
+    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+    ecloudDataset.setDescription(dataset.getDescription());
+    ecloudDatasetDao.update(ecloudDataset);
   }
 
   public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
@@ -98,6 +99,8 @@ public class DatasetService {
     datasetDao.updateDatasetName(datasetName, newDatasetName);
     organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
     organizationService.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
+
+    // TODO: 18-5-17 UPDATE DATASETNAME IN ECLOUD WHEN AVAILABLE CALL
   }
 
   public void deleteDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
@@ -111,11 +114,10 @@ public class DatasetService {
     organizationService.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), dataset.getDatasetName());
 
     //Delete from ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(ds.getDatasetName());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(ds.getDescription());
-//    ecloudDatasetDao.delete(ecloudDataset);
+    DataSet ecloudDataset = new DataSet();
+    ecloudDataset.setId(datasetName);
+    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+    ecloudDatasetDao.delete(ecloudDataset);
   }
 
   public Dataset getDatasetByName(String name) throws NoDatasetFoundException {
