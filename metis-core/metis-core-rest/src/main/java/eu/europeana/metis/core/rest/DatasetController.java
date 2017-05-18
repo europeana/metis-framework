@@ -230,7 +230,7 @@ public class DatasetController {
   public DatasetListWrapper getAllDatasetsByDataProvider(@PathVariable("dataProvider") String dataProvider,
       @QueryParam("nextPage"
       ) String nextPage, @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoDatasetFoundException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {

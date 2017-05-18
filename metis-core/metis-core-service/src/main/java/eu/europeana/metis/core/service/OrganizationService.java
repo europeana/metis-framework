@@ -138,36 +138,17 @@ public class OrganizationService {
     searchService.deleteFromSearchByOrganizationId(organizationId);
   }
 
-  public List<Organization> getAllOrganizations(String nextPage)
-      throws NoOrganizationFoundException {
-    List<Organization> organizations = organizationDao.getAllOrganizations(nextPage);
-    if ((organizations == null || organizations.size() == 0) && StringUtils.isNotEmpty(nextPage)) {
-      return organizations;
-    } else if (organizations == null || organizations.size() == 0) {
-      throw new NoOrganizationFoundException("No organizations found!");
-    }
-    return organizations;
+  public List<Organization> getAllOrganizations(String nextPage) {
+    return organizationDao.getAllOrganizations(nextPage);
   }
 
   public List<Organization> getAllOrganizationsByOrganizationRole(
-      List<OrganizationRole> organizationRoles, String nextPage)
-      throws NoOrganizationFoundException {
-    List<Organization> organizations = organizationDao
-        .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
-    if (organizations == null || organizations.size() == 0) {
-      throw new NoOrganizationFoundException("No organizations found!");
-    }
-    return organizations;
+      List<OrganizationRole> organizationRoles, String nextPage) {
+    return organizationDao.getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
   }
 
-  public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage)
-      throws NoOrganizationFoundException {
-    List<Organization> organizations = organizationDao
-        .getAllOrganizationsByCountry(country, nextPage);
-    if (organizations == null || organizations.size() == 0) {
-      throw new NoOrganizationFoundException("No organizations found!");
-    }
-    return organizations;
+  public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage) {
+    return organizationDao.getAllOrganizationsByCountry(country, nextPage);
   }
 
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage)
@@ -212,12 +193,8 @@ public class OrganizationService {
   }
 
   public List<Organization> getAllOrganizationsFromCRM()
-      throws ParseException, IOException, NoOrganizationFoundException {
-    List<Organization> organizations = restClient.getAllOrganizations();
-    if (organizations == null || organizations.size() == 0) {
-      throw new NoOrganizationFoundException("No organization found in CRM");
-    }
-    return organizations;
+      throws ParseException, IOException {
+    return restClient.getAllOrganizations();
   }
 
   public boolean isOptedInIIIF(String organizationId) throws NoOrganizationFoundException {

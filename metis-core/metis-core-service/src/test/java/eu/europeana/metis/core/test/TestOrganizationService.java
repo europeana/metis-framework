@@ -44,193 +44,192 @@ import org.springframework.test.util.ReflectionTestUtils;
 
 public class TestOrganizationService {
 
-    private MorphiaDatastoreProvider morphiaDatastoreProvider;
-    private OrganizationDao organizationDao;
-    private DatasetDao datasetDao;
-    private OrganizationService service;
-    private Datastore datastore;
-    private Organization org;
-    private MetisSearchService searchService;
+  private MorphiaDatastoreProvider morphiaDatastoreProvider;
+  private OrganizationDao organizationDao;
+  private DatasetDao datasetDao;
+  private OrganizationService service;
+  private Datastore datastore;
+  private Organization org;
+  private MetisSearchService searchService;
 
-    @Before
-    public void prepare() {
-        morphiaDatastoreProvider = Mockito.mock(MorphiaDatastoreProvider.class);
-        organizationDao = Mockito.mock(OrganizationDao.class);
-        ReflectionTestUtils.setField(organizationDao, "provider", morphiaDatastoreProvider);
-        datasetDao = Mockito.mock(DatasetDao.class);
-        ReflectionTestUtils.setField(datasetDao, "provider", morphiaDatastoreProvider);
-        service = new OrganizationService(organizationDao, datasetDao, new ZohoMockClient(), searchService);
-        datastore = Mockito.mock(Datastore.class);
-        searchService=Mockito.mock(MetisSearchService.class);
-        ReflectionTestUtils.setField(service, "organizationDao", organizationDao);
-        ReflectionTestUtils.setField(service, "searchService",searchService);
-        org = new Organization();
-        org.setId(new ObjectId());
-        org.setOrganizationId("orgId");
-        org.setDatasetNames(new TreeSet<String>());
-        org.setOrganizationUri("testUri");
-        org.setHarvestingMetadata(new HarvestingMetadata());
-        org.setOptInIIIF(true);
-    }
+  @Before
+  public void prepare() {
+    morphiaDatastoreProvider = Mockito.mock(MorphiaDatastoreProvider.class);
+    organizationDao = Mockito.mock(OrganizationDao.class);
+    ReflectionTestUtils.setField(organizationDao, "provider", morphiaDatastoreProvider);
+    datasetDao = Mockito.mock(DatasetDao.class);
+    ReflectionTestUtils.setField(datasetDao, "provider", morphiaDatastoreProvider);
+    service = new OrganizationService(organizationDao, datasetDao, new ZohoMockClient(),
+        searchService);
+    datastore = Mockito.mock(Datastore.class);
+    searchService = Mockito.mock(MetisSearchService.class);
+    ReflectionTestUtils.setField(service, "organizationDao", organizationDao);
+    ReflectionTestUtils.setField(service, "searchService", searchService);
+    org = new Organization();
+    org.setId(new ObjectId());
+    org.setOrganizationId("orgId");
+    org.setDatasetNames(new TreeSet<String>());
+    org.setOrganizationUri("testUri");
+    org.setHarvestingMetadata(new HarvestingMetadata());
+    org.setOptInIIIF(true);
+  }
 
-    @Test
-    public void testOrganizationCreation() {
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(organizationDao).create(org);
+  @Test
+  public void testOrganizationCreation() {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    Mockito.doAnswer(new Answer<Object>() {
+      @Override
+      public Object answer(InvocationOnMock invocation) throws Throwable {
+        return null;
+      }
+    }).when(organizationDao).create(org);
 
-        try {
-            Mockito.doAnswer(new Answer<Object>() {
-                @Override
-                public Object answer(InvocationOnMock invocation) throws Throwable {
-                    return null;
-                }
-            }).when(searchService).addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
-            service.createOrganization(org);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SolrServerException e) {
-            e.printStackTrace();
+    try {
+      Mockito.doAnswer(new Answer<Object>() {
+        @Override
+        public Object answer(InvocationOnMock invocation) throws Throwable {
+          return null;
         }
+      }).when(searchService)
+          .addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
+              Mockito.anyList());
+      service.createOrganization(org);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (SolrServerException e) {
+      e.printStackTrace();
     }
+  }
 
-    @Test
-    public void testOrganizationUpdate() {
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+  @Test
+  public void testOrganizationUpdate() {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
-        Mockito.doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(organizationDao).update(org);
-        try {
-            Mockito.doAnswer(new Answer<Object>() {
-                @Override
-                public Object answer(InvocationOnMock invocation) throws Throwable {
-                    return null;
-                }
-            }).when(searchService).addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(),Mockito.anyString(),Mockito.anyList());
-            service.updateOrganization(org);
-        } catch (SolrServerException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    Mockito.doAnswer(new Answer<Object>() {
+      @Override
+      public Object answer(InvocationOnMock invocation) throws Throwable {
+        return null;
+      }
+    }).when(organizationDao).update(org);
+    try {
+      Mockito.doAnswer(new Answer<Object>() {
+        @Override
+        public Object answer(InvocationOnMock invocation) throws Throwable {
+          return null;
         }
+      }).when(searchService)
+          .addOrganizationForSearch(Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
+              Mockito.anyList());
+      service.updateOrganization(org);
+    } catch (SolrServerException e) {
+      e.printStackTrace();
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+  }
 
-    @Test
-    public void testOrganizationDelete() {
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+  @Test
+  public void testOrganizationDelete() {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
 
-        Mockito.doAnswer(new Answer<Object>() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(organizationDao).delete(org);
-        try {
-            Mockito.doAnswer(new Answer<Object>() {
-                @Override
-                public Object answer(InvocationOnMock invocation) throws Throwable {
-                    return null;
-                }
-            }).when(searchService).deleteFromSearch(Mockito.anyString());
-            service.deleteOrganization(org);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SolrServerException e) {
-            e.printStackTrace();
+    Mockito.doAnswer(new Answer<Object>() {
+      @Override
+      public Object answer(InvocationOnMock invocation) throws Throwable {
+        return null;
+      }
+    }).when(organizationDao).delete(org);
+    try {
+      Mockito.doAnswer(new Answer<Object>() {
+        @Override
+        public Object answer(InvocationOnMock invocation) throws Throwable {
+          return null;
         }
+      }).when(searchService).deleteFromSearch(Mockito.anyString());
+      service.deleteOrganization(org);
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (SolrServerException e) {
+      e.printStackTrace();
     }
+  }
 
-    @Test
-    public void testRetrieveOrgByOrgId() {
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getByOrganizationId("string")).thenReturn(org);
+  @Test
+  public void testRetrieveOrgByOrgId() {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    Mockito.when(organizationDao.getByOrganizationId("string")).thenReturn(org);
 
-        try {
-            Organization orgRet = service.getOrganizationByOrganizationId("string");
-            Assert.assertEquals(org, orgRet);
-        } catch (NoOrganizationFoundException e) {
-            e.printStackTrace();
-        }
+    try {
+      Organization orgRet = service.getOrganizationByOrganizationId("string");
+      Assert.assertEquals(org, orgRet);
+    } catch (NoOrganizationFoundException e) {
+      e.printStackTrace();
     }
+  }
 
-    @Test
-    public void testRetrieveOptin() throws NoOrganizationFoundException {
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getOrganizationOptInIIIFByOrganizationId("string")).thenReturn(org);
-            boolean optedIn = service.isOptedInIIIF("string");
-            Assert.assertTrue(optedIn);
+  @Test
+  public void testRetrieveOptin() throws NoOrganizationFoundException {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    Mockito.when(organizationDao.getOrganizationOptInIIIFByOrganizationId("string"))
+        .thenReturn(org);
+    boolean optedIn = service.isOptedInIIIF("string");
+    Assert.assertTrue(optedIn);
+  }
+
+  @Test
+  public void testRetrieveOrgById() {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    Mockito.when(organizationDao.getById("string")).thenReturn(org);
+    try {
+      Organization orgRet = service.getOrganizationById("string");
+      Assert.assertEquals(org, orgRet);
+    } catch (NoOrganizationFoundException e) {
+      e.printStackTrace();
     }
+  }
 
-    @Test
-    public void testRetrieveOrgById() {
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getById("string")).thenReturn(org);
-        try {
-            Organization orgRet = service.getOrganizationById("string");
-            Assert.assertEquals(org, orgRet);
-        } catch (NoOrganizationFoundException e) {
-            e.printStackTrace();
-        }
+  @Test
+  public void testRetrieveOrgByCountry() {
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    List<Organization> orgs = new ArrayList<>();
+    orgs.add(org);
+    orgs.add(org);
+    orgs.add(org);
+    Mockito.when(organizationDao.getAllOrganizationsByCountry(Country.ALBANIA, null))
+        .thenReturn(orgs);
+    List<Organization> orgRet = service.getAllOrganizationsByCountry(Country.ALBANIA, null);
+    Assert.assertEquals(orgs, orgRet);
+  }
+
+  @Test
+  public void testRetrieveAll() {
+
+    List<Organization> orgs = new ArrayList<>();
+    orgs.add(org);
+    orgs.add(org);
+    orgs.add(org);
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    Mockito.when(organizationDao.getAllOrganizations(null)).thenReturn(orgs);
+    List<Organization> orgRet = service.getAllOrganizations(null);
+    Assert.assertEquals(orgs, orgRet);
+  }
+
+  @Test
+  public void testRetrieveDatasets() {
+
+    List<Dataset> datasets = new ArrayList<>();
+    datasets.add(new Dataset());
+    datasets.add(new Dataset());
+    datasets.add(new Dataset());
+    Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
+    try {
+      Mockito.when(service.getOrganizationByOrganizationId("string"))
+          .thenReturn(new Organization());
+      Mockito.when(datasetDao.getAllDatasetsByOrganizationId("string", null)).thenReturn(datasets);
+
+      List<Dataset> datasetsRet = service.getAllDatasetsByOrganizationId("string", null);
+      Assert.assertEquals(datasets, datasetsRet);
+    } catch (NoOrganizationFoundException e) {
+      e.printStackTrace();
     }
-
-    @Test
-    public void testRetrieveOrgByCountry(){
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        List<Organization> orgs = new ArrayList<>();
-        orgs.add(org);
-        orgs.add(org);
-        orgs.add(org);
-        Mockito.when(organizationDao.getAllOrganizationsByCountry(Country.ALBANIA, null)).thenReturn(orgs);
-        try {
-            List<Organization> orgRet = service.getAllOrganizationsByCountry(Country.ALBANIA, null);
-            Assert.assertEquals(orgs, orgRet);
-        } catch (NoOrganizationFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void testRetrieveAll() {
-
-        List<Organization> orgs = new ArrayList<>();
-        orgs.add(org);
-        orgs.add(org);
-        orgs.add(org);
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        Mockito.when(organizationDao.getAllOrganizations(null)).thenReturn(orgs);
-        try {
-            List<Organization> orgRet = service.getAllOrganizations(null);
-            Assert.assertEquals(orgs, orgRet);
-        } catch (NoOrganizationFoundException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @Test
-    public void testRetrieveDatasets() {
-
-        List<Dataset> datasets = new ArrayList<>();
-        datasets.add(new Dataset());
-        datasets.add(new Dataset());
-        datasets.add(new Dataset());
-        Mockito.when(morphiaDatastoreProvider.getDatastore()).thenReturn(datastore);
-        try {
-            Mockito.when(service.getOrganizationByOrganizationId("string")).thenReturn(new Organization());
-            Mockito.when(datasetDao.getAllDatasetsByOrganizationId("string", null)).thenReturn(datasets);
-
-            List<Dataset> datasetsRet = service.getAllDatasetsByOrganizationId("string", null);
-            Assert.assertEquals(datasets, datasetsRet);
-        } catch (NoOrganizationFoundException e) {
-            e.printStackTrace();
-        }
-    }
+  }
 }

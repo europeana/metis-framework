@@ -129,14 +129,10 @@ public class DatasetService {
     return dataset;
   }
 
-  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage)
-      throws NoDatasetFoundException {
-    List<Dataset> datasets = datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
-    if ((datasets == null || datasets.size() == 0) && StringUtils.isEmpty(nextPage)) {
-      throw new NoDatasetFoundException("No datasets found for dataProvider " + dataProvider);
-    }
-    return datasets;
+  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage){
+    return datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
+
 
   private void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException {

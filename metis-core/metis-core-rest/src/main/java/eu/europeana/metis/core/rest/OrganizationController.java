@@ -184,7 +184,7 @@ public class OrganizationController {
   @ApiOperation(value = "Get all organizations")
   public OrganizationListWrapper getAllOrganizations(@QueryParam("nextPage"
   ) String nextPage, @QueryParam("apikey") String apikey)
-      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
+      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
@@ -248,7 +248,7 @@ public class OrganizationController {
   public OrganizationListWrapper getAllOrganizationsByCountryIsoCode(
       @PathVariable("isoCode") String isoCode, @QueryParam("nextPage"
   ) String nextPage, @QueryParam("apikey") String apikey)
-      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
@@ -285,7 +285,7 @@ public class OrganizationController {
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
+      throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
@@ -442,7 +442,7 @@ public class OrganizationController {
   })
   @ApiOperation(value = "Get all organizations from CRM", response = OrganizationListWrapper.class)
   public OrganizationListWrapper getAllOrganizationsFromCRM(@RequestParam("apikey") String apikey)
-      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
