@@ -34,44 +34,43 @@
           <testTarget>1.8</testTarget>
         </configuration>
       </plugin>
-      <!--Removes java styleguide dependency and downloads again. This is done because-->
-      <!--the resolve of an updated snapshot in the artifactory is not working, probably-->
-      <!--because this dependency is not used internally like code and it's only used for unpacking-->
-      <!--templates.
-      IF A LOCAL BUILD OF THE JAVA-STYLEGUIDE IS REQUIRED, THEN THIS PLUGIN SHOULD BE COMMENTED OUT-->
+      <!--The europeana-java-styleguide is not downloaded properly from the artifactory.-->
+      <!--To fix that if the deployed dependecy is required then use something like-->
+      <!--mvn clean dependency:purge-local-repository -DmanualInclude=eu.europeana.metis:europeana-java-styleguide install -U-->
+      <!--to actual clean the dependency and redownload it.-->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <version>2.10</version>
         <executions>
-          <execution>
-            <id>dependency-purge-local-dependency</id>
-            <phase>clean</phase>
-            <goals>
-              <goal>purge-local-repository</goal>
-            </goals>
-            <configuration>
-              <manualIncludes>
-                <manualInclude>eu.europeana.metis:europeana-java-styleguide</manualInclude>
-              </manualIncludes>
-            </configuration>
-          </execution>
-          <execution>
-            <id>dependency-get</id>
-            <phase>process-sources</phase>
-            <goals>
-              <goal>get</goal>
-            </goals>
-            <configuration>
-              <groupId>eu.europeana.metis</groupId>
-              <artifactId>europeana-java-styleguide</artifactId>
-              <version>1.0-SNAPSHOT</version>
-              <packaging>jar</packaging>
-              <remoteRepositories>
-                artifactory.eanadev.org-snapshot::default::http://artifactory.eanadev.org/artifactory/libs-snapshot-local
-              </remoteRepositories>
-            </configuration>
-          </execution>
+          <!--<execution>-->
+            <!--<id>dependency-purge-local-dependency</id>-->
+            <!--<phase>clean</phase>-->
+            <!--<goals>-->
+              <!--<goal>purge-local-repository</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<manualIncludes>-->
+                <!--<manualInclude>eu.europeana.metis:europeana-java-styleguide</manualInclude>-->
+              <!--</manualIncludes>-->
+            <!--</configuration>-->
+          <!--</execution>-->
+          <!--<execution>-->
+            <!--<id>dependency-get</id>-->
+            <!--<phase>process-sources</phase>-->
+            <!--<goals>-->
+              <!--<goal>get</goal>-->
+            <!--</goals>-->
+            <!--<configuration>-->
+              <!--<groupId>eu.europeana.metis</groupId>-->
+              <!--<artifactId>europeana-java-styleguide</artifactId>-->
+              <!--<version>1.0-SNAPSHOT</version>-->
+              <!--<packaging>jar</packaging>-->
+              <!--<remoteRepositories>-->
+                <!--artifactory.eanadev.org-snapshot::default::http://artifactory.eanadev.org/artifactory/libs-snapshot-local-->
+              <!--</remoteRepositories>-->
+            <!--</configuration>-->
+          <!--</execution>-->
           <execution>
             <id>dependency-unpack</id>
             <phase>prepare-package</phase>
@@ -125,7 +124,6 @@
       <groupId>eu.europeana.metis</groupId>
       <artifactId>europeana-java-styleguide</artifactId>
       <version>1.0-SNAPSHOT</version>
-      <type>jar</type>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

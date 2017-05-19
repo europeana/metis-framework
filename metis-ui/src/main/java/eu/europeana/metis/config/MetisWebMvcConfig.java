@@ -77,7 +77,7 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean 
 	public MustacheTemplateLoader mustacheTemplateLoader(ResourceLoader resourceLoader){
 		MustacheTemplateLoader loader =  new DefaultTemplateLoader(resourceLoader);
-		loader.setPrefix("WEB-INF/app/views/");
+		loader.setPrefix("WEB-INF/source/_patterns/");
 		loader.setSuffix(".mustache");
 		return loader;
 	}	
