@@ -70,10 +70,10 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers("/", "/register", "/mappings-page").permitAll()
         .antMatchers("/dashboard").authenticated()
         .antMatchers("/profile")
-        .hasAnyRole(Roles.EUROPEANA_ADMIN.getLdapName(), Roles.EUROPEANA_VIEWER.getLdapName(),
-            Roles.EUROPEANA_DATA_OFFICER.getLdapName(), Roles.PROVIDER_ADMIN.getLdapName(),
-            Roles.PROVIDER_VIEWER.getLdapName(), Roles.EUROPEANA_DATA_OFFICER.getLdapName())
-        .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.getLdapName())
+        .hasAnyRole(Roles.EUROPEANA_ADMIN.name(),Roles.EUROPEANA_ADMIN.name(), Roles.EUROPEANA_VIEWER.name(),
+            Roles.EUROPEANA_DATA_OFFICER.name(), Roles.PROVIDER_ADMIN.name(),
+            Roles.PROVIDER_VIEWER.name(), Roles.EUROPEANA_DATA_OFFICER.name())
+        .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name())
         .and()
         .formLogin().loginPage("/login")
         .usernameParameter("email").passwordParameter("password")
