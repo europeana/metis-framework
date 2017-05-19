@@ -2,17 +2,17 @@ package eu.europeana.metis.controller;
 
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
 import eu.europeana.metis.core.rest.client.ServerException;
-import eu.europeana.metis.core.mail.notification.MetisMailType;
+import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
-import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.collections.CollectionUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -42,6 +41,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,17 +71,10 @@ public class MetisUserPageController {
    * Resolves user login page.
    */
   @RequestMapping(value = "/login")
-  public ModelAndView login(HttpServletRequest request, Model model) {
+  public ModelAndView login(@RequestParam(value = "authentication_error", required = false) boolean authentication_error) {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    String email = request.getParameter("email");
-    UserDTO userDTO = userService.getUser(email);
-    UserProfile userProfile = new UserProfile();
-    userProfile.init(userDTO);
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN, userProfile);
-    String authError = request.getParameter("authentication_error");
-    if (authError != null && authError.equals("true")) {
-      metisLandingPage.setIsAuthError(true);
-    }
+    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN);
+    metisLandingPage.setIsAuthError(authentication_error);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
@@ -97,16 +90,16 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  /**
-   * Resolves user logout.
-   */
-  @RequestMapping(value = "/logout")
-  public ModelAndView logout(Model model) {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME);
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
-    return modelAndView;
-  }
+//  /**
+//   * Resolves user logout.
+//   */
+//  @RequestMapping(value = "/logout")
+//  public ModelAndView logout(Model model) {
+//    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+//    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME);
+//    modelAndView.addAllObjects(metisLandingPage.buildModel());
+//    return modelAndView;
+//  }
 
   @RequestMapping(value = "/dashboard")
   public ModelAndView dashboardPage() {
