@@ -17,13 +17,13 @@
 package eu.europeana.metis.config;
 
 import eu.europeana.metis.ui.mongo.domain.Roles;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -35,32 +35,28 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  * @author alena
  */
 @Configuration
+@PropertySource("classpath:authentication.properties")
 @EnableWebSecurity
 public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  @Configuration
-  @PropertySource("classpath:authentication.properties")
-  protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
+  @Value("${ldap.url}")
+  private String url;
+  @Value("${ldap.manager.dn}")
+  private String managerDN;
+  @Value("${ldap.manager.pwd}")
+  private String managerPWD;
 
-    @Value("${ldap.url}")
-    private String url;
-    @Value("${ldap.manager.dn}")
-    private String managerDN;
-    @Value("${ldap.manager.pwd}")
-    private String managerPWD;
-
-    @Override
-    public void init(AuthenticationManagerBuilder auth) throws Exception {
-      auth.ldapAuthentication()
-          .contextSource()
-          .url(url).managerDn(managerDN).managerPassword(managerPWD)
-          .and()
-          .userSearchBase("ou=users,ou=metis_authentication")
-          .userSearchFilter("(uid={0})")
-          .groupSearchBase("ou=roles,ou=metis_authentication")
-          .groupRoleAttribute("cn")
-          .groupSearchFilter("(member={0})");
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
+    authenticationMgr.ldapAuthentication()
+        .contextSource()
+        .url(url).managerDn(managerDN).managerPassword(managerPWD)
+        .and()
+        .userSearchBase("ou=users,ou=metis_authentication")
+        .userSearchFilter("(uid={0})")
+        .groupSearchBase("ou=roles,ou=metis_authentication")
+        .groupRoleAttribute("cn")
+        .groupSearchFilter("(member={0})");
   }
 
   @Override
@@ -70,24 +66,24 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-    // @formatter:off
     http.authorizeRequests()
         .antMatchers("/", "/register", "/mappings-page").permitAll()
-        .antMatchers("/profile")
-        .hasAnyRole("EUROPEANA_ADMIN", "EUROPEANA_VIEWER", "EUROPEANA_DATA_OFFICER", "HUB_ADMIN",
-            "HUB_VIEWER", "HUB_DATA_OFFICER")
-        .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name()).anyRequest().authenticated()
         .antMatchers("/dashboard").authenticated()
+        .antMatchers("/profile")
+        .hasAnyRole(Roles.EUROPEANA_ADMIN.getLdapName(), Roles.EUROPEANA_VIEWER.getLdapName(),
+            Roles.EUROPEANA_DATA_OFFICER.getLdapName(), Roles.PROVIDER_ADMIN.getLdapName(),
+            Roles.PROVIDER_VIEWER.getLdapName(), Roles.EUROPEANA_DATA_OFFICER.getLdapName())
+        .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.getLdapName())
         .and()
-        .logout()
-        .logoutSuccessUrl("/").permitAll()
-        .and()
-        .formLogin().loginProcessingUrl("/login")
-        .loginPage("/login").defaultSuccessUrl("/dashboard")
+        .formLogin().loginPage("/login")
+        .usernameParameter("email").passwordParameter("password")
+        .defaultSuccessUrl("/dashboard")
         .failureUrl("/login?authentication_error=true").permitAll()
         .and()
+        .logout()
+        .logoutSuccessUrl("/")
+        .and()
         .csrf().disable();
-    // @formatter:on
   }
 
   @Bean
