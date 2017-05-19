@@ -148,7 +148,7 @@ public class TestDatasetService {
         Mockito.when(datasetDao.getDatasetByDatasetName("name")).thenReturn(ds);
 
         try {
-            Dataset retDataset = datasetService.getDatasetByName("name");
+            Dataset retDataset = datasetService.getDatasetByDatasetName("name");
             Assert.assertEquals(ds, retDataset);
         } catch (NoDatasetFoundException e){
             e.printStackTrace();

@@ -41,51 +41,31 @@ public class Dataset {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  /**
-   * The name of the dataset
-   */
+
+  @Indexed(unique = true)
+  private String ecloudUUID;
+
   @Indexed(unique = true)
   private String datasetName;
 
-  /**
-   * Identical to the organizationId from Organization class
-   */
   @Indexed
   private String organizationId;
 
-  /**
-   * Data providers associated with this dataset
-   */
   @Indexed
   private String dataProvider;
 
-  /**
-   * Providers have signed DEA for the dataset
-   */
   private boolean deaSigned;
 
-  /**
-   * List of subjects for the dataset
-   */
   @JacksonXmlElementWrapper(localName = "subjects")
   @JacksonXmlProperty(localName = "subject")
   private List<String> subjects;
 
-  /**
-   * The source of the dataset
-   */
   @JacksonXmlElementWrapper(localName = "sources")
   @JacksonXmlProperty(localName = "source")
   private List<String> sources;
 
-  /**
-   * When was the dataset created
-   */
   private Date createdDate;
 
-  /**
-   * When was the dataset updated
-   */
   private Date updatedDate;
 
   /**
@@ -93,61 +73,28 @@ public class Dataset {
    */
   private String replacedBy;
 
-  /**
-   * Description of the dataset
-   */
   private String description;
 
-  /**
-   * Notes for the dataset
-   */
   private String notes;
 
-  /**
-   * User id that created the dataset
-   */
   @Indexed
   private String createdByLdapId;
 
-  /**
-   * User id to process the dataset
-   */
   @Indexed
   private String assignedToLdapId;
 
-  /**
-   * When it ws first published
-   */
   private Date firstPublished;
 
-  /**
-   * When it was last published
-   */
   private Date lastPublished;
 
-  /**
-   * How many records were published
-   */
   private int publishedRecords;
 
-  /**
-   * When it was harvested
-   */
   private Date harvestedAt;
 
-  /**
-   * When it was submitted
-   */
   private Date submissionDate;
 
-  /**
-   * How many records were submitted
-   */
   private int submittedRecords;
 
-  /**
-   * Has the provider accepted it
-   */
   private boolean accepted;
 
   /**
@@ -157,24 +104,12 @@ public class Dataset {
   @JacksonXmlProperty(localName = "dqa")
   private List<String> dqas;
 
-  /**
-   * Harvesting metadata (override the organizational metadata)
-   */
   private HarvestingMetadata metadata;
 
-  /**
-   * The workflow status
-   */
   private WorkflowStatus workflowStatus;
 
-  /**
-   * The country of the dataset
-   */
   private Country country;
 
-  /**
-   * The language of the dataset
-   */
   private Language language;
 
   private Boolean acceptanceStep;
@@ -193,6 +128,14 @@ public class Dataset {
 
   public void setDatasetName(String datasetName) {
     this.datasetName = datasetName;
+  }
+
+  public String getEcloudUUID() {
+    return ecloudUUID;
+  }
+
+  public void setEcloudUUID(String ecloudUUID) {
+    this.ecloudUUID = ecloudUUID;
   }
 
   public String getOrganizationId() {

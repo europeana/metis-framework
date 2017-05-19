@@ -204,7 +204,7 @@ public class DatasetController {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
-      Dataset dataset = datasetService.getDatasetByName(datasetName);
+      Dataset dataset = datasetService.getDatasetByDatasetName(datasetName);
       LOGGER.info("Dataset with datasetName '" + datasetName + "' found");
       return dataset;
     } else if (key == null) {
