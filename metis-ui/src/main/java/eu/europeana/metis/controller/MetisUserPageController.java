@@ -90,34 +90,6 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-//  /**
-//   * Resolves user logout.
-//   */
-//  @RequestMapping(value = "/logout")
-//  public ModelAndView logout(Model model) {
-//    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-//    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME);
-//    modelAndView.addAllObjects(metisLandingPage.buildModel());
-//    return modelAndView;
-//  }
-
-  @RequestMapping(value = "/dashboard")
-  public ModelAndView dashboardPage() {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String primaryKey =
-        principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
-            : null;
-    UserDTO userDTO = userService.getUser(primaryKey);
-    UserProfile userProfile = new UserProfile();
-    userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getGivenName() + " ***");
-
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
-    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userProfile);
-    modelAndView.addAllObjects(metisDashboardPage.buildModel());
-    return modelAndView;
-  }
-
   /**
    * Handles the user registration submission.
    */
@@ -136,9 +108,24 @@ public class MetisUserPageController {
     userService.createLdapUser(user);
     LOGGER.info("*** User created: " + user.getGivenName() + " ***");
 
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
-//		modelAndView.setViewName("redirect:login?email="+ user.getEmail());
     modelAndView.setViewName("redirect:/");
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/dashboard")
+  public ModelAndView dashboardPage() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String primaryKey =
+        principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
+            : null;
+    UserDTO userDTO = userService.getUser(primaryKey);
+    UserProfile userProfile = new UserProfile();
+    userProfile.init(userDTO);
+    LOGGER.info("*** User profile opened: " + userProfile.getGivenName() + " ***");
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
+    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userProfile);
+    modelAndView.addAllObjects(metisDashboardPage.buildModel());
     return modelAndView;
   }
 

@@ -215,9 +215,38 @@ public class MetisLandingPage extends MetisPage {
    * The content for the Register User page.
    */
   private void buildRegisterPageContent() {
+//    if (isDuplicateUser) {
+//      contentMap.put("register_err_duplicate_user", ERROR_DUPLICATE_USER);
+//    }
+
+    Map<String, Object> register_form = new HashMap<>();
+    Map<String, String> full_name_field = new HashMap<>();
+    Map<String, String> email_field = new HashMap<>();
+    Map<String, String> password_field = new HashMap<>();
+
+    full_name_field.put("label", "Name *");
+    full_name_field.put("first_name_placeholder", "First");
+    full_name_field.put("last_name_placeholder", "Last");
+
+    email_field.put("label", "Email *");
+    email_field.put("placeholder", "your@email");
+
+    password_field.put("label", "New Password *");
+    password_field.put("placeholder", "Create your password");
+
+    register_form.put("form_title", "Register to Metis");
+    register_form.put("full_name_field", full_name_field);
+    register_form.put("email_field", email_field);
+    register_form.put("password_field", password_field);
+
     if (isDuplicateUser) {
-      contentMap.put("register_err_duplicate_user", ERROR_DUPLICATE_USER);
+      register_form.put("register_err_duplicate_user", "User already exists");
     }
+    register_form.put("submit_btn_text", "Submit");
+    register_form.put("reset_btn_text", "Reset");
+    register_form.put("requirements", "* needed for registration");
+
+    contentMap.put("register_form", register_form);
   }
 
   /**
