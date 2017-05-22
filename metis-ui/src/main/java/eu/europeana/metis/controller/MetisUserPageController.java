@@ -72,11 +72,13 @@ public class MetisUserPageController {
    * Resolves user login page.
    */
   @RequestMapping(value = "/login")
-  public ModelAndView login(@RequestParam(value = "authentication_error", required = false) boolean authentication_error) {
+  public ModelAndView login(@RequestParam(value = "authentication_error", required = false) boolean authentication_error)
+      throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN);
     metisLandingPage.setIsAuthError(authentication_error);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
+    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
@@ -88,7 +90,6 @@ public class MetisUserPageController {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
-    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
@@ -115,7 +116,7 @@ public class MetisUserPageController {
   }
 
   @RequestMapping(value = "/dashboard")
-  public ModelAndView dashboardPage() {
+  public ModelAndView dashboardPage() throws JsonProcessingException {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
@@ -128,6 +129,7 @@ public class MetisUserPageController {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userProfile);
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
+    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 

@@ -1,16 +1,29 @@
 package eu.europeana.metis.page;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.mapping.organisms.global.NavigationTop;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
-import eu.europeana.metis.mapping.util.MetisMappingUtil;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
+import eu.europeana.metis.templates.pandora.dashboard.BrowseMenu;
+import eu.europeana.metis.templates.pandora.dashboard.Content;
+import eu.europeana.metis.templates.pandora.dashboard.DashboardPageModel;
+import eu.europeana.metis.templates.pandora.dashboard.DoubleBtns;
+import eu.europeana.metis.templates.pandora.dashboard.Global;
+import eu.europeana.metis.templates.pandora.dashboard.InputSearch;
+import eu.europeana.metis.templates.pandora.dashboard.IsDashboard;
+import eu.europeana.metis.templates.pandora.dashboard.Logo;
+import eu.europeana.metis.templates.pandora.dashboard.MenuItem;
+import eu.europeana.metis.templates.pandora.dashboard.MetisHeader;
+import eu.europeana.metis.templates.pandora.dashboard.MetisLoggedUser;
+import eu.europeana.metis.templates.pandora.dashboard.Navigation;
+import eu.europeana.metis.templates.pandora.dashboard.Options;
+import eu.europeana.metis.templates.pandora.dashboard.Submenu;
+import eu.europeana.metis.templates.pandora.dashboard.SubmenuItem;
+import eu.europeana.metis.templates.pandora.dashboard.Version;
+import eu.europeana.metis.templates.pandora.dashboard.WelcomeMessage;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -18,20 +31,6 @@ import java.util.Map.Entry;
  */
 public class MetisDashboardPage extends MetisPage {
   private UserProfile userProfile;
-  private static final String is_java = "is_java";
-  private static final String css_files = "css_files";
-  private static final String js_files = "js_files";
-  private static final String js_vars = "js_vars";
-  private static final String version = "version";
-  private static final String page_title = "page_title";
-  private static final String navigation = "navigation";
-  private static final String metis_header = "metis_header";
-  private static final String image_root = "image_root";
-  private static final String metis_footer = "metis_footer";
-
-  private List<Entry<String, String>> cssFiles;
-  private List<Entry<String, String>> jsFiles;
-  private List<Entry<String, String>> jsVars;
 
   public MetisDashboardPage(UserProfile userProfile) {
     this.userProfile = userProfile;
@@ -53,107 +52,153 @@ public class MetisDashboardPage extends MetisPage {
 
   @Override
   public Map<String, Object> buildModel() {
-    Map<String, Object> modelMap = new HashMap<>();
+    DashboardPageModel dashboardPageModel = new DashboardPageModel();
+    dashboardPageModel.setIsJava(true);
+    dashboardPageModel.setCssFiles(resolveCssFilesClass());
+    dashboardPageModel.setJsFiles(resolveJsFilesClass());
+    dashboardPageModel.setJQuery(false);
+    dashboardPageModel.setInputSearch(createInputSearch());
+    dashboardPageModel.setVersion(createVersion());
+    dashboardPageModel.setWelcomeMessage(createWelcomeMessage());
+    dashboardPageModel.setDoubleBtns(createDoubleBtns());
+    dashboardPageModel.setBrowseMenu(createBrowseMenu());
+    dashboardPageModel.setIsDashboard(createIsDashboard());
+    dashboardPageModel.setPageTitle("Europeana Dashboard");
+    dashboardPageModel.setMetisLoggedUser(createMetisLoggedUser());
+    dashboardPageModel.setMetisHeaderSearch(true);
+    dashboardPageModel.setMetisHeader(createMetisHeader());
 
-    //global settings, assets, breadcrumbs
-    initAssetsAndBreadcrumbs();
-    modelMap.put(is_java, true);
-    modelMap.put(page_title, "Europeana Dashboard");
-    modelMap.put(image_root, "https://europeanastyleguidetest.a.cdnify.io");
-
-    modelMap.put(css_files, MetisMappingUtil.buildSimplePairs(cssFiles, "path", "media"));
-    modelMap.put(js_files, MetisMappingUtil.buildSimplePairs(jsFiles, "path", "data_main"));
-    modelMap.put(js_vars, MetisMappingUtil.buildSimplePairs(jsVars, "name", "value"));
-
-    Map<String, String> inputSearch = new HashMap<>();
-    inputSearch.put("title", "Search for dataset");
-    inputSearch.put("input_name", "q");
-    inputSearch.put("placeholder", "Search for dataset");
-    modelMap.put("input_search", inputSearch);
-
-    //"beta" label
-    Map<String, String> versions = new HashMap<>();
-    versions.put("is_alpha", "false");
-    versions.put("is_beta", "true");
-    modelMap.put(version, versions);
-
-    Map<String, String> welcomeMessage = new HashMap<>();
-    welcomeMessage.put("text_first", "Welcome ");
-    welcomeMessage.put("user_name", userProfile.getFirstName());
-    welcomeMessage.put("text_end", " let's ingest a world of Culture!");
-    modelMap.put("welcome_message", welcomeMessage);
-
-    Map<String, String> doubleBtns = new HashMap<>();
-    doubleBtns.put("btn-left-text", "New Dataset");
-    doubleBtns.put("btn-right-text", "New Organization");
-    doubleBtns.put("btn-right-under-text", "Go to ZOHO");
-    doubleBtns.put("url-left", "http://www.cnn.com");
-    doubleBtns.put("url-right", "http://www.europeana.eu");
-    modelMap.put("double-btns", doubleBtns);
-
-    HashMap<String, String> subMenuItem1 = new HashMap<>();
-    subMenuItem1.put("text", "Dataset");
-    subMenuItem1.put("url", "javascript:alert('images')");
-    subMenuItem1.put("icon", "icon-image");
-    HashMap<String, String> subMenuItem2 = new HashMap<>();
-    subMenuItem2.put("text", "User");
-    subMenuItem2.put("url", "javascript:alert('videos')");
-    subMenuItem2.put("icon", "icon-video");
-    HashMap<String, String> subMenuItem3 = new HashMap<>();
-    subMenuItem3.put("text", "Organization");
-    subMenuItem3.put("url", "javascript:alert('sounds')");
-    subMenuItem3.put("icon", "icon-music");
-    HashMap<String, String> subMenuItem4 = new HashMap<>();
-    subMenuItem4.put("text", "All");
-    subMenuItem4.put("url", "javascript:alert('texts')");
-    subMenuItem4.put("icon", "icon-openbook");
-    List<Map<String,String>> subMenuItemList = Arrays.asList(subMenuItem1, subMenuItem2, subMenuItem3, subMenuItem4);
-    Map<String, Object> subMenuItems = new HashMap<>();
-    subMenuItems.put("items", subMenuItemList);
-
-    Map<String,Object> items = new HashMap<>();
-    items.put("url", "#");
-    items.put("text", "Datasets");
-    items.put("text_mobile", "or browse");
-    items.put("submenu", subMenuItems);
-
-    List<Object> itemsList = new ArrayList<>();
-    itemsList.add(items);
-
-    Map<String, Object> browseMenu = new HashMap<>();
-    browseMenu.put("menu_id", "browse-menu");
-    browseMenu.put("items", itemsList);
-    modelMap.put("browse_menu", browseMenu);
-
-    Map<String, Object> isDashboard = new HashMap<>();
-    isDashboard.put("content", new HashMap<String, Object>());
-    modelMap.put("is_dashboard", isDashboard);
-
-    modelMap.put("metis-logged-user", true);
-    modelMap.put("metis-header-search", true);
-    //page header
-    Map<String, Object> navigationMap = new HashMap<>();
-    navigationMap.put(navigation, buildHeader());
-    modelMap.put(metis_header, navigationMap);
-
-    //footer
-    modelMap.put(metis_footer, buildFooter());
-
+    ObjectMapper m = new ObjectMapper();
+    Map<String,Object> modelMap = m.convertValue(dashboardPageModel, Map.class);
     return modelMap;
   }
 
-  @Override
-  public NavigationTop buildHeader() {
-    //commented for the new design!
-    NavigationTop header = new NavigationTop("#", "Home", true);
-    header.addOptions(false, true, true);
-    header.addLogo("#", "Europeana Metis");
-    return header;
+  private InputSearch createInputSearch()
+  {
+    InputSearch inputSearch = new InputSearch();
+    inputSearch.setTitle("Search for dataset");
+    inputSearch.setInputName("q");
+    inputSearch.setPlaceholder("Search for dataset");
+
+    return inputSearch;
   }
 
-  private void initAssetsAndBreadcrumbs() {
-    this.cssFiles = resolveCssFiles();
-    this.jsFiles = resolveJsFiles();
-    this.jsVars = resolveJsVars();
+  private Version createVersion()
+  {
+    Version version = new Version();
+    version.setIsAlpha(false);
+    version.setIsBeta(true);
+
+    return version;
+  }
+
+  private WelcomeMessage createWelcomeMessage()
+  {
+    WelcomeMessage welcomeMessage = new WelcomeMessage();
+    welcomeMessage.setTextEnd("Welcome ");
+    welcomeMessage.setUserName(userProfile.getFirstName());
+    welcomeMessage.setTextFirst(" let's ingest a world of Culture!");
+
+    return welcomeMessage;
+  }
+
+  private DoubleBtns createDoubleBtns()
+  {
+    DoubleBtns doubleBtns = new DoubleBtns();
+    doubleBtns.setBtnLeftText("New Dataset");
+    doubleBtns.setBtnRightText("New Organization");
+    doubleBtns.setBtnRightUnderText("Go to ZOHO");
+    doubleBtns.setUrlLeft("http://www.cnn.com");
+    doubleBtns.setUrlRight("http://www.europeana.eu");
+
+    return doubleBtns;
+  }
+
+  private BrowseMenu createBrowseMenu()
+  {
+    SubmenuItem submenuItem1 = new SubmenuItem();
+    SubmenuItem submenuItem2 = new SubmenuItem();
+    SubmenuItem submenuItem3 = new SubmenuItem();
+    SubmenuItem submenuItem4 = new SubmenuItem();
+    submenuItem1.setText("Dataset");
+    submenuItem1.setUrl("javascript:alert('images')");
+    submenuItem1.setIcon("icon-image");
+    submenuItem2.setText("User");
+    submenuItem2.setUrl("javascript:alert('videos')");
+    submenuItem2.setIcon("icon-video");
+    submenuItem3.setText("Organization");
+    submenuItem3.setUrl("javascript:alert('sounds')");
+    submenuItem3.setIcon("icon-music");
+    submenuItem4.setText("All");
+    submenuItem4.setUrl("javascript:alert('texts')");
+    submenuItem4.setIcon("icon-openbook");
+    Submenu submenu = new Submenu();
+    submenu.setItems(Collections.newArrayList(submenuItem1, submenuItem2, submenuItem3, submenuItem4));
+
+
+    MenuItem menuItem = new MenuItem();
+    menuItem.setUrl("#");
+    menuItem.setText("Datasets");
+    menuItem.setTextMobile("or browse");
+    menuItem.setSubmenu(submenu);
+
+    BrowseMenu browseMenu = new BrowseMenu();
+    browseMenu.setMenuId("metis_search_menu");
+    browseMenu.setItems(Collections.newArrayList(menuItem));
+
+    return browseMenu;
+  }
+
+  private IsDashboard createIsDashboard()
+  {
+    IsDashboard isDashboard = new IsDashboard();
+    isDashboard.setContent(new Content());
+
+    return isDashboard;
+  }
+
+  private MetisHeader createMetisHeader()
+  {
+    Options options = new Options();
+    options.setSearchActive(false);
+    options.setSettingsActive(true);
+    options.setOursitesHidden(true);
+    Logo logo = new Logo();
+    logo.setUrl("#");
+    logo.setText("Europeana Pandora");
+    Global global = new Global();
+    global.setOptions(options);
+    global.setLogo(logo);
+    Navigation navigation = new Navigation();
+    navigation.setGlobal(global);
+    MetisHeader metisHeader = new MetisHeader();
+    metisHeader.setNavigation(navigation);
+
+    return metisHeader;
+  }
+
+  private MetisLoggedUser createMetisLoggedUser(){
+    MetisLoggedUser metisLoggedUser = new MetisLoggedUser();
+    metisLoggedUser.setMenuId("loggedin-user");
+    metisLoggedUser.setIconClass("svg-icon-loggedin-user");
+
+    SubmenuItem metisLoggedUserSubmenuItem1 = new SubmenuItem();
+    SubmenuItem metisLoggedUserSubmenuItem2 = new SubmenuItem();
+    metisLoggedUserSubmenuItem1.setText("My Profile");
+    metisLoggedUserSubmenuItem1.setUrl("javascript:alert('images')");
+    metisLoggedUserSubmenuItem1.setIcon("icon-image");
+    metisLoggedUserSubmenuItem2.setText("Log out");
+    metisLoggedUserSubmenuItem2.setUrl("javascript:alert('videos')");
+    metisLoggedUserSubmenuItem2.setIcon("icon-video");
+    Submenu metisLoggedUserSubmenu = new Submenu();
+    metisLoggedUserSubmenu.setItems(Collections.newArrayList(metisLoggedUserSubmenuItem1, metisLoggedUserSubmenuItem2));
+    MenuItem metisLoggedUserMenuItem = new MenuItem();
+    metisLoggedUserMenuItem.setUrl("#");
+    metisLoggedUserMenuItem.setText("");
+    metisLoggedUserMenuItem.setTextMobile("or browse");
+    metisLoggedUserMenuItem.setSubmenu(metisLoggedUserSubmenu);
+    metisLoggedUser.setItems(Collections.newArrayList(metisLoggedUserMenuItem));
+
+    return metisLoggedUser;
   }
 }
