@@ -1,4 +1,4 @@
-package eu.europeana.metis.mapping.molecules.pandora.register;
+package eu.europeana.metis.mapping.molecules.pandora;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +17,14 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "path",
-    "media"
+    "data_main"
 })
-public class CssFile {
+public class JsFile {
 
   @JsonProperty("path")
   private String path;
-  @JsonProperty("media")
-  private String media;
+  @JsonProperty("data_main")
+  private String dataMain;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -38,14 +38,14 @@ public class CssFile {
     this.path = path;
   }
 
-  @JsonProperty("media")
-  public String getMedia() {
-    return media;
+  @JsonProperty("data_main")
+  public String getDataMain() {
+    return dataMain;
   }
 
-  @JsonProperty("media")
-  public void setMedia(String media) {
-    this.media = media;
+  @JsonProperty("data_main")
+  public void setDataMain(String dataMain) {
+    this.dataMain = dataMain;
   }
 
   @JsonAnyGetter

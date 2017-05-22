@@ -1,7 +1,7 @@
 package eu.europeana.metis.common;
 
-import eu.europeana.metis.mapping.molecules.pandora.register.CssFile;
-import eu.europeana.metis.mapping.molecules.pandora.register.JsFile;
+import eu.europeana.metis.mapping.molecules.pandora.CssFile;
+import eu.europeana.metis.mapping.molecules.pandora.JsFile;
 import eu.europeana.metis.mapping.organisms.global.Footer;
 import eu.europeana.metis.mapping.organisms.global.NavigationTop;
 import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
@@ -123,24 +123,6 @@ public abstract class MetisPage extends AbstractMetisPage {
         linkList2, linkListTitle2,
         linkList3, linkListTitle3,
         subFooter, social);
-  }
-
-  public void buildFooterClass()
-  {
-
-  }
-
-  /**
-   * Welcome message for a logged in user
-   */
-  // TODO move this method to Metis Dashboard page implementation when it is ready.
-  protected Map<String, String> createWelcomeMessage(String user_name) {
-    Map<String, String> welcome_message = new HashMap<>();
-    welcome_message.put("text_first", text_first);
-    welcome_message
-        .put("user_name", user_name != null && !user_name.isEmpty() ? user_name : "User");
-    welcome_message.put("text_end", text_end);
-    return welcome_message;
   }
 
   /**
