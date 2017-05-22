@@ -68,8 +68,8 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .antMatchers("/", "/register", "/mappings-page").permitAll()
-//        .antMatchers("/dashboard").authenticated()
-        .antMatchers("/dashboard").permitAll()
+        .antMatchers("/dashboard").authenticated()
+//        .antMatchers("/dashboard").permitAll()
         .antMatchers("/profile")
         .hasAnyRole(Roles.EUROPEANA_ADMIN.name(),Roles.EUROPEANA_ADMIN.name(), Roles.EUROPEANA_VIEWER.name(),
             Roles.EUROPEANA_DATA_OFFICER.name(), Roles.PROVIDER_ADMIN.name(),
