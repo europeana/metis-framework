@@ -185,10 +185,10 @@ public class MetisDashboardPage extends MetisPage {
     SubmenuItem metisLoggedUserSubmenuItem1 = new SubmenuItem();
     SubmenuItem metisLoggedUserSubmenuItem2 = new SubmenuItem();
     metisLoggedUserSubmenuItem1.setText("My Profile");
-    metisLoggedUserSubmenuItem1.setUrl("javascript:alert('images')");
+    metisLoggedUserSubmenuItem1.setUrl("/profile");
     metisLoggedUserSubmenuItem1.setIcon("icon-image");
     metisLoggedUserSubmenuItem2.setText("Log out");
-    metisLoggedUserSubmenuItem2.setUrl("javascript:alert('videos')");
+    metisLoggedUserSubmenuItem2.setUrl("/logout");
     metisLoggedUserSubmenuItem2.setIcon("icon-video");
     Submenu metisLoggedUserSubmenu = new Submenu();
     metisLoggedUserSubmenu.setItems(Collections.newArrayList(metisLoggedUserSubmenuItem1, metisLoggedUserSubmenuItem2));
