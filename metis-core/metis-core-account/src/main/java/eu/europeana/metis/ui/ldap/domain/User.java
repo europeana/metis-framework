@@ -44,7 +44,7 @@ public class User {
 
   @Attribute(name = "givenName")
   // @DnAttribute(value = "cn", index = 2)
-  private String givenName;
+  private String firstName;
 
   @Attribute(name = "ou")
   @DnAttribute(value = "ou", index = 1)
@@ -91,12 +91,12 @@ public class User {
     this.description = description;
   }
 
-  public String getGivenName() {
-    return givenName;
+  public String getFirstName() {
+    return firstName;
   }
 
-  public void setGivenName(String givenName) {
-    this.givenName = givenName;
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
   }
 
   public String getUsersDn() {

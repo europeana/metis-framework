@@ -1,5 +1,6 @@
 package eu.europeana.metis.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
@@ -83,10 +84,11 @@ public class MetisUserPageController {
    * Resolves user registration page.
    */
   @RequestMapping(value = "/register", method = RequestMethod.GET)
-  public ModelAndView register(Model model) {
+  public ModelAndView register() throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
+    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
@@ -106,7 +108,7 @@ public class MetisUserPageController {
       return modelAndView;
     }
     userService.createLdapUser(user);
-    LOGGER.info("*** User created: " + user.getGivenName() + " ***");
+    LOGGER.info("*** User created: " + user.getFirstName() + " ***");
 
     modelAndView.setViewName("redirect:/");
     return modelAndView;
@@ -121,7 +123,7 @@ public class MetisUserPageController {
     UserDTO userDTO = userService.getUser(primaryKey);
     UserProfile userProfile = new UserProfile();
     userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getGivenName() + " ***");
+    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userProfile);
@@ -141,7 +143,7 @@ public class MetisUserPageController {
     UserDTO userDTO = userService.getUser(primaryKey);
     UserProfile userProfile = new UserProfile();
     userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getGivenName() + " ***");
+    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);
@@ -165,7 +167,7 @@ public class MetisUserPageController {
       //update user in LDAP
       User ldapUser = userDTO.getUser();
       if (ldapUser != null) {
-        ldapUser.setGivenName(user.getGivenName());
+        ldapUser.setFirstName(user.getFirstName());
         ldapUser.setLastName(user.getLastName());
         ldapUser.setPassword(user.getPassword());
       } else {
@@ -186,7 +188,7 @@ public class MetisUserPageController {
       userDTO.setDbUser(dbUser);
     }
     userService.updateUserFromDTO(userDTO);
-    LOGGER.info("*** User updated: " + user.getGivenName() + " ***");
+    LOGGER.info("*** User updated: " + user.getFirstName() + " ***");
 
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
@@ -200,7 +202,7 @@ public class MetisUserPageController {
     UserDTO userDTO = userService.getUser(userByID.getEmail());
     UserProfile userProfile = new UserProfile();
     userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getGivenName() + " ***");
+    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.USER_APPROVE, userProfile);
@@ -227,7 +229,7 @@ public class MetisUserPageController {
       //update user in LDAP
       User ldapUser = userDTO.getUser();
       if (ldapUser != null) {
-        ldapUser.setGivenName(user.getGivenName());
+        ldapUser.setFirstName(user.getFirstName());
         ldapUser.setLastName(user.getLastName());
         ldapUser.setPassword(user.getPassword());
       } else {
@@ -281,7 +283,7 @@ public class MetisUserPageController {
     //logic
     List<Organization> orgs = suggestOrganizations(searchTerm);
     //FIXME comment the line below
-    System.out.println(MetisMappingUtil.toJson(orgs));
+//    System.out.println(MetisMappingUtil.toJson(orgs));
     return result;
   }
 
@@ -384,7 +386,7 @@ public class MetisUserPageController {
    * Method sends email notifications for user role request.
    */
   private void sendEmailNotifications(UserProfile user) {
-    String userFullName = user.getGivenName();
+    String userFullName = user.getFirstName();
     String userLastName = user.getLastName();
     String userEmail = user.getEmail();
     List<String> allAdminUsers = userService.getAllAdminUsers();

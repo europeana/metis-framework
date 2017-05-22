@@ -51,6 +51,7 @@ public class UserDaoImpl implements UserDao {
     public void create(User user) {
         LdapName userDn = buildDn(user.getEmail());
         user.setDn(userDn);
+        user.setFirstName(user.getFirstName());
 //        LdapName groupDn = buildRoleDn("EUROPEANA_ADMIN");
 //        Group grp = ldapTemplate.findByDn(groupDn, Group.class);
 //        List<String> members = grp.getMembers();
@@ -196,7 +197,7 @@ public class UserDaoImpl implements UserDao {
         context.setAttributeValue("mail", user.getEmail());
         context.setAttributeValue("description", user.getDescription());
         context.setAttributeValue("sn", user.getLastName());
-        context.setAttributeValue("givenName", user.getGivenName());
+        context.setAttributeValue("givenName", user.getFirstName());
         if (user.getPassword() != null && !user.getPassword().isEmpty()) {
         	context.setAttributeValue("userPassword", user.getPassword());        	
         }
@@ -219,7 +220,7 @@ public class UserDaoImpl implements UserDao {
             attrs.put("cn", user.getEmail());
             attrs.put("sn", user.getLastName());
             attrs.put("uid", user.getEmail().toLowerCase());
-            attrs.put("givenName", user.getGivenName());
+            attrs.put("givenName", user.getFirstName());
             if (user.getPassword() != null && !user.getPassword().isEmpty()) {
             	attrs.put("userPassword", user.getPassword());
             }

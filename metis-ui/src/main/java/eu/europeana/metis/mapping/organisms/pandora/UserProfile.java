@@ -77,7 +77,7 @@ public class UserProfile extends User {
 		setMetisAuthenticationDn(user.getMetisAuthenticationDn());
 		setUsersDn(user.getUsersDn());
 		setEmail(user.getEmail());
-		setGivenName(user.getGivenName());
+		setFirstName(user.getFirstName());
 		setLastName(user.getLastName());
 		setPassword(user.getPassword());
 		setDescription(user.getDescription());

@@ -1,5 +1,16 @@
 package eu.europeana.metis.page;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.mapping.atoms.UserRequest;
+import eu.europeana.metis.mapping.molecules.pandora.register.EmailField;
+import eu.europeana.metis.mapping.molecules.pandora.register.FullNameField;
+import eu.europeana.metis.mapping.molecules.pandora.register.PasswordField;
+import eu.europeana.metis.mapping.molecules.pandora.register.RegisterForm;
+import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
+import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
+import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import java.util.AbstractMap;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
@@ -7,13 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.mapping.atoms.UserRequest;
-import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
-import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
-import eu.europeana.metis.mapping.util.MetisMappingUtil;
 
 /**
  * This web-page represents a Metis Landing page and all user account pages like: Login page,
@@ -215,38 +219,36 @@ public class MetisLandingPage extends MetisPage {
    * The content for the Register User page.
    */
   private void buildRegisterPageContent() {
-//    if (isDuplicateUser) {
-//      contentMap.put("register_err_duplicate_user", ERROR_DUPLICATE_USER);
-//    }
+    FullNameField fullNameField = new FullNameField();
+    fullNameField.setLabel("Name *");
+    fullNameField.setFirstNamePlaceholder("First");
+    fullNameField.setLastNamePlaceholder("Last");
 
-    Map<String, Object> register_form = new HashMap<>();
-    Map<String, String> full_name_field = new HashMap<>();
-    Map<String, String> email_field = new HashMap<>();
-    Map<String, String> password_field = new HashMap<>();
+    EmailField emailField = new EmailField();
+    emailField.setLabel("Email *");
+    emailField.setPlaceholder("your@email");
 
-    full_name_field.put("label", "Name *");
-    full_name_field.put("first_name_placeholder", "First");
-    full_name_field.put("last_name_placeholder", "Last");
+    PasswordField passwordField = new PasswordField();
+    passwordField.setLabel("New Password *");
+    passwordField.setPlaceholder("Create your password");
 
-    email_field.put("label", "Email *");
-    email_field.put("placeholder", "your@email");
-
-    password_field.put("label", "New Password *");
-    password_field.put("placeholder", "Create your password");
-
-    register_form.put("form_title", "Register to Metis");
-    register_form.put("full_name_field", full_name_field);
-    register_form.put("email_field", email_field);
-    register_form.put("password_field", password_field);
+    RegisterForm registerForm = new RegisterForm();
+    registerForm.setFormTitle("Register to Metis");
+    registerForm.setFullNameField(fullNameField);
+    registerForm.setEmailField(emailField);
+    registerForm.setPasswordField(passwordField);
 
     if (isDuplicateUser) {
-      register_form.put("register_err_duplicate_user", "User already exists");
+      registerForm.setRegisterErrDuplicateUser("User already exists");
     }
-    register_form.put("submit_btn_text", "Submit");
-    register_form.put("reset_btn_text", "Reset");
-    register_form.put("requirements", "* needed for registration");
 
-    contentMap.put("register_form", register_form);
+    registerForm.setSubmitBtnText("Submit");
+    registerForm.setResetBtnText("Reset");
+    registerForm.setFormRequirementsWarning("* needed for registration");
+
+    ObjectMapper m = new ObjectMapper();
+    Map<String,Object> props = m.convertValue(registerForm, Map.class);
+    contentMap.put("register_form", props);
   }
 
   /**
@@ -259,7 +261,7 @@ public class MetisLandingPage extends MetisPage {
     String email = this.user.getEmail();
     contentMap.put("email", email);
 
-    String fullName = user.getGivenName();
+    String fullName = user.getFirstName();
     contentMap.put("fullName", fullName);
 
     String lastName = user.getLastName();
@@ -299,7 +301,7 @@ public class MetisLandingPage extends MetisPage {
     String email = this.user.getEmail();
     contentMap.put("email", email);
 
-    String fullName = user.getGivenName();
+    String fullName = user.getFirstName();
     contentMap.put("fullName", fullName);
 
     String lastName = user.getLastName();

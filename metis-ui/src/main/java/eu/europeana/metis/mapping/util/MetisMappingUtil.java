@@ -1,8 +1,8 @@
 package eu.europeana.metis.mapping.util;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,11 +16,17 @@ public class MetisMappingUtil {
 	 * @param jsonObject is an arbitrary Java object
 	 * @return a JSON representation (as String) of the object
 	 */
-	public static String toJson(Object jsonObject) {
-		Gson gson = new GsonBuilder()
-				.setPrettyPrinting()
-				.create();
-	return gson.toJson(jsonObject);
+	public static String toJson(Object jsonObject) throws JsonProcessingException {
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+//Object to JSON in String
+		String jsonInString = mapper.writeValueAsString(jsonObject);
+		return jsonInString;
+//		Gson gson = new GsonBuilder()
+//				.setPrettyPrinting()
+//				.create();
+//	return gson.toJson(jsonObject);
 	}
 	
 	/**

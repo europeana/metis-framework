@@ -79,7 +79,7 @@ public class MetisDashboardPage extends MetisPage {
 
     Map<String, String> welcomeMessage = new HashMap<>();
     welcomeMessage.put("text_first", "Welcome ");
-    welcomeMessage.put("user_name", userProfile.getGivenName());
+    welcomeMessage.put("user_name", userProfile.getFirstName());
     welcomeMessage.put("text_end", " let's ingest a world of Culture!");
     modelMap.put("welcome_message", welcomeMessage);
 
