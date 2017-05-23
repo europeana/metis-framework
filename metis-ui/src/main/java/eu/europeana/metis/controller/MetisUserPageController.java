@@ -8,7 +8,6 @@ import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
 import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
-import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
@@ -18,11 +17,9 @@ import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 import org.bson.types.ObjectId;
@@ -220,8 +217,6 @@ public class MetisUserPageController {
   @RequestMapping(value = "/profile", method = RequestMethod.POST, params = "userId")
   public void requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
     model.addAttribute("user", user);
-//    	ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-//    	MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     UserDTO userDTO = userService.getUser(user.getEmail());
     if (user != null && userDTO != null) {
       //update user in LDAP
@@ -247,29 +242,14 @@ public class MetisUserPageController {
       dbUser.setOrganizationRoles(resolveUserOrganizationRoles(user, dbUser));
       userDTO.setDbUser(dbUser);
     }
-//    	return null;
   }
 
-  /**
-   *
-   * @param model
-   * @return
-   */
   @RequestMapping(value = "/requests", method = RequestMethod.GET)
-  public ModelAndView userRequests(Model model) {
+  public ModelAndView userRequests() throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    List<UserRequest> userRequestsList = new ArrayList<>();
-    List<RoleRequest> allRequests = userService.getAllRequests(null, null);
-    SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-    for (RoleRequest rr : allRequests) {
-      Date requestDate = rr.getRequestDate();
-      userRequestsList
-          .add(new UserRequest(rr.getId().toString(), rr.getUserId(), rr.getOrganizationId(),
-              format.format(requestDate), rr.isDeleteRequest(), rr.getRequestStatus()));
-    }
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REQUESTS, userRequestsList);
+    List<RoleRequest> roleRequests = userService.getAllRequests(null, null);
+    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REQUESTS, roleRequests);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
-//        System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
@@ -278,10 +258,7 @@ public class MetisUserPageController {
   @RequestMapping(value = "/profile/suggestOrganizations", method = RequestMethod.GET, params = "searchTerm")
   public String suggestOrganizationsViaAjax(@RequestBody String response, String searchTerm) {
     String result = "";
-    //logic
     List<Organization> orgs = suggestOrganizations(searchTerm);
-    //FIXME comment the line below
-//    System.out.println(MetisMappingUtil.toJson(orgs));
     return result;
   }
 

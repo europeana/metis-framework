@@ -35,21 +35,11 @@ public class MetisDashboardPage extends MetisPage {
   }
 
   @Override
-  public Byte resolveCurrentPage() {
-    return null;
-  }
-
-//  @Override
-//  public List<NavigationTopMenu> buildUtilityNavigation() {
-//    return null;
-//  }
-
-  @Override
   public Map<String, Object> buildModel() {
     DashboardPageModel dashboardPageModel = new DashboardPageModel();
     dashboardPageModel.setIsJava(true);
-    dashboardPageModel.setCssFiles(resolveCssFilesClass());
-    dashboardPageModel.setJsFiles(resolveJsFilesClass());
+    dashboardPageModel.setCssFiles(resolveCssFiles());
+    dashboardPageModel.setJsFiles(resolveJsFiles());
     dashboardPageModel.setJQuery(false);
     dashboardPageModel.setInputSearch(createInputSearch());
     dashboardPageModel.setVersion(createVersion());
@@ -71,11 +61,6 @@ public class MetisDashboardPage extends MetisPage {
   public void addPageContent() {
 
   }
-
-//  @Override
-//  public void initAssetsAndBreadcrumbs() {
-//
-//  }
 
   private InputSearch createInputSearch()
   {

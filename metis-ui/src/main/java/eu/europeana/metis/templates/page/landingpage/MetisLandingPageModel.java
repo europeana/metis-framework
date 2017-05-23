@@ -42,6 +42,7 @@ import java.util.Map;
     "is_java",
     "js_files",
     "landing_page_content",
+    "request",
     "login_form",
     "register_form",
     "metis_footer",
@@ -85,6 +86,8 @@ public class MetisLandingPageModel {
   private List<JsFile> jsFiles = null;
   @JsonProperty("landing_page_content")
   private LandingPageContent landingPageContent;
+  @JsonProperty("request")
+  private List<Request> request = null;
   @JsonProperty("login_form")
   private LoginForm loginForm;
   @JsonProperty("register_form")
@@ -271,6 +274,17 @@ public class MetisLandingPageModel {
   public void setLandingPageContent(LandingPageContent landingPageContent) {
     this.landingPageContent = landingPageContent;
   }
+
+  @JsonProperty("request")
+  public List<Request> getRequest() {
+    return request;
+  }
+
+  @JsonProperty("request")
+  public void setRequest(List<Request> request) {
+    this.request = request;
+  }
+
 
   @JsonProperty("login_form")
   public LoginForm getLoginForm() {

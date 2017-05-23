@@ -1,24 +1,20 @@
 package eu.europeana.metis.common;
 
 import de.flapdoodle.embed.process.collections.Collections;
-import eu.europeana.metis.templates.page.landingpage.Breadcrumb;
-import eu.europeana.metis.templates.CssFile;
-import eu.europeana.metis.templates.FooterNavigation;
-import eu.europeana.metis.templates.page.landingpage.I18n;
-import eu.europeana.metis.templates.page.landingpage.I18nGlobal;
-import eu.europeana.metis.templates.JsFile;
-import eu.europeana.metis.templates.JsVar;
-import eu.europeana.metis.templates.MetisFooter;
-import eu.europeana.metis.templates.MetisHeader;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.PageView;
+import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.Footer;
+import eu.europeana.metis.templates.FooterNavigation;
 import eu.europeana.metis.templates.Global;
+import eu.europeana.metis.templates.JsFile;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.ListOfLinks;
 import eu.europeana.metis.templates.Logo;
 import eu.europeana.metis.templates.MenuItem;
+import eu.europeana.metis.templates.MetisFooter;
+import eu.europeana.metis.templates.MetisHeader;
 import eu.europeana.metis.templates.Navigation;
-import eu.europeana.metis.templates.page.landingpage.Newsletter;
 import eu.europeana.metis.templates.NextPrev;
 import eu.europeana.metis.templates.Options;
 import eu.europeana.metis.templates.Social;
@@ -26,6 +22,10 @@ import eu.europeana.metis.templates.SubFooter;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.SubmenuItem;
 import eu.europeana.metis.templates.UtilityNav;
+import eu.europeana.metis.templates.page.landingpage.Breadcrumb;
+import eu.europeana.metis.templates.page.landingpage.I18n;
+import eu.europeana.metis.templates.page.landingpage.I18nGlobal;
+import eu.europeana.metis.templates.page.landingpage.Newsletter;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,24 +35,10 @@ import java.util.List;
  * @author alena
  */
 public abstract class MetisPage extends AbstractMetisPage {
-
-  public abstract Byte resolveCurrentPage();
   public UserProfile user;
 
   @Override
   public List<CssFile> resolveCssFiles() {
-
-    CssFile cssFile1 = new CssFile();
-    CssFile cssFile2 = new CssFile();
-    cssFile1.setPath("https://europeana-styleguide-test.s3.amazonaws.com/css/pandora/screen.css");
-    cssFile1.setMedia("all");
-    cssFile2.setPath("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css");
-    cssFile2.setMedia("all");
-
-    return Arrays.asList(cssFile1, cssFile2);
-  }
-
-  public List<CssFile> resolveCssFilesClass() {
     CssFile cssFile1 = new CssFile();
     CssFile cssFile2 = new CssFile();
     cssFile1.setPath("https://europeana-styleguide-test.s3.amazonaws.com/css/pandora/screen.css");
@@ -67,15 +53,8 @@ public abstract class MetisPage extends AbstractMetisPage {
   public List<JsFile> resolveJsFiles() {
     JsFile jsFile = new JsFile();
     jsFile.setPath("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js");
-    jsFile.setDataMain("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora");
-
-    return Arrays.asList(jsFile);
-  }
-
-  public List<JsFile> resolveJsFilesClass() {
-    JsFile jsFile = new JsFile();
-    jsFile.setPath("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js");
-    jsFile.setDataMain("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora");
+    jsFile.setDataMain(
+        "https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora");
 
     return Arrays.asList(jsFile);
   }
@@ -282,11 +261,4 @@ public abstract class MetisPage extends AbstractMetisPage {
 
     return i18n;
   }
-
-  /**
-   * The method builds the model for the top-right menu Settings on a Metis page.
-   *
-   * @return the list utility navigation menu items.
-   */
-//  public abstract List<NavigationTopMenu> buildUtilityNavigation();
 }

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.molecules.pandora.register.EmailField;
 import eu.europeana.metis.mapping.molecules.pandora.register.FullNameField;
 import eu.europeana.metis.mapping.molecules.pandora.register.PasswordField;
@@ -22,7 +21,10 @@ import eu.europeana.metis.templates.page.landingpage.HeroConfig;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.MetisLandingPageModel;
+import eu.europeana.metis.templates.page.landingpage.Request;
 import eu.europeana.metis.templates.page.landingpage.SelectionList;
+import eu.europeana.metis.ui.mongo.domain.RoleRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,17 +38,12 @@ import java.util.Map;
 public class MetisLandingPage extends MetisPage {
 
   private PageView pageView = PageView.HOME;
-  private List<UserRequest> request;
+  private List<RoleRequest> roleRequests;
   private Boolean isDuplicateUser = false;
   private Boolean isAuthError = false;
   private static final String ERROR_DUPLICATE_USER = "ERROR: The user with this email address already exists.";
   private static final String ERROR_AUTH = "ERROR: Your email or password is incorrect. Try again please.";
   MetisLandingPageModel metisLandingPageModel;
-
-  @Override
-  public Byte resolveCurrentPage() {
-    return -1;
-  }
 
   public MetisLandingPage(PageView pageView) {
     super();
@@ -58,10 +55,10 @@ public class MetisLandingPage extends MetisPage {
     this.user = user;
   }
 
-  public MetisLandingPage(PageView pageView, List<UserRequest> userRequests) {
+  public MetisLandingPage(PageView pageView, List<RoleRequest> roleRequests) {
     this(pageView);
     this.pageView = pageView;
-    this.request = userRequests;
+    this.roleRequests = roleRequests;
   }
 
   /**
@@ -80,8 +77,8 @@ public class MetisLandingPage extends MetisPage {
   public Map<String, Object> buildModel() {
     metisLandingPageModel = new MetisLandingPageModel();
     metisLandingPageModel.setIsJava(true);
-    metisLandingPageModel.setCssFiles(resolveCssFilesClass());
-    metisLandingPageModel.setJsFiles(resolveJsFilesClass());
+    metisLandingPageModel.setCssFiles(resolveCssFiles());
+    metisLandingPageModel.setJsFiles(resolveJsFiles());
     metisLandingPageModel.setJsVars(resolveJsVars());
     metisLandingPageModel.setBreadcrumbs(resolveBreadcrumbs());
     metisLandingPageModel.setPageTitle("Europeana Metis");
@@ -136,14 +133,9 @@ public class MetisLandingPage extends MetisPage {
       case PROFILE:
         buildProfilePageContent();
         break;
-//      case REQUESTS:
-//        contentMap.put("is_requests", true);
-//        buildRequestsPageContent();
-//        break;
-//      case USER_APPROVE:
-//        contentMap.put("is_request_approve", true);
-//        buildApproveRequestsPageContent();
-//        break;
+      case REQUESTS:
+        buildRequestsPageContent();
+        break;
       default:
         break;
     }
@@ -272,92 +264,64 @@ public class MetisLandingPage extends MetisPage {
 
     Country userCountry = Country.toCountry(user.getCountry());
     List<CountryModel> countryModels = new ArrayList<>();
-//    List<Map<String, String>> countries = new ArrayList<>();
     for (Country c : Country.values()) {
       CountryModel countryModel = new CountryModel();
-//      Map<String, String> country = new HashMap<>();
       if (userCountry != null && userCountry.getName().equals(c.getName())) {
         countryModel.setSelected("selected");
-//        country.put("selected", "selected");
       }
       countryModel.setText(c.getName());
       countryModel.setValue(c.getIsoCode());
-//      country.put("value", c.getIsoCode());
-//      country.put("text", c.getName());
-//      countries.add(country);
       countryModels.add(countryModel);
     }
     metisLandingPageModel.setCountries(countryModels);
-
-
-
-
-//    Map<String, Object> contentMap = new HashMap<>();
-//    String email = this.user.getEmail();
-//    contentMap.put("email", email);
-//
-//    String fullName = user.getFirstName();
-//    contentMap.put("fullName", fullName);
-//
-//    String lastName = user.getLastName();
-//    contentMap.put("lastName", lastName);
-//
-//    if (user instanceof UserProfile) {
-//      contentMap.put("skype", ((UserProfile) user).getSkype());
-//      //TODO add other DBUser fields.
-//    }
-//    Country userCountry = Country.toCountry(this.user.getCountry());
-//    List<Map<String, String>> countries = new ArrayList<>();
-//    for (Country c : Country.values()) {
-//      Map<String, String> country = new HashMap<>();
-//      if (userCountry != null && userCountry.getName().equals(c.getName())) {
-//        country.put("selected", "selected");
-//      }
-//      country.put("value", c.getIsoCode());
-//      country.put("text", c.getName());
-//      countries.add(country);
-//    }
-//    contentMap.put("countries", countries);
   }
 
 
   private void buildRequestsPageContent() {
-//    if (this.request == null) {
-//      return;
-//    } else {
-//      contentMap.put("request", this.request);
-//    }
-  }
+    if (roleRequests == null) {
+      return;
+    } else {
+      LandingPageContent landingPageContent = new LandingPageContent();
+      landingPageContent.setIsRequests(true);
+      metisLandingPageModel.setLandingPageContent(landingPageContent);
 
-  private void buildApproveRequestsPageContent() {
-//    if (this.user == null) {
-//      return;
-//    }
-//    String email = this.user.getEmail();
-//    contentMap.put("email", email);
-//
-//    String fullName = user.getFirstName();
-//    contentMap.put("fullName", fullName);
-//
-//    String lastName = user.getLastName();
-//    contentMap.put("lastName", lastName);
-//
-//    if (user instanceof UserProfile) {
-//      contentMap.put("skype", ((UserProfile) user).getSkype());
-//      //TODO add other DBUser fields.
-//    }
-//    Country userCountry = Country.toCountry(this.user.getCountry());
-//    List<Map<String, String>> countries = new ArrayList<>();
-//    for (Country c : Country.values()) {
-//      Map<String, String> country = new HashMap<>();
-//      if (userCountry != null && userCountry.getName().equals(c.getName())) {
-//        country.put("selected", "selected");
-//      }
-//      country.put("value", c.getIsoCode());
-//      country.put("text", c.getName());
-//      countries.add(country);
-//    }
-//    contentMap.put("countries", countries);
+      SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
+      List<Request> requests = new ArrayList<>();
+      for (RoleRequest roleRequest : roleRequests)
+      {
+        Request request = new Request();
+        request.setId(roleRequest.getId().toString());
+        request.setEmail(roleRequest.getUserId());
+        request.setOrganization(roleRequest.getOrganizationId());
+        request.setUrl("/profile?userId=" + request.getId());
+        request.setDate(format.format(roleRequest.getRequestDate()));
+        if (roleRequest.isDeleteRequest()){
+          request.setType("Delete");
+          request.setRequestType("user-request-type-delete");
+        }
+        else {
+          request.setType("Add");
+          request.setRequestType("user-request-type-add");
+        }
+        if (roleRequest.getRequestStatus() == null || roleRequest.getRequestStatus().equalsIgnoreCase("Pending"))
+        {
+          request.setStatus("Pending");
+          request.setStatusType("user-request-pending");
+        }
+        else if (roleRequest.getRequestStatus().equalsIgnoreCase("Accepted"))
+        {
+          request.setStatus("Accepted");
+          request.setStatusType("user-request-accepted");
+        }
+        else if (roleRequest.getRequestStatus().equalsIgnoreCase("Rejected"))
+        {
+          request.setStatus("Rejected");
+          request.setStatusType("user-request-rejected");
+        }
+        requests.add(request);
+      }
+      metisLandingPageModel.setRequest(requests);
+    }
   }
 
   /**
@@ -367,7 +331,6 @@ public class MetisLandingPage extends MetisPage {
     List<SelectionList> selectionLists = new ArrayList<>();
 
     if (organizations != null && !organizations.isEmpty()) {
-//      List<Entry<String, String>> pairs = new ArrayList<>();
       for (int i = 0; i < organizations.size(); i++) {
         SelectionList selectionList = new SelectionList();
         selectionList.setTitle(organizations.get(i));
@@ -376,17 +339,6 @@ public class MetisLandingPage extends MetisPage {
       }
       metisLandingPageModel.setSelectionList(selectionLists);
     }
-
-//    if (organizations != null && !organizations.isEmpty()) {
-//      List<Entry<String, String>> pairs = new ArrayList<>();
-//      for (int i = 0; i < organizations.size(); i++) {
-//        pairs.add(new AbstractMap.SimpleEntry<String, String>(i + "", organizations.get(i)));
-//      }
-//      if (this.contentMap == null) {
-//        this.contentMap = new HashMap<>();
-//      }
-//      contentMap.put("selection_list", MetisMappingUtil.buildSimplePairs(pairs, "value", "title"));
-//    }
   }
 
   public Boolean getIsDuplicateUser() {
@@ -419,13 +371,5 @@ public class MetisLandingPage extends MetisPage {
 
   public void setUser(UserProfile user) {
     this.user = user;
-  }
-
-  public List<UserRequest> getRequest() {
-    return request;
-  }
-
-  public void setRequest(List<UserRequest> request) {
-    this.request = request;
   }
 }
