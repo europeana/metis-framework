@@ -1,4 +1,4 @@
-package eu.europeana.metis.mapping.molecules.pandora.register;
+package eu.europeana.metis.templates.page.landingpage.register;
 
 import java.util.HashMap;
 import java.util.Map;

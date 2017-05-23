@@ -12,15 +12,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-/**
- * 
- * @author alena
- *
- */
 public class MappingToEdmPage extends MetisPage {
-	final static Logger logger = Logger.getLogger(MappingToEdmPage.class);
+	private final Logger LOGGER = LoggerFactory.getLogger(MappingToEdmPage.class);
 	
 	private MappingService mappingService;
 	
@@ -45,7 +41,7 @@ public class MappingToEdmPage extends MetisPage {
 		List<Element> elements = testMapping.getMappings().getElements();
 		addChildFields(displayList, attributes, elements, 0);
 //		System.out.println(MetisMappingUtil.toJson(displayList));
-		logger.info("*** MAPPING IS BUILT! ***");
+		LOGGER.info("*** MAPPING IS BUILT! ***");
 		return displayList;
 	}
 	
@@ -54,8 +50,8 @@ public class MappingToEdmPage extends MetisPage {
 			for (Attribute attribute : attributes) {
 				Statistics statistics = getMappingService().getStatisticsForField(attribute, null);
 				if (statistics != null) {
-					displayList.add(new Mapping_card(attribute, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));	
-					logger.info("*** ATTRIBUTE IS ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; DEPTH: "+ depth + " ***");				
+					displayList.add(new Mapping_card(attribute, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));
+					LOGGER.info("*** ATTRIBUTE IS ADDED: " + attribute.getPrefix() + ":" + attribute.getName() + "; DEPTH: "+ depth + " ***");
 				}
 			}			
 		}
@@ -64,7 +60,7 @@ public class MappingToEdmPage extends MetisPage {
 				Statistics statistics = getMappingService().getStatisticsForField(element, null);
 				if (element.isHasMapping()) {
 					displayList.add(new Mapping_card(element, statistics, DEFAULT_OFFSET, DEFAULT_COUNT, depth));
-					logger.info("*** ELEMENT IS ADDED: " + element.getPrefix() + ":" + element.getName() + "; DEPTH: "+ depth + " ***");
+					LOGGER.info("*** ELEMENT IS ADDED: " + element.getPrefix() + ":" + element.getName() + "; DEPTH: "+ depth + " ***");
 				}
 				addChildFields(displayList, element.getAttributes(), element.getElements(), depth + 1);
 			}			
@@ -116,13 +112,6 @@ public class MappingToEdmPage extends MetisPage {
 		searchBox.put("search_box_hidden", "Search Hidden");
 		return searchBox;
 	}
-
-//	@Override
-//	public List<NavigationTopMenu> buildUtilityNavigation() {
-//		return Arrays.asList(
-//				new NavigationTopMenu("Register", "/register", false),
-//				new NavigationTopMenu("Login", "/login", true));
-//	}
 
 	public MappingService getMappingService() {
 		return mappingService;

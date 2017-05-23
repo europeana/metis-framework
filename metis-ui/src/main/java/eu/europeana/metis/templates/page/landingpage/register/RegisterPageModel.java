@@ -1,4 +1,4 @@
-package eu.europeana.metis.mapping.molecules.pandora.register;
+package eu.europeana.metis.templates.page.landingpage.register;
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;

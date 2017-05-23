@@ -11,7 +11,7 @@ import eu.europeana.metis.templates.JsFile;
 import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.MetisFooter;
 import eu.europeana.metis.templates.MetisHeader;
-import eu.europeana.metis.mapping.molecules.pandora.register.RegisterForm;
+import eu.europeana.metis.templates.page.landingpage.register.RegisterForm;
 import eu.europeana.metis.templates.PageConfig;
 import eu.europeana.metis.templates.Version;
 import java.util.HashMap;

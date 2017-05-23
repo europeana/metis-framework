@@ -6,8 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import eu.europeana.metis.mapping.molecules.pandora.register.EmailField;
-import eu.europeana.metis.mapping.molecules.pandora.register.PasswordField;
+import eu.europeana.metis.templates.page.landingpage.register.EmailField;
+import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
 import java.util.HashMap;
 import java.util.Map;
 
