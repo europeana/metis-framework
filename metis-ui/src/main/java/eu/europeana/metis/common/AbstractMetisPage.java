@@ -1,11 +1,11 @@
 package eu.europeana.metis.common;
 
-import eu.europeana.metis.mapping.molecules.pandora.Breadcrumb;
-import eu.europeana.metis.mapping.molecules.pandora.CssFile;
-import eu.europeana.metis.mapping.molecules.pandora.JsFile;
-import eu.europeana.metis.mapping.molecules.pandora.JsVar;
-import eu.europeana.metis.mapping.molecules.pandora.MetisFooter;
-import eu.europeana.metis.mapping.molecules.pandora.MetisHeader;
+import eu.europeana.metis.templates.page.landingpage.Breadcrumb;
+import eu.europeana.metis.templates.CssFile;
+import eu.europeana.metis.templates.JsFile;
+import eu.europeana.metis.templates.JsVar;
+import eu.europeana.metis.templates.MetisFooter;
+import eu.europeana.metis.templates.MetisHeader;
 import eu.europeana.metis.page.PageView;
 import java.util.List;
 import java.util.Map;

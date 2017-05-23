@@ -9,7 +9,7 @@ import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.MappingType;
 import eu.europeana.metis.mapping.model.SimpleMapping;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
-import eu.europeana.metis.mapping.molecules.pandora.FieldValue;
+import eu.europeana.metis.templates.FieldValue;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.mapping.statistics.StatisticsValue;
 
