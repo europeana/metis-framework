@@ -26,6 +26,12 @@ import java.util.Map;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "js_vars",
+    "fullName",
+    "lastName",
+    "skype",
+    "email",
+    "countries",
+    "selection_list",
     "page_config",
     "metis_header",
     "page_title",
@@ -47,6 +53,18 @@ public class MetisLandingPageModel {
 
   @JsonProperty("js_vars")
   private List<JsVar> jsVars = null;
+  @JsonProperty("fullName")
+  private String fullName;
+  @JsonProperty("lastName")
+  private String lastName;
+  @JsonProperty("skype")
+  private String skype;
+  @JsonProperty("email")
+  private String email;
+  @JsonProperty("countries")
+  private List<CountryModel> countries = null;
+  @JsonProperty("selection_list")
+  private List<SelectionList> selectionList = null;
   @JsonProperty("page_config")
   private PageConfig pageConfig;
   @JsonProperty("metis_header")
@@ -90,6 +108,68 @@ public class MetisLandingPageModel {
   @JsonProperty("js_vars")
   public void setJsVars(List<JsVar> jsVars) {
     this.jsVars = jsVars;
+  }
+
+  @JsonProperty("fullName")
+  public String getFullName() {
+    return fullName;
+  }
+
+  @JsonProperty("fullName")
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  @JsonProperty("lastName")
+  public String getLastName() {
+    return lastName;
+  }
+
+  @JsonProperty("lastName")
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  @JsonProperty("skype")
+  public String getSkype() {
+    return skype;
+  }
+
+  @JsonProperty("skype")
+  public void setSkype(String skype) {
+    this.skype = skype;
+  }
+
+  @JsonProperty("email")
+  public String getEmail() {
+    return email;
+  }
+
+  @JsonProperty("email")
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  @JsonProperty("countries")
+  public List<CountryModel> getCountries() {
+    return countries;
+  }
+
+  @JsonProperty("countries")
+  public void setCountries(
+      List<CountryModel> countries) {
+    this.countries = countries;
+  }
+
+  @JsonProperty("selection_list")
+  public List<SelectionList> getSelectionList() {
+    return selectionList;
+  }
+
+  @JsonProperty("selection_list")
+  public void setSelectionList(
+      List<SelectionList> selectionList) {
+    this.selectionList = selectionList;
   }
 
   @JsonProperty("page_config")

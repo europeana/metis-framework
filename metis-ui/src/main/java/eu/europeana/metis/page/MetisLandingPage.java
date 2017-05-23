@@ -3,23 +3,27 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.mapping.atoms.UserRequest;
-import eu.europeana.metis.templates.page.landingpage.Excerpt;
-import eu.europeana.metis.templates.page.landingpage.Headline;
 import eu.europeana.metis.mapping.molecules.pandora.register.EmailField;
 import eu.europeana.metis.mapping.molecules.pandora.register.FullNameField;
 import eu.europeana.metis.mapping.molecules.pandora.register.PasswordField;
 import eu.europeana.metis.mapping.molecules.pandora.register.RegisterForm;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
-import eu.europeana.metis.templates.page.landingpage.Banner;
 import eu.europeana.metis.templates.Content;
+import eu.europeana.metis.templates.PageConfig;
+import eu.europeana.metis.templates.Version;
+import eu.europeana.metis.templates.page.landingpage.Banner;
+import eu.europeana.metis.templates.page.landingpage.CountryModel;
+import eu.europeana.metis.templates.page.landingpage.Excerpt;
 import eu.europeana.metis.templates.page.landingpage.ForgotLoginCredentials;
+import eu.europeana.metis.templates.page.landingpage.Headline;
 import eu.europeana.metis.templates.page.landingpage.HeroConfig;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.MetisLandingPageModel;
-import eu.europeana.metis.templates.PageConfig;
-import eu.europeana.metis.templates.Version;
+import eu.europeana.metis.templates.page.landingpage.SelectionList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +41,6 @@ public class MetisLandingPage extends MetisPage {
   private Boolean isAuthError = false;
   private static final String ERROR_DUPLICATE_USER = "ERROR: The user with this email address already exists.";
   private static final String ERROR_AUTH = "ERROR: Your email or password is incorrect. Try again please.";
-//  private Map<String, Object> contentMap;
   MetisLandingPageModel metisLandingPageModel;
 
   @Override
@@ -120,26 +123,19 @@ public class MetisLandingPage extends MetisPage {
 
   @Override
   public void addPageContent() {
-//    if (this.contentMap == null) {
-//      this.contentMap = new HashMap<>();
-//    }
     switch (pageView) {
       case HOME:
-//        contentMap.put("is_home", true);
         buildHomePageContent();
         break;
       case LOGIN:
-//        contentMap.put("is_login", true);
         buildLoginPageContent();
         break;
       case REGISTER:
-//        contentMap.put("is_register", true);
         buildRegisterPageContent();
         break;
-//      case PROFILE:
-//        contentMap.put("is_profile", true);
-//        buildProfilePageContent();
-//        break;
+      case PROFILE:
+        buildProfilePageContent();
+        break;
 //      case REQUESTS:
 //        contentMap.put("is_requests", true);
 //        buildRequestsPageContent();
@@ -151,53 +147,7 @@ public class MetisLandingPage extends MetisPage {
       default:
         break;
     }
-
-//    model.put("landing_page_content", contentMap);
   }
-
-  /**
-   * In the current Metis design there is no need for the bread-crumbs.
-   */
-//  @Override
-//  public List<Entry<String, String>> resolveBreadcrumbs() {
-//    List<Entry<String, String>> breadcrumbs = new ArrayList<>();
-//    breadcrumbs.add(new SimpleEntry<String, String>("Home", "/"));
-//    return breadcrumbs;
-//  }
-
-//  @Override
-//  public List<NavigationTopMenu> buildUtilityNavigation() {
-//    List<NavigationTopMenu> utilityNavigationMenu = new ArrayList<>();
-//    switch (this.pageView) {
-//      case REGISTER:
-//        utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
-//        utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
-//        break;
-//      case LOGIN:
-//        utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));
-//        utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
-//        break;
-//      case PROFILE:
-//        utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", false));
-//        utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
-//        break;
-//      case REQUESTS:
-//        utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", false));
-//        utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
-//        break;
-//      default:
-//        if (user != null && user.getEmail() != null) {
-//          utilityNavigationMenu.add(new NavigationTopMenu("Profile", "/profile", true));
-//          utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", true));
-//        } else {
-//          utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
-//          utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));
-//        }
-//        break;
-//    }
-//    return utilityNavigationMenu;
-//  }
-
 
   /**
    * The content for the User Login page.
@@ -226,33 +176,6 @@ public class MetisLandingPage extends MetisPage {
     landingPageContent.setContent(content);
 
     metisLandingPageModel.setLandingPageContent(landingPageContent);
-
-//    Map<String, String> hero_config = new HashMap<>();
-//    hero_config.put("hero_image",
-//        "https://europeana-styleguide-test.s3.amazonaws.com/images/metis/hero_metis_1600x650_jade.png");
-//    hero_config.put("brand_colour", "brand-colour-site");
-//    hero_config.put("brand_position", "brand-bottomleft");
-//    hero_config.put("brand_opacity", "brand-opacity100");
-//    hero_config.put("attribution_text",
-//        "Cyclopides metis L., Cyclopides qua... Museum Fur Naturkunde Berlin");
-//    hero_config.put("attribution_url",
-//        "http://www.europeana.eu/portal/fr/record/11622/_MFN_DRAWERS_MFN_GERMANY_http___coll_mfn_berlin_de_u_MFNB_Lep_Hesperiidae_D146.html");
-//    hero_config.put("license_CC0", "true");
-////		hero_config.put("license_public", "false");
-//
-//    Map<String, String> banner = new HashMap<>();
-//    banner.put("title", "What can you do with Metis?");
-//    banner.put("text",
-//        "Ever wondered how to automatically digest huge amounts of data with the push of a button?");
-//    banner.put("info_link", "Learn more about Metis");
-//    banner.put("info_url", "#");
-//    banner.put("cta_url", "#");
-//    banner.put("cta_text", "Register to metis here");
-//
-//    Map<String, Map<String, String>> content = new HashMap<>();
-//    content.put("hero_config", hero_config);
-//    content.put("banner", banner);
-//    contentMap.put("content", content);
   }
 
   /**
@@ -287,35 +210,6 @@ public class MetisLandingPage extends MetisPage {
     }
 
     metisLandingPageModel.setLoginForm(loginForm);
-
-
-//    Map<String, Object> login_form = new HashMap<>();
-//
-//    Map<String, String> email_field = new HashMap<>();
-//    Map<String, String> password_field = new HashMap<>();
-//    Map<String, String> forgot_login_credentials = new HashMap<>();
-//    Map<String, Object> authentication_error_message = new HashMap<>();
-//
-//    email_field.put("label", "Email");
-//    email_field.put("placeholder", "your@email");
-//    password_field.put("label", "Password");
-//    password_field.put("placeholder", "Type your password");
-//
-//    forgot_login_credentials.put("text", "Forgot your account?");
-//    forgot_login_credentials.put("url", "#");
-//
-//    login_form.put("form_title", "Sign in to Metis");
-//    login_form.put("email_field", email_field);
-//    login_form.put("password_field", password_field);
-//
-//    if (isAuthError) {
-//      authentication_error_message.put("authentication_error_message", "Wrong credentials");
-//      login_form.put("login_err_authenticate", authentication_error_message);
-//    }
-//    login_form.put("forgot_login_credentials", forgot_login_credentials);
-//    login_form.put("submit_btn", "Sign In");
-//
-//    contentMap.put("login_form", login_form);
   }
 
   /**
@@ -354,19 +248,51 @@ public class MetisLandingPage extends MetisPage {
     registerForm.setFormRequirementsWarning("* needed for registration");
 
     metisLandingPageModel.setRegisterForm(registerForm);
-
-//    ObjectMapper m = new ObjectMapper();
-//    Map<String,Object> props = m.convertValue(registerForm, Map.class);
-//    contentMap.put("register_form", props);
   }
 
   /**
    * The content for the User Profile page.
    */
   private void buildProfilePageContent() {
-//    if (this.user == null) {
-//      return;
-//    }
+    if (this.user == null) {
+      return;
+    }
+    LandingPageContent landingPageContent = new LandingPageContent();
+    landingPageContent.setIsProfile(true);
+    metisLandingPageModel.setLandingPageContent(landingPageContent);
+
+    metisLandingPageModel.setFullName(user.getFirstName());
+    metisLandingPageModel.setLastName(user.getLastName());
+    metisLandingPageModel.setEmail(user.getEmail());
+
+    if (user instanceof UserProfile) {
+      metisLandingPageModel.setSkype(user.getSkype());
+      //TODO add other DBUser fields.
+    }
+
+    Country userCountry = Country.toCountry(user.getCountry());
+    List<CountryModel> countryModels = new ArrayList<>();
+//    List<Map<String, String>> countries = new ArrayList<>();
+    for (Country c : Country.values()) {
+      CountryModel countryModel = new CountryModel();
+//      Map<String, String> country = new HashMap<>();
+      if (userCountry != null && userCountry.getName().equals(c.getName())) {
+        countryModel.setSelected("selected");
+//        country.put("selected", "selected");
+      }
+      countryModel.setText(c.getName());
+      countryModel.setValue(c.getIsoCode());
+//      country.put("value", c.getIsoCode());
+//      country.put("text", c.getName());
+//      countries.add(country);
+      countryModels.add(countryModel);
+    }
+    metisLandingPageModel.setCountries(countryModels);
+
+
+
+
+//    Map<String, Object> contentMap = new HashMap<>();
 //    String email = this.user.getEmail();
 //    contentMap.put("email", email);
 //
@@ -438,6 +364,19 @@ public class MetisLandingPage extends MetisPage {
    * Transforms the list of organizations to a mustache model.
    */
   public void buildOrganizationsList(List<String> organizations) {
+    List<SelectionList> selectionLists = new ArrayList<>();
+
+    if (organizations != null && !organizations.isEmpty()) {
+//      List<Entry<String, String>> pairs = new ArrayList<>();
+      for (int i = 0; i < organizations.size(); i++) {
+        SelectionList selectionList = new SelectionList();
+        selectionList.setTitle(organizations.get(i));
+        selectionList.setValue(i);
+        selectionLists.add(selectionList);
+      }
+      metisLandingPageModel.setSelectionList(selectionLists);
+    }
+
 //    if (organizations != null && !organizations.isEmpty()) {
 //      List<Entry<String, String>> pairs = new ArrayList<>();
 //      for (int i = 0; i < organizations.size(); i++) {

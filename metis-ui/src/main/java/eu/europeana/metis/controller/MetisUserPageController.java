@@ -136,7 +136,7 @@ public class MetisUserPageController {
    * Resolves user profile page
    */
   @RequestMapping(value = "/profile", method = RequestMethod.GET)
-  public ModelAndView profile(Model model) {
+  public ModelAndView profile(Model model) throws JsonProcessingException {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
@@ -149,7 +149,6 @@ public class MetisUserPageController {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);
     metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
-//		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
@@ -208,9 +207,7 @@ public class MetisUserPageController {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.USER_APPROVE, userProfile);
     metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
-//		System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     modelAndView.addAllObjects(metisLandingPage.buildModel());
-//		System.out.println(MetisMappingUtil.toJson(metisLandingPage.buildModel()));
     return modelAndView;
   }
 

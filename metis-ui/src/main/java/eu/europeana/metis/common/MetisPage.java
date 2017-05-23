@@ -41,12 +41,6 @@ public abstract class MetisPage extends AbstractMetisPage {
 
   @Override
   public List<CssFile> resolveCssFiles() {
-//    return Arrays.asList(new SimpleEntry<String, String>(
-//            "https://europeana-styleguide-test.s3.amazonaws.com/css/pandora/screen.css", "all"),
-////		return Arrays.asList(new SimpleEntry<String, String>("http://localhost/css/pandora/screen.css", "all"),
-//        new SimpleEntry<String, String>(
-//            "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css",
-//            "all"));
 
     CssFile cssFile1 = new CssFile();
     CssFile cssFile2 = new CssFile();
@@ -71,13 +65,6 @@ public abstract class MetisPage extends AbstractMetisPage {
 
   @Override
   public List<JsFile> resolveJsFiles() {
-//    return Arrays.asList(new SimpleEntry<String, String>(
-//        "https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js",
-//        "https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora"));
-    //to test the java app with a local styleguide assets!
-//		return Arrays.asList(new SimpleEntry<String, String>("http://localhost/js/modules/require.js", 
-//				"http://localhost/js/modules/main/templates/main-pandora"));
-
     JsFile jsFile = new JsFile();
     jsFile.setPath("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js");
     jsFile.setDataMain("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora");
@@ -99,7 +86,6 @@ public abstract class MetisPage extends AbstractMetisPage {
     jsVar.setName("pageName");
     jsVar.setValue("portal/index");
     return Arrays.asList(jsVar);
-//    return Arrays.asList(new SimpleEntry<String, String>("pageName", "portal/index"));
   }
 
   @Override
@@ -108,20 +94,10 @@ public abstract class MetisPage extends AbstractMetisPage {
     breadcrumb.setText("Home");
     breadcrumb.setUrl("/");
     return Arrays.asList(breadcrumb);
-
-//    List<Entry<String, String>> breadcrumbs = new ArrayList<>();
-//    breadcrumbs.add(new SimpleEntry<String, String>("Home", "/"));
-//    return breadcrumbs;
   }
 
   @Override
   public MetisHeader buildHeader(PageView pageView) {
-    //commented for the new design!
-//    NavigationTop header = new NavigationTop("#", "Home", true);
-//    header.addNextPrev("next_url_here", "prev_url_here", "results_url_here");
-//    header.addGlobal(false, true, true, "#", "Europeana Metis", "main-menu", null,
-//        buildUtilityNavigation());
-//    return header;
 
     Options options = new Options();
     options.setSearchActive(false);
@@ -130,26 +106,6 @@ public abstract class MetisPage extends AbstractMetisPage {
     Logo logo = new Logo();
     logo.setUrl("#");
     logo.setText("Europeana Pandora");
-
-//    SubmenuItem submenuItem1 = new SubmenuItem();
-//    SubmenuItem submenuItem2 = new SubmenuItem();
-//    submenuItem1.setText("Login");
-//    submenuItem1.setUrl("/login");
-//    submenuItem1.setIsCurrent(true);
-//    submenuItem1.setIsDivider(null);
-//    submenuItem1.setSubtitle(null);
-//    submenuItem1.setMessage(null);
-//    submenuItem1.setSubmenu(false);
-//    submenuItem2.setText("Register");
-//    submenuItem2.setUrl("/register");
-//    submenuItem2.setIsCurrent(false);
-//    submenuItem2.setIsDivider(null);
-//    submenuItem2.setSubtitle(null);
-//    submenuItem2.setMessage(null);
-//    submenuItem2.setSubmenu(false);
-//    Submenu submenu = new Submenu();
-//    submenu.setItems(Collections.newArrayList(submenuItem1, submenuItem2));
-
 
     MenuItem menuItem = new MenuItem();
     menuItem.setText("Sign In");
@@ -204,16 +160,12 @@ public abstract class MetisPage extends AbstractMetisPage {
         submenuItem1.setUrl("/login");
         submenuItem2.setText("Home");
         submenuItem2.setUrl("/");
-//        utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
-//        utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
         break;
       case LOGIN:
         submenuItem1.setText("Register");
         submenuItem1.setUrl("/register");
         submenuItem2.setText("Home");
         submenuItem2.setUrl("/");
-//        utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));
-//        utilityNavigationMenu.add(new NavigationTopMenu("Home", "/", true));
         break;
       default:
         if (user != null && user.getEmail() != null) {
@@ -221,15 +173,11 @@ public abstract class MetisPage extends AbstractMetisPage {
           submenuItem1.setUrl("/profile");
           submenuItem2.setText("Logout");
           submenuItem2.setUrl("/logout");
-//          utilityNavigationMenu.add(new NavigationTopMenu("Profile", "/profile", true));
-//          utilityNavigationMenu.add(new NavigationTopMenu("Logout", "/logout", true));
         } else {
           submenuItem1.setText("Login");
           submenuItem1.setUrl("/login");
           submenuItem2.setText("Register");
           submenuItem2.setUrl("/register");
-//          utilityNavigationMenu.add(new NavigationTopMenu("Login", "/login", true));
-//          utilityNavigationMenu.add(new NavigationTopMenu("Register", "/register", false));
         }
         break;
     }
@@ -314,44 +262,6 @@ public abstract class MetisPage extends AbstractMetisPage {
     metisFooter.setNavigation(footerNavigation);
 
     return metisFooter;
-
-//    List<Entry<String, String>> linkList1 = Arrays.asList(
-//        new AbstractMap.SimpleEntry<String, String>("About", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Development updates", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("All institutions", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Become our partner", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Contact us", "/"));
-//    String linkListTitle1 = "More Info";
-//
-//    List<Entry<String, String>> linkList2 = Arrays.asList(
-//        new AbstractMap.SimpleEntry<String, String>("Search tips", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Terms of Use & Policies", "/"));
-//    String linkListTitle2 = "Help";
-//
-//    List<Entry<String, String>> linkList3 = Arrays.asList(
-//        new AbstractMap.SimpleEntry<String, String>("API Docs", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Status", "/"));
-//    String linkListTitle3 = "Tools";
-//
-//    List<Entry<String, String>> subFooter = Arrays.asList(
-//        new AbstractMap.SimpleEntry<String, String>("Home", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Terms of use and policies",
-//            "http://europeana.eu/portal/rights/terms-and-policies.html"),
-//        new AbstractMap.SimpleEntry<String, String>("Contact us", "/"),
-//        new AbstractMap.SimpleEntry<String, String>("Sitemap", "/"));
-//
-//    Map<String, Boolean> social = new HashMap<>();
-//    social.put("linkedin", false);
-//    social.put("github", false);
-//    social.put("twitter", true);
-//    social.put("facebook", true);
-//    social.put("pinterest", true);
-//    social.put("googleplus", true);
-//
-//    return new Footer(linkList1, linkListTitle1,
-//        linkList2, linkListTitle2,
-//        linkList3, linkListTitle3,
-//        subFooter, social);
   }
 
   public I18n buildI18n() {
