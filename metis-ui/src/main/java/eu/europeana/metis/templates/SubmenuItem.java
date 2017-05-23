@@ -36,12 +36,14 @@ public class SubmenuItem {
   private Boolean isCurrent;
   @JsonProperty("is_divider")
   private Object isDivider;
+  @JsonProperty("divider")
+  private Boolean divider;
   @JsonProperty("subtitle")
   private Object subtitle;
   @JsonProperty("message")
   private Object message;
   @JsonProperty("submenu")
-  private Boolean submenu;
+  private Object submenu;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
@@ -95,6 +97,14 @@ public class SubmenuItem {
     this.isDivider = isDivider;
   }
 
+  public Boolean getDivider() {
+    return divider;
+  }
+
+  public void setDivider(Boolean divider) {
+    this.divider = divider;
+  }
+
   @JsonProperty("subtitle")
   public Object getSubtitle() {
     return subtitle;
@@ -116,12 +126,12 @@ public class SubmenuItem {
   }
 
   @JsonProperty("submenu")
-  public Boolean getSubmenu() {
+  public Object getSubmenu() {
     return submenu;
   }
 
   @JsonProperty("submenu")
-  public void setSubmenu(Boolean submenu) {
+  public void setSubmenu(Object submenu) {
     this.submenu = submenu;
   }
 

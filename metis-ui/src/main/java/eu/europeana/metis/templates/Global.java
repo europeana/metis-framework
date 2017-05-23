@@ -16,12 +16,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
  */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "primary_nav",
     "utility_nav",
     "options",
     "logo"
 })
 public class Global {
 
+  @JsonProperty("primary_nav")
+  private PrimaryNav primaryNav;
   @JsonProperty("utility_nav")
   private UtilityNav utilityNav;
   @JsonProperty("options")
@@ -30,6 +33,16 @@ public class Global {
   private Logo logo;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+
+  @JsonProperty("primary_nav")
+  public PrimaryNav getPrimaryNav() {
+    return primaryNav;
+  }
+
+  @JsonProperty("primary_nav")
+  public void setPrimaryNav(PrimaryNav primaryNav) {
+    this.primaryNav = primaryNav;
+  }
 
   @JsonProperty("utility_nav")
   public UtilityNav getUtilityNav() {
