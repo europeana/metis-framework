@@ -19,6 +19,7 @@ import eu.europeana.metis.templates.page.landingpage.ForgotLoginCredentials;
 import eu.europeana.metis.templates.page.landingpage.Headline;
 import eu.europeana.metis.templates.page.landingpage.HeroConfig;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
+import eu.europeana.metis.templates.page.landingpage.LoginErrAuthenticate;
 import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.MetisLandingPageModel;
 import eu.europeana.metis.templates.page.landingpage.Request;
@@ -86,32 +87,15 @@ public class MetisLandingPage extends MetisPage {
     PageConfig pageConfig = new PageConfig();
     pageConfig.setNewsletter(true);
     metisLandingPageModel.setPageConfig(pageConfig);
-    Version version = new Version();
-    version.setIsBeta(true);
-    version.setIsAlpha(false);
-    metisLandingPageModel.setVersion(version);
-    Headline headline1 = new Headline();
-    Headline headline2 = new Headline();
-    Headline headline3 = new Headline();
-    headline1.setShort("false");
-    headline2.setMedium("false");
-    headline3.setLong("false");
-    metisLandingPageModel.setHeadline(Collections.newArrayList(headline1, headline2, headline3));
-    Excerpt excerpt1 = new Excerpt();
-    Excerpt excerpt2 = new Excerpt();
-    Excerpt excerpt3 = new Excerpt();
-    Excerpt excerpt4 = new Excerpt();
-    excerpt1.setVshort("false");
-    excerpt2.setShort("false");
-    excerpt3.setMedium("false");
-    excerpt4.setLong("false");
-    metisLandingPageModel.setExcerpt(Collections.newArrayList(excerpt1, excerpt2, excerpt3, excerpt4));
-    metisLandingPageModel.setMetisHeader(buildHeader(pageView));
+    metisLandingPageModel.setVersion(createVersion());
+    metisLandingPageModel.setHeadline(createHeadline());
+    metisLandingPageModel.setExcerpt(createExcerpt());
+    metisLandingPageModel.setMetisHeader(buildMetisHeader(pageView));
     metisLandingPageModel.setI18n(buildI18n());
 
     addPageContent();
 
-    metisLandingPageModel.setMetisFooter(buildFooter());
+    metisLandingPageModel.setMetisFooter(buildMetisFooter());
 
     ObjectMapper m = new ObjectMapper();
     Map<String,Object> modelMap = m.convertValue(metisLandingPageModel, Map.class);
@@ -139,6 +123,41 @@ public class MetisLandingPage extends MetisPage {
       default:
         break;
     }
+  }
+
+  private Version createVersion()
+  {
+    Version version = new Version();
+    version.setIsAlpha(false);
+    version.setIsBeta(true);
+
+    return version;
+  }
+
+  private List<Headline> createHeadline()
+  {
+    Headline headline1 = new Headline();
+    Headline headline2 = new Headline();
+    Headline headline3 = new Headline();
+    headline1.setShort("false");
+    headline2.setMedium("false");
+    headline3.setLong("false");
+
+    return Collections.newArrayList(headline1, headline2, headline3);
+  }
+
+  private List<Excerpt> createExcerpt()
+  {
+    Excerpt excerpt1 = new Excerpt();
+    Excerpt excerpt2 = new Excerpt();
+    Excerpt excerpt3 = new Excerpt();
+    Excerpt excerpt4 = new Excerpt();
+    excerpt1.setVshort("false");
+    excerpt2.setShort("false");
+    excerpt3.setMedium("false");
+    excerpt4.setLong("false");
+
+    return Collections.newArrayList(excerpt1, excerpt2, excerpt3, excerpt4);
   }
 
   /**
@@ -198,7 +217,9 @@ public class MetisLandingPage extends MetisPage {
     loginForm.setSubmitBtn("Sign In");
 
     if (isAuthError) {
-      // TODO: 23-5-17 Fix on error credentials
+      LoginErrAuthenticate loginErrAuthenticate = new LoginErrAuthenticate();
+      loginErrAuthenticate.setAuthenticationErrorMessage("Wrong credentials");
+      loginForm.setLoginErrAuthenticate(loginErrAuthenticate);
     }
 
     metisLandingPageModel.setLoginForm(loginForm);

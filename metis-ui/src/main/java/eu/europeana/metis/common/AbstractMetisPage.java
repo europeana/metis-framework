@@ -45,10 +45,10 @@ public abstract class AbstractMetisPage {
   /**
    * @return Metis header object model.
    */
-  public abstract MetisHeader buildHeader(PageView pageView);
+  public abstract MetisHeader buildMetisHeader(PageView pageView);
 
   /**
    * @return Metis footer object model.
    */
-  public abstract MetisFooter buildFooter();
+  public abstract MetisFooter buildMetisFooter();
 }

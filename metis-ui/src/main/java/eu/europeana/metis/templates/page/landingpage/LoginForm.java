@@ -22,6 +22,7 @@ import java.util.Map;
     "email_field",
     "password_field",
     "forgot_login_credentials",
+    "login_err_authenticate",
     "submit_btn"
 })
 public class LoginForm {
@@ -34,6 +35,8 @@ public class LoginForm {
   private PasswordField passwordField;
   @JsonProperty("forgot_login_credentials")
   private ForgotLoginCredentials forgotLoginCredentials;
+  @JsonProperty("login_err_authenticate")
+  private LoginErrAuthenticate loginErrAuthenticate;
   @JsonProperty("submit_btn")
   private String submitBtn;
   @JsonIgnore
@@ -77,6 +80,17 @@ public class LoginForm {
   @JsonProperty("forgot_login_credentials")
   public void setForgotLoginCredentials(ForgotLoginCredentials forgotLoginCredentials) {
     this.forgotLoginCredentials = forgotLoginCredentials;
+  }
+
+  @JsonProperty("login_err_authenticate")
+  public LoginErrAuthenticate getLoginErrAuthenticate() {
+    return loginErrAuthenticate;
+  }
+
+  @JsonProperty("login_err_authenticate")
+  public void setLoginErrAuthenticate(
+      LoginErrAuthenticate loginErrAuthenticate) {
+    this.loginErrAuthenticate = loginErrAuthenticate;
   }
 
   @JsonProperty("submit_btn")

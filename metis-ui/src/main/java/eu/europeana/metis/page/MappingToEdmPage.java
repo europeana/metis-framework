@@ -27,12 +27,7 @@ public class MappingToEdmPage extends MetisPage {
 	private static final int DEFAULT_COUNT = 20;
 	
 	private static final int DEFAULT_OFFSET = 0;
-	
-	//FIXME
-	@Override
-	public Byte resolveCurrentPage() {
-		return null;
-	}
+
 	
 //	@Override
 //	public void addPageContent(Map<String, Object> model) {

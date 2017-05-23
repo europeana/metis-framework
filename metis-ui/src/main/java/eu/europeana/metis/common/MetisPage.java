@@ -76,7 +76,7 @@ public abstract class MetisPage extends AbstractMetisPage {
   }
 
   @Override
-  public MetisHeader buildHeader(PageView pageView) {
+  public MetisHeader buildMetisHeader(PageView pageView) {
 
     Options options = new Options();
     options.setSearchActive(false);
@@ -166,7 +166,7 @@ public abstract class MetisPage extends AbstractMetisPage {
   }
 
   @Override
-  public MetisFooter buildFooter() {
+  public MetisFooter buildMetisFooter() {
 
     SubmenuItem submenuItem1 = new SubmenuItem();
     SubmenuItem submenuItem2 = new SubmenuItem();
