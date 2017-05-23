@@ -2,7 +2,6 @@ package eu.europeana.metis.templates.pandora.dashboard;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,52 +11,54 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-22
+ * @since 2017-05-23
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "utility_nav",
-    "options",
-    "logo"
+    "next_url",
+    "results_url",
+    "prev_url"
 })
-public class Global {
+public class NextPrev {
 
-  @JsonProperty("utility_nav")
-  private UtilityNav utilityNav;
-  @JsonProperty("options")
-  private Options options;
-  @JsonProperty("logo")
-  private Logo logo;
+  @JsonProperty("next_url")
+  private String nextUrl;
+  @JsonProperty("results_url")
+  private String resultsUrl;
+  @JsonProperty("prev_url")
+  private String prevUrl;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-  @JsonProperty("utility_nav")
-  public UtilityNav getUtilityNav() {
-    return utilityNav;
+  @JsonProperty("next_url")
+  public String getNextUrl() {
+    return nextUrl;
   }
 
-  @JsonProperty("utility_nav")
-  public void setUtilityNav(UtilityNav utilityNav) {
-    this.utilityNav = utilityNav;
-  }
-  @JsonProperty("options")
-  public Options getOptions() {
-    return options;
+  @JsonProperty("next_url")
+  public void setNextUrl(String nextUrl) {
+    this.nextUrl = nextUrl;
   }
 
-  @JsonProperty("options")
-  public void setOptions(Options options) {
-    this.options = options;
+  @JsonProperty("results_url")
+  public String getResultsUrl() {
+    return resultsUrl;
   }
 
-  @JsonProperty("logo")
-  public Logo getLogo() {
-    return logo;
+  @JsonProperty("results_url")
+  public void setResultsUrl(String resultsUrl) {
+    this.resultsUrl = resultsUrl;
   }
 
-  @JsonProperty("logo")
-  public void setLogo(Logo logo) {
-    this.logo = logo;
+  @JsonProperty("prev_url")
+  public String getPrevUrl() {
+    return prevUrl;
+  }
+
+  @JsonProperty("prev_url")
+  public void setPrevUrl(String prevUrl) {
+    this.prevUrl = prevUrl;
   }
 
   @JsonAnyGetter

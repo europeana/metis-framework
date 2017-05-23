@@ -1,22 +1,18 @@
 package eu.europeana.metis.page;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.log4j.Logger;
-
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
 import eu.europeana.metis.mapping.molecules.controls.DropdownMenu;
-import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.Mapping_card;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.service.MappingService;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,11 +34,11 @@ public class MappingToEdmPage extends MetisPage {
 		return null;
 	}
 	
-	@Override
-	public void addPageContent(Map<String, Object> model) {
-		model.put("action_menu", buildActionMenu());
-		model.put("mapping_card", buildMappingCard());
-	}
+//	@Override
+//	public void addPageContent(Map<String, Object> model) {
+//		model.put("action_menu", buildActionMenu());
+//		model.put("mapping_card", buildMappingCard());
+//	}
 	
 	//FIXME mapping card currently is generated with a stub data.
 	public List<Mapping_card> buildMappingCard() {
@@ -125,13 +121,13 @@ public class MappingToEdmPage extends MetisPage {
 		searchBox.put("search_box_hidden", "Search Hidden");
 		return searchBox;
 	}
-	
-	@Override
-	public List<NavigationTopMenu> buildUtilityNavigation() {
-		return Arrays.asList(
-				new NavigationTopMenu("Register", "/register", false),
-				new NavigationTopMenu("Login", "/login", true));
-	}
+
+//	@Override
+//	public List<NavigationTopMenu> buildUtilityNavigation() {
+//		return Arrays.asList(
+//				new NavigationTopMenu("Register", "/register", false),
+//				new NavigationTopMenu("Login", "/login", true));
+//	}
 
 	public MappingService getMappingService() {
 		return mappingService;
@@ -139,5 +135,15 @@ public class MappingToEdmPage extends MetisPage {
 
 	public void setMappingService(MappingService mappingService) {
 		this.mappingService = mappingService;
+	}
+
+	@Override
+	public Map<String, Object> buildModel() {
+		return null;
+	}
+
+	@Override
+	public void addPageContent() {
+
 	}
 }

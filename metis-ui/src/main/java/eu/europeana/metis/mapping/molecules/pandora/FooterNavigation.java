@@ -1,8 +1,8 @@
-package eu.europeana.metis.templates.pandora.dashboard;
+package eu.europeana.metis.mapping.molecules.pandora;
 
+import eu.europeana.metis.templates.pandora.dashboard.Footer;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,52 +12,28 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-22
+ * @since 2017-05-23
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "utility_nav",
-    "options",
-    "logo"
+    "footer"
 })
-public class Global {
+public class FooterNavigation {
 
-  @JsonProperty("utility_nav")
-  private UtilityNav utilityNav;
-  @JsonProperty("options")
-  private Options options;
-  @JsonProperty("logo")
-  private Logo logo;
+  @JsonProperty("footer")
+  private Footer footer;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-  @JsonProperty("utility_nav")
-  public UtilityNav getUtilityNav() {
-    return utilityNav;
+  @JsonProperty("footer")
+  public Footer getFooter() {
+    return footer;
   }
 
-  @JsonProperty("utility_nav")
-  public void setUtilityNav(UtilityNav utilityNav) {
-    this.utilityNav = utilityNav;
-  }
-  @JsonProperty("options")
-  public Options getOptions() {
-    return options;
-  }
-
-  @JsonProperty("options")
-  public void setOptions(Options options) {
-    this.options = options;
-  }
-
-  @JsonProperty("logo")
-  public Logo getLogo() {
-    return logo;
-  }
-
-  @JsonProperty("logo")
-  public void setLogo(Logo logo) {
-    this.logo = logo;
+  @JsonProperty("footer")
+  public void setFooter(Footer footer) {
+    this.footer = footer;
   }
 
   @JsonAnyGetter

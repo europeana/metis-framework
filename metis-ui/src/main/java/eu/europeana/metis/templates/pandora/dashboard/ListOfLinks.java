@@ -1,8 +1,8 @@
 package eu.europeana.metis.templates.pandora.dashboard;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,52 +12,41 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-22
+ * @since 2017-05-23
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "utility_nav",
-    "options",
-    "logo"
+    "title",
+    "items"
 })
-public class Global {
+public class ListOfLinks {
 
-  @JsonProperty("utility_nav")
-  private UtilityNav utilityNav;
-  @JsonProperty("options")
-  private Options options;
-  @JsonProperty("logo")
-  private Logo logo;
+  @JsonProperty("title")
+  private String title;
+  @JsonProperty("items")
+  private List<SubmenuItem> items = null;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-  @JsonProperty("utility_nav")
-  public UtilityNav getUtilityNav() {
-    return utilityNav;
+  @JsonProperty("title")
+  public String getTitle() {
+    return title;
   }
 
-  @JsonProperty("utility_nav")
-  public void setUtilityNav(UtilityNav utilityNav) {
-    this.utilityNav = utilityNav;
-  }
-  @JsonProperty("options")
-  public Options getOptions() {
-    return options;
+  @JsonProperty("title")
+  public void setTitle(String title) {
+    this.title = title;
   }
 
-  @JsonProperty("options")
-  public void setOptions(Options options) {
-    this.options = options;
+  @JsonProperty("items")
+  public List<SubmenuItem> getItems() {
+    return items;
   }
 
-  @JsonProperty("logo")
-  public Logo getLogo() {
-    return logo;
-  }
-
-  @JsonProperty("logo")
-  public void setLogo(Logo logo) {
-    this.logo = logo;
+  @JsonProperty("items")
+  public void setItems(List<SubmenuItem> items) {
+    this.items = items;
   }
 
   @JsonAnyGetter

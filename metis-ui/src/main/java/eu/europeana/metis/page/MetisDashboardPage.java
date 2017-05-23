@@ -3,7 +3,6 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.mapping.organisms.global.NavigationTopMenu;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.templates.pandora.dashboard.BrowseMenu;
 import eu.europeana.metis.templates.pandora.dashboard.Content;
@@ -14,7 +13,7 @@ import eu.europeana.metis.templates.pandora.dashboard.InputSearch;
 import eu.europeana.metis.templates.pandora.dashboard.IsDashboard;
 import eu.europeana.metis.templates.pandora.dashboard.Logo;
 import eu.europeana.metis.templates.pandora.dashboard.MenuItem;
-import eu.europeana.metis.templates.pandora.dashboard.MetisHeader;
+import eu.europeana.metis.mapping.molecules.pandora.MetisHeader;
 import eu.europeana.metis.templates.pandora.dashboard.MetisLoggedUser;
 import eu.europeana.metis.templates.pandora.dashboard.Navigation;
 import eu.europeana.metis.templates.pandora.dashboard.Options;
@@ -22,7 +21,6 @@ import eu.europeana.metis.templates.pandora.dashboard.Submenu;
 import eu.europeana.metis.templates.pandora.dashboard.SubmenuItem;
 import eu.europeana.metis.templates.pandora.dashboard.Version;
 import eu.europeana.metis.templates.pandora.dashboard.WelcomeMessage;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,14 +39,10 @@ public class MetisDashboardPage extends MetisPage {
     return null;
   }
 
-  @Override
-  public List<NavigationTopMenu> buildUtilityNavigation() {
-    return null;
-  }
-
-  @Override
-  public void addPageContent(Map<String, Object> model) {
-  }
+//  @Override
+//  public List<NavigationTopMenu> buildUtilityNavigation() {
+//    return null;
+//  }
 
   @Override
   public Map<String, Object> buildModel() {
@@ -72,6 +66,16 @@ public class MetisDashboardPage extends MetisPage {
     Map<String,Object> modelMap = m.convertValue(dashboardPageModel, Map.class);
     return modelMap;
   }
+
+  @Override
+  public void addPageContent() {
+
+  }
+
+//  @Override
+//  public void initAssetsAndBreadcrumbs() {
+//
+//  }
 
   private InputSearch createInputSearch()
   {

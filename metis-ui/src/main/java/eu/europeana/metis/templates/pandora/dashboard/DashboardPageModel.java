@@ -8,6 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import eu.europeana.metis.mapping.molecules.pandora.CssFile;
 import eu.europeana.metis.mapping.molecules.pandora.JsFile;
+import eu.europeana.metis.mapping.molecules.pandora.MetisHeader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,7 @@ import java.util.Map;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+    "is_java",
     "css_files",
     "js_files",
     "jQuery",

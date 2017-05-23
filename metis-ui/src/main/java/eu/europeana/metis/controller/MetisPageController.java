@@ -1,6 +1,8 @@
 package eu.europeana.metis.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
+import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
@@ -35,7 +37,7 @@ public class MetisPageController {
    * View resolves Home page.
    */
   @RequestMapping(value = "/")
-  public ModelAndView homePage() {
+  public ModelAndView homePage() throws JsonProcessingException {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
@@ -46,6 +48,7 @@ public class MetisPageController {
     userProfile.init(userDTO);
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME, userProfile);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
+    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 

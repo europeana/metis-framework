@@ -1,8 +1,7 @@
-package eu.europeana.metis.templates.pandora.dashboard;
+package eu.europeana.metis.mapping.molecules.pandora;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,52 +11,41 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-22
+ * @since 2017-05-23
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "utility_nav",
-    "options",
-    "logo"
+    "text",
+    "url"
 })
-public class Global {
+public class Breadcrumb {
 
-  @JsonProperty("utility_nav")
-  private UtilityNav utilityNav;
-  @JsonProperty("options")
-  private Options options;
-  @JsonProperty("logo")
-  private Logo logo;
+  @JsonProperty("text")
+  private String text;
+  @JsonProperty("url")
+  private String url;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-  @JsonProperty("utility_nav")
-  public UtilityNav getUtilityNav() {
-    return utilityNav;
+  @JsonProperty("text")
+  public String getText() {
+    return text;
   }
 
-  @JsonProperty("utility_nav")
-  public void setUtilityNav(UtilityNav utilityNav) {
-    this.utilityNav = utilityNav;
-  }
-  @JsonProperty("options")
-  public Options getOptions() {
-    return options;
+  @JsonProperty("text")
+  public void setText(String text) {
+    this.text = text;
   }
 
-  @JsonProperty("options")
-  public void setOptions(Options options) {
-    this.options = options;
+  @JsonProperty("url")
+  public String getUrl() {
+    return url;
   }
 
-  @JsonProperty("logo")
-  public Logo getLogo() {
-    return logo;
-  }
-
-  @JsonProperty("logo")
-  public void setLogo(Logo logo) {
-    this.logo = logo;
+  @JsonProperty("url")
+  public void setUrl(String url) {
+    this.url = url;
   }
 
   @JsonAnyGetter

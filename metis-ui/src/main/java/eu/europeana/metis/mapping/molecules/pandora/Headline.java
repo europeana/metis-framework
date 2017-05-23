@@ -1,8 +1,7 @@
-package eu.europeana.metis.templates.pandora.dashboard;
+package eu.europeana.metis.mapping.molecules.pandora;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -12,52 +11,54 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-22
+ * @since 2017-05-23
  */
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "utility_nav",
-    "options",
-    "logo"
+    "short",
+    "medium",
+    "long"
 })
-public class Global {
+public class Headline {
 
-  @JsonProperty("utility_nav")
-  private UtilityNav utilityNav;
-  @JsonProperty("options")
-  private Options options;
-  @JsonProperty("logo")
-  private Logo logo;
+  @JsonProperty("short")
+  private String _short;
+  @JsonProperty("medium")
+  private String medium;
+  @JsonProperty("long")
+  private String _long;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-  @JsonProperty("utility_nav")
-  public UtilityNav getUtilityNav() {
-    return utilityNav;
+  @JsonProperty("short")
+  public String getShort() {
+    return _short;
   }
 
-  @JsonProperty("utility_nav")
-  public void setUtilityNav(UtilityNav utilityNav) {
-    this.utilityNav = utilityNav;
-  }
-  @JsonProperty("options")
-  public Options getOptions() {
-    return options;
+  @JsonProperty("short")
+  public void setShort(String _short) {
+    this._short = _short;
   }
 
-  @JsonProperty("options")
-  public void setOptions(Options options) {
-    this.options = options;
+  @JsonProperty("medium")
+  public String getMedium() {
+    return medium;
   }
 
-  @JsonProperty("logo")
-  public Logo getLogo() {
-    return logo;
+  @JsonProperty("medium")
+  public void setMedium(String medium) {
+    this.medium = medium;
   }
 
-  @JsonProperty("logo")
-  public void setLogo(Logo logo) {
-    this.logo = logo;
+  @JsonProperty("long")
+  public String getLong() {
+    return _long;
+  }
+
+  @JsonProperty("long")
+  public void setLong(String _long) {
+    this._long = _long;
   }
 
   @JsonAnyGetter

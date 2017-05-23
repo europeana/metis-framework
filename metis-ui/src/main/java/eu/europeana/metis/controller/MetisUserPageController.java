@@ -10,7 +10,6 @@ import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.mapping.atoms.UserRequest;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
-import eu.europeana.metis.mapping.util.MetisMappingUtil;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
@@ -78,7 +77,7 @@ public class MetisUserPageController {
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN);
     metisLandingPage.setIsAuthError(authentication_error);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
-    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+//    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
@@ -129,7 +128,7 @@ public class MetisUserPageController {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userProfile);
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
-    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
+//    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 

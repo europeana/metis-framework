@@ -1,4 +1,4 @@
-package eu.europeana.metis.templates.pandora.dashboard;
+package eu.europeana.metis.mapping.molecules.pandora;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,27 +11,27 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-22
+ * @since 2017-05-23
  */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
     "navigation"
 })
-public class MetisHeader {
+public class MetisFooter {
 
   @JsonProperty("navigation")
-  private Navigation navigation;
+  private FooterNavigation navigation;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
   @JsonProperty("navigation")
-  public Navigation getNavigation() {
+  public FooterNavigation getNavigation() {
     return navigation;
   }
 
   @JsonProperty("navigation")
-  public void setNavigation(Navigation navigation) {
+  public void setNavigation(FooterNavigation navigation) {
     this.navigation = navigation;
   }
 
