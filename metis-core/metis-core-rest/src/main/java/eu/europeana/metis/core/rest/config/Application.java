@@ -39,15 +39,18 @@ import eu.europeana.metis.core.search.service.MetisSearchService;
 import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
-import eu.europeana.metis.core.service.Orchestrator;
+import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.workflow.AbstractMetisWorkflow;
+import eu.europeana.metis.core.workflow.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.FailedRecords;
-import eu.europeana.metis.core.workflow.VoidMetisWorkflow;
+import eu.europeana.metis.core.workflow.VoidHTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.VoidMetisPlugin;
+import eu.europeana.metis.core.workflow.VoidOaipmhHarvestPlugin;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import eu.europeana.metis.workflow.qa.QAWorkflow;
+import eu.europeana.metis.workflow.qa.QAPlugin;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
@@ -55,6 +58,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -67,7 +71,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-import org.springframework.plugin.core.config.EnablePluginRegistries;
+import org.springframework.plugin.core.OrderAwarePluginRegistry;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -92,7 +96,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
 @EnableSwagger2
-@EnablePluginRegistries(AbstractMetisWorkflow.class)
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
@@ -273,21 +276,49 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public Orchestrator getOrchestrator() {
-    return new Orchestrator();
+  public VoidMetisPlugin getVoidMetisWorkflow() {
+    return new VoidMetisPlugin("void", 10000);
   }
 
   @Bean
-  public VoidMetisWorkflow getVoidMetisWorkflow() {
-    return new VoidMetisWorkflow();
+  public VoidHTTPHarvestPlugin getVoidHTTPHarvestPlugin() {
+    return new VoidHTTPHarvestPlugin("voidHttp", 10000);
+  }
+
+  @Bean
+  public VoidOaipmhHarvestPlugin getVoidOaipmhHarvestPlugin() {
+    return new VoidOaipmhHarvestPlugin("voidOai", 10000);
   }
 
   @Bean
   @DependsOn("jedisProviderUtils")
-  public QAWorkflow getStatisticsWorkflow() {
-    return new QAWorkflow();
+  public QAPlugin getStatisticsWorkflow() {
+    return new QAPlugin();
   }
 
+  @Bean
+  @Qualifier("abstractMetisPluginRegistry")
+  public OrderAwarePluginRegistry getOrderAwarePluginRegistry(
+      VoidHTTPHarvestPlugin voidHTTPHarvestPlugin, VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin,
+      VoidMetisPlugin voidMetisPlugin, QAPlugin qaPlugin) {
+
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(qaPlugin);
+    abstractMetisPlugins.add(voidMetisPlugin);
+    abstractMetisPlugins.add(voidHTTPHarvestPlugin);
+    abstractMetisPlugins.add(voidOaipmhHarvestPlugin);
+
+    return OrderAwarePluginRegistry.create(abstractMetisPlugins);
+  }
+
+  @Bean
+  public OrchestratorService getOrchestrator(ExecutionDao executionDao,
+      DatasetService datasetService,
+      FailedRecordsDao failedRecordsDao,
+      @Qualifier("abstractMetisPluginRegistry") OrderAwarePluginRegistry orderAwarePluginRegistry) {
+    return new OrchestratorService(executionDao, datasetService, failedRecordsDao,
+        orderAwarePluginRegistry);
+  }
 
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

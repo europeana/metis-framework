@@ -2,20 +2,29 @@ package eu.europeana.metis.core.workflow;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.core.annotation.Order;
 
 /**
  * Created by ymamakis on 11/15/16.
  */
-public class VoidMetisWorkflow implements AbstractMetisWorkflow {
+@Order(2)
+public class VoidMetisPlugin implements AbstractMetisPlugin {
     private String name;
+    private long sleepMillis;
 
-    public VoidMetisWorkflow(){
-        this.name="void";
+    public VoidMetisPlugin(String name, long sleepMillis){
+        this.name=name;
+        this.sleepMillis = sleepMillis;
     }
 
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getVersion() {
+        return null;
     }
 
     @Override
@@ -30,7 +39,12 @@ public class VoidMetisWorkflow implements AbstractMetisWorkflow {
 
     @Override
     public void execute() {
-        System.out.println("Welcome to the jungle");
+
+        try {
+            Thread.sleep(sleepMillis);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -40,7 +54,8 @@ public class VoidMetisWorkflow implements AbstractMetisWorkflow {
 
 
     @Override
-    public boolean supports(String s) {
-        return s.equalsIgnoreCase(name);
+    public boolean supports(PluginType pluginType) {
+        return pluginType == PluginType.VOID;
     }
+
 }

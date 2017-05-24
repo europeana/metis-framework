@@ -1,19 +1,13 @@
 package eu.europeana.metis.workflow.qa;
 
-import eu.europeana.metis.core.workflow.AbstractMetisWorkflow;
-import eu.europeana.metis.core.workflow.CloudStatistics;
-import eu.europeana.metis.core.workflow.WorkflowParameters;
 import eu.europeana.metis.cache.redis.JedisProviderUtils;
+import eu.europeana.metis.core.workflow.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.CloudStatistics;
+import eu.europeana.metis.core.workflow.PluginType;
+import eu.europeana.metis.core.workflow.WorkflowParameters;
 import eu.europeana.metis.workflow.qa.model.MeasuringResponse;
 import eu.europeana.metis.workflow.qa.model.QAParams;
 import eu.europeana.metis.workflow.qa.model.QAStatistics;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.client.RestTemplate;
-
-import javax.annotation.PostConstruct;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +15,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import javax.annotation.PostConstruct;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Created by ymamakis on 11/22/16.
  */
-public class QAWorkflow implements AbstractMetisWorkflow {
+@Order(3)
+public class QAPlugin implements AbstractMetisPlugin {
     private String name = "qa";
     private Map<String, List<String>> params;
     private RestTemplate template = new RestTemplate();
@@ -34,7 +36,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
 
     @Autowired
     private JedisProviderUtils cache;
-    public QAWorkflow(){
+    public QAPlugin(){
         List<String> endpoint = new ArrayList<>();
         endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
         params = new HashMap<>();
@@ -51,6 +53,11 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public String getVersion() {
+        return null;
     }
 
     @Override
@@ -125,7 +132,7 @@ public class QAWorkflow implements AbstractMetisWorkflow {
     }
 
     @Override
-    public boolean supports(String s) {
-        return s.equalsIgnoreCase(name);
+    public boolean supports(PluginType pluginType) {
+        return pluginType == PluginType.QA;
     }
 }

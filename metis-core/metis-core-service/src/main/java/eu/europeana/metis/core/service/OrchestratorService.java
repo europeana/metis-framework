@@ -3,7 +3,7 @@ package eu.europeana.metis.core.service;
 import eu.europeana.metis.core.dao.ExecutionDao;
 import eu.europeana.metis.core.dao.FailedRecordsDao;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.workflow.AbstractMetisWorkflow;
+import eu.europeana.metis.core.workflow.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.ExecutionStatistics;
@@ -21,7 +21,6 @@ import org.mongodb.morphia.query.ArraySlice;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.plugin.core.OrderAwarePluginRegistry;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -31,17 +30,23 @@ import org.springframework.stereotype.Service;
  * Created by ymamakis on 11/15/16.
  */
 @Service
-public class Orchestrator {
+public class OrchestratorService {
+
+    private final ExecutionDao executionDao;
+    private final DatasetService datasetService;
+    private final FailedRecordsDao failedRecordsDao;
+    private final OrderAwarePluginRegistry registry;
 
     @Autowired
-    private ExecutionDao executionDao;
-    @Autowired
-    private DatasetService datasetService;
-    @Autowired
-    private FailedRecordsDao failedRecordsDao;
-    @Autowired
-    @Qualifier("abstractMetisWorkflowRegistry")
-    private OrderAwarePluginRegistry registry;
+    public OrchestratorService(ExecutionDao executionDao, DatasetService datasetService,
+        FailedRecordsDao failedRecordsDao,
+//        @Qualifier("abstractMetisWorkflowRegistry") OrderAwarePluginRegistry registry) {
+        OrderAwarePluginRegistry registry) {
+        this.executionDao = executionDao;
+        this.datasetService = datasetService;
+        this.failedRecordsDao = failedRecordsDao;
+        this.registry = registry;
+    }
 
     /**
      * Execute the worklow that supports the selected operation
@@ -53,7 +58,7 @@ public class Orchestrator {
     public String execute(String datasetId, String name, String operatorMail, Map<String, List<String>> params) throws NoDatasetFoundException {
        // if(datasetService.exists(datasetId)) {
         if(true){
-            AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(name);
+            AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(name);
             Execution execution = new Execution();
             execution.setId(new ObjectId());
             execution.setDatasetId(datasetId);
@@ -89,7 +94,7 @@ public class Orchestrator {
         List<Execution> executions = getExecutions(null, null, null, null, null, new Date(), null, false,null,null);
         if (executions != null && executions.size() > 0) {
             for (Execution execution : executions) {
-                AbstractMetisWorkflow workflow = (AbstractMetisWorkflow) registry.getPluginFor(execution.getWorkflow());
+                AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(execution.getWorkflow());
                 UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
                 ops.set("startedAt", new Date());
                 ops.set("updatedAt", new Date());
@@ -206,7 +211,7 @@ public class Orchestrator {
                 if (stats == null) {
                     stats = new ExecutionStatistics();
                 }
-                AbstractMetisWorkflow workflow=  (AbstractMetisWorkflow)registry.getPluginFor(activeExecution.getWorkflow());
+                AbstractMetisPlugin workflow=  (AbstractMetisPlugin)registry.getPluginFor(activeExecution.getWorkflow());
                 CloudStatistics statistics =workflow.monitor(activeExecution.getDatasetId());
                 stats.setProcessed(statistics.getProcessed());
                 stats.setCreated(statistics.getCreated());
@@ -331,9 +336,9 @@ public class Orchestrator {
      * @return The List of workflows
      */
     public List<String> getAvailableWorkflows() {
-        List<AbstractMetisWorkflow> plugins = registry.getPlugins();
+        List<AbstractMetisPlugin> plugins = registry.getPlugins();
         List<String> operations = new ArrayList<>();
-        for (AbstractMetisWorkflow plugin : plugins) {
+        for (AbstractMetisPlugin plugin : plugins) {
             operations.add(plugin.getName());
         }
         return operations;

@@ -1,22 +1,16 @@
 package eu.europeana.metis.core.workflow;
 
-import org.springframework.plugin.core.Plugin;
-
 import java.util.List;
 import java.util.Map;
+import org.springframework.plugin.core.Plugin;
+import org.springframework.plugin.metadata.PluginMetadata;
 
 /**
  * This interface specifies the minimum o plugin should support so that it can be plugged in the Metis workflow registry
  * and can be accessible via the REST API of Metis
  * Created by ymamakis on 11/9/16.
  */
-public interface AbstractMetisWorkflow extends Plugin<String> {
-
-    /**
-     * The name of the workflow. Important as this is used to select the workflow
-     * @return The name of the workflow
-     */
-    String getName();
+public interface AbstractMetisPlugin extends Plugin<PluginType>, PluginMetadata {
 
     /**
      * The parameters of the workflow
