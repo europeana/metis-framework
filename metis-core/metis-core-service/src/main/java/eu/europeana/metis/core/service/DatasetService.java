@@ -59,7 +59,7 @@ public class DatasetService {
   public void createDataset(Dataset dataset, String organizationId) {
 
     final String uuid = UUID.randomUUID().toString();
-    dataset.setEcloudUUID(uuid);
+    dataset.setEcloudDatasetId(uuid);
 
     //Create in ECloud
     DataSet ecloudDataset = new DataSet();
@@ -82,14 +82,14 @@ public class DatasetService {
   }
 
   public void updateDataset(Dataset dataset) {
-    datasetDao.update(dataset);
-
     //Update in ECloud
     DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getEcloudUUID());
+    ecloudDataset.setId(dataset.getEcloudDatasetId());
     ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
     ecloudDataset.setDescription(dataset.getDescription());
     ecloudDatasetDao.update(ecloudDataset);
+
+    datasetDao.update(dataset);
   }
 
   public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
@@ -122,7 +122,7 @@ public class DatasetService {
 
     //Delete from ECloud
     DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getEcloudUUID());
+    ecloudDataset.setId(dataset.getEcloudDatasetId());
     ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
     ecloudDatasetDao.delete(ecloudDataset);
   }
@@ -185,7 +185,7 @@ public class DatasetService {
     }
 
     Dataset storedDataset = getDatasetByDatasetName(datasetName);
-    dataset.setEcloudUUID(storedDataset.getEcloudUUID());
+    dataset.setEcloudDatasetId(storedDataset.getEcloudDatasetId());
   }
 
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {

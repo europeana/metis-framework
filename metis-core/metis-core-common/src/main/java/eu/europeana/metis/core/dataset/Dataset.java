@@ -43,7 +43,7 @@ public class Dataset {
   private ObjectId id;
 
   @Indexed(unique = true)
-  private String ecloudUUID;
+  private String ecloudDatasetId;
 
   @Indexed(unique = true)
   private String datasetName;
@@ -130,12 +130,12 @@ public class Dataset {
     this.datasetName = datasetName;
   }
 
-  public String getEcloudUUID() {
-    return ecloudUUID;
+  public String getEcloudDatasetId() {
+    return ecloudDatasetId;
   }
 
-  public void setEcloudUUID(String ecloudUUID) {
-    this.ecloudUUID = ecloudUUID;
+  public void setEcloudDatasetId(String ecloudDatasetId) {
+    this.ecloudDatasetId = ecloudDatasetId;
   }
 
   public String getOrganizationId() {
