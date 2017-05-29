@@ -78,7 +78,7 @@ public class TestDatasetDao {
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
-    ds.setMetadata(new OAIDatasetMetadata());
+    ds.setHarvestingMetadata(new OAIDatasetMetadata());
     ds.setDatasetName("testName");
     ds.setNotes("test Notes");
     ds.setPublishedRecords(100);

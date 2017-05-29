@@ -2,6 +2,9 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import io.swagger.annotations.ApiImplicitParam;
@@ -16,6 +19,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -94,17 +98,24 @@ public class OrchestratorController {
     return userWorkflow;
   }
 
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW_EXECUTIONS_DATASETNAME, method = RequestMethod.POST, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.CREATED)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 201, message = "Successful response")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
+      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
+  })
+  @ApiOperation(value = "Execute a user workflow by owner and workflowName for datasetName")
+  public void executeUserWorkflowByOwnerAndWorkflowNameForDatasetName(@PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner, @QueryParam("workflowName") String workflowName)
+      throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
+    orchestratorService.executeUserWorkflowByOwnerAndWorkflowNameForDatasetName(datasetName, owner, workflowName);
+    LOGGER.info("UserWorkflowExecution for datasetName '" + datasetName + "' with owner '" + owner + "' and workflowName '" + workflowName + "' started");
+  }
 
-//  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PLUGINS, method = RequestMethod.GET, produces = {
-//      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-//  @ResponseStatus(HttpStatus.OK)
-//  @ResponseBody
-//  @ApiResponses(value = {
-//      @ApiResponse(code = 200, message = "Successful response")})
-//  @ApiOperation(value = "Get all orchestrator plugins")
-//  public Set<PluginType> getAllOrchestratorPluginTypes() {
-//    return orchestratorService.getAllOrchestratorPluginTypes();
-//  }
 
 //    @ResponseBody
 //    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_SCHEDULE, consumes = "application/json")

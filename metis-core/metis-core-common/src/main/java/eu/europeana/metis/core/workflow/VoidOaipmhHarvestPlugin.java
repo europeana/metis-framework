@@ -1,21 +1,34 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.mongodb.morphia.annotations.Entity;
+import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Transient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
-@Entity
 public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
+  @Indexed
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId id;
   private PluginStatus pluginStatus;
   private final PluginType pluginType = PluginType.OAIPMH_HARVEST;
-  private int requestedOrder;
+  private String metadataSchema;
   @Transient
   private long sleepMillis = 10000;
+
+  @Indexed
+  private Date startedDate;
+  @Indexed
+  private Date finishedDate;
+  @Indexed
+  private Date updatedDate;
 
   private long recordsProcessed;
   private long recordsFailed;
@@ -26,8 +39,17 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   public VoidOaipmhHarvestPlugin() {
   }
 
-  public VoidOaipmhHarvestPlugin(long sleepMillis) {
+  public VoidOaipmhHarvestPlugin(String metadataSchema, long sleepMillis) {
+    this.metadataSchema = metadataSchema;
     this.sleepMillis = sleepMillis;
+  }
+
+  public ObjectId getId() {
+    return id;
+  }
+
+  public void setId(ObjectId id) {
+    this.id = id;
   }
 
   @Override
@@ -35,73 +57,93 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
     return pluginStatus;
   }
 
+  @Override
+  public void setPluginStatus(PluginStatus pluginStatus) {
+    this.pluginStatus = pluginStatus;
+  }
+
   public PluginType getPluginType() {
     return pluginType;
   }
 
   @Override
-  public int getRequestedOrder() {
-    return requestedOrder;
+  public Date getStartedDate() {
+    return startedDate;
   }
 
   @Override
-  public void setRequestedOrder(int requestedOrder) {
-    this.requestedOrder = requestedOrder;
+  public void setStartedDate(Date startedDate) {
+    this.startedDate = startedDate;
+  }
+
+  @Override
+  public Date getFinishedDate() {
+    return finishedDate;
+  }
+
+  @Override
+  public void setFinishedDate(Date finishedDate) {
+    this.finishedDate = finishedDate;
+  }
+
+  @Override
+  public Date getUpdatedDate() {
+    return updatedDate;
+  }
+
+  @Override
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate;
   }
 
   @Override
   public long getRecordsProcessed() {
-    return 0;
+    return recordsProcessed;
   }
 
   @Override
-  public void setRecordsProcessed() {
-
+  public void setRecordsProcessed(long recordsProcessed) {
+    this.recordsProcessed = recordsProcessed;
   }
 
   @Override
   public long getRecordsFailed() {
-    return 0;
+    return recordsFailed;
   }
 
   @Override
-  public void setRecordsFailed() {
-
-  }
-
-  @Override
-  public long getRecordsUpdated() {
-    return 0;
-  }
-
-  @Override
-  public void setRecordsUpdated() {
-
+  public void setRecordsFailed(long recordsFailed) {
+    this.recordsFailed = recordsFailed;
   }
 
   @Override
   public long getRecordsCreated() {
-    return 0;
+    return recordsCreated;
   }
 
   @Override
-  public void setRecordsCreated() {
+  public void setRecordsCreated(long recordsCreated) {
+    this.recordsCreated = recordsCreated;
+  }
 
+  @Override
+  public long getRecordsUpdated() {
+    return recordsUpdated;
+  }
+
+  @Override
+  public void setRecordsUpdated(long recordsUpdated) {
+    this.recordsUpdated = recordsUpdated;
   }
 
   @Override
   public long getRecordsDeleted() {
-    return 0;
+    return recordsDeleted;
   }
 
   @Override
-  public void setRecordsDeleted() {
-
-  }
-
-  @Override
-  public void setPluginStatus(PluginStatus pluginStatus) {
-    this.pluginStatus = pluginStatus;
+  public void setRecordsDeleted(long recordsDeleted) {
+    this.recordsDeleted = recordsDeleted;
   }
 
   @Override
@@ -121,6 +163,14 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+  }
+
+  public String getMetadataSchema() {
+    return metadataSchema;
+  }
+
+  public void setMetadataSchema(String metadataSchema) {
+    this.metadataSchema = metadataSchema;
   }
 
   @Override

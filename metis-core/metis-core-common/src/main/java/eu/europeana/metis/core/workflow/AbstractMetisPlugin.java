@@ -1,72 +1,72 @@
 package eu.europeana.metis.core.workflow;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.mongodb.morphia.annotations.Entity;
 
 /**
- * This interface specifies the minimum o plugin should support so that it can be plugged in the Metis workflow registry
- * and can be accessible via the REST API of Metis
- * Created by ymamakis on 11/9/16.
+ * This interface specifies the minimum o plugin should support so that it can be plugged in the
+ * Metis workflow registry and can be accessible via the REST API of Metis Created by ymamakis on
+ * 11/9/16.
  */
-//@JsonTypeInfo(use = Id.CLASS,
-//    include = JsonTypeInfo.As.PROPERTY,
-//    property = "type")
-//@JsonSubTypes({
-//    @Type(value = VoidMetisPlugin.class),
-//    @Type(value = VoidOaipmhHarvestPlugin.class),
-//    @Type(value = VoidHTTPHarvestPlugin.class),
-//    @Type(value = VoidDereferencePlugin.class)
-//})
-@Entity
-public interface AbstractMetisPlugin{
+public interface AbstractMetisPlugin {
 
-    PluginStatus getPluginStatus();
+  PluginStatus getPluginStatus();
 
-    int getRequestedOrder();
+  Date getStartedDate();
 
-    void setRequestedOrder(int requestedOrder);
+  void setStartedDate(Date startedDate);
 
-    long getRecordsProcessed();
+  Date getFinishedDate();
 
-    void setRecordsProcessed();
+  void setFinishedDate(Date finishedDate);
 
-    long getRecordsFailed();
+  Date getUpdatedDate();
 
-    void setRecordsFailed();
+  void setUpdatedDate(Date updatedDate);
 
-    long getRecordsUpdated();
+  long getRecordsProcessed();
 
-    void setRecordsUpdated();
+  void setRecordsProcessed(long recordsProcessed);
 
-    long getRecordsCreated();
+  long getRecordsFailed();
 
-    void setRecordsCreated();
+  void setRecordsFailed(long recordsFailed);
 
-    long getRecordsDeleted();
+  long getRecordsUpdated();
 
-    void setRecordsDeleted();
+  void setRecordsUpdated(long recordsUpdated);
 
-    void setPluginStatus(PluginStatus pluginStatus);
+  long getRecordsCreated();
 
-    /**
-     * The parameters of the workflow
-     * @param parameters The parameters of the workflow
-     */
-    void setParameters(Map<String,List<String>> parameters);
+  void setRecordsCreated(long recordsCreated);
 
-    /**
-     * Set the parameters of the workflow
-     * @return The parameters of the workflow
-     */
-    Map<String, List<String>> getParameters();
+  long getRecordsDeleted();
 
-    /**
-     * The business logic that the UserWorkflow implements. This is where the connection to the Europeana Cloud DPS REST API
-     * is implemented.
-     */
-    void execute();
+  void setRecordsDeleted(long recordsDeleted);
 
-    CloudStatistics monitor(String dataseId);
+  void setPluginStatus(PluginStatus pluginStatus);
+
+  /**
+   * The parameters of the workflow
+   *
+   * @param parameters The parameters of the workflow
+   */
+  void setParameters(Map<String, List<String>> parameters);
+
+  /**
+   * Set the parameters of the workflow
+   *
+   * @return The parameters of the workflow
+   */
+  Map<String, List<String>> getParameters();
+
+  /**
+   * The business logic that the UserWorkflow implements. This is where the connection to the
+   * Europeana Cloud DPS REST API is implemented.
+   */
+  void execute();
+
+  CloudStatistics monitor(String dataseId);
 
 }

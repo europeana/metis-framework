@@ -6,9 +6,11 @@ import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
+import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.StructuredExceptionWrapper;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
+import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +36,7 @@ public class RestResponseExceptionHandler {
   @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class, NoApiKeyFoundException.class, IOException.class,
       SolrServerException.class, OrganizationAlreadyExistsException.class, ServletException.class,
       NoOrganizationFoundException.class, BadContentException.class, DatasetAlreadyExistsException.class,
-      NoDatasetFoundException.class})
+      NoDatasetFoundException.class, NoUserWorkflowFoundException.class, UserWorkflowExecutionAlreadyExistsException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex, HttpServletResponse response) {
     HttpStatus status = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class).value();

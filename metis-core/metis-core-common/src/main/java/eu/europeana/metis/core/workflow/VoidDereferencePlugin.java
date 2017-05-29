@@ -2,28 +2,34 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Entity;
-import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Transient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
-@Entity
 public class VoidDereferencePlugin implements AbstractMetisPlugin {
-
-  @Id
+  @Indexed
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   private PluginStatus pluginStatus;
   private final PluginType pluginType = PluginType.DEREFERENCE;
-  private int requestedOrder;
+  private Map<String, List<String>> parameters = new HashMap<>();
   @Transient
   private long sleepMillis = 10000;
+
+  @Indexed
+  private Date startedDate;
+  @Indexed
+  private Date finishedDate;
+  @Indexed
+  private Date updatedDate;
 
   private long recordsProcessed;
   private long recordsFailed;
@@ -38,73 +44,23 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
     this.sleepMillis = sleepMillis;
   }
 
+  public VoidDereferencePlugin(VoidDereferencePluginInfo voidDereferencePluginInfo)
+  {
+    if (voidDereferencePluginInfo != null)
+      this.parameters = voidDereferencePluginInfo.getParameters();
+  }
+
+  public ObjectId getId() {
+    return id;
+  }
+
+  public void setId(ObjectId id) {
+    this.id = id;
+  }
+
   @Override
   public PluginStatus getPluginStatus() {
     return pluginStatus;
-  }
-
-  public PluginType getPluginType() {
-    return pluginType;
-  }
-
-  @Override
-  public int getRequestedOrder() {
-    return requestedOrder;
-  }
-
-  @Override
-  public void setRequestedOrder(int requestedOrder) {
-    this.requestedOrder = requestedOrder;
-  }
-
-  @Override
-  public long getRecordsProcessed() {
-    return 0;
-  }
-
-  @Override
-  public void setRecordsProcessed() {
-
-  }
-
-  @Override
-  public long getRecordsFailed() {
-    return 0;
-  }
-
-  @Override
-  public void setRecordsFailed() {
-
-  }
-
-  @Override
-  public long getRecordsUpdated() {
-    return 0;
-  }
-
-  @Override
-  public void setRecordsUpdated() {
-
-  }
-
-  @Override
-  public long getRecordsCreated() {
-    return 0;
-  }
-
-  @Override
-  public void setRecordsCreated() {
-
-  }
-
-  @Override
-  public long getRecordsDeleted() {
-    return 0;
-  }
-
-  @Override
-  public void setRecordsDeleted() {
-
   }
 
   @Override
@@ -112,13 +68,93 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
     this.pluginStatus = pluginStatus;
   }
 
+  public PluginType getPluginType() {
+    return pluginType;
+  }
+
+  @Override
+  public Date getStartedDate() {
+    return startedDate;
+  }
+
+  @Override
+  public void setStartedDate(Date startedDate) {
+    this.startedDate = startedDate;
+  }
+
+  @Override
+  public Date getFinishedDate() {
+    return finishedDate;
+  }
+
+  @Override
+  public void setFinishedDate(Date finishedDate) {
+    this.finishedDate = finishedDate;
+  }
+
+  @Override
+  public Date getUpdatedDate() {
+    return updatedDate;
+  }
+
+  @Override
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate;
+  }
+
+  @Override
+  public long getRecordsProcessed() {
+    return recordsProcessed;
+  }
+
+  public void setRecordsProcessed(long recordsProcessed) {
+    this.recordsProcessed = recordsProcessed;
+  }
+
+  @Override
+  public long getRecordsFailed() {
+    return recordsFailed;
+  }
+
+  public void setRecordsFailed(long recordsFailed) {
+    this.recordsFailed = recordsFailed;
+  }
+
+  @Override
+  public long getRecordsCreated() {
+    return recordsCreated;
+  }
+
+  public void setRecordsCreated(long recordsCreated) {
+    this.recordsCreated = recordsCreated;
+  }
+
+  @Override
+  public long getRecordsUpdated() {
+    return recordsUpdated;
+  }
+
+  public void setRecordsUpdated(long recordsUpdated) {
+    this.recordsUpdated = recordsUpdated;
+  }
+
+  @Override
+  public long getRecordsDeleted() {
+    return recordsDeleted;
+  }
+
+  public void setRecordsDeleted(long recordsDeleted) {
+    this.recordsDeleted = recordsDeleted;
+  }
+
   @Override
   public void setParameters(Map<String, List<String>> parameters) {
+    this.parameters = parameters;
   }
 
   @Override
   public Map<String, List<String>> getParameters() {
-    return null;
+    return parameters;
   }
 
   @Override

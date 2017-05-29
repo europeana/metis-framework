@@ -1,8 +1,12 @@
 package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.core.common.HarvestingMetadata;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import java.util.Date;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
@@ -22,7 +26,6 @@ public class UserWorkflowExecution {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   boolean harvest;
-  boolean incremental;
   @Indexed
   String owner;
   @Indexed
@@ -32,11 +35,55 @@ public class UserWorkflowExecution {
   @Indexed
   String datasetName;
 
+  @Indexed
+  private Date startedDate;
+  @Indexed
+  private Date finishedDate;
+  @Indexed
+  private Date updatedDate;
+
   //Plugins
-  VoidMetisPlugin voidMetisPlugin;
+  @Embedded
   VoidHTTPHarvestPlugin voidHTTPHarvestPlugin;
+  @Embedded
   VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin;
+  @Embedded
+  VoidMetisPlugin voidMetisPlugin;
+  @Embedded
   VoidDereferencePlugin voidDereferencePlugin;
+
+  public UserWorkflowExecution() {
+  }
+
+  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow)
+  {
+    HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
+    switch (harvestingMetadata.getHarvestType()){
+      case UNSPECIFIED:
+        break;
+      case FTP:
+        break;
+      case HTTP:
+        this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin(10000);
+        this.voidHTTPHarvestPlugin.setId(new ObjectId());
+        break;
+      case OAIPMH:
+        this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(harvestingMetadata.getMetadataSchema(), 10000);
+        this.voidOaipmhHarvestPlugin.setId(new ObjectId());
+        break;
+      case FOLDER:
+        break;
+    }
+
+    this.owner = userWorkflow.getOwner();
+    this.workflowName = userWorkflow.getWorkflowName();
+    this.datasetName = dataset.getDatasetName();
+    this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
+    this.voidMetisPlugin.setId(new ObjectId());
+    this.voidDereferencePlugin = new VoidDereferencePlugin(userWorkflow.getVoidDereferencePluginInfo());
+    this.voidDereferencePlugin.setId(new ObjectId());
+    this.workflowStatus = WorkflowStatus.INQUEUE;
+  }
 
   public ObjectId getId() {
     return id;
@@ -52,14 +99,6 @@ public class UserWorkflowExecution {
 
   public void setHarvest(boolean harvest) {
     this.harvest = harvest;
-  }
-
-  public boolean isIncremental() {
-    return incremental;
-  }
-
-  public void setIncremental(boolean incremental) {
-    this.incremental = incremental;
   }
 
   public String getOwner() {
@@ -92,6 +131,30 @@ public class UserWorkflowExecution {
 
   public void setDatasetName(String datasetName) {
     this.datasetName = datasetName;
+  }
+
+  public Date getStartedDate() {
+    return startedDate;
+  }
+
+  public void setStartedDate(Date startedDate) {
+    this.startedDate = startedDate;
+  }
+
+  public Date getFinishedDate() {
+    return finishedDate;
+  }
+
+  public void setFinishedDate(Date finishedDate) {
+    this.finishedDate = finishedDate;
+  }
+
+  public Date getUpdatedDate() {
+    return updatedDate;
+  }
+
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate;
   }
 
   public VoidMetisPlugin getVoidMetisPlugin() {

@@ -2,7 +2,9 @@ package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 2017-05-26
  */
 public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution, String> {
+
   private final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutionDao.class);
   private final MorphiaDatastoreProvider provider;
 
@@ -24,8 +27,9 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public String create(UserWorkflowExecution userWorkflowExecution) {
     Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
         userWorkflowExecution);
-    LOGGER.info("UserWorkflowExecution '" + userWorkflowExecution.getWorkflowName() + "' created with owner '" + userWorkflowExecution
-        .getOwner() + "' in Mongo");
+    LOGGER.info("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
+        + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+        + userWorkflowExecution.getWorkflowName() + "' in Mongo");
     return userWorkflowExecutionKey.getId().toString();
   }
 
@@ -44,10 +48,28 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return false;
   }
 
-  public boolean exists(UserWorkflowExecution userWorkflowExecution)
-  {
+  public boolean exists(UserWorkflowExecution userWorkflowExecution) {
     return provider.getDatastore().find(UserWorkflowExecution.class).field("owner").equal(
-        userWorkflowExecution.getOwner()).field("workflowName").equal(userWorkflowExecution.getWorkflowName())
-      .project("_id", true).get() != null;
+        userWorkflowExecution.getOwner()).field("workflowName")
+        .equal(userWorkflowExecution.getWorkflowName())
+        .project("_id", true).get() != null;
+  }
+
+  public String existsAndNotCompletedByDatasetName(String datasetName) {
+    Query<UserWorkflowExecution> query = provider.getDatastore()
+        .find(UserWorkflowExecution.class)
+        .field("datasetName").equal(
+            datasetName);
+    query.or(query.criteria("workflowStatus").equal(WorkflowStatus.INQUEUE),
+        query.criteria("workflowStatus").equal(WorkflowStatus.NULL),
+        query.criteria("workflowStatus").equal(WorkflowStatus.RUNNING));
+    query.project("_id", true);
+    query.project("workflowStatus", true);
+
+    UserWorkflowExecution storedUserWorkflowExecution = query.get();
+    if (storedUserWorkflowExecution != null) {
+      return storedUserWorkflowExecution.getId().toString();
+    }
+    return null;
   }
 }

@@ -8,16 +8,7 @@ import java.util.Map;
  * @since 2017-05-29
  */
 public class VoidMetisPluginInfo {
-  private int requestedOrder;
-  Map<String, List<String>> parameters;
-
-  public int getRequestedOrder() {
-    return requestedOrder;
-  }
-
-  public void setRequestedOrder(int requestedOrder) {
-    this.requestedOrder = requestedOrder;
-  }
+  private Map<String, List<String>> parameters;
 
   public Map<String, List<String>> getParameters() {
     return parameters;

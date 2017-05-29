@@ -45,9 +45,6 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
 import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.FailedRecords;
-import eu.europeana.metis.core.workflow.VoidHTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.VoidMetisPlugin;
-import eu.europeana.metis.core.workflow.VoidOaipmhHarvestPlugin;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
@@ -282,20 +279,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new CrmUserService(zohoClient);
   }
 
-  @Bean
-  public VoidMetisPlugin getVoidMetisWorkflow() {
-    return new VoidMetisPlugin(10000);
-  }
-
-  @Bean
-  public VoidHTTPHarvestPlugin getVoidHTTPHarvestPlugin() {
-    return new VoidHTTPHarvestPlugin(10000);
-  }
-
-  @Bean
-  public VoidOaipmhHarvestPlugin getVoidOaipmhHarvestPlugin() {
-    return new VoidOaipmhHarvestPlugin(10000);
-  }
+//  @Bean
+//  public VoidMetisPlugin getVoidMetisWorkflow() {
+//    return new VoidMetisPlugin(10000);
+//  }
+//
+//  @Bean
+//  public VoidHTTPHarvestPlugin getVoidHTTPHarvestPlugin() {
+//    return new VoidHTTPHarvestPlugin(10000);
+//  }
+//
+//  @Bean
+//  public VoidOaipmhHarvestPlugin getVoidOaipmhHarvestPlugin() {
+//    return new VoidOaipmhHarvestPlugin(10000);
+//  }
 
 //  @Bean
 //  @DependsOn("jedisProviderUtils")
@@ -329,10 +326,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public OrchestratorService getOrchestrator(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao, ExecutionDao executionDao,
-      DatasetService datasetService,
+      DatasetDao datasetDao,
       FailedRecordsDao failedRecordsDao) {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao, executionDao,
-        datasetService, failedRecordsDao);
+        datasetDao, failedRecordsDao);
   }
 
   @Override

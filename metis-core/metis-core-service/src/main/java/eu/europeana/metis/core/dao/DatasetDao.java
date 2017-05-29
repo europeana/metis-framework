@@ -92,7 +92,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     } else {
       ops.unset("lastPublished");
     }
-    ops.set("metadata", dataset.getMetadata());
+    ops.set("metadata", dataset.getHarvestingMetadata());
     ops.set("notes", dataset.getNotes());
     ops.set("publishedRecords", dataset.getPublishedRecords());
     ops.set("submittedRecords", dataset.getSubmittedRecords());

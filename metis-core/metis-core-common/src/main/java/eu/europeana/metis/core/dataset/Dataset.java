@@ -104,7 +104,7 @@ public class Dataset {
   @JacksonXmlProperty(localName = "dqa")
   private List<String> dqas;
 
-  private HarvestingMetadata metadata;
+  private HarvestingMetadata harvestingMetadata;
 
   private DatasetStatus datasetStatus;
 
@@ -298,12 +298,12 @@ public class Dataset {
     this.dqas = dqas;
   }
 
-  public HarvestingMetadata getMetadata() {
-    return metadata;
+  public HarvestingMetadata getHarvestingMetadata() {
+    return harvestingMetadata;
   }
 
-  public void setMetadata(HarvestingMetadata metadata) {
-    this.metadata = metadata;
+  public void setHarvestingMetadata(HarvestingMetadata harvestingMetadata) {
+    this.harvestingMetadata = harvestingMetadata;
   }
 
   public DatasetStatus getDatasetStatus() {

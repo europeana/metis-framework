@@ -26,19 +26,17 @@ public class UserWorkflow {
   private ObjectId id;
   @ApiModelProperty(position = 2)
   boolean harvest;
-  @ApiModelProperty(position = 3)
-  boolean incremental;
   @Indexed
-  @ApiModelProperty(position = 4)
+  @ApiModelProperty(position = 3)
   String owner;
   @Indexed
-  @ApiModelProperty(position = 5)
+  @ApiModelProperty(position = 4)
   String workflowName;
 
-  //Plugins
-  @ApiModelProperty(position = 6)
+  //Plugins information
+  @ApiModelProperty(position = 5)
   VoidMetisPluginInfo voidMetisPluginInfo;
-  @ApiModelProperty(position = 7)
+  @ApiModelProperty(position = 6)
   VoidDereferencePluginInfo voidDereferencePluginInfo;
 
   public ObjectId getId() {
@@ -55,14 +53,6 @@ public class UserWorkflow {
 
   public void setHarvest(boolean harvest) {
     this.harvest = harvest;
-  }
-
-  public boolean isIncremental() {
-    return incremental;
-  }
-
-  public void setIncremental(boolean incremental) {
-    this.incremental = incremental;
   }
 
   public String getOwner() {

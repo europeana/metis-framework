@@ -68,5 +68,11 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
         .field("workflowName").equal(workflowName)
         .get();
   }
+
+  public boolean existsUserWorkflowByOwnerAndWorkflowName(String owner, String workflowName) {
+    return provider.getDatastore().find(UserWorkflow.class).field("owner").equal(owner)
+        .field("workflowName").equal(workflowName)
+        .project("_id", true).get() != null;
+  }
 }
 
