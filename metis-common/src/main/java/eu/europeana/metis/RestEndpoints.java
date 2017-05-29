@@ -31,6 +31,21 @@ public final class RestEndpoints {
   public final static String USER = "/user";
   public final static String USERBYMAIL = "/user/{email}";
 
+  //Orchestration
+  public final static String ORCHESTRATOR_PLUGINS = "/orchestrator/plugins";
+  public final static String ORCHESTRATOR_USERWORKFLOW = "/orchestrator/userWorkflow";
+  public final static String ORCHESTRATION_TRIGGER_OPERATION = "/orchestration/{datasetId}/{operation}";
+  public final static String ORCHESTRATION_SCHEDULE = "/orchestration/schedule/{datasetId}/{operation}/{millis}";
+  public final static String ORCHESTRATION_SCHEDULED = "/orchestration/scheduled";
+  public final static String ORCHESTRATION_ACTIVE = "/orchestration/active";
+  public final static String ORCHESTRATION_BYID = "/orchestration/execution/{executionId}";
+  public final static String ORCHESTRATION_RANGE = "/orchestration/range";
+  public final static String ORCHESTRATION_EXECUTIONS = "/orchestration";
+  public final static String ORCHESTRATION_DATASET = "/orchestration/{datasetId}";
+  public final static String ORCHESTRATION_RANGE_DATASET = "/orchestration/range/{datasetId}";
+  public final static String ORCHESTRATION_FAILED = "/orchestration/failed/{executionId}";
+
+
   /* METIS-DEREFERENCE Endpoints*/
   public final static String DEREFERENCE = "/dereference";
   public final static String VOCABULARY = "/vocabulary";
@@ -97,19 +112,6 @@ public final class RestEndpoints {
 
   /* METIS LINKCHECK SERVICE ENDPOINT*/
   public final static String LINKCHECK = "/linkcheck";
-
-  /* METIS ORCHESTRATION ENDPOINT*/
-  public final static String ORCHESTRATION_TRIGGER_OPERATION = "/orchestration/{datasetId}/{operation}";
-  public final static String ORCHESTRATION_SCHEDULE = "/orchestration/schedule/{datasetId}/{operation}/{millis}";
-  public final static String ORCHESTRATION_SCHEDULED = "/orchestration/scheduled";
-  public final static String ORCHESTRATION_ACTIVE = "/orchestration/active";
-  public final static String ORCHESTRATION_BYID = "/orchestration/execution/{executionId}";
-  public final static String ORCHESTRATION_RANGE = "/orchestration/range";
-  public final static String ORCHESTRATION_EXECUTIONS = "/orchestration";
-  public final static String ORCHESTRATION_DATASET = "/orchestration/{datasetId}";
-  public final static String ORCHESTRATION_RANGE_DATASET = "/orchestration/range/{datasetId}";
-  public final static String ORCHESTRATION_OPERATIONS = "/orchestration/operations";
-  public final static String ORCHESTRATION_FAILED = "/orchestration/failed/{executionId}";
 
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {

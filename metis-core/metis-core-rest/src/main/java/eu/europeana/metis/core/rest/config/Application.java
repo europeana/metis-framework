@@ -29,6 +29,8 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ExecutionDao;
 import eu.europeana.metis.core.dao.FailedRecordsDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
+import eu.europeana.metis.core.dao.UserWorkflowDao;
+import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.mail.config.MailConfig;
@@ -41,7 +43,6 @@ import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.workflow.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.FailedRecords;
 import eu.europeana.metis.core.workflow.VoidHTTPHarvestPlugin;
@@ -49,8 +50,6 @@ import eu.europeana.metis.core.workflow.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.VoidOaipmhHarvestPlugin;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import eu.europeana.metis.workflow.qa.QAPlugin;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
@@ -58,12 +57,10 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -71,7 +68,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-import org.springframework.plugin.core.OrderAwarePluginRegistry;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -237,6 +233,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
+  public UserWorkflowExecutionDao getUserWorkflowExecutionDao(
+      MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new UserWorkflowExecutionDao(morphiaDatastoreProvider);
+  }
+
+  @Bean
+  public UserWorkflowDao getUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new UserWorkflowDao(morphiaDatastoreProvider);
+  }
+
+  @Bean
   DataSetServiceClient dataSetServiceClient() {
     return new DataSetServiceClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
   }
@@ -277,47 +284,55 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public VoidMetisPlugin getVoidMetisWorkflow() {
-    return new VoidMetisPlugin("void", 10000);
+    return new VoidMetisPlugin(10000);
   }
 
   @Bean
   public VoidHTTPHarvestPlugin getVoidHTTPHarvestPlugin() {
-    return new VoidHTTPHarvestPlugin("voidHttp", 10000);
+    return new VoidHTTPHarvestPlugin(10000);
   }
 
   @Bean
   public VoidOaipmhHarvestPlugin getVoidOaipmhHarvestPlugin() {
-    return new VoidOaipmhHarvestPlugin("voidOai", 10000);
+    return new VoidOaipmhHarvestPlugin(10000);
   }
 
-  @Bean
-  @DependsOn("jedisProviderUtils")
-  public QAPlugin getStatisticsWorkflow() {
-    return new QAPlugin();
-  }
+//  @Bean
+//  @DependsOn("jedisProviderUtils")
+//  public QAPlugin getStatisticsWorkflow() {
+//    return new QAPlugin();
+//  }
+
+//  @Bean
+//  @Qualifier("metisPluginRegistry")
+//  public PluginRegistry<AbstractMetisPlugin, PluginType> getPluginRegistry(
+//      VoidHTTPHarvestPlugin voidHTTPHarvestPlugin, VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin,
+//      VoidMetisPlugin voidMetisPlugin) {
+//
+//    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+//    abstractMetisPlugins.add(voidMetisPlugin);
+//    abstractMetisPlugins.add(voidHTTPHarvestPlugin);
+//    abstractMetisPlugins.add(voidOaipmhHarvestPlugin);
+//
+//    return SimplePluginRegistry.create(abstractMetisPlugins);
+//  }
+
+//  @Bean
+//  public OrchestratorService getOrchestrator(ExecutionDao executionDao,
+//      DatasetService datasetService,
+//      FailedRecordsDao failedRecordsDao,
+//      @Qualifier("metisPluginRegistry") PluginRegistry<AbstractMetisPlugin, PluginType> pluginRegistry) {
+//    return new OrchestratorService(executionDao, datasetService, failedRecordsDao,
+//        pluginRegistry);
+//  }
 
   @Bean
-  @Qualifier("abstractMetisPluginRegistry")
-  public OrderAwarePluginRegistry getOrderAwarePluginRegistry(
-      VoidHTTPHarvestPlugin voidHTTPHarvestPlugin, VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin,
-      VoidMetisPlugin voidMetisPlugin, QAPlugin qaPlugin) {
-
-    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
-    abstractMetisPlugins.add(qaPlugin);
-    abstractMetisPlugins.add(voidMetisPlugin);
-    abstractMetisPlugins.add(voidHTTPHarvestPlugin);
-    abstractMetisPlugins.add(voidOaipmhHarvestPlugin);
-
-    return OrderAwarePluginRegistry.create(abstractMetisPlugins);
-  }
-
-  @Bean
-  public OrchestratorService getOrchestrator(ExecutionDao executionDao,
+  public OrchestratorService getOrchestrator(UserWorkflowDao userWorkflowDao,
+      UserWorkflowExecutionDao userWorkflowExecutionDao, ExecutionDao executionDao,
       DatasetService datasetService,
-      FailedRecordsDao failedRecordsDao,
-      @Qualifier("abstractMetisPluginRegistry") OrderAwarePluginRegistry orderAwarePluginRegistry) {
-    return new OrchestratorService(executionDao, datasetService, failedRecordsDao,
-        orderAwarePluginRegistry);
+      FailedRecordsDao failedRecordsDao) {
+    return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao, executionDao,
+        datasetService, failedRecordsDao);
   }
 
   @Override

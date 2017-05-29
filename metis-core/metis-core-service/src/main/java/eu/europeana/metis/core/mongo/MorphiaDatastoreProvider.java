@@ -30,6 +30,8 @@ import eu.europeana.metis.core.dataset.FtpDatasetMetadata;
 import eu.europeana.metis.core.dataset.HttpDatasetMetadata;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.workflow.UserWorkflow;
+import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.stereotype.Component;
@@ -58,6 +60,8 @@ public class MorphiaDatastoreProvider {
         morphia.map(PrefLabel.class);
         morphia.map(AltLabel.class);
         morphia.map(MetisKey.class);
+        morphia.map(UserWorkflow.class);
+        morphia.map(UserWorkflowExecution.class);
         datastore = morphia.createDatastore(mongoClient,db);
         datastore.ensureIndexes();
     }

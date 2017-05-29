@@ -106,7 +106,7 @@ public class Dataset {
 
   private HarvestingMetadata metadata;
 
-  private WorkflowStatus workflowStatus;
+  private DatasetStatus datasetStatus;
 
   private Country country;
 
@@ -306,12 +306,12 @@ public class Dataset {
     this.metadata = metadata;
   }
 
-  public WorkflowStatus getWorkflowStatus() {
-    return workflowStatus;
+  public DatasetStatus getDatasetStatus() {
+    return datasetStatus;
   }
 
-  public void setWorkflowStatus(WorkflowStatus workflowStatus) {
-    this.workflowStatus = workflowStatus;
+  public void setDatasetStatus(DatasetStatus datasetStatus) {
+    this.datasetStatus = datasetStatus;
   }
 
   public Country getCountry() {

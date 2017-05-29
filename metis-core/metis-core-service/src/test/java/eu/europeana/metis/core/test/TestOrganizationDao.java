@@ -26,7 +26,7 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
-import eu.europeana.metis.core.dataset.WorkflowStatus;
+import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -101,7 +101,7 @@ public class TestOrganizationDao {
     ds.setSubjects(subjects);
     ds.setSubmissionDate(new Date(1000));
     ds.setUpdatedDate(new Date(1000));
-    ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
+    ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
 
     dsDao = new DatasetDao(provider);
     dsDao.setDatasetsPerRequest(5);

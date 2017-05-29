@@ -25,7 +25,7 @@ import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
-import eu.europeana.metis.core.dataset.WorkflowStatus;
+import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -103,7 +103,7 @@ public class TestDatasetService {
         ds.setSubjects(subjects);
         ds.setSubmissionDate(new Date(1000));
         ds.setUpdatedDate(new Date(1000));
-        ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
+        ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
     }
     @Test
     public void testCreate(){

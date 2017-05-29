@@ -2,17 +2,15 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.ExecutionDao;
 import eu.europeana.metis.core.dao.FailedRecordsDao;
+import eu.europeana.metis.core.dao.UserWorkflowDao;
+import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.workflow.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.CloudStatistics;
 import eu.europeana.metis.core.workflow.Execution;
-import eu.europeana.metis.core.workflow.ExecutionStatistics;
 import eu.europeana.metis.core.workflow.FailedRecords;
-import eu.europeana.metis.core.workflow.WorkflowParameters;
-import java.util.ArrayList;
+import eu.europeana.metis.core.workflow.UserWorkflow;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang.StringUtils;
@@ -21,8 +19,6 @@ import org.mongodb.morphia.query.ArraySlice;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.plugin.core.OrderAwarePluginRegistry;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,79 +28,132 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrchestratorService {
 
+    private final UserWorkflowExecutionDao userWorkflowExecutionDao;
+    private final UserWorkflowDao userWorkflowDao;
     private final ExecutionDao executionDao;
     private final DatasetService datasetService;
     private final FailedRecordsDao failedRecordsDao;
-    private final OrderAwarePluginRegistry registry;
 
     @Autowired
-    public OrchestratorService(ExecutionDao executionDao, DatasetService datasetService,
-        FailedRecordsDao failedRecordsDao,
-//        @Qualifier("abstractMetisWorkflowRegistry") OrderAwarePluginRegistry registry) {
-        OrderAwarePluginRegistry registry) {
+    public OrchestratorService(UserWorkflowDao userWorkflowDao,
+        UserWorkflowExecutionDao userWorkflowExecutionDao,
+        ExecutionDao executionDao, DatasetService datasetService,
+        FailedRecordsDao failedRecordsDao){
+        this.userWorkflowDao = userWorkflowDao;
+        this.userWorkflowExecutionDao = userWorkflowExecutionDao;
         this.executionDao = executionDao;
         this.datasetService = datasetService;
         this.failedRecordsDao = failedRecordsDao;
-        this.registry = registry;
     }
 
-    /**
-     * Execute the worklow that supports the selected operation
-     * @param datasetId The dataset Id for which to create the workflow execution
-     * @param name The operation to be performed. This parameter is required to filter out the Workflow
-     * @param params The execution parameters
-     * @return The URL that the execution is available through
-     */
-    public String execute(String datasetId, String name, String operatorMail, Map<String, List<String>> params) throws NoDatasetFoundException {
-       // if(datasetService.exists(datasetId)) {
-        if(true){
-            AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(name);
-            Execution execution = new Execution();
-            execution.setId(new ObjectId());
-            execution.setDatasetId(datasetId);
-            execution.setWorkflow(name);
-            execution.setStartedAt(new Date());
-            execution.setUpdatedAt(new Date());
-            execution.setActive(true);
-            execution.setOperatorEmail(operatorMail);
-            if(params==null){
-                params = new HashMap<>();
-            }
-            List<String> paramList = new ArrayList<>();
-            paramList.add(datasetId);
-            params.put(WorkflowParameters.DATASET,paramList);
-            List<String> executionParams = new ArrayList<>();
-            executionParams.add(execution.getId().toString());
-            params.put(WorkflowParameters.EXECUTION,executionParams);
-            workflow.setParameters(params);
-            execution.setStatisticsUrl("/" + execution.getId().toString());
-            execution.setExecutionParameters(params);
-            executionDao.save(execution);
-            workflow.execute();
-            return execution.getStatisticsUrl();
-        }
-            throw new NoDatasetFoundException(datasetId);
+    public void createUserWorkflow(UserWorkflow userWorkflow) throws BadContentException {
+        checkRestrictionsOnWorkflowCreate(userWorkflow);
+        userWorkflowDao.create(userWorkflow);
     }
+
+    public void deleteUserWorkflowByOwnerAndWorkflowName(String owner, String workflowName)
+    {
+        userWorkflowDao.deleteUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
+    }
+
+    public UserWorkflow getUserWorkflowByOwnerAndWorkflowName(String owner, String workflowName) {
+        return userWorkflowDao.getUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
+    }
+
+
+//    public Set<PluginType> getAllOrchestratorPluginTypes() {
+//        List<AbstractMetisPlugin> plugins = metisPluginsRegistry.getPlugins();
+//        Set<PluginType> pluginTypes = new TreeSet<>();
+//        for (AbstractMetisPlugin plugin : plugins) {
+//            pluginTypes.add(plugin.getPluginType());
+//        }
+//        return pluginTypes;
+//    }
+
+    private void checkRestrictionsOnWorkflowCreate(UserWorkflow userWorkflow)
+        throws BadContentException {
+
+        if(workflowExists(userWorkflow))
+            throw new BadContentException("UserWorkflow with owner: " + userWorkflow.getOwner() + " and workflowName: " + userWorkflow
+                .getWorkflowName() + " already exists");
+
+        // TODO: 26-5-17 Check if proper ordering and reorder list in userworkflow
+        return ;
+    }
+
+    private boolean workflowExists(UserWorkflow userWorkflow)
+    {
+        return userWorkflowDao.exists(userWorkflow);
+    }
+
+//    public void executeWorkflowPlugins(List<AbstractMetisPlugin> workflowPlugins)
+//    {
+//
+//
+//        for (WorkflowPlugin workflowPlugin :
+//            workflowPlugins) {
+//            AbstractMetisPlugin abstractMetisPlugin = metisPluginsRegistry.
+//                .getPluginFor(workflowPlugin.getPluginType());
+//        }
+//    }
+
+//    /**
+//     * Execute the worklow that supports the selected operation
+//     * @param datasetId The dataset Id for which to create the workflow execution
+//     * @param name The operation to be performed. This parameter is required to filter out the UserWorkflow
+//     * @param params The execution parameters
+//     * @return The URL that the execution is available through
+//     */
+//    public String execute(String datasetId, String name, String operatorMail, Map<String, List<String>> params) throws NoDatasetFoundException {
+//       // if(datasetService.exists(datasetId)) {
+//        if(true){
+//            AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(name);
+//            Execution execution = new Execution();
+//            execution.setId(new ObjectId());
+//            execution.setDatasetId(datasetId);
+//            execution.setWorkflow(name);
+//            execution.setStartedAt(new Date());
+//            execution.setUpdatedAt(new Date());
+//            execution.setActive(true);
+//            execution.setOperatorEmail(operatorMail);
+//            if(params==null){
+//                params = new HashMap<>();
+//            }
+//            List<String> paramList = new ArrayList<>();
+//            paramList.add(datasetId);
+//            params.put(WorkflowParameters.DATASET,paramList);
+//            List<String> executionParams = new ArrayList<>();
+//            executionParams.add(execution.getId().toString());
+//            params.put(WorkflowParameters.EXECUTION,executionParams);
+//            workflow.setParameters(params);
+//            execution.setStatisticsUrl("/" + execution.getId().toString());
+//            execution.setExecutionParameters(params);
+//            executionDao.save(execution);
+//            workflow.execute();
+//            return execution.getStatisticsUrl();
+//        }
+//            throw new NoDatasetFoundException(datasetId);
+//    }
 
     /**
      * Execute all scheduled jobs that have not started. This is updated every one hour.
      */
-    @Scheduled(fixedDelay = 3600000)
-    public void executeScheduled() {
-        List<Execution> executions = getExecutions(null, null, null, null, null, new Date(), null, false,null,null);
-        if (executions != null && executions.size() > 0) {
-            for (Execution execution : executions) {
-                AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(execution.getWorkflow());
-                UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
-                ops.set("startedAt", new Date());
-                ops.set("updatedAt", new Date());
-                ops.set("active", true);
-                ops.set("statisticsUrl", "/" + execution.getWorkflow() + "-" + execution.getId().toString());
-                workflow.execute();
-                executionDao.update(executionDao.createQuery().filter("id", execution.getId()), ops);
-            }
-        }
-    }
+//    @Scheduled(fixedDelay = 3600000)
+//    public void executeScheduled() {
+//        List<Execution> executions = getExecutions(null, null, null, null, null, new Date(), null, false,null,null);
+//        if (executions != null && executions.size() > 0) {
+//            for (Execution execution : executions) {
+//                AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(execution.getWorkflow());
+//                UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
+//                ops.set("startedAt", new Date());
+//                ops.set("updatedAt", new Date());
+//                ops.set("active", true);
+//                ops.set("statisticsUrl", "/" + execution.getWorkflow() + "-" + execution.getId().toString());
+//                workflow.execute();
+//                executionDao.update(executionDao.createQuery().filter("id", execution.getId()), ops);
+//            }
+//        }
+//    }
 
     /**
      * Get all active executions (not finished or cancelled)
@@ -200,42 +249,42 @@ public class OrchestratorService {
     /**
      * Update the execution statistics. Currently set to every 10 seconds
      */
-    @Scheduled(fixedDelay = 10000)
-    private void updateActiveExecutions() {
-        List<Execution> activeExecutions = getActiveExecutions(null);
-        if (activeExecutions != null && activeExecutions.size() > 0) {
-            for (Execution activeExecution : activeExecutions) {
-                UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
-                ops.set("updatedAt", new Date());
-                ExecutionStatistics stats = activeExecution.getStatistics();
-                if (stats == null) {
-                    stats = new ExecutionStatistics();
-                }
-                AbstractMetisPlugin workflow=  (AbstractMetisPlugin)registry.getPluginFor(activeExecution.getWorkflow());
-                CloudStatistics statistics =workflow.monitor(activeExecution.getDatasetId());
-                stats.setProcessed(statistics.getProcessed());
-                stats.setCreated(statistics.getCreated());
-                stats.setDeleted(statistics.getDeleted());
-                stats.setUpdated(statistics.getUpdated());
-                ops.set("statistics", stats);
-                if(StringUtils.equals(stats.getStatus(),"finished")){
-                    ops.set("finishedAt",new Date());
-                    ops.set("active",false);
-                }
-                executionDao.update(executionDao.createQuery().filter("id", activeExecution.getId()), ops);
-                if(statistics.getFailedRecords().size()>0){
-                    FailedRecords failedRecords = getFailed(activeExecution.getId().toString());
-                    if(failedRecords == null) {
-                        failedRecords=new FailedRecords();
-                    }
-                    failedRecords.setRecords(statistics.getFailedRecords());
-                    failedRecords.setExecutionId(activeExecution.getId().toString());
-                    failedRecords.setId(new ObjectId());
-                    failedRecordsDao.save(failedRecords);
-                }
-            }
-        }
-    }
+//    @Scheduled(fixedDelay = 10000)
+//    private void updateActiveExecutions() {
+//        List<Execution> activeExecutions = getActiveExecutions(null);
+//        if (activeExecutions != null && activeExecutions.size() > 0) {
+//            for (Execution activeExecution : activeExecutions) {
+//                UpdateOperations<Execution> ops = executionDao.createUpdateOperations();
+//                ops.set("updatedAt", new Date());
+//                ExecutionStatistics stats = activeExecution.getStatistics();
+//                if (stats == null) {
+//                    stats = new ExecutionStatistics();
+//                }
+//                AbstractMetisPlugin workflow=  (AbstractMetisPlugin)registry.getPluginFor(activeExecution.getWorkflow());
+//                CloudStatistics statistics =workflow.monitor(activeExecution.getDatasetId());
+//                stats.setProcessed(statistics.getProcessed());
+//                stats.setCreated(statistics.getCreated());
+//                stats.setDeleted(statistics.getDeleted());
+//                stats.setUpdated(statistics.getUpdated());
+//                ops.set("statistics", stats);
+//                if(StringUtils.equals(stats.getStatus(),"finished")){
+//                    ops.set("finishedAt",new Date());
+//                    ops.set("active",false);
+//                }
+//                executionDao.update(executionDao.createQuery().filter("id", activeExecution.getId()), ops);
+//                if(statistics.getFailedRecords().size()>0){
+//                    FailedRecords failedRecords = getFailed(activeExecution.getId().toString());
+//                    if(failedRecords == null) {
+//                        failedRecords=new FailedRecords();
+//                    }
+//                    failedRecords.setRecords(statistics.getFailedRecords());
+//                    failedRecords.setExecutionId(activeExecution.getId().toString());
+//                    failedRecords.setId(new ObjectId());
+//                    failedRecordsDao.save(failedRecords);
+//                }
+//            }
+//        }
+//    }
 
     private FailedRecords getFailed(String s) {
         return failedRecordsDao.findOne("executionId",s);
@@ -329,19 +378,6 @@ public class OrchestratorService {
         ops.set("finishedAt", new Date());
         //TODO set cancelled in Europeana Cloud
         executionDao.update(executionDao.createQuery().filter("id", new ObjectId(id)), ops);
-    }
-
-    /**
-     * Get all available workflows supported by Metis
-     * @return The List of workflows
-     */
-    public List<String> getAvailableWorkflows() {
-        List<AbstractMetisPlugin> plugins = registry.getPlugins();
-        List<String> operations = new ArrayList<>();
-        for (AbstractMetisPlugin plugin : plugins) {
-            operations.add(plugin.getName());
-        }
-        return operations;
     }
 
     /**

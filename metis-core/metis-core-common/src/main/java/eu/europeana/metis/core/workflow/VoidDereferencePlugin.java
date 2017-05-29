@@ -1,18 +1,26 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import java.util.List;
 import java.util.Map;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Transient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-24
+ * @since 2017-05-26
  */
 @Entity
-public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
+public class VoidDereferencePlugin implements AbstractMetisPlugin {
+
+  @Id
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId id;
   private PluginStatus pluginStatus;
-  private final PluginType pluginType = PluginType.OAIPMH_HARVEST;
+  private final PluginType pluginType = PluginType.DEREFERENCE;
   private int requestedOrder;
   @Transient
   private long sleepMillis = 10000;
@@ -23,10 +31,10 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   private long recordsUpdated;
   private long recordsDeleted;
 
-  public VoidOaipmhHarvestPlugin() {
+  public VoidDereferencePlugin() {
   }
 
-  public VoidOaipmhHarvestPlugin(long sleepMillis) {
+  public VoidDereferencePlugin(long sleepMillis) {
     this.sleepMillis = sleepMillis;
   }
 
@@ -106,7 +114,6 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public void setParameters(Map<String, List<String>> parameters) {
-
   }
 
   @Override
@@ -116,6 +123,7 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public void execute() {
+
     try {
       Thread.sleep(sleepMillis);
     } catch (InterruptedException e) {
@@ -124,7 +132,8 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public CloudStatistics monitor(String dataseId) {
+  public CloudStatistics monitor(String datasetId) {
     return null;
   }
+
 }

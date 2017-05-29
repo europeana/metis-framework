@@ -2,29 +2,105 @@ package eu.europeana.metis.core.workflow;
 
 import java.util.List;
 import java.util.Map;
-import org.springframework.core.annotation.Order;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Transient;
 
 /**
  * Created by ymamakis on 11/15/16.
  */
-@Order(2)
+@Entity
 public class VoidMetisPlugin implements AbstractMetisPlugin {
-    private String name;
-    private long sleepMillis;
+    private PluginStatus pluginStatus;
+    private final PluginType pluginType = PluginType.VOID;
+    private int requestedOrder;
+    @Transient
+    private long sleepMillis = 10000;
 
-    public VoidMetisPlugin(String name, long sleepMillis){
-        this.name=name;
+    private long recordsProcessed;
+    private long recordsFailed;
+    private long recordsCreated;
+    private long recordsUpdated;
+    private long recordsDeleted;
+
+    public VoidMetisPlugin() {
+    }
+
+    public VoidMetisPlugin(long sleepMillis){
         this.sleepMillis = sleepMillis;
     }
 
     @Override
-    public String getName() {
-        return name;
+    public PluginStatus getPluginStatus() {
+        return pluginStatus;
+    }
+
+    public PluginType getPluginType() {
+        return pluginType;
     }
 
     @Override
-    public String getVersion() {
-        return null;
+    public int getRequestedOrder() {
+        return requestedOrder;
+    }
+
+    @Override
+    public void setRequestedOrder(int requestedOrder) {
+        this.requestedOrder = requestedOrder;
+    }
+
+    @Override
+    public long getRecordsProcessed() {
+        return 0;
+    }
+
+    @Override
+    public void setRecordsProcessed() {
+
+    }
+
+    @Override
+    public long getRecordsFailed() {
+        return 0;
+    }
+
+    @Override
+    public void setRecordsFailed() {
+
+    }
+
+    @Override
+    public long getRecordsUpdated() {
+        return 0;
+    }
+
+    @Override
+    public void setRecordsUpdated() {
+
+    }
+
+    @Override
+    public long getRecordsCreated() {
+        return 0;
+    }
+
+    @Override
+    public void setRecordsCreated() {
+
+    }
+
+    @Override
+    public long getRecordsDeleted() {
+        return 0;
+    }
+
+    @Override
+    public void setRecordsDeleted() {
+
+    }
+
+
+    public void setPluginStatus(PluginStatus pluginStatus) {
+        this.pluginStatus = pluginStatus;
     }
 
     @Override
@@ -50,12 +126,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
     @Override
     public CloudStatistics monitor(String datasetId) {
         return null;
-    }
-
-
-    @Override
-    public boolean supports(PluginType pluginType) {
-        return pluginType == PluginType.VOID;
     }
 
 }

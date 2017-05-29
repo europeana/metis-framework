@@ -119,7 +119,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     }
 
     ops.set("updatedDate", dataset.getUpdatedDate());
-    ops.set("workflowStatus", dataset.getWorkflowStatus());
+    ops.set("workflowStatus", dataset.getDatasetStatus());
     ops.set("accepted", dataset.isAccepted());
     ops.set("deaSigned", dataset.isDeaSigned());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);

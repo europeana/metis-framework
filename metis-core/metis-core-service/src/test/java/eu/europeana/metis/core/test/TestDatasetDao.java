@@ -24,7 +24,7 @@ import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
-import eu.europeana.metis.core.dataset.WorkflowStatus;
+import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -92,7 +92,7 @@ public class TestDatasetDao {
     ds.setSubjects(subjects);
     ds.setSubmissionDate(new Date(1000));
     ds.setUpdatedDate(new Date(1000));
-    ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
+    ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
     ReflectionTestUtils.setField(dsDao, "provider", provider);
   }
 
@@ -120,14 +120,14 @@ public class TestDatasetDao {
     Assert.assertEquals(ds.getSubjects(), dsRet.getSubjects());
     Assert.assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
     Assert.assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
-    Assert.assertEquals(ds.getWorkflowStatus(), dsRet.getWorkflowStatus());
+    Assert.assertEquals(ds.getDatasetStatus(), dsRet.getDatasetStatus());
   }
 
 
   @Test
   public void testUpdateRetrieveDataset() {
     dsDao.create(ds);
-    ds.setWorkflowStatus(WorkflowStatus.CREATED);
+    ds.setDatasetStatus(DatasetStatus.CREATED);
     dsDao.update(ds);
     Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
     Assert.assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
@@ -149,7 +149,7 @@ public class TestDatasetDao {
     Assert.assertEquals(ds.getSubjects(), dsRet.getSubjects());
     Assert.assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
     Assert.assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
-    Assert.assertEquals(ds.getWorkflowStatus(), dsRet.getWorkflowStatus());
+    Assert.assertEquals(ds.getDatasetStatus(), dsRet.getDatasetStatus());
   }
 
   @Test
