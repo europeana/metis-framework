@@ -19,7 +19,7 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-05-26
  */
 @Entity
-@Indexes(@Index(fields = { @Field("owner"), @Field("workflowName")}))
+@Indexes(@Index(fields = {@Field("owner"), @Field("workflowName")}))
 public class UserWorkflowExecution {
 
   @Id
@@ -55,20 +55,20 @@ public class UserWorkflowExecution {
   public UserWorkflowExecution() {
   }
 
-  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow)
-  {
+  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
-    switch (harvestingMetadata.getHarvestType()){
+    switch (harvestingMetadata.getHarvestType()) {
       case UNSPECIFIED:
         break;
       case FTP:
         break;
       case HTTP:
-        this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin(10000);
+        this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
         this.voidHTTPHarvestPlugin.setId(new ObjectId());
         break;
       case OAIPMH:
-        this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(harvestingMetadata.getMetadataSchema(), 10000);
+        this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
+            harvestingMetadata.getMetadataSchema());
         this.voidOaipmhHarvestPlugin.setId(new ObjectId());
         break;
       case FOLDER:
@@ -80,7 +80,8 @@ public class UserWorkflowExecution {
     this.datasetName = dataset.getDatasetName();
     this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
     this.voidMetisPlugin.setId(new ObjectId());
-    this.voidDereferencePlugin = new VoidDereferencePlugin(userWorkflow.getVoidDereferencePluginInfo());
+    this.voidDereferencePlugin = new VoidDereferencePlugin(
+        userWorkflow.getVoidDereferencePluginInfo());
     this.voidDereferencePlugin.setId(new ObjectId());
     this.workflowStatus = WorkflowStatus.INQUEUE;
   }

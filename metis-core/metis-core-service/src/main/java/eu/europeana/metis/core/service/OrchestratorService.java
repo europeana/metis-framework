@@ -90,20 +90,15 @@ public class OrchestratorService {
               + " and is not completed");
     }
     userWorkflowExecution.setStartedDate(new Date());
-    userWorkflowExecutionDao.create(userWorkflowExecution);
+    String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
+    userWorkflowExecution.setId(new ObjectId(objectId));
 
+    Thread thread = new Thread(
+        new UserWorkflowExecutor(userWorkflowExecution, userWorkflowExecutionDao));
+    thread.start();
     // TODO: 29-5-17 Start actual execution
 
   }
-
-//    public Set<PluginType> getAllOrchestratorPluginTypes() {
-//        List<AbstractMetisPlugin> plugins = metisPluginsRegistry.getPlugins();
-//        Set<PluginType> pluginTypes = new TreeSet<>();
-//        for (AbstractMetisPlugin plugin : plugins) {
-//            pluginTypes.add(plugin.getPluginType());
-//        }
-//        return pluginTypes;
-//    }
 
   private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
       throws BadContentException {
@@ -114,9 +109,6 @@ public class OrchestratorService {
               + userWorkflow
               .getWorkflowName() + " already exists");
     }
-
-    // TODO: 26-5-17 Check if proper ordering and reorder list in userworkflow
-    return;
   }
 
   private boolean workflowExists(UserWorkflow userWorkflow) {

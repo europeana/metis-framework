@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Transient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -21,8 +20,6 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   private PluginStatus pluginStatus;
   private final PluginType pluginType = PluginType.DEREFERENCE;
   private Map<String, List<String>> parameters = new HashMap<>();
-  @Transient
-  private long sleepMillis = 10000;
 
   @Indexed
   private Date startedDate;
@@ -38,10 +35,6 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   private long recordsDeleted;
 
   public VoidDereferencePlugin() {
-  }
-
-  public VoidDereferencePlugin(long sleepMillis) {
-    this.sleepMillis = sleepMillis;
   }
 
   public VoidDereferencePlugin(VoidDereferencePluginInfo voidDereferencePluginInfo)
@@ -159,12 +152,6 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
 
   @Override
   public void execute() {
-
-    try {
-      Thread.sleep(sleepMillis);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 
   @Override

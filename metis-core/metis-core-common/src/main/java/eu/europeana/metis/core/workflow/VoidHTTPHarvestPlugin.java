@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Transient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -19,8 +18,6 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
   private ObjectId id;
   private PluginStatus pluginStatus;
   private final PluginType pluginType = PluginType.HTTP_HARVEST;
-  @Transient
-  private long sleepMillis = 10000;
 
   @Indexed
   private Date startedDate;
@@ -34,10 +31,6 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
   private long recordsCreated;
   private long recordsUpdated;
   private long recordsDeleted;
-
-  public VoidHTTPHarvestPlugin(long sleepMillis) {
-    this.sleepMillis = sleepMillis;
-  }
 
   public ObjectId getId() {
     return id;
@@ -147,11 +140,6 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public void execute() {
-    try {
-      Thread.sleep(sleepMillis);
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-    }
   }
 
   @Override

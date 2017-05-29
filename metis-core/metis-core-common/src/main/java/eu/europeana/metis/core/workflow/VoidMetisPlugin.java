@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Indexed;
-import org.mongodb.morphia.annotations.Transient;
 
 /**
  * Created by ymamakis on 11/15/16.
@@ -20,8 +19,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
     private PluginStatus pluginStatus;
     private final PluginType pluginType = PluginType.VOID;
     private Map<String, List<String>> parameters = new HashMap<>();
-    @Transient
-    private long sleepMillis = 10000;
 
     @Indexed
     private Date startedDate;
@@ -39,9 +36,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
     public VoidMetisPlugin() {
     }
 
-    public VoidMetisPlugin(long sleepMillis){
-        this.sleepMillis = sleepMillis;
-    }
 
     public VoidMetisPlugin(VoidMetisPluginInfo voidMetisPluginInfo)
     {
@@ -163,12 +157,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
 
     @Override
     public void execute() {
-
-        try {
-            Thread.sleep(sleepMillis);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override

@@ -29,13 +29,18 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
         userWorkflowExecution);
     LOGGER.info("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
         + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
-        + userWorkflowExecution.getWorkflowName() + "' in Mongo");
+        + userWorkflowExecution.getWorkflowName() + "' created in Mongo");
     return userWorkflowExecutionKey.getId().toString();
   }
 
   @Override
   public String update(UserWorkflowExecution userWorkflowExecution) {
-    return null;
+      Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
+          userWorkflowExecution);
+      LOGGER.info("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
+          + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+          + userWorkflowExecution.getWorkflowName() + "' updated in Mongo");
+      return userWorkflowExecutionKey.getId().toString();
   }
 
   @Override
@@ -48,9 +53,18 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return false;
   }
 
+  public UserWorkflowExecution getByDatesetNameAndOwnerAndWorkflowName(String datasetName, String owner,
+      String workflowName) {
+    return provider.getDatastore().find(UserWorkflowExecution.class)
+        .field("datasetName").equal(datasetName).field("owner").equal(owner).field("workflowName")
+        .equal(workflowName).get();
+  }
+
   public boolean exists(UserWorkflowExecution userWorkflowExecution) {
-    return provider.getDatastore().find(UserWorkflowExecution.class).field("owner").equal(
-        userWorkflowExecution.getOwner()).field("workflowName")
+    return provider.getDatastore().find(UserWorkflowExecution.class)
+        .field("datasetName").equal(
+            userWorkflowExecution.getDatasetName()).field("owner").equal(
+            userWorkflowExecution.getOwner()).field("workflowName")
         .equal(userWorkflowExecution.getWorkflowName())
         .project("_id", true).get() != null;
   }
