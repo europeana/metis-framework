@@ -4,10 +4,12 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPlugin;
+import java.util.Comparator;
 import java.util.Date;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
@@ -38,7 +40,10 @@ public class UserWorkflowExecution {
   WorkflowStatus workflowStatus;
   @Indexed
   String datasetName;
+  int priority;
 
+  @Indexed
+  private Date createdDate;
   @Indexed
   private Date startedDate;
   @Indexed
@@ -59,7 +64,7 @@ public class UserWorkflowExecution {
   public UserWorkflowExecution() {
   }
 
-  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow) {
+  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int priority) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     switch (harvestingMetadata.getHarvestType()) {
       case UNSPECIFIED:
@@ -68,12 +73,12 @@ public class UserWorkflowExecution {
         break;
       case HTTP:
         this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
-        this.voidHTTPHarvestPlugin.setId(new ObjectId());
+        this.voidHTTPHarvestPlugin.setId(new ObjectId().toString() + "-" + PluginType.HTTP_HARVEST.name());
         break;
       case OAIPMH:
         this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
             harvestingMetadata.getMetadataSchema());
-        this.voidOaipmhHarvestPlugin.setId(new ObjectId());
+        this.voidOaipmhHarvestPlugin.setId(new ObjectId().toString() + "-" + PluginType.OAIPMH_HARVEST.name());
         break;
       case FOLDER:
         break;
@@ -82,12 +87,16 @@ public class UserWorkflowExecution {
     this.owner = userWorkflow.getOwner();
     this.workflowName = userWorkflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
+    this.priority = priority;
     this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
-    this.voidMetisPlugin.setId(new ObjectId());
+    this.voidMetisPlugin.setId(new ObjectId().toString() + "-" + PluginType.VOID.name());
     this.voidDereferencePlugin = new VoidDereferencePlugin(
         userWorkflow.getVoidDereferencePluginInfo());
-    this.voidDereferencePlugin.setId(new ObjectId());
-    this.workflowStatus = WorkflowStatus.INQUEUE;
+    this.voidDereferencePlugin.setId(new ObjectId().toString() + "-" + PluginType.DEREFERENCE.name());
+  }
+
+  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow) {
+    this(dataset, userWorkflow, 0);
   }
 
   public ObjectId getId() {
@@ -136,6 +145,22 @@ public class UserWorkflowExecution {
 
   public void setDatasetName(String datasetName) {
     this.datasetName = datasetName;
+  }
+
+  public int getPriority() {
+    return priority;
+  }
+
+  public void setPriority(int priority) {
+    this.priority = priority;
+  }
+
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
 
   public Date getStartedDate() {
@@ -196,4 +221,19 @@ public class UserWorkflowExecution {
       VoidDereferencePlugin voidDereferencePlugin) {
     this.voidDereferencePlugin = voidDereferencePlugin;
   }
+
+  public static class UserWorkflowExecutionPriorityComparator implements Comparator<UserWorkflowExecution> {
+
+    @Override
+    public int compare(UserWorkflowExecution o1, UserWorkflowExecution o2) {
+      if(o1.priority > o2.priority)
+        return -1;
+      if(o1.priority == o2.priority)
+        return o1.getCreatedDate().compareTo(o2.getCreatedDate());
+      else
+        return 1;
+    }
+  }
 }
+
+

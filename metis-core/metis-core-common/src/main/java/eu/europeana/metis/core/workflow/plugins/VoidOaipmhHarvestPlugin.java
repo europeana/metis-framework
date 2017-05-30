@@ -1,12 +1,9 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
@@ -15,9 +12,8 @@ import org.mongodb.morphia.annotations.Indexed;
  */
 public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
-  @JsonSerialize(using = ObjectIdSerializer.class)
-  private ObjectId id;
-  private PluginStatus pluginStatus;
+  private String id;
+  private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private final PluginType pluginType = PluginType.OAIPMH_HARVEST;
   private String metadataSchema;
 
@@ -41,11 +37,11 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
     this.metadataSchema = metadataSchema;
   }
 
-  public ObjectId getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(ObjectId id) {
+  public void setId(String id) {
     this.id = id;
   }
 

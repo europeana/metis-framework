@@ -5,6 +5,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;
+import java.util.concurrent.Callable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class UserWorkflowExecutor implements Runnable {
+public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   private final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutor.class);
 
   private final UserWorkflowExecution userWorkflowExecution;
@@ -26,11 +27,13 @@ public class UserWorkflowExecutor implements Runnable {
   }
 
   @Override
-  public void run() {
+  public UserWorkflowExecution call() {
     LOGGER.info("Starting user workflow execution with id: " + userWorkflowExecution.getId());
-    final int secondsToFake = 10;
+    final int secondsToFake = 30;
+    final int sleepTime = 1000;
     try {
       userWorkflowExecution.setStartedDate(new Date());
+      userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
       if (userWorkflowExecution.getVoidOaipmhHarvestPlugin() != null) {
         userWorkflowExecution.getVoidOaipmhHarvestPlugin().setStartedDate(new Date());
         userWorkflowExecution.getVoidOaipmhHarvestPlugin().setPluginStatus(PluginStatus.RUNNING);
@@ -38,7 +41,7 @@ public class UserWorkflowExecutor implements Runnable {
         userWorkflowExecution.getVoidOaipmhHarvestPlugin().execute();
 
         for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(1000);
+          Thread.sleep(sleepTime);
           userWorkflowExecution.getVoidOaipmhHarvestPlugin().monitor("");
           Date updatedDate = new Date();
           userWorkflowExecution.getVoidOaipmhHarvestPlugin().setUpdatedDate(updatedDate);
@@ -53,7 +56,7 @@ public class UserWorkflowExecutor implements Runnable {
         userWorkflowExecutionDao.update(userWorkflowExecution);
         userWorkflowExecution.getVoidHTTPHarvestPlugin().execute();
         for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(1000);
+          Thread.sleep(sleepTime);
           userWorkflowExecution.getVoidHTTPHarvestPlugin().monitor("");
           Date updatedDate = new Date();
           userWorkflowExecution.getVoidHTTPHarvestPlugin().setUpdatedDate(updatedDate);
@@ -70,7 +73,7 @@ public class UserWorkflowExecutor implements Runnable {
         userWorkflowExecutionDao.update(userWorkflowExecution);
         userWorkflowExecution.getVoidDereferencePlugin().execute();
         for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(1000);
+          Thread.sleep(sleepTime);
           userWorkflowExecution.getVoidDereferencePlugin().monitor("");
           Date updatedDate = new Date();
           userWorkflowExecution.getVoidDereferencePlugin().setUpdatedDate(updatedDate);
@@ -86,7 +89,7 @@ public class UserWorkflowExecutor implements Runnable {
         userWorkflowExecutionDao.update(userWorkflowExecution);
         userWorkflowExecution.getVoidMetisPlugin().execute();
         for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(1000);
+          Thread.sleep(sleepTime);
           userWorkflowExecution.getVoidMetisPlugin().monitor("");
           Date updatedDate = new Date();
           userWorkflowExecution.getVoidMetisPlugin().setUpdatedDate(updatedDate);
@@ -103,5 +106,6 @@ public class UserWorkflowExecutor implements Runnable {
     } catch (InterruptedException e) {
       e.printStackTrace();
     }
+    return userWorkflowExecution;
   }
 }

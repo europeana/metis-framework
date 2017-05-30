@@ -35,12 +35,12 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
 
   @Override
   public String update(UserWorkflowExecution userWorkflowExecution) {
-      Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
-          userWorkflowExecution);
-      LOGGER.info("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
-          + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
-          + userWorkflowExecution.getWorkflowName() + "' updated in Mongo");
-      return userWorkflowExecutionKey.getId().toString();
+    Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
+        userWorkflowExecution);
+    LOGGER.debug("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
+        + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+        + userWorkflowExecution.getWorkflowName() + "' updated in Mongo");
+    return userWorkflowExecutionKey.getId().toString();
   }
 
   @Override
@@ -53,7 +53,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return false;
   }
 
-  public UserWorkflowExecution getByDatesetNameAndOwnerAndWorkflowName(String datasetName, String owner,
+  public UserWorkflowExecution getByDatesetNameAndOwnerAndWorkflowName(String datasetName,
+      String owner,
       String workflowName) {
     return provider.getDatastore().find(UserWorkflowExecution.class)
         .field("datasetName").equal(datasetName).field("owner").equal(owner).field("workflowName")
@@ -75,7 +76,6 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
         .field("datasetName").equal(
             datasetName);
     query.or(query.criteria("workflowStatus").equal(WorkflowStatus.INQUEUE),
-        query.criteria("workflowStatus").equal(WorkflowStatus.NULL),
         query.criteria("workflowStatus").equal(WorkflowStatus.RUNNING));
     query.project("_id", true);
     query.project("workflowStatus", true);

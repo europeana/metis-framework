@@ -72,10 +72,11 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Delete a user workflow by owner and workflowName")
-  public void deleteUserWorkflowByOwnerAndWorkflowName(@QueryParam("owner") String owner, @QueryParam("workflowName") String workflowName)
-  {
+  public void deleteUserWorkflowByOwnerAndWorkflowName(@QueryParam("owner") String owner,
+      @QueryParam("workflowName") String workflowName) {
     orchestratorService.deleteUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
-    LOGGER.info("UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' deleted");
+    LOGGER.info(
+        "UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' deleted");
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW, method = RequestMethod.GET, produces = {
@@ -90,11 +91,12 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Get a userWorkflow by owner and workflowName", response = UserWorkflow.class)
-  public UserWorkflow getUserWorkflowByOwnerAndWorkflowName(@QueryParam("owner") String owner, @QueryParam("workflowName") String workflowName)
-  {
+  public UserWorkflow getUserWorkflowByOwnerAndWorkflowName(@QueryParam("owner") String owner,
+      @QueryParam("workflowName") String workflowName) {
     UserWorkflow userWorkflow = orchestratorService
         .getUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
-    LOGGER.info("UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' found");
+    LOGGER.info(
+        "UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' found");
     return userWorkflow;
   }
 
@@ -107,15 +109,22 @@ public class OrchestratorController {
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
+      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "priority", value = "Priority value, 0 is normal the higher number the higher priority", dataType = "int", paramType = "query")
   })
-  @ApiOperation(value = "Execute a user workflow by owner and workflowName for datasetName")
-  public void executeUserWorkflowByOwnerAndWorkflowNameForDatasetName(@PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner, @QueryParam("workflowName") String workflowName)
+  @ApiOperation(value = "Add a user workflow by owner and workflowName for datasetName to the queue of executions")
+  public void addInQueueUserWorkflowByOwnerAndWorkflowNameForDatasetName(
+      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
-    orchestratorService.executeUserWorkflowByOwnerAndWorkflowNameForDatasetName(datasetName, owner, workflowName);
-    LOGGER.info("UserWorkflowExecution for datasetName '" + datasetName + "' with owner '" + owner + "' and workflowName '" + workflowName + "' started");
+    if (priority == null)
+      priority = 0;
+    orchestratorService
+        .addInQueueUserWorkflowByOwnerAndWorkflowNameForDatasetName(datasetName, owner,
+            workflowName, priority);
+    LOGGER.info("UserWorkflowExecution for datasetName '" + datasetName + "' with owner '" + owner
+        + "' and workflowName '" + workflowName + "' started");
   }
-
 
 //    @ResponseBody
 //    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_SCHEDULE, consumes = "application/json")

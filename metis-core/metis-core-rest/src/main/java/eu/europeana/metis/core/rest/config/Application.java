@@ -43,6 +43,7 @@ import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
+import eu.europeana.metis.core.service.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.FailedRecords;
 import eu.europeana.metis.json.CustomObjectMapper;
@@ -324,12 +325,18 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 //  }
 
   @Bean
-  public OrchestratorService getOrchestrator(UserWorkflowDao userWorkflowDao,
+  public UserWorkflowExecutorManager getUserWorkflowExecutorManager(UserWorkflowExecutionDao userWorkflowExecutionDao) {
+    return new UserWorkflowExecutorManager(userWorkflowExecutionDao);
+  }
+
+  @Bean
+  public OrchestratorService getOrchestratorService(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao, ExecutionDao executionDao,
       DatasetDao datasetDao,
-      FailedRecordsDao failedRecordsDao) {
+      FailedRecordsDao failedRecordsDao,
+      UserWorkflowExecutorManager userWorkflowExecutorManager) {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao, executionDao,
-        datasetDao, failedRecordsDao);
+        datasetDao, failedRecordsDao, userWorkflowExecutorManager);
   }
 
   @Override

@@ -14,6 +14,7 @@ import eu.europeana.metis.core.workflow.Execution;
 import eu.europeana.metis.core.workflow.FailedRecords;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +24,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.ArraySlice;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,23 +35,29 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrchestratorService {
+  private final Logger LOGGER = LoggerFactory.getLogger(OrchestratorService.class);
 
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
   private final UserWorkflowDao userWorkflowDao;
   private final ExecutionDao executionDao;
   private final DatasetDao datasetDao;
   private final FailedRecordsDao failedRecordsDao;
+  private final UserWorkflowExecutorManager userWorkflowExecutorManager;
 
   @Autowired
   public OrchestratorService(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       ExecutionDao executionDao,
-      DatasetDao datasetDao, FailedRecordsDao failedRecordsDao) {
+      DatasetDao datasetDao, FailedRecordsDao failedRecordsDao,
+      UserWorkflowExecutorManager userWorkflowExecutorManager) {
     this.userWorkflowDao = userWorkflowDao;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
     this.executionDao = executionDao;
     this.datasetDao = datasetDao;
     this.failedRecordsDao = failedRecordsDao;
+    this.userWorkflowExecutorManager = userWorkflowExecutorManager;
+
+    new Thread(userWorkflowExecutorManager).start();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow) throws BadContentException {
@@ -64,8 +73,8 @@ public class OrchestratorService {
     return userWorkflowDao.getUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
   }
 
-  public void executeUserWorkflowByOwnerAndWorkflowNameForDatasetName(String datasetName,
-      String owner, String workflowName)
+  public void addInQueueUserWorkflowByOwnerAndWorkflowNameForDatasetName(String datasetName,
+      String owner, String workflowName, int priority)
       throws NoDatasetFoundException, NoUserWorkflowFoundException, UserWorkflowExecutionAlreadyExistsException {
 
     Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
@@ -81,7 +90,8 @@ public class OrchestratorService {
               + " in METIS");
     }
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow);
+    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow, priority);
+    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     String storedUserWorkflowExecutionId = userWorkflowExecutionDao
         .existsAndNotCompletedByDatasetName(datasetName);
     if (storedUserWorkflowExecutionId != null) {
@@ -89,15 +99,11 @@ public class OrchestratorService {
           "User workflow execution already exists with id " + storedUserWorkflowExecutionId
               + " and is not completed");
     }
-    userWorkflowExecution.setStartedDate(new Date());
+    userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
     userWorkflowExecution.setId(new ObjectId(objectId));
-
-    Thread thread = new Thread(
-        new UserWorkflowExecutor(userWorkflowExecution, userWorkflowExecutionDao));
-    thread.start();
-    // TODO: 29-5-17 Start actual execution
-
+    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(userWorkflowExecution);
+    LOGGER.info("UserWorkflowExecution with id: " + objectId + " added to execution queue");
   }
 
   private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
