@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
-import eu.europeana.metis.core.workflow.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;

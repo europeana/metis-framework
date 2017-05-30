@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.workflow;
+package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

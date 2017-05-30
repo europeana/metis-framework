@@ -2,6 +2,8 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginInfo;
+import eu.europeana.metis.core.workflow.plugins.VoidMetisPluginInfo;
 import io.swagger.annotations.ApiModelProperty;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;

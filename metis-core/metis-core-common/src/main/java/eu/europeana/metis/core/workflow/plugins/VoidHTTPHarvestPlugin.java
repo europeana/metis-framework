@@ -1,7 +1,8 @@
-package eu.europeana.metis.core.workflow;
+package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
