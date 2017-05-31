@@ -35,12 +35,14 @@ public class UserWorkflow {
   @ApiModelProperty(position = 3)
   String workflowName;
   @ApiModelProperty(position = 4)
-  boolean harvest;
+  boolean harvestPlugin;
+  @ApiModelProperty(position = 5)
+  boolean transformPlugin;
 
   //Plugins information
-  @ApiModelProperty(position = 5)
-  VoidDereferencePluginInfo voidDereferencePluginInfo;
   @ApiModelProperty(position = 6)
+  VoidDereferencePluginInfo voidDereferencePluginInfo;
+  @ApiModelProperty(position = 7)
   VoidMetisPluginInfo voidMetisPluginInfo;
 
   public ObjectId getId() {
@@ -51,12 +53,20 @@ public class UserWorkflow {
     this.id = id;
   }
 
-  public boolean isHarvest() {
-    return harvest;
+  public boolean isHarvestPlugin() {
+    return harvestPlugin;
   }
 
-  public void setHarvest(boolean harvest) {
-    this.harvest = harvest;
+  public void setHarvestPlugin(boolean harvestPlugin) {
+    this.harvestPlugin = harvestPlugin;
+  }
+
+  public boolean isTransformPlugin() {
+    return transformPlugin;
+  }
+
+  public void setTransformPlugin(boolean transformPlugin) {
+    this.transformPlugin = transformPlugin;
   }
 
   public String getOwner() {

@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
@@ -68,6 +67,10 @@ public class UserWorkflowExecution {
   public UserWorkflowExecution() {
   }
 
+  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow) {
+    this(dataset, userWorkflow, 0);
+  }
+
   public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     switch (harvestingMetadata.getHarvestType()) {
@@ -78,32 +81,32 @@ public class UserWorkflowExecution {
       case HTTP:
         this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
         this.voidHTTPHarvestPlugin
-            .setId(new ObjectId().toString() + "-" + PluginType.HTTP_HARVEST.name());
+            .setId(new ObjectId().toString() + "-" + voidHTTPHarvestPlugin.getPluginType().name());
         break;
       case OAIPMH:
         this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
             harvestingMetadata.getMetadataSchema());
         this.voidOaipmhHarvestPlugin
-            .setId(new ObjectId().toString() + "-" + PluginType.OAIPMH_HARVEST.name());
+            .setId(
+                new ObjectId().toString() + "-" + voidOaipmhHarvestPlugin.getPluginType().name());
         break;
       case FOLDER:
         break;
     }
 
+    // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
+
     this.owner = userWorkflow.getOwner();
     this.workflowName = userWorkflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
     this.workflowPriority = workflowPriority;
-    this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
-    this.voidMetisPlugin.setId(new ObjectId().toString() + "-" + PluginType.VOID.name());
     this.voidDereferencePlugin = new VoidDereferencePlugin(
         userWorkflow.getVoidDereferencePluginInfo());
     this.voidDereferencePlugin
-        .setId(new ObjectId().toString() + "-" + PluginType.DEREFERENCE.name());
-  }
-
-  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow) {
-    this(dataset, userWorkflow, 0);
+        .setId(new ObjectId().toString() + "-" + voidDereferencePlugin.getPluginType().name());
+    this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
+    this.voidMetisPlugin
+        .setId(new ObjectId().toString() + "-" + voidMetisPlugin.getPluginType().name());
   }
 
   public ObjectId getId() {
@@ -227,6 +230,30 @@ public class UserWorkflowExecution {
   public void setVoidDereferencePlugin(
       VoidDereferencePlugin voidDereferencePlugin) {
     this.voidDereferencePlugin = voidDereferencePlugin;
+  }
+
+  @Override
+  public int hashCode() {
+    int prime = 31;
+    int result = 1;
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((datasetName == null) ? 0 : datasetName.hashCode());
+    result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+    result = prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
+    return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (obj == null || obj.getClass() != this.getClass()) {
+      return false;
+    }
+    UserWorkflowExecution that = (UserWorkflowExecution) obj;
+    return (id == that.getId() && datasetName.equals(that.datasetName) && owner.equals(that.owner)
+        && workflowName.equals(that.workflowName));
   }
 
   public static class UserWorkflowExecutionPriorityComparator implements

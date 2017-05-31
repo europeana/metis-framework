@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
@@ -12,6 +13,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.util.concurrent.ExecutionException;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
@@ -113,17 +115,38 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "priority", value = "Priority value, 0 is normal the higher number the higher priority", dataType = "int", paramType = "query")
   })
   @ApiOperation(value = "Add a user workflow by owner and workflowName for datasetName to the queue of executions")
-  public void addInQueueUserWorkflowByOwnerAndWorkflowNameForDatasetName(
+  public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
     if (priority == null)
       priority = 0;
     orchestratorService
-        .addInQueueUserWorkflowByOwnerAndWorkflowNameForDatasetName(datasetName, owner,
+        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
             workflowName, priority);
     LOGGER.info("UserWorkflowExecution for datasetName '" + datasetName + "' with owner '" + owner
         + "' and workflowName '" + workflowName + "' started");
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW_EXECUTIONS_DATASETNAME, method = RequestMethod.DELETE, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 204, message = "Successful response")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
+      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
+  })
+  @ApiOperation(value = "Cancel a user workflow by owner and workflowName for datasetName")
+  public void cancelUserWorkflowExecution(
+      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @QueryParam("workflowName") String workflowName)
+      throws InterruptedException, ExecutionException, NoUserWorkflowExecutionFoundException {
+    orchestratorService.cancelUserWorkflowExecution(datasetName, owner, workflowName);
+    LOGGER.info("UserWorkflowExecution for datasetName '" + datasetName + "' with owner '" + owner
+        + "' and workflowName '" + workflowName + "' cancelled");
   }
 
 //    @ResponseBody

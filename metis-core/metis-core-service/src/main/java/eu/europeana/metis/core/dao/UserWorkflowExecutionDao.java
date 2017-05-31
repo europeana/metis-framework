@@ -53,12 +53,16 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return false;
   }
 
-  public UserWorkflowExecution getByDatesetNameAndOwnerAndWorkflowName(String datasetName,
+  public UserWorkflowExecution getRunningOrInQueueExecution(String datasetName,
       String owner,
       String workflowName) {
-    return provider.getDatastore().find(UserWorkflowExecution.class)
-        .field("datasetName").equal(datasetName).field("owner").equal(owner).field("workflowName")
-        .equal(workflowName).get();
+    Query<UserWorkflowExecution> query = provider.getDatastore()
+        .find(UserWorkflowExecution.class)
+        .field("datasetName").equal(
+            datasetName);
+    query.or(query.criteria("workflowStatus").equal(WorkflowStatus.INQUEUE),
+        query.criteria("workflowStatus").equal(WorkflowStatus.RUNNING));
+    return query.get();
   }
 
   public boolean exists(UserWorkflowExecution userWorkflowExecution) {
@@ -70,7 +74,12 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
         .project("_id", true).get() != null;
   }
 
-  public String existsAndNotCompletedByDatasetName(String datasetName) {
+  public boolean cancel(UserWorkflowExecution userWorkflowExecution)
+  {
+    return false;
+  }
+
+  public String existsAndNotCompleted(String datasetName) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
         .find(UserWorkflowExecution.class)
         .field("datasetName").equal(
