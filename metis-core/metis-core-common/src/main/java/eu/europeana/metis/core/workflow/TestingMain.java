@@ -21,21 +21,21 @@ public class TestingMain {
     Calendar cal = Calendar.getInstance();
     cal.add(Calendar.DATE, -2);
     use1.setCreatedDate(cal.getTime());
-    use1.setPriority(1);
+    use1.setWorkflowPriority(1);
     UserWorkflowExecution use2 = new UserWorkflowExecution();
     use2.setWorkflowName("use2");
 //    cal = Calendar.getInstance();
 //    cal.add(Calendar.DATE, -1);
     use2.setCreatedDate(cal.getTime());
-    use2.setPriority(0);
+    use2.setWorkflowPriority(0);
     UserWorkflowExecution use3 = new UserWorkflowExecution();
     use3.setWorkflowName("use3");
     use3.setCreatedDate(new Date());
-    use3.setPriority(0);
+    use3.setWorkflowPriority(0);
 
-    System.out.println("use1 date: " + use1.getCreatedDate() + " priority: " + use1.getPriority());
-    System.out.println("use2 date: " + use2.getCreatedDate() + " priority: " + use2.getPriority());
-    System.out.println("use3 date: " + use3.getCreatedDate() + " priority: " + use2.getPriority());
+    System.out.println("use1 date: " + use1.getCreatedDate() + " priority: " + use1.getWorkflowPriority());
+    System.out.println("use2 date: " + use2.getCreatedDate() + " priority: " + use2.getWorkflowPriority());
+    System.out.println("use3 date: " + use3.getCreatedDate() + " priority: " + use2.getWorkflowPriority());
 
     userWorkflowExecutionBlockingQueue.add(use2);
     userWorkflowExecutionBlockingQueue.add(use3);

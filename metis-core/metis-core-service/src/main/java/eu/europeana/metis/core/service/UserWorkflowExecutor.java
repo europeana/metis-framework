@@ -14,7 +14,13 @@ import org.slf4j.LoggerFactory;
  * @since 2017-05-29
  */
 public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
+
   private final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutor.class);
+  private Date startDate;
+  private Date finishDate;
+  private boolean firstPluginExecution;
+  private final int secondsToFake = 10;
+  private final int sleepTime = 1000;
 
   private final UserWorkflowExecution userWorkflowExecution;
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
@@ -29,77 +35,25 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   @Override
   public UserWorkflowExecution call() {
     LOGGER.info("Starting user workflow execution with id: " + userWorkflowExecution.getId());
-    final int secondsToFake = 30;
-    final int sleepTime = 1000;
     try {
-      userWorkflowExecution.setStartedDate(new Date());
+      firstPluginExecution = true;
+      startDate = new Date();
+      userWorkflowExecution.setStartedDate(startDate);
       userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+      userWorkflowExecutionDao.update(userWorkflowExecution);
       if (userWorkflowExecution.getVoidOaipmhHarvestPlugin() != null) {
-        userWorkflowExecution.getVoidOaipmhHarvestPlugin().setStartedDate(new Date());
-        userWorkflowExecution.getVoidOaipmhHarvestPlugin().setPluginStatus(PluginStatus.RUNNING);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
-        userWorkflowExecution.getVoidOaipmhHarvestPlugin().execute();
-
-        for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(sleepTime);
-          userWorkflowExecution.getVoidOaipmhHarvestPlugin().monitor("");
-          Date updatedDate = new Date();
-          userWorkflowExecution.getVoidOaipmhHarvestPlugin().setUpdatedDate(updatedDate);
-          userWorkflowExecution.setUpdatedDate(updatedDate);
-          userWorkflowExecutionDao.update(userWorkflowExecution);
-        }
-        userWorkflowExecution.getVoidOaipmhHarvestPlugin().setPluginStatus(PluginStatus.FINISHED);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
+        finishDate = runVoidOaipmhHarvestPlugin();
       } else if (userWorkflowExecution.getVoidHTTPHarvestPlugin() != null) {
-        userWorkflowExecution.getVoidHTTPHarvestPlugin().setStartedDate(new Date());
-        userWorkflowExecution.getVoidHTTPHarvestPlugin().setPluginStatus(PluginStatus.RUNNING);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
-        userWorkflowExecution.getVoidHTTPHarvestPlugin().execute();
-        for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(sleepTime);
-          userWorkflowExecution.getVoidHTTPHarvestPlugin().monitor("");
-          Date updatedDate = new Date();
-          userWorkflowExecution.getVoidHTTPHarvestPlugin().setUpdatedDate(updatedDate);
-          userWorkflowExecution.setUpdatedDate(updatedDate);
-          userWorkflowExecutionDao.update(userWorkflowExecution);
-        }
-        userWorkflowExecution.getVoidHTTPHarvestPlugin().setPluginStatus(PluginStatus.FINISHED);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
+        finishDate = runVoidHTTPHarvestPlugin();
       }
 
       if (userWorkflowExecution.getVoidDereferencePlugin() != null) {
-        userWorkflowExecution.getVoidDereferencePlugin().setStartedDate(new Date());
-        userWorkflowExecution.getVoidDereferencePlugin().setPluginStatus(PluginStatus.RUNNING);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
-        userWorkflowExecution.getVoidDereferencePlugin().execute();
-        for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(sleepTime);
-          userWorkflowExecution.getVoidDereferencePlugin().monitor("");
-          Date updatedDate = new Date();
-          userWorkflowExecution.getVoidDereferencePlugin().setUpdatedDate(updatedDate);
-          userWorkflowExecution.setUpdatedDate(updatedDate);
-          userWorkflowExecutionDao.update(userWorkflowExecution);
-        }
-        userWorkflowExecution.getVoidDereferencePlugin().setPluginStatus(PluginStatus.FINISHED);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
+        finishDate = runVoidDereferencePlugin();
       }
       if (userWorkflowExecution.getVoidMetisPlugin() != null) {
-        userWorkflowExecution.getVoidMetisPlugin().setStartedDate(new Date());
-        userWorkflowExecution.getVoidMetisPlugin().setPluginStatus(PluginStatus.RUNNING);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
-        userWorkflowExecution.getVoidMetisPlugin().execute();
-        for (int i = 0; i < secondsToFake; i++) {
-          Thread.sleep(sleepTime);
-          userWorkflowExecution.getVoidMetisPlugin().monitor("");
-          Date updatedDate = new Date();
-          userWorkflowExecution.getVoidMetisPlugin().setUpdatedDate(updatedDate);
-          userWorkflowExecution.setUpdatedDate(updatedDate);
-          userWorkflowExecutionDao.update(userWorkflowExecution);
-        }
-        userWorkflowExecution.getVoidMetisPlugin().setPluginStatus(PluginStatus.FINISHED);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
+        finishDate = runVoidMetisPlugin();
       }
-      userWorkflowExecution.setFinishedDate(new Date());
+      userWorkflowExecution.setFinishedDate(finishDate);
       userWorkflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       userWorkflowExecutionDao.update(userWorkflowExecution);
       LOGGER.info("Finished user workflow execution with id: " + userWorkflowExecution.getId());
@@ -107,5 +61,108 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
       e.printStackTrace();
     }
     return userWorkflowExecution;
+  }
+
+  private Date runVoidHTTPHarvestPlugin() throws InterruptedException {
+    if (firstPluginExecution) {
+      firstPluginExecution = false;
+      userWorkflowExecution.getVoidHTTPHarvestPlugin().setStartedDate(startDate);
+    } else {
+      userWorkflowExecution.getVoidHTTPHarvestPlugin().setStartedDate(new Date());
+    }
+    userWorkflowExecution.getVoidHTTPHarvestPlugin().setPluginStatus(PluginStatus.RUNNING);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecution.getVoidHTTPHarvestPlugin().execute();
+    for (int i = 0; i < secondsToFake; i++) {
+      Thread.sleep(sleepTime);
+      userWorkflowExecution.getVoidHTTPHarvestPlugin().monitor("");
+      Date updatedDate = new Date();
+      userWorkflowExecution.getVoidHTTPHarvestPlugin().setUpdatedDate(updatedDate);
+      userWorkflowExecution.setUpdatedDate(updatedDate);
+      userWorkflowExecutionDao.update(userWorkflowExecution);
+    }
+    userWorkflowExecution.getVoidHTTPHarvestPlugin().setFinishedDate(new Date());
+    userWorkflowExecution.getVoidHTTPHarvestPlugin().setPluginStatus(PluginStatus.FINISHED);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+
+    return userWorkflowExecution.getVoidHTTPHarvestPlugin().getFinishedDate();
+  }
+
+  private Date runVoidOaipmhHarvestPlugin()
+      throws InterruptedException {
+    if (firstPluginExecution) {
+      firstPluginExecution = false;
+      userWorkflowExecution.getVoidOaipmhHarvestPlugin().setStartedDate(startDate);
+    } else {
+      userWorkflowExecution.getVoidOaipmhHarvestPlugin().setStartedDate(new Date());
+    }
+    userWorkflowExecution.getVoidOaipmhHarvestPlugin().setPluginStatus(PluginStatus.RUNNING);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecution.getVoidOaipmhHarvestPlugin().execute();
+
+    for (int i = 0; i < secondsToFake; i++) {
+      Thread.sleep(sleepTime);
+      userWorkflowExecution.getVoidOaipmhHarvestPlugin().monitor("");
+      Date updatedDate = new Date();
+      userWorkflowExecution.getVoidOaipmhHarvestPlugin().setUpdatedDate(updatedDate);
+      userWorkflowExecution.setUpdatedDate(updatedDate);
+      userWorkflowExecutionDao.update(userWorkflowExecution);
+    }
+    userWorkflowExecution.getVoidOaipmhHarvestPlugin().setFinishedDate(new Date());
+    userWorkflowExecution.getVoidOaipmhHarvestPlugin().setPluginStatus(PluginStatus.FINISHED);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+
+    return userWorkflowExecution.getVoidOaipmhHarvestPlugin().getFinishedDate();
+  }
+
+  private Date runVoidDereferencePlugin()
+      throws InterruptedException {
+    if (firstPluginExecution) {
+      firstPluginExecution = false;
+      userWorkflowExecution.getVoidDereferencePlugin().setStartedDate(startDate);
+    } else {
+      userWorkflowExecution.getVoidDereferencePlugin().setStartedDate(new Date());
+    }
+    userWorkflowExecution.getVoidDereferencePlugin().setPluginStatus(PluginStatus.RUNNING);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecution.getVoidDereferencePlugin().execute();
+    for (int i = 0; i < secondsToFake; i++) {
+      Thread.sleep(sleepTime);
+      userWorkflowExecution.getVoidDereferencePlugin().monitor("");
+      Date updatedDate = new Date();
+      userWorkflowExecution.getVoidDereferencePlugin().setUpdatedDate(updatedDate);
+      userWorkflowExecution.setUpdatedDate(updatedDate);
+      userWorkflowExecutionDao.update(userWorkflowExecution);
+    }
+    userWorkflowExecution.getVoidDereferencePlugin().setFinishedDate(new Date());
+    userWorkflowExecution.getVoidDereferencePlugin().setPluginStatus(PluginStatus.FINISHED);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+
+    return userWorkflowExecution.getVoidDereferencePlugin().getFinishedDate();
+  }
+
+  private Date runVoidMetisPlugin() throws InterruptedException {
+    if (firstPluginExecution) {
+      firstPluginExecution = false;
+      userWorkflowExecution.getVoidMetisPlugin().setStartedDate(startDate);
+    } else {
+      userWorkflowExecution.getVoidMetisPlugin().setStartedDate(new Date());
+    }
+    userWorkflowExecution.getVoidMetisPlugin().setPluginStatus(PluginStatus.RUNNING);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecution.getVoidMetisPlugin().execute();
+    for (int i = 0; i < secondsToFake; i++) {
+      Thread.sleep(sleepTime);
+      userWorkflowExecution.getVoidMetisPlugin().monitor("");
+      Date updatedDate = new Date();
+      userWorkflowExecution.getVoidMetisPlugin().setUpdatedDate(updatedDate);
+      userWorkflowExecution.setUpdatedDate(updatedDate);
+      userWorkflowExecutionDao.update(userWorkflowExecution);
+    }
+    userWorkflowExecution.getVoidMetisPlugin().setFinishedDate(new Date());
+    userWorkflowExecution.getVoidMetisPlugin().setPluginStatus(PluginStatus.FINISHED);
+    userWorkflowExecutionDao.update(userWorkflowExecution);
+
+    return userWorkflowExecution.getVoidMetisPlugin().getFinishedDate();
   }
 }

@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginInfo;
@@ -20,26 +21,27 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes(@Index(fields = { @Field("owner"), @Field("workflowName")}, options = @IndexOptions(unique = true)))
+@JsonPropertyOrder({"id", "onwer", "workflowName", "harvest", "voidDereferencePluginInfo", "voidMetisPluginInfo"})
 public class UserWorkflow {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   @ApiModelProperty(position = 1)
   private ObjectId id;
-  @ApiModelProperty(position = 2)
-  boolean harvest;
   @Indexed
-  @ApiModelProperty(position = 3)
+  @ApiModelProperty(position = 2)
   String owner;
   @Indexed
-  @ApiModelProperty(position = 4)
+  @ApiModelProperty(position = 3)
   String workflowName;
+  @ApiModelProperty(position = 4)
+  boolean harvest;
 
   //Plugins information
   @ApiModelProperty(position = 5)
-  VoidMetisPluginInfo voidMetisPluginInfo;
-  @ApiModelProperty(position = 6)
   VoidDereferencePluginInfo voidDereferencePluginInfo;
+  @ApiModelProperty(position = 6)
+  VoidMetisPluginInfo voidMetisPluginInfo;
 
   public ObjectId getId() {
     return id;

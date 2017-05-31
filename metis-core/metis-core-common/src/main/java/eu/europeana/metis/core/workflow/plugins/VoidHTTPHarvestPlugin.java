@@ -19,9 +19,9 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   private Date startedDate;
   @Indexed
-  private Date finishedDate;
-  @Indexed
   private Date updatedDate;
+  @Indexed
+  private Date finishedDate;
 
   private long recordsProcessed;
   private long recordsFailed;

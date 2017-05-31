@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -26,12 +27,14 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes(@Index(fields = {@Field("owner"), @Field("workflowName")}))
+@JsonPropertyOrder({"id", "onwer", "workflowName", "workflowStatus", "datasetName",
+    "workflowPriority", "harvest", "createdDate", "startedDate", "updatedDate", "finishedDate",
+    "voidHTTPHarvestPlugin", "voidOaipmhHarvestPlugin", "voidDereferencePlugin", "voidMetisPlugin"})
 public class UserWorkflowExecution {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
-  boolean harvest;
   @Indexed
   String owner;
   @Indexed
@@ -40,16 +43,17 @@ public class UserWorkflowExecution {
   WorkflowStatus workflowStatus;
   @Indexed
   String datasetName;
-  int priority;
+  int workflowPriority;
+  boolean harvest;
 
   @Indexed
   private Date createdDate;
   @Indexed
   private Date startedDate;
   @Indexed
-  private Date finishedDate;
-  @Indexed
   private Date updatedDate;
+  @Indexed
+  private Date finishedDate;
 
   //Plugins
   @Embedded
@@ -57,14 +61,14 @@ public class UserWorkflowExecution {
   @Embedded
   VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin;
   @Embedded
-  VoidMetisPlugin voidMetisPlugin;
-  @Embedded
   VoidDereferencePlugin voidDereferencePlugin;
+  @Embedded
+  VoidMetisPlugin voidMetisPlugin;
 
   public UserWorkflowExecution() {
   }
 
-  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int priority) {
+  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     switch (harvestingMetadata.getHarvestType()) {
       case UNSPECIFIED:
@@ -73,12 +77,14 @@ public class UserWorkflowExecution {
         break;
       case HTTP:
         this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
-        this.voidHTTPHarvestPlugin.setId(new ObjectId().toString() + "-" + PluginType.HTTP_HARVEST.name());
+        this.voidHTTPHarvestPlugin
+            .setId(new ObjectId().toString() + "-" + PluginType.HTTP_HARVEST.name());
         break;
       case OAIPMH:
         this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
             harvestingMetadata.getMetadataSchema());
-        this.voidOaipmhHarvestPlugin.setId(new ObjectId().toString() + "-" + PluginType.OAIPMH_HARVEST.name());
+        this.voidOaipmhHarvestPlugin
+            .setId(new ObjectId().toString() + "-" + PluginType.OAIPMH_HARVEST.name());
         break;
       case FOLDER:
         break;
@@ -87,12 +93,13 @@ public class UserWorkflowExecution {
     this.owner = userWorkflow.getOwner();
     this.workflowName = userWorkflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
-    this.priority = priority;
+    this.workflowPriority = workflowPriority;
     this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
     this.voidMetisPlugin.setId(new ObjectId().toString() + "-" + PluginType.VOID.name());
     this.voidDereferencePlugin = new VoidDereferencePlugin(
         userWorkflow.getVoidDereferencePluginInfo());
-    this.voidDereferencePlugin.setId(new ObjectId().toString() + "-" + PluginType.DEREFERENCE.name());
+    this.voidDereferencePlugin
+        .setId(new ObjectId().toString() + "-" + PluginType.DEREFERENCE.name());
   }
 
   public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow) {
@@ -147,12 +154,12 @@ public class UserWorkflowExecution {
     this.datasetName = datasetName;
   }
 
-  public int getPriority() {
-    return priority;
+  public int getWorkflowPriority() {
+    return workflowPriority;
   }
 
-  public void setPriority(int priority) {
-    this.priority = priority;
+  public void setWorkflowPriority(int workflowPriority) {
+    this.workflowPriority = workflowPriority;
   }
 
   public Date getCreatedDate() {
@@ -222,16 +229,19 @@ public class UserWorkflowExecution {
     this.voidDereferencePlugin = voidDereferencePlugin;
   }
 
-  public static class UserWorkflowExecutionPriorityComparator implements Comparator<UserWorkflowExecution> {
+  public static class UserWorkflowExecutionPriorityComparator implements
+      Comparator<UserWorkflowExecution> {
 
     @Override
     public int compare(UserWorkflowExecution o1, UserWorkflowExecution o2) {
-      if(o1.priority > o2.priority)
+      if (o1.workflowPriority > o2.workflowPriority) {
         return -1;
-      if(o1.priority == o2.priority)
+      }
+      if (o1.workflowPriority == o2.workflowPriority) {
         return o1.getCreatedDate().compareTo(o2.getCreatedDate());
-      else
+      } else {
         return 1;
+      }
     }
   }
 }
