@@ -3,8 +3,8 @@ package eu.europeana.metis.core.workflow;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
-import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginInfo;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPluginInfo;
+import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.VoidMetisPluginMetadata;
 import io.swagger.annotations.ApiModelProperty;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -21,7 +21,7 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes(@Index(fields = { @Field("owner"), @Field("workflowName")}, options = @IndexOptions(unique = true)))
-@JsonPropertyOrder({"id", "onwer", "workflowName", "harvest", "voidDereferencePluginInfo", "voidMetisPluginInfo"})
+@JsonPropertyOrder({"id", "onwer", "workflowName", "harvest", "voidDereferencePluginMetadata", "voidMetisPluginMetadata"})
 public class UserWorkflow {
 
   @Id
@@ -41,9 +41,9 @@ public class UserWorkflow {
 
   //Plugins information
   @ApiModelProperty(position = 6)
-  VoidDereferencePluginInfo voidDereferencePluginInfo;
+  VoidDereferencePluginMetadata voidDereferencePluginMetadata;
   @ApiModelProperty(position = 7)
-  VoidMetisPluginInfo voidMetisPluginInfo;
+  VoidMetisPluginMetadata voidMetisPluginMetadata;
 
   public ObjectId getId() {
     return id;
@@ -85,21 +85,21 @@ public class UserWorkflow {
     this.workflowName = workflowName;
   }
 
-  public VoidMetisPluginInfo getVoidMetisPluginInfo() {
-    return voidMetisPluginInfo;
+  public VoidMetisPluginMetadata getVoidMetisPluginMetadata() {
+    return voidMetisPluginMetadata;
   }
 
-  public void setVoidMetisPluginInfo(
-      VoidMetisPluginInfo voidMetisPluginInfo) {
-    this.voidMetisPluginInfo = voidMetisPluginInfo;
+  public void setVoidMetisPluginMetadata(
+      VoidMetisPluginMetadata voidMetisPluginMetadata) {
+    this.voidMetisPluginMetadata = voidMetisPluginMetadata;
   }
 
-  public VoidDereferencePluginInfo getVoidDereferencePluginInfo() {
-    return voidDereferencePluginInfo;
+  public VoidDereferencePluginMetadata getVoidDereferencePluginMetadata() {
+    return voidDereferencePluginMetadata;
   }
 
-  public void setVoidDereferencePluginInfo(
-      VoidDereferencePluginInfo voidDereferencePluginInfo) {
-    this.voidDereferencePluginInfo = voidDereferencePluginInfo;
+  public void setVoidDereferencePluginMetadata(
+      VoidDereferencePluginMetadata voidDereferencePluginMetadata) {
+    this.voidDereferencePluginMetadata = voidDereferencePluginMetadata;
   }
 }

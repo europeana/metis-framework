@@ -8,6 +8,7 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.UserWorkflow;
+import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -43,15 +44,7 @@ public class OrchestratorController {
     this.orchestratorService = orchestratorService;
   }
 
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_TRIGGER_OPERATION, consumes = "application/json")
-//    public String execute(@PathVariable("datasetId") String datasetId, @PathVariable("operation") String operation,
-//                          @RequestBody(required = false) Map<String, List<String>> params,
-//                          @RequestParam("operatorEmail") String operatorEmail) throws NoDatasetFoundException {
-//        return orchestratorService.execute(datasetId, operation,operatorEmail, params);
-//    }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW, method = RequestMethod.POST, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -65,7 +58,7 @@ public class OrchestratorController {
     orchestratorService.createUserWorkflow(userWorkflow);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW, method = RequestMethod.DELETE)
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response")})
@@ -74,14 +67,14 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Delete a user workflow by owner and workflowName")
-  public void deleteUserWorkflowByOwnerAndWorkflowName(@QueryParam("owner") String owner,
+  public void deleteUserWorkflow(@QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName) {
-    orchestratorService.deleteUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
+    orchestratorService.deleteUserWorkflow(owner, workflowName);
     LOGGER.info(
         "UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' deleted");
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -93,16 +86,16 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Get a userWorkflow by owner and workflowName", response = UserWorkflow.class)
-  public UserWorkflow getUserWorkflowByOwnerAndWorkflowName(@QueryParam("owner") String owner,
+  public UserWorkflow getUserWorkflow(@QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflow userWorkflow = orchestratorService
-        .getUserWorkflowByOwnerAndWorkflowName(owner, workflowName);
+        .getUserWorkflow(owner, workflowName);
     LOGGER.info(
         "UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' found");
     return userWorkflow;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW_EXECUTIONS_DATASETNAME, method = RequestMethod.POST, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_DATASETNAME, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -128,7 +121,7 @@ public class OrchestratorController {
         + "' and workflowName '" + workflowName + "' started");
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOW_EXECUTIONS_DATASETNAME, method = RequestMethod.DELETE, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
@@ -147,6 +140,28 @@ public class OrchestratorController {
     orchestratorService.cancelUserWorkflowExecution(datasetName, owner, workflowName);
     LOGGER.info("UserWorkflowExecution for datasetName '" + datasetName + "' with owner '" + owner
         + "' and workflowName '" + workflowName + "' cancelled");
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 404, message = "UserWorkflowExecution not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
+  })
+  @ApiOperation(value = "Get a userWorkflowExecution by datasetName, owner and workflowName", response = UserWorkflowExecution.class)
+  public UserWorkflowExecution getUserWorkflowExecution(@PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @QueryParam("workflowName") String workflowName) {
+    UserWorkflowExecution userWorkflowExecution = orchestratorService
+        .getUserWorkflowExecution(datasetName, owner, workflowName);
+    LOGGER.info(
+        "UserWorkflowExecution with datasetName '" + datasetName + "' with owner '" + owner + "' and workflowName '" + workflowName + "' found");
+    return userWorkflowExecution;
   }
 
 //    @ResponseBody

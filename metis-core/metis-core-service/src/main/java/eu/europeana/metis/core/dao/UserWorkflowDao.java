@@ -47,7 +47,7 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   }
 
 
-  public boolean deleteUserWorkflowByOwnerAndWorkflowName(String owner, String workflowName){
+  public boolean deleteUserWorkflow(String owner, String workflowName){
     Query<UserWorkflow> query = provider.getDatastore().createQuery(UserWorkflow.class);
     query.field("owner").equal(owner);
     query.field("workflowName").equal(workflowName);
@@ -63,7 +63,7 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
         .project("_id", true).get() != null;
   }
 
-  public UserWorkflow getUserWorkflowByOwnerAndWorkflowName(String owner, String workflowName) {
+  public UserWorkflow getUserWorkflow(String owner, String workflowName) {
     return provider.getDatastore().find(UserWorkflow.class).field("owner").equal(owner)
         .field("workflowName").equal(workflowName)
         .get();

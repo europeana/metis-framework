@@ -1,7 +1,5 @@
 package eu.europeana.metis.core.test;
 
-import eu.europeana.metis.core.dao.ExecutionDao;
-import eu.europeana.metis.core.dao.FailedRecordsDao;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -10,10 +8,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 
 public class TestOrchestratorService {
-
-  private static ExecutionDao executionDao;
   private static DatasetService datasetService;
-  private static FailedRecordsDao failedRecordsDao;
   private static OrchestratorService orchestratorService;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 

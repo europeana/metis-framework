@@ -32,8 +32,9 @@ public final class RestEndpoints {
   public final static String USERBYMAIL = "/user/{email}";
 
   //Orchestration
-  public final static String ORCHESTRATOR_USERWORKFLOW = "/orchestrator/userWorkflow";
-  public final static String ORCHESTRATOR_USERWORKFLOW_EXECUTIONS_DATASETNAME = "/orchestrator/userWorkflow/{datasetName}";
+  public final static String ORCHESTRATOR_USERWORKFLOWS = "/orchestrator/userWorkflows";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME = "/orchestrator/userWorkflows/{datasetName}";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/userWorkflows/execution/{datasetName}";
 
 
   public final static String ORCHESTRATOR_PLUGINS = "/orchestrator/plugins";

@@ -1,18 +1,21 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPlugin;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import org.bson.types.ObjectId;
-import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
@@ -46,23 +49,19 @@ public class UserWorkflowExecution {
   boolean harvest;
 
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date createdDate;
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date startedDate;
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
 
-  //Plugins
-  @Embedded
-  VoidHTTPHarvestPlugin voidHTTPHarvestPlugin;
-  @Embedded
-  VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin;
-  @Embedded
-  VoidDereferencePlugin voidDereferencePlugin;
-  @Embedded
-  VoidMetisPlugin voidMetisPlugin;
+  private List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
   public UserWorkflowExecution() {
   }
@@ -73,25 +72,30 @@ public class UserWorkflowExecution {
 
   public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
-    switch (harvestingMetadata.getHarvestType()) {
-      case UNSPECIFIED:
-        break;
-      case FTP:
-        break;
-      case HTTP:
-        this.voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
-        this.voidHTTPHarvestPlugin
-            .setId(new ObjectId().toString() + "-" + voidHTTPHarvestPlugin.getPluginType().name());
-        break;
-      case OAIPMH:
-        this.voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
-            harvestingMetadata.getMetadataSchema());
-        this.voidOaipmhHarvestPlugin
-            .setId(
-                new ObjectId().toString() + "-" + voidOaipmhHarvestPlugin.getPluginType().name());
-        break;
-      case FOLDER:
-        break;
+    if (userWorkflow.isHarvestPlugin()) {
+      switch (harvestingMetadata.getHarvestType()) {
+        case UNSPECIFIED:
+          break;
+        case FTP:
+          break;
+        case HTTP:
+          VoidHTTPHarvestPlugin voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
+          voidHTTPHarvestPlugin
+              .setId(
+                  new ObjectId().toString() + "-" + voidHTTPHarvestPlugin.getPluginType().name());
+          metisPlugins.add(voidHTTPHarvestPlugin);
+          break;
+        case OAIPMH:
+          VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
+              harvestingMetadata.getMetadataSchema());
+          voidOaipmhHarvestPlugin
+              .setId(
+                  new ObjectId().toString() + "-" + voidOaipmhHarvestPlugin.getPluginType().name());
+          metisPlugins.add(voidOaipmhHarvestPlugin);
+          break;
+        case FOLDER:
+          break;
+      }
     }
 
     // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
@@ -100,13 +104,15 @@ public class UserWorkflowExecution {
     this.workflowName = userWorkflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
     this.workflowPriority = workflowPriority;
-    this.voidDereferencePlugin = new VoidDereferencePlugin(
-        userWorkflow.getVoidDereferencePluginInfo());
-    this.voidDereferencePlugin
+    VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin(
+        userWorkflow.getVoidDereferencePluginMetadata());
+    voidDereferencePlugin
         .setId(new ObjectId().toString() + "-" + voidDereferencePlugin.getPluginType().name());
-    this.voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginInfo());
-    this.voidMetisPlugin
+    metisPlugins.add(voidDereferencePlugin);
+    VoidMetisPlugin voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginMetadata());
+    voidMetisPlugin
         .setId(new ObjectId().toString() + "-" + voidMetisPlugin.getPluginType().name());
+    metisPlugins.add(voidMetisPlugin);
   }
 
   public ObjectId getId() {
@@ -197,39 +203,13 @@ public class UserWorkflowExecution {
     this.updatedDate = updatedDate;
   }
 
-  public VoidMetisPlugin getVoidMetisPlugin() {
-    return voidMetisPlugin;
+  public List<AbstractMetisPlugin> getMetisPlugins() {
+    return metisPlugins;
   }
 
-  public void setVoidMetisPlugin(VoidMetisPlugin voidMetisPlugin) {
-    this.voidMetisPlugin = voidMetisPlugin;
-  }
-
-  public VoidHTTPHarvestPlugin getVoidHTTPHarvestPlugin() {
-    return voidHTTPHarvestPlugin;
-  }
-
-  public void setVoidHTTPHarvestPlugin(
-      VoidHTTPHarvestPlugin voidHTTPHarvestPlugin) {
-    this.voidHTTPHarvestPlugin = voidHTTPHarvestPlugin;
-  }
-
-  public VoidOaipmhHarvestPlugin getVoidOaipmhHarvestPlugin() {
-    return voidOaipmhHarvestPlugin;
-  }
-
-  public void setVoidOaipmhHarvestPlugin(
-      VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin) {
-    this.voidOaipmhHarvestPlugin = voidOaipmhHarvestPlugin;
-  }
-
-  public VoidDereferencePlugin getVoidDereferencePlugin() {
-    return voidDereferencePlugin;
-  }
-
-  public void setVoidDereferencePlugin(
-      VoidDereferencePlugin voidDereferencePlugin) {
-    this.voidDereferencePlugin = voidDereferencePlugin;
+  public void setMetisPlugins(
+      List<AbstractMetisPlugin> metisPlugins) {
+    this.metisPlugins = metisPlugins;
   }
 
   @Override

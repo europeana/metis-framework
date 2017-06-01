@@ -1,11 +1,18 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginDeserializer;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPlugin;
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.PriorityBlockingQueue;
-import org.bson.types.ObjectId;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -14,61 +21,44 @@ import org.bson.types.ObjectId;
 public class TestingMain {
 
   public static void main(String[] args) throws IOException, InterruptedException {
-    final BlockingQueue<UserWorkflowExecution> userWorkflowExecutionBlockingQueue = new PriorityBlockingQueue<>(
-        10, new UserWorkflowExecution.UserWorkflowExecutionPriorityComparator());
 
-    UserWorkflowExecution use1 = new UserWorkflowExecution();
-    ObjectId objectId1 = new ObjectId();
-    use1.setId(objectId1);
-    use1.setDatasetName("dataset1");
-    use1.setOwner("owner1");
-    use1.setWorkflowName("use1");
-    Calendar cal = Calendar.getInstance();
-    cal.add(Calendar.DATE, -2);
-    use1.setCreatedDate(cal.getTime());
-    use1.setWorkflowPriority(1);
-    UserWorkflowExecution use2 = new UserWorkflowExecution();
-    ObjectId objectId2 = new ObjectId();
-    use2.setId(objectId2);
-    use2.setDatasetName("dataset2");
-    use2.setOwner("owner2");
-    use2.setWorkflowName("use2");
-//    cal = Calendar.getInstance();
-//    cal.add(Calendar.DATE, -1);
-    use2.setCreatedDate(cal.getTime());
-    use2.setWorkflowPriority(0);
-    UserWorkflowExecution use3 = new UserWorkflowExecution();
-    ObjectId objectId3 = new ObjectId();
-    use3.setId(objectId3);
-    use3.setDatasetName("dataset3");
-    use3.setOwner("owner3");
-    use3.setWorkflowName("use3");
-    use3.setCreatedDate(new Date());
-    use3.setWorkflowPriority(0);
+    List<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin();
+    voidOaipmhHarvestPlugin.setId("1");
+    voidOaipmhHarvestPlugin.setMetadataSchema("schema");
+    abstractMetisPlugins.add(voidOaipmhHarvestPlugin);
 
-    System.out.println("use1 date: " + use1.getCreatedDate() + " priority: " + use1.getWorkflowPriority());
-    System.out.println("use2 date: " + use2.getCreatedDate() + " priority: " + use2.getWorkflowPriority());
-    System.out.println("use3 date: " + use3.getCreatedDate() + " priority: " + use2.getWorkflowPriority());
+    VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin();
+    voidDereferencePlugin.setId("2");
 
-    userWorkflowExecutionBlockingQueue.add(use2);
-    userWorkflowExecutionBlockingQueue.add(use3);
-    userWorkflowExecutionBlockingQueue.add(use1);
-//
-//    System.out.println(userWorkflowExecutionBlockingQueue.take().getWorkflowName());
-//    System.out.println(userWorkflowExecutionBlockingQueue.take().getWorkflowName());
-//    System.out.println(userWorkflowExecutionBlockingQueue.take().getWorkflowName());
+    Map<String, List<String>> stringListMap = new HashMap<>();
+    List<String> testlist = new ArrayList<>();
+    testlist.add("testlist");
+    stringListMap.put("test", testlist);
+    voidDereferencePlugin.setParameters(stringListMap);
+    abstractMetisPlugins.add(voidDereferencePlugin);
 
-    UserWorkflowExecution use4 = new UserWorkflowExecution();
-    use4.setId(objectId3);
-    use4.setDatasetName("dataset3");
-    use4.setOwner("owner3");
-    use4.setWorkflowName("use3");
+    ObjectMapper mapper = new ObjectMapper();
+    String json = mapper.writeValueAsString(abstractMetisPlugins);
+//    json = "{\"id\":\"1\",\"pluginStatus\":\"INQUEUE\",\"pluginType\":\"OAIPMH_HARVEST\",\"metadataSchema\":\"schema\",\"startedDate\":null,\"updatedDate\":null,\"finishedDate\":null,\"recordsProcessed\":0,\"recordsFailed\":0,\"recordsCreated\":0,\"recordsUpdated\":0,\"recordsDeleted\":0,\"parameters\":null}";
+//    System.out.println(json);
 
-    userWorkflowExecutionBlockingQueue.remove(use4);
+    SimpleModule module = new SimpleModule();
+    module.addDeserializer(AbstractMetisPlugin.class, new PluginDeserializer());
+    mapper.registerModule(module);
+//    VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin1 = (VoidOaipmhHarvestPlugin) mapper
+//        .readValue(json, AbstractMetisPlugin.class);
+    List<AbstractMetisPlugin> list = Arrays
+        .asList(mapper.readValue(json, AbstractMetisPlugin[].class));
 
-    System.out.println(userWorkflowExecutionBlockingQueue.take().getWorkflowName());
-    System.out.println(userWorkflowExecutionBlockingQueue.take().getWorkflowName());
-    System.out.println(userWorkflowExecutionBlockingQueue.take().getWorkflowName());
-
+    for (AbstractMetisPlugin plugin :
+        list) {
+      if(plugin.getPluginType() == PluginType.OAIPMH_HARVEST)
+        System.out.println(((VoidOaipmhHarvestPlugin)plugin).getMetadataSchema());
+      if(plugin.getPluginType() == PluginType.DEREFERENCE) {
+        Map<String, List<String>> parameters = ((VoidDereferencePlugin) plugin).getParameters();
+        System.out.println(parameters.get("test").get(0));
+      }
+    }
   }
 }

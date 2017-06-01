@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import java.util.List;
@@ -10,9 +12,21 @@ import java.util.Map;
  * Metis workflow registry and can be accessible via the REST API of Metis Created by ymamakis on
  * 11/9/16.
  */
+//@JsonDeserialize(using = PluginDeserializer.class)
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME,
+    include=JsonTypeInfo.As.PROPERTY,
+    property="pluginType")
+@JsonSubTypes({
+    @JsonSubTypes.Type(value=VoidOaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
+    @JsonSubTypes.Type(value=VoidHTTPHarvestPlugin.class, name="HTTP_HARVEST"),
+    @JsonSubTypes.Type(value=VoidDereferencePlugin.class, name="DEREFERENCE"),
+    @JsonSubTypes.Type(value=VoidMetisPlugin.class, name="VOID")
+})
 public interface AbstractMetisPlugin {
 
   PluginStatus getPluginStatus();
+
+  PluginType getPluginType();
 
   Date getStartedDate();
 
@@ -26,27 +40,32 @@ public interface AbstractMetisPlugin {
 
   void setUpdatedDate(Date updatedDate);
 
-  long getRecordsProcessed();
-
-  void setRecordsProcessed(long recordsProcessed);
-
-  long getRecordsFailed();
-
-  void setRecordsFailed(long recordsFailed);
-
-  long getRecordsUpdated();
-
-  void setRecordsUpdated(long recordsUpdated);
-
-  long getRecordsCreated();
-
-  void setRecordsCreated(long recordsCreated);
-
-  long getRecordsDeleted();
-
-  void setRecordsDeleted(long recordsDeleted);
+//  long getRecordsProcessed();
+//
+//  void setRecordsProcessed(long recordsProcessed);
+//
+//  long getRecordsFailed();
+//
+//  void setRecordsFailed(long recordsFailed);
+//
+//  long getRecordsUpdated();
+//
+//  void setRecordsUpdated(long recordsUpdated);
+//
+//  long getRecordsCreated();
+//
+//  void setRecordsCreated(long recordsCreated);
+//
+//  long getRecordsDeleted();
+//
+//  void setRecordsDeleted(long recordsDeleted);
 
   void setPluginStatus(PluginStatus pluginStatus);
+
+  ExecutionRecordsStatistics getExecutionRecordsStatistics();
+
+  void setExecutionRecordsStatistics(
+      ExecutionRecordsStatistics executionRecordsStatistics);
 
   /**
    * The parameters of the workflow

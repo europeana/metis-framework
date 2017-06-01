@@ -26,8 +26,6 @@ import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.ExecutionDao;
-import eu.europeana.metis.core.dao.FailedRecordsDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
@@ -44,8 +42,6 @@ import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
 import eu.europeana.metis.core.service.UserWorkflowExecutorManager;
-import eu.europeana.metis.core.workflow.Execution;
-import eu.europeana.metis.core.workflow.FailedRecords;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
@@ -170,7 +166,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
-
   @Bean
   @Scope("singleton")
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
@@ -198,22 +193,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public ViewResolver viewResolver() {
     return new BeanNameViewResolver();
-  }
-
-  @Bean
-  public ExecutionDao getExecutionDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    Morphia morphia = new Morphia();
-    morphia.map(Execution.class);
-    return new ExecutionDao(morphiaDatastoreProvider.getDatastore().getMongo(), morphia,
-        morphiaDatastoreProvider.getDatastore().getDB().getName());
-  }
-
-  @Bean
-  public FailedRecordsDao getFailedRecordsDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    Morphia morphia = new Morphia();
-    morphia.map(FailedRecords.class);
-    return new FailedRecordsDao(morphiaDatastoreProvider.getDatastore().getMongo(), morphia,
-        morphiaDatastoreProvider.getDatastore().getDB().getName());
   }
 
   @Bean
@@ -280,63 +259,18 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new CrmUserService(zohoClient);
   }
 
-//  @Bean
-//  public VoidMetisPlugin getVoidMetisWorkflow() {
-//    return new VoidMetisPlugin(10000);
-//  }
-//
-//  @Bean
-//  public VoidHTTPHarvestPlugin getVoidHTTPHarvestPlugin() {
-//    return new VoidHTTPHarvestPlugin(10000);
-//  }
-//
-//  @Bean
-//  public VoidOaipmhHarvestPlugin getVoidOaipmhHarvestPlugin() {
-//    return new VoidOaipmhHarvestPlugin(10000);
-//  }
-
-//  @Bean
-//  @DependsOn("jedisProviderUtils")
-//  public QAPlugin getStatisticsWorkflow() {
-//    return new QAPlugin();
-//  }
-
-//  @Bean
-//  @Qualifier("metisPluginRegistry")
-//  public PluginRegistry<AbstractMetisPlugin, PluginType> getPluginRegistry(
-//      VoidHTTPHarvestPlugin voidHTTPHarvestPlugin, VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin,
-//      VoidMetisPlugin voidMetisPlugin) {
-//
-//    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
-//    abstractMetisPlugins.add(voidMetisPlugin);
-//    abstractMetisPlugins.add(voidHTTPHarvestPlugin);
-//    abstractMetisPlugins.add(voidOaipmhHarvestPlugin);
-//
-//    return SimplePluginRegistry.create(abstractMetisPlugins);
-//  }
-
-//  @Bean
-//  public OrchestratorService getOrchestrator(ExecutionDao executionDao,
-//      DatasetService datasetService,
-//      FailedRecordsDao failedRecordsDao,
-//      @Qualifier("metisPluginRegistry") PluginRegistry<AbstractMetisPlugin, PluginType> pluginRegistry) {
-//    return new OrchestratorService(executionDao, datasetService, failedRecordsDao,
-//        pluginRegistry);
-//  }
-
   @Bean
-  public UserWorkflowExecutorManager getUserWorkflowExecutorManager(UserWorkflowExecutionDao userWorkflowExecutionDao) {
+  public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
+      UserWorkflowExecutionDao userWorkflowExecutionDao) {
     return new UserWorkflowExecutorManager(userWorkflowExecutionDao);
   }
 
   @Bean
   public OrchestratorService getOrchestratorService(UserWorkflowDao userWorkflowDao,
-      UserWorkflowExecutionDao userWorkflowExecutionDao, ExecutionDao executionDao,
-      DatasetDao datasetDao,
-      FailedRecordsDao failedRecordsDao,
+      UserWorkflowExecutionDao userWorkflowExecutionDao, DatasetDao datasetDao,
       UserWorkflowExecutorManager userWorkflowExecutorManager) {
-    return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao, executionDao,
-        datasetDao, failedRecordsDao, userWorkflowExecutorManager);
+    return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
+        datasetDao, userWorkflowExecutorManager);
   }
 
   @Override

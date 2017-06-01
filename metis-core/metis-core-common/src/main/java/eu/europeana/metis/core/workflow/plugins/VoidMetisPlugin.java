@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,7 +9,8 @@ import java.util.Map;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * Created by ymamakis on 11/15/16.
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2017-05-24
  */
 public class VoidMetisPlugin implements AbstractMetisPlugin {
     @Indexed
@@ -18,26 +20,24 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
     private Map<String, List<String>> parameters = new HashMap<>();
 
     @Indexed
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date startedDate;
     @Indexed
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date updatedDate;
     @Indexed
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
     private Date finishedDate;
 
-    private long recordsProcessed;
-    private long recordsFailed;
-    private long recordsCreated;
-    private long recordsUpdated;
-    private long recordsDeleted;
+    private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
     public VoidMetisPlugin() {
     }
 
-
-    public VoidMetisPlugin(VoidMetisPluginInfo voidMetisPluginInfo)
+    public VoidMetisPlugin(VoidMetisPluginMetadata voidMetisPluginMetadata)
     {
-        if (voidMetisPluginInfo != null)
-            this.parameters = voidMetisPluginInfo.getParameters();
+        if (voidMetisPluginMetadata != null)
+            this.parameters = voidMetisPluginMetadata.getParameters();
     }
 
     public String getId() {
@@ -58,6 +58,7 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
         this.pluginStatus = pluginStatus;
     }
 
+    @Override
     public PluginType getPluginType() {
         return pluginType;
     }
@@ -93,53 +94,14 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
     }
 
     @Override
-    public long getRecordsProcessed() {
-        return recordsProcessed;
+    public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
+        return executionRecordsStatistics;
     }
 
     @Override
-    public void setRecordsProcessed(long recordsProcessed) {
-        this.recordsProcessed = recordsProcessed;
-    }
-
-    @Override
-    public long getRecordsFailed() {
-        return recordsFailed;
-    }
-
-    @Override
-    public void setRecordsFailed(long recordsFailed) {
-        this.recordsFailed = recordsFailed;
-    }
-
-    @Override
-    public long getRecordsCreated() {
-        return recordsCreated;
-    }
-
-    @Override
-    public void setRecordsCreated(long recordsCreated) {
-        this.recordsCreated = recordsCreated;
-    }
-
-    @Override
-    public long getRecordsUpdated() {
-        return recordsUpdated;
-    }
-
-    @Override
-    public void setRecordsUpdated(long recordsUpdated) {
-        this.recordsUpdated = recordsUpdated;
-    }
-
-    @Override
-    public long getRecordsDeleted() {
-        return recordsDeleted;
-    }
-
-    @Override
-    public void setRecordsDeleted(long recordsDeleted) {
-        this.recordsDeleted = recordsDeleted;
+    public void setExecutionRecordsStatistics(
+        ExecutionRecordsStatistics executionRecordsStatistics) {
+        this.executionRecordsStatistics = executionRecordsStatistics;
     }
 
     @Override

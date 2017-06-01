@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import java.util.List;
@@ -18,17 +19,15 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   private String metadataSchema;
 
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date startedDate;
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
   @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
-
-  private long recordsProcessed;
-  private long recordsFailed;
-  private long recordsCreated;
-  private long recordsUpdated;
-  private long recordsDeleted;
+  private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
   public VoidOaipmhHarvestPlugin() {
   }
@@ -55,6 +54,7 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
     this.pluginStatus = pluginStatus;
   }
 
+  @Override
   public PluginType getPluginType() {
     return pluginType;
   }
@@ -90,58 +90,18 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public long getRecordsProcessed() {
-    return recordsProcessed;
+  public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
+    return executionRecordsStatistics;
   }
 
   @Override
-  public void setRecordsProcessed(long recordsProcessed) {
-    this.recordsProcessed = recordsProcessed;
-  }
-
-  @Override
-  public long getRecordsFailed() {
-    return recordsFailed;
-  }
-
-  @Override
-  public void setRecordsFailed(long recordsFailed) {
-    this.recordsFailed = recordsFailed;
-  }
-
-  @Override
-  public long getRecordsCreated() {
-    return recordsCreated;
-  }
-
-  @Override
-  public void setRecordsCreated(long recordsCreated) {
-    this.recordsCreated = recordsCreated;
-  }
-
-  @Override
-  public long getRecordsUpdated() {
-    return recordsUpdated;
-  }
-
-  @Override
-  public void setRecordsUpdated(long recordsUpdated) {
-    this.recordsUpdated = recordsUpdated;
-  }
-
-  @Override
-  public long getRecordsDeleted() {
-    return recordsDeleted;
-  }
-
-  @Override
-  public void setRecordsDeleted(long recordsDeleted) {
-    this.recordsDeleted = recordsDeleted;
+  public void setExecutionRecordsStatistics(
+      ExecutionRecordsStatistics executionRecordsStatistics) {
+    this.executionRecordsStatistics = executionRecordsStatistics;
   }
 
   @Override
   public void setParameters(Map<String, List<String>> parameters) {
-
   }
 
   @Override
