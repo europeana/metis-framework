@@ -18,13 +18,11 @@ package eu.europeana.metis.core.test;
 
 import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
@@ -71,7 +69,7 @@ public class TestDatasetService {
         org.setOrganizationId("orgId");
         org.setDatasetNames(new TreeSet<String>());
         org.setOrganizationUri("testUri");
-        org.setHarvestingMetadata(new HarvestingMetadata());
+//        org.setHarvestingMetadata(new HarvestingMetadata());
         ds = new Dataset();
         ds.setOrganizationId("orgId");
         ds.setAccepted(true);
@@ -89,7 +87,7 @@ public class TestDatasetService {
         ds.setHarvestedAt(new Date(1000));
         ds.setLanguage(Language.AR);
         ds.setLastPublished(new Date(1000));
-        ds.setHarvestingMetadata(new OAIDatasetMetadata());
+//        ds.setHarvestingMetadata(new OaipmhHarvestingDatasetMetadata());
         ds.setDatasetName("testName");
         ds.setNotes("test Notes");
         ds.setPublishedRecords(100);

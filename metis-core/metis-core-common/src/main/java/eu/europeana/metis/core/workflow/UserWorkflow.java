@@ -2,10 +2,14 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
-import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
@@ -20,8 +24,10 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-05-29
  */
 @Entity
-@Indexes(@Index(fields = { @Field("owner"), @Field("workflowName")}, options = @IndexOptions(unique = true)))
-@JsonPropertyOrder({"id", "onwer", "workflowName", "harvest", "voidDereferencePluginMetadata", "voidMetisPluginMetadata"})
+@Indexes(@Index(fields = {@Field("owner"),
+    @Field("workflowName")}, options = @IndexOptions(unique = true)))
+@JsonPropertyOrder({"id", "onwer", "workflowName", "harvest", "voidDereferencePluginMetadata",
+    "voidMetisPluginMetadata"})
 public class UserWorkflow {
 
   @Id
@@ -30,20 +36,20 @@ public class UserWorkflow {
   private ObjectId id;
   @Indexed
   @ApiModelProperty(position = 2)
-  String owner;
+  private String owner;
   @Indexed
   @ApiModelProperty(position = 3)
-  String workflowName;
+  private String workflowName;
   @ApiModelProperty(position = 4)
-  boolean harvestPlugin;
+  private boolean harvestPlugin;
   @ApiModelProperty(position = 5)
-  boolean transformPlugin;
+  private boolean transformPlugin;
 
   //Plugins information
   @ApiModelProperty(position = 6)
-  VoidDereferencePluginMetadata voidDereferencePluginMetadata;
-  @ApiModelProperty(position = 7)
-  VoidMetisPluginMetadata voidMetisPluginMetadata;
+  @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
+  @JacksonXmlProperty(localName = "metisPluginsMetadata")
+  private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();
 
   public ObjectId getId() {
     return id;
@@ -85,21 +91,33 @@ public class UserWorkflow {
     this.workflowName = workflowName;
   }
 
-  public VoidMetisPluginMetadata getVoidMetisPluginMetadata() {
-    return voidMetisPluginMetadata;
+  public List<AbstractMetisPluginMetadata> getMetisPluginsMetadata() {
+    return metisPluginsMetadata;
   }
 
-  public void setVoidMetisPluginMetadata(
-      VoidMetisPluginMetadata voidMetisPluginMetadata) {
-    this.voidMetisPluginMetadata = voidMetisPluginMetadata;
+  public void setMetisPluginsMetadata(
+      List<AbstractMetisPluginMetadata> metisPluginsMetadata) {
+    this.metisPluginsMetadata = metisPluginsMetadata;
   }
 
-  public VoidDereferencePluginMetadata getVoidDereferencePluginMetadata() {
-    return voidDereferencePluginMetadata;
+  public AbstractMetisPluginMetadata getVoidDereferencePluginMetadata() {
+    for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
+        ) {
+      if (metisPluginMetadata.getPluginType() == PluginType.DEREFERENCE) {
+        return metisPluginMetadata;
+      }
+    }
+    return null;
   }
 
-  public void setVoidDereferencePluginMetadata(
-      VoidDereferencePluginMetadata voidDereferencePluginMetadata) {
-    this.voidDereferencePluginMetadata = voidDereferencePluginMetadata;
+
+  public AbstractMetisPluginMetadata getVoidMetisPluginMetadata() {
+    for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
+        ) {
+      if (metisPluginMetadata.getPluginType() == PluginType.VOID) {
+        return metisPluginMetadata;
+      }
+    }
+    return null;
   }
 }

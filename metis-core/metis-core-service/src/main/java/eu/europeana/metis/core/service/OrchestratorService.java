@@ -60,8 +60,8 @@ public class OrchestratorService {
     return userWorkflowDao.getUserWorkflow(owner, workflowName);
   }
 
-  public UserWorkflowExecution getUserWorkflowExecution(String datasetName, String owner, String workflowName) {
-    return userWorkflowExecutionDao.getUserWorkflowExecution(datasetName, owner, workflowName);
+  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String owner, String workflowName) {
+    return userWorkflowExecutionDao.getRunningUserWorkflowExecution(datasetName, owner, workflowName);
   }
 
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,

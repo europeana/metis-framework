@@ -25,7 +25,7 @@ public class TestingMain {
     List<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
     VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin();
     voidOaipmhHarvestPlugin.setId("1");
-    voidOaipmhHarvestPlugin.setMetadataSchema("schema");
+//    voidOaipmhHarvestPlugin.setMetadataSchema("schema");
     abstractMetisPlugins.add(voidOaipmhHarvestPlugin);
 
     VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin();
@@ -35,7 +35,7 @@ public class TestingMain {
     List<String> testlist = new ArrayList<>();
     testlist.add("testlist");
     stringListMap.put("test", testlist);
-    voidDereferencePlugin.setParameters(stringListMap);
+//    voidDereferencePlugin.setParameters(stringListMap);
     abstractMetisPlugins.add(voidDereferencePlugin);
 
     ObjectMapper mapper = new ObjectMapper();
@@ -54,10 +54,10 @@ public class TestingMain {
     for (AbstractMetisPlugin plugin :
         list) {
       if(plugin.getPluginType() == PluginType.OAIPMH_HARVEST)
-        System.out.println(((VoidOaipmhHarvestPlugin)plugin).getMetadataSchema());
+//        System.out.println(((VoidOaipmhHarvestPlugin)plugin).getMetadataSchema());
       if(plugin.getPluginType() == PluginType.DEREFERENCE) {
-        Map<String, List<String>> parameters = ((VoidDereferencePlugin) plugin).getParameters();
-        System.out.println(parameters.get("test").get(0));
+//        Map<String, List<String>> parameters = ((VoidDereferencePlugin) plugin).getParameters();
+//        System.out.println(parameters.get("test").get(0));
       }
     }
   }

@@ -30,8 +30,6 @@ public class UserWorkflowExecutorManager implements Runnable {
   private ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
       threadPool);
   private final Map<String, Future<UserWorkflowExecution>> futuresMap = new ConcurrentHashMap<>();
-//  private final List<Future<UserWorkflowExecution>> futures = Collections
-//      .synchronizedList(new ArrayList<Future<UserWorkflowExecution>>());
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
 
   @Autowired

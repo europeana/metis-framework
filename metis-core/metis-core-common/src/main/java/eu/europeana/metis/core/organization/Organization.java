@@ -23,7 +23,7 @@ import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
-import eu.europeana.metis.core.common.HarvestingMetadata;
+import eu.europeana.metis.core.dataset.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;

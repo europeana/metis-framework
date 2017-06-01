@@ -13,114 +13,115 @@ import org.mongodb.morphia.annotations.Indexed;
  * @since 2017-05-24
  */
 public class VoidMetisPlugin implements AbstractMetisPlugin {
-    @Indexed
-    private String id;
-    private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-    private final PluginType pluginType = PluginType.VOID;
-    private Map<String, List<String>> parameters = new HashMap<>();
 
-    @Indexed
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-    private Date startedDate;
-    @Indexed
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-    private Date updatedDate;
-    @Indexed
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-    private Date finishedDate;
+  @Indexed
+  private String id;
+  private PluginStatus pluginStatus = PluginStatus.INQUEUE;
+  private final PluginType pluginType = PluginType.VOID;
+  private Map<String, List<String>> parameters = new HashMap<>();
 
-    private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
+  @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date startedDate;
+  @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date updatedDate;
+  @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date finishedDate;
+  private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
-    public VoidMetisPlugin() {
-    }
+  private AbstractMetisPluginMetadata pluginMetadata;
 
-    public VoidMetisPlugin(VoidMetisPluginMetadata voidMetisPluginMetadata)
-    {
-        if (voidMetisPluginMetadata != null)
-            this.parameters = voidMetisPluginMetadata.getParameters();
-    }
+  public VoidMetisPlugin() {
+  }
 
-    public String getId() {
-        return id;
-    }
+  public VoidMetisPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
+  }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    @Override
-    public PluginStatus getPluginStatus() {
-        return pluginStatus;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    @Override
-    public void setPluginStatus(PluginStatus pluginStatus) {
-        this.pluginStatus = pluginStatus;
-    }
+  @Override
+  public AbstractMetisPluginMetadata getPluginMetadata() {
+    return pluginMetadata;
+  }
 
-    @Override
-    public PluginType getPluginType() {
-        return pluginType;
-    }
+  @Override
+  public void setPluginMetadata(
+      AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
+  }
 
-    @Override
-    public Date getStartedDate() {
-        return startedDate;
-    }
+  @Override
+  public PluginStatus getPluginStatus() {
+    return pluginStatus;
+  }
 
-    @Override
-    public void setStartedDate(Date startedDate) {
-        this.startedDate = startedDate;
-    }
+  @Override
+  public void setPluginStatus(PluginStatus pluginStatus) {
+    this.pluginStatus = pluginStatus;
+  }
 
-    @Override
-    public Date getFinishedDate() {
-        return finishedDate;
-    }
+  @Override
+  public PluginType getPluginType() {
+    return pluginType;
+  }
 
-    @Override
-    public void setFinishedDate(Date finishedDate) {
-        this.finishedDate = finishedDate;
-    }
+  @Override
+  public Date getStartedDate() {
+    return startedDate;
+  }
 
-    @Override
-    public Date getUpdatedDate() {
-        return updatedDate;
-    }
+  @Override
+  public void setStartedDate(Date startedDate) {
+    this.startedDate = startedDate;
+  }
 
-    @Override
-    public void setUpdatedDate(Date updatedDate) {
-        this.updatedDate = updatedDate;
-    }
+  @Override
+  public Date getFinishedDate() {
+    return finishedDate;
+  }
 
-    @Override
-    public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
-        return executionRecordsStatistics;
-    }
+  @Override
+  public void setFinishedDate(Date finishedDate) {
+    this.finishedDate = finishedDate;
+  }
 
-    @Override
-    public void setExecutionRecordsStatistics(
-        ExecutionRecordsStatistics executionRecordsStatistics) {
-        this.executionRecordsStatistics = executionRecordsStatistics;
-    }
+  @Override
+  public Date getUpdatedDate() {
+    return updatedDate;
+  }
 
-    @Override
-    public void setParameters(Map<String, List<String>> parameters) {
-        this.parameters = parameters;
-    }
+  @Override
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate;
+  }
 
-    @Override
-    public Map<String, List<String>> getParameters() {
-        return parameters;
-    }
+  @Override
+  public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
+    return executionRecordsStatistics;
+  }
 
-    @Override
-    public void execute() {
-    }
+  @Override
+  public void setExecutionRecordsStatistics(
+      ExecutionRecordsStatistics executionRecordsStatistics) {
+    this.executionRecordsStatistics = executionRecordsStatistics;
+  }
 
-    @Override
-    public CloudStatistics monitor(String datasetId) {
-        return null;
-    }
+  @Override
+  public void execute() {
+  }
+
+  @Override
+  public CloudStatistics monitor(String datasetId) {
+    return null;
+  }
 
 }

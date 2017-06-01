@@ -3,14 +3,19 @@ package eu.europeana.metis.core.workflow;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.HarvestingMetadata;
+import eu.europeana.metis.core.dataset.HttpHarvestingMetadata;
+import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPluginMetadata;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -38,13 +43,13 @@ public class UserWorkflowExecution {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   @Indexed
-  String owner;
+  private String owner;
   @Indexed
-  String workflowName;
+  private String workflowName;
   @Indexed
-  WorkflowStatus workflowStatus;
+  private WorkflowStatus workflowStatus;
   @Indexed
-  String datasetName;
+  private String datasetName;
   int workflowPriority;
   boolean harvest;
 
@@ -71,48 +76,66 @@ public class UserWorkflowExecution {
   }
 
   public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
+    this.owner = userWorkflow.getOwner();
+    this.workflowName = userWorkflow.getWorkflowName();
+    this.datasetName = dataset.getDatasetName();
+    this.workflowPriority = workflowPriority;
+
+    addHarvestingPlugin(dataset, userWorkflow);
+
+    // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
+
+    addProcessPlugins(userWorkflow);
+  }
+
+  private void addHarvestingPlugin(Dataset dataset, UserWorkflow userWorkflow) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     if (userWorkflow.isHarvestPlugin()) {
       switch (harvestingMetadata.getHarvestType()) {
-        case UNSPECIFIED:
+        case FTP_HARVEST:
           break;
-        case FTP:
-          break;
-        case HTTP:
-          VoidHTTPHarvestPlugin voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin();
+        case HTTP_HARVEST:
+          VoidHTTPHarvestPlugin voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin(
+              new VoidHTTPHarvestPluginMetadata((HttpHarvestingMetadata) harvestingMetadata, null));
           voidHTTPHarvestPlugin
               .setId(
                   new ObjectId().toString() + "-" + voidHTTPHarvestPlugin.getPluginType().name());
           metisPlugins.add(voidHTTPHarvestPlugin);
           break;
-        case OAIPMH:
+        case OAIPMH_HARVEST:
           VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
-              harvestingMetadata.getMetadataSchema());
+              new VoidOaipmhHarvestPluginMetadata(
+                  (OaipmhHarvestingMetadata) harvestingMetadata, null));
           voidOaipmhHarvestPlugin
               .setId(
                   new ObjectId().toString() + "-" + voidOaipmhHarvestPlugin.getPluginType().name());
           metisPlugins.add(voidOaipmhHarvestPlugin);
           break;
-        case FOLDER:
+        case FOLDER_HARVEST:
+          break;
+        case NULL:
           break;
       }
     }
+  }
 
-    // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
-
-    this.owner = userWorkflow.getOwner();
-    this.workflowName = userWorkflow.getWorkflowName();
-    this.datasetName = dataset.getDatasetName();
-    this.workflowPriority = workflowPriority;
-    VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin(
-        userWorkflow.getVoidDereferencePluginMetadata());
-    voidDereferencePlugin
-        .setId(new ObjectId().toString() + "-" + voidDereferencePlugin.getPluginType().name());
-    metisPlugins.add(voidDereferencePlugin);
-    VoidMetisPlugin voidMetisPlugin = new VoidMetisPlugin(userWorkflow.getVoidMetisPluginMetadata());
-    voidMetisPlugin
-        .setId(new ObjectId().toString() + "-" + voidMetisPlugin.getPluginType().name());
-    metisPlugins.add(voidMetisPlugin);
+  private void addProcessPlugins(UserWorkflow userWorkflow) {
+    AbstractMetisPluginMetadata voidDereferencePluginMetadata = userWorkflow
+        .getVoidDereferencePluginMetadata();
+    if (voidDereferencePluginMetadata != null) {
+      VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin(voidDereferencePluginMetadata);
+      voidDereferencePlugin
+          .setId(new ObjectId().toString() + "-" + voidDereferencePlugin.getPluginType().name());
+      metisPlugins.add(voidDereferencePlugin);
+    }
+    AbstractMetisPluginMetadata voidMetisPluginMetadata = userWorkflow
+        .getVoidMetisPluginMetadata();
+    if (voidMetisPluginMetadata != null) {
+      VoidMetisPlugin voidMetisPlugin = new VoidMetisPlugin(voidMetisPluginMetadata);
+      voidMetisPlugin
+          .setId(new ObjectId().toString() + "-" + voidMetisPlugin.getPluginType().name());
+      metisPlugins.add(voidMetisPlugin);
+    }
   }
 
   public ObjectId getId() {

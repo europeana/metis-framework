@@ -21,7 +21,6 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import java.util.Date;

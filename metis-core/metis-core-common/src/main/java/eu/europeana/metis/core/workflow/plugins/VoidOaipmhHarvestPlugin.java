@@ -3,8 +3,6 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
@@ -16,7 +14,6 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private final PluginType pluginType = PluginType.OAIPMH_HARVEST;
-  private String metadataSchema;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -29,11 +26,14 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   private Date finishedDate;
   private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
+  private AbstractMetisPluginMetadata pluginMetadata;
+
   public VoidOaipmhHarvestPlugin() {
   }
 
-  public VoidOaipmhHarvestPlugin(String metadataSchema) {
-    this.metadataSchema = metadataSchema;
+  public VoidOaipmhHarvestPlugin(
+      AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
   }
 
   public String getId() {
@@ -42,6 +42,17 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  @Override
+  public AbstractMetisPluginMetadata getPluginMetadata() {
+    return pluginMetadata;
+  }
+
+  @Override
+  public void setPluginMetadata(
+      AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
   }
 
   @Override
@@ -101,24 +112,7 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public void setParameters(Map<String, List<String>> parameters) {
-  }
-
-  @Override
-  public Map<String, List<String>> getParameters() {
-    return null;
-  }
-
-  @Override
   public void execute() {
-  }
-
-  public String getMetadataSchema() {
-    return metadataSchema;
-  }
-
-  public void setMetadataSchema(String metadataSchema) {
-    this.metadataSchema = metadataSchema;
   }
 
   @Override

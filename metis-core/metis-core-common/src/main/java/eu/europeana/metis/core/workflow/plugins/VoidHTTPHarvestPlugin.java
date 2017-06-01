@@ -3,8 +3,6 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
@@ -28,12 +26,33 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
   private Date finishedDate;
   private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
+  private AbstractMetisPluginMetadata pluginMetadata;
+
+  public VoidHTTPHarvestPlugin() {
+  }
+
+  public VoidHTTPHarvestPlugin(
+      AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
+  }
+
   public String getId() {
     return id;
   }
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  @Override
+  public AbstractMetisPluginMetadata getPluginMetadata() {
+    return pluginMetadata;
+  }
+
+  @Override
+  public void setPluginMetadata(
+      AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
   }
 
   @Override
@@ -84,16 +103,6 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
   public void setExecutionRecordsStatistics(
       ExecutionRecordsStatistics executionRecordsStatistics) {
     this.executionRecordsStatistics = executionRecordsStatistics;
-  }
-
-  @Override
-  public void setParameters(Map<String, List<String>> parameters) {
-
-  }
-
-  @Override
-  public Map<String, List<String>> getParameters() {
-    return null;
   }
 
   @Override

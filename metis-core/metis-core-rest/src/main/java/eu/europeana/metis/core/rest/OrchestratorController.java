@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Orchestration REST Endpoint
- * Created by ymamakis on 11/15/16.
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2017-05-28
  */
 @Controller
 public class OrchestratorController {
@@ -154,85 +154,13 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get a userWorkflowExecution by datasetName, owner and workflowName", response = UserWorkflowExecution.class)
-  public UserWorkflowExecution getUserWorkflowExecution(@PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+  @ApiOperation(value = "Get running userWorkflowExecution by datasetName, owner and workflowName", response = UserWorkflowExecution.class)
+  public UserWorkflowExecution getRunningUserWorkflowExecution(@PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflowExecution userWorkflowExecution = orchestratorService
-        .getUserWorkflowExecution(datasetName, owner, workflowName);
+        .getRunningUserWorkflowExecution(datasetName, owner, workflowName);
     LOGGER.info(
         "UserWorkflowExecution with datasetName '" + datasetName + "' with owner '" + owner + "' and workflowName '" + workflowName + "' found");
     return userWorkflowExecution;
   }
-
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.ORCHESTRATION_SCHEDULE, consumes = "application/json")
-//    public String schedule(@PathVariable("datasetId") String datasetId, @PathVariable("operation") String operation,
-//                           @RequestBody(required = false) Map<String, List<String>> params, @PathVariable("millis") long millis,
-//                           @RequestParam("operatorEmail") String operatorEmail) throws NoDatasetFoundException {
-//        return orchestratorService.schedule(datasetId, operation, operatorEmail, params, millis);
-//    }
-//
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_SCHEDULED)
-//    public void executeScheduled() {
-//        orchestratorService.executeScheduled();
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_ACTIVE)
-//    public List<Execution> getActiveExecutions(@RequestParam("operatorEmail") String operatorEmail) {
-//        return orchestratorService.getActiveExecutions(operatorEmail);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_BYID)
-//    public Execution getExecution(@PathVariable("executionId") String executionId) {
-//        return orchestratorService.getExecution(executionId);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_RANGE)
-//    public List<Execution> getExecutionsByDate(@RequestParam("start") long start, @RequestParam("end") long end,
-//                                               @RequestParam("operatorEmail") String operatorEmail) {
-//        return orchestratorService
-//            .getExecutionsByDates(new Date(start), new Date(end), operatorEmail);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_EXECUTIONS)
-//    public List<Execution> getExecutions(@RequestParam("offset") int offset, @RequestParam("limit") int limit,
-//                                         @RequestParam("operatorEmail") String operatorEmail) {
-//        return orchestratorService.getAllExecutions(offset, limit, operatorEmail);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_DATASET)
-//    public List<Execution> getExecutionsForDataset(@PathVariable("datasetId") String datasetId,
-//                                                   @RequestParam("offset") int offset, @RequestParam("limit") int limit,
-//                                                   @RequestParam("operatorEmail") String operatorEmail) throws NoDatasetFoundException {
-//        return orchestratorService
-//            .getAllExecutionsForDataset(datasetId, offset, limit, operatorEmail);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_RANGE_DATASET)
-//    public List<Execution> getExecutionsForDatasetByDate(@PathVariable("datasetId") String datasetId,
-//                                                         @RequestParam("offset") int offset, @RequestParam("limit") int limit,
-//                                                         @RequestParam("start") long start, @RequestParam("end") long end,
-//                                                         @RequestParam("operatorEmail") String operatorEmail) throws NoDatasetFoundException {
-//        return orchestratorService
-//            .getAllExecutionsForDatasetByDates(datasetId, offset, limit, new Date(start), new Date(end), operatorEmail);
-//    }
-//
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(method = RequestMethod.DELETE, value = RestEndpoints.ORCHESTRATION_BYID)
-//    public void cancelExecution(@PathVariable("executionId") String executionId) {
-//        orchestratorService.cancel(executionId);
-//    }
-//
-//    @ResponseBody
-//    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.ORCHESTRATION_FAILED)
-//    public List<String> getFailedRecords(@PathVariable("executionId") String executionId, @RequestParam("offset") int offset, @RequestParam("limit") int limit) {
-//        return orchestratorService.getFailedRecords(executionId, offset, limit);
-//    }
 }

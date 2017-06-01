@@ -30,13 +30,14 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   private Date finishedDate;
   private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
+  private AbstractMetisPluginMetadata pluginMetadata;
+
   public VoidDereferencePlugin() {
   }
 
-  public VoidDereferencePlugin(VoidDereferencePluginMetadata voidDereferencePluginMetadata)
+  public VoidDereferencePlugin(AbstractMetisPluginMetadata pluginMetadata)
   {
-    if (voidDereferencePluginMetadata != null)
-      this.parameters = voidDereferencePluginMetadata.getParameters();
+    this.pluginMetadata = pluginMetadata;
   }
 
   public String getId() {
@@ -45,6 +46,17 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  @Override
+  public AbstractMetisPluginMetadata getPluginMetadata() {
+    return pluginMetadata;
+  }
+
+  @Override
+  public void setPluginMetadata(
+      AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
   }
 
   @Override
@@ -61,6 +73,8 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   public PluginType getPluginType() {
     return pluginType;
   }
+
+
 
   @Override
   public Date getStartedDate() {
@@ -101,16 +115,6 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   public void setExecutionRecordsStatistics(
       ExecutionRecordsStatistics executionRecordsStatistics) {
     this.executionRecordsStatistics = executionRecordsStatistics;
-  }
-
-  @Override
-  public void setParameters(Map<String, List<String>> parameters) {
-    this.parameters = parameters;
-  }
-
-  @Override
-  public Map<String, List<String>> getParameters() {
-    return parameters;
   }
 
   @Override
