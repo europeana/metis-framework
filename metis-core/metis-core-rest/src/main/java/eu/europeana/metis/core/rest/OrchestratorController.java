@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
@@ -184,13 +183,38 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowStatus", value = "workflowStatus", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
-  @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, owner and workflowName", response = DatasetListWrapper.class)
+  @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, owner by workflowName and workflowStatus", response = UserWorkflowExecutionWrapper.class)
   public UserWorkflowExecutionWrapper getAllUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
-      @QueryParam("workflowName") String workflowName, @QueryParam("workflowStatus") WorkflowStatus workflowStatus, @QueryParam("nextPage") String nextPage) {
+      @QueryParam("workflowName") String workflowName,
+      @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
+      @QueryParam("nextPage") String nextPage) {
     UserWorkflowExecutionWrapper userWorkflowExecutionWrapper = new UserWorkflowExecutionWrapper();
     userWorkflowExecutionWrapper.setUserWorkflowExecutionsAndLastPage(orchestratorService
             .getAllUserWorkflowExecutions(datasetName, owner, workflowName, workflowStatus, nextPage),
+        orchestratorService.getUserWorkflowExecutionsPerRequest());
+    LOGGER.info("Batch of: " + userWorkflowExecutionWrapper.getListSize()
+        + " userWorkflowExecutions returned, using batch nextPage: " + nextPage);
+    return userWorkflowExecutionWrapper;
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "workflowStatus", value = "workflowStatus", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
+  })
+  @ApiOperation(value = "Get all userWorkflowExecutions by workflowStatus", response = UserWorkflowExecutionWrapper.class)
+  public UserWorkflowExecutionWrapper getAllUserWorkflowExecutions(
+      @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
+      @QueryParam("nextPage") String nextPage) {
+    UserWorkflowExecutionWrapper userWorkflowExecutionWrapper = new UserWorkflowExecutionWrapper();
+    userWorkflowExecutionWrapper.setUserWorkflowExecutionsAndLastPage(orchestratorService
+            .getAllUserWorkflowExecutions(workflowStatus, nextPage),
         orchestratorService.getUserWorkflowExecutionsPerRequest());
     LOGGER.info("Batch of: " + userWorkflowExecutionWrapper.getListSize()
         + " userWorkflowExecutions returned, using batch nextPage: " + nextPage);

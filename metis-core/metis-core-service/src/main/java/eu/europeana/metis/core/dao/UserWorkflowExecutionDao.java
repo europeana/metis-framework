@@ -137,4 +137,17 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     }
     return query.asList(new FindOptions().limit(userWorkflowExecutionsPerRequest));
   }
+
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus, String nextPage) {
+    Query<UserWorkflowExecution> query = provider.getDatastore()
+        .createQuery(UserWorkflowExecution.class);
+    if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
+      query.field("workflowStatus").equal(workflowStatus);
+    }
+    query.order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(userWorkflowExecutionsPerRequest));
+  }
 }

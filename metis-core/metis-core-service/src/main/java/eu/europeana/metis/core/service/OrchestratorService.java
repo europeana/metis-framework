@@ -140,6 +140,10 @@ public class OrchestratorService {
     return userWorkflowExecutionDao.getAllUserWorkflowExecutions(datasetName, owner, workflowName, workflowStatus, nextPage);
   }
 
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus, String nextPage) {
+    return userWorkflowExecutionDao.getAllUserWorkflowExecutions(workflowStatus, nextPage);
+  }
+
   /**
    * Execute all scheduled jobs that have not started. This is updated every one hour.
    */
