@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
@@ -9,6 +10,8 @@ import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsExce
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.UserWorkflowExecutionWrapper;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
@@ -112,8 +115,9 @@ public class OrchestratorController {
       @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
-    if (priority == null)
+    if (priority == null) {
       priority = 0;
+    }
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
             workflowName, priority);
@@ -155,12 +159,41 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Get running userWorkflowExecution by datasetName, owner and workflowName", response = UserWorkflowExecution.class)
-  public UserWorkflowExecution getRunningUserWorkflowExecution(@PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+  public UserWorkflowExecution getRunningUserWorkflowExecution(
+      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflowExecution userWorkflowExecution = orchestratorService
         .getRunningUserWorkflowExecution(datasetName, owner, workflowName);
     LOGGER.info(
-        "UserWorkflowExecution with datasetName '" + datasetName + "' with owner '" + owner + "' and workflowName '" + workflowName + "' found");
+        "UserWorkflowExecution with datasetName '" + datasetName + "' with owner '" + owner
+            + "' and workflowName '" + workflowName + "' found");
     return userWorkflowExecution;
+  }
+
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowStatus", value = "workflowStatus", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
+  })
+  @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, owner and workflowName", response = DatasetListWrapper.class)
+  public UserWorkflowExecutionWrapper getAllUserWorkflowExecutions(
+      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @QueryParam("workflowName") String workflowName, @QueryParam("workflowStatus") WorkflowStatus workflowStatus, @QueryParam("nextPage") String nextPage) {
+    UserWorkflowExecutionWrapper userWorkflowExecutionWrapper = new UserWorkflowExecutionWrapper();
+    userWorkflowExecutionWrapper.setUserWorkflowExecutionsAndLastPage(orchestratorService
+            .getAllUserWorkflowExecutions(datasetName, owner, workflowName, workflowStatus, nextPage),
+        orchestratorService.getUserWorkflowExecutionsPerRequest());
+    LOGGER.info("Batch of: " + userWorkflowExecutionWrapper.getListSize()
+        + " userWorkflowExecutions returned, using batch nextPage: " + nextPage);
+    return userWorkflowExecutionWrapper;
   }
 }

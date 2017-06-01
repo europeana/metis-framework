@@ -21,10 +21,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.List;
 
-/**
- * List of Datasets wrapper
- * Created by ymamakis on 3/2/16.
- */
 public class DatasetListWrapper {
 
   @JacksonXmlElementWrapper(localName = "Datasets")

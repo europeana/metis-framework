@@ -50,8 +50,8 @@ public class UserWorkflowExecution {
   private WorkflowStatus workflowStatus;
   @Indexed
   private String datasetName;
-  int workflowPriority;
-  boolean harvest;
+  private int workflowPriority;
+  private boolean harvest;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")

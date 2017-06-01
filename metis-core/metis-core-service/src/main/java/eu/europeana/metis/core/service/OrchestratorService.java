@@ -13,6 +13,7 @@ import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -128,44 +129,16 @@ public class OrchestratorService {
     return userWorkflowDao.exists(userWorkflow);
   }
 
+  public int getUserWorkflowExecutionsPerRequest()
+  {
+    return userWorkflowExecutionDao.getUserWorkflowExecutionsPerRequest();
+  }
 
-//    /**
-//     * Execute the worklow that supports the selected operation
-//     * @param datasetId The dataset Id for which to create the workflow execution
-//     * @param name The operation to be performed. This parameter is required to filter out the UserWorkflow
-//     * @param params The execution parameters
-//     * @return The URL that the execution is available through
-//     */
-//    public String execute(String datasetId, String name, String operatorMail, Map<String, List<String>> params) throws NoDatasetFoundException {
-//       // if(datasetService.exists(datasetId)) {
-//        if(true){
-//            AbstractMetisPlugin workflow = (AbstractMetisPlugin) registry.getPluginFor(name);
-//            Execution execution = new Execution();
-//            execution.setId(new ObjectId());
-//            execution.setDatasetId(datasetId);
-//            execution.setWorkflow(name);
-//            execution.setStartedAt(new Date());
-//            execution.setUpdatedAt(new Date());
-//            execution.setActive(true);
-//            execution.setOperatorEmail(operatorMail);
-//            if(params==null){
-//                params = new HashMap<>();
-//            }
-//            List<String> paramList = new ArrayList<>();
-//            paramList.add(datasetId);
-//            params.put(WorkflowParameters.DATASET,paramList);
-//            List<String> executionParams = new ArrayList<>();
-//            executionParams.add(execution.getId().toString());
-//            params.put(WorkflowParameters.EXECUTION,executionParams);
-//            workflow.setParameters(params);
-//            execution.setStatisticsUrl("/" + execution.getId().toString());
-//            execution.setExecutionParameters(params);
-//            executionDao.save(execution);
-//            workflow.execute();
-//            return execution.getStatisticsUrl();
-//        }
-//            throw new NoDatasetFoundException(datasetId);
-//    }
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String owner,
+      String workflowName,
+      WorkflowStatus workflowStatus, String nextPage) {
+    return userWorkflowExecutionDao.getAllUserWorkflowExecutions(datasetName, owner, workflowName, workflowStatus, nextPage);
+  }
 
   /**
    * Execute all scheduled jobs that have not started. This is updated every one hour.
@@ -194,97 +167,6 @@ public class OrchestratorService {
 //    return getExecutions(null, null, null, null, null, null, true, false, null, operatorEmail);
 //  }
 //
-//  /**
-//   * Get all cancelled executions
-//   */
-//  public List<Execution> getCancelledExecutions(String operatorEmail) {
-//    return getExecutions(null, null, null, null, null, null, false, true, null, operatorEmail);
-//  }
-//
-//  /**
-//   * Get all finished executions
-//   */
-//  public List<Execution> getFinishedExecutions(String operatorEmail) {
-//    return getExecutions(null, null, null, null, new Date(), null, false, null, null,
-//        operatorEmail);
-//  }
-//
-//  /**
-//   * Get all executions by workflow
-//   */
-//  public List<Execution> getByWorkflowExecutions(String workflow, String operatorEmail) {
-//    return getExecutions(null, null, null, null, null, null, false, null, workflow, operatorEmail);
-//  }
-//
-//
-//  /**
-//   * Get a specific execution
-//   *
-//   * @param id The id of the execution
-//   * @return The execution along with its current execution statistics
-//   */
-//  public Execution getExecution(String id) {
-//    return executionDao.findOne("id", new ObjectId(id));
-//  }
-//
-//  /**
-//   * Get executions by date range
-//   *
-//   * @param start The starting date
-//   * @param end The final date
-//   * @return The list of executions that matches the search criteria
-//   */
-//  public List<Execution> getExecutionsByDates(Date start, Date end, String operatorEmail) {
-//    return getExecutions(null, null, null, start, end, null, null, null, null, operatorEmail);
-//  }
-//
-//  /**
-//   * Get executions paginated
-//   *
-//   * @param offset The offset of the search
-//   * @param limit The number of results to retrieve
-//   * @return The List of executions that correspond to the query
-//   */
-//  public List<Execution> getAllExecutions(int offset, int limit, String operatorEmail) {
-//    return getExecutions(null, offset, limit, null, null, null, null, null, null, operatorEmail);
-//  }
-//
-//  /**
-//   * Get all the executions for a dataset
-//   *
-//   * @param datasetId The dataset identifier
-//   * @param offset The offset of the retrieval results
-//   * @param limit The number of results to retrieve
-//   * @return The List of executions that correspond to the query
-//   */
-//  public List<Execution> getAllExecutionsForDataset(String datasetId, int offset, int limit,
-//      String operatorEmail) throws NoDatasetFoundException {
-//    //if(datasetService.exists(datasetId)) {
-//    if (true) {
-//      return getExecutions(datasetId, offset, limit, null, null, null, null, null, null,
-//          operatorEmail);
-//    }
-//    throw new NoDatasetFoundException(datasetId);
-//  }
-//
-//  /**
-//   * Get all the execution ids for a given dataset on given dates
-//   *
-//   * @param datasetId The dataset identifier
-//   * @param offset The offset of the retrieval results
-//   * @param limit The number of results to retrieve
-//   * @param start The start date
-//   * @param end The end date
-//   * @return The List of executions that correspond to the query
-//   */
-//  public List<Execution> getAllExecutionsForDatasetByDates(String datasetId, int offset, int limit,
-//      Date start, Date end, String operatorEmail) throws NoDatasetFoundException {
-//    if (datasetDao.existsDatasetByDatasetName(datasetId)) {
-//      return getExecutions(datasetId, offset, limit, start, end, null, null, null, null,
-//          operatorEmail);
-//    }
-//    throw new NoDatasetFoundException(datasetId);
-//  }
 
   /**
    * Update the execution statistics. Currently set to every 10 seconds
