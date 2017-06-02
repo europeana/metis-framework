@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Value;
  */
 public class EcloudDatasetDao implements MetisDao<DataSet, String> {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(EcloudDatasetDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EcloudDatasetDao.class);
 
   private final DataSetServiceClient dataSetServiceClient;
 

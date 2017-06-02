@@ -20,7 +20,6 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -53,7 +52,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Api("/")
 public class DatasetController {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(DatasetController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetController.class);
 
   private final DatasetService datasetService;
   private final MetisAuthorizationService authorizationService;
@@ -226,21 +225,21 @@ public class DatasetController {
       @ApiImplicitParam(name = "dataProvider", value = "dataProvider", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
-  @ApiOperation(value = "Get all datasets by dataProvider", response = DatasetListWrapper.class)
-  public DatasetListWrapper getAllDatasetsByDataProvider(@PathVariable("dataProvider") String dataProvider,
+  @ApiOperation(value = "Get all datasets by dataProvider", response = ResponseListWrapper.class)
+  public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(@PathVariable("dataProvider") String dataProvider,
       @QueryParam("nextPage"
       ) String nextPage, @QueryParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
-      DatasetListWrapper datasetListWrapper = new DatasetListWrapper();
-      datasetListWrapper
-          .setDatasetsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
+      ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
+      responseListWrapper
+          .setResultsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
               datasetService.getDatasetsPerRequestLimit());
-      LOGGER.info("Batch of: " + datasetListWrapper.getListSize()
+      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
           + " datasets returned, using batch nextPage: " + nextPage);
-      return datasetListWrapper;
+      return responseListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {

@@ -28,8 +28,9 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetListWrapper;
+//import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.ServerError;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import java.util.List;
@@ -139,7 +140,7 @@ public class DsOrgRestClient {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
         }
     }
-
+d
     /**
      * Retrieve all the organizations stored in METIS (OK)
      * @return The list of all the organizations stored in METIS
@@ -168,7 +169,7 @@ public class DsOrgRestClient {
     public List<Dataset> getDatasetsForOrganization(String id) throws ServerException {
         try {
             List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(
-                ORGANIZATIONS_ORGANIZATION_ID_DATASETS,id), DatasetListWrapper.class).getDatasets();
+                ORGANIZATIONS_ORGANIZATION_ID_DATASETS,id), ResponseListWrapper.class).getResults();
             return datasets;
         } catch (Exception e) {
             throw new ServerException("Datasets could not be retrieved with error: " + e.getMessage());

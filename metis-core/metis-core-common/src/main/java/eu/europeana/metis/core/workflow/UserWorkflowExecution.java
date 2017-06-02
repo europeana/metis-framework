@@ -37,7 +37,7 @@ import org.mongodb.morphia.annotations.Indexes;
 @JsonPropertyOrder({"id", "onwer", "workflowName", "workflowStatus", "datasetName",
     "workflowPriority", "harvest", "createdDate", "startedDate", "updatedDate", "finishedDate",
     "voidHTTPHarvestPlugin", "voidOaipmhHarvestPlugin", "voidDereferencePlugin", "voidMetisPlugin"})
-public class UserWorkflowExecution {
+public class UserWorkflowExecution implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -138,10 +138,12 @@ public class UserWorkflowExecution {
     }
   }
 
+  @Override
   public ObjectId getId() {
     return id;
   }
 
+  @Override
   public void setId(ObjectId id) {
     this.id = id;
   }

@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by gmamakis on 7-2-17.
  */
 public class AuthorizationDao implements MetisDao<MetisKey, String> {
-    private final Logger LOGGER = LoggerFactory.getLogger(AuthorizationDao.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationDao.class);
 
     @Autowired
     private MorphiaDatastoreProvider provider;

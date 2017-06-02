@@ -15,6 +15,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrchestratorService {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(OrchestratorService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorService.class);
 
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
   private final UserWorkflowDao userWorkflowDao;
@@ -53,12 +54,22 @@ public class OrchestratorService {
     userWorkflowDao.create(userWorkflow);
   }
 
+  public void updateUserWorkflow(UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
+    String storedId = checkRestrictionsOnUserWorkflowUpdate(userWorkflow);
+    userWorkflow.setId(new ObjectId(storedId));
+    userWorkflowDao.update(userWorkflow);
+  }
+
   public void deleteUserWorkflow(String owner, String workflowName) {
     userWorkflowDao.deleteUserWorkflow(owner, workflowName);
   }
 
   public UserWorkflow getUserWorkflow(String owner, String workflowName) {
     return userWorkflowDao.getUserWorkflow(owner, workflowName);
+  }
+
+  public List<UserWorkflow> getAllUserWorkflows(String owner, String nextPage) {
+    return userWorkflowDao.getAllUserWorkflows(owner, nextPage);
   }
 
   public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String owner, String workflowName) {
@@ -117,7 +128,7 @@ public class OrchestratorService {
   private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
       throws BadContentException {
 
-    if (workflowExists(userWorkflow)) {
+    if (StringUtils.isNotEmpty(workflowExists(userWorkflow))) {
       throw new BadContentException(
           "UserWorkflow with owner: " + userWorkflow.getOwner() + " and workflowName: "
               + userWorkflow
@@ -125,13 +136,32 @@ public class OrchestratorService {
     }
   }
 
-  private boolean workflowExists(UserWorkflow userWorkflow) {
+  private String checkRestrictionsOnUserWorkflowUpdate(UserWorkflow userWorkflow)
+      throws NoUserWorkflowFoundException {
+
+    String storedId = workflowExists(userWorkflow);
+    if (StringUtils.isEmpty(storedId)) {
+      throw new NoUserWorkflowFoundException(
+          "UserWorkflow with owner: " + userWorkflow.getOwner() + " and workflowName: "
+              + userWorkflow
+              .getWorkflowName() + " not found");
+    }
+
+    return storedId;
+  }
+
+  private String workflowExists(UserWorkflow userWorkflow) {
     return userWorkflowDao.exists(userWorkflow);
   }
 
   public int getUserWorkflowExecutionsPerRequest()
   {
     return userWorkflowExecutionDao.getUserWorkflowExecutionsPerRequest();
+  }
+
+  public int getUserWorkflowsPerRequest()
+  {
+    return userWorkflowDao.getUserWorkflowsPerRequest();
   }
 
   public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String owner,

@@ -23,6 +23,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -35,7 +36,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * Created by ymamakis on 2/17/16.
  */
 @Entity
-public class Dataset {
+public class Dataset implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)

@@ -37,7 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class DatasetDao implements MetisDao<Dataset, String> {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
   private int datasetsPerRequest = 5;
 
   private final MorphiaDatastoreProvider provider;

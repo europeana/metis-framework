@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutor.class);
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;

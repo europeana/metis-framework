@@ -212,12 +212,18 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public UserWorkflowExecutionDao getUserWorkflowExecutionDao(
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new UserWorkflowExecutionDao(morphiaDatastoreProvider);
+    UserWorkflowExecutionDao userWorkflowExecutionDao = new UserWorkflowExecutionDao(
+        morphiaDatastoreProvider);
+    userWorkflowExecutionDao.setUserWorkflowExecutionsPerRequest(RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
+    return userWorkflowExecutionDao;
+
   }
 
   @Bean
   public UserWorkflowDao getUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new UserWorkflowDao(morphiaDatastoreProvider);
+    UserWorkflowDao userWorkflowDao = new UserWorkflowDao(morphiaDatastoreProvider);
+    userWorkflowDao.setUserWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
+    return userWorkflowDao;
   }
 
   @Bean

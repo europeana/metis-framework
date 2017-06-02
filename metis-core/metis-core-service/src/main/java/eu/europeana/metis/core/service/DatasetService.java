@@ -42,7 +42,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DatasetService {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
   private final DatasetDao datasetDao;
   private final EcloudDatasetDao ecloudDatasetDao;

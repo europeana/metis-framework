@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution, String> {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutionDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutionDao.class);
   private final MorphiaDatastoreProvider provider;
   private int userWorkflowExecutionsPerRequest = 5;
 
@@ -112,14 +112,6 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return query.get();
   }
 
-  public int getUserWorkflowExecutionsPerRequest() {
-    return userWorkflowExecutionsPerRequest;
-  }
-
-  public void setUserWorkflowExecutionsPerRequest(int userWorkflowExecutionsPerRequest) {
-    this.userWorkflowExecutionsPerRequest = userWorkflowExecutionsPerRequest;
-  }
-
   public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String owner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
@@ -149,5 +141,13 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
     return query.asList(new FindOptions().limit(userWorkflowExecutionsPerRequest));
+  }
+
+  public int getUserWorkflowExecutionsPerRequest() {
+    return userWorkflowExecutionsPerRequest;
+  }
+
+  public void setUserWorkflowExecutionsPerRequest(int userWorkflowExecutionsPerRequest) {
+    this.userWorkflowExecutionsPerRequest = userWorkflowExecutionsPerRequest;
   }
 }

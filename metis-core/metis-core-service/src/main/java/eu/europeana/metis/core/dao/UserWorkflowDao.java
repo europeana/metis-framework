@@ -3,7 +3,11 @@ package eu.europeana.metis.core.dao;
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.UserWorkflow;
+import java.util.List;
+import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
  * @since 2017-05-29
  */
 public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
-  private final Logger LOGGER = LoggerFactory.getLogger(UserWorkflow.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflow.class);
+  private int userWorkflowsPerRequest = 5;
   private final MorphiaDatastoreProvider provider;
 
   @Autowired
@@ -33,7 +38,11 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
 
   @Override
   public String update(UserWorkflow userWorkflow) {
-    return null;
+    Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
+        userWorkflow);
+    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' updated with owner '" + userWorkflow
+        .getOwner() + "' in Mongo");
+    return userWorkflowKey.getId().toString();
   }
 
   @Override
@@ -56,11 +65,13 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
     return delete.getN() == 1;
   }
 
-  public boolean exists(UserWorkflow userWorkflow)
+  public String exists(UserWorkflow userWorkflow)
   {
-    return provider.getDatastore().find(UserWorkflow.class).field("owner").equal(
-        userWorkflow.getOwner()).field("workflowName").equal(userWorkflow.getWorkflowName())
-        .project("_id", true).get() != null;
+    UserWorkflow storedUserWorkflow = provider.getDatastore().find(UserWorkflow.class).field("owner")
+        .equal(
+            userWorkflow.getOwner()).field("workflowName").equal(userWorkflow.getWorkflowName())
+        .project("_id", true).get();
+    return storedUserWorkflow!=null?storedUserWorkflow.getId().toString():null;
   }
 
   public UserWorkflow getUserWorkflow(String owner, String workflowName) {
@@ -69,10 +80,23 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
         .get();
   }
 
-  public boolean existsUserWorkflowByOwnerAndWorkflowName(String owner, String workflowName) {
-    return provider.getDatastore().find(UserWorkflow.class).field("owner").equal(owner)
-        .field("workflowName").equal(workflowName)
-        .project("_id", true).get() != null;
+  public List<UserWorkflow> getAllUserWorkflows(String owner, String nextPage) {
+    Query<UserWorkflow> query = provider.getDatastore()
+        .createQuery(UserWorkflow.class);
+    query.field("owner").equal(owner);
+    query.order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(userWorkflowsPerRequest));
+  }
+
+  public int getUserWorkflowsPerRequest() {
+    return userWorkflowsPerRequest;
+  }
+
+  public void setUserWorkflowsPerRequest(int userWorkflowsPerRequest) {
+    this.userWorkflowsPerRequest = userWorkflowsPerRequest;
   }
 }
 
