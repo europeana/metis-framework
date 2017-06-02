@@ -6,12 +6,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
+@Embedded
 public class VoidDereferencePlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;

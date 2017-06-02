@@ -58,9 +58,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return false;
   }
 
-  public UserWorkflowExecution getRunningOrInQueueExecution(String datasetName,
-      String owner,
-      String workflowName) {
+  public UserWorkflowExecution getRunningOrInQueueExecution(String datasetName) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
         .find(UserWorkflowExecution.class)
         .field("datasetName").equal(

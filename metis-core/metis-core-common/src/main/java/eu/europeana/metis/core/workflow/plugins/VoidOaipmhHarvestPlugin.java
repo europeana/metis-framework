@@ -3,12 +3,14 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
+@Embedded
 public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;

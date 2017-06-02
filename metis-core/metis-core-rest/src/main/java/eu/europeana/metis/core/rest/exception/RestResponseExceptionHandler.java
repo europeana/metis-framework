@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -35,13 +36,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
-  @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class, NoApiKeyFoundException.class, IOException.class,
+  @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class,
+      NoApiKeyFoundException.class, IOException.class,
       SolrServerException.class, OrganizationAlreadyExistsException.class, ServletException.class,
-      NoOrganizationFoundException.class, BadContentException.class, DatasetAlreadyExistsException.class,
-      NoDatasetFoundException.class, NoUserWorkflowFoundException.class, UserWorkflowExecutionAlreadyExistsException.class,
-      NoUserWorkflowExecutionFoundException.class, ExecutionException.class, InterruptedException.class})
+      NoOrganizationFoundException.class, BadContentException.class,
+      DatasetAlreadyExistsException.class,
+      NoDatasetFoundException.class, NoUserWorkflowFoundException.class,
+      UserWorkflowExecutionAlreadyExistsException.class,
+      NoUserWorkflowExecutionFoundException.class, ExecutionException.class,
+      InterruptedException.class})
   @ResponseBody
-  public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex, HttpServletResponse response) {
+  public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
+      HttpServletResponse response) {
     HttpStatus status = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class).value();
     response.setStatus(status.value());
     return new StructuredExceptionWrapper(ex.getMessage());
@@ -49,22 +55,36 @@ public class RestResponseExceptionHandler {
 
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException ex, HttpServletResponse response) {
+  public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException ex,
+      HttpServletResponse response) {
     response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
-    return new StructuredExceptionWrapper("Message body not readable. It is missing or malformed\n" + ex.getMessage());
+    return new StructuredExceptionWrapper(
+        "Message body not readable. It is missing or malformed\n" + ex.getMessage());
   }
 
   @ExceptionHandler(MissingServletRequestParameterException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex, HttpServletResponse response) {
+  public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex,
+      HttpServletResponse response) {
     response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
     return new StructuredExceptionWrapper(ex.getParameterName() + " parameter is missing");
   }
 
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   @ResponseBody
-  public StructuredExceptionWrapper handleMissingParams(HttpRequestMethodNotSupportedException ex, HttpServletResponse response) {
+  public StructuredExceptionWrapper handleMissingParams(HttpRequestMethodNotSupportedException ex,
+      HttpServletResponse response) {
     response.setStatus(HttpStatus.METHOD_NOT_ALLOWED.value());
     return new StructuredExceptionWrapper("Method not allowed: " + ex.getMessage());
+  }
+
+
+  @ExceptionHandler(value = {IllegalStateException.class, MethodArgumentTypeMismatchException.class})
+  @ResponseBody
+  public StructuredExceptionWrapper handleMessageNotReadable(Exception ex,
+      HttpServletResponse response) {
+    response.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+    return new StructuredExceptionWrapper(
+        "Request not readable.\n" + ex.getMessage());
   }
 }

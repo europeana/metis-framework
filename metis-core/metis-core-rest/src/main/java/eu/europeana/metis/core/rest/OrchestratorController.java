@@ -1,10 +1,10 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.UserWorkflow;
@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.concurrent.ExecutionException;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
@@ -56,7 +57,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Create a user workflow")
   public void createUserWorkflow(
       @RequestBody UserWorkflow userWorkflow)
-      throws BadContentException {
+      throws UserWorkflowAlreadyExistsException {
     orchestratorService.createUserWorkflow(userWorkflow);
   }
 
@@ -144,16 +145,13 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "priority", value = "Priority value, 0 is normal the higher number the higher priority", dataType = "int", paramType = "query")
+      @ApiImplicitParam(name = "priority", value = "Priority value, 0 is normal the higher number the higher priority", dataType = "int", paramType = "query", required = true)
   })
   @ApiOperation(value = "Add a user workflow by owner and workflowName for datasetName to the queue of executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
-      @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
+      @QueryParam("workflowName") String workflowName, @QueryParam("priority") int priority)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
-    if (priority == null) {
-      priority = 0;
-    }
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
             workflowName, priority);
@@ -169,19 +167,16 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Cancel a user workflow by owner and workflowName for datasetName")
   public void cancelUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
-      @QueryParam("workflowName") String workflowName)
+      @PathVariable("datasetName") String datasetName)
       throws ExecutionException, NoUserWorkflowExecutionFoundException {
-    orchestratorService.cancelUserWorkflowExecution(datasetName, owner, workflowName);
+    orchestratorService.cancelUserWorkflowExecution(datasetName);
     LOGGER.info(
         "UserWorkflowExecution for datasetName '%s' with owner '%s' and workflowName '%s' cancelled",
-        datasetName, owner, workflowName);
+        datasetName);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
@@ -206,6 +201,29 @@ public class OrchestratorController {
         "UserWorkflowExecution with datasetName '%s' with owner '%s' and workflowName '%s' found",
         datasetName, owner, workflowName);
     return userWorkflowExecution;
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.CREATED)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 201, message = "Successful response"),
+      @ApiResponse(code = 406, message = "Bad content")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
+      @ApiImplicitParam(name = "priority", value = "Priority value, 0 is normal the higher number the higher priority", dataType = "int", defaultValue = "0", paramType = "query", required = true)
+  })
+  @ApiOperation(value = "Create a user workflow directly sending userWorkflow")
+  public void addUserWorkflowInQueueOfUserWorkflowExecutions(
+      @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
+      @DefaultValue("0") @QueryParam("priority") int priority)
+      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
+    orchestratorService
+        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, userWorkflow, priority);
+    LOGGER.info(
+        "UserWorkflowExecution for datasetName '%s' with owner '%s' started", datasetName,
+        userWorkflow.getOwner());
   }
 
 

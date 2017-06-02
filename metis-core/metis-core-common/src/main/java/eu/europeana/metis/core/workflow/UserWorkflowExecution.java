@@ -33,7 +33,7 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-05-26
  */
 @Entity
-@Indexes(@Index(fields = {@Field("owner"), @Field("workflowName")}))
+@Indexes({@Index(fields = {@Field("owner"), @Field("workflowName")})})
 @JsonPropertyOrder({"id", "onwer", "workflowName", "workflowStatus", "datasetName",
     "workflowPriority", "harvest", "createdDate", "startedDate", "updatedDate", "finishedDate",
     "voidHTTPHarvestPlugin", "voidOaipmhHarvestPlugin", "voidDereferencePlugin", "voidMetisPlugin"})

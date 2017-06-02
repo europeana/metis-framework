@@ -24,6 +24,10 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPlugin;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.springframework.stereotype.Component;
@@ -46,6 +50,10 @@ public class MorphiaDatastoreProvider {
         morphia.map(MetisKey.class);
         morphia.map(UserWorkflow.class);
         morphia.map(UserWorkflowExecution.class);
+        morphia.map(VoidOaipmhHarvestPlugin.class);
+        morphia.map(VoidHTTPHarvestPlugin.class);
+        morphia.map(VoidDereferencePlugin.class);
+        morphia.map(VoidMetisPlugin.class);
         datastore = morphia.createDatastore(mongoClient,db);
         datastore.ensureIndexes();
     }

@@ -61,7 +61,7 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
     query.field("owner").equal(owner);
     query.field("workflowName").equal(workflowName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("UserWorkflow with owner '" + owner + "' and workflowName '" + workflowName + "' deleted from Mongo");
+    LOGGER.info("UserWorkflow with owner: %s, and workflowName %s, deleted from Mongo", owner, workflowName);
     return delete.getN() == 1;
   }
 
