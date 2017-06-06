@@ -23,12 +23,13 @@ import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
-import eu.europeana.metis.core.common.HarvestingMetadata;
+import eu.europeana.metis.core.dataset.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.common.Scope;
 import eu.europeana.metis.core.common.Sector;
+import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -44,7 +45,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * Created by ymamakis on 2/17/16.
  */
 @Entity
-public class Organization {
+public class Organization implements HasMongoObjectId {
     @Id
     @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;

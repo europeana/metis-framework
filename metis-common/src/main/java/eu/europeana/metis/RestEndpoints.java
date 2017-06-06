@@ -10,7 +10,7 @@ public final class RestEndpoints {
 
     /* METIS-CORE Endopoints*/
 
-  //Organizations
+  //ORGANIZATIONS
   public final static String ORGANIZATIONS = "/organizations";
   public final static String ORGANIZATIONS_ORGANIZATION_ID = "/organizations/{organizationId}";
   public final static String ORGANIZATIONS_COUNTRY_ISOCODE = "/organizations/country/{isoCode}";
@@ -21,15 +21,24 @@ public final class RestEndpoints {
   public final static String ORGANIZATIONS_CRM_ORGANIZATION_ID = "/organizations/crm/{organizationId}";
   public final static String ORGANIZATIONS_CRM = "/organizations/crm";
 
-  //Datasets
+  //DATASETS
   public final static String DATASETS = "/datasets";
   public final static String DATASETS_DATASETNAME = "/datasets/{datasetName}";
   public final static String DATASETS_DATASETNAME_UPDATENAME = "/datasets/{datasetName}/updateName";
-  public final static String DATASETS_DATAPROVIDER = "/datasets/dataProvider/{dataProvider}";
+  public final static String DATASETS_DATAPROVIDER = "/datasets/data_provider/{dataProvider}";
 
-  //Users
+  //USERS
   public final static String USER = "/user";
   public final static String USERBYMAIL = "/user/{email}";
+
+  //ORCHESTRATION
+  public final static String ORCHESTRATOR_USERWORKFLOWS = "/orchestrator/user_workflows";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_OWNER = "/orchestrator/user_workflows/{owner}";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE = "/orchestrator/user_workflows/{datasetName}/execute";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE_DIRECT = "/orchestrator/user_workflows/{datasetName}/execute/direct";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/user_workflows/execution/{datasetName}";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME = "/orchestrator/user_workflows/executions/{datasetName}";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS = "/orchestrator/user_workflows/executions";
 
   /* METIS-DEREFERENCE Endpoints*/
   public final static String DEREFERENCE = "/dereference";
@@ -97,19 +106,6 @@ public final class RestEndpoints {
 
   /* METIS LINKCHECK SERVICE ENDPOINT*/
   public final static String LINKCHECK = "/linkcheck";
-
-  /* METIS ORCHESTRATION ENDPOINT*/
-  public final static String ORCHESTRATION_TRIGGER_OPERATION = "/orchestration/{datasetId}/{operation}";
-  public final static String ORCHESTRATION_SCHEDULE = "/orchestration/schedule/{datasetId}/{operation}/{millis}";
-  public final static String ORCHESTRATION_SCHEDULED = "/orchestration/scheduled";
-  public final static String ORCHESTRATION_ACTIVE = "/orchestration/active";
-  public final static String ORCHESTRATION_BYID = "/orchestration/execution/{executionId}";
-  public final static String ORCHESTRATION_RANGE = "/orchestration/range";
-  public final static String ORCHESTRATION_EXECUTIONS = "/orchestration";
-  public final static String ORCHESTRATION_DATASET = "/orchestration/{datasetId}";
-  public final static String ORCHESTRATION_RANGE_DATASET = "/orchestration/range/{datasetId}";
-  public final static String ORCHESTRATION_OPERATIONS = "/orchestration/operations";
-  public final static String ORCHESTRATION_FAILED = "/orchestration/failed/{executionId}";
 
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {

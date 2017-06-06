@@ -41,7 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class OrganizationDao implements MetisDao<Organization, String> {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
   private int organizationsPerRequest = 5;
 
   private final MorphiaDatastoreProvider provider;

@@ -37,7 +37,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class DatasetDao implements MetisDao<Dataset, String> {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
   private int datasetsPerRequest = 5;
 
   private final MorphiaDatastoreProvider provider;
@@ -92,7 +92,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     } else {
       ops.unset("lastPublished");
     }
-    ops.set("metadata", dataset.getMetadata());
+    ops.set("harvestingMetadata", dataset.getHarvestingMetadata());
     ops.set("notes", dataset.getNotes());
     ops.set("publishedRecords", dataset.getPublishedRecords());
     ops.set("submittedRecords", dataset.getSubmittedRecords());
@@ -119,7 +119,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     }
 
     ops.set("updatedDate", dataset.getUpdatedDate());
-    ops.set("workflowStatus", dataset.getWorkflowStatus());
+    ops.set("datasetStatus", dataset.getDatasetStatus());
     ops.set("accepted", dataset.isAccepted());
     ops.set("deaSigned", dataset.isDeaSigned());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);

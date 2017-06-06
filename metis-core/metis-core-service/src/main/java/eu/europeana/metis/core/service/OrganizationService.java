@@ -48,7 +48,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrganizationService {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(OrganizationService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationService.class);
 
   private OrganizationDao organizationDao;
   private DatasetDao datasetDao;

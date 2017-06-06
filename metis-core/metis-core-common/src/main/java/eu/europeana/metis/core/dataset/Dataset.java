@@ -21,9 +21,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -36,7 +36,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * Created by ymamakis on 2/17/16.
  */
 @Entity
-public class Dataset {
+public class Dataset implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -104,9 +104,9 @@ public class Dataset {
   @JacksonXmlProperty(localName = "dqa")
   private List<String> dqas;
 
-  private HarvestingMetadata metadata;
+  private HarvestingMetadata harvestingMetadata;
 
-  private WorkflowStatus workflowStatus;
+  private DatasetStatus datasetStatus;
 
   private Country country;
 
@@ -298,20 +298,20 @@ public class Dataset {
     this.dqas = dqas;
   }
 
-  public HarvestingMetadata getMetadata() {
-    return metadata;
+  public HarvestingMetadata getHarvestingMetadata() {
+    return harvestingMetadata;
   }
 
-  public void setMetadata(HarvestingMetadata metadata) {
-    this.metadata = metadata;
+  public void setHarvestingMetadata(HarvestingMetadata harvestingMetadata) {
+    this.harvestingMetadata = harvestingMetadata;
   }
 
-  public WorkflowStatus getWorkflowStatus() {
-    return workflowStatus;
+  public DatasetStatus getDatasetStatus() {
+    return datasetStatus;
   }
 
-  public void setWorkflowStatus(WorkflowStatus workflowStatus) {
-    this.workflowStatus = workflowStatus;
+  public void setDatasetStatus(DatasetStatus datasetStatus) {
+    this.datasetStatus = datasetStatus;
   }
 
   public Country getCountry() {

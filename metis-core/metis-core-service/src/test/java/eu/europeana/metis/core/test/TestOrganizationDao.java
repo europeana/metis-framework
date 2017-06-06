@@ -19,14 +19,12 @@ package eu.europeana.metis.core.test;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.OAIDatasetMetadata;
-import eu.europeana.metis.core.dataset.WorkflowStatus;
+import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -68,7 +66,7 @@ public class TestOrganizationDao {
     org.setOrganizationId("orgId");
     org.setDatasetNames(new TreeSet<String>());
     org.setOrganizationUri("testUri");
-    org.setHarvestingMetadata(new HarvestingMetadata());
+//    org.setHarvestingMetadata(new HarvestingMetadata());
     org.setCountry(Country.ALBANIA);
     ds = new Dataset();
     ds.setOrganizationId(org.getOrganizationId());
@@ -87,7 +85,7 @@ public class TestOrganizationDao {
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
-    ds.setMetadata(new OAIDatasetMetadata());
+//    ds.setHarvestingMetadata(new OaipmhHarvestingDatasetMetadata());
     ds.setDatasetName("testName");
     ds.setNotes("test Notes");
     ds.setPublishedRecords(100);
@@ -101,7 +99,7 @@ public class TestOrganizationDao {
     ds.setSubjects(subjects);
     ds.setSubmissionDate(new Date(1000));
     ds.setUpdatedDate(new Date(1000));
-    ds.setWorkflowStatus(WorkflowStatus.ACCEPTANCE);
+    ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
 
     dsDao = new DatasetDao(provider);
     dsDao.setDatasetsPerRequest(5);

@@ -17,10 +17,24 @@
 
 package eu.europeana.metis.core.common;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * The list of harvesting types supported by METIS
  * Created by ymamakis on 2/17/16.
  */
 public enum HarvestType {
-    UNSPECIFIED,FTP,HTTP,OAIPMH,FOLDER;
+  FTP_HARVEST, HTTP_HARVEST, OAIPMH_HARVEST, FOLDER_HARVEST, NULL;
+
+  @JsonCreator
+  public static HarvestType getHarvestTypeFromEnumName(
+      @JsonProperty("harvestName") String harvestName) {
+    for (HarvestType harvestType : HarvestType.values()) {
+      if (harvestType.name().equalsIgnoreCase(harvestName)) {
+        return harvestType;
+      }
+    }
+    return NULL;
+  }
 }

@@ -26,9 +26,9 @@ import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.ExecutionDao;
-import eu.europeana.metis.core.dao.FailedRecordsDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
+import eu.europeana.metis.core.dao.UserWorkflowDao;
+import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.mail.config.MailConfig;
@@ -39,15 +39,11 @@ import eu.europeana.metis.core.search.service.MetisSearchService;
 import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
-import eu.europeana.metis.core.service.Orchestrator;
+import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.workflow.AbstractMetisWorkflow;
-import eu.europeana.metis.core.workflow.Execution;
-import eu.europeana.metis.core.workflow.FailedRecords;
-import eu.europeana.metis.core.workflow.VoidMetisWorkflow;
+import eu.europeana.metis.core.service.UserWorkflowExecutorManager;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import eu.europeana.metis.workflow.qa.QAWorkflow;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
@@ -59,7 +55,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.annotation.Scope;
@@ -67,7 +62,6 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
-import org.springframework.plugin.core.config.EnablePluginRegistries;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -92,7 +86,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
 @EnableSwagger2
-@EnablePluginRegistries(AbstractMetisWorkflow.class)
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
@@ -173,7 +166,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
-
   @Bean
   @Scope("singleton")
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
@@ -204,22 +196,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public ExecutionDao getExecutionDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    Morphia morphia = new Morphia();
-    morphia.map(Execution.class);
-    return new ExecutionDao(morphiaDatastoreProvider.getDatastore().getMongo(), morphia,
-        morphiaDatastoreProvider.getDatastore().getDB().getName());
-  }
-
-  @Bean
-  public FailedRecordsDao getFailedRecordsDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    Morphia morphia = new Morphia();
-    morphia.map(FailedRecords.class);
-    return new FailedRecordsDao(morphiaDatastoreProvider.getDatastore().getMongo(), morphia,
-        morphiaDatastoreProvider.getDatastore().getDB().getName());
-  }
-
-  @Bean
   public AuthorizationDao getAuthorizationDao() {
     Morphia morphia = new Morphia();
     morphia.map(MetisKey.class);
@@ -231,6 +207,23 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
     datasetDao.setDatasetsPerRequest(RequestLimits.DATASETS_PER_REQUEST.getLimit());
     return datasetDao;
+  }
+
+  @Bean
+  public UserWorkflowExecutionDao getUserWorkflowExecutionDao(
+      MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    UserWorkflowExecutionDao userWorkflowExecutionDao = new UserWorkflowExecutionDao(
+        morphiaDatastoreProvider);
+    userWorkflowExecutionDao.setUserWorkflowExecutionsPerRequest(RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
+    return userWorkflowExecutionDao;
+
+  }
+
+  @Bean
+  public UserWorkflowDao getUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    UserWorkflowDao userWorkflowDao = new UserWorkflowDao(morphiaDatastoreProvider);
+    userWorkflowDao.setUserWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
+    return userWorkflowDao;
   }
 
   @Bean
@@ -273,21 +266,18 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public Orchestrator getOrchestrator() {
-    return new Orchestrator();
+  public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
+      UserWorkflowExecutionDao userWorkflowExecutionDao) {
+    return new UserWorkflowExecutorManager(userWorkflowExecutionDao);
   }
 
   @Bean
-  public VoidMetisWorkflow getVoidMetisWorkflow() {
-    return new VoidMetisWorkflow();
+  public OrchestratorService getOrchestratorService(UserWorkflowDao userWorkflowDao,
+      UserWorkflowExecutionDao userWorkflowExecutionDao, DatasetDao datasetDao,
+      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+    return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
+        datasetDao, userWorkflowExecutorManager);
   }
-
-  @Bean
-  @DependsOn("jedisProviderUtils")
-  public QAWorkflow getStatisticsWorkflow() {
-    return new QAWorkflow();
-  }
-
 
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {

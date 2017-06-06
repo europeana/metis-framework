@@ -17,7 +17,6 @@
 package eu.europeana.metis.core.test;
 
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.HarvestingMetadata;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ZohoMockClient;
@@ -70,7 +69,7 @@ public class TestOrganizationService {
     org.setOrganizationId("orgId");
     org.setDatasetNames(new TreeSet<String>());
     org.setOrganizationUri("testUri");
-    org.setHarvestingMetadata(new HarvestingMetadata());
+//    org.setHarvestingMetadata(new HarvestingMetadata());
     org.setOptInIIIF(true);
   }
 

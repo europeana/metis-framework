@@ -21,14 +21,13 @@ import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
-import eu.europeana.metis.core.dataset.DatasetListWrapper;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.organization.OrganizationListWrapper;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
 import eu.europeana.metis.core.service.DatasetService;
@@ -68,7 +67,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Api("/")
 public class OrganizationController {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
 
   private OrganizationService organizationService;
   private DatasetService datasetService;
@@ -181,20 +180,20 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
-  @ApiOperation(value = "Get all organizations")
-  public OrganizationListWrapper getAllOrganizations(@QueryParam("nextPage"
+  @ApiOperation(value = "Get all organizations", response = ResponseListWrapper.class)
+  public ResponseListWrapper<Organization> getAllOrganizations(@QueryParam("nextPage"
   ) String nextPage, @QueryParam("apikey") String apikey)
       throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
       List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
-      OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
-      organizationListWrapper.setOrganizationsAndLastPage(organizations,
+      ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+      responseListWrapper.setResultsAndLastPage(organizations,
           organizationService.getOrganizationsPerRequestLimit());
-      LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
+      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
           + " organizations returned, using batch nextPage: " + nextPage);
-      return organizationListWrapper;
+      return responseListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {
@@ -244,8 +243,8 @@ public class OrganizationController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
       @ApiImplicitParam(name = "isoCode", value = "IsoCode", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Get all organizations by county isoCode", response = OrganizationListWrapper.class)
-  public OrganizationListWrapper getAllOrganizationsByCountryIsoCode(
+  @ApiOperation(value = "Get all organizations by county isoCode", response = ResponseListWrapper.class)
+  public ResponseListWrapper<Organization> getAllOrganizationsByCountryIsoCode(
       @PathVariable("isoCode") String isoCode, @QueryParam("nextPage"
   ) String nextPage, @QueryParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
@@ -254,12 +253,12 @@ public class OrganizationController {
         .equals(Options.READ))) {
       List<Organization> organizations = organizationService
           .getAllOrganizationsByCountry(Country.toCountry(isoCode), nextPage);
-      OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
-      organizationListWrapper.setOrganizationsAndLastPage(organizations,
+      ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+      responseListWrapper.setResultsAndLastPage(organizations,
           organizationService.getOrganizationsPerRequestLimit());
-      LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
+      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
           + " organizations returned, using batch nextPage: " + nextPage);
-      return organizationListWrapper;
+      return responseListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {
@@ -280,8 +279,8 @@ public class OrganizationController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
       @ApiImplicitParam(name = "organizationRoles", value = "comma separated values, e.g. CONTENT_PROVIDER,EUROPEANA", allowMultiple = true, dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get all organizations by organization roles", response = OrganizationListWrapper.class)
-  public OrganizationListWrapper getAllOrganizationsByOrganizationRoles(
+  @ApiOperation(value = "Get all organizations by organization roles", response = ResponseListWrapper.class)
+  public ResponseListWrapper<Organization> getAllOrganizationsByOrganizationRoles(
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
@@ -292,12 +291,12 @@ public class OrganizationController {
       if (organizationRoles != null) {
         List<Organization> organizations = organizationService
             .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
-        OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
-        organizationListWrapper.setOrganizationsAndLastPage(organizations,
+        ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+        responseListWrapper.setResultsAndLastPage(organizations,
             organizationService.getOrganizationsPerRequestLimit());
-        LOGGER.info("Batch of: " + organizationListWrapper.getListSize()
+        LOGGER.info("Batch of: " + responseListWrapper.getListSize()
             + " organizations returned, using batch nextPage: " + nextPage);
-        return organizationListWrapper;
+        return responseListWrapper;
       } else {
         throw new BadContentException("Organization roles malformed or empty");
       }
@@ -351,21 +350,21 @@ public class OrganizationController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
       @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Get all the datasets by organization Id", response = DatasetListWrapper.class)
-  public DatasetListWrapper getAllDatasetsByOrganizationId(
+  @ApiOperation(value = "Get all the datasets by organization Id", response = ResponseListWrapper.class)
+  public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
-      DatasetListWrapper datasetListWrapper = new DatasetListWrapper();
-      datasetListWrapper.setDatasetsAndLastPage(
+      ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
+      responseListWrapper.setResultsAndLastPage(
           organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
           datasetService.getDatasetsPerRequestLimit());
-      LOGGER.info("Batch of: " + datasetListWrapper.getListSize()
+      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
           + " datasets returned, using batch nextPage: " + nextPage);
-      return datasetListWrapper;
+      return responseListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {
@@ -440,16 +439,16 @@ public class OrganizationController {
   @ApiImplicitParams({
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get all organizations from CRM", response = OrganizationListWrapper.class)
-  public OrganizationListWrapper getAllOrganizationsFromCRM(@RequestParam("apikey") String apikey)
+  @ApiOperation(value = "Get all organizations from CRM", response = ResponseListWrapper.class)
+  public ResponseListWrapper<Organization> getAllOrganizationsFromCRM(@RequestParam("apikey") String apikey)
       throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
         .equals(Options.READ))) {
       List<Organization> organizations = organizationService.getAllOrganizationsFromCRM();
-      OrganizationListWrapper organizationListWrapper = new OrganizationListWrapper();
-      organizationListWrapper.setOrganizations(organizations);
-      return organizationListWrapper;
+      ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+      responseListWrapper.setResults(organizations);
+      return responseListWrapper;
     } else if (key == null) {
       throw new NoApiKeyFoundException(apikey);
     } else {
