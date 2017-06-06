@@ -68,7 +68,7 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
       @ApiResponse(code = 406, message = "Bad content")})
-  @ApiOperation(value = "Create a user workflow")
+  @ApiOperation(value = "Update a user workflow")
   public void updateUserWorkflow(
       @RequestBody UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
     orchestratorService.updateUserWorkflow(userWorkflow);
@@ -187,7 +187,7 @@ public class OrchestratorController {
       @ApiResponse(code = 200, message = "Successful response"),
       @ApiResponse(code = 404, message = "UserWorkflowExecution not found")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
@@ -214,7 +214,7 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "priority", value = "Priority value, 0 is normal the higher number the higher priority", dataType = "int", defaultValue = "0", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Create a user workflow directly sending userWorkflow")
+  @ApiOperation(value = "Create a user workflow on the fly and directly send it in the queue of workflow executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
       @DefaultValue("0") @QueryParam("priority") int priority)
@@ -234,10 +234,10 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Successful response")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowStatus", value = "workflowStatus", dataType = "string", paramType = "query"),
+      @ApiImplicitParam(name = "workflowStatus", value = "WorkflowStatus", dataType = "string", paramType = "query"),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, owner by workflowName and workflowStatus", response = ResponseListWrapper.class)
