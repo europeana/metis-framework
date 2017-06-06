@@ -23,6 +23,7 @@ import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
+import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
@@ -59,7 +60,7 @@ public class TestDatasetDao {
     org.setOrganizationId("orgId");
     org.setDatasetNames(new TreeSet<String>());
     org.setOrganizationUri("testUri");
-//    org.setHarvestingMetadata(new HarvestingMetadata());
+//    org.setHarvestingMetadata(new OaipmhHarvestingMetadata());
     ds = new Dataset();
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
@@ -76,7 +77,7 @@ public class TestDatasetDao {
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
-//    ds.setHarvestingMetadata(new OaipmhHarvestingDatasetMetadata());
+    ds.setHarvestingMetadata(new OaipmhHarvestingMetadata());
     ds.setDatasetName("testName");
     ds.setNotes("test Notes");
     ds.setPublishedRecords(100);
