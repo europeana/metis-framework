@@ -140,7 +140,7 @@ public class DsOrgRestClient {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
         }
     }
-d
+
     /**
      * Retrieve all the organizations stored in METIS (OK)
      * @return The list of all the organizations stored in METIS
