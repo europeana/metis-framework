@@ -1,0 +1,7 @@
+mongo.hosts=
+mongo.port=
+mongo.username=
+mongo.password=
+mongo.db=
+preview.portal.url=
+solr.search.url=

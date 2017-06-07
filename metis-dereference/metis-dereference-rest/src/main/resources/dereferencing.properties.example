@@ -1,0 +1,12 @@
+#Redis
+redis.host=
+redis.port=
+redis.password=
+#Mongo
+mongo.hosts=
+mongo.port=
+mongo.username=
+mongo.password=
+entity.db=
+vocabulary.db=
+enrichment.url=

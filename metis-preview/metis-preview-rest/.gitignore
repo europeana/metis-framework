@@ -1,0 +1,4 @@
+##Add to ignore to not commit by mistake
+/src/main/resources/identifier.properties
+/src/main/resources/preview.properties
+/src/main/resources/validation.properties

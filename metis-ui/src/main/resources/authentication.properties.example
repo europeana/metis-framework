@@ -1,0 +1,15 @@
+### TEL LDAP Settings ###
+ldap.url=
+ldap.manager.dn=
+ldap.manager.base.dn=
+ldap.manager.pwd=
+
+#ldap.url=
+#ldap.manager.dn=
+#ldap.manager.pwd=
+
+ldif.url=
+ldif.dn=uid=
+ldif.pwd=
+ldif.base=dc=
+ldif.clean=

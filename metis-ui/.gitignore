@@ -1,0 +1,5 @@
+##Add to ignore to not commit by mistake
+/src/main/resources/authentication.properties
+/src/main/resources/mail.properties
+/src/main/resources/mongo.properties
+/src/main/resources/orchestrator.properties

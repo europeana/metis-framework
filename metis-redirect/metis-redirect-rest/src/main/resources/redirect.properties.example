@@ -1,0 +1,9 @@
+mongo.hosts=
+mongo.port=
+mongo.db=
+mongo.username=
+mongo.password=
+mongo.collections.db=
+zookeeper.production=
+solr.production=
+solr.production.core=
