@@ -1,0 +1,4 @@
+##Add to ignore to not commit by mistake
+/src/main/resources/ecloud.properties
+/src/main/resources/metis.properties
+/src/main/resources/profile.properties
