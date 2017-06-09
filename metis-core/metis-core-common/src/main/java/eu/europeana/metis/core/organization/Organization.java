@@ -18,17 +18,18 @@
 package eu.europeana.metis.core.organization;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
 import eu.europeana.metis.core.common.GeographicLevel;
-import eu.europeana.metis.core.dataset.HarvestingMetadata;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.common.Scope;
 import eu.europeana.metis.core.common.Sector;
+import eu.europeana.metis.core.dataset.HarvestingMetadata;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.Date;
 import java.util.List;
@@ -72,7 +73,8 @@ public class Organization implements HasMongoObjectId {
     private String acronym;
 
     @Indexed
-    @JacksonXmlProperty(localName = "organizationRoles")
+    @JacksonXmlElementWrapper(localName = "organizationRoles")
+    @JacksonXmlProperty(localName = "organizationRole")
     private List<OrganizationRole> organizationRoles;
 
     /**
