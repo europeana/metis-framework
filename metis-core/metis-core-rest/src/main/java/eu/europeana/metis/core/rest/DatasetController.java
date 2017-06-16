@@ -70,6 +70,7 @@ public class DatasetController {
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
       @ApiResponse(code = 401, message = "Api Key not authorized"),
+      @ApiResponse(code = 404, message = "No organization found"),
       @ApiResponse(code = 406, message = "Bad content"),
       @ApiResponse(code = 409, message = "Dataset already exists")})
   @ApiImplicitParams({
@@ -81,18 +82,13 @@ public class DatasetController {
       @QueryParam("organizationId"
       ) String organizationId, @QueryParam("apikey") String apikey)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        datasetService.createDatasetForOrganization(dataset, organizationId);
-        LOGGER.info("Dataset with name " + dataset.getDatasetName() + " for organizationId "
-            + organizationId + " created");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureActionAutorized(apikey, key, Options.WRITE);
+
+    datasetService.createDatasetForOrganization(dataset, organizationId);
+    LOGGER.info("Dataset with name " + dataset.getDatasetName() + " for organizationId "
+        + organizationId + " created");
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.PUT, consumes = {
@@ -100,6 +96,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized"),
       @ApiResponse(code = 404, message = "Dataset not found"),
       @ApiResponse(code = 406, message = "Bad content")
   })
@@ -112,23 +109,19 @@ public class DatasetController {
       @PathVariable("datasetName"
       ) String datasetName, @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        datasetService.updateDatasetByDatasetName(dataset, datasetName);
-        LOGGER.info("Dataset with datasetName " + datasetName + " updated");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureActionAutorized(apikey, key, Options.WRITE);
+
+    datasetService.updateDatasetByDatasetName(dataset, datasetName);
+    LOGGER.info("Dataset with datasetName " + datasetName + " updated");
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME_UPDATENAME, method = RequestMethod.PUT)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 401, message = "Api Key not authorized"),
       @ApiResponse(code = 404, message = "Dataset not found"),
       @ApiResponse(code = 406, message = "Bad content")
   })
@@ -142,20 +135,14 @@ public class DatasetController {
   ) String datasetName, @QueryParam("newDatasetName") String newDatasetName,
       @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        datasetService.updateDatasetName(datasetName, newDatasetName);
-        LOGGER
-            .info(
-                "Dataset with datasetName '" + datasetName + "' updated name to '" + newDatasetName
-                    + "'");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureActionAutorized(apikey, key, Options.WRITE);
+
+    datasetService.updateDatasetName(datasetName, newDatasetName);
+    LOGGER.info(
+            "Dataset with datasetName '" + datasetName + "' updated name to '" + newDatasetName
+                + "'");
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.DELETE)
@@ -171,17 +158,12 @@ public class DatasetController {
   public void deleteDataset(@PathVariable("datasetName"
   ) String datasetName, @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        datasetService.deleteDatasetByDatasetName(datasetName);
-        LOGGER.info("Dataset with datasetName '" + datasetName + "' deleted");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureActionAutorized(apikey, key, Options.WRITE);
+
+    datasetService.deleteDatasetByDatasetName(datasetName);
+    LOGGER.info("Dataset with datasetName '" + datasetName + "' deleted");
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
@@ -200,17 +182,13 @@ public class DatasetController {
   public Dataset getByDatasetName(@PathVariable("datasetName") String datasetName,
       @QueryParam("apikey") String apikey)
       throws NoDatasetFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      Dataset dataset = datasetService.getDatasetByDatasetName(datasetName);
-      LOGGER.info("Dataset with datasetName '" + datasetName + "' found");
-      return dataset;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    Dataset dataset = datasetService.getDatasetByDatasetName(datasetName);
+    LOGGER.info("Dataset with datasetName '" + datasetName + "' found");
+    return dataset;
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
@@ -226,23 +204,43 @@ public class DatasetController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Get all datasets by dataProvider", response = ResponseListWrapper.class)
-  public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(@PathVariable("dataProvider") String dataProvider,
+  public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(
+      @PathVariable("dataProvider") String dataProvider,
       @QueryParam("nextPage"
       ) String nextPage, @QueryParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper
+        .setResultsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
+            datasetService.getDatasetsPerRequestLimit());
+    LOGGER.info("Batch of: " + responseListWrapper.getListSize()
+        + " datasets returned, using batch nextPage: " + nextPage);
+    return responseListWrapper;
+  }
+
+  private MetisKey ensureValidKey(String apikey)
+      throws NoApiKeyFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
-      responseListWrapper
-          .setResultsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
-              datasetService.getDatasetsPerRequestLimit());
-      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-          + " datasets returned, using batch nextPage: " + nextPage);
-      return responseListWrapper;
-    } else if (key == null) {
+    if (key == null) {
       throw new NoApiKeyFoundException(apikey);
-    } else {
+    }
+    return key;
+  }
+
+  private void ensureActionAutorized(String apikey, MetisKey key, Options write)
+      throws ApiKeyNotAuthorizedException {
+    if (!key.getOptions().equals(write)) {
+      throw new ApiKeyNotAuthorizedException(apikey);
+    }
+  }
+
+  private void ensureReadOrWriteAccess(String apikey, MetisKey key)
+      throws ApiKeyNotAuthorizedException {
+    if (!key.getOptions().equals(Options.WRITE) && !key.getOptions().equals(Options.READ)) {
       throw new ApiKeyNotAuthorizedException(apikey);
     }
   }
