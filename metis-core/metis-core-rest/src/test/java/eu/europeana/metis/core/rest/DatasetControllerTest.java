@@ -55,14 +55,13 @@ public class DatasetControllerTest {
             .setControllerAdvice(new RestResponseExceptionHandler())
             .build();
     }
-    
-    
+
     @Test
     public void createDatasetForOrganization() throws Exception {
         Dataset dataset = new Dataset();
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
+
         datasetControllerMock.perform(post("/datasets")
                 .param("organizationId", "myOrg").param("apikey", "myApiKey")
                 .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -98,9 +97,7 @@ public class DatasetControllerTest {
         throws Exception {
         Dataset dataset = new Dataset();
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.READ);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.READ);
 
         datasetControllerMock.perform(post("/datasets")
             .param("organizationId", "myOrg").param("apikey", "myApiKey")
@@ -116,9 +113,7 @@ public class DatasetControllerTest {
     public void createDatasetForOrganization_BadContentException_Returns406() throws Exception {
         Dataset dataset = new Dataset();
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         doThrow(new BadContentException("Bad"))
             .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
 
@@ -135,9 +130,9 @@ public class DatasetControllerTest {
     public void createDatasetForOrganization_DatasetAlreadyExistsException_Returns409() throws Exception {
         Dataset dataset = new Dataset();
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        String keyName = "myApiKey";
+        Options write = Options.WRITE;
+        prepareAuthorizationMockWithValidKey(keyName, write);
         doThrow(new DatasetAlreadyExistsException("Conflict"))
             .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
 
@@ -154,9 +149,7 @@ public class DatasetControllerTest {
     public void createDatasetForOrganization_NoOrganizationFoundException_Returns404() throws Exception {
         Dataset dataset = new Dataset();
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         doThrow(new NoOrganizationFoundException("Doesnotexist"))
             .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
 
@@ -172,9 +165,7 @@ public class DatasetControllerTest {
     @Test
     public void updateDataset_withValidData_Returns204() throws Exception {
         Dataset dataset = new Dataset();
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         datasetControllerMock.perform(put("/datasets/myDataset")
             .param("apikey", "myApiKey")
 
@@ -195,9 +186,7 @@ public class DatasetControllerTest {
     @Test
     public void updateDataset_withNotExistingName_Returns404() throws Exception {
         Dataset dataset = new Dataset();
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         doThrow(new NoDatasetFoundException("NoExisting"))
             .when(datasetServiceMock).updateDatasetByDatasetName(any(Dataset.class), any(String.class));
 
@@ -208,15 +197,12 @@ public class DatasetControllerTest {
             .content(TestUtil.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(404))
             .andExpect(jsonPath("$.errorMessage", is("NoExisting")));
-
     }
 
     @Test
     public void updateDatasetName() throws Exception {
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         datasetControllerMock.perform(put("/datasets/myDataset/updateName")
             .param("apikey", "myApiKey")
             .param("newDatasetName", "newName")
@@ -237,9 +223,7 @@ public class DatasetControllerTest {
 
     @Test
     public void deleteDataset() throws Exception {
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         datasetControllerMock.perform(delete("/datasets/myDataset")
             .param("apikey", "myApiKey")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -264,10 +248,7 @@ public class DatasetControllerTest {
         dataSet.setDatasetName("myDataset");
         dataSet.setDataProvider("erik");
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         when(datasetServiceMock.getDatasetByDatasetName("myDataset")).thenReturn(dataSet);
         datasetControllerMock.perform(get("/datasets/myDataset")
             .param("apikey", "myApiKey")
@@ -291,9 +272,7 @@ public class DatasetControllerTest {
     public void getAllDatasetsByDataProvider() throws Exception {
         List<Dataset> list = getDatasets();
 
-        MetisKey key = new MetisKey();
-        key.setOptions(Options.WRITE);
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(key);
+        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         when(datasetServiceMock.getAllDatasetsByDataProvider("myDataProvider", "3")).thenReturn(list);
 
         datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
@@ -308,8 +287,6 @@ public class DatasetControllerTest {
             .andExpect(jsonPath("$.results[0].datasetName", is("name1")))
             .andExpect(jsonPath("$.results[1].id", is("2f2f2f2f2f2f2f2f2f2f2f2f")))
             .andExpect(jsonPath("$.results[1].datasetName", is("name2")));
-           // .andExpect(jsonPath("$.dataProvider", is("erik")));
-
 
         ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
         ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
@@ -318,6 +295,12 @@ public class DatasetControllerTest {
 
         assertEquals("myDataProvider", provider.getValue());
         assertEquals("3", page.getValue());
+    }
+
+    private void prepareAuthorizationMockWithValidKey(String keyName, Options option) {
+        MetisKey key = new MetisKey();
+        key.setOptions(option);
+        when(metisAuthorizationServiceMock.getKeyFromId(keyName)).thenReturn(key);
     }
 
     private List<Dataset> getDatasets() {
