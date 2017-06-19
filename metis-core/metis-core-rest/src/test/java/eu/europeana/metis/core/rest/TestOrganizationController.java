@@ -45,7 +45,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 /**
  * Created by erikkonijnenburg on 16/06/2017.
  */
-public class OrganizationControllerTest {
+public class TestOrganizationController {
 
   private OrganizationService organizationServiceMock;
   private DatasetService datasetServiceMock;
