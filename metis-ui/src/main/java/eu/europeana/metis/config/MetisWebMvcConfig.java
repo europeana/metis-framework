@@ -8,6 +8,8 @@ import com.github.mjeanroy.springmvc.view.mustache.core.DefaultTemplateLoader;
 import com.github.mjeanroy.springmvc.view.mustache.handlebars.HandlebarsCompiler;
 import eu.europeana.metis.controller.MetisPageController;
 import eu.europeana.metis.controller.MetisUserPageController;
+import eu.europeana.metis.core.rest.client.DsOrgRestClient;
+import eu.europeana.metis.ui.mongo.service.UserService;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
@@ -18,6 +20,8 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -66,8 +70,9 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public MetisUserPageController userPageController() {
-    return new MetisUserPageController();
+  public MetisUserPageController userPageController(UserService userService, DsOrgRestClient dsOrgRestClient,
+        JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
+    return new MetisUserPageController(userService, dsOrgRestClient, javaMailSender, simpleMailMessage);
   }
 
   @Bean

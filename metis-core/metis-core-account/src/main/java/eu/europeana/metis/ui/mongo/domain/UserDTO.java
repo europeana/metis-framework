@@ -1,6 +1,6 @@
 package eu.europeana.metis.ui.mongo.domain;
 
-import eu.europeana.metis.ui.ldap.domain.User;
+import eu.europeana.metis.ui.ldap.domain.LdapUser;
 
 /**
  * A Data wrapper object merging an LDAP user with a Mongo user
@@ -10,12 +10,25 @@ public class UserDTO {
     /**
      * The LDAP user
      */
-    private User user;
+    private LdapUser ldapUser;
 
     /**
      * The MongoDB user
      */
-    private DBUser dbUser;
+    private User user;
+
+    public boolean notNullUser()
+    {
+        return ldapUser != null && user != null;
+    }
+
+    public LdapUser getLdapUser() {
+        return ldapUser;
+    }
+
+    public void setLdapUser(LdapUser ldapUser) {
+        this.ldapUser = ldapUser;
+    }
 
     public User getUser() {
         return user;
@@ -23,13 +36,5 @@ public class UserDTO {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public DBUser getDbUser() {
-        return dbUser;
-    }
-
-    public void setDbUser(DBUser dbUser) {
-        this.dbUser = dbUser;
     }
 }

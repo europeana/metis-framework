@@ -43,7 +43,7 @@ public class MailService {
             @Override
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setTo(user.getUser().getEmail());
+                message.setTo(user.getLdapUser().getEmail());
                 message.setFrom(from);
                 Map<String,Object> model = new HashMap<>();
                 model.put("user", user);

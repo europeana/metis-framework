@@ -18,7 +18,6 @@
 package eu.europeana.metis.ui.ldap.domain;
 
 import javax.naming.ldap.LdapName;
-
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -27,7 +26,6 @@ import org.springframework.ldap.odm.annotations.Attribute;
 import org.springframework.ldap.odm.annotations.DnAttribute;
 import org.springframework.ldap.odm.annotations.Entry;
 import org.springframework.ldap.odm.annotations.Id;
-import org.springframework.security.authentication.encoding.LdapShaPasswordEncoder;
 
 /**
  * LDAP Template: dn:
@@ -37,7 +35,7 @@ import org.springframework.security.authentication.encoding.LdapShaPasswordEncod
  * @author alena
  */
 @Entry(objectClasses = {"person", "inetOrgPerson", "organizationalPerson", "top", "metisUser"})
-public class User {
+public class LdapUser {
 
   @Id
   private LdapName dn;
@@ -59,8 +57,6 @@ public class User {
 
   @Attribute(name = "userPassword")
   private byte[] passwordB;
-
-  private String password;
 
   @Attribute(name = "description")
   private String description;
@@ -132,20 +128,16 @@ public class User {
   }
 
   public String getPassword() {
-    return this.passwordB != null ? new String(this.passwordB) : this.password;
+    return new String(this.passwordB);
   }
 
   public void setPassword(String password) {
     if (password != null && !password.isEmpty()) {
-      LdapShaPasswordEncoder enc = new LdapShaPasswordEncoder();
-      String pass = enc.encodePassword(password, null);
-      this.passwordB = pass.getBytes();
-      this.password = pass;
+      this.passwordB = password.getBytes();
     }
   }
 
   public byte[] getPasswordB() {
-    this.password = new String(passwordB);
     return this.passwordB;
   }
 

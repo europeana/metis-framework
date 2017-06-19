@@ -16,42 +16,27 @@ import java.util.List;
  * Created by ymamakis on 11/24/16.
  */
 @Entity
-public class DBUser {
+public class User {
 
     @Id
     private ObjectId id;
-    /**
-     * The email of the user
-     */
+
     @Indexed
     private String email;
-    /**
-     * The country of the user
-     */
+
     private Country country;
-    /**
-     * The skypeId of the user
-     */
+
     private String skypeId;
     /**
      * Whether the user is a Europeana Network member
      */
     private Boolean europeanaNetworkMember;
-    /**
-     * Notes with regards to the user
-     */
+
     private String notes;
-    /**
-     * When the user was created
-     */
+
     private Date created;
-    /**
-     * When the user was modified
-     */
     private Date modified;
-    /**
-     * The list of all the available organizations
-     */
+
     @Indexed
     @Embedded
     private List<OrganizationRole> organizationRoles;
