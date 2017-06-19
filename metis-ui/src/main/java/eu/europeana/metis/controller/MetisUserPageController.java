@@ -12,8 +12,8 @@ import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
-import eu.europeana.metis.ui.ldap.domain.User;
-import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.ldap.domain.LdapUser;
+import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -52,23 +52,26 @@ public class MetisUserPageController {
 
   private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
-  @Autowired
-  private UserService userService;
+  private final UserService userService;
+  private final DsOrgRestClient dsOrgRestClient;
+  private final JavaMailSender javaMailSender;
+  private final SimpleMailMessage simpleMailMessage;
 
   @Autowired
-  private DsOrgRestClient dsOrgRestClient;
-
-  @Autowired
-  private JavaMailSender javaMailSender;
-
-  @Autowired
-  private SimpleMailMessage simpleMailMessage;
+  public MetisUserPageController(UserService userService, DsOrgRestClient dsOrgRestClient,
+      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
+    this.userService = userService;
+    this.dsOrgRestClient = dsOrgRestClient;
+    this.javaMailSender = javaMailSender;
+    this.simpleMailMessage = simpleMailMessage;
+  }
 
   /**
    * Resolves user login page.
    */
   @RequestMapping(value = "/login")
-  public ModelAndView login(@RequestParam(value = "authentication_error", required = false) boolean authentication_error)
+  public ModelAndView login(
+      @RequestParam(value = "authentication_error", required = false) boolean authentication_error)
       throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN);
@@ -78,9 +81,6 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  /**
-   * Resolves user registration page.
-   */
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView register() throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
@@ -89,25 +89,23 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  /**
-   * Handles the user registration submission.
-   */
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public ModelAndView registerUser(@ModelAttribute UserProfile user, Model model) {
-    model.addAttribute("user", user);
+  public ModelAndView registerUser(@ModelAttribute UserProfile userProfile, Model model) {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
-    UserDTO userDTO = userService.getUser(user.getEmail());
-    User userFound = userDTO != null ? userDTO.getUser() : null;
-    if (userFound != null) {
+    model.addAttribute("user", userProfile);
+    UserDTO storedUserDto = userService.getUser(userProfile.getEmail());
+    if (storedUserDto.notNullUser()) {
       metisLandingPage.setIsDuplicateUser(true);
       modelAndView.addAllObjects(metisLandingPage.buildModel());
       return modelAndView;
     }
-    userService.createLdapUser(user);
-    LOGGER.info("*** User created: " + user.getFirstName() + " ***");
+    userService
+        .createUser(userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail(),
+            userProfile.getPassword());
+    LOGGER.info("*** User created: " + userProfile.getFirstName() + " ***");
 
-    modelAndView.setViewName("redirect:/");
+    modelAndView.setViewName("redirect:/profile");
     return modelAndView;
   }
 
@@ -129,9 +127,6 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  /**
-   * Resolves user profile page
-   */
   @RequestMapping(value = "/profile", method = RequestMethod.GET)
   public ModelAndView profile(Model model) throws JsonProcessingException {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -150,39 +145,34 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  /**
-   * Handles user profile update.
-   */
   @RequestMapping(value = "/profile", method = RequestMethod.POST)
-  public ModelAndView updateUser(@ModelAttribute UserProfile user, BindingResult result,
+  public ModelAndView updateUserProfile(@ModelAttribute UserProfile user, BindingResult result,
       Model model) {
     model.addAttribute("user", user);
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
     UserDTO userDTO = userService.getUser(user.getEmail());
-    if (user != null && userDTO != null) {
+    if (userDTO.notNullUser()) {
       //update user in LDAP
-      User ldapUser = userDTO.getUser();
-      if (ldapUser != null) {
-        ldapUser.setFirstName(user.getFirstName());
-        ldapUser.setLastName(user.getLastName());
-        ldapUser.setPassword(user.getPassword());
-      } else {
-        LOGGER.error("ERROR: LDAP User " + user.getEmail() + " not found!");
-      }
-      userDTO.setUser(ldapUser);
+      LdapUser ldapLdapUser = userDTO.getLdapUser();
+      ldapLdapUser.setFirstName(user.getFirstName());
+      ldapLdapUser.setLastName(user.getLastName());
+      ldapLdapUser.setPassword(user.getPassword());
+      userDTO.setLdapUser(ldapLdapUser);
 
       //update user in database
-      DBUser dbUser = userDTO.getDbUser();
-      if (dbUser == null) {
-        dbUser = new DBUser();
-        dbUser.setId(new ObjectId());
+      User mongoUser = userDTO.getUser();
+      if (mongoUser == null) {
+        mongoUser = new User();
+        mongoUser.setId(new ObjectId());
       }
-      dbUser.setEmail(user.getEmail());
-      dbUser.setCountry(Country.toCountry(user.getCountry()));
-      dbUser.setSkypeId(user.getSkype());
-      dbUser.setOrganizationRoles(resolveUserOrganizationRoles(user, dbUser));
-      userDTO.setDbUser(dbUser);
+      mongoUser.setEmail(user.getEmail());
+      mongoUser.setCountry(Country.toCountry(user.getCountry()));
+      mongoUser.setSkypeId(user.getSkype());
+      mongoUser.setOrganizationRoles(resolveUserOrganizationRoles(user, mongoUser));
+      userDTO.setUser(mongoUser);
+    } else {
+      LOGGER.error("User " + user.getEmail() + " not found!");
     }
     userService.updateUserFromDTO(userDTO);
     LOGGER.info("*** User updated: " + user.getFirstName() + " ***");
@@ -195,7 +185,7 @@ public class MetisUserPageController {
   public ModelAndView requestApproveUser(String userId, Model model) {
     LOGGER.info("User Profile To Approve: " + userId);
     //TODO
-    DBUser userByID = userService.getUserByRequestID(userId);
+    User userByID = userService.getUserByRequestID(userId);
     UserDTO userDTO = userService.getUser(userByID.getEmail());
     UserProfile userProfile = new UserProfile();
     userProfile.init(userDTO);
@@ -208,39 +198,33 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  /**
-   *
-   * @param userId
-   * @param model
-   * @return
-   */
   @RequestMapping(value = "/profile", method = RequestMethod.POST, params = "userId")
   public void requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
     model.addAttribute("user", user);
     UserDTO userDTO = userService.getUser(user.getEmail());
     if (user != null && userDTO != null) {
       //update user in LDAP
-      User ldapUser = userDTO.getUser();
-      if (ldapUser != null) {
-        ldapUser.setFirstName(user.getFirstName());
-        ldapUser.setLastName(user.getLastName());
-        ldapUser.setPassword(user.getPassword());
+      LdapUser ldapLdapUser = userDTO.getLdapUser();
+      if (ldapLdapUser != null) {
+        ldapLdapUser.setFirstName(user.getFirstName());
+        ldapLdapUser.setLastName(user.getLastName());
+        ldapLdapUser.setPassword(user.getPassword());
       } else {
         LOGGER.error("ERROR: LDAP User " + user.getEmail() + " not found!");
       }
-      userDTO.setUser(ldapUser);
+      userDTO.setLdapUser(ldapLdapUser);
 
       //update user in database
-      DBUser dbUser = userDTO.getDbUser();
-      if (dbUser == null) {
-        dbUser = new DBUser();
-        dbUser.setId(new ObjectId());
+      User mongoUser = userDTO.getUser();
+      if (mongoUser == null) {
+        mongoUser = new User();
+        mongoUser.setId(new ObjectId());
       }
-      dbUser.setEmail(user.getEmail());
-      dbUser.setCountry(Country.toCountry(user.getCountry()));
-      dbUser.setSkypeId(user.getSkype());
-      dbUser.setOrganizationRoles(resolveUserOrganizationRoles(user, dbUser));
-      userDTO.setDbUser(dbUser);
+      mongoUser.setEmail(user.getEmail());
+      mongoUser.setCountry(Country.toCountry(user.getCountry()));
+      mongoUser.setSkypeId(user.getSkype());
+      mongoUser.setOrganizationRoles(resolveUserOrganizationRoles(user, mongoUser));
+      userDTO.setUser(mongoUser);
     }
   }
 
@@ -270,7 +254,8 @@ public class MetisUserPageController {
     List<String> organizations = new ArrayList<>();
     try {
       List<OrganizationRole> roles = Arrays
-          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER, OrganizationRole.DIRECT_PROVIDER,
+          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
+              OrganizationRole.DIRECT_PROVIDER,
               OrganizationRole.EUROPEANA);
       List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
       if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
@@ -286,11 +271,6 @@ public class MetisUserPageController {
     return organizations;
   }
 
-  /**
-   *
-   * @param term
-   * @return
-   */
   private List<Organization> suggestOrganizations(String term) {
     List<Organization> suggestedOrganizations = new ArrayList<>();
     try {
@@ -312,8 +292,10 @@ public class MetisUserPageController {
   /**
    * Method creates user role requests and resolves the new list of organization roles.
    */
-  private List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> resolveUserOrganizationRoles(UserProfile user, DBUser dbUser) {
-    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> oldOrganizationRoles = dbUser.getOrganizationRoles();
+  private List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> resolveUserOrganizationRoles(
+      UserProfile user, User mongoUser) {
+    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> oldOrganizationRoles = mongoUser
+        .getOrganizationRoles();
     List<String> newOrganizationsList = resolveUserOrganizations(user);
     List<String> oldOrganizationsList = new ArrayList<>();
     if (oldOrganizationRoles != null && !oldOrganizationRoles.isEmpty()) {
@@ -332,10 +314,10 @@ public class MetisUserPageController {
         .subtract(newOrganizationsList, oldOrganizationsList);
     if (!organizationsToAdd.isEmpty() || !organizationsToDelete.isEmpty()) {
       for (String organization : organizationsToAdd) {
-        userService.createRequest(dbUser.getEmail(), organization, false);
+        userService.createRequest(mongoUser.getEmail(), organization, false);
       }
       for (String organization : organizationsToDelete) {
-        userService.createRequest(dbUser.getEmail(), organization, true);
+        userService.createRequest(mongoUser.getEmail(), organization, true);
       }
       sendEmailNotifications(user);
     }

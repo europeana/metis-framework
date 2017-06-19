@@ -1,20 +1,20 @@
 package eu.europeana.metis.mapping.organisms.pandora;
 
+import eu.europeana.metis.ui.ldap.domain.LdapUser;
+import eu.europeana.metis.ui.mongo.domain.User;
 import java.util.ArrayList;
 import java.util.List;
 
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.ui.ldap.domain.User;
-import eu.europeana.metis.ui.mongo.domain.DBUser;
 import eu.europeana.metis.ui.mongo.domain.OrganizationRole;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 
 /**
- * The class represents Metis user with all its public information (both in LDAP and MongoDB). 
+ * The class represents Metis user with all its public information (both in LDAP and MongoDB).
  * @author alena
  *
  */
-public class UserProfile extends User {
+public class UserProfile extends LdapUser {
 
     private String country;
 
@@ -24,20 +24,18 @@ public class UserProfile extends User {
 
     //FIXME after we change the organizations widget there will be a list of organizations binding.
     private String organization;
-    
-//    public UserProfile() { }
-    
+
     public void init(UserDTO userDTO) {
+		LdapUser ldapUser = userDTO.getLdapUser();
+		if (ldapUser != null) {
+			setLdapUser(ldapUser);
+		}
 		User user = userDTO.getUser();
 		if (user != null) {
-			setLdapUser(user);			
-		}
-		DBUser dbUser = userDTO.getDbUser();
-		if (dbUser  != null) {
-			setDBUser(dbUser);
+			setDBUser(user);
 		}
 	}
-    
+
 	public String getCountry() {
 		return country;
 	}
@@ -69,42 +67,42 @@ public class UserProfile extends User {
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
-	
-	public void setLdapUser(User user) {
-		setActive(user.isActive());
-		setApproved(user.isApproved());
-		setDn(user.getDn());
-		setMetisAuthenticationDn(user.getMetisAuthenticationDn());
-		setUsersDn(user.getUsersDn());
-		setEmail(user.getEmail());
-		setFirstName(user.getFirstName());
-		setLastName(user.getLastName());
-		setPassword(user.getPassword());
-		setDescription(user.getDescription());
+
+	public void setLdapUser(LdapUser ldapUser) {
+		setActive(ldapUser.isActive());
+		setApproved(ldapUser.isApproved());
+		setDn(ldapUser.getDn());
+		setMetisAuthenticationDn(ldapUser.getMetisAuthenticationDn());
+		setUsersDn(ldapUser.getUsersDn());
+		setEmail(ldapUser.getEmail());
+		setFirstName(ldapUser.getFirstName());
+		setLastName(ldapUser.getLastName());
+		setPassword(ldapUser.getPassword());
+		setDescription(ldapUser.getDescription());
 	}
 
-	public void setDBUser(DBUser dbUser) {
-		Country c = dbUser.getCountry();
+	public void setDBUser(User user) {
+		Country c = user.getCountry();
 		if ( c != null  ) {
-			setCountry(c.getName());			
+			setCountry(c.getName());
 		}
-		setSkype(dbUser.getSkypeId());
-		setEuropeanaNetworkMember(dbUser.getEuropeanaNetworkMember());
-		List<OrganizationRole> organizationRoles = dbUser.getOrganizationRoles();
+		setSkype(user.getSkypeId());
+		setEuropeanaNetworkMember(user.getEuropeanaNetworkMember());
+		List<OrganizationRole> organizationRoles = user.getOrganizationRoles();
 		List<String> organizations = new ArrayList<String>();
 		if (organizationRoles != null) {
 			for (OrganizationRole or: organizationRoles) {
 				if (or.getOrganizationId() != null) {
-					organizations.add(or.getOrganizationId());				
+					organizations.add(or.getOrganizationId());
 				}
-			}			
+			}
 		}
 		StringBuilder orgs = new StringBuilder();
 		if (!organizations.isEmpty()) {
 			for (int i = 0; i < organizations.size() - 1; i++) {
 				orgs.append(organizations.get(i)).append(",");
 			}
-			orgs.append(organizations.get(organizations.size() - 1));						
+			orgs.append(organizations.get(organizations.size() - 1));
 		}
 		setOrganization(orgs.toString());
 	}

@@ -3,10 +3,10 @@ package eu.europeana.metis.ui.test.config;
 import com.mongodb.MongoClient;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
-import eu.europeana.metis.ui.mongo.dao.DBUserDao;
+import eu.europeana.metis.ui.ldap.dao.impl.LdapUserDao;
+import eu.europeana.metis.ui.mongo.dao.MongoUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
-import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import java.io.IOException;
@@ -34,11 +34,11 @@ public class TestApplication {
     }
 
     @Bean
-    public DBUserDao dbUserDao(){
+    public MongoUserDao dbUserDao(){
         Morphia morphia = new Morphia();
-        morphia.map(DBUser.class);
+        morphia.map(User.class);
         Datastore ds = morphia.createDatastore(new MongoClient(mongoHost, mongoPort),"test");
-        return new DBUserDao(DBUser.class,ds);
+        return new MongoUserDao(User.class,ds);
     }
 
     @Bean
@@ -51,12 +51,12 @@ public class TestApplication {
 
     @Bean
     public UserDao userDao(){
-        return Mockito.mock(UserDaoImpl.class);
+        return Mockito.mock(LdapUserDao.class);
     }
 
     @Bean
-    public UserService service(){
-        return new UserService();
+    public UserService userService(UserDao userDao, MongoUserDao mongoUserDao, RoleRequestDao roleRequestDao) {
+        return new UserService(userDao, mongoUserDao, roleRequestDao);
     }
 
     @Bean

@@ -7,10 +7,10 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.service.ExampleMappingService;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.ldap.dao.UserDao;
-import eu.europeana.metis.ui.ldap.dao.impl.UserDaoImpl;
-import eu.europeana.metis.ui.mongo.dao.DBUserDao;
+import eu.europeana.metis.ui.ldap.dao.impl.LdapUserDao;
+import eu.europeana.metis.ui.mongo.dao.MongoUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
-import eu.europeana.metis.ui.mongo.domain.DBUser;
+import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
@@ -84,13 +84,13 @@ public class MetisConfig implements InitializingBean {
 
   @Bean
   public UserDao userDao() {
-    return new UserDaoImpl();
+    return new LdapUserDao();
   }
 
   @Bean
   @DependsOn(value = "morphiaDatastoreProvider")
-  public DBUserDao dbUserDao() {
-    return new DBUserDao(DBUser.class, moprhiaDatastoreProvider.getDatastore());
+  public MongoUserDao dbUserDao() {
+    return new MongoUserDao(User.class, moprhiaDatastoreProvider.getDatastore());
   }
 
   @Bean
@@ -106,8 +106,8 @@ public class MetisConfig implements InitializingBean {
   }
 
   @Bean
-  public UserService userService() {
-    return new UserService();
+  public UserService userService(UserDao userDao, MongoUserDao mongoUserDao, RoleRequestDao roleRequestDao) {
+    return new UserService(userDao, mongoUserDao, roleRequestDao);
   }
 
   @Bean

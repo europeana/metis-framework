@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.config;
 
+import eu.europeana.metis.common.SimpleUrlAuthenticationSuccessHandler;
 import eu.europeana.metis.ui.mongo.domain.Roles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,11 +30,6 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
-/**
- * This configuration sets up Metis web pages LDAP authorization.
- *
- * @author alena
- */
 @Configuration
 @PropertySource("classpath:authentication.properties")
 @EnableWebSecurity
@@ -68,17 +64,17 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
   protected void configure(HttpSecurity http) throws Exception {
     http.authorizeRequests()
         .antMatchers("/", "/register", "/mappings-page").permitAll()
-        .antMatchers("/dashboard").authenticated()
-//        .antMatchers("/dashboard").permitAll()
-        .antMatchers("/profile")
-        .hasAnyRole(Roles.EUROPEANA_ADMIN.name(),Roles.EUROPEANA_ADMIN.name(), Roles.EUROPEANA_VIEWER.name(),
-            Roles.EUROPEANA_DATA_OFFICER.name(), Roles.PROVIDER_ADMIN.name(),
-            Roles.PROVIDER_VIEWER.name(), Roles.EUROPEANA_DATA_OFFICER.name())
+        .antMatchers("/dashboard")
+        .hasAnyRole(Roles.EUROPEANA_ADMIN.name(),
+            Roles.EUROPEANA_VIEWER.name(), Roles.EUROPEANA_DATA_OFFICER.name(),
+            Roles.PROVIDER_ADMIN.name(), Roles.PROVIDER_VIEWER.name(),
+            Roles.PROVIDER_DATA_OFFICER.name(), Roles.LEMMY.name())
+        .antMatchers("/profile").authenticated()
         .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name())
         .and()
         .formLogin().loginPage("/login")
         .usernameParameter("email").passwordParameter("password")
-        .defaultSuccessUrl("/dashboard")
+        .successHandler(new SimpleUrlAuthenticationSuccessHandler())
         .failureUrl("/login?authentication_error=true").permitAll()
         .and()
         .logout()

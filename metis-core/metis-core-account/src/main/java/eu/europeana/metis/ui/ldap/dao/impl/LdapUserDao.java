@@ -19,6 +19,7 @@ package eu.europeana.metis.ui.ldap.dao.impl;
 
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
+import eu.europeana.metis.ui.ldap.domain.LdapUser;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +37,9 @@ import org.springframework.ldap.support.LdapNameBuilder;
 
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.Group;
-import eu.europeana.metis.ui.ldap.domain.User;
 import eu.europeana.metis.ui.mongo.domain.Roles;
 
-public class UserDaoImpl implements UserDao {
+public class LdapUserDao implements UserDao {
 	
     @Autowired
     private LdapTemplate ldapTemplate;
@@ -48,10 +48,10 @@ public class UserDaoImpl implements UserDao {
      * FIXME Currently for test reasons every newly created user is automatically added to admin group (for testing).
      */
     @Override
-    public void create(User user) {
-        LdapName userDn = buildDn(user.getEmail());
-        user.setDn(userDn);
-        user.setFirstName(user.getFirstName());
+    public void create(LdapUser ldapUser) {
+        LdapName userDn = buildDn(ldapUser.getEmail());
+        ldapUser.setDn(userDn);
+        ldapUser.setFirstName(ldapUser.getFirstName());
 //        LdapName groupDn = buildRoleDn("EUROPEANA_ADMIN");
 //        Group grp = ldapTemplate.findByDn(groupDn, Group.class);
 //        List<String> members = grp.getMembers();
@@ -60,34 +60,34 @@ public class UserDaoImpl implements UserDao {
 //        DirContextOperations context = ldapTemplate.lookupContext(groupDn);
 //        updateGroup(grp, context);
 //        ldapTemplate.modifyAttributes(context);
-        ldapTemplate.bind(userDn, null, buildUser(user));
+        ldapTemplate.bind(userDn, null, buildUser(ldapUser));
     }
 
     @Override
-    public void update(User user) {
-        LdapName dn = buildDn(user.getEmail());
+    public void update(LdapUser ldapUser) {
+        LdapName dn = buildDn(ldapUser.getEmail());
         DirContextOperations context = ldapTemplate.lookupContext(dn);
-        updateUser(user, context);
+        updateUser(ldapUser, context);
         ldapTemplate.modifyAttributes(context);
     }
 
     @Override
     public void disable(String email){
-        User user = findByPrimaryKey(email);
-        user.setActive(false);
-        update(user);
+        LdapUser ldapUser = findByPrimaryKey(email);
+        ldapUser.setActive(false);
+        update(ldapUser);
     }
 
     @Override
     public void approve(String email){
-        User user = findByPrimaryKey(email);
-        user.setApproved(true);
-        user.setActive(true);
-        update(user);
+        LdapUser ldapUser = findByPrimaryKey(email);
+        ldapUser.setApproved(true);
+        ldapUser.setActive(true);
+        update(ldapUser);
     }
     @Override
-    public void delete(User user) {
-        ldapTemplate.delete(ldapTemplate.findByDn(buildDn(user), User.class));
+    public void delete(LdapUser ldapUser) {
+        ldapTemplate.delete(ldapTemplate.findByDn(buildDn(ldapUser), LdapUser.class));
     }
 
     @Override
@@ -103,16 +103,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<User> findAll() {
-        return ldapTemplate.findAll(User.class);
+    public List<LdapUser> findAll() {
+        return ldapTemplate.findAll(LdapUser.class);
     }
 
     @Override
-    public User findByPrimaryKey(String email) {
+    public LdapUser findByPrimaryKey(String email) {
         LdapName dn = buildDn(email);
-        User findByDn;
+        LdapUser findByDn;
         try {
-        	findByDn = ldapTemplate.findByDn(dn, User.class);			
+        	findByDn = ldapTemplate.findByDn(dn, LdapUser.class);
 		} catch (Exception e) {
 			findByDn = null;
 		}
@@ -126,9 +126,9 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void addUserRole(User user, Group group) {
+    public void addUserRole(LdapUser ldapUser, Group group) {
       List<String> members = group.getMembers();
-      members.add(user.getDn().toString() + ",dc=europeana,dc=eu");
+      members.add(ldapUser.getDn().toString() + ",dc=europeana,dc=eu");
       group.setMembers(members);
       DirContextOperations context = ldapTemplate.lookupContext(group.getDn());
       updateGroup(group, context);
@@ -136,10 +136,10 @@ public class UserDaoImpl implements UserDao {
     }
     
     @Override
-    public void removeUserRole(User user, Group group) {
+    public void removeUserRole(LdapUser ldapUser, Group group) {
     	//TODO test this!
     	List<String> members = group.getMembers();
-        members.remove(user.getDn().toString() + ",dc=europeana,dc=eu");
+        members.remove(ldapUser.getDn().toString() + ",dc=europeana,dc=eu");
         group.setMembers(members);
         DirContextOperations context = ldapTemplate.lookupContext(group.getDn());
         updateGroup(group, context);
@@ -166,8 +166,8 @@ public class UserDaoImpl implements UserDao {
     }
     
     
-    private LdapName buildDn(User user) {
-        return buildDn(user.getEmail());
+    private LdapName buildDn(LdapUser ldapUser) {
+        return buildDn(ldapUser.getEmail());
     }
 
     private LdapName buildDn(String email) {
@@ -193,21 +193,21 @@ public class UserDaoImpl implements UserDao {
         this.ldapTemplate = ldapTemplate;
     }
 
-    private void updateUser(User user, DirContextOperations context) {
-        context.setAttributeValue("mail", user.getEmail());
-        context.setAttributeValue("description", user.getDescription());
-        context.setAttributeValue("sn", user.getLastName());
-        context.setAttributeValue("givenName", user.getFirstName());
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-        	context.setAttributeValue("userPassword", user.getPassword());        	
+    private void updateUser(LdapUser ldapUser, DirContextOperations context) {
+        context.setAttributeValue("mail", ldapUser.getEmail());
+        context.setAttributeValue("description", ldapUser.getDescription());
+        context.setAttributeValue("sn", ldapUser.getLastName());
+        context.setAttributeValue("givenName", ldapUser.getFirstName());
+        if (ldapUser.getPassword() != null && !ldapUser.getPassword().isEmpty()) {
+        	context.setAttributeValue("userPassword", ldapUser.getPassword());
         }
-        context.setAttributeValue("Active", (user.isActive() + "").toUpperCase());
-        context.setAttributeValue("Approved", (user.isApproved() + "").toUpperCase());
+        context.setAttributeValue("Active", (ldapUser.isActive() + "").toUpperCase());
+        context.setAttributeValue("Approved", (ldapUser.isApproved() + "").toUpperCase());
     }
 
 
 
-    private Attributes buildUser(User user){
+    private Attributes buildUser(LdapUser ldapUser){
             Attributes attrs = new BasicAttributes();
             BasicAttribute ocattr = new BasicAttribute("objectclass");
             ocattr.add("top");
@@ -217,19 +217,19 @@ public class UserDaoImpl implements UserDao {
             ocattr.add("inetOrgPerson");
             ocattr.add("metisUser");
             attrs.put(ocattr);
-            attrs.put("cn", user.getEmail());
-            attrs.put("sn", user.getLastName());
-            attrs.put("uid", user.getEmail().toLowerCase());
-            attrs.put("givenName", user.getFirstName());
-            if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            	attrs.put("userPassword", user.getPassword());
+            attrs.put("cn", ldapUser.getEmail());
+            attrs.put("sn", ldapUser.getLastName());
+            attrs.put("uid", ldapUser.getEmail().toLowerCase());
+            attrs.put("givenName", ldapUser.getFirstName());
+            if (ldapUser.getPassword() != null && !ldapUser.getPassword().isEmpty()) {
+            	attrs.put("userPassword", ldapUser.getPassword());
             }
-            attrs.put("mail", user.getEmail());
-            attrs.put("Active", (user.isActive() + "").toUpperCase());
-            attrs.put("Approved", (user.isApproved() + "").toUpperCase());
+            attrs.put("mail", ldapUser.getEmail());
+            attrs.put("Active", (ldapUser.isActive() + "").toUpperCase());
+            attrs.put("Approved", (ldapUser.isApproved() + "").toUpperCase());
             
-            if(user.getDescription() != null) {
-                attrs.put("description", user.getDescription());
+            if(ldapUser.getDescription() != null) {
+                attrs.put("description", ldapUser.getDescription());
             }
             return attrs;
     }
