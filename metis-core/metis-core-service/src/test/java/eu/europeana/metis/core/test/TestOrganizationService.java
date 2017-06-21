@@ -64,14 +64,18 @@ public class TestOrganizationService {
     zohoMock = Mockito.mock(ZohoMockClient.class);
     service = new OrganizationService(organizationDaoMock, datasetDaoMock, zohoMock, searchServiceMock);
 
-    org = new Organization();
+    org = createOrganization("myOrg");
+  }
+
+  private Organization createOrganization(String orgName) {
+    Organization org = new Organization();
     org.setId(new ObjectId("1f1f1f1f1f1f1f1f1f1f1f1f"));
-    org.setName("myOrg");
+    org.setName(orgName);
     org.setOrganizationId("orgId");
     org.setDatasetNames(new TreeSet<String>());
     org.setOrganizationUri("testUri");
-//    org.setHarvestingMetadata(new HarvestingMetadata());
     org.setOptInIIIF(true);
+    return org;
   }
 
   @Test
