@@ -1,28 +1,20 @@
 package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.common.UserProfileRequest;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
 import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
-import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
-import eu.europeana.metis.ui.ldap.domain.LdapUser;
-import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import org.apache.commons.collections.CollectionUtils;
-import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,13 +25,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -90,20 +79,20 @@ public class MetisUserPageController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public ModelAndView registerUser(@ModelAttribute UserProfile userProfile, Model model) {
+  public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
-    model.addAttribute("user", userProfile);
-    UserDTO storedUserDto = userService.getUser(userProfile.getEmail());
+    model.addAttribute("user", userProfileRequest);
+    UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
     if (storedUserDto.notNullUser()) {
       metisLandingPage.setIsDuplicateUser(true);
       modelAndView.addAllObjects(metisLandingPage.buildModel());
       return modelAndView;
     }
     userService
-        .createUser(userProfile.getFirstName(), userProfile.getLastName(), userProfile.getEmail(),
-            userProfile.getPassword());
-    LOGGER.info("*** User created: " + userProfile.getFirstName() + " ***");
+        .createUser(userProfileRequest.getFirstName(), userProfileRequest.getLastName(), userProfileRequest.getEmail(),
+            userProfileRequest.getPassword());
+    LOGGER.info("*** User created: " + userProfileRequest.getFirstName() + " ***");
 
     modelAndView.setViewName("redirect:/profile");
     return modelAndView;
@@ -116,117 +105,117 @@ public class MetisUserPageController {
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
             : null;
     UserDTO userDTO = userService.getUser(primaryKey);
-    UserProfile userProfile = new UserProfile();
-    userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
+//    UserProfile userProfile = new UserProfile();
+//    userProfile.init(userDTO);
+    LOGGER.info("*** User profile opened: " + userDTO.getLdapUser().getFirstName() + " ***");
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
-    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userProfile);
+    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userDTO);
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
 //    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
-  @RequestMapping(value = "/profile", method = RequestMethod.GET)
-  public ModelAndView profile(Model model) throws JsonProcessingException {
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String primaryKey =
-        principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
-            : null;
-    UserDTO userDTO = userService.getUser(primaryKey);
-    UserProfile userProfile = new UserProfile();
-    userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
+//  @RequestMapping(value = "/profile", method = RequestMethod.GET)
+//  public ModelAndView profile(Model model) throws JsonProcessingException {
+//    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    String primaryKey =
+//        principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
+//            : null;
+//    UserDTO userDTO = userService.getUser(primaryKey);
+//    UserProfile userProfile = new UserProfile();
+//    userProfile.init(userDTO);
+//    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
+//
+//    ModelAndView modelAndView = new ModelAndView("molecules/pandora/user-profile.mustache");
+//    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);
+//    metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
+//    modelAndView.addAllObjects(metisLandingPage.buildModel());
+//    return modelAndView;
+//  }
 
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userProfile);
-    metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
-    return modelAndView;
-  }
-
-  @RequestMapping(value = "/profile", method = RequestMethod.POST)
-  public ModelAndView updateUserProfile(@ModelAttribute UserProfile user, BindingResult result,
-      Model model) {
-    model.addAttribute("user", user);
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
-    UserDTO userDTO = userService.getUser(user.getEmail());
-    if (userDTO.notNullUser()) {
-      //update user in LDAP
-      LdapUser ldapLdapUser = userDTO.getLdapUser();
-      ldapLdapUser.setFirstName(user.getFirstName());
-      ldapLdapUser.setLastName(user.getLastName());
-      ldapLdapUser.setPassword(user.getPassword());
-      userDTO.setLdapUser(ldapLdapUser);
-
-      //update user in database
-      User mongoUser = userDTO.getUser();
-      if (mongoUser == null) {
-        mongoUser = new User();
-        mongoUser.setId(new ObjectId());
-      }
-      mongoUser.setEmail(user.getEmail());
-      mongoUser.setCountry(Country.toCountry(user.getCountry()));
-      mongoUser.setSkypeId(user.getSkype());
-      mongoUser.setOrganizationRoles(resolveUserOrganizationRoles(user, mongoUser));
-      userDTO.setUser(mongoUser);
-    } else {
-      LOGGER.error("User " + user.getEmail() + " not found!");
-    }
-    userService.updateUserFromDTO(userDTO);
-    LOGGER.info("*** User updated: " + user.getFirstName() + " ***");
-
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
-    return modelAndView;
-  }
-
-  @RequestMapping(value = "/profile", method = RequestMethod.GET, params = "userId")
-  public ModelAndView requestApproveUser(String userId, Model model) {
-    LOGGER.info("User Profile To Approve: " + userId);
-    //TODO
-    User userByID = userService.getUserByRequestID(userId);
-    UserDTO userDTO = userService.getUser(userByID.getEmail());
-    UserProfile userProfile = new UserProfile();
-    userProfile.init(userDTO);
-    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
-
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.USER_APPROVE, userProfile);
-    metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
-    return modelAndView;
-  }
-
-  @RequestMapping(value = "/profile", method = RequestMethod.POST, params = "userId")
-  public void requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
-    model.addAttribute("user", user);
-    UserDTO userDTO = userService.getUser(user.getEmail());
-    if (user != null && userDTO != null) {
-      //update user in LDAP
-      LdapUser ldapLdapUser = userDTO.getLdapUser();
-      if (ldapLdapUser != null) {
-        ldapLdapUser.setFirstName(user.getFirstName());
-        ldapLdapUser.setLastName(user.getLastName());
-        ldapLdapUser.setPassword(user.getPassword());
-      } else {
-        LOGGER.error("ERROR: LDAP User " + user.getEmail() + " not found!");
-      }
-      userDTO.setLdapUser(ldapLdapUser);
-
-      //update user in database
-      User mongoUser = userDTO.getUser();
-      if (mongoUser == null) {
-        mongoUser = new User();
-        mongoUser.setId(new ObjectId());
-      }
-      mongoUser.setEmail(user.getEmail());
-      mongoUser.setCountry(Country.toCountry(user.getCountry()));
-      mongoUser.setSkypeId(user.getSkype());
-      mongoUser.setOrganizationRoles(resolveUserOrganizationRoles(user, mongoUser));
-      userDTO.setUser(mongoUser);
-    }
-  }
+//  @RequestMapping(value = "/profile", method = RequestMethod.POST)
+//  public ModelAndView updateUserProfile(@ModelAttribute UserProfile user, BindingResult result,
+//      Model model) {
+//    model.addAttribute("user", user);
+//    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+//    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, user);
+//    UserDTO userDTO = userService.getUser(user.getEmail());
+//    if (userDTO.notNullUser()) {
+//      //update user in LDAP
+//      LdapUser ldapLdapUser = userDTO.getLdapUser();
+//      ldapLdapUser.setFirstName(user.getFirstName());
+//      ldapLdapUser.setLastName(user.getLastName());
+//      ldapLdapUser.setPassword(user.getPassword());
+//      userDTO.setLdapUser(ldapLdapUser);
+//
+//      //update user in database
+//      User mongoUser = userDTO.getUser();
+//      if (mongoUser == null) {
+//        mongoUser = new User();
+//        mongoUser.setId(new ObjectId());
+//      }
+//      mongoUser.setEmail(user.getEmail());
+//      mongoUser.setCountry(Country.toCountry(user.getCountry()));
+//      mongoUser.setSkypeId(user.getSkype());
+//      mongoUser.setOrganizationRoles(resolveUserOrganizationRoles(user, mongoUser));
+//      userDTO.setUser(mongoUser);
+//    } else {
+//      LOGGER.error("User " + user.getEmail() + " not found!");
+//    }
+//    userService.updateUserFromDTO(userDTO);
+//    LOGGER.info("*** User updated: " + user.getFirstName() + " ***");
+//
+//    modelAndView.addAllObjects(metisLandingPage.buildModel());
+//    return modelAndView;
+//  }
+//
+//  @RequestMapping(value = "/profile", method = RequestMethod.GET, params = "userId")
+//  public ModelAndView requestApproveUser(String userId, Model model) {
+//    LOGGER.info("User Profile To Approve: " + userId);
+//    //TODO
+//    User userByID = userService.getUserByRequestID(userId);
+//    UserDTO userDTO = userService.getUser(userByID.getEmail());
+//    UserProfile userProfile = new UserProfile();
+//    userProfile.init(userDTO);
+//    LOGGER.info("*** User profile opened: " + userProfile.getFirstName() + " ***");
+//
+//    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+//    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.USER_APPROVE, userProfile);
+//    metisLandingPage.buildOrganizationsList(buildAvailableOrganizationsList());
+//    modelAndView.addAllObjects(metisLandingPage.buildModel());
+//    return modelAndView;
+//  }
+//
+//  @RequestMapping(value = "/profile", method = RequestMethod.POST, params = "userId")
+//  public void requestValidateUser(@ModelAttribute UserProfile user, Model model, String userId) {
+//    model.addAttribute("user", user);
+//    UserDTO userDTO = userService.getUser(user.getEmail());
+//    if (user != null && userDTO != null) {
+//      //update user in LDAP
+//      LdapUser ldapLdapUser = userDTO.getLdapUser();
+//      if (ldapLdapUser != null) {
+//        ldapLdapUser.setFirstName(user.getFirstName());
+//        ldapLdapUser.setLastName(user.getLastName());
+//        ldapLdapUser.setPassword(user.getPassword());
+//      } else {
+//        LOGGER.error("ERROR: LDAP User " + user.getEmail() + " not found!");
+//      }
+//      userDTO.setLdapUser(ldapLdapUser);
+//
+//      //update user in database
+//      User mongoUser = userDTO.getUser();
+//      if (mongoUser == null) {
+//        mongoUser = new User();
+//        mongoUser.setId(new ObjectId());
+//      }
+//      mongoUser.setEmail(user.getEmail());
+//      mongoUser.setCountry(Country.toCountry(user.getCountry()));
+//      mongoUser.setSkypeId(user.getSkype());
+//      mongoUser.setOrganizationRoles(resolveUserOrganizationRoles(user, mongoUser));
+//      userDTO.setUser(mongoUser);
+//    }
+//  }
 
   @RequestMapping(value = "/requests", method = RequestMethod.GET)
   public ModelAndView userRequests() throws JsonProcessingException {
@@ -237,39 +226,39 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-  //TODO the method implementation is not finished yet
-  @ResponseBody
-  @RequestMapping(value = "/profile/suggestOrganizations", method = RequestMethod.GET, params = "searchTerm")
-  public String suggestOrganizationsViaAjax(@RequestBody String response, String searchTerm) {
-    String result = "";
-    List<Organization> orgs = suggestOrganizations(searchTerm);
-    return result;
-  }
+//  //TODO the method implementation is not finished yet
+//  @ResponseBody
+//  @RequestMapping(value = "/profile/suggestOrganizations", method = RequestMethod.GET, params = "searchTerm")
+//  public String suggestOrganizationsViaAjax(@RequestBody String response, String searchTerm) {
+//    String result = "";
+//    List<Organization> orgs = suggestOrganizations(searchTerm);
+//    return result;
+//  }
 
-  /**
-   * Method retrieves the list of organizations from Zoho.
-   * TODO: return the filtered list of organizations (only the organizations of specific type).
-   */
-  private List<String> buildAvailableOrganizationsList() {
-    List<String> organizations = new ArrayList<>();
-    try {
-      List<OrganizationRole> roles = Arrays
-          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
-              OrganizationRole.DIRECT_PROVIDER,
-              OrganizationRole.EUROPEANA);
-      List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
-      if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
-        for (Organization o : organizationsByRoles) {
-          organizations.add(o.getName());
-        }
-      }
-    } catch (ServerException e) {
-      LOGGER.error("ERROR: *** Zoho server exception: " + e.getMessage() + " ***");
-    } catch (Exception e) {
-      LOGGER.error("ERROR: *** CMS exception: " + e.getMessage() + " ***");
-    }
-    return organizations;
-  }
+//  /**
+//   * Method retrieves the list of organizations from Zoho.
+//   * TODO: return the filtered list of organizations (only the organizations of specific type).
+//   */
+//  private List<String> buildAvailableOrganizationsList() {
+//    List<String> organizations = new ArrayList<>();
+//    try {
+//      List<OrganizationRole> roles = Arrays
+//          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
+//              OrganizationRole.DIRECT_PROVIDER,
+//              OrganizationRole.EUROPEANA);
+//      List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
+//      if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
+//        for (Organization o : organizationsByRoles) {
+//          organizations.add(o.getName());
+//        }
+//      }
+//    } catch (ServerException e) {
+//      LOGGER.error("ERROR: *** Zoho server exception: " + e.getMessage() + " ***");
+//    } catch (Exception e) {
+//      LOGGER.error("ERROR: *** CMS exception: " + e.getMessage() + " ***");
+//    }
+//    return organizations;
+//  }
 
   private List<Organization> suggestOrganizations(String term) {
     List<Organization> suggestedOrganizations = new ArrayList<>();
@@ -289,63 +278,63 @@ public class MetisUserPageController {
     return suggestedOrganizations;
   }
 
-  /**
-   * Method creates user role requests and resolves the new list of organization roles.
-   */
-  private List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> resolveUserOrganizationRoles(
-      UserProfile user, User mongoUser) {
-    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> oldOrganizationRoles = mongoUser
-        .getOrganizationRoles();
-    List<String> newOrganizationsList = resolveUserOrganizations(user);
-    List<String> oldOrganizationsList = new ArrayList<>();
-    if (oldOrganizationRoles != null && !oldOrganizationRoles.isEmpty()) {
-      for (eu.europeana.metis.ui.mongo.domain.OrganizationRole o : oldOrganizationRoles) {
-        oldOrganizationsList.add(o.getOrganizationId());
-      }
-    }
-    @SuppressWarnings("unchecked")
-    Collection<String> organizationsToKeepUnchanged = CollectionUtils
-        .intersection(oldOrganizationsList, newOrganizationsList);
-    @SuppressWarnings("unchecked")
-    Collection<String> organizationsToDelete = CollectionUtils
-        .subtract(oldOrganizationsList, newOrganizationsList);
-    @SuppressWarnings("unchecked")
-    Collection<String> organizationsToAdd = CollectionUtils
-        .subtract(newOrganizationsList, oldOrganizationsList);
-    if (!organizationsToAdd.isEmpty() || !organizationsToDelete.isEmpty()) {
-      for (String organization : organizationsToAdd) {
-        userService.createRequest(mongoUser.getEmail(), organization, false);
-      }
-      for (String organization : organizationsToDelete) {
-        userService.createRequest(mongoUser.getEmail(), organization, true);
-      }
-      sendEmailNotifications(user);
-    }
-
-    List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> newOrganizationRoles = new ArrayList<>();
-    for (String organization : organizationsToKeepUnchanged) {
-      for (eu.europeana.metis.ui.mongo.domain.OrganizationRole organizationRole : oldOrganizationRoles) {
-        if (organizationRole.getOrganizationId().equals(organization)) {
-          newOrganizationRoles.add(organizationRole);
-        }
-      }
-    }
-    for (String organization : organizationsToAdd) {
-      eu.europeana.metis.ui.mongo.domain.OrganizationRole or = new eu.europeana.metis.ui.mongo.domain.OrganizationRole();
-      or.setOrganizationId(organization);
-      or.setRole(null);
-      newOrganizationRoles.add(or);
-    }
-    return newOrganizationRoles;
-  }
+//  /**
+//   * Method creates user role requests and resolves the new list of organization roles.
+//   */
+//  private List<UserOrganizationRole> resolveUserOrganizationRoles(
+//      UserDTO user, User mongoUser) {
+//    List<UserOrganizationRole> oldUserOrganizationRoles = mongoUser
+//        .getUserOrganizationRoles();
+//    List<String> newOrganizationsList = resolveUserOrganizations(user);
+//    List<String> oldOrganizationsList = new ArrayList<>();
+//    if (oldUserOrganizationRoles != null && !oldUserOrganizationRoles.isEmpty()) {
+//      for (UserOrganizationRole o : oldUserOrganizationRoles) {
+//        oldOrganizationsList.add(o.getOrganizationId());
+//      }
+//    }
+//    @SuppressWarnings("unchecked")
+//    Collection<String> organizationsToKeepUnchanged = CollectionUtils
+//        .intersection(oldOrganizationsList, newOrganizationsList);
+//    @SuppressWarnings("unchecked")
+//    Collection<String> organizationsToDelete = CollectionUtils
+//        .subtract(oldOrganizationsList, newOrganizationsList);
+//    @SuppressWarnings("unchecked")
+//    Collection<String> organizationsToAdd = CollectionUtils
+//        .subtract(newOrganizationsList, oldOrganizationsList);
+//    if (!organizationsToAdd.isEmpty() || !organizationsToDelete.isEmpty()) {
+//      for (String organization : organizationsToAdd) {
+//        userService.createRequest(mongoUser.getEmail(), organization, false);
+//      }
+//      for (String organization : organizationsToDelete) {
+//        userService.createRequest(mongoUser.getEmail(), organization, true);
+//      }
+//      sendEmailNotifications(user);
+//    }
+//
+//    List<UserOrganizationRole> newUserOrganizationRoles = new ArrayList<>();
+//    for (String organization : organizationsToKeepUnchanged) {
+//      for (UserOrganizationRole userOrganizationRole : oldUserOrganizationRoles) {
+//        if (userOrganizationRole.getOrganizationId().equals(organization)) {
+//          newUserOrganizationRoles.add(userOrganizationRole);
+//        }
+//      }
+//    }
+//    for (String organization : organizationsToAdd) {
+//      UserOrganizationRole or = new UserOrganizationRole();
+//      or.setOrganizationId(organization);
+//      or.setRole(null);
+//      newUserOrganizationRoles.add(or);
+//    }
+//    return newUserOrganizationRoles;
+//  }
 
   /**
    * Method sends email notifications for user role request.
    */
-  private void sendEmailNotifications(UserProfile user) {
-    String userFullName = user.getFirstName();
-    String userLastName = user.getLastName();
-    String userEmail = user.getEmail();
+  private void sendEmailNotifications(UserDTO user) {
+    String userFullName = user.getLdapUser().getFirstName();
+    String userLastName = user.getLdapUser().getLastName();
+    String userEmail = user.getLdapUser().getEmail();
     List<String> allAdminUsers = userService.getAllAdminUsers();
 
     //all Europeana admins notification
@@ -380,19 +369,19 @@ public class MetisUserPageController {
     }
   }
 
-  /**
-   * Method resolves the new organization list that user belongs to.
-   */
-  private List<String> resolveUserOrganizations(UserProfile user) {
-    String orgs = user.getOrganization();
-    List<String> organizations = new ArrayList<>();
-    if (orgs != null) {
-      String[] split = orgs.split(",");
-      for (int i = 0; i < split.length; i++) {
-        split[i] = split[i].trim();
-      }
-      organizations.addAll(Arrays.asList(split));
-    }
-    return organizations;
-  }
+//  /**
+//   * Method resolves the new organization list that user belongs to.
+//   */
+//  private List<String> resolveUserOrganizations(UserDTO user) {
+//    String orgs = user.getUser()..getOrganization();
+//    List<String> organizations = new ArrayList<>();
+//    if (orgs != null) {
+//      String[] split = orgs.split(",");
+//      for (int i = 0; i < split.length; i++) {
+//        split[i] = split[i].trim();
+//      }
+//      organizations.addAll(Arrays.asList(split));
+//    }
+//    return organizations;
+//  }
 }

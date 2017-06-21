@@ -39,7 +39,7 @@ public class User {
 
     @Indexed
     @Embedded
-    private List<OrganizationRole> organizationRoles;
+    private List<UserOrganizationRole> userOrganizationRoles;
 
     public ObjectId getId() {
         return id;
@@ -105,11 +105,11 @@ public class User {
         this.modified = modified;
     }
 
-    public List<OrganizationRole> getOrganizationRoles() {
-        return organizationRoles;
+    public List<UserOrganizationRole> getUserOrganizationRoles() {
+        return userOrganizationRoles;
     }
 
-    public void setOrganizationRoles(List<OrganizationRole> organizationRoles) {
-        this.organizationRoles = organizationRoles;
+    public void setUserOrganizationRoles(List<UserOrganizationRole> userOrganizationRoles) {
+        this.userOrganizationRoles = userOrganizationRoles;
     }
 }

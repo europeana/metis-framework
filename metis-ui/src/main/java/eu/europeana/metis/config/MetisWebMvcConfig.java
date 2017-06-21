@@ -7,6 +7,7 @@ import com.github.mjeanroy.springmvc.view.mustache.MustacheViewResolver;
 import com.github.mjeanroy.springmvc.view.mustache.core.DefaultTemplateLoader;
 import com.github.mjeanroy.springmvc.view.mustache.handlebars.HandlebarsCompiler;
 import eu.europeana.metis.controller.MetisPageController;
+import eu.europeana.metis.controller.MetisProfilePageController;
 import eu.europeana.metis.controller.MetisUserPageController;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -70,9 +71,16 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public MetisUserPageController userPageController(UserService userService, DsOrgRestClient dsOrgRestClient,
-        JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
-    return new MetisUserPageController(userService, dsOrgRestClient, javaMailSender, simpleMailMessage);
+  public MetisUserPageController userPageController(UserService userService,
+      DsOrgRestClient dsOrgRestClient,
+      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
+    return new MetisUserPageController(userService, dsOrgRestClient, javaMailSender,
+        simpleMailMessage);
+  }
+
+  @Bean
+  public MetisProfilePageController profilePageController(UserService userService) {
+    return new MetisProfilePageController(userService);
   }
 
   @Bean
@@ -94,7 +102,8 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public ContentNegotiatingViewResolver contentViewResolver(MustacheCompiler mustacheCompiler) throws Exception {
+  public ContentNegotiatingViewResolver contentViewResolver(MustacheCompiler mustacheCompiler)
+      throws Exception {
     ContentNegotiatingViewResolver contentViewResolver = new ContentNegotiatingViewResolver();
     ContentNegotiationManagerFactoryBean contentNegotiationManager = new ContentNegotiationManagerFactoryBean();
     contentNegotiationManager.addMediaType("json", MediaType.APPLICATION_JSON);

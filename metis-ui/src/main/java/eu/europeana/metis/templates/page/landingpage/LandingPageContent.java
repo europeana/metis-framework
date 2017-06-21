@@ -1,14 +1,14 @@
 package eu.europeana.metis.templates.page.landingpage;
 
-import eu.europeana.metis.templates.Content;
-import java.util.HashMap;
-import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import eu.europeana.metis.templates.Content;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -39,6 +39,7 @@ public class LandingPageContent {
   private Boolean isRequests;
   @JsonProperty("is_request_approve")
   private Boolean isRequestApprove;
+
   @JsonProperty("content")
   private Content content;
   @JsonIgnore
@@ -93,6 +94,8 @@ public class LandingPageContent {
   public void setIsRequests(Boolean isRequests) {
     this.isRequests = isRequests;
   }
+
+
 
   @JsonProperty("is_request_approve")
   public Boolean getIsRequestApprove() {

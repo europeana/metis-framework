@@ -20,6 +20,7 @@ package eu.europeana.metis.ui.ldap.dao.impl;
 import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 import eu.europeana.metis.ui.ldap.domain.LdapUser;
+import eu.europeana.metis.ui.mongo.domain.Role;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +38,6 @@ import org.springframework.ldap.support.LdapNameBuilder;
 
 import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.Group;
-import eu.europeana.metis.ui.mongo.domain.Roles;
 
 public class LdapUserDao implements UserDao {
 	
@@ -151,7 +151,7 @@ public class LdapUserDao implements UserDao {
  *    "cn=email@europeana.eu,ou=users,ou=metis_authentication,dc=europeana,dc=eu"
  */
     @Override
-    public List<String> findUsersByRole(Roles userRole) {
+    public List<String> findUsersByRole(Role userRole) {
       List<String> members = ldapTemplate.findByDn(buildRoleDn(userRole.getLdapName()), Group.class).getMembers();
       List<String> emails = new ArrayList<>();
       if (members != null && !members.isEmpty()) {

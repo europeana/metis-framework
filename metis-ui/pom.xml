@@ -44,32 +44,32 @@
         <version>2.10</version>
         <executions>
           <!--<execution>-->
-            <!--<id>dependency-purge-local-dependency</id>-->
-            <!--<phase>clean</phase>-->
-            <!--<goals>-->
-              <!--<goal>purge-local-repository</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<manualIncludes>-->
-                <!--<manualInclude>eu.europeana.metis:europeana-java-styleguide</manualInclude>-->
-              <!--</manualIncludes>-->
-            <!--</configuration>-->
+          <!--<id>dependency-purge-local-dependency</id>-->
+          <!--<phase>clean</phase>-->
+          <!--<goals>-->
+          <!--<goal>purge-local-repository</goal>-->
+          <!--</goals>-->
+          <!--<configuration>-->
+          <!--<manualIncludes>-->
+          <!--<manualInclude>eu.europeana.metis:europeana-java-styleguide</manualInclude>-->
+          <!--</manualIncludes>-->
+          <!--</configuration>-->
           <!--</execution>-->
           <!--<execution>-->
-            <!--<id>dependency-get</id>-->
-            <!--<phase>process-sources</phase>-->
-            <!--<goals>-->
-              <!--<goal>get</goal>-->
-            <!--</goals>-->
-            <!--<configuration>-->
-              <!--<groupId>eu.europeana.metis</groupId>-->
-              <!--<artifactId>europeana-java-styleguide</artifactId>-->
-              <!--<version>1.0-SNAPSHOT</version>-->
-              <!--<packaging>jar</packaging>-->
-              <!--<remoteRepositories>-->
-                <!--artifactory.eanadev.org-snapshot::default::http://artifactory.eanadev.org/artifactory/libs-snapshot-local-->
-              <!--</remoteRepositories>-->
-            <!--</configuration>-->
+          <!--<id>dependency-get</id>-->
+          <!--<phase>process-sources</phase>-->
+          <!--<goals>-->
+          <!--<goal>get</goal>-->
+          <!--</goals>-->
+          <!--<configuration>-->
+          <!--<groupId>eu.europeana.metis</groupId>-->
+          <!--<artifactId>europeana-java-styleguide</artifactId>-->
+          <!--<version>1.0-SNAPSHOT</version>-->
+          <!--<packaging>jar</packaging>-->
+          <!--<remoteRepositories>-->
+          <!--artifactory.eanadev.org-snapshot::default::http://artifactory.eanadev.org/artifactory/libs-snapshot-local-->
+          <!--</remoteRepositories>-->
+          <!--</configuration>-->
           <!--</execution>-->
           <execution>
             <id>dependency-unpack</id>

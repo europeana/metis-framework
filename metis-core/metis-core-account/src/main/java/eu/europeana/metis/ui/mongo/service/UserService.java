@@ -4,10 +4,11 @@ import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.domain.LdapUser;
 import eu.europeana.metis.ui.mongo.dao.MongoUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
+import eu.europeana.metis.ui.mongo.domain.Role;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
-import eu.europeana.metis.ui.mongo.domain.Roles;
 import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import eu.europeana.metis.ui.mongo.domain.UserOrganizationRole;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -123,10 +124,10 @@ public class UserService {
    * @param organizationRole The organizationRole of the organization
    * @return The Roles that can be assigned to the user
    */
-  public List<Roles> getRolesFromOrganizationRole(
+  public List<Role> getRolesFromOrganizationRole(
       eu.europeana.metis.core.common.OrganizationRole organizationRole) {
-    List<Roles> roles = new ArrayList<>();
-    for (Roles roleToCheck : Roles.values()) {
+    List<Role> roles = new ArrayList<>();
+    for (Role roleToCheck : Role.values()) {
       if (roleToCheck.isAssignableTo(organizationRole)) {
         roles.add(roleToCheck);
       }
@@ -151,7 +152,7 @@ public class UserService {
    *
    * @param request The user request to approve
    */
-  public void approveRequest(RoleRequest request, Roles role) {
+  public void approveRequest(RoleRequest request, Role role) {
     updateRequest(request, role, "approved");
   }
 
@@ -172,7 +173,7 @@ public class UserService {
     return mongoUserDao.findOne("email", roleRequest.getUserId());
   }
 
-  private void updateRequest(RoleRequest request, Roles role, String status) {
+  private void updateRequest(RoleRequest request, Role role, String status) {
     UpdateOperations<RoleRequest> ops = roleRequestDao.createUpdateOperations();
     ops.set("requestStatus", status);
     Query<RoleRequest> query = roleRequestDao.createQuery();
@@ -182,28 +183,28 @@ public class UserService {
     if (!StringUtils.equals("rejected", status)) {
       User user = mongoUserDao.findOne("email", request.getUserId());
       if (user != null) {
-        List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> orgIds = user
-            .getOrganizationRoles();
+        List<UserOrganizationRole> orgIds = user
+            .getUserOrganizationRoles();
 
         if (!request.isDeleteRequest()) {
           if (orgIds == null) {
             orgIds = new ArrayList<>();
           }
-          eu.europeana.metis.ui.mongo.domain.OrganizationRole organizationRole = new eu.europeana.metis.ui.mongo.domain.OrganizationRole();
-          organizationRole.setOrganizationId(request.getOrganizationId());
-          organizationRole.setRole(role);
-          orgIds.add(organizationRole);
-          user.setOrganizationRoles(orgIds);
+          UserOrganizationRole userOrganizationRole = new UserOrganizationRole();
+          userOrganizationRole.setOrganizationId(request.getOrganizationId());
+          userOrganizationRole.setRole(role);
+          orgIds.add(userOrganizationRole);
+          user.setUserOrganizationRoles(orgIds);
 
         } else {
-          List<eu.europeana.metis.ui.mongo.domain.OrganizationRole> newOrganizationRoles = new ArrayList<>();
-          for (eu.europeana.metis.ui.mongo.domain.OrganizationRole checkOrganizationRole : orgIds) {
+          List<UserOrganizationRole> newUserOrganizationRoles = new ArrayList<>();
+          for (UserOrganizationRole checkUserOrganizationRole : orgIds) {
             if (!StringUtils
-                .equals(request.getOrganizationId(), checkOrganizationRole.getOrganizationId())) {
-              newOrganizationRoles.add(checkOrganizationRole);
+                .equals(request.getOrganizationId(), checkUserOrganizationRole.getOrganizationId())) {
+              newUserOrganizationRoles.add(checkUserOrganizationRole);
             }
           }
-          user.setOrganizationRoles(newOrganizationRoles);
+          user.setUserOrganizationRoles(newUserOrganizationRoles);
         }
         updateUserInMongo(user);
       }
@@ -245,8 +246,8 @@ public class UserService {
     } else {
       ops.unset("skypeId");
     }
-    if (user.getOrganizationRoles() != null) {
-      ops.set("organizationRoles", user.getOrganizationRoles());
+    if (user.getUserOrganizationRoles() != null) {
+      ops.set("organizationRoles", user.getUserOrganizationRoles());
     } else {
       ops.unset("organizationRoles");
     }
@@ -352,6 +353,6 @@ public class UserService {
   }
 
   public List<String> getAllAdminUsers() {
-    return userDao.findUsersByRole(Roles.EUROPEANA_ADMIN);
+    return userDao.findUsersByRole(Role.EUROPEANA_ADMIN);
   }
 }

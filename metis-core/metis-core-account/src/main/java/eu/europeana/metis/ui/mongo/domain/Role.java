@@ -6,7 +6,7 @@ import eu.europeana.metis.core.common.OrganizationRole;
  * Roles for Europeana user management
  * Created by ymamakis on 24-1-17.
  */
-public enum Roles {
+public enum Role {
 
     DATA_PROVIDER_CONTACT("Data Provider Contact", "hub_contact"){
         @Override
@@ -42,7 +42,7 @@ public enum Roles {
         @Override
         public boolean isAssignableTo(OrganizationRole role) {
             return OrganizationRole.DATA_AGGREGATOR==role||
-                eu.europeana.metis.core.common.OrganizationRole.DIRECT_PROVIDER==role;
+                OrganizationRole.DIRECT_PROVIDER==role;
         }
     },
     EUROPEANA_ADMIN("Europeana Admin", "europeana_admin"){
@@ -62,7 +62,7 @@ public enum Roles {
     
     private String ldapName;
 
-    Roles(String name, String ldapName) {
+    Role(String name, String ldapName) {
         this.name = name;
         this.ldapName = ldapName;
     }
