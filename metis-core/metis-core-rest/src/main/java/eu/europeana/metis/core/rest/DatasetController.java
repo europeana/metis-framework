@@ -87,8 +87,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.createDatasetForOrganization(dataset, organizationId);
-    LOGGER.info("Dataset with name " + dataset.getDatasetName() + " for organizationId "
-        + organizationId + " created");
+    LOGGER.info("Dataset with name %s for organizationId %s created", dataset.getDatasetName(),
+            organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.PUT, consumes = {
@@ -115,7 +115,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.updateDatasetByDatasetName(dataset, datasetName);
-    LOGGER.info("Dataset with datasetName " + datasetName + " updated");
+    LOGGER.info("Dataset with datasetName %s updated", datasetName);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME_UPDATENAME, method = RequestMethod.PUT)
@@ -142,9 +142,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.updateDatasetName(datasetName, newDatasetName);
-    LOGGER.info(
-            "Dataset with datasetName '" + datasetName + "' updated name to '" + newDatasetName
-                + "'");
+    LOGGER.info("Dataset with datasetName '%s' updated name to '%s'", datasetName,
+            newDatasetName);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.DELETE)
@@ -166,7 +165,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.deleteDatasetByDatasetName(datasetName);
-    LOGGER.info("Dataset with datasetName '" + datasetName + "' deleted");
+    LOGGER.info("Dataset with datasetName '%s' deleted", datasetName);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
@@ -191,7 +190,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureReadOrWriteAccess(apikey, key);
 
     Dataset dataset = datasetService.getDatasetByDatasetName(datasetName);
-    LOGGER.info("Dataset with datasetName '" + datasetName + "' found");
+    LOGGER.info("Dataset with datasetName '%s' found", datasetName);
     return dataset;
   }
 
@@ -221,8 +220,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     responseListWrapper
         .setResultsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-        + " datasets returned, using batch nextPage: " + nextPage);
+    LOGGER.info("Batch of: %d datasets returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 }

@@ -104,7 +104,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
     organizationService.checkRestrictionsOnCreate(organization);
     organizationService.createOrganization(organization);
-    LOGGER.info("Organization with id " + organization.getOrganizationId() + " created");
+    LOGGER.info("Organization with id %s created", organization.getOrganizationId());
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.DELETE)
@@ -124,7 +124,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     MetisKey key = ensureValidKey(apikey);
     ensureActionAuthorized(apikey, key, Options.WRITE);
     organizationService.deleteOrganizationByOrganizationId(organizationId);
-    LOGGER.info("Organization with id " + organizationId + " deleted");
+    LOGGER.info("Organization with id %s deleted", organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
@@ -150,7 +150,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
 
     organizationService.checkRestrictionsOnUpdate(organization, organizationId);
     organizationService.updateOrganization(organization);
-    LOGGER.info("Organization with id " + organizationId + " updated");
+    LOGGER.info("Organization with id %s updated", organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.GET, produces = {
@@ -168,7 +168,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public ResponseListWrapper<Organization> getAllOrganizations(
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -177,8 +177,8 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(organizations,
         organizationService.getOrganizationsPerRequestLimit());
-    LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-        + " organizations returned, using batch nextPage: " + nextPage);
+    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
@@ -205,7 +205,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
 
     Organization organization = organizationService
         .getOrganizationByOrganizationId(organizationId);
-    LOGGER.info("Organization with id " + organizationId + " found");
+    LOGGER.info("Organization with id %s found", organizationId);
     return organization;
 
   }
@@ -237,8 +237,8 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(organizations,
         organizationService.getOrganizationsPerRequestLimit());
-    LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-        + " organizations returned, using batch nextPage: " + nextPage);
+    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
@@ -271,8 +271,8 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(organizations,
         organizationService.getOrganizationsPerRequestLimit());
-    LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-        + " organizations returned, using batch nextPage: " + nextPage);
+    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
@@ -296,7 +296,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ensureReadOrWriteAccess(apikey, key);
     List<OrganizationSearchBean> organizationSearchBeans = organizationService
         .suggestOrganizations(searchTerm);
-    LOGGER.info("Found " + organizationSearchBeans.size() + " suggestions");
+    LOGGER.info("Found %d suggestions", organizationSearchBeans.size());
     return new OrganizationSearchListWrapper(organizationSearchBeans);
   }
 
@@ -326,8 +326,8 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     responseListWrapper.setResultsAndLastPage(
         organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
         datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-        + " datasets returned, using batch nextPage: " + nextPage);
+    LOGGER.info("Batch of: %d datasets returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
@@ -376,7 +376,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ensureReadOrWriteAccess(apikey, key);
 
     Organization organization = organizationService.getOrganizationByIdFromCRM(organizationId);
-    LOGGER.info("Organization with id " + organizationId + " found in CRM");
+    LOGGER.info("Organization with id %s found in CRM", organizationId);
     return organization;
   }
 

@@ -119,7 +119,7 @@ public class OrganizationService {
     Organization organization = organizationDao.getOrganizationByOrganizationId(organizationId);
     if (organization == null) {
       throw new NoOrganizationFoundException(
-          "No organization found with organization id: " + organizationId + " in METIS");
+          String.format("No organization found with organization id: %s in METIS", organizationId));
     }
     return organization;
   }
@@ -129,7 +129,7 @@ public class OrganizationService {
     Organization organization = restClient.getOrganizationById(organizationId);
     if (organization == null) {
       throw new NoOrganizationFoundException(
-          "No organization found with organization id: " + organizationId + " in CRM");
+          String.format("No organization found with organization id: %s in CRM", organizationId));
     }
     return organization;
   }
@@ -148,7 +148,7 @@ public class OrganizationService {
         .getOrganizationOptInIIIFByOrganizationId(organizationId);
     if (organization == null) {
       throw new NoOrganizationFoundException(
-          "No organization found with organization id: " + organizationId + " in METIS");
+          String.format("No organization found with organization id: %s in METIS", organizationId));
     }
     return organization.isOptInIIIF();
   }
@@ -169,7 +169,7 @@ public class OrganizationService {
     LOGGER.info("Organization not found, so it can be created");
 
     if (organization.getDatasetNames() != null
-        && organization.getDatasetNames().size() != 0) {
+        && organization.getDatasetNames().isEmpty()) {
       throw new BadContentException("The field 'datasetNames' is not allowed on creation");
     }
   }
@@ -179,11 +179,11 @@ public class OrganizationService {
     if (!StringUtils.isEmpty(organization.getOrganizationId()) && !organization
         .getOrganizationId().equals(organizationId)) {
       throw new BadContentException(
-          "OrganinazationId in body " + organization.getOrganizationId()
-              + " is different from parameter " + organizationId);
+          String.format("OrganinazationId in body %s is different from parameter %s",
+              organization.getOrganizationId(), organizationId));
     }
     if (organization.getDatasetNames() != null
-        && organization.getDatasetNames().size() != 0) {
+        && organization.getDatasetNames().isEmpty()) {
       throw new BadContentException("The field 'datasetNames' is not allowed on update");
     }
     organization.setOrganizationId(organizationId);
@@ -202,7 +202,7 @@ public class OrganizationService {
     String organizationId = org.getOrganizationId();
     List<String> searchLabel = getSearchLabels(org, englabel);
     searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
-    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+    LOGGER.info("Organization %s saved in solr", org.getOrganizationId());
   }
 
   private void updateSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
@@ -212,7 +212,7 @@ public class OrganizationService {
     String organizationId = org.getOrganizationId();
     List<String> searchLabel = getSearchLabels(org, englabel);
     searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
-    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+    LOGGER.info("Organization %s saved in solr", org.getOrganizationId());
   }
 
   private List<String> getSearchLabels(Organization org, String englabel) {
