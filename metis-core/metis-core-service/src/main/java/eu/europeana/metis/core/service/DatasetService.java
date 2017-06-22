@@ -140,17 +140,31 @@ public class DatasetService {
     return datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
 
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
+    return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
+  }
+
+  public boolean existsDatasetByDatasetName(String datasetName) {
+    return datasetDao.existsDatasetByDatasetName(datasetName);
+  }
+
+  public int getDatasetsPerRequestLimit() {
+    return datasetDao.getDatasetsPerRequest();
+  }
+
 
   private void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException {
     if (StringUtils.isEmpty(dataset.getDatasetName())) {
       throw new BadContentException("Dataset field 'datasetName' cannot be empty");
-    } else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null
+    }
+    if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null
         || dataset.getFirstPublished() != null || dataset.getLastPublished() != null
         || dataset.getHarvestedAt() != null || dataset.getSubmissionDate() != null) {
       throw new BadContentException(
           "Dataset fields 'createdDate', 'updatedDate', 'firstPublished', 'lastPublished', 'harvestedAt', 'submittedAt' should be empty");
-    } else if (dataset.getSubmittedRecords() != 0 || dataset.getPublishedRecords() != 0) {
+    }
+    if (dataset.getSubmittedRecords() != 0 || dataset.getPublishedRecords() != 0) {
       throw new BadContentException(
           "Dataset fields 'submittedRecords', 'publishedRecords' should be 0");
     }
@@ -179,24 +193,13 @@ public class DatasetService {
       throw new BadContentException(
           "DatasetName in body " + dataset.getDatasetName()
               + " is different from parameter " + datasetName);
-    } else if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
+    }
+    if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
       throw new BadContentException(
           "Dataset fields 'createdDate', 'updatedDate' should be empty");
     }
 
     Dataset storedDataset = getDatasetByDatasetName(datasetName);
     dataset.setEcloudDatasetId(storedDataset.getEcloudDatasetId());
-  }
-
-  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
-    return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
-  }
-
-  public boolean existsDatasetByDatasetName(String datasetName) {
-    return datasetDao.existsDatasetByDatasetName(datasetName);
-  }
-
-  public int getDatasetsPerRequestLimit() {
-    return datasetDao.getDatasetsPerRequest();
   }
 }
