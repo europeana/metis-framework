@@ -24,6 +24,7 @@ import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
@@ -97,10 +98,10 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public void createOrganization(
       @RequestBody Organization organization,
       @QueryParam("apikey") String apikey)
-      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, OrganizationAlreadyExistsException, BadContentException {
+      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, OrganizationAlreadyExistsException, BadContentException, EmptyApiKeyException {
     MetisKey key = ensureValidKey(apikey);
 
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
     organizationService.checkRestrictionsOnCreate(organization);
     organizationService.createOrganization(organization);
     LOGGER.info("Organization with id " + organization.getOrganizationId() + " created");
@@ -119,9 +120,9 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public void deleteOrganization(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("apikey") String apikey)
-      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
+      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
     MetisKey key = ensureValidKey(apikey);
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
     organizationService.deleteOrganizationByOrganizationId(organizationId);
     LOGGER.info("Organization with id " + organizationId + " deleted");
   }
@@ -142,10 +143,10 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public void updateOrganization(@RequestBody Organization organization,
       @PathVariable("organizationId") String organizationId,
       @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException {
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
 
     organizationService.checkRestrictionsOnUpdate(organization, organizationId);
     organizationService.updateOrganization(organization);
@@ -167,7 +168,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public ResponseListWrapper<Organization> getAllOrganizations(
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -197,7 +198,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public Organization getOrganizationByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -226,7 +227,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       @PathVariable("isoCode") String isoCode,
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -259,7 +260,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -290,7 +291,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public OrganizationSearchListWrapper suggestOrganizations(
       @QueryParam("searchTerm") String searchTerm,
       @QueryParam("apikey") String apikey)
-      throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
     List<OrganizationSearchBean> organizationSearchBeans = organizationService
@@ -316,7 +317,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -345,7 +346,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ApiOperation(value = "Check if an organization is opted-in for IIIF or not", response = ResultMap.class)
   public ResultMap<Boolean> isOrganizationIdOptedIn(
       @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
-      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -369,7 +370,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ApiOperation(value = "Get an organization from CRM", response = Organization.class)
   public Organization getOrganizationByOrganizationIdFromCRM(
       @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
-      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -392,7 +393,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ApiOperation(value = "Get all organizations from CRM", response = ResponseListWrapper.class)
   public ResponseListWrapper<Organization> getAllOrganizationsFromCRM(
       @RequestParam("apikey") String apikey)
-      throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);

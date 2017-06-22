@@ -23,6 +23,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
@@ -80,10 +81,10 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   public void createDatasetForOrganization(@RequestBody Dataset dataset,
       @QueryParam("organizationId"
       ) String organizationId, @QueryParam("apikey") String apikey)
-      throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
+      throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.createDatasetForOrganization(dataset, organizationId);
     LOGGER.info("Dataset with name " + dataset.getDatasetName() + " for organizationId "
@@ -108,10 +109,10 @@ public class DatasetController extends ApiKeySecuredControllerBase {
       @RequestBody Dataset dataset,
       @PathVariable("datasetName") String datasetName,
       @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException {
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.updateDatasetByDatasetName(dataset, datasetName);
     LOGGER.info("Dataset with datasetName " + datasetName + " updated");
@@ -135,10 +136,10 @@ public class DatasetController extends ApiKeySecuredControllerBase {
       @PathVariable("datasetName") String datasetName,
       @QueryParam("newDatasetName") String newDatasetName,
       @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException {
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.updateDatasetName(datasetName, newDatasetName);
     LOGGER.info(
@@ -159,10 +160,10 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   public void deleteDataset(
       @PathVariable("datasetName") String datasetName,
       @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException {
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
-    ensureActionAutorized(apikey, key, Options.WRITE);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.deleteDatasetByDatasetName(datasetName);
     LOGGER.info("Dataset with datasetName '" + datasetName + "' deleted");
@@ -184,7 +185,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   public Dataset getByDatasetName(
       @PathVariable("datasetName") String datasetName,
       @QueryParam("apikey") String apikey)
-      throws NoDatasetFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws NoDatasetFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -211,7 +212,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
       @PathVariable("dataProvider") String dataProvider,
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);

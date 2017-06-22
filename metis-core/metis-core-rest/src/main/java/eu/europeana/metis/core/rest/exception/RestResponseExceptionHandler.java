@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest.exception;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
@@ -44,7 +45,7 @@ public class RestResponseExceptionHandler {
       NoDatasetFoundException.class, NoUserWorkflowFoundException.class,
       UserWorkflowExecutionAlreadyExistsException.class,
       NoUserWorkflowExecutionFoundException.class, ExecutionException.class,
-      InterruptedException.class})
+      InterruptedException.class, EmptyApiKeyException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
       HttpServletResponse response) {
