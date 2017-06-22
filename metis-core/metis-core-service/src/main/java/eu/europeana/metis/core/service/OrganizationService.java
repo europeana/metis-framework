@@ -169,7 +169,7 @@ public class OrganizationService {
     LOGGER.info("Organization not found, so it can be created");
 
     if (organization.getDatasetNames() != null
-        && organization.getDatasetNames().isEmpty()) {
+        && !organization.getDatasetNames().isEmpty()) {
       throw new BadContentException("The field 'datasetNames' is not allowed on creation");
     }
   }
@@ -183,7 +183,7 @@ public class OrganizationService {
               organization.getOrganizationId(), organizationId));
     }
     if (organization.getDatasetNames() != null
-        && organization.getDatasetNames().isEmpty()) {
+        && !organization.getDatasetNames().isEmpty()) {
       throw new BadContentException("The field 'datasetNames' is not allowed on update");
     }
     organization.setOrganizationId(organizationId);
