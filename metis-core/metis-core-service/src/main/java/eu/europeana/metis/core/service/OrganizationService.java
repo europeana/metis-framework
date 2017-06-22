@@ -70,47 +70,6 @@ public class OrganizationService {
     saveSearchTermsInSolr(org);
   }
 
-  private void saveSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
-    String id = org.getId().toString();
-    String englabel = org.getName();
-    String organizationId = org.getOrganizationId();
-    List<String> searchLabel = new ArrayList<>();
-    searchLabel.add(englabel);
-    if (org.getPrefLabel() != null) {
-      for (PrefLabel label : org.getPrefLabel()) {
-        searchLabel.add(label.getLabel());
-      }
-    }
-    if (org.getAltLabel() != null) {
-      for (AltLabel label : org.getAltLabel()) {
-        searchLabel.add(label.getLabel());
-      }
-    }
-    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
-    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
-  }
-
-  private void updateSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
-    String id = searchService
-        .findSolrIdByOrganizationId(org.getOrganizationId());
-    String englabel = org.getName();
-    String organizationId = org.getOrganizationId();
-    List<String> searchLabel = new ArrayList<>();
-    searchLabel.add(englabel);
-    if (org.getPrefLabel() != null) {
-      for (PrefLabel label : org.getPrefLabel()) {
-        searchLabel.add(label.getLabel());
-      }
-    }
-    if (org.getAltLabel() != null) {
-      for (AltLabel label : org.getAltLabel()) {
-        searchLabel.add(label.getLabel());
-      }
-    }
-    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
-    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
-  }
-
   public void updateOrganization(Organization org) throws SolrServerException, IOException {
     organizationDao.update(org);
     updateSearchTermsInSolr(org);
@@ -175,6 +134,10 @@ public class OrganizationService {
     return organization;
   }
 
+  public int getOrganizationsPerRequestLimit() {
+    return organizationDao.getOrganizationsPerRequest();
+  }
+
   public List<Organization> getAllOrganizationsFromCRM()
       throws ParseException, IOException {
     return restClient.getAllOrganizations();
@@ -197,14 +160,15 @@ public class OrganizationService {
 
   public void checkRestrictionsOnCreate(Organization organization)
       throws BadContentException, OrganizationAlreadyExistsException {
-    if (existsOrganizaitonByOrganizationId(organization.getOrganizationId())) {
-      throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
-    } else {
-      LOGGER.info("Organization not found, so it can be created");
-    }
     if (StringUtils.isEmpty(organization.getOrganizationId())) {
       throw new BadContentException("OrganizationId cannot be null");
-    } else if (organization.getDatasetNames() != null
+    }
+    if (existsOrganizaitonByOrganizationId(organization.getOrganizationId())) {
+      throw new OrganizationAlreadyExistsException(organization.getOrganizationId());
+    }
+    LOGGER.info("Organization not found, so it can be created");
+
+    if (organization.getDatasetNames() != null
         && organization.getDatasetNames().size() != 0) {
       throw new BadContentException("The field 'datasetNames' is not allowed on creation");
     }
@@ -217,7 +181,8 @@ public class OrganizationService {
       throw new BadContentException(
           "OrganinazationId in body " + organization.getOrganizationId()
               + " is different from parameter " + organizationId);
-    } else if (organization.getDatasetNames() != null
+    }
+    if (organization.getDatasetNames() != null
         && organization.getDatasetNames().size() != 0) {
       throw new BadContentException("The field 'datasetNames' is not allowed on update");
     }
@@ -231,7 +196,38 @@ public class OrganizationService {
     return organizationDao.existsOrganizationByOrganizationId(organizationId);
   }
 
-  public int getOrganizationsPerRequestLimit() {
-    return organizationDao.getOrganizationsPerRequest();
+  private void saveSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
+    String id = org.getId().toString();
+    String englabel = org.getName();
+    String organizationId = org.getOrganizationId();
+    List<String> searchLabel = getSearchLabels(org, englabel);
+    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
+    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+  }
+
+  private void updateSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
+    String id = searchService
+        .findSolrIdByOrganizationId(org.getOrganizationId());
+    String englabel = org.getName();
+    String organizationId = org.getOrganizationId();
+    List<String> searchLabel = getSearchLabels(org, englabel);
+    searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
+    LOGGER.info("Organization " + org.getOrganizationId() + " saved in solr");
+  }
+
+  private List<String> getSearchLabels(Organization org, String englabel) {
+    List<String> searchLabel = new ArrayList<>();
+    searchLabel.add(englabel);
+    if (org.getPrefLabel() != null) {
+      for (PrefLabel label : org.getPrefLabel()) {
+        searchLabel.add(label.getLabel());
+      }
+    }
+    if (org.getAltLabel() != null) {
+      for (AltLabel label : org.getAltLabel()) {
+        searchLabel.add(label.getLabel());
+      }
+    }
+    return searchLabel;
   }
 }

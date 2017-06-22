@@ -239,8 +239,9 @@ public class OrganizationDao implements MetisDao<Organization, String> {
         .get();
   }
 
+
   public boolean existsOrganizationByOrganizationId(String organizationId) {
-    return provider.getDatastore().find(Dataset.class).field("organizationId").equal(organizationId)
+    return provider.getDatastore().find(Organization.class).field("organizationId").equal(organizationId)
         .project("_id", true).get() != null;
   }
 
