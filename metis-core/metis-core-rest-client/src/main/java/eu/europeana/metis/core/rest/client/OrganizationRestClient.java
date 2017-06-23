@@ -16,10 +16,9 @@
  */
 package eu.europeana.metis.core.rest.client;
 
-import static eu.europeana.metis.RestEndpoints.DATASETS;
-import static eu.europeana.metis.RestEndpoints.DATASETS_DATASETNAME;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
+import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS;
 import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ROLES;
 import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
@@ -27,14 +26,12 @@ import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.OrganizationRole;
-import eu.europeana.metis.core.dataset.Dataset;
-//import eu.europeana.metis.core.dataset.DatasetListWrapper;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.ServerError;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.Validate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -43,19 +40,27 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 
 /**
- * Rest Client for Dataset and Organization Management
+ * Rest Client Organization Management
  * Created by ymamakis on 2/26/16.
  */
-public class DsOrgRestClient {
+public class OrganizationRestClient {
 
-    private RestTemplate template = new RestTemplate();
+    private RestTemplate template;
 
     private String apikey;
     private String hostUrl;
-    public DsOrgRestClient(String hostUrl,String apikey){
+
+    public OrganizationRestClient(String hostUrl,String apikey){
+        this(new RestTemplate(), hostUrl, apikey);
+    }
+
+    public OrganizationRestClient(RestTemplate restTemplate, String hostUrl,String apikey){
+        Validate.notNull(restTemplate, "restTemplate parameter not set");
+        template = restTemplate;
         template.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
         this.hostUrl = hostUrl;
         this.apikey = apikey;
@@ -66,15 +71,16 @@ public class DsOrgRestClient {
      * @param org The organization to create
      */
     public void createOrganization(Organization org) throws ServerException {
-
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity = template.exchange(hostUrl +
-                RestEndpoints.resolve(ORGANIZATIONS,apikey),HttpMethod.POST,orgEntity,
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS)
+            .queryParam("apikey", apikey);
+
+        ResponseEntity entity = template.exchange(builder.toUriString(), HttpMethod.POST, orgEntity,
                 ResponseEntity.class);
-        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
+        if (!entity.getStatusCode().equals(HttpStatus.CREATED)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
         }
     }
@@ -87,7 +93,12 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> orgEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity =template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATIONS,apikey),
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+            hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID, org.getOrganizationId()))
+            .queryParam("apikey", apikey);
+
+        ResponseEntity entity = template.exchange(builder.toUriString(),
                 HttpMethod.PUT, orgEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError)entity.getBody()).getMessage());
@@ -103,7 +114,11 @@ public class DsOrgRestClient {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Organization> organizationHttpEntity = new HttpEntity<>(org,headers);
-        ResponseEntity entity = template.exchange(hostUrl + RestEndpoints.resolve(ORGANIZATIONS,apikey),
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+            hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID, org.getOrganizationId()))
+            .queryParam("apikey", apikey);
+
+        ResponseEntity entity = template.exchange(builder.toUriString(),
                 HttpMethod.DELETE, organizationHttpEntity, ResponseEntity.class);
         if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
             throw new ServerException(((ServerError) entity.getBody()).getMessage());
@@ -115,10 +130,13 @@ public class DsOrgRestClient {
      * @return The list of all the organizations stored in METIS
      * @throws ServerException
      */
-    public List<Organization> getAllOrganizations() throws ServerException {
+    public OrganizationListResponse getAllOrganizations(String nextPage) throws ServerException {
         try {
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS)
+                .queryParam("apikey", apikey)
+                .queryParam("nextPage", nextPage);
 
-            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS+"?apikey="+apikey, OrganizationListResponse.class).getResults();
+            OrganizationListResponse orgs =  template.getForObject(builder.toUriString(), OrganizationListResponse.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -130,11 +148,14 @@ public class DsOrgRestClient {
      * @return The list of all the organizations stored in METIS
      * @throws ServerException
      */
-    public List<Organization> getAllOrganizationsByIsoCode(String isoCode) throws ServerException {
+    public OrganizationListResponse getAllOrganizationsByIsoCode(String isoCode, String nextPage) throws ServerException {
         try {
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_COUNTRY_ISOCODE,isoCode))
+                .queryParam("apikey", apikey)
+                .queryParam("nextPage", nextPage);
 
-            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_COUNTRY_ISOCODE
-                +"?apikey="+apikey+"&isoCode="+isoCode, OrganizationListResponse.class).getResults();
+            OrganizationListResponse orgs =  template.getForObject(builder.toUriString(), OrganizationListResponse.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -146,14 +167,18 @@ public class DsOrgRestClient {
      * @return The list of all the organizations stored in METIS
      * @throws ServerException
      */
-    public List<Organization> getAllOrganizationsByRoles(List<OrganizationRole> organizationRoles) throws ServerException {
+    public OrganizationListResponse getAllOrganizationsByRoles(List<OrganizationRole> organizationRoles, String nextPage) throws ServerException {
         try {
-            String roleParam="role=";
+            String roleParam = "";
             for(OrganizationRole organizationRole : organizationRoles){
-                roleParam+= organizationRole.toString().toLowerCase()+",";
+                roleParam += organizationRole.toString().toLowerCase()+",";
             }
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS_ROLES)
+                .queryParam("apikey", apikey)
+                .queryParam("nextPage", nextPage)
+                .queryParam("organizationRoles", StringUtils.substringBeforeLast(roleParam,","));
 
-            List<Organization> orgs =  template.getForObject(hostUrl + ORGANIZATIONS_ROLES+"?apikey="+apikey+"&"+StringUtils.substringBeforeLast(roleParam,","), OrganizationListResponse.class).getResults();
+            OrganizationListResponse orgs =  template.getForObject( builder.toUriString() , OrganizationListResponse.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -162,15 +187,19 @@ public class DsOrgRestClient {
 
     /**
      * Get all the datasets for an organization (OK)
-     * @param id the datasets of the organization with the specified id
+     * @param orgId the datasets of the organization with the specified id
      * @return The List of datasets for the organization
      * @throws ServerException
      */
-    public List<Dataset> getDatasetsForOrganization(String id) throws ServerException {
+    public DatasetListResponse getDatasetsForOrganization(String orgId, String nextPage) throws ServerException {
         try {
-            List<Dataset> datasets = template.getForObject(hostUrl + RestEndpoints.resolve(
-                ORGANIZATIONS_ORGANIZATION_ID_DATASETS,id), ResponseListWrapper.class).getResults();
-            return datasets;
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID_DATASETS,orgId))
+                .queryParam("apikey", apikey)
+                .queryParam("nextPage", nextPage);
+
+            DatasetListResponse response = template.getForObject(builder.toUriString(), DatasetListResponse.class);
+            return response;
         } catch (Exception e) {
             throw new ServerException("Datasets could not be retrieved with error: " + e.getMessage());
         }
@@ -184,8 +213,10 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationById(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID,id)+"apikey="+apikey,
-                    Organization.class);
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID,id))
+                .queryParam("apikey", apikey);
+            return template.getForObject(builder.toUriString(), Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -199,7 +230,11 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationByOrganizationId(String orgId) throws ServerException {
         try {
-            return template.getForObject(hostUrl + ORGANIZATIONS+ "?orgId="+orgId+"&apikey="+apikey, Organization.class);
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS)
+                .queryParam("apikey", apikey)
+                .queryParam("orgId", orgId);
+
+            return template.getForObject(builder.toUriString(), Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -213,7 +248,11 @@ public class DsOrgRestClient {
      */
     public Organization getOrganizationFromCrm(String id) throws ServerException {
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID,id)+"?apikey="+apikey, Organization.class);
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID,id))
+                .queryParam("apikey", apikey);
+
+            return template.getForObject(builder.toUriString(), Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
         }
@@ -224,83 +263,19 @@ public class DsOrgRestClient {
      * @return A list of all the organizations from Zoho
      * @throws ServerException
      */
-    public List<Organization> getOrganizationsFromCrm() throws ServerException {
+    public OrganizationListResponse getOrganizationsFromCrm(String nextPage) throws ServerException {
         try {
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.ORGANIZATIONS_CRM)
+                 .queryParam("apikey", apikey)
+                 .queryParam("nextPage", nextPage);
 
-            List<Organization> orgs = template.getForObject(hostUrl + RestEndpoints.ORGANIZATIONS_CRM, OrganizationListResponse.class).getResults();
+            OrganizationListResponse orgs = template.getForObject(builder.toUriString(), OrganizationListResponse.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
         }
     }
-
-
-//    /**
-//     * Create a dataset (OK)
-//     *
-//     * @param dataset The dataset to create
-//     */
-//    public void createDataset(Organization org ,Dataset dataset) throws ServerException {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        OrgDatasetDTO dto = new OrgDatasetDTO();
-//        dto.setOrganization(org);
-//        dto.setDataset(dataset);
-//        HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
-//
-//        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.POST, datasetEntity, ResponseEntity.class);
-//        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
-//            throw new ServerException(((ServerError) entity.getBody()).getMessage());
-//        }
-//    }
-
-    /**
-     * Update a dataset (OK)
-     *
-     * @param dataset The organization to update
-     */
-    public void updateDataset(Dataset dataset) throws ServerException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Dataset> datasetEntity = new HttpEntity<>(dataset,headers);
-        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.PUT, datasetEntity, ResponseEntity.class);
-        if (!entity.getStatusCode().equals(HttpStatus.OK)) {
-            throw new ServerException(((ServerError) entity.getBody()).getMessage());
-        }
-    }
-
-//    /**
-//     * Delete a dataset (OK)
-//     * @param dataset the dataset to delete
-//     * @throws ServerException
-//     */
-//    public void deleteDataset(Organization org,Dataset dataset) throws ServerException {
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        OrgDatasetDTO dto = new OrgDatasetDTO();
-//        dto.setOrganization(org);
-//        dto.setDataset(dataset);
-//        HttpEntity<OrgDatasetDTO> datasetEntity = new HttpEntity<>(dto,headers);
-//        ResponseEntity entity = template.exchange(hostUrl + DATASETS, HttpMethod.DELETE, datasetEntity, ResponseEntity.class);
-//        if (!entity.getStatusCode().equals(HttpStatus.NO_CONTENT)) {
-//            throw new ServerException(((ServerError) entity.getBody()).getMessage());
-//        }
-//    }
-
-    /**
-     * Get a dataset by its name (OK)
-     * @param name The name of the dataset
-     * @return The dataset with the given name
-     * @throws ServerException
-     */
-    public Dataset getDatasetByName(String name) throws ServerException{
-        try {
-            return template.getForEntity(hostUrl + RestEndpoints.resolve(DATASETS_DATASETNAME, name), Dataset.class).getBody();
-        } catch (Exception e){
-            throw new ServerException("Dataset could not be retrieved with error: "+e.getMessage());
-        }
-    }
-
 
     /**
      * Get a user by email from Zoho
@@ -310,11 +285,14 @@ public class DsOrgRestClient {
      */
     public Contact getUserByEmail(String email) throws ServerException{
         try{
-            return template.getForEntity(hostUrl+RestEndpoints.resolve(USERBYMAIL,email),Contact.class).getBody();
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.resolve(USERBYMAIL, email))
+                    .queryParam("apikey", apikey);
+
+            return template.getForObject(builder.toUriString(), Contact.class);
         } catch (Exception e){
             throw new ServerException("User could not be retrieved with error: "+e.getMessage());
         }
-
     }
 
 //    /**
@@ -331,9 +309,14 @@ public class DsOrgRestClient {
 //        }
 //    }
 
-    public List<OrganizationSearchBean> suggestOrganizations(String term) throws ServerException{
+    public List<OrganizationSearchBean> suggestOrganizations(String searchTerm) throws ServerException{
         try {
-            return template.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_SUGGEST,term), Suggestions.class).getSuggestions();
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+                hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_SUGGEST))
+                .queryParam("apikey", apikey)
+                .queryParam("searchTerm", searchTerm);
+
+            return template.getForObject(builder.toUriString(), Suggestions.class).getSuggestions();
         } catch (Exception e) {
             throw new ServerException("Organization suggestions could not be retrieved with error: " + e.getMessage());
         }

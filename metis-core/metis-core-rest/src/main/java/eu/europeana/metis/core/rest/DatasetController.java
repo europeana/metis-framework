@@ -77,9 +77,10 @@ public class DatasetController {
       @ApiImplicitParam(name = "organizationId", value = "organizationId for which the dataset will belong", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Create a dataset for an organization Id")
-  public void createDatasetForOrganization(@RequestBody Dataset dataset,
-      @QueryParam("organizationId"
-      ) String organizationId, @QueryParam("apikey") String apikey)
+  public void createDatasetForOrganization(
+      @RequestBody Dataset dataset,
+      @QueryParam("organizationId") String organizationId,
+      @QueryParam("apikey") String apikey)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
@@ -108,9 +109,10 @@ public class DatasetController {
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Update a dataset by dataset name")
-  public void updateDataset(@RequestBody Dataset dataset,
-      @PathVariable("datasetName"
-      ) String datasetName, @QueryParam("apikey") String apikey)
+  public void updateDataset(
+      @RequestBody Dataset dataset,
+      @PathVariable("datasetName") String datasetName,
+      @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);
     if (key != null) {
@@ -138,8 +140,9 @@ public class DatasetController {
       @ApiImplicitParam(name = "newDatasetName", value = "newDatasetName", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Rename datasetName to newDatasetName")
-  public void updateDatasetName(@PathVariable("datasetName"
-  ) String datasetName, @QueryParam("newDatasetName") String newDatasetName,
+  public void updateDatasetName(
+      @PathVariable("datasetName") String datasetName,
+      @QueryParam("newDatasetName") String newDatasetName,
       @QueryParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException {
     MetisKey key = authorizationService.getKeyFromId(apikey);

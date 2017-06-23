@@ -1,15 +1,14 @@
 package eu.europeana.metis.core.rest.client;
 
-import eu.europeana.metis.core.organization.Organization;
-
+import eu.europeana.metis.core.dataset.Dataset;
 import java.util.List;
 
 /**
  * Created by gmamakis on 10-2-17.
  */
-public class OrganizationListResponse {
+public class DatasetListResponse {
 
-    private List<Organization> results;
+    private List<Dataset> results;
     private int listSize;
     private String nextPage;
 
@@ -21,11 +20,11 @@ public class OrganizationListResponse {
         this.nextPage = nextPage;
     }
 
-    public List<Organization> getResults() {
+    public List<Dataset> getResults() {
         return results;
     }
 
-    public void setResults(List<Organization> results) {
+    public void setResults(List<Dataset> results) {
         this.results = results;
     }
 

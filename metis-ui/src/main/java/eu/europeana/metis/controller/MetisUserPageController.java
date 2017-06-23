@@ -5,7 +5,8 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.rest.client.DsOrgRestClient;
+import eu.europeana.metis.core.rest.client.OrganizationListResponse;
+import eu.europeana.metis.core.rest.client.OrganizationRestClient;
 import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
@@ -53,15 +54,15 @@ public class MetisUserPageController {
   private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
-  private final DsOrgRestClient dsOrgRestClient;
+  private final OrganizationRestClient organizationRestClient;
   private final JavaMailSender javaMailSender;
   private final SimpleMailMessage simpleMailMessage;
 
   @Autowired
-  public MetisUserPageController(UserService userService, DsOrgRestClient dsOrgRestClient,
+  public MetisUserPageController(UserService userService, OrganizationRestClient organizationRestClient,
       JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
     this.userService = userService;
-    this.dsOrgRestClient = dsOrgRestClient;
+    this.organizationRestClient = organizationRestClient;
     this.javaMailSender = javaMailSender;
     this.simpleMailMessage = simpleMailMessage;
   }
@@ -257,12 +258,19 @@ public class MetisUserPageController {
           .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
               OrganizationRole.DIRECT_PROVIDER,
               OrganizationRole.EUROPEANA);
-      List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
-      if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
-        for (Organization o : organizationsByRoles) {
-          organizations.add(o.getName());
+      OrganizationListResponse organizationsByRoles;
+      String nextPage= null;
+      do {
+        organizationsByRoles = organizationRestClient
+            .getAllOrganizationsByRoles(roles, nextPage);
+        if (organizationsByRoles != null && organizationsByRoles.getResults() != null && !organizationsByRoles.getResults().isEmpty()) {
+          for (Organization o : organizationsByRoles.getResults()) {
+            organizations.add(o.getName());
+          }
         }
+        nextPage = organizationsByRoles.getNextPage();
       }
+      while(nextPage != null);
     } catch (ServerException e) {
       LOGGER.error("ERROR: *** Zoho server exception: " + e.getMessage() + " ***");
     } catch (Exception e) {
@@ -274,10 +282,10 @@ public class MetisUserPageController {
   private List<Organization> suggestOrganizations(String term) {
     List<Organization> suggestedOrganizations = new ArrayList<>();
     try {
-      List<OrganizationSearchBean> suggestOrganizations = dsOrgRestClient
+      List<OrganizationSearchBean> suggestOrganizations = organizationRestClient
           .suggestOrganizations(term);
       for (OrganizationSearchBean searchBean : suggestOrganizations) {
-        Organization orgById = dsOrgRestClient
+        Organization orgById = organizationRestClient
             .getOrganizationByOrganizationId(searchBean.getId());
         if (orgById != null) {
           suggestedOrganizations.add(orgById);
