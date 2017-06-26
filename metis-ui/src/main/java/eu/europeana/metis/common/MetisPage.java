@@ -1,7 +1,6 @@
 package eu.europeana.metis.common;
 
 import de.flapdoodle.embed.process.collections.Collections;
-import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.Footer;
@@ -26,6 +25,7 @@ import eu.europeana.metis.templates.page.landingpage.Breadcrumb;
 import eu.europeana.metis.templates.page.landingpage.I18n;
 import eu.europeana.metis.templates.page.landingpage.I18nGlobal;
 import eu.europeana.metis.templates.page.landingpage.Newsletter;
+import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.Arrays;
 import java.util.List;
 
@@ -35,7 +35,7 @@ import java.util.List;
  * @author alena
  */
 public abstract class MetisPage extends AbstractMetisPage {
-  public UserProfile user;
+  public UserDTO userDTO;
 
   @Override
   public List<CssFile> resolveCssFiles() {
@@ -43,7 +43,7 @@ public abstract class MetisPage extends AbstractMetisPage {
     CssFile cssFile2 = new CssFile();
     cssFile1.setPath("https://europeana-styleguide-test.s3.amazonaws.com/css/pandora/screen.css");
     cssFile1.setMedia("all");
-    cssFile2.setPath("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css");
+    cssFile2.setPath("http://netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.css");
     cssFile2.setMedia("all");
 
     return Arrays.asList(cssFile1, cssFile2);
@@ -147,7 +147,7 @@ public abstract class MetisPage extends AbstractMetisPage {
         submenuItem2.setUrl("/");
         break;
       default:
-        if (user != null && user.getEmail() != null) {
+        if (userDTO.notNullUser() && userDTO.getLdapUser().getEmail() != null && userDTO.getLdapUser().getEmail() != null) {
           submenuItem1.setText("Profile");
           submenuItem1.setUrl("/profile");
           submenuItem2.setText("Logout");

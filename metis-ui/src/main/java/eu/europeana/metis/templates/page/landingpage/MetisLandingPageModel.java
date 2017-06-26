@@ -11,9 +11,12 @@ import eu.europeana.metis.templates.JsFile;
 import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.MetisFooter;
 import eu.europeana.metis.templates.MetisHeader;
-import eu.europeana.metis.templates.page.landingpage.register.RegisterForm;
 import eu.europeana.metis.templates.PageConfig;
+import eu.europeana.metis.templates.UserRole;
 import eu.europeana.metis.templates.Version;
+import eu.europeana.metis.templates.ViewMode;
+import eu.europeana.metis.templates.page.landingpage.profile.UserProfileModel;
+import eu.europeana.metis.templates.page.landingpage.register.RegisterForm;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +48,9 @@ import java.util.Map;
     "request",
     "login_form",
     "register_form",
+    "user_profile",
+    "user_role",
+    "view_mode",
     "metis_footer",
     "excerpt",
     "headline",
@@ -62,10 +68,10 @@ public class MetisLandingPageModel {
   private String skype;
   @JsonProperty("email")
   private String email;
-  @JsonProperty("countries")
-  private List<CountryModel> countries = null;
-  @JsonProperty("selection_list")
-  private List<SelectionList> selectionList = null;
+//  @JsonProperty("countries")
+//  private List<CountryModel> countries = null;
+//  @JsonProperty("selection_list")
+//  private List<SelectionList> selectionList = null;
   @JsonProperty("page_config")
   private PageConfig pageConfig;
   @JsonProperty("metis_header")
@@ -92,6 +98,12 @@ public class MetisLandingPageModel {
   private LoginForm loginForm;
   @JsonProperty("register_form")
   private RegisterForm registerForm;
+  @JsonProperty("user_profile")
+  private UserProfileModel userProfileModel;
+  @JsonProperty("user_role")
+  private UserRole userRole;
+  @JsonProperty("view_mode")
+  private ViewMode viewMode;
   @JsonProperty("metis_footer")
   private MetisFooter metisFooter;
   @JsonProperty("excerpt")
@@ -153,27 +165,27 @@ public class MetisLandingPageModel {
     this.email = email;
   }
 
-  @JsonProperty("countries")
-  public List<CountryModel> getCountries() {
-    return countries;
-  }
-
-  @JsonProperty("countries")
-  public void setCountries(
-      List<CountryModel> countries) {
-    this.countries = countries;
-  }
-
-  @JsonProperty("selection_list")
-  public List<SelectionList> getSelectionList() {
-    return selectionList;
-  }
-
-  @JsonProperty("selection_list")
-  public void setSelectionList(
-      List<SelectionList> selectionList) {
-    this.selectionList = selectionList;
-  }
+//  @JsonProperty("countries")
+//  public List<CountryModel> getCountries() {
+//    return countries;
+//  }
+//
+//  @JsonProperty("countries")
+//  public void setCountries(
+//      List<CountryModel> countries) {
+//    this.countries = countries;
+//  }
+//
+//  @JsonProperty("selection_list")
+//  public List<SelectionList> getSelectionList() {
+//    return selectionList;
+//  }
+//
+//  @JsonProperty("selection_list")
+//  public void setSelectionList(
+//      List<SelectionList> selectionList) {
+//    this.selectionList = selectionList;
+//  }
 
   @JsonProperty("page_config")
   public PageConfig getPageConfig() {
@@ -304,6 +316,36 @@ public class MetisLandingPageModel {
   @JsonProperty("register_form")
   public void setRegisterForm(RegisterForm registerForm) {
     this.registerForm = registerForm;
+  }
+
+  @JsonProperty("user_profile")
+  public UserProfileModel getUserProfileModel() {
+    return userProfileModel;
+  }
+
+  @JsonProperty("user_profile")
+  public void setUserProfileModel(UserProfileModel userProfileModel) {
+    this.userProfileModel = userProfileModel;
+  }
+
+  @JsonProperty("user_role")
+  public UserRole getUserRole() {
+    return userRole;
+  }
+
+  @JsonProperty("user_role")
+  public void setUserRole(UserRole userRole) {
+    this.userRole = userRole;
+  }
+
+  @JsonProperty("view_mode")
+  public ViewMode getViewMode() {
+    return viewMode;
+  }
+
+  @JsonProperty("view_mode")
+  public void setViewMode(ViewMode viewMode) {
+    this.viewMode = viewMode;
   }
 
   @JsonProperty("metis_footer")

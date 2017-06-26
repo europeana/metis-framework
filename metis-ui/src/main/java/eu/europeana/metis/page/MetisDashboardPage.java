@@ -3,24 +3,24 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
-import eu.europeana.metis.templates.page.dashboard.BrowseMenu;
 import eu.europeana.metis.templates.Content;
-import eu.europeana.metis.templates.page.dashboard.DashboardPageModel;
-import eu.europeana.metis.templates.page.dashboard.DoubleBtns;
 import eu.europeana.metis.templates.Global;
-import eu.europeana.metis.templates.page.dashboard.InputSearch;
-import eu.europeana.metis.templates.page.dashboard.IsDashboard;
 import eu.europeana.metis.templates.Logo;
 import eu.europeana.metis.templates.MenuItem;
 import eu.europeana.metis.templates.MetisHeader;
-import eu.europeana.metis.templates.page.dashboard.MetisLoggedUser;
 import eu.europeana.metis.templates.Navigation;
 import eu.europeana.metis.templates.Options;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.SubmenuItem;
 import eu.europeana.metis.templates.Version;
+import eu.europeana.metis.templates.page.dashboard.BrowseMenu;
+import eu.europeana.metis.templates.page.dashboard.DashboardPageModel;
+import eu.europeana.metis.templates.page.dashboard.DoubleBtns;
+import eu.europeana.metis.templates.page.dashboard.InputSearch;
+import eu.europeana.metis.templates.page.dashboard.IsDashboard;
+import eu.europeana.metis.templates.page.dashboard.MetisLoggedUser;
 import eu.europeana.metis.templates.page.dashboard.WelcomeMessage;
+import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.Map;
 
 /**
@@ -28,10 +28,10 @@ import java.util.Map;
  * @since 2017-05-01
  */
 public class MetisDashboardPage extends MetisPage {
-  private UserProfile userProfile;
+  private UserDTO userDTO;
 
-  public MetisDashboardPage(UserProfile userProfile) {
-    this.userProfile = userProfile;
+  public MetisDashboardPage(UserDTO userDTO) {
+    this.userDTO = userDTO;
   }
 
   @Override
@@ -85,7 +85,7 @@ public class MetisDashboardPage extends MetisPage {
   {
     WelcomeMessage welcomeMessage = new WelcomeMessage();
     welcomeMessage.setTextEnd("Welcome ");
-    welcomeMessage.setUserName(userProfile.getFirstName());
+    welcomeMessage.setUserName(userDTO.getLdapUser().getFirstName());
     welcomeMessage.setTextFirst(" let's ingest a world of Culture!");
 
     return welcomeMessage;

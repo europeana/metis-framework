@@ -1,7 +1,6 @@
 package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
@@ -43,9 +42,7 @@ public class MetisPageController {
             : null;
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     UserDTO userDTO = userService.getUser(primaryKey);
-    UserProfile userProfile = new UserProfile();
-    userProfile.init(userDTO);
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME, userProfile);
+    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME, userDTO);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }

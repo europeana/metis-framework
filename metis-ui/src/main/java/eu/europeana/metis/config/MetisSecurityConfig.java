@@ -17,7 +17,7 @@
 package eu.europeana.metis.config;
 
 import eu.europeana.metis.common.SimpleUrlAuthenticationSuccessHandler;
-import eu.europeana.metis.ui.mongo.domain.Roles;
+import eu.europeana.metis.ui.mongo.domain.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -65,12 +65,12 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests()
         .antMatchers("/", "/register", "/mappings-page").permitAll()
         .antMatchers("/dashboard")
-        .hasAnyRole(Roles.EUROPEANA_ADMIN.name(),
-            Roles.EUROPEANA_VIEWER.name(), Roles.EUROPEANA_DATA_OFFICER.name(),
-            Roles.PROVIDER_ADMIN.name(), Roles.PROVIDER_VIEWER.name(),
-            Roles.PROVIDER_DATA_OFFICER.name(), Roles.LEMMY.name())
+        .hasAnyRole(Role.EUROPEANA_ADMIN.name(),
+            Role.EUROPEANA_VIEWER.name(), Role.EUROPEANA_DATA_OFFICER.name(),
+            Role.PROVIDER_ADMIN.name(), Role.PROVIDER_VIEWER.name(),
+            Role.PROVIDER_DATA_OFFICER.name(), Role.LEMMY.name())
         .antMatchers("/profile").authenticated()
-        .antMatchers("/requests").hasRole(Roles.EUROPEANA_ADMIN.name())
+        .antMatchers("/requests").hasRole(Role.EUROPEANA_ADMIN.name())
         .and()
         .formLogin().loginPage("/login")
         .usernameParameter("email").passwordParameter("password")
