@@ -24,6 +24,7 @@ import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
@@ -65,22 +66,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @Controller
 @Api("/")
-public class OrganizationController {
+public class OrganizationController extends ApiKeySecuredControllerBase {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
 
-  private OrganizationService organizationService;
-  private DatasetService datasetService;
-  private MetisAuthorizationService authorizationService;
+  private final OrganizationService organizationService;
+  private final DatasetService datasetService;
 
   @Autowired
   public OrganizationController(
       OrganizationService organizationService,
       DatasetService datasetService,
       MetisAuthorizationService authorizationService) {
+    super(authorizationService);
     this.organizationService = organizationService;
     this.datasetService = datasetService;
-    this.authorizationService = authorizationService;
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.POST, consumes = {
@@ -95,21 +95,16 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Create an organization")
-  public void createOrganization(@RequestBody Organization organization,
+  public void createOrganization(
+      @RequestBody Organization organization,
       @QueryParam("apikey") String apikey)
-      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, OrganizationAlreadyExistsException, BadContentException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        organizationService.checkRestrictionsOnCreate(organization);
-        organizationService.createOrganization(organization);
-        LOGGER.info("Organization with id " + organization.getOrganizationId() + " created");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, OrganizationAlreadyExistsException, BadContentException, EmptyApiKeyException {
+    MetisKey key = ensureValidKey(apikey);
+
+    ensureActionAuthorized(apikey, key, Options.WRITE);
+    organizationService.checkRestrictionsOnCreate(organization);
+    organizationService.createOrganization(organization);
+    LOGGER.info("Organization with id %s created", organization.getOrganizationId());
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.DELETE)
@@ -122,20 +117,14 @@ public class OrganizationController {
       @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
   })
   @ApiOperation(value = "Delete an organization by organization Id")
-  public void deleteOrganization(@PathVariable("organizationId"
-  ) String organizationId, @QueryParam("apikey") String apikey)
-      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        organizationService.deleteOrganizationByOrganizationId(organizationId);
-        LOGGER.info("Organization with id " + organizationId + " deleted");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+  public void deleteOrganization(
+      @PathVariable("organizationId") String organizationId,
+      @QueryParam("apikey") String apikey)
+      throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
+    MetisKey key = ensureValidKey(apikey);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
+    organizationService.deleteOrganizationByOrganizationId(organizationId);
+    LOGGER.info("Organization with id %s deleted", organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
@@ -152,21 +141,16 @@ public class OrganizationController {
   })
   @ApiOperation(value = "Update an organization by organization Id")
   public void updateOrganization(@RequestBody Organization organization,
-      @PathVariable("organizationId"
-      ) String organizationId, @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null) {
-      if (key.getOptions().equals(Options.WRITE)) {
-        organizationService.checkRestrictionsOnUpdate(organization, organizationId);
-        organizationService.updateOrganization(organization);
-        LOGGER.info("Organization with id " + organizationId + " updated");
-      } else {
-        throw new ApiKeyNotAuthorizedException(apikey);
-      }
-    } else {
-      throw new NoApiKeyFoundException(apikey);
-    }
+      @PathVariable("organizationId") String organizationId,
+      @QueryParam("apikey") String apikey)
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureActionAuthorized(apikey, key, Options.WRITE);
+
+    organizationService.checkRestrictionsOnUpdate(organization, organizationId);
+    organizationService.updateOrganization(organization);
+    LOGGER.info("Organization with id %s updated", organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.GET, produces = {
@@ -181,24 +165,21 @@ public class OrganizationController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Get all organizations", response = ResponseListWrapper.class)
-  public ResponseListWrapper<Organization> getAllOrganizations(@QueryParam("nextPage"
-  ) String nextPage, @QueryParam("apikey") String apikey)
-      throws IllegalAccessException, InstantiationException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
-      ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
-      responseListWrapper.setResultsAndLastPage(organizations,
-          organizationService.getOrganizationsPerRequestLimit());
-      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-          + " organizations returned, using batch nextPage: " + nextPage);
-      return responseListWrapper;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+  public ResponseListWrapper<Organization> getAllOrganizations(
+      @QueryParam("nextPage") String nextPage,
+      @QueryParam("apikey") String apikey)
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    List<Organization> organizations = organizationService.getAllOrganizations(nextPage);
+    ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(organizations,
+        organizationService.getOrganizationsPerRequestLimit());
+    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
+    return responseListWrapper;
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
@@ -215,20 +196,18 @@ public class OrganizationController {
   })
   @ApiOperation(value = "Get an organization by organization Id", response = Organization.class)
   public Organization getOrganizationByOrganizationId(
-      @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      Organization organization = organizationService
-          .getOrganizationByOrganizationId(organizationId);
-      LOGGER.info("Organization with id " + organizationId + " found");
-      return organization;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      @PathVariable("organizationId") String organizationId,
+      @QueryParam("apikey") String apikey)
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    Organization organization = organizationService
+        .getOrganizationByOrganizationId(organizationId);
+    LOGGER.info("Organization with id %s found", organizationId);
+    return organization;
+
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE, method = RequestMethod.GET, produces = {
@@ -245,25 +224,22 @@ public class OrganizationController {
   })
   @ApiOperation(value = "Get all organizations by county isoCode", response = ResponseListWrapper.class)
   public ResponseListWrapper<Organization> getAllOrganizationsByCountryIsoCode(
-      @PathVariable("isoCode") String isoCode, @QueryParam("nextPage"
-  ) String nextPage, @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      List<Organization> organizations = organizationService
-          .getAllOrganizationsByCountry(Country.toCountry(isoCode), nextPage);
-      ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
-      responseListWrapper.setResultsAndLastPage(organizations,
-          organizationService.getOrganizationsPerRequestLimit());
-      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-          + " organizations returned, using batch nextPage: " + nextPage);
-      return responseListWrapper;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      @PathVariable("isoCode") String isoCode,
+      @QueryParam("nextPage") String nextPage,
+      @QueryParam("apikey") String apikey)
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    List<Organization> organizations = organizationService
+        .getAllOrganizationsByCountry(Country.toCountry(isoCode), nextPage);
+    ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(organizations,
+        organizationService.getOrganizationsPerRequestLimit());
+    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
+    return responseListWrapper;
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ROLES, method = RequestMethod.GET, produces = {
@@ -284,27 +260,20 @@ public class OrganizationController {
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
-      throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      if (organizationRoles != null) {
-        List<Organization> organizations = organizationService
-            .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
-        ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
-        responseListWrapper.setResultsAndLastPage(organizations,
-            organizationService.getOrganizationsPerRequestLimit());
-        LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-            + " organizations returned, using batch nextPage: " + nextPage);
-        return responseListWrapper;
-      } else {
-        throw new BadContentException("Organization roles malformed or empty");
-      }
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+    ensureRoles(organizationRoles);
+
+    List<Organization> organizations = organizationService
+        .getAllOrganizationsByOrganizationRole(organizationRoles, nextPage);
+    ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(organizations,
+        organizationService.getOrganizationsPerRequestLimit());
+    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
+    return responseListWrapper;
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_SUGGEST, method = RequestMethod.GET, produces = {
@@ -322,19 +291,13 @@ public class OrganizationController {
   public OrganizationSearchListWrapper suggestOrganizations(
       @QueryParam("searchTerm") String searchTerm,
       @QueryParam("apikey") String apikey)
-      throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      List<OrganizationSearchBean> organizationSearchBeans = organizationService
-          .suggestOrganizations(searchTerm);
-      LOGGER.info("Found " + organizationSearchBeans.size() + " suggestions");
-      return new OrganizationSearchListWrapper(organizationSearchBeans);
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+    List<OrganizationSearchBean> organizationSearchBeans = organizationService
+        .suggestOrganizations(searchTerm);
+    LOGGER.info("Found %d suggestions", organizationSearchBeans.size());
+    return new OrganizationSearchListWrapper(organizationSearchBeans);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS, method = RequestMethod.GET, produces = {
@@ -354,22 +317,18 @@ public class OrganizationController {
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
-      responseListWrapper.setResultsAndLastPage(
-          organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
-          datasetService.getDatasetsPerRequestLimit());
-      LOGGER.info("Batch of: " + responseListWrapper.getListSize()
-          + " datasets returned, using batch nextPage: " + nextPage);
-      return responseListWrapper;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(
+        organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
+        datasetService.getDatasetsPerRequestLimit());
+    LOGGER.info("Batch of: %d datasets returned, using batch nextPage: %s",
+        responseListWrapper.getListSize(), nextPage);
+    return responseListWrapper;
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, method = RequestMethod.GET, produces = {
@@ -387,17 +346,13 @@ public class OrganizationController {
   @ApiOperation(value = "Check if an organization is opted-in for IIIF or not", response = ResultMap.class)
   public ResultMap<Boolean> isOrganizationIdOptedIn(
       @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
-      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      return new ResultMap<>(
-          Collections.singletonMap("optInIIIF", organizationService.isOptedInIIIF(organizationId)));
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    return new ResultMap<>(
+        Collections.singletonMap("optInIIIF", organizationService.isOptedInIIIF(organizationId)));
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
@@ -415,18 +370,14 @@ public class OrganizationController {
   @ApiOperation(value = "Get an organization from CRM", response = Organization.class)
   public Organization getOrganizationByOrganizationIdFromCRM(
       @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
-      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      Organization organization = organizationService.getOrganizationByIdFromCRM(organizationId);
-      LOGGER.info("Organization with id " + organizationId + " found in CRM");
-      return organization;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
-    }
+      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    Organization organization = organizationService.getOrganizationByIdFromCRM(organizationId);
+    LOGGER.info("Organization with id %s found in CRM", organizationId);
+    return organization;
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM, method = RequestMethod.GET, produces = {
@@ -440,19 +391,23 @@ public class OrganizationController {
       @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true)
   })
   @ApiOperation(value = "Get all organizations from CRM", response = ResponseListWrapper.class)
-  public ResponseListWrapper<Organization> getAllOrganizationsFromCRM(@RequestParam("apikey") String apikey)
-      throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException {
-    MetisKey key = authorizationService.getKeyFromId(apikey);
-    if (key != null && (key.getOptions().equals(Options.WRITE) || key.getOptions()
-        .equals(Options.READ))) {
-      List<Organization> organizations = organizationService.getAllOrganizationsFromCRM();
-      ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
-      responseListWrapper.setResults(organizations);
-      return responseListWrapper;
-    } else if (key == null) {
-      throw new NoApiKeyFoundException(apikey);
-    } else {
-      throw new ApiKeyNotAuthorizedException(apikey);
+  public ResponseListWrapper<Organization> getAllOrganizationsFromCRM(
+      @RequestParam("apikey") String apikey)
+      throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
+
+    MetisKey key = ensureValidKey(apikey);
+    ensureReadOrWriteAccess(apikey, key);
+
+    List<Organization> organizations = organizationService.getAllOrganizationsFromCRM();
+    ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResults(organizations);
+    return responseListWrapper;
+  }
+
+  private void ensureRoles(List<OrganizationRole> organizationRoles)
+      throws BadContentException {
+    if (organizationRoles == null || organizationRoles.isEmpty()) {
+      throw new BadContentException("Organization roles malformed or empty");
     }
   }
 }

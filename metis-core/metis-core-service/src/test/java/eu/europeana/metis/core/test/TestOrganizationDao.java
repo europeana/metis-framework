@@ -16,6 +16,12 @@
  */
 package eu.europeana.metis.core.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.common.Country;
@@ -35,11 +41,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import org.apache.commons.lang.StringUtils;
+import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.mongodb.morphia.Datastore;
 
 public class TestOrganizationDao {
 
@@ -48,6 +56,7 @@ public class TestOrganizationDao {
   private static OrganizationDao orgDao;
   private static DatasetDao dsDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
+  private static MorphiaDatastoreProvider provider;
 
   @BeforeClass
   public static void prepare() throws IOException {
@@ -57,18 +66,36 @@ public class TestOrganizationDao {
     int mongoPort = embeddedLocalhostMongo.getMongoPort();
     ServerAddress address = new ServerAddress(mongoHost, mongoPort);
     MongoClient mongoClient = new MongoClient(address);
-    MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
+    provider = new MorphiaDatastoreProvider(mongoClient, "test");
+
     orgDao = new OrganizationDao(provider);
     orgDao.setOrganizationsPerRequest(5);
-    ReflectionTestUtils.setField(orgDao, "provider", provider);
 
-    org = new Organization();
-    org.setOrganizationId("orgId");
-    org.setDatasetNames(new TreeSet<String>());
-    org.setOrganizationUri("testUri");
-//    org.setHarvestingMetadata(new HarvestingMetadata());
-    org.setCountry(Country.ALBANIA);
-    ds = new Dataset();
+    dsDao = new DatasetDao(provider);
+    dsDao.setDatasetsPerRequest(5);
+  }
+
+  @AfterClass
+  public static void destroy() {
+    embeddedLocalhostMongo.stop();
+  }
+
+  @Before
+  public void setup() {
+    org = createOrganization("orgId");
+    ds = createDataset();
+  }
+
+  @After
+  public void CleanUp() {
+    Datastore datastore = provider.getDatastore();
+
+    datastore.delete(datastore.createQuery(Organization.class));
+    datastore.delete(datastore.createQuery(Dataset.class));
+  }
+
+  private static Dataset createDataset() {
+    Dataset ds = new Dataset();
     ds.setOrganizationId(org.getOrganizationId());
     ds.setAccepted(true);
     ds.setAssignedToLdapId("Lemmy");
@@ -100,11 +127,18 @@ public class TestOrganizationDao {
     ds.setSubmissionDate(new Date(1000));
     ds.setUpdatedDate(new Date(1000));
     ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
+    return ds;
+  }
 
-    dsDao = new DatasetDao(provider);
-    dsDao.setDatasetsPerRequest(5);
-    ReflectionTestUtils.setField(dsDao, "provider", provider);
 
+
+  private static Organization createOrganization(String orgId) {
+    Organization org = new Organization();
+    org.setOrganizationId(orgId);
+    org.setDatasetNames(new TreeSet<String>());
+    org.setOrganizationUri("testUri");
+    org.setCountry(Country.ALBANIA);
+    return org;
   }
 
   @Test
@@ -115,9 +149,9 @@ public class TestOrganizationDao {
     org.setDatasetNames(datasets);
     orgDao.create(org);
     Organization retOrg = orgDao.getOrganizationByOrganizationId(org.getOrganizationId());
-    Assert.assertEquals(org.getOrganizationId(), retOrg.getOrganizationId());
-    Assert.assertEquals(org.getOrganizationUri(), retOrg.getOrganizationUri());
-    Assert.assertEquals(org.getDatasetNames().size(), retOrg.getDatasetNames().size());
+    assertEquals(org.getOrganizationId(), retOrg.getOrganizationId());
+    assertEquals(org.getOrganizationUri(), retOrg.getOrganizationUri());
+    assertEquals(org.getDatasetNames().size(), retOrg.getDatasetNames().size());
   }
 
 
@@ -190,8 +224,146 @@ public class TestOrganizationDao {
     Assert.assertTrue(StringUtils.equals(organization.getOrganizationUri(), "testNew"));
   }
 
-  @AfterClass
-  public static void destroy() {
-    embeddedLocalhostMongo.stop();
+  @Test
+  public void testDeleteByOrganizationId(){
+    Organization org =  createOrganization("12345");
+
+    String key = orgDao.create(org);
+
+    Organization retrieved = orgDao.getById(key);
+    assertNotNull(retrieved);
+
+    orgDao.deleteByOrganizationId("12345");
+
+    Organization retrievedAfter = orgDao.getById(key);
+    assertNull(retrievedAfter);
   }
+
+  @Test
+  public void testExistsOrganizationByOrganizationId(){
+
+    String orgId = "44444";
+    Organization org =  createOrganization(orgId);
+
+    String key = orgDao.create(org);
+
+    assertTrue(orgDao.existsOrganizationByOrganizationId(orgId));
+    orgDao.deleteByOrganizationId(orgId);
+    assertFalse(orgDao.existsOrganizationByOrganizationId(orgId));
+  }
+
+  @Test
+  public void testGetOrganizationOptInIIIFByOrganizationId() {
+    String orgId = "55555";
+    Organization org =  createOrganization(orgId);
+    org.setOptInIIIF(true);
+    Organization orgRet1 = orgDao.getOrganizationOptInIIIFByOrganizationId("55555");
+    assertNull(orgRet1);
+    String key = orgDao.create(org);
+
+    Organization orgRet2 = orgDao.getOrganizationOptInIIIFByOrganizationId("55555");
+    assertNotNull(orgRet2);
+    assertTrue(orgRet2.isOptInIIIF());
+
+  }
+
+  @Test
+  public void testGetAllOrganizationsByOrganizationRole() {
+    String org1Id = "666661";
+    Organization org1 =  createOrganization(org1Id);
+    List<OrganizationRole> roles1 = new ArrayList<>();
+    roles1.add(OrganizationRole.CONSULTANT);
+    org1.setOrganizationRoles(roles1);
+    String org1Key = orgDao.create(org1);
+
+    String org2Id = "666662";
+    Organization org2 =  createOrganization(org2Id);
+    List<OrganizationRole> roles2 = new ArrayList<>();
+    roles2.add(OrganizationRole.CONSULTANT);
+    roles2.add(OrganizationRole.CONTENT_PROVIDER);
+    org2.setOrganizationRoles(roles2);
+    String org2Key = orgDao.create(org2);
+
+    String org3Id = "666663";
+    Organization org3 =  createOrganization(org3Id);
+    List<OrganizationRole> roles3 = new ArrayList<>();
+    roles3.add(OrganizationRole.CONTENT_PROVIDER);
+    org3.setOrganizationRoles(roles3);
+    String org3Key = orgDao.create(org3);
+
+    List<OrganizationRole> queryRoles = new ArrayList<>();
+    queryRoles.add(OrganizationRole.CONSULTANT);
+    List<Organization> result = orgDao.getAllOrganizationsByOrganizationRole(queryRoles, null);
+
+    assertEquals(2, result.size());
+    assertTrue(allOrganizationsContainsAtLeastOnOfTheRoles(result, queryRoles));
+  }
+
+  private boolean allOrganizationsContainsAtLeastOnOfTheRoles(List<Organization> result, List<OrganizationRole> queryRoles) {
+    boolean contains = true;
+    for (Organization o: result) {
+      contains = contains || organizationContainsAtLeastOnOfTheRoles(o, queryRoles);
+    }
+    return contains;
+  }
+
+  private boolean organizationContainsAtLeastOnOfTheRoles( Organization o, List<OrganizationRole> queryRoles)
+  {
+    for (OrganizationRole role: queryRoles) {
+      if (o.getOrganizationRoles().contains(role)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  @Test
+  public void testUpdateOrganizationDatasetNamesList() {
+    String orgId = "55555";
+    Organization org =  createOrganization(orgId);
+    assertTrue(org.getDatasetNames().isEmpty());
+
+    String key = orgDao.create(org);
+
+    Organization orgRet = orgDao.getOrganizationByOrganizationId("55555");
+    assertNull(orgRet.getDatasetNames());
+
+    orgDao.updateOrganizationDatasetNamesList("55555", "datasetName1");
+    orgDao.updateOrganizationDatasetNamesList("55555", "datasetName2");
+    Organization orgRetAgain = orgDao.getOrganizationByOrganizationId("55555");
+
+
+    assertEquals(2, orgRetAgain.getDatasetNames().size());
+    assertTrue(orgRetAgain.getDatasetNames().contains("datasetName1"));
+    assertTrue(orgRetAgain.getDatasetNames().contains("datasetName2"));
+  }
+
+
+  @Test
+  public void testRemoveOrganizationDatasetNameFromList() {
+
+    String orgId = "55555";
+    Organization org =  createOrganization(orgId);
+    org.getDatasetNames().add("datasetName1");
+    org.getDatasetNames().add("datasetName2");
+
+    assertEquals(2, org.getDatasetNames().size());
+    String key = orgDao.create(org);
+
+    Organization orgRet = orgDao.getOrganizationByOrganizationId("55555");
+    assertEquals(2, orgRet.getDatasetNames().size());
+
+    orgDao.removeOrganizationDatasetNameFromList("55555", "datasetName1");
+    Organization orgRetAgain = orgDao.getOrganizationByOrganizationId("55555");
+    assertEquals(1, orgRetAgain.getDatasetNames().size());
+    assertTrue(org.getDatasetNames().contains("datasetName2"));
+
+    orgDao.removeOrganizationDatasetNameFromList("55555", "datasetName2");
+    Organization orgRetLast = orgDao.getOrganizationByOrganizationId("55555");
+    assertTrue(orgRetLast.getDatasetNames().isEmpty());
+  }
+
+
+
 }

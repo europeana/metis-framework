@@ -19,7 +19,6 @@ package eu.europeana.metis.core.dao;
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
-import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.Date;
@@ -42,6 +41,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class OrganizationDao implements MetisDao<Organization, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
+  private static final String ORGANIZATION_ID_FIELD = "organizationId";
   private int organizationsPerRequest = 5;
 
   private final MorphiaDatastoreProvider provider;
@@ -54,14 +54,14 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   @Override
   public String create(Organization organization) {
     Key<Organization> organizationKey = provider.getDatastore().save(organization);
-    LOGGER.info("Organization '" + organization.getOrganizationId() + "' created in Mongo");
+    LOGGER.info("Organization '%s' created in Mongo", organization.getOrganizationId());
     return organizationKey.getId().toString();
   }
 
   @Override
   public String update(Organization organization) {
     Query<Organization> q = provider.getDatastore().find(Organization.class)
-        .field("organizationId").equal(organization.getOrganizationId());
+        .field(ORGANIZATION_ID_FIELD).equal(organization.getOrganizationId());
     UpdateOperations<Organization> ops = provider.getDatastore()
         .createUpdateOperations(Organization.class);
     if (organization.getHarvestingMetadata() != null) {
@@ -153,7 +153,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     ops.set("acronym", organization.getAcronym());
     ops.set("modified", new Date());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
-    LOGGER.info("Organization '" + organization.getOrganizationId() + "' updated in Mongo");
+    LOGGER.info("Organization '%s' updated in Mongo", organization.getOrganizationId());
     return String.valueOf(updateResults.getUpdatedCount());
   }
 
@@ -166,41 +166,42 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   @Override
   public boolean delete(Organization organization) {
     provider.getDatastore().delete(organization);
-    LOGGER.info("Organization '" + organization.getName() + "' deleted from Mongo");
+    LOGGER.info("Organization '%s' deleted from Mongo", organization.getName());
     return true;
   }
 
   public String updateOrganizationDatasetNamesList(String organizationId, String datasetName) {
     Query<Organization> query = provider.getDatastore().find(Organization.class)
-        .field("organizationId").equal(organizationId);
+        .field(ORGANIZATION_ID_FIELD).equal(organizationId);
     UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
         .createUpdateOperations(Organization.class);
     organizationUpdateOperations.addToSet("datasetNames", datasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, organizationUpdateOperations);
-    LOGGER.info("Organization '" + organizationId + "' datasetNames updated in Mongo");
+    LOGGER.info("Organization '%s' datasetNames updated in Mongo", organizationId);
     return String.valueOf(updateResults.getUpdatedCount());
 
   }
 
   public void removeOrganizationDatasetNameFromList(String organizationId, String datasetName) {
     Query<Organization> query = provider.getDatastore().find(Organization.class)
-        .field("organizationId").equal(organizationId);
+        .field(ORGANIZATION_ID_FIELD).equal(organizationId);
     UpdateOperations<Organization> organizationUpdateOperations = provider.getDatastore()
         .createUpdateOperations(Organization.class);
     organizationUpdateOperations.removeAll("datasetNames", datasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, organizationUpdateOperations);
-    LOGGER.info("DatasetName '" + datasetName + "' removed from Organization's '" + organizationId
-        + "' datasetNames. (UpdateResults: " + updateResults.getUpdatedCount() + ")");
+    LOGGER.info("DatasetName '%s' removed from Organization's '%s' datasetNames. (UpdateResults: %d)",
+        datasetName, organizationId, updateResults.getUpdatedCount());
 
   }
 
   public void deleteByOrganizationId(String organizationId) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.field("organizationId").equal(organizationId);
+    query.field(ORGANIZATION_ID_FIELD).equal(organizationId);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("Organization '" + organizationId + "' deleted from Mongo. (WriteResult: " + delete.getN() + ")");
+    LOGGER.info("Organization '%s' deleted from Mongo. (WriteResult: %d)", organizationId,
+            delete.getN());
   }
 
   public List<Organization> getAllOrganizations(String nextPage) {
@@ -234,19 +235,20 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   }
 
   public Organization getOrganizationByOrganizationId(String organizationId) {
-    return provider.getDatastore().find(Organization.class).field("organizationId")
+    return provider.getDatastore().find(Organization.class).field(ORGANIZATION_ID_FIELD)
         .equal(organizationId)
         .get();
   }
 
+
   public boolean existsOrganizationByOrganizationId(String organizationId) {
-    return provider.getDatastore().find(Dataset.class).field("organizationId").equal(organizationId)
+    return provider.getDatastore().find(Organization.class).field("organizationId").equal(organizationId)
         .project("_id", true).get() != null;
   }
 
   public Organization getOrganizationOptInIIIFByOrganizationId(String organizationId) {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
-    query.field("organizationId").equal(organizationId).project("optInIIIF", true);
+    query.field(ORGANIZATION_ID_FIELD).equal(organizationId).project("optInIIIF", true);
     return query.get();
   }
 

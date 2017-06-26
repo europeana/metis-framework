@@ -22,5 +22,5 @@ package eu.europeana.metis.core.dataset;
  * Created by ymamakis on 2/17/16.
  */
 public enum DatasetStatus {
-    CREATED, HARVESTED,DELIVERED,ACCEPTANCE,PUBLISHED,DEACTIVATED;
+    CREATED, HARVESTED,DELIVERED,ACCEPTANCE,PUBLISHED,DEACTIVATED
 }

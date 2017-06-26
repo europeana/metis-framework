@@ -53,7 +53,7 @@ public class OrchestratorController {
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 406, message = "Bad content")})
+      @ApiResponse(code = 409, message = "User workflow execution already exists")})
   @ApiOperation(value = "Create a user workflow")
   public void createUserWorkflow(
       @RequestBody UserWorkflow userWorkflow)
