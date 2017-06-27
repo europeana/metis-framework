@@ -10,6 +10,7 @@ import eu.europeana.metis.controller.MetisPageController;
 import eu.europeana.metis.controller.MetisProfilePageController;
 import eu.europeana.metis.controller.MetisUserPageController;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
+import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -66,8 +67,8 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public MetisPageController pandoraPageController() {
-    return new MetisPageController();
+  public MetisPageController pandoraPageController(UserService userService, MappingService mappingService) {
+    return new MetisPageController(userService, mappingService);
   }
 
   @Bean

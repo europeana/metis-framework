@@ -1,6 +1,5 @@
 package eu.europeana.metis.common;
 
-import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.JsFile;
 import eu.europeana.metis.templates.JsVar;
@@ -45,7 +44,7 @@ public abstract class AbstractMetisPage {
   /**
    * @return Metis header object model.
    */
-  public abstract MetisHeader buildMetisHeader(PageView pageView);
+  public abstract MetisHeader buildMetisHeader();
 
   /**
    * @return Metis footer object model.

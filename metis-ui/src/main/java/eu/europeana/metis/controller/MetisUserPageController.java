@@ -7,9 +7,11 @@ import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
 import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import eu.europeana.metis.page.LoginLandingPage;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
-import eu.europeana.metis.page.PageView;
+import eu.europeana.metis.page.RegisterLandingPage;
+import eu.europeana.metis.page.RequestsLandingPage;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -63,7 +65,7 @@ public class MetisUserPageController {
       @RequestParam(value = "authentication_error", required = false) boolean authentication_error)
       throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN);
+    LoginLandingPage metisLandingPage = new LoginLandingPage();
     metisLandingPage.setIsAuthError(authentication_error);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
 //    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
@@ -73,7 +75,7 @@ public class MetisUserPageController {
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView register() throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
+    MetisLandingPage metisLandingPage = new RegisterLandingPage();
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
@@ -81,7 +83,7 @@ public class MetisUserPageController {
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
+    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
     model.addAttribute("user", userProfileRequest);
     UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
     if (storedUserDto.notNullUser()) {
@@ -221,7 +223,7 @@ public class MetisUserPageController {
   public ModelAndView userRequests() throws JsonProcessingException {
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     List<RoleRequest> roleRequests = userService.getAllRequests(null, null);
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REQUESTS, roleRequests);
+    MetisLandingPage metisLandingPage = new RequestsLandingPage(roleRequests);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }

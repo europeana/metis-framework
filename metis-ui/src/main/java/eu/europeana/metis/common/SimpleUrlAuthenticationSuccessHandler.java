@@ -49,21 +49,12 @@ public class SimpleUrlAuthenticationSuccessHandler
     redirectStrategy.sendRedirect(request, response, targetUrl);
   }
 
-  protected String determineTargetUrl(Authentication authentication) {
-    boolean isNonApprovedUser = false;
-    Collection<? extends GrantedAuthority> authorities
-        = authentication.getAuthorities();
-    if (CollectionUtils.isEmpty(authorities))
-      isNonApprovedUser = true;
-
-    if (isNonApprovedUser) {
-      return "/profile";
-    } else{
-      return "/dashboard";
-    }
+  private String determineTargetUrl(Authentication authentication) {
+    Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+    return CollectionUtils.isEmpty(authorities) ? "/profile": "/dashboard";
   }
 
-  protected void clearAuthenticationAttributes(HttpServletRequest request) {
+  private void clearAuthenticationAttributes(HttpServletRequest request) {
     HttpSession session = request.getSession(false);
     if (session == null) {
       return;

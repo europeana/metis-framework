@@ -1,9 +1,9 @@
 package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.europeana.metis.page.HomeLandingPage;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
-import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -25,11 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 public class MetisPageController {
   private final Logger LOGGER = LoggerFactory.getLogger(MetisPageController.class);
 
-  @Autowired
-  private UserService userService;
+  private final UserService userService;
+  private MappingService mappingService;
 
   @Autowired
-  private MappingService mappingService;
+  public MetisPageController(UserService userService, MappingService mappingService) {
+    this.userService = userService;
+    this.mappingService = mappingService;
+  }
 
   /**
    * View resolves Home page.
@@ -42,7 +45,7 @@ public class MetisPageController {
             : null;
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     UserDTO userDTO = userService.getUser(primaryKey);
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME, userDTO);
+    MetisLandingPage metisLandingPage = new HomeLandingPage(userDTO);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
