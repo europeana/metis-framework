@@ -35,8 +35,9 @@ public class MetisProfilePageController {
   public ModelAndView profile(Model model) throws JsonProcessingException {
     UserDTO userDTO = getAuthenticatedUser();
 
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     MetisLandingPage metisLandingPage = new ProfileLandingPage(userDTO);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }

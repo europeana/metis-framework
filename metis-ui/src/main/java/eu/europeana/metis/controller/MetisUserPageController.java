@@ -9,7 +9,6 @@ import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.page.LoginLandingPage;
 import eu.europeana.metis.page.MetisDashboardPage;
-import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.RegisterLandingPage;
 import eu.europeana.metis.page.RequestsLandingPage;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
@@ -64,9 +63,10 @@ public class MetisUserPageController {
   public ModelAndView login(
       @RequestParam(value = "authentication_error", required = false) boolean authentication_error)
       throws JsonProcessingException {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     LoginLandingPage metisLandingPage = new LoginLandingPage();
     metisLandingPage.setIsAuthError(authentication_error);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
 //    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
@@ -74,19 +74,21 @@ public class MetisUserPageController {
 
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView register() throws JsonProcessingException {
+    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
+
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new RegisterLandingPage();
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     RegisterLandingPage metisLandingPage = new RegisterLandingPage();
     model.addAttribute("user", userProfileRequest);
     UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
+
     if (storedUserDto.notNullUser()) {
+      ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
       metisLandingPage.setIsDuplicateUser(true);
       modelAndView.addAllObjects(metisLandingPage.buildModel());
       return modelAndView;
@@ -96,8 +98,7 @@ public class MetisUserPageController {
             userProfileRequest.getPassword());
     LOGGER.info("*** User created: " + userProfileRequest.getFirstName() + " ***");
 
-    modelAndView.setViewName("redirect:/profile");
-    return modelAndView;
+    return new ModelAndView("redirect:/profile");
   }
 
   @RequestMapping(value = "/dashboard")
@@ -111,8 +112,9 @@ public class MetisUserPageController {
 //    userProfile.init(userDTO);
     LOGGER.info("*** User profile opened: " + userDTO.getLdapUser().getFirstName() + " ***");
 
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userDTO);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
 //    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
@@ -221,9 +223,10 @@ public class MetisUserPageController {
 
   @RequestMapping(value = "/requests", method = RequestMethod.GET)
   public ModelAndView userRequests() throws JsonProcessingException {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     List<RoleRequest> roleRequests = userService.getAllRequests(null, null);
-    MetisLandingPage metisLandingPage = new RequestsLandingPage(roleRequests);
+    RequestsLandingPage metisLandingPage = new RequestsLandingPage(roleRequests);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
