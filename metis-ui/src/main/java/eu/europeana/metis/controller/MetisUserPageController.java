@@ -2,10 +2,11 @@ package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.common.UserProfileRequest;
+import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.rest.client.DsOrgRestClient;
-import eu.europeana.metis.core.rest.client.ServerException;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
+import eu.europeana.metis.core.rest.client.OrganizationRestClient;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
@@ -13,7 +14,9 @@ import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
+import java.rmi.ServerException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,15 +45,15 @@ public class MetisUserPageController {
   private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
-  private final DsOrgRestClient dsOrgRestClient;
+  private final OrganizationRestClient organizationRestClient;
   private final JavaMailSender javaMailSender;
   private final SimpleMailMessage simpleMailMessage;
 
   @Autowired
-  public MetisUserPageController(UserService userService, DsOrgRestClient dsOrgRestClient,
+  public MetisUserPageController(UserService userService, OrganizationRestClient organizationRestClient,
       JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
     this.userService = userService;
-    this.dsOrgRestClient = dsOrgRestClient;
+    this.organizationRestClient = organizationRestClient;
     this.javaMailSender = javaMailSender;
     this.simpleMailMessage = simpleMailMessage;
   }
@@ -235,38 +238,45 @@ public class MetisUserPageController {
 //    return result;
 //  }
 
-//  /**
-//   * Method retrieves the list of organizations from Zoho.
-//   * TODO: return the filtered list of organizations (only the organizations of specific type).
-//   */
-//  private List<String> buildAvailableOrganizationsList() {
-//    List<String> organizations = new ArrayList<>();
-//    try {
-//      List<OrganizationRole> roles = Arrays
-//          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
-//              OrganizationRole.DIRECT_PROVIDER,
-//              OrganizationRole.EUROPEANA);
-//      List<Organization> organizationsByRoles = dsOrgRestClient.getAllOrganizationsByRoles(roles);
-//      if (organizationsByRoles != null && !organizationsByRoles.isEmpty()) {
-//        for (Organization o : organizationsByRoles) {
-//          organizations.add(o.getName());
-//        }
-//      }
-//    } catch (ServerException e) {
-//      LOGGER.error("ERROR: *** Zoho server exception: " + e.getMessage() + " ***");
-//    } catch (Exception e) {
-//      LOGGER.error("ERROR: *** CMS exception: " + e.getMessage() + " ***");
-//    }
-//    return organizations;
-//  }
+  /**
+   * Method retrieves the list of organizations from Zoho.
+   * TODO: return the filtered list of organizations (only the organizations of specific type).
+   */
+  private List<String> buildAvailableOrganizationsList() {
+    List<String> organizations = new ArrayList<>();
+    try {
+      List<OrganizationRole> roles = Arrays
+          .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
+              OrganizationRole.DIRECT_PROVIDER,
+              OrganizationRole.EUROPEANA);
+      ResponseListWrapper<Organization> organizationsByRoles;
+      String nextPage= null;
+      do {
+        organizationsByRoles = organizationRestClient
+            .getAllOrganizationsByRoles(roles, nextPage);
+        if (organizationsByRoles != null && organizationsByRoles.getResults() != null && !organizationsByRoles.getResults().isEmpty()) {
+          for (Organization o : organizationsByRoles.getResults()) {
+            organizations.add(o.getName());
+          }
+        }
+        nextPage = organizationsByRoles.getNextPage();
+      }
+      while(nextPage != null);
+    } catch (ServerException e) {
+      LOGGER.error("ERROR: *** Zoho server exception: " + e.getMessage() + " ***");
+    } catch (Exception e) {
+      LOGGER.error("ERROR: *** CMS exception: " + e.getMessage() + " ***");
+    }
+    return organizations;
+  }
 
   private List<Organization> suggestOrganizations(String term) {
     List<Organization> suggestedOrganizations = new ArrayList<>();
     try {
-      List<OrganizationSearchBean> suggestOrganizations = dsOrgRestClient
+      List<OrganizationSearchBean> suggestOrganizations = organizationRestClient
           .suggestOrganizations(term);
       for (OrganizationSearchBean searchBean : suggestOrganizations) {
-        Organization orgById = dsOrgRestClient
+        Organization orgById = organizationRestClient
             .getOrganizationByOrganizationId(searchBean.getId());
         if (orgById != null) {
           suggestedOrganizations.add(orgById);

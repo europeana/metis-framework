@@ -9,7 +9,7 @@ import com.github.mjeanroy.springmvc.view.mustache.handlebars.HandlebarsCompiler
 import eu.europeana.metis.controller.MetisPageController;
 import eu.europeana.metis.controller.MetisProfilePageController;
 import eu.europeana.metis.controller.MetisUserPageController;
-import eu.europeana.metis.core.rest.client.DsOrgRestClient;
+import eu.europeana.metis.core.rest.client.OrganizationRestClient;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import java.nio.charset.Charset;
 import java.util.Arrays;
@@ -71,10 +71,9 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public MetisUserPageController userPageController(UserService userService,
-      DsOrgRestClient dsOrgRestClient,
+  public MetisUserPageController userPageController(UserService userService, OrganizationRestClient organizationRestClient,
       JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
-    return new MetisUserPageController(userService, dsOrgRestClient, javaMailSender,
+    return new MetisUserPageController(userService, organizationRestClient, javaMailSender,
         simpleMailMessage);
   }
 

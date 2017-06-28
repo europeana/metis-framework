@@ -1,6 +1,6 @@
 package eu.europeana.metis.config;
 
-import eu.europeana.metis.core.rest.client.DsOrgRestClient;
+import eu.europeana.metis.core.rest.client.OrganizationRestClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,8 +22,8 @@ public class MetisOrchestratorConfig {
 	private String apikey;
 	
 	@Bean
-	public DsOrgRestClient dsOrgRestClient() {
-		return new DsOrgRestClient(hostURL, apikey);
+	public OrganizationRestClient organizationRestClient() {
+		return new OrganizationRestClient(hostURL, apikey);
 	}
 
 	@Bean
