@@ -1,12 +1,21 @@
 package eu.europeana.metis.core.rest.client;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.Organization;
-
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -14,14 +23,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Matchers;
-import org.mockito.internal.matchers.Or;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-import static org.mockito.Mockito.*;
 
 /**
  * Created by erikkonijnenburg on 21/06/2017.
@@ -29,7 +35,7 @@ import static org.mockito.Mockito.*;
 public class TestOrganizationRestClient {
 
   private RestTemplate templateMock;
-  private OrganizationRestClient orgRestClient;
+  private OrganizationRestClient organizationRestClient;
   private ArgumentCaptor<String> uriCaptor;
   private ArgumentCaptor<HttpMethod> methodCaptor;
   private ArgumentCaptor<HttpEntity> entityCaptor;
@@ -39,7 +45,7 @@ public class TestOrganizationRestClient {
   @Before
   public void setUp() throws Exception {
     templateMock = mock(RestTemplate.class);
-    orgRestClient = new OrganizationRestClient(templateMock, hostUrl, "myApiKey");
+    organizationRestClient = new OrganizationRestClient(templateMock, hostUrl, "myApiKey");
   }
 
   @After
@@ -55,7 +61,7 @@ public class TestOrganizationRestClient {
 
     setupRestTemplateMockForExchange(myOrg, HttpStatus.CREATED);
 
-    orgRestClient.createOrganization(myOrg);
+    organizationRestClient.createOrganization(myOrg);
 
     String expectedUri = hostUrl + "/organizations?apikey=myApiKey";
     HttpMethod expectedMethod = HttpMethod.POST;
@@ -73,7 +79,7 @@ public class TestOrganizationRestClient {
 
     setupRestTemplateMockForExchange(myOrg,  HttpStatus.NO_CONTENT);
 
-    orgRestClient.updateOrganization(myOrg);
+    organizationRestClient.updateOrganization(myOrg);
 
     String expectedUri = hostUrl + "/organizations/myOrgId?apikey=myApiKey";
     HttpMethod expectedMethod = HttpMethod.PUT;
@@ -91,7 +97,7 @@ public class TestOrganizationRestClient {
 
     setupRestTemplateMockForExchange(myOrg,  HttpStatus.NO_CONTENT);
 
-    orgRestClient.deleteOrganization(myOrg);
+    organizationRestClient.deleteOrganization(myOrg);
 
     String expectedUri = hostUrl + "/organizations/myOrgId?apikey=myApiKey";
     HttpMethod expectedMethod = HttpMethod.DELETE;
@@ -104,7 +110,7 @@ public class TestOrganizationRestClient {
   public void getAllOrganizations() throws Exception {
     setupRestTemplateMockForGetList();
 
-    OrganizationListResponse results = orgRestClient.getAllOrganizations("myPage");
+    ResponseListWrapper<Organization> results = organizationRestClient.getAllOrganizations("myPage");
     String expectedUri = hostUrl + "/organizations?apikey=myApiKey&nextPage=myPage";
     verifyRestTemplateMockForGetList(expectedUri);
   }
@@ -113,7 +119,8 @@ public class TestOrganizationRestClient {
   public void getAllOrganizationsByIsoCode() throws Exception {
     setupRestTemplateMockForGetList();
 
-    OrganizationListResponse results = orgRestClient.getAllOrganizationsByIsoCode("NL", "myPage");
+    ResponseListWrapper<Organization> results = organizationRestClient
+        .getAllOrganizationsByIsoCode("NL", "myPage");
     String expectedUri = hostUrl + "/organizations/country/NL?apikey=myApiKey&nextPage=myPage";
     verifyRestTemplateMockForGetList(expectedUri);
   }
@@ -126,7 +133,8 @@ public class TestOrganizationRestClient {
     list.add(OrganizationRole.CONSULTANT);
     list.add(OrganizationRole.EUROPEANA);
 
-    OrganizationListResponse results = orgRestClient.getAllOrganizationsByRoles(list, "myPage");
+    ResponseListWrapper<Organization> results = organizationRestClient
+        .getAllOrganizationsByRoles(list, "myPage");
     String expectedUri = hostUrl + "/organizations/roles?apikey=myApiKey&nextPage=myPage&organizationRoles=consultant,europeana";
     verifyRestTemplateMockForGetList(expectedUri);
   }
@@ -135,7 +143,8 @@ public class TestOrganizationRestClient {
   public void getDatasetsForOrganization() throws Exception {
     setupRestTemplateMockForGetListDataset();
 
-    DatasetListResponse results = orgRestClient.getDatasetsForOrganization("myOrgID", "myPage");
+    ResponseListWrapper<Dataset> results = organizationRestClient
+        .getDatasetsForOrganization("myOrgID", "myPage");
     String expectedUri = hostUrl + "/organizations/myOrgID/datasets?apikey=myApiKey&nextPage=myPage";
     verifyRestTemplateMockForGetListDataset(expectedUri);
   }
@@ -144,7 +153,7 @@ public class TestOrganizationRestClient {
   public void getOrganizationById() throws Exception {
     setupRestTemplateMockForGetObject();
 
-    Organization org = orgRestClient.getOrganizationById("myOrgId");
+    Organization org = organizationRestClient.getOrganizationById("myOrgId");
     String expectedUri = hostUrl + "/organizations/myOrgId?apikey=myApiKey";
     verifyRestTemplateMockForGetObject(expectedUri);
   }
@@ -153,8 +162,8 @@ public class TestOrganizationRestClient {
   public void getOrganizationByOrganizationId() throws Exception {
     setupRestTemplateMockForGetObject();
 
-    Organization org = orgRestClient.getOrganizationByOrganizationId("myOrgId");
-    String expectedUri = hostUrl + "/organizations?apikey=myApiKey&orgId=myOrgId";
+    Organization org = organizationRestClient.getOrganizationByOrganizationId("myOrgId");
+    String expectedUri = hostUrl + "/organizations?apikey=myApiKey&organizationId=myOrgId";
     verifyRestTemplateMockForGetObject(expectedUri);
   }
 
@@ -162,7 +171,7 @@ public class TestOrganizationRestClient {
   public void getOrganizationFromCrm() throws Exception {
     setupRestTemplateMockForGetObject();
 
-    Organization org = orgRestClient.getOrganizationFromCrm("myOrgId");
+    Organization org = organizationRestClient.getOrganizationFromCrm("myOrgId");
     String expectedUri = hostUrl + "/organizations/crm/myOrgId?apikey=myApiKey";
     verifyRestTemplateMockForGetObject(expectedUri);
   }
@@ -171,7 +180,7 @@ public class TestOrganizationRestClient {
   public void getOrganizationsFromCrm() throws Exception {
     setupRestTemplateMockForGetList();
 
-    OrganizationListResponse results = orgRestClient.getOrganizationsFromCrm("myPage");
+    ResponseListWrapper<Organization> results = organizationRestClient.getOrganizationsFromCrm("myPage");
     String expectedUri = hostUrl + "/organizations/crm?apikey=myApiKey&nextPage=myPage";
     verifyRestTemplateMockForGetList(expectedUri);
   }
@@ -180,7 +189,7 @@ public class TestOrganizationRestClient {
   public void getUserByEmail() throws Exception {
     setupRestTemplateMockForGetContact();
 
-    Contact org = orgRestClient.getUserByEmail("my@email.com");
+    Contact org = organizationRestClient.getUserByEmail("my@email.com");
 
     String expectedUri = hostUrl + "/user/my@email.com?apikey=myApiKey";
     verifyRestTemplateMockForGetObjectContact(expectedUri);
@@ -190,7 +199,7 @@ public class TestOrganizationRestClient {
   public void suggestOrganizations() throws Exception {
 
     setupRestTemplateMockForGetSuggestions();
-    orgRestClient.suggestOrganizations("begins");
+    organizationRestClient.suggestOrganizations("begins");
 
     String expectedUri = hostUrl + "/organizations/suggest?apikey=myApiKey&searchTerm=begins";
     verifyRestTemplateMockForGetObjectSuggestion(expectedUri);
@@ -227,11 +236,10 @@ public class TestOrganizationRestClient {
   }
 
   private void setupRestTemplateMockForGetSuggestions() {
-    Suggestions suggestions = new Suggestions();
-    suggestions.setSuggestions(new ArrayList<OrganizationSearchBean>());
+    OrganizationSearchListWrapper organizationSearchListWrapper = new OrganizationSearchListWrapper(new ArrayList<OrganizationSearchBean>());
 
-    when(templateMock.getForObject(any(String.class), eq(Suggestions.class)))
-        .thenReturn(suggestions);
+    when(templateMock.getForObject(any(String.class), eq(OrganizationSearchListWrapper.class)))
+        .thenReturn(organizationSearchListWrapper);
 
     uriCaptor = ArgumentCaptor.forClass(String.class);
   }
@@ -246,7 +254,7 @@ public class TestOrganizationRestClient {
   }
 
   private void verifyRestTemplateMockForGetObjectSuggestion(String expectedUri) {
-    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(Suggestions.class));
+    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(OrganizationSearchListWrapper.class));
 
     assertEquals(expectedUri, uriCaptor.getValue());
   }
@@ -277,32 +285,32 @@ public class TestOrganizationRestClient {
 
   private void setupRestTemplateMockForGetListDataset()
   {
-    DatasetListResponse response = new DatasetListResponse();
+    ResponseListWrapper<Dataset> response = new ResponseListWrapper();
 
-    when(templateMock.getForObject(any(String.class), eq(DatasetListResponse.class)))
+    when(templateMock.getForObject(any(String.class), eq(ResponseListWrapper.class)))
         .thenReturn(response);
 
     uriCaptor = ArgumentCaptor.forClass(String.class);
   }
 
   private void verifyRestTemplateMockForGetListDataset(String expectedUri) {
-    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(DatasetListResponse.class));
+    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(ResponseListWrapper.class));
 
     assertEquals(expectedUri, uriCaptor.getValue());
   }
 
   private void setupRestTemplateMockForGetList()
   {
-    OrganizationListResponse response = new OrganizationListResponse();
+    ResponseListWrapper<Organization> response = new ResponseListWrapper<>();
 
-    when(templateMock.getForObject(any(String.class), eq(OrganizationListResponse.class)))
+    when(templateMock.getForObject(any(String.class), eq(ResponseListWrapper.class)))
         .thenReturn(response);
 
     uriCaptor = ArgumentCaptor.forClass(String.class);
   }
 
   private void verifyRestTemplateMockForGetList(String expectedUri) {
-    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(OrganizationListResponse.class));
+    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(ResponseListWrapper.class));
 
     assertEquals(expectedUri, uriCaptor.getValue());
   }

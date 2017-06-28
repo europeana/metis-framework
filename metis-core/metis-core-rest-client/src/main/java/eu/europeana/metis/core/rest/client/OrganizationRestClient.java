@@ -26,9 +26,13 @@ import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.common.Contact;
 import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.ServerError;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
+import java.rmi.ServerException;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
@@ -42,11 +46,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
-
-/**
- * Rest Client Organization Management
- * Created by ymamakis on 2/26/16.
- */
 public class OrganizationRestClient {
 
     private RestTemplate template;
@@ -66,10 +65,6 @@ public class OrganizationRestClient {
         this.apikey = apikey;
     }
 
-    /**
-     * Create an organization (OK)
-     * @param org The organization to create
-     */
     public void createOrganization(Organization org) throws ServerException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -85,10 +80,6 @@ public class OrganizationRestClient {
         }
     }
 
-    /**
-     * Update an organization (OK)
-     * @param org The organization to create
-     */
     public void updateOrganization(Organization org) throws ServerException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -105,11 +96,6 @@ public class OrganizationRestClient {
         }
     }
 
-    /**
-     * Delete an organization (OK)
-     * @param org
-     * @throws ServerException
-     */
     public void deleteOrganization(Organization org) throws ServerException {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -125,49 +111,34 @@ public class OrganizationRestClient {
         }
     }
 
-    /**
-     * Retrieve all the organizations stored in METIS (OK)
-     * @return The list of all the organizations stored in METIS
-     * @throws ServerException
-     */
-    public OrganizationListResponse getAllOrganizations(String nextPage) throws ServerException {
+    public ResponseListWrapper<Organization> getAllOrganizations(String nextPage) throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS)
                 .queryParam("apikey", apikey)
                 .queryParam("nextPage", nextPage);
 
-            OrganizationListResponse orgs =  template.getForObject(builder.toUriString(), OrganizationListResponse.class);
+            ResponseListWrapper<Organization> orgs =  template.getForObject(builder.toUriString(), ResponseListWrapper.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
         }
     }
 
-    /**
-     * Retrieve all the organizations stored in METIS (OK)
-     * @return The list of all the organizations stored in METIS
-     * @throws ServerException
-     */
-    public OrganizationListResponse getAllOrganizationsByIsoCode(String isoCode, String nextPage) throws ServerException {
+    public ResponseListWrapper<Organization> getAllOrganizationsByIsoCode(String isoCode, String nextPage) throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
                 hostUrl + RestEndpoints.resolve(ORGANIZATIONS_COUNTRY_ISOCODE,isoCode))
                 .queryParam("apikey", apikey)
                 .queryParam("nextPage", nextPage);
 
-            OrganizationListResponse orgs =  template.getForObject(builder.toUriString(), OrganizationListResponse.class);
+            ResponseListWrapper<Organization> orgs =  template.getForObject(builder.toUriString(), ResponseListWrapper.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
         }
     }
 
-    /**
-     * Retrieve all the organizations stored in METIS (OK)
-     * @return The list of all the organizations stored in METIS
-     * @throws ServerException
-     */
-    public OrganizationListResponse getAllOrganizationsByRoles(List<OrganizationRole> organizationRoles, String nextPage) throws ServerException {
+    public ResponseListWrapper<Organization> getAllOrganizationsByRoles(List<OrganizationRole> organizationRoles, String nextPage) throws ServerException {
         try {
             String roleParam = "";
             for(OrganizationRole organizationRole : organizationRoles){
@@ -178,27 +149,21 @@ public class OrganizationRestClient {
                 .queryParam("nextPage", nextPage)
                 .queryParam("organizationRoles", StringUtils.substringBeforeLast(roleParam,","));
 
-            OrganizationListResponse orgs =  template.getForObject( builder.toUriString() , OrganizationListResponse.class);
+            ResponseListWrapper<Organization> orgs =  template.getForObject( builder.toUriString() , ResponseListWrapper.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
         }
     }
 
-    /**
-     * Get all the datasets for an organization (OK)
-     * @param orgId the datasets of the organization with the specified id
-     * @return The List of datasets for the organization
-     * @throws ServerException
-     */
-    public DatasetListResponse getDatasetsForOrganization(String orgId, String nextPage) throws ServerException {
+    public ResponseListWrapper<Dataset> getDatasetsForOrganization(String organizationId, String nextPage) throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID_DATASETS,orgId))
+                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID_DATASETS,organizationId))
                 .queryParam("apikey", apikey)
                 .queryParam("nextPage", nextPage);
 
-            DatasetListResponse response = template.getForObject(builder.toUriString(), DatasetListResponse.class);
+            ResponseListWrapper<Dataset> response = template.getForObject(builder.toUriString(), ResponseListWrapper.class);
             return response;
         } catch (Exception e) {
             throw new ServerException("Datasets could not be retrieved with error: " + e.getMessage());
@@ -224,15 +189,15 @@ public class OrganizationRestClient {
 
     /**
      * Retrieve an organization by its organization id (Zoho id) from the Mongo METIS backend (OK)
-     * @param orgId The organization id to retrieve
+     * @param organizationId The organization id to retrieve
      * @return The organization to retrieve
      * @throws ServerException
      */
-    public Organization getOrganizationByOrganizationId(String orgId) throws ServerException {
+    public Organization getOrganizationByOrganizationId(String organizationId) throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS)
                 .queryParam("apikey", apikey)
-                .queryParam("orgId", orgId);
+                .queryParam("organizationId", organizationId);
 
             return template.getForObject(builder.toUriString(), Organization.class);
         } catch (Exception e) {
@@ -241,15 +206,15 @@ public class OrganizationRestClient {
     }
 
     /**
-     * Retrieve an organization from Zoho based on its organization id (OK)
-     * @param id The id to search on
+     * Retrieve an organization from Zoho based on its organization organizationId (OK)
+     * @param organizationId The organizationId to search on
      * @return The organization from Zoho
      * @throws ServerException
      */
-    public Organization getOrganizationFromCrm(String id) throws ServerException {
+    public Organization getOrganizationFromCrm(String organizationId) throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-                hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID,id))
+                hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID,organizationId))
                 .queryParam("apikey", apikey);
 
             return template.getForObject(builder.toUriString(), Organization.class);
@@ -263,14 +228,14 @@ public class OrganizationRestClient {
      * @return A list of all the organizations from Zoho
      * @throws ServerException
      */
-    public OrganizationListResponse getOrganizationsFromCrm(String nextPage) throws ServerException {
+    public ResponseListWrapper<Organization> getOrganizationsFromCrm(String nextPage) throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
                 hostUrl + RestEndpoints.ORGANIZATIONS_CRM)
                  .queryParam("apikey", apikey)
                  .queryParam("nextPage", nextPage);
 
-            OrganizationListResponse orgs = template.getForObject(builder.toUriString(), OrganizationListResponse.class);
+            ResponseListWrapper<Organization> orgs = template.getForObject(builder.toUriString(), ResponseListWrapper.class);
             return orgs;
         } catch (Exception e) {
             throw new ServerException("Organizations could not be retrieved with error: " + e.getMessage());
@@ -295,20 +260,6 @@ public class OrganizationRestClient {
         }
     }
 
-//    /**
-//     * Check whether an organization has opted in for the Image Service of Europeana
-//     * @param id The id of the organization
-//     * @return true if opted in false otherwise
-//     * @throws ServerException
-//     */
-//    public boolean isOptedIn(String id) throws ServerException{
-//        try {
-//            return template.getForEntity(hostUrl + RestEndpoints.resolve(RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, id), OptedInResponse.class).getBody().isResult();
-//        } catch (Exception e){
-//            throw new ServerException("Optin could not be retrieved with error: "+e.getMessage());
-//        }
-//    }
-
     public List<OrganizationSearchBean> suggestOrganizations(String searchTerm) throws ServerException{
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
@@ -316,7 +267,7 @@ public class OrganizationRestClient {
                 .queryParam("apikey", apikey)
                 .queryParam("searchTerm", searchTerm);
 
-            return template.getForObject(builder.toUriString(), Suggestions.class).getSuggestions();
+            return template.getForObject(builder.toUriString(), OrganizationSearchListWrapper.class).getOrganizationSearchBeanList();
         } catch (Exception e) {
             throw new ServerException("Organization suggestions could not be retrieved with error: " + e.getMessage());
         }

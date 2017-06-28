@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.rest.client;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -10,7 +11,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.Organization;
-import java.sql.DataTruncation;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -129,16 +130,16 @@ public class TestDatasetRestClient{
 
   private void setupRestTemplateMockForGetDatasetListResponse()
   {
-    DatasetListResponse response = new DatasetListResponse();
+    ResponseListWrapper<Dataset> response = new ResponseListWrapper<>();
 
-    when(templateMock.getForObject(any(String.class), eq(DatasetListResponse.class)))
+    when(templateMock.getForObject(any(String.class), eq(ResponseListWrapper.class)))
         .thenReturn(response);
 
     uriCaptor = ArgumentCaptor.forClass(String.class);
   }
 
   private void verifyRestTemplateMockForGetDatasetListResponse(String expectedUri) {
-    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(DatasetListResponse.class));
+    verify(templateMock, times(1)).getForObject(uriCaptor.capture(), eq(ResponseListWrapper.class));
 
     assertEquals(expectedUri, uriCaptor.getValue());
   }

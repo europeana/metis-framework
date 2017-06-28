@@ -20,14 +20,12 @@ import static eu.europeana.metis.RestEndpoints.DATASETS;
 import static eu.europeana.metis.RestEndpoints.DATASETS_DATAPROVIDER;
 import static eu.europeana.metis.RestEndpoints.DATASETS_DATASETNAME;
 import static eu.europeana.metis.RestEndpoints.DATASETS_DATASETNAME_UPDATENAME;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE;
-import static eu.europeana.metis.RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS;
+
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.ServerError;
-import java.util.List;
+import java.rmi.ServerException;
 import org.apache.commons.lang.Validate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -38,12 +36,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
-
-/**
- * Rest Client for Dataset Management
- * Created by ymamakis on 2/26/16.
- */
 
 public class DatasetRestClient {
 
@@ -159,7 +151,7 @@ public class DatasetRestClient {
     }
 
 
-    public DatasetListResponse getAllDatasetsByDataProvider(String dataProvider, String nextPage)
+    public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage)
         throws ServerException {
         try {
             UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
@@ -167,7 +159,7 @@ public class DatasetRestClient {
                 .queryParam("apikey", apikey)
                 .queryParam("nextPage", nextPage);
 
-            return template.getForObject(builder.toUriString(), DatasetListResponse.class);
+            return template.getForObject(builder.toUriString(), ResponseListWrapper.class);
         } catch (Exception e){
             throw new ServerException("Datasets could not be retrieved with error: "+e.getMessage());
         }

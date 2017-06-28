@@ -5,19 +5,19 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.rest.client.OrganizationListResponse;
+import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.client.OrganizationRestClient;
-import eu.europeana.metis.core.rest.client.ServerException;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.mapping.organisms.pandora.UserProfile;
 import eu.europeana.metis.page.MetisDashboardPage;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.ui.ldap.domain.LdapUser;
-import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
+import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
+import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -258,7 +258,7 @@ public class MetisUserPageController {
           .asList(OrganizationRole.DATA_AGGREGATOR, OrganizationRole.CONTENT_PROVIDER,
               OrganizationRole.DIRECT_PROVIDER,
               OrganizationRole.EUROPEANA);
-      OrganizationListResponse organizationsByRoles;
+      ResponseListWrapper<Organization> organizationsByRoles;
       String nextPage= null;
       do {
         organizationsByRoles = organizationRestClient
