@@ -26,7 +26,7 @@ public class JsFile {
   @JsonProperty("data_main")
   private String dataMain;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("path")
   public String getPath() {

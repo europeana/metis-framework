@@ -36,7 +36,7 @@ public class MappingCard {
   @JsonProperty("field_value_cells")
   private List<FieldValueCell> fieldValueCells = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("object_id")
   public String getObjectId() {

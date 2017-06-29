@@ -27,7 +27,7 @@ public class BrowseMenu {
   @JsonProperty("items")
   private List<MenuItem> items = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("menu_id")
   public String getMenuId() {

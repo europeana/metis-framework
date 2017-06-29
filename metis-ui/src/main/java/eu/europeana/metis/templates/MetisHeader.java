@@ -23,7 +23,7 @@ public class MetisHeader {
   @JsonProperty("navigation")
   private Navigation navigation;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("navigation")
   public Navigation getNavigation() {

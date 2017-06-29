@@ -27,7 +27,7 @@ public class RoleType {
   @JsonProperty("roles")
   private List<RoleModel> roles = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public RoleType(String typeId,
       List<RoleModel> roles) {

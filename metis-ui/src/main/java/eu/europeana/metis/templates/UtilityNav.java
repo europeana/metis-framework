@@ -33,7 +33,7 @@ public class UtilityNav {
   @JsonProperty("menu_id")
   private String menuId;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("style_modifier")
   public String getStyleModifier() {

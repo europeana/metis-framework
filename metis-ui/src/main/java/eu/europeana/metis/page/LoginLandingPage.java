@@ -6,7 +6,9 @@ import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.LoginErrAuthenticate;
 import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.register.EmailField;
-import eu.europeana.metis.templates.page.landingpage.register.PasswordField;/**
+import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
+
+/**
  * Created by erikkonijnenburg on 27/06/2017.
  */
 public class LoginLandingPage extends MetisLandingPage {
@@ -27,7 +29,7 @@ public class LoginLandingPage extends MetisLandingPage {
     return HeaderSubMenuBuilder.buildMenuForLoginPage();
   }
 
-  public Boolean getIsAuthError() {
+  private Boolean getIsAuthError() {
     return isAuthError;
   }
 
@@ -49,7 +51,7 @@ public class LoginLandingPage extends MetisLandingPage {
   private LoginForm createForm() {
     EmailField emailField = createEmailField();
     PasswordField passwordField = createPasswordField();
-    ForgotLoginCredentials forgotLoginCredentials = CreateForgotLoginCredentials();
+    ForgotLoginCredentials forgotLoginCredentials = createForgotLoginCredentials();
 
     LoginForm loginForm = new LoginForm();
     loginForm.setEmailField(emailField);
@@ -66,7 +68,7 @@ public class LoginLandingPage extends MetisLandingPage {
     return loginForm;
   }
 
-  private ForgotLoginCredentials CreateForgotLoginCredentials() {
+  private ForgotLoginCredentials createForgotLoginCredentials() {
     ForgotLoginCredentials forgotLoginCredentials = new ForgotLoginCredentials();
     forgotLoginCredentials.setText("Forgot your account?");
     forgotLoginCredentials.setUrl("#");

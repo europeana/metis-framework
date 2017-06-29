@@ -28,7 +28,7 @@ public class FullNameField {
   @JsonProperty("last_name_placeholder")
   private String lastNamePlaceholder;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("label")
   public String getLabel() {

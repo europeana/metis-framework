@@ -26,7 +26,7 @@ public class UserProfileModel {
   @JsonProperty("user_fields")
   private UserFields userFields;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("roleTypes")
   public List<RoleType> getRoleTypes() {

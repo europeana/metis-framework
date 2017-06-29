@@ -1,9 +1,5 @@
 package eu.europeana.metis.templates.page.landingpage.profile;
 
-/**
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-06-20
- */
 import java.util.HashMap;
 import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -12,6 +8,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+/**
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2017-06-20
+ */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -28,7 +29,7 @@ public class Updated {
   @JsonProperty("value")
   private String value;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public Updated(String label, String placeholder, String value) {
     this.label = label;

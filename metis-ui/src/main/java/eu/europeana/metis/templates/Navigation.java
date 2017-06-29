@@ -35,7 +35,7 @@ public class Navigation {
   @JsonProperty("global")
   private Global global;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("home_url")
   public String getHomeUrl() {

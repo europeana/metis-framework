@@ -113,7 +113,7 @@ public class MetisLandingPageModel {
   @JsonProperty("breadcrumbs")
   private List<Breadcrumb> breadcrumbs = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("js_vars")
   public List<JsVar> getJsVars() {

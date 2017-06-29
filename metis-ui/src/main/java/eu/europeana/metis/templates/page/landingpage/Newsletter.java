@@ -38,7 +38,7 @@ public class Newsletter {
   @JsonProperty("language-required")
   private String languageRequired;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("submit-alt")
   public String getSubmitAlt() {

@@ -1,6 +1,5 @@
 package eu.europeana.metis.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.ProfileLandingPage;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
@@ -22,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MetisProfilePageController {
-  private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
 
@@ -32,7 +31,7 @@ public class MetisProfilePageController {
   }
 
   @RequestMapping(value = "/profile", method = RequestMethod.GET)
-  public ModelAndView profile(Model model) throws JsonProcessingException {
+  public ModelAndView profile(Model model) {
     UserDTO userDTO = getAuthenticatedUser();
 
     MetisLandingPage metisLandingPage = new ProfileLandingPage(userDTO);

@@ -31,7 +31,7 @@ public class RegisterPageModel {
   @JsonProperty("register_form")
   private RegisterForm registerForm;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("css_files")
   public List<CssFile> getCssFiles() {

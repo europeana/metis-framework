@@ -53,7 +53,7 @@ public class MetisMappingToEdmPageModel {
   @JsonProperty("mapping_card")
   private MappingCard mappingCard;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("is_java")
   public Boolean getIsJava() {

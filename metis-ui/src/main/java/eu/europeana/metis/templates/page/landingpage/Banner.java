@@ -38,7 +38,7 @@ public class Banner {
   @JsonProperty("cta_url")
   private String ctaUrl;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("cta_text")
   public String getCtaText() {
