@@ -1,6 +1,7 @@
 package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.HomeLandingPage;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
@@ -26,12 +27,13 @@ public class MetisPageController {
   private final Logger LOGGER = LoggerFactory.getLogger(MetisPageController.class);
 
   private final UserService userService;
-  private MappingService mappingService;
-
+  private final MappingService mappingService;
+  private final MetisuiConfig config;
   @Autowired
-  public MetisPageController(UserService userService, MappingService mappingService) {
+  public MetisPageController(UserService userService, MappingService mappingService, MetisuiConfig config) {
     this.userService = userService;
     this.mappingService = mappingService;
+    this.config = config;
   }
 
   /**
@@ -45,7 +47,7 @@ public class MetisPageController {
             : null;
     UserDTO userDTO = userService.getUser(primaryKey);
 
-    MetisLandingPage metisLandingPage = new HomeLandingPage(userDTO);
+    MetisLandingPage metisLandingPage = new HomeLandingPage(userDTO, config);
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
@@ -58,7 +60,7 @@ public class MetisPageController {
   //	the future there won't be a separate page for this view, there will be just a tab on Metis Dashboard.
   @RequestMapping(value = "/mappings-page")
   public ModelAndView mappingsPage() {
-    MappingToEdmPage mappingToEdmPage = new MappingToEdmPage();
+    MappingToEdmPage mappingToEdmPage = new MappingToEdmPage(config);
     mappingToEdmPage.setMappingService(mappingService);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Mapping-To-EDM");

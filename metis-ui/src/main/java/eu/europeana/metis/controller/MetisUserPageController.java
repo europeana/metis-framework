@@ -2,6 +2,7 @@ package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.common.UserProfileRequest;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.client.DsOrgRestClient;
@@ -46,14 +47,16 @@ public class MetisUserPageController {
   private final DsOrgRestClient dsOrgRestClient;
   private final JavaMailSender javaMailSender;
   private final SimpleMailMessage simpleMailMessage;
+  private final MetisuiConfig config;
 
   @Autowired
   public MetisUserPageController(UserService userService, DsOrgRestClient dsOrgRestClient,
-      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
+      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage, MetisuiConfig config) {
     this.userService = userService;
     this.dsOrgRestClient = dsOrgRestClient;
     this.javaMailSender = javaMailSender;
     this.simpleMailMessage = simpleMailMessage;
+    this.config = config;
   }
 
   /**
@@ -63,7 +66,7 @@ public class MetisUserPageController {
   public ModelAndView login(
       @RequestParam(value = "authentication_error", required = false) boolean authentication_error)
       throws JsonProcessingException {
-    LoginLandingPage metisLandingPage = new LoginLandingPage();
+    LoginLandingPage metisLandingPage = new LoginLandingPage(config);
     metisLandingPage.setIsAuthError(authentication_error);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
@@ -74,7 +77,7 @@ public class MetisUserPageController {
 
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView register() throws JsonProcessingException {
-    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
+    RegisterLandingPage metisLandingPage = new RegisterLandingPage(config);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
@@ -83,7 +86,7 @@ public class MetisUserPageController {
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
-    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
+    RegisterLandingPage metisLandingPage = new RegisterLandingPage(config);
     model.addAttribute("user", userProfileRequest);
     UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
 
@@ -112,7 +115,7 @@ public class MetisUserPageController {
 //    userProfile.init(userDTO);
     LOGGER.info("*** User profile opened: " + userDTO.getLdapUser().getFirstName() + " ***");
 
-    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userDTO);
+    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userDTO, config);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
@@ -224,7 +227,7 @@ public class MetisUserPageController {
   @RequestMapping(value = "/requests", method = RequestMethod.GET)
   public ModelAndView userRequests() throws JsonProcessingException {
     List<RoleRequest> roleRequests = userService.getAllRequests(null, null);
-    RequestsLandingPage metisLandingPage = new RequestsLandingPage(roleRequests);
+    RequestsLandingPage metisLandingPage = new RequestsLandingPage(roleRequests, config);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());

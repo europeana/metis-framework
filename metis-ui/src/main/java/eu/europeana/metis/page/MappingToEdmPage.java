@@ -3,6 +3,7 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
@@ -46,6 +47,10 @@ public class MappingToEdmPage extends MetisPage {
   private static final int DEFAULT_COUNT = 20;
 
   private static final int DEFAULT_OFFSET = 0;
+
+  public MappingToEdmPage(MetisuiConfig config) {
+    super(config);
+  }
 
 //	@Override
 //	public void addPageContent(Map<String, Object> model) {

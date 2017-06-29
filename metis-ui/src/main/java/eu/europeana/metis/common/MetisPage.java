@@ -1,6 +1,7 @@
 package eu.europeana.metis.common;
 
 import de.flapdoodle.embed.process.collections.Collections;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.HeaderSubMenuBuilder;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.Footer;
@@ -28,6 +29,7 @@ import eu.europeana.metis.templates.page.landingpage.Newsletter;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This is common Metis page with the same assets, bread-crumbs and header instantiated.
@@ -37,10 +39,16 @@ import java.util.List;
 public abstract class MetisPage extends AbstractMetisPage {
   protected UserDTO userDTO;
 
+  MetisuiConfig config;
+
+  public MetisPage(MetisuiConfig config) {
+      this.config = config;
+  }
+
   @Override
   public List<CssFile> resolveCssFiles() {
     CssFile cssFile1 = new CssFile();
-    cssFile1.setPath("https://europeana-styleguide-test.s3.amazonaws.com/css/pandora/screen.css");
+    cssFile1.setPath(config.getCssRoot() + "/css/pandora/screen.css");
     cssFile1.setMedia("all");
 
     CssFile cssFile2 = new CssFile();
@@ -53,9 +61,8 @@ public abstract class MetisPage extends AbstractMetisPage {
   @Override
   public List<JsFile> resolveJsFiles() {
     JsFile jsFile = new JsFile();
-    jsFile.setPath("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js");
-    jsFile.setDataMain(
-        "https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora");
+    jsFile.setPath(config.getScriptRoot()+"/js/modules/require.js");
+    jsFile.setDataMain(config.getScriptRoot() + "/js/modules/main/templates/main-pandora");
 
     return Arrays.asList(jsFile);
   }

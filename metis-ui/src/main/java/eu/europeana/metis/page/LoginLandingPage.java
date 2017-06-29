@@ -1,5 +1,6 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.page.landingpage.ForgotLoginCredentials;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
@@ -13,8 +14,8 @@ public class LoginLandingPage extends MetisLandingPage {
 
   private Boolean isAuthError;
 
-  public LoginLandingPage() {
-    super();
+  public LoginLandingPage(MetisuiConfig config) {
+    super(config);
   }
 
   @Override

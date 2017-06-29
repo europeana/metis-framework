@@ -1,5 +1,6 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.templates.UserRole;
 import eu.europeana.metis.templates.ViewMode;
@@ -31,8 +32,8 @@ import java.util.List;
 
 public class ProfileLandingPage extends MetisLandingPage {
 
-   public ProfileLandingPage(UserDTO userDTO) {
-    super(userDTO);
+   public ProfileLandingPage(UserDTO userDTO, MetisuiConfig config) {
+    super(userDTO, config);
   }
 
   @Override

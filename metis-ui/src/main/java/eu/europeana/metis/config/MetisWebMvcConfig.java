@@ -67,21 +67,21 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public MetisPageController pandoraPageController(UserService userService, MappingService mappingService) {
-    return new MetisPageController(userService, mappingService);
+  public MetisPageController pandoraPageController(UserService userService, MappingService mappingService, MetisuiConfig config) {
+    return new MetisPageController(userService, mappingService, config);
   }
 
   @Bean
   public MetisUserPageController userPageController(UserService userService,
       DsOrgRestClient dsOrgRestClient,
-      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage) {
+      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage, MetisuiConfig config) {
     return new MetisUserPageController(userService, dsOrgRestClient, javaMailSender,
-        simpleMailMessage);
+        simpleMailMessage, config);
   }
 
   @Bean
-  public MetisProfilePageController profilePageController(UserService userService) {
-    return new MetisProfilePageController(userService);
+  public MetisProfilePageController profilePageController(UserService userService,  MetisuiConfig config) {
+    return new MetisProfilePageController(userService, config);
   }
 
   @Bean

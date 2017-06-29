@@ -34,7 +34,7 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		//FIXME Maybe there is no need to have so many separate configurations and so many .properties files to store the links to the resources
-		context.register(MetisSecurityConfig.class, MetisWebMvcConfig.class, MetisLdapManagerConfig.class, MetisOrchestratorConfig.class, MetisConfig.class, MetisMailConfig.class);
+		context.register(MetisSecurityConfig.class, MetisWebMvcConfig.class, MetisLdapManagerConfig.class, MetisOrchestratorConfig.class, MetisConfig.class, MetisuiConfig.class, MetisMailConfig.class);
 		return context;
 	}
 	

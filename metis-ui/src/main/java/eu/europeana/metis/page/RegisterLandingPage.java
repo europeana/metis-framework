@@ -1,5 +1,6 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.register.EmailField;
@@ -13,8 +14,8 @@ public class RegisterLandingPage extends MetisLandingPage {
 
   private Boolean isDuplicateUser;
 
-  public RegisterLandingPage() {
-    super();
+  public RegisterLandingPage(MetisuiConfig config) {
+    super(config);
   }
 
   @Override

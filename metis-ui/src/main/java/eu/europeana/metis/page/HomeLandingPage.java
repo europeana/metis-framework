@@ -1,5 +1,6 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.Content;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.page.landingpage.Banner;
@@ -10,8 +11,8 @@ import java.util.List;
 
 public class HomeLandingPage extends MetisLandingPage {
 
-  public HomeLandingPage(UserDTO userDTO) {
-    super(userDTO);
+  public HomeLandingPage(UserDTO userDTO, MetisuiConfig config) {
+    super(userDTO, config);
   }
 
   @Override
@@ -66,7 +67,7 @@ public class HomeLandingPage extends MetisLandingPage {
   private Banner createBanner() {
     Banner banner = new Banner();
     banner.setCtaText("Register to metis here");
-    banner.setCtaUrl("#");
+    banner.setCtaUrl("/register");
     banner.setInfoLink("Learn more about Metis");
     banner.setInfoUrl("#");
     banner.setText(

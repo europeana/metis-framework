@@ -1,6 +1,7 @@
 package eu.europeana.metis.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.MetisLandingPage;
 import eu.europeana.metis.page.ProfileLandingPage;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
@@ -25,17 +26,19 @@ public class MetisProfilePageController {
   private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
+  private final MetisuiConfig config;
 
   @Autowired
-  public MetisProfilePageController(UserService userService) {
+  public MetisProfilePageController(UserService userService, MetisuiConfig config) {
     this.userService = userService;
+    this.config = config;
   }
 
   @RequestMapping(value = "/profile", method = RequestMethod.GET)
   public ModelAndView profile(Model model) throws JsonProcessingException {
     UserDTO userDTO = getAuthenticatedUser();
 
-    MetisLandingPage metisLandingPage = new ProfileLandingPage(userDTO);
+    MetisLandingPage metisLandingPage = new ProfileLandingPage(userDTO, config);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());

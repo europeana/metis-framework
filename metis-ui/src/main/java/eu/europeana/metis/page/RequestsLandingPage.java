@@ -1,5 +1,6 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.Request;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
@@ -11,7 +12,8 @@ public class RequestsLandingPage extends MetisLandingPage {
 
   private List<RoleRequest> roleRequests;
 
-  public RequestsLandingPage(List<RoleRequest> roleRequests) {
+  public RequestsLandingPage(List<RoleRequest> roleRequests, MetisuiConfig metisuiConfig) {
+    super(metisuiConfig);
     this.roleRequests = roleRequests;
   }
 

@@ -3,6 +3,7 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.Content;
 import eu.europeana.metis.templates.Global;
 import eu.europeana.metis.templates.Logo;
@@ -30,7 +31,8 @@ import java.util.Map;
 public class MetisDashboardPage extends MetisPage {
   private UserDTO userDTO;
 
-  public MetisDashboardPage(UserDTO userDTO) {
+  public MetisDashboardPage(UserDTO userDTO, MetisuiConfig config) {
+    super(config);
     this.userDTO = userDTO;
   }
 
