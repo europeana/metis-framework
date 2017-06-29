@@ -29,7 +29,7 @@ public class Headline {
   @JsonProperty("long")
   private String _long;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("short")
   public String getShort() {

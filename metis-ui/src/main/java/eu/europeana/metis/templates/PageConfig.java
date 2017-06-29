@@ -23,7 +23,7 @@ public class PageConfig {
   @JsonProperty("newsletter")
   private Boolean newsletter;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("newsletter")
   public Boolean getNewsletter() {

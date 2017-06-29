@@ -32,7 +32,7 @@ public class OrganizationModel {
   @JsonProperty("rolesTypeId")
   private Integer rolesTypeId;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public OrganizationModel(String organizationName, Integer organizationId,
       String organizationRole, Integer rolesTypeId) {

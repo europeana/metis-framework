@@ -27,7 +27,7 @@ public class SelectedOrganizations {
   @JsonProperty("organizations")
   private List<OrganizationModel> organizations = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public SelectedOrganizations(String label,
       List<OrganizationModel> organizations) {

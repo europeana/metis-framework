@@ -1,6 +1,5 @@
 package eu.europeana.metis.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.common.UserProfileRequest;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
@@ -8,9 +7,10 @@ import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.rest.client.OrganizationRestClient;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
+import eu.europeana.metis.page.LoginLandingPage;
 import eu.europeana.metis.page.MetisDashboardPage;
-import eu.europeana.metis.page.MetisLandingPage;
-import eu.europeana.metis.page.PageView;
+import eu.europeana.metis.page.RegisterLandingPage;
+import eu.europeana.metis.page.RequestsLandingPage;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -42,7 +42,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class MetisUserPageController {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
   private final OrganizationRestClient organizationRestClient;
@@ -63,46 +63,49 @@ public class MetisUserPageController {
    */
   @RequestMapping(value = "/login")
   public ModelAndView login(
-      @RequestParam(value = "authentication_error", required = false) boolean authentication_error)
-      throws JsonProcessingException {
+      @RequestParam(value = "authentication_error", required = false) boolean authenticationError) {
+    LoginLandingPage metisLandingPage = new LoginLandingPage();
+    metisLandingPage.setIsAuthError(authenticationError);
+
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.LOGIN);
-    metisLandingPage.setIsAuthError(authentication_error);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
 //    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.GET)
-  public ModelAndView register() throws JsonProcessingException {
+  public ModelAndView register() {
+    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
+
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REGISTER);
+  public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest,
+      Model model) {
+    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
     model.addAttribute("user", userProfileRequest);
     UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
+
     if (storedUserDto.notNullUser()) {
+      ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
       metisLandingPage.setIsDuplicateUser(true);
       modelAndView.addAllObjects(metisLandingPage.buildModel());
       return modelAndView;
     }
     userService
-        .createUser(userProfileRequest.getFirstName(), userProfileRequest.getLastName(), userProfileRequest.getEmail(),
+        .createUser(userProfileRequest.getFirstName(), userProfileRequest.getLastName(),
+            userProfileRequest.getEmail(),
             userProfileRequest.getPassword());
     LOGGER.info("*** User created: " + userProfileRequest.getFirstName() + " ***");
 
-    modelAndView.setViewName("redirect:/profile");
-    return modelAndView;
+    return new ModelAndView("redirect:/profile");
   }
 
   @RequestMapping(value = "/dashboard")
-  public ModelAndView dashboardPage() throws JsonProcessingException {
+  public ModelAndView dashboardPage() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
@@ -112,8 +115,9 @@ public class MetisUserPageController {
 //    userProfile.init(userDTO);
     LOGGER.info("*** User profile opened: " + userDTO.getLdapUser().getFirstName() + " ***");
 
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userDTO);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
 //    System.out.println(MetisMappingUtil.toJson(modelAndView.getModel()));
     return modelAndView;
@@ -221,10 +225,11 @@ public class MetisUserPageController {
 //  }
 
   @RequestMapping(value = "/requests", method = RequestMethod.GET)
-  public ModelAndView userRequests() throws JsonProcessingException {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+  public ModelAndView userRequests() {
     List<RoleRequest> roleRequests = userService.getAllRequests(null, null);
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.REQUESTS, roleRequests);
+    RequestsLandingPage metisLandingPage = new RequestsLandingPage(roleRequests);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }

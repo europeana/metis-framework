@@ -47,7 +47,7 @@ public class RegisterForm {
   @JsonProperty("form_requirements_warning")
   private String formRequirementsWarning;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("form_title")
   public String getFormTitle() {

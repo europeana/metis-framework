@@ -23,7 +23,7 @@ public class MetisFooter {
   @JsonProperty("navigation")
   private FooterNavigation navigation;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("navigation")
   public FooterNavigation getNavigation() {

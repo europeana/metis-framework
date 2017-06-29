@@ -35,7 +35,7 @@ public class Footer {
   @JsonProperty("linklist2")
   private ListOfLinks linklist2;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("subfooter")
   public SubFooter getSubfooter() {

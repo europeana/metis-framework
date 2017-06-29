@@ -26,7 +26,7 @@ public class CssFile {
   @JsonProperty("media")
   private String media;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("path")
   public String getPath() {

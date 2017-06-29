@@ -1,9 +1,8 @@
 package eu.europeana.metis.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.europeana.metis.page.HomeLandingPage;
 import eu.europeana.metis.page.MappingToEdmPage;
 import eu.europeana.metis.page.MetisLandingPage;
-import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -23,26 +22,31 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MetisPageController {
-  private final Logger LOGGER = LoggerFactory.getLogger(MetisPageController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MetisPageController.class);
 
-  @Autowired
-  private UserService userService;
-
-  @Autowired
+  private final UserService userService;
   private MappingService mappingService;
+
+  @Autowired
+  public MetisPageController(UserService userService, MappingService mappingService) {
+    this.userService = userService;
+    this.mappingService = mappingService;
+  }
 
   /**
    * View resolves Home page.
    */
   @RequestMapping(value = "/")
-  public ModelAndView homePage() throws JsonProcessingException {
+  public ModelAndView homePage() {
+    LOGGER.debug("Access home page");
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
             : null;
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     UserDTO userDTO = userService.getUser(primaryKey);
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.HOME, userDTO);
+
+    MetisLandingPage metisLandingPage = new HomeLandingPage(userDTO);
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
   }
@@ -54,9 +58,11 @@ public class MetisPageController {
   //	the future there won't be a separate page for this view, there will be just a tab on Metis Dashboard.
   @RequestMapping(value = "/mappings-page")
   public ModelAndView mappingsPage() {
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Mapping-To-EDM");
+    LOGGER.debug("Access mappings page");
     MappingToEdmPage mappingToEdmPage = new MappingToEdmPage();
     mappingToEdmPage.setMappingService(mappingService);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Mapping-To-EDM");
     modelAndView.addAllObjects(mappingToEdmPage.buildModel());
     return modelAndView;
   }

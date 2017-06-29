@@ -25,7 +25,7 @@ public class PasswordField {
   @JsonProperty("placeholder")
   private String placeholder;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("label")
   public String getLabel() {

@@ -26,7 +26,7 @@ public class Version {
   @JsonProperty("is_beta")
   private Boolean isBeta;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("is_alpha")
   public Boolean getIsAlpha() {

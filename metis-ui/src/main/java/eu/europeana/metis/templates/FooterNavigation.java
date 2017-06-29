@@ -23,7 +23,7 @@ public class FooterNavigation {
   @JsonProperty("footer")
   private Footer footer;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("footer")
   public Footer getFooter() {

@@ -1,6 +1,5 @@
 package eu.europeana.metis.common;
 
-import eu.europeana.metis.page.PageView;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.JsFile;
 import eu.europeana.metis.templates.JsVar;
@@ -15,40 +14,40 @@ import java.util.Map;
  *
  * @author alena
  */
-public abstract class AbstractMetisPage {
+public interface AbstractMetisPage {
   /**
    * @return a Mapping-To-EDM page Java model.
    */
-  public abstract Map<String, Object> buildModel();
+  Map<String, Object> buildModel();
   /**
    * @return list of css-files to apply for a Metis page.
    */
-  public abstract List<CssFile> resolveCssFiles();
+  List<CssFile> resolveCssFiles();
 
   /**
    * @return list of js-files to apply for a Metis page.
    */
-  public abstract List<JsFile> resolveJsFiles();
+  List<JsFile> resolveJsFiles();
 
   /**
    * @return list of js-vars to apply for a Metis page.
    */
-  public abstract List<JsVar> resolveJsVars();
+  List<JsVar> resolveJsVars();
 
   /**
    * @return list of breadcrumbs for Metis page.
    */
-  public abstract List<Breadcrumb> resolveBreadcrumbs();
+  List<Breadcrumb> resolveBreadcrumbs();
 
-  public abstract void addPageContent();
+  void addPageContent();
 
   /**
    * @return Metis header object model.
    */
-  public abstract MetisHeader buildMetisHeader(PageView pageView);
+  MetisHeader buildMetisHeader();
 
   /**
    * @return Metis footer object model.
    */
-  public abstract MetisFooter buildMetisFooter();
+  MetisFooter buildMetisFooter();
 }

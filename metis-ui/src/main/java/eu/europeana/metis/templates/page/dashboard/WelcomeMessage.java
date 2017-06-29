@@ -29,7 +29,7 @@ public class WelcomeMessage {
   @JsonProperty("text_end")
   private String textEnd;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("text_first")
   public String getTextFirst() {

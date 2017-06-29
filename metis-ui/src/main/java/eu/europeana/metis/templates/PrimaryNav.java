@@ -1,9 +1,5 @@
 package eu.europeana.metis.templates;
 
-/**
- * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-23
- */
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
+/**
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2017-05-23
+ */
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
@@ -29,7 +30,7 @@ public class PrimaryNav {
   @JsonProperty("menu_id")
   private String menuId;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("submenu")
   public Boolean getSubmenu() {

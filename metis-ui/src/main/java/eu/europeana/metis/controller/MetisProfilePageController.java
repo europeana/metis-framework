@@ -1,8 +1,7 @@
 package eu.europeana.metis.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import eu.europeana.metis.page.MetisLandingPage;
-import eu.europeana.metis.page.PageView;
+import eu.europeana.metis.page.ProfileLandingPage;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import org.slf4j.Logger;
@@ -22,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MetisProfilePageController {
-  private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
 
@@ -32,20 +31,25 @@ public class MetisProfilePageController {
   }
 
   @RequestMapping(value = "/profile", method = RequestMethod.GET)
-  public ModelAndView profile(Model model) throws JsonProcessingException {
+  public ModelAndView profile(Model model) {
+    UserDTO userDTO = getAuthenticatedUser();
+
+    MetisLandingPage metisLandingPage = new ProfileLandingPage(userDTO);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+    modelAndView.addAllObjects(metisLandingPage.buildModel());
+    return modelAndView;
+  }
+
+  private UserDTO getAuthenticatedUser() {
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
             : null;
     UserDTO userDTO = userService.getUser(primaryKey);
     LOGGER.info("User profile opened: %s", userDTO.getLdapUser().getFirstName());
-
-    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    MetisLandingPage metisLandingPage = new MetisLandingPage(PageView.PROFILE, userDTO);
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
-    return modelAndView;
+    return userDTO;
   }
-
 
 //  private List<Organization> buildAvailableOrganizationsList() {
 ////    List<String> organizations = new ArrayList<>();

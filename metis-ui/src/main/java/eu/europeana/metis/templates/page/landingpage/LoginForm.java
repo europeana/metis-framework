@@ -40,7 +40,7 @@ public class LoginForm {
   @JsonProperty("submit_btn")
   private String submitBtn;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("form_title")
   public String getFormTitle() {

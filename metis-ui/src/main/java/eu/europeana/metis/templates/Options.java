@@ -29,7 +29,7 @@ public class Options {
   @JsonProperty("oursites_hidden")
   private Boolean oursitesHidden;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("search_active")
   public Boolean getSearchActive() {

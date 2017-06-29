@@ -3,96 +3,32 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
-import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.templates.Content;
 import eu.europeana.metis.templates.PageConfig;
-import eu.europeana.metis.templates.UserRole;
 import eu.europeana.metis.templates.Version;
-import eu.europeana.metis.templates.ViewMode;
-import eu.europeana.metis.templates.page.landingpage.Banner;
 import eu.europeana.metis.templates.page.landingpage.Excerpt;
-import eu.europeana.metis.templates.page.landingpage.ForgotLoginCredentials;
 import eu.europeana.metis.templates.page.landingpage.Headline;
-import eu.europeana.metis.templates.page.landingpage.HeroConfig;
-import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
-import eu.europeana.metis.templates.page.landingpage.LoginErrAuthenticate;
-import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.MetisLandingPageModel;
-import eu.europeana.metis.templates.page.landingpage.Request;
-import eu.europeana.metis.templates.page.landingpage.profile.Active;
-import eu.europeana.metis.templates.page.landingpage.profile.Approved;
-import eu.europeana.metis.templates.page.landingpage.profile.Countries;
-import eu.europeana.metis.templates.page.landingpage.profile.CountryItem;
-import eu.europeana.metis.templates.page.landingpage.profile.Created;
-import eu.europeana.metis.templates.page.landingpage.profile.Notes;
-import eu.europeana.metis.templates.page.landingpage.profile.OrganizationModel;
-import eu.europeana.metis.templates.page.landingpage.profile.RoleModel;
-import eu.europeana.metis.templates.page.landingpage.profile.RoleType;
-import eu.europeana.metis.templates.page.landingpage.profile.SelectedOrganizations;
-import eu.europeana.metis.templates.page.landingpage.profile.Updated;
-import eu.europeana.metis.templates.page.landingpage.profile.UserEmail;
-import eu.europeana.metis.templates.page.landingpage.profile.UserFields;
-import eu.europeana.metis.templates.page.landingpage.profile.UserFirstName;
-import eu.europeana.metis.templates.page.landingpage.profile.UserId;
-import eu.europeana.metis.templates.page.landingpage.profile.UserLastName;
-import eu.europeana.metis.templates.page.landingpage.profile.UserProfileModel;
-import eu.europeana.metis.templates.page.landingpage.profile.UserSkype;
-import eu.europeana.metis.templates.page.landingpage.register.EmailField;
-import eu.europeana.metis.templates.page.landingpage.register.FullNameField;
-import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
-import eu.europeana.metis.templates.page.landingpage.register.RegisterForm;
-import eu.europeana.metis.ui.mongo.domain.Role;
-import eu.europeana.metis.ui.mongo.domain.RoleRequest;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
-import eu.europeana.metis.ui.mongo.domain.UserOrganizationRole;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * This web-page represents a Metis Landing page and all user account pages like: Login page,
+ * This web-page represents a base Landing page and all user account pages like: Login page,
  * User Profile page, Register User page.
  *
  * @author alena
  */
-public class MetisLandingPage extends MetisPage {
+public abstract class MetisLandingPage extends MetisPage {
 
-  private PageView pageView = PageView.HOME;
-  private List<RoleRequest> roleRequests;
-  private Boolean isDuplicateUser = false;
-  private Boolean isAuthError = false;
-  private static final String ERROR_DUPLICATE_USER = "ERROR: The user with this email address already exists.";
-  private static final String ERROR_AUTH = "ERROR: Your email or password is incorrect. Try again please.";
-  private MetisLandingPageModel metisLandingPageModel;
+  protected MetisLandingPageModel metisLandingPageModel;
 
-  public MetisLandingPage(PageView pageView) {
+  public MetisLandingPage() {
     super();
-    this.pageView = pageView;
   }
 
-  public MetisLandingPage(PageView pageView, UserDTO userDTO) {
-    this(pageView);
-    this.userDTO = userDTO;
+  public MetisLandingPage(UserDTO userDTO) {
+    this.userDTO=userDTO;
   }
-
-  public MetisLandingPage(PageView pageView, List<RoleRequest> roleRequests) {
-    this(pageView);
-    this.pageView = pageView;
-    this.roleRequests = roleRequests;
-  }
-
-//  /**
-//   * FIXME when the user profile form is unified with user approve form this constructor will be
-//   * removed
-//   *
-//   * @boolean isApprove - just to distinguish this constructor from the other
-//   */
-//  public MetisLandingPage(PageView pageView, UserProfile user, boolean isApprove) {
-//    this(pageView);
-//    this.pageView = pageView;
-//    this.user = user;
-//  }
 
   @Override
   public Map<String, Object> buildModel() {
@@ -104,13 +40,11 @@ public class MetisLandingPage extends MetisPage {
     metisLandingPageModel.setBreadcrumbs(resolveBreadcrumbs());
     metisLandingPageModel.setPageTitle("Europeana Metis");
     metisLandingPageModel.setImageRoot("https://europeanastyleguidetest.a.cdnify.io");
-    PageConfig pageConfig = new PageConfig();
-    pageConfig.setNewsletter(true);
-    metisLandingPageModel.setPageConfig(pageConfig);
+    metisLandingPageModel.setPageConfig(createPageConfig());
     metisLandingPageModel.setVersion(createVersion());
     metisLandingPageModel.setHeadline(createHeadline());
     metisLandingPageModel.setExcerpt(createExcerpt());
-    metisLandingPageModel.setMetisHeader(buildMetisHeader(pageView));
+    metisLandingPageModel.setMetisHeader(buildMetisHeader());
     metisLandingPageModel.setI18n(buildI18n());
 
     addPageContent();
@@ -118,38 +52,19 @@ public class MetisLandingPage extends MetisPage {
     metisLandingPageModel.setMetisFooter(buildMetisFooter());
 
     ObjectMapper m = new ObjectMapper();
-    Map<String, Object> modelMap = m.convertValue(metisLandingPageModel, Map.class);
-    return modelMap;
+    return m.convertValue(metisLandingPageModel, Map.class);
   }
 
-  @Override
-  public void addPageContent() {
-    switch (pageView) {
-      case HOME:
-        buildHomePageContent();
-        break;
-      case LOGIN:
-        buildLoginPageContent();
-        break;
-      case REGISTER:
-        buildRegisterPageContent();
-        break;
-      case PROFILE:
-        buildProfilePageContent();
-        break;
-      case REQUESTS:
-        buildRequestsPageContent();
-        break;
-      default:
-        break;
-    }
+  private PageConfig createPageConfig() {
+    PageConfig pageConfig = new PageConfig();
+    pageConfig.setNewsletter(true);
+    return pageConfig;
   }
 
   private Version createVersion() {
     Version version = new Version();
     version.setIsAlpha(false);
     version.setIsBeta(true);
-
     return version;
   }
 
@@ -175,281 +90,5 @@ public class MetisLandingPage extends MetisPage {
     excerpt4.setLong("false");
 
     return Collections.newArrayList(excerpt1, excerpt2, excerpt3, excerpt4);
-  }
-
-  /**
-   * The content for the User Login page.
-   */
-  private void buildHomePageContent() {
-    Banner banner = new Banner();
-    banner.setCtaText("Register to metis here");
-    banner.setCtaUrl("#");
-    banner.setInfoLink("Learn more about Metis");
-    banner.setInfoUrl("#");
-    banner.setText(
-        "Ever wondered how to automatically digest huge amounts of data with the push of a button?");
-    banner.setTitle("What can you do with Metis?");
-    HeroConfig heroConfig = new HeroConfig();
-    heroConfig
-        .setAttributionText("Cyclopides metis L., Cyclopides qua... Museum Fur Naturkunde Berlin");
-    heroConfig.setAttributionUrl(
-        "http://www.europeana.eu/portal/fr/record/11622/_MFN_DRAWERS_MFN_GERMANY_http___coll_mfn_berlin_de_u_MFNB_Lep_Hesperiidae_D146.html");
-    heroConfig.setBrandColour("brand-colour-site");
-    heroConfig.setBrandOpacity("brand-opacity100");
-    heroConfig.setBrandPosition("brand-bottomleft");
-    heroConfig.setHeroImage(
-        "https://europeana-styleguide-test.s3.amazonaws.com/images/metis/hero_metis_1600x650_jade.png");
-    heroConfig.setLicenseCC0("true");
-    Content content = new Content();
-    content.setHeroConfig(heroConfig);
-    content.setBanner(banner);
-    LandingPageContent landingPageContent = new LandingPageContent();
-    landingPageContent.setIsHome(true);
-    landingPageContent.setContent(content);
-
-    metisLandingPageModel.setLandingPageContent(landingPageContent);
-  }
-
-  /**
-   * The content for the User Login page.
-   */
-  private void buildLoginPageContent() {
-    LandingPageContent landingPageContent = new LandingPageContent();
-    landingPageContent.setIsLogin(true);
-    metisLandingPageModel.setLandingPageContent(landingPageContent);
-
-    EmailField emailField = new EmailField();
-    emailField.setLabel("Email");
-    emailField.setPlaceholder("your@email");
-
-    PasswordField passwordField = new PasswordField();
-    passwordField.setLabel("Password");
-    passwordField.setPlaceholder("Type your password");
-
-    ForgotLoginCredentials forgotLoginCredentials = new ForgotLoginCredentials();
-    forgotLoginCredentials.setText("Forgot your account?");
-    forgotLoginCredentials.setUrl("#");
-
-    LoginForm loginForm = new LoginForm();
-    loginForm.setEmailField(emailField);
-    loginForm.setPasswordField(passwordField);
-    loginForm.setForgotLoginCredentials(forgotLoginCredentials);
-    loginForm.setFormTitle("Sign in to Metis");
-    loginForm.setSubmitBtn("Sign In");
-
-    if (isAuthError) {
-      LoginErrAuthenticate loginErrAuthenticate = new LoginErrAuthenticate();
-      loginErrAuthenticate.setAuthenticationErrorMessage("Wrong credentials");
-      loginForm.setLoginErrAuthenticate(loginErrAuthenticate);
-    }
-
-    metisLandingPageModel.setLoginForm(loginForm);
-  }
-
-  /**
-   * The content for the Register User page.
-   */
-  private void buildRegisterPageContent() {
-    LandingPageContent landingPageContent = new LandingPageContent();
-    landingPageContent.setIsRegister(true);
-    metisLandingPageModel.setLandingPageContent(landingPageContent);
-
-    FullNameField fullNameField = new FullNameField();
-    fullNameField.setLabel("Name *");
-    fullNameField.setFirstNamePlaceholder("First");
-    fullNameField.setLastNamePlaceholder("Last");
-
-    EmailField emailField = new EmailField();
-    emailField.setLabel("Email *");
-    emailField.setPlaceholder("your@email");
-
-    PasswordField passwordField = new PasswordField();
-    passwordField.setLabel("New Password *");
-    passwordField.setPlaceholder("Create your password");
-
-    RegisterForm registerForm = new RegisterForm();
-    registerForm.setFormTitle("Register to Metis");
-    registerForm.setFullNameField(fullNameField);
-    registerForm.setEmailField(emailField);
-    registerForm.setPasswordField(passwordField);
-
-    if (isDuplicateUser) {
-      registerForm.setRegisterErrDuplicateUser("User already exists");
-    }
-
-    registerForm.setSubmitBtnText("Submit");
-    registerForm.setResetBtnText("Reset");
-    registerForm.setFormRequirementsWarning("* needed for registration");
-
-    metisLandingPageModel.setRegisterForm(registerForm);
-  }
-
-  /**
-   * The content for the User Profile page.
-   */
-  private void buildProfilePageContent() {
-    if (!this.userDTO.notNullUser()) {
-      return;
-    }
-    LandingPageContent landingPageContent = new LandingPageContent();
-    landingPageContent.setIsProfile(true);
-    metisLandingPageModel.setLandingPageContent(landingPageContent);
-
-    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
-
-    UserFields userFields = new UserFields();
-    userFields.setUserEmail(new UserEmail("Email *", userDTO.getLdapUser().getEmail()));
-    userFields.setUserId(new UserId("User ID", userDTO.getUser().getId().toString()));
-    userFields
-        .setUserFirstName(new UserFirstName("First Name *", userDTO.getLdapUser().getFirstName()));
-    userFields
-        .setUserLastName(new UserLastName("Last Name *", userDTO.getLdapUser().getLastName()));
-    userFields.setUserSkype(new UserSkype("Skype", userDTO.getUser().getSkypeId()));
-    userFields.setCreated(
-        new Created("Created", "", userDTO.getUser().getCreated() == null ? null : simpleDateFormat.format(userDTO.getUser().getCreated())));
-    userFields.setUpdated(
-        new Updated("Updated", "", userDTO.getUser().getCreated() == null ? null : simpleDateFormat.format(userDTO.getUser().getModified())));
-    userFields
-        .setActive(new Active("Active", "", Boolean.toString(userDTO.getLdapUser().isActive())));
-    userFields.setApproved(
-        new Approved("Approved", "", Boolean.toString(userDTO.getLdapUser().isApproved())));
-    userFields.setNotes(new Notes("Notes", "", userDTO.getUser().getNotes()));
-    userFields.setCountries(buildCountriesList());
-    userFields.setSelectedOrganizations(buildOrganizationsList());
-
-    UserProfileModel userProfileModel = new UserProfileModel();
-    userProfileModel.setUserFields(userFields);
-    userProfileModel.setRoleTypes(buildRoleTypeList());
-
-    metisLandingPageModel.setUserProfileModel(userProfileModel);
-    metisLandingPageModel.setViewMode(new ViewMode("preview"));
-    metisLandingPageModel.setUserRole(new UserRole("metisUser"));
-  }
-
-  private void buildRequestsPageContent() {
-    if (roleRequests == null) {
-      return;
-    } else {
-      LandingPageContent landingPageContent = new LandingPageContent();
-      landingPageContent.setIsRequests(true);
-      metisLandingPageModel.setLandingPageContent(landingPageContent);
-
-      SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy hh:mm");
-      List<Request> requests = new ArrayList<>();
-      for (RoleRequest roleRequest : roleRequests) {
-        Request request = new Request();
-        request.setId(roleRequest.getId().toString());
-        request.setEmail(roleRequest.getUserId());
-        request.setOrganization(roleRequest.getOrganizationId());
-        request.setUrl("/profile?userId=" + request.getId());
-        request.setDate(format.format(roleRequest.getRequestDate()));
-        if (roleRequest.isDeleteRequest()) {
-          request.setType("Delete");
-          request.setRequestType("user-request-type-delete");
-        } else {
-          request.setType("Add");
-          request.setRequestType("user-request-type-add");
-        }
-        if (roleRequest.getRequestStatus() == null || roleRequest.getRequestStatus()
-            .equalsIgnoreCase("Pending")) {
-          request.setStatus("Pending");
-          request.setStatusType("user-request-pending");
-        } else if (roleRequest.getRequestStatus().equalsIgnoreCase("Accepted")) {
-          request.setStatus("Accepted");
-          request.setStatusType("user-request-accepted");
-        } else if (roleRequest.getRequestStatus().equalsIgnoreCase("Rejected")) {
-          request.setStatus("Rejected");
-          request.setStatusType("user-request-rejected");
-        }
-        requests.add(request);
-      }
-      metisLandingPageModel.setRequest(requests);
-    }
-  }
-
-  public SelectedOrganizations buildOrganizationsList() {
-    List<OrganizationModel> organizationModels = new ArrayList<>();
-    OrganizationModel organizationModel;
-    if(userDTO.getUser().getUserOrganizationRoles() != null) {
-      for (UserOrganizationRole userOrganizationRole : userDTO.getUser()
-          .getUserOrganizationRoles()) {
-        organizationModel = new OrganizationModel(userOrganizationRole.getOrganizationName(),
-            Integer.parseInt(userOrganizationRole.getOrganizationId()),
-            userOrganizationRole.getRole().name(), 1);
-        organizationModels.add(organizationModel);
-      }
-    }
-    SelectedOrganizations selectedOrganizations = new SelectedOrganizations("Selected Organizations", organizationModels);
-    return selectedOrganizations;
-  }
-
-  private Countries buildCountriesList() {
-    Country userCountry = userDTO.getUser().getCountry();
-    CountryItem countryItem;
-    ArrayList<CountryItem> countryItems = new ArrayList<>();
-    for (Country country : Country.values()) {
-      if (userCountry != null && userCountry.equals(country)) {
-        countryItem = new CountryItem(country.getName(), country.getIsoCode(), true);
-      } else {
-        countryItem = new CountryItem(country.getName(), country.getIsoCode(), false);
-      }
-      countryItems.add(countryItem);
-    }
-
-    Countries countries = new Countries();
-    countries.setLabel("Country");
-    countries.setStartValue("Select country");
-    countries.setItems(countryItems);
-
-    return countries;
-  }
-
-  private List<RoleType> buildRoleTypeList()
-  {
-    List<RoleType> roleTypes = new ArrayList<>();
-    List<RoleModel> roleModels = new ArrayList<>();
-    roleModels.add(new RoleModel(Role.EUROPEANA_VIEWER.getName()));
-    roleModels.add(new RoleModel(Role.EUROPEANA_DATA_OFFICER.getName()));
-    roleModels.add(new RoleModel(Role.EUROPEANA_ADMIN.getName()));
-    RoleType roleType = new RoleType("1", roleModels);
-    roleTypes.add(roleType);
-
-    roleModels = new ArrayList<>();
-    roleModels.add(new RoleModel(Role.PROVIDER_VIEWER.getName()));
-    roleModels.add(new RoleModel(Role.PROVIDER_DATA_OFFICER.getName()));
-    roleModels.add(new RoleModel(Role.PROVIDER_ADMIN.getName()));
-    roleType = new RoleType("2", roleModels);
-    roleTypes.add(roleType);
-
-    roleModels = new ArrayList<>();
-    roleModels.add(new RoleModel(Role.DATA_PROVIDER_CONTACT.getName()));
-    roleType = new RoleType("3", roleModels);
-    roleTypes.add(roleType);
-
-    return roleTypes;
-  }
-
-  public Boolean getIsDuplicateUser() {
-    return isDuplicateUser;
-  }
-
-  public void setIsDuplicateUser(Boolean isDuplicateUser) {
-    this.isDuplicateUser = isDuplicateUser;
-  }
-
-  public Boolean getIsAuthError() {
-    return isAuthError;
-  }
-
-  public void setIsAuthError(Boolean isAuthError) {
-    this.isAuthError = isAuthError;
-  }
-
-  public PageView getPageView() {
-    return pageView;
-  }
-
-  public void setPageView(PageView pageView) {
-    this.pageView = pageView;
   }
 }

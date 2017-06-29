@@ -23,7 +23,7 @@ public class MappingCardStub {
 		element.setName("ProvidedCHO");
 		ObjectId id = new ObjectId();
 		element.setId(id);
-		List<SimpleMapping> simpleMappings = new ArrayList<SimpleMapping>();
+		List<SimpleMapping> simpleMappings = new ArrayList<>();
 		SimpleMapping simpleMapping = new SimpleMapping();
 		simpleMapping.setId(id);
 		simpleMapping.setType(MappingType.XPATH);
@@ -103,7 +103,7 @@ public class MappingCardStub {
 		ObjectId childId = new ObjectId();
 		child.setId(childId);
 		
-		List<SimpleMapping> simpleMappingsChild = new ArrayList<SimpleMapping>();
+		List<SimpleMapping> simpleMappingsChild = new ArrayList<>();
 		SimpleMapping simpleMappingChild = new SimpleMapping();
 		simpleMappingChild.setId(id);
 		simpleMappingChild.setType(MappingType.XPATH);

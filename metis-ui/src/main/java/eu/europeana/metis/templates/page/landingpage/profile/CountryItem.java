@@ -29,7 +29,7 @@ public class CountryItem {
   @JsonProperty("selected")
   private Boolean selected;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public CountryItem(String name, String code, Boolean selected) {
     this.name = name;
