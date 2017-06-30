@@ -26,7 +26,7 @@ public class UserEmail {
   @JsonProperty("value")
   private String value;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public UserEmail(String label, String value) {
     this.label = label;

@@ -38,7 +38,7 @@ public class Social {
   @JsonProperty("googleplus")
   private Boolean googleplus;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("github")
   public Boolean getGithub() {

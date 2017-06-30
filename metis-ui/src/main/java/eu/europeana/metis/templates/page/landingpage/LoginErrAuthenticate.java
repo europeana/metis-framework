@@ -23,7 +23,7 @@ public class LoginErrAuthenticate {
   @JsonProperty("authentication_error_message")
   private String authenticationErrorMessage;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("authentication_error_message")
   public String getAuthenticationErrorMessage() {

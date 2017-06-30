@@ -37,7 +37,7 @@ public class Dropdown {
   @JsonProperty("items")
   private List<SubmenuItem> items = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("menu-title")
   public String getMenuTitle() {

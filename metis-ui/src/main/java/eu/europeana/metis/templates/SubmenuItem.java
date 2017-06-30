@@ -45,7 +45,7 @@ public class SubmenuItem {
   @JsonProperty("submenu")
   private Object submenu;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("text")
   public String getText() {

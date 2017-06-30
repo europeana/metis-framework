@@ -32,7 +32,7 @@ public class Global {
   @JsonProperty("logo")
   private Logo logo;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("primary_nav")
   public PrimaryNav getPrimaryNav() {

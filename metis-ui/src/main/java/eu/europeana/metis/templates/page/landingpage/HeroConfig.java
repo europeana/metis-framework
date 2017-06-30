@@ -41,7 +41,7 @@ public class HeroConfig {
   @JsonProperty("brand_opacity")
   private String brandOpacity;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("hero_image")
   public String getHeroImage() {

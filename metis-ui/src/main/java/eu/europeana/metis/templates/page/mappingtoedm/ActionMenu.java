@@ -27,7 +27,7 @@ public class ActionMenu {
   @JsonProperty("search_box")
   private SearchBox searchBox;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("sections")
   public List<Section> getSections() {

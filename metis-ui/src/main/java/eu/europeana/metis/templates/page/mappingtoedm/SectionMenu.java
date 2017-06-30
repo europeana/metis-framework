@@ -37,7 +37,7 @@ public class SectionMenu {
   @JsonProperty("items")
   private List<SubmenuItem> items = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("button_title")
   public String getButtonTitle() {

@@ -24,7 +24,7 @@ public class SubFooter {
   @JsonProperty("items")
   private List<SubmenuItem> items = null;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("items")
   public List<SubmenuItem> getItems() {

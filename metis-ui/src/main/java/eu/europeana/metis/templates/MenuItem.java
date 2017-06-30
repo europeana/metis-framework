@@ -41,7 +41,7 @@ public class MenuItem {
   @JsonProperty("submenu")
   private Submenu submenu;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("url")
   public String getUrl() {

@@ -43,7 +43,7 @@ public class LandingPageContent {
   @JsonProperty("content")
   private Content content;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("is_home")
   public Boolean getIsHome() {

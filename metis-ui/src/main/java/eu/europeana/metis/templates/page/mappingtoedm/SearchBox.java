@@ -29,7 +29,7 @@ public class SearchBox {
   @JsonProperty("search_box_hidden")
   private String searchBoxHidden;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("search_box_legend")
   public String getSearchBoxLegend() {

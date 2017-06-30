@@ -29,7 +29,7 @@ public class NextPrev {
   @JsonProperty("prev_url")
   private String prevUrl;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("next_url")
   public String getNextUrl() {

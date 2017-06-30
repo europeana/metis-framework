@@ -35,7 +35,7 @@ public class DoubleBtns {
   @JsonProperty("url_right")
   private String urlRight;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("btn_left_text")
   public String getBtnLeftText() {

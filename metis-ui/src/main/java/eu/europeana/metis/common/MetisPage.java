@@ -1,7 +1,6 @@
 package eu.europeana.metis.common;
 
 import de.flapdoodle.embed.process.collections.Collections;
-import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.HeaderSubMenuBuilder;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.Footer;
@@ -29,14 +28,13 @@ import eu.europeana.metis.templates.page.landingpage.Newsletter;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.Arrays;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * This is common Metis page with the same assets, bread-crumbs and header instantiated.
  *
  * @author alena
  */
-public abstract class MetisPage extends AbstractMetisPage {
+public abstract class MetisPage implements AbstractMetisPage {
   protected UserDTO userDTO;
 
   MetisuiConfig config;
@@ -72,7 +70,7 @@ public abstract class MetisPage extends AbstractMetisPage {
     JsVar jsVar = new JsVar();
     jsVar.setName("pageName");
     jsVar.setValue("portal/index");
-    return Arrays.asList(jsVar);
+    return Collections.singletonList(jsVar);
   }
 
   @Override
@@ -80,7 +78,7 @@ public abstract class MetisPage extends AbstractMetisPage {
     Breadcrumb breadcrumb = new Breadcrumb();
     breadcrumb.setText("Home");
     breadcrumb.setUrl("/");
-    return Arrays.asList(breadcrumb);
+    return Collections.singletonList(breadcrumb);
   }
 
   @Override
@@ -105,7 +103,7 @@ public abstract class MetisPage extends AbstractMetisPage {
     utilityNav.setMenuId("settings-menu");
     utilityNav.setStyleModifier("caret-right");
     utilityNav.setTabindex("6");
-    utilityNav.setItems(Collections.newArrayList(menuItem));
+    utilityNav.setItems(Collections.singletonList(menuItem));
 
     Global global = new Global();
     global.setOptions(options);
@@ -153,8 +151,7 @@ public abstract class MetisPage extends AbstractMetisPage {
 
     ListOfLinks listOfLinks1 = new ListOfLinks();
     listOfLinks1.setTitle("More Info");
-    listOfLinks1.setItems(Collections
-        .newArrayList(
+    listOfLinks1.setItems(Arrays.asList(
             getSubmenuItem("About", "/"),
             getSubmenuItem("Development updates", "/"),
             getSubmenuItem("All institutions", "/"),
@@ -164,14 +161,14 @@ public abstract class MetisPage extends AbstractMetisPage {
     ListOfLinks listOfLinks2 = new ListOfLinks();
     listOfLinks2.setTitle("Help");
     listOfLinks2
-        .setItems(Collections.newArrayList(
+        .setItems(Arrays.asList(
             getSubmenuItem("Search tips", "/"),
             getSubmenuItem("Terms of Use & Policies", "/")));
     ListOfLinks listOfLinks3 = new ListOfLinks();
 
     listOfLinks3.setTitle("Tools");
     listOfLinks3
-        .setItems(Collections.newArrayList(
+        .setItems(Arrays.asList(
             getSubmenuItem("API Docs", "/"),
             getSubmenuItem("Status", "/")));
 
@@ -188,7 +185,7 @@ public abstract class MetisPage extends AbstractMetisPage {
   private SubFooter getSubFooter() {
     SubFooter subFooter = new SubFooter();
     subFooter
-        .setItems(Collections.newArrayList(
+        .setItems(Arrays.asList(
             getSubmenuItem("Home", "/"),
             getSubmenuItem("Terms of use and policies", "http://europeana.eu/portal/rights/terms-and-policies.html"),
             getSubmenuItem("Contact us", "/"),

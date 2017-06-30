@@ -29,7 +29,7 @@ public class Active {
   @JsonProperty("value")
   private String value;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   public Active(String label, String placeholder, String value) {
     this.label = label;

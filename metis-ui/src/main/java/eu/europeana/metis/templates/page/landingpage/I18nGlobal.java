@@ -32,7 +32,7 @@ public class I18nGlobal {
   @JsonProperty("find-us-elsewhere")
   private String findUsElsewhere;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("newsletter")
   public Newsletter getNewsletter() {

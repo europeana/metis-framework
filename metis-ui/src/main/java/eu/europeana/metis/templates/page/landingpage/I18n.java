@@ -23,7 +23,7 @@ public class I18n {
   @JsonProperty("global")
   private I18nGlobal global;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("global")
   public I18nGlobal getGlobal() {

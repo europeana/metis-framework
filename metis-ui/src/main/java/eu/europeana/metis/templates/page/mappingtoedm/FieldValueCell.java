@@ -29,7 +29,7 @@ public class FieldValueCell {
   @JsonProperty("occurence")
   private String occurence;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("object_id")
   public String getObjectId() {

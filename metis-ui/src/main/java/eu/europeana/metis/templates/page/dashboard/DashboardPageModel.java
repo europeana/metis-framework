@@ -67,7 +67,7 @@ public class DashboardPageModel {
   @JsonProperty("metis_header")
   private MetisHeader metisHeader;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("is_java")
   public Boolean getIsJava() {

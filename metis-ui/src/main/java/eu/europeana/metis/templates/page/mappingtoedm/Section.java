@@ -23,7 +23,7 @@ public class Section {
   @JsonProperty("menu")
   private SectionMenu menu;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("menu")
   public SectionMenu getMenu() {

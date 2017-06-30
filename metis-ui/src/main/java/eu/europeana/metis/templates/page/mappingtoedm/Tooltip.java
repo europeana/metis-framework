@@ -26,7 +26,7 @@ public class Tooltip {
   @JsonProperty("tooltip_text")
   private String tooltipText;
   @JsonIgnore
-  private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+  private Map<String, Object> additionalProperties = new HashMap<>();
 
   @JsonProperty("tooltipped_text")
   public String getTooltippedText() {

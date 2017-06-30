@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class MetisPageController {
-  private final Logger LOGGER = LoggerFactory.getLogger(MetisPageController.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(MetisPageController.class);
 
   private final UserService userService;
   private final MappingService mappingService;
@@ -40,7 +40,8 @@ public class MetisPageController {
    * View resolves Home page.
    */
   @RequestMapping(value = "/")
-  public ModelAndView homePage() throws JsonProcessingException {
+  public ModelAndView homePage() {
+    LOGGER.debug("Access home page");
     Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     String primaryKey =
         principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
@@ -60,6 +61,8 @@ public class MetisPageController {
   //	the future there won't be a separate page for this view, there will be just a tab on Metis Dashboard.
   @RequestMapping(value = "/mappings-page")
   public ModelAndView mappingsPage() {
+    LOGGER.debug("Access mappings page");
+
     MappingToEdmPage mappingToEdmPage = new MappingToEdmPage(config);
     mappingToEdmPage.setMappingService(mappingService);
 
