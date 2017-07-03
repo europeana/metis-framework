@@ -1,6 +1,7 @@
 package eu.europeana.metis.page;
 
 import eu.europeana.metis.config.MetisuiConfig;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.register.EmailField;
@@ -8,19 +9,13 @@ import eu.europeana.metis.templates.page.landingpage.register.FullNameField;
 import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
 import eu.europeana.metis.templates.page.landingpage.register.RegisterForm;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
-import org.springframework.http.ResponseEntity.HeadersBuilder;
 
 public class RegisterLandingPage extends MetisLandingPage {
 
-  private Boolean isDuplicateUser;
+  private boolean isDuplicateUser = false;
 
   public RegisterLandingPage(MetisuiConfig config) {
     super(config);
-  }
-
-  @Override
-  public Submenu buildNavigationSubmenu() {
-    return HeaderSubMenuBuilder.buildMenuRegister();
   }
 
   @Override
@@ -65,7 +60,7 @@ public class RegisterLandingPage extends MetisLandingPage {
     metisLandingPageModel.setRegisterForm(registerForm);
   }
 
-  public Boolean getIsDuplicateUser() {
+  public boolean getIsDuplicateUser() {
     return isDuplicateUser;
   }
 

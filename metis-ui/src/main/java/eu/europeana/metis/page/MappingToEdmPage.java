@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.config.MetisuiConfig;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.Element;
 import eu.europeana.metis.mapping.model.Mapping;
@@ -31,6 +32,7 @@ import eu.europeana.metis.templates.page.mappingtoedm.SearchBox;
 import eu.europeana.metis.templates.page.mappingtoedm.Section;
 import eu.europeana.metis.templates.page.mappingtoedm.SectionMenu;
 import eu.europeana.metis.templates.page.mappingtoedm.Tooltip;
+import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +49,8 @@ public class MappingToEdmPage extends MetisPage {
   private static final int DEFAULT_COUNT = 20;
 
   private static final int DEFAULT_OFFSET = 0;
+
+  private UserDTO userDTO;
 
   public MappingToEdmPage(MetisuiConfig config) {
     super(config);
@@ -462,5 +466,9 @@ public class MappingToEdmPage extends MetisPage {
   @Override
   public void addPageContent() {
 
+  }
+
+  public void setUserDTO(UserDTO userDTO) {
+    this.userDTO = userDTO;
   }
 }

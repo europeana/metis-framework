@@ -1,6 +1,7 @@
 package eu.europeana.metis.page;
 
 import eu.europeana.metis.config.MetisuiConfig;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.page.landingpage.ForgotLoginCredentials;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
@@ -8,6 +9,7 @@ import eu.europeana.metis.templates.page.landingpage.LoginErrAuthenticate;
 import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.register.EmailField;
 import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * Created by erikkonijnenburg on 27/06/2017.
@@ -23,11 +25,6 @@ public class LoginLandingPage extends MetisLandingPage {
   @Override
   public void addPageContent() {
     buildLoginPageContent();
-  }
-
-  @Override
-  public Submenu buildNavigationSubmenu() {
-    return HeaderSubMenuBuilder.buildMenuForLoginPage();
   }
 
   private Boolean getIsAuthError() {
@@ -55,6 +52,7 @@ public class LoginLandingPage extends MetisLandingPage {
     ForgotLoginCredentials forgotLoginCredentials = createForgotLoginCredentials();
 
     LoginForm loginForm = new LoginForm();
+    loginForm.setLoginUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/login").toUriString());
     loginForm.setEmailField(emailField);
     loginForm.setPasswordField(passwordField);
     loginForm.setForgotLoginCredentials(forgotLoginCredentials);

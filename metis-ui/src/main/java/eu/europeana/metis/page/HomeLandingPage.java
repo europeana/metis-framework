@@ -6,13 +6,13 @@ import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.page.landingpage.Banner;
 import eu.europeana.metis.templates.page.landingpage.HeroConfig;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
-import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.List;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 public class HomeLandingPage extends MetisLandingPage {
 
-  public HomeLandingPage(UserDTO userDTO, MetisuiConfig config) {
-    super(userDTO, config);
+  public HomeLandingPage(MetisuiConfig metisuiConfig) {
+    super(metisuiConfig);
   }
 
   @Override
@@ -67,7 +67,7 @@ public class HomeLandingPage extends MetisLandingPage {
   private Banner createBanner() {
     Banner banner = new Banner();
     banner.setCtaText("Register to metis here");
-    banner.setCtaUrl("/register");
+    banner.setCtaUrl(ServletUriComponentsBuilder.fromCurrentContextPath().path("/register").toUriString());
     banner.setInfoLink("Learn more about Metis");
     banner.setInfoUrl("#");
     banner.setText(

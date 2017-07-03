@@ -1,7 +1,6 @@
 package eu.europeana.metis.controller;
 
 import eu.europeana.metis.common.UserProfileRequest;
-import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
@@ -10,6 +9,7 @@ import eu.europeana.metis.core.rest.client.OrganizationRestClient;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.page.LoginLandingPage;
 import eu.europeana.metis.page.MetisDashboardPage;
+import eu.europeana.metis.page.MetisPageFactory;
 import eu.europeana.metis.page.RegisterLandingPage;
 import eu.europeana.metis.page.RequestsLandingPage;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
@@ -49,16 +49,16 @@ public class MetisUserPageController {
   private final OrganizationRestClient organizationRestClient;
   private final JavaMailSender javaMailSender;
   private final SimpleMailMessage simpleMailMessage;
-  private final MetisuiConfig config;
+  private final MetisPageFactory pageFactory;
 
   @Autowired
   public MetisUserPageController(UserService userService, OrganizationRestClient organizationRestClient,
-      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage, MetisuiConfig config) {
+      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage, MetisPageFactory pageFactory) {
     this.userService = userService;
     this.organizationRestClient = organizationRestClient;
     this.javaMailSender = javaMailSender;
     this.simpleMailMessage = simpleMailMessage;
-    this.config = config;
+    this.pageFactory = pageFactory;
   }
 
   /**
@@ -67,7 +67,7 @@ public class MetisUserPageController {
   @RequestMapping(value = "/login")
   public ModelAndView login(
       @RequestParam(value = "authentication_error", required = false) boolean authenticationError) {
-    LoginLandingPage metisLandingPage = new LoginLandingPage();
+    LoginLandingPage metisLandingPage = pageFactory.createLoginLandingPage();
     metisLandingPage.setIsAuthError(authenticationError);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
@@ -78,7 +78,7 @@ public class MetisUserPageController {
 
   @RequestMapping(value = "/register", method = RequestMethod.GET)
   public ModelAndView register() {
-    RegisterLandingPage metisLandingPage = new RegisterLandingPage(config;
+    RegisterLandingPage metisLandingPage = pageFactory.createRegisterLandingPage();
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
@@ -86,11 +86,8 @@ public class MetisUserPageController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest,
-      Model model) {
-    RegisterLandingPage metisLandingPage = new RegisterLandingPage();
   public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
-    RegisterLandingPage metisLandingPage = new RegisterLandingPage(config);
+    RegisterLandingPage metisLandingPage = pageFactory.createRegisterLandingPage();
     model.addAttribute("user", userProfileRequest);
     UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
 
@@ -120,7 +117,7 @@ public class MetisUserPageController {
 //    userProfile.init(userDTO);
     LOGGER.info("*** User profile opened: " + userDTO.getLdapUser().getFirstName() + " ***");
 
-    MetisDashboardPage metisDashboardPage = new MetisDashboardPage(userDTO, config);
+    MetisDashboardPage metisDashboardPage = pageFactory.createMetisDashBoardPage(userDTO);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Dashboard");
     modelAndView.addAllObjects(metisDashboardPage.buildModel());
@@ -232,7 +229,7 @@ public class MetisUserPageController {
   @RequestMapping(value = "/requests", method = RequestMethod.GET)
   public ModelAndView userRequests() {
     List<RoleRequest> roleRequests = userService.getAllRequests(null, null);
-    RequestsLandingPage metisLandingPage = new RequestsLandingPage(roleRequests, config);
+    RequestsLandingPage metisLandingPage = pageFactory.createRequestsLandingPage(roleRequests);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());

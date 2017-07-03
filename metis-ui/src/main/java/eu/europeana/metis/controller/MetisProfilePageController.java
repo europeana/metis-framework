@@ -1,8 +1,7 @@
 package eu.europeana.metis.controller;
 
-import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.MetisLandingPage;
-import eu.europeana.metis.page.ProfileLandingPage;
+import eu.europeana.metis.page.MetisPageFactory;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import org.slf4j.Logger;
@@ -25,19 +24,19 @@ public class MetisProfilePageController {
   private static final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
 
   private final UserService userService;
-  private final MetisuiConfig config;
+  private final MetisPageFactory pageFactory;
 
   @Autowired
-  public MetisProfilePageController(UserService userService, MetisuiConfig config) {
+  public MetisProfilePageController(UserService userService, MetisPageFactory pageFactory) {
     this.userService = userService;
-    this.config = config;
+    this.pageFactory =  pageFactory;
   }
 
   @RequestMapping(value = "/profile", method = RequestMethod.GET)
   public ModelAndView profile(Model model) {
     UserDTO userDTO = getAuthenticatedUser();
 
-    MetisLandingPage metisLandingPage = new ProfileLandingPage(userDTO, config);
+    MetisLandingPage metisLandingPage = pageFactory.createProfileLandingPage(userDTO);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());

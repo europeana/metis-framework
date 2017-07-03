@@ -1,10 +1,8 @@
 package eu.europeana.metis.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.HomeLandingPage;
 import eu.europeana.metis.page.MappingToEdmPage;
-import eu.europeana.metis.page.MetisLandingPage;
+import eu.europeana.metis.page.MetisPageFactory;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import eu.europeana.metis.ui.mongo.service.UserService;
@@ -28,12 +26,13 @@ public class MetisPageController {
 
   private final UserService userService;
   private final MappingService mappingService;
-  private final MetisuiConfig config;
+  private final MetisPageFactory pageFactory;
+
   @Autowired
-  public MetisPageController(UserService userService, MappingService mappingService, MetisuiConfig config) {
+  public MetisPageController(UserService userService, MappingService mappingService, MetisPageFactory pageFactory) {
     this.userService = userService;
     this.mappingService = mappingService;
-    this.config = config;
+   this.pageFactory = pageFactory;
   }
 
   /**
@@ -42,13 +41,8 @@ public class MetisPageController {
   @RequestMapping(value = "/")
   public ModelAndView homePage() {
     LOGGER.debug("Access home page");
-    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    String primaryKey =
-        principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
-            : null;
-    UserDTO userDTO = userService.getUser(primaryKey);
 
-    MetisLandingPage metisLandingPage = new HomeLandingPage(userDTO, config);
+    HomeLandingPage metisLandingPage = pageFactory.createHomeLandingPage(getUserDTO());
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
     modelAndView.addAllObjects(metisLandingPage.buildModel());
     return modelAndView;
@@ -62,12 +56,21 @@ public class MetisPageController {
   @RequestMapping(value = "/mappings-page")
   public ModelAndView mappingsPage() {
     LOGGER.debug("Access mappings page");
+    getUserDTO();
 
-    MappingToEdmPage mappingToEdmPage = new MappingToEdmPage(config);
+    MappingToEdmPage mappingToEdmPage = pageFactory.createMappingToEdmPage(getUserDTO());
     mappingToEdmPage.setMappingService(mappingService);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Mapping-To-EDM");
     modelAndView.addAllObjects(mappingToEdmPage.buildModel());
     return modelAndView;
+  }
+
+  private UserDTO getUserDTO() {
+    Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    String primaryKey =
+        principal instanceof LdapUserDetailsImpl ? ((LdapUserDetailsImpl) principal).getUsername()
+            : null;
+    return userService.getUser(primaryKey);
   }
 }

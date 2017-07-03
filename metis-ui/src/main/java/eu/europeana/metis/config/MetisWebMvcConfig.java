@@ -6,12 +6,6 @@ import com.github.mjeanroy.springmvc.view.mustache.MustacheTemplateLoader;
 import com.github.mjeanroy.springmvc.view.mustache.MustacheViewResolver;
 import com.github.mjeanroy.springmvc.view.mustache.core.DefaultTemplateLoader;
 import com.github.mjeanroy.springmvc.view.mustache.handlebars.HandlebarsCompiler;
-import eu.europeana.metis.controller.MetisPageController;
-import eu.europeana.metis.controller.MetisProfilePageController;
-import eu.europeana.metis.controller.MetisUserPageController;
-import eu.europeana.metis.core.rest.client.OrganizationRestClient;
-import eu.europeana.metis.service.MappingService;
-import eu.europeana.metis.ui.mongo.service.UserService;
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
@@ -22,8 +16,6 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.accept.ContentNegotiationManagerFactoryBean;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -67,24 +59,6 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   }
 
   @Bean
-  public MetisPageController pandoraPageController(UserService userService, MappingService mappingService, MetisuiConfig config) {
-    return new MetisPageController(userService, mappingService, config);
-  }
-
-  @Bean
-  public MetisUserPageController userPageController(UserService userService,
-      OrganizationRestClient organizationRestClient,
-      JavaMailSender javaMailSender, SimpleMailMessage simpleMailMessage, MetisuiConfig config) {
-    return new MetisUserPageController(userService, organizationRestClient, javaMailSender,
-        simpleMailMessage, config);
-  }
-
-  @Bean
-  public MetisProfilePageController profilePageController(UserService userService) {
-    return new MetisProfilePageController(userService);
-  }
-
-  @Bean
   public Handlebars handlebars() {
     return new Handlebars();
   }
@@ -92,6 +66,7 @@ public class MetisWebMvcConfig extends WebMvcConfigurerAdapter {
   @Bean
   public MustacheTemplateLoader mustacheTemplateLoader(ResourceLoader resourceLoader) {
     MustacheTemplateLoader loader = new DefaultTemplateLoader(resourceLoader);
+
     loader.setPrefix("WEB-INF/source/_patterns/");
     loader.setSuffix(".mustache");
     return loader;

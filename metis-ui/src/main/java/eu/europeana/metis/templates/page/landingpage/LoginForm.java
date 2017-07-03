@@ -27,6 +27,8 @@ import java.util.Map;
 })
 public class LoginForm {
 
+  @JsonProperty("login_url")
+  private String loginUrl;
   @JsonProperty("form_title")
   private String formTitle;
   @JsonProperty("email_field")
@@ -112,5 +114,9 @@ public class LoginForm {
   public void setAdditionalProperty(String name, Object value) {
     this.additionalProperties.put(name, value);
   }
+  @JsonProperty("login_url")
+  public String getLoginUrl() {return loginUrl;}
 
+  @JsonProperty("login_url")
+  public void setLoginUrl(String loginUrl) {this.loginUrl = loginUrl;}
 }

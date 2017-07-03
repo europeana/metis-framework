@@ -9,7 +9,6 @@ import eu.europeana.metis.templates.Version;
 import eu.europeana.metis.templates.page.landingpage.Excerpt;
 import eu.europeana.metis.templates.page.landingpage.Headline;
 import eu.europeana.metis.templates.page.landingpage.MetisLandingPageModel;
-import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.List;
 import java.util.Map;
 
@@ -25,11 +24,6 @@ public abstract class MetisLandingPage extends MetisPage {
 
   public MetisLandingPage(MetisuiConfig config) {
     super(config);
-  }
-
-  public MetisLandingPage(UserDTO userDTO, MetisuiConfig config) {
-    this(config);
-    this.userDTO=userDTO;
   }
 
   @Override

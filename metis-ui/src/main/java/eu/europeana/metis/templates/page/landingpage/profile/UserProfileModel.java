@@ -20,6 +20,8 @@ import java.util.Map;
     "user_fields"
 })
 public class UserProfileModel {
+  @JsonProperty("userProfileUrl")
+  private String userProfileUrl;
 
   @JsonProperty("roleTypes")
   private List<RoleType> roleTypes = null;
@@ -57,5 +59,9 @@ public class UserProfileModel {
   public void setAdditionalProperty(String name, Object value) {
     this.additionalProperties.put(name, value);
   }
+  @JsonProperty("userProfileUrl")
+  public String getUserProfileUrl() { return userProfileUrl; }
 
+  @JsonProperty("userProfileUrl")
+  public void setUserProfileUrl(String userProfileUrl) { this.userProfileUrl = userProfileUrl; }
 }
