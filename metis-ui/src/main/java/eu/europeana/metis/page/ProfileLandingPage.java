@@ -34,6 +34,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 public class ProfileLandingPage extends MetisLandingPage {
 
+  private String profileUrl;
+
   public UserDTO getUserDTO() {
     return userDTO;
   }
@@ -60,7 +62,7 @@ public class ProfileLandingPage extends MetisLandingPage {
     LandingPageContent landingPageContent = new LandingPageContent();
     landingPageContent.setIsProfile(true);
     metisLandingPageModel.setLandingPageContent(landingPageContent);
-
+    metisLandingPageModel.setUserProfileUrl(this.profileUrl);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
     UserProfileModel userProfileModel = createUserProfileModel(simpleDateFormat);
@@ -161,5 +163,9 @@ public class ProfileLandingPage extends MetisLandingPage {
     countries.setItems(countryItems);
 
     return countries;
+  }
+
+  public void setProfileUrl(String profileUrl) {
+    this.profileUrl = profileUrl;
   }
 }

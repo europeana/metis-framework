@@ -17,17 +17,21 @@ public class MetisPageFactory {
 
   private final HeaderSubMenuBuilder headerSubMenuBuilder;
   private final MetisuiConfig metisuiConfig;
+  private final NavigationPaths navigationPaths;
 
   @Autowired
-  public MetisPageFactory(MetisuiConfig config, HeaderSubMenuBuilder builder) {
+  public MetisPageFactory(MetisuiConfig config, HeaderSubMenuBuilder builder, NavigationPaths paths) {
     this.metisuiConfig = config;
     this.headerSubMenuBuilder = builder;
+    this.navigationPaths=paths;
   }
+
 
   public ProfileLandingPage createProfileLandingPage(UserDTO userDTO) {
     ProfileLandingPage page = new ProfileLandingPage(metisuiConfig);
     page.setUserDTO(userDTO);
     page.setSubmenu(buildNavigationSubmenu(userDTO));
+    page.setProfileUrl(navigationPaths.getProfileUrl());
     return page;
   }
 

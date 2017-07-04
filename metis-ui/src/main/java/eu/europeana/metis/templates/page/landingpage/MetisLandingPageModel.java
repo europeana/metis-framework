@@ -72,6 +72,9 @@ public class MetisLandingPageModel {
 //  private List<CountryModel> countries = null;
 //  @JsonProperty("selection_list")
 //  private List<SelectionList> selectionList = null;
+  @JsonProperty("user_profile_url")
+  private String userProfileUrl;
+
   @JsonProperty("page_config")
   private PageConfig pageConfig;
   @JsonProperty("metis_header")
@@ -397,5 +400,8 @@ public class MetisLandingPageModel {
   public void setAdditionalProperty(String name, Object value) {
     this.additionalProperties.put(name, value);
   }
-
+  @JsonProperty("user_profile_url")
+  public String getUserProfileUrl() { return userProfileUrl; }
+  @JsonProperty("user_profile_url")
+  public void setUserProfileUrl(String userProfileUrl) { this.userProfileUrl = userProfileUrl; }
 }

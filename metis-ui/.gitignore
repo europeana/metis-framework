@@ -3,3 +3,5 @@
 /src/main/resources/mail.properties
 /src/main/resources/mongo.properties
 /src/main/resources/orchestrator.properties
+
+/src/local-styleguide-overrides/*
