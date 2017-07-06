@@ -71,11 +71,6 @@ public class AppConfig {
     return server;
   }
 
-  @Bean
-  RecordDao recordDao() {
-    return new RecordDao();
-  }
-
   @PreDestroy
   public void shutdown() {
     embeddedLocalhostMongo.stop();
