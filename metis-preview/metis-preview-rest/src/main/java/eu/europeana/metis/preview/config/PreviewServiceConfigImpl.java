@@ -1,0 +1,40 @@
+package eu.europeana.metis.preview.config;
+
+import eu.europeana.metis.preview.service.PreviewServiceConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.stereotype.Service;
+
+/**
+ * Created by erikkonijnenburg on 06/07/2017.
+ */
+@Service()
+@PropertySource("classpath:preview.properties")
+public class PreviewServiceConfigImpl implements PreviewServiceConfig {
+
+  private final Logger LOGGER = LoggerFactory.getLogger(PreviewServiceConfig.class);
+
+  @Value("${preview.portal.url}")
+  private String previewPortalUrl;
+  @Value("${preview.executor.threadCount}")
+  private String executorThreadCount;
+
+  @Override
+  public String getPreviewUrl() {
+    return previewPortalUrl;
+  }
+
+  @Override
+  public int getThreadCount() {
+    try {
+      return Integer.parseInt(executorThreadCount);
+    } catch (NumberFormatException ex) {
+      LOGGER.warn(
+          "Failed to parse preview.executor.threadCount with value '{}'. Taking 10 as default",
+          executorThreadCount);
+      return 10;
+    }
+  }
+}

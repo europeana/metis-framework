@@ -25,24 +25,29 @@ import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Record persistence DAO
  * Created by ymamakis on 9/2/16.
  */
+@Service
 public class RecordDao {
 
-    @Autowired
+    private SolrServer solrServer;
+    private EdmMongoServer mongoServer;
     private FullBeanHandler mongoBeanHandler;
-
-    @Autowired
     private SolrDocumentHandler solrDocumentHandler;
 
     @Autowired
-    private SolrServer solrServer;
-
-    @Autowired
-    private EdmMongoServer mongoServer;
+    public RecordDao(FullBeanHandler mongoBeanHandler,
+        SolrDocumentHandler solrDocumentHandler, SolrServer solrServer,
+        EdmMongoServer mongoServer) {
+        this.mongoBeanHandler = mongoBeanHandler;
+        this.solrDocumentHandler = solrDocumentHandler;
+        this.solrServer = solrServer;
+        this.mongoServer = mongoServer;
+    }
 
     /**
      * Persist a record in mongo and solr

@@ -26,7 +26,6 @@ import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.PreviewService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.validation.client.ValidationClient;
 import java.util.List;
@@ -34,7 +33,6 @@ import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
-import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -62,14 +60,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Configuration file for Spring MVC
  */
-@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest",
-    "eu.europeana.metis.preview.exceptions.handler"})
+@ComponentScan(basePackages = {"eu.europeana.metis.preview" })
+//, "eu.europeana.metis.preview.rest",
+//    "eu.europeana.metis.preview.exceptions.handler"})
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
 @Configuration
 @EnableScheduling
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
 
   private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
@@ -83,8 +82,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String mongoPassword;
   @Value("${mongo.db}")
   private String mongoDb;
-  @Value("${preview.portal.url}")
-  private String previewPortalUrl;
   @Value("${solr.search.url}")
   private String solrSearchUrl;
 
@@ -124,21 +121,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
         mongoPassword, options);
-  }
-
-  @Bean
-  PreviewService previewService() {
-    try {
-      return new PreviewService(previewPortalUrl);
-    } catch (JiBXException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-  @Bean
-  RecordDao recordDao() {
-    return new RecordDao();
   }
 
   @Bean
@@ -234,4 +216,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     );
     return apiInfo;
   }
+
+
 }
