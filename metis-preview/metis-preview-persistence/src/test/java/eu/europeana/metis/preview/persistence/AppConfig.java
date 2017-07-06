@@ -14,6 +14,7 @@ import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.embedded.EmbeddedSolrServer;
 import org.apache.solr.core.CoreContainer;
+import org.junit.Before;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -70,6 +71,13 @@ public class AppConfig {
     System.out.println("Cores are:" + server.getCoreContainer().getAllCoreNames());
     return server;
   }
+
+  @Bean
+  @DependsOn(value = "solrServer")
+  RecordDao recordDao() throws UnknownHostException {
+    return new RecordDao(fullBeanHandler(), solrDocumentHandler(), solrServer(), edmMongoServer());
+  }
+
 
   @PreDestroy
   public void shutdown() {
