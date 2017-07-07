@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import eu.europeana.metis.templates.UserProfileViewMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +30,11 @@ public class UserProfileModel {
   private UserFields userFields;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<>();
+
+
+
+  @JsonProperty("view_mode")
+  private UserProfileViewMode viewMode;
 
   @JsonProperty("roleTypes")
   public List<RoleType> getRoleTypes() {
@@ -64,4 +70,13 @@ public class UserProfileModel {
 
   @JsonProperty("userProfileUrl")
   public void setUserProfileUrl(String userProfileUrl) { this.userProfileUrl = userProfileUrl; }
+
+  @JsonProperty("view_mode")
+  public void setViewMode(UserProfileViewMode viewMode) {
+    this.viewMode = viewMode;
+  }
+  @JsonProperty("view_mode")
+  public UserProfileViewMode getViewMode() {
+    return viewMode;
+  }
 }

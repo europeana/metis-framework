@@ -3,6 +3,7 @@ package eu.europeana.metis.page;
 import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.templates.UserProfileViewMode;
 import eu.europeana.metis.templates.UserRole;
 import eu.europeana.metis.templates.ViewMode;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
@@ -98,7 +99,7 @@ public class ProfileLandingPage extends MetisLandingPage {
         ServletUriComponentsBuilder.fromCurrentContextPath().path("/profile").toUriString());
     userProfileModel.setUserFields(userFields);
     userProfileModel.setRoleTypes(buildRoleTypeList());
-    userProfileModel.setUserProfileUrl("/profile");
+    userProfileModel.setViewMode(new UserProfileViewMode("preview"));
     return userProfileModel;
   }
 

@@ -71,7 +71,7 @@ public abstract class MetisPage implements AbstractMetisPage {
   public List<JsVar> resolveJsVars() {
     JsVar jsVar = new JsVar();
     jsVar.setName("pageName");
-    jsVar.setValue("portal/index");
+    jsVar.setValue("metisHomePage");
     return Collections.singletonList(jsVar);
   }
 
