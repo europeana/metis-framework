@@ -1,5 +1,7 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.Request;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
@@ -9,10 +11,18 @@ import java.util.List;
 
 public class RequestsLandingPage extends MetisLandingPage {
 
+  public List<RoleRequest> getRoleRequests() {
+    return roleRequests;
+  }
+
+  public void setRoleRequests(List<RoleRequest> roleRequests) {
+    this.roleRequests = roleRequests;
+  }
+
   private List<RoleRequest> roleRequests;
 
-  public RequestsLandingPage(List<RoleRequest> roleRequests) {
-    this.roleRequests = roleRequests;
+  public RequestsLandingPage(MetisuiConfig metisuiConfig) {
+    super(metisuiConfig);
   }
 
   @Override

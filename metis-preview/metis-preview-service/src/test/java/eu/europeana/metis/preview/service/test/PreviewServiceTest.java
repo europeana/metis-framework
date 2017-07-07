@@ -1,11 +1,15 @@
 package eu.europeana.metis.preview.service.test;
 
+import static org.mockito.Mockito.when;
+
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.PreviewService;
+import eu.europeana.metis.preview.service.PreviewServiceConfig;
+import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
 import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
@@ -26,6 +30,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 import org.springframework.test.util.ReflectionTestUtils;
 
+
 //import eu.europeana.metis.preview.service.ExtendedValidationResult;
 
 /**
@@ -35,18 +40,22 @@ public class PreviewServiceTest {
 
     private PreviewService service;
     private RecordDao mockDao;
+    private PreviewServiceConfig mockConfig;
     private ValidationClient mockValidationClient;
     private RestClient mockIdentifierClient;
 
     @Before
     public void prepare() throws JiBXException {
         mockDao = Mockito.mock(RecordDao.class);
+        mockConfig = Mockito.mock(PreviewServiceConfig.class);
         mockValidationClient = Mockito.mock(ValidationClient.class);
         mockIdentifierClient = Mockito.mock(RestClient.class);
-        service = new PreviewService("test/");
-        ReflectionTestUtils.setField(service, "dao", mockDao, RecordDao.class);
-        ReflectionTestUtils.setField(service, "identifierClient", mockIdentifierClient, RestClient.class);
-        ReflectionTestUtils.setField(service, "validationClient", mockValidationClient, ValidationClient.class);
+
+        ValidationTaskFactory taskFactory = new ValidationTaskFactory(mockIdentifierClient, mockValidationClient, mockDao);
+            Mockito.mock(ValidationTaskFactory.class);
+        when(mockConfig.getPreviewUrl()).thenReturn("test/");
+        when(mockConfig.getThreadCount()).thenReturn(10);
+        service = new PreviewService(mockConfig, mockDao, taskFactory);
     }
 
     @Test
@@ -55,8 +64,8 @@ public class PreviewServiceTest {
             String record = IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("Item_5791754.xml"));
             ValidationResult result = new ValidationResult();
             result.setSuccess(true);
-            Mockito.when(mockValidationClient.validateRecord("EDM-INTERNAL", record, null)).thenReturn(result);
-            Mockito.when(mockIdentifierClient.generateIdentifier("12345", "test")).thenReturn("/12345/test");
+            when(mockValidationClient.validateRecord("EDM-INTERNAL", record, null)).thenReturn(result);
+            when(mockIdentifierClient.generateIdentifier("12345", "test")).thenReturn("/12345/test");
             Mockito.doAnswer(new Answer<Void>() {
                 @Override
                 public Void answer(InvocationOnMock invocationOnMock) throws Throwable {

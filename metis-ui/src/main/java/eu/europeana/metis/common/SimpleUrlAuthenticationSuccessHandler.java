@@ -1,5 +1,6 @@
 package eu.europeana.metis.common;
 
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.controller.MetisUserPageController;
 import java.io.IOException;
 import java.util.Collection;
@@ -23,8 +24,15 @@ import org.springframework.util.CollectionUtils;
 public class SimpleUrlAuthenticationSuccessHandler
     implements AuthenticationSuccessHandler {
   private final Logger LOGGER = LoggerFactory.getLogger(MetisUserPageController.class);
+  private final NavigationPaths path;
 
   private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+
+  public SimpleUrlAuthenticationSuccessHandler(
+      NavigationPaths paths) {
+    this.path = paths;
+  }
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request,
@@ -51,7 +59,9 @@ public class SimpleUrlAuthenticationSuccessHandler
 
   private String determineTargetUrl(Authentication authentication) {
     Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-    return CollectionUtils.isEmpty(authorities) ? "/profile": "/dashboard";
+    return CollectionUtils.isEmpty(authorities) ?
+        path.getProfileUrl():
+        path.getDashBoardUrl();
   }
 
   private void clearAuthenticationAttributes(HttpServletRequest request) {

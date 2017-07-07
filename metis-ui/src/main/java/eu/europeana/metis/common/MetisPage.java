@@ -1,5 +1,6 @@
 package eu.europeana.metis.common;
 
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.page.HeaderSubMenuBuilder;
 import eu.europeana.metis.templates.CssFile;
 import eu.europeana.metis.templates.Footer;
@@ -28,6 +29,7 @@ import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
  * This is common Metis page with the same assets, bread-crumbs and header instantiated.
@@ -35,12 +37,18 @@ import java.util.List;
  * @author alena
  */
 public abstract class MetisPage implements AbstractMetisPage {
-  protected UserDTO userDTO;
+
+  private Submenu submenu;
+  private final MetisuiConfig config;
+
+  public MetisPage(MetisuiConfig config) {
+      this.config = config;
+  }
 
   @Override
   public List<CssFile> resolveCssFiles() {
     CssFile cssFile1 = new CssFile();
-    cssFile1.setPath("https://europeana-styleguide-test.s3.amazonaws.com/css/pandora/screen.css");
+    cssFile1.setPath(config.getCssRoot() + "/css/pandora/screen.css");
     cssFile1.setMedia("all");
 
     CssFile cssFile2 = new CssFile();
@@ -53,9 +61,8 @@ public abstract class MetisPage implements AbstractMetisPage {
   @Override
   public List<JsFile> resolveJsFiles() {
     JsFile jsFile = new JsFile();
-    jsFile.setPath("https://europeana-styleguide-test.s3.amazonaws.com/js/modules/require.js");
-    jsFile.setDataMain(
-        "https://europeana-styleguide-test.s3.amazonaws.com/js/modules/main/templates/main-pandora");
+    jsFile.setPath(config.getScriptRoot()+"/js/modules/require.js");
+    jsFile.setDataMain(config.getScriptRoot() + "/js/modules/main/templates/main-pandora");
 
     return Arrays.asList(jsFile);
   }
@@ -92,7 +99,7 @@ public abstract class MetisPage implements AbstractMetisPage {
     menuItem.setFontawesome(true);
     menuItem.setIcon("users");
     menuItem.setIconClass("svg-icon-user-signin");
-    menuItem.setSubmenu(buildNavigationSubmenu());
+    menuItem.setSubmenu(submenu);
 
     UtilityNav utilityNav = new UtilityNav();
     utilityNav.setMenuId("settings-menu");
@@ -120,19 +127,6 @@ public abstract class MetisPage implements AbstractMetisPage {
     return metisHeader;
   }
 
-  private boolean isUserAuthorized() {
-    return
-        userDTO.notNullUser() && userDTO.getLdapUser().getEmail() != null && userDTO.getLdapUser().getEmail() != null;
-  }
-
-  public Submenu buildNavigationSubmenu() {
-    if (isUserAuthorized()) {
-      return HeaderSubMenuBuilder.buildMenuWhenAuthorized();
-    } else {
-      return HeaderSubMenuBuilder.buildMenuWhenNotAuthorized();
-    }
-  }
-
   @Override
   public MetisFooter buildMetisFooter() {
     MetisFooter metisFooter = new MetisFooter();
@@ -147,25 +141,25 @@ public abstract class MetisPage implements AbstractMetisPage {
     ListOfLinks listOfLinks1 = new ListOfLinks();
     listOfLinks1.setTitle("More Info");
     listOfLinks1.setItems(Arrays.asList(
-            getSubmenuItem("About", "/"),
-            getSubmenuItem("Development updates", "/"),
-            getSubmenuItem("All institutions", "/"),
-            getSubmenuItem("Become our partner", "/"),
-            getSubmenuItem("Contact us", "/")));
+            getSubmenuItem("About",  ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("Development updates", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("All institutions", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("Become our partner", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("Contact us", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString())));
 
     ListOfLinks listOfLinks2 = new ListOfLinks();
     listOfLinks2.setTitle("Help");
     listOfLinks2
         .setItems(Arrays.asList(
-            getSubmenuItem("Search tips", "/"),
-            getSubmenuItem("Terms of Use & Policies", "/")));
+            getSubmenuItem("Search tips", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("Terms of Use & Policies", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString())));
     ListOfLinks listOfLinks3 = new ListOfLinks();
 
     listOfLinks3.setTitle("Tools");
     listOfLinks3
         .setItems(Arrays.asList(
-            getSubmenuItem("API Docs", "/"),
-            getSubmenuItem("Status", "/")));
+            getSubmenuItem("API Docs", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("Status", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString())));
 
     footer.setLinklist1(listOfLinks1);
     footer.setLinklist2(listOfLinks2);
@@ -181,10 +175,10 @@ public abstract class MetisPage implements AbstractMetisPage {
     SubFooter subFooter = new SubFooter();
     subFooter
         .setItems(Arrays.asList(
-            getSubmenuItem("Home", "/"),
+            getSubmenuItem("Home", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
             getSubmenuItem("Terms of use and policies", "http://europeana.eu/portal/rights/terms-and-policies.html"),
-            getSubmenuItem("Contact us", "/"),
-            getSubmenuItem("Sitemap", "/")));
+            getSubmenuItem("Contact us", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString()),
+            getSubmenuItem("Sitemap", ServletUriComponentsBuilder.fromCurrentContextPath().toUriString())));
     return subFooter;
   }
 
@@ -230,4 +224,13 @@ public abstract class MetisPage implements AbstractMetisPage {
 
     return newsletter;
   }
+
+  public Submenu getSubmenu() {
+    return submenu;
+  }
+
+  public void setSubmenu(Submenu submenu) {
+    this.submenu = submenu;
+  }
+
 }

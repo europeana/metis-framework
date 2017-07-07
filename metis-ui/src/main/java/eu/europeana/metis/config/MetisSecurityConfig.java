@@ -43,6 +43,9 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
   private String managerPWD;
 
   @Autowired
+  NavigationPaths paths;
+
+  @Autowired
   public void configureGlobal(AuthenticationManagerBuilder authenticationMgr) throws Exception {
     authenticationMgr.ldapAuthentication()
         .contextSource()
@@ -74,7 +77,7 @@ public class MetisSecurityConfig extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin().loginPage("/login")
         .usernameParameter("email").passwordParameter("password")
-        .successHandler(new SimpleUrlAuthenticationSuccessHandler())
+        .successHandler(new SimpleUrlAuthenticationSuccessHandler(paths))
         .failureUrl("/login?authentication_error=true").permitAll()
         .and()
         .logout()

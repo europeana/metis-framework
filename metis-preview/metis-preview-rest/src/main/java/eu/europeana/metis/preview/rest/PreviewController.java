@@ -3,9 +3,12 @@ package eu.europeana.metis.preview.rest;
 import eu.europeana.metis.preview.exceptions.PreviewValidationException;
 import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.service.PreviewService;
+import eu.europeana.validation.model.ValidationResultList;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,14 +44,19 @@ import org.springframework.web.multipart.MultipartFile;
 public class PreviewController {
     private final Logger LOGGER = LoggerFactory.getLogger(PreviewController.class);
 
-    @Autowired
     private PreviewService service;
+    @Autowired
+    public PreviewController(PreviewService service) {
+        this.service = service;
+    }
 
     /**
      * Persist records from a zip file
      * @param file The zip file
      * @param collectionId The collection id - can be null
      * @param applyCrosswalk Whether the records are in EDM-External (true) or EDM-Internal (false)
+     * @param crosswalkPath path of xslt on the server (optional)
+     * @param requestIndividualRecordsIds request individual record ids
      * @return
      * @throws IOException
      * @throws InstantiationException
@@ -64,15 +72,22 @@ public class PreviewController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Validation Result with preview URL", response = ExtendedValidationResult.class)
+    @ApiResponses( {
+        @ApiResponse(code = 200, message = "ok"),
+        @ApiResponse(code = 422, message = "" ,response = ValidationResultList.class)
+    }
+    )
     public ExtendedValidationResult createRecords(@ApiParam @RequestParam("file") MultipartFile file,
                                                   @ApiParam @RequestParam(value = "collectionId", defaultValue = "") String collectionId,
                                                   @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal",defaultValue = "true")boolean applyCrosswalk,
                                                   @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath,
-                                                  @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean individualRecords)
+                                                  @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean requestIndividualRecordsIds)
             throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException,PreviewValidationException,
             IllegalAccessException, ParserConfigurationException, TransformerException, SolrServerException, ZipException, ExecutionException, InterruptedException {
         List<String> records = readFileToStringList(file);
-        ExtendedValidationResult result = service.createRecords(records,collectionId,applyCrosswalk, crosswalkPath,individualRecords);
+        Long start = System.currentTimeMillis();
+        ExtendedValidationResult result = service.createRecords(records,collectionId,applyCrosswalk, crosswalkPath, requestIndividualRecordsIds);
+        LOGGER.info("Duration: {} ms", System.currentTimeMillis()-start);
         if(!result.isSuccess()){
             throw new PreviewValidationException(result);
         }

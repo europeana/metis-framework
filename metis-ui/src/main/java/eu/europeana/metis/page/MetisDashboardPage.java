@@ -3,6 +3,8 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.config.MetisuiConfig;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.templates.Content;
 import eu.europeana.metis.templates.Global;
 import eu.europeana.metis.templates.Logo;
@@ -28,10 +30,19 @@ import java.util.Map;
  * @since 2017-05-01
  */
 public class MetisDashboardPage extends MetisPage {
+
+  public UserDTO getUserDTO() {
+    return userDTO;
+  }
+
+  public void setUserDTO(UserDTO userDTO) {
+    this.userDTO = userDTO;
+  }
+
   private UserDTO userDTO;
 
-  public MetisDashboardPage(UserDTO userDTO) {
-    this.userDTO = userDTO;
+  public MetisDashboardPage(MetisuiConfig config){
+    super(config);
   }
 
   @Override
@@ -171,21 +182,23 @@ public class MetisDashboardPage extends MetisPage {
     metisLoggedUser.setMenuId("loggedin-user");
     metisLoggedUser.setIconClass("svg-icon-loggedin-user");
 
-    SubmenuItem metisLoggedUserSubmenuItem1 = new SubmenuItem();
-    SubmenuItem metisLoggedUserSubmenuItem2 = new SubmenuItem();
-    metisLoggedUserSubmenuItem1.setText("My Profile");
-    metisLoggedUserSubmenuItem1.setUrl("/profile");
-    metisLoggedUserSubmenuItem1.setIcon("icon-image");
-    metisLoggedUserSubmenuItem2.setText("Log out");
-    metisLoggedUserSubmenuItem2.setUrl("/logout");
-    metisLoggedUserSubmenuItem2.setIcon("icon-video");
-    Submenu metisLoggedUserSubmenu = new Submenu();
-    metisLoggedUserSubmenu.setItems(Collections.newArrayList(metisLoggedUserSubmenuItem1, metisLoggedUserSubmenuItem2));
+//    SubmenuItem metisLoggedUserSubmenuItem1 = new SubmenuItem();
+//    metisLoggedUserSubmenuItem1.setText("My Profile");
+//    metisLoggedUserSubmenuItem1.setUrl("/profile");
+//    metisLoggedUserSubmenuItem1.setIcon("icon-image");
+//
+//    SubmenuItem metisLoggedUserSubmenuItem2 = new SubmenuItem();
+//    metisLoggedUserSubmenuItem2.setText("Log out");
+//    metisLoggedUserSubmenuItem2.setUrl("/logout");
+//    metisLoggedUserSubmenuItem2.setIcon("icon-video");
+//    Submenu metisLoggedUserSubmenu = new Submenu();
+//
+//    metisLoggedUserSubmenu.setItems(Collections.newArrayList(metisLoggedUserSubmenuItem1, metisLoggedUserSubmenuItem2));
     MenuItem metisLoggedUserMenuItem = new MenuItem();
     metisLoggedUserMenuItem.setUrl("#");
     metisLoggedUserMenuItem.setText("");
     metisLoggedUserMenuItem.setTextMobile("or browse");
-    metisLoggedUserMenuItem.setSubmenu(metisLoggedUserSubmenu);
+    metisLoggedUserMenuItem.setSubmenu(getSubmenu());
     metisLoggedUser.setItems(Collections.newArrayList(metisLoggedUserMenuItem));
 
     return metisLoggedUser;

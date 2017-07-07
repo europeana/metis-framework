@@ -1,42 +1,39 @@
 package eu.europeana.metis.page;
 
 import de.flapdoodle.embed.process.collections.Collections;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.templates.Submenu;
 import eu.europeana.metis.templates.SubmenuItem;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public final class HeaderSubMenuBuilder {
+public class HeaderSubMenuBuilder {
+  private NavigationPaths navigationPaths;
 
-  private static final String login = "Login";
-  private static final String loginUrl = "/login";
-  private static final String register = "Register";
-  private static final String registerUrl = "/register";
-  private static final String home = "Home";
-  private static final String homeUrl = "/";
-  private static final String profile = "Profile";
-  private static final String profileUrl = "/profile";
-  private static final String logout = "Logout";
-  private static final String logoutUrl = "/logout";
-
-  public static Submenu buildMenuWhenNotAuthorized()
-  {
-    return getSubmenu(login, loginUrl, register, registerUrl);
+  @Autowired
+  public HeaderSubMenuBuilder(NavigationPaths navigationPaths) {
+    this.navigationPaths = navigationPaths;
   }
 
-  public static Submenu buildMenuForLoginPage()
+  public Submenu buildMenuWhenNotAuthorized()
   {
-    return getSubmenu(register, registerUrl, home, homeUrl);
+    return getSubmenu(navigationPaths.getLogin(), navigationPaths.getLoginUrl(), navigationPaths.getRegister(), navigationPaths.getRegisterUrl());
   }
 
-  public static Submenu buildMenuRegister()
+  public Submenu buildMenuForLoginPage()
   {
-    return getSubmenu(login, loginUrl, home, homeUrl);
+    return getSubmenu(navigationPaths.getRegister(), navigationPaths.getRegisterUrl(), navigationPaths.getHome(), navigationPaths.getHomeUrl());
   }
 
-  public static Submenu buildMenuWhenAuthorized()
+  public Submenu buildMenuRegister()
   {
-    return getSubmenu(profile, profileUrl, logout, logoutUrl);
+    return getSubmenu(navigationPaths.getLogin(), navigationPaths.getLoginUrl(),  navigationPaths.getHome(), navigationPaths.getHomeUrl());
+  }
+
+  public Submenu buildMenuWhenAuthorized()
+  {
+    return getSubmenu(navigationPaths.getProfile(), navigationPaths.getProfileUrl(),  navigationPaths.getLogout(), navigationPaths.getLogoutUrl());
   }
 
   private static Submenu getSubmenu(String item1Name, String item1Url, String item2Name,

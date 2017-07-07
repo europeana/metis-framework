@@ -1,5 +1,10 @@
 package eu.europeana.metis.config;
 
+import eu.europeana.metis.controller.MetisPageController;
+import eu.europeana.metis.controller.MetisProfilePageController;
+import eu.europeana.metis.controller.MetisUserPageController;
+import eu.europeana.metis.page.HeaderSubMenuBuilder;
+import eu.europeana.metis.page.MetisPageFactory;
 import java.util.EnumSet;
 
 import javax.servlet.DispatcherType;
@@ -21,8 +26,7 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
 public class MetisServletInitializer extends AbstractDispatcherServletInitializer {
 	@Override
 	protected WebApplicationContext createServletApplicationContext() {
-		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-		return context;
+		return new AnnotationConfigWebApplicationContext();
 	}
 
 	@Override
@@ -34,7 +38,20 @@ public class MetisServletInitializer extends AbstractDispatcherServletInitialize
 	protected WebApplicationContext createRootApplicationContext() {
 		AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
 		//FIXME Maybe there is no need to have so many separate configurations and so many .properties files to store the links to the resources
-		context.register(MetisSecurityConfig.class, MetisWebMvcConfig.class, MetisLdapManagerConfig.class, MetisOrchestratorConfig.class, MetisConfig.class, MetisMailConfig.class);
+		context.register(
+				HeaderSubMenuBuilder.class,
+				NavigationPaths.class,
+				MetisPageFactory.class,
+				MetisSecurityConfig.class,
+				MetisWebMvcConfig.class,
+				MetisLdapManagerConfig.class,
+				MetisOrchestratorConfig.class,
+				MetisConfig.class,
+				MetisuiConfig.class,
+				MetisMailConfig.class,
+				MetisPageController.class,
+				MetisUserPageController.class,
+				MetisProfilePageController.class);
 		return context;
 	}
 	

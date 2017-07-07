@@ -1,14 +1,15 @@
 package eu.europeana.metis.preview.service;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.identifier.RestClient;
+import com.google.common.base.Strings;
 import eu.europeana.metis.preview.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
-import eu.europeana.validation.client.ValidationClient;
+import eu.europeana.metis.preview.service.executor.ValidationTask.ValidationTaskResult;
+import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -22,47 +23,47 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.jibx.runtime.BindingDirectory;
+import org.jetbrains.annotations.NotNull;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
 import org.joda.time.DateTime;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 /**
  * The Preview Service implementation to upload (and potentially transform from EDM-External to EDM-Internal) records
  * Created by ymamakis on 9/2/16.
  */
-@Component
+@Service
 public class PreviewService {
 
-    private String previewPortalUrl;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PreviewService.class);
+    private static ExecutorService executor = null;
+    private static ExecutorCompletionService cs = null;
 
+    private PreviewServiceConfig previewServiceConfig;
+    private RecordDao dao;
+    private ValidationTaskFactory factory;
 
     /**
      * Constructor for the preview service
      *
-     * @param previewPortalUrl The preview portal URL
+     * @param previewServiceConfig The configuration for the preview servide
      */
-    public PreviewService(String previewPortalUrl) throws JiBXException {
-        bfact = BindingDirectory.getFactory(RDF.class);
-        this.previewPortalUrl = previewPortalUrl;
-    }
-
-    private static IBindingFactory bfact;
-
     @Autowired
-    private RecordDao dao;
-    @Autowired
-    private RestClient identifierClient;
-    @Autowired
-    private ValidationClient validationClient;
-
-    private static final ExecutorService executor = Executors.newFixedThreadPool(10);
-    private static final ExecutorCompletionService cs = new ExecutorCompletionService(executor);
-    public PreviewService() throws JiBXException {
-        bfact = BindingDirectory.getFactory(RDF.class);
+    public PreviewService(PreviewServiceConfig previewServiceConfig, RecordDao dao, ValidationTaskFactory factory) {
+        this.previewServiceConfig = previewServiceConfig;
+        this.dao = dao;
+        this.factory = factory;
+        if (executor == null) {
+            executor = Executors.newFixedThreadPool(previewServiceConfig.getThreadCount());
+        }
+        if (cs == null) {
+            cs = new ExecutorCompletionService(executor);
+        }
     }
 
     /**
@@ -86,26 +87,65 @@ public class PreviewService {
         if (StringUtils.isEmpty(collectionId)) {
             collectionId = CollectionUtils.generateCollectionId();
         }
+
+        dao.deleteCollection(collectionId);
+        dao.commit();
+
+        ScheduleValidationTasks(records, collectionId, applyCrosswalk, crosswalkPath, individualRecords);
+        ExtendedValidationResult returnList = waitForValidationsToFinishAndRetrieveResults(records.size(), collectionId);
+
+        dao.commit();
+
+        return returnList;
+    }
+
+    private ExtendedValidationResult waitForValidationsToFinishAndRetrieveResults(int numberOfSubmittedTasks, String collectionId)
+        throws InterruptedException, ExecutionException {
+
+        List<ValidationResult> results = new ArrayList<>();
+        ExtendedValidationResult extendedValidationResult =  buildExtendedValidationResult();
+
+        for(int i=0; i<numberOfSubmittedTasks; i++) {
+            Future<ValidationTaskResult> future = cs.take();
+            ValidationTaskResult result = future.get();
+
+            if (!result.isSuccess()) {
+                results.add(result.getValidationResult());
+                extendedValidationResult.setSuccess(false);
+            }
+
+            if (!Strings.isNullOrEmpty(result.getRecordId())) {
+                extendedValidationResult.getRecords().add(result.getRecordId());
+            }
+
+            LOGGER.info("Retrieving validation result {}", i);
+        }
+        extendedValidationResult.setResultList(results);
+        extendedValidationResult.setPortalUrl(previewServiceConfig.getPreviewUrl() + collectionId + "*");
+        DateTime date = new DateTime();
+        Date nextDay = date.toDate();
+        extendedValidationResult.setDate(nextDay);
+
+        return extendedValidationResult;
+    }
+
+    private void ScheduleValidationTasks(
+        List<String> records, String collectionId,  boolean applyCrosswalk, String crosswalkPath, boolean individualRecords) {
+
+        for (int i=0;i<records.size(); i++) {
+            ValidationTask task = factory.createValidationTaks(applyCrosswalk, records.get(i), collectionId, crosswalkPath, individualRecords);
+
+            LOGGER.info("Submiting validation of record {}", i);
+            cs.submit(task);
+        }
+    }
+
+    @NotNull
+    private ExtendedValidationResult buildExtendedValidationResult() {
         ExtendedValidationResult list = new ExtendedValidationResult();
         List<String> ids = new CopyOnWriteArrayList<>();
         list.setRecords(ids);
         list.setSuccess(true);
-        List<ValidationResult> results = new CopyOnWriteArrayList<>();
-        dao.deleteCollection(collectionId);
-        dao.commit();
-        for (String record : records) {
-            ValidationTask task = new ValidationTask(results, applyCrosswalk, bfact, record, identifierClient,
-                    validationClient, dao, collectionId, crosswalkPath, list,individualRecords);
-            cs.submit(task);
-            Future<ExtendedValidationResult> future = cs.take();
-            future.get();
-        }
-        dao.commit();
-        list.setResultList(results);
-        list.setPortalUrl(previewPortalUrl + collectionId + "*");
-        DateTime date = new DateTime();
-        Date nextDay = date.toDate();
-        list.setDate(nextDay);
         return list;
     }
 

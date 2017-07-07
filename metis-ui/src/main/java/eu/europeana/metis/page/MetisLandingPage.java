@@ -3,12 +3,12 @@ package eu.europeana.metis.page;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
+import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.PageConfig;
 import eu.europeana.metis.templates.Version;
 import eu.europeana.metis.templates.page.landingpage.Excerpt;
 import eu.europeana.metis.templates.page.landingpage.Headline;
 import eu.europeana.metis.templates.page.landingpage.MetisLandingPageModel;
-import eu.europeana.metis.ui.mongo.domain.UserDTO;
 import java.util.List;
 import java.util.Map;
 
@@ -22,12 +22,8 @@ public abstract class MetisLandingPage extends MetisPage {
 
   protected MetisLandingPageModel metisLandingPageModel;
 
-  public MetisLandingPage() {
-    super();
-  }
-
-  public MetisLandingPage(UserDTO userDTO) {
-    this.userDTO=userDTO;
+  public MetisLandingPage(MetisuiConfig config) {
+    super(config);
   }
 
   @Override

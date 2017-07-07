@@ -1,5 +1,7 @@
 package eu.europeana.metis.page;
 
+import eu.europeana.metis.config.MetisuiConfig;
+import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.templates.UserRole;
 import eu.europeana.metis.templates.ViewMode;
@@ -28,11 +30,24 @@ import eu.europeana.metis.ui.mongo.domain.UserOrganizationRole;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 public class ProfileLandingPage extends MetisLandingPage {
 
-   public ProfileLandingPage(UserDTO userDTO) {
-    super(userDTO);
+  private String profileUrl;
+
+  public UserDTO getUserDTO() {
+    return userDTO;
+  }
+
+  public void setUserDTO(UserDTO userDTO) {
+    this.userDTO = userDTO;
+  }
+
+  private UserDTO userDTO;
+
+  public ProfileLandingPage(MetisuiConfig metisuiConfig) {
+    super(metisuiConfig);
   }
 
   @Override
@@ -47,7 +62,7 @@ public class ProfileLandingPage extends MetisLandingPage {
     LandingPageContent landingPageContent = new LandingPageContent();
     landingPageContent.setIsProfile(true);
     metisLandingPageModel.setLandingPageContent(landingPageContent);
-
+    metisLandingPageModel.setUserProfileUrl(this.profileUrl);
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
     UserProfileModel userProfileModel = createUserProfileModel(simpleDateFormat);
@@ -79,8 +94,11 @@ public class ProfileLandingPage extends MetisLandingPage {
     userFields.setSelectedOrganizations(buildOrganizationsList());
 
     UserProfileModel userProfileModel = new UserProfileModel();
+    userProfileModel.setUserProfileUrl(
+        ServletUriComponentsBuilder.fromCurrentContextPath().path("/profile").toUriString());
     userProfileModel.setUserFields(userFields);
     userProfileModel.setRoleTypes(buildRoleTypeList());
+    userProfileModel.setUserProfileUrl("/profile");
     return userProfileModel;
   }
 
@@ -145,5 +163,9 @@ public class ProfileLandingPage extends MetisLandingPage {
     countries.setItems(countryItems);
 
     return countries;
+  }
+
+  public void setProfileUrl(String profileUrl) {
+    this.profileUrl = profileUrl;
   }
 }
