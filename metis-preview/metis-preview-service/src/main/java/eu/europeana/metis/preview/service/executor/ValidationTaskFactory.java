@@ -30,7 +30,7 @@ public class ValidationTaskFactory {
     this.recordDao = recordDao;
   }
 
-  private static final IBindingFactory bfact;
+  private static final IBindingFactory bindingFactory;
 
   static {
     IBindingFactory bfactTemp;
@@ -42,13 +42,13 @@ public class ValidationTaskFactory {
       LOGGER.error("Unable to get binding factory for RDF.class");
       System.exit(-1);
     }
-    bfact = bfactTemp;
+    bindingFactory = bfactTemp;
   }
 
   public ValidationTask createValidationTaks(boolean applyCrosswalk,
       String record, String collectionId, String crosswalkPath, boolean requestRecordId) {
 
-    return new ValidationTask(applyCrosswalk, bfact, record, identifierClient, validationClient, recordDao,
+    return new ValidationTask(applyCrosswalk, bindingFactory, record, identifierClient, validationClient, recordDao,
        collectionId, crosswalkPath, requestRecordId);
   }
 

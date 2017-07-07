@@ -41,7 +41,6 @@ import org.springframework.stereotype.Service;
 public class PreviewService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PreviewService.class);
-    private static IBindingFactory bfact = null;
     private static ExecutorService executor = null;
     private static ExecutorCompletionService cs = null;
 

@@ -36,18 +36,6 @@ public class ValidationTask implements Callable {
         private ValidationResult validationResult;
         private boolean success;
 
-        public void setRecordId(String recordId) {
-            this.recordId = recordId;
-        }
-
-        public void setValidationResult(ValidationResult validationResult) {
-            this.validationResult = validationResult;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
         public String getRecordId() {
             return recordId;
         }
@@ -58,8 +46,6 @@ public class ValidationTask implements Callable {
 
         public boolean isSuccess() {
             return success;
-        }
-        public ValidationTaskResult() {
         }
 
         public ValidationTaskResult(String recordId, ValidationResult validationResult, boolean success) {
