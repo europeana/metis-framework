@@ -4,4 +4,5 @@ mongo.username=
 mongo.password=
 mongo.db=
 preview.portal.url=
+preview.executor.threadCount=
 solr.search.url=

@@ -18,7 +18,7 @@ public class PreviewServiceConfigImpl implements PreviewServiceConfig {
 
   @Value("${preview.portal.url}")
   private String previewPortalUrl;
-  @Value("${preview.executor.threadCount}")
+  @Value("${preview.executor.threadCount:10}")
   private String executorThreadCount;
 
   @Override
