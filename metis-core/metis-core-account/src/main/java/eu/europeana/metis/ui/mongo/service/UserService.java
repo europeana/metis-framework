@@ -223,7 +223,7 @@ public class UserService {
 
   private void updateUserInMongo(User user) {
     UpdateOperations<User> ops = mongoUserDao.createUpdateOperations();
-    Query<User> query = mongoUserDao.createQuery().disableValidation();
+    Query<User> query = mongoUserDao.createQuery();
     query.filter("id", user.getId());
     if (user.getCountry() != null) {
       ops.set("country", user.getCountry());
@@ -248,11 +248,11 @@ public class UserService {
     }
 //  Disabled this because of an Morphia error ValidationException(format("Could not resolve path '%s' against '%s'.)
 //  Related to the @Embedded annotation of this field
-//    if (user.getUserOrganizationRoles() != null) {
-//      ops.set("organizationRoles", user.getUserOrganizationRoles());
-//    } else {
-//      ops.unset("organizationRoles");
-//    }
+    if (user.getUserOrganizationRoles() != null) {
+      ops.set("userOrganizationRoles", user.getUserOrganizationRoles());
+    } else {
+      ops.unset("userOrganizationRoles");
+    }
     if (user.getEmail() != null) {
       ops.set("email", user.getEmail());
       mongoUserDao.getDatastore().update(query, ops, true);

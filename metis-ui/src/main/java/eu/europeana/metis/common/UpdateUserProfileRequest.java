@@ -37,13 +37,13 @@ public class UpdateUserProfileRequest {
     this.skype = skype;
   }
 
-  public String getUserEmail() {
-    return email;
-  }
-
-  public void setUserEmail(String email) {
-    this.email = email;
-  }
+//  public String getUserEmail() {
+//    return email;
+//  }
+//
+//  public void setUserEmail(String email) {
+//    this.email = email;
+//  }
 
   public String getCountry() {
     return country;

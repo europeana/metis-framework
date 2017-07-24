@@ -55,14 +55,12 @@ public class MetisProfilePageController {
     UserDTO userDTO = getAuthenticatedUser();
 
     if (userDTO.getLdapUser() != null ) {
-      userDTO.getLdapUser().setEmail(updateUserProfileRequest.getUserEmail());
       userDTO.getLdapUser().setFirstName(updateUserProfileRequest.getUserFirstName());
       userDTO.getLdapUser().setLastName(updateUserProfileRequest.getUserLastName());
     }
     if (userDTO.getUser() != null ) {
       userDTO.getUser()
           .setCountry(Country.getCountryFromName(updateUserProfileRequest.getCountry()));
-      userDTO.getUser().setEmail(updateUserProfileRequest.getUserEmail());
       userDTO.getUser().setSkypeId(updateUserProfileRequest.getUserSkype());
       userDTO.getUser().setNotes(updateUserProfileRequest.getNotes());
       userDTO.getUser().setModified(Calendar.getInstance().getTime());
