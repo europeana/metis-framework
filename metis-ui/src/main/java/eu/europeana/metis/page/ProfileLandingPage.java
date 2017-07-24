@@ -3,6 +3,7 @@ package eu.europeana.metis.page;
 import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.UserProfileViewMode;
 import eu.europeana.metis.templates.UserRole;
 import eu.europeana.metis.templates.ViewMode;
@@ -56,11 +57,21 @@ public class ProfileLandingPage extends MetisLandingPage {
     buildProfilePageContent();
   }
 
+
+  @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisHomePage");
+    return java.util.Collections.singletonList(jsVar);
+  }
+
   private void buildProfilePageContent() {
     if (!this.userDTO.notNullUser()) {
       return;
     }
     LandingPageContent landingPageContent = new LandingPageContent();
+    landingPageContent.setIsHome(false);
     landingPageContent.setIsProfile(true);
     metisLandingPageModel.setLandingPageContent(landingPageContent);
     metisLandingPageModel.setUserProfileUrl(this.profileUrl);
@@ -85,7 +96,7 @@ public class ProfileLandingPage extends MetisLandingPage {
     userFields.setCreated(
         new Created("Created", "", userDTO.getUser().getCreated() == null ? null : simpleDateFormat.format(userDTO.getUser().getCreated())));
     userFields.setUpdated(
-        new Updated("Updated", "", userDTO.getUser().getCreated() == null ? null : simpleDateFormat.format(userDTO.getUser().getModified())));
+        new Updated("Updated", "", userDTO.getUser().getModified() == null ? null : simpleDateFormat.format(userDTO.getUser().getModified())));
     userFields
         .setActive(new Active("Active", "", Boolean.toString(userDTO.getLdapUser().isActive())));
     userFields.setApproved(

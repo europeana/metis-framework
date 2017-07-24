@@ -12,6 +12,7 @@ import eu.europeana.metis.mapping.organisms.pandora.Mapping_card;
 import eu.europeana.metis.mapping.statistics.Statistics;
 import eu.europeana.metis.service.MappingService;
 import eu.europeana.metis.templates.Global;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.Logo;
 import eu.europeana.metis.templates.MenuItem;
 import eu.europeana.metis.templates.MetisHeader;
@@ -61,6 +62,14 @@ public class MappingToEdmPage extends MetisPage {
 //		model.put("action_menu", buildActionMenu());
 //		model.put("mapping_card", buildMappingCard());
 //	}
+
+  @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisMappingPage");
+    return java.util.Collections.singletonList(jsVar);
+  }
 
   //FIXME mapping card currently is generated with a stub data.
   public List<Mapping_card> buildMappingCard() {

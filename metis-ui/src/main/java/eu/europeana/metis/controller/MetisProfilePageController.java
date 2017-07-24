@@ -1,9 +1,15 @@
 package eu.europeana.metis.controller;
 
-import eu.europeana.metis.page.MetisLandingPage;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import eu.europeana.metis.common.UpdateUserProfileRequest;
+import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.page.MetisPageFactory;
+import eu.europeana.metis.page.ProfileLandingPage;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import eu.europeana.metis.ui.mongo.domain.UserOrganizationRole;
 import eu.europeana.metis.ui.mongo.service.UserService;
+import java.util.ArrayList;
+import java.util.Calendar;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,10 +43,38 @@ public class MetisProfilePageController {
   public ModelAndView profile(Model model) {
     UserDTO userDTO = getAuthenticatedUser();
 
-    MetisLandingPage metisLandingPage = pageFactory.createProfileLandingPage(userDTO);
+    ProfileLandingPage profileLandingPage = pageFactory.createProfileLandingPage(userDTO);
 
     ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
-    modelAndView.addAllObjects(metisLandingPage.buildModel());
+    modelAndView.addAllObjects(profileLandingPage.buildModel());
+    return modelAndView;
+  }
+
+  @RequestMapping(value = "/profile", method = RequestMethod.POST)
+  public ModelAndView updateProfile(@ModelAttribute UpdateUserProfileRequest updateUserProfileRequest, Model model) throws JsonProcessingException {
+    UserDTO userDTO = getAuthenticatedUser();
+
+    if (userDTO.getLdapUser() != null ) {
+      userDTO.getLdapUser().setEmail(updateUserProfileRequest.getUserEmail());
+      userDTO.getLdapUser().setFirstName(updateUserProfileRequest.getUserFirstName());
+      userDTO.getLdapUser().setLastName(updateUserProfileRequest.getUserLastName());
+    }
+    if (userDTO.getUser() != null ) {
+      userDTO.getUser()
+          .setCountry(Country.getCountryFromName(updateUserProfileRequest.getCountry()));
+      userDTO.getUser().setEmail(updateUserProfileRequest.getUserEmail());
+      userDTO.getUser().setSkypeId(updateUserProfileRequest.getUserSkype());
+      userDTO.getUser().setNotes(updateUserProfileRequest.getNotes());
+      userDTO.getUser().setModified(Calendar.getInstance().getTime());
+      userDTO.getUser().setUserOrganizationRoles(new ArrayList<UserOrganizationRole>());
+    }
+    userService.updateUserFromDTO(userDTO);
+
+    ProfileLandingPage profileLandingPage = pageFactory.createProfileLandingPage(userDTO);
+
+    ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
+    modelAndView.addAllObjects(profileLandingPage.buildModel());
+
     return modelAndView;
   }
 

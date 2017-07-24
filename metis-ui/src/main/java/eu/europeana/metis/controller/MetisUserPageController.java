@@ -1,6 +1,6 @@
 package eu.europeana.metis.controller;
 
-import eu.europeana.metis.common.UserProfileRequest;
+import eu.europeana.metis.common.CreateUserProfileRequest;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
@@ -86,10 +86,10 @@ public class MetisUserPageController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
+  public ModelAndView registerUser(@ModelAttribute CreateUserProfileRequest createUserProfileRequest, Model model) {
     RegisterLandingPage metisLandingPage = pageFactory.createRegisterLandingPage();
-    model.addAttribute("user", userProfileRequest);
-    UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
+    model.addAttribute("user", createUserProfileRequest);
+    UserDTO storedUserDto = userService.getUser(createUserProfileRequest.getEmail());
 
     if (storedUserDto.notNullUser()) {
       ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
@@ -98,10 +98,10 @@ public class MetisUserPageController {
       return modelAndView;
     }
     userService
-        .createUser(userProfileRequest.getFirstName(), userProfileRequest.getLastName(),
-            userProfileRequest.getEmail(),
-            userProfileRequest.getPassword());
-    LOGGER.info("*** User created: " + userProfileRequest.getFirstName() + " ***");
+        .createUser(createUserProfileRequest.getFirstName(), createUserProfileRequest.getLastName(),
+            createUserProfileRequest.getEmail(),
+            createUserProfileRequest.getPassword());
+    LOGGER.info("*** User created: " + createUserProfileRequest.getFirstName() + " ***");
 
     return new ModelAndView("redirect:/profile");
   }

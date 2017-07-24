@@ -1,14 +1,15 @@
 package eu.europeana.metis.page;
 
 import eu.europeana.metis.config.MetisuiConfig;
-import eu.europeana.metis.config.NavigationPaths;
-import eu.europeana.metis.templates.Submenu;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.page.landingpage.ForgotLoginCredentials;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.LoginErrAuthenticate;
 import eu.europeana.metis.templates.page.landingpage.LoginForm;
 import eu.europeana.metis.templates.page.landingpage.register.EmailField;
 import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
+import java.util.Collections;
+import java.util.List;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
@@ -25,6 +26,14 @@ public class LoginLandingPage extends MetisLandingPage {
   @Override
   public void addPageContent() {
     buildLoginPageContent();
+  }
+
+  @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisLoginPage");
+    return Collections.singletonList(jsVar);
   }
 
   private Boolean getIsAuthError() {

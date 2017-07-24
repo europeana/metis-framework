@@ -21,7 +21,7 @@ import java.util.Map;
     "user_fields"
 })
 public class UserProfileModel {
-  @JsonProperty("userProfileUrl")
+  @JsonProperty("user_profile_url")
   private String userProfileUrl;
 
   @JsonProperty("roleTypes")
@@ -31,10 +31,12 @@ public class UserProfileModel {
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<>();
 
-
-
   @JsonProperty("view_mode")
   private UserProfileViewMode viewMode;
+  @JsonProperty("created")
+  private String created;
+  @JsonProperty("updated")
+  private String updated;
 
   @JsonProperty("roleTypes")
   public List<RoleType> getRoleTypes() {
@@ -65,10 +67,10 @@ public class UserProfileModel {
   public void setAdditionalProperty(String name, Object value) {
     this.additionalProperties.put(name, value);
   }
-  @JsonProperty("userProfileUrl")
+  @JsonProperty("user_profile_url")
   public String getUserProfileUrl() { return userProfileUrl; }
 
-  @JsonProperty("userProfileUrl")
+  @JsonProperty("user_profile_url")
   public void setUserProfileUrl(String userProfileUrl) { this.userProfileUrl = userProfileUrl; }
 
   @JsonProperty("view_mode")
@@ -79,4 +81,13 @@ public class UserProfileModel {
   public UserProfileViewMode getViewMode() {
     return viewMode;
   }
+  @JsonProperty("created")
+  public String getCreated() { return created; }
+  @JsonProperty("created")
+  public void setCreated(String created) { this.created = created; }
+  @JsonProperty("updated")
+  public String getUpdated() { return updated; }
+  @JsonProperty("updated")
+  public void setUpdated(String updated) { this.updated = updated; }
+
 }

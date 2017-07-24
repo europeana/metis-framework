@@ -68,12 +68,7 @@ public abstract class MetisPage implements AbstractMetisPage {
   }
 
   @Override
-  public List<JsVar> resolveJsVars() {
-    JsVar jsVar = new JsVar();
-    jsVar.setName("pageName");
-    jsVar.setValue("metisHomePage");
-    return Collections.singletonList(jsVar);
-  }
+  public abstract List<JsVar> resolveJsVars();
 
   @Override
   public List<Breadcrumb> resolveBreadcrumbs() {

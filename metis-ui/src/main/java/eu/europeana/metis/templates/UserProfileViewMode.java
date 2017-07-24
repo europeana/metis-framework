@@ -1,6 +1,7 @@
 package eu.europeana.metis.templates;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 
 /**
  * Created by erikkonijnenburg on 07/07/2017.
@@ -16,10 +17,10 @@ public class UserProfileViewMode {
     this.viewMode = viewMode;
   }
   @JsonProperty("value")
-
   public void setViewMode(String viewMode) {
     this.viewMode = viewMode;
   }
+
   @JsonProperty("value")
   public String getViewMode() {
     return viewMode;
