@@ -17,6 +17,8 @@ public class OrganizationSearchListWrapper {
   @JsonProperty("Organizations")
   private List<OrganizationSearchBean> organizationSearchBeanList = null;
 
+  public OrganizationSearchListWrapper(){}
+
   public OrganizationSearchListWrapper(List<OrganizationSearchBean> organizationSearchBeanList) {
     this.organizationSearchBeanList = organizationSearchBeanList;
   }
