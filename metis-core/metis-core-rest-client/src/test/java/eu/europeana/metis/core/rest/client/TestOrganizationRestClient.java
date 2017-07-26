@@ -149,21 +149,21 @@ public class TestOrganizationRestClient {
     verifyRestTemplateMockForGetListDataset(expectedUri);
   }
 
-  @Test
-  public void getOrganizationById() throws Exception {
-    setupRestTemplateMockForGetObject();
-
-    Organization org = organizationRestClient.getOrganizationById("myOrgId");
-    String expectedUri = hostUrl + "/organizations/myOrgId?apikey=myApiKey";
-    verifyRestTemplateMockForGetObject(expectedUri);
-  }
+//  @Test
+//  public void getOrganizationById() throws Exception {
+//    setupRestTemplateMockForGetObject();
+//
+//    Organization org = organizationRestClient.getOrganizationById("myOrgId");
+//    String expectedUri = hostUrl + "/organizations/myOrgId?apikey=myApiKey";
+//    verifyRestTemplateMockForGetObject(expectedUri);
+//  }
 
   @Test
   public void getOrganizationByOrganizationId() throws Exception {
     setupRestTemplateMockForGetObject();
 
     Organization org = organizationRestClient.getOrganizationByOrganizationId("myOrgId");
-    String expectedUri = hostUrl + "/organizations?apikey=myApiKey&organizationId=myOrgId";
+    String expectedUri = hostUrl + "/organizations/myOrgId?apikey=myApiKey";
     verifyRestTemplateMockForGetObject(expectedUri);
   }
 

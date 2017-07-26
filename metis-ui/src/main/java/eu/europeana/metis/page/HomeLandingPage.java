@@ -3,9 +3,11 @@ package eu.europeana.metis.page;
 import eu.europeana.metis.config.MetisuiConfig;
 import eu.europeana.metis.templates.Content;
 import eu.europeana.metis.templates.CssFile;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.page.landingpage.Banner;
 import eu.europeana.metis.templates.page.landingpage.HeroConfig;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
+import java.util.Collections;
 import java.util.List;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -25,6 +27,13 @@ public class HomeLandingPage extends MetisLandingPage {
     return super.resolveCssFiles();
   }
 
+  @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisHomePage");
+    return Collections.singletonList(jsVar);
+  }
 
   /**
    * The content for the User Login page.

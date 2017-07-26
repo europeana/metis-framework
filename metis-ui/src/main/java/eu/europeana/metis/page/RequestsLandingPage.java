@@ -1,7 +1,7 @@
 package eu.europeana.metis.page;
 
 import eu.europeana.metis.config.MetisuiConfig;
-import eu.europeana.metis.config.NavigationPaths;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.Request;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
@@ -28,6 +28,14 @@ public class RequestsLandingPage extends MetisLandingPage {
   @Override
   public void addPageContent() {
     buildRequestsPageContent();
+  }
+
+  @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisRequestsPage");
+    return java.util.Collections.singletonList(jsVar);
   }
 
   private void buildRequestsPageContent() {

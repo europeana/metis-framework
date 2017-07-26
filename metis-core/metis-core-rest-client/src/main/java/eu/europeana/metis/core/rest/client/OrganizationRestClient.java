@@ -170,22 +170,22 @@ public class OrganizationRestClient {
         }
     }
 
-    /**
-     * Retrieve an organization by its id (Mongo) (OK)
-     * @param id The id to search for
-     * @return The organization
-     * @throws ServerException
-     */
-    public Organization getOrganizationById(String id) throws ServerException {
-        try {
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
-                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID,id))
-                .queryParam("apikey", apikey);
-            return template.getForObject(builder.toUriString(), Organization.class);
-        } catch (Exception e) {
-            throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
-        }
-    }
+//    /**
+//     * Retrieve an organization by its id (Mongo) (OK)
+//     * @param id The id to search for
+//     * @return The organization
+//     * @throws ServerException
+//     */
+//    public Organization getOrganizationById(String id) throws ServerException {
+//        try {
+//            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(
+//                hostUrl + RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID,id))
+//                .queryParam("apikey", apikey);
+//            return template.getForObject(builder.toUriString(), Organization.class);
+//        } catch (Exception e) {
+//            throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());
+//        }
+//    }
 
     /**
      * Retrieve an organization by its organization id (Zoho id) from the Mongo METIS backend (OK)
@@ -195,10 +195,9 @@ public class OrganizationRestClient {
      */
     public Organization getOrganizationByOrganizationId(String organizationId) throws ServerException {
         try {
-            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl + ORGANIZATIONS)
-                .queryParam("apikey", apikey)
-                .queryParam("organizationId", organizationId);
-
+            UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(hostUrl +
+                RestEndpoints.resolve(ORGANIZATIONS_ORGANIZATION_ID, organizationId))
+                .queryParam("apikey", apikey);
             return template.getForObject(builder.toUriString(), Organization.class);
         } catch (Exception e) {
             throw new ServerException("Organization could not be retrieved with error: " + e.getMessage());

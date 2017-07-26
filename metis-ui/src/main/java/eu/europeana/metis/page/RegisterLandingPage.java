@@ -1,14 +1,13 @@
 package eu.europeana.metis.page;
 
 import eu.europeana.metis.config.MetisuiConfig;
-import eu.europeana.metis.config.NavigationPaths;
-import eu.europeana.metis.templates.Submenu;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.page.landingpage.LandingPageContent;
 import eu.europeana.metis.templates.page.landingpage.register.EmailField;
 import eu.europeana.metis.templates.page.landingpage.register.FullNameField;
 import eu.europeana.metis.templates.page.landingpage.register.PasswordField;
 import eu.europeana.metis.templates.page.landingpage.register.RegisterForm;
-import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import java.util.List;
 
 public class RegisterLandingPage extends MetisLandingPage {
 
@@ -16,6 +15,15 @@ public class RegisterLandingPage extends MetisLandingPage {
 
   public RegisterLandingPage(MetisuiConfig config) {
     super(config);
+  }
+
+
+  @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisRegisterPage");
+    return java.util.Collections.singletonList(jsVar);
   }
 
   @Override
