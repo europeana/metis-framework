@@ -18,6 +18,11 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
+import java.io.IOException;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import javax.xml.transform.Templates;
+import javax.xml.transform.TransformerConfigurationException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -42,6 +47,8 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.StringReader;
 import java.util.concurrent.Callable;
+import org.xml.sax.SAXException;
+import sun.rmi.runtime.Log;
 
 /**
  * EDM Validator class
@@ -49,7 +56,13 @@ import java.util.concurrent.Callable;
  */
 public class Validator implements Callable<ValidationResult> {
 
-    private static final Logger logger = Logger.getRootLogger();
+    private static final Logger logger = Logger.getLogger(Validator.class);
+    private static ConcurrentMap<String, Templates> templatesCache;
+
+    static {
+        templatesCache = new ConcurrentHashMap<>();
+    }
+
 
     /**
      * Constructor specifying the schema to validate against and the document
@@ -67,6 +80,7 @@ public class Validator implements Callable<ValidationResult> {
 
     private String schema;
     private String document;
+
     @Autowired
     private ValidationManagementService service;
     private String version;
@@ -84,18 +98,13 @@ public class Validator implements Callable<ValidationResult> {
         try {
             Document doc = EDMParser.getInstance().getEdmParser().parse(source);
             Schema savedSchema = service.getSchemaByName(schema, version);
-            EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), StringUtils.substringBeforeLast(savedSchema.getPath(), "/"), resolver).validate(new DOMSource(doc));
-            if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {
+            resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
 
-                StringReader reader = null;
-                if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
-                    reader = new StringReader(IOUtils.toString(resolver.getObjectStorageClient().
-                            get(savedSchema.getSchematronPath()).get().getPayload().openStream()));
-                } else {
-                    reader = new StringReader(IOUtils.toString(new FileInputStream(savedSchema.getSchematronPath())));
-                }
+            EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
+            if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {
+                Transformer transformer = getTransformer(savedSchema);
+
                 DOMResult result = new DOMResult();
-                Transformer transformer = TransformerFactory.newInstance().newTemplates(new StreamSource(reader)).newTransformer();
                 transformer.transform(new DOMSource(doc), result);
 
                 NodeList nresults = result.getNode().getFirstChild().getChildNodes();
@@ -110,7 +119,28 @@ public class Validator implements Callable<ValidationResult> {
           //  e.printStackTrace();
             return constructValidationError(document, e);
         }
+        logger.info("Validation ended");
         return constructOk();
+    }
+
+    private Transformer getTransformer(Schema schema)
+        throws IOException, TransformerConfigurationException {
+        StringReader reader;
+        String schematronPath = schema.getSchematronPath();
+
+        if (!templatesCache.containsKey(schematronPath)){
+            if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
+                reader = new StringReader(IOUtils.toString(resolver.getObjectStorageClient().
+                    get(schematronPath).get().getPayload().openStream()));
+            } else {
+                reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath)));
+            }
+            Templates template = TransformerFactory.newInstance()
+                .newTemplates(new StreamSource(reader));
+            templatesCache.put(schematronPath,template);
+        }
+
+        return templatesCache.get(schematronPath).newTransformer() ;
     }
 
     private ValidationResult constructValidationError(String document, Exception e) {
@@ -146,7 +176,6 @@ public class Validator implements Callable<ValidationResult> {
 
     @Override
     public ValidationResult call() {
-
         return validate();
     }
 
@@ -158,10 +187,26 @@ public class Validator implements Callable<ValidationResult> {
  */
 class EDMParser {
     private static EDMParser p;
+    private static final ConcurrentMap<String, javax.xml.validation.Schema> cache;
+    private static final DocumentBuilderFactory parseFactory;
+    private static final Logger logger = Logger.getLogger(EDMParser.class);
+
+    static {
+        cache = new ConcurrentHashMap<>();
+        DocumentBuilderFactory temp = null;
+        try {
+            temp = DocumentBuilderFactory.newInstance();
+            temp.setNamespaceAware(true);
+            temp.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
+            temp.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
+        } catch (ParserConfigurationException e) {
+            logger.error("Unable to create DocumentBuilderFactory", e);
+            e.printStackTrace();
+        }
+        parseFactory = temp;
+    }
 
     private EDMParser() {
-
-
     }
 
     /**
@@ -171,12 +216,6 @@ class EDMParser {
      */
     public DocumentBuilder getEdmParser() {
         try {
-            DocumentBuilderFactory parseFactory = DocumentBuilderFactory.newInstance();
-
-            parseFactory.setNamespaceAware(true);
-            parseFactory.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
-            parseFactory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
-
             return parseFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
@@ -190,24 +229,38 @@ class EDMParser {
      * @param path The path location of the schema
      * @return
      */
-    public javax.xml.validation.Validator getEdmValidator(String path, String rootPath, AbstractLSResourceResolver resolver) {
+    public javax.xml.validation.Validator getEdmValidator(String path, AbstractLSResourceResolver resolver) {
         try {
-            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            //ClasspathResourceResolver resolver = new ClasspathResourceResolver();
-            //Set the prefix as schema since this is the folder where the schemas exist in the classpath
-            resolver.setPrefix(rootPath);
-            factory.setResourceResolver(resolver);
-            factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
-            factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
-            if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
-                return factory.newSchema(new StreamSource(resolver.getObjectStorageClient().
-                        get(path).get().getPayload().openStream())).newValidator();
-            }
-            return factory.newSchema(new StreamSource(new FileInputStream(path))).newValidator();
+            javax.xml.validation.Schema schema = getSchema(path, resolver);
+            return schema.newValidator();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private javax.xml.validation.Schema getSchema(String path,
+        AbstractLSResourceResolver resolver)
+        throws SAXException, IOException {
+
+        if(!cache.containsKey(path)) {
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            //ClasspathResourceResolver resolver = new ClasspathResourceResolver();
+            //Set the prefix as schema since this is the folder where the schemas exist in the classpath
+            factory.setResourceResolver(resolver);
+            factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
+                false);
+            factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
+            javax.xml.validation.Schema schema;
+            if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
+                schema = factory.newSchema(new StreamSource(resolver.getObjectStorageClient().
+                    get(path).get().getPayload().openStream()));
+            } else {
+                schema = factory.newSchema(new StreamSource(new FileInputStream(path)));
+            }
+            cache.put(path, schema);
+        }
+        return cache.get(path);
     }
 
     /**
@@ -218,7 +271,6 @@ class EDMParser {
     public static EDMParser getInstance() {
         if (p == null) {
             p = new EDMParser();
-
         }
         return p;
     }

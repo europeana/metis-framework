@@ -195,11 +195,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new ValidationManagementService(abstractSchemaDao);
   }
 
-  @Bean
-  ValidationExecutionService getValidationExecutionService() {
-    return new ValidationExecutionService();
-  }
-
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());

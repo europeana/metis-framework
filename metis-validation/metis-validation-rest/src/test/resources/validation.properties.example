@@ -2,3 +2,5 @@ mongo.host=
 mongo.port=
 mongo.db=
 root.path=
+
+validation.executor.threadCount=10

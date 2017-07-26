@@ -41,8 +41,7 @@ import org.springframework.stereotype.Service;
 public class PreviewService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PreviewService.class);
-    private static ExecutorService executor = null;
-    private static ExecutorCompletionService cs = null;
+    private final ExecutorService executor;
 
     private PreviewServiceConfig previewServiceConfig;
     private RecordDao dao;
@@ -58,13 +57,9 @@ public class PreviewService {
         this.previewServiceConfig = previewServiceConfig;
         this.dao = dao;
         this.factory = factory;
-        if (executor == null) {
-            executor = Executors.newFixedThreadPool(previewServiceConfig.getThreadCount());
-        }
-        if (cs == null) {
-            cs = new ExecutorCompletionService(executor);
-        }
+        this.executor = Executors.newFixedThreadPool(previewServiceConfig.getThreadCount());
     }
+
 
     /**
      * Persist temporarily (24h) records in the preview portal
@@ -91,15 +86,19 @@ public class PreviewService {
         dao.deleteCollection(collectionId);
         dao.commit();
 
-        ScheduleValidationTasks(records, collectionId, applyCrosswalk, crosswalkPath, individualRecords);
-        ExtendedValidationResult returnList = waitForValidationsToFinishAndRetrieveResults(records.size(), collectionId);
+        ExecutorCompletionService cs = new ExecutorCompletionService(executor);
+
+        ScheduleValidationTasks(cs, records, collectionId, applyCrosswalk, crosswalkPath, individualRecords);
+        ExtendedValidationResult returnList = waitForValidationsToFinishAndRetrieveResults(cs, records.size(), collectionId);
 
         dao.commit();
 
         return returnList;
     }
 
-    private ExtendedValidationResult waitForValidationsToFinishAndRetrieveResults(int numberOfSubmittedTasks, String collectionId)
+    private ExtendedValidationResult waitForValidationsToFinishAndRetrieveResults(
+        ExecutorCompletionService cs, int numberOfSubmittedTasks,
+        String collectionId)
         throws InterruptedException, ExecutionException {
 
         List<ValidationResult> results = new ArrayList<>();
@@ -130,7 +129,9 @@ public class PreviewService {
     }
 
     private void ScheduleValidationTasks(
-        List<String> records, String collectionId,  boolean applyCrosswalk, String crosswalkPath, boolean individualRecords) {
+        ExecutorCompletionService cs, List<String> records,
+        String collectionId, boolean applyCrosswalk, String crosswalkPath,
+        boolean individualRecords) {
 
         for (int i=0;i<records.size(); i++) {
             ValidationTask task = factory.createValidationTaks(applyCrosswalk, records.get(i), collectionId, crosswalkPath, individualRecords);
