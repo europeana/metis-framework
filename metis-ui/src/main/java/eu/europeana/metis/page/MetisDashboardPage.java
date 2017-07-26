@@ -4,9 +4,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.flapdoodle.embed.process.collections.Collections;
 import eu.europeana.metis.common.MetisPage;
 import eu.europeana.metis.config.MetisuiConfig;
-import eu.europeana.metis.config.NavigationPaths;
 import eu.europeana.metis.templates.Content;
 import eu.europeana.metis.templates.Global;
+import eu.europeana.metis.templates.JsVar;
 import eu.europeana.metis.templates.Logo;
 import eu.europeana.metis.templates.MenuItem;
 import eu.europeana.metis.templates.MetisHeader;
@@ -23,6 +23,7 @@ import eu.europeana.metis.templates.page.dashboard.IsDashboard;
 import eu.europeana.metis.templates.page.dashboard.MetisLoggedUser;
 import eu.europeana.metis.templates.page.dashboard.WelcomeMessage;
 import eu.europeana.metis.ui.mongo.domain.UserDTO;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -69,9 +70,19 @@ public class MetisDashboardPage extends MetisPage {
   }
 
   @Override
+  public List<JsVar> resolveJsVars() {
+    JsVar jsVar = new JsVar();
+    jsVar.setName("pageName");
+    jsVar.setValue("metisDashboardPage");
+    return java.util.Collections.singletonList(jsVar);
+  }
+
+  @Override
   public void addPageContent() {
 
   }
+
+
 
   private InputSearch createInputSearch()
   {

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import eu.europeana.metis.templates.UserProfileViewMode;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,7 @@ import java.util.Map;
     "user_fields"
 })
 public class UserProfileModel {
-  @JsonProperty("userProfileUrl")
+  @JsonProperty("user_profile_url")
   private String userProfileUrl;
 
   @JsonProperty("roleTypes")
@@ -29,6 +30,13 @@ public class UserProfileModel {
   private UserFields userFields;
   @JsonIgnore
   private Map<String, Object> additionalProperties = new HashMap<>();
+
+  @JsonProperty("view_mode")
+  private UserProfileViewMode viewMode;
+  @JsonProperty("created")
+  private String created;
+  @JsonProperty("updated")
+  private String updated;
 
   @JsonProperty("roleTypes")
   public List<RoleType> getRoleTypes() {
@@ -59,9 +67,27 @@ public class UserProfileModel {
   public void setAdditionalProperty(String name, Object value) {
     this.additionalProperties.put(name, value);
   }
-  @JsonProperty("userProfileUrl")
+  @JsonProperty("user_profile_url")
   public String getUserProfileUrl() { return userProfileUrl; }
 
-  @JsonProperty("userProfileUrl")
+  @JsonProperty("user_profile_url")
   public void setUserProfileUrl(String userProfileUrl) { this.userProfileUrl = userProfileUrl; }
+
+  @JsonProperty("view_mode")
+  public void setViewMode(UserProfileViewMode viewMode) {
+    this.viewMode = viewMode;
+  }
+  @JsonProperty("view_mode")
+  public UserProfileViewMode getViewMode() {
+    return viewMode;
+  }
+  @JsonProperty("created")
+  public String getCreated() { return created; }
+  @JsonProperty("created")
+  public void setCreated(String created) { this.created = created; }
+  @JsonProperty("updated")
+  public String getUpdated() { return updated; }
+  @JsonProperty("updated")
+  public void setUpdated(String updated) { this.updated = updated; }
+
 }

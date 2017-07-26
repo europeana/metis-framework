@@ -246,10 +246,12 @@ public class UserService {
     } else {
       ops.unset("skypeId");
     }
+//  Disabled this because of an Morphia error ValidationException(format("Could not resolve path '%s' against '%s'.)
+//  Related to the @Embedded annotation of this field
     if (user.getUserOrganizationRoles() != null) {
-      ops.set("organizationRoles", user.getUserOrganizationRoles());
+      ops.set("userOrganizationRoles", user.getUserOrganizationRoles());
     } else {
-      ops.unset("organizationRoles");
+      ops.unset("userOrganizationRoles");
     }
     if (user.getEmail() != null) {
       ops.set("email", user.getEmail());

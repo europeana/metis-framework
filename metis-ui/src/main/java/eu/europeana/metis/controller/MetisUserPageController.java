@@ -1,6 +1,6 @@
 package eu.europeana.metis.controller;
 
-import eu.europeana.metis.common.UserProfileRequest;
+import eu.europeana.metis.common.CreateUserProfileRequest;
 import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.mail.notification.MetisMailType;
 import eu.europeana.metis.core.organization.Organization;
@@ -19,6 +19,7 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,9 +31,11 @@ import org.springframework.security.ldap.userdetails.LdapUserDetailsImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -86,10 +89,10 @@ public class MetisUserPageController {
   }
 
   @RequestMapping(value = "/register", method = RequestMethod.POST)
-  public ModelAndView registerUser(@ModelAttribute UserProfileRequest userProfileRequest, Model model) {
+  public ModelAndView registerUser(@ModelAttribute CreateUserProfileRequest createUserProfileRequest, Model model) {
     RegisterLandingPage metisLandingPage = pageFactory.createRegisterLandingPage();
-    model.addAttribute("user", userProfileRequest);
-    UserDTO storedUserDto = userService.getUser(userProfileRequest.getEmail());
+    model.addAttribute("user", createUserProfileRequest);
+    UserDTO storedUserDto = userService.getUser(createUserProfileRequest.getEmail());
 
     if (storedUserDto.notNullUser()) {
       ModelAndView modelAndView = new ModelAndView("templates/Pandora/Metis-Homepage");
@@ -98,10 +101,10 @@ public class MetisUserPageController {
       return modelAndView;
     }
     userService
-        .createUser(userProfileRequest.getFirstName(), userProfileRequest.getLastName(),
-            userProfileRequest.getEmail(),
-            userProfileRequest.getPassword());
-    LOGGER.info("*** User created: " + userProfileRequest.getFirstName() + " ***");
+        .createUser(createUserProfileRequest.getFirstName(), createUserProfileRequest.getLastName(),
+            createUserProfileRequest.getEmail(),
+            createUserProfileRequest.getPassword());
+    LOGGER.info("*** User created: " + createUserProfileRequest.getFirstName() + " ***");
 
     return new ModelAndView("redirect:/profile");
   }
@@ -236,14 +239,16 @@ public class MetisUserPageController {
     return modelAndView;
   }
 
-//  //TODO the method implementation is not finished yet
-//  @ResponseBody
-//  @RequestMapping(value = "/profile/suggestOrganizations", method = RequestMethod.GET, params = "searchTerm")
-//  public String suggestOrganizationsViaAjax(@RequestBody String response, String searchTerm) {
-//    String result = "";
-//    List<Organization> orgs = suggestOrganizations(searchTerm);
-//    return result;
-//  }
+ //TODO the method implementation is not finished yet
+  @ResponseBody
+  @RequestMapping(value = "/profile/suggestOrganizations", method = RequestMethod.GET, params = "searchTerm")
+  public String suggestOrganizationsViaAjax(String searchTerm) {
+    String result = "";
+    List<Organization> orgs = suggestOrganizations(searchTerm);
+    return orgs.stream().map(
+          x->x.getName()
+        ).collect(Collectors.joining(", "));
+  }
 
   /**
    * Method retrieves the list of organizations from Zoho.
@@ -284,7 +289,7 @@ public class MetisUserPageController {
           .suggestOrganizations(term);
       for (OrganizationSearchBean searchBean : suggestOrganizations) {
         Organization orgById = organizationRestClient
-            .getOrganizationByOrganizationId(searchBean.getId());
+            .getOrganizationByOrganizationId(searchBean.getOrganizationId());
         if (orgById != null) {
           suggestedOrganizations.add(orgById);
         }

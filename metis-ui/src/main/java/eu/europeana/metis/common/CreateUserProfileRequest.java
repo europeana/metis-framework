@@ -4,7 +4,7 @@ package eu.europeana.metis.common;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-21
  */
-public class UserProfileRequest {
+public class CreateUserProfileRequest {
 
   private String firstName;
   private String lastName;
