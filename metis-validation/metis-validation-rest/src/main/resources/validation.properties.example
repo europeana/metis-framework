@@ -21,4 +21,4 @@ swift.tenantname=
 swift.username=
 swift.password=
 
-
+validation.executor.threadCount=10

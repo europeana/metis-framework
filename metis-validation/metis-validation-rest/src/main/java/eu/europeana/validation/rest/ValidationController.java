@@ -59,9 +59,12 @@ public class ValidationController {
 
     private static final Logger logger =  Logger.getRootLogger();
 
-    @Autowired
     private ValidationExecutionService validator;
 
+    @Autowired
+    public ValidationController(ValidationExecutionService validator) {
+        this.validator = validator;
+    }
 
     /**
      * Single Record service class. The target schema is supplied as a path parameter

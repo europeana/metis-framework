@@ -25,6 +25,7 @@ import java.util.List;
  * Schema and validation management service
  * Created by ymamakis on 3/14/16.
  */
+
 public class ValidationManagementService {
     private AbstractSchemaDao abstractSchemaDao;
 

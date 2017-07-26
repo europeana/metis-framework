@@ -13,7 +13,6 @@ public class ValidationServiceConfigImpl implements ValidationServiceConfig {
 
   private final Logger LOGGER = LoggerFactory.getLogger(ValidationServiceConfig.class);
 
-
   @Value("${validation.executor.threadCount:10}")
   private String executorThreadCount;
 

@@ -30,7 +30,6 @@ import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.ObjectStorageResourceResolver;
 import eu.europeana.validation.service.ObjectStorageSchemaDao;
 import eu.europeana.validation.service.SchemaDao;
-import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
 import eu.europeana.validation.utils.EnableSchemaStorage;
 import java.util.List;
