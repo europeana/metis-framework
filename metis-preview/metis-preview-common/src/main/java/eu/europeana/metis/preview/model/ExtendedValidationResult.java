@@ -1,11 +1,10 @@
 package eu.europeana.metis.preview.model;
 
 import eu.europeana.validation.model.ValidationResultList;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 import java.util.List;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Extended class with preview URL for preview service
