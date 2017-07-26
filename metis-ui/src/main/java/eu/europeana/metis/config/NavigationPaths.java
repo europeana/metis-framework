@@ -2,6 +2,7 @@ package eu.europeana.metis.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 /**
@@ -79,18 +80,18 @@ public class NavigationPaths {
   public NavigationPaths(MetisuiConfig config) {
     this.config = config;
     login = "Login";
-    loginUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/login").toUriString();
+    loginUrl = StringUtils.isEmpty(config.getContextRoot()) ? "/login" : ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/login").toUriString();
     register = "Register";
-    registerUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/register").toUriString();
+    registerUrl =StringUtils.isEmpty(config.getContextRoot()) ? "/register":  ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/register").toUriString();
     home = "Home";
-    homeUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).toUriString();
+    homeUrl =StringUtils.isEmpty(config.getContextRoot()) ? "/" : ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).toUriString();
     profile = "Profile";
-    profileUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/profile").toUriString();
+    profileUrl =StringUtils.isEmpty(config.getContextRoot()) ? "/profile" :  ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/profile").toUriString();
     logout = "Logout";
-    logoutUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/logout").toUriString();
+    logoutUrl = StringUtils.isEmpty(config.getContextRoot()) ? "/logout": ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/logout").toUriString();
 
-    dashBoardUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/dashboard").toUriString();
-    requestsUrl = ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/requests").toUriString();
+    dashBoardUrl = StringUtils.isEmpty(config.getContextRoot()) ? "/dashboard":  ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/dashboard").toUriString();
+    requestsUrl = StringUtils.isEmpty(config.getContextRoot()) ? "/requests": ServletUriComponentsBuilder.fromHttpUrl(config.getContextRoot()).path("/requests").toUriString();
   }
 
 

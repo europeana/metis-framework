@@ -22,7 +22,7 @@ public class MetisuiConfig {
   @Value("${metisui.scriptroot}")
   private String scriptRoot;
 
-  @Value("${metisui.contextroot}")
+  @Value("${metisui.contextroot:}")
   private String contextRoot;
 
   public String getCssRoot() {
