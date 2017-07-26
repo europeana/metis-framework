@@ -27,46 +27,37 @@ import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Schema service service
  * Created by gmamakis on 18-12-15.
  */
+@Service
 public class ValidationExecutionService {
-    private static final ExecutorService es = Executors.newFixedThreadPool(10);
-    private static final ExecutorCompletionService cs = new ExecutorCompletionService(es);
-    @Autowired
-    private ValidationManagementService service;
+    private final ValidationManagementService service;
+    private final AbstractLSResourceResolver abstractLSResourceResolver;
+    private final ValidationServiceConfig config;
+    private final ExecutorService es;
 
     @Autowired
-    private AbstractLSResourceResolver abstractLSResourceResolver;
+    public ValidationExecutionService(ValidationServiceConfig config, ValidationManagementService service, AbstractLSResourceResolver abstractLSResourceResolver) {
+        this.config = config;
+        this.service = service;
+        this.abstractLSResourceResolver = abstractLSResourceResolver;
+        this.es = Executors.newFixedThreadPool(10);;
+    }
 
     /**
      * Perform single service given a schema.
      * @param schema The schema to perform service against.
      * @param document The document to validate against
      * @return A service result
-     * @throws InterruptedException
-     * @throws ExecutionException
      */
-    public ValidationResult singleValidation(final String schema,final String version, final String document) throws InterruptedException,ExecutionException{
-        try {
-            return submit(new Validator(schema, document, version, service, abstractLSResourceResolver)).get();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    private Future<ValidationResult> submit(Validator validator) throws InterruptedException {
-        try {
-            cs.submit(validator);
-            return cs.take();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
+    public ValidationResult singleValidation(final String schema,final String version, final String document) {
+        return new Validator(schema, document, version, service, abstractLSResourceResolver).call();
     }
 
     /**
@@ -78,10 +69,13 @@ public class ValidationExecutionService {
      * @throws ExecutionException
      */
     public ValidationResultList batchValidation(final String schema, final String version, List<Record> documents) throws InterruptedException,ExecutionException{
-        List<ValidationResult> results = new ArrayList<>();
+
+        ExecutorCompletionService cs = new ExecutorCompletionService(es);
         for(final Record document : documents) {
-           cs.submit(new Validator(schema,document.getRecord(), version, service,abstractLSResourceResolver));
+            cs.submit(new Validator(schema,document.getRecord(), version, service,abstractLSResourceResolver));
         }
+
+        List<ValidationResult> results = new ArrayList<>();
         for(int i=0;i<documents.size();i++) {
             Future<ValidationResult> future = cs.take();
             ValidationResult res = future.get();
@@ -96,7 +90,13 @@ public class ValidationExecutionService {
             resultList.setSuccess(true);
         }
         return resultList;
+    }
 
+    @PreDestroy
+    void cleanup() {
+        if (es != null) {
+            es.shutdown();
+        }
     }
 
 }

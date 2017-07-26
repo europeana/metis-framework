@@ -15,20 +15,24 @@ import java.util.concurrent.Future;
 import java.util.concurrent.PriorityBlockingQueue;
 import javax.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-30
  */
+@Component
 public class UserWorkflowExecutorManager implements Runnable {
 
   private final int maxConcurrentThreads = 2;
   private final int threadPoolSize = 10;
   private final BlockingQueue<UserWorkflowExecution> userWorkflowExecutionBlockingQueue = new PriorityBlockingQueue<>(
       10, new UserWorkflowExecution.UserWorkflowExecutionPriorityComparator());
+
   private final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
   private ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
       threadPool);
+
   private final Map<String, Future<UserWorkflowExecution>> futuresMap = new ConcurrentHashMap<>();
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
 

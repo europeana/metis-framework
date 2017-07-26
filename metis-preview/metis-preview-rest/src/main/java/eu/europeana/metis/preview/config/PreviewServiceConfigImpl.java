@@ -29,7 +29,10 @@ public class PreviewServiceConfigImpl implements PreviewServiceConfig {
   @Override
   public int getThreadCount() {
     try {
-      return Integer.parseInt(executorThreadCount);
+      int value = Integer.parseInt(executorThreadCount);
+      LOGGER.info(
+          "Using preview.executor.threadCount with value {}", value);
+      return value;
     } catch (NumberFormatException ex) {
       LOGGER.warn(
           "Failed to parse preview.executor.threadCount with value '{}'. Taking 10 as default",

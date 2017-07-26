@@ -72,7 +72,6 @@ public class TestValidationExecution {
 
     @Test
     public void testSingleValidationSuccess() throws IOException, ExecutionException, InterruptedException {
-
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
         ValidationResult result = validationExecutionService.singleValidation("EDM-INTERNAL","undefined",fileToValidate);
         Assert.assertEquals(true,result.isSuccess());
@@ -105,8 +104,6 @@ public class TestValidationExecution {
 
     @Test
     public void testBatchValidationSuccess() throws IOException, ExecutionException, InterruptedException, ZipException {
-
-
     String fileName = "src/test/resources/test";
         ZipFile file = new ZipFile("src/test/resources/test.zip");
         file.extractAll(fileName);

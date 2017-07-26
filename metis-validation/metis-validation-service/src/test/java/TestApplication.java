@@ -25,6 +25,7 @@ import eu.europeana.validation.service.ClasspathResourceResolver;
 import eu.europeana.validation.service.SchemaDao;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
+import eu.europeana.validation.service.ValidationServiceConfig;
 import java.io.IOException;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -39,6 +40,13 @@ import org.springframework.context.annotation.DependsOn;
  */
 @Configuration
 public class TestApplication {
+
+  private class Config implements ValidationServiceConfig {
+    @Override
+    public int getThreadCount() {
+      return 10;
+    }
+  }
 
   private final String mongoHost;
   private final int mongoPort;
@@ -69,7 +77,7 @@ public class TestApplication {
   @Bean
   @DependsOn(value = "abstractLSResourcResolver")
   ValidationExecutionService getValidationExecutionService() {
-    return new ValidationExecutionService();
+    return new ValidationExecutionService(new Config(), getValidationManagementService(), getAbstractLSResourceResolver());
   }
 
   @Bean(name = "abstractLSResourcResolver")

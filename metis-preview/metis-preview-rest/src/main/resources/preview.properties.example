@@ -3,6 +3,8 @@ mongo.port=
 mongo.username=
 mongo.password=
 mongo.db=
+
+solr.search.url=
+
 preview.portal.url=
 preview.executor.threadCount=
-solr.search.url=

@@ -76,22 +76,15 @@ public class ValidationController {
     public ValidationResult validate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
                              @ApiParam @RequestBody Record record,
                              @ApiParam(value="version")@PathVariable(value = "version")String version)
-            throws ValidationException, ServerException {
-        try {
-            ValidationResult result = null;
-            result = validator.singleValidation(targetSchema, version, record.getRecord());
-            if(result.isSuccess()) {
-                return result;
-            } else {
-                logger.error(result.getMessage());
-                throw new ValidationException(result.getRecordId(),result.getMessage());
-            }
-        } catch (InterruptedException|ExecutionException e) {
-            throw new ServerException(e.getMessage());
+            throws ValidationException {
+        ValidationResult result = null;
+        result = validator.singleValidation(targetSchema, version, record.getRecord());
+        if(result.isSuccess()) {
+            return result;
+        } else {
+            logger.error(result.getMessage());
+            throw new ValidationException(result.getRecordId(),result.getMessage());
         }
-
-
-
     }
 
     /**
