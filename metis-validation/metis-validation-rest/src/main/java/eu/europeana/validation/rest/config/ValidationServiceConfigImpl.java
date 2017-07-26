@@ -7,11 +7,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by erikkonijnenburg on 06/07/2017.
- */
 @Service()
-@PropertySource("classpath:preview.properties")
+@PropertySource("classpath:validation.properties")
 public class ValidationServiceConfigImpl implements ValidationServiceConfig {
 
   private final Logger LOGGER = LoggerFactory.getLogger(ValidationServiceConfig.class);
