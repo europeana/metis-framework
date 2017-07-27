@@ -23,6 +23,7 @@ import org.apache.solr.client.solrj.SolrServerException;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -55,7 +56,7 @@ public class ValidationTask implements Callable {
         }
     }
 
-    public static final org.slf4j.Logger LOGGER = LoggerFactory
+    public static final Logger LOGGER = LoggerFactory
         .getLogger(ValidationTask.class);
 
     private boolean applyCrosswalk;

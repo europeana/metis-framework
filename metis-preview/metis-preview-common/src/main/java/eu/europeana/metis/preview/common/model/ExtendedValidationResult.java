@@ -1,4 +1,4 @@
-package eu.europeana.metis.preview.model;
+package eu.europeana.metis.preview.common.model;
 
 import eu.europeana.validation.model.ValidationResultList;
 import java.util.Date;
