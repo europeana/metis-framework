@@ -27,9 +27,10 @@ import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
 import org.codehaus.jackson.map.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -44,91 +45,107 @@ import java.util.List;
  */
 public class MongoDereferenceService implements DereferenceService {
 
-    Logger logger = LogManager.getLogger(MongoDereferenceService.class);
-    @Autowired
-    private RdfRetriever retriever;
-    @Autowired
-    private CacheDao cacheDao;
-    @Autowired
-    private EntityDao entityDao;
-    @Autowired
-    private VocabularyDao vocabularyDao;
-    @Autowired
-    private EnrichmentDriver driver;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
 
-    public MongoDereferenceService(){
+    private final RdfRetriever rdfRetriever;
+    private final CacheDao cacheDao;
+    private final EntityDao entityDao;
+    private final VocabularyDao vocabularyDao;
+    private final EnrichmentDriver enrichmentDriver;
 
-
+    @Autowired
+    public MongoDereferenceService(RdfRetriever rdfRetriever,
+        CacheDao cacheDao, EntityDao entityDao,
+        VocabularyDao vocabularyDao, EnrichmentDriver enrichmentDriver) {
+        this.rdfRetriever = rdfRetriever;
+        this.cacheDao = cacheDao;
+        this.entityDao = entityDao;
+        this.vocabularyDao = vocabularyDao;
+        this.enrichmentDriver = enrichmentDriver;
     }
+
     @Override
     public List<String> dereference(String uri) throws TransformerException, ParserConfigurationException, IOException{
-        List<String> toReturn= null;
+        List<String> toReturn = new ArrayList<>();
+
         String fromEntity = checkInEntityCollection(uri);
         if (fromEntity!=null){
-            toReturn = new ArrayList<>();
             toReturn.add(fromEntity);
         }
+
         String[] splitName = uri.split("/");
-        if(splitName.length>3) {
-            String vocabularyUri = splitName[0] + "/" + splitName[1] + "/"
-                    + splitName[2] + "/";
-            List<Vocabulary> vocs = vocabularyDao.getByUri(vocabularyUri);
+        if (splitName.length <= 3) {
+            LOGGER.debug("Invalid uri: {}. Returning. ", uri);
+            return toReturn;
+        }
 
-            if (vocs != null && vocs.size()>0) {
+        String vocabularyUri = splitName[0] + "/" + splitName[1] + "/"
+                + splitName[2] + "/";
+        List<Vocabulary> vocs = vocabularyDao.getByUri(vocabularyUri);
 
-                ProcessedEntity cached = cacheDao.getByUri(uri);
-                if (cached != null) {
-                    if(toReturn==null){
-                        toReturn = new ArrayList<>();
+        if (vocs == null || vocs.size() == 0) {
+            LOGGER.debug("No vocabulary found for {}. Returning.", vocabularyUri);
+            return toReturn;
+        }
 
-                    }
-                    toReturn.add(cached.getXml());
-                    return toReturn;
-                }
-                Vocabulary vocabulary;
-                OriginalEntity originalEntity = entityDao.getByUri(uri);
-                if (originalEntity == null) {
-                    originalEntity = new OriginalEntity();
-                    originalEntity.setURI(uri);
-                    String originalXml = retriever.retrieve(uri);
-                    originalEntity.setXml(originalXml.contains("<html>") ? null : originalXml);
-                    entityDao.save(originalEntity);
-                }
-                if (originalEntity.getXml() != null) {
-                    vocabulary = vocabularyDao.findByEntity(vocs, originalEntity.getXml(),uri);
+        ProcessedEntity cached = readCachedProcessedEntity(uri);
+        if (cached != null) {
+            LOGGER.debug("Returning cached cached processedEntity for {}. ", uri);
+            toReturn.add(cached.getXml());
+            return toReturn;
+        }
 
-                    String transformed = null;
-                    try {
-                        transformed = new XsltTransformer().transform(originalEntity.getXml(), vocabulary.getXslt());
-                    } catch (ParserConfigurationException |TransformerException e) {
-                        logger.error("Error transforming entity: "+uri +" with message :" +e.getMessage());
-                        throw e;
-                    }
+        OriginalEntity originalEntity = ensureOriginalEntity(uri);
+        if (originalEntity.getXml() != null) {
+            Vocabulary vocabulary = vocabularyDao.findByEntity(vocs, originalEntity.getXml(), uri);
 
-
-                    ProcessedEntity entity = new ProcessedEntity();
-                    entity.setXml(transformed);
-                    entity.setURI(uri);
-                    cacheDao.save(entity);
-                    if(toReturn==null){
-                        toReturn=new ArrayList<>();
-                    }
-                    toReturn.add(transformed);
-                    return toReturn;
-                }
+            String transformed;
+            try {
+                transformed = new XsltTransformer()
+                    .transform(originalEntity.getXml(), vocabulary.getXslt());
+                toReturn.add(transformed);
+            } catch (ParserConfigurationException | TransformerException e) {
+                LOGGER.error(
+                    "Error transforming entity: " + uri + " with message :" + e.getMessage());
+                throw e;
             }
+            writeCachedProcessedEntity(uri, transformed);
         }
         return toReturn;
     }
 
-    private String checkInEntityCollection(String uri) throws IOException{
-       String enriched = driver.getByUri(uri,true);
-        if(StringUtils.isNotEmpty(enriched)) {
-            EntityWrapper wrapper = new ObjectMapper().readValue(driver.getByUri(uri, false), EntityWrapper.class);
-
-            return wrapper != null ? wrapper.getContextualEntity() : null;
-        }
-        return null;
+    private void writeCachedProcessedEntity(String uri, String transformed) {
+        ProcessedEntity entity = new ProcessedEntity();
+        entity.setXml(transformed);
+        entity.setURI(uri);
+        LOGGER.debug("Creating cached ProcessedEntity for {}. ", uri);
+        cacheDao.save(entity);
     }
 
+    private ProcessedEntity readCachedProcessedEntity(String uri) {
+        return cacheDao.getByUri(uri);
+    }
+
+    private OriginalEntity ensureOriginalEntity(String uri) {
+        OriginalEntity originalEntity = entityDao.getByUri(uri);
+        if (originalEntity == null) {
+            LOGGER.debug("No OriginalEntity found for uri {}. Creating new. ", uri);
+
+            originalEntity = new OriginalEntity();
+            originalEntity.setURI(uri);
+            String originalXml = rdfRetriever.retrieve(uri);
+            originalEntity.setXml(originalXml.contains("<html>") ? null : originalXml);
+            entityDao.save(originalEntity);
+        }
+        return originalEntity;
+    }
+
+    private String checkInEntityCollection(String uri) throws IOException{
+       String enriched = enrichmentDriver.getByUri(uri,true);
+        if (StringUtils.isEmpty(enriched)) {
+            return null;
+        }
+        EntityWrapper wrapper = new ObjectMapper().readValue(enrichmentDriver.getByUri(uri, false), EntityWrapper.class);
+        return wrapper == null ? null : wrapper.getContextualEntity();
+    }
 }

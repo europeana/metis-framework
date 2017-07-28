@@ -21,8 +21,9 @@ import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -35,34 +36,39 @@ import java.util.List;
 @Component
 public class MongoDereferencingManagementService implements DereferencingManagementService {
 
-    @Autowired
-    private VocabularyDao vocabularyDao;
-    @Autowired
-    private CacheDao cacheDao;
-    @Autowired
-    private EntityDao entityDao;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferencingManagementService.class);
+    private final VocabularyDao vocabularyDao;
+    private final CacheDao cacheDao;
+    private final EntityDao entityDao;
 
-    private Logger logger = LogManager.getLogger(MongoDereferencingManagementService.class);
+    @Autowired
+    public MongoDereferencingManagementService(
+        VocabularyDao vocabularyDao, CacheDao cacheDao,
+        EntityDao entityDao) {
+        this.vocabularyDao = vocabularyDao;
+        this.cacheDao = cacheDao;
+        this.entityDao = entityDao;
+    }
 
 
     @Override
     public void saveVocabulary(Vocabulary vocabulary) {
         vocabularyDao.save(vocabulary);
-        logger.info("Saved vocabulary with name: " +vocabulary.getName());
+        LOGGER.info("Saved vocabulary with name: " +vocabulary.getName());
     }
 
     @Override
     public void updateVocabulary(Vocabulary vocabulary) {
         vocabularyDao.update(vocabulary);
         cacheDao.emptyCache();
-        logger.info("Updated vocabulary with name: " +vocabulary.getName());
+        LOGGER.info("Updated vocabulary with name: " +vocabulary.getName());
     }
 
     @Override
     public void deleteVocabulary(String name) {
         vocabularyDao.delete(name);
         cacheDao.emptyCache();
-        logger.info("Deleted vocabulary with name: " +name);
+        LOGGER.info("Deleted vocabulary with name: " +name);
     }
 
     @Override
@@ -95,6 +101,4 @@ public class MongoDereferencingManagementService implements DereferencingManagem
     public void emptyCache() {
         cacheDao.emptyCache();
     }
-
-
 }

@@ -33,8 +33,6 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
     private Jedis jedis;
     private ObjectMapper om = new ObjectMapper();
 
-
-
     public CacheDao(Jedis jedis){
         this.jedis = jedis;
     }

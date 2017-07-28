@@ -155,7 +155,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
-
     super.configureMessageConverters(converters);
   }
 
@@ -165,11 +164,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .addResourceLocations("classpath:/META-INF/resources/");
     registry.addResourceHandler("/webjars/**")
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-
-  @Bean
-  RdfRetriever getRdfRetriever() {
-    return new RdfRetriever();
   }
 
   @Bean
@@ -190,16 +184,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   VocabularyDao getVocabularyDao() {
     return new VocabularyDao(getVocabularyMongoClient(), vocabularyDb);
-  }
-
-  @Bean
-  MongoDereferenceService getMongoDereferenceService() {
-    return new MongoDereferenceService();
-  }
-
-  @Bean
-  MongoDereferencingManagementService getMongoDereferencingManagementService() {
-    return new MongoDereferencingManagementService();
   }
 
   @Bean
