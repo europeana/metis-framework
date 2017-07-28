@@ -5,8 +5,8 @@ import eu.europeana.metis.preview.common.exception.PreviewServiceException;
 import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
-import eu.europeana.metis.preview.service.executor.ValidationTask.ValidationTaskResult;
 import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
+import eu.europeana.metis.preview.service.executor.ValidationTaskResult;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -64,7 +64,7 @@ public class PreviewService {
      * @param collectionId   The collection id to apply (can be null)
      * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to EDM-Internal)
      * @return The preview URL of the records along with the result of the validation
-     * @throws PreviewServiceException
+     * @throws PreviewServiceException an error occured while
      */
     public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
         throws PreviewServiceException {
