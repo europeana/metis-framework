@@ -69,6 +69,13 @@ public class DereferenceUtils {
     return EntityMergeUtils.mergeEntity(record, entity);
   }
 
+  /**
+   * Extract values from xml document
+   * @param xml input document
+   * @return set of values for dereferencing
+   * @throws JiBXException
+   */
+
   public static Set<String> extractValuesForDereferencing(String xml) throws JiBXException {
     Set<String> values = new HashSet<>();
 

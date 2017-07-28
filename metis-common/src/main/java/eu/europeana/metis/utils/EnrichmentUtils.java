@@ -61,7 +61,7 @@ public class EnrichmentUtils {
     }
 
     /**
-     * Extract the fields to enrich from and XML record
+     * Extract the fields to enrich from an XML record
      * @param record
      * @return
      * @throws JiBXException
