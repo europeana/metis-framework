@@ -39,8 +39,7 @@ public class ValidationTaskFactory {
       bfactTemp = BindingDirectory.getFactory(RDF.class);
     } catch (JiBXException e) {
       bfactTemp = null;
-      e.printStackTrace();
-      LOGGER.error("Unable to get binding factory for RDF.class");
+      LOGGER.error("Unable to get binding factory for RDF.class", e);
       System.exit(-1);
     }
     bindingFactory = bfactTemp;

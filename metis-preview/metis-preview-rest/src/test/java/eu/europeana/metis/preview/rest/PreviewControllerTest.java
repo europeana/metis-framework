@@ -65,7 +65,7 @@ public class PreviewControllerTest {
   }
 
   @Test
-  public void createDatasetForOrganization() throws Exception {
+  public void previewUpload_withOkzipfile_returnsResults() throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
@@ -86,14 +86,14 @@ public class PreviewControllerTest {
         .andExpect(jsonPath("$.portalUrl", is("myUri")))
         .andExpect(jsonPath("$.records[0]", is("myRecord")));
 
-    verify(zipService, times(1)).readFileToStringList(fileMock.getInputStream());
+    verify(zipService, times(1)).readFileToStringList(any(InputStream.class));
     verify(previewService, times(1)).createRecords(anyList(), eq("myNewId"), eq(true),
         eq("EDM_external2internal_v2.xsl"), eq(true)  );
     verifyNoMoreInteractions(previewService, zipService);
   }
 
   @Test
-  public void createDatasetForOrganization_zipService_throwsZipException()
+  public void previewUpload_zipServiceFails_throwsZipException()
       throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
@@ -113,7 +113,7 @@ public class PreviewControllerTest {
   }
 
   @Test
-  public void createDatasetForOrganization_zipService_throwsValidationService()
+  public void previewUpload_previewServiceFails_throwsValidationService()
       throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
