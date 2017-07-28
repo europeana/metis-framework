@@ -30,6 +30,7 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
@@ -98,8 +99,6 @@ public class PreviewControllerTest {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
 
-    ExtendedValidationResult result = getExtendedValidationResult();
-
     when(zipService.readFileToStringList(any(InputStream.class))).thenThrow(new ZipFileException("myZipException"));
 
     datasetControllerMock.perform(fileUpload("/upload")
@@ -117,8 +116,6 @@ public class PreviewControllerTest {
       throws Exception {
     MockMultipartFile fileMock = createMockMultipartFile();
     List<String> list = new ArrayList<>();
-
-    ExtendedValidationResult result = getExtendedValidationResult();
 
     when(zipService.readFileToStringList(any(InputStream.class))).thenReturn(list);
     when(previewService.createRecords(eq(list), eq("myNewId"), any(boolean.class), any(String.class), anyBoolean()))

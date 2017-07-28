@@ -1,4 +1,4 @@
-package eu.europeana.metis.preview.service.test;
+package eu.europeana.metis.preview.service;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;

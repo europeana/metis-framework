@@ -23,7 +23,7 @@ public class ZipServiceTest {
   }
 
   @Test(expected = ZipFileException.class)
-  public void readFileToStringList_withEmptyzipfile_returnsListOfStrings() throws Exception {
+  public void readFileToStringList_withEmptyzipfile_throwsException() throws Exception {
     ZipService service = new ZipService();
     Resource resource = new ClassPathResource("empty.zip");
     List<String> strings = (service.readFileToStringList(resource.getInputStream()));
@@ -32,7 +32,7 @@ public class ZipServiceTest {
   @Test(expected = ZipFileException.class)
   public void readFileToStringList_withBrokenZipFile_throwsException() throws Exception {
     ZipService service = new ZipService();
-    Resource resource = new ClassPathResource("Broken.zip");
+    Resource resource = new ClassPathResource("broken.zip");
     List<String> strings = (service.readFileToStringList(resource.getInputStream()));
   }
 
