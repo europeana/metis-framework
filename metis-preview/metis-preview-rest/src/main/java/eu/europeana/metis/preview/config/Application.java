@@ -25,7 +25,7 @@ import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.metis.identifier.RestClient;
-import eu.europeana.metis.preview.persistence.RecordDao;
+import eu.europeana.metis.preview.service.ZipService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.validation.client.ValidationClient;
 import java.util.List;
@@ -53,6 +53,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -61,8 +62,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Configuration file for Spring MVC
  */
 @ComponentScan(basePackages = {"eu.europeana.metis.preview" })
-//, "eu.europeana.metis.preview.rest",
-//    "eu.europeana.metis.preview.exceptions.handler"})
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
@@ -132,6 +131,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   ValidationClient validationClient() {
     return new ValidationClient();
   }
+
+  @Bean
+  ZipService zipService(){ return new ZipService();}
 
   @Bean
   @DependsOn("edmMongoServer")
@@ -205,16 +207,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Preview REST API",
         "Preview REST API for Europeana",
         "v1",
         "API TOS",
-        "development@europeana.eu",
+        new Contact("development", "europeana.eu", "development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );
-    return apiInfo;
   }
 
 

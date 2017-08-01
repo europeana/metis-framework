@@ -10,7 +10,7 @@ import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.StructuredExceptionWrapper;
+import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import java.io.IOException;

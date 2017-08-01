@@ -1,14 +1,14 @@
 package eu.europeana.metis.preview.service;
 
 import com.google.common.base.Strings;
-import eu.europeana.metis.preview.model.ExtendedValidationResult;
+import eu.europeana.metis.preview.common.exception.PreviewServiceException;
+import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.executor.ValidationTask;
-import eu.europeana.metis.preview.service.executor.ValidationTask.ValidationTaskResult;
 import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
+import eu.europeana.metis.preview.service.executor.ValidationTaskResult;
 import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,13 +19,9 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.annotation.PreDestroy;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.TransformerException;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jetbrains.annotations.NotNull;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.JiBXException;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,30 +64,42 @@ public class PreviewService {
      * @param collectionId   The collection id to apply (can be null)
      * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to EDM-Internal)
      * @return The preview URL of the records along with the result of the validation
-     * @throws JiBXException
-     * @throws IllegalAccessException
-     * @throws IOException
-     * @throws InstantiationException
-     * @throws SolrServerException
-     * @throws NoSuchMethodException
-     * @throws InvocationTargetException
-     * @throws TransformerException
-     * @throws ParserConfigurationException
+     * @throws PreviewServiceException an error occured while
      */
-    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords) throws JiBXException, IllegalAccessException, IOException, InstantiationException, SolrServerException, NoSuchMethodException, InvocationTargetException, TransformerException, ParserConfigurationException, InterruptedException, ExecutionException {
+    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
+        throws PreviewServiceException {
+
+        ExtendedValidationResult returnList;
+
         if (StringUtils.isEmpty(collectionId)) {
             collectionId = CollectionUtils.generateCollectionId();
         }
 
-        dao.deleteCollection(collectionId);
-        dao.commit();
+        try {
+            dao.deleteCollection(collectionId);
+            dao.commit();
 
-        ExecutorCompletionService cs = new ExecutorCompletionService(executor);
+            ExecutorCompletionService cs = new ExecutorCompletionService(executor);
 
-        ScheduleValidationTasks(cs, records, collectionId, applyCrosswalk, crosswalkPath, individualRecords);
-        ExtendedValidationResult returnList = waitForValidationsToFinishAndRetrieveResults(cs, records.size(), collectionId);
+            scheduleValidationTasks(cs, records, collectionId, applyCrosswalk, crosswalkPath,
+                individualRecords);
+            returnList = waitForValidationsToFinishAndRetrieveResults(cs,
+                records.size(), collectionId);
 
-        dao.commit();
+            dao.commit();
+        } catch (InterruptedException e) {
+            LOGGER.error("Processing validations interrupted", e);
+            throw new PreviewServiceException("Processing validations was interrupted");
+        } catch (ExecutionException e) {
+            LOGGER.error("Executing validations failed", e);
+            throw new PreviewServiceException("Executing validations failed");
+        } catch (SolrServerException e) {
+            LOGGER.error("Updating search engine failed", e);
+            throw new PreviewServiceException("Updating search engine failed");
+        } catch (IOException e) {
+            LOGGER.error("Updating search engine failed", e);
+            throw new PreviewServiceException("Updating search engine failed");
+        }
 
         return returnList;
     }
@@ -128,7 +136,7 @@ public class PreviewService {
         return extendedValidationResult;
     }
 
-    private void ScheduleValidationTasks(
+    private void scheduleValidationTasks(
         ExecutorCompletionService cs, List<String> records,
         String collectionId, boolean applyCrosswalk, String crosswalkPath,
         boolean individualRecords) {

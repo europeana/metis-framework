@@ -7,6 +7,7 @@ import eu.europeana.validation.client.ValidationClient;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ValidationTaskFactory {
-  public static final org.slf4j.Logger LOGGER = LoggerFactory
+  public static final Logger LOGGER = LoggerFactory
       .getLogger(ValidationTask.class);
   private RestClient identifierClient;
   private ValidationClient validationClient;
@@ -38,8 +39,7 @@ public class ValidationTaskFactory {
       bfactTemp = BindingDirectory.getFactory(RDF.class);
     } catch (JiBXException e) {
       bfactTemp = null;
-      e.printStackTrace();
-      LOGGER.error("Unable to get binding factory for RDF.class");
+      LOGGER.error("Unable to get binding factory for RDF.class", e);
       System.exit(-1);
     }
     bindingFactory = bfactTemp;

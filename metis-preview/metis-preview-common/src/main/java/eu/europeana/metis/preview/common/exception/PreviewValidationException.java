@@ -1,7 +1,7 @@
-package eu.europeana.metis.preview.exceptions;
+package eu.europeana.metis.preview.common.exception;
 
 
-import eu.europeana.metis.preview.model.ExtendedValidationResult;
+import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
 
 /**
  * Created by ymamakis on 9/29/16.
