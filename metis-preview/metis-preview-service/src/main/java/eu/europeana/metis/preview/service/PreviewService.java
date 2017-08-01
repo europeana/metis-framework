@@ -69,7 +69,7 @@ public class PreviewService {
     public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
         throws PreviewServiceException {
 
-        ExtendedValidationResult returnList = null;
+        ExtendedValidationResult returnList;
 
         if (StringUtils.isEmpty(collectionId)) {
             collectionId = CollectionUtils.generateCollectionId();

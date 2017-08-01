@@ -1,10 +1,10 @@
 package eu.europeana.metis.preview.rest;
 
+import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
-import eu.europeana.metis.preview.common.exception.ZipFileException;
 import eu.europeana.metis.preview.common.exception.PreviewValidationException;
+import eu.europeana.metis.preview.common.exception.ZipFileException;
 import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
-import eu.europeana.metis.preview.exceptions.StructuredExceptionWrapper;
 import eu.europeana.metis.preview.service.PreviewService;
 import eu.europeana.metis.preview.service.ZipService;
 import eu.europeana.validation.model.ValidationResultList;
@@ -70,7 +70,7 @@ public class PreviewController {
                                                   @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath,
                                                   @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean requestIndividualRecordsIds)
         throws ZipFileException, PreviewServiceException, PreviewValidationException {
-        List<String> records = null;
+        List<String> records;
         try {
             records = zipService.readFileToStringList(file.getInputStream());
         } catch(IOException ex) {

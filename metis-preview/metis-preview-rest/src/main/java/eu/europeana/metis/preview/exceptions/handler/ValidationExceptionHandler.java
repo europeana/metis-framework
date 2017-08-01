@@ -1,9 +1,9 @@
 package eu.europeana.metis.preview.exceptions.handler;
 
+import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
-import eu.europeana.metis.preview.common.exception.ZipFileException;
 import eu.europeana.metis.preview.common.exception.PreviewValidationException;
-import eu.europeana.metis.preview.exceptions.StructuredExceptionWrapper;
+import eu.europeana.metis.preview.common.exception.ZipFileException;
 import eu.europeana.validation.model.ValidationResultList;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;

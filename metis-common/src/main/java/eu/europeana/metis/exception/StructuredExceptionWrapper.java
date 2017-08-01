@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.exceptions;
+package eu.europeana.metis.exception;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
