@@ -91,7 +91,7 @@ public class MongoDereferenceServiceTest {
             ProcessedEntity entity2 = new ProcessedEntity();
             entity2.setURI("http://sws.geonames.org/3020251");
 
-            entity2.setXml(result.get(0));
+            entity2.setXml(result.get(0).toString());
             Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
             ProcessedEntity entity1 = cacheDao.getByUri("http://sws.geonames.org/3020251");
             Assert.assertNotNull(entity1);

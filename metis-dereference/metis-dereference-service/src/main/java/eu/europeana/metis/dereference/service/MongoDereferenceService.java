@@ -67,16 +67,24 @@ public class MongoDereferenceService implements DereferenceService {
     @Override
     public List<String> dereference(String uri) throws TransformerException, ParserConfigurationException, IOException{
         List<String> toReturn = new ArrayList<>();
-
-        String fromEntity = checkInEntityCollection(uri);
-        if (fromEntity!=null){
-            toReturn.add(fromEntity);
+        String dereference = checkInEntityCollection(uri);
+        if (dereference==null){
+            dereference = findExternalEntityDereference(uri);
         }
+
+        if (StringUtils.isNotEmpty(dereference)) {
+            toReturn.add(dereference);
+        }
+        return toReturn;
+    }
+
+    private String findExternalEntityDereference(String uri)
+        throws TransformerException, ParserConfigurationException {
 
         String[] splitName = uri.split("/");
         if (splitName.length <= 3) {
             LOGGER.debug("Invalid uri: {}. Returning. ", uri);
-            return toReturn;
+            return null;
         }
 
         String vocabularyUri = splitName[0] + "/" + splitName[1] + "/"
@@ -85,33 +93,40 @@ public class MongoDereferenceService implements DereferenceService {
 
         if (vocs == null || vocs.size() == 0) {
             LOGGER.debug("No vocabulary found for {}. Returning.", vocabularyUri);
-            return toReturn;
+            return null;
         }
 
         ProcessedEntity cached = readCachedProcessedEntity(uri);
         if (cached != null) {
             LOGGER.debug("Returning cached cached processedEntity for {}. ", uri);
-            toReturn.add(cached.getXml());
-            return toReturn;
+            return cached.getXml();
         }
 
         OriginalEntity originalEntity = ensureOriginalEntity(uri);
-        if (originalEntity.getXml() != null) {
-            Vocabulary vocabulary = vocabularyDao.findByEntity(vocs, originalEntity.getXml(), uri);
-
-            String transformed;
-            try {
-                transformed = new XsltTransformer()
-                    .transform(originalEntity.getXml(), vocabulary.getXslt());
-                toReturn.add(transformed);
-            } catch (ParserConfigurationException | TransformerException e) {
-                LOGGER.error(
-                    "Error transforming entity: " + uri + " with message :" + e.getMessage());
-                throw e;
-            }
-            writeCachedProcessedEntity(uri, transformed);
+        if (originalEntity.getXml() == null) {
+            return null;
         }
-        return toReturn;
+
+        String transformed = transformEntityWithVocabulary(uri, originalEntity, vocs);
+        writeCachedProcessedEntity(uri, transformed);
+
+        return transformed;
+    }
+
+    private String transformEntityWithVocabulary(String uri, OriginalEntity originalEntity, List<Vocabulary> vocs)
+        throws TransformerException, ParserConfigurationException {
+        Vocabulary vocabulary = vocabularyDao.findByEntity(vocs, originalEntity.getXml(), uri);
+        String transformed;
+        try {
+            transformed = new XsltTransformer()
+                .transform(originalEntity.getXml(), vocabulary.getXslt());
+
+        } catch (ParserConfigurationException | TransformerException e) {
+            LOGGER.error(
+                "Error transforming entity: " + uri + " with message :" + e.getMessage());
+            throw e;
+        }
+        return transformed;
     }
 
     private void writeCachedProcessedEntity(String uri, String transformed) {
@@ -141,6 +156,7 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     private String checkInEntityCollection(String uri) throws IOException{
+        //TODO why do we read getByUri twice?
        String enriched = enrichmentDriver.getByUri(uri,true);
         if (StringUtils.isEmpty(enriched)) {
             return null;
