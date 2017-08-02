@@ -31,7 +31,6 @@
         <module>metis-enrichment-common</module>
         <module>metis-enrichment-rest</module>
         <module>metis-enrichment-client</module>
-        <module>metis-enrichment-ui</module>
         <module>metis-enrichment-knowledgebase</module>
         <module>metis-enrichment-proxy-rest</module>
     </modules>
