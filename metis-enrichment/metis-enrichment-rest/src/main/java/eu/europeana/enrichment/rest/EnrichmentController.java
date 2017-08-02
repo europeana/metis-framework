@@ -64,7 +64,7 @@ public class EnrichmentController {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentController.class);
 
   @Autowired
-  public EnrichmentController(Enricher enricher) {
+  public  EnrichmentController(Enricher enricher) {
     this.enricher = enricher;
   }
 
@@ -149,18 +149,14 @@ public class EnrichmentController {
   @RequestMapping(value = RestEndpoints.ENRICHMENT_ENRICH, method = RequestMethod.POST, produces = "text/plain;charset=UTF-8")
   @ResponseBody
   @ApiOperation(value = "Enrich a series of field value pairs", response = EntityWrapperList.class)
-  public String enrich(@ApiParam("input") @RequestParam("input") String input,
-      @ApiParam("toXml") @RequestParam("toXml") String toXML) throws Exception {
+  public String enrich(@ApiParam("input") @RequestBody InputValueList input,
+      @ApiParam("toXml") @RequestParam(value ="toXml", defaultValue = "false") boolean toXML) throws Exception {
     try {
-      ObjectMapper mapper = new ObjectMapper();
-      InputValueList values = mapper.readValue(input,
-          InputValueList.class);
       EntityWrapperList response = new EntityWrapperList();
-      List<EntityWrapper> wrapperList = enricher.tagExternal(values
-          .getInputValueList());
+      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
 
       ObjectMapper objIdMapper = new ObjectMapper();
-      if (!Boolean.parseBoolean(toXML)) {
+      if (!toXML) {
         response.setWrapperList(wrapperList);
         return writeSimpleModule(response, objIdMapper);
       } else {
@@ -179,8 +175,8 @@ public class EnrichmentController {
   }
 
   private List<EntityWrapper> convertToXml(List<EntityWrapper> wrapperList)
-      throws JsonParseException, JsonMappingException, IOException {
-    List<EntityWrapper> entityWrapperList = new ArrayList<EntityWrapper>();
+      throws IOException {
+    List<EntityWrapper> entityWrapperList = new ArrayList<>();
     for (EntityWrapper wrapper : wrapperList) {
       entityWrapperList.add(new EntityWrapper(wrapper.getClassName(),
           wrapper.getOriginalField(), wrapper.getUrl(), wrapper.getOriginalValue(),
@@ -190,7 +186,7 @@ public class EnrichmentController {
   }
 
   private String convertEntity(EntityWrapper wrapper)
-      throws JsonParseException, JsonMappingException, IOException {
+      throws  IOException {
     if (wrapper.getClassName().equals(ConceptImpl.class.getName())) {
       return convertConcept(wrapper.getContextualEntity());
     } else if (wrapper.getClassName().equals(AgentImpl.class.getName())) {
@@ -203,7 +199,7 @@ public class EnrichmentController {
   }
 
   private String convertTimespan(String contextualEntity)
-      throws JsonParseException, JsonMappingException, IOException {
+      throws IOException {
     TimespanImpl ts = new ObjectMapper().readValue(contextualEntity,
         TimespanImpl.class);
     StringBuilder sb = new StringBuilder();
@@ -268,7 +264,7 @@ public class EnrichmentController {
   }
 
   private String convertPlace(String contextualEntity)
-      throws JsonParseException, JsonMappingException, IOException {
+      throws IOException {
     PlaceImpl place = new ObjectMapper().readValue(contextualEntity,
         PlaceImpl.class);
     StringBuilder sb = new StringBuilder();
@@ -303,7 +299,7 @@ public class EnrichmentController {
   }
 
   private String convertAgent(String contextualEntity)
-      throws JsonParseException, JsonMappingException, IOException {
+      throws IOException {
     AgentImpl agent = new ObjectMapper().readValue(contextualEntity,
         AgentImpl.class);
     StringBuilder sb = new StringBuilder();
