@@ -17,7 +17,7 @@
 package eu.europeana.metis.dereference.service;
 
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.rest.client.EnrichmentDriver;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
@@ -54,7 +54,7 @@ public class MongoDereferenceService implements DereferenceService {
     @Autowired
     private VocabularyDao vocabularyDao;
     @Autowired
-    private EnrichmentDriver driver;
+    private EnrichmentClient enrichmentClient;
 
     public MongoDereferenceService(){
 
@@ -122,9 +122,10 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     private String checkInEntityCollection(String uri) throws IOException{
-       String enriched = driver.getByUri(uri,true);
+       String enriched = enrichmentClient.getByUri(uri,true);
         if(StringUtils.isNotEmpty(enriched)) {
-            EntityWrapper wrapper = new ObjectMapper().readValue(driver.getByUri(uri, false), EntityWrapper.class);
+            EntityWrapper wrapper = new ObjectMapper().readValue(
+                enrichmentClient.getByUri(uri, false), EntityWrapper.class);
 
             return wrapper != null ? wrapper.getContextualEntity() : null;
         }

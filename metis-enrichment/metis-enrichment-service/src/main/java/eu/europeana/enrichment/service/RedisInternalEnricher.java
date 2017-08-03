@@ -102,6 +102,14 @@ public class RedisInternalEnricher {
     populate();
   }
 
+  public void emptyCache() {
+    LOGGER.info("Empty cache");
+    Jedis jedis = redisProvider.getJedis();
+    jedis.flushAll();
+    jedis.close();
+    populate();
+  }
+
   public void remove(List<String> uris) {
     Jedis jedis = redisProvider.getJedis();
     for (String str : uris) {

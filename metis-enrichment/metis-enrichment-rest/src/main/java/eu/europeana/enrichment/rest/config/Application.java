@@ -39,6 +39,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -144,12 +145,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
+    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu", "development@europeana.eu");
+
     ApiInfo apiInfo = new ApiInfo(
         "Enrichment REST API",
         "Enrichment REST API for Europeana",
         "v1",
         "API TOS",
-        "development@europeana.eu",
+        contact,
         "EUPL Licence v1.1",
         ""
     );

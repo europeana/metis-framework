@@ -20,7 +20,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-import eu.europeana.enrichment.rest.client.EnrichmentDriver;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
@@ -140,8 +140,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  EnrichmentDriver getEnrichmentDriver() {
-    return new EnrichmentDriver(enrichmentUrl);
+  EnrichmentClient getEnrichmentClient() {
+    return new EnrichmentClient(enrichmentUrl);
   }
 
   MongoClient getEntityMongoClient() {

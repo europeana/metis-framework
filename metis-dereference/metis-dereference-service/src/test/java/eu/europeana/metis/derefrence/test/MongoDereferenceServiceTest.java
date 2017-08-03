@@ -21,7 +21,7 @@ import static org.mockito.Matchers.eq;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.MongoClient;
 import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.rest.client.EnrichmentDriver;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
@@ -53,7 +53,7 @@ public class MongoDereferenceServiceTest {
     private EntityDao entityDao;
     private Jedis jedis;
     private CacheDao cacheDao;
-    private EnrichmentDriver driver;
+    private EnrichmentClient enrichmentClient;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
     @Before
     public void prepare() throws IOException {
@@ -66,12 +66,12 @@ public class MongoDereferenceServiceTest {
         cacheDao = new CacheDao(jedis);
         RdfRetriever retriever = new RdfRetriever();
         service = new MongoDereferenceService();
-        driver = Mockito.mock(EnrichmentDriver.class);
+        enrichmentClient = Mockito.mock(EnrichmentClient.class);
         ReflectionTestUtils.setField(service, "vocabularyDao", vocabularyDao);
         ReflectionTestUtils.setField(service, "entityDao", entityDao);
         ReflectionTestUtils.setField(service, "retriever", retriever);
         ReflectionTestUtils.setField(service, "cacheDao", cacheDao);
-        ReflectionTestUtils.setField(service, "driver",driver);
+        ReflectionTestUtils.setField(service, "enrichmentClient", enrichmentClient);
 
     }
 
@@ -87,7 +87,7 @@ public class MongoDereferenceServiceTest {
         try {
             EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
 
-            Mockito.when(driver.getByUri(Mockito.anyString(),eq(false))).thenReturn("");
+            Mockito.when(enrichmentClient.getByUri(Mockito.anyString(),eq(false))).thenReturn("");
             Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
             List<String> result = service.dereference("http://sws.geonames.org/3020251");
             Assert.assertNotNull(result);

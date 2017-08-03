@@ -132,7 +132,8 @@ public class DereferencingManagementController {
     }
 
     /**
-     * Empty Cache
+     * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster
+     * is used for multiple services then the cache for other services is cleared as well.
      * @return OK
      */
     @RequestMapping(value=CACHE_EMPTY,method = RequestMethod.DELETE)
