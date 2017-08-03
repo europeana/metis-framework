@@ -31,7 +31,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class Namespaces {
 
-	private static Set<Namespace> staticNamespaces = new HashSet<Namespace>();
+	private static Set<Namespace> staticNamespaces = new HashSet<>();
 
 	// standard Namespaces
 
@@ -76,7 +76,7 @@ public class Namespaces {
 			"empty", false);
 
 	// real storage: <url, nick>
-	private HashMap<String, String> namespaces = new HashMap<String, String>();
+	private HashMap<String, String> namespaces = new HashMap<>();
 
 	public Set<String> listAllUris() {
 		return namespaces.keySet();
@@ -155,16 +155,5 @@ public class Namespaces {
 		for (Namespace ns : staticNamespaces) {
 			this.addNamespace(ns.getUri(), ns.getNick());
 		}
-	}
-
-	public String makeQualifiedName(String unqualifiedUri) {
-		String nick = getNick(unqualifiedUri);
-		String prefixBehindNick = getUri(nick);
-		if (StringUtils.isBlank(prefixBehindNick)) {
-			return null;
-		}
-		String qualifiedName = StringUtils.substring(unqualifiedUri,
-				prefixBehindNick.length());
-		return qualifiedName;
 	}
 }

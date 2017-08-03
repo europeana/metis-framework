@@ -18,6 +18,7 @@ package eu.europeana.enrichment.rest.config;
 
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.service.Enricher;
+import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
@@ -95,8 +96,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @DependsOn("redisInternalEnricher")
   Enricher enricher() {
-    Enricher enricher = new Enricher("", enrichmentMongo, enrichmentMongoPort);
+    Enricher enricher = new Enricher(getRedisInternalEnricher());
     return enricher;
+  }
+
+  @Bean
+  EntityRemover entityRemover() {
+    return new EntityRemover(getRedisInternalEnricher(), enrichmentMongo, enrichmentMongoPort);
   }
 
   @Bean

@@ -64,17 +64,13 @@ public class EnrichmentController {
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentController.class);
 
   @Autowired
-  public  EnrichmentController(Enricher enricher) {
+  public  EnrichmentController(Enricher enricher, EntityRemover remover) {
     this.enricher = enricher;
+    this.remover = remover;
   }
 
   private Enricher enricher;
-
-//	@ResponseStatus(value = HttpStatus.OK)
-//	@RequestMapping(value = "/recreate",method = RequestMethod.GET)
-//	public void recreate(){
-//		enricher.recreate();
-//	}
+  private EntityRemover remover;
 
   /**
    * Delete uris
@@ -85,8 +81,7 @@ public class EnrichmentController {
   @RequestMapping(value = RestEndpoints.ENRICHMENT_DELETE, method = RequestMethod.DELETE)
   @ApiOperation(value = "Delete a list of URIs")
   public void delete(@ApiParam @RequestBody UriList values) throws Exception {
-    EntityRemover remover = new EntityRemover(enricher.getEnricher());
-    remover.remove(values.getUris(), null);
+    remover.remove(values.getUris());
   }
 
 
