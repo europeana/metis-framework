@@ -20,7 +20,6 @@ import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.metis.utils.InputValue;
 import eu.europeana.enrichment.api.external.InputValueList;
-import eu.europeana.enrichment.rest.client.EnrichmentDriver;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 
@@ -92,8 +91,8 @@ public class EnrichmentClient {
 		Form form = new Form();
 		form.param("uri", "http://data.europeana.eu/concept/base/96");
 		form.param("toXml", Boolean.toString(true));*/
-		EnrichmentDriver driver = new EnrichmentDriver("http://metis-enrichment-test.cfapps.io/");
-		List<EntityWrapper> wrapperList = driver.enrich(values,false);
+		eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://metis-enrichment-test.cfapps.io/");
+		List<EntityWrapper> wrapperList = enrichmentClient.enrich(values,false);
 		for(EntityWrapper wrapper:wrapperList){
 			System.out.println(wrapper.getContextualEntity());
 		}

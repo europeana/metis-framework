@@ -41,12 +41,12 @@ import org.springframework.web.client.RestTemplate;
  *
  * @author Yorgos.Mamakis@ europeana.eu
  */
-public class EnrichmentDriver {
+public class EnrichmentClient {
 
     private String path;
     private RestTemplate template = new RestTemplate();
 
-    public EnrichmentDriver(String path) {
+    public EnrichmentClient(String path) {
         this.path = path;
     }
 
