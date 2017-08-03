@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * Enrichment Cache REST endpoint
  * Created by gmamakis on 12-2-16.
  */
-@Api("/")
+@Api(value = "/", description = "This controller is used to manage the cache.")
 @Controller
 public class EnrichmentCacheController {
 
@@ -33,7 +33,8 @@ public class EnrichmentCacheController {
      */
     @RequestMapping(value = "/recreate",  method = RequestMethod.POST)
     @ResponseStatus(value = HttpStatus.OK)
-    @ApiOperation(value = "Start recreating the cache")
+    @ApiOperation(value = "Start recreating the cache",
+        notes="Recreate the redis cache from the mongo datastore. This will take some time")
     public void populate(){
         enricher.recreate();
     }
@@ -44,7 +45,8 @@ public class EnrichmentCacheController {
      */
     @RequestMapping(value = "/check",  method = RequestMethod.GET)
     @ResponseBody
-    @ApiOperation(value = "Check the status of the process filling the cache")
+    @ApiOperation(value = "Check the status of the process filling the cache", notes = "return 'started' or 'finished'")
+
     public String check(){
         return enricher.check();
     }
@@ -56,7 +58,8 @@ public class EnrichmentCacheController {
      */
     @RequestMapping(value=CACHE_EMPTY, method = RequestMethod.DELETE)
     @ResponseBody
-    @ApiOperation(value = "Empty the cache")
+    @ApiOperation(value = "Empty the cache", notes = "This will remove ALL entries in the cache (Redis). If the same redis instance/cluster "
+        + "is used for multiple services then the cache for other services is cleared as well." )
     public void emptyCache(){
         enricher.emptyCache();
     }
