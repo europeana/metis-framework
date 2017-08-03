@@ -35,12 +35,9 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 /**
  * Tagging (aka semantic enrichment) of records from SOLR with built-in
@@ -50,6 +47,9 @@ import java.util.Properties;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class Enricher {
+
+	private final String mongoHost;
+	private final int mongoPort;
 	@Autowired
 	private RedisInternalEnricher enricher;
 	@Autowired
@@ -152,26 +152,13 @@ public class Enricher {
 
 	ObjectRule objectRule;
 
-	final String DEFAULT_HOST = "localhost";
-	final int DEFAULT_PORT = 27017;
+
 	private String path;
 
-	public Enricher() {
-		Properties props = new Properties();
-		try {
-			props.load(new FileInputStream("enrichment.properties"));
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		path = props.getProperty("vocabulary.path");
-	}
-
-	public Enricher(String path) {
+	public Enricher(String path, String mongoHost, int mongoPort) {
 		this.path = path;
+		this.mongoHost = mongoHost;
+		this.mongoPort = mongoPort;
 	}
 
 	private String makePlaceCoordinateQuery(String property) {
@@ -218,14 +205,8 @@ public class Enricher {
 				Namespaces.ANNOCULTOR_CONVERTER);
 		objectRule = ObjectRuleImpl.makeObjectRule(task, new Path(""),
 				new Path(""), new Path(""), null, false);
-		String host = DEFAULT_HOST;
-		int port = DEFAULT_PORT;
-		if (args != null && args.length > 1) {
-			host = args[0];
-			port = Integer.parseInt(args[1]);
-		}
-		System.out.println(host);
-		if (!MongoDatabaseUtils.dbExists(host, port)) {
+
+		if (!MongoDatabaseUtils.dbExists(mongoHost, mongoPort)) {
 			//enricher = new RedisInternalEnricher(host);
 			File cacheDir = new File(path + "/tmp");
 			File baseDir = new File(path);

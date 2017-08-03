@@ -64,6 +64,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.mongoDb}")
   private String enrichmentMongo;
+  @Value("${enrichment.mongoPort}")
+  private int enrichmentMongoPort;
+
   @Value("${enrichment.proxy.url}")
   private String enrichmentProxyUrl;
 
@@ -92,7 +95,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @DependsOn("redisInternalEnricher")
   Enricher enricher() {
-    Enricher enricher = new Enricher("");
+    Enricher enricher = new Enricher("", enrichmentMongo, enrichmentMongoPort);
     return enricher;
   }
 
