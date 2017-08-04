@@ -28,6 +28,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -69,6 +70,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean
   RedisProvider getRedisProvider() {
     redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
     return redisProvider;
@@ -84,14 +99,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new PropertySourcesPlaceholderConfigurer();
   }
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
@@ -103,7 +110,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    Contact contact = new Contact("Europeana", "http:\\www.europeana.eu", "development@europeana.eu");
+    Contact contact = new Contact("Europeana", "http://www.europeana.eu", "development@europeana.eu");
     ApiInfo apiInfo = new ApiInfo(
         "Enrichment Cache REST API",
         "Enrichment cache management for Europeana",

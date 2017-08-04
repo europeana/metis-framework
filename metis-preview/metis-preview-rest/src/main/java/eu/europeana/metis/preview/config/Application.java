@@ -123,6 +123,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         mongoPassword, options);
   }
 
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.add(new MappingJackson2HttpMessageConverter());
+    super.configureMessageConverters(converters);
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
   @Bean
   RestClient restClient() {
     return new RestClient();
@@ -156,19 +170,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return solrServer;
   }
 
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
-    super.configureMessageConverters(converters);
-  }
 
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
+
+
 
   @Bean
   public CommonsMultipartResolver multipartResolver() {

@@ -43,6 +43,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -139,19 +140,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
-  @Bean
-  EnrichmentClient getEnrichmentClient() {
-    return new EnrichmentClient(enrichmentUrl);
-  }
-
-  MongoClient getEntityMongoClient() {
-    return mongoProviderEntity.getMongo();
-  }
-
-  MongoClient getVocabularyMongoClient() {
-    return mongoProviderVocabulary.getMongo();
-  }
-
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
@@ -165,6 +153,24 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .addResourceLocations("classpath:/META-INF/resources/");
     registry.addResourceHandler("/webjars/**")
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
+  }
+
+  @Bean
+  EnrichmentClient getEnrichmentClient() {
+    return new EnrichmentClient(enrichmentUrl);
+  }
+
+  MongoClient getEntityMongoClient() {
+    return mongoProviderEntity.getMongo();
+  }
+
+  MongoClient getVocabularyMongoClient() {
+    return mongoProviderVocabulary.getMongo();
   }
 
   @Bean

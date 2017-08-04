@@ -50,6 +50,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -145,6 +146,34 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         mongoPassword, options);
   }
 
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
+  }
+
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.add(new MappingJackson2HttpMessageConverter());
+    super.configureMessageConverters(converters);
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean
+  public CommonsMultipartResolver multipartResolver() {
+    CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+    commonsMultipartResolver.setDefaultEncoding("utf-8");
+    commonsMultipartResolver.setMaxUploadSize(50000000);
+    return commonsMultipartResolver;
+  }
+
+
   @Bean(name = "abstractSchemaDao")
   @DependsOn(value = "objectStorageClient")
   public AbstractSchemaDao getAbstractSchemaDao() {
@@ -192,28 +221,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @DependsOn(value = "abstractSchemaDao")
   ValidationManagementService getValidationManagementService() {
     return new ValidationManagementService(abstractSchemaDao);
-  }
-
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
-    super.configureMessageConverters(converters);
-  }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-
-  @Bean
-  public CommonsMultipartResolver multipartResolver() {
-    CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-    commonsMultipartResolver.setDefaultEncoding("utf-8");
-    commonsMultipartResolver.setMaxUploadSize(50000000);
-    return commonsMultipartResolver;
   }
 
   @Bean
