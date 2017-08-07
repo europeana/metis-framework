@@ -17,6 +17,7 @@
 package eu.europeana.enrichment.rest.config;
 
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
+import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
@@ -111,13 +112,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @DependsOn("redisInternalEnricher")
   Enricher enricher() {
-    Enricher enricher = new Enricher(getRedisInternalEnricher());
-    return enricher;
+    return new Enricher(getRedisInternalEnricher());
   }
 
   @Bean
   EntityRemover entityRemover() {
     return new EntityRemover(getRedisInternalEnricher(), enrichmentMongo, enrichmentMongoPort);
+  }
+
+  @Bean
+  Converter converter() {
+    return new Converter();
   }
 
   @Bean
@@ -153,7 +158,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private ApiInfo apiInfo() {
     Contact contact = new Contact("Europeana", "http:\\www.europeana.eu", "development@europeana.eu");
 
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Enrichment REST API",
         "Enrichment REST API for Europeana",
         "v1",
@@ -162,6 +167,5 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         "EUPL Licence v1.1",
         ""
     );
-    return apiInfo;
   }
 }

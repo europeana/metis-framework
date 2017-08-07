@@ -44,6 +44,7 @@
             <version>2.3.0</version>
 
         </dependency>
+
         <!--<dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-xc</artifactId>
@@ -118,12 +119,6 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>${version.swagger}</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${version.junit}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
