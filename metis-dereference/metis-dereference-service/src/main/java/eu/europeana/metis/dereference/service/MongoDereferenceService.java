@@ -16,7 +16,9 @@
  */
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
@@ -26,16 +28,17 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
-import org.apache.commons.lang3.StringUtils;
+import java.io.StringReader;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,12 +64,12 @@ public class MongoDereferenceService implements DereferenceService {
 
     }
     @Override
-    public List<String> dereference(String uri) throws TransformerException, ParserConfigurationException, IOException{
-        List<String> toReturn= null;
-        String fromEntity = checkInEntityCollection(uri);
+    public EnrichmentResultList dereference(String uri)
+        throws TransformerException, ParserConfigurationException, IOException, JAXBException {
+        EnrichmentResultList toReturn= new EnrichmentResultList();
+        EnrichmentBase fromEntity = checkInEntityCollection(uri);
         if (fromEntity!=null){
-            toReturn = new ArrayList<>();
-            toReturn.add(fromEntity);
+            toReturn.getResult().add(fromEntity);
         }
         String[] splitName = uri.split("/");
         if(splitName.length>3) {
@@ -78,11 +81,7 @@ public class MongoDereferenceService implements DereferenceService {
 
                 ProcessedEntity cached = cacheDao.getByUri(uri);
                 if (cached != null) {
-                    if(toReturn==null){
-                        toReturn = new ArrayList<>();
-
-                    }
-                    toReturn.add(cached.getXml());
+                    toReturn.getResult().add(deserialize(cached.getXml()));
                     return toReturn;
                 }
                 Vocabulary vocabulary;
@@ -110,10 +109,8 @@ public class MongoDereferenceService implements DereferenceService {
                     entity.setXml(transformed);
                     entity.setURI(uri);
                     cacheDao.save(entity);
-                    if(toReturn==null){
-                        toReturn=new ArrayList<>();
-                    }
-                    toReturn.add(transformed);
+
+                    toReturn.getResult().add(deserialize(transformed));
                     return toReturn;
                 }
             }
@@ -121,15 +118,16 @@ public class MongoDereferenceService implements DereferenceService {
         return toReturn;
     }
 
-    private String checkInEntityCollection(String uri) throws IOException{
-       String enriched = enrichmentClient.getByUri(uri,true);
-        if(StringUtils.isNotEmpty(enriched)) {
-            EntityWrapper wrapper = new ObjectMapper().readValue(
-                enrichmentClient.getByUri(uri, false), EntityWrapper.class);
+    private EnrichmentBase checkInEntityCollection(String uri) throws IOException {
+        return enrichmentClient.getByUri(uri);
+    }
 
-            return wrapper != null ? wrapper.getContextualEntity() : null;
-        }
-        return null;
+    private EnrichmentBase deserialize(String enrichment) throws JAXBException {
+        JAXBContext contextA = JAXBContext.newInstance(Place.class);
+
+        StringReader reader = new StringReader(enrichment);
+        Unmarshaller unmarshaller = contextA.createUnmarshaller();
+        return (EnrichmentBase) unmarshaller.unmarshal(reader);
     }
 
 }

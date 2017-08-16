@@ -1,5 +1,5 @@
 
-package eu.europeana.enrichment.model;
+package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
 import java.util.List;

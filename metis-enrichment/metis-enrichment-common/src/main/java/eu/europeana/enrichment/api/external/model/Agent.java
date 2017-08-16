@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.model;
+package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +45,6 @@ public class Agent extends EnrichmentBase {
   private List<Resource> wasPresentAt = new ArrayList<>();
   @XmlElement(name = "sameAs", namespace = "http://www.w3.org/2002/07/owl#")
   private List<Part> sameAs = new ArrayList<>();
-
-
-
 
   public List<Label> getHiddenLabel() {
     return hiddenLabel;

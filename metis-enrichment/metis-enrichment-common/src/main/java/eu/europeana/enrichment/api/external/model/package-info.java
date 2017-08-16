@@ -16,7 +16,7 @@
         @XmlNs(prefix = "dc", namespaceURI = "http://purl.org/dc/elements/1.1/"),
         @XmlNs(prefix = "rdaGr2", namespaceURI = "http://RDVocab.info/ElementsGr2/")
     })
-package eu.europeana.enrichment.model;
+package eu.europeana.enrichment.api.external.model;
 
 import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlNsForm;

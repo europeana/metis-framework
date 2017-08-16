@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.model;
+package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ public class EnrichmentResultList {
   public void setResult(List<EnrichmentBase> result) {
     this.result = result;
   }
+
   @XmlElements(value={
       @XmlElement(name="Concept", type=Concept.class, namespace = "http://www.europeana.eu/schemas/edm/"),
       @XmlElement(name="Agent", type=Agent.class, namespace = "http://www.europeana.eu/schemas/edm/"),

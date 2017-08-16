@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.model;
+package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,8 +6,11 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+@XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlSeeAlso({Agent.class, Concept.class, Place.class, Timespan.class})
 public class EnrichmentBase {
   @XmlElement(name = "altLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> altLabelList = new ArrayList<>();

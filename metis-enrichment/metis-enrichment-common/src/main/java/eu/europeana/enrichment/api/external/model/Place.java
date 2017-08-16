@@ -1,4 +1,4 @@
-package eu.europeana.enrichment.model;
+package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +20,7 @@ public class Place extends EnrichmentBase {
 
   @XmlElement(name = "lat", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String lat;
-  @XmlElement(name = "lon", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
+  @XmlElement(name = "long", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String lon;
   @XmlElement(name = "alt", namespace = "http://www.w3.org/2003/01/geo/wgs84_pos#")
   private String alt;

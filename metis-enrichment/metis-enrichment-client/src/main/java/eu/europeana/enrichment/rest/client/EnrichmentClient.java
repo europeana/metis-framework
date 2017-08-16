@@ -20,9 +20,9 @@ import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 
 import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.EntityWrapperList;
 import eu.europeana.enrichment.api.external.InputValueList;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.utils.InputValue;
 import java.io.IOException;
 import java.util.HashMap;
@@ -30,10 +30,15 @@ import java.util.List;
 import java.util.Map;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * REST API wrapper class abstracting the REST calls and providing a clean POJO
@@ -54,36 +59,50 @@ public class EnrichmentClient {
      * Enrich REST call invocation
      *
      * @param values The values to be enriched
-     * @param toEdm  Whether the enrichments should be retrieved in JSON (parsable
-     *               to POJO through Jackson) or XML (for copy pasting)
      * @return The enrichments generated for the input values
      * @throws JsonGenerationException
      * @throws JsonMappingException
      * @throws IOException
      */
-    public List<EntityWrapper> enrich(List<InputValue> values,
-                                      boolean toEdm) throws IOException, UnknownException {
+    public EnrichmentResultList enrich(List<InputValue> values) throws IOException, UnknownException {
         InputValueList inList = new InputValueList();
         inList.setInputValueList(values);
 
+        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
+        map.add("input", inList);
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("input", new ObjectMapper().writeValueAsString(inList));
-        map.add("toXml", "" + toEdm);
+        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
+        headers.add("Content-Type", MediaType.APPLICATION_XML_VALUE);
+
+        HttpEntity list = new HttpEntity(headers);
+
         try {
-            return new ObjectMapper().readValue(template.postForObject(path + ENRICHMENT_ENRICH, map, String.class),
-                    EntityWrapperList.class).getWrapperList();
+            return template.postForObject(path + ENRICHMENT_ENRICH, list,
+                EnrichmentResultList.class, map);
+
         } catch (Exception e){
             throw new UnknownException(e.getMessage());
         }
     }
 
-    public String getByUri(String uri, boolean toXml) throws IOException {
+    public EnrichmentBase getByUri(String uri) throws IOException {
 
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
-        map.add("uri", uri);
-        map.add("toXml", "" + toXml);
-        return template.postForObject(path + ENRICHMENT_BYURI, map, String.class);
+        RestTemplate template = new RestTemplate();
+
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI)
+            .queryParam("uri", uri);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
+        // headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
+
+        HttpEntity entity = new HttpEntity(headers);
+
+        ResponseEntity<EnrichmentBase> x = template
+            .exchange(builder.build(true).toUri(), HttpMethod.GET, entity,
+                EnrichmentBase.class);
+
+        return x.getBody();
 
     }
 
