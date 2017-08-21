@@ -19,7 +19,7 @@ package eu.europeana.metis.dereference.rest;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
+import eu.europeana.metis.dereference.service.DereferenceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -44,9 +44,12 @@ import java.util.List;
 @Controller
 @Api("/")
 public class DereferencingController {
-    @Autowired
-    private MongoDereferenceService mongoDereferenceService;
+    private final DereferenceService dereferenceService;
 
+    @Autowired
+    public DereferencingController(DereferenceService dereferenceService) {
+        this.dereferenceService = dereferenceService;
+    }
 
     /**
      * Dereference a record given a URI
@@ -64,9 +67,10 @@ public class DereferencingController {
     public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String uri)
         throws DereferenceException, JAXBException {
         try {
-            EnrichmentResultList x = mongoDereferenceService
+            EnrichmentResultList x = dereferenceService
                 .dereference(URLDecoder.decode(uri, "UTF-8"));
             return x;
+            //return dereferenceService.dereference(URLDecoder.decode(uri, "UTF-8"));
         } catch (TransformerException | ParserConfigurationException | IOException e) {
             throw new DereferenceException(e.getMessage(), uri);
         }

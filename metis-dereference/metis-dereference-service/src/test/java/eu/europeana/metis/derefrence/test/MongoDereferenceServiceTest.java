@@ -41,7 +41,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.springframework.test.util.ReflectionTestUtils;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -67,12 +66,7 @@ public class MongoDereferenceServiceTest {
         RdfRetriever retriever = new RdfRetriever();
         service = new MongoDereferenceService();
         enrichmentClient = Mockito.mock(EnrichmentClient.class);
-        ReflectionTestUtils.setField(service, "vocabularyDao", vocabularyDao);
-        ReflectionTestUtils.setField(service, "entityDao", entityDao);
-        ReflectionTestUtils.setField(service, "retriever", retriever);
-        ReflectionTestUtils.setField(service, "cacheDao", cacheDao);
-        ReflectionTestUtils.setField(service, "enrichmentClient", enrichmentClient);
-
+        service = new MongoDereferenceService(retriever, cacheDao, entityDao, vocabularyDao, driver);
     }
 
 //    @Test

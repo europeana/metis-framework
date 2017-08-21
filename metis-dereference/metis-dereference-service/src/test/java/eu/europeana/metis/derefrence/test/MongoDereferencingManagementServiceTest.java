@@ -32,9 +32,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-import org.springframework.test.util.ReflectionTestUtils;
 import redis.clients.jedis.Jedis;
 
 /**
@@ -51,15 +48,13 @@ public class MongoDereferencingManagementServiceTest {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();
-        service = new MongoDereferencingManagementService();
+
         jedis = Mockito.mock(Jedis.class);
         CacheDao cacheDao = new CacheDao(jedis);
         MongoClient mongo = new MongoClient(mongoHost, mongoPort);
         VocabularyDao vocDao = new VocabularyDao(mongo,"voctest");
         entityDao = new EntityDao(mongo,"voctest");
-        ReflectionTestUtils.setField(service,"cacheDao",cacheDao);
-        ReflectionTestUtils.setField(service,"vocabularyDao",vocDao);
-        ReflectionTestUtils.setField(service,"entityDao",entityDao);
+        service = new MongoDereferencingManagementService(vocDao, cacheDao,entityDao);
     }
 
 
@@ -85,12 +80,7 @@ public class MongoDereferencingManagementServiceTest {
 
     @Test
     public void testCreateUpdateRetrieveVocabulary(){
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(jedis).flushAll();
+        Mockito.doAnswer(invocation -> null).when(jedis).flushAll();
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
@@ -128,12 +118,7 @@ public class MongoDereferencingManagementServiceTest {
 
     @Test
     public void testDeleteVocabularies(){
-        Mockito.doAnswer(new Answer() {
-            @Override
-            public Object answer(InvocationOnMock invocation) throws Throwable {
-                return null;
-            }
-        }).when(jedis).flushAll();
+        Mockito.doAnswer(invocation -> null).when(jedis).flushAll();
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");

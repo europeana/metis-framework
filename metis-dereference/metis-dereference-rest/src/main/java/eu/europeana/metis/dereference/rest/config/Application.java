@@ -137,6 +137,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
+  @Bean
+  EnrichmentClient getEnrichmentDriver() {
+    return new EnrichmentClient(enrichmentUrl);
+  }
+
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("swagger-ui.html")
@@ -186,16 +191,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   VocabularyDao getVocabularyDao() {
     return new VocabularyDao(getVocabularyMongoClient(), vocabularyDb);
-  }
-
-  @Bean
-  MongoDereferenceService getMongoDereferenceService() {
-    return new MongoDereferenceService();
-  }
-
-  @Bean
-  MongoDereferencingManagementService getMongoDereferencingManagementService() {
-    return new MongoDereferencingManagementService();
   }
 
   @Bean
