@@ -19,21 +19,20 @@ public class EntityRemover {
 
     private final String mongoHost;
     private final int mongoPort;
-    private RedisInternalEnricher en;
+    private RedisInternalEnricher enricher;
 
     @Autowired
     public EntityRemover(RedisInternalEnricher enricher, String mongoHost, int mongoPort){
         this.mongoHost = mongoHost;
         this.mongoPort = mongoPort;
-        en = enricher;
+        this.enricher = enricher;
     }
 
     public void remove(List<String> uris) {
         MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
         
         List<String> retUris = MongoDatabaseUtils.delete(uris);
-        en.remove(retUris);
-
+        enricher.remove(retUris);
     }
 
 }

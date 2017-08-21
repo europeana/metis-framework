@@ -94,7 +94,6 @@ public class EnrichmentClient {
 
         HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
-        // headers.set("Accept", MediaType.APPLICATION_XML_VALUE);
 
         HttpEntity entity = new HttpEntity(headers);
 
@@ -104,23 +103,5 @@ public class EnrichmentClient {
 
         return x.getBody();
 
-    }
-
-    private static class ExceptionGenerator {
-        static Map<String, Class<? extends Exception>> exceptions = new HashMap<String, Class<? extends Exception>>() {
-            /**
-             *
-             */
-            private static final long serialVersionUID = 329292412348055056L;
-
-            {
-                put(JsonMappingException.class.getName(),
-                        JsonMappingException.class);
-                put(JsonGenerationException.class.getName(),
-                        JsonGenerationException.class);
-                put(UnknownException.class.getName(), UnknownException.class);
-                put(IOException.class.getName(), IOException.class);
-            }
-        };
     }
 }

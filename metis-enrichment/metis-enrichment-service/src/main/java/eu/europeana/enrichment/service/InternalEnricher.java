@@ -159,94 +159,82 @@ public class InternalEnricher {
         List<MongoTerm> agentsMongo = MongoDatabaseUtils.getAllAgents();
         System.out.println("Found agents: " + agentsMongo.size());
         for (MongoTerm agent : agentsMongo) {
-            try {
-                AgentTermList atl = (AgentTermList) MongoDatabaseUtils.findByCode(agent.getCodeUri(), "people");
-                if (atl != null) {
-                    try {
-                        EntityWrapper ag = new EntityWrapper();
-                        ag.setOriginalField("");
-                        ag.setClassName(AgentImpl.class.getName());
-                        ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
-                        ag.setUrl(agent.getCodeUri());
-                        ag.setOriginalValue(agent.getOriginalLabel());
-                        Set<String> uris = agentCache.get("def:" + agent.getLabel());
-                        if (uris == null) {
-                            uris = new HashSet<>();
-                        }
-                        uris.add(agent.getCodeUri());
-                        agentCache.put("def:" + agent.getLabel(), uris);
-
-                        if (agent.getLang() != null && !StringUtils.equals(agent.getLang(), "def")) {
-                            Set<String> uris2 = agentCache.get(agent.getLang() + ":" + agent.getLabel());
-                            if (uris2 == null) {
-                                uris2 = new HashSet<>();
-                            }
-                            uris2.add(agent.getCodeUri());
-                            agentCache.put(agent.getLang() + ":" + agent.getLabel(), uris2);
-                        }
-                        agentUriCache.put(agent.getCodeUri(), ag);
-                        agentParents.put(agent.getCodeUri(), this.findAgentParents(atl.getParent()));
-                        if (atl.getOwlSameAs() != null) {
-                            for (String sameAs : atl.getOwlSameAs()) {
-                                agentSameAsCache.put(sameAs, agent.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var14) {
-                        var14.printStackTrace();
+            AgentTermList atl = (AgentTermList) MongoDatabaseUtils.findByCode(agent.getCodeUri(), "people");
+            if (atl != null) {
+                try {
+                    EntityWrapper ag = new EntityWrapper();
+                    ag.setOriginalField("");
+                    ag.setClassName(AgentImpl.class.getName());
+                    ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
+                    ag.setUrl(agent.getCodeUri());
+                    ag.setOriginalValue(agent.getOriginalLabel());
+                    Set<String> uris = agentCache.get("def:" + agent.getLabel());
+                    if (uris == null) {
+                        uris = new HashSet<>();
                     }
+                    uris.add(agent.getCodeUri());
+                    agentCache.put("def:" + agent.getLabel(), uris);
+
+                    if (agent.getLang() != null && !StringUtils.equals(agent.getLang(), "def")) {
+                        Set<String> uris2 = agentCache.get(agent.getLang() + ":" + agent.getLabel());
+                        if (uris2 == null) {
+                            uris2 = new HashSet<>();
+                        }
+                        uris2.add(agent.getCodeUri());
+                        agentCache.put(agent.getLang() + ":" + agent.getLabel(), uris2);
+                    }
+                    agentUriCache.put(agent.getCodeUri(), ag);
+                    agentParents.put(agent.getCodeUri(), this.findAgentParents(atl.getParent()));
+                    if (atl.getOwlSameAs() != null) {
+                        for (String sameAs : atl.getOwlSameAs()) {
+                            agentSameAsCache.put(sameAs, agent.getCodeUri());
+                        }
+                    }
+                } catch (IOException var14) {
+                    var14.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
-
         }
-
-
 
         List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
         System.out.println("Found concepts: " + conceptsMongo1.size());
         for (MongoTerm concept : conceptsMongo1) {
-            try {
-                ConceptTermList ctl = (ConceptTermList) MongoDatabaseUtils.findByCode(concept.getCodeUri(), "concept");
-                if (ctl != null) {
+            ConceptTermList ctl = (ConceptTermList) MongoDatabaseUtils.findByCode(concept.getCodeUri(), "concept");
+            if (ctl != null) {
 
-                    try {
-                        EntityWrapper i$ = new EntityWrapper();
-                        i$.setOriginalField("");
-                        i$.setClassName(ConceptImpl.class.getName());
-                        i$.setContextualEntity(this.getObjectMapper().writeValueAsString(ctl.getRepresentation()));
-                        i$.setUrl(concept.getCodeUri());
-                        i$.setOriginalValue(concept.getOriginalLabel());
-                        Set<String> uris = conceptCache.get("def:" + concept.getLabel());
-                        if (uris == null) {
-                            uris = new HashSet<>();
-                        }
-                        uris.add(concept.getCodeUri());
-                        conceptCache.put("def:" + concept.getLabel(), uris);
-
-                        if (concept.getLang() != null && !StringUtils.equals(concept.getLang(), "def")) {
-                            Set<String> uris2 = conceptCache.get(concept.getLang() + ":" + concept.getLabel());
-                            if (uris2 == null) {
-                                uris2 = new HashSet<>();
-                            }
-                            uris2.add(concept.getCodeUri());
-                            conceptCache.put(concept.getLang() + ":" + concept.getLabel(), uris2);
-                        }
-                        conceptUriCache.put(concept.getCodeUri(), i$);
-                        conceptParents.put(concept.getCodeUri(), this.findConceptParents(ctl.getParent()));
-                        if (ctl.getOwlSameAs() != null) {
-                            for (String sameAs : ctl.getOwlSameAs()) {
-                                conceptSameAsCache.put(sameAs, ctl.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var12) {
-                        var12.printStackTrace();
+                try {
+                    EntityWrapper i$ = new EntityWrapper();
+                    i$.setOriginalField("");
+                    i$.setClassName(ConceptImpl.class.getName());
+                    i$.setContextualEntity(this.getObjectMapper().writeValueAsString(ctl.getRepresentation()));
+                    i$.setUrl(concept.getCodeUri());
+                    i$.setOriginalValue(concept.getOriginalLabel());
+                    Set<String> uris = conceptCache.get("def:" + concept.getLabel());
+                    if (uris == null) {
+                        uris = new HashSet<>();
                     }
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+                    uris.add(concept.getCodeUri());
+                    conceptCache.put("def:" + concept.getLabel(), uris);
 
+                    if (concept.getLang() != null && !StringUtils.equals(concept.getLang(), "def")) {
+                        Set<String> uris2 = conceptCache.get(concept.getLang() + ":" + concept.getLabel());
+                        if (uris2 == null) {
+                            uris2 = new HashSet<>();
+                        }
+                        uris2.add(concept.getCodeUri());
+                        conceptCache.put(concept.getLang() + ":" + concept.getLabel(), uris2);
+                    }
+                    conceptUriCache.put(concept.getCodeUri(), i$);
+                    conceptParents.put(concept.getCodeUri(), this.findConceptParents(ctl.getParent()));
+                    if (ctl.getOwlSameAs() != null) {
+                        for (String sameAs : ctl.getOwlSameAs()) {
+                            conceptSameAsCache.put(sameAs, ctl.getCodeUri());
+                        }
+                    }
+                } catch (IOException var12) {
+                    var12.printStackTrace();
+                }
+            }
         }
 
         try {
@@ -259,46 +247,43 @@ public class InternalEnricher {
         System.out.println("Found places: " + placesMongo2.size());
 
         for (MongoTerm place : placesMongo2) {
-            try {
-                PlaceTermList ptl = (PlaceTermList) MongoDatabaseUtils.findByCode(place.getCodeUri(), "place");
+            PlaceTermList ptl = (PlaceTermList) MongoDatabaseUtils.findByCode(place.getCodeUri(), "place");
 
-                if (ptl != null) {
-                    try {
-                        EntityWrapper entry = new EntityWrapper();
-                        entry.setOriginalField("");
-                        entry.setClassName(PlaceImpl.class.getName());
-                        entry.setContextualEntity(this.getObjectMapper().writeValueAsString(ptl.getRepresentation()));
-                        entry.setUrl(place.getCodeUri());
-                        entry.setOriginalValue(place.getOriginalLabel());
-                        Set<String> uris = placeCache.get("def:" + place.getLabel());
-                        if (uris == null) {
-                            uris = new HashSet<>();
-                        }
-                        uris.add(place.getCodeUri());
-                        placeCache.put("def:" + place.getLabel(), uris);
-
-                        if (place.getLang() != null && !StringUtils.equals(place.getLang(), "def")) {
-                            Set<String> uris2 = placeCache.get(place.getLang() + ":" + place.getLabel());
-                            if (uris2 == null) {
-                                uris2 = new HashSet<>();
-                            }
-                            uris2.add(place.getCodeUri());
-                            placeCache.put(place.getLang() + ":" + place.getLabel(), uris2);
-                        }
-                        placeUriCache.put(place.getCodeUri(), entry);
-                        placeParents.put(place.getCodeUri(), this.findPlaceParents(ptl.getParent()));
-                        if (ptl.getOwlSameAs() != null) {
-                            for (String sameAs : ptl.getOwlSameAs()) {
-                                placeSameAsCache.put(sameAs, ptl.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var10) {
-                        var10.printStackTrace();
+            if (ptl != null) {
+                try {
+                    EntityWrapper entry = new EntityWrapper();
+                    entry.setOriginalField("");
+                    entry.setClassName(PlaceImpl.class.getName());
+                    entry.setContextualEntity(this.getObjectMapper().writeValueAsString(ptl.getRepresentation()));
+                    entry.setUrl(place.getCodeUri());
+                    entry.setOriginalValue(place.getOriginalLabel());
+                    Set<String> uris = placeCache.get("def:" + place.getLabel());
+                    if (uris == null) {
+                        uris = new HashSet<>();
                     }
+                    uris.add(place.getCodeUri());
+                    placeCache.put("def:" + place.getLabel(), uris);
+
+                    if (place.getLang() != null && !StringUtils.equals(place.getLang(), "def")) {
+                        Set<String> uris2 = placeCache.get(place.getLang() + ":" + place.getLabel());
+                        if (uris2 == null) {
+                            uris2 = new HashSet<>();
+                        }
+                        uris2.add(place.getCodeUri());
+                        placeCache.put(place.getLang() + ":" + place.getLabel(), uris2);
+                    }
+                    placeUriCache.put(place.getCodeUri(), entry);
+                    placeParents.put(place.getCodeUri(), this.findPlaceParents(ptl.getParent()));
+                    if (ptl.getOwlSameAs() != null) {
+                        for (String sameAs : ptl.getOwlSameAs()) {
+                            placeSameAsCache.put(sameAs, ptl.getCodeUri());
+                        }
+                    }
+                } catch (IOException var10) {
+                    var10.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
+
         }
 
         try {
@@ -312,46 +297,42 @@ public class InternalEnricher {
 
 
         for (MongoTerm timespan : timespanMongo3) {
-            try {
-                TimespanTermList tsl = (TimespanTermList) MongoDatabaseUtils.findByCode(timespan.getCodeUri(), "period");
+            TimespanTermList tsl = (TimespanTermList) MongoDatabaseUtils.findByCode(timespan.getCodeUri(), "period");
 
-                if (tsl != null) {
-                    try {
-                        EntityWrapper ex = new EntityWrapper();
-                        ex.setOriginalField("");
-                        ex.setClassName(TimespanImpl.class.getName());
-                        ex.setContextualEntity(this.getObjectMapper().writeValueAsString(tsl.getRepresentation()));
-                        ex.setOriginalValue(timespan.getOriginalLabel());
-                        ex.setUrl(timespan.getCodeUri());
-                        Set<String> uris = timespanCache.get("def:" + timespan.getLabel());
-                        if (uris == null) {
-                            uris = new HashSet<>();
-                        }
-                        uris.add(timespan.getCodeUri());
-                        timespanCache.put("def:" + timespan.getLabel(), uris);
-
-                        if (timespan.getLang() != null && !StringUtils.equals(timespan.getLang(), "def")) {
-                            Set<String> uris2 = timespanCache.get(timespan.getLang() + ":" + timespan.getLabel());
-                            if (uris2 == null) {
-                                uris2 = new HashSet<>();
-                            }
-                            uris2.add(timespan.getCodeUri());
-                            timespanCache.put(timespan.getLang() + ":" + timespan.getLabel(), uris2);
-                        }
-                        timespanUriCache.put(timespan.getCodeUri(), ex);
-                        timespanParents.put(timespan.getCodeUri(), this.findTimespanParents(tsl.getParent()));
-
-                        if (tsl.getOwlSameAs() != null) {
-                            for (String sameAs : tsl.getOwlSameAs()) {
-                                timespanSameAsCache.put(sameAs, tsl.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var8) {
-                        var8.printStackTrace();
+            if (tsl != null) {
+                try {
+                    EntityWrapper ex = new EntityWrapper();
+                    ex.setOriginalField("");
+                    ex.setClassName(TimespanImpl.class.getName());
+                    ex.setContextualEntity(this.getObjectMapper().writeValueAsString(tsl.getRepresentation()));
+                    ex.setOriginalValue(timespan.getOriginalLabel());
+                    ex.setUrl(timespan.getCodeUri());
+                    Set<String> uris = timespanCache.get("def:" + timespan.getLabel());
+                    if (uris == null) {
+                        uris = new HashSet<>();
                     }
+                    uris.add(timespan.getCodeUri());
+                    timespanCache.put("def:" + timespan.getLabel(), uris);
+
+                    if (timespan.getLang() != null && !StringUtils.equals(timespan.getLang(), "def")) {
+                        Set<String> uris2 = timespanCache.get(timespan.getLang() + ":" + timespan.getLabel());
+                        if (uris2 == null) {
+                            uris2 = new HashSet<>();
+                        }
+                        uris2.add(timespan.getCodeUri());
+                        timespanCache.put(timespan.getLang() + ":" + timespan.getLabel(), uris2);
+                    }
+                    timespanUriCache.put(timespan.getCodeUri(), ex);
+                    timespanParents.put(timespan.getCodeUri(), this.findTimespanParents(tsl.getParent()));
+
+                    if (tsl.getOwlSameAs() != null) {
+                        for (String sameAs : tsl.getOwlSameAs()) {
+                            timespanSameAsCache.put(sameAs, tsl.getCodeUri());
+                        }
+                    }
+                } catch (IOException var8) {
+                    var8.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
         }
 

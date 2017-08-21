@@ -26,322 +26,266 @@ import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.PlaceTermList;
 import eu.europeana.enrichment.api.internal.TimespanTermList;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.mongojack.DBCursor;
 import org.mongojack.JacksonDBCollection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
- * Util class for saving and retrieving TermLists from Mongo It is used to
- * bypass the memory-based Annocultor enrichment, for use within UIM. The
- * TermList uses MongoTerm, MongoTermList, PlaceTerm and PeriodTerm to reflect
- * the stored Entities.
+ * Util class for saving and retrieving TermLists from Mongo It is used to bypass the memory-based
+ * Annocultor enrichment, for use within UIM. The TermList uses MongoTerm, MongoTermList, PlaceTerm
+ * and PeriodTerm to reflect the stored Entities.
  *
  * @author Yorgos.Mamakis@ kb.nl
- *
  */
 @SuppressWarnings("rawtypes")
 public class MongoDatabaseUtils<T> {
 
-    private static JacksonDBCollection<ConceptTermList, String> cColl;
-    private static JacksonDBCollection<PlaceTermList, String> pColl;
-    private static JacksonDBCollection<TimespanTermList, String> tColl;
-    private static JacksonDBCollection<AgentTermList, String> aColl;
-    private static DB db;
+  private static final Logger LOGGER = LoggerFactory.getLogger(MongoDatabaseUtils.class);
 
-    private static Map<String, Map<String, MongoTermList>> memCache = new HashMap<String, Map<String, MongoTermList>>();
+  private static JacksonDBCollection<ConceptTermList, String> cColl;
+  private static JacksonDBCollection<PlaceTermList, String> pColl;
+  private static JacksonDBCollection<TimespanTermList, String> tColl;
+  private static JacksonDBCollection<AgentTermList, String> aColl;
+  private static DB db;
 
-    /**
-     * Check if DB exists and initialization of the db
-     *
-     * @return
-     */
-    public static boolean dbExists(String host, int port) {
-        try {
-            if (db == null) {
-                System.out.println(host);
-                Mongo mongo = new Mongo(host, port);
-                db = mongo.getDB("annocultor_db");
-                if (db.collectionExists("TermList")) {
-                    cColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"),
-                            ConceptTermList.class, String.class);
+  /**
+   * Check if DB exists and initialization of the db
+   */
+  public static boolean dbExists(String host, int port) {
+    try {
+      if (db != null) {
+        return true;
+      }
+      System.out.println(host);
+      Mongo mongo = new Mongo(host, port);
+      db = mongo.getDB("annocultor_db");
 
-                    //cColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    //cColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    //cColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    aColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"), AgentTermList.class,
-                            String.class);
+      boolean exist = db.collectionExists("TermList");
+      cColl = JacksonDBCollection.wrap(
+          db.getCollection("TermList"),
+          ConceptTermList.class, String.class);
 
-                    //aColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    //aColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    //aColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    tColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"),
-                            TimespanTermList.class, String.class);
+      aColl = JacksonDBCollection.wrap(
+          db.getCollection("TermList"), AgentTermList.class,
+          String.class);
 
-                    //tColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    //tColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    //tColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    pColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"), PlaceTermList.class,
-                            String.class);
+      tColl = JacksonDBCollection.wrap(
+          db.getCollection("TermList"),
+          TimespanTermList.class, String.class);
 
-                    //pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    //pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    //pColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
+      pColl = JacksonDBCollection.wrap(
+          db.getCollection("TermList"), PlaceTermList.class,
+          String.class);
 
-                    return true;
-                } else {
-                    cColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"),
-                            ConceptTermList.class, String.class);
+      if (!exist) {
+        pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
+        cColl.createIndex(new BasicDBObject("owlSameAs", 1), new BasicDBObject("unique", false));
 
-                   // cColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    cColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    aColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"), AgentTermList.class,
-                            String.class);
+        aColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
+        aColl.createIndex(new BasicDBObject("owlSameAs", 1), new BasicDBObject("unique", false));
 
-                    //aColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    aColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    aColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    tColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"),
-                            TimespanTermList.class, String.class);
+        tColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
+        tColl.createIndex(new BasicDBObject("owlSameAs", 1), new BasicDBObject("unique", false));
 
-                    //tColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    tColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    tColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    pColl = JacksonDBCollection.wrap(
-                            db.getCollection("TermList"), PlaceTermList.class,
-                            String.class);
+        pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
+        pColl.createIndex(new BasicDBObject("owlSameAs", 1), new BasicDBObject("unique", false));
 
-                    //pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", true));
-                    pColl.createIndex(new BasicDBObject("codeUri", 1), new BasicDBObject("unique", false));
-                    pColl.createIndex(new BasicDBObject("owlSameAs",1), new BasicDBObject("unique",false));
-                    return false;
-                }
-            }
-            return true;
-        } catch (MongoException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        return false;
+      }
+      return exist;
+    } catch (MongoException e) {
+      LOGGER.error("Error accessing mongo", e);
+      e.printStackTrace();
     }
+    return false;
+  }
 
-    public static List<String> delete(List<String> uris) {
-
-        List<String> retUris = new ArrayList<>();
-        for (String uri : uris) {
-            aColl.remove(aColl.find().is("codeUri", uri).getQuery());
-            cColl.remove(cColl.find().is("codeUri", uri).getQuery());
-            tColl.remove(tColl.find().is("codeUri", uri).getQuery());
-            pColl.remove(pColl.find().is("codeUri", uri).getQuery());
-            retUris.add(uri);
-            JacksonDBCollection<MongoTerm, String> termP = JacksonDBCollection
-                    .wrap(db.getCollection("place"), MongoTerm.class, String.class);
-            termP.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
-    				new BasicDBObject("unique", true));
-            termP.createIndex(new BasicDBObject("codeUri", 1));
-            JacksonDBCollection<MongoTerm, String> termC = JacksonDBCollection
-                    .wrap(db.getCollection("concept"), MongoTerm.class, String.class);
-            termC.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
-    				new BasicDBObject("unique", true));
-            termC.createIndex(new BasicDBObject("codeUri", 1));
-            JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
-                    .wrap(db.getCollection("people"), MongoTerm.class, String.class);
-            termA.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
-    				new BasicDBObject("unique", true));
-            termA.createIndex(new BasicDBObject("codeUri", 1));
-            JacksonDBCollection<MongoTerm, String> termT = JacksonDBCollection
-                    .wrap(db.getCollection("period"), MongoTerm.class, String.class);
-            termT.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
-    				new BasicDBObject("unique", true));
-            termT.createIndex(new BasicDBObject("codeUri", 1));
-
-
-            termP.remove(termP.find().is("codeUri", uri).getQuery());
-            termA.remove(termA.find().is("codeUri", uri).getQuery());
-            termT.remove(termT.find().is("codeUri", uri).getQuery());
-            termC.remove(termC.find().is("codeUri", uri).getQuery());
-
-            DBCursor<AgentTermList> objA = aColl.find(new BasicDBObject("owlSameAs",uri).append("entityType","AgentImpl"));
-            if(objA.hasNext()) {
-                String origA = objA.next().getCodeUri();
-                retUris.add(origA);
-                aColl.remove(new BasicDBObject("codeUri",origA));
-                termA.remove(new BasicDBObject("codeUri",origA));
-            }
-            DBCursor<ConceptTermList> objC = cColl.find(new BasicDBObject("owlSameAs",uri).append("entityType","ConceptImpl"));
-            if(objC.hasNext()) {
-                String origC = objC.next().getCodeUri();
-                retUris.add(origC);
-                cColl.remove(new BasicDBObject("codeUri",origC));
-                termC.remove(new BasicDBObject("codeUri",origC));
-            }
-            DBCursor<TimespanTermList> objT = tColl.find(new BasicDBObject("owlSameAs",uri).append("entityType","TimespanImpl"));
-            if(objT.hasNext()) {
-                String origT = objT.next().getCodeUri();
-                retUris.add(origT);
-                tColl.remove(new BasicDBObject("codeUri",origT));
-                termT.remove(new BasicDBObject("codeUri",origT));
-            }
-            DBCursor<PlaceTermList> objP = pColl.find(new BasicDBObject("owlSameAs",uri).append("entityType","PlaceImpl"));
-            if(objP.hasNext()) {
-                String origP = objP.next().getCodeUri();
-                retUris.add(origP);
-                pColl.remove(new BasicDBObject("codeUri",origP));
-                termP.remove(new BasicDBObject("codeUri",origP));
-            }
-
-
-
-
-        }
-        return retUris;
+  /**
+   * Delete entities by uri
+   *
+   * @param uris list of uris to delete
+   * @return deleted uris
+   */
+  public static List<String> delete(List<String> uris) {
+    List<String> retUris = new ArrayList<>();
+    for (String uri : uris) {
+      retUris.add(uri);
+      retUris.addAll(deletePlaces(uri));
+      retUris.addAll(deleteConcepts(uri));
+      retUris.addAll(deleteAgents(uri));
+      retUris.addAll(deleteTimespan(uri));
     }
+    return retUris;
+  }
 
-    /**
-     * Find TermList by codeURI
-     *
-     * @param codeUri
-     * @param dbtable
-     * @return
-     * @throws MalformedURLException
-     */
-    public static MongoTermList findByCode(String codeUri, String dbtable)
-            throws MalformedURLException {
+  private static List<String> deleteTimespan( String uri) {
+    List<String> retUris = new ArrayList<>();
+    tColl.remove(tColl.find().is("codeUri", uri).getQuery());
+    JacksonDBCollection<MongoTerm, String> termT = JacksonDBCollection
+        .wrap(db.getCollection("period"), MongoTerm.class, String.class);
+    termT.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
+        new BasicDBObject("unique", true));
+    termT.createIndex(new BasicDBObject("codeUri", 1));
+    termT.remove(termT.find().is("codeUri", uri).getQuery());
+    DBCursor<TimespanTermList> objT = tColl
+        .find(new BasicDBObject("owlSameAs", uri).append("entityType", "TimespanImpl"));
+    if (objT.hasNext()) {
+      String origT = objT.next().getCodeUri();
+      retUris.add(origT);
+      tColl.remove(new BasicDBObject("codeUri", origT));
+      termT.remove(new BasicDBObject("codeUri", origT));
+    }
+    return retUris;
+  }
 
-        if (dbtable.equals("concept")) {
-            return findConceptByCode(codeUri, new HashMap<String, MongoTermList>());
-        }
-        if (dbtable.equals("place")) {
-            return findPlaceByCode(codeUri, new HashMap<String, MongoTermList>());
-        }
-        if (dbtable.equals("people")) {
-            return findAgentByCode(codeUri, new HashMap<String, MongoTermList>());
-        }
-        if (dbtable.equals("period")) {
-            return findTimespanByCode(codeUri, new HashMap<String, MongoTermList>());
-        }
+  private static List<String> deleteAgents(String uri) {
+    List<String> retUris = new ArrayList<>();
+
+    aColl.remove(aColl.find().is("codeUri", uri).getQuery());
+    JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
+        .wrap(db.getCollection("people"), MongoTerm.class, String.class);
+    termA.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
+        new BasicDBObject("unique", true));
+    termA.createIndex(new BasicDBObject("codeUri", 1));
+    termA.remove(termA.find().is("codeUri", uri).getQuery());
+    DBCursor<AgentTermList> objA = aColl
+        .find(new BasicDBObject("owlSameAs", uri).append("entityType", "AgentImpl"));
+    if (objA.hasNext()) {
+      String origA = objA.next().getCodeUri();
+      retUris.add(origA);
+      aColl.remove(new BasicDBObject("codeUri", origA));
+      termA.remove(new BasicDBObject("codeUri", origA));
+    }
+    return retUris;
+  }
+
+  private static List<String> deleteConcepts(String uri) {
+    List<String> retUris = new ArrayList<>();
+
+    cColl.remove(cColl.find().is("codeUri", uri).getQuery());
+    JacksonDBCollection<MongoTerm, String> termC = JacksonDBCollection
+        .wrap(db.getCollection("concept"), MongoTerm.class, String.class);
+    termC.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
+        new BasicDBObject("unique", true));
+    termC.createIndex(new BasicDBObject("codeUri", 1));
+    termC.remove(termC.find().is("codeUri", uri).getQuery());
+    DBCursor<ConceptTermList> objC = cColl
+        .find(new BasicDBObject("owlSameAs", uri).append("entityType", "ConceptImpl"));
+    if (objC.hasNext()) {
+      String origC = objC.next().getCodeUri();
+      retUris.add(origC);
+      cColl.remove(new BasicDBObject("codeUri", origC));
+      termC.remove(new BasicDBObject("codeUri", origC));
+    }
+    return retUris;
+  }
+
+  private static List<String> deletePlaces(String uri) {
+    List<String> retUris = new ArrayList<>();
+
+    pColl.remove(pColl.find().is("codeUri", uri).getQuery());
+    JacksonDBCollection<MongoTerm, String> termP = JacksonDBCollection
+        .wrap(db.getCollection("place"), MongoTerm.class, String.class);
+    termP.createIndex(new BasicDBObject("label", 1).append("lang", 1).append("codeUri", 1),
+        new BasicDBObject("unique", true));
+    termP.createIndex(new BasicDBObject("codeUri", 1));
+    termP.remove(termP.find().is("codeUri", uri).getQuery());
+    DBCursor<PlaceTermList> objP = pColl
+        .find(new BasicDBObject("owlSameAs", uri).append("entityType", "PlaceImpl"));
+    if (objP.hasNext()) {
+      String origP = objP.next().getCodeUri();
+      retUris.add(origP);
+      pColl.remove(new BasicDBObject("codeUri", origP));
+      termP.remove(new BasicDBObject("codeUri", origP));
+    }
+    return retUris;
+  }
+
+  /**
+   * Find TermList by codeURI
+   */
+  public static MongoTermList findByCode(String codeUri, String dbtable) {
+    switch (dbtable) {
+      case "concept":
+        return findConceptByCode(codeUri);
+      case "place":
+        return findPlaceByCode(codeUri);
+      case "people":
+        return findAgentByCode(codeUri);
+      case "period":
+        return findTimespanByCode(codeUri);
+      default:
         return null;
     }
+  }
 
-    private static TimespanTermList findTimespanByCode(String codeUri,
-            Map<String, MongoTermList> typeMap) {
-        DBCursor<TimespanTermList> curs = tColl.find(new BasicDBObject("entityType","TimespanImpl")).is("codeUri", codeUri);
-        if (curs.hasNext()) {
-            TimespanTermList terms = curs.next();
-            typeMap.put(codeUri, terms);
-            memCache.put("period", typeMap);
-            return terms;
-        }
-        return null;
+  private static MongoTermList findTimespanByCode(String codeUri) {
+    DBCursor<TimespanTermList> curs = tColl.find(new BasicDBObject("entityType", "TimespanImpl"))
+        .is("codeUri", codeUri);
+    if (curs.hasNext()) {
+      return curs.next();
+    }
+    return null;
+  }
+
+  private static MongoTermList findAgentByCode(String codeUri) {
+    DBCursor<AgentTermList> curs = aColl.find(new BasicDBObject("entityType", "AgentImpl"))
+        .is("codeUri", codeUri);
+
+    if (curs.hasNext()) {
+      return curs.next();
+    }
+    return null;
+  }
+
+  private static MongoTermList findPlaceByCode(String codeUri) {
+    DBCursor<PlaceTermList> curs = pColl.find(new BasicDBObject("entityType", "PlaceImpl"))
+        .is("codeUri", codeUri);
+    if (curs.hasNext()) {
+      return curs.next();
+    }
+    return null;
+  }
+
+  private static MongoTermList findConceptByCode(String codeUri) {
+    DBCursor<ConceptTermList> curs = cColl.find(new BasicDBObject("entityType", "ConceptImpl"))
+        .is("codeUri", codeUri);
+    if (curs.hasNext()) {
+      return curs.next();
+    }
+    return null;
+  }
+
+  public static List<MongoTerm> getAllAgents() {
+    return getMongoTerms("people");
+  }
+
+  public static List<MongoTerm> getAllConcepts() {
+    return getMongoTerms("concept");
+  }
+
+  public static List<MongoTerm> getAllPlaces() {
+    return getMongoTerms("place");
+  }
+
+  public static List<MongoTerm> getAllTimespans() {
+    return getMongoTerms("period");
+  }
+
+  private static List<MongoTerm> getMongoTerms(String object) {
+    JacksonDBCollection pColl = JacksonDBCollection
+        .wrap(db.getCollection(object), MongoTerm.class, String.class);
+    DBCursor curs = pColl.find();
+    List<MongoTerm> lst = new ArrayList<>();
+
+    while (curs.hasNext()) {
+      MongoTerm mTerm = (MongoTerm) curs.next();
+      lst.add(mTerm);
     }
 
-    private static MongoTermList findAgentByCode(String codeUri,
-            Map<String, MongoTermList> typeMap) {
-        DBCursor<AgentTermList> curs = aColl.find(new BasicDBObject("entityType","AgentImpl")).is("codeUri", codeUri);
-
-        if (curs.hasNext()) {
-            AgentTermList terms = curs.next();
-
-            return terms;
-        }
-        return null;
-    }
-
-    private static MongoTermList findPlaceByCode(String codeUri,
-            Map<String, MongoTermList> typeMap) {
-        DBCursor<PlaceTermList> curs = pColl.find(new BasicDBObject("entityType","PlaceImpl")).is("codeUri", codeUri);
-        if (curs.hasNext()) {
-            PlaceTermList terms = curs.next();
-
-            return terms;
-        }
-        return null;
-    }
-
-    private static MongoTermList findConceptByCode(String codeUri,
-            Map<String, MongoTermList> typeMap) {
-        DBCursor<ConceptTermList> curs = cColl.find(new BasicDBObject("entityType","ConceptImpl")).is("codeUri", codeUri);
-        if (curs.hasNext()) {
-            ConceptTermList terms = curs.next();
-
-            return terms;
-        }
-        return null;
-    }
-
-    public static List<MongoTerm> getAllAgents() {
-        JacksonDBCollection pColl = JacksonDBCollection.wrap(db.getCollection("people"), MongoTerm.class, String.class);
-        DBCursor curs = pColl.find();
-        List lst = new ArrayList();
-        boolean i = false;
-
-        while(curs.hasNext()) {
-
-                MongoTerm ex = (MongoTerm)curs.next();
-                //MongoTermList t = findByCode(ex.getCodeUri(), "people");
-                lst.add(ex);
-
-        }
-
-        return lst;
-    }
-
-    public static List<MongoTerm> getAllConcepts() {
-        JacksonDBCollection pColl = JacksonDBCollection.wrap(db.getCollection("concept"), MongoTerm.class, String.class);
-        DBCursor curs = pColl.find();
-        List<MongoTerm> lst = new ArrayList<>();
-
-        while(curs.hasNext()) {
-
-                MongoTerm ex = (MongoTerm)curs.next();
-              //  MongoTermList t = findByCode(ex.getCodeUri(), "concept");
-                lst.add(ex);
-
-        }
-
-        return lst;
-    }
-
-    public static List<MongoTerm> getAllPlaces() {
-        JacksonDBCollection pColl = JacksonDBCollection.wrap(db.getCollection("place"), MongoTerm.class, String.class);
-        DBCursor curs = pColl.find();
-        List<MongoTerm> lst = new ArrayList<>();
-
-        while(curs.hasNext()) {
-
-                MongoTerm ex = (MongoTerm)curs.next();
-               // MongoTermList t = findByCode(ex.getCodeUri(), "place");
-                lst.add(ex);
-
-        }
-
-        return lst;
-    }
-
-    public static List<MongoTerm> getAllTimespans() {
-        JacksonDBCollection pColl = JacksonDBCollection.wrap(db.getCollection("period"), MongoTerm.class, String.class);
-        DBCursor curs = pColl.find();
-        List<MongoTerm> lst = new ArrayList<>();
-
-        while(curs.hasNext()) {
-            MongoTerm mTerm = (MongoTerm)curs.next();
-          //  TimespanTermList t = findTimespanByCode(mTerm.getCodeUri());
-            lst.add(mTerm);
-        }
-
-        return lst;
-    }
-
+    return lst;
+  }
 }

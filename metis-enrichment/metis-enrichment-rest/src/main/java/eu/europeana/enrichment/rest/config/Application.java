@@ -68,7 +68,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.mongoDb}")
   private String enrichmentMongo;
-  @Value("${enrichment.mongoPort}")
+  @Value("${enrichment.mongoPort:27017}")
   private int enrichmentMongoPort;
 
   @Value("${enrichment.proxy.url}")
@@ -132,7 +132,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), false);
+    return new RedisInternalEnricher(enrichmentMongo, enrichmentMongoPort, getRedisProvider(), false);
   }
 
   @Bean
@@ -148,9 +148,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
+        .useDefaultResponseMessages(false)
         .select()
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.regex("/.*"))
+
         .build()
         .apiInfo(apiInfo());
   }

@@ -33,7 +33,6 @@ import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.metis.utils.InputValue;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -58,15 +57,18 @@ import redis.clients.jedis.Jedis;
 @SuppressWarnings("rawtypes")
 @Component
 public class RedisInternalEnricher {
+
   private final Logger LOGGER = LoggerFactory.getLogger(RedisInternalEnricher.class);
 
   private final static ObjectMapper obj = new ObjectMapper();
-//  private Jedis jedis;
+  private final int mongoPort;
   private String mongoHost;
   private RedisProvider redisProvider;
 
-  public RedisInternalEnricher(String mongoHost, RedisProvider provider, boolean populate) {
+  public RedisInternalEnricher(String mongoHost, int mongoPort, RedisProvider provider,
+      boolean populate) {
     this.mongoHost = mongoHost;
+    this.mongoPort = mongoPort;
     SimpleModule sm = new SimpleModule("test", Version.unknownVersion());
     sm.addSerializer(new ObjectIdSerializer());
     obj.registerModule(sm);
@@ -141,207 +143,217 @@ public class RedisInternalEnricher {
     jedis.close();
   }
 
-  public void populate() {
+  private void populate() {
     long startTime = System.currentTimeMillis();
-    Jedis jedis = redisProvider.getJedis();
-    jedis.set("enrichmentstatus", "started");
-    LOGGER.info("Initializing population of Redis from Mongo.");
-    MongoDatabaseUtils.dbExists(mongoHost, 27017);
-    List<MongoTerm> agentsMongo = MongoDatabaseUtils.getAllAgents();
-    int totalAgents = agentsMongo.size();
-    LOGGER.info("Found agents: " + totalAgents);
-    int i = 0;
-    for (MongoTerm agent : agentsMongo) {
-      try {
-        AgentTermList atl = (AgentTermList) MongoDatabaseUtils
-            .findByCode(agent.getCodeUri(), "people");
-        if (atl != null) {
-          try {
-            EntityWrapper ag = new EntityWrapper();
-            ag.setOriginalField("");
-            ag.setClassName(AgentImpl.class.getName());
-            ag.setContextualEntity(
-                this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
-            ag.setUrl(agent.getCodeUri());
-            ag.setOriginalValue(agent.getOriginalLabel());
-            jedis.sadd("agent:entity:def:" + agent.getLabel(), agent.getCodeUri());
-            if (agent.getLang() != null) {
-              jedis.sadd("agent:entity:" + agent.getLang() + ":" + agent.getLabel(),
-                  agent.getCodeUri());
-            }
-            jedis.hset("agent:uri", agent.getCodeUri(), obj.writeValueAsString(ag));
-            List<String> parents = this.findAgentParents(atl.getParent());
-            if (parents != null && parents.size() > 0) {
-              jedis.sadd("agent:parent:" + agent.getCodeUri(), parents.toArray(new String[]{}));
-            }
-            if (atl.getOwlSameAs() != null) {
-              for (String sameAs : atl.getOwlSameAs()) {
-                jedis.hset("agent:sameas", sameAs, agent.getCodeUri());
-              }
-            }
-          } catch (IOException var14) {
-            var14.printStackTrace();
-          }
-        }
-        i++;
-        if (i % 100 == 0) {
-          LOGGER.info("Agents added: " + i + " out of: " + totalAgents);
-        }
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
-    }
-
-    List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
-    int totalConcepts = conceptsMongo1.size();
-    LOGGER.info("Found concepts: " + totalConcepts);
-    i = 0;
-    for (MongoTerm concept : conceptsMongo1) {
-      try {
-        ConceptTermList ctl = (ConceptTermList) MongoDatabaseUtils
-            .findByCode(concept.getCodeUri(), "concept");
-        if (ctl != null) {
-          try {
-            EntityWrapper i$ = new EntityWrapper();
-            i$.setOriginalField("");
-            i$.setClassName(ConceptImpl.class.getName());
-            i$.setContextualEntity(
-                this.getObjectMapper().writeValueAsString(ctl.getRepresentation()));
-            i$.setUrl(concept.getCodeUri());
-            i$.setOriginalValue(concept.getOriginalLabel());
-            jedis.sadd("concept:entity:def:" + concept.getLabel(), concept.getCodeUri());
-            if (concept.getLang() != null) {
-              jedis.sadd("concept:entity:" + concept.getLang() + ":" + concept.getLabel(),
-                  concept.getCodeUri());
-            }
-            jedis.hset("concept:uri", concept.getCodeUri(), obj.writeValueAsString(i$));
-            List<String> parents = this.findConceptParents(ctl.getParent());
-            if (parents != null && parents.size() > 0) {
-              jedis.sadd("concept:parent:" + concept.getCodeUri(), parents.toArray(new String[]{}));
-            }
-            if (ctl.getOwlSameAs() != null) {
-              for (String sameAs : ctl.getOwlSameAs()) {
-                jedis.hset("concept:sameas", sameAs, concept.getCodeUri());
-              }
-            }
-          } catch (IOException var12) {
-            var12.printStackTrace();
-          }
-        }
-        i++;
-        if (i % 100 == 0) {
-          LOGGER.info("Concepts added: " + i + " out of: " + totalConcepts);
-        }
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
-    }
-
-    List<MongoTerm> placesMongo2 = MongoDatabaseUtils.getAllPlaces();
-    int totalPlaces = placesMongo2.size();
-    LOGGER.info("Found places: " + totalPlaces);
-    i = 0;
-    for (MongoTerm place : placesMongo2) {
-      try {
-        PlaceTermList ptl = (PlaceTermList) MongoDatabaseUtils
-            .findByCode(place.getCodeUri(), "place");
-        if (ptl != null) {
-          try {
-            EntityWrapper entry = new EntityWrapper();
-            entry.setOriginalField("");
-            entry.setClassName(PlaceImpl.class.getName());
-            entry.setContextualEntity(
-                this.getObjectMapper().writeValueAsString(ptl.getRepresentation()));
-            entry.setUrl(place.getCodeUri());
-            entry.setOriginalValue(place.getOriginalLabel());
-            jedis.sadd("place:entity:def:" + place.getLabel(), place.getCodeUri());
-            if (place.getLang() != null) {
-              jedis.sadd("place:entity:" + place.getLang() + ":" + place.getLabel(),
-                  place.getCodeUri());
-            }
-            jedis.hset("place:uri", place.getCodeUri(), obj.writeValueAsString(entry));
-            List<String> parents = this.findPlaceParents(ptl.getParent());
-            if (parents != null && parents.size() > 0) {
-              jedis.sadd("place:parent:" + place.getCodeUri(), parents.toArray(new String[]{}));
-            }
-            if (ptl.getOwlSameAs() != null) {
-              for (String sameAs : ptl.getOwlSameAs()) {
-                jedis.hset("place:sameas", sameAs, place.getCodeUri());
-              }
-            }
-          } catch (IOException var10) {
-            var10.printStackTrace();
-          }
-        }
-        i++;
-        if (i % 100 == 0) {
-          LOGGER.info("Places added: " + i + " out of: " + totalPlaces);
-        }
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
-    }
-
-    List<MongoTerm> timespanMongo3 = MongoDatabaseUtils.getAllTimespans();
-    int totalTimespans = timespanMongo3.size();
-    LOGGER.info("Found timespans: " + totalTimespans);
-    i = 0;
-    for (MongoTerm timespan : timespanMongo3) {
-      try {
-        TimespanTermList tsl = (TimespanTermList) MongoDatabaseUtils
-            .findByCode(timespan.getCodeUri(), "period");
-        if (tsl != null) {
-          try {
-            EntityWrapper ex = new EntityWrapper();
-            ex.setOriginalField("");
-            ex.setClassName(TimespanImpl.class.getName());
-            ex.setContextualEntity(
-                this.getObjectMapper().writeValueAsString(tsl.getRepresentation()));
-            ex.setOriginalValue(timespan.getOriginalLabel());
-            ex.setUrl(timespan.getCodeUri());
-            jedis.sadd("timespan:entity:def:" + timespan.getLabel(), timespan.getCodeUri());
-            if (timespan.getLang() != null) {
-              jedis.sadd("timespan:entity:" + timespan.getLang() + ":" + timespan.getLabel(),
-                  timespan.getCodeUri());
-            }
-            jedis.hset("timespan:uri", timespan.getCodeUri(), obj.writeValueAsString(ex));
-            List<String> parents = this.findTimespanParents(tsl.getParent());
-            if (parents != null && parents.size() > 0) {
-              jedis.sadd("timespan:parent:" + timespan.getCodeUri(),
-                  parents.toArray(new String[]{}));
-            }
-            if (tsl.getOwlSameAs() != null) {
-              for (String sameAs : tsl.getOwlSameAs()) {
-                jedis.hset("timespan:sameas", sameAs, timespan.getCodeUri());
-              }
-            }
-          } catch (IOException var8) {
-            var8.printStackTrace();
-          }
-        }
-        i++;
-        if (i % 100 == 0) {
-          LOGGER.info("Timespans added: " + i + " out of: " + totalTimespans);
-        }
-      } catch (MalformedURLException e) {
-        e.printStackTrace();
-      }
-    }
-    jedis.set("enrichmentstatus", "finished");
-    jedis.close();
-
+    MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
+    setStatus("started");
+    loadAgents();
+    loadConcepts();
+    loadPlaces();
+    loadPeriods();
+    setStatus("finished");
     int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / 1000);
     int seconds = totalSeconds % 60;
     int minutes = (totalSeconds - seconds) / 60;
     LOGGER.info("Time spent in populating Redis. minutes:" + minutes + ", seconds:" + seconds);
   }
 
+  private void setStatus(String status) {
+    Jedis jedis = redisProvider.getJedis();
+    jedis.set("enrichmentstatus", status);
+    jedis.close();
+  }
+
+  private void loadPeriods() {
+    Jedis jedis = redisProvider.getJedis();
+    List<MongoTerm> timespanMongo3 = MongoDatabaseUtils.getAllTimespans();
+    int totalTimespans = timespanMongo3.size();
+    LOGGER.info("Found timespans: " + totalTimespans);
+    int i = 0;
+    for (MongoTerm timespan : timespanMongo3) {
+      TimespanTermList tsl = (TimespanTermList) MongoDatabaseUtils
+          .findByCode(timespan.getCodeUri(), "period");
+      if (tsl != null) {
+        try {
+          EntityWrapper ex = new EntityWrapper();
+          ex.setOriginalField("");
+          ex.setClassName(TimespanImpl.class.getName());
+          ex.setContextualEntity(
+              this.getObjectMapper().writeValueAsString(tsl.getRepresentation()));
+          ex.setOriginalValue(timespan.getOriginalLabel());
+          ex.setUrl(timespan.getCodeUri());
+          jedis.sadd("timespan:entity:def:" + timespan.getLabel(), timespan.getCodeUri());
+          if (timespan.getLang() != null) {
+            jedis.sadd("timespan:entity:" + timespan.getLang() + ":" + timespan.getLabel(),
+                timespan.getCodeUri());
+          }
+          jedis.hset("timespan:uri", timespan.getCodeUri(), obj.writeValueAsString(ex));
+          List<String> parents = this.findTimespanParents(tsl.getParent());
+          if (parents != null && parents.size() > 0) {
+            jedis.sadd("timespan:parent:" + timespan.getCodeUri(),
+                parents.toArray(new String[]{}));
+          }
+          if (tsl.getOwlSameAs() != null) {
+            for (String sameAs : tsl.getOwlSameAs()) {
+              jedis.hset("timespan:sameas", sameAs, timespan.getCodeUri());
+            }
+          }
+        } catch (IOException var8) {
+          var8.printStackTrace();
+        }
+      }
+      i++;
+      if (i % 100 == 0) {
+        LOGGER.info("Timespans added: " + i + " out of: " + totalTimespans);
+      }
+    }
+    jedis.close();
+  }
+
+  private void loadPlaces() {
+    Jedis jedis = redisProvider.getJedis();
+    List<MongoTerm> placesMongo2 = MongoDatabaseUtils.getAllPlaces();
+    int totalPlaces = placesMongo2.size();
+    LOGGER.info("Found places: " + totalPlaces);
+    int i = 0;
+    for (MongoTerm place : placesMongo2) {
+      PlaceTermList ptl = (PlaceTermList) MongoDatabaseUtils
+          .findByCode(place.getCodeUri(), "place");
+      if (ptl != null) {
+        try {
+          EntityWrapper entry = new EntityWrapper();
+          entry.setOriginalField("");
+          entry.setClassName(PlaceImpl.class.getName());
+          entry.setContextualEntity(
+              this.getObjectMapper().writeValueAsString(ptl.getRepresentation()));
+          entry.setUrl(place.getCodeUri());
+          entry.setOriginalValue(place.getOriginalLabel());
+          jedis.sadd("place:entity:def:" + place.getLabel(), place.getCodeUri());
+          if (place.getLang() != null) {
+            jedis.sadd("place:entity:" + place.getLang() + ":" + place.getLabel(),
+                place.getCodeUri());
+          }
+          jedis.hset("place:uri", place.getCodeUri(), obj.writeValueAsString(entry));
+          List<String> parents = this.findPlaceParents(ptl.getParent());
+          if (parents != null && parents.size() > 0) {
+            jedis.sadd("place:parent:" + place.getCodeUri(), parents.toArray(new String[]{}));
+          }
+          if (ptl.getOwlSameAs() != null) {
+            for (String sameAs : ptl.getOwlSameAs()) {
+              jedis.hset("place:sameas", sameAs, place.getCodeUri());
+            }
+          }
+        } catch (IOException var10) {
+          var10.printStackTrace();
+        }
+      }
+      i++;
+      if (i % 100 == 0) {
+        LOGGER.info("Places added: " + i + " out of: " + totalPlaces);
+      }
+    }
+    jedis.close();
+  }
+
+  private void loadConcepts() {
+    Jedis jedis = redisProvider.getJedis();
+    List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
+    int totalConcepts = conceptsMongo1.size();
+    LOGGER.info("Found concepts: " + totalConcepts);
+    int i = 0;
+    for (MongoTerm concept : conceptsMongo1) {
+      ConceptTermList ctl = (ConceptTermList) MongoDatabaseUtils
+          .findByCode(concept.getCodeUri(), "concept");
+      if (ctl != null) {
+        try {
+          EntityWrapper i$ = new EntityWrapper();
+          i$.setOriginalField("");
+          i$.setClassName(ConceptImpl.class.getName());
+          i$.setContextualEntity(
+              this.getObjectMapper().writeValueAsString(ctl.getRepresentation()));
+          i$.setUrl(concept.getCodeUri());
+          i$.setOriginalValue(concept.getOriginalLabel());
+          jedis.sadd("concept:entity:def:" + concept.getLabel(), concept.getCodeUri());
+          if (concept.getLang() != null) {
+            jedis.sadd("concept:entity:" + concept.getLang() + ":" + concept.getLabel(),
+                concept.getCodeUri());
+          }
+          jedis.hset("concept:uri", concept.getCodeUri(), obj.writeValueAsString(i$));
+          List<String> parents = this.findConceptParents(ctl.getParent());
+          if (parents != null && parents.size() > 0) {
+            jedis.sadd("concept:parent:" + concept.getCodeUri(), parents.toArray(new String[]{}));
+          }
+          if (ctl.getOwlSameAs() != null) {
+            for (String sameAs : ctl.getOwlSameAs()) {
+              jedis.hset("concept:sameas", sameAs, concept.getCodeUri());
+            }
+          }
+        } catch (IOException var12) {
+          var12.printStackTrace();
+        }
+      }
+      i++;
+      if (i % 100 == 0) {
+        LOGGER.info("Concepts added: " + i + " out of: " + totalConcepts);
+      }
+
+    }
+    jedis.close();
+  }
+
+  private void loadAgents() {
+    Jedis jedis = redisProvider.getJedis();
+    LOGGER.info("Initializing population of Redis from Mongo.");
+
+    List<MongoTerm> agentsMongo = MongoDatabaseUtils.getAllAgents();
+    int totalAgents = agentsMongo.size();
+    LOGGER.info("Found agents: " + totalAgents);
+    int i = 0;
+    for (MongoTerm agent : agentsMongo) {
+      AgentTermList atl = (AgentTermList) MongoDatabaseUtils
+          .findByCode(agent.getCodeUri(), "people");
+      if (atl != null) {
+        try {
+          EntityWrapper ag = new EntityWrapper();
+          ag.setOriginalField("");
+          ag.setClassName(AgentImpl.class.getName());
+          ag.setContextualEntity(
+              this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
+          ag.setUrl(agent.getCodeUri());
+          ag.setOriginalValue(agent.getOriginalLabel());
+          jedis.sadd("agent:entity:def:" + agent.getLabel(), agent.getCodeUri());
+          if (agent.getLang() != null) {
+            jedis.sadd("agent:entity:" + agent.getLang() + ":" + agent.getLabel(),
+                agent.getCodeUri());
+          }
+          jedis.hset("agent:uri", agent.getCodeUri(), obj.writeValueAsString(ag));
+          List<String> parents = this.findAgentParents(atl.getParent());
+          if (parents != null && parents.size() > 0) {
+            jedis.sadd("agent:parent:" + agent.getCodeUri(), parents.toArray(new String[]{}));
+          }
+          if (atl.getOwlSameAs() != null) {
+            for (String sameAs : atl.getOwlSameAs()) {
+              jedis.hset("agent:sameas", sameAs, agent.getCodeUri());
+            }
+          }
+        } catch (IOException var14) {
+          var14.printStackTrace();
+        }
+      }
+      i++;
+      if (i % 100 == 0) {
+        LOGGER.info("Agents added: " + i + " out of: " + totalAgents);
+      }
+    }
+    jedis.close();
+  }
+
 
   /**
-   * The internal enrichment functionality not to be exposed yet as there is a
-   * strong dependency to the external resources to recreate the DB The
-   * enrichment is performed by lowercasing every value so that searchability
-   * in the DB is enhanced, but the Capitalized version is always retrieved
+   * The internal enrichment functionality not to be exposed yet as there is a strong dependency to
+   * the external resources to recreate the DB The enrichment is performed by lowercasing every
+   * value so that searchability in the DB is enhanced, but the Capitalized version is always
+   * retrieved
    *
    * @param values The values to enrich
    * @return A list of enrichments
@@ -351,6 +363,9 @@ public class RedisInternalEnricher {
 
     List<EntityWrapper> entities = new ArrayList<EntityWrapper>();
     for (InputValue inputValue : values) {
+      if (inputValue.getVocabularies() == null) {
+        continue;
+      }
       for (EntityClass voc : inputValue.getVocabularies()) {
         entities.addAll(findEntities(inputValue.getValue()
             .toLowerCase(), inputValue.getOriginalField(), voc, inputValue.getLanguage()));
@@ -382,8 +397,7 @@ public class RedisInternalEnricher {
   }
 
   private List<EntityWrapper> findConceptEntities(String value,
-      String originalField, String lang) throws JsonGenerationException,
-      JsonMappingException, IOException {
+      String originalField, String lang) throws IOException {
     Set<EntityWrapper> concepts = new HashSet<>();
 
     Jedis jedis = redisProvider.getJedis();
@@ -413,7 +427,7 @@ public class RedisInternalEnricher {
   }
 
   private List<String> findConceptParents(String parent)
-      throws JsonGenerationException, JsonMappingException, IOException {
+      throws IOException {
     ArrayList parentEntities = new ArrayList();
     MongoTermList parents = MongoDatabaseUtils.findByCode(parent, "concept");
     if (parents != null) {
@@ -427,8 +441,7 @@ public class RedisInternalEnricher {
   }
 
   private List<? extends EntityWrapper> findAgentEntities(String value,
-      String originalField, String lang) throws JsonGenerationException,
-      JsonMappingException, IOException {
+      String originalField, String lang) throws IOException {
     Set agents = new HashSet<>();
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
@@ -461,8 +474,7 @@ public class RedisInternalEnricher {
     return list;
   }
 
-  private List<String> findAgentParents(String parent)
-      throws JsonGenerationException, JsonMappingException, IOException {
+  private List<String> findAgentParents(String parent) throws IOException {
     ArrayList parentEntities = new ArrayList();
     MongoTermList parents = MongoDatabaseUtils.findByCode(parent, "people");
     if (parents != null) {
@@ -476,8 +488,7 @@ public class RedisInternalEnricher {
   }
 
   private List<? extends EntityWrapper> findPlaceEntities(String value,
-      String originalField, String lang) throws JsonGenerationException,
-      JsonMappingException, IOException {
+      String originalField, String lang) throws IOException {
     Set places = new HashSet<>();
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
@@ -509,8 +520,7 @@ public class RedisInternalEnricher {
     return list;
   }
 
-  private List<String> findPlaceParents(String parent)
-      throws JsonGenerationException, JsonMappingException, IOException {
+  private List<String> findPlaceParents(String parent) throws IOException {
     ArrayList parentEntities = new ArrayList();
     MongoTermList parents = MongoDatabaseUtils.findByCode(parent, "place");
     if (parents != null) {
@@ -525,8 +535,7 @@ public class RedisInternalEnricher {
 
 
   private List<? extends EntityWrapper> findTimespanEntities(String value,
-      String originalField, String lang) throws JsonGenerationException,
-      JsonMappingException, IOException {
+      String originalField, String lang) throws IOException {
     Set timespans = new HashSet<>();
     if (StringUtils.isEmpty(lang) || lang.length() != 2) {
       lang = "def";
@@ -560,7 +569,7 @@ public class RedisInternalEnricher {
   }
 
   private List<String> findTimespanParents(String parent)
-      throws JsonGenerationException, JsonMappingException, IOException {
+      throws IOException {
     ArrayList parentEntities = new ArrayList();
     MongoTermList parents = MongoDatabaseUtils.findByCode(parent, "period");
     if (parents != null) {

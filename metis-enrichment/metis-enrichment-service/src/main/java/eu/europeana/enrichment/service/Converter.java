@@ -44,9 +44,10 @@ public class Converter {
       return convertAgent(wrapper.getContextualEntity());
     } else if (wrapper.getClassName().equals(PlaceImpl.class.getName())) {
       return convertPlace(wrapper.getContextualEntity());
-    } else {
+    } else if (wrapper.getClassName().equals(TimespanImpl.class.getName())) {
       return convertTimespan(wrapper.getContextualEntity());
     }
+    return null;
   }
 
   private Timespan convertTimespan(String contextualEntity)

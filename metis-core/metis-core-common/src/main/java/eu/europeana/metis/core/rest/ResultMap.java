@@ -1,8 +1,7 @@
 package eu.europeana.metis.core.rest;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import java.util.Map;
+import javax.xml.bind.annotation.XmlElement;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -10,8 +9,7 @@ import java.util.Map;
  */
 public class ResultMap<T> {
 
-  @JacksonXmlElementWrapper(useWrapping = false)
-  @JacksonXmlProperty(localName = "results")
+  @XmlElement(name = "results")
   private Map<String, T> results;
 
   public ResultMap(Map<String, T> results) {

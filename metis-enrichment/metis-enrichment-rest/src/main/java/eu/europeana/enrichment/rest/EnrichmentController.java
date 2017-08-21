@@ -29,6 +29,8 @@ import eu.europeana.metis.RestEndpoints;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.List;
 
@@ -72,7 +74,10 @@ public class EnrichmentController {
   @ResponseStatus(value = HttpStatus.OK)
   @RequestMapping(value = RestEndpoints.ENRICHMENT_DELETE, method = RequestMethod.DELETE)
   @ApiOperation(value = "Delete a list of URIs")
-  public void delete(@ApiParam @RequestBody UriList values) throws Exception {
+  @ApiResponses(value = {
+      @ApiResponse(code = 400, message = "Error processing the result")
+  })
+  public void delete(@RequestBody UriList values)  {
     remover.remove(values.getUris());
   }
 
@@ -86,8 +91,11 @@ public class EnrichmentController {
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EnrichmentBase.class )
   @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 400, message = "Error processing the result")
+  })
   public EnrichmentBase getByUri(@ApiParam("uri") @RequestParam("uri") String uri)
-      throws EnrichmentException {
+      throws EnrichmentException{
 
     EntityWrapper wrapper = enricher.getByUri(uri);
     if (wrapper == null) {
@@ -97,7 +105,8 @@ public class EnrichmentController {
     try {
      return converter.convert(wrapper);
     } catch (IOException e) {
-      throw new EnrichmentException();
+      LOGGER.error("Error converting object.", e);
+      throw new EnrichmentException(e.getMessage());
     }
   }
 
@@ -112,6 +121,9 @@ public class EnrichmentController {
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ResponseBody
   @ApiOperation(value = "Enrich a series of field value pairs", response = EnrichmentResultList.class)
+  @ApiResponses(value = {
+      @ApiResponse(code = 400, message = "Error processing the result")
+  })
   public EnrichmentResultList enrich(@ApiParam("input") @RequestBody InputValueList input)
       throws EnrichmentException {
 
@@ -119,11 +131,8 @@ public class EnrichmentController {
       List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
       return converter.convert(wrapperList);
     } catch (IOException e) {
-      throw new EnrichmentException();
-
+      LOGGER.error("Error converting object.", e);
+      throw new EnrichmentException(e.getMessage());
     }
   }
-
-
-
 }

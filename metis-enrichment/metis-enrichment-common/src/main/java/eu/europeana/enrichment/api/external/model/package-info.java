@@ -1,5 +1,5 @@
 @XmlSchema(
-    namespace = "http://poc.cmc.com/ScreenLayout",
+    namespace = "http://www.europeana.eu/schemas/metis",
     elementFormDefault = XmlNsForm.QUALIFIED,
     xmlns = {
         @XmlNs(prefix = "metis", namespaceURI = "http://www.europeana.eu/schemas/metis"),

@@ -126,115 +126,106 @@ public class MemcachedInternalEnricher {
         List<MongoTerm> agentsMongo = MongoDatabaseUtils.getAllAgents();
         System.out.println("Found agents: " + agentsMongo.size());
         for (MongoTerm agent : agentsMongo) {
-            try {
-                AgentTermList atl = (AgentTermList) MongoDatabaseUtils.findByCode(agent.getCodeUri(), "people");
-                if (atl != null) {
-                    try {
-                        EntityWrapper ag = new EntityWrapper();
-                        ag.setOriginalField("");
-                        ag.setClassName(AgentImpl.class.getName());
-                        ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
-                        ag.setUrl(agent.getCodeUri());
-                        ag.setOriginalValue(agent.getOriginalLabel());
-                        List<String> agentDefLabel = (List<String>) client.get("agent:entity:def:"+StringUtils.replace(agent.getLabel()," ",""));
-                        if(agentDefLabel==null){
-                            agentDefLabel = new ArrayList<>();
-                        }
-                        agentDefLabel.add(agent.getCodeUri());
-                        client.add("agent:entity:def:"+StringUtils.replace(agent.getLabel()," ",""),1000000,agentDefLabel);
-                        List<String> agentCodeUri = (List<String>)client.get("agent:entity:"+agent.getCodeUri());
-                        if(agent.getCodeUri()==null){
-                            agentCodeUri = new ArrayList<>();
-                        }
-                        agentCodeUri.add("agent:entity:def:"+StringUtils.replace(agent.getLabel()," ",""));
-                        client.add("agent:entity:"+agent.getCodeUri(),1000000,agentCodeUri);
-                        if(agent.getLang()!=null){
-                            List<String> agentLangLabel = (List<String>) client.get("agent:entity:"+agent.getLang()+":"+
-                                    StringUtils.replace(agent.getLabel()," ",""));
-                            if(agentLangLabel==null){
-                                agentLangLabel = new ArrayList<>();
-                            }
-                            agentLangLabel.add(agent.getCodeUri());
-                            client.add("agent:entity:"+agent.getLang()+":"+StringUtils.replace(agent.getLabel()," ",""),1000000,agentLangLabel);
-                        }
-                        client.add("agent:uri:"+agent.getCodeUri(),1000000,obj.writeValueAsString(ag));
 
-                        List<String> parents = this.findAgentParents(atl.getParent());
-                        if(parents!=null && parents.size()>0) {
-                            client.add("agent:parent:" + agent.getCodeUri(),1000000, parents);
-                        }
-
-
-                        if (atl.getOwlSameAs() != null) {
-                            for (String sameAs : atl.getOwlSameAs()) {
-                                client.add("agent:sameas:"+sameAs,1000000,agent.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var14) {
-                        var14.printStackTrace();
+            AgentTermList atl = (AgentTermList) MongoDatabaseUtils.findByCode(agent.getCodeUri(), "people");
+            if (atl != null) {
+                try {
+                    EntityWrapper ag = new EntityWrapper();
+                    ag.setOriginalField("");
+                    ag.setClassName(AgentImpl.class.getName());
+                    ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
+                    ag.setUrl(agent.getCodeUri());
+                    ag.setOriginalValue(agent.getOriginalLabel());
+                    List<String> agentDefLabel = (List<String>) client.get("agent:entity:def:"+StringUtils.replace(agent.getLabel()," ",""));
+                    if(agentDefLabel==null){
+                        agentDefLabel = new ArrayList<>();
                     }
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+                    agentDefLabel.add(agent.getCodeUri());
+                    client.add("agent:entity:def:"+StringUtils.replace(agent.getLabel()," ",""),1000000,agentDefLabel);
+                    List<String> agentCodeUri = (List<String>)client.get("agent:entity:"+agent.getCodeUri());
+                    if(agent.getCodeUri()==null){
+                        agentCodeUri = new ArrayList<>();
+                    }
+                    agentCodeUri.add("agent:entity:def:"+StringUtils.replace(agent.getLabel()," ",""));
+                    client.add("agent:entity:"+agent.getCodeUri(),1000000,agentCodeUri);
+                    if(agent.getLang()!=null){
+                        List<String> agentLangLabel = (List<String>) client.get("agent:entity:"+agent.getLang()+":"+
+                                StringUtils.replace(agent.getLabel()," ",""));
+                        if(agentLangLabel==null){
+                            agentLangLabel = new ArrayList<>();
+                        }
+                        agentLangLabel.add(agent.getCodeUri());
+                        client.add("agent:entity:"+agent.getLang()+":"+StringUtils.replace(agent.getLabel()," ",""),1000000,agentLangLabel);
+                    }
+                    client.add("agent:uri:"+agent.getCodeUri(),1000000,obj.writeValueAsString(ag));
 
+                    List<String> parents = this.findAgentParents(atl.getParent());
+                    if(parents!=null && parents.size()>0) {
+                        client.add("agent:parent:" + agent.getCodeUri(),1000000, parents);
+                    }
+
+
+                    if (atl.getOwlSameAs() != null) {
+                        for (String sameAs : atl.getOwlSameAs()) {
+                            client.add("agent:sameas:"+sameAs,1000000,agent.getCodeUri());
+                        }
+                    }
+                } catch (IOException var14) {
+                    var14.printStackTrace();
+                }
+            }
         }
 
 
         List<MongoTerm> conceptsMongo1 = MongoDatabaseUtils.getAllConcepts();
         System.out.println("Found concepts: " + conceptsMongo1.size());
         for (MongoTerm concept : conceptsMongo1) {
-            try {
-                ConceptTermList atl = (ConceptTermList) MongoDatabaseUtils.findByCode(concept.getCodeUri(), "concept");
-                if (atl != null) {
-                    try {
-                        EntityWrapper ag = new EntityWrapper();
-                        ag.setOriginalField("");
-                        ag.setClassName(ConceptImpl.class.getName());
-                        ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
-                        ag.setUrl(concept.getCodeUri());
-                        ag.setOriginalValue(concept.getOriginalLabel());
-                        List<String> agentDefLabel = (List<String>) client.get("concept:entity:def:"+StringUtils.replace(concept.getLabel()," ",""));
-                        if(agentDefLabel==null){
-                            agentDefLabel = new ArrayList<>();
-                        }
-                        agentDefLabel.add(concept.getCodeUri());
-                        client.add("concept:entity:def:"+StringUtils.replace(concept.getLabel()," ",""),1000000,agentDefLabel);
-                        List<String> agentCodeUri = (List<String>)client.get("concept:entity:"+concept.getCodeUri());
-                        if(concept.getCodeUri()==null){
-                            agentCodeUri = new ArrayList<>();
-                        }
-                        agentCodeUri.add("concept:entity:def:"+StringUtils.replace(concept.getLabel()," ",""));
-                        client.add("concept:entity:"+concept.getCodeUri(),1000000,agentCodeUri);
-                        if(concept.getLang()!=null){
-                            List<String> agentLangLabel = (List<String>) client.get("concept:entity:"+concept.getLang()+":"+StringUtils.replace(concept.getLabel()," ",""));
-                            if(agentLangLabel==null){
-                                agentLangLabel = new ArrayList<>();
-                            }
-                            agentLangLabel.add(concept.getCodeUri());
-                            client.add("concept:entity:"+concept.getLang()+":"+StringUtils.replace(concept.getLabel()," ",""),1000000,agentLangLabel);
-                        }
-                        client.add("concept:uri:"+concept.getCodeUri(),1000000,obj.writeValueAsString(ag));
-
-                        List<String> parents = this.findAgentParents(atl.getParent());
-                        if(parents!=null && parents.size()>0) {
-                            client.add("concept:parent:" + concept.getCodeUri(),1000000, parents);
-                        }
-
-
-                        if (atl.getOwlSameAs() != null) {
-                            for (String sameAs : atl.getOwlSameAs()) {
-                                client.add("concept:sameas:"+sameAs,1000000,concept.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var14) {
-                        var14.printStackTrace();
+            ConceptTermList atl = (ConceptTermList) MongoDatabaseUtils.findByCode(concept.getCodeUri(), "concept");
+            if (atl != null) {
+                try {
+                    EntityWrapper ag = new EntityWrapper();
+                    ag.setOriginalField("");
+                    ag.setClassName(ConceptImpl.class.getName());
+                    ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
+                    ag.setUrl(concept.getCodeUri());
+                    ag.setOriginalValue(concept.getOriginalLabel());
+                    List<String> agentDefLabel = (List<String>) client.get("concept:entity:def:"+StringUtils.replace(concept.getLabel()," ",""));
+                    if(agentDefLabel==null){
+                        agentDefLabel = new ArrayList<>();
                     }
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
+                    agentDefLabel.add(concept.getCodeUri());
+                    client.add("concept:entity:def:"+StringUtils.replace(concept.getLabel()," ",""),1000000,agentDefLabel);
+                    List<String> agentCodeUri = (List<String>)client.get("concept:entity:"+concept.getCodeUri());
+                    if(concept.getCodeUri()==null){
+                        agentCodeUri = new ArrayList<>();
+                    }
+                    agentCodeUri.add("concept:entity:def:"+StringUtils.replace(concept.getLabel()," ",""));
+                    client.add("concept:entity:"+concept.getCodeUri(),1000000,agentCodeUri);
+                    if(concept.getLang()!=null){
+                        List<String> agentLangLabel = (List<String>) client.get("concept:entity:"+concept.getLang()+":"+StringUtils.replace(concept.getLabel()," ",""));
+                        if(agentLangLabel==null){
+                            agentLangLabel = new ArrayList<>();
+                        }
+                        agentLangLabel.add(concept.getCodeUri());
+                        client.add("concept:entity:"+concept.getLang()+":"+StringUtils.replace(concept.getLabel()," ",""),1000000,agentLangLabel);
+                    }
+                    client.add("concept:uri:"+concept.getCodeUri(),1000000,obj.writeValueAsString(ag));
 
+                    List<String> parents = this.findAgentParents(atl.getParent());
+                    if(parents!=null && parents.size()>0) {
+                        client.add("concept:parent:" + concept.getCodeUri(),1000000, parents);
+                    }
+
+
+                    if (atl.getOwlSameAs() != null) {
+                        for (String sameAs : atl.getOwlSameAs()) {
+                            client.add("concept:sameas:"+sameAs,1000000,concept.getCodeUri());
+                        }
+                    }
+                } catch (IOException var14) {
+                    var14.printStackTrace();
+                }
+            }
         }
 
 
@@ -242,110 +233,102 @@ public class MemcachedInternalEnricher {
         System.out.println("Found places: " + placesMongo2.size());
 
         for (MongoTerm place : placesMongo2) {
-            try {
-                PlaceTermList atl = (PlaceTermList) MongoDatabaseUtils.findByCode(place.getCodeUri(), "place");
-                if (atl != null) {
-                    try {
-                        EntityWrapper ag = new EntityWrapper();
-                        ag.setOriginalField("");
-                        ag.setClassName(PlaceImpl.class.getName());
-                        ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
-                        ag.setUrl(place.getCodeUri());
-                        ag.setOriginalValue(place.getOriginalLabel());
-                        List<String> agentDefLabel = (List<String>) client.get("place:entity:def:"+StringUtils.replace(place.getLabel()," ",""));
-                        if(agentDefLabel==null){
-                            agentDefLabel = new ArrayList<>();
-                        }
-                        agentDefLabel.add(place.getCodeUri());
-                        client.add("place:entity:def:"+StringUtils.replace(place.getLabel()," ",""),1000000,agentDefLabel);
-                        List<String> agentCodeUri = (List<String>)client.get("place:entity:"+place.getCodeUri());
-                        if(place.getCodeUri()==null){
-                            agentCodeUri = new ArrayList<>();
-                        }
-                        agentCodeUri.add("place:entity:def:"+StringUtils.replace(place.getLabel()," ",""));
-                        client.add("place:entity:"+place.getCodeUri(),1000000,agentCodeUri);
-                        if(place.getLang()!=null){
-                            List<String> agentLangLabel = (List<String>) client.get("place:entity:"+place.getLang()+":"+StringUtils.replace(place.getLabel()," ",""));
-                            if(agentLangLabel==null){
-                                agentLangLabel = new ArrayList<>();
-                            }
-                            agentLangLabel.add(place.getCodeUri());
-                            client.add("place:entity:"+place.getLang()+":"+StringUtils.replace(place.getLabel()," ",""),1000000,agentLangLabel);
-                        }
-                        client.add("place:uri:"+place.getCodeUri(),1000000,obj.writeValueAsString(ag));
-
-                        List<String> parents = this.findAgentParents(atl.getParent());
-                        if(parents!=null && parents.size()>0) {
-                            client.add("place:parent:" + place.getCodeUri(),1000000, parents);
-                        }
-
-
-                        if (atl.getOwlSameAs() != null) {
-                            for (String sameAs : atl.getOwlSameAs()) {
-                                client.add("place:sameas:"+sameAs,1000000,place.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var14) {
-                        var14.printStackTrace();
+            PlaceTermList atl = (PlaceTermList) MongoDatabaseUtils.findByCode(place.getCodeUri(), "place");
+            if (atl != null) {
+                try {
+                    EntityWrapper ag = new EntityWrapper();
+                    ag.setOriginalField("");
+                    ag.setClassName(PlaceImpl.class.getName());
+                    ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
+                    ag.setUrl(place.getCodeUri());
+                    ag.setOriginalValue(place.getOriginalLabel());
+                    List<String> agentDefLabel = (List<String>) client.get("place:entity:def:"+StringUtils.replace(place.getLabel()," ",""));
+                    if(agentDefLabel==null){
+                        agentDefLabel = new ArrayList<>();
                     }
+                    agentDefLabel.add(place.getCodeUri());
+                    client.add("place:entity:def:"+StringUtils.replace(place.getLabel()," ",""),1000000,agentDefLabel);
+                    List<String> agentCodeUri = (List<String>)client.get("place:entity:"+place.getCodeUri());
+                    if(place.getCodeUri()==null){
+                        agentCodeUri = new ArrayList<>();
+                    }
+                    agentCodeUri.add("place:entity:def:"+StringUtils.replace(place.getLabel()," ",""));
+                    client.add("place:entity:"+place.getCodeUri(),1000000,agentCodeUri);
+                    if(place.getLang()!=null){
+                        List<String> agentLangLabel = (List<String>) client.get("place:entity:"+place.getLang()+":"+StringUtils.replace(place.getLabel()," ",""));
+                        if(agentLangLabel==null){
+                            agentLangLabel = new ArrayList<>();
+                        }
+                        agentLangLabel.add(place.getCodeUri());
+                        client.add("place:entity:"+place.getLang()+":"+StringUtils.replace(place.getLabel()," ",""),1000000,agentLangLabel);
+                    }
+                    client.add("place:uri:"+place.getCodeUri(),1000000,obj.writeValueAsString(ag));
+
+                    List<String> parents = this.findAgentParents(atl.getParent());
+                    if(parents!=null && parents.size()>0) {
+                        client.add("place:parent:" + place.getCodeUri(),1000000, parents);
+                    }
+
+
+                    if (atl.getOwlSameAs() != null) {
+                        for (String sameAs : atl.getOwlSameAs()) {
+                            client.add("place:sameas:"+sameAs,1000000,place.getCodeUri());
+                        }
+                    }
+                } catch (IOException var14) {
+                    var14.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
         }
 
         List<MongoTerm> timespanMongo3 = MongoDatabaseUtils.getAllTimespans();
         System.out.println("Found timespans: " + timespanMongo3.size());
         for (MongoTerm timespan : timespanMongo3) {
-            try {
-                TimespanTermList atl = (TimespanTermList) MongoDatabaseUtils.findByCode(timespan.getCodeUri(), "period");
-                if (atl != null) {
-                    try {
-                        EntityWrapper ag = new EntityWrapper();
-                        ag.setOriginalField("");
-                        ag.setClassName(TimespanImpl.class.getName());
-                        ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
-                        ag.setUrl(timespan.getCodeUri());
-                        ag.setOriginalValue(timespan.getOriginalLabel());
-                        List<String> agentDefLabel = (List<String>) client.get("timespan:entity:def:"+StringUtils.replace(timespan.getLabel()," ",""));
-                        if(agentDefLabel==null){
-                            agentDefLabel = new ArrayList<>();
-                        }
-                        agentDefLabel.add(timespan.getCodeUri());
-                        client.add("timespan:entity:def:"+StringUtils.replace(timespan.getLabel()," ",""),1000000,agentDefLabel);
-                        List<String> agentCodeUri = (List<String>)client.get("timespan:entity:"+timespan.getCodeUri());
-                        if(timespan.getCodeUri()==null){
-                            agentCodeUri = new ArrayList<>();
-                        }
-                        agentCodeUri.add("timespan:entity:def:"+timespan.getLabel());
-                        client.add("timespan:entity:"+timespan.getCodeUri(),1000000,agentCodeUri);
-                        if(timespan.getLang()!=null){
-                            List<String> agentLangLabel = (List<String>) client.get("timespan:entity:"+timespan.getLang()+":"+StringUtils.replace(timespan.getLabel()," ",""));
-                            if(agentLangLabel==null){
-                                agentLangLabel = new ArrayList<>();
-                            }
-                            agentLangLabel.add(timespan.getCodeUri());
-                            client.add("timespan:entity:"+timespan.getLang()+":"+StringUtils.replace(timespan.getLabel()," ",""),1000000,agentLangLabel);
-                        }
-                        client.add("timespan:uri:"+timespan.getCodeUri(),1000000,obj.writeValueAsString(ag));
-
-                        List<String> parents = this.findAgentParents(atl.getParent());
-                        if(parents!=null && parents.size()>0) {
-                            client.add("timespan:parent:" + timespan.getCodeUri(),1000000, parents);
-                        }
-
-
-                        if (atl.getOwlSameAs() != null) {
-                            for (String sameAs : atl.getOwlSameAs()) {
-                                client.add("timespan:sameas:"+sameAs,1000000,timespan.getCodeUri());
-                            }
-                        }
-                    } catch (IOException var14) {
-                        var14.printStackTrace();
+            TimespanTermList atl = (TimespanTermList) MongoDatabaseUtils.findByCode(timespan.getCodeUri(), "period");
+            if (atl != null) {
+                try {
+                    EntityWrapper ag = new EntityWrapper();
+                    ag.setOriginalField("");
+                    ag.setClassName(TimespanImpl.class.getName());
+                    ag.setContextualEntity(this.getObjectMapper().writeValueAsString(atl.getRepresentation()));
+                    ag.setUrl(timespan.getCodeUri());
+                    ag.setOriginalValue(timespan.getOriginalLabel());
+                    List<String> agentDefLabel = (List<String>) client.get("timespan:entity:def:"+StringUtils.replace(timespan.getLabel()," ",""));
+                    if(agentDefLabel==null){
+                        agentDefLabel = new ArrayList<>();
                     }
+                    agentDefLabel.add(timespan.getCodeUri());
+                    client.add("timespan:entity:def:"+StringUtils.replace(timespan.getLabel()," ",""),1000000,agentDefLabel);
+                    List<String> agentCodeUri = (List<String>)client.get("timespan:entity:"+timespan.getCodeUri());
+                    if(timespan.getCodeUri()==null){
+                        agentCodeUri = new ArrayList<>();
+                    }
+                    agentCodeUri.add("timespan:entity:def:"+timespan.getLabel());
+                    client.add("timespan:entity:"+timespan.getCodeUri(),1000000,agentCodeUri);
+                    if(timespan.getLang()!=null){
+                        List<String> agentLangLabel = (List<String>) client.get("timespan:entity:"+timespan.getLang()+":"+StringUtils.replace(timespan.getLabel()," ",""));
+                        if(agentLangLabel==null){
+                            agentLangLabel = new ArrayList<>();
+                        }
+                        agentLangLabel.add(timespan.getCodeUri());
+                        client.add("timespan:entity:"+timespan.getLang()+":"+StringUtils.replace(timespan.getLabel()," ",""),1000000,agentLangLabel);
+                    }
+                    client.add("timespan:uri:"+timespan.getCodeUri(),1000000,obj.writeValueAsString(ag));
+
+                    List<String> parents = this.findAgentParents(atl.getParent());
+                    if(parents!=null && parents.size()>0) {
+                        client.add("timespan:parent:" + timespan.getCodeUri(),1000000, parents);
+                    }
+
+
+                    if (atl.getOwlSameAs() != null) {
+                        for (String sameAs : atl.getOwlSameAs()) {
+                            client.add("timespan:sameas:"+sameAs,1000000,timespan.getCodeUri());
+                        }
+                    }
+                } catch (IOException var14) {
+                    var14.printStackTrace();
                 }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             }
         }
 

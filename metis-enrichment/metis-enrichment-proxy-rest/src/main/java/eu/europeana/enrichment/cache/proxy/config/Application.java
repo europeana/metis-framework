@@ -51,6 +51,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.mongo}")
   private String enrichmentMongo;
+  @Value("${enrichment.mongoPort:27017}")
+  private int enrichmentPort;
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
@@ -91,7 +93,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), true);
+    return new RedisInternalEnricher(enrichmentMongo, enrichmentPort, getRedisProvider(), true);
   }
 
   @Bean
