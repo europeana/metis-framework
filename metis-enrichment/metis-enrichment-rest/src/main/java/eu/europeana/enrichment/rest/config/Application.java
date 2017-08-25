@@ -16,6 +16,7 @@
  */
 package eu.europeana.enrichment.rest.config;
 
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
@@ -34,6 +35,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -138,6 +140,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   EnrichmentProxyClient getEnrichmentProxyClient() {
     return new EnrichmentProxyClient(enrichmentProxyUrl);
+  }
+
+  @Bean
+  public Jackson2ObjectMapperBuilder objectMapperBuilder() {
+    Jackson2ObjectMapperBuilder builder = new Jackson2ObjectMapperBuilder();
+    JaxbAnnotationModule module = new JaxbAnnotationModule();
+    builder.modules(module);
+    return builder;
   }
 
   @Bean

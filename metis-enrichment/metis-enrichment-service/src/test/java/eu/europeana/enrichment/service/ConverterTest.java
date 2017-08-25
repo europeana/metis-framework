@@ -75,6 +75,7 @@ public class ConverterTest {
     impl.setAbout("myAbout");
     impl.setRelated(new String []{"a", "b"});
     impl.setRelatedMatch(new String []{"1", "2"});
+
     wrapper.setClassName(ConceptImpl.class.getName());
 
     Converter converter = new Converter();

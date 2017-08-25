@@ -137,11 +137,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
-  @Bean
-  EnrichmentClient getEnrichmentDriver() {
-    return new EnrichmentClient(enrichmentUrl);
-  }
-
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("swagger-ui.html")
@@ -166,11 +161,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   MongoClient getVocabularyMongoClient() {
     return mongoProviderVocabulary.getMongo();
-  }
-
-  @Bean
-  RdfRetriever getRdfRetriever() {
-    return new RdfRetriever();
   }
 
   @Bean

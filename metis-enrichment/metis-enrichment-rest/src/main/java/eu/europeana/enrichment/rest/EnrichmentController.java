@@ -34,6 +34,8 @@ import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.List;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.Produces;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,6 +92,7 @@ public class EnrichmentController {
   @RequestMapping(value = RestEndpoints.ENRICHMENT_BYURI, method = RequestMethod.GET,
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ApiOperation(value = "Retrieve an entity by URI or its sameAs", response = EnrichmentBase.class )
+  @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 400, message = "Error processing the result")
@@ -120,6 +123,8 @@ public class EnrichmentController {
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
       produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ResponseBody
+  @Consumes({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ApiOperation(value = "Enrich a series of field value pairs", response = EnrichmentResultList.class)
   @ApiResponses(value = {
       @ApiResponse(code = 400, message = "Error processing the result")

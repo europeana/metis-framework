@@ -33,6 +33,11 @@
             <artifactId>jackson-annotations</artifactId>
             <version>${version.jackson}</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
 
         <dependency>
             <groupId>eu.europeana.metis</groupId>

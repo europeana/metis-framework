@@ -43,6 +43,9 @@ public class InputValue {
 
 	private List<EntityClass> vocabularies;
 
+	public InputValue() {
+	}
+
 	public String getOriginalField() {
 		return originalField;
 	}
