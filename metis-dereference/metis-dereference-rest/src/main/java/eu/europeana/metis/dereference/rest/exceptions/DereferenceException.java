@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class DereferenceException extends RuntimeException {
 
     public DereferenceException(String message, String uri){
-        super("Dereferencing failed for uri: "+ uri+" with root cause:\n"+message);
+        super("Dereferencing failed for uri: "+ uri+" with root cause: " + message);
     }
 
 }

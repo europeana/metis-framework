@@ -17,8 +17,10 @@
 package eu.europeana.metis.dereference.rest.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -28,29 +30,26 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Generic Exception Handler
  * Created by ymamakis on 2/25/16.
- */
-@Controller
-public class ExceptionHandlerController {
+ **/
+@ControllerAdvice
+public class RestResponseExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
     @ResponseBody
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ServerError handleException(HttpServletRequest req, Exception exception){
-        return new ServerError(exception.getMessage(),req.getRequestURI());
+    @ExceptionHandler(Exception.class)
+    public ServerError handleResponse(HttpServletResponse response,HttpServletRequest req,
+        Exception exception) {
+        response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return new ServerError(exception.getMessage());
     }
-
 }
-
 
 class ServerError{
 
     @JsonProperty(value = "errorMessage")
     private String message;
-    @JsonProperty(value = "requestURI")
-    private String uri;
-    public  ServerError(String message, String uri){
+
+    public  ServerError(String message){
         this.message = message;
-        this.uri = uri;
     }
 
     public String getMessage() {
@@ -59,13 +58,5 @@ class ServerError{
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
     }
 }
