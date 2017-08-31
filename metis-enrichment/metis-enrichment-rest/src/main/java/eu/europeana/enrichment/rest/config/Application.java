@@ -17,7 +17,6 @@
 package eu.europeana.enrichment.rest.config;
 
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import eu.europeana.enrichment.rest.client.EnrichmentProxyClient;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
@@ -135,11 +134,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
     return new RedisInternalEnricher(enrichmentMongo, enrichmentMongoPort, getRedisProvider(), false);
-  }
-
-  @Bean
-  EnrichmentProxyClient getEnrichmentProxyClient() {
-    return new EnrichmentProxyClient(enrichmentProxyUrl);
   }
 
   @Bean

@@ -191,6 +191,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
+        .useDefaultResponseMessages(false)
         .select()
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.regex("/.*"))
