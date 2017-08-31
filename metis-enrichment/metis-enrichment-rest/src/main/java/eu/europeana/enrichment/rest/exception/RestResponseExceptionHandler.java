@@ -1,6 +1,6 @@
 package eu.europeana.enrichment.rest.exception;
 
-import eu.europeana.metis.core.exceptions.StructuredExceptionWrapper;
+import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
