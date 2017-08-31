@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.enrichment.rest.client.main;
+package eu.europeana.enrichment.rest.client;
 
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
@@ -28,7 +28,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnrichmentClient {
+public class EnrichmentClientMainTest {
 
 	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
 
