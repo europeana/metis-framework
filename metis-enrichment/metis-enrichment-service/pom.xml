@@ -42,11 +42,11 @@
             <name>Maven Repository</name>
             <url>http://repo1.maven.org/maven2/</url>
         </repository>
-        <repository>
-            <id>ibiblio.org</id>
-            <name>Maven Repository Mirror</name>
-            <url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>
-        </repository>
+        <!--<repository>-->
+            <!--<id>ibiblio.org</id>-->
+            <!--<name>Maven Repository Mirror</name>-->
+            <!--<url>http://mirrors.ibiblio.org/pub/mirrors/maven2/</url>-->
+        <!--</repository>-->
     </repositories>
     <build>
         <plugins>
