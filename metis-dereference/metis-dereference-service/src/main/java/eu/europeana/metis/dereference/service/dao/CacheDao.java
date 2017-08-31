@@ -19,6 +19,8 @@ package eu.europeana.metis.dereference.service.dao;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.dereference.ProcessedEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 
 import java.io.IOException;
@@ -30,10 +32,9 @@ import java.io.IOException;
  */
 
 public class CacheDao implements AbstractDao<ProcessedEntity> {
+    private static final Logger LOGGER = LoggerFactory.getLogger(CacheDao.class);
     private Jedis jedis;
     private ObjectMapper om = new ObjectMapper();
-
-
 
     public CacheDao(Jedis jedis){
         this.jedis = jedis;
@@ -47,7 +48,7 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
                 return om.readValue(entity, ProcessedEntity.class);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warn("Unable to read entity " + uri, e);
         }
         return null;
     }
@@ -57,7 +58,7 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
         try {
             jedis.set(entity.getURI(), om.writeValueAsString(entity));
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            LOGGER.warn("Unable to save entity" , e);
         }
     }
 

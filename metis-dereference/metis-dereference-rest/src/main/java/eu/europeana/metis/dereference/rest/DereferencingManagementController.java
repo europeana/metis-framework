@@ -18,6 +18,7 @@ package eu.europeana.metis.dereference.rest;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.DereferencingManagementService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,12 +39,13 @@ import static eu.europeana.metis.RestEndpoints.*;
  */
 @Controller
 @Api("/")
-
 public class DereferencingManagementController {
+    private final DereferencingManagementService service;
 
     @Autowired
-    private MongoDereferencingManagementService service;
-
+    public DereferencingManagementController(DereferencingManagementService service) {
+        this.service = service;
+    }
     /**
      * Save a vocabulary
      * @param vocabulary The vocabulary to save
@@ -54,9 +56,7 @@ public class DereferencingManagementController {
     @ApiOperation(value = "Save a vocabulary")
     public void saveVocabulary(@ApiParam @RequestBody Vocabulary vocabulary){
         service.saveVocabulary(vocabulary);
-
     }
-
 
     /**
      * Update a vocabulary
@@ -132,7 +132,8 @@ public class DereferencingManagementController {
     }
 
     /**
-     * Empty Cache
+     * Empty Cache. This will remove ALL entries in the cache (Redis). If the same redis instance/cluster
+     * is used for multiple services then the cache for other services is cleared as well.
      * @return OK
      */
     @RequestMapping(value=CACHE_EMPTY,method = RequestMethod.DELETE)

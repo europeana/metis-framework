@@ -187,61 +187,64 @@
     <module>metis-normalization</module>
   </modules>
   <repositories>
+
+    <!--Release repositories-->
     <repository>
       <id>libs-release-local</id>
-      <name>artifactory.eanadev.org-releases</name>
+      <name>libs-release-local</name>
       <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
-    <!-- Europeana Labs UIM external libraries repository -->
     <repository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-releases</name>
+      <id>ext-release-local</id>
+      <name>ext-release-local</name>
       <url>http://artifactory.eanadev.org/artifactory/ext-release-local</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>uim-releases-local</id>
+      <name>UIM Releases Repository</name>
+      <url>http://artifactory.eanadev.org/artifactory/uim-releases-local</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
       <snapshots>
         <enabled>false</enabled>
       </snapshots>
     </repository>
 
+    <!--Snapshot repositories-->
     <repository>
       <id>ext-snapshots-local</id>
-      <name>artifactory.eanadev.org-snapshot</name>
+      <name>ext-snapshot-local</name>
       <url>http://artifactory.eanadev.org/artifactory/ext-snapshot-local</url>
       <releases>
         <enabled>false</enabled>
       </releases>
-    </repository>
-
-
-    <!-- Europeana Labs Java.net Maven 2 Repository (mirror) -->
-    <repository>
-      <id>maven2-repository.dev.java.net</id>
-      <name>Java.net Maven 2 Repository (mirror)</name>
-      <url>http://artifactory.eanadev.org/artifactory/java.net.m2</url>
-    </repository>
-
-
-    <!-- Europeana Labs UIM releases repository -->
-    <repository>
-      <id>uim-releases-local</id>
-      <name>UIM Releases Repository</name>
       <snapshots>
-        <enabled>false</enabled>
+        <enabled>true</enabled>
       </snapshots>
-      <url>http://artifactory.eanadev.org/artifactory/uim-releases-local</url>
     </repository>
-
-
-    <!-- Europeana Labs Core snapshot libraries -->
     <repository>
-      <id>artifactory.eanadev.org.corelibs.eu.snapshot</id>
-      <name>artifactory.eanadev.org.libs-snapshot-local</name>
+      <id>libs-snapshot-local</id>
+      <name>libs-snapshot-local</name>
       <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
       <releases>
         <enabled>false</enabled>
       </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
     </repository>
     <repository>
       <id>sonatype-snapshots</id>
@@ -250,6 +253,17 @@
       <releases>
         <enabled>false</enabled>
       </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+
+
+    <!--Release and snapshot repositories-->
+    <repository>
+      <id>maven2-repository.dev.java.net</id>
+      <name>Java.net Maven 2 Repository (mirror)</name>
+      <url>http://artifactory.eanadev.org/artifactory/java.net.m2</url>
     </repository>
   </repositories>
 
@@ -289,7 +303,7 @@
     <version.gson>2.8.0</version.gson>
     <version.openstack>1.9.0</version.openstack>
     <version.swagger>2.6.1</version.swagger>
-    <version.jackson>2.8.8</version.jackson>
+    <version.jackson>2.9.0</version.jackson>
     <version.powermock>1.6.4</version.powermock>
     <version.mockito>1.10.19</version.mockito>
     <version.corelib>2.6.1-SNAPSHOT</version.corelib>

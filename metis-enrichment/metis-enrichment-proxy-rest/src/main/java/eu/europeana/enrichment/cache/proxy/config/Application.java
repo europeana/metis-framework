@@ -27,7 +27,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import springfox.documentation.builders.PathSelectors;
+import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
+import springfox.documentation.spi.DocumentationType;
+import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Spring configuration class
@@ -37,20 +46,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = {"eu.europeana.enrichment.cache.proxy"})
 @PropertySource("classpath:enrichment.proxy.properties")
 @EnableWebMvc
+@EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
   @Value("${enrichment.mongo}")
   private String enrichmentMongo;
+  @Value("${enrichment.mongoPort:27017}")
+  private int enrichmentPort;
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
   private int redisPort;
-  //@Value("${redis.password}")
+  @Value("${redis.password:\"\"}")
   private String redisPassword;
-  //@Value("${memcache.host}")
-  private String memcacheHost;
-  //@Value("${memcache.port}")
-  private int memcachePort;
 
   private RedisProvider redisProvider;
 
@@ -64,24 +72,56 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("swagger-ui.html")
+        .addResourceLocations("classpath:/META-INF/resources/");
+    registry.addResourceHandler("/webjars/**")
+        .addResourceLocations("classpath:/META-INF/resources/webjars/");
+  }
+
+  @Bean
   RedisProvider getRedisProvider() {
     redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
     return redisProvider;
   }
 
-  // MemcachedProvider getMemcachedProvider(){return new MemcachedProvider(memcacheHost,memcachePort);}
   @Bean(name = "redisInternalEnricher")
   RedisInternalEnricher getRedisInternalEnricher() {
-    return new RedisInternalEnricher(enrichmentMongo, getRedisProvider(), true);
+    return new RedisInternalEnricher(enrichmentMongo, enrichmentPort, getRedisProvider(), true);
   }
 
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
   }
-  //@Bean(name = "memcachedInternalEnricher")
-  //MemcachedInternalEnricher getMemcachedInternalEnricher(){
-  //    return new MemcachedInternalEnricher(enrichmentMongo,getMemcachedProvider());
-  //}
 
+  @Bean
+  public Docket api() {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .select()
+        .apis(RequestHandlerSelectors.any())
+        .paths(PathSelectors.regex("/.*"))
+        .build()
+        .apiInfo(apiInfo());
+  }
+
+  private ApiInfo apiInfo() {
+    Contact contact = new Contact("Europeana", "http://www.europeana.eu", "development@europeana.eu");
+    ApiInfo apiInfo = new ApiInfo(
+        "Enrichment Cache REST API",
+        "Enrichment cache management for Europeana",
+        "v1",
+        "API TOS",
+        contact,
+        "EUPL Licence v1.1",
+        ""
+    );
+    return apiInfo;
+  }
 }

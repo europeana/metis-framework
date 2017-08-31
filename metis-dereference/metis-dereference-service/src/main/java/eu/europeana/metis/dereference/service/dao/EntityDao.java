@@ -30,7 +30,6 @@ import org.mongodb.morphia.query.UpdateOperations;
 
 public class EntityDao implements AbstractDao<OriginalEntity> {
 
-
     private Datastore ds;
 
     public EntityDao(MongoClient mongo, String db) {

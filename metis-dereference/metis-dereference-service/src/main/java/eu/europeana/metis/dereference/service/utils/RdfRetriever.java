@@ -17,22 +17,25 @@
 package eu.europeana.metis.dereference.service.utils;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * Helper class to retrieve a remote unmapped entity
  * Created by ymamakis on 2/11/16.
  */
 
+@Service
 public class RdfRetriever {
-    Logger logger = Logger.getLogger(RdfRetriever.class);
-    /**
+    private static final Logger LOGGER = LoggerFactory.getLogger(RdfRetriever.class);
+     /**
      * Retrieve a remote entity from a resource as a String
      * @param resource The remote entity to retrieve
      * @return The string representation of the remote entity
@@ -52,7 +55,7 @@ public class RdfRetriever {
                 return writer.toString();
 
             } catch (IOException e) {
-                logger.error("Failed to retrieve: " + resource + " with message: " +e.getMessage());
+                LOGGER.error("Failed to retrieve: " + resource + " with message: " +e.getMessage());
             }
         }
         return "";

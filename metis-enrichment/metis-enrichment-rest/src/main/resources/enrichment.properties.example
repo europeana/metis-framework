@@ -3,4 +3,5 @@ redis.host=
 redis.port=
 redis.password=
 enrichment.mongoDb=
+enrichment.mongoPort=
 enrichment.proxy.url=

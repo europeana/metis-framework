@@ -17,12 +17,10 @@
 package eu.europeana.enrichment.api.external;
 
 import org.bson.types.ObjectId;
+import java.io.IOException;
 import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.ser.std.SerializerBase;
-
-import java.io.IOException;
 
 /**
  * ObjectId mapper class for correct serialization of org.bson.types.ObjectId to
@@ -39,8 +37,7 @@ public class ObjectIdSerializer extends SerializerBase<ObjectId> {
 
 	@Override
 	public void serialize(ObjectId value, JsonGenerator jgen,
-			SerializerProvider provider) throws IOException,
-			JsonProcessingException {
+			SerializerProvider provider) throws IOException {
 		jgen.writeString(value.toString());
 
 	}

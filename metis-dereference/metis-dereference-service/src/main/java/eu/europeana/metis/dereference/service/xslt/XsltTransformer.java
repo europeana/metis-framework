@@ -46,6 +46,7 @@ public class XsltTransformer {
     public String transform(String record, String xslt) throws TransformerException, ParserConfigurationException {
         TransformerFactory factory = TransformerFactory.newInstance();
         Templates template = factory.newTemplates(new StreamSource(new ByteArrayInputStream(xslt.getBytes())));
+
         Transformer xformer = template.newTransformer();
         Source source = new StreamSource(new ByteArrayInputStream(record.getBytes()));
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();

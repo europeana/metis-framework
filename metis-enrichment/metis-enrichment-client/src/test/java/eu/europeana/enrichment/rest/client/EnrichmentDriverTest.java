@@ -42,7 +42,7 @@
 //		Properties props = new Properties();
 //		props.load(new FileInputStream("src/test/resources/test.properties"));
 //		String basePath = props.getProperty("base.path");
-//		EnrichmentDriver driver = new EnrichmentDriver(basePath+"/");
+//		EnrichmentClient driver = new EnrichmentClient(basePath+"/");
 //		List<InputValue> values = prepareValues();
 //
 //		List<EntityWrapper> lst = driver

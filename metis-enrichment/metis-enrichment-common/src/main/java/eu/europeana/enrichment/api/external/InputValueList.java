@@ -16,7 +16,12 @@
  */
 package eu.europeana.enrichment.api.external;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRootName;
 import eu.europeana.metis.utils.InputValue;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,8 +33,15 @@ import java.util.List;
  *
  */
 @JsonSerialize
-@XmlRootElement
+@JsonRootName(value="inputValueList")
+@XmlRootElement(name="inputValueList")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class InputValueList {
+
+	public InputValueList() { }
+
+	@XmlElement(name = "inputValue")
+	@JsonProperty("inputValue")
 	private List<InputValue> inputValueList;
 
 	public List<InputValue> getInputValueList() {

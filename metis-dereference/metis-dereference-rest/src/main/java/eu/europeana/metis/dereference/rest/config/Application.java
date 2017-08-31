@@ -20,7 +20,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-import eu.europeana.enrichment.rest.client.EnrichmentDriver;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.service.MongoDereferenceService;
 import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
@@ -29,7 +29,6 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
@@ -39,10 +38,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -139,26 +137,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
-  @Bean
-  EnrichmentDriver getEnrichmentDriver() {
-    return new EnrichmentDriver(enrichmentUrl);
-  }
-
-  MongoClient getEntityMongoClient() {
-    return mongoProviderEntity.getMongo();
-  }
-
-  MongoClient getVocabularyMongoClient() {
-    return mongoProviderVocabulary.getMongo();
-  }
-
-  @Override
-  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-    converters.add(new MappingJackson2HttpMessageConverter());
-
-    super.configureMessageConverters(converters);
-  }
-
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("swagger-ui.html")
@@ -167,9 +145,22 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
+  }
+
   @Bean
-  RdfRetriever getRdfRetriever() {
-    return new RdfRetriever();
+  EnrichmentClient getEnrichmentClient() {
+    return new EnrichmentClient(enrichmentUrl);
+  }
+
+  MongoClient getEntityMongoClient() {
+    return mongoProviderEntity.getMongo();
+  }
+
+  MongoClient getVocabularyMongoClient() {
+    return mongoProviderVocabulary.getMongo();
   }
 
   @Bean
@@ -193,16 +184,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  MongoDereferenceService getMongoDereferenceService() {
-    return new MongoDereferenceService();
-  }
-
-  @Bean
-  MongoDereferencingManagementService getMongoDereferencingManagementService() {
-    return new MongoDereferencingManagementService();
-  }
-
-  @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
   }
@@ -210,6 +191,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public Docket api() {
     return new Docket(DocumentationType.SWAGGER_2)
+        .useDefaultResponseMessages(false)
         .select()
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.regex("/.*"))

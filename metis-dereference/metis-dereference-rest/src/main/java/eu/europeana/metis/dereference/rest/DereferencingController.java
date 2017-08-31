@@ -16,12 +16,14 @@
  */
 package eu.europeana.metis.dereference.rest;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
+import eu.europeana.metis.dereference.service.DereferenceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import javax.xml.bind.JAXBException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +35,6 @@ import javax.xml.transform.TransformerException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -43,9 +44,12 @@ import java.util.List;
 @Controller
 @Api("/")
 public class DereferencingController {
-    @Autowired
-    private MongoDereferenceService mongoDereferenceService;
+    private final DereferenceService dereferenceService;
 
+    @Autowired
+    public DereferencingController(DereferenceService dereferenceService) {
+        this.dereferenceService = dereferenceService;
+    }
 
     /**
      * Dereference a record given a URI
@@ -53,13 +57,20 @@ public class DereferencingController {
      * @param uri The uri of the entity
      * @return The dereferenced entities
      */
-    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.DEREFERENCE)
+    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.DEREFERENCE,
+        produces = {
+            org.springframework.http.MediaType.APPLICATION_JSON_VALUE,
+            org.springframework.http.MediaType.APPLICATION_XML_VALUE} )
     @ResponseBody
-    @ApiOperation(value = "Dereference a URI", response = String.class)
+    @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<String> dereference(@ApiParam("uri") @RequestParam("uri") String uri) throws DereferenceException {
+    public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String uri)
+        throws DereferenceException, JAXBException {
         try {
-            return mongoDereferenceService.dereference(URLDecoder.decode(uri, "UTF-8"));
+            EnrichmentResultList x = dereferenceService
+                .dereference(URLDecoder.decode(uri, "UTF-8"));
+            return x;
+            //return dereferenceService.dereference(URLDecoder.decode(uri, "UTF-8"));
         } catch (TransformerException | ParserConfigurationException | IOException e) {
             throw new DereferenceException(e.getMessage(), uri);
         }
@@ -71,16 +82,26 @@ public class DereferencingController {
      * @param uris The uris to dereference
      * @return The dereferenced entities
      */
-    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.DEREFERENCE)
+    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.DEREFERENCE,
+        consumes = {
+            org.springframework.http.MediaType.APPLICATION_JSON_VALUE,
+            org.springframework.http.MediaType.APPLICATION_XML_VALUE},
+        produces = {
+            org.springframework.http.MediaType.APPLICATION_JSON_VALUE,
+            org.springframework.http.MediaType.APPLICATION_XML_VALUE} )
     @ResponseBody
-    @ApiOperation(value = "Dereference a list URI", response = String.class)
+    @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
     @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public List<String> dereference(@RequestBody List<String> uris) throws DereferenceException {
-        List<String> dereferencedEntities = new ArrayList<>();
+    public EnrichmentResultList dereference(@RequestBody List<String> uris)
+        throws DereferenceException, JAXBException {
+        EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
 
         for (String uri : uris) {
             try {
-                dereferencedEntities.addAll(dereference(URLDecoder.decode(uri, "UTF-8")));
+                String decodeUri = URLDecoder.decode(uri, "UTF-8");
+                EnrichmentResultList res = dereference(decodeUri);
+                if (res == null) {continue;}
+                dereferencedEntities.getResult().addAll(res.getResult());
             } catch (UnsupportedEncodingException e) {
                 throw new DereferenceException(e.getMessage(),uri);
             }

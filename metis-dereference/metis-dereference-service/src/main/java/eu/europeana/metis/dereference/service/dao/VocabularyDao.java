@@ -33,7 +33,6 @@ import java.util.List;
 
 public class VocabularyDao {
 
-
     private Datastore ds;
 
     public VocabularyDao(MongoClient mongo, String db) {
@@ -41,7 +40,6 @@ public class VocabularyDao {
         morphia.map(Vocabulary.class);
 
         ds = morphia.createDatastore(mongo, db);
-
     }
 
     /**

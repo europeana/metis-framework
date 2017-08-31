@@ -16,10 +16,11 @@
  */
 package eu.europeana.metis.dereference.service;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import javax.xml.bind.JAXBException;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.List;
 
 /**
  * Dereferencing service
@@ -32,5 +33,6 @@ public interface DereferenceService {
      * @param uri The uri to dereference
      * @return The dereferenced entity
      */
-    <T>List<T> dereference(String uri) throws TransformerException, ParserConfigurationException, IOException;
+    <T>EnrichmentResultList dereference(String uri)
+        throws TransformerException, ParserConfigurationException, IOException, JAXBException;
 }

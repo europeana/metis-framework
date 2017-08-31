@@ -1,15 +1,18 @@
 package eu.europeana.metis.exception;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-10
  */
-@JacksonXmlRootElement(localName="error")
+@XmlRootElement(name="error")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class StructuredExceptionWrapper {
-  @JacksonXmlProperty
+  @XmlElement
   private String errorMessage;
 
   public StructuredExceptionWrapper(String errorMessage) {
