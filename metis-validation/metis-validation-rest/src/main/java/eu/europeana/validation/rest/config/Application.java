@@ -19,6 +19,7 @@ package eu.europeana.validation.rest.config;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.features.ObjectStorageClient;
 import eu.europeana.features.S3ObjectStorageClient;
 import eu.europeana.features.SwiftObjectStorageClient;
@@ -70,6 +71,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Configuration
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
+  //Socks proxy
+  @Value("${socks.proxy.enabled}")
+  private boolean socksProxyEnabled;
+  @Value("${socks.proxy.host}")
+  private String socksProxyHost;
+  @Value("${socks.proxy.port}")
+  private String socksProxyPort;
+  @Value("${socks.proxy.username}")
+  private String socksProxyUsername;
+  @Value("${socks.proxy.password}")
+  private String socksProxyPassword;
+
   @Value("${mongo.hosts}")
   private String mongoHosts;
   @Value("${mongo.port}")
@@ -117,6 +130,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
+
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(

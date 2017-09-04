@@ -24,6 +24,7 @@ import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.service.ZipService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
@@ -71,6 +72,18 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
+  //Socks proxy
+  @Value("${socks.proxy.enabled}")
+  private boolean socksProxyEnabled;
+  @Value("${socks.proxy.host}")
+  private String socksProxyHost;
+  @Value("${socks.proxy.port}")
+  private String socksProxyPort;
+  @Value("${socks.proxy.username}")
+  private String socksProxyUsername;
+  @Value("${socks.proxy.password}")
+  private String socksProxyPassword;
+
   @Value("${mongo.hosts}")
   private String mongoHosts;
   @Value("${mongo.port}")
@@ -92,6 +105,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
+
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(

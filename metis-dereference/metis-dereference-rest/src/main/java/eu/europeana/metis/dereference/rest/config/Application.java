@@ -20,14 +20,12 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.cache.redis.RedisProvider;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
-import eu.europeana.metis.dereference.service.MongoDereferencingManagementService;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
@@ -60,6 +58,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+
+  //Socks proxy
+  @Value("${socks.proxy.enabled}")
+  private boolean socksProxyEnabled;
+  @Value("${socks.proxy.host}")
+  private String socksProxyHost;
+  @Value("${socks.proxy.port}")
+  private String socksProxyPort;
+  @Value("${socks.proxy.username}")
+  private String socksProxyUsername;
+  @Value("${socks.proxy.password}")
+  private String socksProxyPassword;
 
   //Redis
   @Value("${redis.host}")
@@ -94,6 +104,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
+
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(

@@ -40,6 +40,17 @@
   </build>
   <dependencies>
     <dependency>
+      <groupId>eu.europeana.corelib</groupId>
+      <artifactId>corelib-web</artifactId>
+      <version>${version.corelib}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>solr-solrj</artifactId>
+          <groupId>org.apache.solr</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${version.spring}</version>

@@ -17,6 +17,7 @@
 package eu.europeana.enrichment.rest.config;
 
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
 import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
@@ -60,6 +61,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
   private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
+  //Socks proxy
+  @Value("${socks.proxy.enabled}")
+  private boolean socksProxyEnabled;
+  @Value("${socks.proxy.host}")
+  private String socksProxyHost;
+  @Value("${socks.proxy.port}")
+  private String socksProxyPort;
+  @Value("${socks.proxy.username}")
+  private String socksProxyUsername;
+  @Value("${socks.proxy.password}")
+  private String socksProxyPassword;
+
+  //Redis
   @Value("${redis.host}")
   private String redisHost;
   @Value("${redis.port}")
@@ -82,6 +96,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() {
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
+
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(

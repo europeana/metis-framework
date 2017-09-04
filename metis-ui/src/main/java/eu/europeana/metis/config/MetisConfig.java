@@ -3,6 +3,7 @@ package eu.europeana.metis.config;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.service.ExampleMappingService;
 import eu.europeana.metis.service.MappingService;
@@ -10,8 +11,8 @@ import eu.europeana.metis.ui.ldap.dao.UserDao;
 import eu.europeana.metis.ui.ldap.dao.impl.LdapUserDao;
 import eu.europeana.metis.ui.mongo.dao.MongoUserDao;
 import eu.europeana.metis.ui.mongo.dao.RoleRequestDao;
-import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.domain.RoleRequest;
+import eu.europeana.metis.ui.mongo.domain.User;
 import eu.europeana.metis.ui.mongo.service.UserService;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import javax.annotation.PreDestroy;
@@ -33,6 +34,19 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @Configuration
 @PropertySource("classpath:mongo.properties")
 public class MetisConfig implements InitializingBean {
+
+  //Socks proxy
+  @Value("${socks.proxy.enabled}")
+  private boolean socksProxyEnabled;
+  @Value("${socks.proxy.host}")
+  private String socksProxyHost;
+  @Value("${socks.proxy.port}")
+  private String socksProxyPort;
+  @Value("${socks.proxy.username}")
+  private String socksProxyUsername;
+  @Value("${socks.proxy.password}")
+  private String socksProxyPassword;
+
   //Mongo
   @Value("${mongo.hosts}")
   private String mongoHosts;
@@ -53,6 +67,10 @@ public class MetisConfig implements InitializingBean {
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
+
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
