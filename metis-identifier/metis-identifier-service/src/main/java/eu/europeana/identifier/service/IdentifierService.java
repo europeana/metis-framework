@@ -23,11 +23,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 /**
  * Class used to generate a Europeana identifier
  * Created by ymamakis on 2/8/16.
  */
+@Service
 public class IdentifierService {
 
     @Autowired
@@ -40,7 +42,7 @@ public class IdentifierService {
      * @return A valid Europeana identifier
      */
     public String generateIdentifier(String collectionId, String recordId){
-        return EuropeanaUriUtils.createEuropeanaId(collectionId,recordId);
+        return EuropeanaUriUtils.createSanitizedEuropeanaId(collectionId,recordId);
     }
 
     /**
