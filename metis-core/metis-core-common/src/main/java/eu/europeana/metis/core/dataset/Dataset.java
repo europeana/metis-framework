@@ -18,14 +18,14 @@
 package eu.europeana.metis.core.dataset;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.Date;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -56,12 +56,12 @@ public class Dataset implements HasMongoObjectId {
 
   private boolean deaSigned;
 
-  @XmlElementWrapper(name = "subjects")
-  @XmlElement(name = "subject")
+  @JacksonXmlElementWrapper(localName = "subjects")
+  @JacksonXmlProperty(localName = "subject")
   private List<String> subjects;
 
-  @XmlElementWrapper(name = "sources")
-  @XmlElement(name = "source")
+  @JacksonXmlElementWrapper(localName = "sources")
+  @JacksonXmlProperty(localName = "source")
   private List<String> sources;
 
   private Date createdDate;
@@ -100,8 +100,8 @@ public class Dataset implements HasMongoObjectId {
   /**
    * Data Quality Assurance
    */
-  @XmlElementWrapper(name = "dqas")
-  @XmlElement(name = "dqa")
+  @JacksonXmlElementWrapper(localName = "dqas")
+  @JacksonXmlProperty(localName = "dqa")
   private List<String> dqas;
 
   private HarvestingMetadata harvestingMetadata;

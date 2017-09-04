@@ -2,14 +2,14 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
@@ -47,8 +47,8 @@ public class UserWorkflow implements HasMongoObjectId {
 
   //Plugins information
   @ApiModelProperty(position = 6)
-  @XmlElementWrapper(name = "metisPluginsMetadatas")
-  @XmlElement(name = "metisPluginsMetadata")
+  @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
+  @JacksonXmlProperty(localName = "metisPluginsMetadata")
   private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();
 
   public ObjectId getId() {

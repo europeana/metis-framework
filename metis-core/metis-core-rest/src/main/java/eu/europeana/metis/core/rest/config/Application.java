@@ -67,6 +67,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
@@ -301,6 +302,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
     super.configureMessageConverters(converters);
+  }
+
+  @Override
+  public void addViewControllers(ViewControllerRegistry registry) {
+    registry.addRedirectViewController("/", "swagger-ui.html");
   }
 
   @Override

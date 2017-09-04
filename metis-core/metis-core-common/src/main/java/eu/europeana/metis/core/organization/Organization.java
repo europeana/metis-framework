@@ -18,7 +18,8 @@
 package eu.europeana.metis.core.organization;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Domain;
@@ -34,8 +35,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlElements;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
@@ -74,8 +73,8 @@ public class Organization implements HasMongoObjectId {
     private String acronym;
 
     @Indexed
-    @XmlElementWrapper(name = "organizationRoles")
-    @XmlElement(name = "organizationRole")
+    @JacksonXmlElementWrapper(localName = "organizationRoles")
+    @JacksonXmlProperty(localName = "organizationRole")
     private List<OrganizationRole> organizationRoles;
 
     /**
@@ -88,14 +87,14 @@ public class Organization implements HasMongoObjectId {
     private String updatedByLdapId;
 
     @Embedded
-    @XmlElementWrapper(name = "prefLabels")
+    @JacksonXmlProperty(localName = "prefLabels")
     private List<PrefLabel> prefLabel;
 
     @Embedded
-    @XmlElementWrapper(name = "altLabels")
+    @JacksonXmlProperty(localName = "altLabels")
     private List<AltLabel> altLabel;
 
-    @XmlElementWrapper(name = "sameAsList")
+    @JacksonXmlProperty(localName = "sameAsList")
     private String[] sameAs;
 
     private String description;

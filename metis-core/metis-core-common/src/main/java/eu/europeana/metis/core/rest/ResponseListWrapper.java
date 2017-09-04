@@ -1,9 +1,9 @@
 package eu.europeana.metis.core.rest;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -12,8 +12,8 @@ import javax.xml.bind.annotation.XmlElementWrapper;
 
 public class ResponseListWrapper<T extends HasMongoObjectId> {
 
-  @XmlElementWrapper(name = "Results")
-  @XmlElement(name = "Result")
+  @JacksonXmlElementWrapper(localName = "Results")
+  @JacksonXmlProperty(localName = "Result")
   private List<T> results;
   private String nextPage;
   private int listSize;

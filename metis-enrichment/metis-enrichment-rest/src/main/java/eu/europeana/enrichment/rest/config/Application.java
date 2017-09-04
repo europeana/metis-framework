@@ -16,6 +16,7 @@
  */
 package eu.europeana.enrichment.rest.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
@@ -174,7 +175,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .select()
         .apis(RequestHandlerSelectors.any())
         .paths(PathSelectors.regex("/.*"))
-
         .build()
         .apiInfo(apiInfo());
   }
