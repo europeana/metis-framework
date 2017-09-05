@@ -21,6 +21,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.cache.redis.JedisProviderUtils;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.core.api.MetisKey;
@@ -89,6 +90,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
+  //Socks proxy
+  @Value("${socks.proxy.enabled}")
+  private boolean socksProxyEnabled;
+  @Value("${socks.proxy.host}")
+  private String socksProxyHost;
+  @Value("${socks.proxy.port}")
+  private String socksProxyPort;
+  @Value("${socks.proxy.username}")
+  private String socksProxyUsername;
+  @Value("${socks.proxy.password}")
+  private String socksProxyPassword;
+
   //Redis
   @Value("${redis.host}")
   private String redisHost;
@@ -128,6 +141,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws Exception {
+    if (socksProxyEnabled) {
+      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    }
+
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(

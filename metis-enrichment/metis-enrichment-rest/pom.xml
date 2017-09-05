@@ -29,6 +29,17 @@
 
     <dependencies>
         <dependency>
+            <groupId>eu.europeana.corelib</groupId>
+            <artifactId>corelib-web</artifactId>
+            <version>${version.corelib}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>solr-solrj</artifactId>
+                    <groupId>org.apache.solr</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-annotations</artifactId>
             <version>${version.jackson}</version>

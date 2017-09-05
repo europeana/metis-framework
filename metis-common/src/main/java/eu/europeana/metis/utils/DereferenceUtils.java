@@ -153,7 +153,7 @@ public class DereferenceUtils {
       }
     }
     if (proxyType.getCurrentLocation() != null) {
-      values.add(extractValueFromResource(proxyType.getCurrentLocation()));
+      values.add(extractValueFromResourceOrLiteral(proxyType.getCurrentLocation()));
     }
     if (proxyType.getChoiceList() != null) {
       List<ProxyType.Choice> choices = proxyType.getChoiceList();
@@ -251,13 +251,13 @@ public class DereferenceUtils {
     Set<String> values = new HashSet<>();
     if (tsList != null) {
       for (TimeSpanType ts : tsList) {
-        values.addAll(dereferenceTimeSpanList(ts));
+        values.addAll(extractListOfValuesFromListFields(ts));
       }
     }
     return values;
   }
 
-  private static Set<String> dereferenceTimeSpanList(TimeSpanType ts) {
+  private static Set<String> extractListOfValuesFromListFields(TimeSpanType ts) {
     Set<String> values = new HashSet<>();
     values.add(ts.getAbout());
     if (ts.getHasPartList() != null) {

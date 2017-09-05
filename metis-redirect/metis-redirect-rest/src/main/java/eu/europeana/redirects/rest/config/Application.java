@@ -23,6 +23,7 @@ import eu.europeana.corelib.lookup.impl.EuropeanaIdMongoServerImpl;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.tools.lookuptable.CollectionMongoServer;
 import eu.europeana.corelib.tools.lookuptable.EuropeanaIdMongoServer;
+import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.redirects.service.RedirectService;
 import eu.europeana.redirects.service.mongo.MongoRedirectService;
@@ -58,6 +59,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
+    //Socks proxy
+    @Value("${socks.proxy.enabled}")
+    private boolean socksProxyEnabled;
+    @Value("${socks.proxy.host}")
+    private String socksProxyHost;
+    @Value("${socks.proxy.port}")
+    private String socksProxyPort;
+    @Value("${socks.proxy.username}")
+    private String socksProxyUsername;
+    @Value("${socks.proxy.password}")
+    private String socksProxyPassword;
+
     @Value("${mongo.hosts}")
     private String mongoHosts;
     @Value("${mongo.port}")
@@ -86,6 +99,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
      */
     @Override
     public void afterPropertiesSet() throws Exception {
+        if (socksProxyEnabled) {
+            new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+        }
+
         String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
         if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
             PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
