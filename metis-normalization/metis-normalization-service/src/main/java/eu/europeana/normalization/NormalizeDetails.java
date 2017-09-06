@@ -52,11 +52,11 @@ public class NormalizeDetails {
 
     /**
      * @param normalizeds
-     * @param f
+     * @param confidence
      * @return
      */
     public static List<NormalizeDetails> newList(List<String> normalizeds, float confidence) {
-        List<NormalizeDetails> res = new ArrayList<NormalizeDetails>();
+        List<NormalizeDetails> res = new ArrayList<>();
         for (String v : normalizeds)
             res.add(new NormalizeDetails(v, confidence));
         return res;

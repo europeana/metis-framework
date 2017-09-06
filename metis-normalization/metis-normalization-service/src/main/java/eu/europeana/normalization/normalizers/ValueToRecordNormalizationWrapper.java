@@ -73,8 +73,8 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
 				put("edm", Namespaces.EDM);
 			}}, "/rdf:RDF/ore:Proxy[not(edm:europeanaProxy='true')]");
 	
-	List<XpathQuery> targetElements;
-	ValueNormalization normalization;
+	private List<XpathQuery> targetElements;
+	private ValueNormalization normalization;
 	boolean normalizeToEuropeanaProxy;
 	
 	public ValueToRecordNormalizationWrapper(ValueNormalization normalization, boolean normalizeToEuropeanaProxy, XpathQuery... targetElements) {

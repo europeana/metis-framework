@@ -18,6 +18,7 @@ package eu.europeana.normalization.config;
 
 
 import eu.europeana.normalization.NormalizationService;
+import eu.europeana.normalization.NormalizationServiceImpl;
 import eu.europeana.normalization.cleaning.DuplicateStatementCleaning;
 import eu.europeana.normalization.cleaning.MarkupTagsCleaning;
 import eu.europeana.normalization.cleaning.TrimAndEmptyValueCleaning;
@@ -77,7 +78,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
     ChainedNormalization chainedNormalizer = new ChainedNormalization(spacesCleaner.toEdmRecordNormalizer(), markupStatementsCleaner.toEdmRecordNormalizer(), dupStatementsCleaner, languageNorm.toEdmRecordNormalizer());
 
-    return new NormalizationService(chainedNormalizer);
+    return new NormalizationServiceImpl(chainedNormalizer);
 
   }
   @Override

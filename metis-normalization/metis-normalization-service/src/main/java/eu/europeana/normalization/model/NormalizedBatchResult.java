@@ -11,8 +11,7 @@ public class NormalizedBatchResult {
 	NormalizationReport report;
 	List<String> normalizedRecordsInEdmXml;
 	int errors=0;
-	
-	
+
 	public NormalizedBatchResult() {
 		normalizedRecordsInEdmXml=new ArrayList<>();
 	}
