@@ -91,6 +91,7 @@ public final class RestEndpoints {
   public final static String XSL_MAPPINGID = "/xsl/{mappingId}";
   public final static String VALIDATE_DELETE_ATTRIBUTE_FLAG = "/mapping/validation/{mappingId}/attribute/{value}";
   public final static String VALIDATE_DELETE_ELEMENT_FLAG = "/mapping/validation/{mappingId}/element/{value}";
+  public final static String NORMALIZATION = "/normalizeEdmInternal";
 
   /* METIS SCHEMA VALIDATION ENDPOINT */
   public final static String SCHEMA_VALIDATE = "/schema/validate/{schema}/{version}";
@@ -106,6 +107,7 @@ public final class RestEndpoints {
 
   /* METIS LINKCHECK SERVICE ENDPOINT*/
   public final static String LINKCHECK = "/linkcheck";
+
 
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {
