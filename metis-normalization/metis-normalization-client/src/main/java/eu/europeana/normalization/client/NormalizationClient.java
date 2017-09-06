@@ -1,5 +1,6 @@
 package eu.europeana.normalization.client;
 
+import eu.europeana.metis.RestEndpoints;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ public class NormalizationClient {
 
 	public NormalizedBatchResult normalize(List<String> edmXmlRecords) throws Exception {
         WebTarget target = client.target(config.getNormalizationServiceUrl()).path(
-                "normalization/normalizeEdmInternal");
+            RestEndpoints.NORMALIZATION);
 
         
         String json = jsonMapper.writeValueAsString(edmXmlRecords);

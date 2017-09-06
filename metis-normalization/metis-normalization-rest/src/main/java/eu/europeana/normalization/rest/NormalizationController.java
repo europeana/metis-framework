@@ -18,6 +18,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -27,17 +28,17 @@ import org.w3c.dom.Document;
 @Api(basePath = "/", value = "EDM Record Normalization API for Metis")
 @Produces({MediaType.APPLICATION_JSON + "; charset=UTF-8"})
 @RestController
-public class NormalizationResource {
+public class NormalizationController {
 
   private final NormalizationService normalizationService;
 
   @Autowired
-  public NormalizationResource(NormalizationService normalizationService) {
+  public NormalizationController(NormalizationService normalizationService) {
     this.normalizationService = normalizationService;
   }
 
   static org.apache.log4j.Logger log = org.apache.log4j.Logger
-      .getLogger(NormalizationResource.class);
+      .getLogger(NormalizationController.class);
 
 
   @ResponseStatus(value = HttpStatus.OK)
@@ -48,7 +49,7 @@ public class NormalizationResource {
       notes = "Applies a preset list of data cleaning and normalization operations, to the submited records.",
       response = NormalizedBatchResult.class)
   public NormalizedBatchResult normalizeEdmInternal(
-      @ApiParam(value = "List of EDM records in Strings containing XML", required = true) List<String> records)
+      @ApiParam(value = "List of EDM records in Strings containing XML", required = true) @RequestBody List<String> records)
       throws Exception {
     try {
       List<NormalizedRecordResult> result = new ArrayList<>();

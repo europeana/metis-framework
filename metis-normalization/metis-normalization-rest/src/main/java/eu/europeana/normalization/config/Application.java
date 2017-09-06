@@ -112,13 +112,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private ApiInfo apiInfo() {
     ApiInfo apiInfo = new ApiInfo(
         "EDM Record Normalization plugin for Metis",
-        "Applies a preset list of data cleaning and normalization operations to metadata records in EDM.",
+        "Applies a preset list of data cleaning and normalization operations to metadata records in EDM. ",
         "0.2",
         "API TOS",
         "development@europeana.eu",
         "EUPL Licence v1.1",
         ""
     );
+
     return apiInfo;
   }
 

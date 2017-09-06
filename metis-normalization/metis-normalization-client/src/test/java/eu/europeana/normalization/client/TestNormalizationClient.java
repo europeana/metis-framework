@@ -1,6 +1,7 @@
 package eu.europeana.normalization.client;
 
 
+import com.sun.tools.internal.ws.processor.util.DirectoryUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -21,15 +22,21 @@ public class TestNormalizationClient {
 
     public static void main(String[] args) {
     	try {
-            NormalizationClient client = new NormalizationClient("http://localhost:8080/rest/");
+          System.out.println("Working Directory = " +
+              System.getProperty("user.dir"));
+
+            //change to correct uri
+            NormalizationClient client = new NormalizationClient("http://localhost:8080/norm/");
 
             List<String> recs=new ArrayList<>();
-            
-            FileInputStream in = new FileInputStream(new File("src/test/samples/edm-record.xml"));
+
+            //change to correct file location
+            FileInputStream in = new FileInputStream(new File("metis-normalization/metis-normalization-client/src/test/samples/edm-record.xml"));
     		recs.add(IOUtils.toString(in, "UTF-8"));
     		in.close();
 
-    		in = new FileInputStream(new File("src/test/samples/edm-record-internal.xml"));
+        //change to correct file location
+    		in = new FileInputStream(new File("metis-normalization/metis-normalization-client/src/test/samples/edm-record-internal.xml"));
     		recs.add(IOUtils.toString(in, "UTF-8"));
     		in.close();
             
