@@ -11,7 +11,7 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>metis-normalization-util</module>
-		<module>metis-normalization-lib</module>
+		<module>metis-normalization-service</module>
 		<module>metis-normalization-language-lib</module>
 		<module>metis-normalization-cleaning-lib</module>
 		<module>metis-normalization-rest</module>

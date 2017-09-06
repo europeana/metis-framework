@@ -1,7 +1,5 @@
 package eu.europeana.normalization.client;
 
-
-import com.sun.tools.internal.ws.processor.util.DirectoryUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -9,7 +7,6 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
-import eu.europeana.normalization.client.NormalizationClient;
 import eu.europeana.normalization.model.NormalizedBatchResult;
 
 /**

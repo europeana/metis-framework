@@ -17,7 +17,8 @@
 package eu.europeana.validation.service;
 
 import eu.europeana.features.ObjectStorageClient;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
 import java.io.FileInputStream;
@@ -32,7 +33,7 @@ import java.util.Map;
  */
 public class ClasspathResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
-    private static final Logger logger =  Logger.getRootLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ClasspathResourceResolver.class);
     private static Map<String,InputStream> cache;
     @Override
     public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
@@ -60,7 +61,7 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
             return input;
         } catch (Exception e){
             e.printStackTrace();
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         } return null;
     }
     /**

@@ -65,11 +65,11 @@
       <artifactId>metis-normalization-lib</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-normalization-util</artifactId>
-      <version>1.0-SNAPSHOT</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>eu.europeana.metis</groupId>-->
+      <!--<artifactId>metis-normalization-util</artifactId>-->
+      <!--<version>1.0-SNAPSHOT</version>-->
+    <!--</dependency>-->
   </dependencies>
 
 
