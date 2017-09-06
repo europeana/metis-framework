@@ -1,19 +1,30 @@
 package eu.europeana.metis.core.service;
 
+import com.rabbitmq.client.AMQP;
+import com.rabbitmq.client.AMQP.BasicProperties;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Consumer;
+import com.rabbitmq.client.DefaultConsumer;
+import com.rabbitmq.client.Envelope;
+import com.rabbitmq.client.MessageProperties;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.PriorityBlockingQueue;
 import javax.annotation.PreDestroy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -24,10 +35,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserWorkflowExecutorManager implements Runnable {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
+
   private final int maxConcurrentThreads = 2;
   private final int threadPoolSize = 10;
-  private final BlockingQueue<UserWorkflowExecution> userWorkflowExecutionBlockingQueue = new PriorityBlockingQueue<>(
-      10, new UserWorkflowExecution.UserWorkflowExecutionPriorityComparator());
+  private final Channel rabbitmqChannel;
+  private String rabbitmqQueueName;
+//  private final BlockingQueue<UserWorkflowExecution> userWorkflowExecutionBlockingQueue = new PriorityBlockingQueue<>(
+//      10, new UserWorkflowExecution.UserWorkflowExecutionPriorityComparator());
 
   private final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
   private ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
@@ -38,19 +53,36 @@ public class UserWorkflowExecutorManager implements Runnable {
 
   @Autowired
   public UserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel) {
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.rabbitmqChannel = rabbitmqChannel;
   }
 
 
   @Override
   public void run() {
-    int runningThreadsCounter = 0;
-    while (true) {
-      try {
+    Consumer consumer = new DefaultConsumer(rabbitmqChannel) {
+      int runningThreadsCounter = 0;
+
+      @Override
+      public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
+          AMQP.BasicProperties properties, byte[] body)
+          throws IOException {
+        String objectId = new String(body, "UTF-8");
+        UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
+        if (userWorkflowExecution.getWorkflowStatus() != WorkflowStatus.CANCELLED) {
+          UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
+              userWorkflowExecution, userWorkflowExecutionDao, rabbitmqChannel,
+              rabbitmqEnvelope);
+          futuresMap.put(userWorkflowExecution.getId().toString(),
+              completionService.submit(userWorkflowExecutor));
+          runningThreadsCounter++;
+        }
+
         while (runningThreadsCounter >= maxConcurrentThreads) {
           synchronized (futuresMap) {
-            Iterator<Map.Entry<String,Future<UserWorkflowExecution>>> iterator = futuresMap.entrySet().iterator();
+            Iterator<Map.Entry<String, Future<UserWorkflowExecution>>> iterator = futuresMap
+                .entrySet().iterator();
             while (iterator.hasNext()) {
               Future<UserWorkflowExecution> future = iterator.next().getValue();
               if (future.isDone() || future.isCancelled()) {
@@ -61,34 +93,42 @@ public class UserWorkflowExecutorManager implements Runnable {
             }
           }
         }
-
-        UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionBlockingQueue.take();
-        UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(userWorkflowExecution,
-            userWorkflowExecutionDao);
-        futuresMap.put(userWorkflowExecution.getId().toString(), completionService.submit(userWorkflowExecutor));
-        runningThreadsCounter++;
-      } catch (InterruptedException e) {
-        e.printStackTrace();
       }
+    };
+    try {
+      rabbitmqChannel.basicConsume(rabbitmqQueueName, false, consumer);
+    } catch (IOException e) {
+      LOGGER.error("Could not retrieve item from queue.", e);
     }
   }
 
 
-  public void addUserWorkflowExecutionToQueue(UserWorkflowExecution userWorkflowExecution) {
-    userWorkflowExecutionBlockingQueue.add(userWorkflowExecution);
+  public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId) {
+//    userWorkflowExecutionBlockingQueue.add(userWorkflowExecution);
+    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder().priority(1)
+        .build();
+    try {
+      rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
+          userWorkflowExecutionObjectId.getBytes("UTF-8"));
+    } catch (IOException e) {
+      LOGGER.error("UserWorkflowExecution with objectId: {} not added in queue..",
+          userWorkflowExecutionObjectId, e);
+    }
   }
 
-  private boolean removeUserWorkflowExecutionFromQueue(
-      UserWorkflowExecution userWorkflowExecution) {
-    return userWorkflowExecutionBlockingQueue.remove(userWorkflowExecution);
-  }
+//  private boolean removeUserWorkflowExecutionFromQueue(
+//      UserWorkflowExecution userWorkflowExecution) {
+//    return userWorkflowExecutionBlockingQueue.remove(userWorkflowExecution);
+//  }
 
   public void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution)
       throws ExecutionException {
-    removeUserWorkflowExecutionFromQueue(userWorkflowExecution);
+    cancelInqueueUserWorkflowExecution(userWorkflowExecution);
+//    removeUserWorkflowExecutionFromQueue(userWorkflowExecution);
     //Stop the thread running the execution
     synchronized (futuresMap) {
-      Iterator<Map.Entry<String,Future<UserWorkflowExecution>>> iterator = futuresMap.entrySet().iterator();
+      Iterator<Map.Entry<String, Future<UserWorkflowExecution>>> iterator = futuresMap.entrySet()
+          .iterator();
       while (iterator.hasNext()) {
         Entry<String, Future<UserWorkflowExecution>> futureEntry = iterator.next();
         if (futureEntry.getKey().equals(userWorkflowExecution.getId().toString())) {
@@ -98,10 +138,29 @@ public class UserWorkflowExecutorManager implements Runnable {
     }
   }
 
+  private void cancelInqueueUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution)
+  {
+    //Only update the workflow execution status in mongo. When it is retrieved from the queue it will be dropped
+    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
+      userWorkflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
+      for (AbstractMetisPlugin metisPlugin :
+          userWorkflowExecution.getMetisPlugins()) {
+        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
+          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+        }
+      }
+      userWorkflowExecutionDao.update(userWorkflowExecution);
+      LOGGER.info(
+          "Cancelled inqueue user workflow execution with id: " + userWorkflowExecution.getId());
+    }
+  }
+
+  public void setRabbitmqQueueName(String rabbitmqQueueName) {
+    this.rabbitmqQueueName = rabbitmqQueueName;
+  }
+
   @PreDestroy
   public void close() {
-    if (threadPool != null) {
-      threadPool.shutdown();
-    }
+    threadPool.shutdown();
   }
 }

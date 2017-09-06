@@ -108,13 +108,13 @@ public class OrchestratorService {
     }
     userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
-    userWorkflowExecution.setId(new ObjectId(objectId));
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(userWorkflowExecution);
-    LOGGER.info("UserWorkflowExecution with id: %s, added to execution queue", objectId);
+//    userWorkflowExecution.setId(new ObjectId(objectId));
+    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId);
+    LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
   }
 
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
-      UserWorkflow userWorkflow, Integer priority)
+      UserWorkflow userWorkflow, int priority)
       throws UserWorkflowAlreadyExistsException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
     Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
     if (dataset == null) {
@@ -138,8 +138,8 @@ public class OrchestratorService {
     }
     userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
-    userWorkflowExecution.setId(new ObjectId(objectId));
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(userWorkflowExecution);
+//    userWorkflowExecution.setId(new ObjectId(objectId));
+    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId);
     LOGGER.info("UserWorkflowExecution with id: %s, added to execution queue", objectId);
   }
 

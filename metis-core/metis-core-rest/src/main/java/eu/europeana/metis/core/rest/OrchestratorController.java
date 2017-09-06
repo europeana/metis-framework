@@ -156,7 +156,7 @@ public class OrchestratorController {
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
             workflowName, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '%s' with owner '%s' and workflowName '%s' started",
+        "UserWorkflowExecution for datasetName '{}' with owner '{}' and workflowName '{}' started",
         datasetName, owner, workflowName);
   }
 

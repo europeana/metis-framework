@@ -50,7 +50,10 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
 
   @Override
   public UserWorkflowExecution getById(String id) {
-    return null;
+    Query<UserWorkflowExecution> query = provider.getDatastore()
+        .find(UserWorkflowExecution.class)
+        .field("_id").equal(new ObjectId(id));
+    return query.get();
   }
 
   @Override

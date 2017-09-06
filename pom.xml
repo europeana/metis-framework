@@ -291,6 +291,7 @@
 
   <properties>
     <version.betamax>2.0.1</version.betamax>
+    <version.rabbitmq>4.2.0</version.rabbitmq>
     <version.slf4j>1.7.23</version.slf4j>
     <version.log4j>2.8</version.log4j>
     <version.surefire.plugin>2.18</version.surefire.plugin>
