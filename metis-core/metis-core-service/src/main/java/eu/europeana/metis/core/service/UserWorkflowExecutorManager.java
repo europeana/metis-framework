@@ -97,6 +97,7 @@ public class UserWorkflowExecutorManager implements Runnable {
       }
     };
     try {
+      rabbitmqChannel.basicQos(maxConcurrentThreads); // For correct priority
       rabbitmqChannel.basicConsume(rabbitmqQueueName, false, consumer);
     } catch (IOException e) {
       LOGGER.error("Could not retrieve item from queue.", e);
@@ -104,8 +105,8 @@ public class UserWorkflowExecutorManager implements Runnable {
   }
 
 
-  public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId) {
-    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder().priority(1)
+  public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId, int priority) {
+    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder().priority(priority)
         .build();
     try {
       rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
@@ -121,7 +122,7 @@ public class UserWorkflowExecutorManager implements Runnable {
     if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE || userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
       userWorkflowExecutionDao.setCancellingState(userWorkflowExecution);
       LOGGER.info(
-          "Cancelling user workflow execution with id: " + userWorkflowExecution.getId());
+          "Cancelling user workflow execution with id: {}", userWorkflowExecution.getId());
     }
   }
 

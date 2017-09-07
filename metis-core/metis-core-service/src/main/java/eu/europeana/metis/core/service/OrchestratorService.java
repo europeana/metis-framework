@@ -103,13 +103,13 @@ public class OrchestratorService {
         .existsAndNotCompleted(datasetName);
     if (storedUserWorkflowExecutionId != null) {
       throw new UserWorkflowExecutionAlreadyExistsException(
-          "User workflow execution already exists with id " + storedUserWorkflowExecutionId
-              + " and is not completed");
+          String.format("User workflow execution already exists with id %s and is not completed",
+              storedUserWorkflowExecutionId));
     }
     userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
 //    userWorkflowExecution.setId(new ObjectId(objectId));
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId);
+    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
   }
 
@@ -139,7 +139,7 @@ public class OrchestratorService {
     userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
 //    userWorkflowExecution.setId(new ObjectId(objectId));
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId);
+    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("UserWorkflowExecution with id: %s, added to execution queue", objectId);
   }
 
@@ -173,8 +173,9 @@ public class OrchestratorService {
     String storedId = workflowExists(userWorkflow);
     if (StringUtils.isEmpty(storedId)) {
       throw new NoUserWorkflowFoundException(String.format(
-          "UserWorkflow with owner: %s, and workflowName: %s, not found", userWorkflow.getOwner(), userWorkflow
-          .getWorkflowName()));
+          "UserWorkflow with owner: %s, and workflowName: %s, not found", userWorkflow.getOwner(),
+          userWorkflow
+              .getWorkflowName()));
     }
 
     return storedId;
