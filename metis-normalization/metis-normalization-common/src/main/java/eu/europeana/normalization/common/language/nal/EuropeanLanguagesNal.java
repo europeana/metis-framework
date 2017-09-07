@@ -52,6 +52,7 @@ public class EuropeanLanguagesNal {
     try {
       langNalDom = XmlUtil.parseDom(new InputStreamReader(nalFileIn, "UTF-8"));
     } catch (UnsupportedEncodingException e) {
+      LOGGER.error("Unsupported encoding", e);
       throw new RuntimeException(e.getMessage(), e);
     }
     processDom(langNalDom);
@@ -70,30 +71,17 @@ public class EuropeanLanguagesNal {
       l.setIso6392t(XmlUtil.getElementTextByTagName(recordEl, "iso-639-2t"));
       l.setIso6393(XmlUtil.getElementTextByTagName(recordEl, "iso-639-3"));
       Element nameEl = XmlUtil.getElementByTagName(recordEl, "name");
+
       for (Element nameSubEl : XmlUtil.elements(nameEl)) {
         if (nameSubEl.getNodeName().equals("original.name")) {
-          for (Element nameVersionEl : XmlUtil.elements(nameSubEl, "lg.version")) {
-            Label origLabel = new Label(nameVersionEl.getTextContent(),
-                nameVersionEl.getAttribute("lg"),
-                nameVersionEl.getAttribute("script"));
-            l.getOriginalNames().add(origLabel);
-          }
+          l.getOriginalNames().addAll(createLabels(nameSubEl));
         } else if (nameSubEl.getNodeName().equals("alternative.name")) {
-          for (Element nameVersionEl : XmlUtil.elements(nameSubEl, "lg.version")) {
-            Label origLabel = new Label(nameVersionEl.getTextContent(),
-                nameVersionEl.getAttribute("lg"),
-                nameVersionEl.getAttribute("script"));
-            l.getAlternativeNames().add(origLabel);
-          }
-
+          l.getAlternativeNames().addAll(createLabels(nameSubEl));
         }
       }
       Element labelEl = XmlUtil.getElementByTagName(recordEl, "label");
-      for (Element nameVersionEl : XmlUtil.elements(labelEl, "lg.version")) {
-        Label origLabel = new Label(nameVersionEl.getTextContent(),
-            nameVersionEl.getAttribute("lg"), nameVersionEl.getAttribute("script"));
-        l.getLabels().add(origLabel);
-      }
+      l.getLabels().addAll(createLabels(labelEl));
+
       if (!recordEl.getAttribute("deprecated").equals("true")) {
         languages.add(l);
       } else {
@@ -101,6 +89,20 @@ public class EuropeanLanguagesNal {
       }
 // log.info("Missing language code for: "+recordEl.getAttribute("id"));
     }
+  }
+
+  private List<Label> createLabels(Element labelEl) {
+    List<Label> list = new ArrayList<>();
+    for (Element nameVersionEl : XmlUtil.elements(labelEl, "lg.version")) {
+      list.add(createLabel(nameVersionEl));
+    }
+    return list;
+  }
+
+  private Label createLabel(Element nameVersionEl) {
+    return new Label(nameVersionEl.getTextContent(),
+        nameVersionEl.getAttribute("lg"),
+        nameVersionEl.getAttribute("script"));
   }
 
   public List<NalLanguage> getLanguages() {

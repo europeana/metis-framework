@@ -153,37 +153,26 @@ public class LanguageMatcher {
   }
 
   public String findIsoCodeMatch(String valueP, String nonNormalizedValue) {
-    String value = valueP.trim();
-    if (value.length() > 3 || value.length() < 2) {
-      if (nonNormalizedValue != null) {
-        Matcher matcher = LOCALE_CODE_PATTERN.matcher(value);
-        if (matcher.matches()) {
-          return isoCodes.get(matcher.group(1));
-        }
-      }
-      return null;
-    }
-    String valueNorm = value.toLowerCase();
-    return isoCodes.get(valueNorm);
+    return findIsoCodeMatchInternal(isoCodes, valueP, nonNormalizedValue);
   }
 
-// public List<String> findLabelSubstringMatches(String value) {
-// String valueNorm = normalizeLabel(value);
-// }
-
   public String findTargetIsoCodeMatch(String valueP, String nonNormalizedValue) {
+    return findIsoCodeMatchInternal(targetIsoCodes, valueP, nonNormalizedValue);
+  }
+
+  private String findIsoCodeMatchInternal(Map<String, String> map, String valueP, String nonNormalizedValue) {
     String value = valueP.trim();
     if (value.length() > 3 || value.length() < 2) {
       if (nonNormalizedValue != null) {
         Matcher matcher = LOCALE_CODE_PATTERN.matcher(value);
         if (matcher.matches()) {
-          return targetIsoCodes.get(matcher.group(1));
+          return map.get(matcher.group(1));
         }
       }
       return null;
     }
     String valueNorm = value.toLowerCase();
-    return targetIsoCodes.get(valueNorm);
+    return map.get(valueNorm);
   }
 
   /**
@@ -231,10 +220,10 @@ public class LanguageMatcher {
       }
     }
     if (foundMatchesCodes.isEmpty() && !foundMatchesLabels.isEmpty()) {
-      return new ArrayList<String>(foundMatchesLabels);
+      return new ArrayList<>(foundMatchesLabels);
     }
     if (!foundMatchesCodes.isEmpty() && foundMatchesLabels.isEmpty()) {
-      return new ArrayList<String>(foundMatchesCodes);
+      return new ArrayList<>(foundMatchesCodes);
     }
 
     return Collections
