@@ -1,7 +1,7 @@
 /* EuropaEuLanguagesNal.java - created on 15/03/2016, Copyright (c) 2011 The European Library, all rights reserved */
 package eu.europeana.normalization.common.language.nal;
 
-import eu.europeana.normalization.common.util.XmlUtil;
+import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.common.language.LanguagesVocabulary;
 import java.io.File;
 import java.io.InputStream;

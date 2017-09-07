@@ -4,7 +4,7 @@ import eu.europeana.normalization.common.RecordNormalization;
 import eu.europeana.normalization.common.ValueNormalization;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
-import eu.europeana.normalization.common.util.Namespaces;
+import eu.europeana.normalization.util.Namespaces;
 import java.util.HashMap;
 
 public abstract class EdmRecordNormalizerBase implements ValueNormalization {

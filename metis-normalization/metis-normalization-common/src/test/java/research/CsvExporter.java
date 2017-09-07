@@ -2,7 +2,7 @@ package research;
 
 import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
 import eu.europeana.normalization.common.language.nal.NalLanguage;
-import eu.europeana.normalization.common.util.MapOfLists;
+import eu.europeana.normalization.util.MapOfLists;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;

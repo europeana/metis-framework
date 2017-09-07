@@ -2,8 +2,8 @@
 package eu.europeana.normalization.common.language.nal;
 
 import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.common.util.MapOfLists;
-import eu.europeana.normalization.common.util.nlp.IndexUtilUnicode;
+import eu.europeana.normalization.util.MapOfLists;
+import eu.europeana.normalization.util.nlp.IndexUtilUnicode;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;

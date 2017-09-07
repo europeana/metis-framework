@@ -7,7 +7,7 @@ import eu.europeana.normalization.common.RecordNormalization;
 import eu.europeana.normalization.common.ValueNormalization;
 import eu.europeana.normalization.common.language.nal.AmbiguousLabelMatchException;
 import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.util.Namespaces;
+import eu.europeana.normalization.util.Namespaces;
 import eu.europeana.normalization.common.language.nal.LanguageMatcher;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
