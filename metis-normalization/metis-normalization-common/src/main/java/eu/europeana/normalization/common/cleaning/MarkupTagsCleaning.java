@@ -7,6 +7,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
 import net.htmlparser.jericho.Source;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
@@ -16,8 +18,7 @@ import net.htmlparser.jericho.Source;
  */
 public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
 
-  private static java.util.logging.Logger log = java.util.logging.Logger
-      .getLogger(MarkupTagsCleaning.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(MarkupTagsCleaning.class);
 
   ;
   protected final Mode mode;

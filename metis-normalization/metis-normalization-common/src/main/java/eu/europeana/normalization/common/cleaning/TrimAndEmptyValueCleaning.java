@@ -6,6 +6,8 @@ import eu.europeana.normalization.common.ValueNormalization;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
@@ -16,8 +18,7 @@ import java.util.List;
 public class TrimAndEmptyValueCleaning extends EdmRecordNormalizerBase implements
     ValueNormalization {
 
-  private static java.util.logging.Logger log = java.util.logging.Logger
-      .getLogger(TrimAndEmptyValueCleaning.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(TrimAndEmptyValueCleaning.class);
 
   /**
    * Creates a new instance of this class.

@@ -14,6 +14,8 @@ import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationW
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
@@ -23,11 +25,8 @@ import java.util.List;
  */
 public class LanguageNormalizer implements ValueNormalization {
 
-  @SuppressWarnings("unused")
-  private static java.util.logging.Logger log = java.util.logging.Logger
-      .getLogger(LanguageNormalizer.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(LanguageNormalizer.class);
 
-  ;
   Float minimumConfidence;
   LanguageMatcher normalizer;
   SupportedOperations operations = SupportedOperations.ALL;

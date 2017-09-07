@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Provides the matching algorithms for matching dc:language values with codes and labels in the
@@ -23,10 +25,11 @@ import java.util.regex.Pattern;
  */
 public class LanguageMatcher {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(LanguageMatcher.class);
+
   protected static final Pattern LOCALE_CODE_PATTERN = Pattern
       .compile("\\s*(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\s*");
-  private static java.util.logging.Logger log = java.util.logging.Logger
-      .getLogger(LanguageMatcher.class.getName());
+
   EuropeanLanguagesNal matchVocab;
   int minimumLabelLength = 4;
   AmbiguityHandling ambiguityHandling = AmbiguityHandling.NO_MATCH;
@@ -184,7 +187,7 @@ public class LanguageMatcher {
   }
 
   /**
-   * @param value
+   * @param label
    * @return
    */
   public String normalizeLabelForIndex(String label) {

@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -23,8 +25,7 @@ import org.w3c.dom.Element;
  */
 public class EuropeanLanguagesNal {
 
-  private static java.util.logging.Logger log = java.util.logging.Logger
-      .getLogger(EuropeanLanguagesNal.class.getName());
+  private static final Logger LOGGER = LoggerFactory.getLogger(EuropeanLanguagesNal.class);
 
   List<NalLanguage> languages = new ArrayList<NalLanguage>();
   List<NalLanguage> deprecatedLanguages = new ArrayList<NalLanguage>();
