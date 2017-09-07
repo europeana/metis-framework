@@ -10,6 +10,7 @@ import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPluginMetadata;
@@ -52,6 +53,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   private String datasetName;
   private int workflowPriority;
   private boolean harvest;
+  private boolean cancelling;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -138,6 +140,19 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     }
   }
 
+  public void setAllRunningAndInqueuePluginsToCancelled()
+  {
+    this.setWorkflowStatus(WorkflowStatus.CANCELLED);
+    for (AbstractMetisPlugin metisPlugin :
+        this.getMetisPlugins()) {
+      if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
+          || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+        metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+      }
+    }
+    this.setCancelling(false);
+  }
+
   @Override
   public ObjectId getId() {
     return id;
@@ -154,6 +169,14 @@ public class UserWorkflowExecution implements HasMongoObjectId {
 
   public void setHarvest(boolean harvest) {
     this.harvest = harvest;
+  }
+
+  public boolean isCancelling() {
+    return cancelling;
+  }
+
+  public void setCancelling(boolean cancelling) {
+    this.cancelling = cancelling;
   }
 
   public String getOwner() {

@@ -156,7 +156,7 @@ public class OrchestratorController {
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
             workflowName, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' with owner '{}' and workflowName '{}' started",
+        "UserWorkflowExecution for datasetName '{}' with owner '{}' and workflowName '{}' added to queue",
         datasetName, owner, workflowName);
   }
 
@@ -175,7 +175,7 @@ public class OrchestratorController {
       throws ExecutionException, NoUserWorkflowExecutionFoundException {
     orchestratorService.cancelUserWorkflowExecution(datasetName);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '%s' with owner '%s' and workflowName '%s' cancelled",
+        "UserWorkflowExecution for datasetName '{}' is cancelling",
         datasetName);
   }
 

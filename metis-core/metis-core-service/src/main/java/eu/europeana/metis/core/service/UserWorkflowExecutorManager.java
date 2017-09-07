@@ -10,12 +10,9 @@ import com.rabbitmq.client.MessageProperties;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
@@ -41,8 +38,6 @@ public class UserWorkflowExecutorManager implements Runnable {
   private final int threadPoolSize = 10;
   private final Channel rabbitmqChannel;
   private String rabbitmqQueueName;
-//  private final BlockingQueue<UserWorkflowExecution> userWorkflowExecutionBlockingQueue = new PriorityBlockingQueue<>(
-//      10, new UserWorkflowExecution.UserWorkflowExecutionPriorityComparator());
 
   private final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
   private ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
@@ -58,7 +53,6 @@ public class UserWorkflowExecutorManager implements Runnable {
     this.rabbitmqChannel = rabbitmqChannel;
   }
 
-
   @Override
   public void run() {
     Consumer consumer = new DefaultConsumer(rabbitmqChannel) {
@@ -69,14 +63,21 @@ public class UserWorkflowExecutorManager implements Runnable {
           AMQP.BasicProperties properties, byte[] body)
           throws IOException {
         String objectId = new String(body, "UTF-8");
+        LOGGER.info("UserWorkflowExecution id: {} received from queue.", objectId);
         UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
-        if (userWorkflowExecution.getWorkflowStatus() != WorkflowStatus.CANCELLED) {
+        if (!userWorkflowExecution.isCancelling()) {
           UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
               userWorkflowExecution, userWorkflowExecutionDao, rabbitmqChannel,
               rabbitmqEnvelope);
           futuresMap.put(userWorkflowExecution.getId().toString(),
               completionService.submit(userWorkflowExecutor));
           runningThreadsCounter++;
+        } else {
+          userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+          userWorkflowExecutionDao.update(userWorkflowExecution);
+          LOGGER.info(
+              "Cancelled inqueue user workflow execution with id: {}", userWorkflowExecution.getId());
+          rabbitmqChannel.basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
         }
 
         while (runningThreadsCounter >= maxConcurrentThreads) {
@@ -104,7 +105,6 @@ public class UserWorkflowExecutorManager implements Runnable {
 
 
   public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId) {
-//    userWorkflowExecutionBlockingQueue.add(userWorkflowExecution);
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder().priority(1)
         .build();
     try {
@@ -116,42 +116,12 @@ public class UserWorkflowExecutorManager implements Runnable {
     }
   }
 
-//  private boolean removeUserWorkflowExecutionFromQueue(
-//      UserWorkflowExecution userWorkflowExecution) {
-//    return userWorkflowExecutionBlockingQueue.remove(userWorkflowExecution);
-//  }
-
   public void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution)
       throws ExecutionException {
-    cancelInqueueUserWorkflowExecution(userWorkflowExecution);
-//    removeUserWorkflowExecutionFromQueue(userWorkflowExecution);
-    //Stop the thread running the execution
-    synchronized (futuresMap) {
-      Iterator<Map.Entry<String, Future<UserWorkflowExecution>>> iterator = futuresMap.entrySet()
-          .iterator();
-      while (iterator.hasNext()) {
-        Entry<String, Future<UserWorkflowExecution>> futureEntry = iterator.next();
-        if (futureEntry.getKey().equals(userWorkflowExecution.getId().toString())) {
-          futureEntry.getValue().cancel(true);
-        }
-      }
-    }
-  }
-
-  private void cancelInqueueUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution)
-  {
-    //Only update the workflow execution status in mongo. When it is retrieved from the queue it will be dropped
-    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
-      userWorkflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
-      for (AbstractMetisPlugin metisPlugin :
-          userWorkflowExecution.getMetisPlugins()) {
-        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
-          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
-        }
-      }
-      userWorkflowExecutionDao.update(userWorkflowExecution);
+    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE || userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
+      userWorkflowExecutionDao.setCancellingState(userWorkflowExecution);
       LOGGER.info(
-          "Cancelled inqueue user workflow execution with id: " + userWorkflowExecution.getId());
+          "Cancelling user workflow execution with id: " + userWorkflowExecution.getId());
     }
   }
 

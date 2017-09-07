@@ -23,15 +23,13 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
-  private boolean cancelled = false;
 
   private final UserWorkflowExecution userWorkflowExecution;
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
   private final Channel rabbitmqChannel;
   private final Envelope rabbitmqItemEnvelope;
 
-  UserWorkflowExecutor(
-      UserWorkflowExecution userWorkflowExecution,
+  UserWorkflowExecutor(UserWorkflowExecution userWorkflowExecution,
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       Channel rabbitmqChannel, Envelope rabbitmqItemEnvelope) {
     this.userWorkflowExecution = userWorkflowExecution;
@@ -42,29 +40,24 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
 
   @Override
   public UserWorkflowExecution call() {
-    LOGGER.info("Starting user workflow execution with id: " + userWorkflowExecution.getId());
+    LOGGER.info("Starting user workflow execution with id: {}", userWorkflowExecution.getId());
     firstPluginExecution = true;
-    //Run if it's a workflow that is NOT in a RUNNING state
     if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
       runInQueueStateWorkflowExecution();
     } else {
       runRunningStateWorkflowExecution();
     }
 
-    if (cancelled) {
-      userWorkflowExecution.setWorkflowStatus(WorkflowStatus.CANCELLED);
-      for (AbstractMetisPlugin metisPlugin :
-          userWorkflowExecution.getMetisPlugins()) {
-        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
-          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
-        }
-      }
-      LOGGER.info("Cancelled running user workflow execution with id: " + userWorkflowExecution.getId());
+    if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
+      userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+      LOGGER.info(
+          "Cancelled running user workflow execution with id: {}", userWorkflowExecution.getId());
     } else {
       userWorkflowExecution.setFinishedDate(finishDate);
       userWorkflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
-      LOGGER.info("Finished user workflow execution with id: " + userWorkflowExecution.getId());
+      LOGGER.info("Finished user workflow execution with id: {}", userWorkflowExecution.getId());
     }
+    //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
     userWorkflowExecutionDao.update(userWorkflowExecution);
     try {
       rabbitmqChannel.basicAck(rabbitmqItemEnvelope.getDeliveryTag(), false);
@@ -79,10 +72,10 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     startDate = new Date();
     userWorkflowExecution.setStartedDate(startDate);
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
     for (AbstractMetisPlugin metisPlugin :
         userWorkflowExecution.getMetisPlugins()) {
-      if (cancelled) {
+      if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
         break;
       }
       finishDate = runMetisPlugin(metisPlugin);
@@ -107,7 +100,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     }
     for (int i = firstPluginPositionToStart; i < userWorkflowExecution.getMetisPlugins().size();
         i++) {
-      if (cancelled) {
+      if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
         break;
       }
       finishDate = runMetisPlugin(userWorkflowExecution.getMetisPlugins().get(i));
@@ -116,9 +109,8 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
 
   private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
     int iterationsToFake = 30;
-    int sleepTime = 1000;
+    int sleepTime = 5000;
 
-    //Check if the plugin had already set a starting date beforehand
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
       if (firstPluginExecution) {
         firstPluginExecution = false;
@@ -128,26 +120,26 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
       }
     }
     abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
-    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecutionDao.updateWorkflowPlugins(userWorkflowExecution);
     abstractMetisPlugin.execute();
     for (int i = 0; i < iterationsToFake; i++) {
       try {
+        if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
+          return null;
+        }
         Thread.sleep(sleepTime);
         abstractMetisPlugin.monitor("");
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         userWorkflowExecution.setUpdatedDate(updatedDate);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
+        userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
       } catch (InterruptedException e) {
-        cancelled = true;
-        abstractMetisPlugin.setPluginStatus(PluginStatus.CANCELLED);
-        userWorkflowExecutionDao.update(userWorkflowExecution);
-        return abstractMetisPlugin.getFinishedDate();
+        return null;
       }
     }
     abstractMetisPlugin.setFinishedDate(new Date());
     abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
-    userWorkflowExecutionDao.update(userWorkflowExecution);
+    userWorkflowExecutionDao.updateWorkflowPlugins(userWorkflowExecution);
     return abstractMetisPlugin.getFinishedDate();
   }
 }
