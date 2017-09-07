@@ -27,20 +27,20 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
  */
 public class ServletInitializer extends AbstractDispatcherServletInitializer {
 
-    @Override
-    protected WebApplicationContext createServletApplicationContext() {
-        AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
-        context.scan(ClassUtils.getPackageName(getClass()));
-        return context;
-    }
+  @Override
+  protected WebApplicationContext createServletApplicationContext() {
+    AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+    context.scan(ClassUtils.getPackageName(getClass()));
+    return context;
+  }
 
-    @Override
-    protected String[] getServletMappings() {
-        return  new String[]{"/"};
-    }
+  @Override
+  protected String[] getServletMappings() {
+    return new String[]{"/"};
+  }
 
-    @Override
-    protected WebApplicationContext createRootApplicationContext() {
-        return null;
-    }
+  @Override
+  protected WebApplicationContext createRootApplicationContext() {
+    return null;
+  }
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0"  encoding="UTF-8" ?>
+<rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:edm="http://www.europeana.eu/schemas/edm/"
+  xmlns:ore="http://www.openarchives.org/ore/terms/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+>
+  <edm:ProvidedCHO
+    rdf:about="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg"/>
+  <ore:Aggregation
+    rdf:about="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg">
+    <edm:aggregatedCHO
+      rdf:resource="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg"/>
+    <edm:dataProvider>National Library of Albania</edm:dataProvider>
+    <edm:isShownAt rdf:resource="http://bit.ly/2g57td4"/>
+    <edm:isShownBy
+      rdf:resource="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg"/>
+    <edm:provider>The European Library</edm:provider>
+    <edm:rights rdf:resource="http://creativecommons.org/publicdomain/mark/1.0/"/>
+  </ore:Aggregation>
+  <ore:Proxy
+    rdf:about="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg">
+    <dc:creator>Coronelli, Vincenzo Maria
+    </dc:creator>
+    <dc:date>1688</dc:date>
+    <dc:description>Scala di Miglia Italiane. - Year of Publication at the top of the map where is
+      stated “For the state of Ragusa Koroneli next month will publish a special map, March
+      1688".-.With historical , topographic, demographic and statistical data, according to religion
+      in Albanian settlements including Kosovo
+    </dc:description>
+    <dc:format>1 pg. map : black and white; 61,5 x 44,7 cm</dc:format>
+    <dc:language>italien</dc:language>
+    <dc:publisher>Venice</dc:publisher>
+    <dc:subject>Geography</dc:subject>
+    <dc:subject>Topography</dc:subject>
+    <dc:subject>Population</dc:subject>
+    <dc:subject>Albania</dc:subject>
+    <dc:subject>Buna River</dc:subject>
+    <dc:subject>Drin River</dc:subject>
+    <dc:title xml:lang="fr">Corso delli Fiumi Drino, e Boiana nella Dalmatia [map] : descrito Dal P.
+      Mro. Coronelli Cosmografo della Seren. Republica di Venezia : Dedicato Agli Em[inentissimi], e
+      Reu[erendissimi] Signori Cardinali della Sacra Congregatione de Propaganda Fide : in Venetia
+      Con Priuilegio dell'Eccel. Senato.
+    </dc:title>
+    <dc:title>Corso delli Fiumi Drino, e Boiana nella Dalmatia [map] : descrito Dal P. Mro.
+      Coronelli Cosmografo della Seren. Republica di Venezia : Dedicato Agli Em[inentissimi], e
+      Reu[erendissimi] Signori Cardinali della Sacra Congregatione de Propaganda Fide : in Venetia
+      Con Priuilegio dell'Eccel. Senato.
+    </dc:title>
+    <dc:type>map</dc:type>
+    <dc:type>image/jpeg</dc:type>
+    <edm:type>IMAGE</edm:type>
+  </ore:Proxy>
+  <edm:EuropeanaAggregation
+    rdf:about="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg">
+    <edm:aggregatedCHO
+      rdf:resource="http://www.bksh.al/gsdl/collect/hartat/index/assoc/HASH0107.dir/Albh2A24.jpg"/>
+    <edm:country>Albania</edm:country>
+    <edm:language>en</edm:language>
+  </edm:EuropeanaAggregation>
+</rdf:RDF>

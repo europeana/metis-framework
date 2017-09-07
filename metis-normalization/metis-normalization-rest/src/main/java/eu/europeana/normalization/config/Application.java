@@ -47,14 +47,18 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Configuration file for Spring MVC
  */
-@ComponentScan(basePackages = {"eu.europeana.normalization" })
+@ComponentScan(basePackages = {"eu.europeana.normalization"})
 @EnableWebMvc
 @EnableSwagger2
 @Configuration
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
   private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -67,20 +71,28 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public NormalizationService normalizationService(NormalizationConfig config) {
 
-    LOGGER.info("Using LanguageVocabulary '{}' and ConfidenceLevel '{}'", config.getNormalizationVocabulary(), config.getNormalizationConfidence());
+    LOGGER.info("Using LanguageVocabulary '{}' and ConfidenceLevel '{}'",
+        config.getNormalizationVocabulary(), config.getNormalizationConfidence());
 
-    LanguageNormalizer languageNorm = new LanguageNormalizer(LanguagesVocabulary.valueOf(config.getNormalizationVocabulary()), config.getNormalizationConfidence());
+    LanguageNormalizer languageNorm = new LanguageNormalizer(
+        LanguagesVocabulary.valueOf(config.getNormalizationVocabulary()),
+        config.getNormalizationConfidence());
     languageNorm.setOperations(SupportedOperations.ALL);
 
-    TrimAndEmptyValueCleaning spacesCleaner=new TrimAndEmptyValueCleaning();
-    DuplicateStatementCleaning dupStatementsCleaner=new DuplicateStatementCleaning();
-    MarkupTagsCleaning markupStatementsCleaner=new MarkupTagsCleaning();
+    TrimAndEmptyValueCleaning spacesCleaner = new TrimAndEmptyValueCleaning();
+    DuplicateStatementCleaning dupStatementsCleaner = new DuplicateStatementCleaning();
+    MarkupTagsCleaning markupStatementsCleaner = new MarkupTagsCleaning();
 
-    ChainedNormalization chainedNormalizer = new ChainedNormalization(spacesCleaner.toEdmRecordNormalizer(), markupStatementsCleaner.toEdmRecordNormalizer(), dupStatementsCleaner, languageNorm.toEdmRecordNormalizer());
+    ChainedNormalization chainedNormalizer = new ChainedNormalization(
+        spacesCleaner.toEdmRecordNormalizer(),
+        markupStatementsCleaner.toEdmRecordNormalizer(),
+        dupStatementsCleaner,
+        languageNorm.toEdmRecordNormalizer());
 
     return new NormalizationServiceImpl(chainedNormalizer);
 
   }
+
   @Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("swagger-ui.html")
@@ -93,11 +105,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addRedirectViewController("/", "swagger-ui.html");
-  }
-
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
   }
 
   @Bean

@@ -1,11 +1,10 @@
 package eu.europeana.normalization;
 
-import org.w3c.dom.Document;
-
 import eu.europeana.normalization.model.NormalizationReport;
+import org.w3c.dom.Document;
 
 
 public interface RecordNormalization {
 
-	NormalizationReport normalize(Document edm);
+  NormalizationReport normalize(Document edm);
 }

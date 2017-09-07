@@ -36,9 +36,6 @@
     <edm:aggregatedCHO rdf:resource="ivrla:3827"/>
     <edm:dataProvider>UCD Library</edm:dataProvider>
     <edm:dataProvider>University College Dublin</edm:dataProvider>
-    <edm:dataProvider></edm:dataProvider>
-    <edm:dataProvider rdf:resource="http://test"></edm:dataProvider>
-    <edm:dataProvider xml:lang="pt"></edm:dataProvider>
     <edm:isShownAt rdf:resource="https://digital.ucd.ie/view/ivrla:3827"/>
     <edm:isShownBy rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828/full/full/0/default.jpg"/>
     <edm:object rdf:resource="https://iiif.ucd.ie/loris/ivrla:3828/full/600,/0/default.jpg"/>
@@ -51,7 +48,6 @@
     </dc:description>
     <dc:format xml:lang="en">1 letter 21.5 x 33.5</dc:format>
     <dc:format>image/jpeg</dc:format>
-    <dc:identifier>OB_1000000_SC</dc:identifier>
     <dc:identifier>OB_1000000_SC</dc:identifier>
     <dc:identifier>EADseries:IVRLA10-I:1</dc:identifier>
     <dc:identifier>ivrla:3827</dc:identifier>
@@ -84,22 +80,14 @@
     <dc:subject xml:lang="en">Newman, John Henry, 1801-1890--Correspondence</dc:subject>
     <dc:subject xml:lang="en">Whately, Richard, 1787-1863--Correspondence</dc:subject>
     <dc:subject xml:lang="en">Logic</dc:subject>
-    <dc:subject xml:lang="en">Logic</dc:subject>
-    <dc:subject xml:lang="pt">Logic</dc:subject>
-    <dc:subject>Logic</dc:subject>
     <dc:subject xml:lang="en">Newspapers--Sections, columns, etc--Reviews</dc:subject>
     <dc:subject xml:lang="en">Correspondence</dc:subject>
     <dc:title xml:lang="en">[Letter from John Henry Newman (Oriel College) to Dr. Richard Whately,
       commenting on and enclosing notes on a review on 'Dr. Whateley's Logic', in the Edinburgh
       Review of April 1833 .]
     </dc:title>
-    <dc:alternative xml:lang="en">[Letter from John Henry Newman (Oriel College) to Dr. Richard
-      Whately, commenting on and enclosing notes on a review on 'Dr. Whateley's Logic', in the
-      Edinburgh Review of April 1833 .]
-    </dc:alternative>
     <dc:type xml:lang="en">text</dc:type>
     <dc:type xml:lang="en">Correspondence</dc:type>
-    <dc:type xml:lang="en"></dc:type>
     <dcterms:isPartOf rdf:resource="ivrla:3573"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/17227308" rdfs:label="Author"/>
     <dc:contributor rdf:resource="http://viaf.org/viaf/22950329" rdfs:label="Author"/>
@@ -109,9 +97,6 @@
     <edm:aggregatedCHO rdf:resource="ivrla:3827"/>
     <edm:country>Ireland</edm:country>
     <edm:language>en</edm:language>
-    <edm:language></edm:language>
-    <edm:language rdf:resource="http://test"></edm:language>
-    <edm:language xml:lang="pt"></edm:language>
     <edm:rights rdf:resource="http://creativecommons.org/licenses/by-nc-sa/4.0/"/>
   </edm:EuropeanaAggregation>
   <svcs:Service rdf:about="https://iiif.ucd.ie/loris/ivrla:3828">

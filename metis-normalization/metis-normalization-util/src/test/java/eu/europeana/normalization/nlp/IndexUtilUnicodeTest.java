@@ -1,26 +1,24 @@
 package eu.europeana.normalization.nlp;
 
+import eu.europeana.normalization.util.nlp.IndexUtilUnicode;
 import org.junit.Assert;
 import org.junit.Test;
 
-import eu.europeana.normalization.util.nlp.IndexUtilUnicode;
-
 /**
  * Tests unicode character normalization.
- * 
+ *
  * @author Nuno Freire (nfreire@gmail.com)
  * @since 11/05/2016
  */
 public class IndexUtilUnicodeTest {
-    /**
-     * Tests unicode normalization.
-     * 
-     * @throws Exception
-     */
-    @Test
-    public void testSimpleNGrams() throws Exception {
-        String input = "Hello World!?#$^*!@#*(\0x309A";
-        String encode = IndexUtilUnicode.encode(input, true);
-        Assert.assertFalse(encode.contains(" "));
-    }
+
+  /**
+   * Tests unicode normalization.
+   */
+  @Test
+  public void testSimpleNGrams() throws Exception {
+    String input = "Hello World!?#$^*!@#*(\0x309A";
+    String encode = IndexUtilUnicode.encode(input, true);
+    Assert.assertFalse(encode.contains(" "));
+  }
 }

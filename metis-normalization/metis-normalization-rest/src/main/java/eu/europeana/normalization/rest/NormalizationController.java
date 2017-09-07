@@ -28,15 +28,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class NormalizationController {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(NormalizationController.class);
   private final NormalizationService normalizationService;
 
   @Autowired
   public NormalizationController(NormalizationService normalizationService) {
     this.normalizationService = normalizationService;
   }
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(NormalizationController.class);
-
 
   @ResponseStatus(value = HttpStatus.OK)
   @RequestMapping(value = RestEndpoints.NORMALIZATION, method = RequestMethod.POST)
@@ -60,7 +58,7 @@ public class NormalizationController {
     }
   }
 
-  private NormalizedRecordResult normalize( String edmRec) {
+  private NormalizedRecordResult normalize(String edmRec) {
     try {
       return normalizationService.processNormalize(edmRec);
     } catch (Exception e) {

@@ -1,41 +1,38 @@
 /* LanguageNormalizer.java - created on 16/03/2016, Copyright (c) 2011 The European Library, all rights reserved */
 package eu.europeana.normalization;
 
+import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.model.NormalizedRecordResult;
 import eu.europeana.normalization.util.XmlUtil;
 import java.io.StringReader;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import eu.europeana.normalization.model.NormalizationReport;
-
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
- * 
+ *
  * @author Nuno Freire (nfreire@gmail.com)
  * @since 16/03/2016
  */
 public class NormalizationServiceImpl implements NormalizationService {
-    private static final Logger LOGGER = LoggerFactory.getLogger(NormalizationServiceImpl.class);
 
-    RecordNormalization normalizer;
-    
-    /**
-     * Creates a new instance of this class.
-     * 
-     * @param normalizer
-     */
-    public NormalizationServiceImpl(RecordNormalization normalizer) {
-        super();
-        this.normalizer = normalizer;
-    }
+  private static final Logger LOGGER = LoggerFactory.getLogger(NormalizationServiceImpl.class);
 
-	@Override
+  RecordNormalization normalizer;
+
+  /**
+   * Creates a new instance of this class.
+   */
+  public NormalizationServiceImpl(RecordNormalization normalizer) {
+    super();
+    this.normalizer = normalizer;
+  }
+
+  @Override
   public NormalizationReport normalize(Document edm) {
-		return normalizer.normalize(edm);
-	}
+    return normalizer.normalize(edm);
+  }
 
   @Override
   public NormalizedRecordResult processNormalize(String record) {
