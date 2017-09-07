@@ -47,7 +47,7 @@
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-normalization-language-lib</artifactId>
+      <artifactId>metis-normalization-common</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
     <dependency>

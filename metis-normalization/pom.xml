@@ -13,7 +13,7 @@
   <modules>
     <module>metis-normalization-util</module>
     <module>metis-normalization-service</module>
-    <module>metis-normalization-language-lib</module>
+    <module>metis-normalization-common</module>
     <module>metis-normalization-rest</module>
     <module>metis-normalization-client</module>
   </modules>
