@@ -19,28 +19,28 @@ public class MapOfLists<K, O> implements Serializable {
   private static final long serialVersionUID = 1;
 
   // Hashtable<K,Object[]> hashtable;
-  Hashtable<K, ArrayList<O>> hashtable;
-  int listInitialCapacity = -1;
+  private final Hashtable<K, ArrayList<O>> hashtable;
+  private int listInitialCapacity = -1;
 
   /**
    * Creates a new instance of this class.
    */
   public MapOfLists() {
-    hashtable = new Hashtable<K, ArrayList<O>>();
+    hashtable = new Hashtable<>();
   }
 
   /**
    * Creates a new instance of this class.
    */
   public MapOfLists(int initialCapacity) {
-    hashtable = new Hashtable<K, ArrayList<O>>(initialCapacity);
+    hashtable = new Hashtable<>(initialCapacity);
   }
 
   /**
    * Creates a new instance of this class.
    */
   public MapOfLists(int initialCapacity, int listInitialCapacity) {
-    hashtable = new Hashtable<K, ArrayList<O>>(initialCapacity);
+    hashtable = new Hashtable<>(initialCapacity);
     this.listInitialCapacity = listInitialCapacity;
   }
 
@@ -55,7 +55,7 @@ public class MapOfLists<K, O> implements Serializable {
   public void put(K key, O value) {
     ArrayList<O> recs = hashtable.get(key);
     if (recs == null) {
-      recs = new ArrayList<O>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
+      recs = new ArrayList<>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
       recs.add(value);
       hashtable.put(key, recs);
     } else {
@@ -70,15 +70,11 @@ public class MapOfLists<K, O> implements Serializable {
   public void putAll(K key, O... values) {
     ArrayList<O> recs = hashtable.get(key);
     if (recs == null) {
-      recs = new ArrayList<O>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
-      for (O v : values) {
-        recs.add(v);
-      }
+      recs = new ArrayList<>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
+      Collections.addAll(recs, values);
       hashtable.put(key, recs);
     } else {
-      for (O v : values) {
-        recs.add(v);
-      }
+      Collections.addAll(recs, values);
     }
   }
 
@@ -89,7 +85,7 @@ public class MapOfLists<K, O> implements Serializable {
   public void putAll(K key, Collection<O> values) {
     ArrayList<O> recs = hashtable.get(key);
     if (recs == null) {
-      recs = new ArrayList<O>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
+      recs = new ArrayList<>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
       recs.addAll(values);
       hashtable.put(key, recs);
     } else {
@@ -186,7 +182,7 @@ public class MapOfLists<K, O> implements Serializable {
    * @return values Of All Lists
    */
   public List<O> valuesOfAllLists() {
-    ArrayList<O> ret = new ArrayList<O>(sizeOfAllLists());
+    ArrayList<O> ret = new ArrayList<>(sizeOfAllLists());
     for (K key : hashtable.keySet()) {
       ret.addAll(get(key));
     }
@@ -198,7 +194,7 @@ public class MapOfLists<K, O> implements Serializable {
    */
   public void sortLists(Comparator<O> c) {
     for (K k : hashtable.keySet()) {
-      Collections.sort(hashtable.get(k), c);
+      hashtable.get(k).sort(c);
     }
   }
 
@@ -218,7 +214,7 @@ public class MapOfLists<K, O> implements Serializable {
   @SuppressWarnings("unchecked")
   @Override
   public String toString() {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder buffer = new StringBuilder();
     @SuppressWarnings("rawtypes")
     ArrayList keys = new ArrayList(hashtable.keySet());
     Collections.sort(keys);
@@ -233,13 +229,13 @@ public class MapOfLists<K, O> implements Serializable {
   }
 
   /**
-   * @param labelNorm
-   * @param norm
+   * @param key
+   * @param value
    */
   public void putIfNotExists(K key, O value) {
     ArrayList<O> recs = hashtable.get(key);
     if (recs == null) {
-      recs = new ArrayList<O>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
+      recs = new ArrayList<>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
       recs.add(value);
       hashtable.put(key, recs);
     } else if (!recs.contains(value)) {
@@ -249,9 +245,6 @@ public class MapOfLists<K, O> implements Serializable {
 
   public boolean contains(K key, O value) {
     ArrayList<O> recs = hashtable.get(key);
-    if (recs == null) {
-      return false;
-    }
-    return recs.contains(value);
+    return recs != null && recs.contains(value);
   }
 }

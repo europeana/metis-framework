@@ -2,13 +2,13 @@ package research.evaluation;
 
 public class EvaluationStats {
 
-  int total = 0;
-  NormalizationStats normalizationMethodStats;
+  private int total = 0;
+  private final NormalizationStats normalizationMethodStats;
 
-  NormalizationStats targetCodesMatchesStats;
-  NormalizationStats validateMatchesCorrectStats;
-  NormalizationStats validateMatchesIncorrectStats;
-  NormalizationStats validateMatchesPartiallyCorrectStats;
+  private final NormalizationStats targetCodesMatchesStats;
+  private final NormalizationStats validateMatchesCorrectStats;
+  private final NormalizationStats validateMatchesIncorrectStats;
+  private final NormalizationStats validateMatchesPartiallyCorrectStats;
 
   public EvaluationStats() {
     normalizationMethodStats = new NormalizationStats();

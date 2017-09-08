@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class MarkupTagsCleaningTest {
 
-  String html = "<div\n\tid=\"blah\" alt=\" man\n"
+  private String html = "<div\n\tid=\"blah\" alt=\" man\n"
       + "\tthis is ugly html \"\n"
       + "\t>"
       + "fire this <made-up-tag>guy</made-up-tag>…\n"

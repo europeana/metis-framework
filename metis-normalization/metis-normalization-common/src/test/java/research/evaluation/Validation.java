@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.csv.CSVRecord;
 
-public class Validation {
+class Validation {
 
-  String value;
-  List<NalLanguage> normalizedValues;
-  boolean invalidCase;
+  private String value;
+  private List<NalLanguage> normalizedValues;
+  private boolean invalidCase;
 
   public Validation(CSVRecord rec, EuropeanLanguagesNal nal) {
     value = rec.get(0);

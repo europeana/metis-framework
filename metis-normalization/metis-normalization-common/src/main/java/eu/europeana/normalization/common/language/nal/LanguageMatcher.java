@@ -27,16 +27,16 @@ public class LanguageMatcher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LanguageMatcher.class);
 
-  protected static final Pattern LOCALE_CODE_PATTERN = Pattern
+  private static final Pattern LOCALE_CODE_PATTERN = Pattern
       .compile("\\s*(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\s*");
 
-  EuropeanLanguagesNal matchVocab;
-  int minimumLabelLength = 4;
-  AmbiguityHandling ambiguityHandling = AmbiguityHandling.NO_MATCH;
-  private Map<String, String> targetIsoCodes = new HashMap<String, String>();
-  private Map<String, String> isoCodes = new HashMap<String, String>();
-  private Map<String, String> unambiguousLabels = new HashMap<String, String>();
-  private MapOfLists<String, String> ambiguousLabels = new MapOfLists<String, String>();
+  private final EuropeanLanguagesNal matchVocab;
+  private int minimumLabelLength = 4;
+  private AmbiguityHandling ambiguityHandling = AmbiguityHandling.NO_MATCH;
+  private final Map<String, String> targetIsoCodes = new HashMap<>();
+  private final Map<String, String> isoCodes = new HashMap<>();
+  private final Map<String, String> unambiguousLabels = new HashMap<>();
+  private final MapOfLists<String, String> ambiguousLabels = new MapOfLists<>();
 
   /**
    * Creates a new instance of this class.
@@ -50,7 +50,7 @@ public class LanguageMatcher {
   /**
    *
    */
-  protected void initIndex() {
+  private void initIndex() {
     for (NalLanguage l : matchVocab.getLanguages()) {
       index(l);
     }
@@ -59,7 +59,7 @@ public class LanguageMatcher {
   /**
    * @param l
    */
-  protected void index(NalLanguage l) {
+  private void index(NalLanguage l) {
     String norm = l.getNormalizedLanguageId(matchVocab.getTargetVocabulary());
     if (norm == null) {
       return;
@@ -124,12 +124,11 @@ public class LanguageMatcher {
   }
 
   public void printStats() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("isoCodes: " + isoCodes.size()).append("\n");
-    sb.append("unambiguousLabels: " + unambiguousLabels.size()).append("\n");
-    sb.append("ambiguousLabels: " + ambiguousLabels.size()).append("\n");
-    sb.append(ambiguousLabels.toString()).append("\n");
-    System.out.println(sb.toString());
+    String sb = "isoCodes: " + isoCodes.size() + "\n" +
+        "unambiguousLabels: " + unambiguousLabels.size() + "\n" +
+        "ambiguousLabels: " + ambiguousLabels.size() + "\n" +
+        ambiguousLabels.toString() + "\n";
+    System.out.println(sb);
   }
 
   public List<String> findLabelMatches(String value) throws AmbiguousLabelMatchException {
@@ -147,7 +146,7 @@ public class LanguageMatcher {
 //                return matches;
       }
     }
-    ArrayList<String> ret = new ArrayList<String>(1);
+    ArrayList<String> ret = new ArrayList<>(1);
     ret.add(match);
     return ret;
   }
@@ -187,8 +186,8 @@ public class LanguageMatcher {
     String lblEnc = normalizeLabelForIndex(lbl);
     String[] words = lblEnc.split("\\s+");
 
-    HashSet<String> foundMatchesLabels = new HashSet<String>(10);
-    HashSet<String> foundMatchesCodes = new HashSet<String>(10);
+    HashSet<String> foundMatchesLabels = new HashSet<>(10);
+    HashSet<String> foundMatchesCodes = new HashSet<>(10);
     for (int j = 0; j < words.length; j++) {
       String wrd = words[j];
       if (j == 0 || j == words.length - 1) {
@@ -238,7 +237,7 @@ public class LanguageMatcher {
     String lblEnc = normalizeLabelForIndex(lbl);
     String[] words = lblEnc.split("\\s+");
 
-    HashSet<String> foundMatches = new HashSet<String>(10);
+    HashSet<String> foundMatches = new HashSet<>(10);
     for (int j = 0; j < words.length; j++) {
       String wrd = words[j];
       if (j == 0 || j == words.length - 1) {
@@ -257,6 +256,7 @@ public class LanguageMatcher {
         }
       } catch (AmbiguousLabelMatchException e) {
         if (ambiguityHandling == AmbiguityHandling.NO_MATCH) {
+          LOGGER.info("No match for '{}' ", wrd);
         } else if (ambiguityHandling == AmbiguityHandling.MATCH_ON_COREFERENCE) {
           throw new RuntimeException("not implemented: " + ambiguityHandling);
         } else if (ambiguityHandling == AmbiguityHandling.CHOOSE_FIRST) {
@@ -266,7 +266,7 @@ public class LanguageMatcher {
         }
       }
     }
-    return new ArrayList<String>(foundMatches);
+    return new ArrayList<>(foundMatches);
   }
 
   public void setMinimumLabelLength(int minimumLabelLength) {

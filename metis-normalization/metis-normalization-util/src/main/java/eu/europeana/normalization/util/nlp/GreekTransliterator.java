@@ -12,7 +12,7 @@ import com.ibm.icu.text.Transliterator;
  */
 public class GreekTransliterator {
 
-  Transliterator translit;
+  private Transliterator translit;
 
   /**
    * Creates a new instance of this class.
@@ -80,7 +80,6 @@ public class GreekTransliterator {
    * @return transliterated text
    */
   public String transliterate(String sourceText) {
-    String res = translit.transliterate(sourceText);
-    return res;
+    return translit.transliterate(sourceText);
   }
 }

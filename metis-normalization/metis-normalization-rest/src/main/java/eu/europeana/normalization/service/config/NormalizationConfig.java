@@ -1,6 +1,6 @@
 package eu.europeana.normalization.service.config;
 
-public interface NormalizationConfig {
+interface NormalizationConfig {
 
   String getNormalizationVocabulary();
 

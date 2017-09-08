@@ -4,7 +4,7 @@ import java.util.List;
 
 public class AmbiguousLabelMatchException extends Exception {
 
-  List<String> ambigouosMatches;
+  private final List<String> ambigouosMatches;
 
   public AmbiguousLabelMatchException(List<String> ambigouosMatches) {
     super();

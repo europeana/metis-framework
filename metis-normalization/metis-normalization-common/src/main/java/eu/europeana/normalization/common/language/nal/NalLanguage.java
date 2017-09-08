@@ -17,14 +17,14 @@ import org.apache.commons.lang.StringUtils;
  */
 public class NalLanguage {
 
-  protected String nalId = null;
-  protected String iso6391 = null;
-  protected String iso6392b = null;
-  protected String iso6392t = null;
-  protected String iso6393 = null;
-  protected List<Label> originalNames = new ArrayList<>(3);
-  protected List<Label> alternativeNames = new ArrayList<>(3);
-  protected List<Label> labels = new ArrayList<>();
+  private String nalId = null;
+  private String iso6391 = null;
+  private String iso6392b = null;
+  private String iso6392t = null;
+  private String iso6393 = null;
+  private List<Label> originalNames = new ArrayList<>(3);
+  private List<Label> alternativeNames = new ArrayList<>(3);
+  private List<Label> labels = new ArrayList<>();
 
   /**
    * Creates a new instance of this class.
@@ -94,7 +94,7 @@ public class NalLanguage {
    * @return
    */
   public Set<String> getAllLabels() {
-    HashSet<String> dedup = new HashSet<String>(labels.size() + 8);
+    HashSet<String> dedup = new HashSet<>(labels.size() + 8);
     for (Label l : originalNames) {
       dedup.add(l.getLabel());
     }
@@ -111,7 +111,7 @@ public class NalLanguage {
    * @return
    */
   public Set<String> getAllLabelsAndCodes() {
-    HashSet<String> dedup = new HashSet<String>(labels.size() + 8);
+    HashSet<String> dedup = new HashSet<>(labels.size() + 8);
     if (!StringUtils.isEmpty(iso6391)) {
       dedup.add(iso6391);
     }

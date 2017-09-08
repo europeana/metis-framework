@@ -19,35 +19,35 @@ import org.w3c.dom.NodeList;
 public class DuplicateStatementCleaning implements RecordNormalization {
 
   //	Europeana Proxy (dc:title, dcterms:alternative, dc:subject, dc:identifier, dc:type)
-  XpathQuery PROXY_QUERY_TITLE = new XpathQuery(
+  private final XpathQuery PROXY_QUERY_TITLE = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
         put("edm", Namespaces.EDM);
         put("dc", Namespaces.DC);
       }}, "/rdf:RDF/ore:Proxy/dc:title");
-  XpathQuery PROXY_QUERY_ALTERNATIVE = new XpathQuery(
+  private final XpathQuery PROXY_QUERY_ALTERNATIVE = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
         put("edm", Namespaces.EDM);
         put("dcterms", Namespaces.DCTERMS);
       }}, "/rdf:RDF/ore:Proxy/dcterms:alternative");
-  XpathQuery PROXY_QUERY_SUBJECT = new XpathQuery(
+  private final XpathQuery PROXY_QUERY_SUBJECT = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
         put("edm", Namespaces.EDM);
         put("dc", Namespaces.DC);
       }}, "/rdf:RDF/ore:Proxy/dc:subject");
-  XpathQuery PROXY_QUERY_IDENTIFIER = new XpathQuery(
+  private final XpathQuery PROXY_QUERY_IDENTIFIER = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
         put("edm", Namespaces.EDM);
         put("dc", Namespaces.DC);
       }}, "/rdf:RDF/ore:Proxy/dc:identifier");
-  XpathQuery PROXY_QUERY_TYPE = new XpathQuery(
+  private final XpathQuery PROXY_QUERY_TYPE = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
@@ -55,7 +55,7 @@ public class DuplicateStatementCleaning implements RecordNormalization {
         put("dc", Namespaces.DC);
       }}, "/rdf:RDF/ore:Proxy/dc:type");
 
-  XpathQuery[][] fieldSetsToValidate = new XpathQuery[][]{
+  private final XpathQuery[][] fieldSetsToValidate = new XpathQuery[][]{
       {PROXY_QUERY_TITLE, PROXY_QUERY_ALTERNATIVE}, {PROXY_QUERY_SUBJECT}, {PROXY_QUERY_IDENTIFIER},
       {PROXY_QUERY_TYPE}};
 
@@ -79,8 +79,7 @@ public class DuplicateStatementCleaning implements RecordNormalization {
 //				HashSet<String> dupDetector=new HashSet<>();
         HashSet<String> dupDetectorWithLang = new HashSet<>();
 
-        for (int i = 0; i < elements.size(); i++) {
-          Element el = elements.get(i);
+        for (Element el : elements) {
           String lang = el.getAttributeNS(Namespaces.XML, "lang");
           String key = XmlUtil.getElementText(el);
           String keyLang = key;

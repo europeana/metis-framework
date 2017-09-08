@@ -6,10 +6,10 @@ public enum ConfidenceLevel {
   CERTAIN(1, 1), VERY_HIGH(0.98, 0.100), HIGH(0.95, 0.98), GOOD(0.90, 0.95), FAIR(0.80, 0.90), POOR(
       0.50, 0.80), GUESS(0, 0.50);
 
-  double minThresholdEqualOrHigherThan;
-  double maxThresholdLowerThan;
+  final double minThresholdEqualOrHigherThan;
+  final double maxThresholdLowerThan;
 
-  private ConfidenceLevel(double minThresholdEqualOrHigherThan, double maxThresholdLowerThan) {
+  ConfidenceLevel(double minThresholdEqualOrHigherThan, double maxThresholdLowerThan) {
     this.minThresholdEqualOrHigherThan = minThresholdEqualOrHigherThan;
     this.maxThresholdLowerThan = maxThresholdLowerThan;
   }

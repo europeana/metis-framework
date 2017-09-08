@@ -40,6 +40,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -118,17 +119,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "EDM Record Normalization plugin for Metis",
         "Applies a preset list of data cleaning and normalization operations to metadata records in EDM. ",
         "0.2",
         "API TOS",
-        "development@europeana.eu",
+        new Contact("Europeana Development", "", "development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );
-
-    return apiInfo;
   }
 
 

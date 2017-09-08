@@ -7,9 +7,9 @@ import java.util.List;
 
 public class NormalizedBatchResult {
 
-  NormalizationReport report;
-  List<String> normalizedRecordsInEdmXml;
-  int errors = 0;
+  private NormalizationReport report;
+  private List<String> normalizedRecordsInEdmXml;
+  private int errors = 0;
 
   public NormalizedBatchResult() {
     normalizedRecordsInEdmXml = new ArrayList<>();

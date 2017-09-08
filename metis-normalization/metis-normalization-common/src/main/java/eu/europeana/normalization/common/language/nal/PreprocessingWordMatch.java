@@ -3,10 +3,10 @@ package eu.europeana.normalization.common.language.nal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreprocessingWordMatch {
+class PreprocessingWordMatch {
 
-  String unmatchedRemainingValue;
-  List<String> matchedLabels;
+  private String unmatchedRemainingValue;
+  private List<String> matchedLabels;
 
   public PreprocessingWordMatch() {
     matchedLabels = new ArrayList<>();

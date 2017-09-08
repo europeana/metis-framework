@@ -77,7 +77,7 @@ public class XmlUtil {
    */
   public static Iterable<Element> elements(Element n) {
     int sz = n.getChildNodes().getLength();
-    ArrayList<Element> elements = new ArrayList<Element>(sz);
+    ArrayList<Element> elements = new ArrayList<>(sz);
     for (int idx = 0; idx < sz; idx++) {
       Node node = n.getChildNodes().item(idx);
       if (node instanceof Element) {
@@ -97,7 +97,7 @@ public class XmlUtil {
   public static Iterable<Element> elements(Element n, String elementName) {
     NodeList subNodes = n.getElementsByTagName(elementName);
     int sz = subNodes.getLength();
-    ArrayList<Element> elements = new ArrayList<Element>(sz);
+    ArrayList<Element> elements = new ArrayList<>(sz);
     for (int idx = 0; idx < sz; idx++) {
       Node node = subNodes.item(idx);
       elements.add((Element) node);
@@ -115,7 +115,7 @@ public class XmlUtil {
   public static Iterable<Element> elements(Element n, String namespace, String elementName) {
     NodeList subNodes = n.getElementsByTagNameNS(namespace, elementName);
     int sz = subNodes.getLength();
-    ArrayList<Element> elements = new ArrayList<Element>(sz);
+    ArrayList<Element> elements = new ArrayList<>(sz);
     for (int idx = 0; idx < sz; idx++) {
       Node node = subNodes.item(idx);
       elements.add((Element) node);
@@ -149,14 +149,14 @@ public class XmlUtil {
 
   public static String getElementText(Element n) {
     NodeList childNodes = n.getChildNodes();
-    String result = new String();
+    StringBuilder result = new StringBuilder();
     for (int i = 0; i < childNodes.getLength(); i++) {
       Node node = childNodes.item(i);
       if (node.getNodeType() == Node.TEXT_NODE) {
-        result += node.getNodeValue();
+        result.append(node.getNodeValue());
       }
     }
-    return result;
+    return result.toString();
   }
 
   /**
@@ -277,21 +277,7 @@ public class XmlUtil {
    * @return the dom as a String
    */
   public static String writeDomToString(Element dom, Properties outputProperties) {
-    try {
-      StringWriter ret = new StringWriter();
-      TransformerFactory transFact = TransformerFactory.newInstance();
-// transFact.setAttribute("indent-number", 2);
-      Transformer transformer = transFact.newTransformer();
-      if (outputProperties != null) {
-        transformer.setOutputProperties(outputProperties);
-      }
-      DOMSource source = new DOMSource(dom);
-      StreamResult result = new StreamResult(ret);
-      transformer.transform(source, result);
-      return ret.toString();
-    } catch (Exception e) {
-      throw new RuntimeException("Could not write dom to string!", e);
-    }
+    return writeNodeToString(dom, outputProperties);
   }
 
   /**
@@ -302,6 +288,10 @@ public class XmlUtil {
    * @return the dom as a String
    */
   public static String writeDomToString(Document dom, Properties outputProperties) {
+    return writeNodeToString(dom, outputProperties);
+  }
+
+  private static String writeNodeToString(Node dom, Properties outputProperties) {
     try {
       StringWriter ret = new StringWriter();
       TransformerFactory transFact = TransformerFactory.newInstance();

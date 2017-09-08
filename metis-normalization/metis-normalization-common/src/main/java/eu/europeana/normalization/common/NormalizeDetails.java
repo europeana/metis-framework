@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class NormalizeDetails {
 
-  protected String normalizedValue;
-  protected float confidence;
+  private String normalizedValue;
+  private float confidence;
 
   /**
    * Creates a new instance of this class.

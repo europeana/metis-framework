@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class NormalizationReport {
 
-  Map<String, NormalizationOperationReport> operations = new Hashtable<>();
+  private Map<String, NormalizationOperationReport> operations = new Hashtable<>();
 
   public void mergeWith(NormalizationReport other) {
     Set<Entry<String, NormalizationOperationReport>> entrySet = other.getOperations().entrySet();
@@ -27,11 +27,8 @@ public class NormalizationReport {
   }
 
   public void increment(String op, ConfidenceLevel confidence) {
-    NormalizationOperationReport normalizationOperationReport = operations.get(op);
-    if (normalizationOperationReport == null) {
-      normalizationOperationReport = new NormalizationOperationReport(op);
-      operations.put(op, normalizationOperationReport);
-    }
+    NormalizationOperationReport normalizationOperationReport = operations
+        .computeIfAbsent(op, NormalizationOperationReport::new);
     normalizationOperationReport.increment(confidence);
   }
 

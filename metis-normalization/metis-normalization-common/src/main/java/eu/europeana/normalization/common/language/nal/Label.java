@@ -12,15 +12,15 @@ public class Label {
   /**
    * String label
    */
-  protected String label;
+  private String label;
   /**
    * String language
    */
-  protected String language;
+  private String language;
   /**
    * String script
    */
-  protected String script;
+  private String script;
 
   /**
    * Creates a new instance of this class.

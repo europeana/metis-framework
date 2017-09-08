@@ -4,10 +4,10 @@ import eu.europeana.normalization.util.MapOfInts;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class NormalizationOperationReport {
+class NormalizationOperationReport {
 
-  String operation;
-  MapOfInts<ConfidenceLevel> counts = new MapOfInts<>();
+  private String operation;
+  private final MapOfInts<ConfidenceLevel> counts = new MapOfInts<>();
 
 
   public NormalizationOperationReport(String operation) {

@@ -22,18 +22,15 @@ public class XPathUtil {
     XPath xpath = factory.newXPath();
     SimpleNamespaceContext namespaces = new SimpleNamespaceContext(prefixMap);
     xpath.setNamespaceContext(namespaces);
-    XPathExpression expr = xpath
+    return xpath
         .compile(xpathExpression);
-    return expr;
   }
 
   public static NodeList queryDom(Map<String, String> prefixMap, String xpathExpression,
       Document dom) throws XPathExpressionException {
     XPathExpression expr = newXPath(prefixMap, xpathExpression);
 
-    NodeList result = (NodeList) expr.evaluate(dom, XPathConstants.NODESET);
-
-    return result;
+    return (NodeList) expr.evaluate(dom, XPathConstants.NODESET);
   }
 
   public static Element queryDomForElement(Map<String, String> namespacesPrefixes,
@@ -48,7 +45,7 @@ public class XPathUtil {
 
   static class SimpleNamespaceContext implements NamespaceContext {
 
-    private final Map<String, String> PREF_MAP = new HashMap<String, String>();
+    private final Map<String, String> PREF_MAP = new HashMap<>();
 
     public SimpleNamespaceContext(final Map<String, String> prefMap) {
       PREF_MAP.putAll(prefMap);

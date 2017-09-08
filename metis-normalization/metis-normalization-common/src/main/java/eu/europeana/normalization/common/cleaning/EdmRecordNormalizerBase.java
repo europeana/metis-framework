@@ -44,10 +44,8 @@ public abstract class EdmRecordNormalizerBase implements ValueNormalization {
 
 //		For all properties of ore:proxy where edm:europeanaProxy=true, ore:Aggregation, all edm:WebResource, all contextual classes
 
-    ValueToRecordNormalizationWrapper dcLanguageNorm = new ValueToRecordNormalizationWrapper(this,
+    return new ValueToRecordNormalizationWrapper(this,
         false, cleanablePropertiesQuery);
-
-    return dcLanguageNorm;
   }
 
 

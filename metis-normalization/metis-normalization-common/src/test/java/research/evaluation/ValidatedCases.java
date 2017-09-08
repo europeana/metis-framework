@@ -8,7 +8,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
@@ -18,21 +17,24 @@ import org.apache.commons.csv.CSVRecord;
 
 public class ValidatedCases {
 
-  Map<String, Validation> validations;
-  EvaluationStats stats;
-  EuropeanLanguagesNal europaEuLanguagesNal;
+  private final Map<String, Validation> validations;
+  private EvaluationStats stats;
+  private EuropeanLanguagesNal europaEuLanguagesNal;
 
   public ValidatedCases(File evaluationFolder, EuropeanLanguagesNal europaEuLanguagesNal)
       throws IOException {
     this.europaEuLanguagesNal = europaEuLanguagesNal;
     validations = new HashMap<>();
+    if (evaluationFolder == null) {
+      return;
+    }
+
     for (File f : evaluationFolder.listFiles()) {
       if (f.getName().startsWith("Evaluation") && f.getName().endsWith(".csv")) {
         CSVParser parser = new CSVParser(new FileReader(f), CSVFormat.EXCEL);
 
         boolean dataReached = false;
-        for (Iterator<CSVRecord> it = parser.iterator(); it.hasNext(); ) {
-          CSVRecord rec = it.next();
+        for (CSVRecord rec : parser) {
           if (!dataReached) {
             if (rec.get(0).equals("dc:language value")) {
               dataReached = true;

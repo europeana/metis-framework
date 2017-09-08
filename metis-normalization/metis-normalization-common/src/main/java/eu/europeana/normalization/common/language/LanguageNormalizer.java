@@ -27,9 +27,9 @@ public class LanguageNormalizer implements ValueNormalization {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LanguageNormalizer.class);
 
-  Float minimumConfidence;
-  LanguageMatcher normalizer;
-  SupportedOperations operations = SupportedOperations.ALL;
+  private Float minimumConfidence;
+  private final LanguageMatcher normalizer;
+  private SupportedOperations operations = SupportedOperations.ALL;
 
   /**
    * Creates a new instance of this class.
@@ -118,9 +118,8 @@ public class LanguageNormalizer implements ValueNormalization {
             namespacesPrefixes, "//*[@xml:lang]/@xml:lang");
         break;
     }
-    ValueToRecordNormalizationWrapper dcLanguageNorm = new ValueToRecordNormalizationWrapper(this,
+    return new ValueToRecordNormalizationWrapper(this,
         false, dcLanguageQuery);
-    return dcLanguageNorm;
   }
 
   public LanguageNormalizer setOperations(SupportedOperations operations) {

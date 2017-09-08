@@ -13,7 +13,7 @@ import java.util.Enumeration;
  */
 public class CyrillicTransliterator {
 
-  Transliterator translit;
+  private Transliterator translit;
 
   /**
    * Creates a new instance of this class.
@@ -90,7 +90,6 @@ public class CyrillicTransliterator {
    * @return transliterated text
    */
   public String transliterate(String sourceText) {
-    String res = translit.transliterate(sourceText);
-    return res;
+    return translit.transliterate(sourceText);
   }
 }

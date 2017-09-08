@@ -20,7 +20,7 @@ public class NormalizationServiceImpl implements NormalizationService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(NormalizationServiceImpl.class);
 
-  RecordNormalization normalizer;
+  private RecordNormalization normalizer;
 
   /**
    * Creates a new instance of this class.
@@ -39,9 +39,9 @@ public class NormalizationServiceImpl implements NormalizationService {
   public NormalizedRecordResult processNormalize(String record) {
     try {
       if (record == null) {
-        return new NormalizedRecordResult("Missing required parameter 'record'", record);
+        return new NormalizedRecordResult("Missing required parameter 'record'", "");
       }
-      Document recordDom = null;
+      Document recordDom;
       try {
         recordDom = XmlUtil.parseDom(new StringReader(record));
       } catch (Exception e) {
@@ -50,8 +50,7 @@ public class NormalizationServiceImpl implements NormalizationService {
       }
       NormalizationReport report = normalize(recordDom);
       String writeDomToString = XmlUtil.writeDomToString(recordDom);
-      NormalizedRecordResult result = new NormalizedRecordResult(writeDomToString, report);
-      return result;
+      return new NormalizedRecordResult(writeDomToString, report);
     } catch (Throwable e) {
       LOGGER.info(e.getMessage(), e);
       return new NormalizedRecordResult("Unexpected error: " + e.getMessage(), record);

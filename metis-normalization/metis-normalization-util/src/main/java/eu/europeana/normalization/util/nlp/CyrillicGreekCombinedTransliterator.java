@@ -18,7 +18,7 @@ public class CyrillicGreekCombinedTransliterator {
   // U+2013 is a dash that may appear in subject heading and {Punct} was not removing it
   private static Pattern cleanPunctuationPattern = Pattern.compile("[\\p{Punct}\\u2013]+");
 
-  Transliterator translit;
+  private Transliterator translit;
 
   /**
    * Creates a new instance of this class.

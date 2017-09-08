@@ -9,6 +9,7 @@ import eu.europeana.normalization.util.Namespaces;
 import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XPathUtil;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,19 +23,19 @@ import org.w3c.dom.NodeList;
 
 public class ValueToRecordNormalizationWrapper implements RecordNormalization {
 
-  protected static final XpathQuery EUROPEANA_PROXY_QUERY = new XpathQuery(
+  private static final XpathQuery EUROPEANA_PROXY_QUERY = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
         put("edm", Namespaces.EDM);
       }}, "/rdf:RDF/ore:Proxy[edm:europeanaProxy='true']");
-  protected static final XpathQuery PROVIDER_PROXY_QUERY = new XpathQuery(
+  private static final XpathQuery PROVIDER_PROXY_QUERY = new XpathQuery(
       new HashMap<String, String>() {{
         put("rdf", Namespaces.RDF);
         put("ore", Namespaces.ORE);
         put("edm", Namespaces.EDM);
       }}, "/rdf:RDF/ore:Proxy[not(edm:europeanaProxy='true')]");
-  boolean normalizeToEuropeanaProxy;
+  private boolean normalizeToEuropeanaProxy;
   private List<XpathQuery> targetElements;
   private ValueNormalization normalization;
 
@@ -42,9 +43,7 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
       boolean normalizeToEuropeanaProxy, XpathQuery... targetElements) {
     this.normalization = normalization;
     this.targetElements = new ArrayList<>();
-    for (XpathQuery q : targetElements) {
-      this.targetElements.add(q);
-    }
+    Collections.addAll(this.targetElements, targetElements);
   }
 
   @Override
@@ -124,13 +123,13 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
                   europeanaProxyProp.appendChild(edm.createTextNode("true"));
                   europeanaProxy.appendChild(europeanaProxyProp);
                 }
-                for (int k = 0; k < normalizedValue.size(); k++) {
+                for (NormalizeDetails aNormalizedValue : normalizedValue) {
                   report.increment(normalization.getClass().getSimpleName(),
-                      normalizedValue.get(k).getConfidenceClass());
+                      aNormalizedValue.getConfidenceClass());
 
                   Node newEl = el.cloneNode(false);
                   newEl.appendChild(el.getOwnerDocument()
-                      .createTextNode(normalizedValue.get(k).getNormalizedValue()));
+                      .createTextNode(aNormalizedValue.getNormalizedValue()));
                   europeanaProxy.appendChild(newEl);
                 }
               } else {

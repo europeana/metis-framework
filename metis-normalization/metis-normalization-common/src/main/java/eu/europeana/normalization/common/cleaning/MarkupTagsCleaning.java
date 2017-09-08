@@ -20,9 +20,7 @@ public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(MarkupTagsCleaning.class);
 
-  ;
-  protected final Mode mode;
-  MarkupCleaner cleaner;
+  private final MarkupCleaner cleaner;
 
   /**
    * Creates a new instance of this class.
@@ -36,7 +34,6 @@ public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
    */
   public MarkupTagsCleaning(Mode mode) {
     super();
-    this.mode = mode;
     if (mode == Mode.HTML_ONLY) {
       cleaner = new HtmlMarkupCleaner();
     } else {
@@ -95,11 +92,11 @@ public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
         "shadow", "small", "source", "spacer", "span", "strike", "strong", "style", "sub",
         "summary", "sup", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead",
         "time", "title", "tr", "track", "tt", "u", "ul", "var", "video", "wbr", "xmp"};
-    private Pattern pattern;
+    private final Pattern pattern;
 
 
     public HtmlMarkupCleaner() {
-      StringBuffer tags = new StringBuffer();
+      StringBuilder tags = new StringBuilder();
       for (int i = 0; i < tagsTab.length; i++) {
         tags.append(tagsTab[i].toLowerCase());
         if (i < tagsTab.length - 1) {

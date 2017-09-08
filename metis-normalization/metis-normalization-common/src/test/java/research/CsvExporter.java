@@ -23,32 +23,30 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-public class CsvExporter implements Closeable {
+class CsvExporter implements Closeable {
 
-  File exportFolder;
-  CSVPrinter codeMatchPrinter;
-  CSVPrinter labelMatchPrinter;
-  CSVPrinter labelWordMatchPrinter;
-  CSVPrinter labelWordAllMatchPrinter;
-  CSVPrinter noMatchPrinter;
+  private CSVPrinter codeMatchPrinter;
+  private CSVPrinter labelMatchPrinter;
+  private CSVPrinter labelWordMatchPrinter;
+  private CSVPrinter labelWordAllMatchPrinter;
+  private CSVPrinter noMatchPrinter;
 
   //	Set<String> labelMatchCases=new HashSet<>();
 //	Set<String> labelWordAllMatchCases=new HashSet<>();
-  MapOfLists<String, String> labelMatchCases = new MapOfLists<>();
-  MapOfLists<String, String> labelWordMatchCases = new MapOfLists<>();
-  MapOfLists<String, String> labelWordAllMatchCases = new MapOfLists<>();
-  MapOfLists<String, String> labelMatchCasesIds = new MapOfLists<>();
-  MapOfLists<String, String> labelWordMatchCasesIds = new MapOfLists<>();
-  MapOfLists<String, String> labelWordAllMatchCasesIds = new MapOfLists<>();
-  Set<String> noMatchCases = new HashSet<>();
-  MapOfLists<String, String> noMatchCasesIds = new MapOfLists<>();
+  private final MapOfLists<String, String> labelMatchCases = new MapOfLists<>();
+  private final MapOfLists<String, String> labelWordMatchCases = new MapOfLists<>();
+  private final MapOfLists<String, String> labelWordAllMatchCases = new MapOfLists<>();
+  private final MapOfLists<String, String> labelMatchCasesIds = new MapOfLists<>();
+  private final MapOfLists<String, String> labelWordMatchCasesIds = new MapOfLists<>();
+  private final MapOfLists<String, String> labelWordAllMatchCasesIds = new MapOfLists<>();
+  private final Set<String> noMatchCases = new HashSet<>();
+  private final MapOfLists<String, String> noMatchCasesIds = new MapOfLists<>();
 
-  EuropeanLanguagesNal europaEuLanguagesNal;
+  private EuropeanLanguagesNal europaEuLanguagesNal;
 
   public CsvExporter(File exportFolder, EuropeanLanguagesNal europaEuLanguagesNal) {
     super();
     try {
-      this.exportFolder = exportFolder;
       FileWriter out = new FileWriter(new File(exportFolder, "LangCodeMatch.csv"));
       out.write('\ufeff');
       codeMatchPrinter = new CSVPrinter(out, CSVFormat.EXCEL);

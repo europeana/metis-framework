@@ -8,7 +8,7 @@ import org.w3c.dom.Document;
 
 public class ChainedNormalization implements RecordNormalization {
 
-  List<RecordNormalization> normalizations;
+  private List<RecordNormalization> normalizations;
 
   public ChainedNormalization() {
     super();

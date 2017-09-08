@@ -58,7 +58,7 @@ public class IndexUtilUnicode {
      * Creates a new instance of this class.
      */
     public NormalizerPool() {
-      queue = new ArrayBlockingQueue<CyrillicGreekCombinedTransliterator>(AVAILABLE_INSTANCES);
+      queue = new ArrayBlockingQueue<>(AVAILABLE_INSTANCES);
       for (int i = 0; i < AVAILABLE_INSTANCES; i++) {
         queue.add(new CyrillicGreekCombinedTransliterator());
       }

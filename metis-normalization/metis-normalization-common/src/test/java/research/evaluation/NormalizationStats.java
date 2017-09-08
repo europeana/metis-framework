@@ -6,13 +6,13 @@ public class NormalizationStats {
 // iso 2 letter code match
   //any iso code match (including locales)
 
-  int okCnt = 0;
-  int normalizedFromCodeCnt = 0;
-  int normalizedCnt = 0;
-  int normalizedAmbiguousCnt = 0;
-  int normalizedWordCnt = 0;
-  int normalizedWordAllCnt = 0;
-  int noMatchCnt = 0;
+  private int okCnt = 0;
+  private int normalizedFromCodeCnt = 0;
+  private int normalizedCnt = 0;
+  private int normalizedAmbiguousCnt = 0;
+  private int normalizedWordCnt = 0;
+  private int normalizedWordAllCnt = 0;
+  private int noMatchCnt = 0;
 
   public void addAlreadyNormalized(int count) {
     this.okCnt += count;

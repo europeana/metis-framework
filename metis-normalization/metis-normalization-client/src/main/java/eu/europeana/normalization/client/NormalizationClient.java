@@ -51,10 +51,9 @@ public class NormalizationClient {
     if (response.getStatus() == 200) {
       String normalizedEdmReport = response.readEntity(String.class);
 
-      NormalizedBatchResult report = jsonMapper
+      return jsonMapper
           .readValue(normalizedEdmReport, NormalizedBatchResult.class);
-
-      return report;
+      
     } else {
       throw handleInvalidResponse(target, "POST", json, response);
     }

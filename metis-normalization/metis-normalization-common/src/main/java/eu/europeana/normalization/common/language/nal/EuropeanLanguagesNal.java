@@ -27,13 +27,13 @@ public class EuropeanLanguagesNal {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EuropeanLanguagesNal.class);
 
-  List<NalLanguage> languages = new ArrayList<NalLanguage>();
-  List<NalLanguage> deprecatedLanguages = new ArrayList<NalLanguage>();
+  private final List<NalLanguage> languages = new ArrayList<>();
+  private final List<NalLanguage> deprecatedLanguages = new ArrayList<>();
 
-  LanguagesVocabulary targetVocabulary;
+  private LanguagesVocabulary targetVocabulary;
 
-  Map<String, NalLanguage> normalizedIndex;
-  Map<String, NalLanguage> isoCodeIndex;
+  private Map<String, NalLanguage> normalizedIndex;
+  private Map<String, NalLanguage> isoCodeIndex;
 
   /**
    * Creates a new instance of this class.

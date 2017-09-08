@@ -103,9 +103,7 @@ public class TestOnEuropeanaLanguageFacet {
       exporter.gatherCases(new File("C:\\Users\\nfrei\\Data\\ore_Proxy.dc_language.csv.gz"));
       exporter.exportEvaluationCsv(new File("target"));
       exporter.close();
-    } catch (JsonGenerationException e) {
-      e.printStackTrace();
-    } catch (JsonMappingException e) {
+    } catch (JsonGenerationException | JsonMappingException e) {
       e.printStackTrace();
     }
   }
