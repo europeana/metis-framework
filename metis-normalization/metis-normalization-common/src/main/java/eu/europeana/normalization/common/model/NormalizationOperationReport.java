@@ -7,7 +7,7 @@ import java.util.Set;
 public class NormalizationOperationReport {
 
   String operation;
-  MapOfInts<ConfidenceLevel> counts = new MapOfInts<ConfidenceLevel>();
+  MapOfInts<ConfidenceLevel> counts = new MapOfInts<>();
 
 
   public NormalizationOperationReport(String operation) {
