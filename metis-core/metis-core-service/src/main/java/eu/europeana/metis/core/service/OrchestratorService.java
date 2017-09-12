@@ -9,6 +9,7 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -46,7 +47,7 @@ public class OrchestratorService {
     this.datasetDao = datasetDao;
     this.userWorkflowExecutorManager = userWorkflowExecutorManager;
 
-    new Thread(userWorkflowExecutorManager).start();
+    this.userWorkflowExecutorManager.initiateConsumer();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow)
@@ -108,7 +109,6 @@ public class OrchestratorService {
     }
     userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
-//    userWorkflowExecution.setId(new ObjectId(objectId));
     userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
   }
@@ -138,7 +138,6 @@ public class OrchestratorService {
     }
     userWorkflowExecution.setCreatedDate(new Date());
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
-//    userWorkflowExecution.setId(new ObjectId(objectId));
     userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("UserWorkflowExecution with id: %s, added to execution queue", objectId);
   }
@@ -152,7 +151,7 @@ public class OrchestratorService {
       userWorkflowExecutorManager.cancelUserWorkflowExecution(userWorkflowExecution);
     } else {
       throw new NoUserWorkflowExecutionFoundException(String.format(
-          "Running userworkflowExecution with datasetName: %s, does not exist",
+          "Running userworkflowExecution with datasetName: %s, does not exist or not running",
           datasetName));
     }
   }

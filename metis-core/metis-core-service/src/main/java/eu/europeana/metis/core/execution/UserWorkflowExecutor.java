@@ -1,13 +1,10 @@
-package eu.europeana.metis.core.service;
+package eu.europeana.metis.core.execution;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Envelope;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import java.io.IOException;
 import java.util.Date;
 import java.util.concurrent.Callable;
 import org.slf4j.Logger;
@@ -26,21 +23,16 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
 
   private final UserWorkflowExecution userWorkflowExecution;
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
-  private final Channel rabbitmqChannel;
-  private final Envelope rabbitmqItemEnvelope;
 
   UserWorkflowExecutor(UserWorkflowExecution userWorkflowExecution,
-      UserWorkflowExecutionDao userWorkflowExecutionDao,
-      Channel rabbitmqChannel, Envelope rabbitmqItemEnvelope) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao) {
     this.userWorkflowExecution = userWorkflowExecution;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
-    this.rabbitmqChannel = rabbitmqChannel;
-    this.rabbitmqItemEnvelope = rabbitmqItemEnvelope;
   }
 
   @Override
   public UserWorkflowExecution call() {
-    LOGGER.info("Starting user workflow execution with id: {}", userWorkflowExecution.getId());
+    LOGGER.info("Starting user workflow execution with id: {} and priority {}", userWorkflowExecution.getId(), userWorkflowExecution.getWorkflowPriority());
     firstPluginExecution = true;
     if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
       runInQueueStateWorkflowExecution();
@@ -59,12 +51,6 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     }
     //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
     userWorkflowExecutionDao.update(userWorkflowExecution);
-    try {
-      rabbitmqChannel.basicAck(rabbitmqItemEnvelope.getDeliveryTag(), false);
-      LOGGER.debug("ACK sent for {}", userWorkflowExecution.getId());
-    } catch (IOException e) {
-      LOGGER.error("Could not send ACK of finished processing of item from queue.", e);
-    }
     return userWorkflowExecution;
   }
 
@@ -83,7 +69,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   }
 
   private void runRunningStateWorkflowExecution() {
-    //Run if the workflowExecution was retrieved from the queue in RUNNING state. Another process released it an came back into the queue
+    //Run if the workflowExecution was retrieved from the queue in RUNNING state. Another process released it and came back into the queue
     int firstPluginPositionToStart = 0;
     for (int i = 0; i < userWorkflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = userWorkflowExecution.getMetisPlugins().get(i);
@@ -108,7 +94,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   }
 
   private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
-    int iterationsToFake = 30;
+    int iterationsToFake = 5;
     int sleepTime = 5000;
 
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {

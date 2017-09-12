@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.service;
+package eu.europeana.metis.core.execution;
 
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.AMQP.BasicProperties;
@@ -14,7 +14,6 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -30,7 +29,7 @@ import org.springframework.stereotype.Component;
  * @since 2017-05-30
  */
 @Component
-public class UserWorkflowExecutorManager implements Runnable {
+public class UserWorkflowExecutorManager{
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
 
@@ -40,7 +39,7 @@ public class UserWorkflowExecutorManager implements Runnable {
   private String rabbitmqQueueName;
 
   private final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
-  private ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
+  private final ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
       threadPool);
 
   private final Map<String, Future<UserWorkflowExecution>> futuresMap = new ConcurrentHashMap<>();
@@ -53,33 +52,34 @@ public class UserWorkflowExecutorManager implements Runnable {
     this.rabbitmqChannel = rabbitmqChannel;
   }
 
-  @Override
-  public void run() {
+  public void initiateConsumer() {
     Consumer consumer = new DefaultConsumer(rabbitmqChannel) {
       int runningThreadsCounter = 0;
 
       @Override
       public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
-          AMQP.BasicProperties properties, byte[] body)
-          throws IOException {
+          AMQP.BasicProperties properties, byte[] body) throws IOException {
         String objectId = new String(body, "UTF-8");
         LOGGER.info("UserWorkflowExecution id: {} received from queue.", objectId);
         UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
         if (!userWorkflowExecution.isCancelling()) {
           UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-              userWorkflowExecution, userWorkflowExecutionDao, rabbitmqChannel,
-              rabbitmqEnvelope);
+              userWorkflowExecution, userWorkflowExecutionDao);
           futuresMap.put(userWorkflowExecution.getId().toString(),
               completionService.submit(userWorkflowExecutor));
           runningThreadsCounter++;
         } else {
           userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
           userWorkflowExecutionDao.update(userWorkflowExecution);
-          LOGGER.info(
-              "Cancelled inqueue user workflow execution with id: {}", userWorkflowExecution.getId());
-          rabbitmqChannel.basicAck(rabbitmqEnvelope.getDeliveryTag(), false);
+          LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
+              userWorkflowExecution.getId());
         }
+        rabbitmqChannel
+            .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue
+        LOGGER.info("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
+            rabbitmqEnvelope.getDeliveryTag());
 
+        //Block until one of the executions has finished and then release to do another handleDelivery
         while (runningThreadsCounter >= maxConcurrentThreads) {
           synchronized (futuresMap) {
             Iterator<Map.Entry<String, Future<UserWorkflowExecution>>> iterator = futuresMap
@@ -97,7 +97,9 @@ public class UserWorkflowExecutorManager implements Runnable {
       }
     };
     try {
-      rabbitmqChannel.basicQos(maxConcurrentThreads); // For correct priority
+      rabbitmqChannel.basicQos(
+          1); // For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
+      //Auto acknowledge off because of Qos.
       rabbitmqChannel.basicConsume(rabbitmqQueueName, false, consumer);
     } catch (IOException e) {
       LOGGER.error("Could not retrieve item from queue.", e);
@@ -105,8 +107,11 @@ public class UserWorkflowExecutorManager implements Runnable {
   }
 
 
-  public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId, int priority) {
-    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder().priority(priority)
+  public synchronized void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
+      int priority) {
+    //Based on Rabbitmq the basicPublish between threads should be controlled
+    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
+        .priority(priority)
         .build();
     try {
       rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
@@ -117,9 +122,9 @@ public class UserWorkflowExecutorManager implements Runnable {
     }
   }
 
-  public void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution)
-      throws ExecutionException {
-    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE || userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
+  public void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution) {
+    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+        || userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
       userWorkflowExecutionDao.setCancellingState(userWorkflowExecution);
       LOGGER.info(
           "Cancelling user workflow execution with id: {}", userWorkflowExecution.getId());

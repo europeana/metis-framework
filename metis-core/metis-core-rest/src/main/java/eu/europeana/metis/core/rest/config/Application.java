@@ -45,7 +45,7 @@ import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.service.UserWorkflowExecutorManager;
+import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.io.IOException;
@@ -54,6 +54,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
+import javax.inject.Singleton;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
@@ -176,9 +177,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
       if (mongoClientURI != null) {
         String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
         mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
         mongoUsername = mongoClientURI.getUsername();
         mongoPassword = String.valueOf(mongoClientURI.getPassword());
         mongoDb = mongoClientURI.getDatabase();
@@ -224,8 +225,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     channel = connection.createChannel();
     Map<String, Object> args = new HashMap<>();
     args.put("x-max-priority", rabbitmqHighestPriority);//Higher number means higher priority
-    boolean durable = true;
-    channel.queueDeclare(rabbitmqQueueName, durable, false, false, args);
+    //Second boolean durable to false
+    channel.queueDeclare(rabbitmqQueueName, false, false, false, args);
     return channel;
   }
 
@@ -324,6 +325,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
+  @Singleton
   public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
       UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel) {
     UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
