@@ -19,6 +19,9 @@ package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
@@ -42,11 +45,16 @@ import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.service.UserWorkflowExecutorManager;
+import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
+import javax.inject.Singleton;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
@@ -80,8 +88,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * Spring configuration class
- * Created by ymamakis on 12-2-16.
+ * Spring configuration class Created by ymamakis on 12-2-16.
  */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
@@ -102,6 +109,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String socksProxyUsername;
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
+
+  //RabbitMq
+  @Value("${rabbitmq.host}")
+  private String rabbitmqHost;
+  @Value("${rabbitmq.port}")
+  private int rabbitmqPort;
+  @Value("${rabbitmq.username}")
+  private String rabbitmqUsername;
+  @Value("${rabbitmq.password}")
+  private String rabbitmqPassword;
+  @Value("${rabbitmq.queue.name}")
+  private String rabbitmqQueueName;
+  @Value("${rabbitmq.highest.priority}")
+  private int rabbitmqHighestPriority;
 
   //Redis
   @Value("${redis.host}")
@@ -133,6 +154,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   private MongoProviderImpl mongoProvider;
   private RedisProvider redisProvider;
+  private Connection connection;
+  private Channel channel;
 
   @Autowired
   private ZohoRestConfig zohoRestConfig;
@@ -154,9 +177,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
       if (mongoClientURI != null) {
         String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
         mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
         mongoUsername = mongoClientURI.getUsername();
         mongoPassword = String.valueOf(mongoClientURI.getPassword());
         mongoDb = mongoClientURI.getDatabase();
@@ -188,6 +211,23 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Scope("singleton")
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
     return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+  }
+
+  @Bean
+  Channel getRabbitmqChannel() throws IOException, TimeoutException {
+    ConnectionFactory factory = new ConnectionFactory();
+    factory.setHost(rabbitmqHost);
+    factory.setPort(rabbitmqPort);
+    factory.setUsername(rabbitmqUsername);
+    factory.setPassword(rabbitmqPassword);
+    factory.setAutomaticRecoveryEnabled(true);
+    connection = factory.newConnection();
+    channel = connection.createChannel();
+    Map<String, Object> args = new HashMap<>();
+    args.put("x-max-priority", rabbitmqHighestPriority);//Higher number means higher priority
+    //Second boolean durable to false
+    channel.queueDeclare(rabbitmqQueueName, false, false, false, args);
+    return channel;
   }
 
   @Bean
@@ -232,7 +272,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
     UserWorkflowExecutionDao userWorkflowExecutionDao = new UserWorkflowExecutionDao(
         morphiaDatastoreProvider);
-    userWorkflowExecutionDao.setUserWorkflowExecutionsPerRequest(RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
+    userWorkflowExecutionDao.setUserWorkflowExecutionsPerRequest(
+        RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
     return userWorkflowExecutionDao;
 
   }
@@ -284,9 +325,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
+  @Singleton
   public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao) {
-    return new UserWorkflowExecutorManager(userWorkflowExecutionDao);
+      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel) {
+    UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
+        userWorkflowExecutionDao, rabbitmqChannel);
+    userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
+    return userWorkflowExecutorManager;
   }
 
   @Bean
@@ -335,9 +380,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @PreDestroy
-  public void close() {
+  public void close() throws IOException, TimeoutException {
     if (mongoProvider != null) {
       mongoProvider.close();
+    }
+    if (channel != null) {
+      channel.close();
+    }
+    if (connection != null) {
+      connection.close();
     }
   }
 

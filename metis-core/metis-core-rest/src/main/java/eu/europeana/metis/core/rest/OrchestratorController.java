@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import javax.ws.rs.DefaultValue;
 import javax.ws.rs.QueryParam;
@@ -151,12 +152,12 @@ public class OrchestratorController {
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") int priority)
-      throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
+      throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException, IOException {
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
             workflowName, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '%s' with owner '%s' and workflowName '%s' started",
+        "UserWorkflowExecution for datasetName '{}' with owner '{}' and workflowName '{}' added to queue",
         datasetName, owner, workflowName);
   }
 
@@ -175,7 +176,7 @@ public class OrchestratorController {
       throws ExecutionException, NoUserWorkflowExecutionFoundException {
     orchestratorService.cancelUserWorkflowExecution(datasetName);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '%s' with owner '%s' and workflowName '%s' cancelled",
+        "UserWorkflowExecution for datasetName '{}' is cancelling",
         datasetName);
   }
 
@@ -218,7 +219,7 @@ public class OrchestratorController {
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
       @DefaultValue("0") @QueryParam("priority") int priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
+      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException, IOException {
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, userWorkflow, priority);
     LOGGER.info(

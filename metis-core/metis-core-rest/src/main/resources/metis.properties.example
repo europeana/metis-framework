@@ -5,6 +5,14 @@ socks.proxy.port=
 socks.proxy.username=
 socks.proxy.password=
 
+#RabbitMq
+rabbitmq.host=
+rabbitmq.port=
+rabbitmq.username=
+rabbitmq.password=
+rabbitmq.queue.name=
+rabbitmq.highest.priority=
+
 #Mongo
 mongo.hosts=
 mongo.port=

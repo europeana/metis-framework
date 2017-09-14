@@ -9,6 +9,8 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +50,75 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return userWorkflowExecutionKey.getId().toString();
   }
 
+  public void updateWorkflowPlugins(UserWorkflowExecution userWorkflowExecution) {
+    UpdateOperations<UserWorkflowExecution> userWorkflowExecutionUpdateOperations = provider
+        .getDatastore()
+        .createUpdateOperations(UserWorkflowExecution.class);
+    Query<UserWorkflowExecution> query = provider.getDatastore().find(UserWorkflowExecution.class)
+        .filter("_id", userWorkflowExecution.getId());
+    userWorkflowExecutionUpdateOperations
+        .set("metisPlugins", userWorkflowExecution.getMetisPlugins());
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, userWorkflowExecutionUpdateOperations);
+    LOGGER.debug(
+        "UserWorkflowExecution metisPlugins for datasetName '" + userWorkflowExecution
+            .getDatasetName()
+            + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+            + userWorkflowExecution.getWorkflowName() + "' updated in Mongo. (UpdateResults: "
+            + updateResults.getUpdatedCount() + ")");
+  }
+
+  public void updateMonitorInformation(UserWorkflowExecution userWorkflowExecution) {
+    UpdateOperations<UserWorkflowExecution> userWorkflowExecutionUpdateOperations = provider
+        .getDatastore()
+        .createUpdateOperations(UserWorkflowExecution.class);
+    Query<UserWorkflowExecution> query = provider.getDatastore().find(UserWorkflowExecution.class)
+        .filter("_id", userWorkflowExecution.getId());
+    userWorkflowExecutionUpdateOperations
+        .set("workflowStatus", userWorkflowExecution.getWorkflowStatus());
+    if (userWorkflowExecution.getStartedDate() != null) {
+      userWorkflowExecutionUpdateOperations
+          .set("startedDate", userWorkflowExecution.getStartedDate());
+    }
+    if (userWorkflowExecution.getUpdatedDate() != null) {
+      userWorkflowExecutionUpdateOperations
+          .set("updatedDate", userWorkflowExecution.getUpdatedDate());
+    }
+    userWorkflowExecutionUpdateOperations
+        .set("metisPlugins", userWorkflowExecution.getMetisPlugins());
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, userWorkflowExecutionUpdateOperations);
+    LOGGER.debug(
+        "UserWorkflowExecution monitor information for datasetName '" + userWorkflowExecution
+            .getDatasetName()
+            + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+            + userWorkflowExecution.getWorkflowName() + "' updated in Mongo. (UpdateResults: "
+            + updateResults.getUpdatedCount() + ")");
+  }
+
+  public void setCancellingState(UserWorkflowExecution userWorkflowExecution) {
+    UpdateOperations<UserWorkflowExecution> userWorkflowExecutionUpdateOperations = provider
+        .getDatastore()
+        .createUpdateOperations(UserWorkflowExecution.class);
+    Query<UserWorkflowExecution> query = provider.getDatastore().find(UserWorkflowExecution.class)
+        .filter("_id", userWorkflowExecution.getId());
+    userWorkflowExecutionUpdateOperations.set("cancelling", true);
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, userWorkflowExecutionUpdateOperations);
+    LOGGER.debug(
+        "UserWorkflowExecution cancelling for datasetName '" + userWorkflowExecution
+            .getDatasetName()
+            + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+            + userWorkflowExecution.getWorkflowName() + "' set to true in Mongo. (UpdateResults: "
+            + updateResults.getUpdatedCount() + ")");
+  }
+
   @Override
   public UserWorkflowExecution getById(String id) {
-    return null;
+    Query<UserWorkflowExecution> query = provider.getDatastore()
+        .find(UserWorkflowExecution.class)
+        .field("_id").equal(new ObjectId(id));
+    return query.get();
   }
 
   @Override
@@ -128,7 +196,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return query.asList(new FindOptions().limit(userWorkflowExecutionsPerRequest));
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus, String nextPage) {
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus,
+      String nextPage) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
     if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
@@ -147,5 +216,15 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
 
   public void setUserWorkflowExecutionsPerRequest(int userWorkflowExecutionsPerRequest) {
     this.userWorkflowExecutionsPerRequest = userWorkflowExecutionsPerRequest;
+  }
+
+  public boolean isCancelled(ObjectId id) {
+    return provider.getDatastore().find(UserWorkflowExecution.class).field("_id").equal(id)
+        .project("workflowStatus", true).get().getWorkflowStatus() == WorkflowStatus.CANCELLED;
+  }
+
+  public boolean isCancelling(ObjectId id) {
+    return provider.getDatastore().find(UserWorkflowExecution.class).field("_id").equal(id)
+        .project("cancelling", true).get().isCancelling();
   }
 }
