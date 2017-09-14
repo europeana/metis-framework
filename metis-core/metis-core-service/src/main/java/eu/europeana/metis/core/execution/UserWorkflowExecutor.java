@@ -120,6 +120,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
         userWorkflowExecution.setUpdatedDate(updatedDate);
         userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
       } catch (InterruptedException e) {
+        LOGGER.warn("Thread was interruped", e);
         return null;
       }
     }
