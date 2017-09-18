@@ -25,8 +25,9 @@ import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -56,7 +57,7 @@ import sun.rmi.runtime.Log;
  */
 public class Validator implements Callable<ValidationResult> {
 
-    private static final Logger logger = Logger.getLogger(Validator.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);
     private static ConcurrentMap<String, Templates> templatesCache;
 
     static {
@@ -92,7 +93,7 @@ public class Validator implements Callable<ValidationResult> {
      * @return The outcome of the Validation
      */
     private ValidationResult validate() {
-        logger.info("Validation started");
+        LOGGER.info("Validation started");
         InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream(document.getBytes()));
         try {
@@ -119,7 +120,7 @@ public class Validator implements Callable<ValidationResult> {
           //  e.printStackTrace();
             return constructValidationError(document, e);
         }
-        logger.info("Validation ended");
+        LOGGER.info("Validation ended");
         return constructOk();
     }
 
@@ -189,7 +190,7 @@ class EDMParser {
     private static EDMParser p;
     private static final ConcurrentMap<String, javax.xml.validation.Schema> cache;
     private static final DocumentBuilderFactory parseFactory;
-    private static final Logger logger = Logger.getLogger(EDMParser.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(EDMParser.class);
 
     static {
         cache = new ConcurrentHashMap<>();
@@ -200,7 +201,7 @@ class EDMParser {
             temp.setFeature("http://apache.org/xml/features/validation/schema-full-checking", false);
             temp.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
         } catch (ParserConfigurationException e) {
-            logger.error("Unable to create DocumentBuilderFactory", e);
+            LOGGER.error("Unable to create DocumentBuilderFactory", e);
             e.printStackTrace();
         }
         parseFactory = temp;

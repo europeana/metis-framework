@@ -1,7 +1,8 @@
 package eu.europeana.validation.service;
 
 import eu.europeana.features.ObjectStorageClient;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
 
 import java.io.InputStream;
@@ -12,7 +13,7 @@ import java.io.InputStreamReader;
  */
 public class ObjectStorageResourceResolver implements AbstractLSResourceResolver {
     private String prefix;
-    private static final Logger logger = Logger.getRootLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ObjectStorageResourceResolver.class);
     private ObjectStorageClient client;
 
     public void setClient(ObjectStorageClient client){
@@ -53,7 +54,7 @@ public class ObjectStorageResourceResolver implements AbstractLSResourceResolver
             return input;
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
         }
         return null;
     }

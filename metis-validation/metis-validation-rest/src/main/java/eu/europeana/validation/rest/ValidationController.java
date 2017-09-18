@@ -32,7 +32,8 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +58,8 @@ import static eu.europeana.metis.RestEndpoints.SCHEMA_RECORDS_BATCH_VALIDATE;
 @Api(value = "/", description = "Schema validation service" )
 public class ValidationController {
 
-    private static final Logger logger =  Logger.getRootLogger();
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationController.class);
+
 
     private ValidationExecutionService validator;
 
@@ -85,7 +87,7 @@ public class ValidationController {
         if(result.isSuccess()) {
             return result;
         } else {
-            logger.error(result.getMessage());
+            LOGGER.error(result.getMessage());
             throw new ValidationException(result.getRecordId(),result.getMessage());
         }
     }
@@ -132,7 +134,7 @@ public class ValidationController {
             }
 
         } catch (IOException | InterruptedException|ExecutionException|ZipException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new ServerException(e.getMessage());
         }
     }
@@ -162,7 +164,7 @@ public class ValidationController {
             }
 
         } catch (InterruptedException|ExecutionException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new ServerException(e.getMessage());
         }
     }
