@@ -1,17 +1,22 @@
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.mapping.model.*;
+import eu.europeana.metis.mapping.model.Attribute;
+import eu.europeana.metis.mapping.model.Element;
+import eu.europeana.metis.mapping.model.Mapping;
+import eu.europeana.metis.mapping.model.MappingSchema;
+import eu.europeana.metis.mapping.model.Mappings;
+import eu.europeana.metis.mapping.model.SimpleMapping;
+import eu.europeana.metis.mapping.model.XPathHolder;
 import eu.europeana.metis.mapping.utils.XSLTGenerator;
 import eu.europeana.metis.xsd.XSDParser;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.BeanUtils;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 
 /**
  * Created by ymamakis on 9/9/16.

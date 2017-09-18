@@ -2,11 +2,10 @@ import eu.europeana.metis.linkchecking.EdmFieldName;
 import eu.europeana.metis.linkchecking.LinkcheckRequest;
 import eu.europeana.metis.linkchecking.LinkcheckStatus;
 import eu.europeana.metis.linkchecking.service.LinkcheckingService;
-import org.junit.Assert;
-import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Created by ymamakis on 11/7/16.

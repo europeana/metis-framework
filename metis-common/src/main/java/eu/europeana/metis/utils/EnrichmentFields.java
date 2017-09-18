@@ -1,7 +1,18 @@
 package eu.europeana.metis.utils;
 
-import eu.europeana.corelib.definitions.jibx.*;
-
+import eu.europeana.corelib.definitions.jibx.Contributor;
+import eu.europeana.corelib.definitions.jibx.Coverage;
+import eu.europeana.corelib.definitions.jibx.Created;
+import eu.europeana.corelib.definitions.jibx.Creator;
+import eu.europeana.corelib.definitions.jibx.Date;
+import eu.europeana.corelib.definitions.jibx.EuropeanaType;
+import eu.europeana.corelib.definitions.jibx.Issued;
+import eu.europeana.corelib.definitions.jibx.ProxyType;
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
+import eu.europeana.corelib.definitions.jibx.Spatial;
+import eu.europeana.corelib.definitions.jibx.Subject;
+import eu.europeana.corelib.definitions.jibx.Temporal;
+import eu.europeana.corelib.definitions.jibx.Type;
 import java.util.ArrayList;
 import java.util.List;
 

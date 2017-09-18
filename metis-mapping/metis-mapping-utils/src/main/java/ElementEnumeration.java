@@ -1,10 +1,18 @@
-import eu.europeana.metis.mapping.validation.*;
-import org.apache.commons.lang.StringUtils;
-
+import eu.europeana.metis.mapping.validation.FlagType;
+import eu.europeana.metis.mapping.validation.IsBooleanFunction;
+import eu.europeana.metis.mapping.validation.IsDateTypeFunction;
+import eu.europeana.metis.mapping.validation.IsEnumerationFunction;
+import eu.europeana.metis.mapping.validation.IsFloatFunction;
+import eu.europeana.metis.mapping.validation.IsLanguageFunction;
+import eu.europeana.metis.mapping.validation.IsUriFunction;
+import eu.europeana.metis.mapping.validation.IsUrlFunction;
+import eu.europeana.metis.mapping.validation.ValidationFunction;
+import eu.europeana.metis.mapping.validation.ValidationRule;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * Created by ymamakis on 9/14/16.

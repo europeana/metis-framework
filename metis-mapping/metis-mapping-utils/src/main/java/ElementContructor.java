@@ -2,7 +2,6 @@ import eu.europeana.metis.mapping.model.Attribute;
 import eu.europeana.metis.mapping.model.MappingType;
 import eu.europeana.metis.mapping.model.SimpleMapping;
 import eu.europeana.metis.mapping.validation.ValidationRule;
-
 import java.util.ArrayList;
 import java.util.List;
 

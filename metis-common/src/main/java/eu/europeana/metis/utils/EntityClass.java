@@ -16,10 +16,9 @@
  */
 package eu.europeana.metis.utils;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Enumeration that holds the different vocabularies supported for enrichment

@@ -16,12 +16,10 @@
  */
 package eu.europeana.metis.utils;
 
-import eu.europeana.metis.utils.EntityClass;
+import java.util.List;
+import javax.xml.bind.annotation.XmlRootElement;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.List;
 
 /**
  * Enrichment input class wrapper. It defines the basics needed for enrichment
