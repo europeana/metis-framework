@@ -105,33 +105,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <scope>test</scope>
-            <groupId>co.freeside</groupId>
-            <artifactId>betamax</artifactId>
-            <version>1.1.2</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>httpclient</artifactId>
-                    <groupId>org.apache.httpcomponents</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-            <version>2.0.4</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0</version>
-        </dependency>
-        <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
 
     </dependencies>
@@ -160,8 +136,4 @@
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <enrichment.version>1.0-SNAPSHOT</enrichment.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
 </project>

@@ -33,7 +33,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
 import java.util.regex.Matcher;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -306,7 +306,8 @@ public class XSLTGenerator {
             } else {
                 IMapping simpleMapping = aCase.get(0);
                 if (simpleMapping.getType() == MappingType.XPATH) {
-                    String select = StringUtils.contains(((SimpleMapping)simpleMapping).getSourceField(),"/")?
+                    String select = StringUtils
+                        .contains(((SimpleMapping)simpleMapping).getSourceField(),"/")?
                             StringUtils.substringAfterLast(((SimpleMapping)simpleMapping).getSourceField(),"/"):
                             ((SimpleMapping)simpleMapping).getSourceField();
                     xpathPrefix.push(name);

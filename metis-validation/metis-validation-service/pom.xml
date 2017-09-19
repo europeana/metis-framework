@@ -37,14 +37,14 @@
             <version>2.11.0</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${version.commonslang}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version.commons.lang}</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>${version.commonsio}</version>
+            <version>${version.commons.io}</version>
         </dependency>
         <dependency>
             <groupId>net.lingala.zip4j</groupId>

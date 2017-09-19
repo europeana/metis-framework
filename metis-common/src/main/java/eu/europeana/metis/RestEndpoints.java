@@ -1,6 +1,6 @@
 package eu.europeana.metis;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * REST Endpoints

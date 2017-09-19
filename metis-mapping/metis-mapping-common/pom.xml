@@ -39,9 +39,9 @@
             <version>${version.xsom}</version>
         </dependency>
         <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-            <version>${version.commonslang}</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version.commons.lang}</version>
         </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>

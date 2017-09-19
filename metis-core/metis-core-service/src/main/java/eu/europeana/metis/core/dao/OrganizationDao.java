@@ -54,7 +54,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   @Override
   public String create(Organization organization) {
     Key<Organization> organizationKey = provider.getDatastore().save(organization);
-    LOGGER.info("Organization '%s' created in Mongo", organization.getOrganizationId());
+    LOGGER.info("Organization '{}' created in Mongo", organization.getOrganizationId());
     return organizationKey.getId().toString();
   }
 
@@ -153,7 +153,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     ops.set("acronym", organization.getAcronym());
     ops.set("modified", new Date());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
-    LOGGER.info("Organization '%s' updated in Mongo", organization.getOrganizationId());
+    LOGGER.info("Organization '{}' updated in Mongo", organization.getOrganizationId());
     return String.valueOf(updateResults.getUpdatedCount());
   }
 
@@ -166,7 +166,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   @Override
   public boolean delete(Organization organization) {
     provider.getDatastore().delete(organization);
-    LOGGER.info("Organization '%s' deleted from Mongo", organization.getName());
+    LOGGER.info("Organization '{}' deleted from Mongo", organization.getName());
     return true;
   }
 
@@ -200,7 +200,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     Query<Organization> query = provider.getDatastore().createQuery(Organization.class);
     query.field(ORGANIZATION_ID_FIELD).equal(organizationId);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("Organization '%s' deleted from Mongo. (WriteResult: %d)", organizationId,
+    LOGGER.info("Organization '{}' deleted from Mongo. (WriteResult: {})", organizationId,
             delete.getN());
   }
 

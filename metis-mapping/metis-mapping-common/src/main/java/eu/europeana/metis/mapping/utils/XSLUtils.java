@@ -17,10 +17,18 @@
 package eu.europeana.metis.mapping.utils;
 
 
-import eu.europeana.metis.mapping.model.*;
-import org.apache.commons.lang.StringEscapeUtils;
-
-import java.util.*;
+import eu.europeana.metis.mapping.model.Clause;
+import eu.europeana.metis.mapping.model.ConditionMapping;
+import eu.europeana.metis.mapping.model.Function;
+import eu.europeana.metis.mapping.model.FunctionType;
+import eu.europeana.metis.mapping.model.ValueMapping;
+import eu.europeana.metis.mapping.model.ValueMappings;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  * XSLUtils

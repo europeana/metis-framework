@@ -87,7 +87,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.createDatasetForOrganization(dataset, organizationId);
-    LOGGER.info("Dataset with name {} for organizationId %s created", dataset.getDatasetName(),
+    LOGGER.info("Dataset with name {} for organizationId {} created", dataset.getDatasetName(),
             organizationId);
   }
 

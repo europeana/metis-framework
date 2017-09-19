@@ -18,7 +18,7 @@
 package eu.europeana.metis.core.common;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Countries supported by METIS

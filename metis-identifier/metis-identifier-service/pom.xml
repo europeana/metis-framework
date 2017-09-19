@@ -32,11 +32,6 @@
             <artifactId>corelib-utils</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.jibx</groupId>
-            <artifactId>jibx-run</artifactId>
-            <version>1.2.6</version>
-        </dependency>
-        <dependency>
             <groupId>eu.europeana.corelib</groupId>
             <artifactId>corelib-edm-definitions</artifactId>
         </dependency>

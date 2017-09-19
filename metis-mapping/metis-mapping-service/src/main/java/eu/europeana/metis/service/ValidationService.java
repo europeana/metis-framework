@@ -29,13 +29,12 @@ import eu.europeana.metis.mapping.statistics.StatisticsValue;
 import eu.europeana.metis.mapping.validation.Flag;
 import eu.europeana.metis.mapping.validation.FlagType;
 import eu.europeana.metis.mapping.validation.ValidationRule;
-import org.apache.commons.lang.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The validation/flagging service

@@ -49,9 +49,9 @@ public class TestDatasetController {
     public void setUp() throws Exception {
         metisAuthorizationServiceMock = mock(MetisAuthorizationService.class);
         datasetServiceMock = mock(DatasetService.class);
-        DatasetController DatasetController = new DatasetController(datasetServiceMock, metisAuthorizationServiceMock);
+        DatasetController datasetController = new DatasetController(datasetServiceMock, metisAuthorizationServiceMock);
         datasetControllerMock = MockMvcBuilders
-            .standaloneSetup(DatasetController)
+            .standaloneSetup(datasetController)
             .setControllerAdvice(new RestResponseExceptionHandler())
             .build();
     }
@@ -154,7 +154,7 @@ public class TestDatasetController {
             .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
 
         datasetControllerMock.perform(post("/datasets")
-            .param("apikey", "myApiKey")
+            .param("organizationId", "myOrg").param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(dataset)))
@@ -255,7 +255,7 @@ public class TestDatasetController {
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(null)))
             .andExpect(status().is(200))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.datasetName", is("myDataset")))
             .andExpect(jsonPath("$.dataProvider", is("erik")));
 
@@ -281,7 +281,7 @@ public class TestDatasetController {
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(TestUtil.convertObjectToJsonBytes(null)))
             .andExpect(status().is(200))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.results", hasSize(2)))
             .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
             .andExpect(jsonPath("$.results[0].datasetName", is("name1")))

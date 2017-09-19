@@ -202,7 +202,7 @@ public class OrganizationService {
     String organizationId = org.getOrganizationId();
     List<String> searchLabel = getSearchLabels(org, englabel);
     searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
-    LOGGER.info("Organization %s saved in solr", org.getOrganizationId());
+    LOGGER.info("Organization {} saved in solr", org.getOrganizationId());
   }
 
   private void updateSearchTermsInSolr(Organization org) throws IOException, SolrServerException {
@@ -212,7 +212,7 @@ public class OrganizationService {
     String organizationId = org.getOrganizationId();
     List<String> searchLabel = getSearchLabels(org, englabel);
     searchService.addOrganizationForSearch(id, organizationId, englabel, searchLabel);
-    LOGGER.info("Organization %s saved in solr", org.getOrganizationId());
+    LOGGER.info("Organization {} saved in solr", org.getOrganizationId());
   }
 
   private List<String> getSearchLabels(Organization org, String englabel) {

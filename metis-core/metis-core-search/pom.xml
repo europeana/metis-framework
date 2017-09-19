@@ -14,28 +14,28 @@
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-core</artifactId>
-            <version>6.4.1</version>
+            <version>${version.solr.core}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-test-framework</artifactId>
-            <version>6.4.1</version>
+            <version>${version.solr.test.framework}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
-            <version>4.3.1.RELEASE</version>
+            <version>${version.spring.beans}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.2.4.RELEASE</version>
+            <version>${version.spring.context}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>4.2.5.RELEASE</version>
+            <version>${version.spring.test}</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
@@ -48,14 +48,10 @@
         <artifactId>jackson-dataformat-xml</artifactId>
         <version>${version.jackson}</version>
       </dependency>
-      <dependency>
-        <groupId>eu.europeana.metis</groupId>
-        <artifactId>metis-core-common</artifactId>
-      </dependency>
         <dependency>
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-core-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
