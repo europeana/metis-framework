@@ -220,7 +220,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     responseListWrapper
         .setResultsAndLastPage(datasetService.getAllDatasetsByDataProvider(dataProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: %d datasets returned, using batch nextPage: %s",
+    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }

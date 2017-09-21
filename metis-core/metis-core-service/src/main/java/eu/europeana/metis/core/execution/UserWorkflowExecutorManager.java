@@ -29,8 +29,9 @@ public class UserWorkflowExecutorManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
 
-  private final int maxConcurrentThreads = 2;
+  private final int maxConcurrentThreads = 3;
   private final int threadPoolSize = 10;
+  private final int monitorCheckInSecs = 5;
   private final Channel rabbitmqChannel;
   private String rabbitmqQueueName;
 
@@ -49,9 +50,9 @@ public class UserWorkflowExecutorManager {
 
   public void initiateConsumer() {
     try {
-      rabbitmqChannel.basicQos(
-          1); // For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
-      //Auto acknowledge off because of Qos.
+      rabbitmqChannel.basicQos(1);
+      //For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
+      //Auto acknowledge false because of Qos.
       rabbitmqChannel.basicConsume(rabbitmqQueueName, false, new QueueConsumer(rabbitmqChannel));
     } catch (IOException e) {
       LOGGER.error("Could not retrieve item from queue.", e);
@@ -61,7 +62,7 @@ public class UserWorkflowExecutorManager {
 
   public synchronized void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
       int priority) {
-    //Based on Rabbitmq the basicPublish between threads should be controlled
+    //Based on Rabbitmq the basicPublish between threads should be controlled(synchronized)
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
         .priority(priority)
         .build();
@@ -87,12 +88,17 @@ public class UserWorkflowExecutorManager {
     this.rabbitmqQueueName = rabbitmqQueueName;
   }
 
+  public int getMonitorCheckInSecs() {
+    return monitorCheckInSecs;
+  }
+
   @PreDestroy
   public void close() {
     threadPool.shutdown();
   }
 
-  class QueueConsumer extends DefaultConsumer{
+  class QueueConsumer extends DefaultConsumer {
+
     AtomicInteger runningThreadsCounter = new AtomicInteger(0);
 
     QueueConsumer(Channel channel) {
@@ -105,27 +111,38 @@ public class UserWorkflowExecutorManager {
       String objectId = new String(body, "UTF-8");
       LOGGER.info("UserWorkflowExecution id: {} received from queue.", objectId);
       UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
-      if (!userWorkflowExecution.isCancelling()) {
-        UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-            userWorkflowExecution, userWorkflowExecutionDao);
-        completionService.submit(userWorkflowExecutor);
-        runningThreadsCounter.incrementAndGet();
-      } else {
-        userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
-        userWorkflowExecutionDao.update(userWorkflowExecution);
-        LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
-            userWorkflowExecution.getId());
+      //Check here too because a failure to rabbitmq will result unblocking this method and run it again
+      //causing an extra message to be consumed, the message is requeued
+      if (runningThreadsCounter.get() >= maxConcurrentThreads) {
+        //Send NACK to send message back to the queue. Message will go to the same possition it was or as close as possible
+        rabbitmqChannel
+            .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
+        LOGGER.info("NACK sent for {} with tag {}", userWorkflowExecution.getId(),
+            rabbitmqEnvelope.getDeliveryTag());
       }
-      rabbitmqChannel
-          .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue
-      LOGGER.info("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
-          rabbitmqEnvelope.getDeliveryTag());
+      else
+      {
+        if (!userWorkflowExecution.isCancelling()) {
+          UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
+              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckInSecs);
+          completionService.submit(userWorkflowExecutor);
+          runningThreadsCounter.incrementAndGet();
+        } else {
+          userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+          userWorkflowExecutionDao.update(userWorkflowExecution);
+          LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
+              userWorkflowExecution.getId());
+        }
+        rabbitmqChannel
+            .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue
+        LOGGER.info("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
+            rabbitmqEnvelope.getDeliveryTag());
+      }
 
-      checkCompletionService();
+      checkAndCleanCompletionService();
     }
 
-    private synchronized void checkCompletionService()
-    {
+    private synchronized void checkAndCleanCompletionService() {
       //Block until one of the executions has finished and then release to do another handleDelivery
       if (runningThreadsCounter.get() >= maxConcurrentThreads) {
         try {

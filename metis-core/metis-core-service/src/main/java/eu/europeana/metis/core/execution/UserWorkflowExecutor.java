@@ -20,24 +20,31 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
+  private int monitorCheckInSecs;
 
   private final UserWorkflowExecution userWorkflowExecution;
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
 
   UserWorkflowExecutor(UserWorkflowExecution userWorkflowExecution,
-      UserWorkflowExecutionDao userWorkflowExecutionDao) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, int monitorCheckInSecs) {
     this.userWorkflowExecution = userWorkflowExecution;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.monitorCheckInSecs = monitorCheckInSecs;
   }
 
   @Override
   public UserWorkflowExecution call() {
-    LOGGER.info("Starting user workflow execution with id: {} and priority {}", userWorkflowExecution.getId(), userWorkflowExecution.getWorkflowPriority());
+    LOGGER.info("Starting user workflow execution with id: {} and priority {}",
+        userWorkflowExecution.getId(), userWorkflowExecution.getWorkflowPriority());
     firstPluginExecution = true;
-    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
+    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+        && !userWorkflowExecutionDao.isExecutionActive(this.userWorkflowExecution, monitorCheckInSecs)) {
       runInQueueStateWorkflowExecution();
-    } else {
+    } else if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
+        && !userWorkflowExecutionDao.isExecutionActive(this.userWorkflowExecution, monitorCheckInSecs)) {
       runRunningStateWorkflowExecution();
+    } else {
+      return userWorkflowExecution;
     }
 
     if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
@@ -95,7 +102,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
 
   private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
     int iterationsToFake = 5;
-    int sleepTime = 5000;
+    int sleepTime = monitorCheckInSecs * 1000;
 
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
       if (firstPluginExecution) {

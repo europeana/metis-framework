@@ -9,6 +9,7 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
@@ -48,6 +49,9 @@ public class OrchestratorService {
     this.userWorkflowExecutorManager = userWorkflowExecutorManager;
 
     this.userWorkflowExecutorManager.initiateConsumer();
+
+    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
+        userWorkflowExecutorManager)).start();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow)
