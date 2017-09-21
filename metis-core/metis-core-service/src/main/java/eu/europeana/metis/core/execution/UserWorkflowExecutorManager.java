@@ -29,7 +29,7 @@ public class UserWorkflowExecutorManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
 
-  private final int maxConcurrentThreads = 3;
+  private final int maxConcurrentThreads = 2;
   private final int threadPoolSize = 10;
   private final int monitorCheckInSecs = 5;
   private final Channel rabbitmqChannel;

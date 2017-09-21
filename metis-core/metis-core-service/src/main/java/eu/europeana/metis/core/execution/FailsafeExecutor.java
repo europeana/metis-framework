@@ -6,7 +6,10 @@ import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PreDestroy;
 import org.apache.solr.common.StringUtils;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,17 +24,23 @@ public class FailsafeExecutor implements Runnable {
   private final int periodicFailsafeCheckInSecs = 60;
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
   private final UserWorkflowExecutorManager userWorkflowExecutorManager;
+  private final RedissonClient redissonClient;
+  private final String failsafeLock = "failsafeLock";
 
   public FailsafeExecutor(UserWorkflowExecutionDao userWorkflowExecutionDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager,
+      RedissonClient redissonClient) {
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
     this.userWorkflowExecutorManager = userWorkflowExecutorManager;
+    this.redissonClient = redissonClient;
   }
 
   @Override
   public void run() {
+    RLock lock = redissonClient.getFairLock(failsafeLock);
     while (true) {
       try {
+        lock.lock();
         LOGGER.info("Failsafe thread woke up.");
         List<UserWorkflowExecution> allInQueueAndRunningUserWorkflowExecutions = new ArrayList<>();
         addQueueExecutions(WorkflowStatus.RUNNING, allInQueueAndRunningUserWorkflowExecutions);
@@ -48,11 +57,14 @@ public class FailsafeExecutor implements Runnable {
                     userWorkflowExecution.getWorkflowPriority());
           }
         }
+        lock.unlock();
 
         LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
         Thread.sleep(periodicFailsafeCheckInSecs * 1000);
       } catch (Exception e) {
-        LOGGER.warn("Thread was interruped", e);
+        LOGGER.warn(
+            "Thread was interruped or exception thrown from rabbitmq channel disconnection, failsafe thread continues",
+            e);
       }
     }
   }
@@ -69,5 +81,12 @@ public class FailsafeExecutor implements Runnable {
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (!StringUtils.isEmpty(nextPage));
+  }
+
+  @PreDestroy
+  private void close() {
+    if (!redissonClient.isShutdown()) {
+      this.redissonClient.shutdown();
+    }
   }
 }
