@@ -313,6 +313,7 @@
     <version.commons.io>2.4</version.commons.io>
     <version.commons.lang>3.3.2</version.commons.lang>
     <version.httpclient>4.5.2</version.httpclient>
+    <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
     <version.guava>16.0</version.guava>
