@@ -6,7 +6,6 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -237,10 +236,11 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
       int monitorCheckInSecs) {
     try {
       Date updatedDateBefore = userWorkflowExecutionToCheck.getUpdatedDate();
-      //Wait between 2-3 times the monitorCheckInSecs to make sure that 2 checks for the same execution won't be identical
-      Random rand = new Random();
-      float random = 2 + rand.nextFloat() * (3 - 2);
-      Thread.sleep((long) ((random * monitorCheckInSecs) * 1000));
+//      //Wait between 2-3 times the monitorCheckInSecs to make sure that 2 checks for the same execution won't be identical
+//      Random rand = new Random();
+//      float random = 2 + rand.nextFloat() * (3 - 2);
+//      Thread.sleep((long) ((random * monitorCheckInSecs) * 1000));
+      Thread.sleep(2 * monitorCheckInSecs * 1000);
       UserWorkflowExecution userWorkflowExecution = this
           .getById(userWorkflowExecutionToCheck.getId().toString());
       return updatedDateBefore != null

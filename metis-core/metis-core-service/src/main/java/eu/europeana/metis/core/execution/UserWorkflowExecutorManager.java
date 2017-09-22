@@ -15,6 +15,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.PreDestroy;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,15 @@ public class UserWorkflowExecutorManager {
       threadPool);
 
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private final RedissonClient redissonClient;
 
   @Autowired
   public UserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel,
+      RedissonClient redissonClient) {
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
     this.rabbitmqChannel = rabbitmqChannel;
+    this.redissonClient = redissonClient;
   }
 
   public void initiateConsumer() {
@@ -119,12 +123,10 @@ public class UserWorkflowExecutorManager {
             .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
         LOGGER.info("NACK sent for {} with tag {}", userWorkflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
-      }
-      else
-      {
+      } else {
         if (!userWorkflowExecution.isCancelling()) {
           UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckInSecs);
+              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckInSecs, redissonClient);
           completionService.submit(userWorkflowExecutor);
           runningThreadsCounter.incrementAndGet();
         } else {

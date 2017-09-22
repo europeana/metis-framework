@@ -25,7 +25,6 @@ public class FailsafeExecutor implements Runnable {
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
   private final UserWorkflowExecutorManager userWorkflowExecutorManager;
   private final RedissonClient redissonClient;
-  private final String failsafeLock = "failsafeLock";
 
   public FailsafeExecutor(UserWorkflowExecutionDao userWorkflowExecutionDao,
       UserWorkflowExecutorManager userWorkflowExecutorManager,
@@ -37,6 +36,7 @@ public class FailsafeExecutor implements Runnable {
 
   @Override
   public void run() {
+    final String failsafeLock = "failsafeLock";
     RLock lock = redissonClient.getFairLock(failsafeLock);
     while (true) {
       try {

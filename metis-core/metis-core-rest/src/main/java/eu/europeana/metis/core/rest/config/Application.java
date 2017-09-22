@@ -339,9 +339,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @Singleton
   public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel, RedissonClient redissonClient) {
     UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel);
+        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
     return userWorkflowExecutorManager;
   }
