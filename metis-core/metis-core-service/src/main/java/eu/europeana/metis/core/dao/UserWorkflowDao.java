@@ -12,11 +12,13 @@ import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
+@Repository
 public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflow.class);
   private int userWorkflowsPerRequest = 5;

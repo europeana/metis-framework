@@ -33,11 +33,13 @@ import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * Organization DAO
  * Created by ymamakis on 2/17/16.
  */
+@Repository
 public class OrganizationDao implements MetisDao<Organization, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);

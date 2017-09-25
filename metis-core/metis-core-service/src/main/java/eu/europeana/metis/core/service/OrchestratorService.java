@@ -9,6 +9,7 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
@@ -18,6 +19,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,18 +38,24 @@ public class OrchestratorService {
   private final UserWorkflowDao userWorkflowDao;
   private final DatasetDao datasetDao;
   private final UserWorkflowExecutorManager userWorkflowExecutorManager;
+  private final RedissonClient redissonClient;
 
   @Autowired
   public OrchestratorService(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager,
+      RedissonClient redissonClient) {
     this.userWorkflowDao = userWorkflowDao;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
     this.datasetDao = datasetDao;
     this.userWorkflowExecutorManager = userWorkflowExecutorManager;
+    this.redissonClient = redissonClient;
 
     this.userWorkflowExecutorManager.initiateConsumer();
+
+    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
+        userWorkflowExecutorManager, this.redissonClient)).start();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow)

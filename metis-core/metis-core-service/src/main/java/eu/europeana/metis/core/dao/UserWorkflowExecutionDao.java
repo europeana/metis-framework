@@ -3,6 +3,8 @@ package eu.europeana.metis.core.dao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
@@ -14,11 +16,13 @@ import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
+@Repository
 public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutionDao.class);
@@ -226,5 +230,44 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public boolean isCancelling(ObjectId id) {
     return provider.getDatastore().find(UserWorkflowExecution.class).field("_id").equal(id)
         .project("cancelling", true).get().isCancelling();
+  }
+
+  public boolean isExecutionActive(UserWorkflowExecution userWorkflowExecutionToCheck,
+      int monitorCheckInSecs) {
+    try {
+      Date updatedDateBefore = userWorkflowExecutionToCheck.getUpdatedDate();
+//      //Wait between 2-3 times the monitorCheckInSecs to make sure that 2 checks for the same execution won't be identical
+//      Random rand = new Random();
+//      float random = 2 + rand.nextFloat() * (3 - 2);
+//      Thread.sleep((long) ((random * monitorCheckInSecs) * 1000));
+      Thread.sleep(2 * monitorCheckInSecs * 1000);
+      UserWorkflowExecution userWorkflowExecution = this
+          .getById(userWorkflowExecutionToCheck.getId().toString());
+      return updatedDateBefore != null
+          && updatedDateBefore.compareTo(userWorkflowExecution.getUpdatedDate()) < 0;
+    } catch (InterruptedException e) {
+      LOGGER.warn("Thread was interruped", e);
+      return true;
+    }
+  }
+
+  public void removeActiveExecutionsFromList(List<UserWorkflowExecution> userWorkflowExecutions,
+      int monitorCheckInSecs) {
+    try {
+      Thread.sleep(2 * monitorCheckInSecs * 1000);
+      for (Iterator<UserWorkflowExecution> iterator = userWorkflowExecutions.iterator();
+          iterator.hasNext(); ) {
+        UserWorkflowExecution userWorkflowExecutionToCheck = iterator.next();
+        UserWorkflowExecution userWorkflowExecution = this
+            .getById(userWorkflowExecutionToCheck.getId().toString());
+        if (userWorkflowExecutionToCheck.getUpdatedDate() != null && userWorkflowExecutionToCheck.getUpdatedDate()
+            .compareTo(userWorkflowExecution.getUpdatedDate()) < 0) {
+          iterator.remove();
+        }
+      }
+
+    } catch (InterruptedException e) {
+      LOGGER.warn("Thread was interruped", e);
+    }
   }
 }

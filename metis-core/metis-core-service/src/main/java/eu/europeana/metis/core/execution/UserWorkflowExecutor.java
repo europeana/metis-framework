@@ -7,6 +7,8 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import java.util.Date;
 import java.util.concurrent.Callable;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,24 +22,40 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
+  private int monitorCheckInSecs;
 
   private final UserWorkflowExecution userWorkflowExecution;
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private final RedissonClient redissonClient;
 
   UserWorkflowExecutor(UserWorkflowExecution userWorkflowExecution,
-      UserWorkflowExecutionDao userWorkflowExecutionDao) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, int monitorCheckInSecs,
+      RedissonClient redissonClient) {
     this.userWorkflowExecution = userWorkflowExecution;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.monitorCheckInSecs = monitorCheckInSecs;
+    this.redissonClient = redissonClient;
   }
 
   @Override
   public UserWorkflowExecution call() {
-    LOGGER.info("Starting user workflow execution with id: {} and priority {}", userWorkflowExecution.getId(), userWorkflowExecution.getWorkflowPriority());
+    //Get lock for the case that two cores will retrieve the same execution id from 2 items in the queue in different cores
+    final String executionCheckLock = "executionCheckLock";
+    RLock lock = redissonClient.getFairLock(executionCheckLock);
+    LOGGER.info("Starting user workflow execution with id: {} and priority {}",
+        userWorkflowExecution.getId(), userWorkflowExecution.getWorkflowPriority());
     firstPluginExecution = true;
-    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE) {
-      runInQueueStateWorkflowExecution();
+    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+        && !userWorkflowExecutionDao
+        .isExecutionActive(this.userWorkflowExecution, monitorCheckInSecs)) {
+      runInQueueStateWorkflowExecution(lock);
+    } else if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
+        && !userWorkflowExecutionDao
+        .isExecutionActive(this.userWorkflowExecution, monitorCheckInSecs)) {
+      runRunningStateWorkflowExecution(lock);
     } else {
-      runRunningStateWorkflowExecution();
+      lock.unlock();
+      return userWorkflowExecution;
     }
 
     if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
@@ -54,11 +72,12 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     return userWorkflowExecution;
   }
 
-  private void runInQueueStateWorkflowExecution() {
+  private void runInQueueStateWorkflowExecution(RLock lock) {
     startDate = new Date();
     userWorkflowExecution.setStartedDate(startDate);
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
+    lock.unlock(); //Unlock as soon as possible
     for (AbstractMetisPlugin metisPlugin :
         userWorkflowExecution.getMetisPlugins()) {
       if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
@@ -68,8 +87,12 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     }
   }
 
-  private void runRunningStateWorkflowExecution() {
+  private void runRunningStateWorkflowExecution(RLock lock) {
     //Run if the workflowExecution was retrieved from the queue in RUNNING state. Another process released it and came back into the queue
+    userWorkflowExecution.setUpdatedDate(new Date());
+    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+    userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
+    lock.unlock(); //Unlock as soon as possible
     int firstPluginPositionToStart = 0;
     for (int i = 0; i < userWorkflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = userWorkflowExecution.getMetisPlugins().get(i);
@@ -95,7 +118,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
 
   private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
     int iterationsToFake = 5;
-    int sleepTime = 5000;
+    int sleepTime = monitorCheckInSecs * 1000;
 
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
       if (firstPluginExecution) {

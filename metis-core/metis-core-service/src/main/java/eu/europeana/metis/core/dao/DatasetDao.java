@@ -30,11 +30,13 @@ import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 /**
  * DAO for the datasets
  * Created by ymamakis on 2/17/16.
  */
+@Repository
 public class DatasetDao implements MetisDao<Dataset, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);

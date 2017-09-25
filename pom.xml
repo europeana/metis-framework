@@ -292,6 +292,7 @@
   <properties>
     <version.ecloud>0.7-SNAPSHOT</version.ecloud>
     <version.jedis>2.9.0</version.jedis>
+    <version.redisson>3.5.3</version.redisson>
     <version.maven.compiler.plugin>3.6.1</version.maven.compiler.plugin>
     <version.maven.release>2.5.3</version.maven.release>
     <version.maven.war.plugin>2.3</version.maven.war.plugin>
@@ -312,6 +313,7 @@
     <version.commons.io>2.4</version.commons.io>
     <version.commons.lang>3.3.2</version.commons.lang>
     <version.httpclient>4.5.2</version.httpclient>
+    <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
     <version.guava>16.0</version.guava>

@@ -35,6 +35,7 @@ import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
+import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
@@ -45,7 +46,6 @@ import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
-import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.io.IOException;
@@ -58,6 +58,9 @@ import javax.inject.Singleton;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -241,6 +244,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
+  RedissonClient getRedissonClient()
+  {
+    Config config = new Config();
+    config.useSingleServer().setAddress(String.format("redis://%s:%s", redisHost, redisPort));
+    config.setLockWatchdogTimeout(60000); //Give some secs to unlock if connection lost, or if too long to unlock
+    return Redisson.create(config);
+  }
+
+  @Bean
   public View json() {
     MappingJackson2JsonView view = new MappingJackson2JsonView();
     view.setPrettyPrint(true);
@@ -327,9 +339,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @Singleton
   public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel, RedissonClient redissonClient) {
     UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel);
+        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
     return userWorkflowExecutorManager;
   }
@@ -337,9 +349,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public OrchestratorService getOrchestratorService(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao, DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager, RedissonClient redissonClient) {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
-        datasetDao, userWorkflowExecutorManager);
+        datasetDao, userWorkflowExecutorManager, redissonClient);
   }
 
   @Override
@@ -384,10 +396,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     if (mongoProvider != null) {
       mongoProvider.close();
     }
-    if (channel != null) {
+    if (channel != null && channel.isOpen()) {
       channel.close();
     }
-    if (connection != null) {
+    if (connection != null && connection.isOpen()) {
       connection.close();
     }
   }
