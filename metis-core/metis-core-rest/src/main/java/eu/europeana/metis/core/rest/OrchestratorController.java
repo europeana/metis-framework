@@ -90,7 +90,8 @@ public class OrchestratorController {
   public void deleteUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     orchestratorService.deleteUserWorkflow(workflowOwner, workflowName);
-    LOGGER.info("UserWorkflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner, workflowName);
+    LOGGER.info("UserWorkflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner,
+        workflowName);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.GET, produces = {
@@ -110,7 +111,8 @@ public class OrchestratorController {
     UserWorkflow userWorkflow = orchestratorService
         .getUserWorkflow(workflowOwner, workflowName);
     LOGGER.info(
-        "UserWorkflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner, workflowName);
+        "UserWorkflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner,
+        workflowName);
     return userWorkflow;
   }
 
@@ -153,7 +155,8 @@ public class OrchestratorController {
   })
   @ApiOperation(value = "Add a user workflow by workflowOwner and workflowName for datasetName to the queue of executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @QueryParam("workflowOwner") String workflowOwner,
+      @PathVariable("datasetName") String datasetName,
+      @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException, IOException {
     if (priority == null) {
@@ -200,7 +203,8 @@ public class OrchestratorController {
   })
   @ApiOperation(value = "Get running userWorkflowExecution by datasetName, workflowOwner and workflowName", response = UserWorkflowExecution.class)
   public UserWorkflowExecution getRunningUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName, @QueryParam("workflowOwner") String workflowOwner,
+      @PathVariable("datasetName") String datasetName,
+      @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflowExecution userWorkflowExecution = orchestratorService
         .getRunningUserWorkflowExecution(datasetName, workflowOwner, workflowName);
@@ -252,13 +256,15 @@ public class OrchestratorController {
   })
   @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, workflowOwner by workflowName and workflowStatus", response = ResponseListWrapper.class)
   public ResponseListWrapper<UserWorkflowExecution> getAllUserWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @QueryParam("workflowOwner") String workflowOwner,
+      @PathVariable("datasetName") String datasetName,
+      @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName,
       @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
       @QueryParam("nextPage") String nextPage) {
     ResponseListWrapper<UserWorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus, nextPage),
+            .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
+                nextPage),
         orchestratorService.getUserWorkflowExecutionsPerRequest());
     LOGGER.info("Batch of: {} userWorkflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -299,7 +305,7 @@ public class OrchestratorController {
       @ApiResponse(code = 404, message = "UserWorkflow not found"),
       @ApiResponse(code = 406, message = "Bad content"),
       @ApiResponse(code = 409, message = "ScheduledUserWorkflow already exist")})
-  @ApiOperation(value = "Schedule a user workflow")
+  @ApiOperation(value = "Schedule a user workflow. Only one schedule per datasetName is allowed.")
   public void scheduleUserWorkflowExecution(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
       throws NoDatasetFoundException, BadContentException, NoUserWorkflowFoundException, ScheduledUserWorkflowAlreadyExistsException {
@@ -310,6 +316,25 @@ public class OrchestratorController {
         scheduledUserWorkflow.getWorkflowOwner(), scheduledUserWorkflow.getWorkflowName(),
         scheduledUserWorkflow.getPointerDate(),
         scheduledUserWorkflow.getScheduleFrequence().name());
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response"),
+      @ApiResponse(code = 404, message = "ScheduledUserWorkflow not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Get a scheduledUserWorkflow by datasetName", response = ScheduledUserWorkflow.class)
+  public ScheduledUserWorkflow getScheduledUserWorkflow(
+      @PathVariable("datasetName") String datasetName) {
+    ScheduledUserWorkflow scheduledUserWorkflow = orchestratorService
+        .getScheduledUserWorkflowByDatasetName(datasetName);
+    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' found", datasetName);
+    return scheduledUserWorkflow;
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.PUT, produces = {

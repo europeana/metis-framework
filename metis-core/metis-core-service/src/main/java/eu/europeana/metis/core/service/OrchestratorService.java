@@ -210,6 +210,10 @@ public class OrchestratorService {
     return userWorkflowExecutionDao.getAllUserWorkflowExecutions(workflowStatus, nextPage);
   }
 
+  public ScheduledUserWorkflow getScheduledUserWorkflowByDatasetName(String datasetName) {
+    return scheduledUserWorkflowDao.getScheduledUserWorkflowByDatasetName(datasetName);
+  }
+
   public void scheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
       throws NoDatasetFoundException, NoUserWorkflowFoundException, BadContentException, ScheduledUserWorkflowAlreadyExistsException {
 
