@@ -6,6 +6,8 @@ import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
+import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,5 +110,29 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
         "ScheduledUserWorkflow with datasetName: {} workflowOwner: {}, and workflowName {}, deleted from Mongo",
         datasetName, workflowOwner, workflowName);
     return delete.getN() == 1;
+  }
+
+  public boolean deleteAllByDatasetName(String datasetName) {
+    Query<ScheduledUserWorkflow> query = provider.getDatastore()
+        .createQuery(ScheduledUserWorkflow.class);
+    query.field("datasetName").equal(datasetName);
+    WriteResult delete = provider.getDatastore().delete(query);
+    LOGGER.info(
+        "ScheduledUserWorkflows with datasetName: {} deleted from Mongo", datasetName);
+    return delete.getN() >= 1;
+  }
+
+  public void updateAllDatasetNames(String datasetName, String newDatasetName) {
+    UpdateOperations<ScheduledUserWorkflow> scheduledUserWorkflowUpdateOperations = provider
+        .getDatastore()
+        .createUpdateOperations(ScheduledUserWorkflow.class);
+    Query<ScheduledUserWorkflow> query = provider.getDatastore().find(ScheduledUserWorkflow.class)
+        .filter("datasetName", datasetName);
+    scheduledUserWorkflowUpdateOperations.set("datasetName", newDatasetName);
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, scheduledUserWorkflowUpdateOperations);
+    LOGGER.info(
+        "ScheduledUserWorkflow with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
+        datasetName, newDatasetName, updateResults.getUpdatedCount());
   }
 }

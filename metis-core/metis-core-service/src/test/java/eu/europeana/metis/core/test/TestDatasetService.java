@@ -30,6 +30,8 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
+import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
+import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
@@ -56,6 +58,8 @@ public class TestDatasetService {
   private OrganizationDao organizationDao;
   private OrganizationService organizationService;
   private DatasetDao datasetDao;
+  private UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private ScheduledUserWorkflowDao scheduledUserWorkflowDao;
   private EcloudDatasetDao ecloudDatasetDao;
   private DatasetService datasetService;
   private Datastore datastore;
@@ -68,9 +72,11 @@ public class TestDatasetService {
 
     organizationDao = Mockito.mock(OrganizationDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
+    userWorkflowExecutionDao = Mockito.mock(UserWorkflowExecutionDao.class);
+    scheduledUserWorkflowDao = Mockito.mock(ScheduledUserWorkflowDao.class);
     ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
 
-    datasetService = new DatasetService(datasetDao, ecloudDatasetDao, organizationDao);
+    datasetService = new DatasetService(datasetDao, organizationDao, userWorkflowExecutionDao, scheduledUserWorkflowDao);
     datastore = Mockito.mock(Datastore.class);
 
     org = createOrganization();
@@ -144,8 +150,8 @@ public class TestDatasetService {
     ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
     ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
 
-    verify(ecloudDatasetDao, times(1)).
-        create(ecloudDataSetCapture.capture());
+//    verify(ecloudDatasetDao, times(1)).
+//        create(ecloudDataSetCapture.capture());
     verify(datasetDao, times(1)).
         create(datasetArgumentCaptor.capture());
     verify(organizationDao, times(1)).
@@ -153,7 +159,8 @@ public class TestDatasetService {
   }
 
   @Test
-  public void testDelete() throws NoDatasetFoundException, NoOrganizationFoundException {
+  public void testDelete()
+      throws NoDatasetFoundException, NoOrganizationFoundException, BadContentException {
     when(datasetDao.getDatasetByDatasetName(Mockito.any(String.class))).thenReturn(ds);
 //        when(datasetDao.deleteDatasetByDatasetName(Mockito.any(String.class))).thenReturn(true);
 //        when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class))).thenReturn(null);
@@ -162,9 +169,12 @@ public class TestDatasetService {
     ds.setOrganizationId("myOrgId");
     ds.setDatasetName("myDatasetId");
     when(datasetDao.getDatasetByDatasetName(any(String.class))).thenReturn(ds);
-    when(datasetDao.deleteDatasetByDatasetName(Mockito.any(String.class))).thenReturn(true);
+    when(userWorkflowExecutionDao.existsAndNotCompleted(any(String.class))).thenReturn(null);
+    when(datasetDao.deleteDatasetByDatasetName(any(String.class))).thenReturn(true);
     when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class)))
         .thenReturn(null);
+    when(userWorkflowExecutionDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
+    when(scheduledUserWorkflowDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
 
     datasetService.deleteDatasetByDatasetName("myDatasetId");
 
@@ -173,7 +183,9 @@ public class TestDatasetService {
     verify(organizationDao, times(1)).getOrganizationByOrganizationId("myOrgId");
     verify(organizationDao, times(1))
         .removeOrganizationDatasetNameFromList("myOrgId", "myDatasetId");
-    verify(ecloudDatasetDao, times(1)).delete(any(DataSet.class));
+    verify(userWorkflowExecutionDao, times(1)).deleteAllByDatasetName(any(String.class));
+    verify(scheduledUserWorkflowDao, times(1)).deleteAllByDatasetName(any(String.class));
+//    verify(ecloudDatasetDao, times(1)).delete(any(DataSet.class));
   }
 
   @Test
@@ -183,10 +195,10 @@ public class TestDatasetService {
 
     ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
 
-    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
+//    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
     verify(datasetDao, times(1)).update(ds);
 
-    assertEquals("myEcloudID", ecloudDataSetCapture.getValue().getId());
+//    assertEquals("myEcloudID", ecloudDataSetCapture.getValue().getId());
   }
 
   @Test
@@ -232,8 +244,8 @@ public class TestDatasetService {
     ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
     ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
 
-    verify(ecloudDatasetDao, times(1)).
-        create(ecloudDataSetCapture.capture());
+//    verify(ecloudDatasetDao, times(1)).
+//        create(ecloudDataSetCapture.capture());
     verify(datasetDao, times(1)).
         create(datasetArgumentCaptor.capture());
 
@@ -255,21 +267,22 @@ public class TestDatasetService {
     ds.setUpdatedDate(null);
 
     when(datasetDao.getDatasetByDatasetName("dataSetName")).thenReturn(ds);
-    when(ecloudDatasetDao.getEcloudProvider()).thenReturn("myEcloudprovider");
+//    when(ecloudDatasetDao.getEcloudProvider()).thenReturn("myEcloudprovider");
+    when(userWorkflowExecutionDao.existsAndNotCompleted("dataSetName")).thenReturn(null);
 
     datasetService.updateDatasetByDatasetName(ds, "dataSetName");
 
     //Beware : DataSet and Dataset
-    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
+//    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
     ArgumentCaptor<Dataset> datasetCapture = ArgumentCaptor.forClass(Dataset.class);
 
-    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
+//    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
     verify(datasetDao, times(1)).update(datasetCapture.capture());
 
-    assertEquals(ds.getDescription(), ecloudDataSetCapture.getValue().getDescription());
-
-    assertEquals("myEcloudprovider", ecloudDataSetCapture.getValue().getProviderId());
-    assertEquals("myEcloudid", ecloudDataSetCapture.getValue().getId());
+//    assertEquals(ds.getDescription(), ecloudDataSetCapture.getValue().getDescription());
+//
+//    assertEquals("myEcloudprovider", ecloudDataSetCapture.getValue().getProviderId());
+//    assertEquals("myEcloudid", ecloudDataSetCapture.getValue().getId());
 
     assertEquals(ds.getDescription(), datasetCapture.getValue().getDescription());
     assertEquals("myEcloudid", datasetCapture.getValue().getEcloudDatasetId());
@@ -277,7 +290,7 @@ public class TestDatasetService {
   }
 
   @Test
-  public void testUpdateDatasetName() throws NoDatasetFoundException {
+  public void testUpdateDatasetName() throws NoDatasetFoundException, BadContentException {
 
     Dataset ds = createDataset();
     ds.setDatasetName(null);

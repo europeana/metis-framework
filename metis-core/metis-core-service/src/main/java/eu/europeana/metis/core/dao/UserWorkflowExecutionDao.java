@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.dao;
 
+import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -269,5 +270,27 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     } catch (InterruptedException e) {
       LOGGER.warn("Thread was interruped", e);
     }
+  }
+
+  public boolean deleteAllByDatasetName(String datasetName) {
+    Query<UserWorkflowExecution> query = provider.getDatastore().createQuery(UserWorkflowExecution.class);
+    query.field("datasetName").equal(datasetName);
+    WriteResult delete = provider.getDatastore().delete(query);
+    LOGGER.info("UserWorkflowExecution with datasetName: %s, deleted from Mongo", datasetName);
+    return delete.getN() >= 1;
+  }
+
+  public void updateAllDatasetNames(String datasetName, String newDatasetName) {
+    UpdateOperations<UserWorkflowExecution> userWorkflowExecutionUpdateOperations = provider
+        .getDatastore()
+        .createUpdateOperations(UserWorkflowExecution.class);
+    Query<UserWorkflowExecution> query = provider.getDatastore().find(UserWorkflowExecution.class)
+        .filter("datasetName", datasetName);
+    userWorkflowExecutionUpdateOperations.set("datasetName", newDatasetName);
+    UpdateResults updateResults = provider.getDatastore()
+        .update(query, userWorkflowExecutionUpdateOperations);
+    LOGGER.info(
+        "UserWorkflowExecution with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
+        datasetName, newDatasetName, updateResults.getUpdatedCount());
   }
 }

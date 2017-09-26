@@ -136,7 +136,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
       @PathVariable("datasetName") String datasetName,
       @QueryParam("newDatasetName") String newDatasetName,
       @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException {
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException, BadContentException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureActionAuthorized(apikey, key, Options.WRITE);
@@ -159,7 +159,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   public void deleteDataset(
       @PathVariable("datasetName") String datasetName,
       @QueryParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException {
+      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException, BadContentException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureActionAuthorized(apikey, key, Options.WRITE);
