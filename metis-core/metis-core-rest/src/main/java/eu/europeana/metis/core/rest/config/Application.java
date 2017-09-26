@@ -31,6 +31,7 @@ import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
+import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ZohoClient;
@@ -244,11 +245,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  RedissonClient getRedissonClient()
-  {
+  RedissonClient getRedissonClient() {
     Config config = new Config();
     config.useSingleServer().setAddress(String.format("redis://%s:%s", redisHost, redisPort));
-    config.setLockWatchdogTimeout(60000); //Give some secs to unlock if connection lost, or if too long to unlock
+    config.setLockWatchdogTimeout(
+        60000); //Give some secs to unlock if connection lost, or if too long to unlock
     return Redisson.create(config);
   }
 
@@ -287,7 +288,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     userWorkflowExecutionDao.setUserWorkflowExecutionsPerRequest(
         RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
     return userWorkflowExecutionDao;
+  }
 
+  @Bean
+  public ScheduledUserWorkflowDao getScheduledUserWorkflowDao(
+      MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new ScheduledUserWorkflowDao(morphiaDatastoreProvider);
   }
 
   @Bean
@@ -339,7 +345,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   @Singleton
   public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel, RedissonClient redissonClient) {
+      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel,
+      RedissonClient redissonClient) {
     UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
         userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
@@ -348,10 +355,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public OrchestratorService getOrchestratorService(UserWorkflowDao userWorkflowDao,
-      UserWorkflowExecutionDao userWorkflowExecutionDao, DatasetDao datasetDao,
+      UserWorkflowExecutionDao userWorkflowExecutionDao,
+      ScheduledUserWorkflowDao scheduledUserWorkflowDao,
+      DatasetDao datasetDao,
       UserWorkflowExecutorManager userWorkflowExecutorManager, RedissonClient redissonClient) {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
-        datasetDao, userWorkflowExecutorManager, redissonClient);
+        scheduledUserWorkflowDao, datasetDao, userWorkflowExecutorManager, redissonClient);
   }
 
   @Override

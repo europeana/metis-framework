@@ -36,6 +36,7 @@ public final class RestEndpoints {
   public final static String ORCHESTRATOR_USERWORKFLOWS_OWNER = "/orchestrator/user_workflows/{owner}";
   public final static String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE = "/orchestrator/user_workflows/{datasetName}/execute";
   public final static String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE_DIRECT = "/orchestrator/user_workflows/{datasetName}/execute/direct";
+  public final static String ORCHESTRATOR_USERWORKFLOWS_SCHEDULE = "/orchestrator/user_workflows/schedule";
   public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/user_workflows/execution/{datasetName}";
   public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME = "/orchestrator/user_workflows/executions/{datasetName}";
   public final static String ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS = "/orchestrator/user_workflows/executions";

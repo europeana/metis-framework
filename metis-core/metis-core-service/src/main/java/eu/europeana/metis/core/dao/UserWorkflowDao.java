@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflow.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowDao.class);
   private int userWorkflowsPerRequest = 5;
   private final MorphiaDatastoreProvider provider;
 

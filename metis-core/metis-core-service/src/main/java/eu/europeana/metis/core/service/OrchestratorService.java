@@ -1,22 +1,27 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.exceptions.NoScheduledUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
+import eu.europeana.metis.core.workflow.ScheduleFrequence;
+import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.redisson.api.RedissonClient;
@@ -36,6 +41,7 @@ public class OrchestratorService {
 
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
   private final UserWorkflowDao userWorkflowDao;
+  private final ScheduledUserWorkflowDao scheduledUserWorkflowDao;
   private final DatasetDao datasetDao;
   private final UserWorkflowExecutorManager userWorkflowExecutorManager;
   private final RedissonClient redissonClient;
@@ -43,11 +49,13 @@ public class OrchestratorService {
   @Autowired
   public OrchestratorService(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao,
+      ScheduledUserWorkflowDao scheduledUserWorkflowDao,
       DatasetDao datasetDao,
       UserWorkflowExecutorManager userWorkflowExecutorManager,
       RedissonClient redissonClient) {
     this.userWorkflowDao = userWorkflowDao;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.scheduledUserWorkflowDao = scheduledUserWorkflowDao;
     this.datasetDao = datasetDao;
     this.userWorkflowExecutorManager = userWorkflowExecutorManager;
     this.redissonClient = redissonClient;
@@ -92,18 +100,8 @@ public class OrchestratorService {
       String owner, String workflowName, int priority)
       throws NoDatasetFoundException, NoUserWorkflowFoundException, UserWorkflowExecutionAlreadyExistsException {
 
-    Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
-    if (dataset == null) {
-      throw new NoDatasetFoundException(
-          String.format("No dataset found with datasetName: %s, in METIS", datasetName));
-    }
-    UserWorkflow userWorkflow = userWorkflowDao
-        .getUserWorkflow(owner, workflowName);
-    if (userWorkflow == null) {
-      throw new NoUserWorkflowFoundException(String.format(
-          "No user workflow found with owner: %s, and workflowName: %s, in METIS", owner,
-          workflowName));
-    }
+    Dataset dataset = checkDatasetExistence(datasetName);
+    UserWorkflow userWorkflow = checkUserWorkflowExistence(owner, workflowName);
 
     UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow,
         priority);
@@ -124,11 +122,7 @@ public class OrchestratorService {
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
       UserWorkflow userWorkflow, int priority)
       throws UserWorkflowAlreadyExistsException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
-    Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
-    if (dataset == null) {
-      throw new NoDatasetFoundException(
-          String.format("No dataset found with datasetName: %s, in METIS", datasetName));
-    }
+    Dataset dataset = checkDatasetExistence(datasetName);
     //Generate workflowName for user.
     userWorkflow.setWorkflowName(new ObjectId().toString());
     checkRestrictionsOnUserWorkflowCreate(userWorkflow);
@@ -151,7 +145,7 @@ public class OrchestratorService {
   }
 
   public void cancelUserWorkflowExecution(String datasetName)
-      throws NoUserWorkflowExecutionFoundException, ExecutionException {
+      throws NoUserWorkflowExecutionFoundException {
 
     UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao
         .getRunningOrInQueueExecution(datasetName);
@@ -167,7 +161,7 @@ public class OrchestratorService {
   private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
       throws UserWorkflowAlreadyExistsException {
 
-    if (StringUtils.isNotEmpty(workflowExists(userWorkflow))) {
+    if (StringUtils.isNotEmpty(userWorkflowExists(userWorkflow))) {
       throw new UserWorkflowAlreadyExistsException(String.format(
           "UserWorkflow with owner: %s, and workflowName: %s, already exists",
           userWorkflow.getOwner(), userWorkflow.getWorkflowName()));
@@ -177,7 +171,7 @@ public class OrchestratorService {
   private String checkRestrictionsOnUserWorkflowUpdate(UserWorkflow userWorkflow)
       throws NoUserWorkflowFoundException {
 
-    String storedId = workflowExists(userWorkflow);
+    String storedId = userWorkflowExists(userWorkflow);
     if (StringUtils.isEmpty(storedId)) {
       throw new NoUserWorkflowFoundException(String.format(
           "UserWorkflow with owner: %s, and workflowName: %s, not found", userWorkflow.getOwner(),
@@ -188,7 +182,7 @@ public class OrchestratorService {
     return storedId;
   }
 
-  private String workflowExists(UserWorkflow userWorkflow) {
+  private String userWorkflowExists(UserWorkflow userWorkflow) {
     return userWorkflowDao.exists(userWorkflow);
   }
 
@@ -210,5 +204,88 @@ public class OrchestratorService {
   public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus,
       String nextPage) {
     return userWorkflowExecutionDao.getAllUserWorkflowExecutions(workflowStatus, nextPage);
+  }
+
+  public void scheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
+      throws NoDatasetFoundException, NoUserWorkflowFoundException, BadContentException, ScheduledUserWorkflowAlreadyExistsException {
+
+    checkDatasetExistence(scheduledUserWorkflow.getDatasetName());
+    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
+        scheduledUserWorkflow.getWorkflowName());
+    checkScheduledUserWorkflowExistence(scheduledUserWorkflow.getDatasetName(),
+        scheduledUserWorkflow.getWorkflowOwner(), scheduledUserWorkflow.getWorkflowName());
+    if (scheduledUserWorkflow.getPointerDate() == null)
+      throw new BadContentException("PointerDate cannot be null");
+    if (scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+      throw new BadContentException("NULL is not a valid scheduleFrequence");
+    }
+    scheduledUserWorkflowDao.create(scheduledUserWorkflow);
+  }
+
+  private Dataset checkDatasetExistence(String datasetName) throws NoDatasetFoundException {
+    Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
+    if (dataset == null) {
+      throw new NoDatasetFoundException(
+          String.format("No dataset found with datasetName: %s, in METIS", datasetName));
+    }
+    return dataset;
+  }
+
+  private UserWorkflow checkUserWorkflowExistence(String owner, String workflowName)
+      throws NoUserWorkflowFoundException {
+    UserWorkflow userWorkflow = userWorkflowDao
+        .getUserWorkflow(owner, workflowName);
+    if (userWorkflow == null) {
+      throw new NoUserWorkflowFoundException(String.format(
+          "No user workflow found with owner: %s, and workflowName: %s, in METIS", owner,
+          workflowName));
+    }
+    return userWorkflow;
+  }
+
+  private void checkScheduledUserWorkflowExistence(String datasetName,
+      String workflowOwner, String workflowName)
+      throws ScheduledUserWorkflowAlreadyExistsException {
+    ScheduledUserWorkflow scheduledUserWorkflow = scheduledUserWorkflowDao
+        .getScheduledUserWorkflow(datasetName, workflowOwner, workflowName);
+    if (scheduledUserWorkflow != null) {
+      throw new ScheduledUserWorkflowAlreadyExistsException(String.format(
+          "ScheduledUserWorkflow with datasetName: %s,  workflowOwner: %s, and workflowName: %s, already exists",
+          datasetName, workflowOwner,
+          workflowName));
+    }
+  }
+
+  public void updateScheduledUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
+      throws NoScheduledUserWorkflowFoundException, BadContentException {
+    String storedId = checkRestrictionsOnScheduledUserWorkflowUpdate(scheduledUserWorkflow);
+    scheduledUserWorkflow.setId(new ObjectId(storedId));
+    scheduledUserWorkflowDao.update(scheduledUserWorkflow);
+  }
+
+  private String checkRestrictionsOnScheduledUserWorkflowUpdate(
+      ScheduledUserWorkflow scheduledUserWorkflow)
+      throws NoScheduledUserWorkflowFoundException, BadContentException {
+    String storedId = scheduledUserWorkflowExists(scheduledUserWorkflow);
+    if (StringUtils.isEmpty(storedId)) {
+      throw new NoScheduledUserWorkflowFoundException(String.format(
+          "UserWorkflow with datasetName: %s, workflowOwner: %s, workflowName: %s, not found", scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowOwner(),
+          scheduledUserWorkflow.getWorkflowName()));
+    }
+    if (scheduledUserWorkflow.getPointerDate() == null)
+      throw new BadContentException("PointerDate cannot be null");
+    if (scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+      throw new BadContentException("NULL is not a valid scheduleFrequence");
+    }
+    return storedId;
+  }
+
+  private String scheduledUserWorkflowExists(ScheduledUserWorkflow scheduledUserWorkflow) {
+    return scheduledUserWorkflowDao.exists(scheduledUserWorkflow);
+  }
+
+  public void deleteScheduledUserWorkflow(String datasetName, String workflowOwner,
+      String workflowName) {
+    scheduledUserWorkflowDao.deleteScheduledUserWorkflow(datasetName, workflowOwner, workflowName);
   }
 }
