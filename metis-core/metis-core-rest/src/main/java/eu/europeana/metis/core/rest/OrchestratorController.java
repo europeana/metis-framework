@@ -322,7 +322,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Update a scheduled user workflow")
   public void updateScheduledUserWorkflow(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoScheduledUserWorkflowFoundException, BadContentException {
+      throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
     orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
   }
 
