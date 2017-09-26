@@ -33,8 +33,8 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   public String create(UserWorkflow userWorkflow) {
     Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
         userWorkflow);
-    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' created with owner '" + userWorkflow
-        .getOwner() + "' in Mongo");
+    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' created with workflowOwner '" + userWorkflow
+        .getWorkflowOwner() + "' in Mongo");
     return userWorkflowKey.getId().toString();
   }
 
@@ -42,8 +42,8 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   public String update(UserWorkflow userWorkflow) {
     Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
         userWorkflow);
-    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' updated with owner '" + userWorkflow
-        .getOwner() + "' in Mongo");
+    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' updated with workflowOwner '" + userWorkflow
+        .getWorkflowOwner() + "' in Mongo");
     return userWorkflowKey.getId().toString();
   }
 
@@ -58,34 +58,34 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   }
 
 
-  public boolean deleteUserWorkflow(String owner, String workflowName){
+  public boolean deleteUserWorkflow(String workflowOwner, String workflowName){
     Query<UserWorkflow> query = provider.getDatastore().createQuery(UserWorkflow.class);
-    query.field("owner").equal(owner);
+    query.field("workflowOwner").equal(workflowOwner);
     query.field("workflowName").equal(workflowName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("UserWorkflow with owner: %s, and workflowName %s, deleted from Mongo", owner, workflowName);
+    LOGGER.info("UserWorkflow with workflowOwner: %s, and workflowName %s, deleted from Mongo", workflowOwner, workflowName);
     return delete.getN() == 1;
   }
 
   public String exists(UserWorkflow userWorkflow)
   {
-    UserWorkflow storedUserWorkflow = provider.getDatastore().find(UserWorkflow.class).field("owner")
+    UserWorkflow storedUserWorkflow = provider.getDatastore().find(UserWorkflow.class).field("workflowOwner")
         .equal(
-            userWorkflow.getOwner()).field("workflowName").equal(userWorkflow.getWorkflowName())
+            userWorkflow.getWorkflowOwner()).field("workflowName").equal(userWorkflow.getWorkflowName())
         .project("_id", true).get();
     return storedUserWorkflow!=null?storedUserWorkflow.getId().toString():null;
   }
 
-  public UserWorkflow getUserWorkflow(String owner, String workflowName) {
-    return provider.getDatastore().find(UserWorkflow.class).field("owner").equal(owner)
+  public UserWorkflow getUserWorkflow(String workflowOwner, String workflowName) {
+    return provider.getDatastore().find(UserWorkflow.class).field("workflowOwner").equal(workflowOwner)
         .field("workflowName").equal(workflowName)
         .get();
   }
 
-  public List<UserWorkflow> getAllUserWorkflows(String owner, String nextPage) {
+  public List<UserWorkflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
     Query<UserWorkflow> query = provider.getDatastore()
         .createQuery(UserWorkflow.class);
-    query.field("owner").equal(owner);
+    query.field("workflowOwner").equal(workflowOwner);
     query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));

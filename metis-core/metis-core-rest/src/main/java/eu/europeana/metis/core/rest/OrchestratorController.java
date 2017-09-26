@@ -83,14 +83,14 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Delete a user workflow by owner and workflowName")
-  public void deleteUserWorkflow(@QueryParam("owner") String owner,
+  @ApiOperation(value = "Delete a user workflow by workflowOwner and workflowName")
+  public void deleteUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
-    orchestratorService.deleteUserWorkflow(owner, workflowName);
-    LOGGER.info("UserWorkflow with owner '{}' and workflowName '{}' deleted", owner, workflowName);
+    orchestratorService.deleteUserWorkflow(workflowOwner, workflowName);
+    LOGGER.info("UserWorkflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner, workflowName);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.GET, produces = {
@@ -101,16 +101,16 @@ public class OrchestratorController {
       @ApiResponse(code = 200, message = "Successful response"),
       @ApiResponse(code = 404, message = "UserWorkflow not found")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get a userWorkflow by owner and workflowName", response = UserWorkflow.class)
-  public UserWorkflow getUserWorkflow(@QueryParam("owner") String owner,
+  @ApiOperation(value = "Get a userWorkflow by workflowOwner and workflowName", response = UserWorkflow.class)
+  public UserWorkflow getUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflow userWorkflow = orchestratorService
-        .getUserWorkflow(owner, workflowName);
+        .getUserWorkflow(workflowOwner, workflowName);
     LOGGER.info(
-        "UserWorkflow with owner '{}' and workflowName '{}' found", owner, workflowName);
+        "UserWorkflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner, workflowName);
     return userWorkflow;
   }
 
@@ -121,16 +121,16 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Successful response")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "path", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "workflowOwner", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
-  @ApiOperation(value = "Get all userWorkflows by owner", response = ResponseListWrapper.class)
+  @ApiOperation(value = "Get all userWorkflows by workflowOwner", response = ResponseListWrapper.class)
   public ResponseListWrapper<UserWorkflow> getAllUserWorkflows(
-      @PathVariable("owner") String owner,
+      @PathVariable("workflowOwner") String workflowOwner,
       @QueryParam("nextPage") String nextPage) {
     ResponseListWrapper<UserWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllUserWorkflows(owner, nextPage),
+            .getAllUserWorkflows(workflowOwner, nextPage),
         orchestratorService.getUserWorkflowsPerRequest());
     LOGGER.info("Batch of: {} userWorkflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -147,24 +147,24 @@ public class OrchestratorController {
       @ApiResponse(code = 201, message = "Successful response")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "priority", value = "Priority value, default is 0. The higher number the higher priority until 10", dataType = "int", defaultValue = "0", paramType = "query")
   })
-  @ApiOperation(value = "Add a user workflow by owner and workflowName for datasetName to the queue of executions")
+  @ApiOperation(value = "Add a user workflow by workflowOwner and workflowName for datasetName to the queue of executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @PathVariable("datasetName") String datasetName, @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException, IOException {
     if (priority == null) {
       priority = 0;
     }
     orchestratorService
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, owner,
+        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, workflowOwner,
             workflowName, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' with owner '{}' and workflowName '{}' added to queue",
-        datasetName, owner, workflowName);
+        "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
+        datasetName, workflowOwner, workflowName);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
@@ -176,7 +176,7 @@ public class OrchestratorController {
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Cancel a user workflow by owner and workflowName for datasetName")
+  @ApiOperation(value = "Cancel a user workflow execution by datasetName")
   public void cancelUserWorkflowExecution(
       @PathVariable("datasetName") String datasetName)
       throws ExecutionException, NoUserWorkflowExecutionFoundException {
@@ -195,18 +195,18 @@ public class OrchestratorController {
       @ApiResponse(code = 404, message = "UserWorkflowExecution not found")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get running userWorkflowExecution by datasetName, owner and workflowName", response = UserWorkflowExecution.class)
+  @ApiOperation(value = "Get running userWorkflowExecution by datasetName, workflowOwner and workflowName", response = UserWorkflowExecution.class)
   public UserWorkflowExecution getRunningUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @PathVariable("datasetName") String datasetName, @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflowExecution userWorkflowExecution = orchestratorService
-        .getRunningUserWorkflowExecution(datasetName, owner, workflowName);
+        .getRunningUserWorkflowExecution(datasetName, workflowOwner, workflowName);
     LOGGER.info(
-        "UserWorkflowExecution with datasetName '{}' with owner '{}' and workflowName '{}' found",
-        datasetName, owner, workflowName);
+        "UserWorkflowExecution with datasetName '{}' with workflowOwner '{}' and workflowName '{}' found",
+        datasetName, workflowOwner, workflowName);
     return userWorkflowExecution;
   }
 
@@ -232,8 +232,8 @@ public class OrchestratorController {
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, userWorkflow, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' with owner '{}' started", datasetName,
-        userWorkflow.getOwner());
+        "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' started", datasetName,
+        userWorkflow.getWorkflowOwner());
   }
 
 
@@ -245,20 +245,20 @@ public class OrchestratorController {
       @ApiResponse(code = 200, message = "Successful response")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "owner", value = "Owner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowStatus", value = "WorkflowStatus", dataType = "string", paramType = "query"),
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
-  @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, owner by workflowName and workflowStatus", response = ResponseListWrapper.class)
+  @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, workflowOwner by workflowName and workflowStatus", response = ResponseListWrapper.class)
   public ResponseListWrapper<UserWorkflowExecution> getAllUserWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @QueryParam("owner") String owner,
+      @PathVariable("datasetName") String datasetName, @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName,
       @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
       @QueryParam("nextPage") String nextPage) {
     ResponseListWrapper<UserWorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllUserWorkflowExecutions(datasetName, owner, workflowName, workflowStatus, nextPage),
+            .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus, nextPage),
         orchestratorService.getUserWorkflowExecutionsPerRequest());
     LOGGER.info("Batch of: {} userWorkflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);

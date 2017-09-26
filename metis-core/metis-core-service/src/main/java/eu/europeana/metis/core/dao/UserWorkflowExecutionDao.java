@@ -39,7 +39,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
         userWorkflowExecution);
     LOGGER.info("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
-        + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+        + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
         + userWorkflowExecution.getWorkflowName() + "' created in Mongo");
     return userWorkflowExecutionKey.getId().toString();
   }
@@ -49,7 +49,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
         userWorkflowExecution);
     LOGGER.debug("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
-        + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+        + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
         + userWorkflowExecution.getWorkflowName() + "' updated in Mongo");
     return userWorkflowExecutionKey.getId().toString();
   }
@@ -67,7 +67,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     LOGGER.debug(
         "UserWorkflowExecution metisPlugins for datasetName '" + userWorkflowExecution
             .getDatasetName()
-            + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+            + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
             + userWorkflowExecution.getWorkflowName() + "' updated in Mongo. (UpdateResults: "
             + updateResults.getUpdatedCount() + ")");
   }
@@ -95,7 +95,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     LOGGER.debug(
         "UserWorkflowExecution monitor information for datasetName '" + userWorkflowExecution
             .getDatasetName()
-            + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+            + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
             + userWorkflowExecution.getWorkflowName() + "' updated in Mongo. (UpdateResults: "
             + updateResults.getUpdatedCount() + ")");
   }
@@ -112,7 +112,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     LOGGER.debug(
         "UserWorkflowExecution cancelling for datasetName '" + userWorkflowExecution
             .getDatasetName()
-            + "' with owner '" + userWorkflowExecution.getOwner() + "' and workflowName '"
+            + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
             + userWorkflowExecution.getWorkflowName() + "' set to true in Mongo. (UpdateResults: "
             + updateResults.getUpdatedCount() + ")");
   }
@@ -143,8 +143,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public boolean exists(UserWorkflowExecution userWorkflowExecution) {
     return provider.getDatastore().find(UserWorkflowExecution.class)
         .field("datasetName").equal(
-            userWorkflowExecution.getDatasetName()).field("owner").equal(
-            userWorkflowExecution.getOwner()).field("workflowName")
+            userWorkflowExecution.getDatasetName()).field("workflowOwner").equal(
+            userWorkflowExecution.getWorkflowOwner()).field("workflowName")
         .equal(userWorkflowExecution.getWorkflowName())
         .project("_id", true).get() != null;
   }
@@ -170,25 +170,25 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return null;
   }
 
-  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String owner,
+  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String workflowOwner,
       String workflowName) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
     query.field("datasetName").equal(
         datasetName)
-        .field("owner").equal(owner)
+        .field("workflowOwner").equal(workflowOwner)
         .field("workflowName").equal(workflowName)
         .field("workflowStatus").equal(WorkflowStatus.RUNNING);
     return query.get();
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String owner,
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
     query.field("datasetName").equal(datasetName)
-        .field("owner").equal(owner)
+        .field("workflowOwner").equal(workflowOwner)
         .field("workflowName").equal(workflowName);
     if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
       query.field("workflowStatus").equal(workflowStatus);

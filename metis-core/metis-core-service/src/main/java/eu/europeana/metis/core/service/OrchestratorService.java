@@ -78,30 +78,30 @@ public class OrchestratorService {
     userWorkflowDao.update(userWorkflow);
   }
 
-  public void deleteUserWorkflow(String owner, String workflowName) {
-    userWorkflowDao.deleteUserWorkflow(owner, workflowName);
+  public void deleteUserWorkflow(String workflowOwner, String workflowName) {
+    userWorkflowDao.deleteUserWorkflow(workflowOwner, workflowName);
   }
 
-  public UserWorkflow getUserWorkflow(String owner, String workflowName) {
-    return userWorkflowDao.getUserWorkflow(owner, workflowName);
+  public UserWorkflow getUserWorkflow(String workflowOwner, String workflowName) {
+    return userWorkflowDao.getUserWorkflow(workflowOwner, workflowName);
   }
 
-  public List<UserWorkflow> getAllUserWorkflows(String owner, String nextPage) {
-    return userWorkflowDao.getAllUserWorkflows(owner, nextPage);
+  public List<UserWorkflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
+    return userWorkflowDao.getAllUserWorkflows(workflowOwner, nextPage);
   }
 
-  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String owner,
+  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String workflowOwner,
       String workflowName) {
     return userWorkflowExecutionDao
-        .getRunningUserWorkflowExecution(datasetName, owner, workflowName);
+        .getRunningUserWorkflowExecution(datasetName, workflowOwner, workflowName);
   }
 
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
-      String owner, String workflowName, int priority)
+      String workflowOwner, String workflowName, int priority)
       throws NoDatasetFoundException, NoUserWorkflowFoundException, UserWorkflowExecutionAlreadyExistsException {
 
     Dataset dataset = checkDatasetExistence(datasetName);
-    UserWorkflow userWorkflow = checkUserWorkflowExistence(owner, workflowName);
+    UserWorkflow userWorkflow = checkUserWorkflowExistence(workflowOwner, workflowName);
 
     UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow,
         priority);
@@ -163,8 +163,8 @@ public class OrchestratorService {
 
     if (StringUtils.isNotEmpty(userWorkflowExists(userWorkflow))) {
       throw new UserWorkflowAlreadyExistsException(String.format(
-          "UserWorkflow with owner: %s, and workflowName: %s, already exists",
-          userWorkflow.getOwner(), userWorkflow.getWorkflowName()));
+          "UserWorkflow with workflowOwner: %s, and workflowName: %s, already exists",
+          userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
     }
   }
 
@@ -174,7 +174,7 @@ public class OrchestratorService {
     String storedId = userWorkflowExists(userWorkflow);
     if (StringUtils.isEmpty(storedId)) {
       throw new NoUserWorkflowFoundException(String.format(
-          "UserWorkflow with owner: %s, and workflowName: %s, not found", userWorkflow.getOwner(),
+          "UserWorkflow with workflowOwner: %s, and workflowName: %s, not found", userWorkflow.getWorkflowOwner(),
           userWorkflow
               .getWorkflowName()));
     }
@@ -194,11 +194,11 @@ public class OrchestratorService {
     return userWorkflowDao.getUserWorkflowsPerRequest();
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String owner,
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
     return userWorkflowExecutionDao
-        .getAllUserWorkflowExecutions(datasetName, owner, workflowName, workflowStatus, nextPage);
+        .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus, nextPage);
   }
 
   public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus,
@@ -231,13 +231,13 @@ public class OrchestratorService {
     return dataset;
   }
 
-  private UserWorkflow checkUserWorkflowExistence(String owner, String workflowName)
+  private UserWorkflow checkUserWorkflowExistence(String workflowOwner, String workflowName)
       throws NoUserWorkflowFoundException {
     UserWorkflow userWorkflow = userWorkflowDao
-        .getUserWorkflow(owner, workflowName);
+        .getUserWorkflow(workflowOwner, workflowName);
     if (userWorkflow == null) {
       throw new NoUserWorkflowFoundException(String.format(
-          "No user workflow found with owner: %s, and workflowName: %s, in METIS", owner,
+          "No user workflow found with workflowOwner: %s, and workflowName: %s, in METIS", workflowOwner,
           workflowName));
     }
     return userWorkflow;

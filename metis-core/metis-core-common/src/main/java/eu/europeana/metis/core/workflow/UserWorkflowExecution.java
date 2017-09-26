@@ -34,8 +34,8 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-05-26
  */
 @Entity
-@Indexes({@Index(fields = {@Field("owner"), @Field("workflowName")})})
-@JsonPropertyOrder({"id", "onwer", "workflowName", "workflowStatus", "datasetName",
+@Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
+@JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetName",
     "workflowPriority", "harvest", "createdDate", "startedDate", "updatedDate", "finishedDate",
     "voidHTTPHarvestPlugin", "voidOaipmhHarvestPlugin", "voidDereferencePlugin", "voidMetisPlugin"})
 public class UserWorkflowExecution implements HasMongoObjectId {
@@ -44,7 +44,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   @Indexed
-  private String owner;
+  private String workflowOwner;
   @Indexed
   private String workflowName;
   @Indexed
@@ -78,7 +78,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   }
 
   public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
-    this.owner = userWorkflow.getOwner();
+    this.workflowOwner = userWorkflow.getWorkflowOwner();
     this.workflowName = userWorkflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
     this.workflowPriority = workflowPriority;
@@ -179,12 +179,12 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     this.cancelling = cancelling;
   }
 
-  public String getOwner() {
-    return owner;
+  public String getWorkflowOwner() {
+    return workflowOwner;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
+  public void setWorkflowOwner(String workflowOwner) {
+    this.workflowOwner = workflowOwner;
   }
 
   public String getWorkflowName() {
@@ -266,7 +266,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + ((datasetName == null) ? 0 : datasetName.hashCode());
-    result = prime * result + ((owner == null) ? 0 : owner.hashCode());
+    result = prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
     result = prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
     return result;
   }
@@ -280,7 +280,8 @@ public class UserWorkflowExecution implements HasMongoObjectId {
       return false;
     }
     UserWorkflowExecution that = (UserWorkflowExecution) obj;
-    return (id == that.getId() && datasetName.equals(that.datasetName) && owner.equals(that.owner)
+    return (id == that.getId() && datasetName.equals(that.datasetName) && workflowOwner
+        .equals(that.workflowOwner)
         && workflowName.equals(that.workflowName));
   }
 
