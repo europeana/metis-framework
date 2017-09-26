@@ -48,6 +48,10 @@
           <artifactId>solr-solrj</artifactId>
           <groupId>org.apache.solr</groupId>
         </exclusion>
+        <exclusion>
+          <artifactId>wstx-asl</artifactId>
+          <groupId>org.codehaus.woodstox</groupId>
+        </exclusion>
       </exclusions>
     </dependency>
     <dependency>
