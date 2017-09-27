@@ -40,6 +40,9 @@ public class FailsafeExecutor implements Runnable {
     RLock lock = redissonClient.getFairLock(failsafeLock);
     while (true) {
       try {
+        LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
+        Thread.sleep(periodicFailsafeCheckInSecs * 1000);
+
         lock.lock();
         LOGGER.info("Failsafe thread woke up.");
         List<UserWorkflowExecution> allInQueueAndRunningUserWorkflowExecutions = new ArrayList<>();
@@ -58,9 +61,6 @@ public class FailsafeExecutor implements Runnable {
           }
         }
         lock.unlock();
-
-        LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
-        Thread.sleep(periodicFailsafeCheckInSecs * 1000);
       } catch (Exception e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, failsafe thread continues",

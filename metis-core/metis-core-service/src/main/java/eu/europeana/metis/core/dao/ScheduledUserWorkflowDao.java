@@ -3,8 +3,11 @@ package eu.europeana.metis.core.dao;
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import java.util.List;
+import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
@@ -134,5 +137,23 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
     LOGGER.debug(
         "ScheduledUserWorkflow with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
         datasetName, newDatasetName, updateResults.getUpdatedCount());
+  }
+
+  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(String nextPage) {
+    Query<ScheduledUserWorkflow> query = provider.getDatastore()
+        .createQuery(ScheduledUserWorkflow.class);
+    query.order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(scheduledUserWorkflowPerRequest));
+  }
+
+  public int getScheduledUserWorkflowPerRequest() {
+    return scheduledUserWorkflowPerRequest;
+  }
+
+  public void setScheduledUserWorkflowPerRequest(int scheduledUserWorkflowPerRequest) {
+    this.scheduledUserWorkflowPerRequest = scheduledUserWorkflowPerRequest;
   }
 }

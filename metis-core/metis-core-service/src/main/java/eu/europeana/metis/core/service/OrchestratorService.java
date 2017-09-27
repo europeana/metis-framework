@@ -192,6 +192,10 @@ public class OrchestratorService {
     return userWorkflowExecutionDao.getUserWorkflowExecutionsPerRequest();
   }
 
+  public int getScheduledUserWorkflowsPerRequest() {
+    return scheduledUserWorkflowDao.getScheduledUserWorkflowPerRequest();
+  }
+
   public int getUserWorkflowsPerRequest() {
     return userWorkflowDao.getUserWorkflowsPerRequest();
   }
@@ -228,6 +232,10 @@ public class OrchestratorService {
       throw new BadContentException("NULL is not a valid scheduleFrequence");
     }
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
+  }
+
+  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(String nextPage) {
+    return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(nextPage);
   }
 
   private Dataset checkDatasetExistence(String datasetName) throws NoDatasetFoundException {

@@ -335,6 +335,27 @@ public class OrchestratorController {
     return scheduledUserWorkflow;
   }
 
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
+  })
+  @ApiOperation(value = "Get all scheduledUserWorkflows", response = ResponseListWrapper.class)
+  public ResponseListWrapper<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+      @QueryParam("nextPage") String nextPage) {
+    ResponseListWrapper<ScheduledUserWorkflow> responseListWrapper = new ResponseListWrapper<>();
+    responseListWrapper.setResultsAndLastPage(orchestratorService
+            .getAllScheduledUserWorkflows(nextPage),
+        orchestratorService.getScheduledUserWorkflowsPerRequest());
+    LOGGER.info("Batch of: {} scheduledUserWorkflows returned, using batch nextPage: {}",
+        responseListWrapper.getListSize(), nextPage);
+    return responseListWrapper;
+  }
+
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
