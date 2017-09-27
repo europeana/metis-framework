@@ -33,8 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
- * DAO for the datasets
- * Created by ymamakis on 2/17/16.
+ * DAO for the datasets Created by ymamakis on 2/17/16.
  */
 @Repository
 public class DatasetDao implements MetisDao<Dataset, String> {
@@ -52,9 +51,10 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   @Override
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = provider.getDatastore().save(dataset);
-    LOGGER.info("Dataset '" + dataset.getDatasetName() + "' created with OrganizationId '" + dataset
-        .getOrganizationId() + "' and Provider '" + dataset.getDataProvider()
-        + "' and Description '" + dataset.getDescription() + "' in Mongo");
+    LOGGER.debug(
+        "Dataset '{}' created with OrganizationId '{}' and Provider '{}' and Description '{}' in Mongo",
+        dataset.getDatasetName(), dataset.getOrganizationId(), dataset.getDataProvider(),
+        dataset.getDescription());
     return datasetKey.getId().toString();
   }
 
@@ -126,10 +126,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("deaSigned", dataset.isDeaSigned());
     UpdateResults updateResults = provider.getDatastore().update(q, ops);
 
-    LOGGER.info(
-        "Dataset '" + dataset.getDatasetName() + "' updated with Provider '" + dataset
-            .getDataProvider()
-            + "' and Description '" + dataset.getDescription() + "' in Mongo");
+    LOGGER.debug(
+        "Dataset '{}' updated with Provider '{}' and Description '{}' in Mongo",
+        dataset.getDatasetName(), dataset.getDataProvider(), dataset.getDescription());
     return String.valueOf(updateResults.getUpdatedCount());
   }
 
@@ -143,8 +142,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     provider.getDatastore().delete(
         provider.getDatastore().createQuery(Dataset.class).field("datasetName")
             .equal(dataset.getDatasetName()));
-    LOGGER.info("Dataset '" + dataset.getDatasetName() + "' deleted with organizationId '" + dataset
-        .getOrganizationId() + "' from Mongo");
+    LOGGER
+        .debug("Dataset '{}' deleted with organizationId '{}' from Mongo", dataset.getDatasetName(),
+            dataset.getOrganizationId());
     return true;
   }
 
@@ -155,16 +155,15 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .filter("datasetName", datasetName);
     datasetUpdateOperations.set("datasetName", newDatasetName);
     UpdateResults updateResults = provider.getDatastore().update(query, datasetUpdateOperations);
-    LOGGER.info(
-        "Dataset with datasetName '" + datasetName + "' renamed to '" + newDatasetName
-            + "'. (UpdateResults: " + updateResults.getUpdatedCount() + ")");
+    LOGGER.debug("Dataset with datasetName '{}' renamed to '{}'. (UpdateResults: {})", datasetName,
+        newDatasetName, updateResults.getUpdatedCount());
   }
 
   public boolean deleteDatasetByDatasetName(String datasetName) {
     Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
     query.field("datasetName").equal(datasetName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("Dataset '" + datasetName + "' deleted from Mongo");
+    LOGGER.debug("Dataset '{}' deleted from Mongo", datasetName);
     return delete.getN() == 1;
   }
 

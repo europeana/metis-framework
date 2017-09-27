@@ -33,7 +33,7 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
   public String create(ScheduledUserWorkflow scheduledUserWorkflow) {
     Key<ScheduledUserWorkflow> scheduledUserWorkflowKey = provider.getDatastore().save(
         scheduledUserWorkflow);
-    LOGGER.info(
+    LOGGER.debug(
         "ScheduledUserWorkflow for datasetName: '{}' with workflowName: '{}' and owner: '{}' created in Mongo",
         scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowName(),
         scheduledUserWorkflow.getWorkflowOwner());
@@ -44,7 +44,7 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
   public String update(ScheduledUserWorkflow scheduledUserWorkflow) {
     Key<ScheduledUserWorkflow> scheduledUserWorkflowKey = provider.getDatastore().save(
         scheduledUserWorkflow);
-    LOGGER.info(
+    LOGGER.debug(
         "ScheduledUserWorkflow with datasetName: '{}', workflowName: '{}' and workflowOwner '{}' updated in Mongo",
         scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowName(),
         scheduledUserWorkflow.getWorkflowOwner());
@@ -106,7 +106,7 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
     query.field("workflowOwner").equal(workflowOwner);
     query.field("workflowName").equal(workflowName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info(
+    LOGGER.debug(
         "ScheduledUserWorkflow with datasetName: {} workflowOwner: {}, and workflowName {}, deleted from Mongo",
         datasetName, workflowOwner, workflowName);
     return delete.getN() == 1;
@@ -117,7 +117,7 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
         .createQuery(ScheduledUserWorkflow.class);
     query.field("datasetName").equal(datasetName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info(
+    LOGGER.debug(
         "ScheduledUserWorkflows with datasetName: {} deleted from Mongo", datasetName);
     return delete.getN() >= 1;
   }
@@ -131,7 +131,7 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
     scheduledUserWorkflowUpdateOperations.set("datasetName", newDatasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, scheduledUserWorkflowUpdateOperations);
-    LOGGER.info(
+    LOGGER.debug(
         "ScheduledUserWorkflow with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
         datasetName, newDatasetName, updateResults.getUpdatedCount());
   }

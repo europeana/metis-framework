@@ -39,9 +39,10 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public String create(UserWorkflowExecution userWorkflowExecution) {
     Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
         userWorkflowExecution);
-    LOGGER.info("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
-        + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
-        + userWorkflowExecution.getWorkflowName() + "' created in Mongo");
+    LOGGER.debug(
+        "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' and workflowName '{}' created in Mongo",
+        userWorkflowExecution.getDatasetName(), userWorkflowExecution.getWorkflowOwner(),
+        userWorkflowExecution.getWorkflowName());
     return userWorkflowExecutionKey.getId().toString();
   }
 
@@ -49,9 +50,10 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public String update(UserWorkflowExecution userWorkflowExecution) {
     Key<UserWorkflowExecution> userWorkflowExecutionKey = provider.getDatastore().save(
         userWorkflowExecution);
-    LOGGER.debug("UserWorkflowExecution for datasetName '" + userWorkflowExecution.getDatasetName()
-        + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
-        + userWorkflowExecution.getWorkflowName() + "' updated in Mongo");
+    LOGGER.debug(
+        "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' and workflowName '{}' updated in Mongo",
+        userWorkflowExecution.getDatasetName(), userWorkflowExecution.getWorkflowOwner(),
+        userWorkflowExecution.getWorkflowName());
     return userWorkflowExecutionKey.getId().toString();
   }
 
@@ -66,11 +68,9 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     UpdateResults updateResults = provider.getDatastore()
         .update(query, userWorkflowExecutionUpdateOperations);
     LOGGER.debug(
-        "UserWorkflowExecution metisPlugins for datasetName '" + userWorkflowExecution
-            .getDatasetName()
-            + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
-            + userWorkflowExecution.getWorkflowName() + "' updated in Mongo. (UpdateResults: "
-            + updateResults.getUpdatedCount() + ")");
+        "UserWorkflowExecution metisPlugins for datasetName '{}' with workflowOwner '{}' and workflowName '{}' updated in Mongo. (UpdateResults: {})",
+        userWorkflowExecution.getDatasetName(), userWorkflowExecution.getWorkflowOwner(),
+        userWorkflowExecution.getWorkflowName(), updateResults.getUpdatedCount());
   }
 
   public void updateMonitorInformation(UserWorkflowExecution userWorkflowExecution) {
@@ -94,11 +94,9 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     UpdateResults updateResults = provider.getDatastore()
         .update(query, userWorkflowExecutionUpdateOperations);
     LOGGER.debug(
-        "UserWorkflowExecution monitor information for datasetName '" + userWorkflowExecution
-            .getDatasetName()
-            + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
-            + userWorkflowExecution.getWorkflowName() + "' updated in Mongo. (UpdateResults: "
-            + updateResults.getUpdatedCount() + ")");
+        "UserWorkflowExecution monitor information for datasetName '{}' with workflowOwner '{}' and workflowName '{}' updated in Mongo. (UpdateResults: {})",
+        userWorkflowExecution.getDatasetName(), userWorkflowExecution.getWorkflowOwner(),
+        userWorkflowExecution.getWorkflowName(), updateResults.getUpdatedCount());
   }
 
   public void setCancellingState(UserWorkflowExecution userWorkflowExecution) {
@@ -111,11 +109,9 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     UpdateResults updateResults = provider.getDatastore()
         .update(query, userWorkflowExecutionUpdateOperations);
     LOGGER.debug(
-        "UserWorkflowExecution cancelling for datasetName '" + userWorkflowExecution
-            .getDatasetName()
-            + "' with workflowOwner '" + userWorkflowExecution.getWorkflowOwner() + "' and workflowName '"
-            + userWorkflowExecution.getWorkflowName() + "' set to true in Mongo. (UpdateResults: "
-            + updateResults.getUpdatedCount() + ")");
+        "UserWorkflowExecution cancelling for datasetName '{}' with workflowOwner '{}' and workflowName '{}' set to true in Mongo. (UpdateResults: {})",
+        userWorkflowExecution.getDatasetName(), userWorkflowExecution.getWorkflowOwner(),
+        userWorkflowExecution.getWorkflowName(), updateResults.getUpdatedCount());
   }
 
   @Override
@@ -171,7 +167,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return null;
   }
 
-  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName, String workflowOwner,
+  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName,
+      String workflowOwner,
       String workflowName) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
@@ -183,7 +180,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     return query.get();
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName, String workflowOwner,
+  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName,
+      String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
     Query<UserWorkflowExecution> query = provider.getDatastore()
@@ -261,7 +259,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
         UserWorkflowExecution userWorkflowExecutionToCheck = iterator.next();
         UserWorkflowExecution userWorkflowExecution = this
             .getById(userWorkflowExecutionToCheck.getId().toString());
-        if (userWorkflowExecutionToCheck.getUpdatedDate() != null && userWorkflowExecutionToCheck.getUpdatedDate()
+        if (userWorkflowExecutionToCheck.getUpdatedDate() != null
+            && userWorkflowExecutionToCheck.getUpdatedDate()
             .compareTo(userWorkflowExecution.getUpdatedDate()) < 0) {
           iterator.remove();
         }
@@ -273,10 +272,11 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   }
 
   public boolean deleteAllByDatasetName(String datasetName) {
-    Query<UserWorkflowExecution> query = provider.getDatastore().createQuery(UserWorkflowExecution.class);
+    Query<UserWorkflowExecution> query = provider.getDatastore()
+        .createQuery(UserWorkflowExecution.class);
     query.field("datasetName").equal(datasetName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("UserWorkflowExecution with datasetName: %s, deleted from Mongo", datasetName);
+    LOGGER.debug("UserWorkflowExecution with datasetName: {}, deleted from Mongo", datasetName);
     return delete.getN() >= 1;
   }
 
@@ -289,7 +289,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     userWorkflowExecutionUpdateOperations.set("datasetName", newDatasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, userWorkflowExecutionUpdateOperations);
-    LOGGER.info(
+    LOGGER.debug(
         "UserWorkflowExecution with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
         datasetName, newDatasetName, updateResults.getUpdatedCount());
   }

@@ -19,8 +19,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
@@ -158,7 +156,7 @@ public class OrchestratorController {
       @PathVariable("datasetName") String datasetName,
       @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
-      throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException, IOException {
+      throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
     if (priority == null) {
       priority = 0;
     }
@@ -182,7 +180,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Cancel a user workflow execution by datasetName")
   public void cancelUserWorkflowExecution(
       @PathVariable("datasetName") String datasetName)
-      throws ExecutionException, NoUserWorkflowExecutionFoundException {
+      throws NoUserWorkflowExecutionFoundException {
     orchestratorService.cancelUserWorkflowExecution(datasetName);
     LOGGER.info(
         "UserWorkflowExecution for datasetName '{}' is cancelling",
@@ -229,7 +227,7 @@ public class OrchestratorController {
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
       @QueryParam("priority") Integer priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException, IOException {
+      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
     if (priority == null) {
       priority = 0;
     }
@@ -311,7 +309,7 @@ public class OrchestratorController {
       throws NoDatasetFoundException, BadContentException, NoUserWorkflowFoundException, ScheduledUserWorkflowAlreadyExistsException {
     orchestratorService.scheduleUserWorkflow(scheduledUserWorkflow);
     LOGGER.info(
-        "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName, pointerDate at '{}', scheduled '{}'",
+        "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
         scheduledUserWorkflow.getDatasetName(),
         scheduledUserWorkflow.getWorkflowOwner(), scheduledUserWorkflow.getWorkflowName(),
         scheduledUserWorkflow.getPointerDate(),
@@ -349,6 +347,7 @@ public class OrchestratorController {
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
       throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
     orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
+    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' updated", scheduledUserWorkflow.getDatasetName());
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.DELETE, produces = {

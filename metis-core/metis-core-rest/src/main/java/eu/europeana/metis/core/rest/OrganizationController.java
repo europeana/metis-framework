@@ -69,6 +69,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class OrganizationController extends ApiKeySecuredControllerBase {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
+  public static final String BATCH_ORGANIZATIONS_WITH_NEXT_PAGE = "Batch of: %d organizations returned, using batch nextPage: %s";
 
   private final OrganizationService organizationService;
   private final DatasetService datasetService;
@@ -177,7 +178,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(organizations,
         organizationService.getOrganizationsPerRequestLimit());
-    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+    LOGGER.info(BATCH_ORGANIZATIONS_WITH_NEXT_PAGE,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -237,7 +238,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(organizations,
         organizationService.getOrganizationsPerRequestLimit());
-    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+    LOGGER.info(BATCH_ORGANIZATIONS_WITH_NEXT_PAGE,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -271,7 +272,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(organizations,
         organizationService.getOrganizationsPerRequestLimit());
-    LOGGER.info("Batch of: %d organizations returned, using batch nextPage: %s",
+    LOGGER.info(BATCH_ORGANIZATIONS_WITH_NEXT_PAGE,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
