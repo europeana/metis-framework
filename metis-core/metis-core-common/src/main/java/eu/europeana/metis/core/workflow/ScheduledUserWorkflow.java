@@ -23,7 +23,7 @@ public class ScheduledUserWorkflow implements HasMongoObjectId {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
   private Date pointerDate;
   @Indexed
   private String datasetName;

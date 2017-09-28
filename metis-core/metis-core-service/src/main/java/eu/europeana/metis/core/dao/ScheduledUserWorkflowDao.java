@@ -2,7 +2,9 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
@@ -139,9 +141,27 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
         datasetName, newDatasetName, updateResults.getUpdatedCount());
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(String nextPage) {
+  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+      ScheduleFrequence scheduleFrequence, String nextPage) {
     Query<ScheduledUserWorkflow> query = provider.getDatastore()
         .createQuery(ScheduledUserWorkflow.class);
+    if (scheduleFrequence != null && scheduleFrequence != ScheduleFrequence.NULL) {
+      query.field("scheduleFrequence").equal(scheduleFrequence);
+    }
+    query.order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(scheduledUserWorkflowPerRequest));
+  }
+
+  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(LocalDateTime lowBound,
+      LocalDateTime highBound, String nextPage) {
+    Query<ScheduledUserWorkflow> query = provider.getDatastore()
+        .createQuery(ScheduledUserWorkflow.class);
+    query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
+        query.criteria("pointerDate").greaterThanOrEq(lowBound)).and(
+        query.criteria("pointerDate").lessThan(highBound));
     query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));

@@ -13,7 +13,7 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
+import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
@@ -62,8 +62,10 @@ public class OrchestratorService {
 
     this.userWorkflowExecutorManager.initiateConsumer();
 
-    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
-        userWorkflowExecutorManager, this.redissonClient)).start();
+//    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
+//        userWorkflowExecutorManager, this.redissonClient)).start();
+
+    new Thread(new SchedulerExecutor(this.scheduledUserWorkflowDao, this.redissonClient)).start();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow)
@@ -235,7 +237,7 @@ public class OrchestratorService {
   }
 
   public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(String nextPage) {
-    return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(nextPage);
+    return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(ScheduleFrequence.NULL, nextPage);
   }
 
   private Dataset checkDatasetExistence(String datasetName) throws NoDatasetFoundException {
@@ -295,7 +297,8 @@ public class OrchestratorService {
       throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
     checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
         scheduledUserWorkflow.getWorkflowName());
-    String storedId = scheduledUserWorkflowDao.existsForDatasetName(scheduledUserWorkflow.getDatasetName());
+    String storedId = scheduledUserWorkflowDao
+        .existsForDatasetName(scheduledUserWorkflow.getDatasetName());
     if (StringUtils.isEmpty(storedId)) {
       throw new NoScheduledUserWorkflowFoundException(String.format(
           "UserWorkflow with datasetName: %s, not found", scheduledUserWorkflow.getDatasetName()));
