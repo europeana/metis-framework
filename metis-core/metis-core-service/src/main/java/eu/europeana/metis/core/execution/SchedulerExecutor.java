@@ -70,7 +70,7 @@ public class SchedulerExecutor implements Runnable {
             LOGGER.warn("Scheduled execution was not added to queue", e);
           }
         }
-        lock.unlock();
+        lock.unlock(); //Lock releases automatically, if there was another exception, no need to unlock in catch block.
       } catch (Exception e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, scheduler thread continues",

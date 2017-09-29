@@ -70,6 +70,10 @@ public class UserWorkflowExecution implements HasMongoObjectId {
 
   private List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
+  //Keep this constructor
+  public UserWorkflowExecution() {
+  }
+
   public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
     this.workflowOwner = userWorkflow.getWorkflowOwner();
     this.workflowName = userWorkflow.getWorkflowName();

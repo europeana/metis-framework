@@ -36,6 +36,7 @@ import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
+import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.mail.config.MailConfig;
@@ -278,7 +279,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return datasetDao;
   }
 
-  @Bean
+  @Bean // Only used for starting the threaded class
+  public FailsafeExecutor startFailsafeExecutorThread(OrchestratorService orchestratorService,
+      RedissonClient redissonClient) {
+    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
+    new Thread(failsafeExecutor).start();
+    return failsafeExecutor;
+  }
+
+  @Bean // Only used for starting the threaded class
   public SchedulerExecutor startSchedulingExecutorThread(
       OrchestratorService orchestratorService, RedissonClient redissonClient) {
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
@@ -367,9 +376,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       ScheduledUserWorkflowDao scheduledUserWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager, RedissonClient redissonClient) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager) {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
-        scheduledUserWorkflowDao, datasetDao, userWorkflowExecutorManager, redissonClient);
+        scheduledUserWorkflowDao, datasetDao, userWorkflowExecutorManager);
   }
 
   @Override

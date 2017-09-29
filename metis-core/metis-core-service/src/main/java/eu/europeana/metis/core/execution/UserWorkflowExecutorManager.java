@@ -32,7 +32,7 @@ public class UserWorkflowExecutorManager {
 
   private final int maxConcurrentThreads = 2;
   private final int threadPoolSize = 10;
-  private final int monitorCheckInSecs = 5;
+  private final int monitorCheckIntervalInSecs = 5;
   private final Channel rabbitmqChannel;
   private String rabbitmqQueueName;
 
@@ -92,8 +92,8 @@ public class UserWorkflowExecutorManager {
     this.rabbitmqQueueName = rabbitmqQueueName;
   }
 
-  public int getMonitorCheckInSecs() {
-    return monitorCheckInSecs;
+  public int getMonitorCheckIntervalInSecs() {
+    return monitorCheckIntervalInSecs;
   }
 
   @PreDestroy
@@ -126,7 +126,7 @@ public class UserWorkflowExecutorManager {
       } else {
         if (!userWorkflowExecution.isCancelling()) {
           UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckInSecs, redissonClient);
+              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
           completionService.submit(userWorkflowExecutor);
           runningThreadsCounter.incrementAndGet();
         } else {

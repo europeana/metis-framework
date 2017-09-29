@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
+import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
@@ -22,15 +22,11 @@ public class FailsafeExecutor implements Runnable {
   private static final Logger LOGGER = LoggerFactory.getLogger(FailsafeExecutor.class);
 
   private final int periodicFailsafeCheckInSecs = 60;
-  private final UserWorkflowExecutionDao userWorkflowExecutionDao;
-  private final UserWorkflowExecutorManager userWorkflowExecutorManager;
+  private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
 
-  public FailsafeExecutor(UserWorkflowExecutionDao userWorkflowExecutionDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager,
-      RedissonClient redissonClient) {
-    this.userWorkflowExecutionDao = userWorkflowExecutionDao;
-    this.userWorkflowExecutorManager = userWorkflowExecutorManager;
+  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
+    this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
   }
 
@@ -46,21 +42,20 @@ public class FailsafeExecutor implements Runnable {
         lock.lock();
         LOGGER.info("Failsafe thread woke up.");
         List<UserWorkflowExecution> allInQueueAndRunningUserWorkflowExecutions = new ArrayList<>();
-        addQueueExecutions(WorkflowStatus.RUNNING, allInQueueAndRunningUserWorkflowExecutions);
-        addQueueExecutions(WorkflowStatus.INQUEUE, allInQueueAndRunningUserWorkflowExecutions);
+        addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.RUNNING, allInQueueAndRunningUserWorkflowExecutions);
+        addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.INQUEUE, allInQueueAndRunningUserWorkflowExecutions);
 
         if (allInQueueAndRunningUserWorkflowExecutions.size() != 0) {
-          userWorkflowExecutionDao
-              .removeActiveExecutionsFromList(allInQueueAndRunningUserWorkflowExecutions,
-                  userWorkflowExecutorManager.getMonitorCheckInSecs());
+          orchestratorService
+              .removeActiveUserWorkflowExecutionsFromList(allInQueueAndRunningUserWorkflowExecutions);
 
           for (UserWorkflowExecution userWorkflowExecution : allInQueueAndRunningUserWorkflowExecutions) {
-            userWorkflowExecutorManager
+            orchestratorService
                 .addUserWorkflowExecutionToQueue(userWorkflowExecution.getId().toString(),
                     userWorkflowExecution.getWorkflowPriority());
           }
         }
-        lock.unlock();
+        lock.unlock(); //Lock releases automatically, if there was another exception, no need to unlock in catch block.
       } catch (Exception e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, failsafe thread continues",
@@ -69,14 +64,14 @@ public class FailsafeExecutor implements Runnable {
     }
   }
 
-  private void addQueueExecutions(WorkflowStatus workflowStatus,
+  private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
       List<UserWorkflowExecution> userWorkflowExecutions) {
     String nextPage = null;
     do {
       ResponseListWrapper<UserWorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
-      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(userWorkflowExecutionDao
+      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
               .getAllUserWorkflowExecutions(workflowStatus, nextPage),
-          userWorkflowExecutionDao.getUserWorkflowExecutionsPerRequest());
+          orchestratorService.getUserWorkflowExecutionsPerRequest());
       userWorkflowExecutions
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();

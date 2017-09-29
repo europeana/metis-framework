@@ -13,7 +13,6 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
@@ -25,7 +24,6 @@ import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
-import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,26 +43,20 @@ public class OrchestratorService {
   private final ScheduledUserWorkflowDao scheduledUserWorkflowDao;
   private final DatasetDao datasetDao;
   private final UserWorkflowExecutorManager userWorkflowExecutorManager;
-  private final RedissonClient redissonClient;
 
   @Autowired
   public OrchestratorService(UserWorkflowDao userWorkflowDao,
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       ScheduledUserWorkflowDao scheduledUserWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager,
-      RedissonClient redissonClient) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager) {
     this.userWorkflowDao = userWorkflowDao;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
     this.scheduledUserWorkflowDao = scheduledUserWorkflowDao;
     this.datasetDao = datasetDao;
     this.userWorkflowExecutorManager = userWorkflowExecutorManager;
-    this.redissonClient = redissonClient;
 
     this.userWorkflowExecutorManager.initiateConsumer();
-
-    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
-        userWorkflowExecutorManager, this.redissonClient)).start();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow)
@@ -158,6 +150,19 @@ public class OrchestratorService {
           "Running userworkflowExecution with datasetName: %s, does not exist or not running",
           datasetName));
     }
+  }
+
+  public void removeActiveUserWorkflowExecutionsFromList(
+      List<UserWorkflowExecution> userWorkflowExecutions) {
+    userWorkflowExecutionDao
+        .removeActiveExecutionsFromList(userWorkflowExecutions,
+            userWorkflowExecutorManager.getMonitorCheckIntervalInSecs());
+  }
+
+  public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
+      int priority) {
+    userWorkflowExecutorManager
+        .addUserWorkflowExecutionToQueue(userWorkflowExecutionObjectId, priority);
   }
 
   private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
