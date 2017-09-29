@@ -10,6 +10,7 @@ import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsExce
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
@@ -349,7 +350,7 @@ public class OrchestratorController {
       @QueryParam("nextPage") String nextPage) {
     ResponseListWrapper<ScheduledUserWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllScheduledUserWorkflows(nextPage),
+            .getAllScheduledUserWorkflows(ScheduleFrequence.NULL, nextPage),
         orchestratorService.getScheduledUserWorkflowsPerRequest());
     LOGGER.info("Batch of: {} scheduledUserWorkflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);

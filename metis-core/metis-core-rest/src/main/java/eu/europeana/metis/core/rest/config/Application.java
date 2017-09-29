@@ -36,6 +36,7 @@ import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
+import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
@@ -55,7 +56,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
-import javax.inject.Singleton;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
@@ -70,7 +70,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.Scope;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -212,7 +211,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  @Scope("singleton")
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
     return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
   }
@@ -281,6 +279,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
+  public SchedulerExecutor startSchedulingExecutorThread(
+      OrchestratorService orchestratorService, RedissonClient redissonClient) {
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
+        redissonClient);
+    new Thread(schedulerExecutor).start();
+    return schedulerExecutor;
+  }
+
+  @Bean
   public UserWorkflowExecutionDao getUserWorkflowExecutionDao(
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
     UserWorkflowExecutionDao userWorkflowExecutionDao = new UserWorkflowExecutionDao(
@@ -346,7 +353,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  @Singleton
   public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
       UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel,
       RedissonClient redissonClient) {

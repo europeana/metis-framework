@@ -13,13 +13,14 @@ import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.SchedulerExecutor;
+import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -62,10 +63,8 @@ public class OrchestratorService {
 
     this.userWorkflowExecutorManager.initiateConsumer();
 
-//    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
-//        userWorkflowExecutorManager, this.redissonClient)).start();
-
-    new Thread(new SchedulerExecutor(this.scheduledUserWorkflowDao, this.redissonClient)).start();
+    new Thread(new FailsafeExecutor(userWorkflowExecutionDao,
+        userWorkflowExecutorManager, this.redissonClient)).start();
   }
 
   public void createUserWorkflow(UserWorkflow userWorkflow)
@@ -236,8 +235,16 @@ public class OrchestratorService {
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(String nextPage) {
-    return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(ScheduleFrequence.NULL, nextPage);
+  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+      ScheduleFrequence scheduleFrequence, String nextPage) {
+    return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(scheduleFrequence, nextPage);
+  }
+
+  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
+      LocalDateTime lowBound,
+      LocalDateTime highBound, String nextPage) {
+    return scheduledUserWorkflowDao
+        .getAllScheduledUserWorkflowsByDateRangeONCE(lowBound, highBound, nextPage);
   }
 
   private Dataset checkDatasetExistence(String datasetName) throws NoDatasetFoundException {
@@ -256,8 +263,7 @@ public class OrchestratorService {
     if (userWorkflow == null) {
       throw new NoUserWorkflowFoundException(String.format(
           "No user workflow found with workflowOwner: %s, and workflowName: %s, in METIS",
-          workflowOwner,
-          workflowName));
+          workflowOwner, workflowName));
     }
     return userWorkflow;
   }
