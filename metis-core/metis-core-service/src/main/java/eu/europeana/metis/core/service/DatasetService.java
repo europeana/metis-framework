@@ -16,10 +16,10 @@
  */
 package eu.europeana.metis.core.service;
 
-import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
-import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
+import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
+import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -28,7 +28,6 @@ import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,8 +35,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Service for storing datasets
- * Created by ymamakis on 2/17/16.
+ * Service for storing datasets Created by ymamakis on 2/17/16.
  */
 @Service
 public class DatasetService {
@@ -45,28 +43,33 @@ public class DatasetService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
   private final DatasetDao datasetDao;
-  private final EcloudDatasetDao ecloudDatasetDao;
+  //  private final EcloudDatasetDao ecloudDatasetDao;
   private final OrganizationDao organizationDao;
+  private final UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private final ScheduledUserWorkflowDao scheduledUserWorkflowDao;
 
   @Autowired
-  public DatasetService(DatasetDao datasetDao, EcloudDatasetDao ecloudDatasetDao,
-      OrganizationDao organizationDao) {
+  public DatasetService(DatasetDao datasetDao,
+      OrganizationDao organizationDao,
+      UserWorkflowExecutionDao userWorkflowExecutionDao,
+      ScheduledUserWorkflowDao scheduledUserWorkflowDao) {
     this.datasetDao = datasetDao;
-    this.ecloudDatasetDao = ecloudDatasetDao;
+    this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.scheduledUserWorkflowDao = scheduledUserWorkflowDao;
     this.organizationDao = organizationDao;
   }
 
   public void createDataset(Dataset dataset, String organizationId) {
 
-    final String uuid = UUID.randomUUID().toString();
-    dataset.setEcloudDatasetId(uuid);
+//    final String uuid = UUID.randomUUID().toString();
+//    dataset.setEcloudDatasetId(uuid);
 
     //Create in ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(uuid);
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDataset.setDescription(dataset.getDescription());
-    ecloudDatasetDao.create(ecloudDataset);
+//    DataSet ecloudDataset = new DataSet();
+//    ecloudDataset.setId(uuid);
+//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+//    ecloudDataset.setDescription(dataset.getDescription());
+//    ecloudDatasetDao.create(ecloudDataset);
 
     datasetDao.create(dataset);
     organizationDao
@@ -83,17 +86,21 @@ public class DatasetService {
 
   public void updateDataset(Dataset dataset) {
     //Update in ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getEcloudDatasetId());
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDataset.setDescription(dataset.getDescription());
-    ecloudDatasetDao.update(ecloudDataset);
+//    DataSet ecloudDataset = new DataSet();
+//    ecloudDataset.setId(dataset.getEcloudDatasetId());
+//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+//    ecloudDataset.setDescription(dataset.getDescription());
+//    ecloudDatasetDao.update(ecloudDataset);
 
     datasetDao.update(dataset);
   }
 
   public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
       throws BadContentException, NoDatasetFoundException {
+    if (userWorkflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+      throw new BadContentException(
+          String.format("User workflow execution is active for datasteName %s", datasetName));
+    }
     checkRestrictionsOnUpdate(dataset, datasetName);
     dataset.setDatasetName(datasetName);
     dataset.setUpdatedDate(new Date());
@@ -101,37 +108,53 @@ public class DatasetService {
   }
 
   public void updateDatasetName(String datasetName, String newDatasetName)
-      throws NoDatasetFoundException {
+      throws NoDatasetFoundException, BadContentException {
+    if (userWorkflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+      throw new BadContentException(
+          String.format("User workflow execution is active for datasteName %s", datasetName));
+    }
     Dataset dataset = getDatasetByDatasetName(datasetName);
     datasetDao.updateDatasetName(datasetName, newDatasetName);
     organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
     organizationDao.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
+    scheduledUserWorkflowDao.updateAllDatasetNames(datasetName, newDatasetName);
+    userWorkflowExecutionDao.updateAllDatasetNames(datasetName, newDatasetName);
   }
 
-  public void deleteDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
+  public void deleteDatasetByDatasetName(String datasetName)
+      throws NoDatasetFoundException, BadContentException {
     Dataset dataset = getDatasetByDatasetName(datasetName);
+    if (userWorkflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+      throw new BadContentException(
+          String.format("User workflow execution is active for datasteName %s", datasetName));
+    }
     datasetDao.deleteDatasetByDatasetName(datasetName);
     Organization organization = organizationDao
         .getOrganizationByOrganizationId(dataset.getOrganizationId());
     if (organization == null) {
-      LOGGER.warn("Did not find organization with OrganizationId '" + dataset.getOrganizationId()
-          + "' stated in dataset '" + datasetName + "' to be deleted");
+      LOGGER.warn(String.format(
+          "Did not find organization with OrganizationId '%s' stated in dataset '%s' to be deleted",
+          dataset.getOrganizationId(), datasetName));
     }
     organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(),
         dataset.getDatasetName());
 
+    //Clean up dataset leftovers
+    userWorkflowExecutionDao.deleteAllByDatasetName(datasetName);
+    scheduledUserWorkflowDao.deleteAllByDatasetName(datasetName);
+
     //Delete from ECloud
-    DataSet ecloudDataset = new DataSet();
-    ecloudDataset.setId(dataset.getEcloudDatasetId());
-    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-    ecloudDatasetDao.delete(ecloudDataset);
+//    DataSet ecloudDataset = new DataSet();
+//    ecloudDataset.setId(dataset.getEcloudDatasetId());
+//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
+//    ecloudDatasetDao.delete(ecloudDataset);
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
     Dataset dataset = datasetDao.getDatasetByDatasetName(datasetName);
     if (dataset == null) {
       throw new NoDatasetFoundException(
-          "No dataset found with datasetName: " + datasetName + " in METIS");
+          String.format("No dataset found with datasetName: '%s' in METIS", datasetName));
     }
     return dataset;
   }

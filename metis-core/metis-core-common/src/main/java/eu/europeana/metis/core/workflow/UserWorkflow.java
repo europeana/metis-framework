@@ -24,9 +24,9 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-05-29
  */
 @Entity
-@Indexes(@Index(fields = {@Field("owner"),
+@Indexes(@Index(fields = {@Field("workflowOwner"),
     @Field("workflowName")}, options = @IndexOptions(unique = true)))
-@JsonPropertyOrder({"id", "onwer", "workflowName", "harvest", "voidDereferencePluginMetadata",
+@JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "harvest", "voidDereferencePluginMetadata",
     "voidMetisPluginMetadata"})
 public class UserWorkflow implements HasMongoObjectId {
 
@@ -36,7 +36,7 @@ public class UserWorkflow implements HasMongoObjectId {
   private ObjectId id;
   @Indexed
   @ApiModelProperty(position = 2)
-  private String owner;
+  private String workflowOwner;
   @Indexed
   @ApiModelProperty(position = 3)
   private String workflowName;
@@ -75,12 +75,12 @@ public class UserWorkflow implements HasMongoObjectId {
     this.transformPlugin = transformPlugin;
   }
 
-  public String getOwner() {
-    return owner;
+  public String getWorkflowOwner() {
+    return workflowOwner;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
+  public void setWorkflowOwner(String workflowOwner) {
+    this.workflowOwner = workflowOwner;
   }
 
   public String getWorkflowName() {
