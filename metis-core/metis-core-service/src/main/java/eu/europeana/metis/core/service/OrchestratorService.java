@@ -241,10 +241,10 @@ public class OrchestratorService {
   }
 
   public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
-      LocalDateTime lowBound,
-      LocalDateTime highBound, String nextPage) {
+      LocalDateTime lowerBound,
+      LocalDateTime upperBound, String nextPage) {
     return scheduledUserWorkflowDao
-        .getAllScheduledUserWorkflowsByDateRangeONCE(lowBound, highBound, nextPage);
+        .getAllScheduledUserWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
   }
 
   private Dataset checkDatasetExistence(String datasetName) throws NoDatasetFoundException {

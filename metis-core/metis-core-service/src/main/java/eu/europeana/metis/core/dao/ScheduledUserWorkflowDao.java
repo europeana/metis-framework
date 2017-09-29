@@ -158,15 +158,15 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
   }
 
   public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
-      LocalDateTime lowBound,
-      LocalDateTime highBound, String nextPage) {
+      LocalDateTime lowerBound,
+      LocalDateTime upperBound, String nextPage) {
     Query<ScheduledUserWorkflow> query = provider.getDatastore()
         .createQuery(ScheduledUserWorkflow.class);
     query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
         query.criteria("pointerDate").greaterThanOrEq(
-            Date.from(lowBound.atZone(ZoneId.systemDefault()).toInstant()))).and(
+            Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(
         query.criteria("pointerDate")
-            .lessThan(Date.from(highBound.atZone(ZoneId.systemDefault()).toInstant())));
+            .lessThan(Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant())));
     query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
