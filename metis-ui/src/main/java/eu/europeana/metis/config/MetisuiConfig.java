@@ -36,11 +36,6 @@ public class MetisuiConfig {
   public String getContextRoot() { return contextRoot; }
 
   @Bean
-  public MetisuiConfig metisuiConfig(){
-    return this;
-  }
-
-  @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
   }
