@@ -102,6 +102,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @Import({MailConfig.class, SearchApplication.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
+  //Orchestration
+  @Value("${max.concurrent.threads}")
+  private int maxConcurrentThreads;
+  @Value("${monitor.check.interval.in.secs}")
+  private int monitorCheckIntervalInSecs;
+  @Value("${periodic.failsafe.check.in.secs}")
+  private int periodicFailsafeCheckInSecs;
+  @Value("${periodic.scheduler.check.in.secs}")
+  private int periodicSchedulerCheckInSecs;
+
   //Socks proxy
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
@@ -135,6 +145,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private int redisPort;
   @Value("${redis.password}")
   private String redisPassword;
+  @Value("${redisson.lock.watchdog.timeout.in.secs}")
+  private int redissonLockWatchdogTimeoutInSecs;
 
   //Mongo
   @Value("${mongo.hosts}")
@@ -248,7 +260,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     Config config = new Config();
     config.useSingleServer().setAddress(String.format("redis://%s:%s", redisHost, redisPort));
     config.setLockWatchdogTimeout(
-        60000); //Give some secs to unlock if connection lost, or if too long to unlock
+        redissonLockWatchdogTimeoutInSecs * 1000); //Give some secs to unlock if connection lost, or if too long to unlock
     return Redisson.create(config);
   }
 
@@ -282,7 +294,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean // Only used for starting the threaded class
   public FailsafeExecutor startFailsafeExecutorThread(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
-    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
+    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
+        periodicFailsafeCheckInSecs);
     new Thread(failsafeExecutor).start();
     return failsafeExecutor;
   }
@@ -290,8 +303,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean // Only used for starting the threaded class
   public SchedulerExecutor startSchedulingExecutorThread(
       OrchestratorService orchestratorService, RedissonClient redissonClient) {
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService,
-        redissonClient);
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient,
+        periodicSchedulerCheckInSecs);
     new Thread(schedulerExecutor).start();
     return schedulerExecutor;
   }
@@ -368,6 +381,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
         userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
+    userWorkflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
+    userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
     return userWorkflowExecutorManager;
   }
 

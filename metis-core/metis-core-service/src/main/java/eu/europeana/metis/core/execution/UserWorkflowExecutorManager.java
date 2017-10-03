@@ -30,13 +30,12 @@ public class UserWorkflowExecutorManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
 
-  private final int maxConcurrentThreads = 2;
-  private final int threadPoolSize = 10;
-  private final int monitorCheckIntervalInSecs = 5;
+  private int maxConcurrentThreads = 10;
+  private int monitorCheckIntervalInSecs = 5;
   private final Channel rabbitmqChannel;
   private String rabbitmqQueueName;
 
-  private final ExecutorService threadPool = Executors.newFixedThreadPool(threadPoolSize);
+  private final ExecutorService threadPool = Executors.newFixedThreadPool(maxConcurrentThreads);
   private final ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
       threadPool);
 
@@ -92,8 +91,20 @@ public class UserWorkflowExecutorManager {
     this.rabbitmqQueueName = rabbitmqQueueName;
   }
 
+  public int getMaxConcurrentThreads() {
+    return maxConcurrentThreads;
+  }
+
+  public void setMaxConcurrentThreads(int maxConcurrentThreads) {
+    this.maxConcurrentThreads = maxConcurrentThreads;
+  }
+
   public int getMonitorCheckIntervalInSecs() {
     return monitorCheckIntervalInSecs;
+  }
+
+  public void setMonitorCheckIntervalInSecs(int monitorCheckIntervalInSecs) {
+    this.monitorCheckIntervalInSecs = monitorCheckIntervalInSecs;
   }
 
   @PreDestroy

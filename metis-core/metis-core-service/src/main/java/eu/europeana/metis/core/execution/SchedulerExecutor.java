@@ -27,13 +27,14 @@ public class SchedulerExecutor implements Runnable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerExecutor.class);
 
-  private final int periodicSchedulerCheckInSecs = 80;
+  private int periodicSchedulerCheckInSecs = 90;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
 
-  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
+  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicSchedulerCheckInSecs) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
+    this.periodicSchedulerCheckInSecs = periodicSchedulerCheckInSecs;
   }
 
   @Override
@@ -49,7 +50,7 @@ public class SchedulerExecutor implements Runnable {
 
         lock.lock();
         dateAfterSleep = LocalDateTime.now();
-        LOGGER.debug("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}", dateBeforeSleep, dateAfterSleep);
+        LOGGER.info("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}", dateBeforeSleep, dateAfterSleep);
         List<ScheduledUserWorkflow> allCleanedScheduledUserWorkflows = getCleanedScheduledUserWorkflows(
             dateBeforeSleep, dateAfterSleep);
 
