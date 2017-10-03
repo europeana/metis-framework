@@ -21,13 +21,14 @@ public class FailsafeExecutor implements Runnable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FailsafeExecutor.class);
 
-  private final int periodicFailsafeCheckInSecs = 60;
+  private int periodicFailsafeCheckInSecs = 60;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
 
-  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
+  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
+    this.periodicFailsafeCheckInSecs = periodicFailsafeCheckInSecs;
   }
 
   @Override
