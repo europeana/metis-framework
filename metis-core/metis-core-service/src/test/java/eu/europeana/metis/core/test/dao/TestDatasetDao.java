@@ -23,18 +23,14 @@ import static org.junit.Assert.assertTrue;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
-import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.TreeSet;
 import org.bson.types.ObjectId;
@@ -45,9 +41,9 @@ import org.junit.Test;
 
 public class TestDatasetDao {
 
-  private static DatasetDao dsDao;
-  private static Organization org;
-  private static Dataset ds;
+  private static DatasetDao datasetDao;
+  private static Organization organization;
+  private static Dataset dataset;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
   @BeforeClass
@@ -61,11 +57,11 @@ public class TestDatasetDao {
     MongoClient mongoClient = new MongoClient(address);
     MorphiaDatastoreProvider provider = new MorphiaDatastoreProvider(mongoClient, "test");
 
-    dsDao = new DatasetDao(provider);
-    dsDao.setDatasetsPerRequest(5);
+    datasetDao = new DatasetDao(provider);
+    datasetDao.setDatasetsPerRequest(5);
 
-    org = createOrganization();
-    ds = createDataset("testName");
+    organization = createOrganization();
+    dataset = TestObjectFactory.createDataset("testName");
   }
 
   @AfterClass
@@ -81,170 +77,135 @@ public class TestDatasetDao {
     return org;
   }
 
-  private static Dataset createDataset(String datasetName) {
-    Dataset ds = new Dataset();
-    ds.setAccepted(true);
-    ds.setAssignedToLdapId("Lemmy");
-    ds.setCountry(Country.ALBANIA);
-    ds.setCreatedDate(new Date(1000));
-    ds.setCreatedByLdapId("Lemmy");
-    ds.setDataProvider("prov");
-    ds.setDeaSigned(true);
-    ds.setDescription("Test description");
-    List<String> DQA = new ArrayList<>();
-    DQA.add("test DQA");
-    ds.setDqas(DQA);
-    ds.setFirstPublished(new Date(1000));
-    ds.setHarvestedAt(new Date(1000));
-    ds.setLanguage(Language.AR);
-    ds.setLastPublished(new Date(1000));
-    ds.setHarvestingMetadata(new OaipmhHarvestingMetadata());
-    ds.setDatasetName(datasetName);
-    ds.setNotes("test Notes");
-    ds.setPublishedRecords(100);
-    ds.setSubmittedRecords(199);
-    ds.setReplacedBy("replacedBY");
-    List<String> sources = new ArrayList<>();
-    sources.add("testSource");
-    ds.setSources(sources);
-    List<String> subjects = new ArrayList<>();
-    subjects.add("testSubject");
-    ds.setSubjects(subjects);
-    ds.setSubmissionDate(new Date(1000));
-    ds.setUpdatedDate(new Date(1000));
-    ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
-    return ds;
-  }
-
 
   @Test
   public void testCreateRetrieveDataset() {
-    dsDao.create(ds);
-    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
-    assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
-    assertEquals(ds.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
-    assertEquals(ds.getCountry(), dsRet.getCountry());
-    assertEquals(ds.getCreatedDate(), dsRet.getCreatedDate());
-    assertEquals(ds.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
-    assertEquals(ds.getDataProvider(), dsRet.getDataProvider());
-    assertEquals(ds.getDqas(), dsRet.getDqas());
-    assertEquals(ds.getDescription(), ds.getDescription());
-    assertEquals(ds.getFirstPublished(), dsRet.getFirstPublished());
-    assertEquals(ds.getLanguage(), dsRet.getLanguage());
-    assertEquals(ds.getLastPublished(), dsRet.getLastPublished());
-    assertEquals(ds.getNotes(), dsRet.getNotes());
-    assertEquals(ds.getPublishedRecords(), ds.getPublishedRecords());
-    assertEquals(ds.getSubmittedRecords(), ds.getSubmittedRecords());
-    assertEquals(ds.getReplacedBy(), ds.getReplacedBy());
-    assertEquals(ds.getSources(), dsRet.getSources());
-    assertEquals(ds.getSubjects(), dsRet.getSubjects());
-    assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
-    assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
-    assertEquals(ds.getDatasetStatus(), dsRet.getDatasetStatus());
+    datasetDao.create(dataset);
+    Dataset dsRet = datasetDao.getDatasetByDatasetName(dataset.getDatasetName());
+    assertEquals(dataset.getDatasetName(), dsRet.getDatasetName());
+    assertEquals(dataset.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
+    assertEquals(dataset.getCountry(), dsRet.getCountry());
+    assertEquals(dataset.getCreatedDate(), dsRet.getCreatedDate());
+    assertEquals(dataset.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
+    assertEquals(dataset.getDataProvider(), dsRet.getDataProvider());
+    assertEquals(dataset.getDqas(), dsRet.getDqas());
+    assertEquals(dataset.getDescription(), dataset.getDescription());
+    assertEquals(dataset.getFirstPublished(), dsRet.getFirstPublished());
+    assertEquals(dataset.getLanguage(), dsRet.getLanguage());
+    assertEquals(dataset.getLastPublished(), dsRet.getLastPublished());
+    assertEquals(dataset.getNotes(), dsRet.getNotes());
+    assertEquals(dataset.getPublishedRecords(), dataset.getPublishedRecords());
+    assertEquals(dataset.getSubmittedRecords(), dataset.getSubmittedRecords());
+    assertEquals(dataset.getReplacedBy(), dataset.getReplacedBy());
+    assertEquals(dataset.getSources(), dsRet.getSources());
+    assertEquals(dataset.getSubjects(), dsRet.getSubjects());
+    assertEquals(dataset.getSubmissionDate(), dsRet.getSubmissionDate());
+    assertEquals(dataset.getUpdatedDate(), dsRet.getUpdatedDate());
+    assertEquals(dataset.getDatasetStatus(), dsRet.getDatasetStatus());
   }
 
 
   @Test
   public void testUpdateRetrieveDataset() {
-    dsDao.create(ds);
-    ds.setDatasetStatus(DatasetStatus.CREATED);
-    dsDao.update(ds);
-    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
-    assertEquals(ds.getDatasetName(), dsRet.getDatasetName());
-    assertEquals(ds.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
-    assertEquals(ds.getCountry(), dsRet.getCountry());
-    assertEquals(ds.getCreatedDate(), dsRet.getCreatedDate());
-    assertEquals(ds.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
-    assertEquals(ds.getDataProvider(), dsRet.getDataProvider());
-    assertEquals(ds.getDqas(), dsRet.getDqas());
-    assertEquals(ds.getDescription(), ds.getDescription());
-    assertEquals(ds.getFirstPublished(), dsRet.getFirstPublished());
-    assertEquals(ds.getLanguage(), dsRet.getLanguage());
-    assertEquals(ds.getLastPublished(), dsRet.getLastPublished());
-    assertEquals(ds.getNotes(), dsRet.getNotes());
-    assertEquals(ds.getPublishedRecords(), ds.getPublishedRecords());
-    assertEquals(ds.getSubmittedRecords(), ds.getSubmittedRecords());
-    assertEquals(ds.getReplacedBy(), ds.getReplacedBy());
-    assertEquals(ds.getSources(), dsRet.getSources());
-    assertEquals(ds.getSubjects(), dsRet.getSubjects());
-    assertEquals(ds.getSubmissionDate(), dsRet.getSubmissionDate());
-    assertEquals(ds.getUpdatedDate(), dsRet.getUpdatedDate());
-    assertEquals(ds.getDatasetStatus(), dsRet.getDatasetStatus());
+    datasetDao.create(dataset);
+    dataset.setDatasetStatus(DatasetStatus.CREATED);
+    datasetDao.update(dataset);
+    Dataset dsRet = datasetDao.getDatasetByDatasetName(dataset.getDatasetName());
+    assertEquals(dataset.getDatasetName(), dsRet.getDatasetName());
+    assertEquals(dataset.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
+    assertEquals(dataset.getCountry(), dsRet.getCountry());
+    assertEquals(dataset.getCreatedDate(), dsRet.getCreatedDate());
+    assertEquals(dataset.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
+    assertEquals(dataset.getDataProvider(), dsRet.getDataProvider());
+    assertEquals(dataset.getDqas(), dsRet.getDqas());
+    assertEquals(dataset.getDescription(), dataset.getDescription());
+    assertEquals(dataset.getFirstPublished(), dsRet.getFirstPublished());
+    assertEquals(dataset.getLanguage(), dsRet.getLanguage());
+    assertEquals(dataset.getLastPublished(), dsRet.getLastPublished());
+    assertEquals(dataset.getNotes(), dsRet.getNotes());
+    assertEquals(dataset.getPublishedRecords(), dataset.getPublishedRecords());
+    assertEquals(dataset.getSubmittedRecords(), dataset.getSubmittedRecords());
+    assertEquals(dataset.getReplacedBy(), dataset.getReplacedBy());
+    assertEquals(dataset.getSources(), dsRet.getSources());
+    assertEquals(dataset.getSubjects(), dsRet.getSubjects());
+    assertEquals(dataset.getSubmissionDate(), dsRet.getSubmissionDate());
+    assertEquals(dataset.getUpdatedDate(), dsRet.getUpdatedDate());
+    assertEquals(dataset.getDatasetStatus(), dsRet.getDatasetStatus());
   }
 
   @Test
   public void testDeleteDataset() {
-    dsDao.create(ds);
-    Dataset dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
-    dsDao.delete(dsRet);
-    dsRet = dsDao.getDatasetByDatasetName(ds.getDatasetName());
+    datasetDao.create(dataset);
+    Dataset dsRet = datasetDao.getDatasetByDatasetName(dataset.getDatasetName());
+    datasetDao.delete(dsRet);
+    dsRet = datasetDao.getDatasetByDatasetName(dataset.getDatasetName());
     Assert.assertNull(dsRet);
   }
 
   @Test
   public void testUpdateDatasetName() {
-    String key = dsDao.create(ds);
-    String nameBefore = ds.getDatasetName();
+    String key = datasetDao.create(dataset);
+    String nameBefore = dataset.getDatasetName();
 
-    Dataset storedBefore = dsDao.getById(key);
+    Dataset storedBefore = datasetDao.getById(key);
 
-    assertEquals(ds.getDatasetName(), storedBefore.getDatasetName());
-    dsDao.updateDatasetName(nameBefore, "someNewName");
+    assertEquals(dataset.getDatasetName(), storedBefore.getDatasetName());
+    datasetDao.updateDatasetName(nameBefore, "someNewName");
 
-    Dataset stored = dsDao.getById(key);
+    Dataset stored = datasetDao.getById(key);
     assertEquals("someNewName", stored.getDatasetName());
   }
 
   @Test
   public void testDeleteDatasetByDatasetName() {
-    String key = dsDao.create(ds);
+    String key = datasetDao.create(dataset);
 
-    Dataset storedBefore = dsDao.getById(key);
-    assertTrue(dsDao.deleteDatasetByDatasetName(storedBefore.getDatasetName()));
-    Dataset deleted = dsDao.getById(key);
+    Dataset storedBefore = datasetDao.getById(key);
+    assertTrue(datasetDao.deleteDatasetByDatasetName(storedBefore.getDatasetName()));
+    Dataset deleted = datasetDao.getById(key);
 
     assertNull(deleted);
-    assertFalse(dsDao.deleteDatasetByDatasetName(storedBefore.getDatasetName()));
+    assertFalse(datasetDao.deleteDatasetByDatasetName(storedBefore.getDatasetName()));
   }
 
   @Test
   public void testExistsDatasetByDatasetName() {
-    String key = dsDao.create(ds);
+    String key = datasetDao.create(dataset);
 
-    assertTrue(dsDao.existsDatasetByDatasetName(ds.getDatasetName()));
+    assertTrue(datasetDao.existsDatasetByDatasetName(dataset.getDatasetName()));
 
-    dsDao.deleteDatasetByDatasetName(ds.getDatasetName());
+    datasetDao.deleteDatasetByDatasetName(dataset.getDatasetName());
 
-    assertFalse(dsDao.existsDatasetByDatasetName(ds.getDatasetName()));
+    assertFalse(datasetDao.existsDatasetByDatasetName(dataset.getDatasetName()));
   }
 
   @Test
   public void testGetAllDatasetByOrganization() {
-    Dataset ds1 = createDataset("dataset1");
+    Dataset ds1 = TestObjectFactory.createDataset("dataset1");
     //add some required fields (indexed)
     ds1.setDataProvider("myProvider");
     ds1.setId(new ObjectId("1f2f2f2f2f2f2f2f2f2f2f2f"));
     ds1.setEcloudDatasetId("id1");
 
-    dsDao.create(ds1);
+    datasetDao.create(ds1);
 
-    Dataset ds2 = createDataset("dataset2");
+    Dataset ds2 = TestObjectFactory.createDataset("dataset2");
     //add some required fields (indexed)
     ds2.setId(new ObjectId("2f2f2f2f2f2f2f2f2f2f2f2f"));
     ds2.setDataProvider("myProvider");
     ds2.setEcloudDatasetId("id2");
 
-    dsDao.create(ds2);
+    datasetDao.create(ds2);
 
-    Dataset ds3 = createDataset("dataset3");
+    Dataset ds3 = TestObjectFactory.createDataset("dataset3");
     //add some required fields (indexed)
     ds3.setId(new ObjectId("3f2f2f2f2f2f2f2f2f2f2f2f"));
     ds3.setDataProvider("otherProvider");
     ds3.setEcloudDatasetId("id3");
 
-    dsDao.create(ds3);
+    datasetDao.create(ds3);
 
-    List<Dataset> datasets = dsDao.getAllDatasetsByDataProvider("myProvider", null);
+    List<Dataset> datasets = datasetDao.getAllDatasetsByDataProvider("myProvider", null);
 
     assertEquals(2, datasets.size());
 

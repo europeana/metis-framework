@@ -3,17 +3,13 @@ package eu.europeana.metis.core.test.dao;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.dao.UserWorkflowDao;
-import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPluginMetadata;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -31,9 +27,6 @@ public class TestUserWorkflowDao {
   private static UserWorkflowDao userWorkflowDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
   private static MorphiaDatastoreProvider provider;
-
-  private static final String WORKFLOWOWNER = "workflowOwner";
-  private static final String WORKFLOWNAME = "workflowName";
 
   @BeforeClass
   public static void prepare() throws IOException {
@@ -62,14 +55,14 @@ public class TestUserWorkflowDao {
 
   @Test
   public void testCreateUserWorkflow() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     String objectId = userWorkflowDao.create(userWorkflow);
     Assert.assertNotNull(objectId);
   }
 
   @Test
   public void testUpdateUserWorkflow() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     String updatedWorkflowName = "updatedWorkflowName";
     userWorkflow.setWorkflowName(updatedWorkflowName);
@@ -81,7 +74,7 @@ public class TestUserWorkflowDao {
 
   @Test
   public void testGetById() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     String objectId = userWorkflowDao.create(userWorkflow);
     UserWorkflow retrievedUserWorkflow = userWorkflowDao.getById(objectId);
     Assert.assertEquals(userWorkflow.getWorkflowOwner(), retrievedUserWorkflow.getWorkflowOwner());
@@ -104,7 +97,7 @@ public class TestUserWorkflowDao {
 
   @Test
   public void testDelete() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertTrue(userWorkflowDao.delete(userWorkflow));
     Assert.assertFalse(userWorkflowDao.delete(userWorkflow));
@@ -112,7 +105,7 @@ public class TestUserWorkflowDao {
 
   @Test
   public void testDeleteUserWorkflow() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertTrue(userWorkflowDao
         .deleteUserWorkflow(userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
@@ -122,14 +115,14 @@ public class TestUserWorkflowDao {
 
   @Test
   public void testExists() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertNotNull(userWorkflowDao.exists(userWorkflow));
   }
 
   @Test
   public void testGetUserWorkflow() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertNotNull(userWorkflowDao
         .getUserWorkflow(userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
@@ -141,8 +134,8 @@ public class TestUserWorkflowDao {
     int userWorkflowsToCreate = userWorkflowDao.getUserWorkflowsPerRequest() + 1;
     for (int i = 0; i < userWorkflowsToCreate; i++)
     {
-      UserWorkflow userWorkflow = createUserWorkflowObject();
-      userWorkflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
+      userWorkflow.setWorkflowName(String.format("%s%s", TestObjectFactory.WORKFLOWNAME, i));
       userWorkflowDao.create(userWorkflow);
     }
     String nextPage = null;
@@ -150,7 +143,7 @@ public class TestUserWorkflowDao {
     do {
       ResponseListWrapper<UserWorkflow> userWorkflowResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowResponseListWrapper.setResultsAndLastPage(userWorkflowDao
-          .getAllUserWorkflows(WORKFLOWOWNER, nextPage), userWorkflowDao.getUserWorkflowsPerRequest());
+          .getAllUserWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), userWorkflowDao.getUserWorkflowsPerRequest());
       allUserWorkflowsCount+=userWorkflowResponseListWrapper.getListSize();
       nextPage = userWorkflowResponseListWrapper.getNextPage();
     }while(nextPage != null);
@@ -158,41 +151,5 @@ public class TestUserWorkflowDao {
     Assert.assertEquals(userWorkflowsToCreate, allUserWorkflowsCount);
   }
 
-
-  private static UserWorkflow createUserWorkflowObject() {
-    UserWorkflow userWorkflow = new UserWorkflow();
-    userWorkflow.setHarvestPlugin(true);
-    userWorkflow.setTransformPlugin(false);
-    userWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    userWorkflow.setWorkflowName(WORKFLOWNAME);
-
-    OaipmhHarvestingMetadata oaipmhHarvestingMetadata = new OaipmhHarvestingMetadata(
-        "metadataFormat", "setSpec", "http://test.me.now");
-    ArrayList<String> oaiParameters = new ArrayList<>();
-    oaiParameters.add("oai_parameter_a");
-    oaiParameters.add("oai_parameter_b");
-    HashMap<String, List<String>> oaiParameterGroups = new HashMap<>();
-    oaiParameterGroups.put("GroupA", oaiParameters);
-    oaiParameterGroups.put("GroupB", oaiParameters);
-
-    VoidOaipmhHarvestPluginMetadata voidOaipmhHarvestPluginMetadata = new VoidOaipmhHarvestPluginMetadata(
-        oaipmhHarvestingMetadata, oaiParameterGroups);
-
-    ArrayList<String> dereferenceParameters = new ArrayList<>();
-    dereferenceParameters.add("dereference_parameter_a");
-    dereferenceParameters.add("dereference_parameter_b");
-    HashMap<String, List<String>> dereferenceParameterGroups = new HashMap<>();
-    dereferenceParameterGroups.put("GroupA", dereferenceParameters);
-    dereferenceParameterGroups.put("GroupB", dereferenceParameters);
-    VoidDereferencePluginMetadata voidDereferencePluginMetadata = new VoidDereferencePluginMetadata(
-        dereferenceParameterGroups);
-
-    List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
-    abstractMetisPluginMetadata.add(voidOaipmhHarvestPluginMetadata);
-    abstractMetisPluginMetadata.add(voidDereferencePluginMetadata);
-    userWorkflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
-
-    return userWorkflow;
-  }
 
 }
