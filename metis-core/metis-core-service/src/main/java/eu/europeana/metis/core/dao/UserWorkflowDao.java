@@ -49,12 +49,15 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
 
   @Override
   public UserWorkflow getById(String id) {
-    return null;
+    Query<UserWorkflow> query = provider.getDatastore()
+        .find(UserWorkflow.class)
+        .field("_id").equal(new ObjectId(id));
+    return query.get();
   }
 
   @Override
   public boolean delete(UserWorkflow userWorkflow) {
-    return false;
+    return deleteUserWorkflow(userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName());
   }
 
 

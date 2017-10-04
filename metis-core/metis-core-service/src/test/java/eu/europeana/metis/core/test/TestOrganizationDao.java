@@ -87,7 +87,7 @@ public class TestOrganizationDao {
   }
 
   @After
-  public void CleanUp() {
+  public void cleanUp() {
     Datastore datastore = provider.getDatastore();
 
     datastore.delete(datastore.createQuery(Organization.class));
