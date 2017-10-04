@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.test;
+package eu.europeana.metis.core.test.dao;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
