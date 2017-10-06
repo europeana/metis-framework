@@ -86,15 +86,13 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
         .equal(datasetName).get();
   }
 
-  public String exists(ScheduledUserWorkflow scheduledUserWorkflow) {
-    ScheduledUserWorkflow storedScheduledUserWorkflow = provider.getDatastore()
+  public boolean exists(ScheduledUserWorkflow scheduledUserWorkflow) {
+    return provider.getDatastore()
         .find(ScheduledUserWorkflow.class).field("datasetName")
         .equal(scheduledUserWorkflow.getDatasetName()).field("workflowOwner")
         .equal(scheduledUserWorkflow.getWorkflowOwner()).field("workflowName")
         .equal(scheduledUserWorkflow.getWorkflowName())
-        .project("_id", true).get();
-    return storedScheduledUserWorkflow != null ? storedScheduledUserWorkflow.getId().toString()
-        : null;
+        .project("_id", true).get() != null;
   }
 
   public String existsForDatasetName(String datasetName) {

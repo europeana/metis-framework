@@ -5,6 +5,8 @@ import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
+import eu.europeana.metis.core.workflow.ScheduleFrequence;
+import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -72,6 +74,17 @@ public class TestObjectFactory {
     userWorkflowExecution.setCreatedDate(new Date());
 
     return userWorkflowExecution;
+  }
+
+  public static ScheduledUserWorkflow createScheduledUserWorkflowObject() {
+    ScheduledUserWorkflow scheduledUserWorkflow = new ScheduledUserWorkflow();
+    scheduledUserWorkflow.setDatasetName(DATASETNAME);
+    scheduledUserWorkflow.setWorkflowOwner(WORKFLOWOWNER);
+    scheduledUserWorkflow.setWorkflowName(WORKFLOWNAME);
+    scheduledUserWorkflow.setPointerDate(new Date());
+    scheduledUserWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
+    scheduledUserWorkflow.setWorkflowPriority(0);
+    return scheduledUserWorkflow;
   }
 
   public static Dataset createDataset(String datasetName) {

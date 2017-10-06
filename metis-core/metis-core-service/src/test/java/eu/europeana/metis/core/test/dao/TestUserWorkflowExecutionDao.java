@@ -77,7 +77,7 @@ public class TestUserWorkflowExecutionDao {
     Assert.assertNotNull(objectId);
     UserWorkflowExecution updatedUserWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
     Assert.assertEquals(WorkflowStatus.RUNNING, updatedUserWorkflowExecution.getWorkflowStatus());
-    Assert.assertEquals(updatedDate, updatedUserWorkflowExecution.getUpdatedDate());
+    Assert.assertTrue(updatedDate.compareTo(updatedUserWorkflowExecution.getUpdatedDate()) == 0);
   }
 
   @Test
