@@ -113,11 +113,12 @@ public class OrchestratorService {
     LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
   }
 
+  //Used for direct, on the fly provided, execution of a UserWorkflow
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
       UserWorkflow userWorkflow, int priority)
-      throws UserWorkflowAlreadyExistsException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
+      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
     Dataset dataset = checkDatasetExistence(datasetName);
-    //Generate workflowName for user.
+    //Generate uuid workflowName for user and check if by any chance it exists.
     userWorkflow.setWorkflowName(new ObjectId().toString());
     checkRestrictionsOnUserWorkflowCreate(userWorkflow);
 
@@ -271,19 +272,6 @@ public class OrchestratorService {
           workflowOwner, workflowName));
     }
     return userWorkflow;
-  }
-
-  private void checkScheduledUserWorkflowExistence(String datasetName,
-      String workflowOwner, String workflowName)
-      throws ScheduledUserWorkflowAlreadyExistsException {
-    ScheduledUserWorkflow scheduledUserWorkflow = scheduledUserWorkflowDao
-        .getScheduledUserWorkflow(datasetName, workflowOwner, workflowName);
-    if (scheduledUserWorkflow != null) {
-      throw new ScheduledUserWorkflowAlreadyExistsException(String.format(
-          "ScheduledUserWorkflow with datasetName: %s,  workflowOwner: %s, and workflowName: %s, already exists",
-          datasetName, workflowOwner,
-          workflowName));
-    }
   }
 
   private void checkScheduledUserWorkflowExistenceForDatasetName(String datasetName)
