@@ -52,7 +52,6 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   @Indexed
   private String datasetName;
   private int workflowPriority;
-  private boolean harvest;
   private boolean cancelling;
 
   @Indexed
@@ -158,14 +157,6 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   @Override
   public void setId(ObjectId id) {
     this.id = id;
-  }
-
-  public boolean isHarvest() {
-    return harvest;
-  }
-
-  public void setHarvest(boolean harvest) {
-    this.harvest = harvest;
   }
 
   public boolean isCancelling() {
