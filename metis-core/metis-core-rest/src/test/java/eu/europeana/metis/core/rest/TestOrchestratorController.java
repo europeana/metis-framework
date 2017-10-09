@@ -332,13 +332,11 @@ public class TestOrchestratorController {
     UserWorkflowExecution userWorkflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    when(orchestratorService.getRunningUserWorkflowExecution(anyString(), anyString(), anyString()))
+    when(orchestratorService.getRunningUserWorkflowExecution(anyString()))
         .thenReturn(userWorkflowExecution);
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME,
             TestObjectFactory.DATASETNAME)
-            .param("workflowOwner", "owner")
-            .param("workflowName", "workflow")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))

@@ -212,8 +212,7 @@ public class TestUserWorkflowExecutionDao {
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
     UserWorkflowExecution runningUserWorkflowExecution = userWorkflowExecutionDao
-        .getRunningUserWorkflowExecution(userWorkflowExecution.getDatasetName(),
-            userWorkflowExecution.getWorkflowOwner(), userWorkflowExecution.getWorkflowName());
+        .getRunningUserWorkflowExecution(userWorkflowExecution.getDatasetName());
     Assert.assertEquals(objectId, runningUserWorkflowExecution.getId().toString());
   }
 

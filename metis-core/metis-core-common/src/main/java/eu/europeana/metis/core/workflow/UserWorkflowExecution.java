@@ -36,7 +36,7 @@ import org.mongodb.morphia.annotations.Indexes;
 @Entity
 @Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
 @JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetName",
-    "workflowPriority", "harvest", "createdDate", "startedDate", "updatedDate", "finishedDate",
+    "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
     "voidHTTPHarvestPlugin", "voidOaipmhHarvestPlugin", "voidDereferencePlugin", "voidMetisPlugin"})
 public class UserWorkflowExecution implements HasMongoObjectId {
 

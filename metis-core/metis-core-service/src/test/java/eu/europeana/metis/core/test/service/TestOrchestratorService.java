@@ -156,10 +156,10 @@ public class TestOrchestratorService {
 
   @Test
   public void getRunningUserWorkflowExecution() {
-    orchestratorService.getRunningUserWorkflowExecution(anyString(), anyString(), anyString());
+    orchestratorService.getRunningUserWorkflowExecution(anyString());
     InOrder inOrder = Mockito.inOrder(userWorkflowExecutionDao);
     inOrder.verify(userWorkflowExecutionDao, times(1))
-        .getRunningUserWorkflowExecution(anyString(), anyString(), anyString());
+        .getRunningUserWorkflowExecution(anyString());
     inOrder.verifyNoMoreInteractions();
   }
 

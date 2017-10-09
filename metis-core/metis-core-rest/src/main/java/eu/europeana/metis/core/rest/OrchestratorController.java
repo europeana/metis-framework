@@ -224,19 +224,13 @@ public class OrchestratorController {
       @ApiResponse(code = 200, message = "Successful response")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get running userWorkflowExecution by datasetName, workflowOwner and workflowName", response = UserWorkflowExecution.class)
+  @ApiOperation(value = "Get running userWorkflowExecution by datasetName", response = UserWorkflowExecution.class)
   public UserWorkflowExecution getRunningUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
+      @PathVariable("datasetName") String datasetName) {
     UserWorkflowExecution userWorkflowExecution = orchestratorService
-        .getRunningUserWorkflowExecution(datasetName, workflowOwner, workflowName);
-    LOGGER.info(
-        "UserWorkflowExecution with datasetName '{}' with workflowOwner '{}' and workflowName '{}' found",
-        datasetName, workflowOwner, workflowName);
+        .getRunningUserWorkflowExecution(datasetName);
+    LOGGER.info("UserWorkflowExecution with datasetName '{}' found", datasetName);
     return userWorkflowExecution;
   }
 
