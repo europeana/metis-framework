@@ -69,8 +69,8 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 406, message = "Bad content")})
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 404, message = "UserWorkflow not found")})
   @ApiOperation(value = "Update a user workflow")
   public void updateUserWorkflow(
       @RequestBody UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
@@ -97,9 +97,7 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflow not found")})
+  @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful response")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
@@ -145,7 +143,9 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response")})
+      @ApiResponse(code = 201, message = "Successful response"),
+      @ApiResponse(code = 404, message = "Dataset or UserWorkflow not found"),
+      @ApiResponse(code = 409, message = "User workflow execution already exists")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
@@ -157,7 +157,7 @@ public class OrchestratorController {
       @PathVariable("datasetName") String datasetName,
       @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
-      throws NoUserWorkflowFoundException, NoDatasetFoundException, UserWorkflowExecutionAlreadyExistsException {
+      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoUserWorkflowFoundException {
     if (priority == null) {
       priority = 0;
     }
@@ -169,57 +169,14 @@ public class OrchestratorController {
         datasetName, workflowOwner, workflowName);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Cancel a user workflow execution by datasetName")
-  public void cancelUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName)
-      throws NoUserWorkflowExecutionFoundException {
-    orchestratorService.cancelUserWorkflowExecution(datasetName);
-    LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' is cancelling",
-        datasetName);
-  }
-
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflowExecution not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
-  })
-  @ApiOperation(value = "Get running userWorkflowExecution by datasetName, workflowOwner and workflowName", response = UserWorkflowExecution.class)
-  public UserWorkflowExecution getRunningUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
-    UserWorkflowExecution userWorkflowExecution = orchestratorService
-        .getRunningUserWorkflowExecution(datasetName, workflowOwner, workflowName);
-    LOGGER.info(
-        "UserWorkflowExecution with datasetName '{}' with workflowOwner '{}' and workflowName '{}' found",
-        datasetName, workflowOwner, workflowName);
-    return userWorkflowExecution;
-  }
-
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 406, message = "Bad content")})
+      @ApiResponse(code = 404, message = "Dataset not found"),
+      @ApiResponse(code = 409, message = "UserWorkflowExecution or UserWorkflow already exists")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "priority", value = "Priority value, default is 0. The higher number the higher priority until 10", dataType = "int", defaultValue = "0", paramType = "query")
@@ -239,6 +196,49 @@ public class OrchestratorController {
         userWorkflow.getWorkflowOwner());
   }
 
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 404, message = "UserWorkflowExecution not found")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
+  })
+  @ApiOperation(value = "Cancel a user workflow execution by datasetName")
+  public void cancelUserWorkflowExecution(
+      @PathVariable("datasetName") String datasetName)
+      throws NoUserWorkflowExecutionFoundException {
+    orchestratorService.cancelUserWorkflowExecution(datasetName);
+    LOGGER.info(
+        "UserWorkflowExecution for datasetName '{}' is cancelling",
+        datasetName);
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  @ApiResponses(value = {
+      @ApiResponse(code = 200, message = "Successful response")})
+  @ApiImplicitParams({
+      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
+      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
+  })
+  @ApiOperation(value = "Get running userWorkflowExecution by datasetName, workflowOwner and workflowName", response = UserWorkflowExecution.class)
+  public UserWorkflowExecution getRunningUserWorkflowExecution(
+      @PathVariable("datasetName") String datasetName,
+      @QueryParam("workflowOwner") String workflowOwner,
+      @QueryParam("workflowName") String workflowName) {
+    UserWorkflowExecution userWorkflowExecution = orchestratorService
+        .getRunningUserWorkflowExecution(datasetName, workflowOwner, workflowName);
+    LOGGER.info(
+        "UserWorkflowExecution with datasetName '{}' with workflowOwner '{}' and workflowName '{}' found",
+        datasetName, workflowOwner, workflowName);
+    return userWorkflowExecution;
+  }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -307,7 +307,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Schedule a user workflow. Only one schedule per datasetName is allowed.")
   public void scheduleUserWorkflowExecution(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoDatasetFoundException, BadContentException, NoUserWorkflowFoundException, ScheduledUserWorkflowAlreadyExistsException {
+      throws BadContentException, ScheduledUserWorkflowAlreadyExistsException, NoUserWorkflowFoundException, NoDatasetFoundException {
     orchestratorService.scheduleUserWorkflow(scheduledUserWorkflow);
     LOGGER.info(
         "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
@@ -362,17 +362,19 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
+      @ApiResponse(code = 204, message = "Successful response"),
+      @ApiResponse(code = 404, message = "UserWorkflow or ScheduledUserWorkflow not found"),
       @ApiResponse(code = 406, message = "Bad content")})
   @ApiOperation(value = "Update a scheduled user workflow")
   public void updateScheduledUserWorkflow(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
+      throws BadContentException, NoScheduledUserWorkflowFoundException, NoUserWorkflowFoundException {
     orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
-    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' updated", scheduledUserWorkflow.getDatasetName());
+    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' updated",
+        scheduledUserWorkflow.getDatasetName());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.DELETE, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody

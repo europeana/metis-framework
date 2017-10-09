@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import org.bson.types.ObjectId;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -27,6 +28,9 @@ public class TestObjectFactory {
   public static final String DATASETNAME = "datasetName";
   public static final String WORKFLOWOWNER = "workflowOwner";
   public static final String WORKFLOWNAME = "workflowName";
+
+  private TestObjectFactory() {
+  }
 
   public static UserWorkflow createUserWorkflowObject() {
     UserWorkflow userWorkflow = new UserWorkflow();
@@ -64,17 +68,56 @@ public class TestObjectFactory {
     return userWorkflow;
   }
 
+  public static List<UserWorkflow> createListOfUserWorkflowsSameOwner(String workflowOwner,
+      int size) {
+    List<UserWorkflow> userWorkflows = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      UserWorkflow userWorkflow = createUserWorkflowObject();
+      userWorkflow.setId(new ObjectId());
+      userWorkflow.setWorkflowOwner(workflowOwner);
+      userWorkflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      userWorkflows.add(userWorkflow);
+    }
+    return userWorkflows;
+  }
+
   public static UserWorkflowExecution createUserWorkflowExecutionObject() {
-    UserWorkflow userWorkflowObject = createUserWorkflowObject();
+    UserWorkflow userWorkflow = createUserWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
 
     UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset,
-        userWorkflowObject, 0);
+        userWorkflow, 0);
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     userWorkflowExecution.setCreatedDate(new Date());
 
     return userWorkflowExecution;
   }
+
+  public static UserWorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
+      UserWorkflow userWorkflow) {
+    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset,
+        userWorkflow, 0);
+    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    userWorkflowExecution.setCreatedDate(new Date());
+
+    return userWorkflowExecution;
+  }
+
+  public static List<UserWorkflowExecution> createListOfUserWorkflowExecutions(int size) {
+    List<UserWorkflowExecution> userWorkflowExecutions = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      UserWorkflow userWorkflow = createUserWorkflowObject();
+      userWorkflow.setId(new ObjectId());
+      userWorkflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
+      UserWorkflowExecution userWorkflowExecution = createUserWorkflowExecutionObject(dataset,
+          userWorkflow);
+      userWorkflowExecution.setId(new ObjectId());
+      userWorkflowExecutions.add(userWorkflowExecution);
+    }
+    return userWorkflowExecutions;
+  }
+
 
   public static ScheduledUserWorkflow createScheduledUserWorkflowObject() {
     ScheduledUserWorkflow scheduledUserWorkflow = new ScheduledUserWorkflow();
@@ -87,6 +130,17 @@ public class TestObjectFactory {
     return scheduledUserWorkflow;
   }
 
+  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflows(int size) {
+    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
+      scheduledUserWorkflow.setId(new ObjectId());
+      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledUserWorkflows.add(scheduledUserWorkflow);
+    }
+    return scheduledUserWorkflows;
+  }
+
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setAccepted(true);
@@ -97,9 +151,9 @@ public class TestObjectFactory {
     ds.setDataProvider("prov");
     ds.setDeaSigned(true);
     ds.setDescription("Test description");
-    List<String> DQA = new ArrayList<>();
-    DQA.add("test DQA");
-    ds.setDqas(DQA);
+    List<String> dqa = new ArrayList<>();
+    dqa.add("test DQA");
+    ds.setDqas(dqa);
     ds.setFirstPublished(new Date(1000));
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
