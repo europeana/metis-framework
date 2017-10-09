@@ -57,7 +57,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testCreateScheduledUserWorkflow() {
+  public void createScheduledUserWorkflow() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     String objectId = scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -65,7 +65,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testUpdateScheduledUserWorkflow() {
+  public void updateScheduledUserWorkflow() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -81,7 +81,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testGetById() {
+  public void getById() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     String objectId = scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -102,12 +102,12 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     Assert.assertFalse(scheduledUserWorkflowDao.delete(null));
   }
 
   @Test
-  public void testGetScheduledUserWorkflow() {
+  public void getScheduledUserWorkflow() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -121,7 +121,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testGetScheduledUserWorkflowByDatasetName() {
+  public void getScheduledUserWorkflowByDatasetName() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -138,7 +138,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testExists() {
+  public void exists() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -146,7 +146,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testExistsForDatasetName() {
+  public void existsForDatasetName() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -155,7 +155,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testDeleteScheduledUserWorkflow() {
+  public void deleteScheduledUserWorkflow() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -165,7 +165,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testDeleteAllByDatasetName() {
+  public void deleteAllByDatasetName() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -174,7 +174,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testUpdateAllDatasetNames() {
+  public void updateAllDatasetNames() {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
@@ -187,7 +187,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testGetAllScheduledUserWorkflows() {
+  public void getAllScheduledUserWorkflows() {
     int scheduledUserWorkflowToCreate =
         scheduledUserWorkflowDao.getScheduledUserWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
@@ -211,7 +211,7 @@ public class TestScheduledUserWorkflowDao {
   }
 
   @Test
-  public void testGetAllScheduledUserWorkflowsByDateRangeONCE()
+  public void getAllScheduledUserWorkflowsByDateRangeONCE()
   {
     int minutesRange = 10;
     LocalDateTime lowerBound = LocalDateTime.now();

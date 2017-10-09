@@ -54,7 +54,7 @@ public class TestUserWorkflowDao {
   }
 
   @Test
-  public void testCreateUserWorkflow() {
+  public void createUserWorkflow() {
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     String objectId = userWorkflowDao.create(userWorkflow);
     Assert.assertNotNull(objectId);
@@ -73,7 +73,7 @@ public class TestUserWorkflowDao {
   }
 
   @Test
-  public void testGetById() {
+  public void getById() {
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     String objectId = userWorkflowDao.create(userWorkflow);
     UserWorkflow retrievedUserWorkflow = userWorkflowDao.getById(objectId);
@@ -96,7 +96,7 @@ public class TestUserWorkflowDao {
   }
 
   @Test
-  public void testDelete() {
+  public void delete() {
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertTrue(userWorkflowDao.delete(userWorkflow));
@@ -104,7 +104,7 @@ public class TestUserWorkflowDao {
   }
 
   @Test
-  public void testDeleteUserWorkflow() {
+  public void deleteUserWorkflow() {
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertTrue(userWorkflowDao
@@ -114,14 +114,14 @@ public class TestUserWorkflowDao {
   }
 
   @Test
-  public void testExists() {
+  public void exists() {
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertNotNull(userWorkflowDao.exists(userWorkflow));
   }
 
   @Test
-  public void testGetUserWorkflow() {
+  public void getUserWorkflow() {
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     userWorkflowDao.create(userWorkflow);
     Assert.assertNotNull(userWorkflowDao
@@ -129,7 +129,7 @@ public class TestUserWorkflowDao {
   }
 
   @Test
-  public void testGetAllUserWorkflows()
+  public void getAllUserWorkflows()
   {
     int userWorkflowsToCreate = userWorkflowDao.getUserWorkflowsPerRequest() + 1;
     for (int i = 0; i < userWorkflowsToCreate; i++)

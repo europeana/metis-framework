@@ -37,7 +37,7 @@ import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
-import org.junit.Before;
+import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -63,7 +63,7 @@ public class TestOrchestratorController {
         .build();
   }
 
-  @Before
+  @After
   public void cleanUp() {
     Mockito.reset(orchestratorService);
   }
