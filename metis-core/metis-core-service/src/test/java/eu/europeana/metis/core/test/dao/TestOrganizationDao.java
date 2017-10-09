@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.core.test;
+package eu.europeana.metis.core.test.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -87,7 +87,7 @@ public class TestOrganizationDao {
   }
 
   @After
-  public void CleanUp() {
+  public void cleanUp() {
     Datastore datastore = provider.getDatastore();
 
     datastore.delete(datastore.createQuery(Organization.class));

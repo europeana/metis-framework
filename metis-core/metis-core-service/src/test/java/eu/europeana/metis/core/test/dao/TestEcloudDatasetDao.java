@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.test;
+package eu.europeana.metis.core.test.dao;
 
 import static org.mockito.Mockito.when;
 

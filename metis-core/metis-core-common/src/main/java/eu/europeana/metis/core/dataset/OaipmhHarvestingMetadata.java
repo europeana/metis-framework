@@ -30,6 +30,15 @@ public class OaipmhHarvestingMetadata implements HarvestingMetadata {
   private String metadataFormat;
   private String setSpec;
 
+  public OaipmhHarvestingMetadata() {
+  }
+
+  public OaipmhHarvestingMetadata(String metadataFormat, String setSpec, String url) {
+    this.metadataFormat = metadataFormat;
+    this.setSpec = setSpec;
+    this.url = url;
+  }
+
   @Override
   public HarvestType getHarvestType() {
     return harvestType;
