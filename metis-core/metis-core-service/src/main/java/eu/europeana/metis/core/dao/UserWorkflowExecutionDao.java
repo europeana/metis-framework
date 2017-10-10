@@ -231,16 +231,13 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
       int monitorCheckInSecs) {
     try {
       Date updatedDateBefore = userWorkflowExecutionToCheck.getUpdatedDate();
-//      //Wait between 2-3 times the monitorCheckInSecs to make sure that 2 checks for the same execution won't be identical
-//      Random rand = new Random();
-//      float random = 2 + rand.nextFloat() * (3 - 2);
-//      Thread.sleep((long) ((random * monitorCheckInSecs) * 1000));
-      Thread.sleep(2 * monitorCheckInSecs * 1000);
+      Thread.sleep(2 * monitorCheckInSecs * 1000L);
       UserWorkflowExecution userWorkflowExecution = this
           .getById(userWorkflowExecutionToCheck.getId().toString());
       return updatedDateBefore != null
           && updatedDateBefore.compareTo(userWorkflowExecution.getUpdatedDate()) < 0;
     } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();  // set interrupt flag
       LOGGER.warn("Thread was interruped", e);
       return true;
     }
@@ -249,7 +246,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public void removeActiveExecutionsFromList(List<UserWorkflowExecution> userWorkflowExecutions,
       int monitorCheckInSecs) {
     try {
-      Thread.sleep(2 * monitorCheckInSecs * 1000);
+      Thread.sleep(2 * monitorCheckInSecs * 1000L);
       for (Iterator<UserWorkflowExecution> iterator = userWorkflowExecutions.iterator();
           iterator.hasNext(); ) {
         UserWorkflowExecution userWorkflowExecutionToCheck = iterator.next();
@@ -263,6 +260,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
       }
 
     } catch (InterruptedException e) {
+      Thread.currentThread().interrupt();  // set interrupt flag
       LOGGER.warn("Thread was interruped", e);
     }
   }

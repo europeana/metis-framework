@@ -51,6 +51,7 @@ public class OrchestratorController {
 
   //USER WORKFLOWS
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -288,7 +289,8 @@ public class OrchestratorController {
   }
 
   //SCHEDULED USER WORKFLOWS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.POST, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}, produces = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
@@ -359,7 +361,7 @@ public class OrchestratorController {
       @ApiResponse(code = 204, message = "Successful response"),
       @ApiResponse(code = 404, message = "UserWorkflow or ScheduledUserWorkflow not found"),
       @ApiResponse(code = 406, message = "Bad content")})
-  @ApiOperation(value = "Update a scheduled user workflow")
+  @ApiOperation(value = "Update a scheduled user workflow for datasetName")
   public void updateScheduledUserWorkflow(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
       throws BadContentException, NoScheduledUserWorkflowFoundException, NoUserWorkflowFoundException {
@@ -375,18 +377,14 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response")})
   @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
+      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Delete a scheduled user workflow by datasetName workflowOwner and workflowName")
+  @ApiOperation(value = "Delete a scheduled user workflow by datasetName")
   public void deleteScheduledUserWorkflowExecution(
-      @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
-    orchestratorService.deleteScheduledUserWorkflow(datasetName, workflowOwner, workflowName);
+      @PathVariable("datasetName") String datasetName) {
+    orchestratorService.deleteScheduledUserWorkflow(datasetName);
     LOGGER.info(
-        "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}' is cancelling",
-        datasetName, workflowOwner, workflowName);
+        "ScheduledUserWorkflowExecution for datasetName '{}' deleted",
+        datasetName);
   }
 }

@@ -225,17 +225,7 @@ public class OrchestratorService {
 
   public void scheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
       throws NoDatasetFoundException, NoUserWorkflowFoundException, BadContentException, ScheduledUserWorkflowAlreadyExistsException {
-
-    checkDatasetExistence(scheduledUserWorkflow.getDatasetName());
-    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
-        scheduledUserWorkflow.getWorkflowName());
-    checkScheduledUserWorkflowExistenceForDatasetName(scheduledUserWorkflow.getDatasetName());
-    if (scheduledUserWorkflow.getPointerDate() == null) {
-      throw new BadContentException("PointerDate cannot be null");
-    }
-    if (scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
-      throw new BadContentException("NULL is not a valid scheduleFrequence");
-    }
+    checkRestrictionsOnScheduleUserWorkflow(scheduledUserWorkflow);
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
   }
 
@@ -289,6 +279,21 @@ public class OrchestratorService {
     scheduledUserWorkflowDao.update(scheduledUserWorkflow);
   }
 
+  private void checkRestrictionsOnScheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
+      throws NoUserWorkflowFoundException, NoDatasetFoundException, ScheduledUserWorkflowAlreadyExistsException, BadContentException {
+    checkDatasetExistence(scheduledUserWorkflow.getDatasetName());
+    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
+        scheduledUserWorkflow.getWorkflowName());
+    checkScheduledUserWorkflowExistenceForDatasetName(scheduledUserWorkflow.getDatasetName());
+    if (scheduledUserWorkflow.getPointerDate() == null) {
+      throw new BadContentException("PointerDate cannot be null");
+    }
+    if (scheduledUserWorkflow.getScheduleFrequence() == null
+        || scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+      throw new BadContentException("NULL or null is not a valid scheduleFrequence");
+    }
+  }
+
   private String checkRestrictionsOnScheduledUserWorkflowUpdate(
       ScheduledUserWorkflow scheduledUserWorkflow)
       throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
@@ -303,14 +308,14 @@ public class OrchestratorService {
     if (scheduledUserWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
     }
-    if (scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
-      throw new BadContentException("NULL is not a valid scheduleFrequence");
+    if (scheduledUserWorkflow.getScheduleFrequence() == null
+        || scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+      throw new BadContentException("NULL or null is not a valid scheduleFrequence");
     }
     return storedId;
   }
 
-  public void deleteScheduledUserWorkflow(String datasetName, String workflowOwner,
-      String workflowName) {
-    scheduledUserWorkflowDao.deleteScheduledUserWorkflow(datasetName, workflowOwner, workflowName);
+  public void deleteScheduledUserWorkflow(String datasetName) {
+    scheduledUserWorkflowDao.deleteScheduledUserWorkflow(datasetName);
   }
 }

@@ -103,17 +103,14 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
         : null;
   }
 
-  public boolean deleteScheduledUserWorkflow(String datasetName, String workflowOwner,
-      String workflowName) {
+  public boolean deleteScheduledUserWorkflow(String datasetName) {
     Query<ScheduledUserWorkflow> query = provider.getDatastore()
         .createQuery(ScheduledUserWorkflow.class);
     query.field("datasetName").equal(datasetName);
-    query.field("workflowOwner").equal(workflowOwner);
-    query.field("workflowName").equal(workflowName);
     WriteResult delete = provider.getDatastore().delete(query);
     LOGGER.debug(
-        "ScheduledUserWorkflow with datasetName: {} workflowOwner: {}, and workflowName {}, deleted from Mongo",
-        datasetName, workflowOwner, workflowName);
+        "ScheduledUserWorkflow with datasetName: {} deleted from Mongo",
+        datasetName);
     return delete.getN() == 1;
   }
 

@@ -564,13 +564,11 @@ public class TestOrchestratorController {
   public void deleteScheduledUserWorkflowExecution() throws Exception
   {
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, TestObjectFactory.DATASETNAME)
-        .param("workflowOwner", "owner")
-        .param("workflowName", "workflow")
         .contentType(TestUtil.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
-    verify(orchestratorService, times(1)).deleteScheduledUserWorkflow(anyString(), anyString(), anyString());
+    verify(orchestratorService, times(1)).deleteScheduledUserWorkflow(anyString());
   }
 
 }

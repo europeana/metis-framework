@@ -160,8 +160,7 @@ public class TestScheduledUserWorkflowDao {
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflowDao.create(scheduledUserWorkflow);
     Assert.assertTrue(
-        scheduledUserWorkflowDao.deleteScheduledUserWorkflow(scheduledUserWorkflow.getDatasetName(),
-            scheduledUserWorkflow.getWorkflowOwner(), scheduledUserWorkflow.getWorkflowName()));
+        scheduledUserWorkflowDao.deleteScheduledUserWorkflow(scheduledUserWorkflow.getDatasetName()));
   }
 
   @Test

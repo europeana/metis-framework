@@ -423,10 +423,26 @@ public class TestOrchestratorService {
   }
 
   @Test(expected = BadContentException.class)
-  public void scheduleUserWorkflow_BadContentException_nullScheduleFrequence() throws Exception {
+  public void scheduleUserWorkflow_BadContentException_NULLScheduleFrequence() throws Exception {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledUserWorkflow.setScheduleFrequence(ScheduleFrequence.NULL);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
+    when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(dataset);
+    when(userWorkflowDao
+        .getUserWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .thenReturn(userWorkflow);
+    when(scheduledUserWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+        .thenReturn(null);
+    orchestratorService.scheduleUserWorkflow(scheduledUserWorkflow);
+  }
+
+  @Test(expected = BadContentException.class)
+  public void scheduleUserWorkflow_BadContentException_nullScheduleFrequence() throws Exception {
+    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+        .createScheduledUserWorkflowObject();
+    scheduledUserWorkflow.setScheduleFrequence(null);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
     when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(dataset);
@@ -512,7 +528,7 @@ public class TestOrchestratorService {
   }
 
   @Test(expected = BadContentException.class)
-  public void updateScheduledUserWorkflow_BadContentException_nullScheduleFrequence()
+  public void updateScheduledUserWorkflow_BadContentException_NULLScheduleFrequence()
       throws Exception {
     ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
@@ -527,12 +543,27 @@ public class TestOrchestratorService {
     orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
   }
 
+  @Test(expected = BadContentException.class)
+  public void updateScheduledUserWorkflow_BadContentException_nullScheduleFrequence()
+      throws Exception {
+    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+        .createScheduledUserWorkflowObject();
+    scheduledUserWorkflow.setScheduleFrequence(null);
+    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
+
+    when(userWorkflowDao
+        .getUserWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
+        .thenReturn(userWorkflow);
+    when(scheduledUserWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+        .thenReturn(new ObjectId().toString());
+    orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
+  }
+
   @Test
   public void deleteScheduledUserWorkflow() {
     orchestratorService
-        .deleteScheduledUserWorkflow(TestObjectFactory.DATASETNAME, TestObjectFactory.WORKFLOWOWNER,
-            TestObjectFactory.WORKFLOWNAME);
+        .deleteScheduledUserWorkflow(TestObjectFactory.DATASETNAME);
     verify(scheduledUserWorkflowDao, times(1))
-        .deleteScheduledUserWorkflow(anyString(), anyString(), anyString());
+        .deleteScheduledUserWorkflow(anyString());
   }
 }
