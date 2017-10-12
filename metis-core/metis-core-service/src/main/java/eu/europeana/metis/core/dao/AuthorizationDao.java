@@ -22,7 +22,7 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
     @Override
     public String create(MetisKey metisKey) {
         Key<MetisKey> metisKeyKey = provider.getDatastore().save(metisKey);
-        LOGGER.info("MetisKey '" + metisKey.getApiKey() + "' created in Mongo");
+        LOGGER.info("MetisKey '{}' created in Mongo", metisKey.getApiKey());
         return metisKeyKey.getId().toString();
     }
 
@@ -34,7 +34,7 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
         ops.set("profile",metisKey.getProfile());
         provider.getDatastore().update(q,ops);
         UpdateResults updateResults = provider.getDatastore().update(q, ops);
-        LOGGER.info("MetisKey '" + metisKey.getApiKey() + "' updated in Mongo");
+        LOGGER.info("MetisKey '{}' updated in Mongo", metisKey.getApiKey());
         return StringUtils.isNotEmpty(updateResults.getNewId().toString()) ? updateResults.getNewId()
             .toString() : metisKey.getObjId().toString();
     }
@@ -47,7 +47,7 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
     @Override
     public boolean delete(MetisKey metisKey) {
         provider.getDatastore().delete(provider.getDatastore().createQuery(MetisKey.class).filter("apiKey",metisKey));
-        LOGGER.info("MetisKey '" + metisKey.getApiKey() + "' deleted from Mongo");
+        LOGGER.info("MetisKey '{}' deleted from Mongo", metisKey.getApiKey());
         return true;
     }
 }

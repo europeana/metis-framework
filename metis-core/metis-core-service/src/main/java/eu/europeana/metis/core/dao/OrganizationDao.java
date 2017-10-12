@@ -180,7 +180,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     organizationUpdateOperations.addToSet("datasetNames", datasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, organizationUpdateOperations);
-    LOGGER.info("Organization '%s' datasetNames updated in Mongo", organizationId);
+    LOGGER.info("Organization '{}' datasetNames updated in Mongo", organizationId);
     return String.valueOf(updateResults.getUpdatedCount());
 
   }
@@ -193,7 +193,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     organizationUpdateOperations.removeAll("datasetNames", datasetName);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, organizationUpdateOperations);
-    LOGGER.info("DatasetName '%s' removed from Organization's '%s' datasetNames. (UpdateResults: %d)",
+    LOGGER.info("DatasetName '{}' removed from Organization's '{}' datasetNames. (UpdateResults: {})",
         datasetName, organizationId, updateResults.getUpdatedCount());
 
   }

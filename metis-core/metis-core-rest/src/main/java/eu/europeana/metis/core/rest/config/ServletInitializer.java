@@ -25,10 +25,10 @@ import org.springframework.web.context.support.AnnotationConfigWebApplicationCon
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
 /**
- * Servlet initializer
- * Created by gmamakis on 12-2-16.
+ * Servlet initializer Created by gmamakis on 12-2-16.
  */
 public class ServletInitializer extends AbstractDispatcherServletInitializer {
+
   //Set profile for choosing between cached or live CRM Zoho
   private static final String PROFILEPATH = "profile.properties";
 
@@ -36,10 +36,9 @@ public class ServletInitializer extends AbstractDispatcherServletInitializer {
   protected WebApplicationContext createServletApplicationContext() {
     Properties prop = new Properties();
     InputStream input = null;
-    try {
+    try (AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext()) {
       input = ServletInitializer.class.getClassLoader().getResourceAsStream(PROFILEPATH);
       prop.load(input);
-      AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
       context.scan(ClassUtils.getPackageName(getClass()));
       context.getEnvironment().setActiveProfiles(prop.getProperty("profile"));
       return context;

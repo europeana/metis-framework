@@ -26,7 +26,7 @@ public class GreekTransliterator {
    * @param args
    * @throws Exception
    */
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     String source = "Βρίσκεστε στην αρχική σελίδα του: Δημόσιου Καταλόγου της Εθνικής Βιβλιοθήκης της Ελλάδος. Ο κατάλογός μας βασίζεται στο πληροφοριακό σύστημα Horizon της Dynix.";
     System.out.println(source);
 

@@ -105,7 +105,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
         .createUpdateOperations(UserWorkflowExecution.class);
     Query<UserWorkflowExecution> query = provider.getDatastore().find(UserWorkflowExecution.class)
         .filter("_id", userWorkflowExecution.getId());
-    userWorkflowExecutionUpdateOperations.set("cancelling", true);
+    userWorkflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     UpdateResults updateResults = provider.getDatastore()
         .update(query, userWorkflowExecutionUpdateOperations);
     LOGGER.debug(

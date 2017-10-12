@@ -115,7 +115,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.updateDatasetByDatasetName(dataset, datasetName);
-    LOGGER.info("Dataset with datasetName %s updated", datasetName);
+    LOGGER.info("Dataset with datasetName {} updated", datasetName);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME_UPDATENAME, method = RequestMethod.PUT)
@@ -142,7 +142,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.updateDatasetName(datasetName, newDatasetName);
-    LOGGER.info("Dataset with datasetName '%s' updated name to '%s'", datasetName,
+    LOGGER.info("Dataset with datasetName '{}' updated name to '{}'", datasetName,
             newDatasetName);
   }
 
@@ -165,7 +165,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
 
     datasetService.deleteDatasetByDatasetName(datasetName);
-    LOGGER.info("Dataset with datasetName '%s' deleted", datasetName);
+    LOGGER.info("Dataset with datasetName '{}' deleted", datasetName);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {

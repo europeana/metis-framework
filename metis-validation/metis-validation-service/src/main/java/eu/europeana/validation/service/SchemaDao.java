@@ -41,15 +41,17 @@ public class SchemaDao extends AbstractSchemaDao{
     public void unzipFile(String fullPath, byte[] in) throws IOException {
         File tmp = new File("/tmp/"+new Date().getTime()+".zip");
         FileUtils.writeByteArrayToFile(tmp,in);
-        ZipFile zip = new ZipFile(tmp);
-        Enumeration<? extends ZipEntry> entries = zip.entries();
-        while(entries.hasMoreElements()){
-            ZipEntry entry = entries.nextElement();
-            if(entry.isDirectory()){
-                new File(fullPath+"/"+entry.getName()).mkdir();
-            } else {
-                InputStream zipStream = zip.getInputStream(entry);
-                FileUtils.copyInputStreamToFile(zipStream,new File(fullPath+"/"+entry.getName()));
+        try(ZipFile zip = new ZipFile(tmp)) {
+            Enumeration<? extends ZipEntry> entries = zip.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                if (entry.isDirectory()) {
+                    new File(fullPath + "/" + entry.getName()).mkdir();
+                } else {
+                    InputStream zipStream = zip.getInputStream(entry);
+                    FileUtils.copyInputStreamToFile(zipStream,
+                        new File(fullPath + "/" + entry.getName()));
+                }
             }
         }
         FileUtils.deleteQuietly(tmp);

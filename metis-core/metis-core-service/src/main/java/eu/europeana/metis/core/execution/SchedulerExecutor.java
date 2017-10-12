@@ -30,6 +30,7 @@ public class SchedulerExecutor implements Runnable {
   private int periodicSchedulerCheckInSecs = 90;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
+  private static final String schedulerLock = "schedulerLock";
 
   public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicSchedulerCheckInSecs) {
     this.orchestratorService = orchestratorService;
@@ -39,14 +40,13 @@ public class SchedulerExecutor implements Runnable {
 
   @Override
   public void run() {
-    final String failsafeLock = "schedulerLock";
-    RLock lock = redissonClient.getFairLock(failsafeLock);
+    RLock lock = redissonClient.getFairLock(schedulerLock);
     LocalDateTime dateBeforeSleep = LocalDateTime.now();
     while (true) {
       LocalDateTime dateAfterSleep = null;
       try {
         LOGGER.info("Scheduler thread sleeping for {} seconds.", periodicSchedulerCheckInSecs);
-        Thread.sleep(periodicSchedulerCheckInSecs * 1000);
+        Thread.sleep(periodicSchedulerCheckInSecs * 1000L);
 
         lock.lock();
         dateAfterSleep = LocalDateTime.now();
@@ -72,7 +72,7 @@ public class SchedulerExecutor implements Runnable {
           }
         }
         lock.unlock(); //Lock releases automatically, if there was another exception, no need to unlock in catch block.
-      } catch (Exception e) {
+      } catch (InterruptedException | RuntimeException e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, scheduler thread continues",
             e);
@@ -95,8 +95,9 @@ public class SchedulerExecutor implements Runnable {
       LocalDateTime upperBound) {
     String nextPage = null;
     List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+    ResponseListWrapper<ScheduledUserWorkflow> scheduledUserWorkflowResponseListWrapper;
     do {
-      ResponseListWrapper<ScheduledUserWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledUserWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
@@ -193,8 +194,9 @@ public class SchedulerExecutor implements Runnable {
       ScheduleFrequence scheduleFrequence) {
     String nextPage = null;
     List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+    ResponseListWrapper<ScheduledUserWorkflow> scheduledUserWorkflowResponseListWrapper;
     do {
-      ResponseListWrapper<ScheduledUserWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledUserWorkflows(scheduleFrequence, nextPage),

@@ -244,13 +244,13 @@ public class XmlUtil {
    * @param outFile
    */
   public static void writeDomToFile(Document dom, File outFile) {
-    try {
+    try (FileOutputStream fileOutputStream = new FileOutputStream(outFile)) {
       TransformerFactory transFact = TransformerFactory.newInstance();
       Transformer transformer = transFact.newTransformer();
       DOMSource source = new DOMSource(dom);
       StreamResult result;
 
-      result = new StreamResult(new OutputStreamWriter(new FileOutputStream(outFile),
+      result = new StreamResult(new OutputStreamWriter(fileOutputStream,
           System.getProperty("file.encoding")));
       transformer.transform(source, result);
     } catch (Exception e) {

@@ -28,60 +28,70 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD loading
- * Created by ymamakis on 12/21/15.
+ * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD
+ * loading Created by ymamakis on 12/21/15.
  */
 public class ClasspathResourceResolver implements AbstractLSResourceResolver {
-    private String prefix;
-    private static final Logger LOGGER = LoggerFactory.getLogger(ClasspathResourceResolver.class);
-    private static Map<String,InputStream> cache;
-    @Override
-    public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
-        try {
-            if(cache==null){
-                cache= new HashMap<>();
-            }
-            LSInput input = new ClasspathLSInput();
-            InputStream stream;
-            if(!systemId.startsWith("http")) {
-                stream = new FileInputStream(prefix+"/"+systemId);
-            }else {
-                if(cache.get(systemId)==null) {
 
-                    stream = new FileInputStream(this.getClass().getClassLoader().getResource("xml.xsd").getFile());
-                    cache.put(systemId,stream);
-                } else {
-                    stream = cache.get(systemId);
-                }
-            }
-            input.setPublicId(publicId);
-            input.setSystemId(systemId);
-            input.setBaseURI(baseURI);
-            input.setCharacterStream(new InputStreamReader(stream));
-            return input;
-        } catch (Exception e){
-            e.printStackTrace();
-            LOGGER.error(e.getMessage());
-        } return null;
-    }
-    /**
-     * @return the prefix
-     */
-    public String getPrefix() {
-        return prefix;
-    }
+  private String prefix;
+  private static final Logger LOGGER = LoggerFactory.getLogger(ClasspathResourceResolver.class);
+  private static Map<String, InputStream> cache;
 
-    @Override
-    public ObjectStorageClient getObjectStorageClient() {
-        return null;
+  @Override
+  public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId,
+      String baseURI) {
+    try {
+      if (cache == null) {
+        cache = new HashMap<>();
+      }
+      LSInput input = new ClasspathLSInput();
+      InputStream stream;
+      if (!systemId.startsWith("http")) {
+        if (cache.get(prefix + "/" + systemId) == null) {
+          stream = new FileInputStream(prefix + "/" + systemId);
+          cache.put(systemId, stream);
+        } else {
+          stream = cache.get(prefix + "/" + systemId);
+        }
+      } else {
+        if (cache.get(systemId) == null) {
+          stream = new FileInputStream(
+              this.getClass().getClassLoader().getResource("xml.xsd").getFile());
+          cache.put(systemId, stream);
+        } else {
+          stream = cache.get(systemId);
+        }
+      }
+      input.setPublicId(publicId);
+      input.setSystemId(systemId);
+      input.setBaseURI(baseURI);
+      input.setCharacterStream(new InputStreamReader(stream));
+      return input;
+    } catch (Exception e) {
+      e.printStackTrace();
+      LOGGER.error(e.getMessage());
     }
+    return null;
+  }
+
+  /**
+   * @return the prefix
+   */
+  public String getPrefix() {
+    return prefix;
+  }
+
+  @Override
+  public ObjectStorageClient getObjectStorageClient() {
+    return null;
+  }
 
 
-    /**
-     * @param prefix the prefix to set
-     */
-    public void setPrefix(String prefix) {
-        this.prefix = prefix;
-    }
+  /**
+   * @param prefix the prefix to set
+   */
+  public void setPrefix(String prefix) {
+    this.prefix = prefix;
+  }
 }
 

@@ -42,34 +42,37 @@ public class ObjectStorageSchemaDao extends AbstractSchemaDao {
     public void unzipFile(String path, byte[] b) throws IOException {
         File tmp = new File("/tmp/" + new Date().getTime() + ".zip");
         FileUtils.writeByteArrayToFile(tmp, b);
-        ZipFile zip = new ZipFile(tmp);
-        Enumeration<? extends ZipEntry> entries = zip.entries();
-        while (entries.hasMoreElements()) {
-            ZipEntry entry = entries.nextElement();
-            if (entry.isDirectory()) {
-                //DO NOTHING
-            } else {
-                InputStream zipStream = zip.getInputStream(entry);
-                StorageObject obj = null;
-                try {
+        try(ZipFile zip = new ZipFile(tmp)) {
+            Enumeration<? extends ZipEntry> entries = zip.entries();
+            while (entries.hasMoreElements()) {
+                ZipEntry entry = entries.nextElement();
+                if (entry.isDirectory()) {
+                    //DO NOTHING
+                } else {
+                    InputStream zipStream = zip.getInputStream(entry);
+                    StorageObject obj = null;
+                    try {
 
-                    ObjectMetadata metadata = new ObjectMetadata();
-                    metadata.setContentLength(zipStream.available());
+                        ObjectMetadata metadata = new ObjectMetadata();
+                        metadata.setContentLength(zipStream.available());
 
-                    byte[] content = IOUtils.toByteArray(zipStream);
-                    byte[] md5 = Md5Utils.computeMD5Hash(content);
-                    String md5Base64 = BinaryUtils.toBase64(md5);
+                        byte[] content = IOUtils.toByteArray(zipStream);
+                        byte[] md5 = Md5Utils.computeMD5Hash(content);
+                        String md5Base64 = BinaryUtils.toBase64(md5);
 
-                    metadata.setContentMD5(md5Base64);
-                    //TODO: workaround because of an issue with the reading in S3StorageClient
-                    Payload payload = new InputStreamPayload(zip.getInputStream(entry));
-                    Logger.getAnonymousLogger().info(rootPath+"/"+path + "/" + entry.getName());
-                    obj = new StorageObject(path + "/" + entry.getName(), new URI(path + "/" + entry.getName()), new Date(), metadata, payload);
-                } catch (URISyntaxException e) {
-                    e.printStackTrace();
+                        metadata.setContentMD5(md5Base64);
+                        //TODO: workaround because of an issue with the reading in S3StorageClient
+                        Payload payload = new InputStreamPayload(zip.getInputStream(entry));
+                        Logger.getAnonymousLogger()
+                            .info(rootPath + "/" + path + "/" + entry.getName());
+                        obj = new StorageObject(path + "/" + entry.getName(),
+                            new URI(path + "/" + entry.getName()), new Date(), metadata, payload);
+                    } catch (URISyntaxException e) {
+                        e.printStackTrace();
+                    }
+                    client.put(obj);
+
                 }
-                client.put(obj);
-
             }
         }
         FileUtils.deleteQuietly(tmp);

@@ -20,6 +20,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowDao.class);
   private int userWorkflowsPerRequest = 5;
   private final MorphiaDatastoreProvider provider;
@@ -33,8 +34,9 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   public String create(UserWorkflow userWorkflow) {
     Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
         userWorkflow);
-    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' created with workflowOwner '" + userWorkflow
-        .getWorkflowOwner() + "' in Mongo");
+    LOGGER.info("UserWorkflow '{}' created with workflowOwner '{}' in Mongo",
+        userWorkflow.getWorkflowName(), userWorkflow
+            .getWorkflowOwner());
     return userWorkflowKey.getId().toString();
   }
 
@@ -42,8 +44,9 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   public String update(UserWorkflow userWorkflow) {
     Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
         userWorkflow);
-    LOGGER.info("UserWorkflow '" + userWorkflow.getWorkflowName() + "' updated with workflowOwner '" + userWorkflow
-        .getWorkflowOwner() + "' in Mongo");
+    LOGGER.info("UserWorkflow '{}' updated with workflowOwner '{}' in Mongo",
+        userWorkflow.getWorkflowName(), userWorkflow
+            .getWorkflowOwner());
     return userWorkflowKey.getId().toString();
   }
 
@@ -61,26 +64,29 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
   }
 
 
-  public boolean deleteUserWorkflow(String workflowOwner, String workflowName){
+  public boolean deleteUserWorkflow(String workflowOwner, String workflowName) {
     Query<UserWorkflow> query = provider.getDatastore().createQuery(UserWorkflow.class);
     query.field("workflowOwner").equal(workflowOwner);
     query.field("workflowName").equal(workflowName);
     WriteResult delete = provider.getDatastore().delete(query);
-    LOGGER.info("UserWorkflow with workflowOwner: %s, and workflowName %s, deleted from Mongo", workflowOwner, workflowName);
+    LOGGER.info("UserWorkflow with workflowOwner: {}, and workflowName {}, deleted from Mongo",
+        workflowOwner, workflowName);
     return delete.getN() == 1;
   }
 
-  public String exists(UserWorkflow userWorkflow)
-  {
-    UserWorkflow storedUserWorkflow = provider.getDatastore().find(UserWorkflow.class).field("workflowOwner")
+  public String exists(UserWorkflow userWorkflow) {
+    UserWorkflow storedUserWorkflow = provider.getDatastore().find(UserWorkflow.class)
+        .field("workflowOwner")
         .equal(
-            userWorkflow.getWorkflowOwner()).field("workflowName").equal(userWorkflow.getWorkflowName())
+            userWorkflow.getWorkflowOwner()).field("workflowName")
+        .equal(userWorkflow.getWorkflowName())
         .project("_id", true).get();
-    return storedUserWorkflow!=null?storedUserWorkflow.getId().toString():null;
+    return storedUserWorkflow != null ? storedUserWorkflow.getId().toString() : null;
   }
 
   public UserWorkflow getUserWorkflow(String workflowOwner, String workflowName) {
-    return provider.getDatastore().find(UserWorkflow.class).field("workflowOwner").equal(workflowOwner)
+    return provider.getDatastore().find(UserWorkflow.class).field("workflowOwner")
+        .equal(workflowOwner)
         .field("workflowName").equal(workflowName)
         .get();
   }

@@ -28,7 +28,7 @@ public class CyrillicTransliterator {
    * @throws Exception
    */
   @SuppressWarnings("rawtypes")
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     String source = "Топ-10 туристических объектов Латвии.";
     System.out.println(source);
 

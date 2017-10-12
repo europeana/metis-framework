@@ -32,7 +32,7 @@ public class CyrillicGreekCombinedTransliterator {
    * @param args
    * @throws Exception
    */
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     String source = "\":\" - Топ-10 туристических объектов Латвии."
         + "Βρίσκεστε στην αρχική σελίδα του: Δημόσιου Καταλόγου της Εθνικής Βιβλιοθήκης της Ελλάδος. Ο κατάλογός μας βασίζεται στο πληροφοριακό σύστημα Horizon της Dynix.";
     System.out.println(source);

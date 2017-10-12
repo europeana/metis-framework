@@ -21,9 +21,10 @@ public class FailsafeExecutor implements Runnable {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FailsafeExecutor.class);
 
-  private int periodicFailsafeCheckInSecs = 60;
+  private final int periodicFailsafeCheckInSecs;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
+  private static final String failsafeLock = "failsafeLock";
 
   public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs) {
     this.orchestratorService = orchestratorService;
@@ -33,12 +34,11 @@ public class FailsafeExecutor implements Runnable {
 
   @Override
   public void run() {
-    final String failsafeLock = "failsafeLock";
     RLock lock = redissonClient.getFairLock(failsafeLock);
     while (true) {
       try {
         LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
-        Thread.sleep(periodicFailsafeCheckInSecs * 1000);
+        Thread.sleep(periodicFailsafeCheckInSecs * 1000L);
 
         lock.lock();
         LOGGER.info("Failsafe thread woke up.");
@@ -68,8 +68,9 @@ public class FailsafeExecutor implements Runnable {
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
       List<UserWorkflowExecution> userWorkflowExecutions) {
     String nextPage = null;
+    ResponseListWrapper<UserWorkflowExecution> userWorkflowExecutionResponseListWrapper;
     do {
-      ResponseListWrapper<UserWorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
+      userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
               .getAllUserWorkflowExecutions(workflowStatus, nextPage),
           orchestratorService.getUserWorkflowExecutionsPerRequest());

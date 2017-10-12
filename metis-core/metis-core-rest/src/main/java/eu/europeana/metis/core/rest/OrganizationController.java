@@ -69,7 +69,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class OrganizationController extends ApiKeySecuredControllerBase {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
-  public static final String BATCH_ORGANIZATIONS_WITH_NEXT_PAGE = "Batch of: %d organizations returned, using batch nextPage: %s";
+  private static final String BATCH_ORGANIZATIONS_WITH_NEXT_PAGE = "Batch of: {} organizations returned, using batch nextPage: {}";
 
   private final OrganizationService organizationService;
   private final DatasetService datasetService;
@@ -105,7 +105,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ensureActionAuthorized(apikey, key, Options.WRITE);
     organizationService.checkRestrictionsOnCreate(organization);
     organizationService.createOrganization(organization);
-    LOGGER.info("Organization with id %s created", organization.getOrganizationId());
+    LOGGER.info("Organization with id {} created", organization.getOrganizationId());
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.DELETE)
@@ -125,7 +125,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     MetisKey key = ensureValidKey(apikey);
     ensureActionAuthorized(apikey, key, Options.WRITE);
     organizationService.deleteOrganizationByOrganizationId(organizationId);
-    LOGGER.info("Organization with id %s deleted", organizationId);
+    LOGGER.info("Organization with id {} deleted", organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
@@ -151,7 +151,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
 
     organizationService.checkRestrictionsOnUpdate(organization, organizationId);
     organizationService.updateOrganization(organization);
-    LOGGER.info("Organization with id %s updated", organizationId);
+    LOGGER.info("Organization with id {} updated", organizationId);
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.GET, produces = {
@@ -206,7 +206,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
 
     Organization organization = organizationService
         .getOrganizationByOrganizationId(organizationId);
-    LOGGER.info("Organization with id %s found", organizationId);
+    LOGGER.info("Organization with id {} found", organizationId);
     return organization;
 
   }
@@ -297,7 +297,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ensureReadOrWriteAccess(apikey, key);
     List<OrganizationSearchBean> organizationSearchBeans = organizationService
         .suggestOrganizations(searchTerm);
-    LOGGER.info("Found %d suggestions", organizationSearchBeans.size());
+    LOGGER.info("Found {} suggestions", organizationSearchBeans.size());
     return new OrganizationSearchListWrapper(organizationSearchBeans);
   }
 
@@ -327,7 +327,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     responseListWrapper.setResultsAndLastPage(
         organizationService.getAllDatasetsByOrganizationId(organizationId, nextPage),
         datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: %d datasets returned, using batch nextPage: %s",
+    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -377,7 +377,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
     ensureReadOrWriteAccess(apikey, key);
 
     Organization organization = organizationService.getOrganizationByIdFromCRM(organizationId);
-    LOGGER.info("Organization with id %s found in CRM", organizationId);
+    LOGGER.info("Organization with id {} found in CRM", organizationId);
     return organization;
   }
 

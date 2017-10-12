@@ -6,8 +6,6 @@ import eu.europeana.normalization.common.model.NormalizationReport;
 import eu.europeana.normalization.common.model.NormalizedRecordResult;
 import eu.europeana.normalization.util.XmlUtil;
 import java.io.StringReader;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
 /**
@@ -17,8 +15,6 @@ import org.w3c.dom.Document;
  * @since 16/03/2016
  */
 public class NormalizationServiceImpl implements NormalizationService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(NormalizationServiceImpl.class);
 
   private RecordNormalization normalizer;
 
@@ -37,7 +33,6 @@ public class NormalizationServiceImpl implements NormalizationService {
 
   @Override
   public NormalizedRecordResult processNormalize(String record) {
-    try {
       if (record == null) {
         return new NormalizedRecordResult("Missing required parameter 'record'", "");
       }
@@ -51,10 +46,6 @@ public class NormalizationServiceImpl implements NormalizationService {
       NormalizationReport report = normalize(recordDom);
       String writeDomToString = XmlUtil.writeDomToString(recordDom);
       return new NormalizedRecordResult(writeDomToString, report);
-    } catch (Throwable e) {
-      LOGGER.info(e.getMessage(), e);
-      return new NormalizedRecordResult("Unexpected error: " + e.getMessage(), record);
-    }
   }
 
 }

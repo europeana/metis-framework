@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.workflow;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
@@ -20,7 +21,7 @@ import java.util.Map;
  */
 public class TestingMain {
 
-  public static void main(String[] args) throws IOException, InterruptedException {
+  public static void main(String[] args) {
 
     List<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
     VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin();
@@ -39,7 +40,12 @@ public class TestingMain {
     abstractMetisPlugins.add(voidDereferencePlugin);
 
     ObjectMapper mapper = new ObjectMapper();
-    String json = mapper.writeValueAsString(abstractMetisPlugins);
+    String json = null;
+    try {
+      json = mapper.writeValueAsString(abstractMetisPlugins);
+    } catch (JsonProcessingException e) {
+      return;
+    }
 //    json = "{\"id\":\"1\",\"pluginStatus\":\"INQUEUE\",\"pluginType\":\"OAIPMH_HARVEST\",\"metadataSchema\":\"schema\",\"startedDate\":null,\"updatedDate\":null,\"finishedDate\":null,\"recordsProcessed\":0,\"recordsFailed\":0,\"recordsCreated\":0,\"recordsUpdated\":0,\"recordsDeleted\":0,\"parameters\":null}";
 //    System.out.println(json);
 
@@ -48,8 +54,13 @@ public class TestingMain {
     mapper.registerModule(module);
 //    VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin1 = (VoidOaipmhHarvestPlugin) mapper
 //        .readValue(json, AbstractMetisPlugin.class);
-    List<AbstractMetisPlugin> list = Arrays
-        .asList(mapper.readValue(json, AbstractMetisPlugin[].class));
+    List<AbstractMetisPlugin> list = null;
+    try {
+      list = Arrays
+          .asList(mapper.readValue(json, AbstractMetisPlugin[].class));
+    } catch (IOException e) {
+      return;
+    }
 
     for (AbstractMetisPlugin plugin :
         list) {
