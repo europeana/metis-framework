@@ -29,6 +29,7 @@
 
   <properties>
     <m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
+    <sonar.skip>true</sonar.skip>
   </properties>
   <build>
     <plugins>

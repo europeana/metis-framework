@@ -26,6 +26,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <artifactId>metis-mapping</artifactId>
+    <properties>
+        <sonar.skip>true</sonar.skip>
+    </properties>
     <modules>
         <module>metis-mapping-common</module>
         <module>metis-mapping-persistence</module>

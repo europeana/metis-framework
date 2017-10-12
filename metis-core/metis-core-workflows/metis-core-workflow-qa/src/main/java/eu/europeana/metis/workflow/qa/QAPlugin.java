@@ -1,86 +1,115 @@
-//package eu.europeana.metis.workflow.qa;
-//
-//import eu.europeana.metis.cache.redis.JedisProviderUtils;
-//import eu.europeana.metis.core.dataset.PluginStatus;
-//import eu.europeana.metis.core.workflow.AbstractMetisPlugin;
-//import eu.europeana.metis.core.workflow.CloudStatistics;
-//import eu.europeana.metis.core.workflow.PluginType;
-//import eu.europeana.metis.core.workflow.WorkflowParameters;
-//import eu.europeana.metis.workflow.qa.model.MeasuringResponse;
-//import eu.europeana.metis.workflow.qa.model.QAParams;
-//import eu.europeana.metis.workflow.qa.model.QAStatistics;
-//import java.net.URI;
-//import java.util.ArrayList;
-//import java.util.HashMap;
-//import java.util.List;
-//import java.util.Map;
-//import java.util.concurrent.ConcurrentHashMap;
-//import java.util.concurrent.CopyOnWriteArrayList;
-//import javax.annotation.PostConstruct;
-//import org.apache.commons.lang.StringUtils;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.client.RestTemplate;
-//
-///**
-// * Created by ymamakis on 11/22/16.
-// */
-//public class QAPlugin implements AbstractMetisPlugin {
-//    private PluginStatus pluginStatus;
-//    private PluginType pluginType = PluginType.QA;
-//    private Map<String, List<String>> params;
-//    private RestTemplate template = new RestTemplate();
-//    private static Map<String,QAStatistics> statistics = new ConcurrentHashMap<>();
-//    private static List<String> activeStatistics = new ArrayList<>();
-//
-//    @Autowired
-//    private JedisProviderUtils cache;
-//    public QAPlugin(){
-//        List<String> endpoint = new ArrayList<>();
-//        endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
-//        params = new HashMap<>();
-//        params.put(QAParams.QA_ENDPOINT,endpoint);
-//
-//    }
-//
-//    @PostConstruct
-//    public void initCache(){
+package eu.europeana.metis.workflow.qa;
+
+import eu.europeana.metis.core.workflow.CloudStatistics;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ExecutionRecordsStatistics;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.workflow.qa.model.QAParams;
+import eu.europeana.metis.workflow.qa.model.QAStatistics;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.PostConstruct;
+import org.springframework.web.client.RestTemplate;
+
+/**
+ * Created by ymamakis on 11/22/16.
+ */
+public class QAPlugin implements AbstractMetisPlugin {
+    private PluginStatus pluginStatus;
+    private PluginType pluginType = PluginType.QA;
+    private Map<String, List<String>> params;
+    private RestTemplate template = new RestTemplate();
+    private static Map<String,QAStatistics> statistics = new ConcurrentHashMap<>();
+    private static List<String> activeStatistics = new ArrayList<>();
+
+    public QAPlugin(){
+        List<String> endpoint = new ArrayList<>();
+        endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
+        params = new HashMap<>();
+        params.put(QAParams.QA_ENDPOINT,endpoint);
+
+    }
+
+    @PostConstruct
+    public void initCache(){
 //        if (cache.getAll("qa-datasets")!=null) {
 //            activeStatistics.addAll(cache.getAll("qa-datasets"));
 //        }
-//    }
-//
-//    @Override
-//    public PluginType getPluginType() {
-//        return pluginType;
-//    }
-//
-//    @Override
-//    public PluginStatus getPluginStatus() {
-//        return pluginStatus;
-//    }
-//
-//    @Override
-//    public void setPluginStatus(PluginStatus pluginStatus) {
-//        this.pluginStatus = pluginStatus;
-//    }
-//
-//    @Override
-//    public void setParameters(Map<String, List<String>> parameters) {
-//        this.params = parameters;
-//        List<String> endpoint = new ArrayList<>();
-//        endpoint.add("http://144.76.218.178:8080/europeana-qa/batch");
-//        params.put(QAParams.QA_ENDPOINT,endpoint);
-//    }
-//
-//    @Override
-//    public Map<String, List<String>> getParameters() {
-//        return params;
-//    }
-//
-//    @Override
-//    public void execute() {
+    }
+
+    @Override
+    public PluginType getPluginType() {
+        return pluginType;
+    }
+
+    @Override
+    public AbstractMetisPluginMetadata getPluginMetadata() {
+        return null;
+    }
+
+    @Override
+    public void setPluginMetadata(AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
+
+    }
+
+    @Override
+    public Date getStartedDate() {
+        return null;
+    }
+
+    @Override
+    public void setStartedDate(Date startedDate) {
+
+    }
+
+    @Override
+    public Date getFinishedDate() {
+        return null;
+    }
+
+    @Override
+    public void setFinishedDate(Date finishedDate) {
+
+    }
+
+    @Override
+    public Date getUpdatedDate() {
+        return null;
+    }
+
+    @Override
+    public void setUpdatedDate(Date updatedDate) {
+
+    }
+
+    @Override
+    public PluginStatus getPluginStatus() {
+        return pluginStatus;
+    }
+
+    @Override
+    public void setPluginStatus(PluginStatus pluginStatus) {
+        this.pluginStatus = pluginStatus;
+    }
+
+    @Override
+    public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
+        return null;
+    }
+
+    @Override
+    public void setExecutionRecordsStatistics(ExecutionRecordsStatistics executionRecordsStatistics) {
+
+    }
+
+    @Override
+    public void execute() {
 //        QAStatistics qaStatistics = new QAStatistics();
 //        MeasuringResponse response = template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
 //                + "/measuring/start", MeasuringResponse.class).getBody();
@@ -117,10 +146,10 @@
 //        statistics.put(WorkflowParameters.DATASET,qaStatistics);
 //        activeStatistics.add(params.get(WorkflowParameters.DATASET).get(0));
 //        cache.set("qa-datasets", params.get(WorkflowParameters.DATASET).get(0),params.get(WorkflowParameters.DATASET).get(0));
-//    }
-//
-//    @Override
-//    public CloudStatistics monitor(String datasetId) {
+    }
+
+    @Override
+    public CloudStatistics monitor(String datasetId) {
 //        if(activeStatistics.contains(datasetId)){
 //            QAStatistics qaStatistics = statistics.get(datasetId);
 //           MeasuringResponse response =  template.getForEntity(URI.create(params.get(QAParams.QA_ENDPOINT).get(0))
@@ -135,10 +164,6 @@
 //        }
 //
 //        return statistics.get(datasetId);
-//    }
-//
-//    @Override
-//    public boolean supports(PluginType pluginType) {
-//        return this.pluginType == pluginType;
-//    }
-//}
+        return null;
+    }
+}
