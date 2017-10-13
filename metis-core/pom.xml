@@ -16,41 +16,42 @@
 		  the Licence.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>metis-framework</artifactId>
-        <groupId>eu.europeana.metis</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>metis-framework</artifactId>
+    <groupId>eu.europeana.metis</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
 
-    <artifactId>metis-core</artifactId>
+  <artifactId>metis-core</artifactId>
 
-    <modules>
-        <module>metis-core-account</module>
-        <module>metis-core-common</module>
-        <module>metis-core-service</module>
-        <module>metis-core-rest</module>
-        <module>metis-core-rest-client</module>
-        <module>metis-core-workflows</module>
-        <module>metis-core-mail</module>
-        <module>metis-core-search</module>
-    </modules>
-    <packaging>pom</packaging>
+  <modules>
+    <module>metis-core-account</module>
+    <module>metis-core-common</module>
+    <module>metis-core-service</module>
+    <module>metis-core-rest</module>
+    <module>metis-core-rest-client</module>
+    <module>metis-core-workflows</module>
+    <module>metis-core-mail</module>
+    <module>metis-core-search</module>
+  </modules>
+  <packaging>pom</packaging>
 
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+  <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.7</source>
+          <target>1.7</target>
+        </configuration>
+      </plugin>
+
+    </plugins>
+  </build>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
 </project>

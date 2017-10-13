@@ -1,27 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>metis-core</artifactId>
-        <groupId>eu.europeana.metis</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>metis-core-workflows</artifactId>
-    <packaging>pom</packaging>
-    <properties>
-        <sonar.skip>true</sonar.skip>
-    </properties>
-    <modules>
-        <module>metis-core-workflow-qa</module>
-    </modules>
-    <dependencies>
-        <dependency>
-            <groupId>eu.europeana.metis</groupId>
-            <artifactId>metis-core-common</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-    </dependencies>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>metis-core</artifactId>
+    <groupId>eu.europeana.metis</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>metis-core-workflows</artifactId>
+  <packaging>pom</packaging>
+  <properties>
+    <sonar.skip>true</sonar.skip>
+  </properties>
+  <modules>
+    <module>metis-core-workflow-qa</module>
+  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-core-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>${version.cobertura}</version>
+        <configuration>
+          <skip>true</skip>
+          <check/>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${version.surefire.plugin}</version>
+        <configuration>
+          <skipTests>true</skipTests>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
