@@ -260,7 +260,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     Config config = new Config();
     config.useSingleServer().setAddress(String.format("redis://%s:%s", redisHost, redisPort));
     config.setLockWatchdogTimeout(
-        redissonLockWatchdogTimeoutInSecs * 1000); //Give some secs to unlock if connection lost, or if too long to unlock
+        redissonLockWatchdogTimeoutInSecs * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
     return Redisson.create(config);
   }
 
@@ -295,7 +295,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public FailsafeExecutor startFailsafeExecutorThread(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
     FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        periodicFailsafeCheckInSecs);
+        periodicFailsafeCheckInSecs, true);
     new Thread(failsafeExecutor).start();
     return failsafeExecutor;
   }

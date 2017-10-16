@@ -25,17 +25,20 @@ public class FailsafeExecutor implements Runnable {
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
   private static final String FAILSAFE_LOCK = "failsafeLock";
+  private final boolean infiniteLoop; //True for infinite loop which is the normal scenario, false for testing
 
-  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs) {
+  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs, boolean infiniteLoop) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
     this.periodicFailsafeCheckInSecs = periodicFailsafeCheckInSecs;
+    this.infiniteLoop = infiniteLoop;
   }
 
+  @SuppressWarnings("InfiniteLoopStatement")
   @Override
   public void run() {
     RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
-    while (true) {
+    do {
       try {
         LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
         Thread.sleep(periodicFailsafeCheckInSecs * 1000L);
@@ -64,7 +67,7 @@ public class FailsafeExecutor implements Runnable {
       finally {
         lock.unlock();
       }
-    }
+    } while (infiniteLoop);
   }
 
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
@@ -83,7 +86,7 @@ public class FailsafeExecutor implements Runnable {
   }
 
   @PreDestroy
-  private void close() {
+  public void close() {
     if (!redissonClient.isShutdown()) {
       this.redissonClient.shutdown();
     }

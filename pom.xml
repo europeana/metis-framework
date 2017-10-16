@@ -310,6 +310,7 @@
     <version.log4j>2.8</version.log4j>
     <version.surefire.plugin>2.18</version.surefire.plugin>
     <version.junit>4.12</version.junit>
+    <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
     <version.mongo.java.driver>3.5.0</version.mongo.java.driver>
     <version.mongojack>2.3.0</version.mongojack>

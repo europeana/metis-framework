@@ -118,6 +118,12 @@ public class TestObjectFactory {
     return userWorkflowExecutions;
   }
 
+  public static void updateListOfUserWorkflowExecutionsWithWorkflowStatus(
+      List<UserWorkflowExecution> userWorkflowExecutions, WorkflowStatus workflowStatus) {
+    for (UserWorkflowExecution userWorkflowExecution : userWorkflowExecutions) {
+      userWorkflowExecution.setWorkflowStatus(workflowStatus);
+    }
+  }
 
   public static ScheduledUserWorkflow createScheduledUserWorkflowObject() {
     ScheduledUserWorkflow scheduledUserWorkflow = new ScheduledUserWorkflow();
