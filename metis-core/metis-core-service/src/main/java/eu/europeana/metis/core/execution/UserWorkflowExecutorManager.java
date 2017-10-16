@@ -30,10 +30,10 @@ public class UserWorkflowExecutorManager {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
 
-  private int maxConcurrentThreads = 10;
-  private int monitorCheckIntervalInSecs = 5;
+  private int maxConcurrentThreads = 10; //Use setter otherwise default
+  private int monitorCheckIntervalInSecs = 5; //Use setter otherwise default
   private final Channel rabbitmqChannel;
-  private String rabbitmqQueueName;
+  private String rabbitmqQueueName; //Initialize with setter
 
   private final ExecutorService threadPool = Executors.newFixedThreadPool(maxConcurrentThreads);
   private final ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
@@ -165,6 +165,7 @@ public class UserWorkflowExecutorManager {
             runningThreadsCounter.decrementAndGet();
           }
         } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
           LOGGER.error(
               "Interrupted while waiting for taking a Future from the ExecutorCompletionService",
               e);

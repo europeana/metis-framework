@@ -24,7 +24,7 @@ public class FailsafeExecutor implements Runnable {
   private final int periodicFailsafeCheckInSecs;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
-  private static final String failsafeLock = "failsafeLock";
+  private static final String FAILSAFE_LOCK = "failsafeLock";
 
   public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs) {
     this.orchestratorService = orchestratorService;
@@ -34,7 +34,7 @@ public class FailsafeExecutor implements Runnable {
 
   @Override
   public void run() {
-    RLock lock = redissonClient.getFairLock(failsafeLock);
+    RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
     while (true) {
       try {
         LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
@@ -46,7 +46,7 @@ public class FailsafeExecutor implements Runnable {
         addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.RUNNING, allInQueueAndRunningUserWorkflowExecutions);
         addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.INQUEUE, allInQueueAndRunningUserWorkflowExecutions);
 
-        if (allInQueueAndRunningUserWorkflowExecutions.size() != 0) {
+        if (!allInQueueAndRunningUserWorkflowExecutions.isEmpty()) {
           orchestratorService
               .removeActiveUserWorkflowExecutionsFromList(allInQueueAndRunningUserWorkflowExecutions);
 
@@ -56,11 +56,13 @@ public class FailsafeExecutor implements Runnable {
                     userWorkflowExecution.getWorkflowPriority());
           }
         }
-        lock.unlock(); //Lock releases automatically, if there was another exception, no need to unlock in catch block.
       } catch (Exception e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, failsafe thread continues",
             e);
+      }
+      finally {
+        lock.unlock();
       }
     }
   }
