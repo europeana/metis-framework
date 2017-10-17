@@ -19,6 +19,7 @@ import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +50,7 @@ public class OrchestratorService {
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       ScheduledUserWorkflowDao scheduledUserWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager) throws IOException {
     this.userWorkflowDao = userWorkflowDao;
     this.userWorkflowExecutionDao = userWorkflowExecutionDao;
     this.scheduledUserWorkflowDao = scheduledUserWorkflowDao;

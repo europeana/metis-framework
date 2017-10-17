@@ -121,7 +121,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   }
 
   private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
-    int iterationsToFake = 5;
+    int iterationsToFake = 2;
     int sleepTime = monitorCheckIntervalInSecs * 1000;
 
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {

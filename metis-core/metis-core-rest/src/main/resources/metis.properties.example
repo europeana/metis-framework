@@ -4,6 +4,7 @@ monitor.check.interval.in.secs=
 periodic.failsafe.check.in.secs=
 periodic.scheduler.check.in.secs=
 redisson.lock.watchdog.timeout.in.secs=
+polling.timeout.for.cleaning.completion.service.in.secs=
 
 #Socks Proxy
 socks.proxy.enabled=

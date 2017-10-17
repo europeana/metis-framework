@@ -13,7 +13,8 @@ import java.io.IOException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.PreDestroy;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -32,8 +33,10 @@ public class UserWorkflowExecutorManager {
 
   private int maxConcurrentThreads = 10; //Use setter otherwise default
   private int monitorCheckIntervalInSecs = 5; //Use setter otherwise default
+  private int pollingTimeoutForCleaningCompletionServiceInSecs = 10; //Use setter otherwise default
   private final Channel rabbitmqChannel;
   private String rabbitmqQueueName; //Initialize with setter
+  private int threadsCounter;
 
   private final ExecutorService threadPool = Executors.newFixedThreadPool(maxConcurrentThreads);
   private final ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
@@ -51,17 +54,12 @@ public class UserWorkflowExecutorManager {
     this.redissonClient = redissonClient;
   }
 
-  public void initiateConsumer() {
-    try {
-      rabbitmqChannel.basicQos(1);
-      //For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
-      //Auto acknowledge false because of Qos.
-      rabbitmqChannel.basicConsume(rabbitmqQueueName, false, new QueueConsumer(rabbitmqChannel));
-    } catch (IOException e) {
-      LOGGER.error("Could not retrieve item from queue.", e);
-    }
+  public void initiateConsumer() throws IOException {
+    //For correct priority. Keep in mind this pre-fetches a message before going into handleDelivery
+    rabbitmqChannel.basicQos(1);
+    //Auto acknowledge false(second parameter) because of Qos.
+    rabbitmqChannel.basicConsume(rabbitmqQueueName, false, new QueueConsumer(rabbitmqChannel));
   }
-
 
   public synchronized void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
       int priority) {
@@ -70,6 +68,7 @@ public class UserWorkflowExecutorManager {
         .priority(priority)
         .build();
     try {
+      //First parameter is the ExchangeName which is not used
       rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
           userWorkflowExecutionObjectId.getBytes("UTF-8"));
     } catch (IOException e) {
@@ -91,10 +90,6 @@ public class UserWorkflowExecutorManager {
     this.rabbitmqQueueName = rabbitmqQueueName;
   }
 
-  public int getMaxConcurrentThreads() {
-    return maxConcurrentThreads;
-  }
-
   public void setMaxConcurrentThreads(int maxConcurrentThreads) {
     this.maxConcurrentThreads = maxConcurrentThreads;
   }
@@ -107,6 +102,15 @@ public class UserWorkflowExecutorManager {
     this.monitorCheckIntervalInSecs = monitorCheckIntervalInSecs;
   }
 
+  public int getThreadsCounter() {
+    return threadsCounter;
+  }
+
+  public void setPollingTimeoutForCleaningCompletionServiceInSecs(
+      int pollingTimeoutForCleaningCompletionServiceInSecs) {
+    this.pollingTimeoutForCleaningCompletionServiceInSecs = pollingTimeoutForCleaningCompletionServiceInSecs;
+  }
+
   @PreDestroy
   public void close() {
     threadPool.shutdown();
@@ -114,62 +118,69 @@ public class UserWorkflowExecutorManager {
 
   class QueueConsumer extends DefaultConsumer {
 
-    AtomicInteger runningThreadsCounter = new AtomicInteger(0);
-
     QueueConsumer(Channel channel) {
       super(channel);
     }
 
+    //Does not run as a thread. Each execution will run separately one after the other for each consumption
     @Override
     public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
         AMQP.BasicProperties properties, byte[] body) throws IOException {
       String objectId = new String(body, "UTF-8");
       LOGGER.info("UserWorkflowExecution id: {} received from queue.", objectId);
       UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
-      //Check here too because a failure to rabbitmq will result unblocking this method and run it again
-      //causing an extra message to be consumed, the message is requeued
-      if (runningThreadsCounter.get() >= maxConcurrentThreads) {
-        //Send NACK to send message back to the queue. Message will go to the same possition it was or as close as possible
+      //Clean thread pool, some executions might have already finished
+      if (threadsCounter >= maxConcurrentThreads) {
+        LOGGER.info("Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
+            threadsCounter, maxConcurrentThreads);
+        checkAndCleanCompletionService();
+      }
+
+      //If the thread pool is still full, executions are still active. Send the message back to the queue.
+      if (threadsCounter >= maxConcurrentThreads) {
+        //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
+        //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
         rabbitmqChannel
             .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
         LOGGER.info("NACK sent for {} with tag {}", userWorkflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       } else {
-        if (!userWorkflowExecution.isCancelling()) {
+        if (!userWorkflowExecution.isCancelling()) { //Submit for execution
           UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckIntervalInSecs,
+              redissonClient);
           completionService.submit(userWorkflowExecutor);
-          runningThreadsCounter.incrementAndGet();
-        } else {
+          threadsCounter++;
+        } else { //Has been cancelled, do not execute
           userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
           userWorkflowExecutionDao.update(userWorkflowExecution);
           LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
               userWorkflowExecution.getId());
         }
         rabbitmqChannel
-            .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue
+            .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue asap.
         LOGGER.info("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       }
-
-      checkAndCleanCompletionService();
     }
 
-    private synchronized void checkAndCleanCompletionService() {
-      //Block until one of the executions has finished and then release to do another handleDelivery
-      if (runningThreadsCounter.get() >= maxConcurrentThreads) {
-        try {
-          completionService.take();
-          runningThreadsCounter.decrementAndGet();
-          while (completionService.poll() != null) {
-            runningThreadsCounter.decrementAndGet();
-          }
-        } catch (InterruptedException e) {
-          Thread.currentThread().interrupt();
-          LOGGER.error(
-              "Interrupted while waiting for taking a Future from the ExecutorCompletionService",
-              e);
+    private void checkAndCleanCompletionService() throws IOException {
+      //Block for a small period and try cleaning up
+      try {
+        Future<UserWorkflowExecution> userWorkflowExecutionFuture = completionService
+            .poll(pollingTimeoutForCleaningCompletionServiceInSecs, TimeUnit.SECONDS);
+        if (userWorkflowExecutionFuture != null) {
+          threadsCounter--;
         }
+        while (completionService.poll() != null) {
+          threadsCounter--;
+        }
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        LOGGER.error(
+            "Interrupted while polling for taking a Future from the ExecutorCompletionService",
+            e);
+        throw new IOException("Interrupted while polling for taking a Future from the ExecutorCompletionService", e);
       }
     }
   }

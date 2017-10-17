@@ -111,6 +111,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private int periodicFailsafeCheckInSecs;
   @Value("${periodic.scheduler.check.in.secs}")
   private int periodicSchedulerCheckInSecs;
+  @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
+  private int pollingTimeoutForCleaningCompletionServiceInSecs;
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -383,6 +385,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
     userWorkflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
     userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
+    userWorkflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(pollingTimeoutForCleaningCompletionServiceInSecs);
     return userWorkflowExecutorManager;
   }
 
@@ -391,7 +394,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       ScheduledUserWorkflowDao scheduledUserWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager) throws IOException {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
         scheduledUserWorkflowDao, datasetDao, userWorkflowExecutorManager);
   }
