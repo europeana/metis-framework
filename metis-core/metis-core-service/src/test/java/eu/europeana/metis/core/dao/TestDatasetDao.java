@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.core.test.dao;
+package eu.europeana.metis.core.dao;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -23,7 +23,6 @@ import static org.junit.Assert.assertTrue;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;

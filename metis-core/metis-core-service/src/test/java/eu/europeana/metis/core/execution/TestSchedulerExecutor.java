@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.test.execution;
+package eu.europeana.metis.core.execution;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
