@@ -1,8 +1,9 @@
 package eu.europeana.metis.core.dao;
 
+import com.jayway.awaitility.Awaitility;
+import com.jayway.awaitility.Duration;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
@@ -304,7 +305,7 @@ public class TestUserWorkflowExecutionDao {
     Thread t = new Thread(() -> Assert
         .assertTrue(userWorkflowExecutionDao.isExecutionActive(userWorkflowExecution, 10)));
     t.start();
-    Thread.sleep(100); // let the other thread start
+    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> untilThreadIsSleeping(t));
     t.interrupt();
   }
 
@@ -361,7 +362,7 @@ public class TestUserWorkflowExecutionDao {
       Assert.assertEquals(1, userWorkflowExecutions.size());
     });
     t.start();
-    Thread.sleep(100); // let the other thread start
+    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> untilThreadIsSleeping(t));
     t.interrupt();
   }
 
@@ -384,6 +385,11 @@ public class TestUserWorkflowExecutionDao {
         .updateAllDatasetNames(userWorkflowExecution.getDatasetName(), updatedDatasetName);
     userWorkflowExecution.setDatasetName(updatedDatasetName);
     Assert.assertTrue(userWorkflowExecutionDao.exists(userWorkflowExecution));
+  }
+
+  private void untilThreadIsSleeping(Thread t) {
+    Assert.assertEquals("java.lang.Thread", t.getStackTrace()[0].getClassName());
+    Assert.assertEquals("sleep", t.getStackTrace()[0].getMethodName());
   }
 
 }
