@@ -147,6 +147,31 @@ public class TestObjectFactory {
     return scheduledUserWorkflows;
   }
 
+  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflowsWithDate(int size, Date date) {
+    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
+      scheduledUserWorkflow.setId(new ObjectId());
+      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledUserWorkflow.setPointerDate(date);
+      scheduledUserWorkflows.add(scheduledUserWorkflow);
+    }
+    return scheduledUserWorkflows;
+  }
+
+  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
+    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
+      scheduledUserWorkflow.setId(new ObjectId());
+      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledUserWorkflow.setPointerDate(date);
+      scheduledUserWorkflow.setScheduleFrequence(scheduleFrequence);
+      scheduledUserWorkflows.add(scheduledUserWorkflow);
+    }
+    return scheduledUserWorkflows;
+  }
+
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setAccepted(true);
