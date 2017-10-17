@@ -12,6 +12,7 @@ import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
@@ -191,7 +192,7 @@ public class TestUserWorkflowExecutor {
 
     Thread t = new Thread(userWorkflowExecutor::call);
     t.start();
-    Awaitility.await().atMost(Duration.FIVE_SECONDS).until(() -> untilThreadIsSleeping(t));
+    Awaitility.await().atMost(Duration.FIVE_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
     t.interrupt();
     t.join();
 
@@ -200,10 +201,4 @@ public class TestUserWorkflowExecutor {
     Assert.assertNull(userWorkflowExecution.getUpdatedDate());
     Assert.assertNull(userWorkflowExecution.getFinishedDate());
   }
-
-  private void untilThreadIsSleeping(Thread t) {
-    Assert.assertEquals("java.lang.Thread", t.getStackTrace()[0].getClassName());
-    Assert.assertEquals("sleep", t.getStackTrace()[0].getMethodName());
-  }
-
 }

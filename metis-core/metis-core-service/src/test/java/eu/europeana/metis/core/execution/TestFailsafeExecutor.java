@@ -12,14 +12,13 @@ import static org.mockito.Mockito.when;
 
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.InOrder;
@@ -95,10 +94,11 @@ public class TestFailsafeExecutor {
     doNothing().when(rlock).lock();
     doNothing().when(rlock).unlock();
 
-    Thread t = new Thread(failsafeExecutor::run);
+    Thread t = new Thread(failsafeExecutor);
     t.start();
-    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> untilThreadIsSleeping(t));
+    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
     t.interrupt();
+    t.join();
     verifyNoMoreInteractions(orchestratorService);
   }
 
@@ -107,10 +107,5 @@ public class TestFailsafeExecutor {
     when(redissonClient.isShutdown()).thenReturn(false);
     failsafeExecutor.close();
     verify(redissonClient, times(1)).shutdown();
-  }
-
-  private void untilThreadIsSleeping(Thread t) {
-    Assert.assertEquals("java.lang.Thread", t.getStackTrace()[0].getClassName());
-    Assert.assertEquals("sleep", t.getStackTrace()[0].getMethodName());
   }
 }

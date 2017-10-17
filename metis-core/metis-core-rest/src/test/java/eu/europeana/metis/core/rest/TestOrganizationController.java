@@ -32,6 +32,7 @@ import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrganizationService;
+import eu.europeana.metis.core.test.utils.TestUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -73,8 +74,8 @@ public class TestOrganizationController {
      Organization organization = new Organization();
      organizationControllerMock.perform(post("/organizations")
          .param("organizationId", "myOrg").param("apikey", "myApiKey")
-         .contentType(TestUtil.APPLICATION_JSON_UTF8)
-         .content(TestUtil.convertObjectToJsonBytes(organization)))
+         .contentType(TestUtils.APPLICATION_JSON_UTF8)
+         .content(TestUtils.convertObjectToJsonBytes(organization)))
          .andExpect(status().is(201))
          .andExpect(content().string(""));
 
@@ -93,8 +94,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(post("/organizations")
         .param("organizationId", "myOrg").param("apikey", "myApiKey")
         .accept(MediaType.APPLICATION_JSON)
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(organization)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(organization)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is("No API key found with name: myApiKey")));
   }
@@ -110,8 +111,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(post("/organizations")
         .param("organizationId", "myOrg").param("apikey", "myApiKey")
         .accept(MediaType.APPLICATION_JSON)
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(organization)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(organization)))
         .andExpect(status().is(409))
         .andExpect(jsonPath("$.errorMessage", is("Organization with organizationId myOrgID already exists")));
   }
@@ -122,8 +123,8 @@ public class TestOrganizationController {
 
     organizationControllerMock.perform(delete("/organizations/myOrganisationId")
         .param("apikey", "myApiKey")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
@@ -148,8 +149,8 @@ public class TestOrganizationController {
 
     organizationControllerMock.perform(put("/organizations/myOrgId")
         .param("apikey", "myApiKey")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(organization)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(organization)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
@@ -172,8 +173,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(get("/organizations")
         .param("apikey", "myApiKey")
         .param("nextPage", "2")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(organization)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(organization)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
@@ -203,8 +204,8 @@ public class TestOrganizationController {
 
     organizationControllerMock.perform(get("/organizations/myOrgId")
         .param("apikey", "myApiKey")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(organization)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(organization)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.id", is("1f1f1f1f1f1f1f1f1f1f1f1f")));
 
@@ -226,8 +227,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(get("/organizations/country/NL")
         .param("apikey", "myApiKey")
         .param("nextPage", "2")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(organization)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(organization)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
@@ -253,8 +254,8 @@ public class TestOrganizationController {
         .param("apikey", "myApiKey")
         .param("nextPage", "2")
         .param("organizationRoles", "EUROPEANA,OTHER" )
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
@@ -281,8 +282,8 @@ public class TestOrganizationController {
         .param("apikey", "myApiKey")
         //.param("nextPage", "2")
         .param("organizationRoles", "" )
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(jsonPath("$.errorMessage", is("Organization roles malformed or empty")));
 
@@ -299,8 +300,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(get("/organizations/suggest")
         .param("apikey", "myApiKey")
         .param("searchTerm", "ab")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.Organizations", hasSize(2)))
         .andExpect(jsonPath("$.Organizations[0].organizationId", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
@@ -322,8 +323,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(get("/organizations/myOrganizationId/datasets")
         .param("apikey", "myApiKey")
         .param("nextPage", "3")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
@@ -345,8 +346,8 @@ public class TestOrganizationController {
     organizationControllerMock.perform(get("/organizations/myOrganizationId/optInIIIF")
         .param("apikey", "myApiKey")
         .param("nextPage", "3")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results.optInIIIF", is(true)));
   }
@@ -365,8 +366,8 @@ public class TestOrganizationController {
     // getOrganizationByIdFromCRM
     organizationControllerMock.perform(get("/organizations/crm/myOrganizationId")
         .param("apikey", "myApiKey")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
         .andExpect(jsonPath("$.name", is("My Org")));
@@ -385,8 +386,8 @@ public class TestOrganizationController {
     // getOrganizationByIdFromCRM
     organizationControllerMock.perform(get("/organizations/crm")
         .param("apikey", "myApiKey")
-        .contentType(TestUtil.APPLICATION_JSON_UTF8)
-        .content(TestUtil.convertObjectToJsonBytes(null)))
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(2)))
         .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))

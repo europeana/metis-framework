@@ -304,7 +304,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public SchedulerExecutor startSchedulingExecutorThread(
       OrchestratorService orchestratorService, RedissonClient redissonClient) {
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient,
-        periodicSchedulerCheckInSecs);
+        periodicSchedulerCheckInSecs, true);
     new Thread(schedulerExecutor).start();
     return schedulerExecutor;
   }

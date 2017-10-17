@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -15,9 +16,9 @@ import static org.mockito.Mockito.when;
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import java.time.LocalDateTime;
@@ -25,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -101,7 +101,7 @@ public class TestSchedulerExecutor {
             any(LocalDateTime.class), isNull());
     verify(orchestratorService, times(3))
         .getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull());
-    verify(orchestratorService, times(listSize * 4))
+    verify(orchestratorService, atMost(listSize * 4))
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt());
   }
@@ -163,8 +163,9 @@ public class TestSchedulerExecutor {
 
     Thread t = new Thread(schedulerExecutor::run);
     t.start();
-    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> untilThreadIsSleeping(t));
+    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
     t.interrupt();
+    t.join();
     verifyNoMoreInteractions(orchestratorService);
   }
 
@@ -174,10 +175,4 @@ public class TestSchedulerExecutor {
     schedulerExecutor.close();
     verify(redissonClient, times(1)).shutdown();
   }
-
-  private void untilThreadIsSleeping(Thread t) {
-    Assert.assertEquals("java.lang.Thread", t.getStackTrace()[0].getClassName());
-    Assert.assertEquals("sleep", t.getStackTrace()[0].getMethodName());
-  }
-
 }
