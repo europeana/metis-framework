@@ -1,4 +1,4 @@
-package eu.europeana.metis.core.test.service;
+package eu.europeana.metis.core.service;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
@@ -24,13 +24,13 @@ import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsExce
 import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
-import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import org.bson.types.ObjectId;
@@ -56,7 +56,7 @@ public class TestOrchestratorService {
   private static OrchestratorService orchestratorService;
 
   @BeforeClass
-  public static void prepare() {
+  public static void prepare() throws IOException {
     userWorkflowExecutionDao = Mockito.mock(UserWorkflowExecutionDao.class);
     userWorkflowDao = Mockito.mock(UserWorkflowDao.class);
     scheduledUserWorkflowDao = Mockito.mock(ScheduledUserWorkflowDao.class);

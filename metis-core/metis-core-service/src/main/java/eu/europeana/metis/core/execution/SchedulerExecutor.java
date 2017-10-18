@@ -30,19 +30,22 @@ public class SchedulerExecutor implements Runnable {
   private int periodicSchedulerCheckInSecs = 90;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
-  private static final String schedulerLock = "schedulerLock";
+  private static final String SCHEDULER_LOCK = "schedulerLock";
+  private final boolean infiniteLoop; //True for infinite loop which is the normal scenario, false for testing
 
-  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicSchedulerCheckInSecs) {
+  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient,
+      int periodicSchedulerCheckInSecs, boolean infiniteLoop) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
     this.periodicSchedulerCheckInSecs = periodicSchedulerCheckInSecs;
+    this.infiniteLoop = infiniteLoop;
   }
 
   @Override
   public void run() {
-    RLock lock = redissonClient.getFairLock(schedulerLock);
+    RLock lock = redissonClient.getFairLock(SCHEDULER_LOCK);
     LocalDateTime dateBeforeSleep = LocalDateTime.now();
-    while (true) {
+    do {
       LocalDateTime dateAfterSleep = null;
       try {
         LOGGER.info("Scheduler thread sleeping for {} seconds.", periodicSchedulerCheckInSecs);
@@ -50,7 +53,8 @@ public class SchedulerExecutor implements Runnable {
 
         lock.lock();
         dateAfterSleep = LocalDateTime.now();
-        LOGGER.info("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}", dateBeforeSleep, dateAfterSleep);
+        LOGGER.info("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}",
+            dateBeforeSleep, dateAfterSleep);
         List<ScheduledUserWorkflow> allCleanedScheduledUserWorkflows = getCleanedScheduledUserWorkflows(
             dateBeforeSleep, dateAfterSleep);
 
@@ -62,23 +66,17 @@ public class SchedulerExecutor implements Runnable {
               scheduledUserWorkflow.getWorkflowName(), scheduledUserWorkflow.getPointerDate(),
               scheduledUserWorkflow.getScheduleFrequence());
 
-          try {
-            orchestratorService.addUserWorkflowInQueueOfUserWorkflowExecutions(
-                scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowOwner(),
-                scheduledUserWorkflow.getWorkflowName(),
-                scheduledUserWorkflow.getWorkflowPriority());
-          } catch (NoDatasetFoundException | NoUserWorkflowFoundException | UserWorkflowExecutionAlreadyExistsException e) {
-            LOGGER.warn("Scheduled execution was not added to queue", e);
-          }
+          tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledUserWorkflow);
         }
-        lock.unlock(); //Lock releases automatically, if there was another exception, no need to unlock in catch block.
       } catch (InterruptedException | RuntimeException e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, scheduler thread continues",
             e);
+      } finally {
+        lock.unlock();
       }
       dateBeforeSleep = dateAfterSleep;
-    }
+    } while (infiniteLoop);
   }
 
   private List<ScheduledUserWorkflow> getCleanedScheduledUserWorkflows(LocalDateTime lowerBound,
@@ -87,11 +85,13 @@ public class SchedulerExecutor implements Runnable {
     scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceOnce(lowerBound, upperBound));
     scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceDaily(lowerBound, upperBound));
     scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceWeekly(lowerBound, upperBound));
-    scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceMonthly(lowerBound, upperBound));
+    scheduledUserWorkflows
+        .addAll(getScheduledUserWorkflowsFrequenceMonthly(lowerBound, upperBound));
     return scheduledUserWorkflows;
   }
 
-  private List<ScheduledUserWorkflow> getScheduledUserWorkflowsFrequenceOnce(LocalDateTime lowerBound,
+  private List<ScheduledUserWorkflow> getScheduledUserWorkflowsFrequenceOnce(
+      LocalDateTime lowerBound,
       LocalDateTime upperBound) {
     String nextPage = null;
     List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
@@ -208,8 +208,20 @@ public class SchedulerExecutor implements Runnable {
     return scheduledUserWorkflows;
   }
 
+  private void tryAddUserWorkflowInQueueOfUserWorkflowExecutions(
+      ScheduledUserWorkflow scheduledUserWorkflow) {
+    try {
+      orchestratorService.addUserWorkflowInQueueOfUserWorkflowExecutions(
+          scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowOwner(),
+          scheduledUserWorkflow.getWorkflowName(),
+          scheduledUserWorkflow.getWorkflowPriority());
+    } catch (NoDatasetFoundException | NoUserWorkflowFoundException | UserWorkflowExecutionAlreadyExistsException e) {
+      LOGGER.warn("Scheduled execution was not added to queue", e);
+    }
+  }
+
   @PreDestroy
-  private void close() {
+  public void close() {
     if (!redissonClient.isShutdown()) {
       this.redissonClient.shutdown();
     }

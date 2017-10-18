@@ -54,6 +54,9 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
         .isExecutionActive(this.userWorkflowExecution, monitorCheckIntervalInSecs)) {
       runRunningStateWorkflowExecution(lock);
     } else {
+      LOGGER.info(
+          "Discarding user workflow execution with id: {}, it's not INQUEUE or RUNNNING and not active",
+          userWorkflowExecution.getId());
       lock.unlock();
       return userWorkflowExecution;
     }
@@ -62,7 +65,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
       userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
           "Cancelled running user workflow execution with id: {}", userWorkflowExecution.getId());
-    } else {
+    } else if (finishDate != null) { //finishedDate can be null in case of InterruptedException
       userWorkflowExecution.setFinishedDate(finishDate);
       userWorkflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       LOGGER.info("Finished user workflow execution with id: {}", userWorkflowExecution.getId());
@@ -94,6 +97,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
     lock.unlock(); //Unlock as soon as possible
     int firstPluginPositionToStart = 0;
+    //Find the first plugin to continue execution from
     for (int i = 0; i < userWorkflowExecution.getMetisPlugins().size(); i++) {
       AbstractMetisPlugin metisPlugin = userWorkflowExecution.getMetisPlugins().get(i);
       if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
@@ -117,7 +121,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   }
 
   private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
-    int iterationsToFake = 5;
+    int iterationsToFake = 2;
     int sleepTime = monitorCheckIntervalInSecs * 1000;
 
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
@@ -143,7 +147,8 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
         userWorkflowExecution.setUpdatedDate(updatedDate);
         userWorkflowExecutionDao.updateMonitorInformation(userWorkflowExecution);
       } catch (InterruptedException e) {
-        LOGGER.warn("Thread was interruped", e);
+        LOGGER.warn("Thread was interrupted", e);
+        Thread.currentThread().interrupt();
         return null;
       }
     }

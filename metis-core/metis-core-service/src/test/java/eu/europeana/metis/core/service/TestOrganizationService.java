@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.core.test.service;
+package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.dao.DatasetDao;

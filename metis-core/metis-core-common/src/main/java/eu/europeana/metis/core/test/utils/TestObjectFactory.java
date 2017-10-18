@@ -12,7 +12,6 @@ import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPluginMetadata;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,18 +38,6 @@ public class TestObjectFactory {
     userWorkflow.setWorkflowOwner(WORKFLOWOWNER);
     userWorkflow.setWorkflowName(WORKFLOWNAME);
 
-    OaipmhHarvestingMetadata oaipmhHarvestingMetadata = new OaipmhHarvestingMetadata(
-        "metadataFormat", "setSpec", "http://test.me.now");
-    ArrayList<String> oaiParameters = new ArrayList<>();
-    oaiParameters.add("oai_parameter_a");
-    oaiParameters.add("oai_parameter_b");
-    HashMap<String, List<String>> oaiParameterGroups = new HashMap<>();
-    oaiParameterGroups.put("GroupA", oaiParameters);
-    oaiParameterGroups.put("GroupB", oaiParameters);
-
-    VoidOaipmhHarvestPluginMetadata voidOaipmhHarvestPluginMetadata = new VoidOaipmhHarvestPluginMetadata(
-        oaipmhHarvestingMetadata, oaiParameterGroups);
-
     ArrayList<String> dereferenceParameters = new ArrayList<>();
     dereferenceParameters.add("dereference_parameter_a");
     dereferenceParameters.add("dereference_parameter_b");
@@ -61,7 +48,6 @@ public class TestObjectFactory {
         dereferenceParameterGroups);
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
-    abstractMetisPluginMetadata.add(voidOaipmhHarvestPluginMetadata);
     abstractMetisPluginMetadata.add(voidDereferencePluginMetadata);
     userWorkflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
@@ -118,6 +104,12 @@ public class TestObjectFactory {
     return userWorkflowExecutions;
   }
 
+  public static void updateListOfUserWorkflowExecutionsWithWorkflowStatus(
+      List<UserWorkflowExecution> userWorkflowExecutions, WorkflowStatus workflowStatus) {
+    for (UserWorkflowExecution userWorkflowExecution : userWorkflowExecutions) {
+      userWorkflowExecution.setWorkflowStatus(workflowStatus);
+    }
+  }
 
   public static ScheduledUserWorkflow createScheduledUserWorkflowObject() {
     ScheduledUserWorkflow scheduledUserWorkflow = new ScheduledUserWorkflow();
@@ -136,6 +128,19 @@ public class TestObjectFactory {
       ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
       scheduledUserWorkflow.setId(new ObjectId());
       scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledUserWorkflows.add(scheduledUserWorkflow);
+    }
+    return scheduledUserWorkflows;
+  }
+
+  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
+    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+    for (int i = 0; i < size; i++) {
+      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
+      scheduledUserWorkflow.setId(new ObjectId());
+      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledUserWorkflow.setPointerDate(date);
+      scheduledUserWorkflow.setScheduleFrequence(scheduleFrequence);
       scheduledUserWorkflows.add(scheduledUserWorkflow);
     }
     return scheduledUserWorkflows;

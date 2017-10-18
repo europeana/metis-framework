@@ -1,8 +1,7 @@
-package eu.europeana.metis.core.test.dao;
+package eu.europeana.metis.core.dao;
 
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
-import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
@@ -91,8 +90,8 @@ public class TestUserWorkflowDao {
     Assert.assertEquals(retrievedUserWorkflowMetisPluginsMetadata.get(0).getPluginType(),
         metisPluginsMetadata.get(0).getPluginType());
     Assert.assertEquals(
-        retrievedUserWorkflowMetisPluginsMetadata.get(1).getParameters().get("GroupA").size(),
-        metisPluginsMetadata.get(1).getParameters().get("GroupA").size());
+        retrievedUserWorkflowMetisPluginsMetadata.get(0).getParameters().get("GroupA").size(),
+        metisPluginsMetadata.get(0).getParameters().get("GroupA").size());
   }
 
   @Test

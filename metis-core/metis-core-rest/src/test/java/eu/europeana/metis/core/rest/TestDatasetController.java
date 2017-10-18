@@ -29,6 +29,7 @@ import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
+import eu.europeana.metis.core.test.utils.TestUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -64,8 +65,8 @@ public class TestDatasetController {
 
         datasetControllerMock.perform(post("/datasets")
                 .param("organizationId", "myOrg").param("apikey", "myApiKey")
-                .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                .content(TestUtil.convertObjectToJsonBytes(dataset)))
+                .contentType(TestUtils.APPLICATION_JSON_UTF8)
+                .content(TestUtils.convertObjectToJsonBytes(dataset)))
                 .andExpect(status().is(201))
                 .andExpect(content().string(""));
 
@@ -86,8 +87,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(post("/datasets")
             .param("organizationId", "myOrg").param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(401))
             .andExpect(jsonPath("$.errorMessage", is("No API key found with name: myApiKey")));
     }
@@ -102,8 +103,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(post("/datasets")
             .param("organizationId", "myOrg").param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(401))
             .andExpect(jsonPath("$.errorMessage", is("API key myApiKey not authorized")));
 
@@ -120,8 +121,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(post("/datasets")
             .param("organizationId", "myOrg").param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(406))
             .andExpect(jsonPath("$.errorMessage", is("Bad")));
     }
@@ -139,8 +140,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(post("/datasets")
             .param("organizationId", "myOrg").param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(409))
             .andExpect(jsonPath("$.errorMessage", is("Dataset with name Conflict already exists")));
     }
@@ -156,8 +157,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(post("/datasets")
             .param("organizationId", "myOrg").param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(404))
             .andExpect(jsonPath("$.errorMessage", is("Doesnotexist")));
     }
@@ -169,8 +170,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(put("/datasets/myDataset")
             .param("apikey", "myApiKey")
 
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(204))
             .andExpect(content().string(""));
 
@@ -193,8 +194,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(put("/datasets/myDataset")
             .param("apikey", "myApiKey")
             .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dataset)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(404))
             .andExpect(jsonPath("$.errorMessage", is("NoExisting")));
     }
@@ -206,8 +207,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(put("/datasets/myDataset/updateName")
             .param("apikey", "myApiKey")
             .param("newDatasetName", "newName")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(null)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(null)))
             .andExpect(status().is(204))
             .andExpect(content().string(""));
 
@@ -226,8 +227,8 @@ public class TestDatasetController {
         prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
         datasetControllerMock.perform(delete("/datasets/myDataset")
             .param("apikey", "myApiKey")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(null)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(null)))
             .andExpect(status().is(204))
             .andExpect(content().string(""));
 
@@ -252,8 +253,8 @@ public class TestDatasetController {
         when(datasetServiceMock.getDatasetByDatasetName("myDataset")).thenReturn(dataSet);
         datasetControllerMock.perform(get("/datasets/myDataset")
             .param("apikey", "myApiKey")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(null)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(null)))
             .andExpect(status().is(200))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.datasetName", is("myDataset")))
@@ -278,8 +279,8 @@ public class TestDatasetController {
         datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
             .param("apikey", "myApiKey")
             .param("nextPage" , "3")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(null)))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(TestUtils.convertObjectToJsonBytes(null)))
             .andExpect(status().is(200))
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
             .andExpect(jsonPath("$.results", hasSize(2)))

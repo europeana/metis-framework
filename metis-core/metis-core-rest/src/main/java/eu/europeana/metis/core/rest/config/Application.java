@@ -111,6 +111,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private int periodicFailsafeCheckInSecs;
   @Value("${periodic.scheduler.check.in.secs}")
   private int periodicSchedulerCheckInSecs;
+  @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
+  private int pollingTimeoutForCleaningCompletionServiceInSecs;
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -260,7 +262,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     Config config = new Config();
     config.useSingleServer().setAddress(String.format("redis://%s:%s", redisHost, redisPort));
     config.setLockWatchdogTimeout(
-        redissonLockWatchdogTimeoutInSecs * 1000); //Give some secs to unlock if connection lost, or if too long to unlock
+        redissonLockWatchdogTimeoutInSecs * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
     return Redisson.create(config);
   }
 
@@ -295,7 +297,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public FailsafeExecutor startFailsafeExecutorThread(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
     FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        periodicFailsafeCheckInSecs);
+        periodicFailsafeCheckInSecs, true);
     new Thread(failsafeExecutor).start();
     return failsafeExecutor;
   }
@@ -304,7 +306,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public SchedulerExecutor startSchedulingExecutorThread(
       OrchestratorService orchestratorService, RedissonClient redissonClient) {
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient,
-        periodicSchedulerCheckInSecs);
+        periodicSchedulerCheckInSecs, true);
     new Thread(schedulerExecutor).start();
     return schedulerExecutor;
   }
@@ -383,6 +385,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
     userWorkflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
     userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
+    userWorkflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(pollingTimeoutForCleaningCompletionServiceInSecs);
     return userWorkflowExecutorManager;
   }
 
@@ -391,7 +394,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       UserWorkflowExecutionDao userWorkflowExecutionDao,
       ScheduledUserWorkflowDao scheduledUserWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) {
+      UserWorkflowExecutorManager userWorkflowExecutorManager) throws IOException {
     return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
         scheduledUserWorkflowDao, datasetDao, userWorkflowExecutorManager);
   }

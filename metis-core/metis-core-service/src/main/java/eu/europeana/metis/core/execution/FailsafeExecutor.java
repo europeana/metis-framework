@@ -24,18 +24,21 @@ public class FailsafeExecutor implements Runnable {
   private final int periodicFailsafeCheckInSecs;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
-  private static final String failsafeLock = "failsafeLock";
+  private static final String FAILSAFE_LOCK = "failsafeLock";
+  private final boolean infiniteLoop; //True for infinite loop which is the normal scenario, false for testing
 
-  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs) {
+  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient, int periodicFailsafeCheckInSecs, boolean infiniteLoop) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
     this.periodicFailsafeCheckInSecs = periodicFailsafeCheckInSecs;
+    this.infiniteLoop = infiniteLoop;
   }
 
+  @SuppressWarnings("InfiniteLoopStatement")
   @Override
   public void run() {
-    RLock lock = redissonClient.getFairLock(failsafeLock);
-    while (true) {
+    RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
+    do {
       try {
         LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
         Thread.sleep(periodicFailsafeCheckInSecs * 1000L);
@@ -46,7 +49,7 @@ public class FailsafeExecutor implements Runnable {
         addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.RUNNING, allInQueueAndRunningUserWorkflowExecutions);
         addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.INQUEUE, allInQueueAndRunningUserWorkflowExecutions);
 
-        if (allInQueueAndRunningUserWorkflowExecutions.size() != 0) {
+        if (!allInQueueAndRunningUserWorkflowExecutions.isEmpty()) {
           orchestratorService
               .removeActiveUserWorkflowExecutionsFromList(allInQueueAndRunningUserWorkflowExecutions);
 
@@ -56,13 +59,15 @@ public class FailsafeExecutor implements Runnable {
                     userWorkflowExecution.getWorkflowPriority());
           }
         }
-        lock.unlock(); //Lock releases automatically, if there was another exception, no need to unlock in catch block.
       } catch (Exception e) {
         LOGGER.warn(
             "Thread was interruped or exception thrown from rabbitmq channel disconnection, failsafe thread continues",
             e);
       }
-    }
+      finally {
+        lock.unlock();
+      }
+    } while (infiniteLoop);
   }
 
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
@@ -81,7 +86,7 @@ public class FailsafeExecutor implements Runnable {
   }
 
   @PreDestroy
-  private void close() {
+  public void close() {
     if (!redissonClient.isShutdown()) {
       this.redissonClient.shutdown();
     }
