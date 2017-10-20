@@ -63,6 +63,7 @@ import org.mongodb.morphia.Morphia;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -260,9 +261,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   RedissonClient getRedissonClient() {
     Config config = new Config();
-    config.useSingleServer().setAddress(String.format("redis://%s:%s", redisHost, redisPort));
+    SingleServerConfig singleServerConfig = config.useSingleServer()
+        .setAddress(String.format("redis://%s:%s", redisHost, redisPort));
+    if (StringUtils.isNotEmpty(redisPassword)) {
+      singleServerConfig.setPassword(redisPassword);
+    }
     config.setLockWatchdogTimeout(
-        redissonLockWatchdogTimeoutInSecs * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
+        redissonLockWatchdogTimeoutInSecs
+            * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
     return Redisson.create(config);
   }
 
@@ -385,7 +391,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
     userWorkflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
     userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
-    userWorkflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(pollingTimeoutForCleaningCompletionServiceInSecs);
+    userWorkflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
+        pollingTimeoutForCleaningCompletionServiceInSecs);
     return userWorkflowExecutorManager;
   }
 
