@@ -16,6 +16,7 @@ import javax.annotation.PreDestroy;
 import org.apache.solr.common.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,7 +47,7 @@ public class SchedulerExecutor implements Runnable {
     RLock lock = redissonClient.getFairLock(SCHEDULER_LOCK);
     LocalDateTime dateBeforeSleep = LocalDateTime.now();
     do {
-      LocalDateTime dateAfterSleep = null;
+      LocalDateTime dateAfterSleep;
       try {
         LOGGER.info("Scheduler thread sleeping for {} seconds.", periodicSchedulerCheckInSecs);
         Thread.sleep(periodicSchedulerCheckInSecs * 1000L);
@@ -68,14 +69,18 @@ public class SchedulerExecutor implements Runnable {
 
           tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledUserWorkflow);
         }
+        dateBeforeSleep = dateAfterSleep;
       } catch (InterruptedException | RuntimeException e) {
         LOGGER.warn(
-            "Thread was interruped or exception thrown from rabbitmq channel disconnection, scheduler thread continues",
+            "Thread was interruped or exception thrown from rabbitmq channel or Redis disconnection, scheduler thread continues",
             e);
       } finally {
-        lock.unlock();
+        try {
+          lock.unlock();
+        } catch (RedisConnectionException e) {
+          LOGGER.warn("Cannot connect to unlock, scheduler thread continues");
+        }
       }
-      dateBeforeSleep = dateAfterSleep;
     } while (infiniteLoop);
   }
 

@@ -31,6 +31,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisConnectionException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -166,6 +167,18 @@ public class TestSchedulerExecutor {
     Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
     t.interrupt();
     t.join();
+    verifyNoMoreInteractions(orchestratorService);
+  }
+
+  @Test
+  public void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
+    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient,
+        10, false);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
+    doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
+    doThrow(new RedisConnectionException("Connection error")).when(rlock).unlock();
+    schedulerExecutor.run();
     verifyNoMoreInteractions(orchestratorService);
   }
 

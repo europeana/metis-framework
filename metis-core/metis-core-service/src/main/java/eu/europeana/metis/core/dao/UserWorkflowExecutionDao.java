@@ -234,11 +234,12 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
       Thread.sleep(2 * monitorCheckInSecs * 1000L);
       UserWorkflowExecution userWorkflowExecution = this
           .getById(userWorkflowExecutionToCheck.getId().toString());
-      return updatedDateBefore != null
-          && updatedDateBefore.compareTo(userWorkflowExecution.getUpdatedDate()) < 0;
+      return (updatedDateBefore != null && updatedDateBefore.compareTo(userWorkflowExecution.getUpdatedDate()) < 0) ||
+          (updatedDateBefore == null && userWorkflowExecution.getUpdatedDate() != null)
+          || userWorkflowExecution.getFinishedDate() != null;
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();  // set interrupt flag
-      LOGGER.warn("Thread was interruped", e);
+      LOGGER.warn("Thread was interrupted", e);
       return true;
     }
   }

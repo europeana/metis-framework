@@ -77,7 +77,7 @@ public class UserWorkflowExecutorManager {
     }
   }
 
-  public void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution) {
+  public synchronized void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution) {
     if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
         || userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
       userWorkflowExecutionDao.setCancellingState(userWorkflowExecution);
@@ -128,21 +128,21 @@ public class UserWorkflowExecutorManager {
         AMQP.BasicProperties properties, byte[] body) throws IOException {
       String objectId = new String(body, "UTF-8");
       LOGGER.info("UserWorkflowExecution id: {} received from queue.", objectId);
-      UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
       //Clean thread pool, some executions might have already finished
       if (threadsCounter >= maxConcurrentThreads) {
-        LOGGER.info("Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
+        LOGGER.debug("Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
             threadsCounter, maxConcurrentThreads);
         checkAndCleanCompletionService();
       }
 
+      UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
       //If the thread pool is still full, executions are still active. Send the message back to the queue.
       if (threadsCounter >= maxConcurrentThreads) {
         //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
         //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
         rabbitmqChannel
             .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
-        LOGGER.info("NACK sent for {} with tag {}", userWorkflowExecution.getId(),
+        LOGGER.debug("NACK sent for {} with tag {}", userWorkflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       } else {
         if (!userWorkflowExecution.isCancelling()) { //Submit for execution
@@ -159,7 +159,7 @@ public class UserWorkflowExecutorManager {
         }
         rabbitmqChannel
             .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue asap.
-        LOGGER.info("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
+        LOGGER.debug("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       }
     }

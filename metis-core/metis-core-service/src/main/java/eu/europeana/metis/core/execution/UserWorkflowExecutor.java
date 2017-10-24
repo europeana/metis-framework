@@ -42,6 +42,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     //Get lock for the case that two cores will retrieve the same execution id from 2 items in the queue in different cores
     final String executionCheckLock = "executionCheckLock";
     RLock lock = redissonClient.getFairLock(executionCheckLock);
+    lock.lock();
     LOGGER.info("Starting user workflow execution with id: {} and priority {}",
         userWorkflowExecution.getId(), userWorkflowExecution.getWorkflowPriority());
     firstPluginExecution = true;
@@ -61,6 +62,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
       return userWorkflowExecution;
     }
 
+    //Cancel workflow and all other than finished plugins if the workflow was cancelled during execution
     if (userWorkflowExecutionDao.isCancelling(userWorkflowExecution.getId())) {
       userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
@@ -124,6 +126,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     int iterationsToFake = 2;
     int sleepTime = monitorCheckIntervalInSecs * 1000;
 
+    //Determinned the startedDate for the plugin
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
       if (firstPluginExecution) {
         firstPluginExecution = false;
@@ -134,6 +137,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
     }
     abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
     userWorkflowExecutionDao.updateWorkflowPlugins(userWorkflowExecution);
+    //Start execution and periodical check
     abstractMetisPlugin.execute();
     for (int i = 0; i < iterationsToFake; i++) {
       try {

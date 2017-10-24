@@ -4,6 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -25,6 +26,7 @@ import org.mockito.InOrder;
 import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import org.redisson.client.RedisConnectionException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -99,6 +101,18 @@ public class TestFailsafeExecutor {
     Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
     t.interrupt();
     t.join();
+    verifyNoMoreInteractions(orchestratorService);
+  }
+
+  @Test
+  public void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
+    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
+        10, false);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(rlock);
+    doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
+    doThrow(new RedisConnectionException("Connection error")).when(rlock).unlock();
+    failsafeExecutor.run();
     verifyNoMoreInteractions(orchestratorService);
   }
 
