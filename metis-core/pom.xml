@@ -28,7 +28,7 @@
   <artifactId>metis-core</artifactId>
 
   <modules>
-    <module>metis-core-account</module>
+    <!--<module>metis-core-account</module>-->
     <module>metis-core-common</module>
     <module>metis-core-service</module>
     <module>metis-core-rest</module>
