@@ -13,8 +13,7 @@ Each module is usually organized in the following manner:
 
 The REST APIs have been tested to work on Apache Tomcat 8.
 
-Excluded from SonarQube and cobertura modules:  
-metis-ui (The old ui)  
+Excluded from SonarQube and cobertura modules:    
 metis-mapping  
 metis-core-account  
 metis-core-mail  
