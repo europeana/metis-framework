@@ -16,19 +16,23 @@
  */
 package eu.europeana.metis.core.service;
 
+import static org.junit.Assert.assertSame;
+import static org.mockito.Mockito.anyListOf;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
-import eu.europeana.metis.core.dao.ZohoMockClient;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.search.service.MetisSearchService;
-import eu.europeana.metis.core.service.OrganizationService;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,8 +45,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Mockito.*;
 
 
 public class TestOrganizationService {
@@ -53,16 +55,13 @@ public class TestOrganizationService {
 
   private Organization org;
   private MetisSearchService searchServiceMock;
-  private ZohoMockClient zohoMock;
-
 
   @Before
   public void prepare() {
     organizationDaoMock = Mockito.mock(OrganizationDao.class);
     datasetDaoMock = Mockito.mock(DatasetDao.class);
     searchServiceMock = Mockito.mock(MetisSearchService.class);
-    zohoMock = Mockito.mock(ZohoMockClient.class);
-    service = new OrganizationService(organizationDaoMock, datasetDaoMock, zohoMock, searchServiceMock);
+    service = new OrganizationService(organizationDaoMock, datasetDaoMock, searchServiceMock);
 
     org = createOrganization("myOrg");
   }
@@ -187,27 +186,6 @@ public class TestOrganizationService {
     Mockito.when(organizationDaoMock.getAllOrganizations(null)).thenReturn(orgs);
     List<Organization> orgRet = service.getAllOrganizations(null);
     Assert.assertEquals(orgs, orgRet);
-  }
-
-  @Test
-  public void testGetOrganizationByIdFromCRM_withExistingOrgId_returnOrg()
-      throws IOException, ParseException, NoOrganizationFoundException {
-    String id = "2f2f2f2f2f2f2f2f2f2f2f2f";
-
-    Organization org = new Organization();
-    when(zohoMock.getOrganizationById(id)).thenReturn(org);
-    Organization orgRet = service.getOrganizationByIdFromCRM(id);
-
-    assertSame(org, orgRet);
-  }
-
-  @Test(expected = NoOrganizationFoundException.class)
-  public void testGetOrganizationByIdFromCRM_withNonExistingOrgId_throwsException()
-      throws IOException, ParseException, NoOrganizationFoundException {
-    String id = "2f2f2f2f2f2f2f2f2f2f2f2f";
-
-    when(zohoMock.getOrganizationById(id)).thenReturn(null);
-    service.getOrganizationByIdFromCRM(id);
   }
 
   @Test(expected = BadContentException.class)

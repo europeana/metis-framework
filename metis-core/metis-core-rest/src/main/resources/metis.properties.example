@@ -28,11 +28,6 @@ mongo.db=
 mongo.username=
 mongo.password=
 
-#CRM
-crm.scope=
-crm.authtoken=
-crm.baseUrl=
-
 #Redis
 redis.host=
 redis.port=0

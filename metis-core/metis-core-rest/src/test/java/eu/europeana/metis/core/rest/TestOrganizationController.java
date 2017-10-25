@@ -352,51 +352,6 @@ public class TestOrganizationController {
         .andExpect(jsonPath("$.results.optInIIIF", is(true)));
   }
 
-  @Test
-  public void getOrganizationByOrganizationIdFromCRM() throws Exception {
-    prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-
-    Organization org = new Organization();
-    org.setId(new ObjectId("1f1f1f1f1f1f1f1f1f1f1f1f"));
-    org.setName("My Org");
-
-    when(organizationServiceMock.getOrganizationByIdFromCRM("myOrganizationId"))
-        .thenReturn(org);
-
-    // getOrganizationByIdFromCRM
-    organizationControllerMock.perform(get("/organizations/crm/myOrganizationId")
-        .param("apikey", "myApiKey")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(null)))
-        .andExpect(status().is(200))
-        .andExpect(jsonPath("$.id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
-        .andExpect(jsonPath("$.name", is("My Org")));
-
-  }
-
-  @Test
-  public void getAllOrganizationsFromCRM() throws Exception {
-    prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-    // /organizations/crm
-    // getAllOrganizationsFromCRM
-
-    when(organizationServiceMock.getAllOrganizationsFromCRM())
-        .thenReturn(getListOfOrginsations());
-
-    // getOrganizationByIdFromCRM
-    organizationControllerMock.perform(get("/organizations/crm")
-        .param("apikey", "myApiKey")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(null)))
-        .andExpect(status().is(200))
-        .andExpect(jsonPath("$.results", hasSize(2)))
-        .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
-        .andExpect(jsonPath("$.results[0].name", is("Org1")))
-        .andExpect(jsonPath("$.results[1].id", is("2f2f2f2f2f2f2f2f2f2f2f2f")))
-        .andExpect(jsonPath("$.results[1].name", is("Org2")));
-  }
-
-
   private void prepareAuthorizationMockWithValidKey(String keyName, Options write) {
     MetisKey key = new MetisKey();
     key.setOptions(write);

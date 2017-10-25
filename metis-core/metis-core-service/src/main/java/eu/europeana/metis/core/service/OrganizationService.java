@@ -22,7 +22,6 @@ import eu.europeana.metis.core.common.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
-import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
@@ -31,7 +30,6 @@ import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.search.common.OrganizationSearchBean;
 import eu.europeana.metis.core.search.service.MetisSearchService;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -52,16 +50,14 @@ public class OrganizationService {
 
   private OrganizationDao organizationDao;
   private DatasetDao datasetDao;
-  private ZohoClient restClient;
   private MetisSearchService searchService;
 
   @Autowired
   public OrganizationService(OrganizationDao organizationDao,
-      DatasetDao datasetDao, ZohoClient restClient,
+      DatasetDao datasetDao,
       MetisSearchService searchService) {
     this.organizationDao = organizationDao;
     this.datasetDao = datasetDao;
-    this.restClient = restClient;
     this.searchService = searchService;
   }
 
@@ -124,23 +120,8 @@ public class OrganizationService {
     return organization;
   }
 
-  public Organization getOrganizationByIdFromCRM(String organizationId)
-      throws IOException, ParseException, NoOrganizationFoundException {
-    Organization organization = restClient.getOrganizationById(organizationId);
-    if (organization == null) {
-      throw new NoOrganizationFoundException(
-          String.format("No organization found with organization id: %s in CRM", organizationId));
-    }
-    return organization;
-  }
-
   public int getOrganizationsPerRequestLimit() {
     return organizationDao.getOrganizationsPerRequest();
-  }
-
-  public List<Organization> getAllOrganizationsFromCRM()
-      throws ParseException, IOException {
-    return restClient.getAllOrganizations();
   }
 
   public boolean isOptedInIIIF(String organizationId) throws NoOrganizationFoundException {
