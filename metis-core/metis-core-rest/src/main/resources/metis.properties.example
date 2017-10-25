@@ -33,12 +33,6 @@ crm.scope=
 crm.authtoken=
 crm.baseUrl=
 
-#Mail
-mail.host=
-mail.port=0
-mail.username=
-mail.password=
-
 #Redis
 redis.host=
 redis.port=0

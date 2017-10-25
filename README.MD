@@ -15,8 +15,6 @@ The REST APIs have been tested to work on Apache Tomcat 8.
 
 Excluded from SonarQube and cobertura modules:    
 metis-mapping  
-metis-core-account  
-metis-core-mail  
 metis-core-workflows(Which has some previous code and has a qa workflow which I am not sure if this is supposed to be used and where..)  
 metis-hierarchies  
 

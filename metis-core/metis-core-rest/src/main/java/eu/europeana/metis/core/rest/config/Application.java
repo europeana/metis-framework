@@ -39,7 +39,6 @@ import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
-import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
@@ -100,7 +99,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
 @EnableSwagger2
-@Import({MailConfig.class, SearchApplication.class})
+@Import(SearchApplication.class)
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
   //Orchestration
