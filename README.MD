@@ -15,9 +15,6 @@ The REST APIs have been tested to work on Apache Tomcat 8.
 
 Excluded from SonarQube and cobertura modules:    
 metis-mapping  
-metis-core-account  
-metis-core-mail  
-metis-core-workflows(Which has some previous code and has a qa workflow which I am not sure if this is supposed to be used and where..)  
 metis-hierarchies  
 
 The above modules have been removed so we can have a more clear understanding of where we are in the project. When and if we are going to use any of them, then we should remove the exclude for that module.

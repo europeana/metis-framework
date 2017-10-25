@@ -28,13 +28,10 @@
   <artifactId>metis-core</artifactId>
 
   <modules>
-    <module>metis-core-account</module>
     <module>metis-core-common</module>
     <module>metis-core-service</module>
     <module>metis-core-rest</module>
     <module>metis-core-rest-client</module>
-    <module>metis-core-workflows</module>
-    <module>metis-core-mail</module>
     <module>metis-core-search</module>
   </modules>
   <packaging>pom</packaging>

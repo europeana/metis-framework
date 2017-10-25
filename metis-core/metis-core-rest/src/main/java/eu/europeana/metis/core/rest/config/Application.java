@@ -34,17 +34,14 @@ import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowDao;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
-import eu.europeana.metis.core.dao.ZohoClient;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
-import eu.europeana.metis.core.mail.config.MailConfig;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
 import eu.europeana.metis.core.search.service.MetisSearchService;
-import eu.europeana.metis.core.service.CrmUserService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrchestratorService;
@@ -65,7 +62,6 @@ import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -100,7 +96,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
 @EnableSwagger2
-@Import({MailConfig.class, SearchApplication.class})
+@Import(SearchApplication.class)
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
   //Orchestration
@@ -176,9 +172,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private Connection connection;
   private Channel channel;
 
-  @Autowired
-  private ZohoRestConfig zohoRestConfig;
-
   /**
    * Used for overwriting properties if cloud foundry environment is used
    */
@@ -246,11 +239,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     //Second boolean durable to false
     channel.queueDeclare(rabbitmqQueueName, false, false, false, args);
     return channel;
-  }
-
-  @Bean
-  ZohoClient getZohoRestClient() {
-    return zohoRestConfig.getZohoClient();
   }
 
   @Bean(name = "jedisProviderUtils")
@@ -368,18 +356,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public OrganizationService getOrganizationService(OrganizationDao organizationDao,
-      DatasetDao datasetDao, ZohoClient zohoClient, MetisSearchService metisSearchService) {
-    return new OrganizationService(organizationDao, datasetDao, zohoClient, metisSearchService);
+      DatasetDao datasetDao, MetisSearchService metisSearchService) {
+    return new OrganizationService(organizationDao, datasetDao, metisSearchService);
   }
 
   @Bean
   public MetisAuthorizationService getMetisAuthorizationService() {
     return new MetisAuthorizationService();
-  }
-
-  @Bean
-  public CrmUserService getCrmUserService(ZohoClient zohoClient) {
-    return new CrmUserService(zohoClient);
   }
 
   @Bean

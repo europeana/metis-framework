@@ -41,7 +41,6 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.Collections;
 import java.util.List;
 import javax.ws.rs.QueryParam;
@@ -354,55 +353,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
 
     return new ResultMap<>(
         Collections.singletonMap("optInIIIF", organizationService.isOptedInIIIF(organizationId)));
-  }
-
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized"),
-      @ApiResponse(code = 404, message = "Organization not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Get an organization from CRM", response = Organization.class)
-  public Organization getOrganizationByOrganizationIdFromCRM(
-      @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
-      throws ParseException, IOException, NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureReadOrWriteAccess(apikey, key);
-
-    Organization organization = organizationService.getOrganizationByIdFromCRM(organizationId);
-    LOGGER.info("Organization with id {} found in CRM", organizationId);
-    return organization;
-  }
-
-  @RequestMapping(value = RestEndpoints.ORGANIZATIONS_CRM, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true)
-  })
-  @ApiOperation(value = "Get all organizations from CRM", response = ResponseListWrapper.class)
-  public ResponseListWrapper<Organization> getAllOrganizationsFromCRM(
-      @RequestParam("apikey") String apikey)
-      throws ParseException, IOException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureReadOrWriteAccess(apikey, key);
-
-    List<Organization> organizations = organizationService.getAllOrganizationsFromCRM();
-    ResponseListWrapper<Organization> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResults(organizations);
-    return responseListWrapper;
   }
 
   private void ensureRoles(List<OrganizationRole> organizationRoles)
