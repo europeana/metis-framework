@@ -41,10 +41,6 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
 
-/**
- * The Organization representation in METIS
- * Created by ymamakis on 2/17/16.
- */
 @Entity
 public class Organization implements HasMongoObjectId {
     @Id

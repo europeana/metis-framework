@@ -179,12 +179,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   CacheDao getCacheDao() {
-    return new CacheDao(getRedisProvider().getJedis());
-  }
-
-  @Bean
-  RedisProvider getRedisProvider() {
-    return redisProvider;
+    return new CacheDao(redisProvider.getJedis());
   }
 
   @Bean
