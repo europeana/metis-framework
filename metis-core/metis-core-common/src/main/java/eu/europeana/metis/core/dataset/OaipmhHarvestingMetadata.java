@@ -19,10 +19,6 @@ package eu.europeana.metis.core.dataset;
 
 import eu.europeana.metis.core.common.HarvestType;
 
-/**
- * OAIPMH specific technical metadata
- * Created by ymamakis on 2/17/16.
- */
 public class OaipmhHarvestingMetadata implements HarvestingMetadata {
 
   private HarvestType harvestType = HarvestType.OAIPMH_HARVEST;

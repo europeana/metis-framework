@@ -39,10 +39,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Organization service
- * Created by ymamakis on 2/17/16.
- */
 @Service
 public class OrganizationService {
 

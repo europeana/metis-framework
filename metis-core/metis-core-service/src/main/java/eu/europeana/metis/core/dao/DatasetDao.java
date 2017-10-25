@@ -39,18 +39,19 @@ import org.springframework.stereotype.Repository;
 public class DatasetDao implements MetisDao<Dataset, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
+  private static final String DATASET_NAME = "datasetName";
   private int datasetsPerRequest = 5;
 
-  private final MorphiaDatastoreProvider provider;
+  private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired
-  public DatasetDao(MorphiaDatastoreProvider provider) {
-    this.provider = provider;
+  public DatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    this.morphiaDatastoreProvider = morphiaDatastoreProvider;
   }
 
   @Override
   public String create(Dataset dataset) {
-    Key<Dataset> datasetKey = provider.getDatastore().save(dataset);
+    Key<Dataset> datasetKey = morphiaDatastoreProvider.getDatastore().save(dataset);
     LOGGER.debug(
         "Dataset '{}' created with OrganizationId '{}' and Provider '{}' and Description '{}' in Mongo",
         dataset.getDatasetName(), dataset.getOrganizationId(), dataset.getDataProvider(),
@@ -60,16 +61,9 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   @Override
   public String update(Dataset dataset) {
-    UpdateOperations<Dataset> ops = provider.getDatastore().createUpdateOperations(Dataset.class);
-    Query<Dataset> q = provider.getDatastore().find(Dataset.class)
-        .filter("datasetName", dataset.getDatasetName());
-    if (dataset.getAssignedToLdapId() != null) {
-      ops.set("assignedToLdapId", dataset.getAssignedToLdapId());
-    } else {
-      ops.unset("assignedToLdapId");
-    }
-    ops.set("createdByLdapId", dataset.getCreatedByLdapId());
-//    ops.set("createdDate", dataset.getCreated());
+    UpdateOperations<Dataset> ops = morphiaDatastoreProvider.getDatastore().createUpdateOperations(Dataset.class);
+    Query<Dataset> q = morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+        .filter(DATASET_NAME, dataset.getDatasetName());
     ops.set("country", dataset.getCountry());
     ops.set("dataProvider", dataset.getDataProvider());
     ops.set("description", dataset.getDescription());
@@ -124,7 +118,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("datasetStatus", dataset.getDatasetStatus());
     ops.set("accepted", dataset.isAccepted());
     ops.set("deaSigned", dataset.isDeaSigned());
-    UpdateResults updateResults = provider.getDatastore().update(q, ops);
+    UpdateResults updateResults = morphiaDatastoreProvider.getDatastore().update(q, ops);
 
     LOGGER.debug(
         "Dataset '{}' updated with Provider '{}' and Description '{}' in Mongo",
@@ -134,13 +128,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   @Override
   public Dataset getById(String id) {
-    return provider.getDatastore().find(Dataset.class).filter("_id", new ObjectId(id)).get();
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).filter("_id", new ObjectId(id)).get();
   }
 
   @Override
   public boolean delete(Dataset dataset) {
-    provider.getDatastore().delete(
-        provider.getDatastore().createQuery(Dataset.class).field("datasetName")
+    morphiaDatastoreProvider.getDatastore().delete(
+        morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_NAME)
             .equal(dataset.getDatasetName()));
     LOGGER
         .debug("Dataset '{}' deleted with organizationId '{}' from Mongo", dataset.getDatasetName(),
@@ -149,36 +143,37 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   public void updateDatasetName(String datasetName, String newDatasetName) {
-    UpdateOperations<Dataset> datasetUpdateOperations = provider.getDatastore()
+    UpdateOperations<Dataset> datasetUpdateOperations = morphiaDatastoreProvider.getDatastore()
         .createUpdateOperations(Dataset.class);
-    Query<Dataset> query = provider.getDatastore().find(Dataset.class)
-        .filter("datasetName", datasetName);
-    datasetUpdateOperations.set("datasetName", newDatasetName);
-    UpdateResults updateResults = provider.getDatastore().update(query, datasetUpdateOperations);
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+        .filter(DATASET_NAME, datasetName);
+    datasetUpdateOperations.set(DATASET_NAME, newDatasetName);
+    UpdateResults updateResults = morphiaDatastoreProvider
+        .getDatastore().update(query, datasetUpdateOperations);
     LOGGER.debug("Dataset with datasetName '{}' renamed to '{}'. (UpdateResults: {})", datasetName,
         newDatasetName, updateResults.getUpdatedCount());
   }
 
   public boolean deleteDatasetByDatasetName(String datasetName) {
-    Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
-    query.field("datasetName").equal(datasetName);
-    WriteResult delete = provider.getDatastore().delete(query);
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
+    query.field(DATASET_NAME).equal(datasetName);
+    WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.debug("Dataset '{}' deleted from Mongo", datasetName);
     return delete.getN() == 1;
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) {
-    return provider.getDatastore().find(Dataset.class).field("datasetName").equal(datasetName)
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME).equal(datasetName)
         .get();
   }
 
   public boolean existsDatasetByDatasetName(String datasetName) {
-    return provider.getDatastore().find(Dataset.class).field("datasetName").equal(datasetName)
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME).equal(datasetName)
         .project("_id", true).get() != null;
   }
 
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {
-    Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("dataProvider").equal(dataProvider).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
@@ -187,7 +182,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   }
 
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
-    Query<Dataset> query = provider.getDatastore().createQuery(Dataset.class);
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));

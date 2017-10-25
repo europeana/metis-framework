@@ -22,17 +22,19 @@ import org.springframework.stereotype.Repository;
 public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowDao.class);
+  private static final String WORKFLOW_OWNER = "workflowOwner";
+  public static final String WORKFLOW_NAME = "workflowName";
   private int userWorkflowsPerRequest = 5;
-  private final MorphiaDatastoreProvider provider;
+  private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired
-  public UserWorkflowDao(MorphiaDatastoreProvider provider) {
-    this.provider = provider;
+  public UserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    this.morphiaDatastoreProvider = morphiaDatastoreProvider;
   }
 
   @Override
   public String create(UserWorkflow userWorkflow) {
-    Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
+    Key<UserWorkflow> userWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
         userWorkflow);
     LOGGER.info("UserWorkflow '{}' created with workflowOwner '{}' in Mongo",
         userWorkflow.getWorkflowName(), userWorkflow
@@ -42,7 +44,7 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
 
   @Override
   public String update(UserWorkflow userWorkflow) {
-    Key<UserWorkflow> userWorkflowKey = provider.getDatastore().save(
+    Key<UserWorkflow> userWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
         userWorkflow);
     LOGGER.info("UserWorkflow '{}' updated with workflowOwner '{}' in Mongo",
         userWorkflow.getWorkflowName(), userWorkflow
@@ -52,7 +54,7 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
 
   @Override
   public UserWorkflow getById(String id) {
-    Query<UserWorkflow> query = provider.getDatastore()
+    Query<UserWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .find(UserWorkflow.class)
         .field("_id").equal(new ObjectId(id));
     return query.get();
@@ -65,36 +67,36 @@ public class UserWorkflowDao implements MetisDao<UserWorkflow, String> {
 
 
   public boolean deleteUserWorkflow(String workflowOwner, String workflowName) {
-    Query<UserWorkflow> query = provider.getDatastore().createQuery(UserWorkflow.class);
-    query.field("workflowOwner").equal(workflowOwner);
-    query.field("workflowName").equal(workflowName);
-    WriteResult delete = provider.getDatastore().delete(query);
+    Query<UserWorkflow> query = morphiaDatastoreProvider.getDatastore().createQuery(UserWorkflow.class);
+    query.field(WORKFLOW_OWNER).equal(workflowOwner);
+    query.field(WORKFLOW_NAME).equal(workflowName);
+    WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.info("UserWorkflow with workflowOwner: {}, and workflowName {}, deleted from Mongo",
         workflowOwner, workflowName);
     return delete.getN() == 1;
   }
 
   public String exists(UserWorkflow userWorkflow) {
-    UserWorkflow storedUserWorkflow = provider.getDatastore().find(UserWorkflow.class)
-        .field("workflowOwner")
+    UserWorkflow storedUserWorkflow = morphiaDatastoreProvider.getDatastore().find(UserWorkflow.class)
+        .field(WORKFLOW_OWNER)
         .equal(
-            userWorkflow.getWorkflowOwner()).field("workflowName")
+            userWorkflow.getWorkflowOwner()).field(WORKFLOW_NAME)
         .equal(userWorkflow.getWorkflowName())
         .project("_id", true).get();
     return storedUserWorkflow != null ? storedUserWorkflow.getId().toString() : null;
   }
 
   public UserWorkflow getUserWorkflow(String workflowOwner, String workflowName) {
-    return provider.getDatastore().find(UserWorkflow.class).field("workflowOwner")
+    return morphiaDatastoreProvider.getDatastore().find(UserWorkflow.class).field(WORKFLOW_OWNER)
         .equal(workflowOwner)
-        .field("workflowName").equal(workflowName)
+        .field(WORKFLOW_NAME).equal(workflowName)
         .get();
   }
 
   public List<UserWorkflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
-    Query<UserWorkflow> query = provider.getDatastore()
+    Query<UserWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(UserWorkflow.class);
-    query.field("workflowOwner").equal(workflowOwner);
+    query.field(WORKFLOW_OWNER).equal(workflowOwner);
     query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));

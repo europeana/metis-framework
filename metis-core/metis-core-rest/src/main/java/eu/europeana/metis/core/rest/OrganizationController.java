@@ -59,10 +59,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-/**
- * The organization controller
- * Created by ymamakis on 2/18/16.
- */
 @Controller
 @Api("/")
 public class OrganizationController extends ApiKeySecuredControllerBase {

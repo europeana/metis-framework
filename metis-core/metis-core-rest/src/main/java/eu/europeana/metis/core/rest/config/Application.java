@@ -25,7 +25,6 @@ import com.rabbitmq.client.ConnectionFactory;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.cache.redis.JedisProviderUtils;
 import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
@@ -239,11 +238,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     //Second boolean durable to false
     channel.queueDeclare(rabbitmqQueueName, false, false, false, args);
     return channel;
-  }
-
-  @Bean(name = "jedisProviderUtils")
-  JedisProviderUtils getJedisProviderUtils() {
-    return new JedisProviderUtils(redisProvider.getJedis());
   }
 
   @Bean

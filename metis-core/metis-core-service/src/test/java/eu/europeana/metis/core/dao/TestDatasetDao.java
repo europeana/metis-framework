@@ -82,10 +82,8 @@ public class TestDatasetDao {
     datasetDao.create(dataset);
     Dataset dsRet = datasetDao.getDatasetByDatasetName(dataset.getDatasetName());
     assertEquals(dataset.getDatasetName(), dsRet.getDatasetName());
-    assertEquals(dataset.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
     assertEquals(dataset.getCountry(), dsRet.getCountry());
     assertEquals(dataset.getCreatedDate(), dsRet.getCreatedDate());
-    assertEquals(dataset.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
     assertEquals(dataset.getDataProvider(), dsRet.getDataProvider());
     assertEquals(dataset.getDqas(), dsRet.getDqas());
     assertEquals(dataset.getDescription(), dataset.getDescription());
@@ -111,10 +109,8 @@ public class TestDatasetDao {
     datasetDao.update(dataset);
     Dataset dsRet = datasetDao.getDatasetByDatasetName(dataset.getDatasetName());
     assertEquals(dataset.getDatasetName(), dsRet.getDatasetName());
-    assertEquals(dataset.getAssignedToLdapId(), dsRet.getAssignedToLdapId());
     assertEquals(dataset.getCountry(), dsRet.getCountry());
     assertEquals(dataset.getCreatedDate(), dsRet.getCreatedDate());
-    assertEquals(dataset.getCreatedByLdapId(), dsRet.getCreatedByLdapId());
     assertEquals(dataset.getDataProvider(), dsRet.getDataProvider());
     assertEquals(dataset.getDqas(), dsRet.getDqas());
     assertEquals(dataset.getDescription(), dataset.getDescription());

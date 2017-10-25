@@ -182,11 +182,6 @@ public class TestUserWorkflowExecutionDao {
   }
 
   @Test
-  public void cancel() {
-    Assert.assertFalse(userWorkflowExecutionDao.cancel(null));
-  }
-
-  @Test
   public void existsAndNotCompleted() {
     UserWorkflowExecution userWorkflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();

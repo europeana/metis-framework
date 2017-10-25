@@ -43,6 +43,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -116,9 +117,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
       if (mongoClientURI != null) {
         String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
+        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
         mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
+            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
         mongoUsername = mongoClientURI.getUsername();
         mongoPassword = String.valueOf(mongoClientURI.getPassword());
         vocabularyDb = mongoClientURI.getDatabase();
@@ -179,12 +180,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   CacheDao getCacheDao() {
-    return new CacheDao(getRedisProvider().getJedis());
-  }
-
-  @Bean
-  RedisProvider getRedisProvider() {
-    return redisProvider;
+    return new CacheDao(redisProvider.getJedis());
   }
 
   @Bean
@@ -223,15 +219,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Dereference REST API",
         "Dereference REST API for Europeana",
         "v1",
         "API TOS",
-        "development@europeana.eu",
+        new Contact("development", "europeana.eu", "development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );
-    return apiInfo;
   }
 }
