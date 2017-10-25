@@ -44,6 +44,8 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationDao.class);
   private static final String ORGANIZATION_ID_FIELD = "organizationId";
+  private static final String ORGANIZATION_ROLES = "organizationRoles";
+  private static final String COUNTRY = "country";
   private int organizationsPerRequest = 5;
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
@@ -78,9 +80,9 @@ public class OrganizationDao implements MetisDao<Organization, String> {
     }
     ops.set("name", organization.getName());
     if (organization.getOrganizationRoles() != null) {
-      ops.set("organizationRoles", organization.getOrganizationRoles());
+      ops.set(ORGANIZATION_ROLES, organization.getOrganizationRoles());
     } else {
-      ops.unset("organizationRoles");
+      ops.unset(ORGANIZATION_ROLES);
     }
     if (organization.getCreatedByLdapId() != null) {
       ops.set("createdByLdapId", organization.getCreatedByLdapId());
@@ -142,9 +144,9 @@ public class OrganizationDao implements MetisDao<Organization, String> {
       ops.unset("website");
     }
     if (organization.getCountry() != null) {
-      ops.set("country", organization.getCountry());
+      ops.set(COUNTRY, organization.getCountry());
     } else {
-      ops.unset("country");
+      ops.unset(COUNTRY);
     }
     if (organization.getLanguage() != null) {
       ops.set("language", organization.getLanguage());
@@ -217,7 +219,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
 
   public List<Organization> getAllOrganizationsByCountry(Country country, String nextPage) {
     Query<Organization> query = morphiaDatastoreProvider.getDatastore().createQuery(Organization.class);
-    query.field("country").equal(country).order("_id");
+    query.field(COUNTRY).equal(country).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
@@ -228,7 +230,7 @@ public class OrganizationDao implements MetisDao<Organization, String> {
   public List<Organization> getAllOrganizationsByOrganizationRole(
       List<OrganizationRole> organizationRoles, String nextPage) {
     Query<Organization> query = morphiaDatastoreProvider.getDatastore().createQuery(Organization.class);
-    query.field("organizationRoles")
+    query.field(ORGANIZATION_ROLES)
         .hasAnyOf(organizationRoles).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));

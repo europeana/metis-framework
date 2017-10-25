@@ -15,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Created by gmamakis on 7-2-17.
  */
 public class AuthorizationDao implements MetisDao<MetisKey, String> {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationDao.class);
+    private static final String API_KEY = "apiKey";
 
     @Autowired
     private MorphiaDatastoreProvider morphiaDatastoreProvider;
@@ -30,7 +32,7 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
     public String update(MetisKey metisKey) {
         UpdateOperations<MetisKey>ops = morphiaDatastoreProvider.getDatastore().createUpdateOperations(MetisKey.class);
         Query<MetisKey>q = morphiaDatastoreProvider
-            .getDatastore().createQuery(MetisKey.class).filter("apiKey",metisKey.getApiKey());
+            .getDatastore().createQuery(MetisKey.class).filter(API_KEY,metisKey.getApiKey());
         ops.set("options",metisKey.getOptions());
         ops.set("profile",metisKey.getProfile());
         morphiaDatastoreProvider.getDatastore().update(q,ops);
@@ -42,12 +44,12 @@ public class AuthorizationDao implements MetisDao<MetisKey, String> {
 
     @Override
     public MetisKey getById(String apiKey) {
-        return morphiaDatastoreProvider.getDatastore().find(MetisKey.class).filter("apiKey",apiKey).get();
+        return morphiaDatastoreProvider.getDatastore().find(MetisKey.class).filter(API_KEY,apiKey).get();
     }
 
     @Override
     public boolean delete(MetisKey metisKey) {
-        morphiaDatastoreProvider.getDatastore().delete(morphiaDatastoreProvider.getDatastore().createQuery(MetisKey.class).filter("apiKey",metisKey));
+        morphiaDatastoreProvider.getDatastore().delete(morphiaDatastoreProvider.getDatastore().createQuery(MetisKey.class).filter(API_KEY,metisKey));
         LOGGER.info("MetisKey '{}' deleted from Mongo", metisKey.getApiKey());
         return true;
     }

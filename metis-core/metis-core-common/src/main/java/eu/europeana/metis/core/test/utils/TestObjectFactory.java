@@ -149,10 +149,8 @@ public class TestObjectFactory {
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setAccepted(true);
-    ds.setAssignedToLdapId("Lemmy");
     ds.setCountry(Country.ALBANIA);
     ds.setCreatedDate(new Date(1000));
-    ds.setCreatedByLdapId("Lemmy");
     ds.setDataProvider("prov");
     ds.setDeaSigned(true);
     ds.setDescription("Test description");

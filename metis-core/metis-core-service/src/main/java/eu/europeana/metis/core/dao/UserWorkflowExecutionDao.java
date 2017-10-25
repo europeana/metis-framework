@@ -27,6 +27,8 @@ import org.springframework.stereotype.Repository;
 public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutionDao.class);
+  private static final String WORKFLOW_STATUS = "workflowStatus";
+  private static final String DATASET_NAME = "datasetName";
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private int userWorkflowExecutionsPerRequest = 5;
 
@@ -80,7 +82,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore().find(UserWorkflowExecution.class)
         .filter("_id", userWorkflowExecution.getId());
     userWorkflowExecutionUpdateOperations
-        .set("workflowStatus", userWorkflowExecution.getWorkflowStatus());
+        .set(WORKFLOW_STATUS, userWorkflowExecution.getWorkflowStatus());
     if (userWorkflowExecution.getStartedDate() != null) {
       userWorkflowExecutionUpdateOperations
           .set("startedDate", userWorkflowExecution.getStartedDate());
@@ -130,35 +132,31 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public UserWorkflowExecution getRunningOrInQueueExecution(String datasetName) {
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(UserWorkflowExecution.class)
-        .field("datasetName").equal(
+        .field(DATASET_NAME).equal(
             datasetName);
-    query.or(query.criteria("workflowStatus").equal(WorkflowStatus.INQUEUE),
-        query.criteria("workflowStatus").equal(WorkflowStatus.RUNNING));
+    query.or(query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.INQUEUE),
+        query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.RUNNING));
     return query.get();
   }
 
   public boolean exists(UserWorkflowExecution userWorkflowExecution) {
     return morphiaDatastoreProvider.getDatastore().find(UserWorkflowExecution.class)
-        .field("datasetName").equal(
+        .field(DATASET_NAME).equal(
             userWorkflowExecution.getDatasetName()).field("workflowOwner").equal(
             userWorkflowExecution.getWorkflowOwner()).field("workflowName")
         .equal(userWorkflowExecution.getWorkflowName())
         .project("_id", true).get() != null;
   }
 
-  public boolean cancel(UserWorkflowExecution userWorkflowExecution) {
-    return false;
-  }
-
   public String existsAndNotCompleted(String datasetName) {
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(UserWorkflowExecution.class)
-        .field("datasetName").equal(
+        .field(DATASET_NAME).equal(
             datasetName);
-    query.or(query.criteria("workflowStatus").equal(WorkflowStatus.INQUEUE),
-        query.criteria("workflowStatus").equal(WorkflowStatus.RUNNING));
+    query.or(query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.INQUEUE),
+        query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.RUNNING));
     query.project("_id", true);
-    query.project("workflowStatus", true);
+    query.project(WORKFLOW_STATUS, true);
 
     UserWorkflowExecution storedUserWorkflowExecution = query.get();
     if (storedUserWorkflowExecution != null) {
@@ -170,9 +168,9 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName) {
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
-    query.field("datasetName").equal(
+    query.field(DATASET_NAME).equal(
         datasetName)
-        .field("workflowStatus").equal(WorkflowStatus.RUNNING);
+        .field(WORKFLOW_STATUS).equal(WorkflowStatus.RUNNING);
     return query.get();
   }
 
@@ -182,11 +180,11 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
       WorkflowStatus workflowStatus, String nextPage) {
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
-    query.field("datasetName").equal(datasetName)
+    query.field(DATASET_NAME).equal(datasetName)
         .field("workflowOwner").equal(workflowOwner)
         .field("workflowName").equal(workflowName);
     if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
-      query.field("workflowStatus").equal(workflowStatus);
+      query.field(WORKFLOW_STATUS).equal(workflowStatus);
     }
     query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
@@ -200,7 +198,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
     if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
-      query.field("workflowStatus").equal(workflowStatus);
+      query.field(WORKFLOW_STATUS).equal(workflowStatus);
     }
     query.order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
@@ -219,7 +217,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
 
   public boolean isCancelled(ObjectId id) {
     return morphiaDatastoreProvider.getDatastore().find(UserWorkflowExecution.class).field("_id").equal(id)
-        .project("workflowStatus", true).get().getWorkflowStatus() == WorkflowStatus.CANCELLED;
+        .project(WORKFLOW_STATUS, true).get().getWorkflowStatus() == WorkflowStatus.CANCELLED;
   }
 
   public boolean isCancelling(ObjectId id) {
@@ -269,7 +267,7 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
   public boolean deleteAllByDatasetName(String datasetName) {
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(UserWorkflowExecution.class);
-    query.field("datasetName").equal(datasetName);
+    query.field(DATASET_NAME).equal(datasetName);
     WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.debug("UserWorkflowExecution with datasetName: {}, deleted from Mongo", datasetName);
     return delete.getN() >= 1;
@@ -280,8 +278,8 @@ public class UserWorkflowExecutionDao implements MetisDao<UserWorkflowExecution,
         .getDatastore()
         .createUpdateOperations(UserWorkflowExecution.class);
     Query<UserWorkflowExecution> query = morphiaDatastoreProvider.getDatastore().find(UserWorkflowExecution.class)
-        .filter("datasetName", datasetName);
-    userWorkflowExecutionUpdateOperations.set("datasetName", newDatasetName);
+        .filter(DATASET_NAME, datasetName);
+    userWorkflowExecutionUpdateOperations.set(DATASET_NAME, newDatasetName);
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, userWorkflowExecutionUpdateOperations);
     LOGGER.debug(

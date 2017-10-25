@@ -39,6 +39,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
 
 @Entity
@@ -47,7 +48,7 @@ public class Organization implements HasMongoObjectId {
     @JsonSerialize(using = ObjectIdSerializer.class)
     private ObjectId id;
 
-    @Indexed(unique = true)
+    @Indexed(options = @IndexOptions(unique = true))
     private String organizationId;
 
     /**

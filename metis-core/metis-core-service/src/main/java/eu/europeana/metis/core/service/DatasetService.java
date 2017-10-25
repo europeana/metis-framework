@@ -28,6 +28,7 @@ import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.organization.Organization;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -81,6 +82,8 @@ public class DatasetService {
     checkRestrictionsOnCreate(dataset, organizationId);
     dataset.setOrganizationId(organizationId);
     dataset.setCreatedDate(new Date());
+    //Add fake ecloudDatasetId to avoid null errors in the database
+    dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
     createDataset(dataset, organizationId);
   }
 

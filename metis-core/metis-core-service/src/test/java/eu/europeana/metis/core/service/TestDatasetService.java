@@ -40,8 +40,6 @@ import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.service.DatasetService;
-import eu.europeana.metis.core.service.OrganizationService;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -89,10 +87,8 @@ public class TestDatasetService {
 
     d.setOrganizationId("orgId");
     d.setAccepted(true);
-    d.setAssignedToLdapId("Lemmy");
     d.setCountry(Country.ALBANIA);
     d.setCreatedDate(new Date(1000));
-    d.setCreatedByLdapId("Lemmy");
     d.setDataProvider("prov");
     d.setDeaSigned(true);
     d.setDescription("Test description");

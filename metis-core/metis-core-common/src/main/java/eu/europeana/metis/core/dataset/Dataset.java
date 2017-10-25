@@ -29,6 +29,7 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
 
 @Entity
@@ -38,10 +39,10 @@ public class Dataset implements HasMongoObjectId {
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
 
-  @Indexed(unique = true)
+  @Indexed(options = @IndexOptions(unique = true))
   private String ecloudDatasetId;
 
-  @Indexed(unique = true)
+  @Indexed(options = @IndexOptions(unique = true))
   private String datasetName;
 
   @Indexed
@@ -72,12 +73,6 @@ public class Dataset implements HasMongoObjectId {
   private String description;
 
   private String notes;
-
-  @Indexed
-  private String createdByLdapId;
-
-  @Indexed
-  private String assignedToLdapId;
 
   private Date firstPublished;
 
@@ -212,22 +207,6 @@ public class Dataset implements HasMongoObjectId {
 
   public void setNotes(String notes) {
     this.notes = notes;
-  }
-
-  public String getCreatedByLdapId() {
-    return createdByLdapId;
-  }
-
-  public void setCreatedByLdapId(String createdByLdapId) {
-    this.createdByLdapId = createdByLdapId;
-  }
-
-  public String getAssignedToLdapId() {
-    return assignedToLdapId;
-  }
-
-  public void setAssignedToLdapId(String assignedToLdapId) {
-    this.assignedToLdapId = assignedToLdapId;
   }
 
   public Date getFirstPublished() {
