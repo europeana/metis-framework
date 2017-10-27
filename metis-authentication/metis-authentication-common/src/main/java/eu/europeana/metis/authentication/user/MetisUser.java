@@ -1,0 +1,230 @@
+package eu.europeana.metis.authentication.user;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import java.sql.Timestamp;
+import java.util.Iterator;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+/**
+ * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
+ * @since 2017-10-27
+ */
+@Entity
+@Table(name = "metis_users")
+public class MetisUser {
+  @Column(name = "user_id")
+  private String userId;
+  @Id
+  @Column(name = "email")
+  private String email;
+  @Column(name = "first_name")
+  private String firstName;
+  @Column(name = "last_name")
+  private String lastName;
+  @Column(name = "salt")
+  private byte[] salt;
+  @Column(name = "password")
+  private String password;
+  @Column(name = "organization_id")
+  private String organizationId; // TODO: 27-10-17 also get these
+  @Column(name = "organization_name")
+  private String organizationName;
+  @Column(name = "account_role")
+  private String accountRole;
+  @Column(name = "country")
+  private String country;
+  @Column(name = "skype_id")
+  private String skypeId;
+  @Column(name = "network_member")
+  private boolean networkMember;
+  @Column(name = "notes")
+  private String notes;
+  @Column(name = "active")
+  private boolean active;
+  @Column(name = "created_date")
+  private Timestamp createdDate;
+  @Column(name = "updated_date")
+  private Timestamp updatedDate;
+
+  public MetisUser() {
+  }
+
+  public MetisUser(JsonNode jsonNode)
+  {
+    Iterator<JsonNode> elements = jsonNode.elements();
+    while (elements.hasNext())
+    {
+      JsonNode next = elements.next();
+      switch (next.get("val").textValue())
+      {
+        case "CONTACTID":
+          userId = next.get("content").textValue();
+          break;
+        case "First Name":
+          firstName = next.get("content").textValue();
+          break;
+        case "Last Name":
+          lastName = next.get("content").textValue();
+          break;
+        case "Email":
+          email = next.get("content").textValue();
+          break;
+        case "Created Time":
+          createdDate= Timestamp.valueOf(next.get("content").textValue());
+          break;
+        case "Modified Time":
+          updatedDate = Timestamp.valueOf(next.get("content").textValue());
+          break;
+        case "Notes":
+          notes = next.get("content").textValue();
+          break;
+        case "Skype Id":
+          skypeId = next.get("content").textValue();
+          break;
+        case "Country":
+          country = next.get("content").textValue();
+          break;
+        case "Network Member":
+          networkMember = next.get("content").booleanValue();
+          break;
+        case "Active":
+          active = next.get("content").booleanValue();
+          break;
+        case "Account Role":
+          accountRole = next.get("content").textValue();
+          break;
+      }
+    }
+  }
+
+  public String getUserId() {
+    return userId;
+  }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public byte[] getSalt() {
+    return salt;
+  }
+
+  public void setSalt(byte[] salt) {
+    this.salt = salt;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public String getOrganizationId() {
+    return organizationId;
+  }
+
+  public void setOrganizationId(String organizationId) {
+    this.organizationId = organizationId;
+  }
+
+  public String getOrganizationName() {
+    return organizationName;
+  }
+
+  public void setOrganizationName(String organizationName) {
+    this.organizationName = organizationName;
+  }
+
+  public String getAccountRole() {
+    return accountRole;
+  }
+
+  public void setAccountRole(String accountRole) {
+    this.accountRole = accountRole;
+  }
+
+  public String getCountry() {
+    return country;
+  }
+
+  public void setCountry(String country) {
+    this.country = country;
+  }
+
+  public String getSkypeId() {
+    return skypeId;
+  }
+
+  public void setSkypeId(String skypeId) {
+    this.skypeId = skypeId;
+  }
+
+  public boolean isNetworkMember() {
+    return networkMember;
+  }
+
+  public void setNetworkMember(boolean networkMember) {
+    this.networkMember = networkMember;
+  }
+
+  public String getNotes() {
+    return notes;
+  }
+
+  public void setNotes(String notes) {
+    this.notes = notes;
+  }
+
+  public boolean isActive() {
+    return active;
+  }
+
+  public void setActive(boolean active) {
+    this.active = active;
+  }
+
+  public Timestamp getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Timestamp createdDate) {
+    this.createdDate = createdDate;
+  }
+
+  public Timestamp getUpdatedDate() {
+    return updatedDate;
+  }
+
+  public void setUpdatedDate(Timestamp updatedDate) {
+    this.updatedDate = updatedDate;
+  }
+}

@@ -87,9 +87,6 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-/**
- * Spring configuration class Created by ymamakis on 12-2-16.
- */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})

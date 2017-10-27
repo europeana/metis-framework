@@ -187,6 +187,7 @@
     <module>metis-preview</module>
     <module>metis-linkchecking</module>
     <module>metis-normalization</module>
+    <module>metis-authentication</module>
   </modules>
   <repositories>
 
@@ -313,6 +314,7 @@
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
     <version.mongo.java.driver>3.5.0</version.mongo.java.driver>
     <version.mongojack>2.3.0</version.mongojack>
+    <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.4</version.commons.io>
     <version.commons.lang>3.3.2</version.commons.lang>
     <version.httpclient>4.5.2</version.httpclient>
