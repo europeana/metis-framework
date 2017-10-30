@@ -13,8 +13,8 @@ import javax.persistence.TemporalType;
  * @since 2017-10-30
  */
 @Entity
-@Table(name = "metis_user_tokens")
-public class MetisUserToken {
+@Table(name = "metis_user_access_tokens")
+public class MetisUserAccessToken {
   @Id
   @Column(name = "email")
   private String email;
@@ -24,10 +24,10 @@ public class MetisUserToken {
   @Temporal(TemporalType.TIMESTAMP)
   private Date timestamp;
 
-  public MetisUserToken() {
+  public MetisUserAccessToken() {
   }
 
-  public MetisUserToken(String email, String accessToken, Date timestamp) {
+  public MetisUserAccessToken(String email, String accessToken, Date timestamp) {
     this.email = email;
     this.accessToken = accessToken;
     this.timestamp = timestamp;

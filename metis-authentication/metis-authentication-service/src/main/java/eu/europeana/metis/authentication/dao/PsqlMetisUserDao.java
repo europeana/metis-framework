@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.dao;
 
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserToken;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -49,8 +49,8 @@ public class PsqlMetisUserDao {
     return metisUser;
   }
 
-  public void createUserAccessToken(MetisUserToken metisUserToken) {
-    createObjectInDB(metisUserToken);
+  public void createUserAccessToken(MetisUserAccessToken metisUserAccessToken) {
+    createObjectInDB(metisUserAccessToken);
   }
 
   private void createObjectInDB(Object o) {
@@ -77,28 +77,28 @@ public class PsqlMetisUserDao {
 
     int offset = 0;
     int pageSize = 100;
-    List<MetisUserToken> metisUserTokens;
+    List<MetisUserAccessToken> metisUserAccessTokens;
     do {
-      Criteria criteria = session.createCriteria(MetisUserToken.class).setFirstResult(offset)
+      Criteria criteria = session.createCriteria(MetisUserAccessToken.class).setFirstResult(offset)
           .setMaxResults(pageSize);
-      metisUserTokens = criteria.list();
-      if (!metisUserTokens.isEmpty()) {
-        for (Object object : metisUserTokens) {
-          MetisUserToken metisUserToken = (MetisUserToken) object;
-          long accessTokenInMillis = metisUserToken.getTimestamp().getTime();
+      metisUserAccessTokens = criteria.list();
+      if (!metisUserAccessTokens.isEmpty()) {
+        for (Object object : metisUserAccessTokens) {
+          MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
+          long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
           Date afterAddingTenMins = new Date(accessTokenInMillis + (10 * oneMinuteInMillis));
           if (afterAddingTenMins.compareTo(now) <= 0) {
             //Remove access token
-            String hql = String.format("DELETE FROM MetisUserToken WHERE access_token='%s'",
-                metisUserToken.getAccessToken());
+            String hql = String.format("DELETE FROM MetisUserAccessToken WHERE access_token='%s'",
+                metisUserAccessToken.getAccessToken());
             Query deleteQuery = session.createQuery(hql);
             int i = deleteQuery.executeUpdate();
-            LOGGER.info("Removed {} Access Token: {}", i, metisUserToken.getAccessToken());
+            LOGGER.info("Removed {} Access Token: {}", i, metisUserAccessToken.getAccessToken());
           }
         }
       }
       offset += pageSize;
-    } while (!metisUserTokens.isEmpty());
+    } while (!metisUserAccessTokens.isEmpty());
     tx.commit();
     session.flush();
     session.close();

@@ -8,7 +8,7 @@ import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.authentication.user.MetisUserToken;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -132,12 +132,12 @@ public class AuthenticationService {
       throw new BadContentException("Wrong credentials");
     }
 
-    if (storedMetisUser.getMetisUserToken() != null) {
+    if (storedMetisUser.getMetisUserAccessToken() != null) {
       return storedMetisUser;
     }
-    MetisUserToken metisUserToken = new MetisUserToken(email, generateAccessToken(), new Date());
-    psqlMetisUserDao.createUserAccessToken(metisUserToken);
-    storedMetisUser.setMetisUserToken(metisUserToken);
+    MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email, generateAccessToken(), new Date());
+    psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
+    storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
     return storedMetisUser;
   }
 

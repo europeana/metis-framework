@@ -63,7 +63,7 @@ public class MetisUser {
 
   @OneToOne
   @JoinColumn(name = "email")
-  private MetisUserToken metisUserToken;
+  private MetisUserAccessToken metisUserAccessToken;
 
   public MetisUser() {
   }
@@ -257,11 +257,11 @@ public class MetisUser {
     this.updatedDate = updatedDate;
   }
 
-  public MetisUserToken getMetisUserToken() {
-    return metisUserToken;
+  public MetisUserAccessToken getMetisUserAccessToken() {
+    return metisUserAccessToken;
   }
 
-  public void setMetisUserToken(MetisUserToken metisUserToken) {
-    this.metisUserToken = metisUserToken;
+  public void setMetisUserAccessToken(MetisUserAccessToken metisUserAccessToken) {
+    this.metisUserAccessToken = metisUserAccessToken;
   }
 }
