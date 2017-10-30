@@ -1,6 +1,8 @@
 package eu.europeana.metis.authentication.dao;
 
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserToken;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -27,16 +29,38 @@ public class PsqlMetisUserDao {
   }
 
   public void createMetisUser(MetisUser metisUser) {
+    createObjectInDB(metisUser);
+  }
+
+  public MetisUser getMetisUserByEmail(String email) {
+    Session session = sessionFactory.openSession();
+
+    String hql = String.format("FROM MetisUser WHERE email = '%s'", email);
+    Query query = session.createQuery(hql);
+    MetisUser metisUser = null;
+    if (query.list().size() > 0) {
+      metisUser = (MetisUser) query.list().get(0);
+    }
+    session.flush();
+    session.close();
+    return metisUser;
+  }
+
+  public void createUserAccessToken(MetisUserToken metisUserToken) {
+    createObjectInDB(metisUserToken);
+  }
+
+  private void createObjectInDB(Object o) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
 
     try {
-      session.persist(metisUser);
+      session.persist(o);
       tx.commit();
     } catch (Exception e) {
       tx.rollback();
-      LOGGER.error("Could not save user, rolling back..");
-      throw new TransactionException("Could not persist user in Database", e);
+      LOGGER.error("Could not persist object, rolling back..");
+      throw new TransactionException("Could not persist object in database", e);
     } finally {
       session.flush();
       session.close();

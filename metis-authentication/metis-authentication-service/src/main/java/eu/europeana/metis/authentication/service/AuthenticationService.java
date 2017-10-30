@@ -7,10 +7,13 @@ import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserToken;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,6 +52,7 @@ public class AuthenticationService {
 
   private MetisUser constructMetisUserFromZoho(String email)
       throws BadContentException, NoOrganizationFoundException, NoUserFoundException {
+    //Get user from zoho
     JsonNode userByEmailJsonNode;
     try {
       userByEmailJsonNode = zohoAccessClientDao.getUserByEmail(email);
@@ -59,10 +63,19 @@ public class AuthenticationService {
     if (userByEmailJsonNode == null) {
       throw new NoUserFoundException("User was not found in Zoho");
     }
-    MetisUser metisUser = new MetisUser(userByEmailJsonNode);
+
+    //Construct User
+    MetisUser metisUser;
+    try {
+      metisUser = new MetisUser(userByEmailJsonNode);
+    } catch (ParseException e) {
+      throw new BadContentException("Bad content while constructing metisUser");
+    }
     if (StringUtils.isEmpty(metisUser.getOrganizationName())) {
       throw new NoOrganizationFoundException("User is not related to an organization");
     }
+
+    //Get Organization Id related to user
     JsonNode organizationJsonNode;
     try {
       organizationJsonNode = zohoAccessClientDao
@@ -105,5 +118,31 @@ public class AuthenticationService {
       throws BadContentException {
     String hashedPasswordToTry = generatePasswordHashing(metisUser.getSalt(), passwordToTry);
     return hashedPasswordToTry.equals(metisUser.getPassword());
+  }
+
+  public MetisUser loginUser(String email, String password) throws BadContentException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
+      throw new BadContentException("Wrong credentials");
+    }
+
+    if (storedMetisUser.getMetisUserToken() == null) {
+      return storedMetisUser;
+    }
+    MetisUserToken metisUserToken = new MetisUserToken(email, generateAccessToken(), new Date());
+    psqlMetisUserDao.createUserAccessToken(metisUserToken);
+    storedMetisUser.setMetisUserToken(metisUserToken);
+    return storedMetisUser;
+  }
+
+  private String generateAccessToken() {
+    final String characterBasket = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    final SecureRandom rnd = new SecureRandom();
+    final int accessTokenLength = 32;
+    StringBuilder sb = new StringBuilder(accessTokenLength);
+    for (int i = 0; i < accessTokenLength; i++) {
+      sb.append(characterBasket.charAt(rnd.nextInt(characterBasket.length())));
+    }
+    return sb.toString();
   }
 }

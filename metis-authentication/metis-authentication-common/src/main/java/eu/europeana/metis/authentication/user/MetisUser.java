@@ -1,12 +1,19 @@
 package eu.europeana.metis.authentication.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
-import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Iterator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -26,11 +33,13 @@ public class MetisUser {
   @Column(name = "last_name")
   private String lastName;
   @Column(name = "salt")
+  @JsonIgnore
   private byte[] salt;
   @Column(name = "password")
+  @JsonIgnore
   private String password;
   @Column(name = "organization_id")
-  private String organizationId; // TODO: 27-10-17 also get these
+  private String organizationId;
   @Column(name = "organization_name")
   private String organizationName;
   @Column(name = "account_role")
@@ -46,14 +55,21 @@ public class MetisUser {
   @Column(name = "active")
   private boolean active;
   @Column(name = "created_date")
-  private Timestamp createdDate;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date createdDate;
   @Column(name = "updated_date")
-  private Timestamp updatedDate;
+  @Temporal(TemporalType.TIMESTAMP)
+  private Date updatedDate;
+
+  @OneToOne
+  @JoinColumn(name = "email")
+  private MetisUserToken metisUserToken;
 
   public MetisUser() {
   }
 
-  public MetisUser(JsonNode jsonNode) {
+  public MetisUser(JsonNode jsonNode) throws ParseException {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
       JsonNode next = elements.next();
@@ -71,10 +87,10 @@ public class MetisUser {
           email = next.get("content").textValue();
           break;
         case "Created Time":
-          createdDate = Timestamp.valueOf(next.get("content").textValue());
+          createdDate = dateFormat.parse(next.get("content").textValue());
           break;
         case "Modified Time":
-          updatedDate = Timestamp.valueOf(next.get("content").textValue());
+          updatedDate = dateFormat.parse(next.get("content").textValue());
           break;
         case "Notes":
           notes = next.get("content").textValue();
@@ -225,19 +241,27 @@ public class MetisUser {
     this.active = active;
   }
 
-  public Timestamp getCreatedDate() {
+  public Date getCreatedDate() {
     return createdDate;
   }
 
-  public void setCreatedDate(Timestamp createdDate) {
+  public void setCreatedDate(Date createdDate) {
     this.createdDate = createdDate;
   }
 
-  public Timestamp getUpdatedDate() {
+  public Date getUpdatedDate() {
     return updatedDate;
   }
 
-  public void setUpdatedDate(Timestamp updatedDate) {
+  public void setUpdatedDate(Date updatedDate) {
     this.updatedDate = updatedDate;
+  }
+
+  public MetisUserToken getMetisUserToken() {
+    return metisUserToken;
+  }
+
+  public void setMetisUserToken(MetisUserToken metisUserToken) {
+    this.metisUserToken = metisUserToken;
   }
 }

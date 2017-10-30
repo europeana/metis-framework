@@ -4,6 +4,7 @@ import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserToken;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.hibernate.SessionFactory;
@@ -53,6 +54,7 @@ public class Application extends WebMvcConfigurerAdapter {
   public SessionFactory getSessionFactory() {
     org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisUser.class);
+    configuration.addAnnotatedClass(MetisUserToken.class);
     configuration.configure();
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
         configuration.getProperties()).build();
