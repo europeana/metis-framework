@@ -1,4 +1,4 @@
-package eu.europeana.metis.authentication.exception;
+package eu.europeana.metis.authentication.rest.exception;
 
 import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;

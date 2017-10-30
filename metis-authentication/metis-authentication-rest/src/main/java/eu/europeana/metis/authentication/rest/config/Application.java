@@ -4,15 +4,19 @@ import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
+import java.util.List;
 import javax.annotation.PreDestroy;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -20,7 +24,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-27
  */
-@org.springframework.context.annotation.Configuration
+@Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest"})
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
@@ -47,7 +51,7 @@ public class Application extends WebMvcConfigurerAdapter {
 
   @Bean
   public SessionFactory getSessionFactory() {
-    Configuration configuration = new Configuration();
+    org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration();
     configuration.addAnnotatedClass(MetisUser.class);
     configuration.configure();
     ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(
@@ -68,18 +72,12 @@ public class Application extends WebMvcConfigurerAdapter {
     }
   }
 
-//  @Bean
-//  public String someTest()
-//  {
-//
-//
-//  }
-//  @Override
-//  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//    converters.add(new MappingJackson2HttpMessageConverter());
-//    converters.add(new MappingJackson2XmlHttpMessageConverter());
-//    super.configureMessageConverters(converters);
-//  }
+  @Override
+  public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+    converters.add(new MappingJackson2HttpMessageConverter());
+    converters.add(new MappingJackson2XmlHttpMessageConverter());
+    super.configureMessageConverters(converters);
+  }
 
 //  @Bean
 //  public View json() {
