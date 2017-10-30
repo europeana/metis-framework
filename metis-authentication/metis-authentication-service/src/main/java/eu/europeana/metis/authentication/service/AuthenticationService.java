@@ -6,6 +6,7 @@ import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
+import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserToken;
 import java.io.IOException;
@@ -38,7 +39,12 @@ public class AuthenticationService {
   }
 
   public void registerUser(String email, String password)
-      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+      throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserAlreadyExistsException {
+
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser != null) {
+      throw new UserAlreadyExistsException(String.format("User with email: %s already exists", email));
+    }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
     byte[] salt = getSalt();
@@ -126,7 +132,7 @@ public class AuthenticationService {
       throw new BadContentException("Wrong credentials");
     }
 
-    if (storedMetisUser.getMetisUserToken() == null) {
+    if (storedMetisUser.getMetisUserToken() != null) {
       return storedMetisUser;
     }
     MetisUserToken metisUserToken = new MetisUserToken(email, generateAccessToken(), new Date());
@@ -144,5 +150,10 @@ public class AuthenticationService {
       sb.append(characterBasket.charAt(rnd.nextInt(characterBasket.length())));
     }
     return sb.toString();
+  }
+
+  public void expireAccessTokens() {
+    Date now = new Date();
+    psqlMetisUserDao.expireAccessTokens(now);
   }
 }

@@ -4,6 +4,7 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
+import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class AuthenticationController {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void registerUser(@RequestParam Map<String, String> body)
-      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+      throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserAlreadyExistsException {
     if (body == null) {
       throw new BadContentException("Body was empty");
     }

@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.rest.exception;
 import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
+import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -29,7 +30,7 @@ public class RestResponseExceptionHandler {
 
   @ExceptionHandler(value = {BadContentException.class, NoUserFoundException.class,
       IOException.class, ExecutionException.class, NoOrganizationFoundException.class,
-      InterruptedException.class})
+      InterruptedException.class, UserAlreadyExistsException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
       HttpServletResponse response) {

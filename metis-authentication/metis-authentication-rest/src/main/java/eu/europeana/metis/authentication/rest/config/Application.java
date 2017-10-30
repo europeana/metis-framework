@@ -18,6 +18,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -29,6 +31,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = {"eu.europeana.metis.authentication.rest"})
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
+@EnableScheduling
 //@EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter {
 
@@ -38,11 +41,13 @@ public class Application extends WebMvcConfigurerAdapter {
   private String zohoAuthenticationToken;
 
   private SessionFactory sessionFactory;
+  private AuthenticationService authenticationService;
 
   @Bean
   public AuthenticationService getAuthenticationService(ZohoAccessClientDao zohoAccessClientDao,
       PsqlMetisUserDao psqlMetisUserDao) {
-    return new AuthenticationService(zohoAccessClientDao, psqlMetisUserDao);
+    authenticationService = new AuthenticationService(zohoAccessClientDao, psqlMetisUserDao);
+    return authenticationService;
   }
 
   @Bean
@@ -65,6 +70,11 @@ public class Application extends WebMvcConfigurerAdapter {
   @Bean
   public PsqlMetisUserDao getPsqlMetisUserDao(SessionFactory sessionFactory) {
     return new PsqlMetisUserDao(sessionFactory);
+  }
+
+  @Scheduled(fixedDelay = 60 * 1000, initialDelay = 60 * 1000) //1min
+  public void expireAccessTokens() {
+    authenticationService.expireAccessTokens();
   }
 
   @PreDestroy
