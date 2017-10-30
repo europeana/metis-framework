@@ -1,11 +1,14 @@
 package eu.europeana.metis.authentication.exception;
 
 import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
+import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.hibernate.TransactionException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -24,7 +27,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
-  @ExceptionHandler(value = {BadContentException.class, IOException.class, ExecutionException.class,
+  @ExceptionHandler(value = {BadContentException.class, NoUserFoundException.class,
+      IOException.class, ExecutionException.class, NoOrganizationFoundException.class,
       InterruptedException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
@@ -69,4 +73,14 @@ public class RestResponseExceptionHandler {
     return new StructuredExceptionWrapper(
         "Request not readable.\n" + ex.getMessage());
   }
+
+  @ExceptionHandler(value = {TransactionException.class})
+  @ResponseBody
+  public StructuredExceptionWrapper handleMessageTransactionException(Exception ex,
+      HttpServletResponse response) {
+    response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+    return new StructuredExceptionWrapper(ex.getMessage());
+  }
+
+
 }

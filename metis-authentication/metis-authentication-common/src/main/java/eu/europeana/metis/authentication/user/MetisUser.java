@@ -15,6 +15,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "metis_users")
 public class MetisUser {
+
   @Column(name = "user_id")
   private String userId;
   @Id
@@ -52,14 +53,11 @@ public class MetisUser {
   public MetisUser() {
   }
 
-  public MetisUser(JsonNode jsonNode)
-  {
+  public MetisUser(JsonNode jsonNode) {
     Iterator<JsonNode> elements = jsonNode.elements();
-    while (elements.hasNext())
-    {
+    while (elements.hasNext()) {
       JsonNode next = elements.next();
-      switch (next.get("val").textValue())
-      {
+      switch (next.get("val").textValue()) {
         case "CONTACTID":
           userId = next.get("content").textValue();
           break;
@@ -73,7 +71,7 @@ public class MetisUser {
           email = next.get("content").textValue();
           break;
         case "Created Time":
-          createdDate= Timestamp.valueOf(next.get("content").textValue());
+          createdDate = Timestamp.valueOf(next.get("content").textValue());
           break;
         case "Modified Time":
           updatedDate = Timestamp.valueOf(next.get("content").textValue());
@@ -95,6 +93,21 @@ public class MetisUser {
           break;
         case "Account Role":
           accountRole = next.get("content").textValue();
+          break;
+        case "Account Name": //This is actually the organization Name in Zoho
+          organizationName = next.get("content").textValue();
+          break;
+      }
+    }
+  }
+
+  public void setOrganizationIdFromJsonNode(JsonNode jsonNode) {
+    Iterator<JsonNode> elements = jsonNode.elements();
+    while (elements.hasNext()) {
+      JsonNode next = elements.next();
+      switch (next.get("val").textValue()) {
+        case "ACCOUNTID":
+          organizationId = next.get("content").textValue();
           break;
       }
     }
