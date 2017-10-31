@@ -11,10 +11,12 @@ import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.ParseException;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,6 +142,31 @@ public class AuthenticationService {
       throws BadContentException {
     String hashedPasswordToTry = generatePasswordHashing(metisUser.getSalt(), passwordToTry);
     return hashedPasswordToTry.equals(metisUser.getPassword());
+  }
+
+  public String[] validateAuthorizationHeader(String authorization) throws BadContentException {
+    if (StringUtils.isEmpty(authorization)) {
+      throw new BadContentException("Authorization header was empty");
+    }
+    String[] credentials = decodeHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
+    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
+      throw new BadContentException("Username or password not provided");
+    }
+    return credentials;
+  }
+
+  private String[] decodeHeader(String authorization) {
+    if (authorization != null && authorization.startsWith("Basic")) {
+      // Authorization: Basic base64credentials
+      String base64Credentials = authorization.substring("Basic" .length()).trim();
+      String credentials = new String(Base64.getDecoder().decode(base64Credentials),
+          Charset.forName("UTF-8"));
+      // credentials = username:password
+      return credentials.split(":", 2);
+    }
+    return null;
   }
 
   public MetisUser loginUser(String email, String password) throws BadContentException {

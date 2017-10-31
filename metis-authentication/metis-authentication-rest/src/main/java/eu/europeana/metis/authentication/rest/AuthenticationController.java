@@ -7,7 +7,7 @@ import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
-import java.util.Map;
+import javax.ws.rs.QueryParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -37,71 +37,58 @@ public class AuthenticationController {
     this.authenticationService = authenticationService;
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_REGISTER, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_REGISTER, method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
-  public void registerUser(@RequestParam Map<String, String> body)
+  public void registerUser(@RequestHeader("Authorization") String authorization)
       throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserAlreadyExistsException {
-    if (body == null) {
-      throw new BadContentException("Body was empty");
-    }
-    String email = body.get("email");
-    String password = body.get("password");
-    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
-      throw new BadContentException("Username or password not provided");
-    }
+
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
     authenticationService.registerUser(email, password);
     LOGGER.info("User with email {} has been registered", email);
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
-  public MetisUser loginUser(@RequestParam Map<String, String> body) throws BadContentException {
-    if (body == null) {
-      throw new BadContentException("Body was empty");
-    }
-    String email = body.get("email");
-    String password = body.get("password");
-    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
-      throw new BadContentException("Username or password not provided");
-    }
+  public MetisUser loginUser(@RequestHeader("Authorization") String authorization)
+      throws BadContentException {
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
     MetisUser metisUser = authenticationService.loginUser(email, password);
     LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(),
         metisUser.getUserId());
     return metisUser;
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSWORD, method = RequestMethod.POST, consumes = {
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSWORD, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateUserPassword(@RequestParam Map<String, String> body) throws BadContentException {
-    if (body == null) {
-      throw new BadContentException("Body was empty");
-    }
-    String email = body.get("email");
-    String password = body.get("password");
-    String newPassword = body.get("newPassword");
-    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password) || StringUtils.isEmpty(newPassword)) {
-      throw new BadContentException("Username, password or newPassword not provided");
+  public void updateUserPassword(@RequestHeader("Authorization") String authorization,
+      @QueryParam("newPassword") String newPassword) throws BadContentException {
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
+    if (StringUtils.isEmpty(newPassword)) {
+      throw new BadContentException("newPassword not provided");
     }
     authenticationService.updateUserPassword(email, password, newPassword);
     LOGGER.info("User with email: {} updated password", email);
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.POST, consumes = {
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE, consumes = {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUser(@RequestParam Map<String, String> body) throws BadContentException {
-    if (body == null) {
-      throw new BadContentException("Body was empty");
-    }
-    String userEmailToDelete = body.get("userEmailToDelete");
-    String email = body.get("email");
-    String password = body.get("password");
+  public void deleteUser(@RequestHeader("Authorization") String authorization,
+      @QueryParam("userEmailToDelete") String userEmailToDelete) throws BadContentException {
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
+
     if (!authenticationService.isUserAdmin(email, password)) {
       throw new BadContentException("Action allowed only from admin users");
     }
@@ -109,18 +96,16 @@ public class AuthenticationController {
     LOGGER.info("User with email: {} deleted", email);
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.POST, consumes = {
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateUser(@RequestParam Map<String, String> body)
+  public void updateUser(@RequestHeader("Authorization") String authorization,
+      @QueryParam("userEmailToUpdate") String userEmailToUpdate)
       throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
-    if (body == null) {
-      throw new BadContentException("Body was empty");
-    }
-    String userEmailToUpdate = body.get("userEmailToUpdate");
-    String email = body.get("email");
-    String password = body.get("password");
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
     if (!authenticationService.hasPermissionToRequestUserUpdate(email, password)) {
       throw new BadContentException("Action not allowed for user");
     }
