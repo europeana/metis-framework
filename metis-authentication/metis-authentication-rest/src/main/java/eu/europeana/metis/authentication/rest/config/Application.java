@@ -39,6 +39,8 @@ public class Application extends WebMvcConfigurerAdapter {
   private String zohoBaseUrl;
   @Value("${zoho.authentication.token}")
   private String zohoAuthenticationToken;
+  @Value("${access.token.expire.time.in.mins}")
+  private int accessTokenExpireTimeInMins;
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
@@ -69,7 +71,9 @@ public class Application extends WebMvcConfigurerAdapter {
 
   @Bean
   public PsqlMetisUserDao getPsqlMetisUserDao(SessionFactory sessionFactory) {
-    return new PsqlMetisUserDao(sessionFactory);
+    PsqlMetisUserDao psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
+    psqlMetisUserDao.setAccessTokenExpireTimeInMins(accessTokenExpireTimeInMins);
+    return psqlMetisUserDao;
   }
 
   @Scheduled(fixedDelay = 60 * 1000, initialDelay = 60 * 1000) //1min

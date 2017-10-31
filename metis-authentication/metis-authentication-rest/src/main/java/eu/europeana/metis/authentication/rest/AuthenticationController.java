@@ -68,7 +68,7 @@ public class AuthenticationController {
       throw new BadContentException("Username or password not provided");
     }
     MetisUser metisUser = authenticationService.loginUser(email, password);
-    LOGGER.info("User with email: {} and user id: {} retrieved", metisUser.getEmail(), metisUser.getUserId());
+    LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(), metisUser.getUserId());
     return metisUser;
   }
 }

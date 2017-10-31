@@ -24,6 +24,7 @@ public class PsqlMetisUserDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PsqlMetisUserDao.class);
 
+  private int accessTokenExpireTimeInMins = 10;
   private SessionFactory sessionFactory;
 
   @Autowired
@@ -86,7 +87,7 @@ public class PsqlMetisUserDao {
         for (Object object : metisUserAccessTokens) {
           MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
           long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
-          Date afterAddingTenMins = new Date(accessTokenInMillis + (10 * oneMinuteInMillis));
+          Date afterAddingTenMins = new Date(accessTokenInMillis + (accessTokenExpireTimeInMins * oneMinuteInMillis));
           if (afterAddingTenMins.compareTo(now) <= 0) {
             //Remove access token
             String hql = String.format("DELETE FROM MetisUserAccessToken WHERE access_token='%s'",
@@ -102,5 +103,9 @@ public class PsqlMetisUserDao {
     tx.commit();
     session.flush();
     session.close();
+  }
+
+  public void setAccessTokenExpireTimeInMins(int accessTokenExpireTimeInMins) {
+    this.accessTokenExpireTimeInMins = accessTokenExpireTimeInMins;
   }
 }
