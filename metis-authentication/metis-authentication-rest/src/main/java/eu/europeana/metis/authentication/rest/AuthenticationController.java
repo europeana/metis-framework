@@ -73,6 +73,24 @@ public class AuthenticationController {
     return metisUser;
   }
 
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSWORD, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void updateUserPassword(@RequestParam Map<String, String> body) throws BadContentException {
+    if (body == null) {
+      throw new BadContentException("Body was empty");
+    }
+    String email = body.get("email");
+    String password = body.get("password");
+    String newPassword = body.get("newPassword");
+    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password) || StringUtils.isEmpty(newPassword)) {
+      throw new BadContentException("Username, password or newPassword not provided");
+    }
+    authenticationService.updateUserPassword(email, password, newPassword);
+    LOGGER.info("User with email: {} updated password", email);
+  }
+
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})

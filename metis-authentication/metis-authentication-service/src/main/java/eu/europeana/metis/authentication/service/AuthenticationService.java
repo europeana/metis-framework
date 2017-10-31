@@ -159,6 +159,29 @@ public class AuthenticationService {
     return storedMetisUser;
   }
 
+  public void updateUserPassword(String email, String password, String newPassword) throws BadContentException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
+      throw new BadContentException("Wrong credentials");
+    }
+
+    byte[] salt = getSalt();
+    String hashedPassword = generatePasswordHashing(salt, newPassword);
+    storedMetisUser.setSalt(salt);
+    storedMetisUser.setPassword(hashedPassword);
+
+    if (storedMetisUser.getMetisUserAccessToken() != null) {
+      psqlMetisUserDao.updateAccessTokenTimestamp(email);
+    }
+    else {
+      MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
+          generateAccessToken(), new Date());
+      psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
+      storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
+    }
+    psqlMetisUserDao.updateMetisUser(storedMetisUser);
+  }
+
   public boolean isUserAdmin(String email, String password) throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
