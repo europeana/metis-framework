@@ -43,7 +43,8 @@ public class AuthenticationService {
 
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser != null) {
-      throw new UserAlreadyExistsException(String.format("User with email: %s already exists", email));
+      throw new UserAlreadyExistsException(
+          String.format("User with email: %s already exists", email));
     }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
@@ -135,10 +136,22 @@ public class AuthenticationService {
     if (storedMetisUser.getMetisUserAccessToken() != null) {
       return storedMetisUser;
     }
-    MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email, generateAccessToken(), new Date());
+    MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
+        generateAccessToken(), new Date());
     psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
     storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
     return storedMetisUser;
+  }
+
+  public boolean isUserAdmin(String email, String password) throws BadContentException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
+      throw new BadContentException("Wrong credentials");
+    }
+    if (!storedMetisUser.getAccountRole().equals("metis_admin")) {
+      return false;
+    }
+    return true;
   }
 
   private String generateAccessToken() {
@@ -155,5 +168,9 @@ public class AuthenticationService {
   public void expireAccessTokens() {
     Date now = new Date();
     psqlMetisUserDao.expireAccessTokens(now);
+  }
+
+  public void deleteUser(String email) {
+    psqlMetisUserDao.deleteMetisUser(email);
   }
 }

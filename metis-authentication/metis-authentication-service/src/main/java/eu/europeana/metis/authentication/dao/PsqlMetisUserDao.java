@@ -108,4 +108,23 @@ public class PsqlMetisUserDao {
   public void setAccessTokenExpireTimeInMins(int accessTokenExpireTimeInMins) {
     this.accessTokenExpireTimeInMins = accessTokenExpireTimeInMins;
   }
+
+  public void deleteMetisUser(String email) {
+    Session session = sessionFactory.openSession();
+    Transaction tx = session.beginTransaction();
+    //Remove tokens
+    String hql = String.format("DELETE FROM MetisUserAccessToken WHERE email='%s'", email);
+    Query deleteQuery = session.createQuery(hql);
+    int i = deleteQuery.executeUpdate();
+    LOGGER.info("Removed {} Access Token with email: {}", i, email);
+
+    hql = String.format("DELETE FROM MetisUser WHERE email='%s'", email);
+    deleteQuery = session.createQuery(hql);
+    i = deleteQuery.executeUpdate();
+    LOGGER.info("Removed {} User with email: {}", i, email);
+
+    tx.commit();
+    session.flush();
+    session.close();
+  }
 }

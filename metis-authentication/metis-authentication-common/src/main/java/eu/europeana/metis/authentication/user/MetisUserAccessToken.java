@@ -1,5 +1,6 @@
 package eu.europeana.metis.authentication.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +18,13 @@ import javax.persistence.TemporalType;
 public class MetisUserAccessToken {
   @Id
   @Column(name = "email")
+  @JsonIgnore
   private String email;
   @Column(name = "access_token")
   private String accessToken;
   @Column(name = "timestamp")
   @Temporal(TemporalType.TIMESTAMP)
+  @JsonIgnore
   private Date timestamp;
 
   public MetisUserAccessToken() {

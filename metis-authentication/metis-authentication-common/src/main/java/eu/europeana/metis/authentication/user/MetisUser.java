@@ -104,11 +104,9 @@ public class MetisUser {
         case "Network Member":
           networkMember = next.get("content").booleanValue();
           break;
-        case "Active":
-          active = next.get("content").booleanValue();
-          break;
         case "Account Role":
           accountRole = next.get("content").textValue();
+          // TODO: 31-10-17 Validate account role from enum
           break;
         case "Account Name": //This is actually the organization Name in Zoho
           organizationName = next.get("content").textValue();
@@ -126,6 +124,7 @@ public class MetisUser {
           organizationId = next.get("content").textValue();
           break;
       }
+      // TODO: 31-10-17 Validate organization role from enum
     }
   }
 

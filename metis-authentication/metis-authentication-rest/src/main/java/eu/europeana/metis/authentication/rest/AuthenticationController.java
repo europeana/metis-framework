@@ -68,7 +68,26 @@ public class AuthenticationController {
       throw new BadContentException("Username or password not provided");
     }
     MetisUser metisUser = authenticationService.loginUser(email, password);
-    LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(), metisUser.getUserId());
+    LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(),
+        metisUser.getUserId());
     return metisUser;
+  }
+
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
+      MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteUser(@RequestParam Map<String, String> body) throws BadContentException {
+    if (body == null) {
+      throw new BadContentException("Body was empty");
+    }
+    String userEmailToDelete = body.get("userEmailToDelete");
+    String email = body.get("email");
+    String password = body.get("password");
+    if (!authenticationService.isUserAdmin(email, password)) {
+      throw new BadContentException("Action allowed only from admin users");
+    }
+    authenticationService.deleteUser(userEmailToDelete);
+    LOGGER.info("User with email: {} deleted", email);
   }
 }
