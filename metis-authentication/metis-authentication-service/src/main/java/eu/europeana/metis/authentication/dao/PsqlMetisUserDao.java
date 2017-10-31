@@ -127,4 +127,18 @@ public class PsqlMetisUserDao {
     session.flush();
     session.close();
   }
+
+  public void updateAccessTokenTimestamp(String email) {
+    Session session = sessionFactory.openSession();
+    Transaction tx = session.beginTransaction();
+    //Remove tokens
+    String hql = String.format("UPDATE MetisUserAccessToken SET timestamp='%s' WHERE email='%s'", new Date(), email);
+    Query updateQuery = session.createQuery(hql);
+    int i = updateQuery.executeUpdate();
+    LOGGER.info("Updated {} Access Token with email: {}", i, email);
+    tx.commit();
+    session.flush();
+    session.close();
+
+  }
 }

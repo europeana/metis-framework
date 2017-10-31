@@ -135,6 +135,7 @@ public class AuthenticationService {
     }
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
+      psqlMetisUserDao.updateAccessTokenTimestamp(email);
       return storedMetisUser;
     }
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
