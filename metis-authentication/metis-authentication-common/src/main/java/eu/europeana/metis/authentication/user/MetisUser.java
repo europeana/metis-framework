@@ -2,12 +2,15 @@ package eu.europeana.metis.authentication.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
+import eu.europeana.metis.authentication.exceptions.BadContentException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -43,7 +46,8 @@ public class MetisUser {
   @Column(name = "organization_name")
   private String organizationName;
   @Column(name = "account_role")
-  private String accountRole;
+  @Enumerated(EnumType.STRING)
+  private AccountRole accountRole;
   @Column(name = "country")
   private String country;
   @Column(name = "skype_id")
@@ -68,7 +72,7 @@ public class MetisUser {
   public MetisUser() {
   }
 
-  public MetisUser(JsonNode jsonNode) throws ParseException {
+  public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
@@ -105,8 +109,9 @@ public class MetisUser {
           networkMember = next.get("content").booleanValue();
           break;
         case "Account Role":
-          accountRole = next.get("content").textValue();
-          // TODO: 31-10-17 Validate account role from enum
+          accountRole = AccountRole.getAccountRoleFromEnumName(next.get("content").textValue());
+          if (accountRole == AccountRole.METIS_ADMIN)
+            throw new BadContentException("Account Role in Zoho is not valid");
           break;
         case "Account Name": //This is actually the organization Name in Zoho
           organizationName = next.get("content").textValue();
@@ -192,11 +197,11 @@ public class MetisUser {
     this.organizationName = organizationName;
   }
 
-  public String getAccountRole() {
+  public AccountRole getAccountRole() {
     return accountRole;
   }
 
-  public void setAccountRole(String accountRole) {
+  public void setAccountRole(AccountRole accountRole) {
     this.accountRole = accountRole;
   }
 

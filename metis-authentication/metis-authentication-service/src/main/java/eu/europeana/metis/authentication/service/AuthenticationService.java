@@ -7,6 +7,7 @@ import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
+import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.io.IOException;
@@ -148,7 +149,7 @@ public class AuthenticationService {
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new BadContentException("Wrong credentials");
     }
-    if (!storedMetisUser.getAccountRole().equals("metis_admin")) {
+    if (storedMetisUser.getAccountRole() != AccountRole.METIS_ADMIN) {
       return false;
     }
     return true;

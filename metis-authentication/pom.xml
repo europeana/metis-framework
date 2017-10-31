@@ -12,19 +12,19 @@
   <artifactId>metis-authentication</artifactId>
   <packaging>pom</packaging>
   <modules>
+    <module>metis-authentication-common</module>
     <module>metis-authentication-rest</module>
     <module>metis-authentication-service</module>
-    <module>metis-authentication-common</module>
   </modules>
 
 
 
   <dependencies>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-authentication-common</artifactId>
-      <version>${project.version}</version>
-    </dependency>
+    <!--<dependency>-->
+      <!--<groupId>eu.europeana.metis</groupId>-->
+      <!--<artifactId>metis-authentication-common</artifactId>-->
+      <!--<version>${project.version}</version>-->
+    <!--</dependency>-->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>

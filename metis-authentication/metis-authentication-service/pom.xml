@@ -17,6 +17,11 @@
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
     </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-authentication-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
   </dependencies>
 
 
