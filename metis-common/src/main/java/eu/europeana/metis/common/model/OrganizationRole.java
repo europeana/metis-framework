@@ -15,7 +15,7 @@
  *  the Licence.
  */
 
-package eu.europeana.metis.core.common;
+package eu.europeana.metis.common.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 

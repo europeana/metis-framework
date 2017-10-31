@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.common.model.OrganizationRole;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -120,7 +121,7 @@ public class MetisUser {
     }
   }
 
-  public void setOrganizationIdFromJsonNode(JsonNode jsonNode) {
+  public void setOrganizationIdFromJsonNode(JsonNode jsonNode) throws BadContentException {
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
       JsonNode next = elements.next();
@@ -128,8 +129,13 @@ public class MetisUser {
         case "ACCOUNTID":
           organizationId = next.get("content").textValue();
           break;
+        case "Organization Role":
+          OrganizationRole organizationRole = OrganizationRole
+              .getRoleFromName(next.get("content").textValue());
+          if (organizationRole == null)
+            throw new BadContentException("Organization Role from Zoho is not valid");
+          break;
       }
-      // TODO: 31-10-17 Validate organization role from enum
     }
   }
 

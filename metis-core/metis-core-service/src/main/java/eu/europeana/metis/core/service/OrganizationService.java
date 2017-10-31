@@ -18,7 +18,7 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;

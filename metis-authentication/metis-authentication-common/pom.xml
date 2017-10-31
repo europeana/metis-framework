@@ -32,6 +32,11 @@
       <artifactId>postgresql</artifactId>
       <version>42.1.4</version>
     </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
 
   </dependencies>
 

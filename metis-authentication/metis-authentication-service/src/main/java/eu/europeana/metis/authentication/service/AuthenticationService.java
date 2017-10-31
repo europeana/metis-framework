@@ -54,7 +54,6 @@ public class AuthenticationService {
     metisUser.setSalt(salt);
     metisUser.setPassword(hashedPassword);
 
-    //Store user in database.
     psqlMetisUserDao.createMetisUser(metisUser);
   }
 
