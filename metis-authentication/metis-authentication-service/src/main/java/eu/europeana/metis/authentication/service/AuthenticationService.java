@@ -70,6 +70,9 @@ public class AuthenticationService {
     MetisUser metisUser = constructMetisUserFromZoho(email);
     metisUser.setSalt(storedMetisUser.getSalt());
     metisUser.setPassword(storedMetisUser.getPassword());
+    if (storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
+      metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    }
 
     psqlMetisUserDao.updateMetisUser(metisUser);
   }
@@ -186,7 +189,8 @@ public class AuthenticationService {
     return storedMetisUser;
   }
 
-  public void updateUserPassword(String email, String password, String newPassword) throws BadContentException {
+  public void updateUserPassword(String email, String password, String newPassword)
+      throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new BadContentException("Wrong credentials");
@@ -199,8 +203,7 @@ public class AuthenticationService {
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
       psqlMetisUserDao.updateAccessTokenTimestamp(email);
-    }
-    else {
+    } else {
       MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
           generateAccessToken(), new Date());
       psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
@@ -217,14 +220,17 @@ public class AuthenticationService {
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
 
-  public boolean hasPermissionToRequestUserUpdate(String email, String password)
+  public boolean hasPermissionToRequestUserUpdate(String email, String password,
+      String userEmailToUpdate)
       throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new BadContentException("Wrong credentials");
     }
-    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
-        || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
+    MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
+    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || (
+        storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER
+            && storedMetisUserToUpdate.getAccountRole() != AccountRole.METIS_ADMIN);
   }
 
   private String generateAccessToken() {

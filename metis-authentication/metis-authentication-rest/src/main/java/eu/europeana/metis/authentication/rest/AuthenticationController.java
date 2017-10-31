@@ -106,7 +106,7 @@ public class AuthenticationController {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
-    if (!authenticationService.hasPermissionToRequestUserUpdate(email, password)) {
+    if (!authenticationService.hasPermissionToRequestUserUpdate(email, password, userEmailToUpdate)) {
       throw new BadContentException("Action not allowed for user");
     }
     authenticationService.updateUserFromZoho(userEmailToUpdate);
