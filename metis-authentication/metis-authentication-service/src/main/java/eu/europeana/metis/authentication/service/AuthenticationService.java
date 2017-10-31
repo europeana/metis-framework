@@ -57,6 +57,21 @@ public class AuthenticationService {
     psqlMetisUserDao.createMetisUser(metisUser);
   }
 
+  public void updateUserFromZoho(String email)
+      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser == null) {
+      throw new NoUserFoundException(
+          String.format("User with email: %s does not exist", email));
+    }
+
+    MetisUser metisUser = constructMetisUserFromZoho(email);
+    metisUser.setSalt(storedMetisUser.getSalt());
+    metisUser.setPassword(storedMetisUser.getPassword());
+
+    psqlMetisUserDao.updateMetisUser(metisUser);
+  }
+
   private MetisUser constructMetisUserFromZoho(String email)
       throws BadContentException, NoOrganizationFoundException, NoUserFoundException {
     //Get user from zoho
@@ -149,10 +164,17 @@ public class AuthenticationService {
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new BadContentException("Wrong credentials");
     }
-    if (storedMetisUser.getAccountRole() != AccountRole.METIS_ADMIN) {
-      return false;
+    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
+  }
+
+  public boolean hasPermissionToRequestUserUpdate(String email, String password)
+      throws BadContentException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
+      throw new BadContentException("Wrong credentials");
     }
-    return true;
+    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
+        || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
   }
 
   private String generateAccessToken() {

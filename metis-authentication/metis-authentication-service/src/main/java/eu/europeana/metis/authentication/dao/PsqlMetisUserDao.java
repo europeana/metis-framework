@@ -36,6 +36,23 @@ public class PsqlMetisUserDao {
     createObjectInDB(metisUser);
   }
 
+  public void updateMetisUser(MetisUser metisUser) {
+    Session session = sessionFactory.openSession();
+    Transaction tx = session.beginTransaction();
+
+    try {
+      session.update(metisUser);
+      tx.commit();
+    } catch (Exception e) {
+      tx.rollback();
+      LOGGER.error("Could not persist object, rolling back..");
+      throw new TransactionException("Could not persist object in database", e);
+    } finally {
+      session.flush();
+      session.close();
+    }
+  }
+
   public MetisUser getMetisUserByEmail(String email) {
     Session session = sessionFactory.openSession();
 

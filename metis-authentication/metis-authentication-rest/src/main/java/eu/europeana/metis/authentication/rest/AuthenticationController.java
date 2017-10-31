@@ -90,4 +90,25 @@ public class AuthenticationController {
     authenticationService.deleteUser(userEmailToDelete);
     LOGGER.info("User with email: {} deleted", email);
   }
+
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
+      MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void updateUser(@RequestParam Map<String, String> body)
+      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+    if (body == null) {
+      throw new BadContentException("Body was empty");
+    }
+    String userEmailToUpdate = body.get("userEmailToUpdate");
+    String email = body.get("email");
+    String password = body.get("password");
+    if (!authenticationService.hasPermissionToRequestUserUpdate(email, password)) {
+      throw new BadContentException("Action not allowed for user");
+    }
+    authenticationService.updateUserFromZoho(userEmailToUpdate);
+    LOGGER.info("User with email: {} updated", email);
+  }
+
+
 }
