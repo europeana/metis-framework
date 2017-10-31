@@ -1,5 +1,6 @@
 package eu.europeana.metis.authentication.dao;
 
+import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.util.Date;
@@ -156,6 +157,19 @@ public class PsqlMetisUserDao {
     tx.commit();
     session.flush();
     session.close();
+  }
 
+  public void updateMetisUserToMakeAdmin(String userEmailToMakeAdmin) {
+    Session session = sessionFactory.openSession();
+    Transaction tx = session.beginTransaction();
+    //Remove tokens
+    String hql = String.format("UPDATE MetisUser SET account_role='%s' WHERE email='%s'",
+        AccountRole.METIS_ADMIN, userEmailToMakeAdmin);
+    Query updateQuery = session.createQuery(hql);
+    int i = updateQuery.executeUpdate();
+    LOGGER.info("Updated {} MetisUser with email: {}, made METIS_ADMIN", i, userEmailToMakeAdmin);
+    tx.commit();
+    session.flush();
+    session.close();
   }
 }

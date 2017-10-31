@@ -212,6 +212,12 @@ public class AuthenticationService {
     psqlMetisUserDao.updateMetisUser(storedMetisUser);
   }
 
+  public void updateUserMakeAdmin(String userEmailToMakeAdmin) throws BadContentException {
+    if (psqlMetisUserDao.getMetisUserByEmail(userEmailToMakeAdmin) == null)
+      throw new BadContentException(String.format("User with email %s does not exist", userEmailToMakeAdmin));
+    psqlMetisUserDao.updateMetisUserToMakeAdmin(userEmailToMakeAdmin);
+  }
+
   public boolean isUserAdmin(String email, String password) throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {

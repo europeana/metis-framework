@@ -35,6 +35,7 @@ public final class RestEndpoints {
   public static final String AUTHENTICATION_DELETE = "/authentication/delete";
   public static final String AUTHENTICATION_UPDATE = "/authentication/update";
   public static final String AUTHENTICATION_UPDATE_PASSWORD = "/authentication/update/password";
+  public static final String AUTHENTICATION_UPDATE_ROLE_ADMIN = "/authentication/update/role/admin";
   //USERS
   public static final String USER = "/user";
   public static final String USERBYMAIL = "/user/{email}";

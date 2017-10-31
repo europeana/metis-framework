@@ -63,8 +63,7 @@ public class AuthenticationController {
     return metisUser;
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSWORD, method = RequestMethod.PUT, consumes = {
-      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSWORD, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
@@ -79,8 +78,8 @@ public class AuthenticationController {
     LOGGER.info("User with email: {} updated password", email);
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE, consumes = {
-      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE, produces = {
+      MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteUser(@RequestHeader("Authorization") String authorization,
@@ -96,8 +95,8 @@ public class AuthenticationController {
     LOGGER.info("User with email: {} deleted", email);
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, consumes = {
-      MediaType.APPLICATION_FORM_URLENCODED_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE,
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, produces = {
+      MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUser(@RequestHeader("Authorization") String authorization,
@@ -106,11 +105,28 @@ public class AuthenticationController {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
-    if (!authenticationService.hasPermissionToRequestUserUpdate(email, password, userEmailToUpdate)) {
+    if (!authenticationService
+        .hasPermissionToRequestUserUpdate(email, password, userEmailToUpdate)) {
       throw new BadContentException("Action not allowed for user");
     }
     authenticationService.updateUserFromZoho(userEmailToUpdate);
     LOGGER.info("User with email: {} updated", email);
+  }
+
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE,
+      MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
+      @QueryParam("userEmailToMakeAdmin") String userEmailToMakeAdmin)
+      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
+    if (!authenticationService.isUserAdmin(email, password)) {
+      throw new BadContentException("Action not allowed for user");
+    }
+    authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
+    LOGGER.info("User with email: {} made admin", email);
   }
 
 
