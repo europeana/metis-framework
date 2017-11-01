@@ -102,6 +102,11 @@ public class AuthenticationService {
     if (StringUtils.isEmpty(metisUser.getOrganizationName())) {
       throw new NoOrganizationFoundException("User is not related to an organization");
     }
+    if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUser()
+        || metisUser.getAccountRole() == null) {
+      throw new BadContentException(
+          "Bad content while constructing metisUser, user does not have all the required fields defined in Zoho(Organization Name, Metis user, Account Role)");
+    }
 
     //Get Organization Id related to user
     JsonNode organizationJsonNode;

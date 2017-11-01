@@ -51,14 +51,10 @@ public class MetisUser {
   private AccountRole accountRole;
   @Column(name = "country")
   private String country;
-  @Column(name = "skype_id")
-  private String skypeId;
   @Column(name = "network_member")
   private boolean networkMember;
-  @Column(name = "notes")
-  private String notes;
-  @Column(name = "active")
-  private boolean active;
+  @Column(name = "metis_user")
+  private boolean metisUser;
   @Column(name = "created_date")
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdDate;
@@ -99,17 +95,14 @@ public class MetisUser {
         case "Modified Time":
           updatedDate = dateFormat.parse(content.textValue());
           break;
-        case "Notes":
-          notes = content.textValue();
-          break;
-        case "Skype Id":
-          skypeId = content.textValue();
-          break;
         case "Country":
           country = content.textValue();
           break;
         case "Network Member":
-          networkMember = content.booleanValue();
+          networkMember = Boolean.parseBoolean(content.textValue());
+          break;
+        case "Metis user":
+          metisUser = Boolean.parseBoolean(content.textValue());
           break;
         case "Account Role":
           accountRole = AccountRole.getAccountRoleFromEnumName(content.textValue());
@@ -229,14 +222,6 @@ public class MetisUser {
     this.country = country;
   }
 
-  public String getSkypeId() {
-    return skypeId;
-  }
-
-  public void setSkypeId(String skypeId) {
-    this.skypeId = skypeId;
-  }
-
   public boolean isNetworkMember() {
     return networkMember;
   }
@@ -245,20 +230,12 @@ public class MetisUser {
     this.networkMember = networkMember;
   }
 
-  public String getNotes() {
-    return notes;
+  public boolean isMetisUser() {
+    return metisUser;
   }
 
-  public void setNotes(String notes) {
-    this.notes = notes;
-  }
-
-  public boolean isActive() {
-    return active;
-  }
-
-  public void setActive(boolean active) {
-    this.active = active;
+  public void setMetisUser(boolean metisUser) {
+    this.metisUser = metisUser;
   }
 
   public Date getCreatedDate() {
