@@ -151,7 +151,9 @@ public class AuthenticationService {
     if (StringUtils.isEmpty(authorization)) {
       throw new BadContentException("Authorization header was empty");
     }
-    String[] credentials = decodeHeader(authorization);
+    String[] credentials = decodeAuthorizationHeader(authorization);
+    if (credentials.length < 2)
+      throw new BadContentException("Username or password not provided, or not properly defined");
     String email = credentials[0];
     String password = credentials[1];
     if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
@@ -160,7 +162,7 @@ public class AuthenticationService {
     return credentials;
   }
 
-  private String[] decodeHeader(String authorization) {
+  private String[] decodeAuthorizationHeader(String authorization) {
     if (authorization != null && authorization.startsWith("Basic")) {
       // Authorization: Basic base64credentials
       String base64Credentials = authorization.substring("Basic" .length()).trim();
@@ -169,14 +171,11 @@ public class AuthenticationService {
       // credentials = username:password
       return credentials.split(":", 2);
     }
-    return null;
+    return new String[0];
   }
 
   public MetisUser loginUser(String email, String password) throws BadContentException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
-      throw new BadContentException("Wrong credentials");
-    }
+    MetisUser storedMetisUser = authenticateUser(email, password);
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
       psqlMetisUserDao.updateAccessTokenTimestamp(email);
@@ -191,10 +190,7 @@ public class AuthenticationService {
 
   public void updateUserPassword(String email, String password, String newPassword)
       throws BadContentException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
-      throw new BadContentException("Wrong credentials");
-    }
+    MetisUser storedMetisUser = authenticateUser(email, password);
 
     byte[] salt = getSalt();
     String hashedPassword = generatePasswordHashing(salt, newPassword);
@@ -219,20 +215,14 @@ public class AuthenticationService {
   }
 
   public boolean isUserAdmin(String email, String password) throws BadContentException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
-      throw new BadContentException("Wrong credentials");
-    }
+    MetisUser storedMetisUser = authenticateUser(email, password);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
 
   public boolean hasPermissionToRequestUserUpdate(String email, String password,
       String userEmailToUpdate)
       throws BadContentException {
-    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
-    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
-      throw new BadContentException("Wrong credentials");
-    }
+    MetisUser storedMetisUser = authenticateUser(email, password);
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || (
         storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER
@@ -257,5 +247,13 @@ public class AuthenticationService {
 
   public void deleteUser(String email) {
     psqlMetisUserDao.deleteMetisUser(email);
+  }
+
+  private MetisUser authenticateUser(String email, String password) throws BadContentException {
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
+    if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
+      throw new BadContentException("Wrong credentials");
+    }
+    return storedMetisUser;
   }
 }

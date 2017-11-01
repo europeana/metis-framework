@@ -78,44 +78,49 @@ public class MetisUser {
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
       JsonNode next = elements.next();
-      switch (next.get("val").textValue()) {
+      JsonNode val = next.get("val");
+      JsonNode content = next.get("content");
+      switch (val.textValue()) {
         case "CONTACTID":
-          userId = next.get("content").textValue();
+          userId = content.textValue();
           break;
         case "First Name":
-          firstName = next.get("content").textValue();
+          firstName = content.textValue();
           break;
         case "Last Name":
-          lastName = next.get("content").textValue();
+          lastName = content.textValue();
           break;
         case "Email":
-          email = next.get("content").textValue();
+          email = content.textValue();
           break;
         case "Created Time":
-          createdDate = dateFormat.parse(next.get("content").textValue());
+          createdDate = dateFormat.parse(content.textValue());
           break;
         case "Modified Time":
-          updatedDate = dateFormat.parse(next.get("content").textValue());
+          updatedDate = dateFormat.parse(content.textValue());
           break;
         case "Notes":
-          notes = next.get("content").textValue();
+          notes = content.textValue();
           break;
         case "Skype Id":
-          skypeId = next.get("content").textValue();
+          skypeId = content.textValue();
           break;
         case "Country":
-          country = next.get("content").textValue();
+          country = content.textValue();
           break;
         case "Network Member":
-          networkMember = next.get("content").booleanValue();
+          networkMember = content.booleanValue();
           break;
         case "Account Role":
-          accountRole = AccountRole.getAccountRoleFromEnumName(next.get("content").textValue());
-          if (accountRole == AccountRole.METIS_ADMIN)
+          accountRole = AccountRole.getAccountRoleFromEnumName(content.textValue());
+          if (accountRole == AccountRole.METIS_ADMIN) {
             throw new BadContentException("Account Role in Zoho is not valid");
+          }
           break;
         case "Account Name": //This is actually the organization Name in Zoho
-          organizationName = next.get("content").textValue();
+          organizationName = content.textValue();
+          break;
+        default:
           break;
       }
     }
@@ -125,15 +130,20 @@ public class MetisUser {
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
       JsonNode next = elements.next();
-      switch (next.get("val").textValue()) {
+      JsonNode val = next.get("val");
+      JsonNode content = next.get("content");
+      switch (val.textValue()) {
         case "ACCOUNTID":
-          organizationId = next.get("content").textValue();
+          organizationId = content.textValue();
           break;
         case "Organization Role":
           OrganizationRole organizationRole = OrganizationRole
-              .getRoleFromName(next.get("content").textValue());
-          if (organizationRole == null)
+              .getRoleFromName(content.textValue());
+          if (organizationRole == null) {
             throw new BadContentException("Organization Role from Zoho is not valid");
+          }
+          break;
+        default:
           break;
       }
     }

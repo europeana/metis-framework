@@ -32,7 +32,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
 @EnableScheduling
-//@EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter {
 
   @Value("${zoho.base.url}")
@@ -94,49 +93,4 @@ public class Application extends WebMvcConfigurerAdapter {
     converters.add(new MappingJackson2XmlHttpMessageConverter());
     super.configureMessageConverters(converters);
   }
-
-//  @Bean
-//  public View json() {
-//    MappingJackson2JsonView view = new MappingJackson2JsonView();
-//    view.setPrettyPrint(true);
-//    view.setObjectMapper(new CustomObjectMapper());
-//    return view;
-//  }
-//
-//  @Override
-//  public void addViewControllers(ViewControllerRegistry registry) {
-//    registry.addRedirectViewController("/", "swagger-ui.html");
-//  }
-//
-//  @Override
-//  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//    registry.addResourceHandler("swagger-ui.html")
-//        .addResourceLocations("classpath:/META-INF/resources/");
-//    registry.addResourceHandler("/webjars/**")
-//        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-//  }
-//
-//  @Bean
-//  public Docket api() {
-//    return new Docket(DocumentationType.SWAGGER_2)
-//        .select()
-//        .apis(RequestHandlerSelectors.any())
-//        .paths(PathSelectors.regex("/.*"))
-//        .build()
-//        .directModelSubstitute(ObjectId.class, String.class)
-//        .useDefaultResponseMessages(false)
-//        .apiInfo(apiInfo());
-//  }
-//
-//  private ApiInfo apiInfo() {
-//    return new ApiInfo(
-//        "Metis authentication REST API",
-//        "Metis authentication REST API for Europeana",
-//        "v1",
-//        "API TOS",
-//        new Contact("development", "europeana.eu", "development@europeana.eu"),
-//        "EUPL Licence v1.1",
-//        ""
-//    );
-//  }
 }

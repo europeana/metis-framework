@@ -22,6 +22,8 @@ public class ZohoAccessClientDao {
   private static final String AUTHENTICATION_TOKEN_STRING = "authtoken";
   private static final String SCOPE_STRING = "scope";
   private static final String CRITERIA_STRING = "criteria";
+  private static final String RESPONSE_STRING = "response";
+  private static final String RESULT_STRING = "result";
 
 
   private String zohoBaseUrl;
@@ -46,9 +48,9 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    if (jsonContactResponse.get("response").get("result") == null)
+    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null)
       return null;
-    return jsonContactResponse.get("response").get("result").get(CONTACTS_MODULE_STRING).get("row").get("FL");
+    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(CONTACTS_MODULE_STRING).get("row").get("FL");
   }
 
   public JsonNode getOrganizationByOrganizationName(String organizationName) throws IOException {
@@ -65,9 +67,9 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    if (jsonContactResponse.get("response").get("result") == null)
+    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null)
       return null;
-    return jsonContactResponse.get("response").get("result").get(ACCOUNTS_MODULE_STRING).get("row").get("FL");
+    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(ACCOUNTS_MODULE_STRING).get("row").get("FL");
   }
 
 }

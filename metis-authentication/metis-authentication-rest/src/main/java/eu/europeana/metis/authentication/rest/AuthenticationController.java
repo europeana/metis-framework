@@ -63,7 +63,7 @@ public class AuthenticationController {
     return metisUser;
   }
 
-  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSWORD, method = RequestMethod.PUT, produces = {
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSD, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
@@ -118,7 +118,7 @@ public class AuthenticationController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToMakeAdmin") String userEmailToMakeAdmin)
-      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+      throws BadContentException {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
@@ -128,6 +128,4 @@ public class AuthenticationController {
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
     LOGGER.info("User with email: {} made admin", email);
   }
-
-
 }
