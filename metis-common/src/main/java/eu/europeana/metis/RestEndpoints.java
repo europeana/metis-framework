@@ -29,6 +29,14 @@ public final class RestEndpoints {
   public static final String DATASETS_DATASETNAME_UPDATENAME = "/datasets/{datasetName}/updateName";
   public static final String DATASETS_DATAPROVIDER = "/datasets/data_provider/{dataProvider}";
 
+  //AUTHENTICATION
+  public static final String AUTHENTICATION_REGISTER = "/authentication/register";
+  public static final String AUTHENTICATION_LOGIN = "/authentication/login";
+  public static final String AUTHENTICATION_DELETE = "/authentication/delete";
+  public static final String AUTHENTICATION_UPDATE = "/authentication/update";
+  public static final String AUTHENTICATION_UPDATE_PASSD = "/authentication/update/password";
+  public static final String AUTHENTICATION_UPDATE_ROLE_ADMIN = "/authentication/update/role/admin";
+  public static final String AUTHENTICATION_USERS = "/authentication/users";
   //USERS
   public static final String USER = "/user";
   public static final String USERBYMAIL = "/user/{email}";
@@ -118,17 +126,18 @@ public final class RestEndpoints {
       return endpoint;
     }
     String[] test = StringUtils.split(endpoint, "{");
-    String fin = "";
+    StringBuilder fin = new StringBuilder();
     int i = 0;
     for (String en : test) {
       if (i == 0) {
-        fin = en;
+        fin = new StringBuilder(en);
       } else {
-        fin += StringUtils.replace(en, StringUtils.substringBefore(en, "}") + "}", params[i - 1]);
+        fin.append(
+            StringUtils.replace(en, StringUtils.substringBefore(en, "}") + "}", params[i - 1]));
       }
       i++;
     }
-    return fin;
+    return fin.toString();
   }
 }
 

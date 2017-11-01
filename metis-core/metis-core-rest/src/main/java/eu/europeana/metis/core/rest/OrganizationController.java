@@ -20,7 +20,7 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;

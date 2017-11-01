@@ -26,7 +26,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
-import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;

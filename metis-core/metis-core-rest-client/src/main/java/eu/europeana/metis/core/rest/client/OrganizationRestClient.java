@@ -25,7 +25,7 @@ import static eu.europeana.metis.RestEndpoints.USERBYMAIL;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.common.Contact;
-import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ResponseListWrapper;

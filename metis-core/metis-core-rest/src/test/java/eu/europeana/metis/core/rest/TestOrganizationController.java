@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.OrganizationRole;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.organization.Organization;
