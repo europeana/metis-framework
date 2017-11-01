@@ -102,7 +102,7 @@ public class AuthenticationService {
     if (StringUtils.isEmpty(metisUser.getOrganizationName())) {
       throw new NoOrganizationFoundException("User is not related to an organization");
     }
-    if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUser()
+    if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
       throw new BadContentException(
           "Bad content while constructing metisUser, user does not have all the required fields defined in Zoho(Organization Name, Metis user, Account Role)");
@@ -276,7 +276,7 @@ public class AuthenticationService {
         || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
   }
 
-  public List<MetisUser> getAllUsers(String email, String password) throws BadContentException {
+  public List<MetisUser> getAllUsers(String email) {
     List<MetisUser> allMetisUsers = psqlMetisUserDao.getAllMetisUsers();
     MetisUser metisUserByEmail = psqlMetisUserDao.getMetisUserByEmail(email);
     //Remove access tokens from a request coming from a role that is not METIS_ADMIN

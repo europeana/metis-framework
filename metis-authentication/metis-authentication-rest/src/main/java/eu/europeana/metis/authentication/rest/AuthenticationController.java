@@ -147,6 +147,6 @@ public class AuthenticationController {
         .hasPermissionToRequestAllUsers(email, password)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    return authenticationService.getAllUsers(email, password);
+    return authenticationService.getAllUsers(email);
   }
 }

@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.dao;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -96,7 +97,7 @@ public class PsqlMetisUserDao {
 
     int offset = 0;
     int pageSize = 100;
-    List<MetisUserAccessToken> metisUserAccessTokens;
+    List metisUserAccessTokens;
     do {
       Criteria criteria = session.createCriteria(MetisUserAccessToken.class).setFirstResult(offset)
           .setMaxResults(pageSize);
@@ -149,7 +150,6 @@ public class PsqlMetisUserDao {
   public void updateAccessTokenTimestamp(String email) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
-    //Remove tokens
     String hql = String.format("UPDATE MetisUserAccessToken SET timestamp='%s' WHERE email='%s'", new Date(), email);
     Query updateQuery = session.createQuery(hql);
     int i = updateQuery.executeUpdate();
@@ -162,7 +162,6 @@ public class PsqlMetisUserDao {
   public void updateMetisUserToMakeAdmin(String userEmailToMakeAdmin) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
-    //Remove tokens
     String hql = String.format("UPDATE MetisUser SET account_role='%s' WHERE email='%s'",
         AccountRole.METIS_ADMIN, userEmailToMakeAdmin);
     Query updateQuery = session.createQuery(hql);
@@ -175,7 +174,10 @@ public class PsqlMetisUserDao {
 
   public List<MetisUser> getAllMetisUsers() {
     Session session = sessionFactory.openSession();
-    List<MetisUser> metisUsers = session.createCriteria(MetisUser.class).list();
+    List<MetisUser> metisUsers = new ArrayList<>();
+    for (Object object : session.createCriteria(MetisUser.class).list()) {
+      metisUsers.add((MetisUser)object);
+    }
     session.flush();
     session.close();
     return metisUsers;

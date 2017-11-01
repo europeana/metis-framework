@@ -54,7 +54,7 @@ public class MetisUser {
   @Column(name = "network_member")
   private boolean networkMember;
   @Column(name = "metis_user")
-  private boolean metisUser;
+  private boolean metisUserFlag;
   @Column(name = "created_date")
   @Temporal(TemporalType.TIMESTAMP)
   private Date createdDate;
@@ -98,11 +98,16 @@ public class MetisUser {
         case "Country":
           country = content.textValue();
           break;
+        case "Participation level":
+          if (content.textValue().contains("Network Association Member")) {
+            networkMember = true;
+          }
+          break;
         case "Network Member":
           networkMember = Boolean.parseBoolean(content.textValue());
           break;
         case "Metis user":
-          metisUser = Boolean.parseBoolean(content.textValue());
+          metisUserFlag = Boolean.parseBoolean(content.textValue());
           break;
         case "Account Role":
           accountRole = AccountRole.getAccountRoleFromEnumName(content.textValue());
@@ -230,12 +235,12 @@ public class MetisUser {
     this.networkMember = networkMember;
   }
 
-  public boolean isMetisUser() {
-    return metisUser;
+  public boolean isMetisUserFlag() {
+    return metisUserFlag;
   }
 
-  public void setMetisUser(boolean metisUser) {
-    this.metisUser = metisUser;
+  public void setMetisUserFlag(boolean metisUserFlag) {
+    this.metisUserFlag = metisUserFlag;
   }
 
   public Date getCreatedDate() {
