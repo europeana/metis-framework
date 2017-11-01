@@ -172,4 +172,12 @@ public class PsqlMetisUserDao {
     session.flush();
     session.close();
   }
+
+  public List<MetisUser> getAllMetisUsers() {
+    Session session = sessionFactory.openSession();
+    List<MetisUser> metisUsers = session.createCriteria(MetisUser.class).list();
+    session.flush();
+    session.close();
+    return metisUsers;
+  }
 }

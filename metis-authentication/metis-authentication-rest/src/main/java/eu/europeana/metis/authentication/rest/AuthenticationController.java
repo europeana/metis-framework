@@ -5,8 +5,10 @@ import eu.europeana.metis.authentication.exceptions.BadContentException;
 import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
+import eu.europeana.metis.authentication.exceptions.UserUnauthorizedException;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
+import java.util.List;
 import javax.ws.rs.QueryParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +31,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class AuthenticationController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationController.class);
+  private static final String ACTION_NOT_ALLOWED_FOR_USER = "Action not allowed";
+
   private AuthenticationService authenticationService;
 
   @Autowired
@@ -67,7 +71,8 @@ public class AuthenticationController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
-      @QueryParam("newPassword") String newPassword) throws BadContentException {
+      @QueryParam("newPassword") String newPassword)
+      throws BadContentException {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
@@ -83,13 +88,14 @@ public class AuthenticationController {
       MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteUser(@RequestHeader("Authorization") String authorization,
-      @QueryParam("userEmailToDelete") String userEmailToDelete) throws BadContentException {
+      @QueryParam("userEmailToDelete") String userEmailToDelete)
+      throws BadContentException, UserUnauthorizedException {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
 
     if (!authenticationService.isUserAdmin(email, password)) {
-      throw new BadContentException("Action allowed only from admin users");
+      throw new UserUnauthorizedException("Action allowed only from admin users");
     }
     authenticationService.deleteUser(userEmailToDelete);
     LOGGER.info("User with email: {} deleted", email);
@@ -101,13 +107,13 @@ public class AuthenticationController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUser(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToUpdate") String userEmailToUpdate)
-      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+      throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserUnauthorizedException {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
     if (!authenticationService
         .hasPermissionToRequestUserUpdate(email, password, userEmailToUpdate)) {
-      throw new BadContentException("Action not allowed for user");
+      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserFromZoho(userEmailToUpdate);
     LOGGER.info("User with email: {} updated", email);
@@ -118,14 +124,29 @@ public class AuthenticationController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToMakeAdmin") String userEmailToMakeAdmin)
-      throws BadContentException {
+      throws BadContentException, UserUnauthorizedException {
     String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
     String email = credentials[0];
     String password = credentials[1];
     if (!authenticationService.isUserAdmin(email, password)) {
-      throw new BadContentException("Action not allowed for user");
+      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
     LOGGER.info("User with email: {} made admin", email);
+  }
+
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_USERS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseBody
+  public List<MetisUser> getAllUsers(@RequestHeader("Authorization") String authorization)
+      throws BadContentException, UserUnauthorizedException {
+    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String email = credentials[0];
+    String password = credentials[1];
+    if (!authenticationService
+        .hasPermissionToRequestAllUsers(email, password)) {
+      throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
+    }
+    return authenticationService.getAllUsers(email, password);
   }
 }

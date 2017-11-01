@@ -18,6 +18,7 @@ import java.security.SecureRandom;
 import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -152,8 +153,9 @@ public class AuthenticationService {
       throw new BadContentException("Authorization header was empty");
     }
     String[] credentials = decodeAuthorizationHeader(authorization);
-    if (credentials.length < 2)
+    if (credentials.length < 2) {
       throw new BadContentException("Username or password not provided, or not properly defined");
+    }
     String email = credentials[0];
     String password = credentials[1];
     if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
@@ -174,7 +176,8 @@ public class AuthenticationService {
     return new String[0];
   }
 
-  public MetisUser loginUser(String email, String password) throws BadContentException {
+  public MetisUser loginUser(String email, String password)
+      throws BadContentException {
     MetisUser storedMetisUser = authenticateUser(email, password);
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
@@ -209,12 +212,15 @@ public class AuthenticationService {
   }
 
   public void updateUserMakeAdmin(String userEmailToMakeAdmin) throws BadContentException {
-    if (psqlMetisUserDao.getMetisUserByEmail(userEmailToMakeAdmin) == null)
-      throw new BadContentException(String.format("User with email %s does not exist", userEmailToMakeAdmin));
+    if (psqlMetisUserDao.getMetisUserByEmail(userEmailToMakeAdmin) == null) {
+      throw new BadContentException(
+          String.format("User with email %s does not exist", userEmailToMakeAdmin));
+    }
     psqlMetisUserDao.updateMetisUserToMakeAdmin(userEmailToMakeAdmin);
   }
 
-  public boolean isUserAdmin(String email, String password) throws BadContentException {
+  public boolean isUserAdmin(String email, String password)
+      throws BadContentException {
     MetisUser storedMetisUser = authenticateUser(email, password);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
@@ -249,11 +255,32 @@ public class AuthenticationService {
     psqlMetisUserDao.deleteMetisUser(email);
   }
 
-  private MetisUser authenticateUser(String email, String password) throws BadContentException {
+  private MetisUser authenticateUser(String email, String password)
+      throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
       throw new BadContentException("Wrong credentials");
     }
     return storedMetisUser;
+  }
+
+  public boolean hasPermissionToRequestAllUsers(String email, String password)
+      throws BadContentException {
+    MetisUser storedMetisUser = authenticateUser(email, password);
+    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
+        || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
+  }
+
+  public List<MetisUser> getAllUsers(String email, String password) throws BadContentException {
+    List<MetisUser> allMetisUsers = psqlMetisUserDao.getAllMetisUsers();
+    MetisUser metisUserByEmail = psqlMetisUserDao.getMetisUserByEmail(email);
+    //Remove access tokens from a request coming from a role that is not METIS_ADMIN
+    if (metisUserByEmail.getAccountRole() != AccountRole.METIS_ADMIN) {
+      for (MetisUser metisUser :
+          allMetisUsers) {
+        metisUser.setMetisUserAccessToken(null);
+      }
+    }
+    return allMetisUsers;
   }
 }
