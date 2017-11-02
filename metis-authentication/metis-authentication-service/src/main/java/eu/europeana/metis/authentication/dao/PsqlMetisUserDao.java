@@ -69,6 +69,29 @@ public class PsqlMetisUserDao {
     return metisUser;
   }
 
+  public MetisUser getMetisUserByAccessToken(String accessToken) {
+    Session session = sessionFactory.openSession();
+
+    String hql = String.format("FROM MetisUserAccessToken WHERE access_token = '%s'", accessToken);
+    Query query = session.createQuery(hql);
+    MetisUserAccessToken metisUserAccessToken = null;
+    if (!query.list().isEmpty()) {
+      metisUserAccessToken = (MetisUserAccessToken) query.list().get(0);
+    }
+    MetisUser metisUser = null;
+    if (metisUserAccessToken != null) {
+      hql = String.format("FROM MetisUser WHERE email = '%s'", metisUserAccessToken.getEmail());
+      query = session.createQuery(hql);
+
+      if (!query.list().isEmpty()) {
+        metisUser = (MetisUser) query.list().get(0);
+      }
+    }
+    session.flush();
+    session.close();
+    return metisUser;
+  }
+
   public void createUserAccessToken(MetisUserAccessToken metisUserAccessToken) {
     createObjectInDB(metisUserAccessToken);
   }
@@ -154,6 +177,18 @@ public class PsqlMetisUserDao {
     Query updateQuery = session.createQuery(hql);
     int i = updateQuery.executeUpdate();
     LOGGER.info("Updated {} Access Token with email: {}", i, email);
+    tx.commit();
+    session.flush();
+    session.close();
+  }
+
+  public void updateAccessTokenTimestampByAccessToken(String accessToken) {
+    Session session = sessionFactory.openSession();
+    Transaction tx = session.beginTransaction();
+    String hql = String.format("UPDATE MetisUserAccessToken SET timestamp='%s' WHERE access_token='%s'", new Date(), accessToken);
+    Query updateQuery = session.createQuery(hql);
+    int i = updateQuery.executeUpdate();
+    LOGGER.info("Updated {} Access Token timestamp: {}", i, accessToken);
     tx.commit();
     session.flush();
     session.close();

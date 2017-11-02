@@ -46,7 +46,7 @@ public class AuthenticationController {
   public void registerUser(@RequestHeader("Authorization") String authorization)
       throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserAlreadyExistsException {
 
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String[] credentials = authenticationService.validateAuthorizationHeaderWithCredentials(authorization);
     String email = credentials[0];
     String password = credentials[1];
     authenticationService.registerUser(email, password);
@@ -58,7 +58,7 @@ public class AuthenticationController {
   @ResponseBody
   public MetisUser loginUser(@RequestHeader("Authorization") String authorization)
       throws BadContentException {
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
+    String[] credentials = authenticationService.validateAuthorizationHeaderWithCredentials(authorization);
     String email = credentials[0];
     String password = credentials[1];
     MetisUser metisUser = authenticationService.loginUser(email, password);
@@ -72,15 +72,14 @@ public class AuthenticationController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateUserPassword(@RequestHeader("Authorization") String authorization,
       @QueryParam("newPassword") String newPassword)
-      throws BadContentException {
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
+      throws BadContentException, UserUnauthorizedException {
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
     if (StringUtils.isEmpty(newPassword)) {
       throw new BadContentException("newPassword not provided");
     }
-    authenticationService.updateUserPassword(email, password, newPassword);
-    LOGGER.info("User with email: {} updated password", email);
+    MetisUser metisUser = authenticationService.authenticateUser(accessToken);
+    authenticationService.updateUserPassword(metisUser, newPassword);
+    LOGGER.info("User with access_token: {} updated password", accessToken);
   }
 
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE, produces = {
@@ -90,15 +89,13 @@ public class AuthenticationController {
   public void deleteUser(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToDelete") String userEmailToDelete)
       throws BadContentException, UserUnauthorizedException {
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
 
-    if (!authenticationService.isUserAdmin(email, password)) {
+    if (!authenticationService.isUserAdmin(accessToken)) {
       throw new UserUnauthorizedException("Action allowed only from admin users");
     }
     authenticationService.deleteUser(userEmailToDelete);
-    LOGGER.info("User with email: {} deleted", email);
+    LOGGER.info("User with email: {} deleted", userEmailToDelete);
   }
 
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, produces = {
@@ -108,15 +105,13 @@ public class AuthenticationController {
   public void updateUser(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToUpdate") String userEmailToUpdate)
       throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserUnauthorizedException {
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService
-        .hasPermissionToRequestUserUpdate(email, password, userEmailToUpdate)) {
+        .hasPermissionToRequestUserUpdate(accessToken, userEmailToUpdate)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserFromZoho(userEmailToUpdate);
-    LOGGER.info("User with email: {} updated", email);
+    LOGGER.info("User with email: {} updated", userEmailToUpdate);
   }
 
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE,
@@ -125,14 +120,12 @@ public class AuthenticationController {
   public void updateUserToMakeAdmin(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToMakeAdmin") String userEmailToMakeAdmin)
       throws BadContentException, UserUnauthorizedException {
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
-    if (!authenticationService.isUserAdmin(email, password)) {
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
+    if (!authenticationService.isUserAdmin(accessToken)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
-    LOGGER.info("User with email: {} made admin", email);
+    LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin);
   }
 
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_USERS, method = RequestMethod.GET, produces = {
@@ -140,13 +133,11 @@ public class AuthenticationController {
   @ResponseBody
   public List<MetisUser> getAllUsers(@RequestHeader("Authorization") String authorization)
       throws BadContentException, UserUnauthorizedException {
-    String[] credentials = authenticationService.validateAuthorizationHeader(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService
-        .hasPermissionToRequestAllUsers(email, password)) {
+        .hasPermissionToRequestAllUsers(accessToken)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    return authenticationService.getAllUsers(email);
+    return authenticationService.getAllUsers(accessToken);
   }
 }
