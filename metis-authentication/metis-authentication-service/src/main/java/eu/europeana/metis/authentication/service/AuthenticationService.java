@@ -12,15 +12,13 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -52,9 +50,7 @@ public class AuthenticationService {
     }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
-    byte[] salt = getSalt();
-    String hashedPassword = generatePasswordHashing(salt, password);
-    metisUser.setSalt(salt);
+    String hashedPassword = generatePasswordHashing(password);
     metisUser.setPassword(hashedPassword);
 
     psqlMetisUserDao.createMetisUser(metisUser);
@@ -69,7 +65,6 @@ public class AuthenticationService {
     }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
-    metisUser.setSalt(storedMetisUser.getSalt());
     metisUser.setPassword(storedMetisUser.getPassword());
     if (storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
       metisUser.setAccountRole(AccountRole.METIS_ADMIN);
@@ -122,42 +117,19 @@ public class AuthenticationService {
     return metisUser;
   }
 
-  private String generatePasswordHashing(byte[] salt, String password) throws BadContentException {
-    MessageDigest sha256;
-    try {
-      sha256 = MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException e) {
-      throw new BadContentException("Hashing algorithm not found", e);
-    }
-    sha256.update(salt);
-    byte[] passwordHash = sha256.digest(password.getBytes());
-    StringBuilder stringHashedPassword = new StringBuilder();
-    for (byte aPasswordHash : passwordHash) {
-      stringHashedPassword
-          .append(Integer.toString((aPasswordHash & 0xff) + 0x100, 16).substring(1));
-    }
-
-    return stringHashedPassword.toString();
+  private String generatePasswordHashing(String password) {
+    return BCrypt.hashpw(password, BCrypt.gensalt(15));
   }
 
-  private byte[] getSalt() {
-    final Random r = new SecureRandom();
-    byte[] salt = new byte[32];
-    r.nextBytes(salt);
-    return salt;
+  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry) {
+    return BCrypt.checkpw(passwordToTry, metisUser.getPassword());
   }
 
-  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry)
-      throws BadContentException {
-    String hashedPasswordToTry = generatePasswordHashing(metisUser.getSalt(), passwordToTry);
-    return hashedPasswordToTry.equals(metisUser.getPassword());
-  }
-
-  public String[] validateAuthorizationHeader(String authorization) throws BadContentException {
+  public String[] validateAuthorizationHeaderWithCredentials(String authorization) throws BadContentException {
     if (StringUtils.isEmpty(authorization)) {
       throw new BadContentException("Authorization header was empty");
     }
-    String[] credentials = decodeAuthorizationHeader(authorization);
+    String[] credentials = decodeAuthorizationHeaderWithCredentials(authorization);
     if (credentials.length < 2) {
       throw new BadContentException("Username or password not provided, or not properly defined");
     }
@@ -169,7 +141,19 @@ public class AuthenticationService {
     return credentials;
   }
 
-  private String[] decodeAuthorizationHeader(String authorization) {
+  public String validateAuthorizationHeaderWithAccessToken(String authorization)
+      throws BadContentException {
+    if (StringUtils.isEmpty(authorization)) {
+      throw new BadContentException("Authorization header was empty");
+    }
+    String accessToken = decodeAuthorizationHeaderWithAccessToken(authorization);
+    if (StringUtils.isEmpty(accessToken)) {
+      throw new BadContentException("Access token not provided properly");
+    }
+    return accessToken;
+  }
+
+  private String[] decodeAuthorizationHeaderWithCredentials(String authorization) {
     if (authorization != null && authorization.startsWith("Basic")) {
       // Authorization: Basic base64credentials
       String base64Credentials = authorization.substring("Basic" .length()).trim();
@@ -179,6 +163,14 @@ public class AuthenticationService {
       return credentials.split(":", 2);
     }
     return new String[0];
+  }
+
+  private String decodeAuthorizationHeaderWithAccessToken(String authorization) {
+    if (authorization != null && authorization.startsWith("Bearer")) {
+      // Authorization: Bearer accessToken
+      return authorization.substring("Bearer".length()).trim();
+    }
+    return "";
   }
 
   public MetisUser loginUser(String email, String password)
@@ -196,24 +188,10 @@ public class AuthenticationService {
     return storedMetisUser;
   }
 
-  public void updateUserPassword(String email, String password, String newPassword)
-      throws BadContentException {
-    MetisUser storedMetisUser = authenticateUser(email, password);
-
-    byte[] salt = getSalt();
-    String hashedPassword = generatePasswordHashing(salt, newPassword);
-    storedMetisUser.setSalt(salt);
-    storedMetisUser.setPassword(hashedPassword);
-
-    if (storedMetisUser.getMetisUserAccessToken() != null) {
-      psqlMetisUserDao.updateAccessTokenTimestamp(email);
-    } else {
-      MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken(email,
-          generateAccessToken(), new Date());
-      psqlMetisUserDao.createUserAccessToken(metisUserAccessToken);
-      storedMetisUser.setMetisUserAccessToken(metisUserAccessToken);
-    }
-    psqlMetisUserDao.updateMetisUser(storedMetisUser);
+  public void updateUserPassword(MetisUser metisUser, String newPassword) {
+    String hashedPassword = generatePasswordHashing(newPassword);
+    metisUser.setPassword(hashedPassword);
+    psqlMetisUserDao.updateMetisUser(metisUser);
   }
 
   public void updateUserMakeAdmin(String userEmailToMakeAdmin) throws BadContentException {
@@ -224,16 +202,16 @@ public class AuthenticationService {
     psqlMetisUserDao.updateMetisUserToMakeAdmin(userEmailToMakeAdmin);
   }
 
-  public boolean isUserAdmin(String email, String password)
+  public boolean isUserAdmin(String accessToken)
       throws BadContentException {
-    MetisUser storedMetisUser = authenticateUser(email, password);
+    MetisUser storedMetisUser = authenticateUser(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
 
-  public boolean hasPermissionToRequestUserUpdate(String email, String password,
+  public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
       throws BadContentException {
-    MetisUser storedMetisUser = authenticateUser(email, password);
+    MetisUser storedMetisUser = authenticateUser(accessToken);
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || (
         storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER
@@ -269,16 +247,26 @@ public class AuthenticationService {
     return storedMetisUser;
   }
 
-  public boolean hasPermissionToRequestAllUsers(String email, String password)
+  public MetisUser authenticateUser(String accessToken)
       throws BadContentException {
-    MetisUser storedMetisUser = authenticateUser(email, password);
+    MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
+    if (storedMetisUser == null) {
+      throw new BadContentException("Wrong access token");
+    }
+    psqlMetisUserDao.updateAccessTokenTimestampByAccessToken(accessToken);
+    return storedMetisUser;
+  }
+
+  public boolean hasPermissionToRequestAllUsers(String accessToken)
+      throws BadContentException {
+    MetisUser storedMetisUser = authenticateUser(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
         || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
   }
 
-  public List<MetisUser> getAllUsers(String email) {
+  public List<MetisUser> getAllUsers(String accessToken) {
     List<MetisUser> allMetisUsers = psqlMetisUserDao.getAllMetisUsers();
-    MetisUser metisUserByEmail = psqlMetisUserDao.getMetisUserByEmail(email);
+    MetisUser metisUserByEmail = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     //Remove access tokens from a request coming from a role that is not METIS_ADMIN
     if (metisUserByEmail.getAccountRole() != AccountRole.METIS_ADMIN) {
       for (MetisUser metisUser :

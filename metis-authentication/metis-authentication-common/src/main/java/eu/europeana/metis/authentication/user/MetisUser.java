@@ -36,9 +36,6 @@ public class MetisUser {
   private String firstName;
   @Column(name = "last_name")
   private String lastName;
-  @Column(name = "salt")
-  @JsonIgnore
-  private byte[] salt;
   @Column(name = "password")
   @JsonIgnore
   private String password;
@@ -177,14 +174,6 @@ public class MetisUser {
 
   public void setLastName(String lastName) {
     this.lastName = lastName;
-  }
-
-  public byte[] getSalt() {
-    return salt;
-  }
-
-  public void setSalt(byte[] salt) {
-    this.salt = salt;
   }
 
   public String getPassword() {
