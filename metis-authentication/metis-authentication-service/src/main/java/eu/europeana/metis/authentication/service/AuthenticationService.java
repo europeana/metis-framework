@@ -29,6 +29,7 @@ import org.springframework.util.StringUtils;
 @Service
 public class AuthenticationService {
 
+  private static final int LOG_ROUNDS = 13;
   private ZohoAccessClientDao zohoAccessClientDao;
   private PsqlMetisUserDao psqlMetisUserDao;
 
@@ -118,7 +119,7 @@ public class AuthenticationService {
   }
 
   private String generatePasswordHashing(String password) {
-    return BCrypt.hashpw(password, BCrypt.gensalt(15));
+    return BCrypt.hashpw(password, BCrypt.gensalt(LOG_ROUNDS));
   }
 
   private boolean isPasswordValid(MetisUser metisUser, String passwordToTry) {
