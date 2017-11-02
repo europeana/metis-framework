@@ -12,15 +12,13 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.text.ParseException;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -52,9 +50,7 @@ public class AuthenticationService {
     }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
-    byte[] salt = getSalt();
-    String hashedPassword = generatePasswordHashing(salt, password);
-    metisUser.setSalt(salt);
+    String hashedPassword = generatePasswordHashing(password);
     metisUser.setPassword(hashedPassword);
 
     psqlMetisUserDao.createMetisUser(metisUser);
@@ -69,7 +65,6 @@ public class AuthenticationService {
     }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
-    metisUser.setSalt(storedMetisUser.getSalt());
     metisUser.setPassword(storedMetisUser.getPassword());
     if (storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
       metisUser.setAccountRole(AccountRole.METIS_ADMIN);
@@ -122,35 +117,12 @@ public class AuthenticationService {
     return metisUser;
   }
 
-  private String generatePasswordHashing(byte[] salt, String password) throws BadContentException {
-    MessageDigest sha256;
-    try {
-      sha256 = MessageDigest.getInstance("SHA-256");
-    } catch (NoSuchAlgorithmException e) {
-      throw new BadContentException("Hashing algorithm not found", e);
-    }
-    sha256.update(salt);
-    byte[] passwordHash = sha256.digest(password.getBytes());
-    StringBuilder stringHashedPassword = new StringBuilder();
-    for (byte aPasswordHash : passwordHash) {
-      stringHashedPassword
-          .append(Integer.toString((aPasswordHash & 0xff) + 0x100, 16).substring(1));
-    }
-
-    return stringHashedPassword.toString();
+  private String generatePasswordHashing(String password) {
+    return BCrypt.hashpw(password, BCrypt.gensalt(15));
   }
 
-  private byte[] getSalt() {
-    final Random r = new SecureRandom();
-    byte[] salt = new byte[32];
-    r.nextBytes(salt);
-    return salt;
-  }
-
-  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry)
-      throws BadContentException {
-    String hashedPasswordToTry = generatePasswordHashing(metisUser.getSalt(), passwordToTry);
-    return hashedPasswordToTry.equals(metisUser.getPassword());
+  private boolean isPasswordValid(MetisUser metisUser, String passwordToTry) {
+    return BCrypt.checkpw(passwordToTry, metisUser.getPassword());
   }
 
   public String[] validateAuthorizationHeader(String authorization) throws BadContentException {
@@ -200,9 +172,7 @@ public class AuthenticationService {
       throws BadContentException {
     MetisUser storedMetisUser = authenticateUser(email, password);
 
-    byte[] salt = getSalt();
-    String hashedPassword = generatePasswordHashing(salt, newPassword);
-    storedMetisUser.setSalt(salt);
+    String hashedPassword = generatePasswordHashing(newPassword);
     storedMetisUser.setPassword(hashedPassword);
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
