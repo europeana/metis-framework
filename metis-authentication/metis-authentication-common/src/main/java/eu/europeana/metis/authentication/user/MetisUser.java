@@ -100,9 +100,6 @@ public class MetisUser {
             networkMember = true;
           }
           break;
-        case "Network Member":
-          networkMember = Boolean.parseBoolean(content.textValue());
-          break;
         case "Metis user":
           metisUserFlag = Boolean.parseBoolean(content.textValue());
           break;
@@ -123,6 +120,7 @@ public class MetisUser {
 
   public void setOrganizationIdFromJsonNode(JsonNode jsonNode) throws BadContentException {
     Iterator<JsonNode> elements = jsonNode.elements();
+    OrganizationRole organizationRole = null;
     while (elements.hasNext()) {
       JsonNode next = elements.next();
       JsonNode val = next.get("val");
@@ -131,17 +129,16 @@ public class MetisUser {
         case "ACCOUNTID":
           organizationId = content.textValue();
           break;
-        case "Organization Role":
-          OrganizationRole organizationRole = OrganizationRole
+        case "Organisation Role":
+          organizationRole = OrganizationRole
               .getRoleFromName(content.textValue());
-          if (organizationRole == null) {
-            throw new BadContentException("Organization Role from Zoho is not valid");
-          }
           break;
         default:
           break;
       }
     }
+    if (organizationRole == null)
+      throw new BadContentException("Organization Role from Zoho is not valid or doesn't exist");
   }
 
   public String getUserId() {
