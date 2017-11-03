@@ -18,19 +18,14 @@
       <version>${version.spring}</version>
     </dependency>
     <dependency>
-      <groupId>javax.persistence</groupId>
-      <artifactId>persistence-api</artifactId>
-      <version>${version.javax.persistence}</version>
-    </dependency>
-    <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
-      <version>4.3.11.Final</version>
+      <version>${version.hibernate.core}</version>
     </dependency>
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.1.4</version>
+      <version>${version.postgresql}</version>
     </dependency>
     <dependency>
       <groupId>eu.europeana.metis</groupId>

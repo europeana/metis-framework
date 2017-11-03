@@ -321,6 +321,8 @@
     <version.jersey>2.21</version.jersey>
     <version.javax.mail>1.6.0</version.javax.mail>
     <version.javax.ws.rs.api>2.0.1</version.javax.ws.rs.api>
+    <version.hibernate.core>4.3.11.Final</version.hibernate.core>
+    <version.postgresql>42.1.4</version.postgresql>
     <version.guava>16.0</version.guava>
     <version.gson>2.8.0</version.gson>
     <version.openstack>1.9.0</version.openstack>
