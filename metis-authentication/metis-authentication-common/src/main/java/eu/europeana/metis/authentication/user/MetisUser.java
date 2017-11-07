@@ -67,6 +67,10 @@ public class MetisUser {
   }
 
   public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
+    parseJsonNodeZohoUserToMetisUser(jsonNode);
+  }
+
+  private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode) throws BadContentException, ParseException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {

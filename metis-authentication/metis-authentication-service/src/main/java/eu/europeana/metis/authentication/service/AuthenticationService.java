@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.exceptions.BadContentException;
-import eu.europeana.metis.authentication.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
 import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -42,7 +41,7 @@ public class AuthenticationService {
   }
 
   public void registerUser(String email, String password)
-      throws BadContentException, NoUserFoundException, NoOrganizationFoundException, UserAlreadyExistsException {
+      throws BadContentException, NoUserFoundException, UserAlreadyExistsException {
 
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser != null) {
@@ -58,7 +57,7 @@ public class AuthenticationService {
   }
 
   public void updateUserFromZoho(String email)
-      throws BadContentException, NoUserFoundException, NoOrganizationFoundException {
+      throws BadContentException, NoUserFoundException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null) {
       throw new NoUserFoundException(
@@ -75,7 +74,7 @@ public class AuthenticationService {
   }
 
   private MetisUser constructMetisUserFromZoho(String email)
-      throws BadContentException, NoOrganizationFoundException, NoUserFoundException {
+      throws BadContentException, NoUserFoundException {
     //Get user from zoho
     JsonNode userByEmailJsonNode;
     try {
@@ -95,13 +94,10 @@ public class AuthenticationService {
     } catch (ParseException e) {
       throw new BadContentException("Bad content while constructing metisUser");
     }
-    if (StringUtils.isEmpty(metisUser.getOrganizationName())) {
-      throw new NoOrganizationFoundException("User is not related to an organization");
-    }
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
       throw new BadContentException(
-          "Bad content while constructing metisUser, user does not have all the required fields defined in Zoho(Organization Name, Metis user, Account Role)");
+          "Bad content while constructing metisUser, user does not have all the required fields defined properly in Zoho(Organization Name, Metis user, Account Role)");
     }
 
     //Get Organization Id related to user
@@ -132,12 +128,7 @@ public class AuthenticationService {
     }
     String[] credentials = decodeAuthorizationHeaderWithCredentials(authorization);
     if (credentials.length < 2) {
-      throw new BadContentException("Username or password not provided, or not properly defined");
-    }
-    String email = credentials[0];
-    String password = credentials[1];
-    if (StringUtils.isEmpty(email) || StringUtils.isEmpty(password)) {
-      throw new BadContentException("Username or password not provided");
+      throw new BadContentException("Username or password not provided, or not properly defined in the Authorization Header");
     }
     return credentials;
   }
@@ -195,9 +186,10 @@ public class AuthenticationService {
     psqlMetisUserDao.updateMetisUser(metisUser);
   }
 
-  public void updateUserMakeAdmin(String userEmailToMakeAdmin) throws BadContentException {
+  public void updateUserMakeAdmin(String userEmailToMakeAdmin)
+      throws NoUserFoundException {
     if (psqlMetisUserDao.getMetisUserByEmail(userEmailToMakeAdmin) == null) {
-      throw new BadContentException(
+      throw new NoUserFoundException(
           String.format("User with email %s does not exist", userEmailToMakeAdmin));
     }
     psqlMetisUserDao.updateMetisUserToMakeAdmin(userEmailToMakeAdmin);
