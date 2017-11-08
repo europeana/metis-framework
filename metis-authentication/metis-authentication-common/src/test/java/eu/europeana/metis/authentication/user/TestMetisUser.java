@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.user;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,10 +1,10 @@
 package eu.europeana.metis.authentication.rest;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.authentication.exceptions.BadContentException;
-import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
-import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
-import eu.europeana.metis.authentication.exceptions.UserUnauthorizedException;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.NoUserFoundException;
+import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
 import java.util.List;

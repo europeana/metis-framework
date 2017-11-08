@@ -1,7 +1,7 @@
 package eu.europeana.metis.authentication.user;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)

@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.common.model.OrganizationRole;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

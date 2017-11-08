@@ -17,9 +17,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.authentication.exceptions.BadContentException;
-import eu.europeana.metis.authentication.exceptions.NoUserFoundException;
-import eu.europeana.metis.authentication.exceptions.UserAlreadyExistsException;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.NoUserFoundException;
+import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;

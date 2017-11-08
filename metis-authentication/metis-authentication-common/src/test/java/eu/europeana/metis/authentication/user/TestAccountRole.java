@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.user;
 
 import static org.junit.Assert.assertEquals;
 
-import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
 import org.junit.Test;
 
 /**
