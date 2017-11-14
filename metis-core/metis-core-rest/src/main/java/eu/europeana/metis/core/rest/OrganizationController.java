@@ -17,10 +17,10 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
@@ -34,12 +34,6 @@ import eu.europeana.metis.core.search.common.OrganizationSearchListWrapper;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.core.service.OrganizationService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +54,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-@Api("/")
 public class OrganizationController extends ApiKeySecuredControllerBase {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrganizationController.class);
@@ -82,15 +75,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
-  @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized"),
-      @ApiResponse(code = 406, message = "Bad content"),
-      @ApiResponse(code = 409, message = "Organization already exists")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true)
-  })
-  @ApiOperation(value = "Create an organization")
   public void createOrganization(
       @RequestBody Organization organization,
       @QueryParam("apikey") String apikey)
@@ -105,14 +89,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Delete an organization by organization Id")
   public void deleteOrganization(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("apikey") String apikey)
@@ -126,16 +102,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "Organization not found"),
-      @ApiResponse(code = 406, message = "Bad content")
-  })
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Update an organization by organization Id")
   public void updateOrganization(@RequestBody Organization organization,
       @PathVariable("organizationId") String organizationId,
       @QueryParam("apikey") String apikey)
@@ -153,14 +119,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
-  })
-  @ApiOperation(value = "Get all organizations", response = ResponseListWrapper.class)
   public ResponseListWrapper<Organization> getAllOrganizations(
       @QueryParam("nextPage") String nextPage,
       @QueryParam("apikey") String apikey)
@@ -182,15 +140,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized"),
-      @ApiResponse(code = 404, message = "Organization not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Get an organization by organization Id", response = Organization.class)
   public Organization getOrganizationByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("apikey") String apikey)
@@ -210,15 +159,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
-      @ApiImplicitParam(name = "isoCode", value = "IsoCode", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Get all organizations by county isoCode", response = ResponseListWrapper.class)
   public ResponseListWrapper<Organization> getAllOrganizationsByCountryIsoCode(
       @PathVariable("isoCode") String isoCode,
       @QueryParam("nextPage") String nextPage,
@@ -242,16 +182,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized"),
-      @ApiResponse(code = 406, message = "Bad content")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
-      @ApiImplicitParam(name = "organizationRoles", value = "comma separated values, e.g. CONTENT_PROVIDER,EUROPEANA", allowMultiple = true, dataType = "string", paramType = "query", required = true)
-  })
-  @ApiOperation(value = "Get all organizations by organization roles", response = ResponseListWrapper.class)
   public ResponseListWrapper<Organization> getAllOrganizationsByOrganizationRoles(
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
       @QueryParam("nextPage") String nextPage,
@@ -276,14 +206,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "searchTerm", value = "search value to get suggestions from", dataType = "string", paramType = "query")
-  })
-  @ApiOperation(value = "Suggest Organizations by a search term")
   public OrganizationSearchListWrapper suggestOrganizations(
       @QueryParam("searchTerm") String searchTerm,
       @QueryParam("apikey") String apikey)
@@ -300,16 +222,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized"),
-      @ApiResponse(code = 404, message = "Organization not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query"),
-      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Get all the datasets by organization Id", response = ResponseListWrapper.class)
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
       @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)
@@ -331,15 +243,6 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 401, message = "Api Key not authorized"),
-      @ApiResponse(code = 404, message = "Organization not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "apikey", value = "ApiKey", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "organizationId", value = "OrganizationId", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Check if an organization is opted-in for IIIF or not", response = ResultMap.class)
   public ResultMap<Boolean> isOrganizationIdOptedIn(
       @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
       throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
