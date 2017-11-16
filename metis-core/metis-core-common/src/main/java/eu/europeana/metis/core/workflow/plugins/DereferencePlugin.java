@@ -3,20 +3,24 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-24
+ * @since 2017-05-26
  */
 @Embedded
-public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
+public class DereferencePlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
+  private static final PluginType pluginType = PluginType.DEREFERENCE;
   private boolean mocked = true;
+  private Map<String, List<String>> parameters = new HashMap<>();
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -31,11 +35,11 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public VoidOaipmhHarvestPlugin() {
+  public DereferencePlugin() {
   }
 
-  public VoidOaipmhHarvestPlugin(
-      AbstractMetisPluginMetadata pluginMetadata) {
+  public DereferencePlugin(AbstractMetisPluginMetadata pluginMetadata)
+  {
     this.pluginMetadata = pluginMetadata;
   }
 
@@ -129,7 +133,8 @@ public class VoidOaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public CloudStatistics monitor(String dataseId) {
+  public CloudStatistics monitor(String datasetId) {
     return null;
   }
+
 }

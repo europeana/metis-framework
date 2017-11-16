@@ -16,9 +16,9 @@ import java.util.Date;
     include=JsonTypeInfo.As.PROPERTY,
     property="pluginType")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value=VoidOaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
-    @JsonSubTypes.Type(value=VoidHTTPHarvestPlugin.class, name="HTTP_HARVEST"),
-    @JsonSubTypes.Type(value=VoidDereferencePlugin.class, name="DEREFERENCE"),
+    @JsonSubTypes.Type(value=OaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
+    @JsonSubTypes.Type(value=HTTPHarvestPlugin.class, name="HTTP_HARVEST"),
+    @JsonSubTypes.Type(value=DereferencePlugin.class, name="DEREFERENCE"),
     @JsonSubTypes.Type(value=VoidMetisPlugin.class, name="VOID")
 })
 public interface AbstractMetisPlugin {

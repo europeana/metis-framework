@@ -11,7 +11,7 @@ import org.mongodb.morphia.annotations.Indexed;
  * @since 2017-05-24
  */
 @Embedded
-public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
+public class HTTPHarvestPlugin implements AbstractMetisPlugin {
 
   @Indexed
   private String id;
@@ -32,10 +32,10 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public VoidHTTPHarvestPlugin() {
+  public HTTPHarvestPlugin() {
   }
 
-  public VoidHTTPHarvestPlugin(
+  public HTTPHarvestPlugin(
       AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
   }

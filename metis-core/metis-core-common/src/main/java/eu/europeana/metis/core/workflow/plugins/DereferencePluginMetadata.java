@@ -7,14 +7,14 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class VoidDereferencePluginMetadata implements AbstractMetisPluginMetadata {
+public class DereferencePluginMetadata implements AbstractMetisPluginMetadata {
   private final PluginType pluginType = PluginType.DEREFERENCE;
   private Map<String, List<String>> parameters;
 
-  public VoidDereferencePluginMetadata() {
+  public DereferencePluginMetadata() {
   }
 
-  public VoidDereferencePluginMetadata(
+  public DereferencePluginMetadata(
       Map<String, List<String>> parameters) {
     this.parameters = parameters;
   }

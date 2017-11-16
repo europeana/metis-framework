@@ -11,7 +11,7 @@ import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.DereferencePluginMetadata;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -44,11 +44,11 @@ public class TestObjectFactory {
     HashMap<String, List<String>> dereferenceParameterGroups = new HashMap<>();
     dereferenceParameterGroups.put("GroupA", dereferenceParameters);
     dereferenceParameterGroups.put("GroupB", dereferenceParameters);
-    VoidDereferencePluginMetadata voidDereferencePluginMetadata = new VoidDereferencePluginMetadata(
+    DereferencePluginMetadata dereferencePluginMetadata = new DereferencePluginMetadata(
         dereferenceParameterGroups);
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
-    abstractMetisPluginMetadata.add(voidDereferencePluginMetadata);
+    abstractMetisPluginMetadata.add(dereferencePluginMetadata);
     userWorkflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
     return userWorkflow;

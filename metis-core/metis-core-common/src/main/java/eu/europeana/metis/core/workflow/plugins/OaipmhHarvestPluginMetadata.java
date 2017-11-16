@@ -8,15 +8,15 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class VoidOaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata {
+public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata {
   private OaipmhHarvestingMetadata oaipmhHarvestingMetadata;
   private final PluginType pluginType = PluginType.OAIPMH_HARVEST;
   private Map<String, List<String>> parameters;
 
-  public VoidOaipmhHarvestPluginMetadata() {
+  public OaipmhHarvestPluginMetadata() {
   }
 
-  public VoidOaipmhHarvestPluginMetadata(
+  public OaipmhHarvestPluginMetadata(
       OaipmhHarvestingMetadata oaipmhHarvestingMetadata,
       Map<String, List<String>> parameters) {
     this.oaipmhHarvestingMetadata = oaipmhHarvestingMetadata;

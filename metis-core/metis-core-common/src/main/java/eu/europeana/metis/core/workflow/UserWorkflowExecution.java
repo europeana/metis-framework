@@ -12,12 +12,12 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidOaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -92,21 +92,21 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     if (userWorkflow.isHarvestPlugin()) {
       switch (harvestingMetadata.getHarvestType()) {
         case HTTP_HARVEST:
-          VoidHTTPHarvestPlugin voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin(
-              new VoidHTTPHarvestPluginMetadata((HttpHarvestingMetadata) harvestingMetadata, null));
-          voidHTTPHarvestPlugin
+          HTTPHarvestPlugin HTTPHarvestPlugin = new HTTPHarvestPlugin(
+              new HTTPHarvestPluginMetadata((HttpHarvestingMetadata) harvestingMetadata, null));
+          HTTPHarvestPlugin
               .setId(
-                  new ObjectId().toString() + "-" + voidHTTPHarvestPlugin.getPluginType().name());
-          metisPlugins.add(voidHTTPHarvestPlugin);
+                  new ObjectId().toString() + "-" + HTTPHarvestPlugin.getPluginType().name());
+          metisPlugins.add(HTTPHarvestPlugin);
           break;
         case OAIPMH_HARVEST:
-          VoidOaipmhHarvestPlugin voidOaipmhHarvestPlugin = new VoidOaipmhHarvestPlugin(
-              new VoidOaipmhHarvestPluginMetadata(
+          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(
+              new OaipmhHarvestPluginMetadata(
                   (OaipmhHarvestingMetadata) harvestingMetadata, null));
-          voidOaipmhHarvestPlugin
+          oaipmhHarvestPlugin
               .setId(
-                  new ObjectId().toString() + "-" + voidOaipmhHarvestPlugin.getPluginType().name());
-          metisPlugins.add(voidOaipmhHarvestPlugin);
+                  new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
+          metisPlugins.add(oaipmhHarvestPlugin);
           break;
         case NULL:
           break;
@@ -120,10 +120,10 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     AbstractMetisPluginMetadata voidDereferencePluginMetadata = userWorkflow
         .getPluginMetadata(PluginType.DEREFERENCE);
     if (voidDereferencePluginMetadata != null) {
-      VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin(voidDereferencePluginMetadata);
-      voidDereferencePlugin
-          .setId(new ObjectId().toString() + "-" + voidDereferencePlugin.getPluginType().name());
-      metisPlugins.add(voidDereferencePlugin);
+      DereferencePlugin dereferencePlugin = new DereferencePlugin(voidDereferencePluginMetadata);
+      dereferencePlugin
+          .setId(new ObjectId().toString() + "-" + dereferencePlugin.getPluginType().name());
+      metisPlugins.add(dereferencePlugin);
     }
     AbstractMetisPluginMetadata voidMetisPluginMetadata = userWorkflow
         .getPluginMetadata(PluginType.VOID);
