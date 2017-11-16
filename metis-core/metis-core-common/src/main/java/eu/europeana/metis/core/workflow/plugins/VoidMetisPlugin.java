@@ -19,7 +19,8 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private final PluginType pluginType = PluginType.VOID;
+  private static final PluginType pluginType = PluginType.VOID;
+  private boolean mocked = true;
   private Map<String, List<String>> parameters = new HashMap<>();
 
   @Indexed
@@ -69,6 +70,16 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   @Override
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
+  }
+
+  @Override
+  public boolean isMocked() {
+    return mocked;
+  }
+
+  @Override
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
   }
 
   @Override

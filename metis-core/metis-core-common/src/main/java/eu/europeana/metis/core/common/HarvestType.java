@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Created by ymamakis on 2/17/16.
  */
 public enum HarvestType {
-  FTP_HARVEST, HTTP_HARVEST, OAIPMH_HARVEST, FOLDER_HARVEST, NULL;
+  HTTP_HARVEST, OAIPMH_HARVEST, NULL;
 
   @JsonCreator
   public static HarvestType getHarvestTypeFromEnumName(

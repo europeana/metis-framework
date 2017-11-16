@@ -7,7 +7,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -32,21 +31,15 @@ public class UserWorkflow implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
-  @ApiModelProperty(position = 1)
   private ObjectId id;
   @Indexed
-  @ApiModelProperty(position = 2)
   private String workflowOwner;
   @Indexed
-  @ApiModelProperty(position = 3)
   private String workflowName;
-  @ApiModelProperty(position = 4)
   private boolean harvestPlugin;
-  @ApiModelProperty(position = 5)
   private boolean transformPlugin;
 
   //Plugins information
-  @ApiModelProperty(position = 6)
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
   private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();
@@ -100,21 +93,10 @@ public class UserWorkflow implements HasMongoObjectId {
     this.metisPluginsMetadata = metisPluginsMetadata;
   }
 
-  public AbstractMetisPluginMetadata getVoidDereferencePluginMetadata() {
+  public AbstractMetisPluginMetadata getPluginMetadata(PluginType pluginType) {
     for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
         ) {
-      if (metisPluginMetadata.getPluginType() == PluginType.DEREFERENCE) {
-        return metisPluginMetadata;
-      }
-    }
-    return null;
-  }
-
-
-  public AbstractMetisPluginMetadata getVoidMetisPluginMetadata() {
-    for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
-        ) {
-      if (metisPluginMetadata.getPluginType() == PluginType.VOID) {
+      if (metisPluginMetadata.getPluginType() == pluginType) {
         return metisPluginMetadata;
       }
     }

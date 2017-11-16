@@ -30,9 +30,7 @@ import eu.europeana.metis.core.common.HarvestType;
     property="harvestType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value=OaipmhHarvestingMetadata.class, name="OAIPMH_HARVEST"),
-    @JsonSubTypes.Type(value=HttpHarvestingMetadata.class, name="HTTP_HARVEST"),
-    @JsonSubTypes.Type(value=FtpHarvestingMetadata.class, name="FTP_HARVEST"),
-    @JsonSubTypes.Type(value=FolderHarvestingMetadata.class, name="FOLDER_HARVEST")
+    @JsonSubTypes.Type(value=HttpHarvestingMetadata.class, name="HTTP_HARVEST")
 })
 public interface HarvestingMetadata {
 

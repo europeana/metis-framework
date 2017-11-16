@@ -11,6 +11,7 @@ import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.VoidDereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.VoidHTTPHarvestPluginMetadata;
@@ -90,8 +91,6 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     if (userWorkflow.isHarvestPlugin()) {
       switch (harvestingMetadata.getHarvestType()) {
-        case FTP_HARVEST:
-          break;
         case HTTP_HARVEST:
           VoidHTTPHarvestPlugin voidHTTPHarvestPlugin = new VoidHTTPHarvestPlugin(
               new VoidHTTPHarvestPluginMetadata((HttpHarvestingMetadata) harvestingMetadata, null));
@@ -109,9 +108,9 @@ public class UserWorkflowExecution implements HasMongoObjectId {
                   new ObjectId().toString() + "-" + voidOaipmhHarvestPlugin.getPluginType().name());
           metisPlugins.add(voidOaipmhHarvestPlugin);
           break;
-        case FOLDER_HARVEST:
-          break;
         case NULL:
+          break;
+        default:
           break;
       }
     }
@@ -119,7 +118,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
 
   private void addProcessPlugins(UserWorkflow userWorkflow) {
     AbstractMetisPluginMetadata voidDereferencePluginMetadata = userWorkflow
-        .getVoidDereferencePluginMetadata();
+        .getPluginMetadata(PluginType.DEREFERENCE);
     if (voidDereferencePluginMetadata != null) {
       VoidDereferencePlugin voidDereferencePlugin = new VoidDereferencePlugin(voidDereferencePluginMetadata);
       voidDereferencePlugin
@@ -127,7 +126,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
       metisPlugins.add(voidDereferencePlugin);
     }
     AbstractMetisPluginMetadata voidMetisPluginMetadata = userWorkflow
-        .getVoidMetisPluginMetadata();
+        .getPluginMetadata(PluginType.VOID);
     if (voidMetisPluginMetadata != null) {
       VoidMetisPlugin voidMetisPlugin = new VoidMetisPlugin(voidMetisPluginMetadata);
       voidMetisPlugin

@@ -12,10 +12,12 @@ import org.mongodb.morphia.annotations.Indexed;
  */
 @Embedded
 public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
+
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private final PluginType pluginType = PluginType.HTTP_HARVEST;
+  private static final PluginType pluginType = PluginType.HTTP_HARVEST;
+  private boolean mocked = true;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -70,6 +72,16 @@ public class VoidHTTPHarvestPlugin implements AbstractMetisPlugin {
   @Override
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
+  }
+
+  @Override
+  public boolean isMocked() {
+    return mocked;
+  }
+
+  @Override
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
   }
 
   public Date getStartedDate() {

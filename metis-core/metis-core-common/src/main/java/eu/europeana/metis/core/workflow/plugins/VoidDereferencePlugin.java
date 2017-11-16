@@ -18,7 +18,8 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private final PluginType pluginType = PluginType.DEREFERENCE;
+  private static final PluginType pluginType = PluginType.DEREFERENCE;
+  private boolean mocked = true;
   private Map<String, List<String>> parameters = new HashMap<>();
 
   @Indexed
@@ -72,11 +73,19 @@ public class VoidDereferencePlugin implements AbstractMetisPlugin {
   }
 
   @Override
+  public boolean isMocked() {
+    return mocked;
+  }
+
+  @Override
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
+  }
+
+  @Override
   public PluginType getPluginType() {
     return pluginType;
   }
-
-
 
   @Override
   public Date getStartedDate() {

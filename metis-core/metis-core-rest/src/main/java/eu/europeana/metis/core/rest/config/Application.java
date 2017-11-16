@@ -213,6 +213,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     if (redisProvider == null) {
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
     }
+
+
   }
 
   @Bean
@@ -323,6 +325,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   DataSetServiceClient dataSetServiceClient() {
     return new DataSetServiceClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
   }
+
+//  @Bean
+//  UISClient dataSetServiceClient() {
+//    return new UISClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
+//  }
 
   @Bean
   EcloudDatasetDao ecloudDatasetDao(DataSetServiceClient dataSetServiceClient) {

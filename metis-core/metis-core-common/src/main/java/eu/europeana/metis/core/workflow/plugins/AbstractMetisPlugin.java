@@ -23,8 +23,6 @@ import java.util.Date;
 })
 public interface AbstractMetisPlugin {
 
-  PluginStatus getPluginStatus();
-
   PluginType getPluginType();
 
   AbstractMetisPluginMetadata getPluginMetadata();
@@ -42,7 +40,13 @@ public interface AbstractMetisPlugin {
 
   void setUpdatedDate(Date updatedDate);
 
+  PluginStatus getPluginStatus();
+
   void setPluginStatus(PluginStatus pluginStatus);
+
+  boolean isMocked();
+
+  void setMocked(boolean mocked) ;
 
   ExecutionRecordsStatistics getExecutionRecordsStatistics();
 
