@@ -5,7 +5,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.UserWorkflow;
+import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
@@ -21,7 +21,7 @@ import org.mongodb.morphia.Datastore;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-04
  */
-public class TestUserWorkflowDao {
+public class TestWorkflowDao {
 
   private static UserWorkflowDao userWorkflowDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
@@ -49,41 +49,41 @@ public class TestUserWorkflowDao {
   @After
   public void cleanUp() {
     Datastore datastore = provider.getDatastore();
-    datastore.delete(datastore.createQuery(UserWorkflow.class));
+    datastore.delete(datastore.createQuery(Workflow.class));
   }
 
   @Test
   public void createUserWorkflow() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    String objectId = userWorkflowDao.create(userWorkflow);
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    String objectId = userWorkflowDao.create(workflow);
     Assert.assertNotNull(objectId);
   }
 
   @Test
   public void testUpdateUserWorkflow() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    userWorkflowDao.create(userWorkflow);
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    userWorkflowDao.create(workflow);
     String updatedWorkflowName = "updatedWorkflowName";
-    userWorkflow.setWorkflowName(updatedWorkflowName);
-    String objectId = userWorkflowDao.update(userWorkflow);
+    workflow.setWorkflowName(updatedWorkflowName);
+    String objectId = userWorkflowDao.update(workflow);
     Assert.assertNotNull(objectId);
-    UserWorkflow updatedUserWorkflow = userWorkflowDao.getById(objectId);
-    Assert.assertEquals(updatedWorkflowName, updatedUserWorkflow.getWorkflowName());
+    Workflow updatedWorkflow = userWorkflowDao.getById(objectId);
+    Assert.assertEquals(updatedWorkflowName, updatedWorkflow.getWorkflowName());
   }
 
   @Test
   public void getById() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    String objectId = userWorkflowDao.create(userWorkflow);
-    UserWorkflow retrievedUserWorkflow = userWorkflowDao.getById(objectId);
-    Assert.assertEquals(userWorkflow.getWorkflowOwner(), retrievedUserWorkflow.getWorkflowOwner());
-    Assert.assertEquals(userWorkflow.getWorkflowName(), retrievedUserWorkflow.getWorkflowName());
-    Assert.assertEquals(userWorkflow.isHarvestPlugin(), retrievedUserWorkflow.isHarvestPlugin());
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    String objectId = userWorkflowDao.create(workflow);
+    Workflow retrievedWorkflow = userWorkflowDao.getById(objectId);
+    Assert.assertEquals(workflow.getWorkflowOwner(), retrievedWorkflow.getWorkflowOwner());
+    Assert.assertEquals(workflow.getWorkflowName(), retrievedWorkflow.getWorkflowName());
+    Assert.assertEquals(workflow.isHarvestPlugin(), retrievedWorkflow.isHarvestPlugin());
     Assert
-        .assertEquals(userWorkflow.isTransformPlugin(), retrievedUserWorkflow.isTransformPlugin());
+        .assertEquals(workflow.isTransformPlugin(), retrievedWorkflow.isTransformPlugin());
 
-    List<AbstractMetisPluginMetadata> metisPluginsMetadata = userWorkflow.getMetisPluginsMetadata();
-    List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedUserWorkflow
+    List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
+    List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow
         .getMetisPluginsMetadata();
     Assert.assertEquals(metisPluginsMetadata.size(),
         retrievedUserWorkflowMetisPluginsMetadata.size());
@@ -96,35 +96,35 @@ public class TestUserWorkflowDao {
 
   @Test
   public void delete() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    userWorkflowDao.create(userWorkflow);
-    Assert.assertTrue(userWorkflowDao.delete(userWorkflow));
-    Assert.assertFalse(userWorkflowDao.delete(userWorkflow));
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    userWorkflowDao.create(workflow);
+    Assert.assertTrue(userWorkflowDao.delete(workflow));
+    Assert.assertFalse(userWorkflowDao.delete(workflow));
   }
 
   @Test
   public void deleteUserWorkflow() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    userWorkflowDao.create(userWorkflow);
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    userWorkflowDao.create(workflow);
     Assert.assertTrue(userWorkflowDao
-        .deleteUserWorkflow(userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
+        .deleteUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
     Assert.assertFalse(userWorkflowDao
-        .deleteUserWorkflow(userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
+        .deleteUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
   }
 
   @Test
   public void exists() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    userWorkflowDao.create(userWorkflow);
-    Assert.assertNotNull(userWorkflowDao.exists(userWorkflow));
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    userWorkflowDao.create(workflow);
+    Assert.assertNotNull(userWorkflowDao.exists(workflow));
   }
 
   @Test
   public void getUserWorkflow() {
-    UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-    userWorkflowDao.create(userWorkflow);
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    userWorkflowDao.create(workflow);
     Assert.assertNotNull(userWorkflowDao
-        .getUserWorkflow(userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
+        .getUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
   }
 
   @Test
@@ -133,14 +133,14 @@ public class TestUserWorkflowDao {
     int userWorkflowsToCreate = userWorkflowDao.getUserWorkflowsPerRequest() + 1;
     for (int i = 0; i < userWorkflowsToCreate; i++)
     {
-      UserWorkflow userWorkflow = TestObjectFactory.createUserWorkflowObject();
-      userWorkflow.setWorkflowName(String.format("%s%s", TestObjectFactory.WORKFLOWNAME, i));
-      userWorkflowDao.create(userWorkflow);
+      Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+      workflow.setWorkflowName(String.format("%s%s", TestObjectFactory.WORKFLOWNAME, i));
+      userWorkflowDao.create(workflow);
     }
     String nextPage = null;
     int allUserWorkflowsCount = 0;
     do {
-      ResponseListWrapper<UserWorkflow> userWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      ResponseListWrapper<Workflow> userWorkflowResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowResponseListWrapper.setResultsAndLastPage(userWorkflowDao
           .getAllUserWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), userWorkflowDao.getUserWorkflowsPerRequest());
       allUserWorkflowsCount+=userWorkflowResponseListWrapper.getListSize();

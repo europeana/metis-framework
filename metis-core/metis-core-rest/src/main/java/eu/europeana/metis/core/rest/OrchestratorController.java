@@ -12,7 +12,7 @@ import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsExce
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflow;
+import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import io.swagger.annotations.ApiImplicitParam;
@@ -60,9 +60,9 @@ public class OrchestratorController {
       @ApiResponse(code = 409, message = "User workflow execution already exists")})
   @ApiOperation(value = "Create a user workflow")
   public void createUserWorkflow(
-      @RequestBody UserWorkflow userWorkflow)
+      @RequestBody Workflow workflow)
       throws UserWorkflowAlreadyExistsException {
-    orchestratorService.createUserWorkflow(userWorkflow);
+    orchestratorService.createUserWorkflow(workflow);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.PUT, produces = {
@@ -71,11 +71,11 @@ public class OrchestratorController {
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflow not found")})
+      @ApiResponse(code = 404, message = "Workflow not found")})
   @ApiOperation(value = "Update a user workflow")
   public void updateUserWorkflow(
-      @RequestBody UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
-    orchestratorService.updateUserWorkflow(userWorkflow);
+      @RequestBody Workflow workflow) throws NoUserWorkflowFoundException {
+    orchestratorService.updateUserWorkflow(workflow);
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.DELETE)
@@ -90,7 +90,7 @@ public class OrchestratorController {
   public void deleteUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     orchestratorService.deleteUserWorkflow(workflowOwner, workflowName);
-    LOGGER.info("UserWorkflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner,
+    LOGGER.info("Workflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner,
         workflowName);
   }
 
@@ -103,15 +103,15 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
       @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
   })
-  @ApiOperation(value = "Get a userWorkflow by workflowOwner and workflowName", response = UserWorkflow.class)
-  public UserWorkflow getUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
+  @ApiOperation(value = "Get a userWorkflow by workflowOwner and workflowName", response = Workflow.class)
+  public Workflow getUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
-    UserWorkflow userWorkflow = orchestratorService
+    Workflow workflow = orchestratorService
         .getUserWorkflow(workflowOwner, workflowName);
     LOGGER.info(
-        "UserWorkflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner,
+        "Workflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner,
         workflowName);
-    return userWorkflow;
+    return workflow;
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_OWNER, method = RequestMethod.GET, produces = {
@@ -125,10 +125,10 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Get all userWorkflows by workflowOwner", response = ResponseListWrapper.class)
-  public ResponseListWrapper<UserWorkflow> getAllUserWorkflows(
+  public ResponseListWrapper<Workflow> getAllUserWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
       @QueryParam("nextPage") String nextPage) {
-    ResponseListWrapper<UserWorkflow> responseListWrapper = new ResponseListWrapper<>();
+    ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllUserWorkflows(workflowOwner, nextPage),
         orchestratorService.getUserWorkflowsPerRequest());
@@ -145,7 +145,7 @@ public class OrchestratorController {
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 404, message = "Dataset or UserWorkflow not found"),
+      @ApiResponse(code = 404, message = "Dataset or Workflow not found"),
       @ApiResponse(code = 409, message = "User workflow execution already exists")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
@@ -177,24 +177,24 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
       @ApiResponse(code = 404, message = "Dataset not found"),
-      @ApiResponse(code = 409, message = "UserWorkflowExecution or UserWorkflow already exists")})
+      @ApiResponse(code = 409, message = "UserWorkflowExecution or Workflow already exists")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
       @ApiImplicitParam(name = "priority", value = "Priority value, default is 0. The higher number the higher priority until 10", dataType = "int", defaultValue = "0", paramType = "query")
   })
   @ApiOperation(value = "Create a user workflow on the fly and directly send it in the queue of workflow executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
+      @PathVariable("datasetName") String datasetName, @RequestBody Workflow workflow,
       @QueryParam("priority") Integer priority)
       throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
     if (priority == null) {
       priority = 0;
     }
     orchestratorService
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, userWorkflow, priority);
+        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, workflow, priority);
     LOGGER.info(
         "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' started", datasetName,
-        userWorkflow.getWorkflowOwner());
+        workflow.getWorkflowOwner());
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
@@ -297,7 +297,7 @@ public class OrchestratorController {
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Successful response"),
       @ApiResponse(code = 404, message = "Dataset not found"),
-      @ApiResponse(code = 404, message = "UserWorkflow not found"),
+      @ApiResponse(code = 404, message = "Workflow not found"),
       @ApiResponse(code = 406, message = "Bad content"),
       @ApiResponse(code = 409, message = "ScheduledUserWorkflow already exist")})
   @ApiOperation(value = "Schedule a user workflow. Only one schedule per datasetName is allowed.")
@@ -359,7 +359,7 @@ public class OrchestratorController {
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflow or ScheduledUserWorkflow not found"),
+      @ApiResponse(code = 404, message = "Workflow or ScheduledUserWorkflow not found"),
       @ApiResponse(code = 406, message = "Bad content")})
   @ApiOperation(value = "Update a scheduled user workflow for datasetName")
   public void updateScheduledUserWorkflow(

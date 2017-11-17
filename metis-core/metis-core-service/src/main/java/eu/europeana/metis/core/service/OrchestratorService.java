@@ -16,7 +16,7 @@ import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsExce
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflow;
+import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
@@ -60,27 +60,27 @@ public class OrchestratorService {
     this.userWorkflowExecutorManager.initiateConsumer();
   }
 
-  public void createUserWorkflow(UserWorkflow userWorkflow)
+  public void createUserWorkflow(Workflow workflow)
       throws UserWorkflowAlreadyExistsException {
-    checkRestrictionsOnUserWorkflowCreate(userWorkflow);
-    userWorkflowDao.create(userWorkflow);
+    checkRestrictionsOnUserWorkflowCreate(workflow);
+    userWorkflowDao.create(workflow);
   }
 
-  public void updateUserWorkflow(UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
-    String storedId = checkRestrictionsOnUserWorkflowUpdate(userWorkflow);
-    userWorkflow.setId(new ObjectId(storedId));
-    userWorkflowDao.update(userWorkflow);
+  public void updateUserWorkflow(Workflow workflow) throws NoUserWorkflowFoundException {
+    String storedId = checkRestrictionsOnUserWorkflowUpdate(workflow);
+    workflow.setId(new ObjectId(storedId));
+    userWorkflowDao.update(workflow);
   }
 
   public void deleteUserWorkflow(String workflowOwner, String workflowName) {
     userWorkflowDao.deleteUserWorkflow(workflowOwner, workflowName);
   }
 
-  public UserWorkflow getUserWorkflow(String workflowOwner, String workflowName) {
+  public Workflow getUserWorkflow(String workflowOwner, String workflowName) {
     return userWorkflowDao.getUserWorkflow(workflowOwner, workflowName);
   }
 
-  public List<UserWorkflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
+  public List<Workflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
     return userWorkflowDao.getAllUserWorkflows(workflowOwner, nextPage);
   }
 
@@ -94,9 +94,9 @@ public class OrchestratorService {
       throws NoDatasetFoundException, NoUserWorkflowFoundException, UserWorkflowExecutionAlreadyExistsException {
 
     Dataset dataset = checkDatasetExistence(datasetName);
-    UserWorkflow userWorkflow = checkUserWorkflowExistence(workflowOwner, workflowName);
+    Workflow workflow = checkUserWorkflowExistence(workflowOwner, workflowName);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow,
+    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, workflow,
         priority);
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     String storedUserWorkflowExecutionId = userWorkflowExecutionDao
@@ -112,16 +112,16 @@ public class OrchestratorService {
     LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
   }
 
-  //Used for direct, on the fly provided, execution of a UserWorkflow
+  //Used for direct, on the fly provided, execution of a Workflow
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
-      UserWorkflow userWorkflow, int priority)
+      Workflow workflow, int priority)
       throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
     Dataset dataset = checkDatasetExistence(datasetName);
     //Generate uuid workflowName for user and check if by any chance it exists.
-    userWorkflow.setWorkflowName(new ObjectId().toString());
-    checkRestrictionsOnUserWorkflowCreate(userWorkflow);
+    workflow.setWorkflowName(new ObjectId().toString());
+    checkRestrictionsOnUserWorkflowCreate(workflow);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow,
+    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, workflow,
         priority);
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     String storedUserWorkflowExecutionId = userWorkflowExecutionDao
@@ -165,33 +165,33 @@ public class OrchestratorService {
         .addUserWorkflowExecutionToQueue(userWorkflowExecutionObjectId, priority);
   }
 
-  private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
+  private void checkRestrictionsOnUserWorkflowCreate(Workflow workflow)
       throws UserWorkflowAlreadyExistsException {
 
-    if (StringUtils.isNotEmpty(userWorkflowExists(userWorkflow))) {
+    if (StringUtils.isNotEmpty(userWorkflowExists(workflow))) {
       throw new UserWorkflowAlreadyExistsException(String.format(
-          "UserWorkflow with workflowOwner: %s, and workflowName: %s, already exists",
-          userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
+          "Workflow with workflowOwner: %s, and workflowName: %s, already exists",
+          workflow.getWorkflowOwner(), workflow.getWorkflowName()));
     }
   }
 
-  private String checkRestrictionsOnUserWorkflowUpdate(UserWorkflow userWorkflow)
+  private String checkRestrictionsOnUserWorkflowUpdate(Workflow workflow)
       throws NoUserWorkflowFoundException {
 
-    String storedId = userWorkflowExists(userWorkflow);
+    String storedId = userWorkflowExists(workflow);
     if (StringUtils.isEmpty(storedId)) {
       throw new NoUserWorkflowFoundException(String.format(
-          "UserWorkflow with workflowOwner: %s, and workflowName: %s, not found",
-          userWorkflow.getWorkflowOwner(),
-          userWorkflow
+          "Workflow with workflowOwner: %s, and workflowName: %s, not found",
+          workflow.getWorkflowOwner(),
+          workflow
               .getWorkflowName()));
     }
 
     return storedId;
   }
 
-  private String userWorkflowExists(UserWorkflow userWorkflow) {
-    return userWorkflowDao.exists(userWorkflow);
+  private String userWorkflowExists(Workflow workflow) {
+    return userWorkflowDao.exists(workflow);
   }
 
   public int getUserWorkflowExecutionsPerRequest() {
@@ -251,16 +251,16 @@ public class OrchestratorService {
     return dataset;
   }
 
-  private UserWorkflow checkUserWorkflowExistence(String workflowOwner, String workflowName)
+  private Workflow checkUserWorkflowExistence(String workflowOwner, String workflowName)
       throws NoUserWorkflowFoundException {
-    UserWorkflow userWorkflow = userWorkflowDao
+    Workflow workflow = userWorkflowDao
         .getUserWorkflow(workflowOwner, workflowName);
-    if (userWorkflow == null) {
+    if (workflow == null) {
       throw new NoUserWorkflowFoundException(String.format(
           "No user workflow found with workflowOwner: %s, and workflowName: %s, in METIS",
           workflowOwner, workflowName));
     }
-    return userWorkflow;
+    return workflow;
   }
 
   private void checkScheduledUserWorkflowExistenceForDatasetName(String datasetName)
@@ -304,7 +304,7 @@ public class OrchestratorService {
         .existsForDatasetName(scheduledUserWorkflow.getDatasetName());
     if (StringUtils.isEmpty(storedId)) {
       throw new NoScheduledUserWorkflowFoundException(String.format(
-          "UserWorkflow with datasetName: %s, not found", scheduledUserWorkflow.getDatasetName()));
+          "Workflow with datasetName: %s, not found", scheduledUserWorkflow.getDatasetName()));
     }
     if (scheduledUserWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");

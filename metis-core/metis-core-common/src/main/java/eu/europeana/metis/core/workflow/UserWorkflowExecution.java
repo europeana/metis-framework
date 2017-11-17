@@ -74,22 +74,22 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   public UserWorkflowExecution() {
   }
 
-  public UserWorkflowExecution(Dataset dataset, UserWorkflow userWorkflow, int workflowPriority) {
-    this.workflowOwner = userWorkflow.getWorkflowOwner();
-    this.workflowName = userWorkflow.getWorkflowName();
+  public UserWorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
+    this.workflowOwner = workflow.getWorkflowOwner();
+    this.workflowName = workflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
     this.workflowPriority = workflowPriority;
 
-    addHarvestingPlugin(dataset, userWorkflow);
+    addHarvestingPlugin(dataset, workflow);
 
     // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
 
-    addProcessPlugins(userWorkflow);
+    addProcessPlugins(workflow);
   }
 
-  private void addHarvestingPlugin(Dataset dataset, UserWorkflow userWorkflow) {
+  private void addHarvestingPlugin(Dataset dataset, Workflow workflow) {
     HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
-    if (userWorkflow.isHarvestPlugin()) {
+    if (workflow.isHarvestPlugin()) {
       switch (harvestingMetadata.getHarvestType()) {
         case HTTP_HARVEST:
           HTTPHarvestPlugin HTTPHarvestPlugin = new HTTPHarvestPlugin(
@@ -116,8 +116,8 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     }
   }
 
-  private void addProcessPlugins(UserWorkflow userWorkflow) {
-    AbstractMetisPluginMetadata dereferencePluginMetadata = userWorkflow
+  private void addProcessPlugins(Workflow workflow) {
+    AbstractMetisPluginMetadata dereferencePluginMetadata = workflow
         .getPluginMetadata(PluginType.DEREFERENCE);
     if (dereferencePluginMetadata != null) {
       DereferencePlugin dereferencePlugin = new DereferencePlugin(dereferencePluginMetadata);
@@ -125,7 +125,7 @@ public class UserWorkflowExecution implements HasMongoObjectId {
           .setId(new ObjectId().toString() + "-" + dereferencePlugin.getPluginType().name());
       metisPlugins.add(dereferencePlugin);
     }
-    AbstractMetisPluginMetadata voidMetisPluginMetadata = userWorkflow
+    AbstractMetisPluginMetadata voidMetisPluginMetadata = workflow
         .getPluginMetadata(PluginType.VOID);
     if (voidMetisPluginMetadata != null) {
       VoidMetisPlugin voidMetisPlugin = new VoidMetisPlugin(voidMetisPluginMetadata);

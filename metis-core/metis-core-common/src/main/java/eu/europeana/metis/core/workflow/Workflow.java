@@ -27,7 +27,7 @@ import org.mongodb.morphia.annotations.Indexes;
     @Field("workflowName")}, options = @IndexOptions(unique = true)))
 @JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "harvest", "dereferencePluginMetadata",
     "voidMetisPluginMetadata"})
-public class UserWorkflow implements HasMongoObjectId {
+public class Workflow implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)

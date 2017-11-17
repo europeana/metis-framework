@@ -31,7 +31,7 @@ import org.redisson.api.RedissonClient;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestUserWorkflowExecutor {
+public class TestWorkflowExecutor {
   private static int monitorCheckIntervalInSecs = 0;
   private static UserWorkflowExecutionDao userWorkflowExecutionDao;
   private static RedissonClient redissonClient;

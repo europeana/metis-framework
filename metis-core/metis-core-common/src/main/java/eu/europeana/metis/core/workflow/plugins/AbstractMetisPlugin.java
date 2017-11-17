@@ -53,7 +53,7 @@ public interface AbstractMetisPlugin {
       ExecutionRecordsStatistics executionRecordsStatistics);
 
   /**
-   * The business logic that the UserWorkflow implements. This is where the connection to the
+   * The business logic that the Workflow implements. This is where the connection to the
    * Europeana Cloud DPS REST API is implemented.
    */
   void execute();

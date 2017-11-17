@@ -44,7 +44,7 @@ import org.redisson.api.RedissonClient;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-17
  */
-public class TestUserWorkflowExecutorManager {
+public class TestWorkflowExecutorManager {
 
   private static UserWorkflowExecutionDao userWorkflowExecutionDao;
   private static RedissonClient redissonClient;

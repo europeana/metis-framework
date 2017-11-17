@@ -27,7 +27,7 @@ import org.mongodb.morphia.Datastore;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-10-04
  */
-public class TestUserWorkflowExecutionDao {
+public class TestWorkflowExecutionDao {
 
   private static UserWorkflowExecutionDao userWorkflowExecutionDao;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
