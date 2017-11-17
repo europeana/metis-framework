@@ -1,11 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
@@ -21,7 +17,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private static final PluginType pluginType = PluginType.VOID;
   private boolean mocked = true;
-  private Map<String, List<String>> parameters = new HashMap<>();
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -133,7 +128,7 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public CloudStatistics monitor(String datasetId) {
+  public ExecutionRecordsStatistics monitor(String datasetId) {
     return null;
   }
 

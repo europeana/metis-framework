@@ -8,7 +8,7 @@ import java.util.Map;
  * @since 2017-05-29
  */
 public class VoidMetisPluginMetadata implements AbstractMetisPluginMetadata {
-  private final PluginType pluginType = PluginType.VOID;
+  private static final PluginType pluginType = PluginType.VOID;
   private Map<String, List<String>> parameters;
 
   public VoidMetisPluginMetadata() {

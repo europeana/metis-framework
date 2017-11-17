@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class HTTPHarvestPluginMetadata implements AbstractMetisPluginMetadata {
   private HttpHarvestingMetadata httpHarvestingMetadata;
-  private final PluginType pluginType = PluginType.HTTP_HARVEST;
+  private static final PluginType pluginType = PluginType.HTTP_HARVEST;
   private Map<String, List<String>> parameters;
 
   public HTTPHarvestPluginMetadata() {

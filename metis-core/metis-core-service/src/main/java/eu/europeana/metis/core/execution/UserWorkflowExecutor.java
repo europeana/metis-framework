@@ -78,6 +78,7 @@ public class UserWorkflowExecutor implements Callable<UserWorkflowExecution> {
   }
 
   private void runInQueueStateWorkflowExecution(RLock lock) {
+    // TODO: 16-11-17 Create ecloud dataset if it doesn't already exist for metis dataset
     startDate = new Date();
     userWorkflowExecution.setStartedDate(startDate);
     userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);

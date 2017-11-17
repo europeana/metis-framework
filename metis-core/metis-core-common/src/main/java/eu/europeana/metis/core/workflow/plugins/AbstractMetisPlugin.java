@@ -2,7 +2,6 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 
 /**
@@ -59,6 +58,6 @@ public interface AbstractMetisPlugin {
    */
   void execute();
 
-  CloudStatistics monitor(String dataseId);
+  ExecutionRecordsStatistics monitor(String dataseId);
 
 }

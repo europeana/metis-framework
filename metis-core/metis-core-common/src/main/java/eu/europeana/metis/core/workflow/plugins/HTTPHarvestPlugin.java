@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
@@ -124,7 +123,7 @@ public class HTTPHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public CloudStatistics monitor(String dataseId) {
+  public ExecutionRecordsStatistics monitor(String dataseId) {
     return null;
   }
 }

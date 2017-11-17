@@ -1,7 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import eu.europeana.metis.core.workflow.CloudStatistics;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
@@ -126,10 +125,14 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public void execute() {
+    if (!mocked){
+      // TODO: 16-11-17 Send dps execution to ecloud
+    }
   }
 
   @Override
-  public CloudStatistics monitor(String dataseId) {
+  public ExecutionRecordsStatistics monitor(String dataseId) {
+    // TODO: 16-11-17 Get execution statistics from ecloud using dps id returned from execute
     return null;
   }
 }

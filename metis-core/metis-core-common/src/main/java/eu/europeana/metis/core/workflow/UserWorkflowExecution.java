@@ -38,7 +38,7 @@ import org.mongodb.morphia.annotations.Indexes;
 @Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
 @JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetName",
     "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
-    "voidHTTPHarvestPlugin", "voidOaipmhHarvestPlugin", "voidDereferencePlugin", "voidMetisPlugin"})
+    "hTTPHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
 public class UserWorkflowExecution implements HasMongoObjectId {
 
   @Id
@@ -117,10 +117,10 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   }
 
   private void addProcessPlugins(UserWorkflow userWorkflow) {
-    AbstractMetisPluginMetadata voidDereferencePluginMetadata = userWorkflow
+    AbstractMetisPluginMetadata dereferencePluginMetadata = userWorkflow
         .getPluginMetadata(PluginType.DEREFERENCE);
-    if (voidDereferencePluginMetadata != null) {
-      DereferencePlugin dereferencePlugin = new DereferencePlugin(voidDereferencePluginMetadata);
+    if (dereferencePluginMetadata != null) {
+      DereferencePlugin dereferencePlugin = new DereferencePlugin(dereferencePluginMetadata);
       dereferencePlugin
           .setId(new ObjectId().toString() + "-" + dereferencePlugin.getPluginType().name());
       metisPlugins.add(dereferencePlugin);

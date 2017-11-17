@@ -329,6 +329,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 //  @Bean
 //  UISClient dataSetServiceClient() {
 //    return new UISClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
+//    and create metis ecloud provider if it doesn't already exist
 //  }
 
   @Bean
