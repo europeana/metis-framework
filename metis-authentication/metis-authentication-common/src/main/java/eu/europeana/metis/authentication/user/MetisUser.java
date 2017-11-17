@@ -121,8 +121,9 @@ public class MetisUser {
     }
   }
 
-  public void setOrganizationIdFromJsonNode(JsonNode jsonNode) throws BadContentException {
+  public void setAndCheckOrganizationIdFromJsonNode(JsonNode jsonNode) throws BadContentException {
     Iterator<JsonNode> elements = jsonNode.elements();
+    OrganizationRole organizationRole = null;
     while (elements.hasNext()) {
       JsonNode next = elements.next();
       JsonNode val = next.get("val");
@@ -132,15 +133,14 @@ public class MetisUser {
           organizationId = content.textValue();
           break;
         case "Organization Role":
-          OrganizationRole organizationRole = OrganizationRole
-              .getRoleFromName(content.textValue());
-          if (organizationRole == null) {
-            throw new BadContentException("Organization Role from Zoho is not valid");
-          }
+          organizationRole = OrganizationRole.getRoleFromName(content.textValue());
           break;
         default:
           break;
       }
+    }
+    if (organizationRole == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
     }
   }
 
