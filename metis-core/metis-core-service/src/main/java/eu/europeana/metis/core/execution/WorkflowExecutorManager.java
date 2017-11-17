@@ -6,7 +6,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.MessageProperties;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
@@ -27,9 +27,9 @@ import org.springframework.stereotype.Component;
  * @since 2017-05-30
  */
 @Component
-public class UserWorkflowExecutorManager {
+public class WorkflowExecutorManager {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutorManager.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutorManager.class);
 
   private int maxConcurrentThreads = 10; //Use setter otherwise default
   private int monitorCheckIntervalInSecs = 5; //Use setter otherwise default
@@ -42,14 +42,14 @@ public class UserWorkflowExecutorManager {
   private final ExecutorCompletionService<WorkflowExecution> completionService = new ExecutorCompletionService<>(
       threadPool);
 
-  private final UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private final WorkflowExecutionDao workflowExecutionDao;
   private final RedissonClient redissonClient;
 
   @Autowired
-  public UserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel,
+  public WorkflowExecutorManager(
+      WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
       RedissonClient redissonClient) {
-    this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.workflowExecutionDao = workflowExecutionDao;
     this.rabbitmqChannel = rabbitmqChannel;
     this.redissonClient = redissonClient;
   }
@@ -80,7 +80,7 @@ public class UserWorkflowExecutorManager {
   public synchronized void cancelUserWorkflowExecution(WorkflowExecution workflowExecution) {
     if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
         || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
-      userWorkflowExecutionDao.setCancellingState(workflowExecution);
+      workflowExecutionDao.setCancellingState(workflowExecution);
       LOGGER.info(
           "Cancelling user workflow execution with id: {}", workflowExecution.getId());
     }
@@ -135,7 +135,7 @@ public class UserWorkflowExecutorManager {
         checkAndCleanCompletionService();
       }
 
-      WorkflowExecution workflowExecution = userWorkflowExecutionDao.getById(objectId);
+      WorkflowExecution workflowExecution = workflowExecutionDao.getById(objectId);
       //If the thread pool is still full, executions are still active. Send the message back to the queue.
       if (threadsCounter >= maxConcurrentThreads) {
         //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
@@ -146,14 +146,14 @@ public class UserWorkflowExecutorManager {
             rabbitmqEnvelope.getDeliveryTag());
       } else {
         if (!workflowExecution.isCancelling()) { //Submit for execution
-          UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-              workflowExecution, userWorkflowExecutionDao, monitorCheckIntervalInSecs,
+          WorkflowExecutor workflowExecutor = new WorkflowExecutor(
+              workflowExecution, workflowExecutionDao, monitorCheckIntervalInSecs,
               redissonClient);
-          completionService.submit(userWorkflowExecutor);
+          completionService.submit(workflowExecutor);
           threadsCounter++;
         } else { //Has been cancelled, do not execute
           workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
-          userWorkflowExecutionDao.update(workflowExecution);
+          workflowExecutionDao.update(workflowExecution);
           LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
               workflowExecution.getId());
         }

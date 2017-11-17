@@ -30,8 +30,8 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
-import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
@@ -56,8 +56,8 @@ public class TestDatasetService {
   private OrganizationDao organizationDao;
   private OrganizationService organizationService;
   private DatasetDao datasetDao;
-  private UserWorkflowExecutionDao userWorkflowExecutionDao;
-  private ScheduledUserWorkflowDao scheduledUserWorkflowDao;
+  private WorkflowExecutionDao workflowExecutionDao;
+  private ScheduledWorkflowDao scheduledWorkflowDao;
   private EcloudDatasetDao ecloudDatasetDao;
   private DatasetService datasetService;
   private Datastore datastore;
@@ -70,11 +70,12 @@ public class TestDatasetService {
 
     organizationDao = Mockito.mock(OrganizationDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
-    userWorkflowExecutionDao = Mockito.mock(UserWorkflowExecutionDao.class);
-    scheduledUserWorkflowDao = Mockito.mock(ScheduledUserWorkflowDao.class);
+    workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
+    scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
 
-    datasetService = new DatasetService(datasetDao, organizationDao, userWorkflowExecutionDao, scheduledUserWorkflowDao);
+    datasetService = new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
+        scheduledWorkflowDao);
     datastore = Mockito.mock(Datastore.class);
 
     org = createOrganization();
@@ -165,12 +166,12 @@ public class TestDatasetService {
     ds.setOrganizationId("myOrgId");
     ds.setDatasetName("myDatasetId");
     when(datasetDao.getDatasetByDatasetName(any(String.class))).thenReturn(ds);
-    when(userWorkflowExecutionDao.existsAndNotCompleted(any(String.class))).thenReturn(null);
+    when(workflowExecutionDao.existsAndNotCompleted(any(String.class))).thenReturn(null);
     when(datasetDao.deleteDatasetByDatasetName(any(String.class))).thenReturn(true);
     when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class)))
         .thenReturn(null);
-    when(userWorkflowExecutionDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
-    when(scheduledUserWorkflowDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
+    when(workflowExecutionDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
+    when(scheduledWorkflowDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
 
     datasetService.deleteDatasetByDatasetName("myDatasetId");
 
@@ -179,8 +180,8 @@ public class TestDatasetService {
     verify(organizationDao, times(1)).getOrganizationByOrganizationId("myOrgId");
     verify(organizationDao, times(1))
         .removeOrganizationDatasetNameFromList("myOrgId", "myDatasetId");
-    verify(userWorkflowExecutionDao, times(1)).deleteAllByDatasetName(any(String.class));
-    verify(scheduledUserWorkflowDao, times(1)).deleteAllByDatasetName(any(String.class));
+    verify(workflowExecutionDao, times(1)).deleteAllByDatasetName(any(String.class));
+    verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetName(any(String.class));
 //    verify(ecloudDatasetDao, times(1)).delete(any(DataSet.class));
   }
 
@@ -264,7 +265,7 @@ public class TestDatasetService {
 
     when(datasetDao.getDatasetByDatasetName("dataSetName")).thenReturn(ds);
 //    when(ecloudDatasetDao.getEcloudProvider()).thenReturn("myEcloudprovider");
-    when(userWorkflowExecutionDao.existsAndNotCompleted("dataSetName")).thenReturn(null);
+    when(workflowExecutionDao.existsAndNotCompleted("dataSetName")).thenReturn(null);
 
     datasetService.updateDatasetByDatasetName(ds, "dataSetName");
 

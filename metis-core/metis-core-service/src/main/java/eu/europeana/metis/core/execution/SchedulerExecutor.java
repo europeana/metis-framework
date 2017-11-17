@@ -1,8 +1,8 @@
 package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -220,7 +220,7 @@ public class SchedulerExecutor implements Runnable {
           scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowOwner(),
           scheduledWorkflow.getWorkflowName(),
           scheduledWorkflow.getWorkflowPriority());
-    } catch (NoDatasetFoundException | NoUserWorkflowFoundException | UserWorkflowExecutionAlreadyExistsException e) {
+    } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
     }
   }

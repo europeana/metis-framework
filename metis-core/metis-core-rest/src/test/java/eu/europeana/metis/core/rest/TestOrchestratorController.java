@@ -22,12 +22,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
@@ -84,7 +84,7 @@ public class TestOrchestratorController {
   @Test
   public void createUserWorkflow_UserWorkflowAlreadyExistsException() throws Exception {
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
-    doThrow(new UserWorkflowAlreadyExistsException("Some error")).when(orchestratorService)
+    doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .createUserWorkflow(any(Workflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -110,7 +110,7 @@ public class TestOrchestratorController {
   @Test
   public void updateUserWorkflow_NoUserWorkflowFoundException() throws Exception {
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
-    doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService)
+    doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .updateUserWorkflow(any(Workflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -192,7 +192,7 @@ public class TestOrchestratorController {
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions_UserWorkflowExecutionAlreadyExistsException()
       throws Exception {
-    doThrow(new UserWorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
+    doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt());
     orchestratorControllerMock.perform(
@@ -226,7 +226,7 @@ public class TestOrchestratorController {
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions_NoUserWorkflowFoundException()
       throws Exception {
-    doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService)
+    doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt());
     orchestratorControllerMock.perform(
@@ -258,7 +258,7 @@ public class TestOrchestratorController {
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions_direct_UserWorkflowExecutionAlreadyExistsException()
       throws Exception {
-    doThrow(new UserWorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
+    doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), any(Workflow.class),
             anyInt());
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
@@ -290,7 +290,7 @@ public class TestOrchestratorController {
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions_direct_UserWorkflowAlreadyExistsException()
       throws Exception {
-    doThrow(new UserWorkflowAlreadyExistsException("Some error")).when(orchestratorService)
+    doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), any(Workflow.class),
             anyInt());
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
@@ -317,7 +317,7 @@ public class TestOrchestratorController {
 
   @Test
   public void cancelUserWorkflowExecution_NoUserWorkflowExecutionFoundException() throws Exception {
-    doThrow(new NoUserWorkflowExecutionFoundException("Some error")).when(orchestratorService)
+    doThrow(new NoWorkflowExecutionFoundException("Some error")).when(orchestratorService)
         .cancelUserWorkflowExecution(anyString());
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME,
@@ -430,7 +430,7 @@ public class TestOrchestratorController {
       throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new ScheduledUserWorkflowAlreadyExistsException("Some error")).when(orchestratorService)
+    doThrow(new ScheduledWorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .scheduleUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -443,7 +443,7 @@ public class TestOrchestratorController {
   public void scheduleUserWorkflowExecution_NoUserWorkflowFoundException() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService)
+    doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .scheduleUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -527,7 +527,7 @@ public class TestOrchestratorController {
   {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
+    doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
@@ -540,7 +540,7 @@ public class TestOrchestratorController {
   {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoScheduledUserWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
+    doThrow(new NoScheduledWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))

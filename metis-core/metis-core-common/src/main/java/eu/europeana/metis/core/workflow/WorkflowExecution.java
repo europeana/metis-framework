@@ -271,22 +271,6 @@ public class WorkflowExecution implements HasMongoObjectId {
         .equals(that.workflowOwner)
         && workflowName.equals(that.workflowName));
   }
-
-  public static class UserWorkflowExecutionPriorityComparator implements
-      Comparator<WorkflowExecution> {
-
-    @Override
-    public int compare(WorkflowExecution o1, WorkflowExecution o2) {
-      if (o1.workflowPriority > o2.workflowPriority) {
-        return -1;
-      }
-      if (o1.workflowPriority == o2.workflowPriority) {
-        return o1.getCreatedDate().compareTo(o2.getCreatedDate());
-      } else {
-        return 1;
-      }
-    }
-  }
 }
 
 

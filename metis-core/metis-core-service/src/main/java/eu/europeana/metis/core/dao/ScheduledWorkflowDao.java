@@ -25,15 +25,15 @@ import org.springframework.stereotype.Repository;
  * @since 2017-09-25
  */
 @Repository
-public class ScheduledUserWorkflowDao implements MetisDao<ScheduledWorkflow, String> {
+public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledUserWorkflowDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledWorkflowDao.class);
   private static final String DATASET_NAME = "datasetName";
   private int scheduledUserWorkflowPerRequest = 5;
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired
-  public ScheduledUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+  public ScheduledWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
   }
 

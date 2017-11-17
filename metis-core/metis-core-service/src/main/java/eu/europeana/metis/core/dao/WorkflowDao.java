@@ -19,16 +19,16 @@ import org.springframework.stereotype.Repository;
  * @since 2017-05-29
  */
 @Repository
-public class UserWorkflowDao implements MetisDao<Workflow, String> {
+public class WorkflowDao implements MetisDao<Workflow, String> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
   private static final String WORKFLOW_OWNER = "workflowOwner";
   public static final String WORKFLOW_NAME = "workflowName";
   private int userWorkflowsPerRequest = 5;
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired
-  public UserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+  public WorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
   }
 

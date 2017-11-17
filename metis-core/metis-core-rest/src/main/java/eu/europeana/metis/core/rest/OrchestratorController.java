@@ -3,12 +3,12 @@ package eu.europeana.metis.core.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -61,7 +61,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Create a user workflow")
   public void createUserWorkflow(
       @RequestBody Workflow workflow)
-      throws UserWorkflowAlreadyExistsException {
+      throws WorkflowAlreadyExistsException {
     orchestratorService.createUserWorkflow(workflow);
   }
 
@@ -74,7 +74,7 @@ public class OrchestratorController {
       @ApiResponse(code = 404, message = "Workflow not found")})
   @ApiOperation(value = "Update a user workflow")
   public void updateUserWorkflow(
-      @RequestBody Workflow workflow) throws NoUserWorkflowFoundException {
+      @RequestBody Workflow workflow) throws NoWorkflowFoundException {
     orchestratorService.updateUserWorkflow(workflow);
   }
 
@@ -158,7 +158,7 @@ public class OrchestratorController {
       @PathVariable("datasetName") String datasetName,
       @QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoUserWorkflowFoundException {
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
     if (priority == null) {
       priority = 0;
     }
@@ -186,7 +186,7 @@ public class OrchestratorController {
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @RequestBody Workflow workflow,
       @QueryParam("priority") Integer priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     if (priority == null) {
       priority = 0;
     }
@@ -210,7 +210,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Cancel a user workflow execution by datasetName")
   public void cancelUserWorkflowExecution(
       @PathVariable("datasetName") String datasetName)
-      throws NoUserWorkflowExecutionFoundException {
+      throws NoWorkflowExecutionFoundException {
     orchestratorService.cancelUserWorkflowExecution(datasetName);
     LOGGER.info(
         "WorkflowExecution for datasetName '{}' is cancelling",
@@ -303,7 +303,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Schedule a user workflow. Only one schedule per datasetName is allowed.")
   public void scheduleUserWorkflowExecution(
       @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws BadContentException, ScheduledUserWorkflowAlreadyExistsException, NoUserWorkflowFoundException, NoDatasetFoundException {
+      throws BadContentException, ScheduledWorkflowAlreadyExistsException, NoWorkflowFoundException, NoDatasetFoundException {
     orchestratorService.scheduleUserWorkflow(scheduledWorkflow);
     LOGGER.info(
         "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
@@ -364,7 +364,7 @@ public class OrchestratorController {
   @ApiOperation(value = "Update a scheduled user workflow for datasetName")
   public void updateScheduledUserWorkflow(
       @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws BadContentException, NoScheduledUserWorkflowFoundException, NoUserWorkflowFoundException {
+      throws BadContentException, NoScheduledWorkflowFoundException, NoWorkflowFoundException {
     orchestratorService.updateScheduledUserWorkflow(scheduledWorkflow);
     LOGGER.info("ScheduledWorkflow with with datasetName '{}' updated",
         scheduledWorkflow.getDatasetName());

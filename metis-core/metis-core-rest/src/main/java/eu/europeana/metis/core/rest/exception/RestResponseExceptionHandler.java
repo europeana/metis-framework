@@ -7,14 +7,14 @@ import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
-import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -45,11 +45,11 @@ public class RestResponseExceptionHandler {
       SolrServerException.class, OrganizationAlreadyExistsException.class, ServletException.class,
       NoOrganizationFoundException.class, BadContentException.class,
       DatasetAlreadyExistsException.class,
-      NoDatasetFoundException.class, NoUserWorkflowFoundException.class,
-      NoScheduledUserWorkflowFoundException.class, UserWorkflowAlreadyExistsException.class,
-      UserWorkflowExecutionAlreadyExistsException.class,
-      ScheduledUserWorkflowAlreadyExistsException.class,
-      NoUserWorkflowExecutionFoundException.class, ExecutionException.class,
+      NoDatasetFoundException.class, NoWorkflowFoundException.class,
+      NoScheduledWorkflowFoundException.class, WorkflowAlreadyExistsException.class,
+      WorkflowExecutionAlreadyExistsException.class,
+      ScheduledWorkflowAlreadyExistsException.class,
+      NoWorkflowExecutionFoundException.class, ExecutionException.class,
       InterruptedException.class, EmptyApiKeyException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,

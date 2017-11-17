@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2017-05-31
  */
 @ResponseStatus(value= HttpStatus.NOT_FOUND, reason="No userWorkflowExecution found")
-public class NoUserWorkflowExecutionFoundException extends Exception {
+public class NoWorkflowExecutionFoundException extends Exception {
   private static final long serialVersionUID = -3332292346834265371L;
-  public NoUserWorkflowExecutionFoundException(String message){
+  public NoWorkflowExecutionFoundException(String message){
     super(message);
   }
 }

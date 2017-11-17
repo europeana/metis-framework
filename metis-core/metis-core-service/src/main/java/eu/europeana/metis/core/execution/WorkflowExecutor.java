@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
@@ -16,23 +16,23 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
+public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(UserWorkflowExecutor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
   private int monitorCheckIntervalInSecs;
 
   private final WorkflowExecution workflowExecution;
-  private final UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private final WorkflowExecutionDao workflowExecutionDao;
   private final RedissonClient redissonClient;
 
-  UserWorkflowExecutor(WorkflowExecution workflowExecution,
-      UserWorkflowExecutionDao userWorkflowExecutionDao, int monitorCheckIntervalInSecs,
+  WorkflowExecutor(WorkflowExecution workflowExecution,
+      WorkflowExecutionDao workflowExecutionDao, int monitorCheckIntervalInSecs,
       RedissonClient redissonClient) {
     this.workflowExecution = workflowExecution;
-    this.userWorkflowExecutionDao = userWorkflowExecutionDao;
+    this.workflowExecutionDao = workflowExecutionDao;
     this.monitorCheckIntervalInSecs = monitorCheckIntervalInSecs;
     this.redissonClient = redissonClient;
   }
@@ -47,11 +47,11 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
     firstPluginExecution = true;
     if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
-        && !userWorkflowExecutionDao
+        && !workflowExecutionDao
         .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
       runInQueueStateWorkflowExecution(lock);
     } else if (workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
-        && !userWorkflowExecutionDao
+        && !workflowExecutionDao
         .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
       runRunningStateWorkflowExecution(lock);
     } else {
@@ -63,7 +63,7 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
     }
 
     //Cancel workflow and all other than finished plugins if the workflow was cancelled during execution
-    if (userWorkflowExecutionDao.isCancelling(workflowExecution.getId())) {
+    if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
           "Cancelled running user workflow execution with id: {}", workflowExecution.getId());
@@ -73,7 +73,7 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
     }
     //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
-    userWorkflowExecutionDao.update(workflowExecution);
+    workflowExecutionDao.update(workflowExecution);
     return workflowExecution;
   }
 
@@ -82,11 +82,11 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
     startDate = new Date();
     workflowExecution.setStartedDate(startDate);
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    userWorkflowExecutionDao.updateMonitorInformation(workflowExecution);
+    workflowExecutionDao.updateMonitorInformation(workflowExecution);
     lock.unlock(); //Unlock as soon as possible
     for (AbstractMetisPlugin metisPlugin :
         workflowExecution.getMetisPlugins()) {
-      if (userWorkflowExecutionDao.isCancelling(workflowExecution.getId())) {
+      if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
         break;
       }
       finishDate = runMetisPlugin(metisPlugin);
@@ -97,7 +97,7 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
     //Run if the workflowExecution was retrieved from the queue in RUNNING state. Another process released it and came back into the queue
     workflowExecution.setUpdatedDate(new Date());
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    userWorkflowExecutionDao.updateMonitorInformation(workflowExecution);
+    workflowExecutionDao.updateMonitorInformation(workflowExecution);
     lock.unlock(); //Unlock as soon as possible
     int firstPluginPositionToStart = 0;
     //Find the first plugin to continue execution from
@@ -116,7 +116,7 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
     }
     for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size();
         i++) {
-      if (userWorkflowExecutionDao.isCancelling(workflowExecution.getId())) {
+      if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
         break;
       }
       finishDate = runMetisPlugin(workflowExecution.getMetisPlugins().get(i));
@@ -137,12 +137,12 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
     abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
-    userWorkflowExecutionDao.updateWorkflowPlugins(workflowExecution);
+    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
     abstractMetisPlugin.execute();
     for (int i = 0; i < iterationsToFake; i++) {
       try {
-        if (userWorkflowExecutionDao.isCancelling(workflowExecution.getId())) {
+        if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
           return null;
         }
         Thread.sleep(sleepTime);
@@ -150,7 +150,7 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
-        userWorkflowExecutionDao.updateMonitorInformation(workflowExecution);
+        workflowExecutionDao.updateMonitorInformation(workflowExecution);
       } catch (InterruptedException e) {
         LOGGER.warn("Thread was interrupted", e);
         Thread.currentThread().interrupt();
@@ -159,7 +159,7 @@ public class UserWorkflowExecutor implements Callable<WorkflowExecution> {
     }
     abstractMetisPlugin.setFinishedDate(new Date());
     abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
-    userWorkflowExecutionDao.updateWorkflowPlugins(workflowExecution);
+    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     return abstractMetisPlugin.getFinishedDate();
   }
 }

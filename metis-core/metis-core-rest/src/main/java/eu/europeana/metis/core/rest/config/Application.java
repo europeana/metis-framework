@@ -30,13 +30,13 @@ import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
-import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
-import eu.europeana.metis.core.dao.UserWorkflowDao;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
-import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
+import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
@@ -299,26 +299,26 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public UserWorkflowExecutionDao getUserWorkflowExecutionDao(
+  public WorkflowExecutionDao getUserWorkflowExecutionDao(
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    UserWorkflowExecutionDao userWorkflowExecutionDao = new UserWorkflowExecutionDao(
+    WorkflowExecutionDao workflowExecutionDao = new WorkflowExecutionDao(
         morphiaDatastoreProvider);
-    userWorkflowExecutionDao.setUserWorkflowExecutionsPerRequest(
+    workflowExecutionDao.setUserWorkflowExecutionsPerRequest(
         RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
-    return userWorkflowExecutionDao;
+    return workflowExecutionDao;
   }
 
   @Bean
-  public ScheduledUserWorkflowDao getScheduledUserWorkflowDao(
+  public ScheduledWorkflowDao getScheduledUserWorkflowDao(
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new ScheduledUserWorkflowDao(morphiaDatastoreProvider);
+    return new ScheduledWorkflowDao(morphiaDatastoreProvider);
   }
 
   @Bean
-  public UserWorkflowDao getUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    UserWorkflowDao userWorkflowDao = new UserWorkflowDao(morphiaDatastoreProvider);
-    userWorkflowDao.setUserWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
-    return userWorkflowDao;
+  public WorkflowDao getUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    WorkflowDao workflowDao = new WorkflowDao(morphiaDatastoreProvider);
+    workflowDao.setUserWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
+    return workflowDao;
   }
 
   @Bean
@@ -347,10 +347,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
       OrganizationDao organizationDao,
-      UserWorkflowExecutionDao userWorkflowExecutionDao,
-      ScheduledUserWorkflowDao scheduledUserWorkflowDao) {
-    return new DatasetService(datasetDao, organizationDao, userWorkflowExecutionDao,
-        scheduledUserWorkflowDao);
+      WorkflowExecutionDao workflowExecutionDao,
+      ScheduledWorkflowDao scheduledWorkflowDao) {
+    return new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
+        scheduledWorkflowDao);
   }
 
   @Bean
@@ -365,27 +365,27 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public UserWorkflowExecutorManager getUserWorkflowExecutorManager(
-      UserWorkflowExecutionDao userWorkflowExecutionDao, Channel rabbitmqChannel,
+  public WorkflowExecutorManager getUserWorkflowExecutorManager(
+      WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
       RedissonClient redissonClient) {
-    UserWorkflowExecutorManager userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
-    userWorkflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
-    userWorkflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
-    userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
-    userWorkflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
+    WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
+        workflowExecutionDao, rabbitmqChannel, redissonClient);
+    workflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
+    workflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
+    workflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
+    workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
         pollingTimeoutForCleaningCompletionServiceInSecs);
-    return userWorkflowExecutorManager;
+    return workflowExecutorManager;
   }
 
   @Bean
-  public OrchestratorService getOrchestratorService(UserWorkflowDao userWorkflowDao,
-      UserWorkflowExecutionDao userWorkflowExecutionDao,
-      ScheduledUserWorkflowDao scheduledUserWorkflowDao,
+  public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
+      WorkflowExecutionDao workflowExecutionDao,
+      ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) throws IOException {
-    return new OrchestratorService(userWorkflowDao, userWorkflowExecutionDao,
-        scheduledUserWorkflowDao, datasetDao, userWorkflowExecutorManager);
+      WorkflowExecutorManager workflowExecutorManager) throws IOException {
+    return new OrchestratorService(workflowDao, workflowExecutionDao,
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager);
   }
 
   @Override

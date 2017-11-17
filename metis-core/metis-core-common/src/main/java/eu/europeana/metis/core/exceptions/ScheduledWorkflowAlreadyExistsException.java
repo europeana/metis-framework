@@ -5,13 +5,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-09-26
+ * @since 2017-09-25
  */
-@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No userWorkflow found")
-public class NoScheduledUserWorkflowFoundException extends Exception {
+@ResponseStatus(value= HttpStatus.CONFLICT, reason="ScheduledWorkflow already exists")
+public class ScheduledWorkflowAlreadyExistsException extends Exception {
   private static final long serialVersionUID = -3332292346834265371L;
 
-  public NoScheduledUserWorkflowFoundException(String message) {
+  public ScheduledWorkflowAlreadyExistsException(String message){
     super(message);
   }
 }

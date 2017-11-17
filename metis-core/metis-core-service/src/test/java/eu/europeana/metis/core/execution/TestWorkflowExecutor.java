@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
@@ -33,19 +33,19 @@ import org.redisson.api.RedissonClient;
  */
 public class TestWorkflowExecutor {
   private static int monitorCheckIntervalInSecs = 0;
-  private static UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
   private static final String EXECUTION_CHECK_LOCK = "executionCheckLock";
 
   @BeforeClass
   public static void prepare() {
-    userWorkflowExecutionDao = Mockito.mock(UserWorkflowExecutionDao.class);
+    workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
   }
 
   @After
   public void cleanUp() {
-    Mockito.reset(userWorkflowExecutionDao);
+    Mockito.reset(workflowExecutionDao);
     Mockito.reset(redissonClient);
   }
 
@@ -58,16 +58,16 @@ public class TestWorkflowExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(workflowExecution);
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     doNothing().when(rlock).unlock();
-    when(userWorkflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(workflowExecution);
-    when(userWorkflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
 
-    UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(workflowExecution,
-        userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
-    userWorkflowExecutor.call();
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+    workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
     Assert.assertNotNull(workflowExecution.getStartedDate());
@@ -88,16 +88,16 @@ public class TestWorkflowExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(workflowExecution);
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     doNothing().when(rlock).unlock();
-    when(userWorkflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(workflowExecution);
-    when(userWorkflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
 
-    UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(workflowExecution,
-        userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
-    userWorkflowExecutor.call();
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+    workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
     Assert.assertNotNull(workflowExecution.getStartedDate());
@@ -116,14 +116,14 @@ public class TestWorkflowExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
     doNothing().when(rlock).lock();
 
-    UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(workflowExecution,
-        userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
-    userWorkflowExecutor.call();
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+    workflowExecutor.call();
 
-    verifyNoMoreInteractions(userWorkflowExecutionDao);
+    verifyNoMoreInteractions(workflowExecutionDao);
     verify(redissonClient, times(1)).getFairLock(anyString());
     verifyNoMoreInteractions(redissonClient);
   }
@@ -137,13 +137,13 @@ public class TestWorkflowExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false).thenReturn(true);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false).thenReturn(true);
 
-    UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(workflowExecution,
-        userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
-    userWorkflowExecutor.call();
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+    workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
   }
@@ -159,13 +159,13 @@ public class TestWorkflowExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false).thenReturn(true);
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false).thenReturn(true);
 
-    UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(workflowExecution,
-        userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
-    userWorkflowExecutor.call();
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+    workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
   }
@@ -180,17 +180,17 @@ public class TestWorkflowExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(workflowExecution);
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
     doNothing().when(rlock).unlock();
-    when(userWorkflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(workflowExecution);
-    when(userWorkflowExecutionDao.update(workflowExecution)).thenReturn(new ObjectId().toString());
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution)).thenReturn(new ObjectId().toString());
 
-    UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(workflowExecution,
-        userWorkflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
 
-    Thread t = new Thread(userWorkflowExecutor::call);
+    Thread t = new Thread(workflowExecutor::call);
     t.start();
     Awaitility.await().atMost(Duration.FIVE_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
     t.interrupt();

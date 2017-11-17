@@ -22,8 +22,8 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.MessageProperties;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
-import eu.europeana.metis.core.execution.UserWorkflowExecutorManager.QueueConsumer;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.execution.WorkflowExecutorManager.QueueConsumer;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -46,40 +46,40 @@ import org.redisson.api.RedissonClient;
  */
 public class TestWorkflowExecutorManager {
 
-  private static UserWorkflowExecutionDao userWorkflowExecutionDao;
+  private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
   private static Channel rabbitmqChannel;
-  private static UserWorkflowExecutorManager userWorkflowExecutorManager;
+  private static WorkflowExecutorManager workflowExecutorManager;
   private static final String EXECUTION_CHECK_LOCK = "executionCheckLock";
 
   @BeforeClass
   public static void prepare() {
-    userWorkflowExecutionDao = Mockito.mock(UserWorkflowExecutionDao.class);
+    workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqChannel = Mockito.mock(Channel.class);
-    userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
-    userWorkflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
-    userWorkflowExecutorManager.setMaxConcurrentThreads(10);
-    userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(5);
-    assertEquals(5,userWorkflowExecutorManager.getMonitorCheckIntervalInSecs());
+    workflowExecutorManager = new WorkflowExecutorManager(
+        workflowExecutionDao, rabbitmqChannel, redissonClient);
+    workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
+    workflowExecutorManager.setMaxConcurrentThreads(10);
+    workflowExecutorManager.setMonitorCheckIntervalInSecs(5);
+    assertEquals(5, workflowExecutorManager.getMonitorCheckIntervalInSecs());
   }
 
   @AfterClass
   public static void shutdown() {
-    userWorkflowExecutorManager.close();
+    workflowExecutorManager.close();
   }
 
   @After
   public void cleanUp() {
-    Mockito.reset(userWorkflowExecutionDao);
+    Mockito.reset(workflowExecutionDao);
     Mockito.reset(redissonClient);
     Mockito.reset(rabbitmqChannel);
   }
 
   @Test
   public void initiateConsumer() throws Exception {
-    userWorkflowExecutorManager.initiateConsumer();
+    workflowExecutorManager.initiateConsumer();
     ArgumentCaptor<Integer> basicQos = ArgumentCaptor.forClass(Integer.class);
     verify(rabbitmqChannel, times(1)).basicQos(basicQos.capture());
     assertEquals(new Integer(1), basicQos.getValue());
@@ -95,7 +95,7 @@ public class TestWorkflowExecutorManager {
     when(rabbitmqChannel
         .basicConsume(or(anyString(), isNull()), anyBoolean(), any(QueueConsumer.class)))
         .thenThrow(new IOException("Some Error"));
-    userWorkflowExecutorManager.initiateConsumer();
+    workflowExecutorManager.initiateConsumer();
     ArgumentCaptor<Integer> basicQos = ArgumentCaptor.forClass(Integer.class);
     verify(rabbitmqChannel, times(1)).basicQos(basicQos.capture());
     assertEquals(new Integer(1), basicQos.getValue());
@@ -106,7 +106,7 @@ public class TestWorkflowExecutorManager {
   public void addUserWorkflowExecutionToQueue() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
+    workflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
     ArgumentCaptor<byte[]> byteArrayArgumentCaptor = ArgumentCaptor.forClass(byte[].class);
     verify(rabbitmqChannel, times(1))
         .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class),
@@ -120,15 +120,15 @@ public class TestWorkflowExecutorManager {
     int priority = 0;
     doThrow(new IOException("Some Error")).when(rabbitmqChannel)
         .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class), any(byte[].class));
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
+    workflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
   }
 
   @Test
   public void cancelUserWorkflowExecutionWasINQUEUE() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    doNothing().when(userWorkflowExecutionDao).setCancellingState(workflowExecution);
-    userWorkflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
+    doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
+    workflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
   }
 
   @Test
@@ -136,8 +136,8 @@ public class TestWorkflowExecutorManager {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    doNothing().when(userWorkflowExecutionDao).setCancellingState(workflowExecution);
-    userWorkflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
+    doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
+    workflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
   }
 
   @Test
@@ -150,10 +150,10 @@ public class TestWorkflowExecutorManager {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
 
-    when(userWorkflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
+    when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
-    QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
   }
@@ -169,23 +169,23 @@ public class TestWorkflowExecutorManager {
         .createUserWorkflowExecutionObject();
     workflowExecution.setCancelling(true);
 
-    when(userWorkflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
+    when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
-    QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
 
-    verify(userWorkflowExecutionDao, times(1)).update(workflowExecution);
+    verify(workflowExecutionDao, times(1)).update(workflowExecution);
   }
 
   @Test
   public void handleDeliveryOverMaxConcurrentThreads() throws Exception {
-    userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
-    userWorkflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
-    userWorkflowExecutorManager.setMaxConcurrentThreads(2);
-    userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(1);
+    workflowExecutorManager = new WorkflowExecutorManager(
+        workflowExecutionDao, rabbitmqChannel, redissonClient);
+    workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
+    workflowExecutorManager.setMaxConcurrentThreads(2);
+    workflowExecutorManager.setMonitorCheckIntervalInSecs(1);
 
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
@@ -206,40 +206,40 @@ public class TestWorkflowExecutorManager {
     workflowExecution1.setId(objectId1);
     workflowExecution2.setId(objectId2);
     workflowExecution3.setId(objectId3);
-    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
-    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
-    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
+    when(workflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
+    when(workflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
+    when(workflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
     doNothing().when(rabbitmqChannel).basicNack(envelope.getDeliveryTag(), false, true);
 
     //For running properly the WorkflowExecution.
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
+    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
-    when(userWorkflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
-    when(userWorkflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
+    when(workflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
+    when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution3.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    assertEquals(1, userWorkflowExecutorManager.getThreadsCounter());
+    assertEquals(1, workflowExecutorManager.getThreadsCounter());
   }
 
   @Test
   public void handleDeliveryOverMaxConcurrentThreadsSendNack() throws Exception {
-    userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
-    userWorkflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
-    userWorkflowExecutorManager.setMaxConcurrentThreads(2);
-    userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(1);
-    userWorkflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(0);
+    workflowExecutorManager = new WorkflowExecutorManager(
+        workflowExecutionDao, rabbitmqChannel, redissonClient);
+    workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
+    workflowExecutorManager.setMaxConcurrentThreads(2);
+    workflowExecutorManager.setMonitorCheckIntervalInSecs(1);
+    workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(0);
 
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
@@ -260,27 +260,27 @@ public class TestWorkflowExecutorManager {
     workflowExecution1.setId(objectId1);
     workflowExecution2.setId(objectId2);
     workflowExecution3.setId(objectId3);
-    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
-    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
-    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
+    when(workflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
+    when(workflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
+    when(workflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
     doNothing().when(rabbitmqChannel).basicNack(envelope.getDeliveryTag(), false, true);
 
     //For running properly the WorkflowExecution.
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
+    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
-    when(userWorkflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
-    when(userWorkflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
+    when(workflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
+    when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
-    assertEquals(2, userWorkflowExecutorManager.getThreadsCounter());
+    assertEquals(2, workflowExecutorManager.getThreadsCounter());
     verify(rabbitmqChannel, times(1)).basicNack(envelope.getDeliveryTag(), false, true);
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
@@ -288,11 +288,11 @@ public class TestWorkflowExecutorManager {
 
   @Test
   public void handleDeliveryOverMaxConcurrentThreadsInterruptWillPolling() throws Exception {
-    userWorkflowExecutorManager = new UserWorkflowExecutorManager(
-        userWorkflowExecutionDao, rabbitmqChannel, redissonClient);
-    userWorkflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
-    userWorkflowExecutorManager.setMaxConcurrentThreads(2);
-    userWorkflowExecutorManager.setMonitorCheckIntervalInSecs(1);
+    workflowExecutorManager = new WorkflowExecutorManager(
+        workflowExecutionDao, rabbitmqChannel, redissonClient);
+    workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
+    workflowExecutorManager.setMaxConcurrentThreads(2);
+    workflowExecutorManager.setMonitorCheckIntervalInSecs(1);
 
     int priority = 0;
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
@@ -313,23 +313,23 @@ public class TestWorkflowExecutorManager {
     workflowExecution1.setId(objectId1);
     workflowExecution2.setId(objectId2);
     workflowExecution3.setId(objectId3);
-    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
-    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
-    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
+    when(workflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
+    when(workflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
+    when(workflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
     doNothing().when(rabbitmqChannel).basicNack(envelope.getDeliveryTag(), false, true);
 
     //For running properly the WorkflowExecution.
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
+    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
-    when(userWorkflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
-    when(userWorkflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
+    when(workflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
+    when(workflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
-    QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
+    QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
 
@@ -345,7 +345,7 @@ public class TestWorkflowExecutorManager {
     t.join();
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
     Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    assertEquals(2, userWorkflowExecutorManager.getThreadsCounter());
+    assertEquals(2, workflowExecutorManager.getThreadsCounter());
   }
 
 }
