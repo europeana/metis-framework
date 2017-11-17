@@ -81,12 +81,6 @@
       <artifactId>mongo-java-driver</artifactId>
       <version>${version.mongo.java.driver}</version>
     </dependency>
-
-    <dependency>
-      <groupId>io.swagger</groupId>
-      <artifactId>swagger-annotations</artifactId>
-      <version>${version.swagger.annotations}</version>
-    </dependency>
     <dependency>
       <groupId>org.springframework.plugin</groupId>
       <artifactId>spring-plugin-metadata</artifactId>

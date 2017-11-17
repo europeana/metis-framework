@@ -17,8 +17,6 @@
 package eu.europeana.normalization.service.config;
 
 
-import eu.europeana.normalization.service.NormalizationService;
-import eu.europeana.normalization.service.NormalizationServiceImpl;
 import eu.europeana.normalization.common.cleaning.DuplicateStatementCleaning;
 import eu.europeana.normalization.common.cleaning.MarkupTagsCleaning;
 import eu.europeana.normalization.common.cleaning.TrimAndEmptyValueCleaning;
@@ -26,6 +24,8 @@ import eu.europeana.normalization.common.language.LanguageNormalizer;
 import eu.europeana.normalization.common.language.LanguageNormalizer.SupportedOperations;
 import eu.europeana.normalization.common.language.LanguagesVocabulary;
 import eu.europeana.normalization.common.normalizers.ChainedNormalization;
+import eu.europeana.normalization.service.NormalizationService;
+import eu.europeana.normalization.service.NormalizationServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -34,23 +34,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * Configuration file for Spring MVC
  */
 @ComponentScan(basePackages = {"eu.europeana.normalization"})
 @EnableWebMvc
-@EnableSwagger2
 @Configuration
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
@@ -93,42 +83,4 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new NormalizationServiceImpl(chainedNormalizer);
 
   }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "swagger-ui.html");
-  }
-
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.any())
-        .build()
-        .apiInfo(apiInfo());
-  }
-
-  private ApiInfo apiInfo() {
-    return new ApiInfo(
-        "EDM Record Normalization plugin for Metis",
-        "Applies a preset list of data cleaning and normalization operations to metadata records in EDM. ",
-        "0.2",
-        "API TOS",
-        new Contact("Europeana Development", "", "development@europeana.eu"),
-        "EUPL Licence v1.1",
-        ""
-    );
-  }
-
-
 }
