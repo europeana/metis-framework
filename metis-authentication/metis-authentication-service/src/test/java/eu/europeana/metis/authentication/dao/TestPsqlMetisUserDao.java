@@ -21,6 +21,7 @@ import org.hibernate.Transaction;
 import org.hibernate.TransactionException;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -40,7 +41,7 @@ public class TestPsqlMetisUserDao {
   private static PsqlMetisUserDao psqlMetisUserDao;
 
   @BeforeClass
-  public static void prepare() throws IOException {
+  public static void prepareBeforeClass() throws IOException {
     sessionFactory = Mockito.mock(SessionFactory.class);
     psqlMetisUserDao = new PsqlMetisUserDao(sessionFactory);
     psqlMetisUserDao.setAccessTokenExpireTimeInMins(10);
@@ -48,6 +49,11 @@ public class TestPsqlMetisUserDao {
     session = Mockito.mock(Session.class);
     transaction = Mockito.mock(Transaction.class);
     query = Mockito.mock(Query.class);
+  }
+
+  @Before
+  public void prepare() {
+    when(sessionFactory.openSession()).thenReturn(session);
   }
 
   @After
@@ -59,7 +65,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void createMetisUser() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     psqlMetisUserDao.createMetisUser(new MetisUser());
 
@@ -73,7 +78,6 @@ public class TestPsqlMetisUserDao {
 
   @Test(expected = TransactionException.class)
   public void createMetisUserThrowsExceptionOnCommit() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
     psqlMetisUserDao.createMetisUser(new MetisUser());
@@ -89,7 +93,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void updateMetisUser() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     psqlMetisUserDao.updateMetisUser(new MetisUser());
 
@@ -103,7 +106,6 @@ public class TestPsqlMetisUserDao {
 
   @Test(expected = TransactionException.class)
   public void updateMetisUserThrowsExceptionOnCommit() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
     psqlMetisUserDao.updateMetisUser(new MetisUser());
@@ -119,7 +121,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void getMetisUserByEmail() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.createQuery(any(String.class))).thenReturn(query);
     ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
     metisUsers.add(new MetisUser());
@@ -140,7 +141,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void getMetisUserByAccessToken() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.createQuery(any(String.class))).thenReturn(query);
     ArrayList<MetisUserAccessToken> metisUserAccessTokens = new ArrayList<>(1);
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
@@ -169,7 +169,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void createUserAccessToken() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     psqlMetisUserDao.createUserAccessToken(new MetisUserAccessToken());
 
@@ -183,7 +182,6 @@ public class TestPsqlMetisUserDao {
 
   @Test(expected = TransactionException.class)
   public void createUserAccessTokenThrowsExceptionOnCommit() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     doThrow(new RuntimeException("Exception")).when(transaction).commit();
     psqlMetisUserDao.createUserAccessToken(new MetisUserAccessToken());
@@ -200,7 +198,6 @@ public class TestPsqlMetisUserDao {
   @Test
   public void expireAccessTokens() {
     Criteria criteria = Mockito.mock(Criteria.class);
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createCriteria(MetisUserAccessToken.class)).thenReturn(criteria);
     ArrayList<MetisUserAccessToken> metisUserAccessTokens = new ArrayList<>(1);
@@ -234,7 +231,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void deleteMetisUser() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1).thenReturn(1);
@@ -260,7 +256,6 @@ public class TestPsqlMetisUserDao {
 
   @Test
   public void updateAccessTokenTimestamp() {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
@@ -285,7 +280,6 @@ public class TestPsqlMetisUserDao {
   @Test
   public void updateAccessTokenTimestampByAccessToken()
   {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
@@ -309,7 +303,6 @@ public class TestPsqlMetisUserDao {
   @Test
   public void updateMetisUserToMakeAdmin()
   {
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.beginTransaction()).thenReturn(transaction);
     when(session.createQuery(any(String.class))).thenReturn(query).thenReturn(query);
     when(query.executeUpdate()).thenReturn(1);
@@ -337,7 +330,6 @@ public class TestPsqlMetisUserDao {
     ArrayList<MetisUser> metisUsers = new ArrayList<>(1);
     metisUsers.add(new MetisUser());
 
-    when(sessionFactory.openSession()).thenReturn(session);
     when(session.createCriteria(MetisUser.class)).thenReturn(criteria);
     when(criteria.list()).thenReturn(metisUsers);
 
