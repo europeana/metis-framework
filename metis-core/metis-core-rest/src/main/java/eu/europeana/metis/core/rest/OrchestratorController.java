@@ -11,7 +11,7 @@ import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -299,18 +299,18 @@ public class OrchestratorController {
       @ApiResponse(code = 404, message = "Dataset not found"),
       @ApiResponse(code = 404, message = "Workflow not found"),
       @ApiResponse(code = 406, message = "Bad content"),
-      @ApiResponse(code = 409, message = "ScheduledUserWorkflow already exist")})
+      @ApiResponse(code = 409, message = "ScheduledWorkflow already exist")})
   @ApiOperation(value = "Schedule a user workflow. Only one schedule per datasetName is allowed.")
   public void scheduleUserWorkflowExecution(
-      @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
+      @RequestBody ScheduledWorkflow scheduledWorkflow)
       throws BadContentException, ScheduledUserWorkflowAlreadyExistsException, NoUserWorkflowFoundException, NoDatasetFoundException {
-    orchestratorService.scheduleUserWorkflow(scheduledUserWorkflow);
+    orchestratorService.scheduleUserWorkflow(scheduledWorkflow);
     LOGGER.info(
         "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
-        scheduledUserWorkflow.getDatasetName(),
-        scheduledUserWorkflow.getWorkflowOwner(), scheduledUserWorkflow.getWorkflowName(),
-        scheduledUserWorkflow.getPointerDate(),
-        scheduledUserWorkflow.getScheduleFrequence().name());
+        scheduledWorkflow.getDatasetName(),
+        scheduledWorkflow.getWorkflowOwner(), scheduledWorkflow.getWorkflowName(),
+        scheduledWorkflow.getPointerDate(),
+        scheduledWorkflow.getScheduleFrequence().name());
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.GET, produces = {
@@ -319,17 +319,17 @@ public class OrchestratorController {
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 404, message = "ScheduledUserWorkflow not found")})
+      @ApiResponse(code = 404, message = "ScheduledWorkflow not found")})
   @ApiImplicitParams({
       @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true)
   })
-  @ApiOperation(value = "Get a scheduledUserWorkflow by datasetName", response = ScheduledUserWorkflow.class)
-  public ScheduledUserWorkflow getScheduledUserWorkflow(
+  @ApiOperation(value = "Get a scheduledUserWorkflow by datasetName", response = ScheduledWorkflow.class)
+  public ScheduledWorkflow getScheduledUserWorkflow(
       @PathVariable("datasetName") String datasetName) {
-    ScheduledUserWorkflow scheduledUserWorkflow = orchestratorService
+    ScheduledWorkflow scheduledWorkflow = orchestratorService
         .getScheduledUserWorkflowByDatasetName(datasetName);
-    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' found", datasetName);
-    return scheduledUserWorkflow;
+    LOGGER.info("ScheduledWorkflow with with datasetName '{}' found", datasetName);
+    return scheduledWorkflow;
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.GET, produces = {
@@ -342,9 +342,9 @@ public class OrchestratorController {
       @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
   })
   @ApiOperation(value = "Get all scheduledUserWorkflows", response = ResponseListWrapper.class)
-  public ResponseListWrapper<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+  public ResponseListWrapper<ScheduledWorkflow> getAllScheduledUserWorkflows(
       @QueryParam("nextPage") String nextPage) {
-    ResponseListWrapper<ScheduledUserWorkflow> responseListWrapper = new ResponseListWrapper<>();
+    ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllScheduledUserWorkflows(ScheduleFrequence.NULL, nextPage),
         orchestratorService.getScheduledUserWorkflowsPerRequest());
@@ -359,15 +359,15 @@ public class OrchestratorController {
   @ResponseBody
   @ApiResponses(value = {
       @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "Workflow or ScheduledUserWorkflow not found"),
+      @ApiResponse(code = 404, message = "Workflow or ScheduledWorkflow not found"),
       @ApiResponse(code = 406, message = "Bad content")})
   @ApiOperation(value = "Update a scheduled user workflow for datasetName")
   public void updateScheduledUserWorkflow(
-      @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
+      @RequestBody ScheduledWorkflow scheduledWorkflow)
       throws BadContentException, NoScheduledUserWorkflowFoundException, NoUserWorkflowFoundException {
-    orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
-    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' updated",
-        scheduledUserWorkflow.getDatasetName());
+    orchestratorService.updateScheduledUserWorkflow(scheduledWorkflow);
+    LOGGER.info("ScheduledWorkflow with with datasetName '{}' updated",
+        scheduledWorkflow.getDatasetName());
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.DELETE, produces = {

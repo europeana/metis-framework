@@ -22,7 +22,7 @@ import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.organization.Organization;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
@@ -51,7 +51,7 @@ public class MorphiaDatastoreProvider {
         morphia.map(MetisKey.class);
         morphia.map(Workflow.class);
         morphia.map(WorkflowExecution.class);
-        morphia.map(ScheduledUserWorkflow.class);
+        morphia.map(ScheduledWorkflow.class);
         morphia.map(OaipmhHarvestPlugin.class);
         morphia.map(HTTPHarvestPlugin.class);
         morphia.map(DereferencePlugin.class);

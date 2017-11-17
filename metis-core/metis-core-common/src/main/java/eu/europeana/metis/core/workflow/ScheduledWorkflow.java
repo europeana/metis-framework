@@ -18,7 +18,7 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes({@Index(fields = {@Field("datasetName"), @Field("workflowOwner"), @Field("workflowName")})})
-public class ScheduledUserWorkflow implements HasMongoObjectId {
+public class ScheduledWorkflow implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
@@ -34,10 +34,10 @@ public class ScheduledUserWorkflow implements HasMongoObjectId {
   private ScheduleFrequence scheduleFrequence;
   private int workflowPriority;
 
-  public ScheduledUserWorkflow() {
+  public ScheduledWorkflow() {
   }
 
-  public ScheduledUserWorkflow(Date pointerDate, String datasetName, String workflowOwner,
+  public ScheduledWorkflow(Date pointerDate, String datasetName, String workflowOwner,
       String workflowName, ScheduleFrequence scheduleFrequence, int workflowPriority) {
     this.pointerDate = pointerDate;
     this.datasetName = datasetName;

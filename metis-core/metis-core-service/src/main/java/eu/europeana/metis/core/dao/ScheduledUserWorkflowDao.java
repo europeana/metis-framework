@@ -3,7 +3,7 @@ package eu.europeana.metis.core.dao;
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
  * @since 2017-09-25
  */
 @Repository
-public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow, String> {
+public class ScheduledUserWorkflowDao implements MetisDao<ScheduledWorkflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledUserWorkflowDao.class);
   private static final String DATASET_NAME = "datasetName";
@@ -38,86 +38,86 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
   }
 
   @Override
-  public String create(ScheduledUserWorkflow scheduledUserWorkflow) {
-    Key<ScheduledUserWorkflow> scheduledUserWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
-        scheduledUserWorkflow);
+  public String create(ScheduledWorkflow scheduledWorkflow) {
+    Key<ScheduledWorkflow> scheduledUserWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
+        scheduledWorkflow);
     LOGGER.debug(
-        "ScheduledUserWorkflow for datasetName: '{}' with workflowName: '{}' and owner: '{}' created in Mongo",
-        scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowName(),
-        scheduledUserWorkflow.getWorkflowOwner());
+        "ScheduledWorkflow for datasetName: '{}' with workflowName: '{}' and owner: '{}' created in Mongo",
+        scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowName(),
+        scheduledWorkflow.getWorkflowOwner());
     return scheduledUserWorkflowKey.getId().toString();
   }
 
   @Override
-  public String update(ScheduledUserWorkflow scheduledUserWorkflow) {
-    Key<ScheduledUserWorkflow> scheduledUserWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
-        scheduledUserWorkflow);
+  public String update(ScheduledWorkflow scheduledWorkflow) {
+    Key<ScheduledWorkflow> scheduledUserWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
+        scheduledWorkflow);
     LOGGER.debug(
-        "ScheduledUserWorkflow with datasetName: '{}', workflowName: '{}' and workflowOwner '{}' updated in Mongo",
-        scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowName(),
-        scheduledUserWorkflow.getWorkflowOwner());
+        "ScheduledWorkflow with datasetName: '{}', workflowName: '{}' and workflowOwner '{}' updated in Mongo",
+        scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowName(),
+        scheduledWorkflow.getWorkflowOwner());
     return scheduledUserWorkflowKey.getId().toString();
   }
 
   @Override
-  public ScheduledUserWorkflow getById(String id) {
-    Query<ScheduledUserWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .find(ScheduledUserWorkflow.class)
+  public ScheduledWorkflow getById(String id) {
+    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
+        .find(ScheduledWorkflow.class)
         .field("_id").equal(new ObjectId(id));
     return query.get();
   }
 
   @Override
-  public boolean delete(ScheduledUserWorkflow scheduledUserWorkflow) {
+  public boolean delete(ScheduledWorkflow scheduledWorkflow) {
     return false;
   }
 
-  public ScheduledUserWorkflow getScheduledUserWorkflow(String datasetName, String workflowOwner,
+  public ScheduledWorkflow getScheduledUserWorkflow(String datasetName, String workflowOwner,
       String workflowName) {
     return morphiaDatastoreProvider.getDatastore()
-        .find(ScheduledUserWorkflow.class).field(DATASET_NAME)
+        .find(ScheduledWorkflow.class).field(DATASET_NAME)
         .equal(datasetName).field("workflowOwner")
         .equal(workflowOwner).field("workflowName")
         .equal(workflowName).get();
   }
 
-  public ScheduledUserWorkflow getScheduledUserWorkflowByDatasetName(String datasetName) {
+  public ScheduledWorkflow getScheduledUserWorkflowByDatasetName(String datasetName) {
     return morphiaDatastoreProvider.getDatastore()
-        .find(ScheduledUserWorkflow.class).field(DATASET_NAME)
+        .find(ScheduledWorkflow.class).field(DATASET_NAME)
         .equal(datasetName).get();
   }
 
-  public boolean exists(ScheduledUserWorkflow scheduledUserWorkflow) {
+  public boolean exists(ScheduledWorkflow scheduledWorkflow) {
     return morphiaDatastoreProvider.getDatastore()
-        .find(ScheduledUserWorkflow.class).field(DATASET_NAME)
-        .equal(scheduledUserWorkflow.getDatasetName()).field("workflowOwner")
-        .equal(scheduledUserWorkflow.getWorkflowOwner()).field("workflowName")
-        .equal(scheduledUserWorkflow.getWorkflowName())
+        .find(ScheduledWorkflow.class).field(DATASET_NAME)
+        .equal(scheduledWorkflow.getDatasetName()).field("workflowOwner")
+        .equal(scheduledWorkflow.getWorkflowOwner()).field("workflowName")
+        .equal(scheduledWorkflow.getWorkflowName())
         .project("_id", true).get() != null;
   }
 
   public String existsForDatasetName(String datasetName) {
-    ScheduledUserWorkflow storedScheduledUserWorkflow = morphiaDatastoreProvider.getDatastore()
-        .find(ScheduledUserWorkflow.class).field(DATASET_NAME)
+    ScheduledWorkflow storedScheduledWorkflow = morphiaDatastoreProvider.getDatastore()
+        .find(ScheduledWorkflow.class).field(DATASET_NAME)
         .equal(datasetName).project("_id", true).get();
-    return storedScheduledUserWorkflow != null ? storedScheduledUserWorkflow.getId().toString()
+    return storedScheduledWorkflow != null ? storedScheduledWorkflow.getId().toString()
         : null;
   }
 
   public boolean deleteScheduledUserWorkflow(String datasetName) {
-    Query<ScheduledUserWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledUserWorkflow.class);
+    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(ScheduledWorkflow.class);
     query.field(DATASET_NAME).equal(datasetName);
     WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.debug(
-        "ScheduledUserWorkflow with datasetName: {} deleted from Mongo",
+        "ScheduledWorkflow with datasetName: {} deleted from Mongo",
         datasetName);
     return delete.getN() == 1;
   }
 
   public boolean deleteAllByDatasetName(String datasetName) {
-    Query<ScheduledUserWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledUserWorkflow.class);
+    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(ScheduledWorkflow.class);
     query.field(DATASET_NAME).equal(datasetName);
     WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.debug(
@@ -126,23 +126,23 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
   }
 
   public void updateAllDatasetNames(String datasetName, String newDatasetName) {
-    UpdateOperations<ScheduledUserWorkflow> scheduledUserWorkflowUpdateOperations = morphiaDatastoreProvider
+    UpdateOperations<ScheduledWorkflow> scheduledUserWorkflowUpdateOperations = morphiaDatastoreProvider
         .getDatastore()
-        .createUpdateOperations(ScheduledUserWorkflow.class);
-    Query<ScheduledUserWorkflow> query = morphiaDatastoreProvider.getDatastore().find(ScheduledUserWorkflow.class)
+        .createUpdateOperations(ScheduledWorkflow.class);
+    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore().find(ScheduledWorkflow.class)
         .filter(DATASET_NAME, datasetName);
     scheduledUserWorkflowUpdateOperations.set(DATASET_NAME, newDatasetName);
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, scheduledUserWorkflowUpdateOperations);
     LOGGER.debug(
-        "ScheduledUserWorkflow with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
+        "ScheduledWorkflow with datasetName '{}' renamed to '{}'. (UpdateResults: {})",
         datasetName, newDatasetName, updateResults.getUpdatedCount());
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+  public List<ScheduledWorkflow> getAllScheduledUserWorkflows(
       ScheduleFrequence scheduleFrequence, String nextPage) {
-    Query<ScheduledUserWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledUserWorkflow.class);
+    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(ScheduledWorkflow.class);
     if (scheduleFrequence != null && scheduleFrequence != ScheduleFrequence.NULL) {
       query.field("scheduleFrequence").equal(scheduleFrequence);
     }
@@ -153,11 +153,11 @@ public class ScheduledUserWorkflowDao implements MetisDao<ScheduledUserWorkflow,
     return query.asList(new FindOptions().limit(scheduledUserWorkflowPerRequest));
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
+  public List<ScheduledWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
       LocalDateTime lowerBound,
       LocalDateTime upperBound, String nextPage) {
-    Query<ScheduledUserWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledUserWorkflow.class);
+    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(ScheduledWorkflow.class);
     query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
         query.criteria("pointerDate").greaterThanOrEq(
             Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(

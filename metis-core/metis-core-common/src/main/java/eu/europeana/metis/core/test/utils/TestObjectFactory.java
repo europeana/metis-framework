@@ -6,7 +6,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -111,39 +111,39 @@ public class TestObjectFactory {
     }
   }
 
-  public static ScheduledUserWorkflow createScheduledUserWorkflowObject() {
-    ScheduledUserWorkflow scheduledUserWorkflow = new ScheduledUserWorkflow();
-    scheduledUserWorkflow.setDatasetName(DATASETNAME);
-    scheduledUserWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    scheduledUserWorkflow.setWorkflowName(WORKFLOWNAME);
-    scheduledUserWorkflow.setPointerDate(new Date());
-    scheduledUserWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
-    scheduledUserWorkflow.setWorkflowPriority(0);
-    return scheduledUserWorkflow;
+  public static ScheduledWorkflow createScheduledUserWorkflowObject() {
+    ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
+    scheduledWorkflow.setDatasetName(DATASETNAME);
+    scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
+    scheduledWorkflow.setWorkflowName(WORKFLOWNAME);
+    scheduledWorkflow.setPointerDate(new Date());
+    scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
+    scheduledWorkflow.setWorkflowPriority(0);
+    return scheduledWorkflow;
   }
 
-  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflows(int size) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflows(int size) {
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
-      scheduledUserWorkflow.setId(new ObjectId());
-      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
-      scheduledUserWorkflows.add(scheduledUserWorkflow);
+      ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
+      scheduledWorkflow.setId(new ObjectId());
+      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflows.add(scheduledWorkflow);
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
-      scheduledUserWorkflow.setId(new ObjectId());
-      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
-      scheduledUserWorkflow.setPointerDate(date);
-      scheduledUserWorkflow.setScheduleFrequence(scheduleFrequence);
-      scheduledUserWorkflows.add(scheduledUserWorkflow);
+      ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
+      scheduledWorkflow.setId(new ObjectId());
+      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflow.setPointerDate(date);
+      scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
+      scheduledWorkflows.add(scheduledWorkflow);
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
   public static Dataset createDataset(String datasetName) {

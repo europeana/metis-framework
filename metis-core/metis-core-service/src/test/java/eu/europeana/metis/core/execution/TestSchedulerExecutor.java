@@ -20,7 +20,7 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -69,13 +69,13 @@ public class TestSchedulerExecutor {
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
     Date now = new Date();
     now.setTime(now.getTime() + periodicSchedulerCheckInSecs * 1000);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateONCE = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateONCE = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.ONCE);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateDAILY = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateDAILY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.DAILY);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateWEEKLY = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateWEEKLY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.WEEKLY);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateMONTHLY = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.MONTHLY);
 
     when(orchestratorService.getScheduledUserWorkflowsPerRequest())
@@ -83,12 +83,12 @@ public class TestSchedulerExecutor {
 
     when(orchestratorService.getAllScheduledUserWorkflowsByDateRangeONCE(any(LocalDateTime.class),
         any(LocalDateTime.class), isNull()))
-        .thenReturn(listOfScheduledUserWorkflowsWithDateONCE);
+        .thenReturn(listOfScheduledWorkflowsWithDateONCE);
     when(
         orchestratorService.getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull()))
-        .thenReturn(listOfScheduledUserWorkflowsWithDateDAILY).thenReturn(
-            listOfScheduledUserWorkflowsWithDateWEEKLY).thenReturn(
-            listOfScheduledUserWorkflowsWithDateMONTHLY);
+        .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
+        listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
+        listOfScheduledWorkflowsWithDateMONTHLY);
     doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt()); //Throw an exception as well, should continue execution after that
@@ -117,11 +117,11 @@ public class TestSchedulerExecutor {
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
     Date past = new Date();
     past.setTime(past.getTime() - periodicSchedulerCheckInSecs * 1000);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateDAILY = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateDAILY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.DAILY);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateWEEKLY = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateWEEKLY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.WEEKLY);
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflowsWithDateMONTHLY = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.MONTHLY);
 
     when(orchestratorService.getScheduledUserWorkflowsPerRequest())
@@ -132,9 +132,9 @@ public class TestSchedulerExecutor {
         .thenReturn(new ArrayList<>());
     when(
         orchestratorService.getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull()))
-        .thenReturn(listOfScheduledUserWorkflowsWithDateDAILY).thenReturn(
-        listOfScheduledUserWorkflowsWithDateWEEKLY).thenReturn(
-        listOfScheduledUserWorkflowsWithDateMONTHLY);
+        .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
+        listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
+        listOfScheduledWorkflowsWithDateMONTHLY);
     doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
         .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt()); //Throw an exception as well, should continue execution after that

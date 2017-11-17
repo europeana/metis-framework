@@ -33,7 +33,7 @@ import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -401,26 +401,26 @@ public class TestOrchestratorController {
 
   @Test
   public void scheduleUserWorkflowExecution() throws Exception {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
 
-    verify(orchestratorService, times(1)).scheduleUserWorkflow(any(ScheduledUserWorkflow.class));
+    verify(orchestratorService, times(1)).scheduleUserWorkflow(any(ScheduledWorkflow.class));
   }
 
   @Test
   public void scheduleUserWorkflowExecution_BadContentException() throws Exception {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     doThrow(new BadContentException("Some error")).when(orchestratorService)
-        .scheduleUserWorkflow(any(ScheduledUserWorkflow.class));
+        .scheduleUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(406))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }
@@ -428,49 +428,49 @@ public class TestOrchestratorController {
   @Test
   public void scheduleUserWorkflowExecution_ScheduledUserWorkflowAlreadyExistsException()
       throws Exception {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     doThrow(new ScheduledUserWorkflowAlreadyExistsException("Some error")).when(orchestratorService)
-        .scheduleUserWorkflow(any(ScheduledUserWorkflow.class));
+        .scheduleUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }
 
   @Test
   public void scheduleUserWorkflowExecution_NoUserWorkflowFoundException() throws Exception {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService)
-        .scheduleUserWorkflow(any(ScheduledUserWorkflow.class));
+        .scheduleUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }
 
   @Test
   public void scheduleUserWorkflowExecution_NoDatasetFoundException() throws Exception {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
-        .scheduleUserWorkflow(any(ScheduledUserWorkflow.class));
+        .scheduleUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }
 
   @Test
   public void getScheduledUserWorkflow() throws Exception {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     when(orchestratorService.getScheduledUserWorkflowByDatasetName(anyString()))
-        .thenReturn(scheduledUserWorkflow);
+        .thenReturn(scheduledWorkflow);
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME,
             TestObjectFactory.DATASETNAME)
@@ -486,12 +486,12 @@ public class TestOrchestratorController {
   public void getAllScheduledUserWorkflows() throws Exception
   {
     int listSize = 2;
-    List<ScheduledUserWorkflow> listOfScheduledUserWorkflows = TestObjectFactory
+    List<ScheduledWorkflow> listOfScheduledWorkflows = TestObjectFactory
         .createListOfScheduledUserWorkflows(listSize + 1);//To get the effect of next page
 
     when(orchestratorService.getScheduledUserWorkflowsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllScheduledUserWorkflows(any(ScheduleFrequence.class), anyString()))
-        .thenReturn(listOfScheduledUserWorkflows);
+        .thenReturn(listOfScheduledWorkflows);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
             .param("nextPage", "")
@@ -511,26 +511,26 @@ public class TestOrchestratorController {
   @Test
   public void updateScheduledUserWorkflow() throws Exception
   {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
-    verify(orchestratorService, times(1)).updateScheduledUserWorkflow(any(ScheduledUserWorkflow.class));
+    verify(orchestratorService, times(1)).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
   }
 
   @Test
   public void updateScheduledUserWorkflow_NoUserWorkflowFoundException() throws Exception
   {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledUserWorkflow.class));
+    doThrow(new NoUserWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }
@@ -538,12 +538,12 @@ public class TestOrchestratorController {
   @Test
   public void updateScheduledUserWorkflow_NoScheduledUserWorkflowFoundException() throws Exception
   {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoScheduledUserWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledUserWorkflow.class));
+    doThrow(new NoScheduledUserWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }
@@ -551,12 +551,12 @@ public class TestOrchestratorController {
   @Test
   public void updateScheduledUserWorkflow_BadContentException() throws Exception
   {
-    ScheduledUserWorkflow scheduledUserWorkflow = TestObjectFactory
+    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new BadContentException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledUserWorkflow.class));
+    doThrow(new BadContentException("Some error")).when(orchestratorService).updateScheduledUserWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(TestUtils.convertObjectToJsonBytes(scheduledUserWorkflow)))
+        .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(406))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
   }

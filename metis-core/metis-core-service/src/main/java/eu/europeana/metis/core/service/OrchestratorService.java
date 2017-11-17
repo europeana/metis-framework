@@ -15,7 +15,7 @@ import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -220,22 +220,22 @@ public class OrchestratorService {
     return userWorkflowExecutionDao.getAllUserWorkflowExecutions(workflowStatus, nextPage);
   }
 
-  public ScheduledUserWorkflow getScheduledUserWorkflowByDatasetName(String datasetName) {
+  public ScheduledWorkflow getScheduledUserWorkflowByDatasetName(String datasetName) {
     return scheduledUserWorkflowDao.getScheduledUserWorkflowByDatasetName(datasetName);
   }
 
-  public void scheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
+  public void scheduleUserWorkflow(ScheduledWorkflow scheduledWorkflow)
       throws NoDatasetFoundException, NoUserWorkflowFoundException, BadContentException, ScheduledUserWorkflowAlreadyExistsException {
-    checkRestrictionsOnScheduleUserWorkflow(scheduledUserWorkflow);
-    scheduledUserWorkflowDao.create(scheduledUserWorkflow);
+    checkRestrictionsOnScheduleUserWorkflow(scheduledWorkflow);
+    scheduledUserWorkflowDao.create(scheduledWorkflow);
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+  public List<ScheduledWorkflow> getAllScheduledUserWorkflows(
       ScheduleFrequence scheduleFrequence, String nextPage) {
     return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(scheduleFrequence, nextPage);
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
+  public List<ScheduledWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
       LocalDateTime lowerBound,
       LocalDateTime upperBound, String nextPage) {
     return scheduledUserWorkflowDao
@@ -268,49 +268,49 @@ public class OrchestratorService {
     String id = scheduledUserWorkflowDao.existsForDatasetName(datasetName);
     if (id != null) {
       throw new ScheduledUserWorkflowAlreadyExistsException(String.format(
-          "ScheduledUserWorkflow for datasetName: %s with id %s, already exists",
+          "ScheduledWorkflow for datasetName: %s with id %s, already exists",
           datasetName, id));
     }
   }
 
-  public void updateScheduledUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
+  public void updateScheduledUserWorkflow(ScheduledWorkflow scheduledWorkflow)
       throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
-    String storedId = checkRestrictionsOnScheduledUserWorkflowUpdate(scheduledUserWorkflow);
-    scheduledUserWorkflow.setId(new ObjectId(storedId));
-    scheduledUserWorkflowDao.update(scheduledUserWorkflow);
+    String storedId = checkRestrictionsOnScheduledUserWorkflowUpdate(scheduledWorkflow);
+    scheduledWorkflow.setId(new ObjectId(storedId));
+    scheduledUserWorkflowDao.update(scheduledWorkflow);
   }
 
-  private void checkRestrictionsOnScheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
+  private void checkRestrictionsOnScheduleUserWorkflow(ScheduledWorkflow scheduledWorkflow)
       throws NoUserWorkflowFoundException, NoDatasetFoundException, ScheduledUserWorkflowAlreadyExistsException, BadContentException {
-    checkDatasetExistence(scheduledUserWorkflow.getDatasetName());
-    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
-        scheduledUserWorkflow.getWorkflowName());
-    checkScheduledUserWorkflowExistenceForDatasetName(scheduledUserWorkflow.getDatasetName());
-    if (scheduledUserWorkflow.getPointerDate() == null) {
+    checkDatasetExistence(scheduledWorkflow.getDatasetName());
+    checkUserWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
+        scheduledWorkflow.getWorkflowName());
+    checkScheduledUserWorkflowExistenceForDatasetName(scheduledWorkflow.getDatasetName());
+    if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
     }
-    if (scheduledUserWorkflow.getScheduleFrequence() == null
-        || scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+    if (scheduledWorkflow.getScheduleFrequence() == null
+        || scheduledWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
       throw new BadContentException("NULL or null is not a valid scheduleFrequence");
     }
   }
 
   private String checkRestrictionsOnScheduledUserWorkflowUpdate(
-      ScheduledUserWorkflow scheduledUserWorkflow)
+      ScheduledWorkflow scheduledWorkflow)
       throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
-    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
-        scheduledUserWorkflow.getWorkflowName());
+    checkUserWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
+        scheduledWorkflow.getWorkflowName());
     String storedId = scheduledUserWorkflowDao
-        .existsForDatasetName(scheduledUserWorkflow.getDatasetName());
+        .existsForDatasetName(scheduledWorkflow.getDatasetName());
     if (StringUtils.isEmpty(storedId)) {
       throw new NoScheduledUserWorkflowFoundException(String.format(
-          "Workflow with datasetName: %s, not found", scheduledUserWorkflow.getDatasetName()));
+          "Workflow with datasetName: %s, not found", scheduledWorkflow.getDatasetName()));
     }
-    if (scheduledUserWorkflow.getPointerDate() == null) {
+    if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
     }
-    if (scheduledUserWorkflow.getScheduleFrequence() == null
-        || scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+    if (scheduledWorkflow.getScheduleFrequence() == null
+        || scheduledWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
       throw new BadContentException("NULL or null is not a valid scheduleFrequence");
     }
     return storedId;
