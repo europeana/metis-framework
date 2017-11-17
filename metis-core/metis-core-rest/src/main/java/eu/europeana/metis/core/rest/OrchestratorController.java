@@ -15,11 +15,6 @@ import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflow;
 import eu.europeana.metis.core.workflow.UserWorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
@@ -55,10 +50,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 409, message = "User workflow execution already exists")})
-  @ApiOperation(value = "Create a user workflow")
   public void createUserWorkflow(
       @RequestBody UserWorkflow userWorkflow)
       throws UserWorkflowAlreadyExistsException {
@@ -69,10 +60,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflow not found")})
-  @ApiOperation(value = "Update a user workflow")
   public void updateUserWorkflow(
       @RequestBody UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
     orchestratorService.updateUserWorkflow(userWorkflow);
@@ -80,13 +67,6 @@ public class OrchestratorController {
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
-  })
-  @ApiOperation(value = "Delete a user workflow by workflowOwner and workflowName")
   public void deleteUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     orchestratorService.deleteUserWorkflow(workflowOwner, workflowName);
@@ -98,12 +78,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {@ApiResponse(code = 200, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true)
-  })
-  @ApiOperation(value = "Get a userWorkflow by workflowOwner and workflowName", response = UserWorkflow.class)
   public UserWorkflow getUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
       @QueryParam("workflowName") String workflowName) {
     UserWorkflow userWorkflow = orchestratorService
@@ -118,13 +92,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "workflowOwner", value = "workflowOwner", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
-  })
-  @ApiOperation(value = "Get all userWorkflows by workflowOwner", response = ResponseListWrapper.class)
   public ResponseListWrapper<UserWorkflow> getAllUserWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
       @QueryParam("nextPage") String nextPage) {
@@ -143,17 +110,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 404, message = "Dataset or UserWorkflow not found"),
-      @ApiResponse(code = 409, message = "User workflow execution already exists")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "priority", value = "Priority value, default is 0. The higher number the higher priority until 10", dataType = "int", defaultValue = "0", paramType = "query")
-  })
-  @ApiOperation(value = "Add a user workflow by workflowOwner and workflowName for datasetName to the queue of executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName,
       @QueryParam("workflowOwner") String workflowOwner,
@@ -174,15 +130,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 404, message = "Dataset not found"),
-      @ApiResponse(code = 409, message = "UserWorkflowExecution or UserWorkflow already exists")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "priority", value = "Priority value, default is 0. The higher number the higher priority until 10", dataType = "int", defaultValue = "0", paramType = "query")
-  })
-  @ApiOperation(value = "Create a user workflow on the fly and directly send it in the queue of workflow executions")
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
       @QueryParam("priority") Integer priority)
@@ -201,13 +148,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflowExecution not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Cancel a user workflow execution by datasetName")
   public void cancelUserWorkflowExecution(
       @PathVariable("datasetName") String datasetName)
       throws NoUserWorkflowExecutionFoundException {
@@ -221,12 +161,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
-  })
-  @ApiOperation(value = "Get running userWorkflowExecution by datasetName", response = UserWorkflowExecution.class)
   public UserWorkflowExecution getRunningUserWorkflowExecution(
       @PathVariable("datasetName") String datasetName) {
     UserWorkflowExecution userWorkflowExecution = orchestratorService
@@ -239,16 +173,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true),
-      @ApiImplicitParam(name = "workflowOwner", value = "WorkflowOwner", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowName", value = "WorkflowName", dataType = "string", paramType = "query", required = true),
-      @ApiImplicitParam(name = "workflowStatus", value = "WorkflowStatus", dataType = "string", paramType = "query"),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
-  })
-  @ApiOperation(value = "Get all userWorkflowExecutions by datasetName, workflowOwner by workflowName and workflowStatus", response = ResponseListWrapper.class)
   public ResponseListWrapper<UserWorkflowExecution> getAllUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName,
       @QueryParam("workflowOwner") String workflowOwner,
@@ -269,13 +193,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "workflowStatus", value = "workflowStatus", dataType = "string", paramType = "query"),
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
-  })
-  @ApiOperation(value = "Get all userWorkflowExecutions by workflowStatus", response = ResponseListWrapper.class)
   public ResponseListWrapper<UserWorkflowExecution> getAllUserWorkflowExecutions(
       @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
       @QueryParam("nextPage") String nextPage) {
@@ -294,13 +211,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 201, message = "Successful response"),
-      @ApiResponse(code = 404, message = "Dataset not found"),
-      @ApiResponse(code = 404, message = "UserWorkflow not found"),
-      @ApiResponse(code = 406, message = "Bad content"),
-      @ApiResponse(code = 409, message = "ScheduledUserWorkflow already exist")})
-  @ApiOperation(value = "Schedule a user workflow. Only one schedule per datasetName is allowed.")
   public void scheduleUserWorkflowExecution(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
       throws BadContentException, ScheduledUserWorkflowAlreadyExistsException, NoUserWorkflowFoundException, NoDatasetFoundException {
@@ -317,13 +227,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response"),
-      @ApiResponse(code = 404, message = "ScheduledUserWorkflow not found")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "DatasetName", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Get a scheduledUserWorkflow by datasetName", response = ScheduledUserWorkflow.class)
   public ScheduledUserWorkflow getScheduledUserWorkflow(
       @PathVariable("datasetName") String datasetName) {
     ScheduledUserWorkflow scheduledUserWorkflow = orchestratorService
@@ -336,12 +239,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 200, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "nextPage", value = "nextPage", dataType = "string", paramType = "query")
-  })
-  @ApiOperation(value = "Get all scheduledUserWorkflows", response = ResponseListWrapper.class)
   public ResponseListWrapper<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
       @QueryParam("nextPage") String nextPage) {
     ResponseListWrapper<ScheduledUserWorkflow> responseListWrapper = new ResponseListWrapper<>();
@@ -357,11 +254,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response"),
-      @ApiResponse(code = 404, message = "UserWorkflow or ScheduledUserWorkflow not found"),
-      @ApiResponse(code = 406, message = "Bad content")})
-  @ApiOperation(value = "Update a scheduled user workflow for datasetName")
   public void updateScheduledUserWorkflow(
       @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
       throws BadContentException, NoScheduledUserWorkflowFoundException, NoUserWorkflowFoundException {
@@ -374,12 +266,6 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  @ApiResponses(value = {
-      @ApiResponse(code = 204, message = "Successful response")})
-  @ApiImplicitParams({
-      @ApiImplicitParam(name = "datasetName", value = "datasetName", dataType = "string", paramType = "path", required = true)
-  })
-  @ApiOperation(value = "Delete a scheduled user workflow by datasetName")
   public void deleteScheduledUserWorkflowExecution(
       @PathVariable("datasetName") String datasetName) {
     orchestratorService.deleteScheduledUserWorkflow(datasetName);

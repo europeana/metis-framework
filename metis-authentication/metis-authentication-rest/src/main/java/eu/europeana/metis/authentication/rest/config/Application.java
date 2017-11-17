@@ -20,6 +20,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -40,9 +41,16 @@ public class Application extends WebMvcConfigurerAdapter {
   private String zohoAuthenticationToken;
   @Value("${access.token.expire.time.in.mins}")
   private int accessTokenExpireTimeInMins;
+  @Value("${allowed.cors.hosts}")
+  private String[] allowedCorsHosts;
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**").allowedOrigins(allowedCorsHosts);
+  }
 
   @Bean
   public AuthenticationService getAuthenticationService(ZohoAccessClientDao zohoAccessClientDao,

@@ -54,7 +54,6 @@ import java.util.Map;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
-import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -74,24 +73,14 @@ import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConve
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
 @EnableWebMvc
-@EnableSwagger2
 @Import(SearchApplication.class)
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
@@ -387,34 +376,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     super.configureMessageConverters(converters);
   }
 
-  @Override
-  public void addViewControllers(ViewControllerRegistry registry) {
-    registry.addRedirectViewController("/", "swagger-ui.html");
-  }
-
-  @Override
-  public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("swagger-ui.html")
-        .addResourceLocations("classpath:/META-INF/resources/");
-    registry.addResourceHandler("/webjars/**")
-        .addResourceLocations("classpath:/META-INF/resources/webjars/");
-  }
-
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();
-  }
-
-  @Bean
-  public Docket api() {
-    return new Docket(DocumentationType.SWAGGER_2)
-        .select()
-        .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/.*"))
-        .build()
-        .directModelSubstitute(ObjectId.class, String.class)
-        .useDefaultResponseMessages(false)
-        .apiInfo(apiInfo());
   }
 
   @PreDestroy
@@ -428,17 +392,5 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     if (connection != null && connection.isOpen()) {
       connection.close();
     }
-  }
-
-  private ApiInfo apiInfo() {
-    return new ApiInfo(
-        "Metis framework REST API",
-        "Metis framework REST API for Europeana",
-        "v1",
-        "API TOS",
-        new Contact("development", "europeana.eu", "development@europeana.eu"),
-        "EUPL Licence v1.1",
-        ""
-    );
   }
 }

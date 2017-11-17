@@ -110,7 +110,7 @@ public class AuthenticationService {
           String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
               metisUser.getOrganizationName()), e);
     }
-    metisUser.setOrganizationIdFromJsonNode(organizationJsonNode);
+    metisUser.setAndCheckOrganizationIdFromJsonNode(organizationJsonNode);
     return metisUser;
   }
 
