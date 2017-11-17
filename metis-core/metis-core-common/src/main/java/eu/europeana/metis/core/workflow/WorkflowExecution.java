@@ -39,7 +39,7 @@ import org.mongodb.morphia.annotations.Indexes;
 @JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetName",
     "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
     "hTTPHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
-public class UserWorkflowExecution implements HasMongoObjectId {
+public class WorkflowExecution implements HasMongoObjectId {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -71,10 +71,10 @@ public class UserWorkflowExecution implements HasMongoObjectId {
   private List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
   //Keep this constructor
-  public UserWorkflowExecution() {
+  public WorkflowExecution() {
   }
 
-  public UserWorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
+  public WorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
     this.workflowOwner = workflow.getWorkflowOwner();
     this.workflowName = workflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
@@ -266,17 +266,17 @@ public class UserWorkflowExecution implements HasMongoObjectId {
     if (obj == null || obj.getClass() != this.getClass()) {
       return false;
     }
-    UserWorkflowExecution that = (UserWorkflowExecution) obj;
+    WorkflowExecution that = (WorkflowExecution) obj;
     return (id == that.getId() && datasetName.equals(that.datasetName) && workflowOwner
         .equals(that.workflowOwner)
         && workflowName.equals(that.workflowName));
   }
 
   public static class UserWorkflowExecutionPriorityComparator implements
-      Comparator<UserWorkflowExecution> {
+      Comparator<WorkflowExecution> {
 
     @Override
-    public int compare(UserWorkflowExecution o1, UserWorkflowExecution o2) {
+    public int compare(WorkflowExecution o1, WorkflowExecution o2) {
       if (o1.workflowPriority > o2.workflowPriority) {
         return -1;
       }

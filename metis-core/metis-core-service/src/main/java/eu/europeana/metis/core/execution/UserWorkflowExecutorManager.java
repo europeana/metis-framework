@@ -7,7 +7,7 @@ import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.MessageProperties;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
 import java.util.concurrent.ExecutorCompletionService;
@@ -39,7 +39,7 @@ public class UserWorkflowExecutorManager {
   private int threadsCounter;
 
   private final ExecutorService threadPool = Executors.newFixedThreadPool(maxConcurrentThreads);
-  private final ExecutorCompletionService<UserWorkflowExecution> completionService = new ExecutorCompletionService<>(
+  private final ExecutorCompletionService<WorkflowExecution> completionService = new ExecutorCompletionService<>(
       threadPool);
 
   private final UserWorkflowExecutionDao userWorkflowExecutionDao;
@@ -72,17 +72,17 @@ public class UserWorkflowExecutorManager {
       rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
           userWorkflowExecutionObjectId.getBytes("UTF-8"));
     } catch (IOException e) {
-      LOGGER.error("UserWorkflowExecution with objectId: {} not added in queue..",
+      LOGGER.error("WorkflowExecution with objectId: {} not added in queue..",
           userWorkflowExecutionObjectId, e);
     }
   }
 
-  public synchronized void cancelUserWorkflowExecution(UserWorkflowExecution userWorkflowExecution) {
-    if (userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
-        || userWorkflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
-      userWorkflowExecutionDao.setCancellingState(userWorkflowExecution);
+  public synchronized void cancelUserWorkflowExecution(WorkflowExecution workflowExecution) {
+    if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+        || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
+      userWorkflowExecutionDao.setCancellingState(workflowExecution);
       LOGGER.info(
-          "Cancelling user workflow execution with id: {}", userWorkflowExecution.getId());
+          "Cancelling user workflow execution with id: {}", workflowExecution.getId());
     }
   }
 
@@ -127,7 +127,7 @@ public class UserWorkflowExecutorManager {
     public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
         AMQP.BasicProperties properties, byte[] body) throws IOException {
       String objectId = new String(body, "UTF-8");
-      LOGGER.info("UserWorkflowExecution id: {} received from queue.", objectId);
+      LOGGER.info("WorkflowExecution id: {} received from queue.", objectId);
       //Clean thread pool, some executions might have already finished
       if (threadsCounter >= maxConcurrentThreads) {
         LOGGER.debug("Trying to clean thread pool, found thread pool full with threadsCounter: {}, maxConcurrentThreads: {}",
@@ -135,31 +135,31 @@ public class UserWorkflowExecutorManager {
         checkAndCleanCompletionService();
       }
 
-      UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao.getById(objectId);
+      WorkflowExecution workflowExecution = userWorkflowExecutionDao.getById(objectId);
       //If the thread pool is still full, executions are still active. Send the message back to the queue.
       if (threadsCounter >= maxConcurrentThreads) {
         //Send NACK to send message back to the queue. Message will go to the same position it was or as close as possible
         //NACK multiple(second parameter) we want one. Requeue(Third parameter), do not discard
         rabbitmqChannel
             .basicNack(rabbitmqEnvelope.getDeliveryTag(), false, true);
-        LOGGER.debug("NACK sent for {} with tag {}", userWorkflowExecution.getId(),
+        LOGGER.debug("NACK sent for {} with tag {}", workflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       } else {
-        if (!userWorkflowExecution.isCancelling()) { //Submit for execution
+        if (!workflowExecution.isCancelling()) { //Submit for execution
           UserWorkflowExecutor userWorkflowExecutor = new UserWorkflowExecutor(
-              userWorkflowExecution, userWorkflowExecutionDao, monitorCheckIntervalInSecs,
+              workflowExecution, userWorkflowExecutionDao, monitorCheckIntervalInSecs,
               redissonClient);
           completionService.submit(userWorkflowExecutor);
           threadsCounter++;
         } else { //Has been cancelled, do not execute
-          userWorkflowExecution.setAllRunningAndInqueuePluginsToCancelled();
-          userWorkflowExecutionDao.update(userWorkflowExecution);
+          workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
+          userWorkflowExecutionDao.update(workflowExecution);
           LOGGER.info("Cancelled inqueue user workflow execution with id: {}",
-              userWorkflowExecution.getId());
+              workflowExecution.getId());
         }
         rabbitmqChannel
             .basicAck(rabbitmqEnvelope.getDeliveryTag(), false);//Send ACK back to remove from queue asap.
-        LOGGER.debug("ACK sent for {} with tag {}", userWorkflowExecution.getId(),
+        LOGGER.debug("ACK sent for {} with tag {}", workflowExecution.getId(),
             rabbitmqEnvelope.getDeliveryTag());
       }
     }
@@ -167,7 +167,7 @@ public class UserWorkflowExecutorManager {
     private void checkAndCleanCompletionService() throws IOException {
       //Block for a small period and try cleaning up
       try {
-        Future<UserWorkflowExecution> userWorkflowExecutionFuture = completionService
+        Future<WorkflowExecution> userWorkflowExecutionFuture = completionService
             .poll(pollingTimeoutForCleaningCompletionServiceInSecs, TimeUnit.SECONDS);
         if (userWorkflowExecutionFuture != null) {
           threadsCounter--;

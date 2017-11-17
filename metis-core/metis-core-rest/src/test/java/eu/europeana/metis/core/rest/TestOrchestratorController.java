@@ -35,7 +35,7 @@ import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
 import org.junit.After;
@@ -330,11 +330,11 @@ public class TestOrchestratorController {
 
   @Test
   public void getRunningUserWorkflowExecution() throws Exception {
-    UserWorkflowExecution userWorkflowExecution = TestObjectFactory
+    WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+    workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     when(orchestratorService.getRunningUserWorkflowExecution(anyString()))
-        .thenReturn(userWorkflowExecution);
+        .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME,
             TestObjectFactory.DATASETNAME)
@@ -347,12 +347,12 @@ public class TestOrchestratorController {
   @Test
   public void getAllUserWorkflowExecutions() throws Exception {
     int listSize = 2;
-    List<UserWorkflowExecution> listOfUserWorkflowExecutions = TestObjectFactory
+    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getUserWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllUserWorkflowExecutions(anyString(), anyString(), anyString(),
-        any(WorkflowStatus.class), anyString())).thenReturn(listOfUserWorkflowExecutions);
+        any(WorkflowStatus.class), anyString())).thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME,
             TestObjectFactory.DATASETNAME)
@@ -376,12 +376,12 @@ public class TestOrchestratorController {
   @Test
   public void getAllUserWorkflowExecutionsByWorkflowStatus() throws Exception {
     int listSize = 2;
-    List<UserWorkflowExecution> listOfUserWorkflowExecutions = TestObjectFactory
+    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getUserWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllUserWorkflowExecutions(any(WorkflowStatus.class), anyString()))
-        .thenReturn(listOfUserWorkflowExecutions);
+        .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())

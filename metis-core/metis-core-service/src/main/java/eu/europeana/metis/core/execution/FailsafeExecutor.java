@@ -2,7 +2,7 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,21 +47,21 @@ public class FailsafeExecutor implements Runnable {
 
         lock.lock();
         LOGGER.info("Failsafe thread woke up.");
-        List<UserWorkflowExecution> allInQueueAndRunningUserWorkflowExecutions = new ArrayList<>();
+        List<WorkflowExecution> allInQueueAndRunningWorkflowExecutions = new ArrayList<>();
         addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.RUNNING,
-            allInQueueAndRunningUserWorkflowExecutions);
+            allInQueueAndRunningWorkflowExecutions);
         addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.INQUEUE,
-            allInQueueAndRunningUserWorkflowExecutions);
+            allInQueueAndRunningWorkflowExecutions);
 
-        if (!allInQueueAndRunningUserWorkflowExecutions.isEmpty()) {
+        if (!allInQueueAndRunningWorkflowExecutions.isEmpty()) {
           orchestratorService
               .removeActiveUserWorkflowExecutionsFromList(
-                  allInQueueAndRunningUserWorkflowExecutions);
+                  allInQueueAndRunningWorkflowExecutions);
 
-          for (UserWorkflowExecution userWorkflowExecution : allInQueueAndRunningUserWorkflowExecutions) {
+          for (WorkflowExecution workflowExecution : allInQueueAndRunningWorkflowExecutions) {
             orchestratorService
-                .addUserWorkflowExecutionToQueue(userWorkflowExecution.getId().toString(),
-                    userWorkflowExecution.getWorkflowPriority());
+                .addUserWorkflowExecutionToQueue(workflowExecution.getId().toString(),
+                    workflowExecution.getWorkflowPriority());
           }
         }
       } catch (Exception e) {
@@ -79,15 +79,15 @@ public class FailsafeExecutor implements Runnable {
   }
 
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
-      List<UserWorkflowExecution> userWorkflowExecutions) {
+      List<WorkflowExecution> workflowExecutions) {
     String nextPage = null;
-    ResponseListWrapper<UserWorkflowExecution> userWorkflowExecutionResponseListWrapper;
+    ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper;
     do {
       userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
               .getAllUserWorkflowExecutions(workflowStatus, nextPage),
           orchestratorService.getUserWorkflowExecutionsPerRequest());
-      userWorkflowExecutions
+      workflowExecutions
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (!StringUtils.isEmpty(nextPage));

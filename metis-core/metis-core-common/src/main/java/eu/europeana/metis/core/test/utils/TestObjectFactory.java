@@ -8,7 +8,7 @@ import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.DereferencePluginMetadata;
@@ -67,47 +67,47 @@ public class TestObjectFactory {
     return workflows;
   }
 
-  public static UserWorkflowExecution createUserWorkflowExecutionObject() {
+  public static WorkflowExecution createUserWorkflowExecutionObject() {
     Workflow workflow = createUserWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset,
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
         workflow, 0);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    userWorkflowExecution.setCreatedDate(new Date());
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setCreatedDate(new Date());
 
-    return userWorkflowExecution;
+    return workflowExecution;
   }
 
-  public static UserWorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
+  public static WorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
       Workflow workflow) {
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset,
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
         workflow, 0);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    userWorkflowExecution.setCreatedDate(new Date());
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setCreatedDate(new Date());
 
-    return userWorkflowExecution;
+    return workflowExecution;
   }
 
-  public static List<UserWorkflowExecution> createListOfUserWorkflowExecutions(int size) {
-    List<UserWorkflowExecution> userWorkflowExecutions = new ArrayList<>();
+  public static List<WorkflowExecution> createListOfUserWorkflowExecutions(int size) {
+    List<WorkflowExecution> workflowExecutions = new ArrayList<>();
     for (int i = 0; i < size; i++) {
       Workflow workflow = createUserWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
-      UserWorkflowExecution userWorkflowExecution = createUserWorkflowExecutionObject(dataset,
+      WorkflowExecution workflowExecution = createUserWorkflowExecutionObject(dataset,
           workflow);
-      userWorkflowExecution.setId(new ObjectId());
-      userWorkflowExecutions.add(userWorkflowExecution);
+      workflowExecution.setId(new ObjectId());
+      workflowExecutions.add(workflowExecution);
     }
-    return userWorkflowExecutions;
+    return workflowExecutions;
   }
 
   public static void updateListOfUserWorkflowExecutionsWithWorkflowStatus(
-      List<UserWorkflowExecution> userWorkflowExecutions, WorkflowStatus workflowStatus) {
-    for (UserWorkflowExecution userWorkflowExecution : userWorkflowExecutions) {
-      userWorkflowExecution.setWorkflowStatus(workflowStatus);
+      List<WorkflowExecution> workflowExecutions, WorkflowStatus workflowStatus) {
+    for (WorkflowExecution workflowExecution : workflowExecutions) {
+      workflowExecution.setWorkflowStatus(workflowStatus);
     }
   }
 

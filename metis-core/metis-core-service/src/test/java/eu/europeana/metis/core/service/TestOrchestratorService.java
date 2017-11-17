@@ -28,7 +28,7 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -174,7 +174,7 @@ public class TestOrchestratorService {
         .thenReturn(workflow);
     when(userWorkflowExecutionDao.existsAndNotCompleted(dataset.getDatasetName())).thenReturn(null);
     String objectId = new ObjectId().toString();
-    when(userWorkflowExecutionDao.create(any(UserWorkflowExecution.class))).thenReturn(objectId);
+    when(userWorkflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(userWorkflowExecutorManager).addUserWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addUserWorkflowInQueueOfUserWorkflowExecutions(dataset.getDatasetName(),
         workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
@@ -228,7 +228,7 @@ public class TestOrchestratorService {
     when(userWorkflowDao.exists(workflow)).thenReturn(null);
     when(userWorkflowExecutionDao.existsAndNotCompleted(dataset.getDatasetName())).thenReturn(null);
     String objectId = new ObjectId().toString();
-    when(userWorkflowExecutionDao.create(any(UserWorkflowExecution.class))).thenReturn(objectId);
+    when(userWorkflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(userWorkflowExecutorManager).addUserWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(dataset.getDatasetName(), workflow, 0);
@@ -273,12 +273,12 @@ public class TestOrchestratorService {
 
   @Test
   public void cancelUserWorkflowExecution() throws Exception {
-    UserWorkflowExecution userWorkflowExecution = TestObjectFactory
+    WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     when(userWorkflowExecutionDao.getRunningOrInQueueExecution(TestObjectFactory.DATASETNAME))
-        .thenReturn(userWorkflowExecution);
+        .thenReturn(workflowExecution);
     doNothing().when(userWorkflowExecutorManager)
-        .cancelUserWorkflowExecution(userWorkflowExecution);
+        .cancelUserWorkflowExecution(workflowExecution);
     orchestratorService.cancelUserWorkflowExecution(TestObjectFactory.DATASETNAME);
   }
 

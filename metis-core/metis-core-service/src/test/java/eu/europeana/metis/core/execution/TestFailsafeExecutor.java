@@ -16,7 +16,7 @@ import com.jayway.awaitility.Duration;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
 import org.junit.After;
@@ -62,17 +62,17 @@ public class TestFailsafeExecutor {
 
     int userWorkflowExecutionsPerRequest = 5;
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
-    List<UserWorkflowExecution> listOfUserWorkflowExecutionsWithRunningStatus = TestObjectFactory
+    List<WorkflowExecution> listOfWorkflowExecutionsWithRunningStatuses = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize);
     TestObjectFactory.updateListOfUserWorkflowExecutionsWithWorkflowStatus(
-        listOfUserWorkflowExecutionsWithRunningStatus, WorkflowStatus.RUNNING);
-    List<UserWorkflowExecution> listOfUserWorkflowExecutionsWithInqueueStatus = TestObjectFactory
+        listOfWorkflowExecutionsWithRunningStatuses, WorkflowStatus.RUNNING);
+    List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize); //To not trigger paging
 
     when(orchestratorService.getAllUserWorkflowExecutions(WorkflowStatus.RUNNING, null))
-        .thenReturn(listOfUserWorkflowExecutionsWithRunningStatus);
+        .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
     when(orchestratorService.getAllUserWorkflowExecutions(WorkflowStatus.INQUEUE, null))
-        .thenReturn(listOfUserWorkflowExecutionsWithInqueueStatus);
+        .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
     when(orchestratorService.getUserWorkflowExecutionsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);
     doNothing().when(rlock).unlock();

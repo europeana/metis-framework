@@ -17,7 +17,7 @@ import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -84,7 +84,7 @@ public class OrchestratorService {
     return userWorkflowDao.getAllUserWorkflows(workflowOwner, nextPage);
   }
 
-  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName) {
+  public WorkflowExecution getRunningUserWorkflowExecution(String datasetName) {
     return userWorkflowExecutionDao
         .getRunningUserWorkflowExecution(datasetName);
   }
@@ -96,9 +96,9 @@ public class OrchestratorService {
     Dataset dataset = checkDatasetExistence(datasetName);
     Workflow workflow = checkUserWorkflowExistence(workflowOwner, workflowName);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, workflow,
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         priority);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     String storedUserWorkflowExecutionId = userWorkflowExecutionDao
         .existsAndNotCompleted(datasetName);
     if (storedUserWorkflowExecutionId != null) {
@@ -106,10 +106,10 @@ public class OrchestratorService {
           String.format("User workflow execution already exists with id %s and is not completed",
               storedUserWorkflowExecutionId));
     }
-    userWorkflowExecution.setCreatedDate(new Date());
-    String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
+    workflowExecution.setCreatedDate(new Date());
+    String objectId = userWorkflowExecutionDao.create(workflowExecution);
     userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
-    LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
+    LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
   }
 
   //Used for direct, on the fly provided, execution of a Workflow
@@ -121,9 +121,9 @@ public class OrchestratorService {
     workflow.setWorkflowName(new ObjectId().toString());
     checkRestrictionsOnUserWorkflowCreate(workflow);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, workflow,
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         priority);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     String storedUserWorkflowExecutionId = userWorkflowExecutionDao
         .existsAndNotCompleted(datasetName);
     if (storedUserWorkflowExecutionId != null) {
@@ -132,19 +132,19 @@ public class OrchestratorService {
               "User workflow execution for datasetName: %s, already exists with id: %s, and is not completed",
               datasetName, storedUserWorkflowExecutionId));
     }
-    userWorkflowExecution.setCreatedDate(new Date());
-    String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
+    workflowExecution.setCreatedDate(new Date());
+    String objectId = userWorkflowExecutionDao.create(workflowExecution);
     userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
-    LOGGER.info("UserWorkflowExecution with id: %s, added to execution queue", objectId);
+    LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
   }
 
   public void cancelUserWorkflowExecution(String datasetName)
       throws NoUserWorkflowExecutionFoundException {
 
-    UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao
+    WorkflowExecution workflowExecution = userWorkflowExecutionDao
         .getRunningOrInQueueExecution(datasetName);
-    if (userWorkflowExecution != null) {
-      userWorkflowExecutorManager.cancelUserWorkflowExecution(userWorkflowExecution);
+    if (workflowExecution != null) {
+      userWorkflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
     } else {
       throw new NoUserWorkflowExecutionFoundException(String.format(
           "Running userworkflowExecution with datasetName: %s, does not exist or not running",
@@ -153,9 +153,9 @@ public class OrchestratorService {
   }
 
   public void removeActiveUserWorkflowExecutionsFromList(
-      List<UserWorkflowExecution> userWorkflowExecutions) {
+      List<WorkflowExecution> workflowExecutions) {
     userWorkflowExecutionDao
-        .removeActiveExecutionsFromList(userWorkflowExecutions,
+        .removeActiveExecutionsFromList(workflowExecutions,
             userWorkflowExecutorManager.getMonitorCheckIntervalInSecs());
   }
 
@@ -206,7 +206,7 @@ public class OrchestratorService {
     return userWorkflowDao.getUserWorkflowsPerRequest();
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName,
+  public List<WorkflowExecution> getAllUserWorkflowExecutions(String datasetName,
       String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
@@ -215,7 +215,7 @@ public class OrchestratorService {
             nextPage);
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus,
+  public List<WorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus,
       String nextPage) {
     return userWorkflowExecutionDao.getAllUserWorkflowExecutions(workflowStatus, nextPage);
   }

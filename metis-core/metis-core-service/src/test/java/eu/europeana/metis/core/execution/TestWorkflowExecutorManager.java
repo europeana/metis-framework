@@ -25,7 +25,7 @@ import com.rabbitmq.client.MessageProperties;
 import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
 import eu.europeana.metis.core.execution.UserWorkflowExecutorManager.QueueConsumer;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
 import java.util.Arrays;
@@ -125,19 +125,19 @@ public class TestWorkflowExecutorManager {
 
   @Test
   public void cancelUserWorkflowExecutionWasINQUEUE() {
-    UserWorkflowExecution userWorkflowExecution = TestObjectFactory
+    WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    doNothing().when(userWorkflowExecutionDao).setCancellingState(userWorkflowExecution);
-    userWorkflowExecutorManager.cancelUserWorkflowExecution(userWorkflowExecution);
+    doNothing().when(userWorkflowExecutionDao).setCancellingState(workflowExecution);
+    userWorkflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
   }
 
   @Test
   public void cancelUserWorkflowExecutionWasRUNNING() {
-    UserWorkflowExecution userWorkflowExecution = TestObjectFactory
+    WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    doNothing().when(userWorkflowExecutionDao).setCancellingState(userWorkflowExecution);
-    userWorkflowExecutorManager.cancelUserWorkflowExecution(userWorkflowExecution);
+    workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
+    doNothing().when(userWorkflowExecutionDao).setCancellingState(workflowExecution);
+    userWorkflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
   }
 
   @Test
@@ -147,10 +147,10 @@ public class TestWorkflowExecutorManager {
     Envelope envelope = new Envelope(1, false, "", "");
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
         .priority(priority).build();
-    UserWorkflowExecution userWorkflowExecution = TestObjectFactory
+    WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
 
-    when(userWorkflowExecutionDao.getById(objectId)).thenReturn(userWorkflowExecution);
+    when(userWorkflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
     QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
@@ -165,18 +165,18 @@ public class TestWorkflowExecutorManager {
     Envelope envelope = new Envelope(1, false, "", "");
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
         .priority(priority).build();
-    UserWorkflowExecution userWorkflowExecution = TestObjectFactory
+    WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    userWorkflowExecution.setCancelling(true);
+    workflowExecution.setCancelling(true);
 
-    when(userWorkflowExecutionDao.getById(objectId)).thenReturn(userWorkflowExecution);
+    when(userWorkflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
 
     QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties,
         objectId.getBytes("UTF-8"));
 
-    verify(userWorkflowExecutionDao, times(1)).update(userWorkflowExecution);
+    verify(userWorkflowExecutionDao, times(1)).update(workflowExecution);
   }
 
   @Test
@@ -197,38 +197,38 @@ public class TestWorkflowExecutorManager {
     byte[] objectIdBytes1 = objectId1.toString().getBytes("UTF-8");
     byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
     byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
-    UserWorkflowExecution userWorkflowExecution1 = TestObjectFactory
+    WorkflowExecution workflowExecution1 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    UserWorkflowExecution userWorkflowExecution2 = TestObjectFactory
+    WorkflowExecution workflowExecution2 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    UserWorkflowExecution userWorkflowExecution3 = TestObjectFactory
+    WorkflowExecution workflowExecution3 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    userWorkflowExecution1.setId(objectId1);
-    userWorkflowExecution2.setId(objectId2);
-    userWorkflowExecution3.setId(objectId3);
-    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(userWorkflowExecution1);
-    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(userWorkflowExecution2);
-    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(userWorkflowExecution3);
+    workflowExecution1.setId(objectId1);
+    workflowExecution2.setId(objectId2);
+    workflowExecution3.setId(objectId3);
+    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
+    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
+    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
     doNothing().when(rabbitmqChannel).basicNack(envelope.getDeliveryTag(), false, true);
 
-    //For running properly the UserWorkflowExecution.
+    //For running properly the WorkflowExecution.
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(any(UserWorkflowExecution.class), anyInt())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(UserWorkflowExecution.class));
+    when(userWorkflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
     when(userWorkflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(UserWorkflowExecution.class));
-    when(userWorkflowExecutionDao.update(any(UserWorkflowExecution.class))).thenReturn(anyString());
+    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
+    when(userWorkflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
     QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution3.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution3.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertEquals(1, userWorkflowExecutorManager.getThreadsCounter());
   }
 
@@ -251,30 +251,30 @@ public class TestWorkflowExecutorManager {
     byte[] objectIdBytes1 = objectId1.toString().getBytes("UTF-8");
     byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
     byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
-    UserWorkflowExecution userWorkflowExecution1 = TestObjectFactory
+    WorkflowExecution workflowExecution1 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    UserWorkflowExecution userWorkflowExecution2 = TestObjectFactory
+    WorkflowExecution workflowExecution2 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    UserWorkflowExecution userWorkflowExecution3 = TestObjectFactory
+    WorkflowExecution workflowExecution3 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    userWorkflowExecution1.setId(objectId1);
-    userWorkflowExecution2.setId(objectId2);
-    userWorkflowExecution3.setId(objectId3);
-    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(userWorkflowExecution1);
-    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(userWorkflowExecution2);
-    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(userWorkflowExecution3);
+    workflowExecution1.setId(objectId1);
+    workflowExecution2.setId(objectId2);
+    workflowExecution3.setId(objectId3);
+    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
+    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
+    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
     doNothing().when(rabbitmqChannel).basicNack(envelope.getDeliveryTag(), false, true);
 
-    //For running properly the UserWorkflowExecution.
+    //For running properly the WorkflowExecution.
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(any(UserWorkflowExecution.class), anyInt())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(UserWorkflowExecution.class));
+    when(userWorkflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
     when(userWorkflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(UserWorkflowExecution.class));
-    when(userWorkflowExecutionDao.update(any(UserWorkflowExecution.class))).thenReturn(anyString());
+    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
+    when(userWorkflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
     QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
@@ -282,8 +282,8 @@ public class TestWorkflowExecutorManager {
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
     assertEquals(2, userWorkflowExecutorManager.getThreadsCounter());
     verify(rabbitmqChannel, times(1)).basicNack(envelope.getDeliveryTag(), false, true);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
   }
 
   @Test
@@ -304,30 +304,30 @@ public class TestWorkflowExecutorManager {
     byte[] objectIdBytes1 = objectId1.toString().getBytes("UTF-8");
     byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
     byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
-    UserWorkflowExecution userWorkflowExecution1 = TestObjectFactory
+    WorkflowExecution workflowExecution1 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    UserWorkflowExecution userWorkflowExecution2 = TestObjectFactory
+    WorkflowExecution workflowExecution2 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    UserWorkflowExecution userWorkflowExecution3 = TestObjectFactory
+    WorkflowExecution workflowExecution3 = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    userWorkflowExecution1.setId(objectId1);
-    userWorkflowExecution2.setId(objectId2);
-    userWorkflowExecution3.setId(objectId3);
-    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(userWorkflowExecution1);
-    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(userWorkflowExecution2);
-    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(userWorkflowExecution3);
+    workflowExecution1.setId(objectId1);
+    workflowExecution2.setId(objectId2);
+    workflowExecution3.setId(objectId3);
+    when(userWorkflowExecutionDao.getById(objectId1.toString())).thenReturn(workflowExecution1);
+    when(userWorkflowExecutionDao.getById(objectId2.toString())).thenReturn(workflowExecution2);
+    when(userWorkflowExecutionDao.getById(objectId3.toString())).thenReturn(workflowExecution3);
     doNothing().when(rabbitmqChannel).basicNack(envelope.getDeliveryTag(), false, true);
 
-    //For running properly the UserWorkflowExecution.
+    //For running properly the WorkflowExecution.
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(userWorkflowExecutionDao.isExecutionActive(any(UserWorkflowExecution.class), anyInt())).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(UserWorkflowExecution.class));
+    when(userWorkflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    doNothing().when(userWorkflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
     when(userWorkflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
-    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(UserWorkflowExecution.class));
-    when(userWorkflowExecutionDao.update(any(UserWorkflowExecution.class))).thenReturn(anyString());
+    doNothing().when(userWorkflowExecutionDao).updateWorkflowPlugins(any(WorkflowExecution.class));
+    when(userWorkflowExecutionDao.update(any(WorkflowExecution.class))).thenReturn(anyString());
 
     QueueConsumer queueConsumer = userWorkflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
@@ -343,8 +343,8 @@ public class TestWorkflowExecutorManager {
     t.start();
     t.interrupt();
     t.join();
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> userWorkflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertEquals(2, userWorkflowExecutorManager.getThreadsCounter());
   }
 
