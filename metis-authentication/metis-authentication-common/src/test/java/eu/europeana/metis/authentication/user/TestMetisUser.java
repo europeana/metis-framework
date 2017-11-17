@@ -33,7 +33,7 @@ public class TestMetisUser {
     Assert.assertNotNull(metisUser.getUserId());
     Assert.assertEquals("Europeana Foundation", metisUser.getOrganizationName());
 
-    metisUser.setOrganizationIdFromJsonNode(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
+    metisUser.setAndCheckOrganizationIdFromJsonNode(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
     Assert.assertNotNull(metisUser.getOrganizationId());
   }
 
@@ -45,7 +45,7 @@ public class TestMetisUser {
   @Test(expected = BadContentException.class)
   public void metisUserSetOrganizationWithEmptyRoleFails() throws Exception {
     MetisUser metisUser = new MetisUser();
-    metisUser.setOrganizationIdFromJsonNode(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_WRONG_ROLE_EXAMPLE));
+    metisUser.setAndCheckOrganizationIdFromJsonNode(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_WRONG_ROLE_EXAMPLE));
   }
 
   private JsonNode getZohoJsonNodeExample(String filePath) throws IOException, URISyntaxException {

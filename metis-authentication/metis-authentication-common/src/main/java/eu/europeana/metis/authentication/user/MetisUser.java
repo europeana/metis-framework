@@ -133,7 +133,7 @@ public class MetisUser {
         case "ACCOUNTID":
           organizationId = content.textValue();
           break;
-        case "Organization Role":
+        case "Organisation Role":
           organizationRole = OrganizationRole.getRoleFromName(content.textValue());
           break;
         default:
