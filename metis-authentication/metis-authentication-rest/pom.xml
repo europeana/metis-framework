@@ -40,16 +40,6 @@
       <artifactId>spring-web</artifactId>
       <version>${version.spring}</version>
     </dependency>
-    <!--<dependency>-->
-      <!--<groupId>io.springfox</groupId>-->
-      <!--<artifactId>springfox-swagger2</artifactId>-->
-      <!--<version>${version.swagger}</version>-->
-    <!--</dependency>-->
-    <!--<dependency>-->
-      <!--<groupId>io.springfox</groupId>-->
-      <!--<artifactId>springfox-swagger-ui</artifactId>-->
-      <!--<version>${version.swagger}</version>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -84,6 +74,30 @@
       <groupId>javax.ws.rs</groupId>
       <artifactId>jsr311-api</artifactId>
       <version>1.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>${version.mockito.core}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${version.junit}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <version>${version.spring}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.jayway.jsonpath</groupId>
+      <artifactId>json-path</artifactId>
+      <version>${version.json.path}</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
 

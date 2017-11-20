@@ -151,6 +151,10 @@ public class PsqlMetisUserDao {
     this.accessTokenExpireTimeInMins = accessTokenExpireTimeInMins;
   }
 
+  public int getAccessTokenExpireTimeInMins() {
+    return accessTokenExpireTimeInMins;
+  }
+
   public void deleteMetisUser(String email) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();

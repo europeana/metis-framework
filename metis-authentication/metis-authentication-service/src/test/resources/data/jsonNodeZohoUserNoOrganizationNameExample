@@ -1,0 +1,195 @@
+{"FL":[
+  {
+    "val":"CONTACTID",
+    "content":"148225000000319"
+  },
+  {
+    "val":"SMOWNERID",
+    "content":"148225000000120"
+  },
+  {
+    "val":"Contact Owner",
+    "content":"Tamara metis"
+  },
+  {
+    "val":"First Name",
+    "content":"Simon"
+  },
+  {
+    "val":"Last Name",
+    "content":"metis"
+  },
+  {
+    "val":"ACCOUNTID",
+    "content":"148225000000161"
+  },
+  {
+    "val":"Email",
+    "content":"simon.metis@europeana.eu"
+  },
+  {
+    "val":"Title",
+    "content":"Senior Developer"
+  },
+  {
+    "val":"Department",
+    "content":"Infrastructure"
+  },
+  {
+    "val":"Phone",
+    "content":"31 (0) 70 314 "
+  },
+  {
+    "val":"MODIFIEDBY",
+    "content":"148225000000008"
+  },
+  {
+    "val":"Modified By",
+    "content":"Valentine"
+  },
+  {
+    "val":"Created Time",
+    "content":"2017-08-10 09:28:27"
+  },
+  {
+    "val":"Modified Time",
+    "content":"2017-11-01 15:08:26"
+  },
+  {
+    "val":"Full Name",
+    "content":"Simon Metis"
+  },
+  {
+    "val":"Description",
+    "content":"description"
+  },
+  {
+    "val":"Last Activity Time",
+    "content":"2017-11-01 15:08:26"
+  },
+  {
+    "val":"Sector",
+    "content":"Archive"
+  },
+  {
+    "val":"Participation level",
+    "content":"Network Association Member"
+  },
+  {
+    "val":"Member of EuropeanaTech",
+    "content":"false"
+  },
+  {
+    "val":"Country",
+    "content":"Netherlands"
+  },
+  {
+    "val":"Membership no.",
+    "content":"ENM22101010"
+  },
+  {
+    "val":"Public email",
+    "content":"simon.metis@europeana.eu"
+  },
+  {
+    "val":"Public phone",
+    "content":"31 (0) 70 314"
+  },
+  {
+    "val":"I have read and agree to the statutes",
+    "content":"false"
+  },
+  {
+    "val":"Show photo on europeana site",
+    "content":"true"
+  },
+  {
+    "val":"LinkedIn profile",
+    "content":"http://gr.linkedin.com/pub/simon-metis"
+  },
+  {
+    "val":"I am interested in EuropeanaIPR",
+    "content":"false"
+  },
+  {
+    "val":"I am interested in being a Data Partner",
+    "content":"false"
+  },
+  {
+    "val":"I am interested in EuropeanaTech",
+    "content":"false"
+  },
+  {
+    "val":"I am interested in Academic Research",
+    "content":"false"
+  },
+  {
+    "val":"I am interested in Creative Re-Use",
+    "content":"false"
+  },
+  {
+    "val":"Agreed Test User",
+    "content":"false"
+  },
+  {
+    "val":"Potential Test User",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Professional",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Exhibitions",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Labs",
+    "content":"false"
+  },
+  {
+    "val":"Europena Thematic Collections",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Research",
+    "content":"false"
+  },
+  {
+    "val":"Europeana 1914-1918",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Collections",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Blog",
+    "content":"false"
+  },
+  {
+    "val":"End User",
+    "content":"false"
+  },
+  {
+    "val":"Europeana Migration",
+    "content":"false"
+  },
+  {
+    "val":"Unsubscribed for Network Newsletter",
+    "content":"false"
+  },
+  {
+    "val":"Impact Playbook",
+    "content":"false"
+  },
+  {
+    "val":"Metis user",
+    "content":"true"
+  },
+  {
+    "val":"Account Role",
+    "content":"EUROPEANA_DATA_OFFICER"
+  }
+]
+}

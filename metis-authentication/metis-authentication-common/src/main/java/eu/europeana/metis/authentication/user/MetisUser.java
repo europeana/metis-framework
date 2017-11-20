@@ -2,7 +2,7 @@ package eu.europeana.metis.authentication.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
-import eu.europeana.metis.authentication.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.common.model.OrganizationRole;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -67,6 +67,10 @@ public class MetisUser {
   }
 
   public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
+    parseJsonNodeZohoUserToMetisUser(jsonNode);
+  }
+
+  private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode) throws BadContentException, ParseException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
@@ -100,9 +104,6 @@ public class MetisUser {
             networkMember = true;
           }
           break;
-        case "Network Member":
-          networkMember = Boolean.parseBoolean(content.textValue());
-          break;
         case "Metis user":
           metisUserFlag = Boolean.parseBoolean(content.textValue());
           break;
@@ -132,7 +133,7 @@ public class MetisUser {
         case "ACCOUNTID":
           organizationId = content.textValue();
           break;
-        case "Organization Role":
+        case "Organisation Role":
           organizationRole = OrganizationRole.getRoleFromName(content.textValue());
           break;
         default:

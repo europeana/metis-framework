@@ -1,0 +1,64 @@
+{
+  "FL":[
+    {
+      "val":"ACCOUNTID",
+      "content":"148225000000161"
+    },
+    {
+      "val":"SMOWNERID",
+      "content":"148225000000120"
+    },
+    {
+      "val":"Account Owner",
+      "content":"Tamara Metis"
+    },
+    {
+      "val":"Account Name",
+      "content":"Europeana Foundation"
+    },
+    {
+      "val":"MODIFIEDBY",
+      "content":"148225000000120"
+    },
+    {
+      "val":"Modified By",
+      "content":"Tamara Metis"
+    },
+    {
+      "val":"Created Time",
+      "content":"2016-09-13 11:14:40"
+    },
+    {
+      "val":"Modified Time",
+      "content":"2017-09-20 09:15:35"
+    },
+    {
+      "val":"Last Activity Time",
+      "content":"2017-11-03 08:44:00"
+    },
+    {
+      "val":"Sector",
+      "content":"Archive"
+    },
+    {
+      "val":"Country",
+      "content":"Netherlands"
+    },
+    {
+      "val":"DEA Sent",
+      "content":"false"
+    },
+    {
+      "val":"DEA Signed",
+      "content":"false"
+    },
+    {
+      "val":"Image service Opt-in",
+      "content":"false"
+    },
+    {
+      "val": "Organisation Role",
+      "content": "Europeana"
+    }
+  ]
+}
