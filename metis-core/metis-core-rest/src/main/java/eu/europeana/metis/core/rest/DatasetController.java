@@ -29,7 +29,6 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +39,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -61,8 +61,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.CREATED)
   public void createDatasetForOrganization(@RequestBody Dataset dataset,
-      @QueryParam("organizationId"
-      ) String organizationId, @QueryParam("apikey") String apikey)
+      @RequestParam("organizationId"
+      ) String organizationId, @RequestParam("apikey") String apikey)
       throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -79,7 +79,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   public void updateDataset(
       @RequestBody Dataset dataset,
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -93,8 +93,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDatasetName(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("newDatasetName") String newDatasetName,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("newDatasetName") String newDatasetName,
+      @RequestParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException, BadContentException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -109,7 +109,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException, BadContentException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -125,7 +125,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public Dataset getByDatasetName(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws NoDatasetFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -142,8 +142,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(
       @PathVariable("dataProvider") String dataProvider,
-      @QueryParam("nextPage") String nextPage,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("nextPage") String nextPage,
+      @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);

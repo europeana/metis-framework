@@ -15,7 +15,6 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -67,8 +67,8 @@ public class OrchestratorController {
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
+  public void deleteUserWorkflow(@RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName) {
     orchestratorService.deleteUserWorkflow(workflowOwner, workflowName);
     LOGGER.info("Workflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner,
         workflowName);
@@ -78,8 +78,8 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public Workflow getUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
+  public Workflow getUserWorkflow(@RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName) {
     Workflow workflow = orchestratorService
         .getUserWorkflow(workflowOwner, workflowName);
     LOGGER.info(
@@ -94,7 +94,7 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<Workflow> getAllUserWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
-      @QueryParam("nextPage") String nextPage) {
+      @RequestParam("nextPage") String nextPage) {
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllUserWorkflows(workflowOwner, nextPage),
@@ -112,12 +112,9 @@ public class OrchestratorController {
   @ResponseBody
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
+      @RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName, @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
-    if (priority == null) {
-      priority = 0;
-    }
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, workflowOwner,
             workflowName, priority);
@@ -132,11 +129,8 @@ public class OrchestratorController {
   @ResponseBody
   public void addUserWorkflowInQueueOfUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName, @RequestBody Workflow workflow,
-      @QueryParam("priority") Integer priority)
+      @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
-    if (priority == null) {
-      priority = 0;
-    }
     orchestratorService
         .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, workflow, priority);
     LOGGER.info(
@@ -175,10 +169,10 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllUserWorkflowExecutions(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName,
-      @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
-      @QueryParam("nextPage") String nextPage) {
+      @RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName,
+      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
+      @RequestParam("nextPage") String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
@@ -194,8 +188,8 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllUserWorkflowExecutions(
-      @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
-      @QueryParam("nextPage") String nextPage) {
+      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
+      @RequestParam("nextPage") String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllUserWorkflowExecutions(workflowStatus, nextPage),
@@ -240,7 +234,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledUserWorkflows(
-      @QueryParam("nextPage") String nextPage) {
+      @RequestParam("nextPage") String nextPage) {
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllScheduledUserWorkflows(ScheduleFrequence.NULL, nextPage),

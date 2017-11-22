@@ -86,11 +86,11 @@ public class WorkflowExecution implements HasMongoObjectId {
     if (workflow.isHarvestPlugin()) {
       switch (harvestingMetadata.getPluginType()) {
         case HTTP_HARVEST:
-          HTTPHarvestPlugin HTTPHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
-          HTTPHarvestPlugin
+          HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
+          httpHarvestPlugin
               .setId(
-                  new ObjectId().toString() + "-" + HTTPHarvestPlugin.getPluginType().name());
-          metisPlugins.add(HTTPHarvestPlugin);
+                  new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
+          metisPlugins.add(httpHarvestPlugin);
           break;
         case OAIPMH_HARVEST:
           OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
