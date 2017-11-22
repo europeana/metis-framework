@@ -142,7 +142,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(
       @PathVariable("dataProvider") String dataProvider,
-      @RequestParam("nextPage") String nextPage,
+      @RequestParam(value = "nextPage", required = false) String nextPage,
       @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 

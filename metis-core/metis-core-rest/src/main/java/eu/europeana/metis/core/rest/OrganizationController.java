@@ -119,7 +119,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Organization> getAllOrganizations(
-      @RequestParam("nextPage") String nextPage,
+      @RequestParam(value = "nextPage", required = false) String nextPage,
       @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
@@ -160,7 +160,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public ResponseListWrapper<Organization> getAllOrganizationsByCountryIsoCode(
       @PathVariable("isoCode") String isoCode,
-      @RequestParam("nextPage") String nextPage,
+      @RequestParam(value = "nextPage", required = false) String nextPage,
       @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
@@ -183,7 +183,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public ResponseListWrapper<Organization> getAllOrganizationsByOrganizationRoles(
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
-      @RequestParam("nextPage") String nextPage,
+      @RequestParam(value = "nextPage", required = false) String nextPage,
       @RequestParam("apikey") String apikey)
       throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
@@ -223,7 +223,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
-      @RequestParam("nextPage") String nextPage, @RequestParam("apikey") String apikey)
+      @RequestParam(value = "nextPage", required = false) String nextPage, @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);

@@ -94,7 +94,7 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<Workflow> getAllWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
-      @RequestParam("nextPage") String nextPage) {
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflows(workflowOwner, nextPage),
@@ -172,7 +172,7 @@ public class OrchestratorController {
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
-      @RequestParam("nextPage") String nextPage) {
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
@@ -189,7 +189,7 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
       @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
-      @RequestParam("nextPage") String nextPage) {
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflowExecutions(workflowStatus, nextPage),
@@ -234,7 +234,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
-      @RequestParam("nextPage") String nextPage) {
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),
