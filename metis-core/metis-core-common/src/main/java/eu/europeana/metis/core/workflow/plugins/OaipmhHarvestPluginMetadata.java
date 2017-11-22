@@ -27,6 +27,7 @@ public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata 
     this.parameters = parameters;
   }
 
+  @Override
   public boolean isMocked() {
     return mocked;
   }

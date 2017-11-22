@@ -15,7 +15,6 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
-  private boolean mocked = true;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -68,16 +67,6 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public boolean isMocked() {
-    return mocked;
-  }
-
-  @Override
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
-  }
-
-  @Override
   public PluginType getPluginType() {
     return pluginType;
   }
@@ -125,7 +114,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public void execute() {
-    if (!mocked){
+    if (!pluginMetadata.isMocked()){
       // TODO: 16-11-17 Send dps execution to ecloud
     }
   }

@@ -44,7 +44,7 @@ public class TestObjectFactory {
     HashMap<String, List<String>> dereferenceParameterGroups = new HashMap<>();
     dereferenceParameterGroups.put("GroupA", dereferenceParameters);
     dereferenceParameterGroups.put("GroupB", dereferenceParameters);
-    DereferencePluginMetadata dereferencePluginMetadata = new DereferencePluginMetadata(
+    DereferencePluginMetadata dereferencePluginMetadata = new DereferencePluginMetadata(true,
         dereferenceParameterGroups);
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();

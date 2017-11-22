@@ -8,7 +8,9 @@ import java.util.Map;
  * @since 2017-05-29
  */
 public class VoidMetisPluginMetadata implements AbstractMetisPluginMetadata {
+
   private static final PluginType pluginType = PluginType.VOID;
+  private boolean mocked = true;
   private Map<String, List<String>> parameters;
 
   public VoidMetisPluginMetadata() {
@@ -22,6 +24,16 @@ public class VoidMetisPluginMetadata implements AbstractMetisPluginMetadata {
   @Override
   public PluginType getPluginType() {
     return pluginType;
+  }
+
+  @Override
+  public boolean isMocked() {
+    return this.mocked;
+  }
+
+  @Override
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
   }
 
   @Override

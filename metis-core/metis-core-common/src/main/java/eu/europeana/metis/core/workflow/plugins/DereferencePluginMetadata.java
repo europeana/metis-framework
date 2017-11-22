@@ -10,13 +10,23 @@ import java.util.Map;
 public class DereferencePluginMetadata implements AbstractMetisPluginMetadata {
   private static final PluginType pluginType = PluginType.DEREFERENCE;
   private Map<String, List<String>> parameters;
+  private boolean mocked = true;
 
   public DereferencePluginMetadata() {
   }
 
-  public DereferencePluginMetadata(
+  public DereferencePluginMetadata(boolean mocked,
       Map<String, List<String>> parameters) {
+    this.mocked = mocked;
     this.parameters = parameters;
+  }
+
+  public boolean isMocked() {
+    return mocked;
+  }
+
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
   }
 
   @Override

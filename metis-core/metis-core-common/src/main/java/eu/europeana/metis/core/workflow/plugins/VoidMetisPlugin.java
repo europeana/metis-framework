@@ -16,7 +16,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private static final PluginType pluginType = PluginType.VOID;
-  private boolean mocked = true;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -65,16 +64,6 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   @Override
   public void setPluginStatus(PluginStatus pluginStatus) {
     this.pluginStatus = pluginStatus;
-  }
-
-  @Override
-  public boolean isMocked() {
-    return mocked;
-  }
-
-  @Override
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
   }
 
   @Override

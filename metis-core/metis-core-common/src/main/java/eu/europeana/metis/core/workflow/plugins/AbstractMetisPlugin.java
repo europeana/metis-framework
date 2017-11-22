@@ -43,10 +43,6 @@ public interface AbstractMetisPlugin {
 
   void setPluginStatus(PluginStatus pluginStatus);
 
-  boolean isMocked();
-
-  void setMocked(boolean mocked) ;
-
   ExecutionRecordsStatistics getExecutionRecordsStatistics();
 
   void setExecutionRecordsStatistics(

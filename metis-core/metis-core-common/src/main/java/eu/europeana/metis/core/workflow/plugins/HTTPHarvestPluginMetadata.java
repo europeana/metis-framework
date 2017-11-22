@@ -27,10 +27,12 @@ public class HTTPHarvestPluginMetadata implements AbstractMetisPluginMetadata {
     this.parameters = parameters;
   }
 
+  @Override
   public boolean isMocked() {
     return mocked;
   }
 
+  @Override
   public void setMocked(boolean mocked) {
     this.mocked = mocked;
   }

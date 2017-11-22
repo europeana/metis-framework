@@ -20,6 +20,8 @@ import java.util.Map;
 })
 public interface AbstractMetisPluginMetadata {
   PluginType getPluginType();
+  boolean isMocked();
+  void setMocked(boolean mocked);
   Map<String, List<String>> getParameters();
   void setParameters(Map<String, List<String>> parameters);
 }
