@@ -24,7 +24,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
   private static final String WORKFLOW_OWNER = "workflowOwner";
   public static final String WORKFLOW_NAME = "workflowName";
-  private int userWorkflowsPerRequest = 5;
+  private int workflowsPerRequest = 5;
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired
@@ -34,22 +34,22 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public String create(Workflow workflow) {
-    Key<Workflow> userWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
+    Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(
         workflow);
     LOGGER.info("Workflow '{}' created with workflowOwner '{}' in Mongo",
         workflow.getWorkflowName(), workflow
             .getWorkflowOwner());
-    return userWorkflowKey.getId().toString();
+    return workflowKey.getId().toString();
   }
 
   @Override
   public String update(Workflow workflow) {
-    Key<Workflow> userWorkflowKey = morphiaDatastoreProvider.getDatastore().save(
+    Key<Workflow> workflowKey = morphiaDatastoreProvider.getDatastore().save(
         workflow);
     LOGGER.info("Workflow '{}' updated with workflowOwner '{}' in Mongo",
         workflow.getWorkflowName(), workflow
             .getWorkflowOwner());
-    return userWorkflowKey.getId().toString();
+    return workflowKey.getId().toString();
   }
 
   @Override
@@ -62,11 +62,11 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   @Override
   public boolean delete(Workflow workflow) {
-    return deleteUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName());
+    return deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName());
   }
 
 
-  public boolean deleteUserWorkflow(String workflowOwner, String workflowName) {
+  public boolean deleteWorkflow(String workflowOwner, String workflowName) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
     query.field(WORKFLOW_NAME).equal(workflowName);
@@ -86,14 +86,14 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return storedWorkflow != null ? storedWorkflow.getId().toString() : null;
   }
 
-  public Workflow getUserWorkflow(String workflowOwner, String workflowName) {
+  public Workflow getWorkflow(String workflowOwner, String workflowName) {
     return morphiaDatastoreProvider.getDatastore().find(Workflow.class).field(WORKFLOW_OWNER)
         .equal(workflowOwner)
         .field(WORKFLOW_NAME).equal(workflowName)
         .get();
   }
 
-  public List<Workflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
+  public List<Workflow> getAllWorkflows(String workflowOwner, String nextPage) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
@@ -101,15 +101,15 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     if (StringUtils.isNotEmpty(nextPage)) {
       query.field("_id").greaterThan(new ObjectId(nextPage));
     }
-    return query.asList(new FindOptions().limit(userWorkflowsPerRequest));
+    return query.asList(new FindOptions().limit(workflowsPerRequest));
   }
 
-  public int getUserWorkflowsPerRequest() {
-    return userWorkflowsPerRequest;
+  public int getWorkflowsPerRequest() {
+    return workflowsPerRequest;
   }
 
-  public void setUserWorkflowsPerRequest(int userWorkflowsPerRequest) {
-    this.userWorkflowsPerRequest = userWorkflowsPerRequest;
+  public void setWorkflowsPerRequest(int workflowsPerRequest) {
+    this.workflowsPerRequest = workflowsPerRequest;
   }
 }
 

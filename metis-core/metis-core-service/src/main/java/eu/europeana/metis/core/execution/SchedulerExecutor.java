@@ -105,8 +105,8 @@ public class SchedulerExecutor implements Runnable {
       scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
-                  .getAllScheduledUserWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
-              orchestratorService.getScheduledUserWorkflowsPerRequest());
+                  .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
+              orchestratorService.getScheduledWorkflowsPerRequest());
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
@@ -204,8 +204,8 @@ public class SchedulerExecutor implements Runnable {
       scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
-                  .getAllScheduledUserWorkflows(scheduleFrequence, nextPage),
-              orchestratorService.getScheduledUserWorkflowsPerRequest());
+                  .getAllScheduledWorkflows(scheduleFrequence, nextPage),
+              orchestratorService.getScheduledWorkflowsPerRequest());
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
@@ -216,7 +216,7 @@ public class SchedulerExecutor implements Runnable {
   private void tryAddUserWorkflowInQueueOfUserWorkflowExecutions(
       ScheduledWorkflow scheduledWorkflow) {
     try {
-      orchestratorService.addUserWorkflowInQueueOfUserWorkflowExecutions(
+      orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
           scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowOwner(),
           scheduledWorkflow.getWorkflowName(),
           scheduledWorkflow.getWorkflowPriority());

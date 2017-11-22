@@ -78,32 +78,32 @@ public class TestSchedulerExecutor {
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.MONTHLY);
 
-    when(orchestratorService.getScheduledUserWorkflowsPerRequest())
+    when(orchestratorService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
 
-    when(orchestratorService.getAllScheduledUserWorkflowsByDateRangeONCE(any(LocalDateTime.class),
+    when(orchestratorService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
         any(LocalDateTime.class), isNull()))
         .thenReturn(listOfScheduledWorkflowsWithDateONCE);
     when(
-        orchestratorService.getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull()))
+        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt()); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.run();
 
-    verify(orchestratorService, times(4)).getScheduledUserWorkflowsPerRequest();
+    verify(orchestratorService, times(4)).getScheduledWorkflowsPerRequest();
     verify(orchestratorService, times(1))
-        .getAllScheduledUserWorkflowsByDateRangeONCE(any(LocalDateTime.class),
+        .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
             any(LocalDateTime.class), isNull());
     verify(orchestratorService, times(3))
-        .getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull());
+        .getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull());
     verify(orchestratorService, atMost(listSize * 4))
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt());
   }
 
@@ -124,32 +124,32 @@ public class TestSchedulerExecutor {
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
         .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.MONTHLY);
 
-    when(orchestratorService.getScheduledUserWorkflowsPerRequest())
+    when(orchestratorService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
 
-    when(orchestratorService.getAllScheduledUserWorkflowsByDateRangeONCE(any(LocalDateTime.class),
+    when(orchestratorService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
         any(LocalDateTime.class), isNull()))
         .thenReturn(new ArrayList<>());
     when(
-        orchestratorService.getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull()))
+        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt()); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.run();
 
-    verify(orchestratorService, times(4)).getScheduledUserWorkflowsPerRequest();
+    verify(orchestratorService, times(4)).getScheduledWorkflowsPerRequest();
     verify(orchestratorService, times(1))
-        .getAllScheduledUserWorkflowsByDateRangeONCE(any(LocalDateTime.class),
+        .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
             any(LocalDateTime.class), isNull());
     verify(orchestratorService, times(3))
-        .getAllScheduledUserWorkflows(any(ScheduleFrequence.class), isNull());
+        .getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull());
     verify(orchestratorService, times(0))
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
             anyInt());
   }
 

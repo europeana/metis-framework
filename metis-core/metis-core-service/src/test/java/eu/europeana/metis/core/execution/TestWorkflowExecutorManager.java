@@ -106,7 +106,7 @@ public class TestWorkflowExecutorManager {
   public void addUserWorkflowExecutionToQueue() throws Exception {
     String objectId = new ObjectId().toString();
     int priority = 0;
-    workflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
+    workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     ArgumentCaptor<byte[]> byteArrayArgumentCaptor = ArgumentCaptor.forClass(byte[].class);
     verify(rabbitmqChannel, times(1))
         .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class),
@@ -120,7 +120,7 @@ public class TestWorkflowExecutorManager {
     int priority = 0;
     doThrow(new IOException("Some Error")).when(rabbitmqChannel)
         .basicPublish(anyString(), anyString(), any(AMQP.BasicProperties.class), any(byte[].class));
-    workflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
+    workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
   }
 
   @Test
@@ -128,7 +128,7 @@ public class TestWorkflowExecutorManager {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
-    workflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
+    workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
   }
 
   @Test
@@ -137,7 +137,7 @@ public class TestWorkflowExecutorManager {
         .createUserWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
-    workflowExecutorManager.cancelUserWorkflowExecution(workflowExecution);
+    workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
   }
 
   @Test

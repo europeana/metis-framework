@@ -38,7 +38,7 @@ public class TestWorkflowDao {
     provider = new MorphiaDatastoreProvider(mongoClient, "test");
 
     workflowDao = new WorkflowDao(provider);
-    workflowDao.setUserWorkflowsPerRequest(5);
+    workflowDao.setWorkflowsPerRequest(5);
   }
 
   @AfterClass
@@ -107,9 +107,9 @@ public class TestWorkflowDao {
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertTrue(workflowDao
-        .deleteUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
     Assert.assertFalse(workflowDao
-        .deleteUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+        .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
   }
 
   @Test
@@ -124,13 +124,13 @@ public class TestWorkflowDao {
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertNotNull(workflowDao
-        .getUserWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
   }
 
   @Test
   public void getAllUserWorkflows()
   {
-    int userWorkflowsToCreate = workflowDao.getUserWorkflowsPerRequest() + 1;
+    int userWorkflowsToCreate = workflowDao.getWorkflowsPerRequest() + 1;
     for (int i = 0; i < userWorkflowsToCreate; i++)
     {
       Workflow workflow = TestObjectFactory.createUserWorkflowObject();
@@ -142,7 +142,7 @@ public class TestWorkflowDao {
     do {
       ResponseListWrapper<Workflow> userWorkflowResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowResponseListWrapper.setResultsAndLastPage(workflowDao
-          .getAllUserWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), workflowDao.getUserWorkflowsPerRequest());
+          .getAllWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), workflowDao.getWorkflowsPerRequest());
       allUserWorkflowsCount+=userWorkflowResponseListWrapper.getListSize();
       nextPage = userWorkflowResponseListWrapper.getNextPage();
     }while(nextPage != null);

@@ -138,7 +138,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       MorphiaDatastoreProvider morphiaDatastoreProvider) {
     WorkflowExecutionDao workflowExecutionDao = new WorkflowExecutionDao(
         morphiaDatastoreProvider);
-    workflowExecutionDao.setUserWorkflowExecutionsPerRequest(
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(
         RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
     return workflowExecutionDao;
   }
@@ -152,7 +152,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public WorkflowDao getWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     WorkflowDao workflowDao = new WorkflowDao(morphiaDatastoreProvider);
-    workflowDao.setUserWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
+    workflowDao.setWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
     return workflowDao;
   }
 

@@ -41,7 +41,7 @@ public class TestScheduledWorkflowDao {
     provider = new MorphiaDatastoreProvider(mongoClient, "test");
 
     scheduledWorkflowDao = new ScheduledWorkflowDao(provider);
-    scheduledWorkflowDao.setScheduledUserWorkflowPerRequest(5);
+    scheduledWorkflowDao.setScheduledWorkflowPerRequest(5);
   }
 
   @AfterClass
@@ -111,7 +111,7 @@ public class TestScheduledWorkflowDao {
         .createScheduledUserWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
-        .getScheduledUserWorkflow(scheduledWorkflow.getDatasetName(),
+        .getScheduledWorkflow(scheduledWorkflow.getDatasetName(),
             scheduledWorkflow.getWorkflowOwner(), scheduledWorkflow.getWorkflowName());
     Assert.assertEquals(scheduledWorkflow.getScheduleFrequence(),
         retrievedScheduledWorkflow.getScheduleFrequence());
@@ -125,7 +125,7 @@ public class TestScheduledWorkflowDao {
         .createScheduledUserWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
-        .getScheduledUserWorkflowByDatasetName(scheduledWorkflow.getDatasetName());
+        .getScheduledWorkflowByDatasetName(scheduledWorkflow.getDatasetName());
     Assert.assertEquals(scheduledWorkflow.getWorkflowOwner(),
         retrievedScheduledWorkflow.getWorkflowOwner());
     Assert.assertEquals(scheduledWorkflow.getWorkflowName(),
@@ -159,7 +159,7 @@ public class TestScheduledWorkflowDao {
         .createScheduledUserWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertTrue(
-        scheduledWorkflowDao.deleteScheduledUserWorkflow(scheduledWorkflow.getDatasetName()));
+        scheduledWorkflowDao.deleteScheduledWorkflow(scheduledWorkflow.getDatasetName()));
   }
 
   @Test
@@ -180,14 +180,14 @@ public class TestScheduledWorkflowDao {
     scheduledWorkflowDao
         .updateAllDatasetNames(scheduledWorkflow.getDatasetName(), newDatasetName);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
-        .getScheduledUserWorkflowByDatasetName(newDatasetName);
+        .getScheduledWorkflowByDatasetName(newDatasetName);
     Assert.assertTrue(retrievedScheduledWorkflow.getDatasetName().equals(newDatasetName));
   }
 
   @Test
   public void getAllScheduledUserWorkflows() {
     int scheduledUserWorkflowToCreate =
-        scheduledWorkflowDao.getScheduledUserWorkflowPerRequest() + 1;
+        scheduledWorkflowDao.getScheduledWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
           .createScheduledUserWorkflowObject();
@@ -199,8 +199,8 @@ public class TestScheduledWorkflowDao {
     do {
       ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper.setResultsAndLastPage(
-          scheduledWorkflowDao.getAllScheduledUserWorkflows(ScheduleFrequence.ONCE, nextPage),
-          scheduledWorkflowDao.getScheduledUserWorkflowPerRequest());
+          scheduledWorkflowDao.getAllScheduledWorkflows(ScheduleFrequence.ONCE, nextPage),
+          scheduledWorkflowDao.getScheduledWorkflowPerRequest());
       allScheduledUserWorkflowsCount += scheduledUserWorkflowResponseListWrapper.getListSize();
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
     } while (nextPage != null);
@@ -216,7 +216,7 @@ public class TestScheduledWorkflowDao {
     LocalDateTime upperBound = lowerBound.plusMinutes(minutesRange);
 
     int scheduledUserWorkflowToCreate =
-        scheduledWorkflowDao.getScheduledUserWorkflowPerRequest() + 1;
+        scheduledWorkflowDao.getScheduledWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
           .createScheduledUserWorkflowObject();
@@ -233,8 +233,8 @@ public class TestScheduledWorkflowDao {
       ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper.setResultsAndLastPage(
           scheduledWorkflowDao
-              .getAllScheduledUserWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
-          scheduledWorkflowDao.getScheduledUserWorkflowPerRequest());
+              .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
+          scheduledWorkflowDao.getScheduledWorkflowPerRequest());
       allScheduledUserWorkflowsCount += scheduledUserWorkflowResponseListWrapper.getListSize();
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
     } while (nextPage != null);

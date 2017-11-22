@@ -55,12 +55,12 @@ public class FailsafeExecutor implements Runnable {
 
         if (!allInQueueAndRunningWorkflowExecutions.isEmpty()) {
           orchestratorService
-              .removeActiveUserWorkflowExecutionsFromList(
+              .removeActiveWorkflowExecutionsFromList(
                   allInQueueAndRunningWorkflowExecutions);
 
           for (WorkflowExecution workflowExecution : allInQueueAndRunningWorkflowExecutions) {
             orchestratorService
-                .addUserWorkflowExecutionToQueue(workflowExecution.getId().toString(),
+                .addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
                     workflowExecution.getWorkflowPriority());
           }
         }
@@ -85,8 +85,8 @@ public class FailsafeExecutor implements Runnable {
     do {
       userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
-              .getAllUserWorkflowExecutions(workflowStatus, nextPage),
-          orchestratorService.getUserWorkflowExecutionsPerRequest());
+              .getAllWorkflowExecutions(workflowStatus, nextPage),
+          orchestratorService.getWorkflowExecutionsPerRequest());
       workflowExecutions
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();

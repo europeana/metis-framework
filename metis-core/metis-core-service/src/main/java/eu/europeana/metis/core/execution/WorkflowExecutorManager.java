@@ -61,7 +61,7 @@ public class WorkflowExecutorManager {
     rabbitmqChannel.basicConsume(rabbitmqQueueName, false, new QueueConsumer(rabbitmqChannel));
   }
 
-  public synchronized void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
+  public synchronized void addWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
       int priority) {
     //Based on Rabbitmq the basicPublish between threads should be controlled(synchronized)
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
@@ -77,7 +77,7 @@ public class WorkflowExecutorManager {
     }
   }
 
-  public synchronized void cancelUserWorkflowExecution(WorkflowExecution workflowExecution) {
+  public synchronized void cancelWorkflowExecution(WorkflowExecution workflowExecution) {
     if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
         || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
       workflowExecutionDao.setCancellingState(workflowExecution);

@@ -42,15 +42,15 @@ public final class RestEndpoints {
   public static final String USERBYMAIL = "/user/{email}";
 
   //ORCHESTRATION
-  public static final String ORCHESTRATOR_USERWORKFLOWS = "/orchestrator/workflows";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_OWNER = "/orchestrator/workflows/{workflowOwner}";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE = "/orchestrator/workflows/{datasetName}/execute";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetName}/execute/direct";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME = "/orchestrator/workflows/schedule/{datasetName}";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/workflows/execution/{datasetName}";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME = "/orchestrator/workflows/executions/{datasetName}";
-  public static final String ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
+  public static final String ORCHESTRATOR_WORKFLOWS = "/orchestrator/workflows";
+  public static final String ORCHESTRATOR_WORKFLOWS_OWNER = "/orchestrator/workflows/{workflowOwner}";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE = "/orchestrator/workflows/{datasetName}/execute";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetName}/execute/direct";
+  public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
+  public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME = "/orchestrator/workflows/schedule/{datasetName}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/workflows/execution/{datasetName}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETNAME = "/orchestrator/workflows/executions/{datasetName}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
 
   /* METIS-DEREFERENCE Endpoints*/
   public static final String DEREFERENCE = "/dereference";

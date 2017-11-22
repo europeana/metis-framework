@@ -69,11 +69,11 @@ public class TestFailsafeExecutor {
     List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize); //To not trigger paging
 
-    when(orchestratorService.getAllUserWorkflowExecutions(WorkflowStatus.RUNNING, null))
+    when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, null))
         .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
-    when(orchestratorService.getAllUserWorkflowExecutions(WorkflowStatus.INQUEUE, null))
+    when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.INQUEUE, null))
         .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
-    when(orchestratorService.getUserWorkflowExecutionsPerRequest())
+    when(orchestratorService.getWorkflowExecutionsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);
     doNothing().when(rlock).unlock();
 
@@ -81,9 +81,9 @@ public class TestFailsafeExecutor {
 
     InOrder inOrder = Mockito.inOrder(orchestratorService);
     inOrder.verify(orchestratorService, times(1))
-        .removeActiveUserWorkflowExecutionsFromList(any(List.class));
+        .removeActiveWorkflowExecutionsFromList(any(List.class));
     inOrder.verify(orchestratorService, times(listSize * 2))
-        .addUserWorkflowExecutionToQueue(anyString(), anyInt());
+        .addWorkflowExecutionToQueue(anyString(), anyInt());
     inOrder.verifyNoMoreInteractions();
   }
 

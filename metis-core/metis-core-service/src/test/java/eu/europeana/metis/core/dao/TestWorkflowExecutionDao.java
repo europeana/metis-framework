@@ -44,7 +44,7 @@ public class TestWorkflowExecutionDao {
     provider = new MorphiaDatastoreProvider(mongoClient, "test");
 
     workflowExecutionDao = new WorkflowExecutionDao(provider);
-    workflowExecutionDao.setUserWorkflowExecutionsPerRequest(5);
+    workflowExecutionDao.setWorkflowExecutionsPerRequest(5);
   }
 
   @AfterClass
@@ -208,14 +208,14 @@ public class TestWorkflowExecutionDao {
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     String objectId = workflowExecutionDao.create(workflowExecution);
     WorkflowExecution runningWorkflowExecution = workflowExecutionDao
-        .getRunningUserWorkflowExecution(workflowExecution.getDatasetName());
+        .getRunningWorkflowExecution(workflowExecution.getDatasetName());
     Assert.assertEquals(objectId, runningWorkflowExecution.getId().toString());
   }
 
   @Test
   public void getAllUserWorkflowExecutions() {
     int userWorkflowExecutionsToCreate =
-        workflowExecutionDao.getUserWorkflowExecutionsPerRequest() + 1;
+        workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
     for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
       WorkflowExecution workflowExecution = TestObjectFactory
           .createUserWorkflowExecutionObject();
@@ -226,10 +226,10 @@ public class TestWorkflowExecutionDao {
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllUserWorkflowExecutions(TestObjectFactory.DATASETNAME,
+              .getAllWorkflowExecutions(TestObjectFactory.DATASETNAME,
                   TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
                   WorkflowStatus.INQUEUE, nextPage),
-          workflowExecutionDao.getUserWorkflowExecutionsPerRequest());
+          workflowExecutionDao.getWorkflowExecutionsPerRequest());
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (nextPage != null);
@@ -240,7 +240,7 @@ public class TestWorkflowExecutionDao {
   @Test
   public void getAllUserWorkflowExecutionsByWorkflowStatus() {
     int userWorkflowExecutionsToCreate =
-        workflowExecutionDao.getUserWorkflowExecutionsPerRequest() + 1;
+        workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
     for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
       WorkflowExecution workflowExecution = TestObjectFactory
           .createUserWorkflowExecutionObject();
@@ -251,8 +251,8 @@ public class TestWorkflowExecutionDao {
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllUserWorkflowExecutions(WorkflowStatus.INQUEUE, nextPage),
-          workflowExecutionDao.getUserWorkflowExecutionsPerRequest());
+              .getAllWorkflowExecutions(WorkflowStatus.INQUEUE, nextPage),
+          workflowExecutionDao.getWorkflowExecutionsPerRequest());
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (nextPage != null);
