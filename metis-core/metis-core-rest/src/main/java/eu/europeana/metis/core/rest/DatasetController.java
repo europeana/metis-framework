@@ -29,11 +29,11 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
-import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -58,7 +58,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void createDatasetForOrganization(@RequestBody Dataset dataset,
       @RequestParam("organizationId"
@@ -74,7 +74,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.PUT, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(
       @RequestBody Dataset dataset,
@@ -120,7 +120,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Dataset getByDatasetName(
@@ -137,7 +137,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(

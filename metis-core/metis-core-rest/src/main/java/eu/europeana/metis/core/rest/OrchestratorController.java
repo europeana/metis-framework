@@ -15,11 +15,11 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,8 +46,8 @@ public class OrchestratorController {
 
   //WORKFLOWS
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void createWorkflow(
@@ -57,7 +57,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.PUT, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void updateWorkflow(
@@ -75,7 +75,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Workflow getWorkflow(@RequestParam("workflowOwner") String workflowOwner,
@@ -89,7 +89,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Workflow> getAllWorkflows(
@@ -107,7 +107,7 @@ public class OrchestratorController {
 
   //WORKFLOW EXECUTIONS
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE, method = RequestMethod.POST, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void addWorkflowInQueueOfWorkflowExecutions(
@@ -124,7 +124,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void addWorkflowInQueueOfWorkflowExecutions(
@@ -139,7 +139,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void cancelWorkflowExecution(
@@ -152,7 +152,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public WorkflowExecution getRunningWorkflowExecution(
@@ -164,7 +164,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
@@ -184,7 +184,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
@@ -201,8 +201,8 @@ public class OrchestratorController {
 
   //SCHEDULED WORKFLOWS
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void scheduleWorkflowExecution(
@@ -218,7 +218,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ScheduledWorkflow getScheduledWorkflow(
@@ -230,7 +230,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
@@ -245,7 +245,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.PUT, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void updateScheduledWorkflow(
@@ -257,7 +257,7 @@ public class OrchestratorController {
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.DELETE, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void deleteScheduledWorkflowExecution(
