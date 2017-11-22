@@ -19,51 +19,28 @@ package eu.europeana.metis.core.rest.config;
 
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import eu.europeana.cloud.client.uis.rest.CloudException;
-import eu.europeana.cloud.client.uis.rest.UISClient;
-import eu.europeana.cloud.common.exceptions.ProviderDoesNotExistException;
-import eu.europeana.cloud.common.model.DataProviderProperties;
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
-import eu.europeana.metis.core.execution.SchedulerExecutor;
-import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
 import eu.europeana.metis.core.search.service.MetisSearchService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
-import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.service.OrganizationService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Morphia;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import org.redisson.config.SingleServerConfig;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -93,23 +70,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
-@PropertySource({"classpath:metis.properties", "classpath:ecloud.properties"})
+@PropertySource({"classpath:metis.properties"})
 @EnableWebMvc
 @EnableSwagger2
-@Import(SearchApplication.class)
+@Import({SearchApplication.class, OrchestratorConfig.class, ECloudConfig.class})
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
-
-  //Orchestration
-  @Value("${max.concurrent.threads}")
-  private int maxConcurrentThreads;
-  @Value("${monitor.check.interval.in.secs}")
-  private int monitorCheckIntervalInSecs;
-  @Value("${periodic.failsafe.check.in.secs}")
-  private int periodicFailsafeCheckInSecs;
-  @Value("${periodic.scheduler.check.in.secs}")
-  private int periodicSchedulerCheckInSecs;
-  @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
-  private int pollingTimeoutForCleaningCompletionServiceInSecs;
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -123,30 +88,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
 
-  //RabbitMq
-  @Value("${rabbitmq.host}")
-  private String rabbitmqHost;
-  @Value("${rabbitmq.port}")
-  private int rabbitmqPort;
-  @Value("${rabbitmq.username}")
-  private String rabbitmqUsername;
-  @Value("${rabbitmq.password}")
-  private String rabbitmqPassword;
-  @Value("${rabbitmq.queue.name}")
-  private String rabbitmqQueueName;
-  @Value("${rabbitmq.highest.priority}")
-  private int rabbitmqHighestPriority;
-
-  //Redis
-  @Value("${redis.host}")
-  private String redisHost;
-  @Value("${redis.port}")
-  private int redisPort;
-  @Value("${redis.password}")
-  private String redisPassword;
-  @Value("${redisson.lock.watchdog.timeout.in.secs}")
-  private int redissonLockWatchdogTimeoutInSecs;
-
   //Mongo
   @Value("${mongo.hosts}")
   private String mongoHosts;
@@ -159,22 +100,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${mongo.db}")
   private String mongoDb;
 
-  //Ecloud
-  @Value("${ecloud.baseUisUrl}")
-  private String ecloudBaseUisUrl;
-  @Value("${ecloud.baseMcsUrl}")
-  private String ecloudBaseMcsUrl;
-  @Value("${ecloud.provider}")
-  private String ecloudProvider;
-  @Value("${ecloud.username}")
-  private String ecloudUsername;
-  @Value("${ecloud.password}")
-  private String ecloudPassword;
-
   private MongoProviderImpl mongoProvider;
-  private RedisProvider redisProvider;
-  private Connection connection;
-  private Channel channel;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -185,6 +111,21 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
+    checkAndSetCloudFoundryProperties();
+
+    String[] mongoHostsArray = mongoHosts.split(",");
+    StringBuilder mongoPorts = new StringBuilder();
+    for (String aMongoHostsArray : mongoHostsArray) {
+      mongoPorts.append(mongoPort).append(",");
+    }
+    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
+    MongoClientOptions.Builder options = MongoClientOptions.builder();
+    options.socketKeepAlive(true);
+    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
+        mongoPassword, options);
+  }
+
+  private void checkAndSetCloudFoundryProperties() {
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
       PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
@@ -200,37 +141,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         mongoPassword = String.valueOf(mongoClientURI.getPassword());
         mongoDb = mongoClientURI.getDatabase();
       }
-
-      RedisProvider redisProviderFromService = vcapServices.getRedisProviderFromService();
-      if (redisProviderFromService != null) {
-        redisProvider = vcapServices.getRedisProviderFromService();
-      }
-    }
-
-    String[] mongoHostsArray = mongoHosts.split(",");
-    StringBuilder mongoPorts = new StringBuilder();
-    for (String aMongoHostsArray : mongoHostsArray) {
-      mongoPorts.append(mongoPort).append(",");
-    }
-    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
-    MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
-    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword, options);
-
-    if (redisProvider == null) {
-      redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
-    }
-
-    UISClient uisClient = new UISClient(ecloudBaseUisUrl, ecloudUsername, ecloudPassword);
-    try {
-      uisClient.getDataProvider(ecloudProvider);
-    } catch (CloudException e) {
-      if (e.getCause() instanceof ProviderDoesNotExistException) {
-        DataProviderProperties dataProviderProperties = new DataProviderProperties();
-        dataProviderProperties.setOrganisationName("Whatever Foundation");
-        uisClient.createProvider(ecloudProvider, dataProviderProperties);
-      }
     }
   }
 
@@ -239,50 +149,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
   }
 
-  @Bean
-  Channel getRabbitmqChannel() throws IOException, TimeoutException {
-    ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost(rabbitmqHost);
-    factory.setPort(rabbitmqPort);
-    factory.setUsername(rabbitmqUsername);
-    factory.setPassword(rabbitmqPassword);
-    factory.setAutomaticRecoveryEnabled(true);
-    connection = factory.newConnection();
-    channel = connection.createChannel();
-    Map<String, Object> args = new HashMap<>();
-    args.put("x-max-priority", rabbitmqHighestPriority);//Higher number means higher priority
-    //Second boolean durable to false
-    channel.queueDeclare(rabbitmqQueueName, false, false, false, args);
-    return channel;
-  }
-
-  @Bean
-  RedissonClient getRedissonClient() {
-    Config config = new Config();
-    SingleServerConfig singleServerConfig = config.useSingleServer()
-        .setAddress(String.format("redis://%s:%s", redisHost, redisPort));
-    if (StringUtils.isNotEmpty(redisPassword)) {
-      singleServerConfig.setPassword(redisPassword);
-    }
-    config.setLockWatchdogTimeout(
-        redissonLockWatchdogTimeoutInSecs
-            * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
-    return Redisson.create(config);
-  }
-
-  @Bean
-  public View json() {
-    MappingJackson2JsonView view = new MappingJackson2JsonView();
-    view.setPrettyPrint(true);
-    view.setObjectMapper(new CustomObjectMapper());
-    return view;
-  }
-
-  @Bean
-  public ViewResolver viewResolver() {
-    return new BeanNameViewResolver();
-  }
-
+  // TODO: 22-11-17 Needs to be removed and handled in the metis-authentication service
   @Bean
   public AuthorizationDao getAuthorizationDao() {
     Morphia morphia = new Morphia();
@@ -297,64 +164,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return datasetDao;
   }
 
-  @Bean // Only used for starting the threaded class
-  public FailsafeExecutor startFailsafeExecutorThread(OrchestratorService orchestratorService,
-      RedissonClient redissonClient) {
-    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        periodicFailsafeCheckInSecs, true);
-    new Thread(failsafeExecutor).start();
-    return failsafeExecutor;
-  }
-
-  @Bean // Only used for starting the threaded class
-  public SchedulerExecutor startSchedulingExecutorThread(
-      OrchestratorService orchestratorService, RedissonClient redissonClient) {
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient,
-        periodicSchedulerCheckInSecs, true);
-    new Thread(schedulerExecutor).start();
-    return schedulerExecutor;
-  }
-
-  @Bean
-  public WorkflowExecutionDao getUserWorkflowExecutionDao(
-      MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    WorkflowExecutionDao workflowExecutionDao = new WorkflowExecutionDao(
-        morphiaDatastoreProvider);
-    workflowExecutionDao.setUserWorkflowExecutionsPerRequest(
-        RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
-    return workflowExecutionDao;
-  }
-
-  @Bean
-  public ScheduledWorkflowDao getScheduledUserWorkflowDao(
-      MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new ScheduledWorkflowDao(morphiaDatastoreProvider);
-  }
-
-  @Bean
-  public WorkflowDao getUserWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    WorkflowDao workflowDao = new WorkflowDao(morphiaDatastoreProvider);
-    workflowDao.setUserWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
-    return workflowDao;
-  }
-
-  @Bean
-  DataSetServiceClient dataSetServiceClient() {
-    return new DataSetServiceClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
-  }
-
-  @Bean
-  EcloudDatasetDao ecloudDatasetDao(DataSetServiceClient dataSetServiceClient) {
-    return new EcloudDatasetDao(dataSetServiceClient);
-  }
-
-  @Bean
-  public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    OrganizationDao organizationDao = new OrganizationDao(morphiaDatastoreProvider);
-    organizationDao.setOrganizationsPerRequest(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
-    return organizationDao;
-  }
-
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
       OrganizationDao organizationDao,
@@ -362,6 +171,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       ScheduledWorkflowDao scheduledWorkflowDao) {
     return new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
         scheduledWorkflowDao);
+  }
+
+  @Bean
+  public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    OrganizationDao organizationDao = new OrganizationDao(morphiaDatastoreProvider);
+    organizationDao.setOrganizationsPerRequest(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
+    return organizationDao;
   }
 
   @Bean
@@ -375,28 +191,24 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new MetisAuthorizationService();
   }
 
-  @Bean
-  public WorkflowExecutorManager getUserWorkflowExecutorManager(
-      WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
-      RedissonClient redissonClient) {
-    WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient);
-    workflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
-    workflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
-    workflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
-    workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
-        pollingTimeoutForCleaningCompletionServiceInSecs);
-    return workflowExecutorManager;
+  @PreDestroy
+  public void close() {
+    if (mongoProvider != null) {
+      mongoProvider.close();
+    }
   }
 
   @Bean
-  public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
-      WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao,
-      DatasetDao datasetDao,
-      WorkflowExecutorManager workflowExecutorManager) throws IOException {
-    return new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager);
+  public View json() {
+    MappingJackson2JsonView view = new MappingJackson2JsonView();
+    view.setPrettyPrint(true);
+    view.setObjectMapper(new CustomObjectMapper());
+    return view;
+  }
+
+  @Bean
+  public ViewResolver viewResolver() {
+    return new BeanNameViewResolver();
   }
 
   @Override
@@ -434,19 +246,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .directModelSubstitute(ObjectId.class, String.class)
         .useDefaultResponseMessages(false)
         .apiInfo(apiInfo());
-  }
-
-  @PreDestroy
-  public void close() throws IOException, TimeoutException {
-    if (mongoProvider != null) {
-      mongoProvider.close();
-    }
-    if (channel != null && channel.isOpen()) {
-      channel.close();
-    }
-    if (connection != null && connection.isOpen()) {
-      connection.close();
-    }
   }
 
   private ApiInfo apiInfo() {
