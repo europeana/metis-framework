@@ -10,16 +10,15 @@ import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -38,7 +37,7 @@ import org.mongodb.morphia.annotations.Indexes;
 @Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
 @JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetName",
     "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
-    "hTTPHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
+    "httpHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
 public class WorkflowExecution implements HasMongoObjectId {
 
   @Id

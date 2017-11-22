@@ -22,6 +22,10 @@ import com.mongodb.MongoClientURI;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import eu.europeana.cloud.client.uis.rest.CloudException;
+import eu.europeana.cloud.client.uis.rest.UISClient;
+import eu.europeana.cloud.common.exceptions.ProviderDoesNotExistException;
+import eu.europeana.cloud.common.model.DataProviderProperties;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
@@ -156,8 +160,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String mongoDb;
 
   //Ecloud
+  @Value("${ecloud.baseUisUrl}")
+  private String ecloudBaseUisUrl;
   @Value("${ecloud.baseMcsUrl}")
   private String ecloudBaseMcsUrl;
+  @Value("${ecloud.provider}")
+  private String ecloudProvider;
   @Value("${ecloud.username}")
   private String ecloudUsername;
   @Value("${ecloud.password}")
@@ -214,7 +222,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       redisProvider = new RedisProvider(redisHost, redisPort, redisPassword);
     }
 
-
+    UISClient uisClient = new UISClient(ecloudBaseUisUrl, ecloudUsername, ecloudPassword);
+    try {
+      uisClient.getDataProvider(ecloudProvider);
+    } catch (CloudException e) {
+      if (e.getCause() instanceof ProviderDoesNotExistException) {
+        DataProviderProperties dataProviderProperties = new DataProviderProperties();
+        dataProviderProperties.setOrganisationName("Whatever Foundation");
+        uisClient.createProvider(ecloudProvider, dataProviderProperties);
+      }
+    }
   }
 
   @Bean
@@ -325,12 +342,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   DataSetServiceClient dataSetServiceClient() {
     return new DataSetServiceClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
   }
-
-//  @Bean
-//  UISClient dataSetServiceClient() {
-//    return new UISClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
-//    and create metis ecloud provider if it doesn't already exist
-//  }
 
   @Bean
   EcloudDatasetDao ecloudDatasetDao(DataSetServiceClient dataSetServiceClient) {
