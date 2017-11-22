@@ -15,7 +15,7 @@
  *  the Licence.
  */
 
-package eu.europeana.metis.authentication.exceptions;
+package eu.europeana.metis.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

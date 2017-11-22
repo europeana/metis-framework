@@ -39,7 +39,6 @@ public class Workflow implements HasMongoObjectId {
   private boolean harvestPlugin;
   private boolean transformPlugin;
 
-  //Plugins information
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
   private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();

@@ -23,7 +23,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @PropertySource({"classpath:metis.properties"})
 public class ECloudConfig extends WebMvcConfigurerAdapter implements InitializingBean {
 
-  //Ecloud
   @Value("${ecloud.baseUisUrl}")
   private String ecloudBaseUisUrl;
   @Value("${ecloud.baseMcsUrl}")
