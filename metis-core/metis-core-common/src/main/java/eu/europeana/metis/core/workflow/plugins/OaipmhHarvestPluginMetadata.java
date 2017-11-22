@@ -1,6 +1,5 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import java.util.List;
 import java.util.Map;
 
@@ -9,27 +8,55 @@ import java.util.Map;
  * @since 2017-05-29
  */
 public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata {
-  private OaipmhHarvestingMetadata oaipmhHarvestingMetadata;
   private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
+  private boolean mocked = true;
+  private String url;
+  private String metadataFormat;
+  private String setSpec;
   private Map<String, List<String>> parameters;
 
   public OaipmhHarvestPluginMetadata() {
   }
 
-  public OaipmhHarvestPluginMetadata(
-      OaipmhHarvestingMetadata oaipmhHarvestingMetadata,
-      Map<String, List<String>> parameters) {
-    this.oaipmhHarvestingMetadata = oaipmhHarvestingMetadata;
+  public OaipmhHarvestPluginMetadata(boolean mocked, String url, String metadataFormat,
+      String setSpec, Map<String, List<String>> parameters) {
+    this.mocked = mocked;
+    this.url = url;
+    this.metadataFormat = metadataFormat;
+    this.setSpec = setSpec;
     this.parameters = parameters;
   }
 
-  public OaipmhHarvestingMetadata getOaipmhHarvestingMetadata() {
-    return oaipmhHarvestingMetadata;
+  public boolean isMocked() {
+    return mocked;
   }
 
-  public void setOaipmhHarvestingMetadata(
-      OaipmhHarvestingMetadata oaipmhHarvestingMetadata) {
-    this.oaipmhHarvestingMetadata = oaipmhHarvestingMetadata;
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
+  public String getMetadataFormat() {
+    return metadataFormat;
+  }
+
+  public void setMetadataFormat(String metadataFormat) {
+    this.metadataFormat = metadataFormat;
+  }
+
+  public String getSetSpec() {
+    return setSpec;
+  }
+
+  public void setSetSpec(String setSpec) {
+    this.setSpec = setSpec;
   }
 
   @Override

@@ -68,11 +68,6 @@ public class OrganizationDao implements MetisDao<Organization, String> {
         .field(ORGANIZATION_ID_FIELD).equal(organization.getOrganizationId());
     UpdateOperations<Organization> ops = morphiaDatastoreProvider.getDatastore()
         .createUpdateOperations(Organization.class);
-    if (organization.getHarvestingMetadata() != null) {
-      ops.set("harvestingMetadata", organization.getHarvestingMetadata());
-    } else {
-      ops.unset("harvestingMetadata");
-    }
     if (organization.getOrganizationUri() != null) {
       ops.set("organizationUri", organization.getOrganizationUri());
     } else {

@@ -4,17 +4,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.HarvestingMetadata;
-import eu.europeana.metis.core.dataset.HttpHarvestingMetadata;
-import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
@@ -87,21 +82,18 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   private void addHarvestingPlugin(Dataset dataset, Workflow workflow) {
-    HarvestingMetadata harvestingMetadata = dataset.getHarvestingMetadata();
+    AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     if (workflow.isHarvestPlugin()) {
-      switch (harvestingMetadata.getHarvestType()) {
+      switch (harvestingMetadata.getPluginType()) {
         case HTTP_HARVEST:
-          HTTPHarvestPlugin HTTPHarvestPlugin = new HTTPHarvestPlugin(
-              new HTTPHarvestPluginMetadata((HttpHarvestingMetadata) harvestingMetadata, null));
+          HTTPHarvestPlugin HTTPHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
           HTTPHarvestPlugin
               .setId(
                   new ObjectId().toString() + "-" + HTTPHarvestPlugin.getPluginType().name());
           metisPlugins.add(HTTPHarvestPlugin);
           break;
         case OAIPMH_HARVEST:
-          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(
-              new OaipmhHarvestPluginMetadata(
-                  (OaipmhHarvestingMetadata) harvestingMetadata, null));
+          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
           oaipmhHarvestPlugin
               .setId(
                   new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
