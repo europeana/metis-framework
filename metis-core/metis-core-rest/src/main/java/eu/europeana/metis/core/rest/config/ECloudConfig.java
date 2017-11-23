@@ -5,7 +5,6 @@ import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.exceptions.ProviderDoesNotExistException;
 import eu.europeana.cloud.common.model.DataProviderProperties;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -48,10 +47,5 @@ public class ECloudConfig extends WebMvcConfigurerAdapter implements Initializin
   @Bean
   DataSetServiceClient dataSetServiceClient() {
     return new DataSetServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
-  }
-
-  @Bean
-  EcloudDatasetDao ecloudDatasetDao(DataSetServiceClient dataSetServiceClient) {
-    return new EcloudDatasetDao(dataSetServiceClient);
   }
 }

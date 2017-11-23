@@ -32,7 +32,6 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.ecloud.EcloudDatasetDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.exceptions.BadContentException;
@@ -58,7 +57,6 @@ public class TestDatasetService {
   private DatasetDao datasetDao;
   private WorkflowExecutionDao workflowExecutionDao;
   private ScheduledWorkflowDao scheduledWorkflowDao;
-  private EcloudDatasetDao ecloudDatasetDao;
   private DatasetService datasetService;
   private Datastore datastore;
   private Organization org;
@@ -72,7 +70,6 @@ public class TestDatasetService {
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
-    ecloudDatasetDao = Mockito.mock(EcloudDatasetDao.class);
 
     datasetService = new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
         scheduledWorkflowDao);
@@ -139,8 +136,6 @@ public class TestDatasetService {
     ds.setSubmissionDate(null);
     ds.setSubmittedRecords(0);
     ds.setPublishedRecords(0);
-
-    when(ecloudDatasetDao.getEcloudProvider()).thenReturn("ecloudProviderId");
 
     datasetService.createDataset(ds, "myOrgId");
 

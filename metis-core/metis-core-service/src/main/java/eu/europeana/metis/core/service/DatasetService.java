@@ -60,17 +60,6 @@ public class DatasetService {
   }
 
   public void createDataset(Dataset dataset, String organizationId) {
-
-//    final String uuid = UUID.randomUUID().toString();
-//    dataset.setEcloudDatasetId(uuid);
-
-    //Create in ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(uuid);
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(dataset.getDescription());
-//    ecloudDatasetDao.create(ecloudDataset);
-
     datasetDao.create(dataset);
     organizationDao
         .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
@@ -87,13 +76,6 @@ public class DatasetService {
   }
 
   public void updateDataset(Dataset dataset) {
-    //Update in ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(dataset.getEcloudDatasetId());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(dataset.getDescription());
-//    ecloudDatasetDao.update(ecloudDataset);
-
     datasetDao.update(dataset);
   }
 
@@ -144,12 +126,6 @@ public class DatasetService {
     //Clean up dataset leftovers
     workflowExecutionDao.deleteAllByDatasetName(datasetName);
     scheduledWorkflowDao.deleteAllByDatasetName(datasetName);
-
-    //Delete from ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(dataset.getEcloudDatasetId());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDatasetDao.delete(ecloudDataset);
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
