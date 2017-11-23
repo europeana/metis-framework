@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -23,6 +26,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -44,18 +48,22 @@ public class OrchestratorService {
   private final ScheduledWorkflowDao scheduledWorkflowDao;
   private final DatasetDao datasetDao;
   private final WorkflowExecutorManager workflowExecutorManager;
+  private final DataSetServiceClient ecloudDataSetServiceClient;
+  private String ecloudProvider; //Initialize with setter
 
   @Autowired
   public OrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
-      WorkflowExecutorManager workflowExecutorManager) throws IOException {
+      WorkflowExecutorManager workflowExecutorManager,
+      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
     this.workflowExecutorManager = workflowExecutorManager;
+    this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
 
     this.workflowExecutorManager.initiateConsumer();
   }
@@ -95,6 +103,7 @@ public class OrchestratorService {
 
     Dataset dataset = checkDatasetExistence(datasetName);
     Workflow workflow = checkWorkflowExistence(workflowOwner, workflowName);
+    checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         priority);
@@ -120,6 +129,7 @@ public class OrchestratorService {
     //Generate uuid workflowName and check if by any chance it exists.
     workflow.setWorkflowName(new ObjectId().toString());
     checkRestrictionsOnWorkflowCreate(workflow);
+    checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         priority);
@@ -318,5 +328,33 @@ public class OrchestratorService {
 
   public void deleteScheduledWorkflow(String datasetName) {
     scheduledWorkflowDao.deleteScheduledWorkflow(datasetName);
+  }
+
+  private String checkAndCreateDatasetInEcloud(Dataset dataset) {
+    if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()
+        .startsWith("NOT_CREATED_YET")) {
+      final String uuid = UUID.randomUUID().toString();
+      dataset.setEcloudDatasetId(uuid);
+      datasetDao.update(dataset);
+      try {
+        ecloudDataSetServiceClient
+            .createDataSet(ecloudProvider, uuid, "Metis generated dataset");
+        return uuid;
+      } catch (MCSException e) {
+        if (e instanceof DataSetAlreadyExistsException) {
+          LOGGER.info("Dataset already exist, not recreating", e);
+        } else {
+          LOGGER.error("An error has occurred during ecloud dataset creation.", e);
+        }
+      }
+    } else {
+      LOGGER.info("Dataset with name {} already has a dataset initialized in Ecloud with id {}",
+          dataset.getDatasetName(), dataset.getEcloudDatasetId());
+    }
+    return dataset.getEcloudDatasetId();
+  }
+
+  public void setEcloudProvider(String ecloudProvider) {
+    this.ecloudProvider = ecloudProvider;
   }
 }

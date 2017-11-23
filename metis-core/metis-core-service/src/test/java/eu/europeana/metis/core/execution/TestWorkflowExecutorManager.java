@@ -57,8 +57,8 @@ public class TestWorkflowExecutorManager {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqChannel = Mockito.mock(Channel.class);
-    workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient);
+    workflowExecutorManager = new WorkflowExecutorManager(workflowExecutionDao, rabbitmqChannel,
+        redissonClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(10);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(5);
@@ -215,7 +215,8 @@ public class TestWorkflowExecutorManager {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt()))
+        .thenReturn(false);
     doNothing().when(workflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
     when(workflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
@@ -225,10 +226,13 @@ public class TestWorkflowExecutorManager {
     QueueConsumer queueConsumer = workflowExecutorManager.new QueueConsumer(rabbitmqChannel);
     queueConsumer.handleDelivery("1", envelope, basicProperties, objectIdBytes1);
     queueConsumer.handleDelivery("2", envelope, basicProperties, objectIdBytes2);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution3.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution3.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertEquals(1, workflowExecutorManager.getThreadsCounter());
   }
 
@@ -269,7 +273,8 @@ public class TestWorkflowExecutorManager {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt()))
+        .thenReturn(false);
     doNothing().when(workflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
     when(workflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
@@ -282,8 +287,10 @@ public class TestWorkflowExecutorManager {
     queueConsumer.handleDelivery("3", envelope, basicProperties, objectIdBytes3);
     assertEquals(2, workflowExecutorManager.getThreadsCounter());
     verify(rabbitmqChannel, times(1)).basicNack(envelope.getDeliveryTag(), false, true);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
   }
 
   @Test
@@ -322,7 +329,8 @@ public class TestWorkflowExecutorManager {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
-    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt())).thenReturn(false);
+    when(workflowExecutionDao.isExecutionActive(any(WorkflowExecution.class), anyInt()))
+        .thenReturn(false);
     doNothing().when(workflowExecutionDao).updateMonitorInformation(any(WorkflowExecution.class));
     doNothing().when(rlock).unlock();
     when(workflowExecutionDao.isCancelling(any(ObjectId.class))).thenReturn(false);
@@ -343,8 +351,10 @@ public class TestWorkflowExecutorManager {
     t.start();
     t.interrupt();
     t.join();
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
-    Awaitility.await().atMost(30, TimeUnit.SECONDS).until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution1.getWorkflowStatus() == WorkflowStatus.FINISHED);
+    Awaitility.await().atMost(30, TimeUnit.SECONDS)
+        .until(() -> workflowExecution2.getWorkflowStatus() == WorkflowStatus.FINISHED);
     assertEquals(2, workflowExecutorManager.getThreadsCounter());
   }
 

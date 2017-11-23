@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -54,6 +55,7 @@ public class TestOrchestratorService {
   private static DatasetDao datasetDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
+  private static DataSetServiceClient ecloudDataSetServiceClient;
 
   @BeforeClass
   public static void prepare() throws IOException {
@@ -62,9 +64,10 @@ public class TestOrchestratorService {
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
+    ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager);
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient);
   }
 
   @After

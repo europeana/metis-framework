@@ -68,6 +68,11 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("dataProvider", dataset.getDataProvider());
     ops.set("description", dataset.getDescription());
     if (dataset.getDqas() != null) {
+      ops.set("ecloudDatasetId", dataset.getEcloudDatasetId());
+    } else {
+      ops.unset("ecloudDatasetId");
+    }
+    if (dataset.getDqas() != null) {
       ops.set("dqas", dataset.getDqas());
     } else {
       ops.unset("dqas");

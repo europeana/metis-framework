@@ -36,8 +36,7 @@ redis.password=
 solr.url=
 
 #ECloud
-ecloud.baseUisUrl=
-ecloud.baseMcsUrl=
+ecloud.baseUrl=
 ecloud.provider=
 ecloud.username=
 ecloud.password=

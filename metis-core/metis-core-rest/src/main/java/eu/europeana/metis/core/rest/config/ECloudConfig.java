@@ -22,11 +22,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties"})
 public class ECloudConfig extends WebMvcConfigurerAdapter implements InitializingBean {
-
-  @Value("${ecloud.baseUisUrl}")
-  private String ecloudBaseUisUrl;
-  @Value("${ecloud.baseMcsUrl}")
-  private String ecloudBaseMcsUrl;
+  @Value("${ecloud.baseUrl}")
+  private String ecloudBaseUrl;
   @Value("${ecloud.provider}")
   private String ecloudProvider;
   @Value("${ecloud.username}")
@@ -36,13 +33,13 @@ public class ECloudConfig extends WebMvcConfigurerAdapter implements Initializin
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    UISClient uisClient = new UISClient(ecloudBaseUisUrl, ecloudUsername, ecloudPassword);
+    UISClient uisClient = new UISClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
     try {
       uisClient.getDataProvider(ecloudProvider);
     } catch (CloudException e) {
       if (e.getCause() instanceof ProviderDoesNotExistException) {
         DataProviderProperties dataProviderProperties = new DataProviderProperties();
-        dataProviderProperties.setOrganisationName("Whatever Foundation");
+        dataProviderProperties.setOrganisationName("Eurpeana Foundation");
         uisClient.createProvider(ecloudProvider, dataProviderProperties);
       }
     }
@@ -50,7 +47,7 @@ public class ECloudConfig extends WebMvcConfigurerAdapter implements Initializin
 
   @Bean
   DataSetServiceClient dataSetServiceClient() {
-    return new DataSetServiceClient(ecloudBaseMcsUrl, ecloudUsername, ecloudPassword);
+    return new DataSetServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
   }
 
   @Bean

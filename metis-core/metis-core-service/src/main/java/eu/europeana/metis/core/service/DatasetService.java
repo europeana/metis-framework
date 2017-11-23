@@ -44,7 +44,6 @@ public class DatasetService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
   private final DatasetDao datasetDao;
-  //  private final EcloudDatasetDao ecloudDatasetDao;
   private final OrganizationDao organizationDao;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final ScheduledWorkflowDao scheduledWorkflowDao;

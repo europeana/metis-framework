@@ -45,6 +45,11 @@
       <version>${version.ecloud}</version>
     </dependency>
     <dependency>
+      <groupId>eu.europeana.cloud</groupId>
+      <artifactId>ecloud-service-mcs-rest-client-java</artifactId>
+      <version>${version.ecloud}</version>
+    </dependency>
+    <dependency>
       <groupId>eu.europeana.corelib</groupId>
       <artifactId>corelib-web</artifactId>
       <version>${version.corelib}</version>

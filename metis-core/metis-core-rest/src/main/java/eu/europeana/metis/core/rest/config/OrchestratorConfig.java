@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest.config;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -75,6 +76,9 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Value("${rabbitmq.highest.priority}")
   private int rabbitmqHighestPriority;
 
+  @Value("${ecloud.provider}")
+  private String ecloudProvider;
+
   private Connection connection;
   private Channel channel;
 
@@ -114,9 +118,12 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
-      WorkflowExecutorManager workflowExecutorManager) throws IOException {
-    return new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager);
+      WorkflowExecutorManager workflowExecutorManager, DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+    OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
+        workflowExecutionDao,
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient);
+    orchestratorService.setEcloudProvider(ecloudProvider);
+    return orchestratorService;
   }
 
   @Bean
