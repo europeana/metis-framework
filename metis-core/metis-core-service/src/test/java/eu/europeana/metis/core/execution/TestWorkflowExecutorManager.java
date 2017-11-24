@@ -22,6 +22,7 @@ import com.rabbitmq.client.AMQP.BasicProperties;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.MessageProperties;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager.QueueConsumer;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
@@ -50,6 +51,7 @@ public class TestWorkflowExecutorManager {
   private static RedissonClient redissonClient;
   private static Channel rabbitmqChannel;
   private static WorkflowExecutorManager workflowExecutorManager;
+  private static DpsClient dpsClient;
   private static final String EXECUTION_CHECK_LOCK = "executionCheckLock";
 
   @BeforeClass
@@ -58,7 +60,7 @@ public class TestWorkflowExecutorManager {
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqChannel = Mockito.mock(Channel.class);
     workflowExecutorManager = new WorkflowExecutorManager(workflowExecutionDao, rabbitmqChannel,
-        redissonClient);
+        redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(10);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(5);
@@ -182,7 +184,7 @@ public class TestWorkflowExecutorManager {
   @Test
   public void handleDeliveryOverMaxConcurrentThreads() throws Exception {
     workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient);
+        workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(2);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(1);
@@ -239,7 +241,7 @@ public class TestWorkflowExecutorManager {
   @Test
   public void handleDeliveryOverMaxConcurrentThreadsSendNack() throws Exception {
     workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient);
+        workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(2);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(1);
@@ -296,7 +298,7 @@ public class TestWorkflowExecutorManager {
   @Test
   public void handleDeliveryOverMaxConcurrentThreadsInterruptWillPolling() throws Exception {
     workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient);
+        workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(2);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(1);

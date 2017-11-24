@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest.config;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
@@ -78,6 +79,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @Value("${ecloud.provider}")
   private String ecloudProvider;
+  @Value("${ecloud.baseUrl}")
+  private String ecloudBaseUrl;
 
   private Connection connection;
   private Channel channel;
@@ -129,14 +132,16 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public WorkflowExecutorManager getWorkflowExecutorManager(
       WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
-      RedissonClient redissonClient) {
+      RedissonClient redissonClient, DpsClient dpsClient) {
     WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
-        workflowExecutionDao, rabbitmqChannel, redissonClient);
+        workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
     workflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
         pollingTimeoutForCleaningCompletionServiceInSecs);
+    workflowExecutorManager.setEcloudBaseUrl(ecloudBaseUrl);
+    workflowExecutorManager.setEcloudProvider(ecloudProvider);
     return workflowExecutorManager;
   }
 

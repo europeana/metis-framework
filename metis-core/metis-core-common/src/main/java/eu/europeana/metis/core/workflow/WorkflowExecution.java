@@ -46,6 +46,8 @@ public class WorkflowExecution implements HasMongoObjectId {
   private WorkflowStatus workflowStatus;
   @Indexed
   private String datasetName;
+  @Indexed
+  private String ecloudDatasetId;
   private int workflowPriority;
   private boolean cancelling;
 
@@ -72,6 +74,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.workflowOwner = workflow.getWorkflowOwner();
     this.workflowName = workflow.getWorkflowName();
     this.datasetName = dataset.getDatasetName();
+    this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
 
     addHarvestingPlugin(dataset, workflow);
@@ -187,6 +190,14 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   public void setDatasetName(String datasetName) {
     this.datasetName = datasetName;
+  }
+
+  public String getEcloudDatasetId() {
+    return ecloudDatasetId;
+  }
+
+  public void setEcloudDatasetId(String ecloudDatasetId) {
+    this.ecloudDatasetId = ecloudDatasetId;
   }
 
   public int getWorkflowPriority() {

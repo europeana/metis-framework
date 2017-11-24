@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.execution;
 
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -27,14 +28,21 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private final WorkflowExecution workflowExecution;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final RedissonClient redissonClient;
+  private final DpsClient dpsClient;
+  private String ecloudBaseUrl;
+  private String ecloudProvider;
 
   WorkflowExecutor(WorkflowExecution workflowExecution,
       WorkflowExecutionDao workflowExecutionDao, int monitorCheckIntervalInSecs,
-      RedissonClient redissonClient) {
+      RedissonClient redissonClient, DpsClient dpsClient, String ecloudBaseUrl,
+      String ecloudProvider) {
     this.workflowExecution = workflowExecution;
     this.workflowExecutionDao = workflowExecutionDao;
     this.monitorCheckIntervalInSecs = monitorCheckIntervalInSecs;
     this.redissonClient = redissonClient;
+    this.dpsClient = dpsClient;
+    this.ecloudBaseUrl = ecloudBaseUrl;
+    this.ecloudProvider = ecloudProvider;
   }
 
   @Override
@@ -138,7 +146,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
-    abstractMetisPlugin.execute();
+    abstractMetisPlugin
+        .execute(dpsClient, ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId());
     for (int i = 0; i < iterationsToFake; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {

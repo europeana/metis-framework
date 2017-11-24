@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
@@ -113,7 +114,9 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public void execute() {
+  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
+      String ecloudDataset) {
+    //This is an empty example
   }
 
   @Override

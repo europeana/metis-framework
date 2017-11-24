@@ -119,7 +119,11 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       ops.unset("submissionDate");
     }
 
-    ops.set("updatedDate", dataset.getUpdatedDate());
+    if (dataset.getUpdatedDate() != null) {
+      ops.set("updatedDate", dataset.getUpdatedDate());
+    } else {
+      ops.unset("updatedDate");
+    }
     ops.set("datasetStatus", dataset.getDatasetStatus());
     ops.set("accepted", dataset.isAccepted());
     ops.set("deaSigned", dataset.isDeaSigned());

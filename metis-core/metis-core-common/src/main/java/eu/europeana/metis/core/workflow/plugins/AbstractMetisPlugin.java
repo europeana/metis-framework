@@ -2,6 +2,7 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import java.util.Date;
 
 /**
@@ -48,11 +49,7 @@ public interface AbstractMetisPlugin {
   void setExecutionRecordsStatistics(
       ExecutionRecordsStatistics executionRecordsStatistics);
 
-  /**
-   * The business logic that the Workflow implements. This is where the connection to the
-   * Europeana Cloud DPS REST API is implemented.
-   */
-  void execute();
+  void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset);
 
   ExecutionRecordsStatistics monitor(String dataseId);
 

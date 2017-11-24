@@ -6,6 +6,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 import com.rabbitmq.client.MessageProperties;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -44,14 +45,18 @@ public class WorkflowExecutorManager {
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final RedissonClient redissonClient;
+  private final DpsClient dpsClient;
+  private String ecloudBaseUrl; //Initialize with setter
+  private String ecloudProvider; //Initialize with setter
 
   @Autowired
   public WorkflowExecutorManager(
       WorkflowExecutionDao workflowExecutionDao, Channel rabbitmqChannel,
-      RedissonClient redissonClient) {
+      RedissonClient redissonClient, DpsClient dpsClient) {
     this.workflowExecutionDao = workflowExecutionDao;
     this.rabbitmqChannel = rabbitmqChannel;
     this.redissonClient = redissonClient;
+    this.dpsClient = dpsClient;
   }
 
   public void initiateConsumer() throws IOException {
@@ -92,6 +97,14 @@ public class WorkflowExecutorManager {
 
   public void setMaxConcurrentThreads(int maxConcurrentThreads) {
     this.maxConcurrentThreads = maxConcurrentThreads;
+  }
+
+  public void setEcloudBaseUrl(String ecloudBaseUrl) {
+    this.ecloudBaseUrl = ecloudBaseUrl;
+  }
+
+  public void setEcloudProvider(String ecloudProvider) {
+    this.ecloudProvider = ecloudProvider;
   }
 
   public int getMonitorCheckIntervalInSecs() {
@@ -148,7 +161,7 @@ public class WorkflowExecutorManager {
         if (!workflowExecution.isCancelling()) { //Submit for execution
           WorkflowExecutor workflowExecutor = new WorkflowExecutor(
               workflowExecution, workflowExecutionDao, monitorCheckIntervalInSecs,
-              redissonClient);
+              redissonClient, dpsClient, ecloudBaseUrl, ecloudProvider);
           completionService.submit(workflowExecutor);
           threadsCounter++;
         } else { //Has been cancelled, do not execute

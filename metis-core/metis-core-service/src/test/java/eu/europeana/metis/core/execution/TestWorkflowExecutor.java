@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.jayway.awaitility.Awaitility;
 import com.jayway.awaitility.Duration;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
@@ -35,18 +36,21 @@ public class TestWorkflowExecutor {
   private static int monitorCheckIntervalInSecs = 0;
   private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
+  private static DpsClient dpsClient;
   private static final String EXECUTION_CHECK_LOCK = "executionCheckLock";
 
   @BeforeClass
   public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
+    dpsClient = Mockito.mock(DpsClient.class);
   }
 
   @After
   public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(redissonClient);
+    Mockito.reset(dpsClient);
   }
 
   @Test
@@ -66,7 +70,7 @@ public class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
@@ -96,7 +100,7 @@ public class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.FINISHED, workflowExecution.getWorkflowStatus());
@@ -120,7 +124,7 @@ public class TestWorkflowExecutor {
     doNothing().when(rlock).lock();
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
     verifyNoMoreInteractions(workflowExecutionDao);
@@ -142,7 +146,7 @@ public class TestWorkflowExecutor {
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false).thenReturn(true);
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
@@ -164,7 +168,7 @@ public class TestWorkflowExecutor {
     when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false).thenReturn(true);
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
     Assert.assertEquals(WorkflowStatus.CANCELLED, workflowExecution.getWorkflowStatus());
@@ -188,7 +192,7 @@ public class TestWorkflowExecutor {
     when(workflowExecutionDao.update(workflowExecution)).thenReturn(new ObjectId().toString());
 
     WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
-        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient);
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
 
     Thread t = new Thread(workflowExecutor::call);
     t.start();

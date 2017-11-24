@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest.config;
 
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.client.uis.rest.CloudException;
 import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.exceptions.ProviderDoesNotExistException;
@@ -23,6 +24,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class ECloudConfig extends WebMvcConfigurerAdapter implements InitializingBean {
   @Value("${ecloud.baseUrl}")
   private String ecloudBaseUrl;
+  @Value("${ecloud.dps.baseUrl}")
+  private String ecloudDpsBaseUrl;
   @Value("${ecloud.provider}")
   private String ecloudProvider;
   @Value("${ecloud.username}")
@@ -47,5 +50,10 @@ public class ECloudConfig extends WebMvcConfigurerAdapter implements Initializin
   @Bean
   DataSetServiceClient dataSetServiceClient() {
     return new DataSetServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
+  }
+
+  @Bean
+  DpsClient dpsClient() {
+    return new DpsClient(ecloudDpsBaseUrl, ecloudUsername, ecloudPassword);
   }
 }
