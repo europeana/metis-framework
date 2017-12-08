@@ -59,7 +59,7 @@ public class ValidationControllerTest {
         MvcResult result =  mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE,"sampleSchema","sampleVersion")
                 .file(firstFile))
-                .andExpect(MockMvcResultMatchers.status().is(400))
+                .andExpect(MockMvcResultMatchers.status().is(500))
                 .andReturn();
 
         Assert.assertTrue(result.getResolvedException() instanceof ServerException);

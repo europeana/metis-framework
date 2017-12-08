@@ -28,14 +28,11 @@ import org.springframework.web.servlet.ModelAndView;
  * Created by ymamakis on 2/24/16.
  */
 @ControllerAdvice
-public class ServerExceptionMapper{
+public class ServerExceptionMapper {
     @ExceptionHandler(ServerException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ModelAndView handleException(ServerException e) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("Server error");
-        mav.addObject(e.getMessage());
-        return  mav;
+    public String handleException(ServerException e) {
+        return "Server exception: [" + e.getMessage() + "]";
     }
 }
