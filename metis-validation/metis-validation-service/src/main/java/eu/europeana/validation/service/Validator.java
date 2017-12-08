@@ -99,6 +99,9 @@ public class Validator implements Callable<ValidationResult> {
         try {
             Document doc = EDMParser.getInstance().getEdmParser().parse(source);
             Schema savedSchema = service.getSchemaByName(schema, version);
+            if (savedSchema == null){
+                return constructValidationError(document,"Specified schema does not exist");
+            }
             resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
 
             EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
@@ -117,7 +120,6 @@ public class Validator implements Callable<ValidationResult> {
                 }
             }
         } catch (Exception e) {
-          //  e.printStackTrace();
             return constructValidationError(document, e);
         }
         LOGGER.info("Validation ended");
