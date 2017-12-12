@@ -43,8 +43,8 @@ public abstract class AbstractSchemaDao{
         return datastore.find(Schema.class).asList();
     }
 
-    public Schema getSchemaByName(String name, String version){
-        return datastore.find(Schema.class).filter("name",name).filter("version",version==null?"undefined":version).get();
+    public Schema getSchemaByName(String name){
+        return datastore.find(Schema.class).filter("name",name).get();
     }
 
     public byte[] getZip(String name, String version){

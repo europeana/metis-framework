@@ -70,11 +70,11 @@ public class ValidationManagementController {
     @ResponseStatus(HttpStatus.CREATED)
     @ResponseBody
     public String createSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("schemaPath") @RequestParam("schemaPath") String schemaPath,
-                               @ApiParam("schematronPath") @RequestParam(value = "schematronPath",required = false) String schematronPath,
+                               @ApiParam("schematronPath") @RequestParam(value = "schematronPath", required = false) String schematronPath,
                                @ApiParam("version") @PathVariable("version") String version,
                                @ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IOException {
         service.createSchema(name, schemaPath, schematronPath, version, zipFile.getInputStream());
-        return URI.create(RestEndpoints.resolve(SCHEMAS_DOWNLOAD_BY_NAME, name,version)).toString();
+        return URI.create(RestEndpoints.resolve(SCHEMAS_DOWNLOAD_BY_NAME, name, version)).toString();
     }
 
     //This should be a put but see https://issues.apache.org/jira/browse/FILEUPLOAD-214
@@ -82,7 +82,7 @@ public class ValidationManagementController {
     @ApiParam(value = "Update a schema")
     @ResponseStatus(value = HttpStatus.OK)
     public void updateSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("schemaPath") @RequestParam("schemaPath") String schemaPath,
-                             @ApiParam("schematronPath") @RequestParam(value = "schematronPath",required = false) String schematronPath, @ApiParam("version") @PathVariable(value = "version") String version,
+                             @ApiParam("schematronPath") @RequestParam(value = "schematronPath", required = false) String schematronPath, @ApiParam("version") @PathVariable(value = "version") String version,
                              @ApiParam("file") @RequestParam("file") MultipartFile zipFile) throws IOException {
 
         service.updateSchema(name, schemaPath, schematronPath, version, zipFile.getInputStream());
@@ -99,7 +99,7 @@ public class ValidationManagementController {
     @ApiOperation(value = "Get a schema", response = Schema.class)
     @ResponseBody
     public Schema getSchema(@ApiParam("name") @PathVariable("name") String name, @ApiParam("name") @PathVariable(value = "version") String version) {
-        return service.getSchemaByName(name, version);
+        return service.getSchemaByName(name);
     }
 
     @ApiOperation(value = "Get all available schemas", response = List.class)

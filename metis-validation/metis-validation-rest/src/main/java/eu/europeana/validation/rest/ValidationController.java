@@ -48,14 +48,13 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
-import static eu.europeana.metis.RestEndpoints.SCHEMA_RECORDS_BATCH_VALIDATE;
 
 /**
  * REST API Implementation of the Validation Service
  */
 
 @Controller
-@Api(value = "/", description = "Schema validation service" )
+@Api(value = "/", description = "Schema validation service")
 public class ValidationController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidationController.class);
@@ -71,41 +70,42 @@ public class ValidationController {
     /**
      * Single Record service class. The target schema is supplied as a path parameter
      * and the record via POST as a form-data parameter
+     *
      * @param targetSchema The schema to validate against
-     * @param record The record to validate
+     * @param record       The record to validate
      * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
      */
-    @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE,method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE, method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
-    public ValidationResult validate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
-                             @ApiParam @RequestBody Record record,
-                             @ApiParam(value="version")@PathVariable(value = "version")String version)
+    public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
+                                     @ApiParam @RequestBody Record record
+    )
             throws ValidationException {
         ValidationResult result = null;
-        result = validator.singleValidation(targetSchema, version, record.getRecord());
-        if(result.isSuccess()) {
+        result = validator.singleValidation(targetSchema, record.getRecord());
+        if (result.isSuccess()) {
             return result;
         } else {
             LOGGER.error(result.getMessage());
-            throw new ValidationException(result.getRecordId(),result.getMessage());
+            throw new ValidationException(result.getRecordId(), result.getMessage());
         }
     }
 
     /**
      * Batch Validation REST API implementation. It is exposed via /validate/batch/EDM-{EXTERNAL,INTERNAL}. The parameters are
      * a zip file with records (folders are not currently supported so records need to be at the root of the file)
+     *
      * @param targetSchema The schema to validate against
-     * @param zipFile A zip file
+     * @param zipFile      A zip file
      * @return A Validation result List. If the service result is empty we assume that the success field is true
      */
 
-    @RequestMapping(method = RequestMethod.POST,value = SCHEMA_BATCH_VALIDATE)
+    @RequestMapping(method = RequestMethod.POST, value = SCHEMA_BATCH_VALIDATE)
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
-    public ValidationResultList batchValidate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
-                                  @ApiParam(value="version")@PathVariable(value = "version") String version,
-                                  @ApiParam(value="file")@RequestParam("file") MultipartFile zipFile) throws ServerException, BatchValidationException {
+    public ValidationResultList batchValidate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
+                                              @ApiParam(value = "file") @RequestParam("file") MultipartFile zipFile) throws ServerException, BatchValidationException {
 
 
         try {
@@ -122,51 +122,20 @@ public class ValidationController {
                 record.setRecord(IOUtils.toString(new FileInputStream(input)));
                 xmls.add(record);
             }
-            ValidationResultList list = validator.batchValidation(targetSchema, version, xmls);
-            if(list.getResultList()!=null||list.getResultList().size()==0){
+            ValidationResultList list = validator.batchValidation(targetSchema, xmls);
+            if (list.getResultList() != null || list.getResultList().size() == 0) {
                 list.setSuccess(true);
             }
             FileUtils.forceDelete(new File(fileName));
-            if(list.isSuccess()) {
+            if (list.isSuccess()) {
                 return list;
             } else {
-               throw new BatchValidationException("Batch service failed",list);
+                throw new BatchValidationException("Batch service failed", list);
             }
 
-        } catch (IOException | InterruptedException|ExecutionException|ZipException e) {
+        } catch (IOException | InterruptedException | ExecutionException | ZipException e) {
             LOGGER.error(e.getMessage());
             throw new ServerException(e.getMessage());
         }
     }
-
-    /**
-     * Batch service based on a list of records
-     * @param targetSchema The target schema
-     * @param documents The list of records
-     * @return The Validation results
-     */
-    @RequestMapping(method = RequestMethod.POST,value = SCHEMA_RECORDS_BATCH_VALIDATE)
-    @ResponseBody
-    @ApiOperation(value = "Batch validate based on schema", response = ValidationResult.class)
-    public ValidationResultList batchValidate(@ApiParam(value="schema")@PathVariable("schema") String targetSchema,
-                                  @ApiParam(value="version")@PathVariable("version")String version,
-                                  @ApiParam(value="records")@RequestBody List<Record> documents)
-            throws ServerException, BatchValidationException {
-        try {
-            ValidationResultList list = validator.batchValidation(targetSchema,version,documents);
-            if(list.getResultList()!=null||list.getResultList().size()==0){
-                list.setSuccess(true);
-            }
-            if(list.isSuccess()) {
-                return list;
-            } else {
-               throw new BatchValidationException("Batch service failed", list);
-            }
-
-        } catch (InterruptedException|ExecutionException e) {
-            LOGGER.error(e.getMessage());
-            throw new ServerException(e.getMessage());
-        }
-    }
-
 }

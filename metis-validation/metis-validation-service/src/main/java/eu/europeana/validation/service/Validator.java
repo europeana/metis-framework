@@ -18,11 +18,13 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
+
 import java.io.IOException;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerConfigurationException;
+
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 
@@ -48,6 +50,7 @@ import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.StringReader;
 import java.util.concurrent.Callable;
+
 import org.xml.sax.SAXException;
 import sun.rmi.runtime.Log;
 
@@ -71,11 +74,10 @@ public class Validator implements Callable<ValidationResult> {
      * @param schema
      * @param document
      */
-    public Validator(String schema, String document, String version, ValidationManagementService service, AbstractLSResourceResolver resolver) {
+    public Validator(String schema, String document, ValidationManagementService service, AbstractLSResourceResolver resolver) {
         this.schema = schema;
         this.document = document;
         this.service = service;
-        this.version = version;
         this.resolver = resolver;
     }
 
@@ -84,7 +86,7 @@ public class Validator implements Callable<ValidationResult> {
 
     @Autowired
     private ValidationManagementService service;
-    private String version;
+
     private AbstractLSResourceResolver resolver;
 
     /**
@@ -98,9 +100,9 @@ public class Validator implements Callable<ValidationResult> {
         source.setByteStream(new ByteArrayInputStream(document.getBytes()));
         try {
             Document doc = EDMParser.getInstance().getEdmParser().parse(source);
-            Schema savedSchema = service.getSchemaByName(schema, version);
-            if (savedSchema == null){
-                return constructValidationError(document,"Specified schema does not exist");
+            Schema savedSchema = service.getSchemaByName(schema);
+            if (savedSchema == null) {
+                return constructValidationError(document, "Specified schema does not exist");
             }
             resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
 
@@ -127,23 +129,23 @@ public class Validator implements Callable<ValidationResult> {
     }
 
     private Transformer getTransformer(Schema schema)
-        throws IOException, TransformerConfigurationException {
+            throws IOException, TransformerConfigurationException {
         StringReader reader;
         String schematronPath = schema.getSchematronPath();
 
-        if (!templatesCache.containsKey(schematronPath)){
+        if (!templatesCache.containsKey(schematronPath)) {
             if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
                 reader = new StringReader(IOUtils.toString(resolver.getObjectStorageClient().
-                    get(schematronPath).get().getPayload().openStream()));
+                        get(schematronPath).get().getPayload().openStream()));
             } else {
                 reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath)));
             }
             Templates template = TransformerFactory.newInstance()
-                .newTemplates(new StreamSource(reader));
-            templatesCache.put(schematronPath,template);
+                    .newTemplates(new StreamSource(reader));
+            templatesCache.put(schematronPath, template);
         }
 
-        return templatesCache.get(schematronPath).newTransformer() ;
+        return templatesCache.get(schematronPath).newTransformer();
     }
 
     private ValidationResult constructValidationError(String document, Exception e) {
@@ -243,21 +245,21 @@ class EDMParser {
     }
 
     private javax.xml.validation.Schema getSchema(String path,
-        AbstractLSResourceResolver resolver)
-        throws SAXException, IOException {
+                                                  AbstractLSResourceResolver resolver)
+            throws SAXException, IOException {
 
-        if(!cache.containsKey(path)) {
+        if (!cache.containsKey(path)) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             //ClasspathResourceResolver resolver = new ClasspathResourceResolver();
             //Set the prefix as schema since this is the folder where the schemas exist in the classpath
             factory.setResourceResolver(resolver);
             factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
-                false);
+                    false);
             factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
             javax.xml.validation.Schema schema;
             if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
                 schema = factory.newSchema(new StreamSource(resolver.getObjectStorageClient().
-                    get(path).get().getPayload().openStream()));
+                        get(path).get().getPayload().openStream()));
             } else {
                 schema = factory.newSchema(new StreamSource(new FileInputStream(path)));
             }

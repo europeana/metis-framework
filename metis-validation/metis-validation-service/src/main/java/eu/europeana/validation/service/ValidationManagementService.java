@@ -17,6 +17,7 @@
 package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -29,39 +30,35 @@ import java.util.List;
 public class ValidationManagementService {
     private AbstractSchemaDao abstractSchemaDao;
 
-    public ValidationManagementService(AbstractSchemaDao abstractSchemaDao)
-    {
+    public ValidationManagementService(AbstractSchemaDao abstractSchemaDao) {
         this.abstractSchemaDao = abstractSchemaDao;
     }
 
-//    public ValidationManagementService()
-//    {
-//        this.abstractSchemaDao = Configuration.getInstance().getDao();
-//    }
-    public void setDao(AbstractSchemaDao dao){
+    public void setDao(AbstractSchemaDao dao) {
         this.abstractSchemaDao = dao;
     }
-    public List<Schema> getAll(){
+
+    public List<Schema> getAll() {
         return abstractSchemaDao.getAll();
     }
 
-    public Schema getSchemaByName(String name,String version){
-        return abstractSchemaDao.getSchemaByName(name,version);
+    public Schema getSchemaByName(String name) {
+        return abstractSchemaDao.getSchemaByName(name);
     }
 
-    public void createSchema(String name, String path, String schematronPath, String version,InputStream file) throws IOException {
-        abstractSchemaDao.createSchema(name, path, schematronPath,version,file);
+    public void createSchema(String name, String path, String schematronPath, String version, InputStream file) throws IOException {
+        abstractSchemaDao.createSchema(name, path, schematronPath, version, file);
     }
 
     public void updateSchema(String name, String path, String schematronPath, String version, InputStream file) throws IOException {
         abstractSchemaDao.updateSchema(name, path, schematronPath, version, file);
     }
 
-    public void deleteSchema(String name,String version){
+    public void deleteSchema(String name, String version) {
         abstractSchemaDao.deleteSchema(name, version);
     }
 
-    public byte[] getZip(String name, String version){
-        return abstractSchemaDao.getZip(name,version);
+    public byte[] getZip(String name, String version) {
+        return abstractSchemaDao.getZip(name, version);
     }
 }

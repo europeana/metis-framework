@@ -19,6 +19,8 @@ package eu.europeana.validation.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,6 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @ApiModel(value="Validation Result",description = "Single service result")
 public class ValidationResult {
 
