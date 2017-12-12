@@ -60,6 +60,7 @@ public class ValidationControllerTest {
 
     @Before
     public void setup() throws Exception {
+
         if (isOneTime) {
             mockMvc = MockMvcBuilders
                     .standaloneSetup(new ValidationController(validationExecutionService))
