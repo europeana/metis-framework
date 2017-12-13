@@ -119,8 +119,10 @@ public class ValidationController {
             List<Record> xmls = new ArrayList<>();
             for (File input : files) {
                 Record record = new Record();
-                record.setRecord(IOUtils.toString(new FileInputStream(input)));
+                FileInputStream stream = new FileInputStream(input);
+                record.setRecord(IOUtils.toString(stream));
                 xmls.add(record);
+                stream.close();
             }
             ValidationResultList list = validator.batchValidation(targetSchema, xmls);
             if (list.getResultList() != null || list.getResultList().size() == 0) {

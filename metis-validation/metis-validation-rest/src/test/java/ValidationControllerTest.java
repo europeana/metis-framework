@@ -60,7 +60,6 @@ public class ValidationControllerTest {
 
     @Before
     public void setup() throws Exception {
-
         if (isOneTime) {
             mockMvc = MockMvcBuilders
                     .standaloneSetup(new ValidationController(validationExecutionService))
@@ -123,14 +122,19 @@ public class ValidationControllerTest {
     }
 
     @Test
-    public void shouldThrowExceptionForWrongZipFile() throws Exception {
+    public void TestValidationFailure() throws Exception {
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test_wrong.zip"));
-        MvcResult result =  mockMvc.perform(MockMvcRequestBuilders
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
                 .file(file))
-                .andExpect(MockMvcResultMatchers.status().is(500))
+                .andExpect(MockMvcResultMatchers.status().is(200))
                 .andReturn();
-        Assert.assertTrue(result.getResolvedException() instanceof ServerException);
+        ValidationResultList validationResultList = unmarshalXMLToValidationResultSet(result);
+        Assert.assertTrue(validationResultList.isSuccess());
+        List<ValidationResult> validationResults = validationResultList.getResultList();
+        for (ValidationResult validationResult : validationResults) {
+            Assert.assertFalse(validationResult.isSuccess());
+        }
     }
 
     @Test
