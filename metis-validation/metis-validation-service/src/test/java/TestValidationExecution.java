@@ -20,12 +20,14 @@ import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationManagementService;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
@@ -53,11 +55,12 @@ public class TestValidationExecution {
     ValidationManagementService service;
     @Autowired
     ValidationExecutionService validationExecutionService;
-    private static int i=0;
+    private static int i = 0;
+
     @Before
-    public void prepare(){
-        if(i==0) {
-           // MongoProvider.start();
+    public void prepare() {
+        if (i == 0) {
+            // MongoProvider.start();
 
             try {
                 service.createSchema("EDM-EXTERNAL", "EDM.xsd", "schematron/schematron.xsl", "undefined", this.getClass().
@@ -73,8 +76,8 @@ public class TestValidationExecution {
     @Test
     public void testSingleValidationSuccess() throws IOException, ExecutionException, InterruptedException {
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation("EDM-INTERNAL","undefined",fileToValidate);
-        Assert.assertEquals(true,result.isSuccess());
+        ValidationResult result = validationExecutionService.singleValidation("EDM-INTERNAL", fileToValidate);
+        Assert.assertEquals(true, result.isSuccess());
         Assert.assertNull(result.getRecordId());
         Assert.assertNull(result.getMessage());
         i++;
@@ -84,8 +87,8 @@ public class TestValidationExecution {
     public void testSingleValidationFailure() throws IOException, ExecutionException, InterruptedException {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_wrong.xml"));
-        ValidationResult result = validationExecutionService.singleValidation("EDM-INTERNAL","undefined",fileToValidate);
-        Assert.assertEquals(false,result.isSuccess());
+        ValidationResult result = validationExecutionService.singleValidation("EDM-INTERNAL", fileToValidate);
+        Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
         i++;
@@ -95,8 +98,8 @@ public class TestValidationExecution {
     public void testSingleValidationFailureWrongSchema() throws IOException, ExecutionException, InterruptedException {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation("EDM-EXTERNAL","undefined",fileToValidate);
-        Assert.assertEquals(false,result.isSuccess());
+        ValidationResult result = validationExecutionService.singleValidation("EDM-EXTERNAL", fileToValidate);
+        Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
         i++;
@@ -104,7 +107,7 @@ public class TestValidationExecution {
 
     @Test
     public void testBatchValidationSuccess() throws IOException, ExecutionException, InterruptedException, ZipException {
-    String fileName = "src/test/resources/test";
+        String fileName = "src/test/resources/test";
         ZipFile file = new ZipFile("src/test/resources/test.zip");
         file.extractAll(fileName);
 
@@ -115,8 +118,8 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation("EDM-INTERNAL","undefined",xmls);
-        Assert.assertEquals(true,result.isSuccess());
+        ValidationResultList result = validationExecutionService.batchValidation("EDM-INTERNAL", xmls);
+        Assert.assertEquals(true, result.isSuccess());
         Assert.assertEquals(0, result.getResultList().size());
 
         FileUtils.forceDelete(new File(fileName));
@@ -134,11 +137,13 @@ public class TestValidationExecution {
         List<Record> xmls = new ArrayList<>();
         for (File input : files) {
             Record record = new Record();
-            record.setRecord(IOUtils.toString(new FileInputStream(input)));
+            FileInputStream fileInputStream = new FileInputStream(input);
+            record.setRecord(IOUtils.toString(fileInputStream));
             xmls.add(record);
+            fileInputStream.close();
         }
-        ValidationResultList result = validationExecutionService.batchValidation("EDM-INTERNAL","undefined",xmls);
-        Assert.assertEquals(false,result.isSuccess());
+        ValidationResultList result = validationExecutionService.batchValidation("EDM-INTERNAL", xmls);
+        Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1, result.getResultList().size());
 
 
@@ -160,8 +165,8 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation("EDM-EXTERNAL","undefined",xmls);
-        Assert.assertEquals(false,result.isSuccess());
+        ValidationResultList result = validationExecutionService.batchValidation("EDM-EXTERNAL", xmls);
+        Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1506, result.getResultList().size());
 
 
@@ -170,9 +175,9 @@ public class TestValidationExecution {
     }
 
     @After
-    public void destroy(){
-        if(i==5) {
-           // MongoProvider.stop();
+    public void destroy() {
+        if (i == 5) {
+            // MongoProvider.stop();
         }
     }
 }

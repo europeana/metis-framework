@@ -20,6 +20,7 @@ package eu.europeana.validation.service;
 import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -28,6 +29,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.annotation.PreDestroy;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -47,46 +49,48 @@ public class ValidationExecutionService {
         this.config = config;
         this.service = service;
         this.abstractLSResourceResolver = abstractLSResourceResolver;
-        this.es = Executors.newFixedThreadPool(10);;
+        this.es = Executors.newFixedThreadPool(10);
     }
 
     /**
      * Perform single service given a schema.
-     * @param schema The schema to perform service against.
+     *
+     * @param schema   The schema to perform service against.
      * @param document The document to validate against
      * @return A service result
      */
-    public ValidationResult singleValidation(final String schema,final String version, final String document) {
-        return new Validator(schema, document, version, service, abstractLSResourceResolver).call();
+    public ValidationResult singleValidation(final String schema, final String document) {
+        return new Validator(schema, document, service, abstractLSResourceResolver).call();
     }
 
     /**
      * Batch service given a schema
-     * @param schema The schema to validate against
+     *
+     * @param schema    The schema to validate against
      * @param documents The documents to validate
      * @return A list of service results
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    public ValidationResultList batchValidation(final String schema, final String version, List<Record> documents) throws InterruptedException,ExecutionException{
+    public ValidationResultList batchValidation(final String schema, List<Record> documents) throws InterruptedException, ExecutionException {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
-        for(final Record document : documents) {
-            cs.submit(new Validator(schema,document.getRecord(), version, service,abstractLSResourceResolver));
+        for (final Record document : documents) {
+            cs.submit(new Validator(schema, document.getRecord(), service, abstractLSResourceResolver));
         }
 
         List<ValidationResult> results = new ArrayList<>();
-        for(int i=0;i<documents.size();i++) {
+        for (int i = 0; i < documents.size(); i++) {
             Future<ValidationResult> future = cs.take();
             ValidationResult res = future.get();
-            if(!res.isSuccess()){
+            if (!res.isSuccess()) {
                 results.add(res);
             }
         }
 
         ValidationResultList resultList = new ValidationResultList();
         resultList.setResultList(results);
-        if(resultList.getResultList().size()==0) {
+        if (resultList.getResultList().size() == 0) {
             resultList.setSuccess(true);
         }
         return resultList;

@@ -19,6 +19,8 @@ package eu.europeana.validation.model;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
@@ -28,6 +30,7 @@ import java.util.List;
  * Created by ymamakis on 12/22/15.
  */
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 @ApiModel(value="Validation Result List",description = "Batch service result")
 public class ValidationResultList {
 
