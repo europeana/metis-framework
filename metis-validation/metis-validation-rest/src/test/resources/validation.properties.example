@@ -5,27 +5,4 @@ socks.proxy.port=
 socks.proxy.username=
 socks.proxy.password=
 
-mongo.hosts=
-mongo.port=
-mongo.db=
-mongo.username=
-mongo.password=
-
-# Values accepted:FILESYSTEM
-enable.schema.storage=FILESYSTEM
-schema.root.path=.
-
-# S3 Enabled
-s3.client.key=
-s3.secret.key=
-s3.region=
-s3.bucket=
-
-#Swift Enabled
-swift.authentication.uri=
-swift.availability.zone=
-swift.tenantname=
-swift.username=
-swift.password=
-
 validation.executor.threadCount=10
