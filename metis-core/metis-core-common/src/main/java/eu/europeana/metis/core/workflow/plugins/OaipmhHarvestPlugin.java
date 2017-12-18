@@ -144,7 +144,8 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
     if (!pluginMetadata.isMocked()) {
-      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginType.name(), ecloudDataset);
+      String pluginTypeName = pluginType.name();
+      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName, ecloudDataset);
       String oaipmhUrl = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUrl();
       String setSpec = ((OaipmhHarvestPluginMetadata) pluginMetadata).getSetSpec();
       String metadataFormat = ((OaipmhHarvestPluginMetadata) pluginMetadata).getMetadataFormat();
@@ -177,7 +178,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       dpsTask.setHarvestingDetails(oaipmhHarvestingDetails);
 
       Revision revision = new Revision();
-      revision.setRevisionName(pluginType.name());
+      revision.setRevisionName(pluginTypeName);
       revision.setRevisionProviderId(ecloudProvider);
       revision.setCreationTimeStamp(startedDate);
       dpsTask.setOutputRevision(revision);

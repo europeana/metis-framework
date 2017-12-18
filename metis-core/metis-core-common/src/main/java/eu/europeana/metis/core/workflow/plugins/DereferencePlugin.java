@@ -26,6 +26,7 @@ public class DereferencePlugin implements AbstractMetisPlugin {
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
+  private long externalTaskId;
   private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
   private AbstractMetisPluginMetadata pluginMetadata;
@@ -69,12 +70,12 @@ public class DereferencePlugin implements AbstractMetisPlugin {
 
   @Override
   public long getExternalTaskId() {
-    return 0;
+    return this.externalTaskId;
   }
 
   @Override
   public void setExternalTaskId(long externalTaskId) {
-
+    this.externalTaskId = externalTaskId;
   }
 
   @Override
