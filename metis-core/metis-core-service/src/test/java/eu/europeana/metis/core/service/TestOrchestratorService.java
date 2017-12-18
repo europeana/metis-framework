@@ -11,6 +11,8 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -78,6 +80,7 @@ public class TestOrchestratorService {
     Mockito.reset(scheduledWorkflowDao);
     Mockito.reset(datasetDao);
     Mockito.reset(workflowExecutorManager);
+    Mockito.reset(ecloudDataSetServiceClient);
   }
 
   @Test
@@ -168,13 +171,67 @@ public class TestOrchestratorService {
 
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions()
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
+      throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     when(datasetDao.getDatasetByDatasetName(dataset.getDatasetName())).thenReturn(dataset);
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetName())).thenReturn(null);
+    String objectId = new ObjectId().toString();
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetName(),
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+  }
+
+  @Test
+  public void addUserWorkflowInQueueOfUserWorkflowExecutionsEcloudDatasetAlreadyGenerated()
+      throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset.setEcloudDatasetId("f525f64c-fea0-44bf-8c56-88f30962734c");
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    when(datasetDao.getDatasetByDatasetName(dataset.getDatasetName())).thenReturn(dataset);
+    when(workflowDao
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .thenReturn(workflow);
+    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetName())).thenReturn(null);
+    String objectId = new ObjectId().toString();
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetName(),
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+  }
+
+  @Test
+  public void addUserWorkflowInQueueOfUserWorkflowExecutionsEcloudDatasetAlreadyExistsInEcloud()
+      throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    when(datasetDao.getDatasetByDatasetName(dataset.getDatasetName())).thenReturn(dataset);
+    when(workflowDao
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .thenReturn(workflow);
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new DataSetAlreadyExistsException());
+    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetName())).thenReturn(null);
+    String objectId = new ObjectId().toString();
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetName(),
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+  }
+
+  @Test
+  public void addUserWorkflowInQueueOfUserWorkflowExecutionsEcloudDatasetCreationFails()
+      throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    when(datasetDao.getDatasetByDatasetName(dataset.getDatasetName())).thenReturn(dataset);
+    when(workflowDao
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .thenReturn(workflow);
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new MCSException());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetName())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
