@@ -73,6 +73,16 @@ public class HTTPHarvestPlugin implements AbstractMetisPlugin {
     this.pluginStatus = pluginStatus;
   }
 
+  @Override
+  public long getExternalTaskId() {
+    return 0;
+  }
+
+  @Override
+  public void setExternalTaskId(long externalTaskId) {
+
+  }
+
   public Date getStartedDate() {
     return startedDate;
   }
@@ -115,7 +125,7 @@ public class HTTPHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public ExecutionRecordsStatistics monitor(String dataseId) {
+  public ExecutionRecordsStatistics monitor(String externalTaskId) {
     return null;
   }
 }

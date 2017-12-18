@@ -44,6 +44,10 @@ public interface AbstractMetisPlugin {
 
   void setPluginStatus(PluginStatus pluginStatus);
 
+  long getExternalTaskId();
+
+  void setExternalTaskId(long externalTaskId);
+
   ExecutionRecordsStatistics getExecutionRecordsStatistics();
 
   void setExecutionRecordsStatistics(
@@ -51,6 +55,6 @@ public interface AbstractMetisPlugin {
 
   void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset);
 
-  ExecutionRecordsStatistics monitor(String dataseId);
+  ExecutionRecordsStatistics monitor(String externalTaskId);
 
 }

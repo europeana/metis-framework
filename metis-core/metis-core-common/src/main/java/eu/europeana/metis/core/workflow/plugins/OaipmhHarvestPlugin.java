@@ -13,8 +13,11 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import org.apache.commons.lang3.StringUtils;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -22,6 +25,9 @@ import org.mongodb.morphia.annotations.Indexed;
  */
 @Embedded
 public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(OaipmhHarvestPlugin.class);
+
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
@@ -36,6 +42,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
+  private long externalTaskId;
   private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
 
   private AbstractMetisPluginMetadata pluginMetadata;
@@ -113,6 +120,16 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
+  public long getExternalTaskId() {
+    return externalTaskId;
+  }
+
+  @Override
+  public void setExternalTaskId(long externalTaskId) {
+    this.externalTaskId = externalTaskId;
+  }
+
+  @Override
   public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
     return executionRecordsStatistics;
   }
@@ -124,14 +141,19 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
-    if (!pluginMetadata.isMocked()){
+  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
+      String ecloudDataset) {
+    if (!pluginMetadata.isMocked()) {
+      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginType.name(), ecloudDataset);
       String oaipmhUrl = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUrl();
       String setSpec = ((OaipmhHarvestPluginMetadata) pluginMetadata).getSetSpec();
       String metadataFormat = ((OaipmhHarvestPluginMetadata) pluginMetadata).getMetadataFormat();
+      Date fromDate = ((OaipmhHarvestPluginMetadata) pluginMetadata).getFromDate();
+      Date untilDate = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUntilDate();
       DpsTask dpsTask = new DpsTask();
 
-      Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(InputDataType.class);
+      Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(
+          InputDataType.class);
       inputDataTypeListHashMap.put(InputDataType.REPOSITORY_URLS,
           Collections.singletonList(oaipmhUrl));
       dpsTask.setInputData(inputDataTypeListHashMap);
@@ -140,12 +162,18 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       parameters.put("PROVIDER_ID", ecloudProvider);
       parameters.put("OUTPUT_DATA_SETS", String.format("%s/data-providers/%s/data-sets/%s",
           ecloudBaseUrl, ecloudProvider, ecloudDataset));
-      //assign parameters to the task
       dpsTask.setParameters(parameters);
 
       OAIPMHHarvestingDetails oaipmhHarvestingDetails = new OAIPMHHarvestingDetails();
-      oaipmhHarvestingDetails.setSchemas(new HashSet<>(Collections.singletonList(metadataFormat)));
-      oaipmhHarvestingDetails.setSets(new HashSet<>(Collections.singletonList(setSpec)));
+      if (StringUtils.isNotEmpty(metadataFormat)) {
+        oaipmhHarvestingDetails
+            .setSchemas(new HashSet<>(Collections.singletonList(metadataFormat)));
+      }
+      if (StringUtils.isNotEmpty(setSpec)) {
+        oaipmhHarvestingDetails.setSets(new HashSet<>(Collections.singletonList(setSpec)));
+      }
+      oaipmhHarvestingDetails.setDateFrom(fromDate);
+      oaipmhHarvestingDetails.setDateUntil(untilDate);
       dpsTask.setHarvestingDetails(oaipmhHarvestingDetails);
 
       Revision revision = new Revision();
@@ -154,14 +182,14 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       revision.setCreationTimeStamp(startedDate);
       dpsTask.setOutputRevision(revision);
 
-      dpsTask.setTaskName(String.format("%s-%s", pluginType.name(), id));
+      externalTaskId = dpsClient.submitTask(dpsTask, "oai_harvest");
+      LOGGER.info("Submitted task with externalId: {}", externalTaskId);
 
-      dpsClient.submitTask(dpsTask, "oai_topology");
     }
   }
 
   @Override
-  public ExecutionRecordsStatistics monitor(String dataseId) {
+  public ExecutionRecordsStatistics monitor(String externalTaskId) {
     // TODO: 16-11-17 Get execution statistics from ecloud using dps id returned from execute
     return null;
   }

@@ -68,6 +68,16 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   }
 
   @Override
+  public long getExternalTaskId() {
+    return 0;
+  }
+
+  @Override
+  public void setExternalTaskId(long externalTaskId) {
+
+  }
+
+  @Override
   public PluginType getPluginType() {
     return pluginType;
   }
@@ -120,7 +130,7 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public ExecutionRecordsStatistics monitor(String datasetId) {
+  public ExecutionRecordsStatistics monitor(String externalTaskId) {
     return null;
   }
 
