@@ -17,7 +17,6 @@
 package eu.europeana.validation.client;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import org.springframework.core.io.FileSystemResource;
@@ -65,10 +64,8 @@ public class ValidationClient {
      */
     public ValidationResult validateRecord(String schemaName, String record) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        Record record1 = new Record();
-        record1.setRecord(record);
-        HttpEntity<Record> entity = new HttpEntity<>(record1, headers);
+        headers.setContentType(MediaType.APPLICATION_XML);
+        HttpEntity<String> entity = new HttpEntity<>(record, headers);
         return template.postForEntity(validationEndpoint + RestEndpoints.resolve(RestEndpoints.SCHEMA_VALIDATE, schemaName),
                 entity, ValidationResult.class).getBody();
     }

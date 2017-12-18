@@ -20,7 +20,7 @@ public class ClientTest {
 
         try {
 
-            ValidationResult result = client.validateRecord("EDM-INTERNAL", FileUtils.readFileToString(clientTest.getFile("Item_35834473.xml")));
+            ValidationResult result = client.validateRecord("EDM-INTERNAL", FileUtils.readFileToString(clientTest.getFile("Item_35834473_test.xml")));
             System.out.println(result.isSuccess());
             System.out.println(result.getRecordId());
             System.out.println(result.getMessage());

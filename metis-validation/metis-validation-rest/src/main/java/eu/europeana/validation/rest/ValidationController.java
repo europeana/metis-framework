@@ -38,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.testcontainers.shaded.javax.ws.rs.Consumes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,6 +49,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static eu.europeana.metis.RestEndpoints.SCHEMA_BATCH_VALIDATE;
+import static org.springframework.http.MediaType.*;
 
 /**
  * REST API Implementation of the Validation Service
@@ -75,15 +77,14 @@ public class ValidationController {
      * @param record       The record to validate
      * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
      */
-    @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE, method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE, method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                     @ApiParam @RequestBody Record record
+                                     @RequestBody String record
     )
             throws ValidationException {
-        ValidationResult result = null;
-        result = validator.singleValidation(targetSchema, record.getRecord());
+        ValidationResult result = validator.singleValidation(targetSchema, record);
         if (result.isSuccess()) {
             return result;
         } else {
