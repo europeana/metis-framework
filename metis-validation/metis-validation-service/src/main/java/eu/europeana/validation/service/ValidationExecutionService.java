@@ -16,8 +16,6 @@
  */
 package eu.europeana.validation.service;
 
-
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 
@@ -72,11 +70,11 @@ public class ValidationExecutionService {
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    public ValidationResultList batchValidation(final String schema, List<Record> documents) throws InterruptedException, ExecutionException {
+    public ValidationResultList batchValidation(final String schema, List<String> documents) throws InterruptedException, ExecutionException {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
-        for (final Record document : documents) {
-            cs.submit(new Validator(schema, document.getRecord(), service, abstractLSResourceResolver));
+        for (final String document : documents) {
+            cs.submit(new Validator(schema, document, service, abstractLSResourceResolver));
         }
 
         List<ValidationResult> results = new ArrayList<>();

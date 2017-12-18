@@ -15,7 +15,6 @@
  *  the Licence.
  */
 
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.service.ValidationExecutionService;
@@ -112,11 +111,9 @@ public class TestValidationExecution {
         file.extractAll(fileName);
 
         File[] files = new File(fileName).listFiles();
-        List<Record> xmls = new ArrayList<>();
+        List<String> xmls = new ArrayList<>();
         for (File input : files) {
-            Record record = new Record();
-            record.setRecord(IOUtils.toString(new FileInputStream(input)));
-            xmls.add(record);
+            xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
         ValidationResultList result = validationExecutionService.batchValidation("EDM-INTERNAL", xmls);
         Assert.assertEquals(true, result.isSuccess());
@@ -134,12 +131,10 @@ public class TestValidationExecution {
         file.extractAll(fileName);
 
         File[] files = new File(fileName).listFiles();
-        List<Record> xmls = new ArrayList<>();
+        List<String> xmls = new ArrayList<>();
         for (File input : files) {
-            Record record = new Record();
             FileInputStream fileInputStream = new FileInputStream(input);
-            record.setRecord(IOUtils.toString(fileInputStream));
-            xmls.add(record);
+            xmls.add(IOUtils.toString(fileInputStream));
             fileInputStream.close();
         }
         ValidationResultList result = validationExecutionService.batchValidation("EDM-INTERNAL", xmls);
@@ -159,11 +154,9 @@ public class TestValidationExecution {
         file.extractAll(fileName);
 
         File[] files = new File(fileName).listFiles();
-        List<Record> xmls = new ArrayList<>();
+        List<String> xmls = new ArrayList<>();
         for (File input : files) {
-            Record record = new Record();
-            record.setRecord(IOUtils.toString(new FileInputStream(input)));
-            xmls.add(record);
+            xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
         ValidationResultList result = validationExecutionService.batchValidation("EDM-EXTERNAL", xmls);
         Assert.assertEquals(false, result.isSuccess());

@@ -1,6 +1,5 @@
 package eu.europeana.validation.client;
 
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import org.apache.commons.io.FileUtils;
 

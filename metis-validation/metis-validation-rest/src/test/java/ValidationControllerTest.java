@@ -1,5 +1,4 @@
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.ValidationController;

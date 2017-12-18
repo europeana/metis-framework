@@ -18,7 +18,6 @@ package eu.europeana.validation.rest;
 
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
@@ -117,12 +116,10 @@ public class ValidationController {
             file.extractAll(fileName);
             FileUtils.deleteQuietly(new File(fileName + ".zip"));
             File[] files = new File(fileName).listFiles();
-            List<Record> xmls = new ArrayList<>();
+            List<String> xmls = new ArrayList<>();
             for (File input : files) {
-                Record record = new Record();
                 FileInputStream stream = new FileInputStream(input);
-                record.setRecord(IOUtils.toString(stream));
-                xmls.add(record);
+                xmls.add(IOUtils.toString(stream));
                 stream.close();
             }
             ValidationResultList list = validator.batchValidation(targetSchema, xmls);
