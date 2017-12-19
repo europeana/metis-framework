@@ -1,5 +1,4 @@
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.ValidationController;
@@ -79,32 +78,32 @@ public class ValidationControllerTest {
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .post(RestEndpoints.SCHEMA_VALIDATE, "sampleSchema")
-                .contentType(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_XML)
                 .content("malformed content"))
-                .andExpect(MockMvcResultMatchers.status().is(400))
+                .andExpect(MockMvcResultMatchers.status().is(422))
                 .andReturn();
-        Assert.assertTrue(result.getResolvedException() instanceof HttpMessageNotReadableException);
+        Assert.assertTrue(result.getResolvedException() instanceof ValidationException);
 
     }
 
     @Test
     public void shouldValidateJSONRecordAgainstEDMInternal() throws Exception {
-        String requestJson = prepareJsonRequest();
+        String xmlContent = prepareXMLRequest();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(RestEndpoints.SCHEMA_VALIDATE, "EDM-INTERNAL")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
+                .contentType(MediaType.APPLICATION_XML)
+                .content(xmlContent))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andReturn();
     }
 
     @Test
     public void exceptionShouldBeThrownForUndefinedSchema() throws Exception {
-        String requestJson = prepareJsonRequest();
+        String xmlContent = prepareXMLRequest();
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .post(RestEndpoints.SCHEMA_VALIDATE, "UNDEFINED_SCHEMA")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson)).andExpect(MockMvcResultMatchers.status().is(422))
+                .contentType(MediaType.APPLICATION_XML)
+                .content(xmlContent)).andExpect(MockMvcResultMatchers.status().is(422))
                 .andReturn();
         Assert.assertEquals(result.getResolvedException().getMessage(), "Specified schema does not exist");
         Assert.assertTrue(result.getResolvedException() instanceof ValidationException);
@@ -162,13 +161,8 @@ public class ValidationControllerTest {
     }
 
 
-    private String prepareJsonRequest() throws IOException {
-        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        Record record = new Record();
-        record.setRecord(fileToValidate);
-        ObjectMapper mapper = new ObjectMapper();
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        return ow.writeValueAsString(record);
+    private String prepareXMLRequest() throws IOException {
+        return IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
     }
 
 
@@ -176,7 +170,6 @@ public class ValidationControllerTest {
     public void exceptionShouldBeThrownForMalformedZipFile() throws Exception {
 
         MockMultipartFile firstFile = new MockMultipartFile("file", "filename.txt", "text/plain", "some xml".getBytes());
-
 
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "sampleSchema")

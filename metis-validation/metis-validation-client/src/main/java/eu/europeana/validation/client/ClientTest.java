@@ -1,6 +1,5 @@
 package eu.europeana.validation.client;
 
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import org.apache.commons.io.FileUtils;
 
@@ -20,7 +19,7 @@ public class ClientTest {
 
         try {
 
-            ValidationResult result = client.validateRecord("EDM-INTERNAL", FileUtils.readFileToString(clientTest.getFile("Item_35834473.xml")));
+            ValidationResult result = client.validateRecord("EDM-INTERNAL", FileUtils.readFileToString(clientTest.getFile("Item_35834473_test.xml")));
             System.out.println(result.isSuccess());
             System.out.println(result.getRecordId());
             System.out.println(result.getMessage());

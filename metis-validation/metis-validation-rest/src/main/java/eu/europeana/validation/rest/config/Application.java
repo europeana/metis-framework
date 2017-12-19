@@ -47,6 +47,7 @@ import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -171,6 +172,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
+    converters.add(new StringHttpMessageConverter());
     super.configureMessageConverters(converters);
   }
 
