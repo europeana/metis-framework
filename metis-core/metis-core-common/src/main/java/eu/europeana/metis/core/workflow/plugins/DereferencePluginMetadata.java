@@ -7,33 +7,31 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class VoidMetisPluginMetadata implements AbstractMetisPluginMetadata {
-
-  private static final PluginType pluginType = PluginType.VOID;
-  private boolean mocked = true;
+public class DereferencePluginMetadata implements AbstractMetisPluginMetadata {
+  private static final PluginType pluginType = PluginType.DEREFERENCE;
   private Map<String, List<String>> parameters;
+  private boolean mocked = true;
 
-  public VoidMetisPluginMetadata() {
+  public DereferencePluginMetadata() {
   }
 
-  public VoidMetisPluginMetadata(
+  public DereferencePluginMetadata(boolean mocked,
       Map<String, List<String>> parameters) {
+    this.mocked = mocked;
     this.parameters = parameters;
+  }
+
+  public boolean isMocked() {
+    return mocked;
+  }
+
+  public void setMocked(boolean mocked) {
+    this.mocked = mocked;
   }
 
   @Override
   public PluginType getPluginType() {
     return pluginType;
-  }
-
-  @Override
-  public boolean isMocked() {
-    return this.mocked;
-  }
-
-  @Override
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
   }
 
   @Override
@@ -45,4 +43,5 @@ public class VoidMetisPluginMetadata implements AbstractMetisPluginMetadata {
   public void setParameters(Map<String, List<String>> parameters) {
     this.parameters = parameters;
   }
+
 }

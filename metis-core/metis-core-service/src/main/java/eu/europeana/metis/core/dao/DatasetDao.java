@@ -67,6 +67,11 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     ops.set("country", dataset.getCountry());
     ops.set("dataProvider", dataset.getDataProvider());
     ops.set("description", dataset.getDescription());
+    if (dataset.getEcloudDatasetId() != null) {
+      ops.set("ecloudDatasetId", dataset.getEcloudDatasetId());
+    } else {
+      ops.unset("ecloudDatasetId");
+    }
     if (dataset.getDqas() != null) {
       ops.set("dqas", dataset.getDqas());
     } else {
@@ -114,7 +119,11 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       ops.unset("submissionDate");
     }
 
-    ops.set("updatedDate", dataset.getUpdatedDate());
+    if (dataset.getUpdatedDate() != null) {
+      ops.set("updatedDate", dataset.getUpdatedDate());
+    } else {
+      ops.unset("updatedDate");
+    }
     ops.set("datasetStatus", dataset.getDatasetStatus());
     ops.set("accepted", dataset.isAccepted());
     ops.set("deaSigned", dataset.isDeaSigned());

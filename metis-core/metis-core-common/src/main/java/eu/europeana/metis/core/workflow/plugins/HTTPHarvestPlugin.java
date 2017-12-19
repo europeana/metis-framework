@@ -11,12 +11,12 @@ import org.mongodb.morphia.annotations.Indexed;
  * @since 2017-05-24
  */
 @Embedded
-public class VoidMetisPlugin implements AbstractMetisPlugin {
+public class HTTPHarvestPlugin implements AbstractMetisPlugin {
 
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType pluginType = PluginType.VOID;
+  private static final PluginType pluginType = PluginType.HTTP_HARVEST;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -32,10 +32,11 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public VoidMetisPlugin() {
+  public HTTPHarvestPlugin() {
   }
 
-  public VoidMetisPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  public HTTPHarvestPlugin(
+      AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
   }
 
@@ -59,6 +60,11 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   }
 
   @Override
+  public PluginType getPluginType() {
+    return pluginType;
+  }
+
+  @Override
   public PluginStatus getPluginStatus() {
     return pluginStatus;
   }
@@ -78,37 +84,26 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
     this.externalTaskId = externalTaskId;
   }
 
-  @Override
-  public PluginType getPluginType() {
-    return pluginType;
-  }
-
-  @Override
   public Date getStartedDate() {
     return startedDate;
   }
 
-  @Override
   public void setStartedDate(Date startedDate) {
     this.startedDate = startedDate;
   }
 
-  @Override
   public Date getFinishedDate() {
     return finishedDate;
   }
 
-  @Override
   public void setFinishedDate(Date finishedDate) {
     this.finishedDate = finishedDate;
   }
 
-  @Override
   public Date getUpdatedDate() {
     return updatedDate;
   }
 
-  @Override
   public void setUpdatedDate(Date updatedDate) {
     this.updatedDate = updatedDate;
   }
@@ -127,12 +122,11 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
-    //This is an empty example
+    // TODO: 24-11-17 Execution of http harvest topology
   }
 
   @Override
   public ExecutionRecordsStatistics monitor(String externalTaskId) {
     return null;
   }
-
 }

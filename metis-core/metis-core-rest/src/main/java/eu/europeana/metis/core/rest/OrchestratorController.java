@@ -3,29 +3,29 @@ package eu.europeana.metis.core.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
@@ -44,233 +44,227 @@ public class OrchestratorController {
     this.orchestratorService = orchestratorService;
   }
 
-  //USER WORKFLOWS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  //WORKFLOWS
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void createUserWorkflow(
-      @RequestBody UserWorkflow userWorkflow)
-      throws UserWorkflowAlreadyExistsException {
-    orchestratorService.createUserWorkflow(userWorkflow);
+  public void createWorkflow(
+      @RequestBody Workflow workflow)
+      throws WorkflowAlreadyExistsException {
+    orchestratorService.createWorkflow(workflow);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.PUT, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.PUT, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void updateUserWorkflow(
-      @RequestBody UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
-    orchestratorService.updateUserWorkflow(userWorkflow);
+  public void updateWorkflow(
+      @RequestBody Workflow workflow) throws NoWorkflowFoundException {
+    orchestratorService.updateWorkflow(workflow);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.DELETE)
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
-    orchestratorService.deleteUserWorkflow(workflowOwner, workflowName);
-    LOGGER.info("UserWorkflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner,
+  public void deleteWorkflow(@RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName) {
+    orchestratorService.deleteWorkflow(workflowOwner, workflowName);
+    LOGGER.info("Workflow with workflowOwner '{}' and workflowName '{}' deleted", workflowOwner,
         workflowName);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public UserWorkflow getUserWorkflow(@QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName) {
-    UserWorkflow userWorkflow = orchestratorService
-        .getUserWorkflow(workflowOwner, workflowName);
+  public Workflow getWorkflow(@RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName) {
+    Workflow workflow = orchestratorService
+        .getWorkflow(workflowOwner, workflowName);
     LOGGER.info(
-        "UserWorkflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner,
+        "Workflow with workflowOwner '{}' and workflowName '{}' found", workflowOwner,
         workflowName);
-    return userWorkflow;
+    return workflow;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_OWNER, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<UserWorkflow> getAllUserWorkflows(
+  public ResponseListWrapper<Workflow> getAllWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
-      @QueryParam("nextPage") String nextPage) {
-    ResponseListWrapper<UserWorkflow> responseListWrapper = new ResponseListWrapper<>();
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
+    ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllUserWorkflows(workflowOwner, nextPage),
-        orchestratorService.getUserWorkflowsPerRequest());
-    LOGGER.info("Batch of: {} userWorkflows returned, using batch nextPage: {}",
+            .getAllWorkflows(workflowOwner, nextPage),
+        orchestratorService.getWorkflowsPerRequest());
+    LOGGER.info("Batch of: {} workflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
 
-  //USER WORKFLOW EXECUTIONS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE, method = RequestMethod.POST, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  //WORKFLOW EXECUTIONS
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE, method = RequestMethod.POST, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void addUserWorkflowInQueueOfUserWorkflowExecutions(
+  public void addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName, @QueryParam("priority") Integer priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoUserWorkflowFoundException {
-    if (priority == null) {
-      priority = 0;
-    }
+      @RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName, @RequestParam(value = "priority", defaultValue = "0") int priority)
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
     orchestratorService
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, workflowOwner,
+        .addWorkflowInQueueOfWorkflowExecutions(datasetName, workflowOwner,
             workflowName, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
+        "WorkflowExecution for datasetName '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
         datasetName, workflowOwner, workflowName);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_DATASETNAME_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void addUserWorkflowInQueueOfUserWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @RequestBody UserWorkflow userWorkflow,
-      @QueryParam("priority") Integer priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
-    if (priority == null) {
-      priority = 0;
-    }
+  public void addWorkflowInQueueOfWorkflowExecutions(
+      @PathVariable("datasetName") String datasetName, @RequestBody Workflow workflow,
+      @RequestParam(value = "priority", defaultValue = "0") int priority)
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     orchestratorService
-        .addUserWorkflowInQueueOfUserWorkflowExecutions(datasetName, userWorkflow, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(datasetName, workflow, priority);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' with workflowOwner '{}' started", datasetName,
-        userWorkflow.getWorkflowOwner());
+        "WorkflowExecution for datasetName '{}' with workflowOwner '{}' started", datasetName,
+        workflow.getWorkflowOwner());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void cancelUserWorkflowExecution(
+  public void cancelWorkflowExecution(
       @PathVariable("datasetName") String datasetName)
-      throws NoUserWorkflowExecutionFoundException {
-    orchestratorService.cancelUserWorkflowExecution(datasetName);
+      throws NoWorkflowExecutionFoundException {
+    orchestratorService.cancelWorkflowExecution(datasetName);
     LOGGER.info(
-        "UserWorkflowExecution for datasetName '{}' is cancelling",
+        "WorkflowExecution for datasetName '{}' is cancelling",
         datasetName);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public UserWorkflowExecution getRunningUserWorkflowExecution(
+  public WorkflowExecution getRunningWorkflowExecution(
       @PathVariable("datasetName") String datasetName) {
-    UserWorkflowExecution userWorkflowExecution = orchestratorService
-        .getRunningUserWorkflowExecution(datasetName);
-    LOGGER.info("UserWorkflowExecution with datasetName '{}' found", datasetName);
-    return userWorkflowExecution;
+    WorkflowExecution workflowExecution = orchestratorService
+        .getRunningWorkflowExecution(datasetName);
+    LOGGER.info("WorkflowExecution with datasetName '{}' found", datasetName);
+    return workflowExecution;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<UserWorkflowExecution> getAllUserWorkflowExecutions(
+  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
       @PathVariable("datasetName") String datasetName,
-      @QueryParam("workflowOwner") String workflowOwner,
-      @QueryParam("workflowName") String workflowName,
-      @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
-      @QueryParam("nextPage") String nextPage) {
-    ResponseListWrapper<UserWorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
+      @RequestParam("workflowOwner") String workflowOwner,
+      @RequestParam("workflowName") String workflowName,
+      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
+    ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
+            .getAllWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
                 nextPage),
-        orchestratorService.getUserWorkflowExecutionsPerRequest());
-    LOGGER.info("Batch of: {} userWorkflowExecutions returned, using batch nextPage: {}",
+        orchestratorService.getWorkflowExecutionsPerRequest());
+    LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_EXECUTIONS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<UserWorkflowExecution> getAllUserWorkflowExecutions(
-      @QueryParam("workflowStatus") WorkflowStatus workflowStatus,
-      @QueryParam("nextPage") String nextPage) {
-    ResponseListWrapper<UserWorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
+  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
+      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
+    ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllUserWorkflowExecutions(workflowStatus, nextPage),
-        orchestratorService.getUserWorkflowExecutionsPerRequest());
-    LOGGER.info("Batch of: {} userWorkflowExecutions returned, using batch nextPage: {}",
+            .getAllWorkflowExecutions(workflowStatus, nextPage),
+        orchestratorService.getWorkflowExecutionsPerRequest());
+    LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
-  //SCHEDULED USER WORKFLOWS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML}, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  //SCHEDULED WORKFLOWS
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.POST, consumes = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void scheduleUserWorkflowExecution(
-      @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
-      throws BadContentException, ScheduledUserWorkflowAlreadyExistsException, NoUserWorkflowFoundException, NoDatasetFoundException {
-    orchestratorService.scheduleUserWorkflow(scheduledUserWorkflow);
+  public void scheduleWorkflowExecution(
+      @RequestBody ScheduledWorkflow scheduledWorkflow)
+      throws BadContentException, ScheduledWorkflowAlreadyExistsException, NoWorkflowFoundException, NoDatasetFoundException {
+    orchestratorService.scheduleWorkflow(scheduledWorkflow);
     LOGGER.info(
-        "ScheduledUserWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
-        scheduledUserWorkflow.getDatasetName(),
-        scheduledUserWorkflow.getWorkflowOwner(), scheduledUserWorkflow.getWorkflowName(),
-        scheduledUserWorkflow.getPointerDate(),
-        scheduledUserWorkflow.getScheduleFrequence().name());
+        "ScheduledWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
+        scheduledWorkflow.getDatasetName(),
+        scheduledWorkflow.getWorkflowOwner(), scheduledWorkflow.getWorkflowName(),
+        scheduledWorkflow.getPointerDate(),
+        scheduledWorkflow.getScheduleFrequence().name());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ScheduledUserWorkflow getScheduledUserWorkflow(
+  public ScheduledWorkflow getScheduledWorkflow(
       @PathVariable("datasetName") String datasetName) {
-    ScheduledUserWorkflow scheduledUserWorkflow = orchestratorService
-        .getScheduledUserWorkflowByDatasetName(datasetName);
-    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' found", datasetName);
-    return scheduledUserWorkflow;
+    ScheduledWorkflow scheduledWorkflow = orchestratorService
+        .getScheduledWorkflowByDatasetName(datasetName);
+    LOGGER.info("ScheduledWorkflow with with datasetName '{}' found", datasetName);
+    return scheduledWorkflow;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
-      @QueryParam("nextPage") String nextPage) {
-    ResponseListWrapper<ScheduledUserWorkflow> responseListWrapper = new ResponseListWrapper<>();
+  public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
+    ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllScheduledUserWorkflows(ScheduleFrequence.NULL, nextPage),
-        orchestratorService.getScheduledUserWorkflowsPerRequest());
-    LOGGER.info("Batch of: {} scheduledUserWorkflows returned, using batch nextPage: {}",
+            .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),
+        orchestratorService.getScheduledWorkflowsPerRequest());
+    LOGGER.info("Batch of: {} scheduledWorkflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE, method = RequestMethod.PUT, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE, method = RequestMethod.PUT, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void updateScheduledUserWorkflow(
-      @RequestBody ScheduledUserWorkflow scheduledUserWorkflow)
-      throws BadContentException, NoScheduledUserWorkflowFoundException, NoUserWorkflowFoundException {
-    orchestratorService.updateScheduledUserWorkflow(scheduledUserWorkflow);
-    LOGGER.info("ScheduledUserWorkflow with with datasetName '{}' updated",
-        scheduledUserWorkflow.getDatasetName());
+  public void updateScheduledWorkflow(
+      @RequestBody ScheduledWorkflow scheduledWorkflow)
+      throws BadContentException, NoScheduledWorkflowFoundException, NoWorkflowFoundException {
+    orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
+    LOGGER.info("ScheduledWorkflow with with datasetName '{}' updated",
+        scheduledWorkflow.getDatasetName());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_USERWORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.DELETE, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.DELETE, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
-  public void deleteScheduledUserWorkflowExecution(
+  public void deleteScheduledWorkflowExecution(
       @PathVariable("datasetName") String datasetName) {
-    orchestratorService.deleteScheduledUserWorkflow(datasetName);
+    orchestratorService.deleteScheduledWorkflow(datasetName);
     LOGGER.info(
-        "ScheduledUserWorkflowExecution for datasetName '{}' deleted",
+        "ScheduledWorkflowExecution for datasetName '{}' deleted",
         datasetName);
   }
 }

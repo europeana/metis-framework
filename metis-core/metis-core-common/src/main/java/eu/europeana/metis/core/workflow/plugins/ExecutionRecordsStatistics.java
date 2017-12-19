@@ -10,6 +10,7 @@ public class ExecutionRecordsStatistics {
   private long recordsCreated;
   private long recordsUpdated;
   private long recordsDeleted;
+  private long progress;
 
   public long getRecordsProcessed() {
     return recordsProcessed;
@@ -49,5 +50,13 @@ public class ExecutionRecordsStatistics {
 
   public void setRecordsDeleted(long recordsDeleted) {
     this.recordsDeleted = recordsDeleted;
+  }
+
+  public long getProgress() {
+    return progress;
+  }
+
+  public void setProgress(long progress) {
+    this.progress = progress;
   }
 }

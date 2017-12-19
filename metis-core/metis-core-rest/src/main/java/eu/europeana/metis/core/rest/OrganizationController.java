@@ -37,13 +37,12 @@ import eu.europeana.metis.core.service.OrganizationService;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.MediaType;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,11 +72,11 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.POST, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   public void createOrganization(
       @RequestBody Organization organization,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, OrganizationAlreadyExistsException, BadContentException, EmptyApiKeyException {
     MetisKey key = ensureValidKey(apikey);
 
@@ -91,7 +90,7 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteOrganization(
       @PathVariable("organizationId") String organizationId,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws IOException, SolrServerException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
     MetisKey key = ensureValidKey(apikey);
     ensureActionAuthorized(apikey, key, Options.WRITE);
@@ -100,11 +99,11 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.PUT, consumes = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateOrganization(@RequestBody Organization organization,
       @PathVariable("organizationId") String organizationId,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, IOException, SolrServerException, NoOrganizationFoundException, BadContentException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -116,12 +115,12 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Organization> getAllOrganizations(
-      @QueryParam("nextPage") String nextPage,
-      @QueryParam("apikey") String apikey)
+      @RequestParam(value = "nextPage", required = false) String nextPage,
+      @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -137,12 +136,12 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Organization getOrganizationByOrganizationId(
       @PathVariable("organizationId") String organizationId,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -156,13 +155,13 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_COUNTRY_ISOCODE, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Organization> getAllOrganizationsByCountryIsoCode(
       @PathVariable("isoCode") String isoCode,
-      @QueryParam("nextPage") String nextPage,
-      @QueryParam("apikey") String apikey)
+      @RequestParam(value = "nextPage", required = false) String nextPage,
+      @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -179,13 +178,13 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ROLES, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Organization> getAllOrganizationsByOrganizationRoles(
       @RequestParam("organizationRoles") List<OrganizationRole> organizationRoles,
-      @QueryParam("nextPage") String nextPage,
-      @QueryParam("apikey") String apikey)
+      @RequestParam(value = "nextPage", required = false) String nextPage,
+      @RequestParam("apikey") String apikey)
       throws BadContentException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -203,12 +202,12 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_SUGGEST, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public OrganizationSearchListWrapper suggestOrganizations(
-      @QueryParam("searchTerm") String searchTerm,
-      @QueryParam("apikey") String apikey)
+      @RequestParam("searchTerm") String searchTerm,
+      @RequestParam("apikey") String apikey)
       throws IOException, SolrServerException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
     MetisKey key = ensureValidKey(apikey);
     ensureReadOrWriteAccess(apikey, key);
@@ -219,12 +218,12 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_DATASETS, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @PathVariable("organizationId") String organizationId,
-      @QueryParam("nextPage") String nextPage, @QueryParam("apikey") String apikey)
+      @RequestParam(value = "nextPage", required = false) String nextPage, @RequestParam("apikey") String apikey)
       throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, NoOrganizationFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
@@ -240,11 +239,11 @@ public class OrganizationController extends ApiKeySecuredControllerBase {
   }
 
   @RequestMapping(value = RestEndpoints.ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF, method = RequestMethod.GET, produces = {
-      MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResultMap<Boolean> isOrganizationIdOptedIn(
-      @PathVariable("organizationId") String organizationId, @QueryParam("apikey") String apikey)
+      @PathVariable("organizationId") String organizationId, @RequestParam("apikey") String apikey)
       throws NoOrganizationFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);

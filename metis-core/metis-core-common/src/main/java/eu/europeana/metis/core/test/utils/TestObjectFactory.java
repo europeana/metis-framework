@@ -4,14 +4,14 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
-import eu.europeana.metis.core.dataset.OaipmhHarvestingMetadata;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.VoidDereferencePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.DereferencePluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,12 +31,12 @@ public class TestObjectFactory {
   private TestObjectFactory() {
   }
 
-  public static UserWorkflow createUserWorkflowObject() {
-    UserWorkflow userWorkflow = new UserWorkflow();
-    userWorkflow.setHarvestPlugin(true);
-    userWorkflow.setTransformPlugin(false);
-    userWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    userWorkflow.setWorkflowName(WORKFLOWNAME);
+  public static Workflow createUserWorkflowObject() {
+    Workflow workflow = new Workflow();
+    workflow.setHarvestPlugin(true);
+    workflow.setTransformPlugin(false);
+    workflow.setWorkflowOwner(WORKFLOWOWNER);
+    workflow.setWorkflowName(WORKFLOWNAME);
 
     ArrayList<String> dereferenceParameters = new ArrayList<>();
     dereferenceParameters.add("dereference_parameter_a");
@@ -44,110 +44,111 @@ public class TestObjectFactory {
     HashMap<String, List<String>> dereferenceParameterGroups = new HashMap<>();
     dereferenceParameterGroups.put("GroupA", dereferenceParameters);
     dereferenceParameterGroups.put("GroupB", dereferenceParameters);
-    VoidDereferencePluginMetadata voidDereferencePluginMetadata = new VoidDereferencePluginMetadata(
+    DereferencePluginMetadata dereferencePluginMetadata = new DereferencePluginMetadata(true,
         dereferenceParameterGroups);
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
-    abstractMetisPluginMetadata.add(voidDereferencePluginMetadata);
-    userWorkflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
+    abstractMetisPluginMetadata.add(dereferencePluginMetadata);
+    workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
-    return userWorkflow;
+    return workflow;
   }
 
-  public static List<UserWorkflow> createListOfUserWorkflowsSameOwner(String workflowOwner,
+  public static List<Workflow> createListOfUserWorkflowsSameOwner(String workflowOwner,
       int size) {
-    List<UserWorkflow> userWorkflows = new ArrayList<>();
+    List<Workflow> workflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      UserWorkflow userWorkflow = createUserWorkflowObject();
-      userWorkflow.setId(new ObjectId());
-      userWorkflow.setWorkflowOwner(workflowOwner);
-      userWorkflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
-      userWorkflows.add(userWorkflow);
+      Workflow workflow = createUserWorkflowObject();
+      workflow.setId(new ObjectId());
+      workflow.setWorkflowOwner(workflowOwner);
+      workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      workflows.add(workflow);
     }
-    return userWorkflows;
+    return workflows;
   }
 
-  public static UserWorkflowExecution createUserWorkflowExecutionObject() {
-    UserWorkflow userWorkflow = createUserWorkflowObject();
+  public static WorkflowExecution createUserWorkflowExecutionObject() {
+    Workflow workflow = createUserWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset,
-        userWorkflow, 0);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    userWorkflowExecution.setCreatedDate(new Date());
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
+        workflow, 0);
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setCreatedDate(new Date());
 
-    return userWorkflowExecution;
+    return workflowExecution;
   }
 
-  public static UserWorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
-      UserWorkflow userWorkflow) {
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset,
-        userWorkflow, 0);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    userWorkflowExecution.setCreatedDate(new Date());
+  public static WorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
+      Workflow workflow) {
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
+        workflow, 0);
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    workflowExecution.setCreatedDate(new Date());
 
-    return userWorkflowExecution;
+    return workflowExecution;
   }
 
-  public static List<UserWorkflowExecution> createListOfUserWorkflowExecutions(int size) {
-    List<UserWorkflowExecution> userWorkflowExecutions = new ArrayList<>();
+  public static List<WorkflowExecution> createListOfUserWorkflowExecutions(int size) {
+    List<WorkflowExecution> workflowExecutions = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      UserWorkflow userWorkflow = createUserWorkflowObject();
-      userWorkflow.setId(new ObjectId());
-      userWorkflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
+      Workflow workflow = createUserWorkflowObject();
+      workflow.setId(new ObjectId());
+      workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
-      UserWorkflowExecution userWorkflowExecution = createUserWorkflowExecutionObject(dataset,
-          userWorkflow);
-      userWorkflowExecution.setId(new ObjectId());
-      userWorkflowExecutions.add(userWorkflowExecution);
+      WorkflowExecution workflowExecution = createUserWorkflowExecutionObject(dataset,
+          workflow);
+      workflowExecution.setId(new ObjectId());
+      workflowExecutions.add(workflowExecution);
     }
-    return userWorkflowExecutions;
+    return workflowExecutions;
   }
 
   public static void updateListOfUserWorkflowExecutionsWithWorkflowStatus(
-      List<UserWorkflowExecution> userWorkflowExecutions, WorkflowStatus workflowStatus) {
-    for (UserWorkflowExecution userWorkflowExecution : userWorkflowExecutions) {
-      userWorkflowExecution.setWorkflowStatus(workflowStatus);
+      List<WorkflowExecution> workflowExecutions, WorkflowStatus workflowStatus) {
+    for (WorkflowExecution workflowExecution : workflowExecutions) {
+      workflowExecution.setWorkflowStatus(workflowStatus);
     }
   }
 
-  public static ScheduledUserWorkflow createScheduledUserWorkflowObject() {
-    ScheduledUserWorkflow scheduledUserWorkflow = new ScheduledUserWorkflow();
-    scheduledUserWorkflow.setDatasetName(DATASETNAME);
-    scheduledUserWorkflow.setWorkflowOwner(WORKFLOWOWNER);
-    scheduledUserWorkflow.setWorkflowName(WORKFLOWNAME);
-    scheduledUserWorkflow.setPointerDate(new Date());
-    scheduledUserWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
-    scheduledUserWorkflow.setWorkflowPriority(0);
-    return scheduledUserWorkflow;
+  public static ScheduledWorkflow createScheduledUserWorkflowObject() {
+    ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
+    scheduledWorkflow.setDatasetName(DATASETNAME);
+    scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
+    scheduledWorkflow.setWorkflowName(WORKFLOWNAME);
+    scheduledWorkflow.setPointerDate(new Date());
+    scheduledWorkflow.setScheduleFrequence(ScheduleFrequence.ONCE);
+    scheduledWorkflow.setWorkflowPriority(0);
+    return scheduledWorkflow;
   }
 
-  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflows(int size) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflows(int size) {
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
-      scheduledUserWorkflow.setId(new ObjectId());
-      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
-      scheduledUserWorkflows.add(scheduledUserWorkflow);
+      ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
+      scheduledWorkflow.setId(new ObjectId());
+      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflows.add(scheduledWorkflow);
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  public static List<ScheduledUserWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
+  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      ScheduledUserWorkflow scheduledUserWorkflow = createScheduledUserWorkflowObject();
-      scheduledUserWorkflow.setId(new ObjectId());
-      scheduledUserWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
-      scheduledUserWorkflow.setPointerDate(date);
-      scheduledUserWorkflow.setScheduleFrequence(scheduleFrequence);
-      scheduledUserWorkflows.add(scheduledUserWorkflow);
+      ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
+      scheduledWorkflow.setId(new ObjectId());
+      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflow.setPointerDate(date);
+      scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
+      scheduledWorkflows.add(scheduledWorkflow);
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
+    ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
     ds.setAccepted(true);
     ds.setCountry(Country.ALBANIA);
     ds.setCreatedDate(new Date(1000));
@@ -161,7 +162,7 @@ public class TestObjectFactory {
     ds.setHarvestedAt(new Date(1000));
     ds.setLanguage(Language.AR);
     ds.setLastPublished(new Date(1000));
-    ds.setHarvestingMetadata(new OaipmhHarvestingMetadata());
+    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     ds.setDatasetName(datasetName);
     ds.setNotes("test Notes");
     ds.setPublishedRecords(100);

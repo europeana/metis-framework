@@ -23,13 +23,13 @@ public class PluginDeserializer extends JsonDeserializer<AbstractMetisPlugin> {
     PluginType pluginType = PluginType.getPluginTypeFromEnumName(pluginName);
     switch (pluginType) {
       case HTTP_HARVEST:
-        abstractMetisPlugin = mapper.readValue(node.toString(), VoidHTTPHarvestPlugin.class);
+        abstractMetisPlugin = mapper.readValue(node.toString(), HTTPHarvestPlugin.class);
         break;
       case OAIPMH_HARVEST:
-        abstractMetisPlugin = mapper.readValue(node.toString(), VoidOaipmhHarvestPlugin.class);
+        abstractMetisPlugin = mapper.readValue(node.toString(), OaipmhHarvestPlugin.class);
         break;
       case DEREFERENCE:
-        abstractMetisPlugin = mapper.readValue(node.toString(), VoidDereferencePlugin.class);
+        abstractMetisPlugin = mapper.readValue(node.toString(), DereferencePlugin.class);
         break;
       case VOID:
         abstractMetisPlugin = mapper.readValue(node.toString(), VoidMetisPlugin.class);

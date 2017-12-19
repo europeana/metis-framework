@@ -8,15 +8,14 @@ import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-24
+ * @since 2017-05-26
  */
 @Embedded
-public class VoidMetisPlugin implements AbstractMetisPlugin {
-
+public class DereferencePlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType pluginType = PluginType.VOID;
+  private static final PluginType pluginType = PluginType.DEREFERENCE;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -32,10 +31,11 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public VoidMetisPlugin() {
+  public DereferencePlugin() {
   }
 
-  public VoidMetisPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  public DereferencePlugin(AbstractMetisPluginMetadata pluginMetadata)
+  {
     this.pluginMetadata = pluginMetadata;
   }
 
@@ -127,7 +127,7 @@ public class VoidMetisPlugin implements AbstractMetisPlugin {
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
-    //This is an empty example
+    // TODO: 24-11-17 Execution of dereference topology
   }
 
   @Override

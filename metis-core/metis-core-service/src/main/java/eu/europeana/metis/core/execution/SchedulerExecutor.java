@@ -1,12 +1,12 @@
 package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -56,18 +56,18 @@ public class SchedulerExecutor implements Runnable {
         dateAfterSleep = LocalDateTime.now();
         LOGGER.info("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}",
             dateBeforeSleep, dateAfterSleep);
-        List<ScheduledUserWorkflow> allCleanedScheduledUserWorkflows = getCleanedScheduledUserWorkflows(
+        List<ScheduledWorkflow> allCleanedScheduledWorkflows = getCleanedScheduledUserWorkflows(
             dateBeforeSleep, dateAfterSleep);
 
-        for (ScheduledUserWorkflow scheduledUserWorkflow :
-            allCleanedScheduledUserWorkflows) {
+        for (ScheduledWorkflow scheduledWorkflow :
+            allCleanedScheduledWorkflows) {
           LOGGER.info(
-              "Adding ScheduledUserWorkflow with DatasetName: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
-              scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowOwner(),
-              scheduledUserWorkflow.getWorkflowName(), scheduledUserWorkflow.getPointerDate(),
-              scheduledUserWorkflow.getScheduleFrequence());
+              "Adding ScheduledWorkflow with DatasetName: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
+              scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowOwner(),
+              scheduledWorkflow.getWorkflowName(), scheduledWorkflow.getPointerDate(),
+              scheduledWorkflow.getScheduleFrequence());
 
-          tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledUserWorkflow);
+          tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
         }
         dateBeforeSleep = dateAfterSleep;
       } catch (InterruptedException | RuntimeException e) {
@@ -84,47 +84,47 @@ public class SchedulerExecutor implements Runnable {
     } while (infiniteLoop);
   }
 
-  private List<ScheduledUserWorkflow> getCleanedScheduledUserWorkflows(LocalDateTime lowerBound,
+  private List<ScheduledWorkflow> getCleanedScheduledUserWorkflows(LocalDateTime lowerBound,
       LocalDateTime upperBound) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
-    scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceOnce(lowerBound, upperBound));
-    scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceDaily(lowerBound, upperBound));
-    scheduledUserWorkflows.addAll(getScheduledUserWorkflowsFrequenceWeekly(lowerBound, upperBound));
-    scheduledUserWorkflows
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
+    scheduledWorkflows.addAll(getScheduledUserWorkflowsFrequenceOnce(lowerBound, upperBound));
+    scheduledWorkflows.addAll(getScheduledUserWorkflowsFrequenceDaily(lowerBound, upperBound));
+    scheduledWorkflows.addAll(getScheduledUserWorkflowsFrequenceWeekly(lowerBound, upperBound));
+    scheduledWorkflows
         .addAll(getScheduledUserWorkflowsFrequenceMonthly(lowerBound, upperBound));
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  private List<ScheduledUserWorkflow> getScheduledUserWorkflowsFrequenceOnce(
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceOnce(
       LocalDateTime lowerBound,
       LocalDateTime upperBound) {
     String nextPage = null;
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
-    ResponseListWrapper<ScheduledUserWorkflow> scheduledUserWorkflowResponseListWrapper;
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
+    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
     do {
       scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
-                  .getAllScheduledUserWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
-              orchestratorService.getScheduledUserWorkflowsPerRequest());
-      scheduledUserWorkflows
+                  .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
+              orchestratorService.getScheduledWorkflowsPerRequest());
+      scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
     } while (!StringUtils.isEmpty(nextPage));
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  private List<ScheduledUserWorkflow> getScheduledUserWorkflowsFrequenceDaily(
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceDaily(
       LocalDateTime lowerBound,
       LocalDateTime upperBound) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = getScheduledUserWorkflows(
+    List<ScheduledWorkflow> scheduledWorkflows = getScheduledUserWorkflows(
         ScheduleFrequence.DAILY);
-    for (Iterator<ScheduledUserWorkflow> iterator = scheduledUserWorkflows.iterator();
+    for (Iterator<ScheduledWorkflow> iterator = scheduledWorkflows.iterator();
         iterator.hasNext(); ) {
-      ScheduledUserWorkflow scheduledUserWorkflow = iterator.next();
+      ScheduledWorkflow scheduledWorkflow = iterator.next();
 
       LocalDateTime pointerDate = LocalDateTime
-          .ofInstant(scheduledUserWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
+          .ofInstant(scheduledWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
       LocalDateTime localDateToCheck = lowerBound.withYear(lowerBound.getYear())
           .withMonth(lowerBound.getMonthValue()).withHour(pointerDate.getHour())
           .withMinute(pointerDate.getMinute()).withSecond(pointerDate.getSecond())
@@ -135,19 +135,19 @@ public class SchedulerExecutor implements Runnable {
         iterator.remove();
       }
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  private List<ScheduledUserWorkflow> getScheduledUserWorkflowsFrequenceWeekly(
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceWeekly(
       LocalDateTime lowerBound,
       LocalDateTime upperBound) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = getScheduledUserWorkflows(
+    List<ScheduledWorkflow> scheduledWorkflows = getScheduledUserWorkflows(
         ScheduleFrequence.WEEKLY);
-    for (Iterator<ScheduledUserWorkflow> iterator = scheduledUserWorkflows.iterator();
+    for (Iterator<ScheduledWorkflow> iterator = scheduledWorkflows.iterator();
         iterator.hasNext(); ) {
-      ScheduledUserWorkflow scheduledUserWorkflow = iterator.next();
+      ScheduledWorkflow scheduledWorkflow = iterator.next();
       LocalDateTime pointerDate = LocalDateTime
-          .ofInstant(scheduledUserWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
+          .ofInstant(scheduledWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
       LocalDateTime localDateToCheck = lowerBound.withYear(lowerBound.getYear())
           .withMonth(lowerBound.getMonthValue()).withDayOfMonth(pointerDate.getDayOfMonth())
           .withHour(pointerDate.getHour())
@@ -163,20 +163,20 @@ public class SchedulerExecutor implements Runnable {
         iterator.remove();
       }
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  private List<ScheduledUserWorkflow> getScheduledUserWorkflowsFrequenceMonthly(
+  private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceMonthly(
       LocalDateTime lowerBound,
       LocalDateTime upperBound) {
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = getScheduledUserWorkflows(
+    List<ScheduledWorkflow> scheduledWorkflows = getScheduledUserWorkflows(
         ScheduleFrequence.MONTHLY);
-    for (Iterator<ScheduledUserWorkflow> iterator = scheduledUserWorkflows.iterator();
+    for (Iterator<ScheduledWorkflow> iterator = scheduledWorkflows.iterator();
         iterator.hasNext(); ) {
-      ScheduledUserWorkflow scheduledUserWorkflow = iterator.next();
+      ScheduledWorkflow scheduledWorkflow = iterator.next();
 
       LocalDateTime pointerDate = LocalDateTime
-          .ofInstant(scheduledUserWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
+          .ofInstant(scheduledWorkflow.getPointerDate().toInstant(), ZoneId.systemDefault());
       LocalDateTime localDateToCheck = lowerBound.withYear(lowerBound.getYear())
           .withMonth(pointerDate.getMonthValue()).withDayOfMonth(pointerDate.getDayOfMonth())
           .withHour(pointerDate.getHour())
@@ -192,35 +192,35 @@ public class SchedulerExecutor implements Runnable {
         iterator.remove();
       }
     }
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
-  private List<ScheduledUserWorkflow> getScheduledUserWorkflows(
+  private List<ScheduledWorkflow> getScheduledUserWorkflows(
       ScheduleFrequence scheduleFrequence) {
     String nextPage = null;
-    List<ScheduledUserWorkflow> scheduledUserWorkflows = new ArrayList<>();
-    ResponseListWrapper<ScheduledUserWorkflow> scheduledUserWorkflowResponseListWrapper;
+    List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
+    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
     do {
       scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
-                  .getAllScheduledUserWorkflows(scheduleFrequence, nextPage),
-              orchestratorService.getScheduledUserWorkflowsPerRequest());
-      scheduledUserWorkflows
+                  .getAllScheduledWorkflows(scheduleFrequence, nextPage),
+              orchestratorService.getScheduledWorkflowsPerRequest());
+      scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
     } while (!StringUtils.isEmpty(nextPage));
-    return scheduledUserWorkflows;
+    return scheduledWorkflows;
   }
 
   private void tryAddUserWorkflowInQueueOfUserWorkflowExecutions(
-      ScheduledUserWorkflow scheduledUserWorkflow) {
+      ScheduledWorkflow scheduledWorkflow) {
     try {
-      orchestratorService.addUserWorkflowInQueueOfUserWorkflowExecutions(
-          scheduledUserWorkflow.getDatasetName(), scheduledUserWorkflow.getWorkflowOwner(),
-          scheduledUserWorkflow.getWorkflowName(),
-          scheduledUserWorkflow.getWorkflowPriority());
-    } catch (NoDatasetFoundException | NoUserWorkflowFoundException | UserWorkflowExecutionAlreadyExistsException e) {
+      orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
+          scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowOwner(),
+          scheduledWorkflow.getWorkflowName(),
+          scheduledWorkflow.getWorkflowPriority());
+    } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
     }
   }

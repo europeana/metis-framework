@@ -16,7 +16,7 @@ import com.jayway.awaitility.Duration;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
 import org.junit.After;
@@ -62,18 +62,18 @@ public class TestFailsafeExecutor {
 
     int userWorkflowExecutionsPerRequest = 5;
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
-    List<UserWorkflowExecution> listOfUserWorkflowExecutionsWithRunningStatus = TestObjectFactory
+    List<WorkflowExecution> listOfWorkflowExecutionsWithRunningStatuses = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize);
     TestObjectFactory.updateListOfUserWorkflowExecutionsWithWorkflowStatus(
-        listOfUserWorkflowExecutionsWithRunningStatus, WorkflowStatus.RUNNING);
-    List<UserWorkflowExecution> listOfUserWorkflowExecutionsWithInqueueStatus = TestObjectFactory
+        listOfWorkflowExecutionsWithRunningStatuses, WorkflowStatus.RUNNING);
+    List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
         .createListOfUserWorkflowExecutions(listSize); //To not trigger paging
 
-    when(orchestratorService.getAllUserWorkflowExecutions(WorkflowStatus.RUNNING, null))
-        .thenReturn(listOfUserWorkflowExecutionsWithRunningStatus);
-    when(orchestratorService.getAllUserWorkflowExecutions(WorkflowStatus.INQUEUE, null))
-        .thenReturn(listOfUserWorkflowExecutionsWithInqueueStatus);
-    when(orchestratorService.getUserWorkflowExecutionsPerRequest())
+    when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, null))
+        .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
+    when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.INQUEUE, null))
+        .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
+    when(orchestratorService.getWorkflowExecutionsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);
     doNothing().when(rlock).unlock();
 
@@ -81,9 +81,9 @@ public class TestFailsafeExecutor {
 
     InOrder inOrder = Mockito.inOrder(orchestratorService);
     inOrder.verify(orchestratorService, times(1))
-        .removeActiveUserWorkflowExecutionsFromList(any(List.class));
+        .removeActiveWorkflowExecutionsFromList(any(List.class));
     inOrder.verify(orchestratorService, times(listSize * 2))
-        .addUserWorkflowExecutionToQueue(anyString(), anyInt());
+        .addWorkflowExecutionToQueue(anyString(), anyInt());
     inOrder.verifyNoMoreInteractions();
   }
 

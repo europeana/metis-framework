@@ -2,7 +2,7 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import eu.europeana.metis.core.workflow.CloudStatistics;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
 import java.util.Date;
 
 /**
@@ -16,14 +16,12 @@ import java.util.Date;
     include=JsonTypeInfo.As.PROPERTY,
     property="pluginType")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value=VoidOaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
-    @JsonSubTypes.Type(value=VoidHTTPHarvestPlugin.class, name="HTTP_HARVEST"),
-    @JsonSubTypes.Type(value=VoidDereferencePlugin.class, name="DEREFERENCE"),
+    @JsonSubTypes.Type(value=OaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
+    @JsonSubTypes.Type(value=HTTPHarvestPlugin.class, name="HTTP_HARVEST"),
+    @JsonSubTypes.Type(value=DereferencePlugin.class, name="DEREFERENCE"),
     @JsonSubTypes.Type(value=VoidMetisPlugin.class, name="VOID")
 })
 public interface AbstractMetisPlugin {
-
-  PluginStatus getPluginStatus();
 
   PluginType getPluginType();
 
@@ -42,19 +40,21 @@ public interface AbstractMetisPlugin {
 
   void setUpdatedDate(Date updatedDate);
 
+  PluginStatus getPluginStatus();
+
   void setPluginStatus(PluginStatus pluginStatus);
+
+  long getExternalTaskId();
+
+  void setExternalTaskId(long externalTaskId);
 
   ExecutionRecordsStatistics getExecutionRecordsStatistics();
 
   void setExecutionRecordsStatistics(
       ExecutionRecordsStatistics executionRecordsStatistics);
 
-  /**
-   * The business logic that the UserWorkflow implements. This is where the connection to the
-   * Europeana Cloud DPS REST API is implemented.
-   */
-  void execute();
+  void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset);
 
-  CloudStatistics monitor(String dataseId);
+  ExecutionRecordsStatistics monitor(String externalTaskId);
 
 }

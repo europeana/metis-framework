@@ -24,6 +24,7 @@ import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.organization.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import java.util.Date;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -95,7 +96,7 @@ public class Dataset implements HasMongoObjectId {
   @JacksonXmlProperty(localName = "dqa")
   private List<String> dqas;
 
-  private HarvestingMetadata harvestingMetadata;
+  private AbstractMetisPluginMetadata harvestingMetadata;
 
   private DatasetStatus datasetStatus;
 
@@ -273,11 +274,12 @@ public class Dataset implements HasMongoObjectId {
     this.dqas = dqas;
   }
 
-  public HarvestingMetadata getHarvestingMetadata() {
+  public AbstractMetisPluginMetadata getHarvestingMetadata() {
     return harvestingMetadata;
   }
 
-  public void setHarvestingMetadata(HarvestingMetadata harvestingMetadata) {
+  public void setHarvestingMetadata(
+      AbstractMetisPluginMetadata harvestingMetadata) {
     this.harvestingMetadata = harvestingMetadata;
   }
 

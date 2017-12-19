@@ -18,8 +18,8 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.OrganizationDao;
-import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -44,34 +44,22 @@ public class DatasetService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
   private final DatasetDao datasetDao;
-  //  private final EcloudDatasetDao ecloudDatasetDao;
   private final OrganizationDao organizationDao;
-  private final UserWorkflowExecutionDao userWorkflowExecutionDao;
-  private final ScheduledUserWorkflowDao scheduledUserWorkflowDao;
+  private final WorkflowExecutionDao workflowExecutionDao;
+  private final ScheduledWorkflowDao scheduledWorkflowDao;
 
   @Autowired
   public DatasetService(DatasetDao datasetDao,
       OrganizationDao organizationDao,
-      UserWorkflowExecutionDao userWorkflowExecutionDao,
-      ScheduledUserWorkflowDao scheduledUserWorkflowDao) {
+      WorkflowExecutionDao workflowExecutionDao,
+      ScheduledWorkflowDao scheduledWorkflowDao) {
     this.datasetDao = datasetDao;
-    this.userWorkflowExecutionDao = userWorkflowExecutionDao;
-    this.scheduledUserWorkflowDao = scheduledUserWorkflowDao;
+    this.workflowExecutionDao = workflowExecutionDao;
+    this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.organizationDao = organizationDao;
   }
 
   public void createDataset(Dataset dataset, String organizationId) {
-
-//    final String uuid = UUID.randomUUID().toString();
-//    dataset.setEcloudDatasetId(uuid);
-
-    //Create in ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(uuid);
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(dataset.getDescription());
-//    ecloudDatasetDao.create(ecloudDataset);
-
     datasetDao.create(dataset);
     organizationDao
         .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
@@ -88,19 +76,12 @@ public class DatasetService {
   }
 
   public void updateDataset(Dataset dataset) {
-    //Update in ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(dataset.getEcloudDatasetId());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDataset.setDescription(dataset.getDescription());
-//    ecloudDatasetDao.update(ecloudDataset);
-
     datasetDao.update(dataset);
   }
 
   public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
       throws BadContentException, NoDatasetFoundException {
-    if (userWorkflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+    if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
       throw new BadContentException(
           String.format("User workflow execution is active for datasteName %s", datasetName));
     }
@@ -112,7 +93,7 @@ public class DatasetService {
 
   public void updateDatasetName(String datasetName, String newDatasetName)
       throws NoDatasetFoundException, BadContentException {
-    if (userWorkflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+    if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
       throw new BadContentException(
           String.format("User workflow execution is active for datasteName %s", datasetName));
     }
@@ -120,14 +101,14 @@ public class DatasetService {
     datasetDao.updateDatasetName(datasetName, newDatasetName);
     organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
     organizationDao.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
-    scheduledUserWorkflowDao.updateAllDatasetNames(datasetName, newDatasetName);
-    userWorkflowExecutionDao.updateAllDatasetNames(datasetName, newDatasetName);
+    scheduledWorkflowDao.updateAllDatasetNames(datasetName, newDatasetName);
+    workflowExecutionDao.updateAllDatasetNames(datasetName, newDatasetName);
   }
 
   public void deleteDatasetByDatasetName(String datasetName)
       throws NoDatasetFoundException, BadContentException {
     Dataset dataset = getDatasetByDatasetName(datasetName);
-    if (userWorkflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+    if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
       throw new BadContentException(
           String.format("User workflow execution is active for datasteName %s", datasetName));
     }
@@ -143,14 +124,8 @@ public class DatasetService {
         dataset.getDatasetName());
 
     //Clean up dataset leftovers
-    userWorkflowExecutionDao.deleteAllByDatasetName(datasetName);
-    scheduledUserWorkflowDao.deleteAllByDatasetName(datasetName);
-
-    //Delete from ECloud
-//    DataSet ecloudDataset = new DataSet();
-//    ecloudDataset.setId(dataset.getEcloudDatasetId());
-//    ecloudDataset.setProviderId(ecloudDatasetDao.getEcloudProvider());
-//    ecloudDatasetDao.delete(ecloudDataset);
+    workflowExecutionDao.deleteAllByDatasetName(datasetName);
+    scheduledWorkflowDao.deleteAllByDatasetName(datasetName);
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {

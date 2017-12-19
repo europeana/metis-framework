@@ -29,7 +29,6 @@ import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.common.Scope;
 import eu.europeana.metis.core.common.Sector;
-import eu.europeana.metis.core.dataset.HarvestingMetadata;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import java.util.Date;
 import java.util.List;
@@ -55,11 +54,6 @@ public class Organization implements HasMongoObjectId {
      * The organization URI from the CRM
      */
     private String organizationUri;
-    /**
-     * The harvesting metadata that are applicable for all the datasets of the organization
-     * Override that to specify dataset specific ones
-     */
-    private HarvestingMetadata harvestingMetadata;
 
     private String name;
 
@@ -143,15 +137,6 @@ public class Organization implements HasMongoObjectId {
 
     public void setOrganizationUri(String organizationUri) {
         this.organizationUri = organizationUri;
-    }
-
-    @XmlElement
-    public HarvestingMetadata getHarvestingMetadata() {
-        return harvestingMetadata;
-    }
-
-    public void setHarvestingMetadata(HarvestingMetadata harvestingMetadata) {
-        this.harvestingMetadata = harvestingMetadata;
     }
 
     public Set<String> getDatasetNames() {

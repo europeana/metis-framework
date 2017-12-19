@@ -1,28 +1,32 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
+import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.ScheduledUserWorkflowDao;
-import eu.europeana.metis.core.dao.UserWorkflowDao;
-import eu.europeana.metis.core.dao.UserWorkflowExecutionDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowExecutionFoundException;
-import eu.europeana.metis.core.exceptions.NoUserWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.ScheduledUserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.UserWorkflowExecutionAlreadyExistsException;
-import eu.europeana.metis.core.execution.UserWorkflowExecutorManager;
+import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
+import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
+import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledUserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflow;
-import eu.europeana.metis.core.workflow.UserWorkflowExecution;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
+import eu.europeana.metis.core.workflow.Workflow;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 import org.apache.commons.lang.StringUtils;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -39,207 +43,213 @@ public class OrchestratorService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorService.class);
 
-  private final UserWorkflowExecutionDao userWorkflowExecutionDao;
-  private final UserWorkflowDao userWorkflowDao;
-  private final ScheduledUserWorkflowDao scheduledUserWorkflowDao;
+  private final WorkflowExecutionDao workflowExecutionDao;
+  private final WorkflowDao workflowDao;
+  private final ScheduledWorkflowDao scheduledWorkflowDao;
   private final DatasetDao datasetDao;
-  private final UserWorkflowExecutorManager userWorkflowExecutorManager;
+  private final WorkflowExecutorManager workflowExecutorManager;
+  private final DataSetServiceClient ecloudDataSetServiceClient;
+  private String ecloudProvider; //Initialize with setter
 
   @Autowired
-  public OrchestratorService(UserWorkflowDao userWorkflowDao,
-      UserWorkflowExecutionDao userWorkflowExecutionDao,
-      ScheduledUserWorkflowDao scheduledUserWorkflowDao,
+  public OrchestratorService(WorkflowDao workflowDao,
+      WorkflowExecutionDao workflowExecutionDao,
+      ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
-      UserWorkflowExecutorManager userWorkflowExecutorManager) throws IOException {
-    this.userWorkflowDao = userWorkflowDao;
-    this.userWorkflowExecutionDao = userWorkflowExecutionDao;
-    this.scheduledUserWorkflowDao = scheduledUserWorkflowDao;
+      WorkflowExecutorManager workflowExecutorManager,
+      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+    this.workflowDao = workflowDao;
+    this.workflowExecutionDao = workflowExecutionDao;
+    this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
-    this.userWorkflowExecutorManager = userWorkflowExecutorManager;
+    this.workflowExecutorManager = workflowExecutorManager;
+    this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
 
-    this.userWorkflowExecutorManager.initiateConsumer();
+    this.workflowExecutorManager.initiateConsumer();
   }
 
-  public void createUserWorkflow(UserWorkflow userWorkflow)
-      throws UserWorkflowAlreadyExistsException {
-    checkRestrictionsOnUserWorkflowCreate(userWorkflow);
-    userWorkflowDao.create(userWorkflow);
+  public void createWorkflow(Workflow workflow)
+      throws WorkflowAlreadyExistsException {
+    checkRestrictionsOnWorkflowCreate(workflow);
+    workflowDao.create(workflow);
   }
 
-  public void updateUserWorkflow(UserWorkflow userWorkflow) throws NoUserWorkflowFoundException {
-    String storedId = checkRestrictionsOnUserWorkflowUpdate(userWorkflow);
-    userWorkflow.setId(new ObjectId(storedId));
-    userWorkflowDao.update(userWorkflow);
+  public void updateWorkflow(Workflow workflow) throws NoWorkflowFoundException {
+    String storedId = checkRestrictionsOnWorkflowUpdate(workflow);
+    workflow.setId(new ObjectId(storedId));
+    workflowDao.update(workflow);
   }
 
-  public void deleteUserWorkflow(String workflowOwner, String workflowName) {
-    userWorkflowDao.deleteUserWorkflow(workflowOwner, workflowName);
+  public void deleteWorkflow(String workflowOwner, String workflowName) {
+    workflowDao.deleteWorkflow(workflowOwner, workflowName);
   }
 
-  public UserWorkflow getUserWorkflow(String workflowOwner, String workflowName) {
-    return userWorkflowDao.getUserWorkflow(workflowOwner, workflowName);
+  public Workflow getWorkflow(String workflowOwner, String workflowName) {
+    return workflowDao.getWorkflow(workflowOwner, workflowName);
   }
 
-  public List<UserWorkflow> getAllUserWorkflows(String workflowOwner, String nextPage) {
-    return userWorkflowDao.getAllUserWorkflows(workflowOwner, nextPage);
+  public List<Workflow> getAllWorkflows(String workflowOwner, String nextPage) {
+    return workflowDao.getAllWorkflows(workflowOwner, nextPage);
   }
 
-  public UserWorkflowExecution getRunningUserWorkflowExecution(String datasetName) {
-    return userWorkflowExecutionDao
-        .getRunningUserWorkflowExecution(datasetName);
+  public WorkflowExecution getRunningWorkflowExecution(String datasetName) {
+    return workflowExecutionDao
+        .getRunningWorkflowExecution(datasetName);
   }
 
-  public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
+  public void addWorkflowInQueueOfWorkflowExecutions(String datasetName,
       String workflowOwner, String workflowName, int priority)
-      throws NoDatasetFoundException, NoUserWorkflowFoundException, UserWorkflowExecutionAlreadyExistsException {
+      throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException {
 
     Dataset dataset = checkDatasetExistence(datasetName);
-    UserWorkflow userWorkflow = checkUserWorkflowExistence(workflowOwner, workflowName);
+    Workflow workflow = checkWorkflowExistence(workflowOwner, workflowName);
+    checkAndCreateDatasetInEcloud(dataset);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow,
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         priority);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    String storedUserWorkflowExecutionId = userWorkflowExecutionDao
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    String storedWorkflowExecutionId = workflowExecutionDao
         .existsAndNotCompleted(datasetName);
-    if (storedUserWorkflowExecutionId != null) {
-      throw new UserWorkflowExecutionAlreadyExistsException(
-          String.format("User workflow execution already exists with id %s and is not completed",
-              storedUserWorkflowExecutionId));
+    if (storedWorkflowExecutionId != null) {
+      throw new WorkflowExecutionAlreadyExistsException(
+          String.format("Workflow execution already exists with id %s and is not completed",
+              storedWorkflowExecutionId));
     }
-    userWorkflowExecution.setCreatedDate(new Date());
-    String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
-    LOGGER.info("UserWorkflowExecution with id: {}, added to execution queue", objectId);
+    workflowExecution.setCreatedDate(new Date());
+    String objectId = workflowExecutionDao.create(workflowExecution);
+    workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
+    LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
   }
 
-  //Used for direct, on the fly provided, execution of a UserWorkflow
-  public void addUserWorkflowInQueueOfUserWorkflowExecutions(String datasetName,
-      UserWorkflow userWorkflow, int priority)
-      throws UserWorkflowExecutionAlreadyExistsException, NoDatasetFoundException, UserWorkflowAlreadyExistsException {
+  //Used for direct, on the fly provided, execution of a Workflow
+  public void addWorkflowInQueueOfWorkflowExecutions(String datasetName,
+      Workflow workflow, int priority)
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     Dataset dataset = checkDatasetExistence(datasetName);
-    //Generate uuid workflowName for user and check if by any chance it exists.
-    userWorkflow.setWorkflowName(new ObjectId().toString());
-    checkRestrictionsOnUserWorkflowCreate(userWorkflow);
+    //Generate uuid workflowName and check if by any chance it exists.
+    workflow.setWorkflowName(new ObjectId().toString());
+    checkRestrictionsOnWorkflowCreate(workflow);
+    checkAndCreateDatasetInEcloud(dataset);
 
-    UserWorkflowExecution userWorkflowExecution = new UserWorkflowExecution(dataset, userWorkflow,
+    WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         priority);
-    userWorkflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    String storedUserWorkflowExecutionId = userWorkflowExecutionDao
+    workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    String storedWorkflowExecutionId = workflowExecutionDao
         .existsAndNotCompleted(datasetName);
-    if (storedUserWorkflowExecutionId != null) {
-      throw new UserWorkflowExecutionAlreadyExistsException(
+    if (storedWorkflowExecutionId != null) {
+      throw new WorkflowExecutionAlreadyExistsException(
           String.format(
-              "User workflow execution for datasetName: %s, already exists with id: %s, and is not completed",
-              datasetName, storedUserWorkflowExecutionId));
+              "Workflow execution for datasetName: %s, already exists with id: %s, and is not completed",
+              datasetName, storedWorkflowExecutionId));
     }
-    userWorkflowExecution.setCreatedDate(new Date());
-    String objectId = userWorkflowExecutionDao.create(userWorkflowExecution);
-    userWorkflowExecutorManager.addUserWorkflowExecutionToQueue(objectId, priority);
-    LOGGER.info("UserWorkflowExecution with id: %s, added to execution queue", objectId);
+    workflowExecution.setCreatedDate(new Date());
+    String objectId = workflowExecutionDao.create(workflowExecution);
+    workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
+    LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
   }
 
-  public void cancelUserWorkflowExecution(String datasetName)
-      throws NoUserWorkflowExecutionFoundException {
+  public void cancelWorkflowExecution(String datasetName)
+      throws NoWorkflowExecutionFoundException {
 
-    UserWorkflowExecution userWorkflowExecution = userWorkflowExecutionDao
+    WorkflowExecution workflowExecution = workflowExecutionDao
         .getRunningOrInQueueExecution(datasetName);
-    if (userWorkflowExecution != null) {
-      userWorkflowExecutorManager.cancelUserWorkflowExecution(userWorkflowExecution);
+    if (workflowExecution != null) {
+      workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
     } else {
-      throw new NoUserWorkflowExecutionFoundException(String.format(
-          "Running userworkflowExecution with datasetName: %s, does not exist or not running",
+      throw new NoWorkflowExecutionFoundException(String.format(
+          "Running workflowExecution with datasetName: %s, does not exist or not running",
           datasetName));
     }
   }
 
-  public void removeActiveUserWorkflowExecutionsFromList(
-      List<UserWorkflowExecution> userWorkflowExecutions) {
-    userWorkflowExecutionDao
-        .removeActiveExecutionsFromList(userWorkflowExecutions,
-            userWorkflowExecutorManager.getMonitorCheckIntervalInSecs());
+  public void removeActiveWorkflowExecutionsFromList(
+      List<WorkflowExecution> workflowExecutions) {
+    workflowExecutionDao
+        .removeActiveExecutionsFromList(workflowExecutions,
+            workflowExecutorManager.getMonitorCheckIntervalInSecs());
   }
 
-  public void addUserWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
+  public void addWorkflowExecutionToQueue(String workflowExecutionObjectId,
       int priority) {
-    userWorkflowExecutorManager
-        .addUserWorkflowExecutionToQueue(userWorkflowExecutionObjectId, priority);
+    workflowExecutorManager
+        .addWorkflowExecutionToQueue(workflowExecutionObjectId, priority);
   }
 
-  private void checkRestrictionsOnUserWorkflowCreate(UserWorkflow userWorkflow)
-      throws UserWorkflowAlreadyExistsException {
+  private void checkRestrictionsOnWorkflowCreate(Workflow workflow)
+      throws WorkflowAlreadyExistsException {
 
-    if (StringUtils.isNotEmpty(userWorkflowExists(userWorkflow))) {
-      throw new UserWorkflowAlreadyExistsException(String.format(
-          "UserWorkflow with workflowOwner: %s, and workflowName: %s, already exists",
-          userWorkflow.getWorkflowOwner(), userWorkflow.getWorkflowName()));
+    if (StringUtils.isNotEmpty(workflowExists(workflow))) {
+      throw new WorkflowAlreadyExistsException(String.format(
+          "Workflow with workflowOwner: %s, and workflowName: %s, already exists",
+          workflow.getWorkflowOwner(), workflow.getWorkflowName()));
     }
   }
 
-  private String checkRestrictionsOnUserWorkflowUpdate(UserWorkflow userWorkflow)
-      throws NoUserWorkflowFoundException {
+  private String checkRestrictionsOnWorkflowUpdate(Workflow workflow)
+      throws NoWorkflowFoundException {
 
-    String storedId = userWorkflowExists(userWorkflow);
+    String storedId = workflowExists(workflow);
     if (StringUtils.isEmpty(storedId)) {
-      throw new NoUserWorkflowFoundException(String.format(
-          "UserWorkflow with workflowOwner: %s, and workflowName: %s, not found",
-          userWorkflow.getWorkflowOwner(),
-          userWorkflow
+      throw new NoWorkflowFoundException(String.format(
+          "Workflow with workflowOwner: %s, and workflowName: %s, not found",
+          workflow.getWorkflowOwner(),
+          workflow
               .getWorkflowName()));
     }
 
     return storedId;
   }
 
-  private String userWorkflowExists(UserWorkflow userWorkflow) {
-    return userWorkflowDao.exists(userWorkflow);
+  private String workflowExists(Workflow workflow) {
+    return workflowDao.exists(workflow);
   }
 
-  public int getUserWorkflowExecutionsPerRequest() {
-    return userWorkflowExecutionDao.getUserWorkflowExecutionsPerRequest();
+  public int getWorkflowExecutionsPerRequest() {
+    return workflowExecutionDao.getWorkflowExecutionsPerRequest();
   }
 
-  public int getScheduledUserWorkflowsPerRequest() {
-    return scheduledUserWorkflowDao.getScheduledUserWorkflowPerRequest();
+  public int getScheduledWorkflowsPerRequest() {
+    return scheduledWorkflowDao.getScheduledWorkflowPerRequest();
   }
 
-  public int getUserWorkflowsPerRequest() {
-    return userWorkflowDao.getUserWorkflowsPerRequest();
+  public int getWorkflowsPerRequest() {
+    return workflowDao.getWorkflowsPerRequest();
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(String datasetName,
+  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetName,
       String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
-    return userWorkflowExecutionDao
-        .getAllUserWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
+    return workflowExecutionDao
+        .getAllWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
             nextPage);
   }
 
-  public List<UserWorkflowExecution> getAllUserWorkflowExecutions(WorkflowStatus workflowStatus,
+  public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,
       String nextPage) {
-    return userWorkflowExecutionDao.getAllUserWorkflowExecutions(workflowStatus, nextPage);
+    return workflowExecutionDao.getAllWorkflowExecutions(workflowStatus, nextPage);
   }
 
-  public ScheduledUserWorkflow getScheduledUserWorkflowByDatasetName(String datasetName) {
-    return scheduledUserWorkflowDao.getScheduledUserWorkflowByDatasetName(datasetName);
+  public ScheduledWorkflow getScheduledWorkflowByDatasetName(String datasetName) {
+    return scheduledWorkflowDao.getScheduledWorkflowByDatasetName(datasetName);
   }
 
-  public void scheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoDatasetFoundException, NoUserWorkflowFoundException, BadContentException, ScheduledUserWorkflowAlreadyExistsException {
-    checkRestrictionsOnScheduleUserWorkflow(scheduledUserWorkflow);
-    scheduledUserWorkflowDao.create(scheduledUserWorkflow);
+  public void scheduleWorkflow(ScheduledWorkflow scheduledWorkflow)
+      throws NoDatasetFoundException, NoWorkflowFoundException, BadContentException, ScheduledWorkflowAlreadyExistsException {
+    checkRestrictionsOnScheduleWorkflow(scheduledWorkflow);
+    scheduledWorkflowDao.create(scheduledWorkflow);
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflows(
+  public List<ScheduledWorkflow> getAllScheduledWorkflows(
       ScheduleFrequence scheduleFrequence, String nextPage) {
-    return scheduledUserWorkflowDao.getAllScheduledUserWorkflows(scheduleFrequence, nextPage);
+    return scheduledWorkflowDao.getAllScheduledWorkflows(scheduleFrequence, nextPage);
   }
 
-  public List<ScheduledUserWorkflow> getAllScheduledUserWorkflowsByDateRangeONCE(
+  public List<ScheduledWorkflow> getAllScheduledWorkflowsByDateRangeONCE(
       LocalDateTime lowerBound,
       LocalDateTime upperBound, String nextPage) {
-    return scheduledUserWorkflowDao
-        .getAllScheduledUserWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
+    return scheduledWorkflowDao
+        .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
   }
 
   private Dataset checkDatasetExistence(String datasetName) throws NoDatasetFoundException {
@@ -251,72 +261,100 @@ public class OrchestratorService {
     return dataset;
   }
 
-  private UserWorkflow checkUserWorkflowExistence(String workflowOwner, String workflowName)
-      throws NoUserWorkflowFoundException {
-    UserWorkflow userWorkflow = userWorkflowDao
-        .getUserWorkflow(workflowOwner, workflowName);
-    if (userWorkflow == null) {
-      throw new NoUserWorkflowFoundException(String.format(
-          "No user workflow found with workflowOwner: %s, and workflowName: %s, in METIS",
+  private Workflow checkWorkflowExistence(String workflowOwner, String workflowName)
+      throws NoWorkflowFoundException {
+    Workflow workflow = workflowDao
+        .getWorkflow(workflowOwner, workflowName);
+    if (workflow == null) {
+      throw new NoWorkflowFoundException(String.format(
+          "No workflow found with workflowOwner: %s, and workflowName: %s, in METIS",
           workflowOwner, workflowName));
     }
-    return userWorkflow;
+    return workflow;
   }
 
-  private void checkScheduledUserWorkflowExistenceForDatasetName(String datasetName)
-      throws ScheduledUserWorkflowAlreadyExistsException {
-    String id = scheduledUserWorkflowDao.existsForDatasetName(datasetName);
+  private void checkScheduledWorkflowExistenceForDatasetName(String datasetName)
+      throws ScheduledWorkflowAlreadyExistsException {
+    String id = scheduledWorkflowDao.existsForDatasetName(datasetName);
     if (id != null) {
-      throw new ScheduledUserWorkflowAlreadyExistsException(String.format(
-          "ScheduledUserWorkflow for datasetName: %s with id %s, already exists",
+      throw new ScheduledWorkflowAlreadyExistsException(String.format(
+          "ScheduledWorkflow for datasetName: %s with id %s, already exists",
           datasetName, id));
     }
   }
 
-  public void updateScheduledUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
-    String storedId = checkRestrictionsOnScheduledUserWorkflowUpdate(scheduledUserWorkflow);
-    scheduledUserWorkflow.setId(new ObjectId(storedId));
-    scheduledUserWorkflowDao.update(scheduledUserWorkflow);
+  public void updateScheduledWorkflow(ScheduledWorkflow scheduledWorkflow)
+      throws NoScheduledWorkflowFoundException, BadContentException, NoWorkflowFoundException {
+    String storedId = checkRestrictionsOnScheduledWorkflowUpdate(scheduledWorkflow);
+    scheduledWorkflow.setId(new ObjectId(storedId));
+    scheduledWorkflowDao.update(scheduledWorkflow);
   }
 
-  private void checkRestrictionsOnScheduleUserWorkflow(ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoUserWorkflowFoundException, NoDatasetFoundException, ScheduledUserWorkflowAlreadyExistsException, BadContentException {
-    checkDatasetExistence(scheduledUserWorkflow.getDatasetName());
-    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
-        scheduledUserWorkflow.getWorkflowName());
-    checkScheduledUserWorkflowExistenceForDatasetName(scheduledUserWorkflow.getDatasetName());
-    if (scheduledUserWorkflow.getPointerDate() == null) {
+  private void checkRestrictionsOnScheduleWorkflow(ScheduledWorkflow scheduledWorkflow)
+      throws NoWorkflowFoundException, NoDatasetFoundException, ScheduledWorkflowAlreadyExistsException, BadContentException {
+    checkDatasetExistence(scheduledWorkflow.getDatasetName());
+    checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
+        scheduledWorkflow.getWorkflowName());
+    checkScheduledWorkflowExistenceForDatasetName(scheduledWorkflow.getDatasetName());
+    if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
     }
-    if (scheduledUserWorkflow.getScheduleFrequence() == null
-        || scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+    if (scheduledWorkflow.getScheduleFrequence() == null
+        || scheduledWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
       throw new BadContentException("NULL or null is not a valid scheduleFrequence");
     }
   }
 
-  private String checkRestrictionsOnScheduledUserWorkflowUpdate(
-      ScheduledUserWorkflow scheduledUserWorkflow)
-      throws NoScheduledUserWorkflowFoundException, BadContentException, NoUserWorkflowFoundException {
-    checkUserWorkflowExistence(scheduledUserWorkflow.getWorkflowOwner(),
-        scheduledUserWorkflow.getWorkflowName());
-    String storedId = scheduledUserWorkflowDao
-        .existsForDatasetName(scheduledUserWorkflow.getDatasetName());
+  private String checkRestrictionsOnScheduledWorkflowUpdate(
+      ScheduledWorkflow scheduledWorkflow)
+      throws NoScheduledWorkflowFoundException, BadContentException, NoWorkflowFoundException {
+    checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
+        scheduledWorkflow.getWorkflowName());
+    String storedId = scheduledWorkflowDao
+        .existsForDatasetName(scheduledWorkflow.getDatasetName());
     if (StringUtils.isEmpty(storedId)) {
-      throw new NoScheduledUserWorkflowFoundException(String.format(
-          "UserWorkflow with datasetName: %s, not found", scheduledUserWorkflow.getDatasetName()));
+      throw new NoScheduledWorkflowFoundException(String.format(
+          "Workflow with datasetName: %s, not found", scheduledWorkflow.getDatasetName()));
     }
-    if (scheduledUserWorkflow.getPointerDate() == null) {
+    if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
     }
-    if (scheduledUserWorkflow.getScheduleFrequence() == null
-        || scheduledUserWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
+    if (scheduledWorkflow.getScheduleFrequence() == null
+        || scheduledWorkflow.getScheduleFrequence() == ScheduleFrequence.NULL) {
       throw new BadContentException("NULL or null is not a valid scheduleFrequence");
     }
     return storedId;
   }
 
-  public void deleteScheduledUserWorkflow(String datasetName) {
-    scheduledUserWorkflowDao.deleteScheduledUserWorkflow(datasetName);
+  public void deleteScheduledWorkflow(String datasetName) {
+    scheduledWorkflowDao.deleteScheduledWorkflow(datasetName);
+  }
+
+  private String checkAndCreateDatasetInEcloud(Dataset dataset) {
+    if (StringUtils.isEmpty(dataset.getEcloudDatasetId()) || dataset.getEcloudDatasetId()
+        .startsWith("NOT_CREATED_YET")) {
+      final String uuid = UUID.randomUUID().toString();
+      dataset.setEcloudDatasetId(uuid);
+      datasetDao.update(dataset);
+      try {
+        ecloudDataSetServiceClient
+            .createDataSet(ecloudProvider, uuid, "Metis generated dataset");
+        return uuid;
+      } catch (MCSException e) {
+        if (e instanceof DataSetAlreadyExistsException) {
+          LOGGER.info("Dataset already exist, not recreating", e);
+        } else {
+          LOGGER.error("An error has occurred during ecloud dataset creation.", e);
+        }
+      }
+    } else {
+      LOGGER.info("Dataset with name {} already has a dataset initialized in Ecloud with id {}",
+          dataset.getDatasetName(), dataset.getEcloudDatasetId());
+    }
+    return dataset.getEcloudDatasetId();
+  }
+
+  public void setEcloudProvider(String ecloudProvider) {
+    this.ecloudProvider = ecloudProvider;
   }
 }

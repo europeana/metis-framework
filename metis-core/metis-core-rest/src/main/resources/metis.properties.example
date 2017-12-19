@@ -34,3 +34,10 @@ redis.port=0
 redis.password=
 
 solr.url=
+
+#ECloud
+ecloud.baseUrl=
+ecloud.dps.baseUrl=
+ecloud.provider=
+ecloud.username=
+ecloud.password=
