@@ -230,7 +230,7 @@ public class AuthenticationControllerTest {
     authenticationControllerMock
         .perform(put(RestEndpoints.AUTHENTICATION_UPDATE).param("userEmailToUpdate", EXAMPLE_EMAIL)
             .header(HttpHeaders.AUTHORIZATION, ""))
-        .andExpect(status().is(HttpStatus.NO_CONTENT.value()));
+        .andExpect(status().is(HttpStatus.OK.value()));
     verify(authenticationService).updateUserFromZoho(EXAMPLE_EMAIL);
   }
 

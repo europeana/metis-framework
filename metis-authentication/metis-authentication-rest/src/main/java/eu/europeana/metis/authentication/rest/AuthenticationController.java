@@ -100,8 +100,8 @@ public class AuthenticationController {
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateUser(@RequestHeader("Authorization") String authorization,
+  @ResponseBody
+  public MetisUser updateUser(@RequestHeader("Authorization") String authorization,
       @QueryParam("userEmailToUpdate") String userEmailToUpdate)
       throws BadContentException, NoUserFoundException, UserUnauthorizedException {
     String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
@@ -109,8 +109,9 @@ public class AuthenticationController {
         .hasPermissionToRequestUserUpdate(accessToken, userEmailToUpdate)) {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
-    authenticationService.updateUserFromZoho(userEmailToUpdate);
+    MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
     LOGGER.info("User with email: {} updated", userEmailToUpdate);
+    return metisUser;
   }
 
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE,

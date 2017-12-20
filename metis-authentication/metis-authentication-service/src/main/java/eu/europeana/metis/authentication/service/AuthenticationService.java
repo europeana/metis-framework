@@ -56,7 +56,7 @@ public class AuthenticationService {
     psqlMetisUserDao.createMetisUser(metisUser);
   }
 
-  public void updateUserFromZoho(String email)
+  public MetisUser updateUserFromZoho(String email)
       throws BadContentException, NoUserFoundException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null) {
@@ -65,12 +65,15 @@ public class AuthenticationService {
     }
 
     MetisUser metisUser = constructMetisUserFromZoho(email);
+    //Keep previous information, that are not in Zoho
     metisUser.setPassword(storedMetisUser.getPassword());
+    metisUser.setMetisUserAccessToken(storedMetisUser.getMetisUserAccessToken());
     if (storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN) {
       metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     }
 
     psqlMetisUserDao.updateMetisUser(metisUser);
+    return metisUser;
   }
 
   private MetisUser constructMetisUserFromZoho(String email)
@@ -122,13 +125,15 @@ public class AuthenticationService {
     return BCrypt.checkpw(passwordToTry, metisUser.getPassword());
   }
 
-  public String[] validateAuthorizationHeaderWithCredentials(String authorization) throws BadContentException {
+  public String[] validateAuthorizationHeaderWithCredentials(String authorization)
+      throws BadContentException {
     if (StringUtils.isEmpty(authorization)) {
       throw new BadContentException("Authorization header was empty");
     }
     String[] credentials = decodeAuthorizationHeaderWithCredentials(authorization);
     if (credentials.length < 2) {
-      throw new BadContentException("Username or password not provided, or not properly defined in the Authorization Header");
+      throw new BadContentException(
+          "Username or password not provided, or not properly defined in the Authorization Header");
     }
     return credentials;
   }
@@ -148,7 +153,7 @@ public class AuthenticationService {
   private String[] decodeAuthorizationHeaderWithCredentials(String authorization) {
     if (authorization != null && authorization.startsWith("Basic")) {
       // Authorization: Basic base64credentials
-      String base64Credentials = authorization.substring("Basic" .length()).trim();
+      String base64Credentials = authorization.substring("Basic".length()).trim();
       String credentials = new String(Base64.getDecoder().decode(base64Credentials),
           Charset.forName("UTF-8"));
       // credentials = username:password
@@ -206,9 +211,8 @@ public class AuthenticationService {
       throws BadContentException {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
-    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || (
-        storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER
-            && storedMetisUserToUpdate.getAccountRole() != AccountRole.METIS_ADMIN);
+    return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || storedMetisUser.getEmail()
+        .equals(storedMetisUserToUpdate.getEmail());
   }
 
   private String generateAccessToken() {

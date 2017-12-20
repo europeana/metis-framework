@@ -285,13 +285,29 @@ public class AuthenticationServiceTest {
   }
 
   @Test
-  public void hasPermissionToRequestUserUpdateUserIsAdmin() throws Exception {
-    final String storedMetisUserEmail = "toUpdate@example.com";
+  public void hasPermissionToRequestUserUpdateOwnUser() throws Exception {
+    final String storedMetisUserEmail = "storedEmail@example.com";
     MetisUser metisUser = new MetisUser();
-    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    metisUser.setEmail(storedMetisUserEmail);
     metisUser.setMetisUserAccessToken(new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
     MetisUser storedMetisUser = new MetisUser();
-    storedMetisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    storedMetisUser.setEmail(storedMetisUserEmail);
+    when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
+    when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(storedMetisUser);
+
+    assertTrue(authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmail));
+  }
+
+  @Test
+  public void hasPermissionToRequestUserUpdateRequesterIsAdmin() throws Exception {
+    final String storedMetisUserEmail = "storedEmail@example.com";
+    final String storedMetisUserEmailToUpdate = "toUpdate@example.com";
+    MetisUser metisUser = new MetisUser();
+    metisUser.setAccountRole(AccountRole.METIS_ADMIN);
+    metisUser.setEmail(storedMetisUserEmail);
+    metisUser.setMetisUserAccessToken(new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
+    MetisUser storedMetisUser = new MetisUser();
+    storedMetisUser.setEmail(storedMetisUserEmailToUpdate);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
     when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(storedMetisUser);
 
@@ -300,30 +316,19 @@ public class AuthenticationServiceTest {
 
   @Test
   public void hasPermissionToRequestUserUpdateUserIsEuropeanaDataOfficerAndToUpdateNonAdmin() throws Exception {
-    final String storedMetisUserEmail = "toUpdate@example.com";
+    final String storedMetisUserEmail = "storedEmail@example.com";
+    final String storedMetisUserEmailToUpdate = "toUpdate@example.com";
     MetisUser metisUser = new MetisUser();
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    metisUser.setEmail(storedMetisUserEmail);
     metisUser.setMetisUserAccessToken(new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
     MetisUser storedMetisUser = new MetisUser();
     storedMetisUser.setAccountRole(AccountRole.PROVIDER_VIEWER);
+    storedMetisUser.setEmail(storedMetisUserEmailToUpdate);
     when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
-    when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(storedMetisUser);
+    when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmailToUpdate)).thenReturn(storedMetisUser);
 
-    assertTrue(authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmail));
-  }
-
-  @Test
-  public void hasPermissionToRequestUserUpdateUserIsEuropeanaDataOfficerAndToUpdateIsAdmin() throws Exception {
-    final String storedMetisUserEmail = "toUpdate@example.com";
-    MetisUser metisUser = new MetisUser();
-    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
-    metisUser.setMetisUserAccessToken(new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
-    MetisUser storedMetisUser = new MetisUser();
-    storedMetisUser.setAccountRole(AccountRole.METIS_ADMIN);
-    when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
-    when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(storedMetisUser);
-
-    assertFalse(authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmail));
+    assertFalse(authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmailToUpdate));
   }
 
   @Test
