@@ -24,6 +24,7 @@ import org.bson.types.ObjectId;
  */
 public class TestObjectFactory {
 
+  public static final String DATASETID = "datasetId";
   public static final String DATASETNAME = "datasetName";
   public static final String WORKFLOWOWNER = "workflowOwner";
   public static final String WORKFLOWNAME = "workflowName";
@@ -113,7 +114,7 @@ public class TestObjectFactory {
 
   public static ScheduledWorkflow createScheduledUserWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
-    scheduledWorkflow.setDatasetName(DATASETNAME);
+    scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
     scheduledWorkflow.setWorkflowName(WORKFLOWNAME);
     scheduledWorkflow.setPointerDate(new Date());
@@ -127,7 +128,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflow.setDatasetId(String.format("%s%s", DATASETID, i));
       scheduledWorkflows.add(scheduledWorkflow);
     }
     return scheduledWorkflows;
@@ -138,7 +139,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflow.setDatasetId(String.format("%s%s", DATASETID, i));
       scheduledWorkflow.setPointerDate(date);
       scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
       scheduledWorkflows.add(scheduledWorkflow);

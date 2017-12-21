@@ -409,8 +409,8 @@ public class TestOrchestratorService {
 
   @Test
   public void getScheduledUserWorkflowByDatasetName() {
-    orchestratorService.getScheduledWorkflowByDatasetName(TestObjectFactory.DATASETNAME);
-    verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetName(anyString());
+    orchestratorService.getScheduledWorkflowByDatasetId(TestObjectFactory.DATASETNAME);
+    verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetId(anyString());
     verifyNoMoreInteractions(scheduledWorkflowDao);
   }
 
@@ -424,7 +424,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(null);
     when(scheduledWorkflowDao.create(scheduledWorkflow))
         .thenReturn(new ObjectId().toString());
@@ -461,7 +461,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(new ObjectId().toString());
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -477,7 +477,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(null);
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -493,7 +493,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(null);
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -509,7 +509,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(null);
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
   }
@@ -541,7 +541,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(new ObjectId().toString());
     when(scheduledWorkflowDao.update(scheduledWorkflow))
         .thenReturn(new ObjectId().toString());
@@ -567,7 +567,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(null);
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -582,7 +582,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(new ObjectId().toString());
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -598,7 +598,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(new ObjectId().toString());
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
   }
@@ -614,7 +614,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
-    when(scheduledWorkflowDao.existsForDatasetName(TestObjectFactory.DATASETNAME))
+    when(scheduledWorkflowDao.existsForDatasetId(TestObjectFactory.DATASETNAME))
         .thenReturn(new ObjectId().toString());
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
   }

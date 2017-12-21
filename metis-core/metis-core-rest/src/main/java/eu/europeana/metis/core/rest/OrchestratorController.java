@@ -106,76 +106,76 @@ public class OrchestratorController {
 
 
   //WORKFLOW EXECUTIONS
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE, method = RequestMethod.POST, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void addWorkflowInQueueOfWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName,
+      @PathVariable("datasetId") String datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName, @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(datasetName, workflowOwner,
+        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner,
             workflowName, priority);
     LOGGER.info(
-        "WorkflowExecution for datasetName '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
-        datasetName, workflowOwner, workflowName);
+        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
+        datasetId, workflowOwner, workflowName);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void addWorkflowInQueueOfWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName, @RequestBody Workflow workflow,
+      @PathVariable("datasetId") String datasetId, @RequestBody Workflow workflow,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(datasetName, workflow, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, priority);
     LOGGER.info(
-        "WorkflowExecution for datasetName '{}' with workflowOwner '{}' started", datasetName,
+        "WorkflowExecution for datasetId '{}' with workflowOwner '{}' started", datasetId,
         workflow.getWorkflowOwner());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.DELETE, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void cancelWorkflowExecution(
-      @PathVariable("datasetName") String datasetName)
+      @PathVariable("datasetId") String datasetId)
       throws NoWorkflowExecutionFoundException {
-    orchestratorService.cancelWorkflowExecution(datasetName);
+    orchestratorService.cancelWorkflowExecution(datasetId);
     LOGGER.info(
-        "WorkflowExecution for datasetName '{}' is cancelling",
-        datasetName);
+        "WorkflowExecution for datasetId '{}' is cancelling",
+        datasetId);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public WorkflowExecution getRunningWorkflowExecution(
-      @PathVariable("datasetName") String datasetName) {
+      @PathVariable("datasetId") String datasetId) {
     WorkflowExecution workflowExecution = orchestratorService
-        .getRunningWorkflowExecution(datasetName);
-    LOGGER.info("WorkflowExecution with datasetName '{}' found", datasetName);
+        .getRunningWorkflowExecution(datasetId);
+    LOGGER.info("WorkflowExecution with datasetId '{}' found", datasetId);
     return workflowExecution;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETNAME, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
-      @PathVariable("datasetName") String datasetName,
+      @PathVariable("datasetId") String datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
       @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
+            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatus,
                 nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest());
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
@@ -210,22 +210,22 @@ public class OrchestratorController {
       throws BadContentException, ScheduledWorkflowAlreadyExistsException, NoWorkflowFoundException, NoDatasetFoundException {
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
     LOGGER.info(
-        "ScheduledWorkflowExecution for datasetName '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
-        scheduledWorkflow.getDatasetName(),
+        "ScheduledWorkflowExecution for datasetId '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
+        scheduledWorkflow.getDatasetId(),
         scheduledWorkflow.getWorkflowOwner(), scheduledWorkflow.getWorkflowName(),
         scheduledWorkflow.getPointerDate(),
         scheduledWorkflow.getScheduleFrequence().name());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ScheduledWorkflow getScheduledWorkflow(
-      @PathVariable("datasetName") String datasetName) {
+      @PathVariable("datasetId") String datasetId) {
     ScheduledWorkflow scheduledWorkflow = orchestratorService
-        .getScheduledWorkflowByDatasetName(datasetName);
-    LOGGER.info("ScheduledWorkflow with with datasetName '{}' found", datasetName);
+        .getScheduledWorkflowByDatasetId(datasetId);
+    LOGGER.info("ScheduledWorkflow with with datasetId '{}' found", datasetId);
     return scheduledWorkflow;
   }
 
@@ -252,19 +252,19 @@ public class OrchestratorController {
       @RequestBody ScheduledWorkflow scheduledWorkflow)
       throws BadContentException, NoScheduledWorkflowFoundException, NoWorkflowFoundException {
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
-    LOGGER.info("ScheduledWorkflow with with datasetName '{}' updated",
-        scheduledWorkflow.getDatasetName());
+    LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
+        scheduledWorkflow.getDatasetId());
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME, method = RequestMethod.DELETE, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void deleteScheduledWorkflowExecution(
-      @PathVariable("datasetName") String datasetName) {
-    orchestratorService.deleteScheduledWorkflow(datasetName);
+      @PathVariable("datasetId") String datasetId) {
+    orchestratorService.deleteScheduledWorkflow(datasetId);
     LOGGER.info(
-        "ScheduledWorkflowExecution for datasetName '{}' deleted",
-        datasetName);
+        "ScheduledWorkflowExecution for datasetId '{}' deleted",
+        datasetId);
   }
 }

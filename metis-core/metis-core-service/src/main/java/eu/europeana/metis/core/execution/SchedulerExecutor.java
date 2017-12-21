@@ -62,8 +62,8 @@ public class SchedulerExecutor implements Runnable {
         for (ScheduledWorkflow scheduledWorkflow :
             allCleanedScheduledWorkflows) {
           LOGGER.info(
-              "Adding ScheduledWorkflow with DatasetName: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
-              scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowOwner(),
+              "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
+              scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
               scheduledWorkflow.getWorkflowName(), scheduledWorkflow.getPointerDate(),
               scheduledWorkflow.getScheduleFrequence());
 
@@ -217,7 +217,7 @@ public class SchedulerExecutor implements Runnable {
       ScheduledWorkflow scheduledWorkflow) {
     try {
       orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
-          scheduledWorkflow.getDatasetName(), scheduledWorkflow.getWorkflowOwner(),
+          scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
           scheduledWorkflow.getWorkflowName(),
           scheduledWorkflow.getWorkflowPriority());
     } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException e) {

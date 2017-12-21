@@ -29,12 +29,12 @@ public final class RestEndpoints {
   //ORCHESTRATION
   public static final String ORCHESTRATOR_WORKFLOWS = "/orchestrator/workflows";
   public static final String ORCHESTRATOR_WORKFLOWS_OWNER = "/orchestrator/workflows/{workflowOwner}";
-  public static final String ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE = "/orchestrator/workflows/{datasetName}/execute";
-  public static final String ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetName}/execute/direct";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE = "/orchestrator/workflows/{datasetId}/execute";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetId}/execute/direct";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
-  public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME = "/orchestrator/workflows/schedule/{datasetName}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/workflows/execution/{datasetName}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETNAME = "/orchestrator/workflows/executions/{datasetName}";
+  public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID = "/orchestrator/workflows/execution/{datasetId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETID = "/orchestrator/workflows/executions/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
 
   /* METIS-DEREFERENCE Endpoints*/

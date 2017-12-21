@@ -28,15 +28,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class DatasetService {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
   private final DatasetDao datasetDao;
   private final WorkflowExecutionDao workflowExecutionDao;
@@ -79,11 +75,14 @@ public class DatasetService {
     return datasetDao.getById(datasetDao.create(dataset));
   }
 
-  public void updateDataset(Dataset dataset) throws NoDatasetFoundException {
-    // TODO: 21-12-17 WorkflowExecution, ScheduledWorkflow datasetName should be changed to datasetId
+  public void updateDataset(Dataset dataset) throws NoDatasetFoundException, BadContentException {
+    if (workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()) != null) {
+      throw new BadContentException(
+          String.format("Workflow execution is active for datasteId %s", dataset.getDatasetId()));
+    }
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
     if (storedDataset == null)
-      throw new NoDatasetFoundException(String.format("Dataset with datasetId: %s", dataset.getDatasetId()));
+      throw new NoDatasetFoundException(String.format("Dataset with datasetId: %s does NOT exist", dataset.getDatasetId()));
     dataset.setEcloudDatasetId(storedDataset.getEcloudDatasetId());
     dataset.setCreatedDate(storedDataset.getCreatedDate());
     dataset.setOrganizationId(storedDataset.getOrganizationId());
@@ -96,14 +95,12 @@ public class DatasetService {
     dataset.setDatasetStatus(storedDataset.getDatasetStatus());
     dataset.setCreatedByUserId(storedDataset.getCreatedByUserId());
     dataset.setId(storedDataset.getId());
-    
+
     dataset.setUpdatedDate(new Date());
-    datasetDao.getById(datasetDao.update(dataset));
+    datasetDao.update(dataset);
   }
 
   public void deleteDatasetByDatasetId(String datasetId) throws BadContentException {
-    // TODO: 21-12-17 WorkflowExecution, ScheduledWorkflow datasetName should be changed to datasetId
-    // TODO: 21-12-17 Update also below call
     if (workflowExecutionDao.existsAndNotCompleted(datasetId) != null) {
       throw new BadContentException(
           String.format("Workflow execution is active for datasteId %s", datasetId));
@@ -111,8 +108,8 @@ public class DatasetService {
     datasetDao.deleteByDatasetId(datasetId);
 
     //Clean up dataset leftovers
-//    workflowExecutionDao.deleteAllByDatasetId(datasetId);
-//    scheduledWorkflowDao.deleteAllByDatasetId(datasetId);
+    workflowExecutionDao.deleteAllByDatasetId(datasetId);
+    scheduledWorkflowDao.deleteAllByDatasetId(datasetId);
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
@@ -124,13 +121,22 @@ public class DatasetService {
     return dataset;
   }
 
+  public Dataset getDatasetByDatasetId(String datasetId) throws NoDatasetFoundException {
+    Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
+    if (dataset == null) {
+      throw new NoDatasetFoundException(
+          String.format("No dataset found with datasetId: '%s' in METIS", datasetId));
+    }
+    return dataset;
+  }
+
   public List<Dataset> getAllDatasetsByProvider(String provider, String nextPage) {
     return datasetDao.getAllDatasetsByProvider(provider, nextPage);
   }
 
-  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermidiateProvider,
+  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermediateProvider,
       String nextPage) {
-    return datasetDao.getAllDatasetsByIntermidiateProvider(intermidiateProvider, nextPage);
+    return datasetDao.getAllDatasetsByIntermidiateProvider(intermediateProvider, nextPage);
   }
 
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {

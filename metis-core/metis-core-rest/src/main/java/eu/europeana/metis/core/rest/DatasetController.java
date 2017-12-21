@@ -66,7 +66,7 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestBody Dataset dataset)
-      throws NoDatasetFoundException {
+      throws NoDatasetFoundException, BadContentException {
 
     datasetService.updateDataset(dataset);
     LOGGER.info("Dataset with datasetId {} updated", dataset.getDatasetId());
@@ -80,6 +80,19 @@ public class DatasetController {
 
     datasetService.deleteDatasetByDatasetId(datasetId);
     LOGGER.info("Dataset with datasetId '{}' deleted", datasetId);
+  }
+
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public Dataset getByDatasetId(
+      @PathVariable("datasetId") String datasetId)
+      throws NoDatasetFoundException {
+
+    Dataset dataset = datasetService.getDatasetByDatasetId(datasetId);
+    LOGGER.info("Dataset with datasetId '{}' found", datasetId);
+    return dataset;
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
