@@ -1,446 +1,446 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
-package eu.europeana.metis.core.service;
-
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertSame;
-import static junit.framework.TestCase.assertTrue;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import eu.europeana.cloud.common.model.DataSet;
-import eu.europeana.metis.core.common.Country;
-import eu.europeana.metis.core.common.Language;
-import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetStatus;
-import eu.europeana.metis.core.exceptions.BadContentException;
-import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
-
-public class TestDatasetService {
-
-  private DatasetDao datasetDao;
-  private WorkflowExecutionDao workflowExecutionDao;
-  private ScheduledWorkflowDao scheduledWorkflowDao;
-  private DatasetService datasetService;
-  private Dataset ds;
-
-  @Before
-  public void prepare() {
-    datasetDao = Mockito.mock(DatasetDao.class);
-    workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
-    scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
-
-    datasetService = new DatasetService(datasetDao, workflowExecutionDao,
-        scheduledWorkflowDao);
-//        org.setHarvestingMetadata(new HarvestingMetadata());
-    ds = createDataset();
-  }
-
-  private Dataset createDataset() {
-    Dataset d = new Dataset();
-
-    d.setOrganizationId("orgId");
-    d.setAccepted(true);
-    d.setCountry(Country.ALBANIA);
-    d.setCreatedDate(new Date(1000));
-    d.setDataProvider("prov");
-    d.setDeaSigned(true);
-    d.setDescription("Test description");
-    List<String> DQA = new ArrayList<>();
-    DQA.add("test DQA");
-    d.setDqas(DQA);
-    d.setFirstPublished(new Date(1000));
-    d.setHarvestedAt(new Date(1000));
-    d.setLanguage(Language.AR);
-    d.setLastPublished(new Date(1000));
-//        ds.setHarvestingMetadata(new OaipmhHarvestingDatasetMetadata());
-    d.setDatasetName("testName");
-    d.setNotes("test Notes");
-    d.setPublishedRecords(100);
-    d.setSubmittedRecords(199);
-    d.setReplacedBy("replacedBY");
-    List<String> sources = new ArrayList<>();
-    sources.add("testSource");
-    d.setSources(sources);
-    List<String> subjects = new ArrayList<>();
-    subjects.add("testSubject");
-    d.setSubjects(subjects);
-    d.setSubmissionDate(new Date(1000));
-    d.setUpdatedDate(new Date(1000));
-    d.setDatasetStatus(DatasetStatus.ACCEPTANCE);
-    return d;
-  }
-
-  @Test
-  public void testCreateDataset() {
-    Dataset ds = createDataset();
-    ds.setDatasetName("datasetName");
-    ds.setOrganizationId("myOrgId");
-    ds.setCreatedDate(null);
-    ds.setUpdatedDate(null);
-    ds.setFirstPublished(null);
-    ds.setLastPublished(null);
-    ds.setHarvestedAt(null);
-    ds.setSubmissionDate(null);
-    ds.setSubmittedRecords(0);
-    ds.setPublishedRecords(0);
-
-    datasetService.createDataset(ds);
-
-    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
-    ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
-
-//    verify(ecloudDatasetDao, times(1)).
-//        create(ecloudDataSetCapture.capture());
-    verify(datasetDao, times(1)).
-        create(datasetArgumentCaptor.capture());
-  }
-
-  @Test
-  public void testDelete()
-      throws NoDatasetFoundException, BadContentException {
-    when(datasetDao.getDatasetByDatasetName(Mockito.any(String.class))).thenReturn(ds);
-//        when(datasetDao.deleteDatasetByDatasetName(Mockito.any(String.class))).thenReturn(true);
-//        when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class))).thenReturn(null);
-//        Mockito.doNothing().when(organizationService).removeOrganizationDatasetNameFromList(Mockito.any(String.class), Mockito.any(String.class));
+///*
+// * Copyright 2007-2013 The Europeana Foundation
+// *
+// *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
+// *  by the European Commission;
+// *  You may not use this work except in compliance with the Licence.
+// *
+// *  You may obtain a copy of the Licence at:
+// *  http://joinup.ec.europa.eu/software/page/eupl
+// *
+// *  Unless required by applicable law or agreed to in writing, software distributed under
+// *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
+// *  any kind, either express or implied.
+// *  See the Licence for the specific language governing permissions and limitations under
+// *  the Licence.
+// */
+//package eu.europeana.metis.core.service;
 //
-    ds.setOrganizationId("myOrgId");
-    ds.setDatasetName("myDatasetId");
-    when(datasetDao.getDatasetByDatasetName(any(String.class))).thenReturn(ds);
-    when(workflowExecutionDao.existsAndNotCompleted(any(String.class))).thenReturn(null);
-    when(datasetDao.deleteDatasetByDatasetName(any(String.class))).thenReturn(true);
-    when(workflowExecutionDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
-    when(scheduledWorkflowDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
-
-    datasetService.deleteDatasetByDatasetName("myDatasetId");
-    verify(datasetDao, times(1)).deleteDatasetByDatasetName(ds.getDatasetName());
-    verify(workflowExecutionDao, times(1)).deleteAllByDatasetName(any(String.class));
-    verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetName(any(String.class));
-//    verify(ecloudDatasetDao, times(1)).delete(any(DataSet.class));
-  }
-
-  @Test
-  public void testUpdate() {
-    ds.setEcloudDatasetId("myEcloudID");
-    datasetService.updateDataset(ds);
-
-    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
-
-//    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
-    verify(datasetDao, times(1)).update(ds);
-
-//    assertEquals("myEcloudID", ecloudDataSetCapture.getValue().getId());
-  }
-
-  @Test
-  public void testRetrieve() throws NoDatasetFoundException {
-    when(datasetDao.getDatasetByDatasetName("name")).thenReturn(ds);
-
-    Dataset retDataset = datasetService.getDatasetByDatasetName("name");
-    Assert.assertEquals(ds, retDataset);
-  }
-
-
-  @Test(expected = NoDatasetFoundException.class)
-  public void testRetrieve_NotFound() throws NoDatasetFoundException {
-    when(datasetDao.getDatasetByDatasetName("name")).thenReturn(null);
-
-    datasetService.getDatasetByDatasetName("name");
-  }
-
-
-  @Test
-  public void testcreateDatasetForOrganization()
-      throws DatasetAlreadyExistsException, BadContentException {
-    Dataset ds = createDataset();
-    ds.setDatasetName("datasetName");
-    ds.setOrganizationId("myOrgId");
-    ds.setCreatedDate(null);
-    ds.setUpdatedDate(null);
-    ds.setFirstPublished(null);
-    ds.setLastPublished(null);
-    ds.setHarvestedAt(null);
-    ds.setSubmissionDate(null);
-    ds.setSubmittedRecords(0);
-    ds.setPublishedRecords(0);
-
-    when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(null);
-
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-
-    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
-    ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
-
-//    verify(ecloudDatasetDao, times(1)).
-//        create(ecloudDataSetCapture.capture());
-    verify(datasetDao, times(1)).
-        create(datasetArgumentCaptor.capture());
-
-    assertEquals("myOrgId", datasetArgumentCaptor.getValue().getOrganizationId());
-    assertNotNull(datasetArgumentCaptor.getValue().getCreatedDate());
-  }
-
-  @Test
-  public void testUpdateDatasetByDatasetName()
-      throws BadContentException, NoDatasetFoundException {
-
-    Dataset ds = createDataset();
-    ds.setEcloudDatasetId("myEcloudid");
-    ds.setDatasetName(null);
-    ds.setCreatedDate(null);
-    ds.setUpdatedDate(null);
-
-    when(datasetDao.getDatasetByDatasetName("dataSetName")).thenReturn(ds);
-//    when(ecloudDatasetDao.getEcloudProvider()).thenReturn("myEcloudprovider");
-    when(workflowExecutionDao.existsAndNotCompleted("dataSetName")).thenReturn(null);
-
-    datasetService.updateDatasetByDatasetName(ds, "dataSetName");
-
-    //Beware : DataSet and Dataset
+//import static junit.framework.TestCase.assertEquals;
+//import static junit.framework.TestCase.assertNotNull;
+//import static junit.framework.TestCase.assertSame;
+//import static junit.framework.TestCase.assertTrue;
+//import static org.mockito.Mockito.any;
+//import static org.mockito.Mockito.times;
+//import static org.mockito.Mockito.verify;
+//import static org.mockito.Mockito.when;
+//
+//import eu.europeana.cloud.common.model.DataSet;
+//import eu.europeana.metis.core.common.Country;
+//import eu.europeana.metis.core.common.Language;
+//import eu.europeana.metis.core.dao.DatasetDao;
+//import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+//import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+//import eu.europeana.metis.core.dataset.Dataset;
+//import eu.europeana.metis.core.dataset.DatasetStatus;
+//import eu.europeana.metis.core.exceptions.BadContentException;
+//import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
+//import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+//import java.util.ArrayList;
+//import java.util.Date;
+//import java.util.List;
+//import org.junit.Assert;
+//import org.junit.Before;
+//import org.junit.Test;
+//import org.mockito.ArgumentCaptor;
+//import org.mockito.Mockito;
+//
+//public class TestDatasetService {
+//
+//  private DatasetDao datasetDao;
+//  private WorkflowExecutionDao workflowExecutionDao;
+//  private ScheduledWorkflowDao scheduledWorkflowDao;
+//  private DatasetService datasetService;
+//  private Dataset ds;
+//
+//  @Before
+//  public void prepare() {
+//    datasetDao = Mockito.mock(DatasetDao.class);
+//    workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
+//    scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
+//
+//    datasetService = new DatasetService(datasetDao, workflowExecutionDao,
+//        scheduledWorkflowDao);
+////        org.setHarvestingMetadata(new HarvestingMetadata());
+//    ds = createDataset();
+//  }
+//
+//  private Dataset createDataset() {
+//    Dataset d = new Dataset();
+//
+//    d.setOrganizationId("orgId");
+//    d.setAccepted(true);
+//    d.setCountry(Country.ALBANIA);
+//    d.setCreatedDate(new Date(1000));
+//    d.setDataProvider("prov");
+//    d.setDeaSigned(true);
+//    d.setDescription("Test description");
+//    List<String> DQA = new ArrayList<>();
+//    DQA.add("test DQA");
+//    d.setDqas(DQA);
+//    d.setFirstPublished(new Date(1000));
+//    d.setHarvestedAt(new Date(1000));
+//    d.setLanguage(Language.AR);
+//    d.setLastPublished(new Date(1000));
+////        ds.setHarvestingMetadata(new OaipmhHarvestingDatasetMetadata());
+//    d.setDatasetName("testName");
+//    d.setNotes("test Notes");
+//    d.setPublishedRecords(100);
+//    d.setSubmittedRecords(199);
+//    d.setReplacedBy("replacedBY");
+//    List<String> sources = new ArrayList<>();
+//    sources.add("testSource");
+//    d.setSources(sources);
+//    List<String> subjects = new ArrayList<>();
+//    subjects.add("testSubject");
+//    d.setSubjects(subjects);
+//    d.setSubmissionDate(new Date(1000));
+//    d.setUpdatedDate(new Date(1000));
+//    d.setDatasetStatus(DatasetStatus.ACCEPTANCE);
+//    return d;
+//  }
+//
+//  @Test
+//  public void testCreateDataset() {
+//    Dataset ds = createDataset();
+//    ds.setDatasetName("datasetName");
+//    ds.setOrganizationId("myOrgId");
+//    ds.setCreatedDate(null);
+//    ds.setUpdatedDate(null);
+//    ds.setFirstPublished(null);
+//    ds.setLastPublished(null);
+//    ds.setHarvestedAt(null);
+//    ds.setSubmissionDate(null);
+//    ds.setSubmittedRecords(0);
+//    ds.setPublishedRecords(0);
+//
+//    datasetService.createDataset(ds);
+//
 //    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
-    ArgumentCaptor<Dataset> datasetCapture = ArgumentCaptor.forClass(Dataset.class);
-
-//    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
-    verify(datasetDao, times(1)).update(datasetCapture.capture());
-
-//    assertEquals(ds.getDescription(), ecloudDataSetCapture.getValue().getDescription());
+//    ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
 //
-//    assertEquals("myEcloudprovider", ecloudDataSetCapture.getValue().getProviderId());
-//    assertEquals("myEcloudid", ecloudDataSetCapture.getValue().getId());
-
-    assertEquals(ds.getDescription(), datasetCapture.getValue().getDescription());
-    assertEquals("myEcloudid", datasetCapture.getValue().getEcloudDatasetId());
-    assertSame(ds, datasetCapture.getValue());
-  }
-
-  @Test
-  public void testUpdateDatasetName() throws NoDatasetFoundException, BadContentException {
-
-    Dataset ds = createDataset();
-    ds.setDatasetName(null);
-    ds.setCreatedDate(null);
-    ds.setUpdatedDate(null);
-    ds.setOrganizationId("myOrgId");
-
-    when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(ds);
-
-    datasetService.updateDatasetName("datasetName", "newDatasetName");
-
-    verify(datasetDao, times(1)).
-        updateDatasetName("datasetName", "newDatasetName");
-  }
-
-  @Test
-  public void testGetAllDatasetsByDataProvider() {
-    List<Dataset> list = new ArrayList<>();
-    String provider = "myProvider";
-    String nextPage = "myNextPage";
-    when(datasetDao.getAllDatasetsByDataProvider(provider, nextPage)).thenReturn(list);
-
-    List<Dataset> retList = datasetService.getAllDatasetsByDataProvider(provider, nextPage);
-
-    assertSame(list, retList);
-  }
-
-  @Test
-  public void testGetAllDatasetsByOrganizationId() {
-
-    List<Dataset> list = new ArrayList<>();
-    String orgId = "myOrgId";
-    String nextPage = "myNextPage";
-    when(datasetDao.getAllDatasetsByOrganizationId(orgId, nextPage)).thenReturn(list);
-
-    List<Dataset> retList = datasetService.getAllDatasetsByOrganizationId(orgId, nextPage);
-
-    assertSame(list, retList);
-  }
-
-  @Test
-  public void testExistsDatasetByDatasetName() {
-    when(datasetDao.existsDatasetByDatasetName("test")).thenReturn(true);
-    assertTrue(datasetDao.existsDatasetByDatasetName("test"));
-  }
-
-  @Test
-  public void testGetDatasetsPerRequestLimit() {
-    when(datasetDao.getDatasetsPerRequest()).thenReturn(5);
-    assertEquals(5, datasetService.getDatasetsPerRequestLimit());
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_datasetNameEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setDatasetName(null);
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_updatedDateNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setUpdatedDate(new Date());
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_firstPublishedNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setFirstPublished(new Date());
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_lastPublishedNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setLastPublished(new Date());
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_harvistedAtNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setHarvestedAt(new Date());
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_submissionDateNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setSubmissionDate(new Date());
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_createdDateNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setCreatedDate(new Date());
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_submittedRecordsNotZero_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setSubmittedRecords(10);
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_publishedeRcordsNotZero_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setPublishedRecords(10);
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-
-  @Test(expected = BadContentException.class)
-  public void test_createPreconditionCheck_organisationIdNotMatching_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    ds.setOrganizationId("bla");
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-  @Test(expected = DatasetAlreadyExistsException.class)
-  public void test_createPreconditionCheck_dataSetAlreadyExist_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException {
-
-    Dataset ds = prepareCreatePreConditions();
-    when(datasetDao.existsDatasetByDatasetName("datasetName")).thenReturn(true);
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
-
-  @Test(expected = BadContentException.class)
-  public void test_updatePreconditionCheck_datasetNameDoesNotMatch_throwsException()
-      throws BadContentException, NoDatasetFoundException {
-    Dataset ds = prepareCreatePreConditions();
-    ds.setDatasetName("test");
-
-    datasetService.updateDatasetByDatasetName(ds, "datasetName");
-  }
-
-
-  @Test(expected = BadContentException.class)
-  public void test_updatePreconditionCheck_createdDateNotEmpty_throwsException()
-      throws BadContentException, NoDatasetFoundException {
-    Dataset ds = prepareCreatePreConditions();
-    ds.setCreatedDate(new Date());
-
-    datasetService.updateDatasetByDatasetName(ds, "datasetName");
-  }
-
-  @Test(expected = BadContentException.class)
-  public void test_updatePreconditionCheck_updatedDateNotEmpty_throwsException()
-      throws BadContentException, NoDatasetFoundException {
-    Dataset ds = prepareCreatePreConditions();
-    ds.setUpdatedDate(new Date());
-
-    datasetService.updateDatasetByDatasetName(ds, "datasetName");
-  }
-
-  private Dataset prepareCreatePreConditions() {
-    Dataset ds = createDataset();
-    ds.setDatasetName("datasetName");
-    ds.setOrganizationId("myOrgId");
-    ds.setCreatedDate(null);
-    ds.setUpdatedDate(null);
-    ds.setFirstPublished(null);
-    ds.setLastPublished(null);
-    ds.setHarvestedAt(null);
-    ds.setSubmissionDate(null);
-    ds.setSubmittedRecords(0);
-    ds.setPublishedRecords(0);
-
-    when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(null);
-    return ds;
-  }
-}
-
+////    verify(ecloudDatasetDao, times(1)).
+////        create(ecloudDataSetCapture.capture());
+//    verify(datasetDao, times(1)).
+//        create(datasetArgumentCaptor.capture());
+//  }
+//
+//  @Test
+//  public void testDelete()
+//      throws NoDatasetFoundException, BadContentException {
+//    when(datasetDao.getDatasetByDatasetName(Mockito.any(String.class))).thenReturn(ds);
+////        when(datasetDao.deleteDatasetByDatasetName(Mockito.any(String.class))).thenReturn(true);
+////        when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class))).thenReturn(null);
+////        Mockito.doNothing().when(organizationService).removeOrganizationDatasetNameFromList(Mockito.any(String.class), Mockito.any(String.class));
+////
+//    ds.setOrganizationId("myOrgId");
+//    ds.setDatasetName("myDatasetId");
+//    when(datasetDao.getDatasetByDatasetName(any(String.class))).thenReturn(ds);
+//    when(workflowExecutionDao.existsAndNotCompleted(any(String.class))).thenReturn(null);
+//    when(datasetDao.deleteDatasetByDatasetName(any(String.class))).thenReturn(true);
+//    when(workflowExecutionDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
+//    when(scheduledWorkflowDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
+//
+//    datasetService.deleteDatasetByDatasetName("myDatasetId");
+//    verify(datasetDao, times(1)).deleteDatasetByDatasetName(ds.getDatasetName());
+//    verify(workflowExecutionDao, times(1)).deleteAllByDatasetName(any(String.class));
+//    verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetName(any(String.class));
+////    verify(ecloudDatasetDao, times(1)).delete(any(DataSet.class));
+//  }
+//
+//  @Test
+//  public void testUpdate() {
+//    ds.setEcloudDatasetId("myEcloudID");
+//    datasetService.updateDataset(ds);
+//
+//    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
+//
+////    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
+//    verify(datasetDao, times(1)).update(ds);
+//
+////    assertEquals("myEcloudID", ecloudDataSetCapture.getValue().getId());
+//  }
+//
+//  @Test
+//  public void testRetrieve() throws NoDatasetFoundException {
+//    when(datasetDao.getDatasetByDatasetName("name")).thenReturn(ds);
+//
+//    Dataset retDataset = datasetService.getDatasetByDatasetName("name");
+//    Assert.assertEquals(ds, retDataset);
+//  }
+//
+//
+//  @Test(expected = NoDatasetFoundException.class)
+//  public void testRetrieve_NotFound() throws NoDatasetFoundException {
+//    when(datasetDao.getDatasetByDatasetName("name")).thenReturn(null);
+//
+//    datasetService.getDatasetByDatasetName("name");
+//  }
+//
+//
+//  @Test
+//  public void testcreateDatasetForOrganization()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//    Dataset ds = createDataset();
+//    ds.setDatasetName("datasetName");
+//    ds.setOrganizationId("myOrgId");
+//    ds.setCreatedDate(null);
+//    ds.setUpdatedDate(null);
+//    ds.setFirstPublished(null);
+//    ds.setLastPublished(null);
+//    ds.setHarvestedAt(null);
+//    ds.setSubmissionDate(null);
+//    ds.setSubmittedRecords(0);
+//    ds.setPublishedRecords(0);
+//
+//    when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(null);
+//
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//
+//    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
+//    ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
+//
+////    verify(ecloudDatasetDao, times(1)).
+////        create(ecloudDataSetCapture.capture());
+//    verify(datasetDao, times(1)).
+//        create(datasetArgumentCaptor.capture());
+//
+//    assertEquals("myOrgId", datasetArgumentCaptor.getValue().getOrganizationId());
+//    assertNotNull(datasetArgumentCaptor.getValue().getCreatedDate());
+//  }
+//
+//  @Test
+//  public void testUpdateDatasetByDatasetName()
+//      throws BadContentException, NoDatasetFoundException {
+//
+//    Dataset ds = createDataset();
+//    ds.setEcloudDatasetId("myEcloudid");
+//    ds.setDatasetName(null);
+//    ds.setCreatedDate(null);
+//    ds.setUpdatedDate(null);
+//
+//    when(datasetDao.getDatasetByDatasetName("dataSetName")).thenReturn(ds);
+////    when(ecloudDatasetDao.getEcloudProvider()).thenReturn("myEcloudprovider");
+//    when(workflowExecutionDao.existsAndNotCompleted("dataSetName")).thenReturn(null);
+//
+//    datasetService.updateDatasetByDatasetName(ds, "dataSetName");
+//
+//    //Beware : DataSet and Dataset
+////    ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
+//    ArgumentCaptor<Dataset> datasetCapture = ArgumentCaptor.forClass(Dataset.class);
+//
+////    verify(ecloudDatasetDao, times(1)).update(ecloudDataSetCapture.capture());
+//    verify(datasetDao, times(1)).update(datasetCapture.capture());
+//
+////    assertEquals(ds.getDescription(), ecloudDataSetCapture.getValue().getDescription());
+////
+////    assertEquals("myEcloudprovider", ecloudDataSetCapture.getValue().getProviderId());
+////    assertEquals("myEcloudid", ecloudDataSetCapture.getValue().getId());
+//
+//    assertEquals(ds.getDescription(), datasetCapture.getValue().getDescription());
+//    assertEquals("myEcloudid", datasetCapture.getValue().getEcloudDatasetId());
+//    assertSame(ds, datasetCapture.getValue());
+//  }
+//
+//  @Test
+//  public void testUpdateDatasetName() throws NoDatasetFoundException, BadContentException {
+//
+//    Dataset ds = createDataset();
+//    ds.setDatasetName(null);
+//    ds.setCreatedDate(null);
+//    ds.setUpdatedDate(null);
+//    ds.setOrganizationId("myOrgId");
+//
+//    when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(ds);
+//
+//    datasetService.updateDatasetName("datasetName", "newDatasetName");
+//
+//    verify(datasetDao, times(1)).
+//        updateDatasetName("datasetName", "newDatasetName");
+//  }
+//
+//  @Test
+//  public void testGetAllDatasetsByDataProvider() {
+//    List<Dataset> list = new ArrayList<>();
+//    String provider = "myProvider";
+//    String nextPage = "myNextPage";
+//    when(datasetDao.getAllDatasetsByDataProvider(provider, nextPage)).thenReturn(list);
+//
+//    List<Dataset> retList = datasetService.getAllDatasetsByDataProvider(provider, nextPage);
+//
+//    assertSame(list, retList);
+//  }
+//
+//  @Test
+//  public void testGetAllDatasetsByOrganizationId() {
+//
+//    List<Dataset> list = new ArrayList<>();
+//    String orgId = "myOrgId";
+//    String nextPage = "myNextPage";
+//    when(datasetDao.getAllDatasetsByOrganizationId(orgId, nextPage)).thenReturn(list);
+//
+//    List<Dataset> retList = datasetService.getAllDatasetsByOrganizationId(orgId, nextPage);
+//
+//    assertSame(list, retList);
+//  }
+//
+//  @Test
+//  public void testExistsDatasetByDatasetName() {
+//    when(datasetDao.existsDatasetByDatasetName("test")).thenReturn(true);
+//    assertTrue(datasetDao.existsDatasetByDatasetName("test"));
+//  }
+//
+//  @Test
+//  public void testGetDatasetsPerRequestLimit() {
+//    when(datasetDao.getDatasetsPerRequest()).thenReturn(5);
+//    assertEquals(5, datasetService.getDatasetsPerRequestLimit());
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_datasetNameEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setDatasetName(null);
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_updatedDateNotEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setUpdatedDate(new Date());
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_firstPublishedNotEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setFirstPublished(new Date());
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_lastPublishedNotEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setLastPublished(new Date());
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_harvistedAtNotEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setHarvestedAt(new Date());
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_submissionDateNotEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setSubmissionDate(new Date());
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_createdDateNotEmpty_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setCreatedDate(new Date());
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_submittedRecordsNotZero_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setSubmittedRecords(10);
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_publishedeRcordsNotZero_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setPublishedRecords(10);
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_createPreconditionCheck_organisationIdNotMatching_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setOrganizationId("bla");
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//  @Test(expected = DatasetAlreadyExistsException.class)
+//  public void test_createPreconditionCheck_dataSetAlreadyExist_throwsException()
+//      throws DatasetAlreadyExistsException, BadContentException {
+//
+//    Dataset ds = prepareCreatePreConditions();
+//    when(datasetDao.existsDatasetByDatasetName("datasetName")).thenReturn(true);
+//    datasetService.createDatasetForOrganization(ds, "myOrgId");
+//  }
+//
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_updatePreconditionCheck_datasetNameDoesNotMatch_throwsException()
+//      throws BadContentException, NoDatasetFoundException {
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setDatasetName("test");
+//
+//    datasetService.updateDatasetByDatasetName(ds, "datasetName");
+//  }
+//
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_updatePreconditionCheck_createdDateNotEmpty_throwsException()
+//      throws BadContentException, NoDatasetFoundException {
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setCreatedDate(new Date());
+//
+//    datasetService.updateDatasetByDatasetName(ds, "datasetName");
+//  }
+//
+//  @Test(expected = BadContentException.class)
+//  public void test_updatePreconditionCheck_updatedDateNotEmpty_throwsException()
+//      throws BadContentException, NoDatasetFoundException {
+//    Dataset ds = prepareCreatePreConditions();
+//    ds.setUpdatedDate(new Date());
+//
+//    datasetService.updateDatasetByDatasetName(ds, "datasetName");
+//  }
+//
+//  private Dataset prepareCreatePreConditions() {
+//    Dataset ds = createDataset();
+//    ds.setDatasetName("datasetName");
+//    ds.setOrganizationId("myOrgId");
+//    ds.setCreatedDate(null);
+//    ds.setUpdatedDate(null);
+//    ds.setFirstPublished(null);
+//    ds.setLastPublished(null);
+//    ds.setHarvestedAt(null);
+//    ds.setSubmissionDate(null);
+//    ds.setSubmittedRecords(0);
+//    ds.setPublishedRecords(0);
+//
+//    when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(null);
+//    return ds;
+//  }
+//}
+//

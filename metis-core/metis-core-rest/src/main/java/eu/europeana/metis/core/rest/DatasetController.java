@@ -51,48 +51,35 @@ public class DatasetController {
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
-  public void createDatasetForOrganization(@RequestBody Dataset dataset,
-      @RequestParam("organizationId"
-      ) String organizationId)
-      throws BadContentException, DatasetAlreadyExistsException {
+  @ResponseBody
+  public Dataset createDataset(@RequestBody Dataset dataset)
+      throws DatasetAlreadyExistsException {
 
-    datasetService.createDatasetForOrganization(dataset, organizationId);
-    LOGGER.info("Dataset with name {} for organizationId {} created", dataset.getDatasetName(),
-            organizationId);
+    Dataset createdDataset = datasetService.createDataset(dataset);
+    LOGGER.info("Dataset with datasetId: {}, datasetName: {} and organizationId {} created",
+        createdDataset.getDatasetId(), createdDataset.getDatasetName(),
+        createdDataset.getOrganizationId());
+    return createdDataset;
   }
 
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.PUT, consumes = {
+  @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateDataset(
-      @RequestBody Dataset dataset,
-      @PathVariable("datasetName") String datasetName)
-      throws BadContentException, NoDatasetFoundException {
+  public void updateDataset(@RequestBody Dataset dataset)
+      throws NoDatasetFoundException {
 
-    datasetService.updateDatasetByDatasetName(dataset, datasetName);
-    LOGGER.info("Dataset with datasetName {} updated", datasetName);
+    datasetService.updateDataset(dataset);
+    LOGGER.info("Dataset with datasetId {} updated", dataset.getDatasetId());
   }
 
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME_UPDATENAME, method = RequestMethod.PUT)
-  @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void updateDatasetName(
-      @PathVariable("datasetName") String datasetName,
-      @RequestParam("newDatasetName") String newDatasetName)
-      throws NoDatasetFoundException, BadContentException {
-
-    datasetService.updateDatasetName(datasetName, newDatasetName);
-    LOGGER.info("Dataset with datasetName '{}' updated name to '{}'", datasetName,
-            newDatasetName);
-  }
-
-  @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.DELETE)
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(
-      @PathVariable("datasetName") String datasetName)
-      throws NoDatasetFoundException, BadContentException {
+      @PathVariable("datasetId") String datasetId)
+      throws BadContentException, NoDatasetFoundException {
 
-    datasetService.deleteDatasetByDatasetName(datasetName);
-    LOGGER.info("Dataset with datasetName '{}' deleted", datasetName);
+    datasetService.deleteDatasetByDatasetId(datasetId);
+    LOGGER.info("Dataset with datasetId '{}' deleted", datasetId);
   }
 
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {

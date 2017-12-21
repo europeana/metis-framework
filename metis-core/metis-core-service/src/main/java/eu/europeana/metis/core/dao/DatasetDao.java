@@ -16,7 +16,6 @@
  */
 package eu.europeana.metis.core.dao;
 
-import com.mongodb.WriteResult;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import java.util.List;
@@ -25,8 +24,6 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +37,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetDao.class);
   private static final String DATASET_NAME = "datasetName";
+  private static final String DATASET_ID = "datasetId";
   private int datasetsPerRequest = 5;
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
@@ -53,132 +51,80 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public String create(Dataset dataset) {
     Key<Dataset> datasetKey = morphiaDatastoreProvider.getDatastore().save(dataset);
     LOGGER.debug(
-        "Dataset '{}' created with OrganizationId '{}' and Provider '{}' and Description '{}' in Mongo",
-        dataset.getDatasetName(), dataset.getOrganizationId(), dataset.getDataProvider(),
-        dataset.getDescription());
+        "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' created in Mongo",
+        dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
     return datasetKey.getId().toString();
   }
 
   @Override
   public String update(Dataset dataset) {
-    UpdateOperations<Dataset> ops = morphiaDatastoreProvider.getDatastore().createUpdateOperations(Dataset.class);
-    Query<Dataset> q = morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-        .filter(DATASET_NAME, dataset.getDatasetName());
-    ops.set("country", dataset.getCountry());
-    ops.set("dataProvider", dataset.getDataProvider());
-    ops.set("description", dataset.getDescription());
-    if (dataset.getEcloudDatasetId() != null) {
-      ops.set("ecloudDatasetId", dataset.getEcloudDatasetId());
-    } else {
-      ops.unset("ecloudDatasetId");
-    }
-    if (dataset.getDqas() != null) {
-      ops.set("dqas", dataset.getDqas());
-    } else {
-      ops.unset("dqas");
-    }
-    if (dataset.getFirstPublished() != null) {
-      ops.set("firstPublished", dataset.getFirstPublished());
-    } else {
-      ops.unset("firstPublished");
-    }
-    if (dataset.getHarvestedAt() != null) {
-      ops.set("harvestedAt", dataset.getHarvestedAt());
-    } else {
-      ops.unset("harvestedAt");
-    }
-    ops.set("language", dataset.getLanguage());
-    if (dataset.getLastPublished() != null) {
-      ops.set("lastPublished", dataset.getLastPublished());
-    } else {
-      ops.unset("lastPublished");
-    }
-    ops.set("harvestingMetadata", dataset.getHarvestingMetadata());
-    ops.set("notes", dataset.getNotes());
-    ops.set("publishedRecords", dataset.getPublishedRecords());
-    ops.set("submittedRecords", dataset.getSubmittedRecords());
-    if (dataset.getReplacedBy() != null) {
-      ops.set("replacedBy", dataset.getReplacedBy());
-    } else {
-      ops.unset("replacedBy");
-    }
-
-    if (dataset.getSources() != null) {
-      ops.set("sources", dataset.getSources());
-    } else {
-      ops.unset("sources");
-    }
-    if (dataset.getSubjects() != null) {
-      ops.set("subjects", dataset.getSubjects());
-    } else {
-      ops.unset("subjects");
-    }
-    if (dataset.getSubmissionDate() != null) {
-      ops.set("submissionDate", dataset.getSubmissionDate());
-    } else {
-      ops.unset("submissionDate");
-    }
-
-    if (dataset.getUpdatedDate() != null) {
-      ops.set("updatedDate", dataset.getUpdatedDate());
-    } else {
-      ops.unset("updatedDate");
-    }
-    ops.set("datasetStatus", dataset.getDatasetStatus());
-    ops.set("accepted", dataset.isAccepted());
-    ops.set("deaSigned", dataset.isDeaSigned());
-    UpdateResults updateResults = morphiaDatastoreProvider.getDatastore().update(q, ops);
-
+    Key<Dataset> datasetKey = morphiaDatastoreProvider.getDatastore().save(dataset);
     LOGGER.debug(
-        "Dataset '{}' updated with Provider '{}' and Description '{}' in Mongo",
-        dataset.getDatasetName(), dataset.getDataProvider(), dataset.getDescription());
-    return String.valueOf(updateResults.getUpdatedCount());
+        "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' updated in Mongo",
+        dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
+    return datasetKey.getId().toString();
   }
 
   @Override
   public Dataset getById(String id) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).filter("_id", new ObjectId(id)).get();
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+        .filter("_id", new ObjectId(id)).get();
   }
 
   @Override
   public boolean delete(Dataset dataset) {
     morphiaDatastoreProvider.getDatastore().delete(
-        morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_NAME)
-            .equal(dataset.getDatasetName()));
+        morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
+            .equal(dataset.getDatasetId()));
     LOGGER
-        .debug("Dataset '{}' deleted with organizationId '{}' from Mongo", dataset.getDatasetName(),
-            dataset.getOrganizationId());
+        .debug("Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
+            dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
     return true;
   }
 
-  public void updateDatasetName(String datasetName, String newDatasetName) {
-    UpdateOperations<Dataset> datasetUpdateOperations = morphiaDatastoreProvider.getDatastore()
-        .createUpdateOperations(Dataset.class);
-    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().find(Dataset.class)
-        .filter(DATASET_NAME, datasetName);
-    datasetUpdateOperations.set(DATASET_NAME, newDatasetName);
-    UpdateResults updateResults = morphiaDatastoreProvider
-        .getDatastore().update(query, datasetUpdateOperations);
-    LOGGER.debug("Dataset with datasetName '{}' renamed to '{}'. (UpdateResults: {})", datasetName,
-        newDatasetName, updateResults.getUpdatedCount());
-  }
-
-  public boolean deleteDatasetByDatasetName(String datasetName) {
-    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    query.field(DATASET_NAME).equal(datasetName);
-    WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
-    LOGGER.debug("Dataset '{}' deleted from Mongo", datasetName);
-    return delete.getN() == 1;
+  public boolean deleteByDatasetId(String datasetId) {
+    Dataset dataset = new Dataset();
+    dataset.setDatasetId(datasetId);
+    return delete(dataset);
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME).equal(datasetName)
-        .get();
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
+        .equal(datasetName).get();
+  }
+
+  public Dataset getDatasetByDatasetId(String datasetId) {
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class)
+        .filter(DATASET_ID, datasetId).get();
+  }
+
+  public Dataset getDatasetByOrganizationIdAndDatasetName(String organizationId, String datasetName) {
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId").equal(organizationId).field(DATASET_NAME)
+        .equal(datasetName).get();
   }
 
   public boolean existsDatasetByDatasetName(String datasetName) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME).equal(datasetName)
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field(DATASET_NAME)
+        .equal(datasetName)
         .project("_id", true).get() != null;
+  }
+
+  public List<Dataset> getAllDatasetsByProvider(String provider, String nextPage) {
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
+    query.field("provider").equal(provider).order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(datasetsPerRequest));
+  }
+
+  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermediateProvider, String nextPage) {
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
+    query.field("intermediateProvider").equal(intermediateProvider).order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(datasetsPerRequest));
   }
 
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {
@@ -199,6 +145,15 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return query.asList(new FindOptions().limit(datasetsPerRequest));
   }
 
+  public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, String nextPage) {
+    Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
+    query.field("organizationName").equal(organizationName).order("_id");
+    if (StringUtils.isNotEmpty(nextPage)) {
+      query.field("_id").greaterThan(new ObjectId(nextPage));
+    }
+    return query.asList(new FindOptions().limit(datasetsPerRequest));
+  }
+
   public int getDatasetsPerRequest() {
     return datasetsPerRequest;
   }
@@ -206,4 +161,5 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public void setDatasetsPerRequest(int datasetsPerRequest) {
     this.datasetsPerRequest = datasetsPerRequest;
   }
+
 }

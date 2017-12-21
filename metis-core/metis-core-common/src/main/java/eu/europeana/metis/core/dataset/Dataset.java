@@ -17,16 +17,14 @@
 
 package eu.europeana.metis.core.dataset;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
-import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
-import java.util.List;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -44,82 +42,72 @@ public class Dataset implements HasMongoObjectId {
   private String ecloudDatasetId;
 
   @Indexed(options = @IndexOptions(unique = true))
+  private String datasetId;
+
+  @Indexed(options = @IndexOptions(unique = true))
   private String datasetName;
 
   @Indexed
   private String organizationId;
 
   @Indexed
+  private String organizationName;
+
+  @Indexed
+  private String provider;
+
+  @Indexed
+  private String intermediateProvider;
+
+  @Indexed
   private String dataProvider;
 
-  private boolean deaSigned;
+  @Indexed
+  private String createdByUserId;
 
-  @JacksonXmlElementWrapper(localName = "subjects")
-  @JacksonXmlProperty(localName = "subject")
-  private List<String> subjects;
-
-  @JacksonXmlElementWrapper(localName = "sources")
-  @JacksonXmlProperty(localName = "source")
-  private List<String> sources;
-
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date createdDate;
 
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
 
-  /**
-   * What dataset replaces it (ID)
-   */
+  private DatasetStatus datasetStatus;
+
   private String replacedBy;
 
-  private String description;
-
-  private String notes;
-
-  private Date firstPublished;
-
-  private Date lastPublished;
-
-  private int publishedRecords;
-
-  private Date harvestedAt;
-
-  private Date submissionDate;
-
-  private int submittedRecords;
-
-  private boolean accepted;
-
-  /**
-   * Data Quality Assurance
-   */
-  @JacksonXmlElementWrapper(localName = "dqas")
-  @JacksonXmlProperty(localName = "dqa")
-  private List<String> dqas;
-
-  private AbstractMetisPluginMetadata harvestingMetadata;
-
-  private DatasetStatus datasetStatus;
+  private String replaces;
 
   private Country country;
 
   private Language language;
 
-  private Boolean acceptanceStep;
+  private String description;
 
+  private String notes;
+
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date firstPublishedDate;
+
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date lastPublishedDate;
+
+  private long publishedRecords;
+
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date harvestedDate;
+
+  private long harvestedRecords;
+
+  private AbstractMetisPluginMetadata harvestingMetadata;
+
+  @Override
   public ObjectId getId() {
     return id;
   }
 
+  @Override
   public void setId(ObjectId id) {
     this.id = id;
-  }
-
-  public String getDatasetName() {
-    return datasetName;
-  }
-
-  public void setDatasetName(String datasetName) {
-    this.datasetName = datasetName;
   }
 
   public String getEcloudDatasetId() {
@@ -130,12 +118,52 @@ public class Dataset implements HasMongoObjectId {
     this.ecloudDatasetId = ecloudDatasetId;
   }
 
+  public String getDatasetId() {
+    return datasetId;
+  }
+
+  public void setDatasetId(String datasetId) {
+    this.datasetId = datasetId;
+  }
+
+  public String getDatasetName() {
+    return datasetName;
+  }
+
+  public void setDatasetName(String datasetName) {
+    this.datasetName = datasetName;
+  }
+
   public String getOrganizationId() {
     return organizationId;
   }
 
   public void setOrganizationId(String organizationId) {
     this.organizationId = organizationId;
+  }
+
+  public String getOrganizationName() {
+    return organizationName;
+  }
+
+  public void setOrganizationName(String organizationName) {
+    this.organizationName = organizationName;
+  }
+
+  public String getProvider() {
+    return provider;
+  }
+
+  public void setProvider(String provider) {
+    this.provider = provider;
+  }
+
+  public String getIntermediateProvider() {
+    return intermediateProvider;
+  }
+
+  public void setIntermediateProvider(String intermediateProvider) {
+    this.intermediateProvider = intermediateProvider;
   }
 
   public String getDataProvider() {
@@ -146,28 +174,12 @@ public class Dataset implements HasMongoObjectId {
     this.dataProvider = dataProvider;
   }
 
-  public boolean isDeaSigned() {
-    return deaSigned;
+  public String getCreatedByUserId() {
+    return createdByUserId;
   }
 
-  public void setDeaSigned(boolean deaSigned) {
-    this.deaSigned = deaSigned;
-  }
-
-  public List<String> getSubjects() {
-    return subjects;
-  }
-
-  public void setSubjects(List<String> subjects) {
-    this.subjects = subjects;
-  }
-
-  public List<String> getSources() {
-    return sources;
-  }
-
-  public void setSources(List<String> sources) {
-    this.sources = sources;
+  public void setCreatedByUserId(String createdByUserId) {
+    this.createdByUserId = createdByUserId;
   }
 
   public Date getCreatedDate() {
@@ -186,6 +198,14 @@ public class Dataset implements HasMongoObjectId {
     this.updatedDate = updatedDate;
   }
 
+  public DatasetStatus getDatasetStatus() {
+    return datasetStatus;
+  }
+
+  public void setDatasetStatus(DatasetStatus datasetStatus) {
+    this.datasetStatus = datasetStatus;
+  }
+
   public String getReplacedBy() {
     return replacedBy;
   }
@@ -194,101 +214,12 @@ public class Dataset implements HasMongoObjectId {
     this.replacedBy = replacedBy;
   }
 
-  public String getDescription() {
-    return description;
+  public String getReplaces() {
+    return replaces;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public String getNotes() {
-    return notes;
-  }
-
-  public void setNotes(String notes) {
-    this.notes = notes;
-  }
-
-  public Date getFirstPublished() {
-    return firstPublished;
-  }
-
-  public void setFirstPublished(Date firstPublished) {
-    this.firstPublished = firstPublished;
-  }
-
-  public Date getLastPublished() {
-    return lastPublished;
-  }
-
-  public void setLastPublished(Date lastPublished) {
-    this.lastPublished = lastPublished;
-  }
-
-  public int getPublishedRecords() {
-    return publishedRecords;
-  }
-
-  public void setPublishedRecords(int publishedRecords) {
-    this.publishedRecords = publishedRecords;
-  }
-
-  public Date getHarvestedAt() {
-    return harvestedAt;
-  }
-
-  public void setHarvestedAt(Date harvestedAt) {
-    this.harvestedAt = harvestedAt;
-  }
-
-  public Date getSubmissionDate() {
-    return submissionDate;
-  }
-
-  public void setSubmissionDate(Date submissionDate) {
-    this.submissionDate = submissionDate;
-  }
-
-  public int getSubmittedRecords() {
-    return submittedRecords;
-  }
-
-  public void setSubmittedRecords(int submittedRecords) {
-    this.submittedRecords = submittedRecords;
-  }
-
-  public boolean isAccepted() {
-    return accepted;
-  }
-
-  public void setAccepted(boolean accepted) {
-    this.accepted = accepted;
-  }
-
-  public List<String> getDqas() {
-    return dqas;
-  }
-
-  public void setDqas(List<String> dqas) {
-    this.dqas = dqas;
-  }
-
-  public AbstractMetisPluginMetadata getHarvestingMetadata() {
-    return harvestingMetadata;
-  }
-
-  public void setHarvestingMetadata(
-      AbstractMetisPluginMetadata harvestingMetadata) {
-    this.harvestingMetadata = harvestingMetadata;
-  }
-
-  public DatasetStatus getDatasetStatus() {
-    return datasetStatus;
-  }
-
-  public void setDatasetStatus(DatasetStatus datasetStatus) {
-    this.datasetStatus = datasetStatus;
+  public void setReplaces(String replaces) {
+    this.replaces = replaces;
   }
 
   public Country getCountry() {
@@ -307,12 +238,68 @@ public class Dataset implements HasMongoObjectId {
     this.language = language;
   }
 
-
-  public Boolean getAcceptanceStep() {
-    return acceptanceStep;
+  public String getDescription() {
+    return description;
   }
 
-  public void setAcceptanceStep(Boolean acceptanceStep) {
-    this.acceptanceStep = acceptanceStep;
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public String getNotes() {
+    return notes;
+  }
+
+  public void setNotes(String notes) {
+    this.notes = notes;
+  }
+
+  public Date getFirstPublishedDate() {
+    return firstPublishedDate;
+  }
+
+  public void setFirstPublishedDate(Date firstPublishedDate) {
+    this.firstPublishedDate = firstPublishedDate;
+  }
+
+  public Date getLastPublishedDate() {
+    return lastPublishedDate;
+  }
+
+  public void setLastPublishedDate(Date lastPublishedDate) {
+    this.lastPublishedDate = lastPublishedDate;
+  }
+
+  public long getPublishedRecords() {
+    return publishedRecords;
+  }
+
+  public void setPublishedRecords(long publishedRecords) {
+    this.publishedRecords = publishedRecords;
+  }
+
+  public Date getHarvestedDate() {
+    return harvestedDate;
+  }
+
+  public void setHarvestedDate(Date harvestedDate) {
+    this.harvestedDate = harvestedDate;
+  }
+
+  public long getHarvestedRecords() {
+    return harvestedRecords;
+  }
+
+  public void setHarvestedRecords(long harvestedRecords) {
+    this.harvestedRecords = harvestedRecords;
+  }
+
+  public AbstractMetisPluginMetadata getHarvestingMetadata() {
+    return harvestingMetadata;
+  }
+
+  public void setHarvestingMetadata(
+      AbstractMetisPluginMetadata harvestingMetadata) {
+    this.harvestingMetadata = harvestingMetadata;
   }
 }

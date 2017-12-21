@@ -20,21 +20,19 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import org.apache.commons.lang.StringUtils;
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * Service for storing datasets Created by ymamakis on 2/17/16.
- */
 @Service
 public class DatasetService {
 
@@ -53,58 +51,68 @@ public class DatasetService {
     this.scheduledWorkflowDao = scheduledWorkflowDao;
   }
 
-  public void createDataset(Dataset dataset) {
-    datasetDao.create(dataset);
-  }
+  public Dataset createDataset(Dataset dataset) throws DatasetAlreadyExistsException {
+    Dataset storedDataset = datasetDao
+        .getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
+            dataset.getDatasetName());
+    if (storedDataset != null) {
+      throw new DatasetAlreadyExistsException(String
+          .format("Dataset with organizationId: %s and datasetName: %s already exists..",
+              dataset.getOrganizationId(), dataset.getDatasetName()));
+    }
+    dataset.setFirstPublishedDate(null);
+    dataset.setLastPublishedDate(null);
+    dataset.setPublishedRecords(0);
+    dataset.setHarvestedDate(null);
+    dataset.setHarvestedRecords(0);
+    dataset.setId(null);
+    dataset.setUpdatedDate(null);
 
-  public void createDatasetForOrganization(Dataset dataset, String organizationId)
-      throws DatasetAlreadyExistsException, BadContentException {
-    checkRestrictionsOnCreate(dataset, organizationId);
-    dataset.setOrganizationId(organizationId);
     dataset.setCreatedDate(new Date());
+    dataset.setDatasetStatus(DatasetStatus.CREATED);
     //Add fake ecloudDatasetId to avoid null errors in the database
     dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
-    createDataset(dataset);
+
+    // TODO: 21-12-17 Generated datasetId properly
+    ObjectId objectId = new ObjectId();
+    dataset.setDatasetId(objectId.toString());
+    return datasetDao.getById(datasetDao.create(dataset));
   }
 
-  public void updateDataset(Dataset dataset) {
-    datasetDao.update(dataset);
-  }
-
-  public void updateDatasetByDatasetName(Dataset dataset, String datasetName)
-      throws BadContentException, NoDatasetFoundException {
-    if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
-      throw new BadContentException(
-          String.format("User workflow execution is active for datasteName %s", datasetName));
-    }
-    checkRestrictionsOnUpdate(dataset, datasetName);
-    dataset.setDatasetName(datasetName);
+  public void updateDataset(Dataset dataset) throws NoDatasetFoundException {
+    // TODO: 21-12-17 WorkflowExecution, ScheduledWorkflow datasetName should be changed to datasetId
+    Dataset storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
+    if (storedDataset == null)
+      throw new NoDatasetFoundException(String.format("Dataset with datasetId: %s", dataset.getDatasetId()));
+    dataset.setEcloudDatasetId(storedDataset.getEcloudDatasetId());
+    dataset.setCreatedDate(storedDataset.getCreatedDate());
+    dataset.setOrganizationId(storedDataset.getOrganizationId());
+    dataset.setOrganizationName(storedDataset.getOrganizationName());
+    dataset.setFirstPublishedDate(storedDataset.getFirstPublishedDate());
+    dataset.setLastPublishedDate(storedDataset.getLastPublishedDate());
+    dataset.setPublishedRecords(storedDataset.getPublishedRecords());
+    dataset.setHarvestedDate(storedDataset.getHarvestedDate());
+    dataset.setHarvestedRecords(storedDataset.getHarvestedRecords());
+    dataset.setDatasetStatus(storedDataset.getDatasetStatus());
+    dataset.setCreatedByUserId(storedDataset.getCreatedByUserId());
+    dataset.setId(storedDataset.getId());
+    
     dataset.setUpdatedDate(new Date());
-    updateDataset(dataset);
+    datasetDao.getById(datasetDao.update(dataset));
   }
 
-  public void updateDatasetName(String datasetName, String newDatasetName)
-      throws NoDatasetFoundException, BadContentException {
-    if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
+  public void deleteDatasetByDatasetId(String datasetId) throws BadContentException {
+    // TODO: 21-12-17 WorkflowExecution, ScheduledWorkflow datasetName should be changed to datasetId
+    // TODO: 21-12-17 Update also below call
+    if (workflowExecutionDao.existsAndNotCompleted(datasetId) != null) {
       throw new BadContentException(
-          String.format("User workflow execution is active for datasteName %s", datasetName));
+          String.format("Workflow execution is active for datasteId %s", datasetId));
     }
-    datasetDao.updateDatasetName(datasetName, newDatasetName);
-    scheduledWorkflowDao.updateAllDatasetNames(datasetName, newDatasetName);
-    workflowExecutionDao.updateAllDatasetNames(datasetName, newDatasetName);
-  }
-
-  public void deleteDatasetByDatasetName(String datasetName)
-      throws NoDatasetFoundException, BadContentException {
-    if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
-      throw new BadContentException(
-          String.format("User workflow execution is active for datasteName %s", datasetName));
-    }
-    datasetDao.deleteDatasetByDatasetName(datasetName);
+    datasetDao.deleteByDatasetId(datasetId);
 
     //Clean up dataset leftovers
-    workflowExecutionDao.deleteAllByDatasetName(datasetName);
-    scheduledWorkflowDao.deleteAllByDatasetName(datasetName);
+//    workflowExecutionDao.deleteAllByDatasetId(datasetId);
+//    scheduledWorkflowDao.deleteAllByDatasetId(datasetId);
   }
 
   public Dataset getDatasetByDatasetName(String datasetName) throws NoDatasetFoundException {
@@ -116,6 +124,15 @@ public class DatasetService {
     return dataset;
   }
 
+  public List<Dataset> getAllDatasetsByProvider(String provider, String nextPage) {
+    return datasetDao.getAllDatasetsByProvider(provider, nextPage);
+  }
+
+  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermidiateProvider,
+      String nextPage) {
+    return datasetDao.getAllDatasetsByIntermidiateProvider(intermidiateProvider, nextPage);
+  }
+
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {
     return datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
@@ -124,56 +141,15 @@ public class DatasetService {
     return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
 
+  public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, String nextPage) {
+    return datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage);
+  }
+
   public boolean existsDatasetByDatasetName(String datasetName) {
     return datasetDao.existsDatasetByDatasetName(datasetName);
   }
 
   public int getDatasetsPerRequestLimit() {
     return datasetDao.getDatasetsPerRequest();
-  }
-
-
-  private void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
-      throws BadContentException, DatasetAlreadyExistsException {
-    if (StringUtils.isEmpty(dataset.getDatasetName())) {
-      throw new BadContentException("Dataset field 'datasetName' cannot be empty");
-    }
-    if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null
-        || dataset.getFirstPublished() != null || dataset.getLastPublished() != null
-        || dataset.getHarvestedAt() != null || dataset.getSubmissionDate() != null) {
-      throw new BadContentException(
-          "Dataset fields 'createdDate', 'updatedDate', 'firstPublished', 'lastPublished', 'harvestedAt', 'submittedAt' should be empty");
-    }
-    if (dataset.getSubmittedRecords() != 0 || dataset.getPublishedRecords() != 0) {
-      throw new BadContentException(
-          "Dataset fields 'submittedRecords', 'publishedRecords' should be 0");
-    }
-    if (StringUtils.isNotEmpty(dataset.getOrganizationId()) && !dataset
-        .getOrganizationId().equals(organizationId)) {
-      throw new BadContentException(
-          "OrganinazationId in body " + dataset.getOrganizationId()
-              + " is different from parameter " + organizationId);
-    }
-    if (existsDatasetByDatasetName(dataset.getDatasetName())) {
-      throw new DatasetAlreadyExistsException(dataset.getDatasetName());
-    }
-    LOGGER.info("Dataset not found, so it can be created");
-  }
-
-  private void checkRestrictionsOnUpdate(Dataset dataset, String datasetName)
-      throws BadContentException, NoDatasetFoundException {
-    if (StringUtils.isNotEmpty(dataset.getDatasetName()) && !dataset
-        .getDatasetName().equals(datasetName)) {
-      throw new BadContentException(
-          "DatasetName in body " + dataset.getDatasetName()
-              + " is different from parameter " + datasetName);
-    }
-    if (dataset.getCreatedDate() != null || dataset.getUpdatedDate() != null) {
-      throw new BadContentException(
-          "Dataset fields 'createdDate', 'updatedDate' should be empty");
-    }
-
-    Dataset storedDataset = getDatasetByDatasetName(datasetName);
-    dataset.setEcloudDatasetId(storedDataset.getEcloudDatasetId());
   }
 }

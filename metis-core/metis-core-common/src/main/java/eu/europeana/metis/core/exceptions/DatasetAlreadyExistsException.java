@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class DatasetAlreadyExistsException extends Exception {
   private static final long serialVersionUID = -3332292346834265371L;
 
-  public DatasetAlreadyExistsException(String name){
-    super("Dataset with name " + name + " already exists");
+  public DatasetAlreadyExistsException(String message){
+    super(message);
   }
 }

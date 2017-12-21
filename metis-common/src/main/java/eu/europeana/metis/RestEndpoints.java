@@ -13,8 +13,8 @@ public final class RestEndpoints {
 
   //DATASETS
   public static final String DATASETS = "/datasets";
-  public static final String DATASETS_DATASETNAME = "/datasets/{datasetName}";
-  public static final String DATASETS_DATASETNAME_UPDATENAME = "/datasets/{datasetName}/updateName";
+  public static final String DATASETS_DATASETID = "/datasets/{datasetId}";
+  public static final String DATASETS_DATASETNAME = "/datasets/dataset_name/{datasetName}";
   public static final String DATASETS_DATAPROVIDER = "/datasets/data_provider/{dataProvider}";
 
   //AUTHENTICATION
