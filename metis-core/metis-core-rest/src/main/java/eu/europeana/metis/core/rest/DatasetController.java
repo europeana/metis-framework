@@ -17,17 +17,11 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.api.MetisKey;
-import eu.europeana.metis.core.api.Options;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
-import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
-import eu.europeana.metis.core.service.MetisAuthorizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +37,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Controller
-public class DatasetController extends ApiKeySecuredControllerBase {
+public class DatasetController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetController.class);
 
   private final DatasetService datasetService;
 
   @Autowired
-  public DatasetController(DatasetService datasetService,
-      MetisAuthorizationService authorizationService) {
-    super(authorizationService);
+  public DatasetController(DatasetService datasetService) {
     this.datasetService = datasetService;
   }
 
@@ -61,11 +53,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.CREATED)
   public void createDatasetForOrganization(@RequestBody Dataset dataset,
       @RequestParam("organizationId"
-      ) String organizationId, @RequestParam("apikey") String apikey)
-      throws BadContentException, DatasetAlreadyExistsException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureActionAuthorized(apikey, key, Options.WRITE);
+      ) String organizationId)
+      throws BadContentException, DatasetAlreadyExistsException {
 
     datasetService.createDatasetForOrganization(dataset, organizationId);
     LOGGER.info("Dataset with name {} for organizationId {} created", dataset.getDatasetName(),
@@ -77,12 +66,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(
       @RequestBody Dataset dataset,
-      @PathVariable("datasetName") String datasetName,
-      @RequestParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, BadContentException, NoDatasetFoundException, EmptyApiKeyException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureActionAuthorized(apikey, key, Options.WRITE);
+      @PathVariable("datasetName") String datasetName)
+      throws BadContentException, NoDatasetFoundException {
 
     datasetService.updateDatasetByDatasetName(dataset, datasetName);
     LOGGER.info("Dataset with datasetName {} updated", datasetName);
@@ -92,12 +77,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDatasetName(
       @PathVariable("datasetName") String datasetName,
-      @RequestParam("newDatasetName") String newDatasetName,
-      @RequestParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException, BadContentException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureActionAuthorized(apikey, key, Options.WRITE);
+      @RequestParam("newDatasetName") String newDatasetName)
+      throws NoDatasetFoundException, BadContentException {
 
     datasetService.updateDatasetName(datasetName, newDatasetName);
     LOGGER.info("Dataset with datasetName '{}' updated name to '{}'", datasetName,
@@ -107,12 +88,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(
-      @PathVariable("datasetName") String datasetName,
-      @RequestParam("apikey") String apikey)
-      throws ApiKeyNotAuthorizedException, NoApiKeyFoundException, NoDatasetFoundException, EmptyApiKeyException, BadContentException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureActionAuthorized(apikey, key, Options.WRITE);
+      @PathVariable("datasetName") String datasetName)
+      throws NoDatasetFoundException, BadContentException {
 
     datasetService.deleteDatasetByDatasetName(datasetName);
     LOGGER.info("Dataset with datasetName '{}' deleted", datasetName);
@@ -123,12 +100,8 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Dataset getByDatasetName(
-      @PathVariable("datasetName") String datasetName,
-      @RequestParam("apikey") String apikey)
-      throws NoDatasetFoundException, NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureReadOrWriteAccess(apikey, key);
+      @PathVariable("datasetName") String datasetName)
+      throws NoDatasetFoundException {
 
     Dataset dataset = datasetService.getDatasetByDatasetName(datasetName);
     LOGGER.info("Dataset with datasetName '{}' found", datasetName);
@@ -141,12 +114,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   @ResponseBody
   public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(
       @PathVariable("dataProvider") String dataProvider,
-      @RequestParam(value = "nextPage", required = false) String nextPage,
-      @RequestParam("apikey") String apikey)
-      throws NoApiKeyFoundException, ApiKeyNotAuthorizedException, EmptyApiKeyException {
-
-    MetisKey key = ensureValidKey(apikey);
-    ensureReadOrWriteAccess(apikey, key);
+      @RequestParam(value = "nextPage", required = false) String nextPage) {
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper

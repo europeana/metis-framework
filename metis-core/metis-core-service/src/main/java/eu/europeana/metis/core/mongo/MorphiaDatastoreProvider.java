@@ -17,7 +17,6 @@
 package eu.europeana.metis.core.mongo;
 
 import com.mongodb.MongoClient;
-import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -44,7 +43,6 @@ public class MorphiaDatastoreProvider {
         morphia.map(Dataset.class);
         morphia.map(PrefLabel.class);
         morphia.map(AltLabel.class);
-        morphia.map(MetisKey.class);
         morphia.map(Workflow.class);
         morphia.map(WorkflowExecution.class);
         morphia.map(ScheduledWorkflow.class);

@@ -1,10 +1,7 @@
 package eu.europeana.metis.core.rest.exception;
 
-import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
-import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -38,8 +35,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
-  @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class,
-      NoApiKeyFoundException.class, IOException.class,
+  @ExceptionHandler(value = {UserNotFoundException.class, IOException.class,
       SolrServerException.class, ServletException.class,
       BadContentException.class,
       DatasetAlreadyExistsException.class,
@@ -48,7 +44,7 @@ public class RestResponseExceptionHandler {
       WorkflowExecutionAlreadyExistsException.class,
       ScheduledWorkflowAlreadyExistsException.class,
       NoWorkflowExecutionFoundException.class, ExecutionException.class,
-      InterruptedException.class, EmptyApiKeyException.class})
+      InterruptedException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
       HttpServletResponse response) {

@@ -21,8 +21,6 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.core.api.MetisKey;
-import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -30,13 +28,11 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
 import eu.europeana.metis.core.service.DatasetService;
-import eu.europeana.metis.core.service.MetisAuthorizationService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
-import org.mongodb.morphia.Morphia;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -135,14 +131,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
   }
 
-  // TODO: 22-11-17 Needs to be removed and handled in the metis-authentication service
-  @Bean
-  public AuthorizationDao getAuthorizationDao() {
-    Morphia morphia = new Morphia();
-    morphia.map(MetisKey.class);
-    return new AuthorizationDao();
-  }
-
   @Bean
   public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
@@ -156,11 +144,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       ScheduledWorkflowDao scheduledWorkflowDao) {
     return new DatasetService(datasetDao, workflowExecutionDao,
         scheduledWorkflowDao);
-  }
-
-  @Bean
-  public MetisAuthorizationService getMetisAuthorizationService() {
-    return new MetisAuthorizationService();
   }
 
   @PreDestroy
