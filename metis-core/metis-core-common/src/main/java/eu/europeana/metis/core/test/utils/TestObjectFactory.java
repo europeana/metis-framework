@@ -150,34 +150,30 @@ public class TestObjectFactory {
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
-//    ds.setAccepted(true);
-    ds.setCountry(Country.ALBANIA);
-    ds.setCreatedDate(new Date(1000));
-    ds.setDataProvider("prov");
-//    ds.setDeaSigned(true);
-    ds.setDescription("Test description");
-    List<String> dqa = new ArrayList<>();
-    dqa.add("test DQA");
-//    ds.setDqas(dqa);
-//    ds.setFirstPublished(new Date(1000));
-//    ds.setHarvestedAt(new Date(1000));
-    ds.setLanguage(Language.AR);
-//    ds.setLastPublished(new Date(1000));
-    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
+    ds.setDatasetId("100");
     ds.setDatasetName(datasetName);
-    ds.setNotes("test Notes");
+    ds.setOrganizationId("1234567890");
+    ds.setOrganizationName("OrganizationName");
+    ds.setProvider("1234567890");
+    ds.setIntermediateProvider("1234567890");
+    ds.setDataProvider("1234567890");
+    ds.setCreatedByUserId("userId");
+    ds.setCreatedDate(new Date());
+    ds.setUpdatedDate(new Date());
+    ds.setDatasetStatus(DatasetStatus.CREATED);
+    ds.setReplacedBy("replacedBy");
+    ds.setReplaces("12345");
+    ds.setCountry(Country.GREECE);
+    ds.setLanguage(Language.AR);
+    ds.setDescription("description");
+    ds.setNotes("Notes");
+    ds.setFirstPublishedDate(new Date());
+    ds.setLastPublishedDate(new Date());
     ds.setPublishedRecords(100);
-//    ds.setSubmittedRecords(199);
-    ds.setReplacedBy("replacedBY");
-    List<String> sources = new ArrayList<>();
-    sources.add("testSource");
-//    ds.setSources(sources);
-    List<String> subjects = new ArrayList<>();
-    subjects.add("testSubject");
-//    ds.setSubjects(subjects);
-//    ds.setSubmissionDate(new Date(1000));
-    ds.setUpdatedDate(new Date(1000));
-    ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
+    ds.setHarvestedDate(new Date());
+    ds.setHarvestedRecords(100);
+    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     return ds;
   }
 }
+
