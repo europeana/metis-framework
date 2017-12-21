@@ -22,7 +22,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
-import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.HasMongoObjectId;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import java.util.Date;
