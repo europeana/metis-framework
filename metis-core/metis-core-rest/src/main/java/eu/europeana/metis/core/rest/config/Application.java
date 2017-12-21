@@ -24,16 +24,13 @@ import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.dao.AuthorizationDao;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
-import eu.europeana.metis.core.search.service.MetisSearchService;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
-import eu.europeana.metis.core.service.OrganizationService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
@@ -155,24 +152,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
-      OrganizationDao organizationDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao) {
-    return new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
+    return new DatasetService(datasetDao, workflowExecutionDao,
         scheduledWorkflowDao);
-  }
-
-  @Bean
-  public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    OrganizationDao organizationDao = new OrganizationDao(morphiaDatastoreProvider);
-    organizationDao.setOrganizationsPerRequest(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
-    return organizationDao;
-  }
-
-  @Bean
-  public OrganizationService getOrganizationService(OrganizationDao organizationDao,
-      DatasetDao datasetDao, MetisSearchService metisSearchService) {
-    return new OrganizationService(organizationDao, datasetDao, metisSearchService);
   }
 
   @Bean

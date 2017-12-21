@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-17
  */
-@ResponseStatus(value= HttpStatus.CONFLICT, reason="Organization already exists")
+@ResponseStatus(value= HttpStatus.CONFLICT, reason="Dataset already exists")
 public class DatasetAlreadyExistsException extends Exception {
   private static final long serialVersionUID = -3332292346834265371L;
 

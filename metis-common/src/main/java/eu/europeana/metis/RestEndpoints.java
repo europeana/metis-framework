@@ -9,19 +9,7 @@ public final class RestEndpoints {
 
   private RestEndpoints() {
   }
-
-    /* METIS-CORE Endopoints*/
-
-  //ORGANIZATIONS
-  public static final String ORGANIZATIONS = "/organizations";
-  public static final String ORGANIZATIONS_ORGANIZATION_ID = "/organizations/{organizationId}";
-  public static final String ORGANIZATIONS_COUNTRY_ISOCODE = "/organizations/country/{isoCode}";
-  public static final String ORGANIZATIONS_ROLES = "/organizations/roles";
-  public static final String ORGANIZATIONS_SUGGEST = "/organizations/suggest";
-  public static final String ORGANIZATIONS_ORGANIZATION_ID_DATASETS = "/organizations/{organizationId}/datasets";
-  public static final String ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF = "/organizations/{organizationId}/optInIIIF";
-  public static final String ORGANIZATIONS_CRM_ORGANIZATION_ID = "/organizations/crm/{organizationId}";
-  public static final String ORGANIZATIONS_CRM = "/organizations/crm";
+  /* METIS-CORE Endopoints*/
 
   //DATASETS
   public static final String DATASETS = "/datasets";
@@ -37,9 +25,6 @@ public final class RestEndpoints {
   public static final String AUTHENTICATION_UPDATE_PASSD = "/authentication/update/password";
   public static final String AUTHENTICATION_UPDATE_ROLE_ADMIN = "/authentication/update/role/admin";
   public static final String AUTHENTICATION_USERS = "/authentication/users";
-  //USERS
-  public static final String USER = "/user";
-  public static final String USERBYMAIL = "/user/{email}";
 
   //ORCHESTRATION
   public static final String ORCHESTRATOR_WORKFLOWS = "/orchestrator/workflows";

@@ -6,11 +6,9 @@ import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
@@ -42,8 +40,8 @@ public class RestResponseExceptionHandler {
 
   @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class,
       NoApiKeyFoundException.class, IOException.class,
-      SolrServerException.class, OrganizationAlreadyExistsException.class, ServletException.class,
-      NoOrganizationFoundException.class, BadContentException.class,
+      SolrServerException.class, ServletException.class,
+      BadContentException.class,
       DatasetAlreadyExistsException.class,
       NoDatasetFoundException.class, NoWorkflowFoundException.class,
       NoScheduledWorkflowFoundException.class, WorkflowAlreadyExistsException.class,

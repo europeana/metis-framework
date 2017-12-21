@@ -21,23 +21,20 @@ import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.springframework.stereotype.Component;
 
 /**
  * Class providing connections to Mongo
  * Created by ymamakis on 2/17/16.
  */
-@Component
 public class MorphiaDatastoreProvider {
 
     private Datastore datastore;
@@ -45,7 +42,6 @@ public class MorphiaDatastoreProvider {
     public MorphiaDatastoreProvider(MongoClient mongoClient,String db){
         Morphia morphia = new Morphia();
         morphia.map(Dataset.class);
-        morphia.map(Organization.class);
         morphia.map(PrefLabel.class);
         morphia.map(AltLabel.class);
         morphia.map(MetisKey.class);

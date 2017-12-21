@@ -25,7 +25,6 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
@@ -109,7 +108,6 @@ public class TestDatasetController {
             .andExpect(jsonPath("$.errorMessage", is("API key myApiKey not authorized")));
 
     }
-//BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException,
     @Test
     public void createDatasetForOrganization_BadContentException_Returns406() throws Exception {
         Dataset dataset = new Dataset();
@@ -144,23 +142,6 @@ public class TestDatasetController {
             .content(TestUtils.convertObjectToJsonBytes(dataset)))
             .andExpect(status().is(409))
             .andExpect(jsonPath("$.errorMessage", is("Dataset with name Conflict already exists")));
-    }
-
-    @Test
-    public void createDatasetForOrganization_NoOrganizationFoundException_Returns404() throws Exception {
-        Dataset dataset = new Dataset();
-
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        doThrow(new NoOrganizationFoundException("Doesnotexist"))
-            .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
-
-        datasetControllerMock.perform(post("/datasets")
-            .param("organizationId", "myOrg").param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(404))
-            .andExpect(jsonPath("$.errorMessage", is("Doesnotexist")));
     }
 
     @Test

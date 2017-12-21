@@ -17,15 +17,12 @@
 package eu.europeana.metis.core.service;
 
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
-import eu.europeana.metis.core.organization.Organization;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -44,35 +41,30 @@ public class DatasetService {
   private static final Logger LOGGER = LoggerFactory.getLogger(DatasetService.class);
 
   private final DatasetDao datasetDao;
-  private final OrganizationDao organizationDao;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final ScheduledWorkflowDao scheduledWorkflowDao;
 
   @Autowired
   public DatasetService(DatasetDao datasetDao,
-      OrganizationDao organizationDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao) {
     this.datasetDao = datasetDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
-    this.organizationDao = organizationDao;
   }
 
-  public void createDataset(Dataset dataset, String organizationId) {
+  public void createDataset(Dataset dataset) {
     datasetDao.create(dataset);
-    organizationDao
-        .updateOrganizationDatasetNamesList(organizationId, dataset.getDatasetName());
   }
 
   public void createDatasetForOrganization(Dataset dataset, String organizationId)
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
     checkRestrictionsOnCreate(dataset, organizationId);
     dataset.setOrganizationId(organizationId);
     dataset.setCreatedDate(new Date());
     //Add fake ecloudDatasetId to avoid null errors in the database
     dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
-    createDataset(dataset, organizationId);
+    createDataset(dataset);
   }
 
   public void updateDataset(Dataset dataset) {
@@ -97,31 +89,18 @@ public class DatasetService {
       throw new BadContentException(
           String.format("User workflow execution is active for datasteName %s", datasetName));
     }
-    Dataset dataset = getDatasetByDatasetName(datasetName);
     datasetDao.updateDatasetName(datasetName, newDatasetName);
-    organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(), datasetName);
-    organizationDao.updateOrganizationDatasetNamesList(dataset.getOrganizationId(), newDatasetName);
     scheduledWorkflowDao.updateAllDatasetNames(datasetName, newDatasetName);
     workflowExecutionDao.updateAllDatasetNames(datasetName, newDatasetName);
   }
 
   public void deleteDatasetByDatasetName(String datasetName)
       throws NoDatasetFoundException, BadContentException {
-    Dataset dataset = getDatasetByDatasetName(datasetName);
     if (workflowExecutionDao.existsAndNotCompleted(datasetName) != null) {
       throw new BadContentException(
           String.format("User workflow execution is active for datasteName %s", datasetName));
     }
     datasetDao.deleteDatasetByDatasetName(datasetName);
-    Organization organization = organizationDao
-        .getOrganizationByOrganizationId(dataset.getOrganizationId());
-    if (organization == null) {
-      LOGGER.warn(String.format(
-          "Did not find organization with OrganizationId '%s' stated in dataset '%s' to be deleted",
-          dataset.getOrganizationId(), datasetName));
-    }
-    organizationDao.removeOrganizationDatasetNameFromList(dataset.getOrganizationId(),
-        dataset.getDatasetName());
 
     //Clean up dataset leftovers
     workflowExecutionDao.deleteAllByDatasetName(datasetName);
@@ -155,7 +134,7 @@ public class DatasetService {
 
 
   private void checkRestrictionsOnCreate(Dataset dataset, String organizationId)
-      throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException {
+      throws BadContentException, DatasetAlreadyExistsException {
     if (StringUtils.isEmpty(dataset.getDatasetName())) {
       throw new BadContentException("Dataset field 'datasetName' cannot be empty");
     }
@@ -174,12 +153,6 @@ public class DatasetService {
       throw new BadContentException(
           "OrganinazationId in body " + dataset.getOrganizationId()
               + " is different from parameter " + organizationId);
-    }
-    //Check if organization exists first
-    Organization organization = organizationDao.getOrganizationByOrganizationId(organizationId);
-    if (organization == null) {
-      throw new NoOrganizationFoundException(
-          "No organization found with organization id: " + organizationId + " in METIS");
     }
     if (existsDatasetByDatasetName(dataset.getDatasetName())) {
       throw new DatasetAlreadyExistsException(dataset.getDatasetName());

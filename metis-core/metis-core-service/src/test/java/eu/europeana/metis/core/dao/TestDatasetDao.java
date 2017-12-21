@@ -26,12 +26,10 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.List;
-import java.util.TreeSet;
 import org.bson.types.ObjectId;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -41,7 +39,6 @@ import org.junit.Test;
 public class TestDatasetDao {
 
   private static DatasetDao datasetDao;
-  private static Organization organization;
   private static Dataset dataset;
   private static EmbeddedLocalhostMongo embeddedLocalhostMongo;
 
@@ -59,7 +56,6 @@ public class TestDatasetDao {
     datasetDao = new DatasetDao(provider);
     datasetDao.setDatasetsPerRequest(5);
 
-    organization = createOrganization();
     dataset = TestObjectFactory.createDataset("testName");
   }
 
@@ -67,15 +63,6 @@ public class TestDatasetDao {
   public static void destroy() {
     embeddedLocalhostMongo.stop();
   }
-
-  private static Organization createOrganization() {
-    Organization org = new Organization();
-    org.setOrganizationId("orgId");
-    org.setDatasetNames(new TreeSet<String>());
-    org.setOrganizationUri("testUri");
-    return org;
-  }
-
 
   @Test
   public void testCreateRetrieveDataset() {

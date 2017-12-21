@@ -29,7 +29,6 @@ import eu.europeana.cloud.common.model.DataSet;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -37,45 +36,31 @@ import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
-import eu.europeana.metis.core.organization.Organization;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.TreeSet;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
-import org.mongodb.morphia.Datastore;
 
 public class TestDatasetService {
 
-  private OrganizationDao organizationDao;
-  private OrganizationService organizationService;
   private DatasetDao datasetDao;
   private WorkflowExecutionDao workflowExecutionDao;
   private ScheduledWorkflowDao scheduledWorkflowDao;
   private DatasetService datasetService;
-  private Datastore datastore;
-  private Organization org;
   private Dataset ds;
 
   @Before
   public void prepare() {
-    organizationService = Mockito.mock(OrganizationService.class);
-
-    organizationDao = Mockito.mock(OrganizationDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
 
-    datasetService = new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
+    datasetService = new DatasetService(datasetDao, workflowExecutionDao,
         scheduledWorkflowDao);
-    datastore = Mockito.mock(Datastore.class);
-
-    org = createOrganization();
 //        org.setHarvestingMetadata(new HarvestingMetadata());
     ds = createDataset();
   }
@@ -115,14 +100,6 @@ public class TestDatasetService {
     return d;
   }
 
-  private Organization createOrganization() {
-    Organization o = new Organization();
-    o.setOrganizationId("orgId");
-    o.setDatasetNames(new TreeSet<String>());
-    o.setOrganizationUri("testUri");
-    return o;
-  }
-
   @Test
   public void testCreateDataset() {
     Dataset ds = createDataset();
@@ -137,7 +114,7 @@ public class TestDatasetService {
     ds.setSubmittedRecords(0);
     ds.setPublishedRecords(0);
 
-    datasetService.createDataset(ds, "myOrgId");
+    datasetService.createDataset(ds);
 
     ArgumentCaptor<DataSet> ecloudDataSetCapture = ArgumentCaptor.forClass(DataSet.class);
     ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
@@ -146,13 +123,11 @@ public class TestDatasetService {
 //        create(ecloudDataSetCapture.capture());
     verify(datasetDao, times(1)).
         create(datasetArgumentCaptor.capture());
-    verify(organizationDao, times(1)).
-        updateOrganizationDatasetNamesList("myOrgId", "datasetName");
   }
 
   @Test
   public void testDelete()
-      throws NoDatasetFoundException, NoOrganizationFoundException, BadContentException {
+      throws NoDatasetFoundException, BadContentException {
     when(datasetDao.getDatasetByDatasetName(Mockito.any(String.class))).thenReturn(ds);
 //        when(datasetDao.deleteDatasetByDatasetName(Mockito.any(String.class))).thenReturn(true);
 //        when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class))).thenReturn(null);
@@ -163,18 +138,11 @@ public class TestDatasetService {
     when(datasetDao.getDatasetByDatasetName(any(String.class))).thenReturn(ds);
     when(workflowExecutionDao.existsAndNotCompleted(any(String.class))).thenReturn(null);
     when(datasetDao.deleteDatasetByDatasetName(any(String.class))).thenReturn(true);
-    when(organizationService.getOrganizationByOrganizationId(Mockito.any(String.class)))
-        .thenReturn(null);
     when(workflowExecutionDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
     when(scheduledWorkflowDao.deleteAllByDatasetName(any(String.class))).thenReturn(true);
 
     datasetService.deleteDatasetByDatasetName("myDatasetId");
-
-    verify(datasetDao, times(1)).getDatasetByDatasetName(any(String.class));
     verify(datasetDao, times(1)).deleteDatasetByDatasetName(ds.getDatasetName());
-    verify(organizationDao, times(1)).getOrganizationByOrganizationId("myOrgId");
-    verify(organizationDao, times(1))
-        .removeOrganizationDatasetNameFromList("myOrgId", "myDatasetId");
     verify(workflowExecutionDao, times(1)).deleteAllByDatasetName(any(String.class));
     verify(scheduledWorkflowDao, times(1)).deleteAllByDatasetName(any(String.class));
 //    verify(ecloudDatasetDao, times(1)).delete(any(DataSet.class));
@@ -212,7 +180,7 @@ public class TestDatasetService {
 
   @Test
   public void testcreateDatasetForOrganization()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
     Dataset ds = createDataset();
     ds.setDatasetName("datasetName");
     ds.setOrganizationId("myOrgId");
@@ -226,10 +194,6 @@ public class TestDatasetService {
     ds.setPublishedRecords(0);
 
     when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(null);
-    Organization org = new Organization();
-
-    when(organizationDao.getOrganizationByOrganizationId("myOrgId")).
-        thenReturn(org);
 
     datasetService.createDatasetForOrganization(ds, "myOrgId");
 
@@ -240,9 +204,6 @@ public class TestDatasetService {
 //        create(ecloudDataSetCapture.capture());
     verify(datasetDao, times(1)).
         create(datasetArgumentCaptor.capture());
-
-    verify(organizationDao, times(1)).
-        updateOrganizationDatasetNamesList("myOrgId", "datasetName");
 
     assertEquals("myOrgId", datasetArgumentCaptor.getValue().getOrganizationId());
     assertNotNull(datasetArgumentCaptor.getValue().getCreatedDate());
@@ -296,11 +257,6 @@ public class TestDatasetService {
 
     verify(datasetDao, times(1)).
         updateDatasetName("datasetName", "newDatasetName");
-    verify(organizationDao, times(1)).
-        removeOrganizationDatasetNameFromList("myOrgId", "datasetName");
-    verify(organizationDao, times(1)).
-        updateOrganizationDatasetNamesList("myOrgId", "newDatasetName");
-
   }
 
   @Test
@@ -342,7 +298,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_datasetNameEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setDatasetName(null);
@@ -352,7 +308,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_updatedDateNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setUpdatedDate(new Date());
@@ -361,7 +317,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_firstPublishedNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setFirstPublished(new Date());
@@ -370,7 +326,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_lastPublishedNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setLastPublished(new Date());
@@ -379,7 +335,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_harvistedAtNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setHarvestedAt(new Date());
@@ -388,7 +344,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_submissionDateNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setSubmissionDate(new Date());
@@ -397,7 +353,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_createdDateNotEmpty_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setCreatedDate(new Date());
@@ -406,7 +362,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_submittedRecordsNotZero_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setSubmittedRecords(10);
@@ -415,7 +371,7 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_publishedeRcordsNotZero_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setPublishedRecords(10);
@@ -425,25 +381,16 @@ public class TestDatasetService {
 
   @Test(expected = BadContentException.class)
   public void test_createPreconditionCheck_organisationIdNotMatching_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     ds.setOrganizationId("bla");
     datasetService.createDatasetForOrganization(ds, "myOrgId");
   }
 
-  @Test(expected = NoOrganizationFoundException.class)
-  public void test_createPreconditionCheck_organisationDoesNotExist_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
-
-    Dataset ds = prepareCreatePreConditions();
-    when(organizationDao.getOrganizationByOrganizationId("myOrgId")).thenReturn(null);
-    datasetService.createDatasetForOrganization(ds, "myOrgId");
-  }
-
   @Test(expected = DatasetAlreadyExistsException.class)
   public void test_createPreconditionCheck_dataSetAlreadyExist_throwsException()
-      throws DatasetAlreadyExistsException, BadContentException, NoOrganizationFoundException {
+      throws DatasetAlreadyExistsException, BadContentException {
 
     Dataset ds = prepareCreatePreConditions();
     when(datasetDao.existsDatasetByDatasetName("datasetName")).thenReturn(true);
@@ -493,10 +440,6 @@ public class TestDatasetService {
     ds.setPublishedRecords(0);
 
     when(datasetDao.getDatasetByDatasetName("datasetName")).thenReturn(null);
-    Organization org = new Organization();
-
-    when(organizationDao.getOrganizationByOrganizationId("myOrgId")).
-        thenReturn(org);
     return ds;
   }
 }

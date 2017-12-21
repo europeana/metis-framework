@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import eu.europeana.corelib.definitions.jibx.Organization;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.organization.Organization;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import org.junit.Before;
 import org.junit.Test;

@@ -26,7 +26,6 @@ import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
 import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.core.service.MetisAuthorizationService;
 import org.slf4j.Logger;
@@ -63,7 +62,7 @@ public class DatasetController extends ApiKeySecuredControllerBase {
   public void createDatasetForOrganization(@RequestBody Dataset dataset,
       @RequestParam("organizationId"
       ) String organizationId, @RequestParam("apikey") String apikey)
-      throws BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
+      throws BadContentException, DatasetAlreadyExistsException, ApiKeyNotAuthorizedException, NoApiKeyFoundException, EmptyApiKeyException {
 
     MetisKey key = ensureValidKey(apikey);
     ensureActionAuthorized(apikey, key, Options.WRITE);

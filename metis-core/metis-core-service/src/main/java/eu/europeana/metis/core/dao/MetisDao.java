@@ -22,31 +22,8 @@ package eu.europeana.metis.core.dao;
  * Created by ymamakis on 2/17/16.
  */
 public interface MetisDao<T, S> {
-
-    /**
-     * Create a dataset or organization
-     * @param t The dataset or organization to create
-     */
     S create(T t);
-
-    /**
-     * Update a dataset or organization
-     * @param t The dataset or organization to update
-     */
     S update(T t);
-
-    /**
-     * Get a dataset or organization by id
-     * @param id The id to look for
-     * @return The entity to return
-     */
     T getById(S id);
-
-    /**
-     * Delete an entity form the database
-     * @param t
-     */
     boolean delete(T t);
-
-
 }
