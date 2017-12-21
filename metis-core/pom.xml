@@ -31,7 +31,6 @@
     <module>metis-core-common</module>
     <module>metis-core-service</module>
     <module>metis-core-rest</module>
-    <module>metis-core-rest-client</module>
   </modules>
   <packaging>pom</packaging>
 
