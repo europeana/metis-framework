@@ -33,7 +33,8 @@ public class SchemaProvider {
     private static final String SCHEMAS_DIR = TMP_DIR + "/" + "schemas/";
 
     private final Map<String, String> predefinedSchemasLocations;
-    private static final String STARTING_SCHEMATRON_FILE_NAME = "/schematron-internal.xsd";
+    private static final String STARTING_SCHEMATRON_FILE_NAME = "/schematron-internal.xsl";
+    private static final String XSD_ENTRY_FILE_NAME = "/MAIN.xsd";
 
     public SchemaProvider(Map<String, String> predefinedSchemasLocations) {
         LOGGER.info("Creating schema manager");
@@ -51,11 +52,11 @@ public class SchemaProvider {
      */
     public Schema getSchema(String fileLocation) throws SchemaProviderException {
         if (isPredefined(fileLocation)) {
-            File downloadedFile = downloadZip(predefinedSchemasLocations.get(fileLocation.toLowerCase()), fileLocation.toLowerCase());
+            File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation.toLowerCase()), fileLocation.toLowerCase());
             unzipArchive(downloadedFile);
             return prepareSchema(fileLocation, downloadedFile.getParentFile());
         } else {
-            File downloadedFile = downloadZip(fileLocation, prepareDirectoryName(fileLocation));
+            File downloadedFile = downloadZipIfNeeded(fileLocation, prepareDirectoryName(fileLocation));
             unzipArchive(downloadedFile);
             return prepareSchema(prepareDirectoryName(fileLocation), downloadedFile.getParentFile());
         }
@@ -84,14 +85,18 @@ public class SchemaProvider {
      * @param destinationDir place where downloaded file will be saved
      * @return newly created file
      */
-    private File downloadZip(String zipLocation, String destinationDir) throws SchemaProviderException {
+    private File downloadZipIfNeeded(String zipLocation, String destinationDir) throws SchemaProviderException {
 
         ReadableByteChannel rbc = null;
         FileOutputStream fos = null;
         try {
+            File schemasLocation = new File(SCHEMAS_DIR, destinationDir);
+            if(new File(schemasLocation, "zip.zip").exists()){
+                LOGGER.info("Zip file will not be downloaded, already exists in temp directory");
+                return new File(schemasLocation, "zip.zip");
+            }
             URL url = new URL(zipLocation);
             rbc = Channels.newChannel(url.openStream());
-            File schemasLocation = new File(SCHEMAS_DIR, destinationDir);
             FileUtils.deleteDirectory(schemasLocation);
             schemasLocation.mkdirs();
             File destinationFile = new File(schemasLocation, "zip.zip");
@@ -136,7 +141,7 @@ public class SchemaProvider {
         Schema schema = new Schema();
         schema.setName(schemaName);
         File schematronDirectory = new File(unzippedSchemaLocation, "schematron");
-        schema.setPath(unzippedSchemaLocation.getAbsolutePath() + "/MAIN.xsd");
+        schema.setPath(unzippedSchemaLocation.getAbsolutePath() + XSD_ENTRY_FILE_NAME);
         if (schematronDirectory.exists()) {
             schema.setSchematronPath(schematronDirectory.getAbsolutePath() + STARTING_SCHEMATRON_FILE_NAME);
         }

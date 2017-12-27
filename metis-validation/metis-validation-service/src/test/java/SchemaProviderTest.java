@@ -46,7 +46,7 @@ public class SchemaProviderTest {
         //then
         Assert.assertEquals("EDM-INTERNAL", s.getName());
         Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/MAIN.xsd", s.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/schematron/schematron-internal.xsd", s.getSchematronPath());
+        Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/schematron/schematron-internal.xsl", s.getSchematronPath());
         assertZipFileExistence(s);
     }
 
@@ -63,7 +63,7 @@ public class SchemaProviderTest {
         //then
         Assert.assertEquals("EDM-EXTERNAL", schema.getName());
         Assert.assertEquals(TMP_DIR + "/schemas/edm-external/MAIN.xsd", schema.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/schematron/schematron-internal.xsd", schema.getSchematronPath());
+        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/schematron/schematron-internal.xsl", schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
@@ -80,7 +80,7 @@ public class SchemaProviderTest {
         //then
         Assert.assertEquals("localhost_custom_schema", schema.getName());
         Assert.assertEquals(TMP_DIR + "/schemas/localhost_custom_schema/MAIN.xsd", schema.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/localhost_custom_schema/schematron/schematron-internal.xsd", schema.getSchematronPath());
+        Assert.assertEquals(TMP_DIR + "/schemas/localhost_custom_schema/schematron/schematron-internal.xsl", schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
@@ -93,7 +93,7 @@ public class SchemaProviderTest {
         //then
         Assert.assertEquals("EDM-EXTERNAL", schema.getName());
         Assert.assertEquals(TMP_DIR + "/schemas/edm-external/EDM-EXTERNAL.xsd", schema.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/schematron/schematron-internal.xsd", schema.getSchematronPath());
+        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/schematron/schematron-internal.xsl", schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
