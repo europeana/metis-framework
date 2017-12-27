@@ -63,7 +63,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
         .getDatastore()
         .createUpdateOperations(WorkflowExecution.class);
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations
         .set("metisPlugins", workflowExecution.getMetisPlugins());
@@ -79,7 +80,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
         .getDatastore()
         .createUpdateOperations(WorkflowExecution.class);
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations
         .set(WORKFLOW_STATUS, workflowExecution.getWorkflowStatus());
@@ -105,7 +107,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     UpdateOperations<WorkflowExecution> workflowExecutionUpdateOperations = morphiaDatastoreProvider
         .getDatastore()
         .createUpdateOperations(WorkflowExecution.class);
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations.set("cancelling", Boolean.TRUE);
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
@@ -214,12 +217,14 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   public boolean isCancelled(ObjectId id) {
-    return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id").equal(id)
-        .project(WORKFLOW_STATUS, true).get().getWorkflowStatus() == WorkflowStatus.CANCELLED;
+    return
+        morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id").equal(id)
+            .project(WORKFLOW_STATUS, true).get().getWorkflowStatus() == WorkflowStatus.CANCELLED;
   }
 
   public boolean isCancelling(ObjectId id) {
-    return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id").equal(id)
+    return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class).field("_id")
+        .equal(id)
         .project("cancelling", true).get().isCancelling();
   }
 
@@ -230,14 +235,18 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       Thread.sleep(2 * monitorCheckInSecs * 1000L);
       WorkflowExecution workflowExecution = this
           .getById(workflowExecutionToCheck.getId().toString());
-      return (updatedDateBefore != null && updatedDateBefore.compareTo(workflowExecution.getUpdatedDate()) < 0) ||
-          (updatedDateBefore == null && workflowExecution.getUpdatedDate() != null)
+      return hasUpdatedDateChanged(updatedDateBefore, workflowExecution.getUpdatedDate())
           || workflowExecution.getFinishedDate() != null;
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();  // set interrupt flag
       LOGGER.warn("Thread was interrupted", e);
       return true;
     }
+  }
+
+  private boolean hasUpdatedDateChanged(Date updatedDateBefore, Date updatedDateAfter) {
+    return (updatedDateBefore != null && updatedDateBefore.compareTo(updatedDateAfter) < 0) ||
+        (updatedDateBefore == null && updatedDateAfter != null);
   }
 
   public void removeActiveExecutionsFromList(List<WorkflowExecution> workflowExecutions,

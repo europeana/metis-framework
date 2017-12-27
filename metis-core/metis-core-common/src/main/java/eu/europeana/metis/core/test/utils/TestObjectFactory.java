@@ -150,7 +150,7 @@ public class TestObjectFactory {
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
-    ds.setDatasetId("100");
+    ds.setDatasetId(DATASETID);
     ds.setDatasetName(datasetName);
     ds.setOrganizationId("1234567890");
     ds.setOrganizationName("OrganizationName");
