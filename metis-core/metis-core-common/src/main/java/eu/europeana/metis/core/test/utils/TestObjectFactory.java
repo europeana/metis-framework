@@ -97,6 +97,7 @@ public class TestObjectFactory {
       workflow.setId(new ObjectId());
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
+      dataset.setDatasetId(String.format("%s%s", DATASETID, i));
       WorkflowExecution workflowExecution = createUserWorkflowExecutionObject(dataset,
           workflow);
       workflowExecution.setId(new ObjectId());
