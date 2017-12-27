@@ -22,7 +22,6 @@ import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.w3c.dom.ls.LSResourceResolver;
 
 import javax.annotation.PreDestroy;
 import java.util.ArrayList;
@@ -35,12 +34,15 @@ import java.util.concurrent.*;
  */
 @Service
 public class ValidationExecutionService {
-    private final LSResourceResolver lsResourceResolver;
+    private final ClasspathResourceResolver lsResourceResolver;
     private final ValidationServiceConfig config;
     private final ExecutorService es;
 
     @Autowired
-    public ValidationExecutionService(ValidationServiceConfig config, LSResourceResolver lsResourceResolver) {
+    private SchemaProvider schemaProvider;
+
+    @Autowired
+    public ValidationExecutionService(ValidationServiceConfig config, ClasspathResourceResolver lsResourceResolver) {
         this.config = config;
         this.lsResourceResolver = lsResourceResolver;
         this.es = Executors.newFixedThreadPool(10);
@@ -54,7 +56,7 @@ public class ValidationExecutionService {
      * @return A service result
      */
     public ValidationResult singleValidation(final String schema, final String document) {
-        return new Validator(schema, document, lsResourceResolver).call();
+        return new Validator(schema, document,schemaProvider, lsResourceResolver).call();
     }
 
     /**
@@ -70,7 +72,7 @@ public class ValidationExecutionService {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
         for (final Record document : documents) {
-            cs.submit(new Validator(schema, document.getRecord(), lsResourceResolver));
+            cs.submit(new Validator(schema, document.getRecord(),schemaProvider, lsResourceResolver));
         }
 
         List<ValidationResult> results = new ArrayList<>();

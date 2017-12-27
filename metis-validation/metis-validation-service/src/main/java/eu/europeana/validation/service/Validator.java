@@ -19,7 +19,6 @@ package eu.europeana.validation.service;
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,24 +69,25 @@ public class Validator implements Callable<ValidationResult> {
      * @param schema
      * @param document
      */
-    public Validator(String schema, String document, LSResourceResolver resolver) {
+    public Validator(String schema, String document,SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
         this.schema = schema;
         this.document = document;
+        this.schemaProvider = schemaProvider;
         this.resolver = resolver;
     }
 
     private String schema;
     private String document;
-
-    private LSResourceResolver resolver;
+    private SchemaProvider schemaProvider;
+    private ClasspathResourceResolver resolver;
 
     /**
      * Get schema object specified with its name
-     * @param schema name of the schema
+     * @param schemaName name of the schema
      * @return
      */
-    private Schema getSchemaByName(String schema) {
-        throw new NotImplementedException("Not implemented yet");
+    private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
+        return schemaProvider.getSchema(schemaName);
     }
 
     /**
@@ -105,6 +105,8 @@ public class Validator implements Callable<ValidationResult> {
             if (savedSchema == null) {
                 return constructValidationError(document, "Specified schema does not exist");
             }
+
+            resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
 
             EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
             if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {

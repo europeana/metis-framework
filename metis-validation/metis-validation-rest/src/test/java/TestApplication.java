@@ -1,11 +1,14 @@
 import eu.europeana.validation.service.ClasspathResourceResolver;
+import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationServiceConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.w3c.dom.ls.LSResourceResolver;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @EnableWebMvc
@@ -29,8 +32,18 @@ public class TestApplication {
     }
 
     @Bean(name = "lsResourcResolver")
-    public LSResourceResolver getLSResourceResolver() {
+    public ClasspathResourceResolver getLSResourceResolver() {
         return new ClasspathResourceResolver();
+    }
+
+    @Bean
+    public SchemaProvider schemaManager(){
+        Map<String,String> predefinedSchemasLocations = new HashMap();
+
+        predefinedSchemasLocations.put("edm-internal", "http://localhost/schema.zip");
+        predefinedSchemasLocations.put("edm-external", "http://localhost/schema.zip");
+
+        return new SchemaProvider(predefinedSchemasLocations);
     }
 }
 

@@ -17,6 +17,7 @@
 package eu.europeana.validation.rest.config;
 
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ClasspathResourceResolver;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,15 +33,17 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.w3c.dom.ls.LSResourceResolver;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Configuration file for Jersey
@@ -103,7 +106,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  public LSResourceResolver getLSResourceResolver() {
+  public SchemaProvider schemaManager(){
+    Map<String,String> predefinedSchemasLocations = new HashMap();
+
+    predefinedSchemasLocations.put("edm-internal", "http://localhost/schema.zip");
+    predefinedSchemasLocations.put("edm-external", "http://localhost/schema.zip");
+
+    return new SchemaProvider(predefinedSchemasLocations);
+  }
+
+  @Bean
+  public ClasspathResourceResolver getLSResourceResolver() {
     return new ClasspathResourceResolver();
   }
 
@@ -123,15 +136,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   private ApiInfo apiInfo() {
-    ApiInfo apiInfo = new ApiInfo(
+    return new ApiInfo(
         "Validation REST API",
         "Validation REST API for Europeana",
         "v1",
         "API TOS",
-        "development@europeana.eu",
+        new Contact("Europeana","europeana.eu","development@europeana.eu"),
         "EUPL Licence v1.1",
         ""
     );
-    return apiInfo;
   }
 }

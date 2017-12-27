@@ -49,7 +49,7 @@ public class TestApplication {
   }
 
   @Bean(name = "lsResourceResolver")
-  public LSResourceResolver getLSResourceResolver() {
+  public ClasspathResourceResolver getLSResourceResolver() {
       return new ClasspathResourceResolver();
   }
 
