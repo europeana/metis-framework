@@ -163,12 +163,12 @@ public class TestScheduledWorkflowDao {
   }
 
   @Test
-  public void deleteAllByDatasetName() {
+  public void deleteAllByDatasetId() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertTrue(
-        scheduledWorkflowDao.deleteAllByDatasetName(scheduledWorkflow.getDatasetId()));
+        scheduledWorkflowDao.deleteAllByDatasetId(scheduledWorkflow.getDatasetId()));
   }
 
   @Test

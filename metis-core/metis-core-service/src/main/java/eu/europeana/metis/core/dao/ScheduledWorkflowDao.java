@@ -115,16 +115,6 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     return delete.getN() == 1;
   }
 
-  public boolean deleteAllByDatasetName(String datasetId) {
-    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(ScheduledWorkflow.class);
-    query.field(DATASET_ID).equal(datasetId);
-    WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
-    LOGGER.debug(
-        "ScheduledWorkflows with datasetId: {} deleted from Mongo", datasetId);
-    return delete.getN() >= 1;
-  }
-
   public boolean deleteAllByDatasetId(String datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
