@@ -216,12 +216,12 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetName,
+  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetId,
       String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
     return workflowExecutionDao
-        .getAllWorkflowExecutions(datasetName, workflowOwner, workflowName, workflowStatus,
+        .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatus,
             nextPage);
   }
 
@@ -339,12 +339,10 @@ public class OrchestratorService {
         ecloudDataSetServiceClient
             .createDataSet(ecloudProvider, uuid, "Metis generated dataset");
         return uuid;
+      } catch (DataSetAlreadyExistsException e) {
+        LOGGER.info("Dataset already exist, not recreating", e);
       } catch (MCSException e) {
-        if (e instanceof DataSetAlreadyExistsException) {
-          LOGGER.info("Dataset already exist, not recreating", e);
-        } else {
-          LOGGER.error("An error has occurred during ecloud dataset creation.", e);
-        }
+        LOGGER.error("An error has occurred during ecloud dataset creation.", e);
       }
     } else {
       LOGGER.info("Dataset with name {} already has a dataset initialized in Ecloud with id {}",
