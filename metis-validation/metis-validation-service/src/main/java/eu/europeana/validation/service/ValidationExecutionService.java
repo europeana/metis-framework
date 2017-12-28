@@ -18,18 +18,13 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import javax.annotation.PreDestroy;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.PreDestroy;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.*;
 
 /**
  * Schema service service
@@ -37,16 +32,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ValidationExecutionService {
-    private final ValidationManagementService service;
-    private final AbstractLSResourceResolver abstractLSResourceResolver;
+    private final ClasspathResourceResolver lsResourceResolver;
     private final ValidationServiceConfig config;
     private final ExecutorService es;
 
     @Autowired
-    public ValidationExecutionService(ValidationServiceConfig config, ValidationManagementService service, AbstractLSResourceResolver abstractLSResourceResolver) {
+    private SchemaProvider schemaProvider;
+
+    @Autowired
+    public ValidationExecutionService(ValidationServiceConfig config, ClasspathResourceResolver lsResourceResolver) {
         this.config = config;
-        this.service = service;
-        this.abstractLSResourceResolver = abstractLSResourceResolver;
+        this.lsResourceResolver = lsResourceResolver;
         this.es = Executors.newFixedThreadPool(10);
     }
 
@@ -58,7 +54,7 @@ public class ValidationExecutionService {
      * @return A service result
      */
     public ValidationResult singleValidation(final String schema, final String document) {
-        return new Validator(schema, document, service, abstractLSResourceResolver).call();
+        return new Validator(schema, document,schemaProvider, lsResourceResolver).call();
     }
 
     /**
@@ -74,7 +70,7 @@ public class ValidationExecutionService {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
         for (final String document : documents) {
-            cs.submit(new Validator(schema, document, service, abstractLSResourceResolver));
+            cs.submit(new Validator(schema, document,schemaProvider, lsResourceResolver));
         }
 
         List<ValidationResult> results = new ArrayList<>();

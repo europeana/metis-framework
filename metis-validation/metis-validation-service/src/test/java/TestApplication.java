@@ -15,25 +15,16 @@
  *  the Licence.
  */
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import eu.europeana.validation.model.Schema;
-import eu.europeana.validation.service.AbstractLSResourceResolver;
-import eu.europeana.validation.service.AbstractSchemaDao;
 import eu.europeana.validation.service.ClasspathResourceResolver;
-import eu.europeana.validation.service.SchemaDao;
 import eu.europeana.validation.service.ValidationExecutionService;
-import eu.europeana.validation.service.ValidationManagementService;
 import eu.europeana.validation.service.ValidationServiceConfig;
-import java.io.IOException;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.w3c.dom.ls.LSResourceResolver;
+
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 
 /**
  * Created by ymamakis on 7/14/16.
@@ -48,49 +39,21 @@ public class TestApplication {
     }
   }
 
-  private final String mongoHost;
-  private final int mongoPort;
-  private EmbeddedLocalhostMongo embeddedLocalhostMongo;
-
-  public TestApplication() throws IOException {
-    embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
-    embeddedLocalhostMongo.start();
-    mongoHost = embeddedLocalhostMongo.getMongoHost();
-    mongoPort = embeddedLocalhostMongo.getMongoPort();
+  public TestApplication() {
   }
 
   @Bean
-  ValidationManagementService getValidationManagementService() {
-    ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-    MongoClient client = new MongoClient(address);
-    Morphia morphia = new Morphia();
-    morphia.map(Schema.class);
-    Datastore datastore = morphia.createDatastore(client, "validation");
-    datastore.ensureIndexes();
-    AbstractSchemaDao abstractSchemaDao = new SchemaDao(datastore, "/tmp/schema");
-    ValidationManagementService validationManagementService = new ValidationManagementService(
-        abstractSchemaDao);
-
-    return validationManagementService;
-  }
-
-  @Bean
-  @DependsOn(value = "abstractLSResourcResolver")
+  @DependsOn(value = "lsResourceResolver")
   ValidationExecutionService getValidationExecutionService() {
-    return new ValidationExecutionService(new Config(), getValidationManagementService(), getAbstractLSResourceResolver());
+    return new ValidationExecutionService(new Config(), getLSResourceResolver());
   }
 
-  @Bean(name = "abstractLSResourcResolver")
-  public AbstractLSResourceResolver getAbstractLSResourceResolver() {
+  @Bean(name = "lsResourceResolver")
+  public ClasspathResourceResolver getLSResourceResolver() {
       return new ClasspathResourceResolver();
   }
 
   @PostConstruct
   public void startup() throws IOException {
-  }
-
-  @PreDestroy
-  public void shutdown() {
-    embeddedLocalhostMongo.stop();
   }
 }

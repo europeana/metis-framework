@@ -18,29 +18,24 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
-
-import java.io.IOException;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import javax.xml.transform.Templates;
-import javax.xml.transform.TransformerConfigurationException;
-
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.ls.LSResourceResolver;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
@@ -48,11 +43,11 @@ import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
 import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.concurrent.Callable;
-
-import org.xml.sax.SAXException;
-import sun.rmi.runtime.Log;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 /**
  * EDM Validator class
@@ -74,20 +69,26 @@ public class Validator implements Callable<ValidationResult> {
      * @param schema
      * @param document
      */
-    public Validator(String schema, String document, ValidationManagementService service, AbstractLSResourceResolver resolver) {
+    public Validator(String schema, String document,SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
         this.schema = schema;
         this.document = document;
-        this.service = service;
+        this.schemaProvider = schemaProvider;
         this.resolver = resolver;
     }
 
     private String schema;
     private String document;
+    private SchemaProvider schemaProvider;
+    private ClasspathResourceResolver resolver;
 
-    @Autowired
-    private ValidationManagementService service;
-
-    private AbstractLSResourceResolver resolver;
+    /**
+     * Get schema object specified with its name
+     * @param schemaName name of the schema
+     * @return
+     */
+    private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
+        return schemaProvider.getSchema(schemaName);
+    }
 
     /**
      * Validate method using JAXP
@@ -100,10 +101,11 @@ public class Validator implements Callable<ValidationResult> {
         source.setByteStream(new ByteArrayInputStream(document.getBytes()));
         try {
             Document doc = EDMParser.getInstance().getEdmParser().parse(source);
-            Schema savedSchema = service.getSchemaByName(schema);
+            Schema savedSchema = getSchemaByName(schema);
             if (savedSchema == null) {
                 return constructValidationError(document, "Specified schema does not exist");
             }
+
             resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
 
             EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
@@ -134,12 +136,7 @@ public class Validator implements Callable<ValidationResult> {
         String schematronPath = schema.getSchematronPath();
 
         if (!templatesCache.containsKey(schematronPath)) {
-            if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
-                reader = new StringReader(IOUtils.toString(resolver.getObjectStorageClient().
-                        get(schematronPath).get().getPayload().openStream()));
-            } else {
-                reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath)));
-            }
+            reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath)));
             Templates template = TransformerFactory.newInstance()
                     .newTemplates(new StreamSource(reader));
             templatesCache.put(schematronPath, template);
@@ -234,7 +231,7 @@ class EDMParser {
      * @param path The path location of the schema
      * @return
      */
-    public javax.xml.validation.Validator getEdmValidator(String path, AbstractLSResourceResolver resolver) {
+    public javax.xml.validation.Validator getEdmValidator(String path, LSResourceResolver resolver) {
         try {
             javax.xml.validation.Schema schema = getSchema(path, resolver);
             return schema.newValidator();
@@ -245,7 +242,7 @@ class EDMParser {
     }
 
     private javax.xml.validation.Schema getSchema(String path,
-                                                  AbstractLSResourceResolver resolver)
+                                                  LSResourceResolver resolver)
             throws SAXException, IOException {
 
         if (!cache.containsKey(path)) {
@@ -256,13 +253,7 @@ class EDMParser {
             factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
                     false);
             factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
-            javax.xml.validation.Schema schema;
-            if (resolver.getClass().isAssignableFrom(ObjectStorageResourceResolver.class)) {
-                schema = factory.newSchema(new StreamSource(resolver.getObjectStorageClient().
-                        get(path).get().getPayload().openStream()));
-            } else {
-                schema = factory.newSchema(new StreamSource(new FileInputStream(path)));
-            }
+            javax.xml.validation.Schema schema = factory.newSchema(new StreamSource(new FileInputStream(path)));
             cache.put(path, schema);
         }
         return cache.get(path);
