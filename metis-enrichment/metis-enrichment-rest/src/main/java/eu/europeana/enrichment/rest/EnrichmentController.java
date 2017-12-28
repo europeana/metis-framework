@@ -132,13 +132,20 @@ public class EnrichmentController {
   })
   public EnrichmentResultList enrich(@ApiParam("input") @RequestBody InputValueList input)
       throws EnrichmentException {
+	  
+	  try {
+		  List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
 
-    try {
-      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
-      return converter.convert(wrapperList);
-    } catch (IOException e) {
-      LOGGER.error("Error converting object.", e);
-      throw new EnrichmentException(e.getMessage());
-    }
+		  EnrichmentResultList result = converter.convert(wrapperList);
+		  
+		  if (result.getResult().size() == 0) {
+			  return null;
+		  }
+		  
+		  return result;
+	  } catch (IOException e) {
+		  LOGGER.error("Error converting object.", e);
+		  throw new EnrichmentException(e.getMessage());
+	  }
   }
 }
