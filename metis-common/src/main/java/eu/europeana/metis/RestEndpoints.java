@@ -24,6 +24,7 @@ public final class RestEndpoints {
   public static final String AUTHENTICATION_UPDATE = "/authentication/update";
   public static final String AUTHENTICATION_UPDATE_PASSD = "/authentication/update/password";
   public static final String AUTHENTICATION_UPDATE_ROLE_ADMIN = "/authentication/update/role/admin";
+  public static final String AUTHENTICATION_USER_BY_TOKEN = "/authentication/user_by_access_token";
   public static final String AUTHENTICATION_USERS = "/authentication/users";
 
   //ORCHESTRATION
