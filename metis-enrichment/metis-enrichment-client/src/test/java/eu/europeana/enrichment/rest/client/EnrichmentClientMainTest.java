@@ -40,6 +40,8 @@ public class EnrichmentClientMainTest {
 		List<EntityClass> entityClasses1 = new ArrayList<EntityClass>();
 		entityClasses1.add(EntityClass.CONCEPT);
 		val1.setVocabularies(entityClasses1);
+		val1.setLanguage("French");
+		
 
 		InputValue val2 = new InputValue();
 		val2.setOriginalField("proxy_dc_subject");
@@ -47,6 +49,7 @@ public class EnrichmentClientMainTest {
 		List<EntityClass> entityClasses2 = new ArrayList<EntityClass>();
 		entityClasses2.add(EntityClass.CONCEPT);
 		val2.setVocabularies(entityClasses2);
+		val2.setLanguage("French");
 
 		InputValue val3 = new InputValue();
 		val3.setOriginalField("proxy_dc_subject");
@@ -82,8 +85,8 @@ public class EnrichmentClientMainTest {
 		values.add(val4);
 		values.add(val5);
 		values.add(val6);
-		InputValueList inList = new InputValueList();
-		inList.setInputValueList(values);
+		
+		
 		/*
 		ObjectMapper obj = new ObjectMapper();
 		
@@ -92,11 +95,28 @@ public class EnrichmentClientMainTest {
 		Form form = new Form();
 		form.param("uri", "http://data.europeana.eu/concept/base/96");
 		form.param("toXml", Boolean.toString(true));*/
-		eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://metis-enrichment-test.cfapps.io/");
-		EnrichmentResultList res = enrichmentClient
-				.enrich(values);
-		for(EnrichmentBase enrichment:res.getResult()){
-			System.out.println(enrichment	);
+		//eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://metis-enrichment-test.cfapps.io/");
+		
+		eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://localhost:8080/enrich");
+		
+		
+		//String inputValue = "{ \"inputValue\": [ { \"language\": \"string\", \"originalField\": \"string\", \"value\": \"string\", \"vocabularies\": [ \"CONCEPT\"]}]}";
+		
+		System.out.println("Enriching...");
+		EnrichmentResultList res = enrichmentClient.enrich(values);
+		System.out.println("Done.");
+		
+		
+		if (res == null)
+		{
+			System.out.println("Got empty result.");
+		}
+		else
+		{
+		
+			for(EnrichmentBase enrichment:res.getResult()){
+				System.out.println(enrichment);
+			}
 		}
 	}
 

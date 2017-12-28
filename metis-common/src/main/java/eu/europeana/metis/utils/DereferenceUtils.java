@@ -75,7 +75,6 @@ public class DereferenceUtils {
    * @return set of values for dereferencing
    * @throws JiBXException
    */
-
   public static Set<String> extractValuesForDereferencing(String xml) throws JiBXException {
     Set<String> values = new HashSet<>();
 
@@ -91,6 +90,34 @@ public class DereferenceUtils {
 
     return values;
   }
+  
+  /**
+   * Extract values from RDF document
+   * @param RDF input document
+   * @return set of values for dereferencing
+   * @throws JiBXException
+   */
+  public static Set<String> extractValuesForDereferencing(RDF rdf) throws JiBXException {
+	    Set<String> values = new HashSet<>();
+
+	    values.addAll(dereferencePlaceList(rdf.getPlaceList()));
+	    values.addAll(dereferenceAgentList(rdf.getAgentList()));
+	    values.addAll(dereferenceConceptList(rdf.getConceptList()));
+	    values.addAll(dereferenceTimespanList(rdf.getTimeSpanList()));
+	    values.addAll(dereferenceWebResourceList(rdf.getWebResourceList()));
+	    values.addAll(dereferenceProxyList(rdf.getProxyList()));
+
+	    return values;
+	  }
+  
+  public static RDF toRDF(String xml) throws JiBXException {
+	    Set<String> values = new HashSet<>();
+
+	    IUnmarshallingContext context = factory.createUnmarshallingContext();
+	    RDF rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), "UTF-8");
+
+	    return rdf;
+	  }
 
   private static Set<String> dereferenceProxyList(List<ProxyType> proxyList) {
     Set<String> values = new HashSet<>();

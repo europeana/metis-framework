@@ -66,18 +66,12 @@ public class EnrichmentClient {
         InputValueList inList = new InputValueList();
         inList.setInputValueList(values);
 
-        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        map.add("input", inList);
-
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("Content-Type", MediaType.APPLICATION_XML_VALUE);
-
-        HttpEntity list = new HttpEntity(headers);
-
         try {
-            return template.postForObject(path + ENRICHMENT_ENRICH, list,
-                EnrichmentResultList.class, map);
-
+        	System.out.println("Inside EnrichmentClient...calling REST...");
+        	EnrichmentResultList result = template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
+        	System.out.println("Done.");
+        	
+        	return result;
         } catch (Exception e){
             throw new UnknownException(e.getMessage());
         }
