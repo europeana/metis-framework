@@ -3,6 +3,7 @@ package eu.europeana.metis.core.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -74,8 +75,7 @@ public class TestOrchestratorService {
   }
 
   @After
-  public void cleanUp()
-  {
+  public void cleanUp() {
     Mockito.reset(workflowExecutionDao);
     Mockito.reset(workflowDao);
     Mockito.reset(scheduledWorkflowDao);
@@ -163,10 +163,10 @@ public class TestOrchestratorService {
 
   @Test
   public void getRunningUserWorkflowExecution() {
-    orchestratorService.getRunningWorkflowExecution(anyString());
+    orchestratorService.getRunningWorkflowExecution(anyInt());
     InOrder inOrder = Mockito.inOrder(workflowExecutionDao);
     inOrder.verify(workflowExecutionDao, times(1))
-        .getRunningWorkflowExecution(anyString());
+        .getRunningWorkflowExecution(anyLong());
     inOrder.verifyNoMoreInteractions();
   }
 
@@ -214,7 +214,8 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
-    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new DataSetAlreadyExistsException());
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
+        .thenThrow(new DataSetAlreadyExistsException());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -232,7 +233,8 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
-    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any())).thenThrow(new MCSException());
+    when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
+        .thenThrow(new MCSException());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -394,7 +396,7 @@ public class TestOrchestratorService {
         TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWOWNER, WorkflowStatus.RUNNING,
         objectId);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(anyString(), anyString(), anyString(), any(
+        .getAllWorkflowExecutions(anyLong(), anyString(), anyString(), any(
             WorkflowStatus.class), anyString());
     verifyNoMoreInteractions(workflowExecutionDao);
   }
@@ -411,7 +413,7 @@ public class TestOrchestratorService {
   @Test
   public void getScheduledUserWorkflowByDatasetName() {
     orchestratorService.getScheduledWorkflowByDatasetId(TestObjectFactory.DATASETID);
-    verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetId(anyString());
+    verify(scheduledWorkflowDao, times(1)).getScheduledWorkflowByDatasetId(anyInt());
     verifyNoMoreInteractions(scheduledWorkflowDao);
   }
 
@@ -625,6 +627,6 @@ public class TestOrchestratorService {
     orchestratorService
         .deleteScheduledWorkflow(TestObjectFactory.DATASETID);
     verify(scheduledWorkflowDao, times(1))
-        .deleteScheduledWorkflow(anyString());
+        .deleteScheduledWorkflow(anyInt());
   }
 }

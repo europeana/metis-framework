@@ -92,12 +92,12 @@ public class OrchestratorService {
     return workflowDao.getAllWorkflows(workflowOwner, nextPage);
   }
 
-  public WorkflowExecution getRunningWorkflowExecution(String datasetName) {
+  public WorkflowExecution getRunningWorkflowExecution(int datasetName) {
     return workflowExecutionDao
         .getRunningWorkflowExecution(datasetName);
   }
 
-  public void addWorkflowInQueueOfWorkflowExecutions(String datasetId,
+  public void addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName, int priority)
       throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException {
 
@@ -122,7 +122,7 @@ public class OrchestratorService {
   }
 
   //Used for direct, on the fly provided, execution of a Workflow
-  public void addWorkflowInQueueOfWorkflowExecutions(String datasetId,
+  public void addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       Workflow workflow, int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     Dataset dataset = checkDatasetExistence(datasetId);
@@ -148,7 +148,7 @@ public class OrchestratorService {
     LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
   }
 
-  public void cancelWorkflowExecution(String datasetName)
+  public void cancelWorkflowExecution(int datasetName)
       throws NoWorkflowExecutionFoundException {
 
     WorkflowExecution workflowExecution = workflowExecutionDao
@@ -216,7 +216,7 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetId,
+  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
@@ -230,7 +230,7 @@ public class OrchestratorService {
     return workflowExecutionDao.getAllWorkflowExecutions(workflowStatus, nextPage);
   }
 
-  public ScheduledWorkflow getScheduledWorkflowByDatasetId(String datasetId) {
+  public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
     return scheduledWorkflowDao.getScheduledWorkflowByDatasetId(datasetId);
   }
 
@@ -252,7 +252,7 @@ public class OrchestratorService {
         .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
   }
 
-  private Dataset checkDatasetExistence(String datasetId) throws NoDatasetFoundException {
+  private Dataset checkDatasetExistence(int datasetId) throws NoDatasetFoundException {
     Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(
@@ -273,7 +273,7 @@ public class OrchestratorService {
     return workflow;
   }
 
-  private void checkScheduledWorkflowExistenceForDatasetId(String datasetId)
+  private void checkScheduledWorkflowExistenceForDatasetId(int datasetId)
       throws ScheduledWorkflowAlreadyExistsException {
     String id = scheduledWorkflowDao.existsForDatasetId(datasetId);
     if (id != null) {
@@ -325,7 +325,7 @@ public class OrchestratorService {
     return storedId;
   }
 
-  public void deleteScheduledWorkflow(String datasetId) {
+  public void deleteScheduledWorkflow(int datasetId) {
     scheduledWorkflowDao.deleteScheduledWorkflow(datasetId);
   }
 

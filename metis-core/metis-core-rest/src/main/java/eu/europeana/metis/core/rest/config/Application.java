@@ -33,6 +33,7 @@ import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -81,6 +82,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String mongoPassword;
   @Value("${mongo.db}")
   private String mongoDb;
+
+  //Redis
+  @Value("${redis.host}")
+  private String redisHost;
+  @Value("${redis.port}")
+  private int redisPort;
+  @Value("${redis.password}")
+  private String redisPassword;
+  @Value("${redisson.lock.watchdog.timeout.in.secs}")
+  private int redissonLockWatchdogTimeoutInSecs;
+
 
   private MongoProviderImpl mongoProvider;
 
@@ -141,9 +153,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
       WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao) {
+      ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
     return new DatasetService(datasetDao, workflowExecutionDao,
-        scheduledWorkflowDao);
+        scheduledWorkflowDao, redissonClient);
   }
 
   @PreDestroy

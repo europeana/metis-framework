@@ -22,11 +22,10 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
+  private int datasetId;
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
   private Date pointerDate;
-  @Indexed
-  private String datasetId;
   @Indexed
   private String workflowOwner;
   @Indexed
@@ -37,7 +36,7 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   public ScheduledWorkflow() {
   }
 
-  public ScheduledWorkflow(Date pointerDate, String datasetId, String workflowOwner,
+  public ScheduledWorkflow(Date pointerDate, int datasetId, String workflowOwner,
       String workflowName, ScheduleFrequence scheduleFrequence, int workflowPriority) {
     this.pointerDate = pointerDate;
     this.datasetId = datasetId;
@@ -57,11 +56,11 @@ public class ScheduledWorkflow implements HasMongoObjectId {
     this.id = id;
   }
 
-  public String getDatasetId() {
+  public int getDatasetId() {
     return datasetId;
   }
 
-  public void setDatasetId(String datasetId) {
+  public void setDatasetId(int datasetId) {
     this.datasetId = datasetId;
   }
 

@@ -27,7 +27,8 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,42 +38,56 @@ public class DatasetService {
   private final DatasetDao datasetDao;
   private final WorkflowExecutionDao workflowExecutionDao;
   private final ScheduledWorkflowDao scheduledWorkflowDao;
+  private final RedissonClient redissonClient;
 
   @Autowired
   public DatasetService(DatasetDao datasetDao,
       WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao) {
+      ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
     this.datasetDao = datasetDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
+    this.redissonClient = redissonClient;
   }
 
   public Dataset createDataset(Dataset dataset) throws DatasetAlreadyExistsException {
-    Dataset storedDataset = datasetDao
-        .getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
-            dataset.getDatasetName());
-    if (storedDataset != null) {
-      throw new DatasetAlreadyExistsException(String
-          .format("Dataset with organizationId: %s and datasetName: %s already exists..",
-              dataset.getOrganizationId(), dataset.getDatasetName()));
+    //Lock required for findin the next empty datasetId
+    final String executionCheckLock = "datasetCreationLock";
+    RLock lock = redissonClient.getFairLock(executionCheckLock);
+    lock.lock();
+
+    Dataset datasetObjectId;
+    try {
+      Dataset storedDataset = datasetDao
+          .getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
+              dataset.getDatasetName());
+      if (storedDataset != null) {
+        lock.unlock();
+        throw new DatasetAlreadyExistsException(String
+            .format("Dataset with organizationId: %s and datasetName: %s already exists..",
+                dataset.getOrganizationId(), dataset.getDatasetName()));
+      }
+      dataset.setFirstPublishedDate(null);
+      dataset.setLastPublishedDate(null);
+      dataset.setPublishedRecords(0);
+      dataset.setHarvestedDate(null);
+      dataset.setHarvestedRecords(0);
+      dataset.setId(null);
+      dataset.setUpdatedDate(null);
+
+      dataset.setCreatedDate(new Date());
+      dataset.setDatasetStatus(DatasetStatus.CREATED);
+      //Add fake ecloudDatasetId to avoid null errors in the database
+      dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
+
+      int nextInSequenceDatasetId = datasetDao.findNextInSequenceDatasetId();
+      dataset.setDatasetId(nextInSequenceDatasetId);
+      datasetObjectId = datasetDao.getById(datasetDao.create(dataset));
     }
-    dataset.setFirstPublishedDate(null);
-    dataset.setLastPublishedDate(null);
-    dataset.setPublishedRecords(0);
-    dataset.setHarvestedDate(null);
-    dataset.setHarvestedRecords(0);
-    dataset.setId(null);
-    dataset.setUpdatedDate(null);
-
-    dataset.setCreatedDate(new Date());
-    dataset.setDatasetStatus(DatasetStatus.CREATED);
-    //Add fake ecloudDatasetId to avoid null errors in the database
-    dataset.setEcloudDatasetId(String.format("NOT_CREATED_YET-%s", UUID.randomUUID().toString()));
-
-    // TODO: 21-12-17 Generated datasetId properly
-    ObjectId objectId = new ObjectId();
-    dataset.setDatasetId(objectId.toString());
-    return datasetDao.getById(datasetDao.create(dataset));
+    finally {
+      lock.unlock();
+    }
+    return datasetObjectId;
   }
 
   public void updateDataset(Dataset dataset) throws NoDatasetFoundException, BadContentException {
@@ -100,7 +115,7 @@ public class DatasetService {
     datasetDao.update(dataset);
   }
 
-  public void deleteDatasetByDatasetId(String datasetId) throws BadContentException {
+  public void deleteDatasetByDatasetId(int datasetId) throws BadContentException {
     if (workflowExecutionDao.existsAndNotCompleted(datasetId) != null) {
       throw new BadContentException(
           String.format("Workflow execution is active for datasteId %s", datasetId));
@@ -121,7 +136,7 @@ public class DatasetService {
     return dataset;
   }
 
-  public Dataset getDatasetByDatasetId(String datasetId) throws NoDatasetFoundException {
+  public Dataset getDatasetByDatasetId(int datasetId) throws NoDatasetFoundException {
     Dataset dataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (dataset == null) {
       throw new NoDatasetFoundException(

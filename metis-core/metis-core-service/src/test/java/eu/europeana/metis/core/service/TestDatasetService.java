@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -25,6 +26,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 
 public class TestDatasetService {
 
@@ -32,22 +35,29 @@ public class TestDatasetService {
   private WorkflowExecutionDao workflowExecutionDao;
   private ScheduledWorkflowDao scheduledWorkflowDao;
   private DatasetService datasetService;
+  private RedissonClient redissonClient;
+
+  private static final String DATASET_CREATION_LOCK = "datasetCreationLock";
 
   @Before
   public void prepare() {
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
+    redissonClient = Mockito.mock(RedissonClient.class);
 
     datasetService = new DatasetService(datasetDao, workflowExecutionDao,
-        scheduledWorkflowDao);
+        scheduledWorkflowDao, redissonClient);
   }
 
   @Test
   public void testCreateDataset() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(DATASET_CREATION_LOCK)).thenReturn(rlock);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(null);
+    when(datasetDao.findNextInSequenceDatasetId()).thenReturn(1);
     datasetService.createDataset(dataset);
     ArgumentCaptor<Dataset> datasetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
     verify(datasetDao, times(1)).
@@ -60,6 +70,8 @@ public class TestDatasetService {
   public void testCreateDatasetAlreadyExists() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(DATASET_CREATION_LOCK)).thenReturn(rlock);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(),
         dataset.getDatasetName())).thenReturn(dataset);
     datasetService.createDataset(dataset);

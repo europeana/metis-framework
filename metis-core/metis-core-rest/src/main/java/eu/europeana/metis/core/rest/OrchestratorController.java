@@ -111,7 +111,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void addWorkflowInQueueOfWorkflowExecutions(
-      @PathVariable("datasetId") String datasetId,
+      @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName, @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
@@ -128,7 +128,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public void addWorkflowInQueueOfWorkflowExecutions(
-      @PathVariable("datasetId") String datasetId, @RequestBody Workflow workflow,
+      @PathVariable("datasetId") int datasetId, @RequestBody Workflow workflow,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     orchestratorService
@@ -143,7 +143,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void cancelWorkflowExecution(
-      @PathVariable("datasetId") String datasetId)
+      @PathVariable("datasetId") int datasetId)
       throws NoWorkflowExecutionFoundException {
     orchestratorService.cancelWorkflowExecution(datasetId);
     LOGGER.info(
@@ -156,7 +156,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public WorkflowExecution getRunningWorkflowExecution(
-      @PathVariable("datasetId") String datasetId) {
+      @PathVariable("datasetId") int datasetId) {
     WorkflowExecution workflowExecution = orchestratorService
         .getRunningWorkflowExecution(datasetId);
     LOGGER.info("WorkflowExecution with datasetId '{}' found", datasetId);
@@ -168,7 +168,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
-      @PathVariable("datasetId") String datasetId,
+      @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
@@ -222,7 +222,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ScheduledWorkflow getScheduledWorkflow(
-      @PathVariable("datasetId") String datasetId) {
+      @PathVariable("datasetId") int datasetId) {
     ScheduledWorkflow scheduledWorkflow = orchestratorService
         .getScheduledWorkflowByDatasetId(datasetId);
     LOGGER.info("ScheduledWorkflow with with datasetId '{}' found", datasetId);
@@ -261,7 +261,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void deleteScheduledWorkflowExecution(
-      @PathVariable("datasetId") String datasetId) {
+      @PathVariable("datasetId") int datasetId) {
     orchestratorService.deleteScheduledWorkflow(datasetId);
     LOGGER.info(
         "ScheduledWorkflowExecution for datasetId '{}' deleted",

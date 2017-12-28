@@ -132,7 +132,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return false;
   }
 
-  public WorkflowExecution getRunningOrInQueueExecution(String datasetId) {
+  public WorkflowExecution getRunningOrInQueueExecution(long datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class)
         .field(DATASET_ID).equal(
@@ -151,7 +151,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .project("_id", true).get() != null;
   }
 
-  public String existsAndNotCompleted(String datasetId) {
+  public String existsAndNotCompleted(long datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .find(WorkflowExecution.class).field(DATASET_ID).equal(datasetId);
     query.or(query.criteria(WORKFLOW_STATUS).equal(WorkflowStatus.INQUEUE),
@@ -166,7 +166,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
-  public WorkflowExecution getRunningWorkflowExecution(String datasetId) {
+  public WorkflowExecution getRunningWorkflowExecution(long datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(
@@ -175,7 +175,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return query.get();
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutions(String datasetId,
+  public List<WorkflowExecution> getAllWorkflowExecutions(long datasetId,
       String workflowOwner,
       String workflowName,
       WorkflowStatus workflowStatus, String nextPage) {
@@ -271,7 +271,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
   }
 
-  public boolean deleteAllByDatasetId(String datasetId) {
+  public boolean deleteAllByDatasetId(long datasetId) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(datasetId);

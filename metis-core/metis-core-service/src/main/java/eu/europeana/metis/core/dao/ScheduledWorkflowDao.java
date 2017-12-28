@@ -13,8 +13,6 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
-import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +70,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     return false;
   }
 
-  public ScheduledWorkflow getScheduledWorkflow(String datasetId, String workflowOwner,
+  public ScheduledWorkflow getScheduledWorkflow(int datasetId, String workflowOwner,
       String workflowName) {
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
@@ -81,7 +79,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         .equal(workflowName).get();
   }
 
-  public ScheduledWorkflow getScheduledWorkflowByDatasetId(String datasetId) {
+  public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
     return morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(datasetId).get();
@@ -96,7 +94,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         .project("_id", true).get() != null;
   }
 
-  public String existsForDatasetId(String datasetId) {
+  public String existsForDatasetId(int datasetId) {
     ScheduledWorkflow storedScheduledWorkflow = morphiaDatastoreProvider.getDatastore()
         .find(ScheduledWorkflow.class).field(DATASET_ID)
         .equal(datasetId).project("_id", true).get();
@@ -104,7 +102,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
         : null;
   }
 
-  public boolean deleteScheduledWorkflow(String datasetId) {
+  public boolean deleteScheduledWorkflow(int datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     query.field(DATASET_ID).equal(datasetId);
@@ -115,7 +113,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     return delete.getN() == 1;
   }
 
-  public boolean deleteAllByDatasetId(String datasetId) {
+  public boolean deleteAllByDatasetId(int datasetId) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     query.field(DATASET_ID).equal(datasetId);
@@ -123,20 +121,6 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
     LOGGER.debug(
         "ScheduledWorkflows with datasetId: {} deleted from Mongo", datasetId);
     return delete.getN() >= 1;
-  }
-
-  public void updateAllDatasetNames(String datasetId, String newDatasetName) {
-    UpdateOperations<ScheduledWorkflow> scheduledWorkflowUpdateOperations = morphiaDatastoreProvider
-        .getDatastore()
-        .createUpdateOperations(ScheduledWorkflow.class);
-    Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore().find(ScheduledWorkflow.class)
-        .filter(DATASET_ID, datasetId);
-    scheduledWorkflowUpdateOperations.set(DATASET_ID, newDatasetName);
-    UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
-        .update(query, scheduledWorkflowUpdateOperations);
-    LOGGER.debug(
-        "ScheduledWorkflow with datasetId '{}' renamed to '{}'. (UpdateResults: {})",
-        datasetId, newDatasetName, updateResults.getUpdatedCount());
   }
 
   public List<ScheduledWorkflow> getAllScheduledWorkflows(

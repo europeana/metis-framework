@@ -17,6 +17,7 @@
 package eu.europeana.metis.core.dao;
 
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import java.util.List;
 import org.apache.commons.lang.StringUtils;
@@ -24,6 +25,7 @@ import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.UpdateOperations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,12 +79,13 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class).field(DATASET_ID)
             .equal(dataset.getDatasetId()));
     LOGGER
-        .debug("Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
+        .debug(
+            "Dataset with datasetId: '{}', datasetName: '{}' and OrganizationId: '{}' deleted in Mongo",
             dataset.getDatasetId(), dataset.getDatasetName(), dataset.getOrganizationId());
     return true;
   }
 
-  public boolean deleteByDatasetId(String datasetId) {
+  public boolean deleteByDatasetId(int datasetId) {
     Dataset dataset = new Dataset();
     dataset.setDatasetId(datasetId);
     return delete(dataset);
@@ -93,13 +96,15 @@ public class DatasetDao implements MetisDao<Dataset, String> {
         .equal(datasetName).get();
   }
 
-  public Dataset getDatasetByDatasetId(String datasetId) {
+  public Dataset getDatasetByDatasetId(int datasetId) {
     return morphiaDatastoreProvider.getDatastore().find(Dataset.class)
         .filter(DATASET_ID, datasetId).get();
   }
 
-  public Dataset getDatasetByOrganizationIdAndDatasetName(String organizationId, String datasetName) {
-    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId").equal(organizationId).field(DATASET_NAME)
+  public Dataset getDatasetByOrganizationIdAndDatasetName(String organizationId,
+      String datasetName) {
+    return morphiaDatastoreProvider.getDatastore().find(Dataset.class).field("organizationId")
+        .equal(organizationId).field(DATASET_NAME)
         .equal(datasetName).get();
   }
 
@@ -118,7 +123,8 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return query.asList(new FindOptions().limit(datasetsPerRequest));
   }
 
-  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermediateProvider, String nextPage) {
+  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermediateProvider,
+      String nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("intermediateProvider").equal(intermediateProvider).order("_id");
     if (StringUtils.isNotEmpty(nextPage)) {
@@ -162,4 +168,18 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     this.datasetsPerRequest = datasetsPerRequest;
   }
 
+  public int findNextInSequenceDatasetId() {
+    Dataset dataset;
+    DatasetIdSequence datasetIdSequence = morphiaDatastoreProvider.getDatastore()
+        .find(DatasetIdSequence.class).get();
+    do {
+      datasetIdSequence.setSequence(datasetIdSequence.getSequence() + 1);
+      dataset = this.getDatasetByDatasetId(datasetIdSequence.getSequence());
+    } while (dataset != null);
+    Query<DatasetIdSequence> updateQuery = morphiaDatastoreProvider.getDatastore().createQuery(DatasetIdSequence.class).field("_id").equal(datasetIdSequence.getId());
+    UpdateOperations<DatasetIdSequence> updateOperations = morphiaDatastoreProvider.getDatastore()
+        .createUpdateOperations(DatasetIdSequence.class).set("sequence", datasetIdSequence.getSequence());
+    morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations);
+    return datasetIdSequence.getSequence();
+  }
 }

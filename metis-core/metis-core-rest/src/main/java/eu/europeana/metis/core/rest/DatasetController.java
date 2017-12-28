@@ -75,7 +75,7 @@ public class DatasetController {
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(
-      @PathVariable("datasetId") String datasetId) throws BadContentException {
+      @PathVariable("datasetId") int datasetId) throws BadContentException {
 
     datasetService.deleteDatasetByDatasetId(datasetId);
     LOGGER.info("Dataset with datasetId '{}' deleted", datasetId);
@@ -86,7 +86,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public Dataset getByDatasetId(
-      @PathVariable("datasetId") String datasetId)
+      @PathVariable("datasetId") int datasetId)
       throws NoDatasetFoundException {
 
     Dataset dataset = datasetService.getDatasetByDatasetId(datasetId);

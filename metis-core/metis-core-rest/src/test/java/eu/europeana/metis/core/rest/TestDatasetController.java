@@ -131,12 +131,12 @@ public class TestDatasetController {
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
-    ArgumentCaptor<String> datasetIdArgumentCaptor = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> datasetIdArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
 
     verify(datasetServiceMock, times(1))
         .deleteDatasetByDatasetId(datasetIdArgumentCaptor.capture());
 
-    assertEquals("datasetId", datasetIdArgumentCaptor.getValue());
+    assertEquals(TestObjectFactory.DATASETID, datasetIdArgumentCaptor.getValue().intValue());
   }
 
   @Test
@@ -165,9 +165,9 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)))
         .andExpect(jsonPath("$.datasetId", is(TestObjectFactory.DATASETID)));
 
-    ArgumentCaptor<String> datasetIdArgumentCaptor = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> datasetIdArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1)).getDatasetByDatasetId(datasetIdArgumentCaptor.capture());
-    assertEquals(TestObjectFactory.DATASETID, datasetIdArgumentCaptor.getValue());
+    assertEquals(TestObjectFactory.DATASETID, datasetIdArgumentCaptor.getValue().longValue());
   }
 
   @Test

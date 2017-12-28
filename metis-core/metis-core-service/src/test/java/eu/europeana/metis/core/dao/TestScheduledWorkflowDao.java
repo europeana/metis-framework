@@ -172,26 +172,13 @@ public class TestScheduledWorkflowDao {
   }
 
   @Test
-  public void updateAllDatasetNames() {
-    ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
-    scheduledWorkflowDao.create(scheduledWorkflow);
-    String newDatasetName = "newDatasetName";
-    scheduledWorkflowDao
-        .updateAllDatasetNames(scheduledWorkflow.getDatasetId(), newDatasetName);
-    ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
-        .getScheduledWorkflowByDatasetId(newDatasetName);
-    Assert.assertTrue(retrievedScheduledWorkflow.getDatasetId().equals(newDatasetName));
-  }
-
-  @Test
   public void getAllScheduledUserWorkflows() {
     int scheduledUserWorkflowToCreate =
         scheduledWorkflowDao.getScheduledWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
           .createScheduledUserWorkflowObject();
-      scheduledWorkflow.setDatasetId(String.format("%s%s", TestObjectFactory.DATASETNAME, i));
+      scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
       scheduledWorkflowDao.create(scheduledWorkflow);
     }
     String nextPage = null;
@@ -220,7 +207,7 @@ public class TestScheduledWorkflowDao {
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
           .createScheduledUserWorkflowObject();
-      scheduledWorkflow.setDatasetId(String.format("%s%s", TestObjectFactory.DATASETNAME, i));
+      scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
       int plusMinutes = ThreadLocalRandom.current().nextInt(1, minutesRange);
       Date pointerDate = Date
           .from(lowerBound.plusMinutes(plusMinutes).atZone(ZoneId.systemDefault()).toInstant());
