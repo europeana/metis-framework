@@ -1,6 +1,8 @@
 package eu.europeana.utils.test;
 
 import eu.europeana.corelib.definitions.jibx.AgentType;
+import eu.europeana.corelib.definitions.jibx.Alternative;
+import eu.europeana.corelib.definitions.jibx.BitRate;
 import eu.europeana.corelib.definitions.jibx.BroadMatch;
 import eu.europeana.corelib.definitions.jibx.CloseMatch;
 import eu.europeana.corelib.definitions.jibx.Concept;
@@ -32,6 +34,7 @@ import eu.europeana.corelib.definitions.jibx.IsVersionOf;
 import eu.europeana.corelib.definitions.jibx.Issued;
 import eu.europeana.corelib.definitions.jibx.Medium;
 import eu.europeana.corelib.definitions.jibx.NarrowMatch;
+import eu.europeana.corelib.definitions.jibx.Note;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.Publisher;
@@ -91,6 +94,13 @@ public class DereferenceUtilsTest {
         hasPartList.add(hasPart);
         place.setHasPartList(hasPartList);
         
+        // Should be rejected
+        Note note = new Note();      
+        note.setString("Note");
+        ArrayList<Note> noteList = new ArrayList<Note>();
+        noteList.add(note);
+        place.setNoteList(noteList);
+        
         ArrayList<PlaceType> placeList = new ArrayList<PlaceType>();
         placeList.add(place);
         
@@ -134,9 +144,16 @@ public class DereferenceUtilsTest {
         isRelatedToList.add(isRelatedTo);
         agent.setIsRelatedToList(isRelatedToList);
         
+        // Should be rejected
+        Note note = new Note();      
+        note.setString("Note");
+        ArrayList<Note> noteList = new ArrayList<Note>();
+        noteList.add(note);
+        agent.setNoteList(noteList);
+        
         ArrayList<AgentType> agentList = new ArrayList<AgentType>();
         agentList.add(agent);
-        
+
         rdf.setAgentList(agentList);
         
         Set<String> result = null;
@@ -191,6 +208,12 @@ public class DereferenceUtilsTest {
         Related related = new Related();
         related.setResource("http://dummy7.dum");
         choice6.setRelated(related);
+        
+        // Should be rejected
+        Choice choice7 = new Choice();
+        Note note = new Note();      
+        note.setString("Note");
+        choice7.setNote(note);
 
         ArrayList<Choice> choiceList = new ArrayList<Choice>();
         choiceList.add(choice1);
@@ -199,6 +222,7 @@ public class DereferenceUtilsTest {
         choiceList.add(choice4);
         choiceList.add(choice5);
         choiceList.add(choice6);
+        choiceList.add(choice7);
         
         concept.setChoiceList(choiceList);
         
@@ -255,6 +279,13 @@ public class DereferenceUtilsTest {
         ArrayList<IsPartOf> isPartOfList = new ArrayList<IsPartOf>();
         isPartOfList.add(isPartOf);
         timeSpan.setIsPartOfList(isPartOfList);
+        
+        // Should be rejected
+        Note note = new Note();      
+        note.setString("Note");
+        ArrayList<Note> noteList = new ArrayList<Note>();
+        noteList.add(note);
+        timeSpan.setNoteList(noteList);
         
         ArrayList<TimeSpanType> timeSpanList = new ArrayList<TimeSpanType>();
         timeSpanList.add(timeSpan);
@@ -331,6 +362,11 @@ public class DereferenceUtilsTest {
         ArrayList<Issued> issuedList = new ArrayList<Issued>();
         issuedList.add(issued);
         webResource.setIssuedList(issuedList);
+        
+        // Should be rejected
+        BitRate bitRate = new BitRate();      
+        bitRate.setDatatype("Data Type");
+        webResource.setBitRate(bitRate);
         
         ArrayList<WebResourceType> webResourceList = new ArrayList<WebResourceType>();
         webResourceList.add(webResource);
@@ -601,6 +637,12 @@ public class DereferenceUtilsTest {
         resource35.setResource("http://dummy35.dum");
         type.setResource(resource35);
         choice26.setType(type);
+        
+        // Should be rejected
+        ProxyType.Choice choice27 = new ProxyType.Choice();
+        Alternative alternative = new Alternative();      
+        alternative.setString("Alternative");
+        choice27.setAlternative(alternative);
 
         ArrayList<ProxyType.Choice> choiceList = new ArrayList<ProxyType.Choice>();
         
@@ -630,6 +672,7 @@ public class DereferenceUtilsTest {
         choiceList.add(choice24);
         choiceList.add(choice25);
         choiceList.add(choice26);
+        choiceList.add(choice27);
         
         proxy.setChoiceList(choiceList);
         
