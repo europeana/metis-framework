@@ -21,20 +21,20 @@ import org.slf4j.LoggerFactory;
  */
 public class EnrichmentUtils {
     public static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentUtils.class);
-
     private static IBindingFactory rdfFactory;
     private final static String UTF8= "UTF-8";
 
     static {
-        try {
-            rdfFactory = BindingDirectory.getFactory(RDF.class);
-        } catch (JiBXException e) {
-            LOGGER.error("Unable to get BindingFactory", e);
-            System.exit(-1);
-        }
+    	try {
+    		rdfFactory = BindingDirectory.getFactory(RDF.class);
+    	} 
+    	catch (JiBXException e) {
+    		LOGGER.error("Unable to get BindingFactory", e);
+    		System.exit(-1);
+    	}
     }
 
-    private EnrichmentUtils() { }
+    private EnrichmentUtils() {}
 
     /**
      * Merge entities in a record after enrichment
@@ -73,13 +73,25 @@ public class EnrichmentUtils {
     public static List<InputValue> extractFieldsForEnrichment(String record) throws JiBXException {
         IUnmarshallingContext rdfCTX = rdfFactory.createUnmarshallingContext();
         RDF rdf = (RDF)rdfCTX.unmarshalDocument(IOUtils.toInputStream(record),UTF8);
-
+        
+        return extractFieldsForEnrichment(rdf);
+    }
+    
+    /**
+     * Extract the fields to enrich from an RDF file
+     * @param RDF file
+     * @return List<InputValue>
+     * @throws JiBXException
+     */
+    public static List<InputValue> extractFieldsForEnrichment(RDF rdf) throws JiBXException {
         ProxyType providerProxy = EntityMergeUtils.getProviderProxy(rdf);
         List<InputValue> valuesForEnrichment= new ArrayList<>();
-        for(EnrichmentFields field: EnrichmentFields.values()){
+        
+        for(EnrichmentFields field: EnrichmentFields.values()) {
             List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
             valuesForEnrichment.addAll(values);
         }
+        
         return valuesForEnrichment;
     }
 }

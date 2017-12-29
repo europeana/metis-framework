@@ -68,9 +68,9 @@ class EntityMergeUtils {
     return rdf;
   }
 
-  static ProxyType getProviderProxy(RDF rdf){
-    for(ProxyType proxyType:rdf.getProxyList()){
-      if(proxyType.getEuropeanaProxy()==null || !proxyType.getEuropeanaProxy().isEuropeanaProxy()){
+  static ProxyType getProviderProxy(RDF rdf) {
+    for(ProxyType proxyType:rdf.getProxyList()) {
+      if(proxyType.getEuropeanaProxy()==null || !proxyType.getEuropeanaProxy().isEuropeanaProxy()) {
         return proxyType;
       }
     }
