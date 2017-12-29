@@ -106,6 +106,7 @@ public class DereferenceUtilsTest {
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(4, result.size());
+        
         Assert.assertTrue(result.contains("http://dummy1.dum"));
         Assert.assertTrue(result.contains("http://dummy2.dum"));
         Assert.assertTrue(result.contains("http://dummy3.dum"));
@@ -148,6 +149,7 @@ public class DereferenceUtilsTest {
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(3, result.size());
+        
         Assert.assertTrue(result.contains("http://dummy1.dum"));
         Assert.assertTrue(result.contains("http://dummy2.dum"));
         Assert.assertTrue(result.contains("http://dummy3.dum"));
@@ -215,6 +217,7 @@ public class DereferenceUtilsTest {
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(7, result.size());
+        
         Assert.assertTrue(result.contains("http://dummy1.dum"));
         Assert.assertTrue(result.contains("http://dummy2.dum"));
         Assert.assertTrue(result.contains("http://dummy3.dum"));
@@ -268,6 +271,7 @@ public class DereferenceUtilsTest {
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(4, result.size());
+        
         Assert.assertTrue(result.contains("http://dummy1.dum"));
         Assert.assertTrue(result.contains("http://dummy2.dum"));
         Assert.assertTrue(result.contains("http://dummy3.dum"));
@@ -343,6 +347,7 @@ public class DereferenceUtilsTest {
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(6, result.size());
+        
         Assert.assertTrue(result.contains("http://dummy1.dum"));
         Assert.assertTrue(result.contains("http://dummy2.dum"));
         Assert.assertTrue(result.contains("http://dummy3.dum"));
@@ -643,6 +648,7 @@ public class DereferenceUtilsTest {
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(35, result.size());
+        
         Assert.assertTrue(result.contains("http://dummy1.dum"));
         Assert.assertTrue(result.contains("http://dummy2.dum"));
         Assert.assertTrue(result.contains("http://dummy3.dum"));

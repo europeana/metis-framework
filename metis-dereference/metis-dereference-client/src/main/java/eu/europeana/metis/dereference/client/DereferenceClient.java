@@ -44,13 +44,14 @@ public class DereferenceClient {
     public DereferenceClient() {
         restTemplate = new RestTemplate();
         Properties props = new Properties();
+        
         try {
-            props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
-            hostUrl = props.getProperty("host.url");
-        } catch (IOException e) {
-            e.printStackTrace();
+        	props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
+        	hostUrl = props.getProperty("host.url"); 
         }
-
+        catch (IOException e) {
+        	e.printStackTrace();
+        }
     }
 
     public DereferenceClient(String hostUrl){
@@ -140,13 +141,14 @@ public class DereferenceClient {
      */
     public String dereference(String uri) {
         String uriString = null;
+        
         try {
-            uriString = URLEncoder.encode(uri, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+        	uriString = URLEncoder.encode(uri, "UTF-8");
+        } 
+        catch (UnsupportedEncodingException e) {
+        	e.printStackTrace();
         }
+        
         return restTemplate.getForObject(hostUrl + DEREFERENCE+"?uri=" + uriString, String.class);
     }
-
-
 }
