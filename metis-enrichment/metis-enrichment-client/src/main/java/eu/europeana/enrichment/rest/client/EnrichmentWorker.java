@@ -1,5 +1,6 @@
-package eu.europeana.metis.enrichment;
+package eu.europeana.enrichment.rest.client;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +11,16 @@ import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Lang;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
+import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.client.DereferenceClient;
 import eu.europeana.metis.utils.EnrichmentUtils;
 import eu.europeana.metis.utils.InputValue;
 
+/*
+ * *** To be integrated into eCloud topology. This code serves as an example of enrichment through use of the
+ * *** enrichment and dereferencing clients and utils 
+ */
 public class EnrichmentWorker {
 
 	public static void main(String[] args) {
@@ -23,6 +29,7 @@ public class EnrichmentWorker {
 		DereferenceClient dereferenceClient = new DereferenceClient();
 		EnrichmentClient enrichmentClient = new EnrichmentClient();
 
+		// Create a simple RDF
 		ProxyType proxy = new ProxyType();
 
 		Choice choice = new Choice();
@@ -31,7 +38,7 @@ public class EnrichmentWorker {
 		creator.setString("Creator 1");
 
 		Lang language = new Lang();
-		language.setLang("Gibberish");
+		language.setLang("English");
 		creator.setLang(language);
 
 		choice.setCreator(creator);
@@ -45,20 +52,33 @@ public class EnrichmentWorker {
 
 		rdf.setProxyList(proxyList);
 
-		List<InputValue> result = null;
+		List<InputValue> fieldsForEnrichment = null;
 
+		// Extract fields for enrichment
 		try {
-			result = EnrichmentUtils.extractFieldsForEnrichment(rdf);
+			fieldsForEnrichment = EnrichmentUtils.extractFieldsForEnrichment(rdf);
 		} 
 		catch (JiBXException e) {
 			e.printStackTrace();
 		}	    	
 
-
-		System.out.println("!!! result size: " + result.size());
-		for (InputValue i : result) {
-			System.out.println(i.getValue());
+		for (InputValue i : fieldsForEnrichment) {
+			System.out.println(+ i.getValue());
 		}
+		
+		
+		EnrichmentResultList enrichmentInformation = null;
+		
+		// Get the information with which to enrich using the extracted fields
+		try {
+			enrichmentInformation = enrichmentClient.enrich(fieldsForEnrichment);
+		} catch (UnknownException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(enrichmentInformation);
 
 	}
 

@@ -91,7 +91,7 @@ public class EnrichmentClientTestWithMain {
 		*/
 		//eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://metis-enrichment-test.cfapps.io/");
 		
-		eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://localhost:8080/enrich");
+		eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient();
 		
 		//String inputValue = "{ \"inputValue\": [ { \"language\": \"string\", \"originalField\": \"string\", \"value\": \"string\", \"vocabularies\": [ \"CONCEPT\"]}]}";
 		
