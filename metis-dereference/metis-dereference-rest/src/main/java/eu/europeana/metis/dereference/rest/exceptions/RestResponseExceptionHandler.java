@@ -19,11 +19,9 @@ package eu.europeana.metis.dereference.rest.exceptions;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,7 +31,6 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @ControllerAdvice
 public class RestResponseExceptionHandler {
-
     @ResponseBody
     @ExceptionHandler(Exception.class)
     public ServerError handleResponse(HttpServletResponse response,HttpServletRequest req,

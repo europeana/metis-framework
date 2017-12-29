@@ -30,11 +30,15 @@ import java.io.Serializable;
  */
 
 @Entity("Vocabulary")
-public class Vocabulary implements Serializable{
-
-
-    @Id
+public class Vocabulary implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 2946293185967000823L;
+	
+	@Id
     private String id;
+	
     /**
      * The URI of the controlled vocabulary
      */
