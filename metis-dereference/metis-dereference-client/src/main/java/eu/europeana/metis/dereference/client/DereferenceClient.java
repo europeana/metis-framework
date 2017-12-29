@@ -18,8 +18,6 @@ package eu.europeana.metis.dereference.client;
 
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
-import org.springframework.web.client.RestTemplate;
-
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
@@ -29,6 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import org.springframework.web.client.RestTemplate;
 
 import static eu.europeana.metis.RestEndpoints.*;
 
@@ -106,7 +105,8 @@ public class DereferenceClient {
      *
      * @return The list of all vocabularies
      */
-    public List<Vocabulary> getAllVocabularies() {
+    @SuppressWarnings("unchecked")
+	public List<Vocabulary> getAllVocabularies() {
         List<Vocabulary> vocs = (List<Vocabulary>) restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
         return vocs;
     }
@@ -116,7 +116,8 @@ public class DereferenceClient {
      *
      * @param uri The url of the entity
      */
-    public void deleteEntity(String uri) {
+    @SuppressWarnings("deprecation")
+	public void deleteEntity(String uri) {
         restTemplate.delete(hostUrl + RestEndpoints.resolve(ENTITY_DELETE, URLEncoder.encode(uri)));
     }
 

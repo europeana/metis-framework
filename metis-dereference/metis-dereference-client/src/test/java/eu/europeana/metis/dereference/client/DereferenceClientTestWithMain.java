@@ -16,43 +16,23 @@
  */
 package eu.europeana.metis.dereference.client;
 
-import eu.europeana.metis.dereference.ContextualClass;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.utils.DereferenceUtils;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
-
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-
-import eu.europeana.corelib.definitions.jibx.EuropeanaAggregationType;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Resource;
-import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.Place;
-
-
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by gmamakis on 1-3-16.
  */
-public class DereferenceClientMain {
+public class DereferenceClientTestWithMain {
 
-    public static void main (String[] args){
+    public static void main (String[] args) {
         try {
             DereferenceClient client = new DereferenceClient();
-            EnrichmentClient eClient = new EnrichmentClient("http://localhost:8080/enrich");
             
             String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rdf:RDF xmlns:edm=\"http://www.europeana.eu/schemas/edm/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">" +
             "<edm:ProvidedCHO rdf:about=\"/00903/1008362\"/>" +
@@ -90,7 +70,6 @@ public class DereferenceClientMain {
               "<edm:rights rdf:resource=\"http://www.europeana.eu/rights/rr-f/\"/>" +
             "</edm:EuropeanaAggregation>" +
           "</rdf:RDF>";
-            
             
             RDF rdf = DereferenceUtils.toRDF(xml);
             
@@ -138,7 +117,7 @@ public class DereferenceClientMain {
             //client.deleteEntity("http://sws.geonames.org/3020251");
             System.out.println(client.dereference("http://sws.geonames.org/3020251"));
             //client.deleteVocabulary("string");
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
         }
     }

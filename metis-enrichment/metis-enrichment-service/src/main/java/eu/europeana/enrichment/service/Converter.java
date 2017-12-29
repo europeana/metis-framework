@@ -217,5 +217,4 @@ public class Converter {
   private boolean isUri(String str) {
     return str.startsWith("http://");
   }
-
 }

@@ -59,15 +59,18 @@ public class MongoDereferenceServiceTest {
     private CacheDao cacheDao;
     private EnrichmentClient enrichmentClient;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+    
     @Before
     public void prepare() throws IOException {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();
+    
         vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
         entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
         jedis = Mockito.mock(Jedis.class);
         cacheDao = new CacheDao(jedis);
+        
         RdfRetriever retriever = new RdfRetriever();
 
         enrichmentClient = Mockito.mock(EnrichmentClient.class);
@@ -93,7 +96,6 @@ public class MongoDereferenceServiceTest {
             
             Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
             Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
-            
             
             EnrichmentResultList result = service.dereference("http://sws.geonames.org/3020251");
             
@@ -123,7 +125,6 @@ public class MongoDereferenceServiceTest {
             	}
             }
             
-
             OriginalEntity entity = entityDao.getByUri("http://sws.geonames.org/3020251");
             
             Assert.assertNotNull(entity);
@@ -134,7 +135,6 @@ public class MongoDereferenceServiceTest {
             System.out.println("Id: " + entity.getId());
             System.out.println("URI: " + entity.getURI());
             System.out.println("XML: " + entity.getXml());
-            
             
             ProcessedEntity entity2 = new ProcessedEntity();
             entity2.setURI("http://sws.geonames.org/3020251");
@@ -153,8 +153,6 @@ public class MongoDereferenceServiceTest {
             System.out.println("URI: " + entity1.getURI());
             System.out.println("XML: " + entity1.getXml());
             
-            
-           
         } catch (TransformerException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
@@ -162,7 +160,6 @@ public class MongoDereferenceServiceTest {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-
     }
 
     @After
@@ -180,5 +177,4 @@ public class MongoDereferenceServiceTest {
         writer.close();
         return ret;
     }
-
 }

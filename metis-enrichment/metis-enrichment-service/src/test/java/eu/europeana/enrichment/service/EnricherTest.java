@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class EnricherTest {
-
   private RedisInternalEnricher internalEnricher;
   private Enricher enricher;
 
@@ -46,5 +45,4 @@ public class EnricherTest {
     when(internalEnricher.getByUri(any(String.class))).thenReturn(entityWrapper);
     assertSame(enricher.getByUri("uri"), entityWrapper);
   }
-
 }
