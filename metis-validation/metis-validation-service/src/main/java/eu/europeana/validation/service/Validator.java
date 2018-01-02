@@ -41,10 +41,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -106,7 +103,7 @@ public class Validator implements Callable<ValidationResult> {
                 return constructValidationError(document, "Specified schema does not exist");
             }
 
-            resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
+            resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
 
             EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
             if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {

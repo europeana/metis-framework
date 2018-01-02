@@ -47,8 +47,8 @@ public class SchemaProviderTest {
         Schema s = provider.getSchema("EDM-INTERNAL");
         //then
         Assert.assertEquals("EDM-INTERNAL", s.getName());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/MAIN.xsd", s.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/schematron/schematron-internal.xsl", s.getSchematronPath());
+        Assert.assertEquals(entryFileLocation("edm-internal"), s.getPath());
+        Assert.assertEquals(schematronEntryFileLocation("edm-internal"), s.getSchematronPath());
         assertZipFileExistence(s);
     }
 
@@ -64,8 +64,8 @@ public class SchemaProviderTest {
         Schema schema = provider.getSchema("EDM-EXTERNAL");
         //then
         Assert.assertEquals("EDM-EXTERNAL", schema.getName());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/MAIN.xsd", schema.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/schematron/schematron-internal.xsl", schema.getSchematronPath());
+        Assert.assertEquals(entryFileLocation("edm-external"), schema.getPath());
+        Assert.assertEquals(schematronEntryFileLocation("edm-external"), schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
@@ -81,8 +81,8 @@ public class SchemaProviderTest {
         Schema schema = provider.getSchema("http://localhost:9999/custom_schema.zip");
         //then
         Assert.assertEquals("localhost_custom_schema", schema.getName());
-        Assert.assertEquals(TMP_DIR + "/schemas/localhost_custom_schema/MAIN.xsd", schema.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/localhost_custom_schema/schematron/schematron-internal.xsl", schema.getSchematronPath());
+        Assert.assertEquals(entryFileLocation("localhost_custom_schema"), schema.getPath());
+        Assert.assertEquals(schematronEntryFileLocation("localhost_custom_schema"), schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
@@ -94,8 +94,8 @@ public class SchemaProviderTest {
         Schema schema = provider.getSchema("malformedUrl");
         //then
         Assert.assertEquals("EDM-EXTERNAL", schema.getName());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/EDM-EXTERNAL.xsd", schema.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-external/schematron/schematron-internal.xsl", schema.getSchematronPath());
+        Assert.assertEquals(entryFileLocation("edm-external"), schema.getPath());
+        Assert.assertEquals(schematronEntryFileLocation("edm-external"), schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
@@ -111,7 +111,7 @@ public class SchemaProviderTest {
         //when
         provider.getSchema("EDM-INTERNAL");
         //then
-        File directory = new File(TMP_DIR, "schemas/edm-internal");
+        File directory = new File(TMP_DIR, "schemas" + File.separator + "edm-internal");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -128,7 +128,7 @@ public class SchemaProviderTest {
         //when
         provider.getSchema("EDM-EXTERNAL");
         //then
-        File directory = new File(TMP_DIR, "schemas/edm-external");
+        File directory = new File(TMP_DIR, "schemas" + File.separator + "edm-external");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -145,7 +145,7 @@ public class SchemaProviderTest {
         //when
         provider.getSchema("http://localhost:9999/userDefinedSchema.zip");
         //then
-        File directory = new File(TMP_DIR, "schemas/edm-external");
+        File directory = new File(TMP_DIR, "schemas" + File.separator + "edm-external");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -163,8 +163,8 @@ public class SchemaProviderTest {
         Schema s = provider.getSchema("EDM-INTERNAL");
         //then
         Assert.assertEquals("EDM-INTERNAL", s.getName());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/MAIN.xsd", s.getPath());
-        Assert.assertEquals(TMP_DIR + "/schemas/edm-internal/schematron/schematron-internal.xsl", s.getSchematronPath());
+        Assert.assertEquals(entryFileLocation("edm-internal"), s.getPath());
+        Assert.assertEquals(schematronEntryFileLocation("edm-internal"), s.getSchematronPath());
         assertZipFileExistence(s);
     }
 
@@ -179,5 +179,17 @@ public class SchemaProviderTest {
         File tempDirectory = new File(TMP_DIR, "schemas");
         File zipFile = new File(tempDirectory, s.getName().toLowerCase() + "/zip.zip");
         Assert.assertTrue(zipFile.exists());
+    }
+
+    private String entryFileLocation(String schemaName){
+        return directoryLocation(schemaName) + "MAIN.xsd";
+    }
+
+    private String schematronEntryFileLocation(String schemaName){
+        return directoryLocation(schemaName) + "schematron" + File.separator + "schematron-internal.xsl";
+    }
+
+    private String directoryLocation(String schemaName){
+        return TMP_DIR + File.separator + "schemas" + File.separator + schemaName + File.separator;
     }
 }
