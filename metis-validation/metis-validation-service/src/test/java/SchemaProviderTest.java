@@ -168,7 +168,7 @@ public class SchemaProviderTest {
 
     private void clearSchemasDir() throws IOException {
         String TMP_DIR = System.getProperty("java.io.tmpdir");
-        File schemasDirectory = new File(TMP_DIR,"schemas");
+        File schemasDirectory = new File(TMP_DIR, "schemas");
         FileUtils.deleteDirectory(schemasDirectory);
         schemasDirectory.mkdirs();
     }
@@ -179,15 +179,15 @@ public class SchemaProviderTest {
         Assert.assertTrue(zipFile.exists());
     }
 
-    private String entryFileLocation(String schemaName){
+    private String entryFileLocation(String schemaName) {
         return directoryLocation(schemaName) + "MAIN.xsd";
     }
 
-    private String schematronEntryFileLocation(String schemaName){
+    private String schematronEntryFileLocation(String schemaName) {
         return directoryLocation(schemaName) + "schematron" + File.separator + "schematron-internal.xsl";
     }
 
-    private String directoryLocation(String schemaName){
-        return SchemaProvider.TMP_DIR + File.separator + "schemas" + File.separator + schemaName + File.separator;
+    private String directoryLocation(String schemaName) {
+        return SchemaProvider.SCHEMAS_DIR + schemaName + File.separator;
     }
 }

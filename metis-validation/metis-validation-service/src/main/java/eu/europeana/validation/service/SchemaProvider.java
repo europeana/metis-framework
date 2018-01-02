@@ -30,16 +30,16 @@ public class SchemaProvider {
     private static final Logger LOGGER = LoggerFactory.getLogger(SchemaProvider.class);
 
     public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
-    private final String SCHEMAS_DIR;
+    public static String SCHEMAS_DIR;
 
     private final Map<String, String> predefinedSchemasLocations;
     private static final String STARTING_SCHEMATRON_FILE_NAME = File.separator + "schematron-internal.xsl";
     private static final String XSD_ENTRY_FILE_NAME = File.separator + "MAIN.xsd";
 
     public SchemaProvider(Map<String, String> predefinedSchemasLocations) {
-        if(TMP_DIR.endsWith(File.separator)){
+        if (TMP_DIR.endsWith(File.separator)) {
             SCHEMAS_DIR = TMP_DIR + "schemas" + File.separator;
-        }else{
+        } else {
             SCHEMAS_DIR = TMP_DIR + File.separator + "schemas" + File.separator;
         }
 
@@ -97,7 +97,7 @@ public class SchemaProvider {
         FileOutputStream fos = null;
         try {
             File schemasLocation = new File(SCHEMAS_DIR, destinationDir);
-            if(new File(schemasLocation, "zip.zip").exists()){
+            if (new File(schemasLocation, "zip.zip").exists()) {
                 LOGGER.info("Zip file will not be downloaded, already exists in temp directory");
                 return new File(schemasLocation, "zip.zip");
             }
