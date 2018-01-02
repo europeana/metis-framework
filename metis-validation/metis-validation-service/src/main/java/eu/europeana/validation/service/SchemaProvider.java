@@ -29,14 +29,20 @@ public class SchemaProvider {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SchemaProvider.class);
 
-    private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
-    private static final String SCHEMAS_DIR = TMP_DIR + File.separator + "schemas" + File.separator;
+    public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
+    private final String SCHEMAS_DIR;
 
     private final Map<String, String> predefinedSchemasLocations;
     private static final String STARTING_SCHEMATRON_FILE_NAME = File.separator + "schematron-internal.xsl";
     private static final String XSD_ENTRY_FILE_NAME = File.separator + "MAIN.xsd";
 
     public SchemaProvider(Map<String, String> predefinedSchemasLocations) {
+        if(TMP_DIR.endsWith(File.separator)){
+            SCHEMAS_DIR = TMP_DIR + "schemas" + File.separator;
+        }else{
+            SCHEMAS_DIR = TMP_DIR + File.separator + "schemas" + File.separator;
+        }
+
         LOGGER.info("Creating schema manager");
         LOGGER.info("Files will be stored in: {}", SCHEMAS_DIR);
         this.predefinedSchemasLocations = predefinedSchemasLocations;
@@ -68,7 +74,7 @@ public class SchemaProvider {
             url = new URL(name);
             String host = url.getHost();
             String file = url.getFile();
-            return host + "_" + StringUtils.substringAfter(StringUtils.substringBeforeLast(file, "."), File.separator);
+            return host + "_" + StringUtils.substringAfter(StringUtils.substringBeforeLast(file, "."), "/");
         } catch (MalformedURLException e) {
             throw new SchemaProviderException(e);
         }

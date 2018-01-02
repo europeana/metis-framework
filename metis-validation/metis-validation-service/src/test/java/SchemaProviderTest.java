@@ -32,8 +32,6 @@ public class SchemaProviderTest {
         PREDEFINED_SCHEMAS_LOCATIONS.put("edm-external", "http://localhost:9999/test_schema.zip");
     }
 
-    private static final String TMP_DIR = System.getProperty("java.io.tmpdir");
-
     @Test
     public void shouldCreateCorrectSchemaForEdmInternal() throws SchemaProviderException {
 
@@ -111,7 +109,7 @@ public class SchemaProviderTest {
         //when
         provider.getSchema("EDM-INTERNAL");
         //then
-        File directory = new File(TMP_DIR, "schemas" + File.separator + "edm-internal");
+        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "edm-internal");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -128,7 +126,7 @@ public class SchemaProviderTest {
         //when
         provider.getSchema("EDM-EXTERNAL");
         //then
-        File directory = new File(TMP_DIR, "schemas" + File.separator + "edm-external");
+        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "edm-external");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -145,7 +143,7 @@ public class SchemaProviderTest {
         //when
         provider.getSchema("http://localhost:9999/userDefinedSchema.zip");
         //then
-        File directory = new File(TMP_DIR, "schemas" + File.separator + "edm-external");
+        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "edm-external");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -176,7 +174,7 @@ public class SchemaProviderTest {
     }
 
     private void assertZipFileExistence(Schema s) {
-        File tempDirectory = new File(TMP_DIR, "schemas");
+        File tempDirectory = new File(SchemaProvider.TMP_DIR, "schemas");
         File zipFile = new File(tempDirectory, s.getName().toLowerCase() + "/zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -190,6 +188,6 @@ public class SchemaProviderTest {
     }
 
     private String directoryLocation(String schemaName){
-        return TMP_DIR + File.separator + "schemas" + File.separator + schemaName + File.separator;
+        return SchemaProvider.TMP_DIR + File.separator + "schemas" + File.separator + schemaName + File.separator;
     }
 }
