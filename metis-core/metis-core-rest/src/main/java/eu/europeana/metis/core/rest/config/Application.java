@@ -48,6 +48,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
@@ -98,7 +99,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${authentication.baseUrl}")
   private String authenticationBaseUrl;
 
+  @Value("${allowed.cors.hosts}")
+  private String[] allowedCorsHosts;
+
   private MongoProviderImpl mongoProvider;
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+        .allowedOrigins(allowedCorsHosts);
+  }
 
   /**
    * Used for overwriting properties if cloud foundry environment is used

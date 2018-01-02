@@ -79,6 +79,7 @@ public class DatasetService {
             .format("Dataset with organizationId: %s and datasetName: %s already exists..",
                 dataset.getOrganizationId(), dataset.getDatasetName()));
       }
+      dataset.setCreatedByUserId(metisUser.getUserId());
       dataset.setFirstPublishedDate(null);
       dataset.setLastPublishedDate(null);
       dataset.setPublishedRecords(0);
@@ -124,6 +125,7 @@ public class DatasetService {
           String.format("Workflow execution is active for datasteId %s", dataset.getDatasetId()));
     }
 
+    dataset.setCreatedByUserId(storedDataset.getCreatedByUserId());
     dataset.setEcloudDatasetId(storedDataset.getEcloudDatasetId());
     dataset.setCreatedDate(storedDataset.getCreatedDate());
     dataset.setOrganizationId(storedDataset.getOrganizationId());

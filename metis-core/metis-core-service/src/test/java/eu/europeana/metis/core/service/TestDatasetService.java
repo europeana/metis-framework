@@ -69,6 +69,7 @@ public class TestDatasetService {
         create(datasetArgumentCaptor.capture());
     verify(datasetDao, times(1)).getById(null);
     assertEquals(dataset.getDatasetName(), datasetArgumentCaptor.getValue().getDatasetName());
+    assertEquals(metisUser.getUserId(), datasetArgumentCaptor.getValue().getCreatedByUserId());
     assertEquals(metisUser.getOrganizationId(),
         datasetArgumentCaptor.getValue().getOrganizationId());
     assertEquals(metisUser.getOrganizationName(),
@@ -119,6 +120,7 @@ public class TestDatasetService {
     assertEquals(storedDataset.getDatasetStatus(),
         dataSetArgumentCaptor.getValue().getDatasetStatus());
     assertEquals(dataset.getUpdatedDate(), dataSetArgumentCaptor.getValue().getUpdatedDate());
+    assertEquals(storedDataset.getCreatedByUserId(), dataSetArgumentCaptor.getValue().getCreatedByUserId());
     assertNotEquals(storedDataset.getUpdatedDate(),
         dataSetArgumentCaptor.getValue().getUpdatedDate());
   }
