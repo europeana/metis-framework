@@ -176,9 +176,11 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       datasetIdSequence.setSequence(datasetIdSequence.getSequence() + 1);
       dataset = this.getDatasetByDatasetId(datasetIdSequence.getSequence());
     } while (dataset != null);
-    Query<DatasetIdSequence> updateQuery = morphiaDatastoreProvider.getDatastore().createQuery(DatasetIdSequence.class).field("_id").equal(datasetIdSequence.getId());
+    Query<DatasetIdSequence> updateQuery = morphiaDatastoreProvider.getDatastore()
+        .createQuery(DatasetIdSequence.class).field("_id").equal(datasetIdSequence.getId());
     UpdateOperations<DatasetIdSequence> updateOperations = morphiaDatastoreProvider.getDatastore()
-        .createUpdateOperations(DatasetIdSequence.class).set("sequence", datasetIdSequence.getSequence());
+        .createUpdateOperations(DatasetIdSequence.class)
+        .set("sequence", datasetIdSequence.getSequence());
     morphiaDatastoreProvider.getDatastore().update(updateQuery, updateOperations);
     return datasetIdSequence.getSequence();
   }

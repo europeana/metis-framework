@@ -6,9 +6,6 @@ import org.apache.commons.lang3.StringUtils;
  * REST Endpoints Created by ymamakis on 7/29/16.
  */
 public final class RestEndpoints {
-
-  private RestEndpoints() {
-  }
   /* METIS-CORE Endopoints*/
 
   //DATASETS
@@ -110,6 +107,9 @@ public final class RestEndpoints {
   /* METIS LINKCHECK SERVICE ENDPOINT*/
   public static final String LINKCHECK = "/linkcheck";
 
+
+  private RestEndpoints() {
+  }
 
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {

@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -91,7 +92,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(dataset)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
     verify(datasetServiceMock, times(0)).createDataset(any(MetisUser.class), any(Dataset.class));
   }
 
@@ -144,7 +145,7 @@ public class TestDatasetController {
         .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(dataset)))
         .andExpect(status().is(406))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0)).updateDataset(any(MetisUser.class), any(Dataset.class));
   }
@@ -221,7 +222,7 @@ public class TestDatasetController {
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
     verify(datasetServiceMock, times(0))
         .deleteDatasetByDatasetId(any(MetisUser.class), anyInt());
   }
@@ -279,7 +280,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getDatasetByDatasetId(any(MetisUser.class), anyInt());
@@ -339,7 +340,7 @@ public class TestDatasetController {
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getDatasetByDatasetName(any(MetisUser.class), anyString());
@@ -408,7 +409,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByProvider(any(MetisUser.class), anyString(), anyString());
@@ -458,7 +459,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByIntermediateProvider(any(MetisUser.class), anyString(), anyString());
@@ -508,7 +509,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByDataProvider(any(MetisUser.class), anyString(), anyString());
@@ -558,7 +559,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByOrganizationId(any(MetisUser.class), anyString(), anyString());
@@ -608,7 +609,7 @@ public class TestDatasetController {
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-        .andExpect(jsonPath("$.errorMessage", is("Wrong access token")));
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyString());

@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.core.service;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -57,7 +58,7 @@ public class DatasetService {
       throws DatasetAlreadyExistsException, UserUnauthorizedException {
 
     if (metisUser.getAccountRole() == null || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     dataset.setOrganizationId(metisUser.getOrganizationId());
     dataset.setOrganizationName(metisUser.getOrganizationName());
@@ -104,7 +105,7 @@ public class DatasetService {
       throws NoDatasetFoundException, BadContentException, UserUnauthorizedException {
 
     if (metisUser.getAccountRole() == null || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     dataset.setOrganizationId(metisUser.getOrganizationId());
     dataset.setOrganizationName(metisUser.getOrganizationName());
@@ -115,7 +116,7 @@ public class DatasetService {
           String.format("Dataset with datasetId: %s does NOT exist", dataset.getDatasetId()));
     }
     if (!dataset.getOrganizationId().equals(storedDataset.getOrganizationId())) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
 
     if (workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()) != null) {
@@ -143,12 +144,12 @@ public class DatasetService {
   public void deleteDatasetByDatasetId(MetisUser metisUser,
       int datasetId) throws BadContentException, UserUnauthorizedException {
     if (metisUser.getAccountRole() == null || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
 
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(datasetId);
     if (!metisUser.getOrganizationId().equals(storedDataset.getOrganizationId())) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
 
     if (workflowExecutionDao.existsAndNotCompleted(datasetId) != null) {
@@ -165,7 +166,7 @@ public class DatasetService {
   public Dataset getDatasetByDatasetName(MetisUser metisUser,
       String datasetName) throws NoDatasetFoundException, UserUnauthorizedException {
     if (metisUser.getAccountRole() == null || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     Dataset storedDataset = datasetDao.getDatasetByDatasetName(datasetName);
     if (storedDataset == null) {
@@ -173,7 +174,7 @@ public class DatasetService {
           String.format("No dataset found with datasetName: '%s' in METIS", datasetName));
     }
     if (!metisUser.getOrganizationId().equals(storedDataset.getOrganizationId())) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return storedDataset;
   }
@@ -181,7 +182,7 @@ public class DatasetService {
   public Dataset getDatasetByDatasetId(MetisUser metisUser,
       int datasetId) throws NoDatasetFoundException, UserUnauthorizedException {
     if (metisUser.getAccountRole() == null || metisUser.getAccountRole() == AccountRole.PROVIDER_VIEWER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
 
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(datasetId);
@@ -190,7 +191,7 @@ public class DatasetService {
           String.format("No dataset found with datasetId: '%s' in METIS", datasetId));
     }
     if (!metisUser.getOrganizationId().equals(storedDataset.getOrganizationId())) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return storedDataset;
   }
@@ -200,7 +201,7 @@ public class DatasetService {
       throws UserUnauthorizedException {
     if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
 
     return datasetDao.getAllDatasetsByProvider(provider, nextPage);
@@ -211,7 +212,7 @@ public class DatasetService {
       String nextPage) throws UserUnauthorizedException {
     if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return datasetDao.getAllDatasetsByIntermediateProvider(intermediateProvider, nextPage);
   }
@@ -221,7 +222,7 @@ public class DatasetService {
       String nextPage) throws UserUnauthorizedException {
     if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return datasetDao.getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
@@ -231,7 +232,7 @@ public class DatasetService {
       throws UserUnauthorizedException {
     if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
@@ -241,7 +242,7 @@ public class DatasetService {
       throws UserUnauthorizedException {
     if (metisUser.getAccountRole() != AccountRole.METIS_ADMIN
         && metisUser.getAccountRole() != AccountRole.EUROPEANA_DATA_OFFICER) {
-      throw new UserUnauthorizedException("Unauthorized");
+      throw new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED);
     }
     return datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage);
   }

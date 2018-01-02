@@ -16,6 +16,7 @@
  */
 package eu.europeana.metis.core.rest;
 
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
@@ -66,7 +67,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     Dataset createdDataset = datasetService.createDataset(metisUser, dataset);
@@ -86,7 +87,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     datasetService.updateDataset(metisUser, dataset);
@@ -102,7 +103,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
@@ -120,7 +121,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUser, datasetId);
@@ -139,7 +140,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     Dataset dataset = datasetService.getDatasetByDatasetName(metisUser, datasetName);
@@ -160,7 +161,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
@@ -168,7 +169,7 @@ public class DatasetController {
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
+    LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -186,7 +187,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
@@ -194,7 +195,7 @@ public class DatasetController {
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
+    LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -212,7 +213,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
@@ -220,7 +221,7 @@ public class DatasetController {
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
+    LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -238,7 +239,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
@@ -246,7 +247,7 @@ public class DatasetController {
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
+    LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
@@ -264,7 +265,7 @@ public class DatasetController {
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
     if (metisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
@@ -272,7 +273,7 @@ public class DatasetController {
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage),
             datasetService.getDatasetsPerRequestLimit());
-    LOGGER.info("Batch of: {} datasets returned, using batch nextPage: {}",
+    LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }

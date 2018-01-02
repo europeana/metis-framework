@@ -1,14 +1,15 @@
 package eu.europeana.metis.authentication.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.NoUserFoundException;
+import eu.europeana.metis.exception.UserAlreadyExistsException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
@@ -248,7 +249,7 @@ public class AuthenticationService {
       throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     if (storedMetisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
     psqlMetisUserDao.updateAccessTokenTimestampByAccessToken(accessToken);
     return storedMetisUser;
