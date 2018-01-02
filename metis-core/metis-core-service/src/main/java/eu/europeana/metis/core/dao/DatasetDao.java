@@ -123,7 +123,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
     return query.asList(new FindOptions().limit(datasetsPerRequest));
   }
 
-  public List<Dataset> getAllDatasetsByIntermidiateProvider(String intermediateProvider,
+  public List<Dataset> getAllDatasetsByIntermediateProvider(String intermediateProvider,
       String nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("intermediateProvider").equal(intermediateProvider).order("_id");

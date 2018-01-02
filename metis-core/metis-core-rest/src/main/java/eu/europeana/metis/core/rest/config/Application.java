@@ -21,6 +21,7 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
@@ -93,6 +94,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${redisson.lock.watchdog.timeout.in.secs}")
   private int redissonLockWatchdogTimeoutInSecs;
 
+  //Authentication
+  @Value("${authentication.baseUrl}")
+  private String authenticationBaseUrl;
 
   private MongoProviderImpl mongoProvider;
 
@@ -136,6 +140,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         mongoDb = mongoClientURI.getDatabase();
       }
     }
+  }
+
+  @Bean
+  AuthenticationClient getAuthenticationClient() {
+    return new AuthenticationClient(authenticationBaseUrl);
   }
 
   @Bean

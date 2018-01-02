@@ -215,7 +215,7 @@ public class TestDatasetDao {
     do {
       ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
       datasetResponseListWrapper.setResultsAndLastPage(
-          datasetDao.getAllDatasetsByIntermidiateProvider("myProvider", nextPage), datasetDao
+          datasetDao.getAllDatasetsByIntermediateProvider("myProvider", nextPage), datasetDao
               .getDatasetsPerRequest());
       allUserWorkflowsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();

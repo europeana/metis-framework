@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.test.utils;
 
+import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -28,6 +31,8 @@ public class TestObjectFactory {
   public static final String DATASETNAME = "datasetName";
   public static final String WORKFLOWOWNER = "workflowOwner";
   public static final String WORKFLOWNAME = "workflowName";
+  public static final String EMAIL = "user.metis@europeana.eu";
+  public static final String AUTHORIZATION_HEADER = "Bearer qwerty12345";
 
   private TestObjectFactory() {
   }
@@ -175,6 +180,26 @@ public class TestObjectFactory {
     ds.setHarvestedRecords(100);
     ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     return ds;
+  }
+
+  public static MetisUser createMetisUser(String email)
+  {
+    MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
+    metisUserAccessToken.setAccessToken("AccessToken_12345");
+    metisUserAccessToken.setTimestamp(new Date());
+
+    MetisUser metisUser = new MetisUser();
+    metisUser.setEmail(email);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    metisUser.setOrganizationId("Organization_12345");
+    metisUser.setOrganizationName("OrganizationName");
+    metisUser.setMetisUserFlag(true);
+    metisUser.setFirstName("FirstName");
+    metisUser.setLastName("LastName");
+    metisUser.setUserId("User_12345");
+    metisUser.setMetisUserAccessToken(metisUserAccessToken);
+
+    return metisUser;
   }
 }
 
