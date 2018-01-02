@@ -42,10 +42,10 @@ public class AuthenticationClient {
       String responseBody = response.getBody();
       return objectMapper.readValue(responseBody, MetisUser.class);
     } catch (HttpClientErrorException e) {
-      LOGGER.error("Could not retrieve MetisUser. ErrorCode: {}, {}",
-          e.getRawStatusCode(), e.getResponseBodyAsString());
+      LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
+          e, e.getRawStatusCode(), e.getResponseBodyAsString());
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      LOGGER.error("Could not parse response to Object, {}", e);
     }
     return null;
   }
