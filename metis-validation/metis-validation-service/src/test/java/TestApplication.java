@@ -16,15 +16,22 @@
  */
 
 import eu.europeana.validation.service.ClasspathResourceResolver;
+import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationServiceConfig;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.io.ClassPathResource;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by ymamakis on 7/14/16.
@@ -32,28 +39,50 @@ import java.io.IOException;
 @Configuration
 public class TestApplication {
 
-  private class Config implements ValidationServiceConfig {
-    @Override
-    public int getThreadCount() {
+    private class Config implements ValidationServiceConfig {
+
+        @Override
+        public int getThreadCount() {
       return 10;
     }
-  }
+    }
 
-  public TestApplication() {
-  }
+    public TestApplication() {
+    }
 
-  @Bean
-  @DependsOn(value = "lsResourceResolver")
-  ValidationExecutionService getValidationExecutionService() {
-    return new ValidationExecutionService(new Config(), getLSResourceResolver());
-  }
+    @Resource(name = "validationProperties")
+    Properties predefinedSchemasLocations;
 
-  @Bean(name = "lsResourceResolver")
-  public ClasspathResourceResolver getLSResourceResolver() {
-      return new ClasspathResourceResolver();
-  }
+    @Bean(name = "validationProperties")
+    PropertiesFactoryBean mapper() {
+        PropertiesFactoryBean bean = new PropertiesFactoryBean();
+        bean.setLocation(new ClassPathResource(
+                "validation.properties"));
+        return bean;
+    }
 
-  @PostConstruct
-  public void startup() throws IOException {
-  }
+    @Bean(name = "schemaProvider")
+    @DependsOn(value = "validationProperties")
+    public SchemaProvider getSchemaProvider() {
+        Map<String, String> schemaLocations = new HashMap<>();
+        for (String key : predefinedSchemasLocations.stringPropertyNames()) {
+          schemaLocations.put(key, predefinedSchemasLocations.getProperty(key));
+        }
+        return new SchemaProvider(schemaLocations);
+    }
+
+    @Bean
+    @DependsOn(value = { "lsResourceResolver", "schemaProvider"})
+    ValidationExecutionService getValidationExecutionService() {
+        return new ValidationExecutionService(new Config(), getLSResourceResolver());
+    }
+
+    @Bean(name = "lsResourceResolver")
+    public ClasspathResourceResolver getLSResourceResolver() {
+        return new ClasspathResourceResolver();
+    }
+
+    @PostConstruct
+    public void startup() throws IOException {
+    }
 }
