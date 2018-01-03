@@ -330,6 +330,40 @@ public class AuthenticationControllerTest {
   }
 
   @Test
+  public void getUserByAccessToken() throws Exception {
+    MetisUser metisUser = new MetisUser();
+    metisUser.setEmail(EXAMPLE_EMAIL);
+    metisUser.setMetisUserAccessToken(
+        new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
+    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
+        .thenReturn(EXAMPLE_ACCESS_TOKEN);
+    when(authenticationService.authenticateUser(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
+
+    authenticationControllerMock
+        .perform(get(RestEndpoints.AUTHENTICATION_USER_BY_TOKEN)
+            .header(HttpHeaders.AUTHORIZATION, ""))
+        .andExpect(status().is(HttpStatus.OK.value()))
+        .andExpect(jsonPath("$.metisUserAccessToken.accessToken", is(EXAMPLE_ACCESS_TOKEN)));
+  }
+
+  @Test
+  public void getUserByAccessTokenBadContentException() throws Exception {
+    MetisUser metisUser = new MetisUser();
+    metisUser.setEmail(EXAMPLE_EMAIL);
+    metisUser.setMetisUserAccessToken(
+        new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
+
+    when(authenticationService.validateAuthorizationHeaderWithAccessToken(anyString()))
+        .thenThrow(new BadContentException(""));
+
+    authenticationControllerMock
+        .perform(get(RestEndpoints.AUTHENTICATION_USER_BY_TOKEN)
+            .header(HttpHeaders.AUTHORIZATION, ""))
+        .andExpect(status().is(HttpStatus.NOT_ACCEPTABLE.value()));
+  }
+
+
+  @Test
   public void getAllUsers() throws Exception {
     MetisUser metisUser0 = new MetisUser();
     metisUser0.setEmail("0" + EXAMPLE_EMAIL);

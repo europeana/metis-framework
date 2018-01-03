@@ -6,28 +6,17 @@ import org.apache.commons.lang3.StringUtils;
  * REST Endpoints Created by ymamakis on 7/29/16.
  */
 public final class RestEndpoints {
-
-  private RestEndpoints() {
-  }
-
-    /* METIS-CORE Endopoints*/
-
-  //ORGANIZATIONS
-  public static final String ORGANIZATIONS = "/organizations";
-  public static final String ORGANIZATIONS_ORGANIZATION_ID = "/organizations/{organizationId}";
-  public static final String ORGANIZATIONS_COUNTRY_ISOCODE = "/organizations/country/{isoCode}";
-  public static final String ORGANIZATIONS_ROLES = "/organizations/roles";
-  public static final String ORGANIZATIONS_SUGGEST = "/organizations/suggest";
-  public static final String ORGANIZATIONS_ORGANIZATION_ID_DATASETS = "/organizations/{organizationId}/datasets";
-  public static final String ORGANIZATIONS_ORGANIZATION_ID_OPTINIIIF = "/organizations/{organizationId}/optInIIIF";
-  public static final String ORGANIZATIONS_CRM_ORGANIZATION_ID = "/organizations/crm/{organizationId}";
-  public static final String ORGANIZATIONS_CRM = "/organizations/crm";
+  /* METIS-CORE Endopoints*/
 
   //DATASETS
   public static final String DATASETS = "/datasets";
-  public static final String DATASETS_DATASETNAME = "/datasets/{datasetName}";
-  public static final String DATASETS_DATASETNAME_UPDATENAME = "/datasets/{datasetName}/updateName";
+  public static final String DATASETS_DATASETID = "/datasets/{datasetId}";
+  public static final String DATASETS_DATASETNAME = "/datasets/dataset_name/{datasetName}";
   public static final String DATASETS_DATAPROVIDER = "/datasets/data_provider/{dataProvider}";
+  public static final String DATASETS_PROVIDER = "/datasets/provider/{provider}";
+  public static final String DATASETS_INTERMEDIATE_PROVIDER = "/datasets/intermediate_provider/{intermediateProvider}";
+  public static final String DATASETS_ORGANIZATION_ID = "/datasets/organization_id/{organizationId}";
+  public static final String DATASETS_ORGANIZATION_NAME = "/datasets/organization_name/{organizationName}";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";
@@ -36,20 +25,18 @@ public final class RestEndpoints {
   public static final String AUTHENTICATION_UPDATE = "/authentication/update";
   public static final String AUTHENTICATION_UPDATE_PASSD = "/authentication/update/password";
   public static final String AUTHENTICATION_UPDATE_ROLE_ADMIN = "/authentication/update/role/admin";
+  public static final String AUTHENTICATION_USER_BY_TOKEN = "/authentication/user_by_access_token";
   public static final String AUTHENTICATION_USERS = "/authentication/users";
-  //USERS
-  public static final String USER = "/user";
-  public static final String USERBYMAIL = "/user/{email}";
 
   //ORCHESTRATION
   public static final String ORCHESTRATOR_WORKFLOWS = "/orchestrator/workflows";
   public static final String ORCHESTRATOR_WORKFLOWS_OWNER = "/orchestrator/workflows/{workflowOwner}";
-  public static final String ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE = "/orchestrator/workflows/{datasetName}/execute";
-  public static final String ORCHESTRATOR_WORKFLOWS_DATASETNAME_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetName}/execute/direct";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE = "/orchestrator/workflows/{datasetId}/execute";
+  public static final String ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT = "/orchestrator/workflows/{datasetId}/execute/direct";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
-  public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETNAME = "/orchestrator/workflows/schedule/{datasetName}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETNAME = "/orchestrator/workflows/execution/{datasetName}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETNAME = "/orchestrator/workflows/executions/{datasetName}";
+  public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID = "/orchestrator/workflows/execution/{datasetId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETID = "/orchestrator/workflows/executions/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
 
   /* METIS-DEREFERENCE Endpoints*/
@@ -120,6 +107,9 @@ public final class RestEndpoints {
   /* METIS LINKCHECK SERVICE ENDPOINT*/
   public static final String LINKCHECK = "/linkcheck";
 
+
+  private RestEndpoints() {
+  }
 
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {

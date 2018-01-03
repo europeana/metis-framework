@@ -41,3 +41,9 @@ ecloud.dps.baseUrl=
 ecloud.provider=
 ecloud.username=
 ecloud.password=
+
+#Authentication
+authentication.baseUrl=
+
+#CORS
+allowed.cors.hosts=*

@@ -2,7 +2,7 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
@@ -17,16 +17,15 @@ import org.mongodb.morphia.annotations.Indexes;
  * @since 2017-09-25
  */
 @Entity
-@Indexes({@Index(fields = {@Field("datasetName"), @Field("workflowOwner"), @Field("workflowName")})})
+@Indexes({@Index(fields = {@Field("datasetId"), @Field("workflowOwner"), @Field("workflowName")})})
 public class ScheduledWorkflow implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
+  private int datasetId;
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
   private Date pointerDate;
-  @Indexed
-  private String datasetName;
   @Indexed
   private String workflowOwner;
   @Indexed
@@ -37,10 +36,10 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   public ScheduledWorkflow() {
   }
 
-  public ScheduledWorkflow(Date pointerDate, String datasetName, String workflowOwner,
+  public ScheduledWorkflow(Date pointerDate, int datasetId, String workflowOwner,
       String workflowName, ScheduleFrequence scheduleFrequence, int workflowPriority) {
     this.pointerDate = pointerDate;
-    this.datasetName = datasetName;
+    this.datasetId = datasetId;
     this.workflowOwner = workflowOwner;
     this.workflowName = workflowName;
     this.scheduleFrequence = scheduleFrequence;
@@ -57,12 +56,12 @@ public class ScheduledWorkflow implements HasMongoObjectId {
     this.id = id;
   }
 
-  public String getDatasetName() {
-    return datasetName;
+  public int getDatasetId() {
+    return datasetId;
   }
 
-  public void setDatasetName(String datasetName) {
-    this.datasetName = datasetName;
+  public void setDatasetId(int datasetId) {
+    this.datasetId = datasetId;
   }
 
   public String getWorkflowOwner() {

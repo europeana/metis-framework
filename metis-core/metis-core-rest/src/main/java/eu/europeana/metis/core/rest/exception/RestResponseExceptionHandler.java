@@ -1,21 +1,17 @@
 package eu.europeana.metis.core.rest.exception;
 
-import eu.europeana.metis.core.exceptions.ApiKeyNotAuthorizedException;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.EmptyApiKeyException;
-import eu.europeana.metis.core.exceptions.NoApiKeyFoundException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.OrganizationAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 import javax.servlet.ServletException;
@@ -40,17 +36,16 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
-  @ExceptionHandler(value = {UserNotFoundException.class, ApiKeyNotAuthorizedException.class,
-      NoApiKeyFoundException.class, IOException.class,
-      SolrServerException.class, OrganizationAlreadyExistsException.class, ServletException.class,
-      NoOrganizationFoundException.class, BadContentException.class,
+  @ExceptionHandler(value = {UserNotFoundException.class, IOException.class,
+      SolrServerException.class, ServletException.class,
+      BadContentException.class,
       DatasetAlreadyExistsException.class,
       NoDatasetFoundException.class, NoWorkflowFoundException.class,
       NoScheduledWorkflowFoundException.class, WorkflowAlreadyExistsException.class,
       WorkflowExecutionAlreadyExistsException.class,
       ScheduledWorkflowAlreadyExistsException.class,
       NoWorkflowExecutionFoundException.class, ExecutionException.class,
-      InterruptedException.class, EmptyApiKeyException.class})
+      InterruptedException.class, UserUnauthorizedException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
       HttpServletResponse response) {

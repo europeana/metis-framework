@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
@@ -30,7 +30,7 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
-@JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetName",
+@JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetId",
     "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
     "httpHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
 public class WorkflowExecution implements HasMongoObjectId {
@@ -38,14 +38,13 @@ public class WorkflowExecution implements HasMongoObjectId {
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
   private ObjectId id;
+  private int datasetId;
   @Indexed
   private String workflowOwner;
   @Indexed
   private String workflowName;
   @Indexed
   private WorkflowStatus workflowStatus;
-  @Indexed
-  private String datasetName;
   @Indexed
   private String ecloudDatasetId;
   private int workflowPriority;
@@ -73,7 +72,7 @@ public class WorkflowExecution implements HasMongoObjectId {
   public WorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
     this.workflowOwner = workflow.getWorkflowOwner();
     this.workflowName = workflow.getWorkflowName();
-    this.datasetName = dataset.getDatasetName();
+    this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
 
@@ -184,12 +183,12 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.workflowStatus = workflowStatus;
   }
 
-  public String getDatasetName() {
-    return datasetName;
+  public long getDatasetId() {
+    return datasetId;
   }
 
-  public void setDatasetName(String datasetName) {
-    this.datasetName = datasetName;
+  public void setDatasetId(int datasetId) {
+    this.datasetId = datasetId;
   }
 
   public String getEcloudDatasetId() {
@@ -254,7 +253,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     int prime = 31;
     int result = 1;
     result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((datasetName == null) ? 0 : datasetName.hashCode());
+    result = prime * result + Integer.hashCode(datasetId);
     result = prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
     result = prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
     return result;
@@ -269,7 +268,7 @@ public class WorkflowExecution implements HasMongoObjectId {
       return false;
     }
     WorkflowExecution that = (WorkflowExecution) obj;
-    return (id == that.getId() && datasetName.equals(that.datasetName) && workflowOwner
+    return (id == that.getId() && datasetId == that.datasetId && workflowOwner
         .equals(that.workflowOwner)
         && workflowName.equals(that.workflowName));
   }

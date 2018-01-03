@@ -21,25 +21,20 @@ import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.core.api.MetisKey;
-import eu.europeana.metis.core.dao.AuthorizationDao;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.OrganizationDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.search.config.SearchApplication;
-import eu.europeana.metis.core.search.service.MetisSearchService;
 import eu.europeana.metis.core.service.DatasetService;
-import eu.europeana.metis.core.service.MetisAuthorizationService;
-import eu.europeana.metis.core.service.OrganizationService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
-import org.mongodb.morphia.Morphia;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -53,6 +48,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.BeanNameViewResolver;
@@ -89,7 +85,30 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${mongo.db}")
   private String mongoDb;
 
+  //Redis
+  @Value("${redis.host}")
+  private String redisHost;
+  @Value("${redis.port}")
+  private int redisPort;
+  @Value("${redis.password}")
+  private String redisPassword;
+  @Value("${redisson.lock.watchdog.timeout.in.secs}")
+  private int redissonLockWatchdogTimeoutInSecs;
+
+  //Authentication
+  @Value("${authentication.baseUrl}")
+  private String authenticationBaseUrl;
+
+  @Value("${allowed.cors.hosts}")
+  private String[] allowedCorsHosts;
+
   private MongoProviderImpl mongoProvider;
+
+  @Override
+  public void addCorsMappings(CorsRegistry registry) {
+    registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
+        .allowedOrigins(allowedCorsHosts);
+  }
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -134,16 +153,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+  AuthenticationClient getAuthenticationClient() {
+    return new AuthenticationClient(authenticationBaseUrl);
   }
 
-  // TODO: 22-11-17 Needs to be removed and handled in the metis-authentication service
   @Bean
-  public AuthorizationDao getAuthorizationDao() {
-    Morphia morphia = new Morphia();
-    morphia.map(MetisKey.class);
-    return new AuthorizationDao();
+  MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
+    return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
   }
 
   @Bean
@@ -155,29 +171,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
-      OrganizationDao organizationDao,
       WorkflowExecutionDao workflowExecutionDao,
-      ScheduledWorkflowDao scheduledWorkflowDao) {
-    return new DatasetService(datasetDao, organizationDao, workflowExecutionDao,
-        scheduledWorkflowDao);
-  }
-
-  @Bean
-  public OrganizationDao getOrganizationDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    OrganizationDao organizationDao = new OrganizationDao(morphiaDatastoreProvider);
-    organizationDao.setOrganizationsPerRequest(RequestLimits.ORGANIZATIONS_PER_REQUEST.getLimit());
-    return organizationDao;
-  }
-
-  @Bean
-  public OrganizationService getOrganizationService(OrganizationDao organizationDao,
-      DatasetDao datasetDao, MetisSearchService metisSearchService) {
-    return new OrganizationService(organizationDao, datasetDao, metisSearchService);
-  }
-
-  @Bean
-  public MetisAuthorizationService getMetisAuthorizationService() {
-    return new MetisAuthorizationService();
+      ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
+    return new DatasetService(datasetDao, workflowExecutionDao,
+        scheduledWorkflowDao, redissonClient);
   }
 
   @PreDestroy

@@ -128,6 +128,18 @@ public class AuthenticationController {
     LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin);
   }
 
+  @RequestMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_TOKEN, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseBody
+  public MetisUser getUserByAccessToken(@RequestHeader("Authorization") String authorization)
+      throws BadContentException {
+    String accessToken = authenticationService.validateAuthorizationHeaderWithAccessToken(authorization);
+    MetisUser metisUser = authenticationService.authenticateUser(accessToken);
+    LOGGER.info("User with email: {} and user id: {} authenticated", metisUser.getEmail(),
+        metisUser.getUserId());
+    return metisUser;
+  }
+
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_USERS, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody

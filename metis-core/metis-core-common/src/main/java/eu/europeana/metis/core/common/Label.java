@@ -18,7 +18,7 @@
 package eu.europeana.metis.core.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import eu.europeana.metis.core.organization.ObjectIdSerializer;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;

@@ -1,5 +1,8 @@
 package eu.europeana.metis.core.test.utils;
 
+import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
@@ -24,9 +27,12 @@ import org.bson.types.ObjectId;
  */
 public class TestObjectFactory {
 
+  public static final int DATASETID = 100;
   public static final String DATASETNAME = "datasetName";
   public static final String WORKFLOWOWNER = "workflowOwner";
   public static final String WORKFLOWNAME = "workflowName";
+  public static final String EMAIL = "user.metis@europeana.eu";
+  public static final String AUTHORIZATION_HEADER = "Bearer qwerty12345";
 
   private TestObjectFactory() {
   }
@@ -96,6 +102,7 @@ public class TestObjectFactory {
       workflow.setId(new ObjectId());
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
+      dataset.setDatasetId(DATASETID+i);
       WorkflowExecution workflowExecution = createUserWorkflowExecutionObject(dataset,
           workflow);
       workflowExecution.setId(new ObjectId());
@@ -113,7 +120,7 @@ public class TestObjectFactory {
 
   public static ScheduledWorkflow createScheduledUserWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
-    scheduledWorkflow.setDatasetName(DATASETNAME);
+    scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
     scheduledWorkflow.setWorkflowName(WORKFLOWNAME);
     scheduledWorkflow.setPointerDate(new Date());
@@ -127,7 +134,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflow.setDatasetId(DATASETID + i);
       scheduledWorkflows.add(scheduledWorkflow);
     }
     return scheduledWorkflows;
@@ -138,7 +145,7 @@ public class TestObjectFactory {
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
-      scheduledWorkflow.setDatasetName(String.format("%s%s", DATASETNAME, i));
+      scheduledWorkflow.setDatasetId(DATASETID + i);
       scheduledWorkflow.setPointerDate(date);
       scheduledWorkflow.setScheduleFrequence(scheduleFrequence);
       scheduledWorkflows.add(scheduledWorkflow);
@@ -149,34 +156,50 @@ public class TestObjectFactory {
   public static Dataset createDataset(String datasetName) {
     Dataset ds = new Dataset();
     ds.setEcloudDatasetId("NOT_CREATED_YET-f525f64c-fea0-44bf-8c56-88f30962734c");
-    ds.setAccepted(true);
-    ds.setCountry(Country.ALBANIA);
-    ds.setCreatedDate(new Date(1000));
-    ds.setDataProvider("prov");
-    ds.setDeaSigned(true);
-    ds.setDescription("Test description");
-    List<String> dqa = new ArrayList<>();
-    dqa.add("test DQA");
-    ds.setDqas(dqa);
-    ds.setFirstPublished(new Date(1000));
-    ds.setHarvestedAt(new Date(1000));
-    ds.setLanguage(Language.AR);
-    ds.setLastPublished(new Date(1000));
-    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
+    ds.setDatasetId(DATASETID);
     ds.setDatasetName(datasetName);
-    ds.setNotes("test Notes");
+    ds.setOrganizationId("1234567890");
+    ds.setOrganizationName("OrganizationName");
+    ds.setProvider("1234567890");
+    ds.setIntermediateProvider("1234567890");
+    ds.setDataProvider("1234567890");
+    ds.setCreatedByUserId("userId");
+    ds.setCreatedDate(new Date());
+    ds.setUpdatedDate(new Date());
+    ds.setDatasetStatus(DatasetStatus.CREATED);
+    ds.setReplacedBy("replacedBy");
+    ds.setReplaces("12345");
+    ds.setCountry(Country.GREECE);
+    ds.setLanguage(Language.AR);
+    ds.setDescription("description");
+    ds.setNotes("Notes");
+    ds.setFirstPublishedDate(new Date());
+    ds.setLastPublishedDate(new Date());
     ds.setPublishedRecords(100);
-    ds.setSubmittedRecords(199);
-    ds.setReplacedBy("replacedBY");
-    List<String> sources = new ArrayList<>();
-    sources.add("testSource");
-    ds.setSources(sources);
-    List<String> subjects = new ArrayList<>();
-    subjects.add("testSubject");
-    ds.setSubjects(subjects);
-    ds.setSubmissionDate(new Date(1000));
-    ds.setUpdatedDate(new Date(1000));
-    ds.setDatasetStatus(DatasetStatus.ACCEPTANCE);
+    ds.setHarvestedDate(new Date());
+    ds.setHarvestedRecords(100);
+    ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     return ds;
   }
+
+  public static MetisUser createMetisUser(String email)
+  {
+    MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
+    metisUserAccessToken.setAccessToken("AccessToken_12345");
+    metisUserAccessToken.setTimestamp(new Date());
+
+    MetisUser metisUser = new MetisUser();
+    metisUser.setEmail(email);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    metisUser.setOrganizationId("Organization_12345");
+    metisUser.setOrganizationName("OrganizationName");
+    metisUser.setMetisUserFlag(true);
+    metisUser.setFirstName("FirstName");
+    metisUser.setLastName("LastName");
+    metisUser.setUserId("User_12345");
+    metisUser.setMetisUserAccessToken(metisUserAccessToken);
+
+    return metisUser;
+  }
 }
+

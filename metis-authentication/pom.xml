@@ -15,6 +15,7 @@
     <module>metis-authentication-common</module>
     <module>metis-authentication-rest</module>
     <module>metis-authentication-service</module>
+    <module>metis-authentication-rest-client</module>
   </modules>
 
 
