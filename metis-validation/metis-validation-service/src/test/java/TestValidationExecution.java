@@ -204,7 +204,7 @@ public class TestValidationExecution {
         Map<String, String> predefinedSchemasLocations = new HashMap<>();
         predefinedSchemasLocations.put("edm-internal","url to edm-internal");
         predefinedSchemasLocations.put("edm-external","url to edm-external");
-        ValidationExecutionService validationExecutionService = new ValidationExecutionService(() -> 12, new ClasspathResourceResolver(),new SchemaProvider(predefinedSchemasLocations));
+        ValidationExecutionService validationExecutionService = new ValidationExecutionService(() -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemasLocations));
         ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
         Assert.assertNotNull(es);
         ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
