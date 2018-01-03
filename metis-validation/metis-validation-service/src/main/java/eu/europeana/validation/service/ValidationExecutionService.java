@@ -52,6 +52,11 @@ public class ValidationExecutionService {
         this.es = Executors.newFixedThreadPool(config.getThreadCount());
     }
 
+    public ValidationExecutionService(ValidationServiceConfig config, ClasspathResourceResolver lsResourceResolver, SchemaProvider schemaProvider) {
+        this(config, lsResourceResolver);
+        this.schemaProvider = schemaProvider;
+    }
+
     /**
      * Default constructor that creates a fully configured instance of this service with default configuration and schema provider
      */
