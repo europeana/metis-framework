@@ -7,7 +7,7 @@ import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;

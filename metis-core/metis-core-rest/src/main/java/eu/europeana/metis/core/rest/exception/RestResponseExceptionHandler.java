@@ -17,7 +17,6 @@ import java.util.concurrent.ExecutionException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -36,10 +35,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
-  @ExceptionHandler(value = {UserNotFoundException.class, IOException.class,
-      SolrServerException.class, ServletException.class,
-      BadContentException.class,
-      DatasetAlreadyExistsException.class,
+  @ExceptionHandler(value = {UserNotFoundException.class, IOException.class, ServletException.class,
+      BadContentException.class, DatasetAlreadyExistsException.class,
       NoDatasetFoundException.class, NoWorkflowFoundException.class,
       NoScheduledWorkflowFoundException.class, WorkflowAlreadyExistsException.class,
       WorkflowExecutionAlreadyExistsException.class,

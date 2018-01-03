@@ -20,7 +20,7 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import java.util.List;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
