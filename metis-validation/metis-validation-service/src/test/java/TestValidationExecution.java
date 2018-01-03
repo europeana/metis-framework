@@ -17,7 +17,7 @@
 
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
-import eu.europeana.validation.service.ValidationExecutionService;
+import eu.europeana.validation.service.*;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
@@ -27,6 +27,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.powermock.reflect.Whitebox;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -36,9 +37,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
 
 /**
  * Created by gmamakis on 18-12-15.
@@ -153,4 +154,68 @@ public class TestValidationExecution {
 
         FileUtils.forceDelete(new File(fileName));
     }
+
+    @Test
+    public void ValidationExecutionServiceTestWithDefaultPropertyFile() throws SchemaProviderException {
+        ValidationExecutionService validationExecutionService = new ValidationExecutionService();
+        ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+        Assert.assertNotNull(es);
+        ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
+        Assert.assertNotNull(config);
+        Assert.assertEquals(config.getThreadCount(), 10);
+        SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
+        Properties properties = loadDefaultProperties("src/test/resources/validation.properties");
+        Assert.assertNotNull(schemaProvider);
+        Map<String, String> locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
+        Assert.assertNotNull(locations);
+        Assert.assertEquals(locations.get("edm-internal"), properties.getProperty("edm-internal"));
+        Assert.assertEquals(locations.get("edm-external"), properties.getProperty("edm-external"));
+    }
+
+    private Properties loadDefaultProperties(String propertyFile) {
+        Properties properties = new Properties();
+        try {
+            properties.load(new FileInputStream(propertyFile));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
+    }
+
+    @Test
+    public void ValidationExecutionServiceTestWithProvidedPropertyFile() throws SchemaProviderException {
+        ValidationExecutionService validationExecutionService = new ValidationExecutionService("src/test/resources/custom-validation.properties");
+        ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+        Assert.assertNotNull(es);
+        ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
+        Assert.assertNotNull(config);
+        Assert.assertEquals(config.getThreadCount(), 10);
+        SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
+        Properties properties = loadDefaultProperties("src/test/resources/custom-validation.properties");
+        Assert.assertNotNull(schemaProvider);
+        Map<String, String> locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
+        Assert.assertNotNull(locations);
+        Assert.assertEquals(locations.get("edm-internal"), properties.getProperty("edm-internal"));
+        Assert.assertEquals(locations.get("edm-external"), properties.getProperty("edm-external"));
+    }
+
+    @Test
+    public void ValidationExecutionServiceTestWithCustomConfiguration() throws SchemaProviderException {
+        Map<String, String> predefinedSchemasLocations = new HashMap<>();
+        predefinedSchemasLocations.put("edm-internal","url to edm-internal");
+        predefinedSchemasLocations.put("edm-external","url to edm-external");
+        ValidationExecutionService validationExecutionService = new ValidationExecutionService(() -> 12, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemasLocations));
+        ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
+        Assert.assertNotNull(es);
+        ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
+        Assert.assertNotNull(config);
+        Assert.assertEquals(config.getThreadCount(), 12);
+        SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
+        Assert.assertNotNull(schemaProvider);
+        Map<String, String> locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
+        Assert.assertNotNull(locations);
+        Assert.assertEquals(locations.get("edm-internal"), predefinedSchemasLocations.get("edm-internal"));
+        Assert.assertEquals(locations.get("edm-external"), predefinedSchemasLocations.get("edm-external"));
+    }
+
 }

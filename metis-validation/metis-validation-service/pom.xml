@@ -124,6 +124,12 @@
             <version>18.0</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-reflect</artifactId>
+            <version>1.7.1</version>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 
