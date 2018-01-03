@@ -146,11 +146,6 @@
       <version>${version.awaitability}</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-core-search</artifactId>
-      <version>${project.version}</version>
-    </dependency>
   </dependencies>
   <!-- Run with -Dspring.profiles.active=production -->
 
