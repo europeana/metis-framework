@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.dao;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
+import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -48,9 +49,11 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null)
+    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
-    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(CONTACTS_MODULE_STRING).get("row").get("FL");
+    }
+    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(CONTACTS_MODULE_STRING)
+        .get("row").get("FL");
   }
 
   public JsonNode getOrganizationByOrganizationName(String organizationName) throws IOException {
@@ -67,9 +70,41 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null)
+    return findExactMatchOfOrganization(jsonContactResponse, organizationName);
+  }
+
+  private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse,
+      String organizationName) {
+    if (jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
-    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(ACCOUNTS_MODULE_STRING).get("row").get("FL");
+    }
+    JsonNode organizationJsonNode = jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING)
+        .get(ACCOUNTS_MODULE_STRING).get("row").get("FL");
+    if (organizationJsonNode == null) {
+      //Single organization not found, check for list
+      Iterator<JsonNode> organizationJsonNodes = jsonOrgizationsResponse.get(RESPONSE_STRING)
+          .get(RESULT_STRING)
+          .get(ACCOUNTS_MODULE_STRING).get("row").elements();
+      if (organizationJsonNodes == null || !organizationJsonNodes.hasNext()) {
+        return null;
+      }
+      while (organizationJsonNodes.hasNext()) {
+        JsonNode nextOrganizationJsonNode = organizationJsonNodes.next().get("FL");
+        Iterator<JsonNode> organizationFields = nextOrganizationJsonNode.elements();
+        while (organizationFields.hasNext()) {
+          JsonNode organizationField = organizationFields.next();
+          JsonNode val = organizationField.get("val");
+          JsonNode content = organizationField.get("content");
+          if (val.textValue().equals("Account Name") && content.textValue()
+              .equals(organizationName)) {
+            return nextOrganizationJsonNode;
+          }
+        }
+      }
+    } else {
+      return organizationJsonNode;
+    }
+    return null;
   }
 
 }

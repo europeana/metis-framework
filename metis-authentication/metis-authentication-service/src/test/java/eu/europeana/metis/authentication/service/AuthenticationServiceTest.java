@@ -331,6 +331,15 @@ public class AuthenticationServiceTest {
     assertFalse(authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmailToUpdate));
   }
 
+  @Test(expected = NoUserFoundException.class)
+  public void hasPermissionToRequestUserUpdateUserToUpdateDoesNotExist() throws Exception {
+    final String storedMetisUserEmail = "storedEmail@example.com";
+    MetisUser metisUser = new MetisUser();
+    when(psqlMetisUserDao.getMetisUserByAccessToken(EXAMPLE_ACCESS_TOKEN)).thenReturn(metisUser);
+    when(psqlMetisUserDao.getMetisUserByEmail(storedMetisUserEmail)).thenReturn(null);
+    authenticationService.hasPermissionToRequestUserUpdate(EXAMPLE_ACCESS_TOKEN, storedMetisUserEmail);
+  }
+
   @Test
   public void expireAccessTokens() throws Exception {
     authenticationService.expireAccessTokens();

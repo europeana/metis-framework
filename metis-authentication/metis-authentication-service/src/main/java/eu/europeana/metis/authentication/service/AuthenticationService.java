@@ -209,9 +209,13 @@ public class AuthenticationService {
 
   public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
-      throws BadContentException {
+      throws BadContentException, NoUserFoundException {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
+    if (storedMetisUserToUpdate == null) {
+      throw new NoUserFoundException(
+          String.format("User with email: %s does not exist", userEmailToUpdate));
+    }
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || storedMetisUser.getEmail()
         .equals(storedMetisUserToUpdate.getEmail());
   }
