@@ -148,12 +148,8 @@ public class SchemaProvider {
 
         Schema schema = new Schema();
         schema.setName(schemaName);
-        File schematronDirectory = new File(unzippedSchemaLocation, "schematron");
         if (rootFileExists(unzippedSchemaLocation, rootFileLocation)) {
             schema.setPath(unzippedSchemaLocation.getAbsolutePath() + File.separator + rootFileLocation);
-            if (schematronDirectory.exists()) {
-                schema.setSchematronPath(schematronDirectory.getAbsolutePath() + STARTING_SCHEMATRON_FILE_NAME);
-            }
             return schema;
         } else {
             throw new SchemaProviderException("Provided root xsd file name does not exist in archive");
