@@ -51,20 +51,22 @@ public class SchemaProvider {
     /**
      * Retrieves schema object from given (remote) location.
      *
-     * @param fileLocation place where (remote) zip file is located.
-     *                     Accepts url to file or one of the predefined values (EDM-INTERNAL or EDM-EXTERNAL)
+     * @param fileLocation     place where (remote) zip file is located.
+     *                         Accepts url to file or one of the predefined values (EDM-INTERNAL or EDM-EXTERNAL)
+     * @param rootFileLocation indicates where root xsd file is located inside zip.
+     *                         The caller is responsible to provide propper path (for example propper slashes)
      * @return schema object
      * @throws SchemaProviderException
      */
-    public Schema getSchema(String fileLocation) throws SchemaProviderException {
+    public Schema getSchema(String fileLocation, String rootFileLocation) throws SchemaProviderException {
         if (isPredefined(fileLocation)) {
             File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation.toLowerCase()), fileLocation.toLowerCase());
             unzipArchive(downloadedFile);
-            return prepareSchema(fileLocation, downloadedFile.getParentFile());
+            return prepareSchema(fileLocation, downloadedFile.getParentFile(), rootFileLocation);
         } else {
             File downloadedFile = downloadZipIfNeeded(fileLocation, prepareDirectoryName(fileLocation));
             unzipArchive(downloadedFile);
-            return prepareSchema(prepareDirectoryName(fileLocation), downloadedFile.getParentFile());
+            return prepareSchema(prepareDirectoryName(fileLocation), downloadedFile.getParentFile(), rootFileLocation);
         }
     }
 
@@ -142,15 +144,28 @@ public class SchemaProvider {
         }
     }
 
-    private Schema prepareSchema(String schemaName, File unzippedSchemaLocation) {
+    private Schema prepareSchema(String schemaName, File unzippedSchemaLocation, String rootFileLocation) throws SchemaProviderException {
 
         Schema schema = new Schema();
         schema.setName(schemaName);
         File schematronDirectory = new File(unzippedSchemaLocation, "schematron");
-        schema.setPath(unzippedSchemaLocation.getAbsolutePath() + XSD_ENTRY_FILE_NAME);
-        if (schematronDirectory.exists()) {
-            schema.setSchematronPath(schematronDirectory.getAbsolutePath() + STARTING_SCHEMATRON_FILE_NAME);
+        if (rootFileExists(unzippedSchemaLocation, rootFileLocation)) {
+            schema.setPath(unzippedSchemaLocation.getAbsolutePath() + File.separator + rootFileLocation);
+            if (schematronDirectory.exists()) {
+                schema.setSchematronPath(schematronDirectory.getAbsolutePath() + STARTING_SCHEMATRON_FILE_NAME);
+            }
+            return schema;
+        } else {
+            throw new SchemaProviderException("Provided root xsd file name does not exist in archive");
         }
-        return schema;
+    }
+
+    private boolean rootFileExists(File unzippedSchemaLocation, String rootFileLocation) {
+        File rootFile = new File(unzippedSchemaLocation, rootFileLocation);
+        if (rootFile.exists()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
