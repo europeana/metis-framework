@@ -71,7 +71,12 @@ public class ValidationExecutionService {
      * @param propertyFilename path to a property file with defined URLs for edm-internal and edm-external schemas
      */
     public ValidationExecutionService(String propertyFilename) {
-        this(() -> 10, new ClasspathResourceResolver());
+        this(new ValidationServiceConfig() {
+            @Override
+            public int getThreadCount() {
+                return 10;
+            }
+        }, new ClasspathResourceResolver());
         this.schemaProvider = getSchemaProvider(propertyFilename);
     }
 
