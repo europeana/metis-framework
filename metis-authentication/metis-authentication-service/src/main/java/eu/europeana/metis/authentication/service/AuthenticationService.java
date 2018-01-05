@@ -105,16 +105,16 @@ public class AuthenticationService {
     }
 
     //Get Organization Id related to user
-    JsonNode organizationJsonNode;
+    String organizationId;
     try {
-      organizationJsonNode = zohoAccessClientDao
-          .getOrganizationByOrganizationName(metisUser.getOrganizationName());
+      organizationId = zohoAccessClientDao
+          .getOrganizationIdByOrganizationName(metisUser.getOrganizationName());
     } catch (IOException e) {
       throw new BadContentException(
           String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
               metisUser.getOrganizationName()), e);
     }
-    metisUser.setAndCheckOrganizationIdFromJsonNode(organizationJsonNode);
+    metisUser.setOrganizationId(organizationId);
     return metisUser;
   }
 
@@ -209,9 +209,13 @@ public class AuthenticationService {
 
   public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
-      throws BadContentException {
+      throws BadContentException, NoUserFoundException {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
+    if (storedMetisUserToUpdate == null) {
+      throw new NoUserFoundException(
+          String.format("User with email: %s does not exist", userEmailToUpdate));
+    }
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || storedMetisUser.getEmail()
         .equals(storedMetisUserToUpdate.getEmail());
   }

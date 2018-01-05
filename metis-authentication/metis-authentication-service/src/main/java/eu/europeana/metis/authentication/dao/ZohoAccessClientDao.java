@@ -2,7 +2,10 @@ package eu.europeana.metis.authentication.dao;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.common.model.OrganizationRole;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
+import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -24,7 +27,14 @@ public class ZohoAccessClientDao {
   private static final String CRITERIA_STRING = "criteria";
   private static final String RESPONSE_STRING = "response";
   private static final String RESULT_STRING = "result";
-
+  private static final String ROW_STRING = "row";
+  private static final String JSON_STRING = "json";
+  private static final String CRMAPI_STRING = "crmapi";
+  private static final String ORGANIZATION_NAME_FIELD = "Account Name";
+  private static final String EMAIL_FIELD = "Email";
+  private static final String VALUE_LABEL = "val";
+  private static final String CONTENT_LABEL = "content";
+  private static final String FIELDS_LABEL = "FL";
 
   private String zohoBaseUrl;
   private String zohoAuthenticationToken;
@@ -36,11 +46,12 @@ public class ZohoAccessClientDao {
 
   public JsonNode getUserByEmail(String email) throws IOException {
     String contactsSearchUrl = String
-        .format("%s/%s/%s/%s", zohoBaseUrl, "json", CONTACTS_MODULE_STRING, SEARCH_RECORDS_STRING);
+        .format("%s/%s/%s/%s", zohoBaseUrl, JSON_STRING, CONTACTS_MODULE_STRING,
+            SEARCH_RECORDS_STRING);
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
         .queryParam(AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-        .queryParam(SCOPE_STRING, "crmapi")
-        .queryParam(CRITERIA_STRING, String.format("(Email:%s)", email));
+        .queryParam(SCOPE_STRING, CRMAPI_STRING)
+        .queryParam(CRITERIA_STRING, String.format("(%s:%s)", EMAIL_FIELD, email));
 
     RestTemplate restTemplate = new RestTemplate();
     String contactResponse = restTemplate
@@ -48,18 +59,23 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null)
+    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
-    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(CONTACTS_MODULE_STRING).get("row").get("FL");
+    }
+    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(CONTACTS_MODULE_STRING)
+        .get(ROW_STRING).get(FIELDS_LABEL);
   }
 
-  public JsonNode getOrganizationByOrganizationName(String organizationName) throws IOException {
+  public String getOrganizationIdByOrganizationName(String organizationName)
+      throws IOException, BadContentException {
     String contactsSearchUrl = String
-        .format("%s/%s/%s/%s", zohoBaseUrl, "json", ACCOUNTS_MODULE_STRING, SEARCH_RECORDS_STRING);
+        .format("%s/%s/%s/%s", zohoBaseUrl, JSON_STRING, ACCOUNTS_MODULE_STRING,
+            SEARCH_RECORDS_STRING);
     UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
         .queryParam(AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-        .queryParam(SCOPE_STRING, "crmapi")
-        .queryParam(CRITERIA_STRING, String.format("(Account Name:%s)", organizationName));
+        .queryParam(SCOPE_STRING, CRMAPI_STRING)
+        .queryParam(CRITERIA_STRING,
+            String.format("(%s:%s)", ORGANIZATION_NAME_FIELD, organizationName));
 
     RestTemplate restTemplate = new RestTemplate();
     String contactResponse = restTemplate
@@ -67,9 +83,70 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null)
+    return checkOrganizationRoleAndGetOrganizationIdFromJsonNode(
+        findExactMatchOfOrganization(jsonContactResponse, organizationName));
+  }
+
+  private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse,
+      String organizationName) {
+    if (jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
-    return jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING).get(ACCOUNTS_MODULE_STRING).get("row").get("FL");
+    }
+    if (jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING)
+        .get(ACCOUNTS_MODULE_STRING).get(ROW_STRING).isArray()) {
+      return findOrganizationFromListOfJsonNodes(jsonOrgizationsResponse, organizationName);
+    }
+    return jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING)
+        .get(ACCOUNTS_MODULE_STRING).get(ROW_STRING).get(FIELDS_LABEL);
+  }
+
+  private JsonNode findOrganizationFromListOfJsonNodes(JsonNode jsonOrgizationsResponse,
+      String organizationName) {
+    Iterator<JsonNode> organizationJsonNodes = jsonOrgizationsResponse.get(RESPONSE_STRING)
+        .get(RESULT_STRING).get(ACCOUNTS_MODULE_STRING).get(ROW_STRING).elements();
+    if (organizationJsonNodes == null || !organizationJsonNodes.hasNext()) {
+      return null;
+    }
+    while (organizationJsonNodes.hasNext()) {
+      JsonNode nextOrganizationJsonNode = organizationJsonNodes.next().get(FIELDS_LABEL);
+      Iterator<JsonNode> organizationFields = nextOrganizationJsonNode.elements();
+      while (organizationFields.hasNext()) {
+        JsonNode organizationField = organizationFields.next();
+        JsonNode val = organizationField.get(VALUE_LABEL);
+        JsonNode content = organizationField.get(CONTENT_LABEL);
+        if (val.textValue().equals(ORGANIZATION_NAME_FIELD) && content.textValue()
+            .equals(organizationName)) {
+          return nextOrganizationJsonNode;
+        }
+      }
+    }
+    return null;
+  }
+
+  private String checkOrganizationRoleAndGetOrganizationIdFromJsonNode(JsonNode jsonNode)
+      throws BadContentException {
+    Iterator<JsonNode> elements = jsonNode.elements();
+    OrganizationRole organizationRole = null;
+    String organizationId = null;
+    while (elements.hasNext()) {
+      JsonNode next = elements.next();
+      JsonNode val = next.get("val");
+      JsonNode content = next.get("content");
+      switch (val.textValue()) {
+        case "ACCOUNTID":
+          organizationId = content.textValue();
+          break;
+        case "Organisation Role":
+          organizationRole = OrganizationRole.getRoleFromName(content.textValue());
+          break;
+        default:
+          break;
+      }
+    }
+    if (organizationRole == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
+    return organizationId;
   }
 
 }
