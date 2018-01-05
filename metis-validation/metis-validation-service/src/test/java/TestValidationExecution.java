@@ -64,7 +64,7 @@ public class TestValidationExecution {
     @Test
     public void testSingleValidationSuccess() throws Exception {
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,null, fileToValidate);
         Assert.assertEquals(true, result.isSuccess());
         Assert.assertNull(result.getRecordId());
         Assert.assertNull(result.getMessage());
@@ -75,7 +75,7 @@ public class TestValidationExecution {
     public void testSingleValidationFailure() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_wrong.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,null, fileToValidate);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
@@ -86,7 +86,7 @@ public class TestValidationExecution {
     public void testSingleValidationFailureWrongSchema() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, null, fileToValidate);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
@@ -106,7 +106,7 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, null, xmls);
         Assert.assertEquals(true, result.isSuccess());
         Assert.assertEquals(0, result.getResultList().size());
 
@@ -130,7 +130,7 @@ public class TestValidationExecution {
             xmls.add(record);
             fileInputStream.close();
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, null, xmls);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1, result.getResultList().size());
 
@@ -153,7 +153,7 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, null, xmls);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1506, result.getResultList().size());
 

@@ -66,14 +66,16 @@ public class Validator implements Callable<ValidationResult> {
      * @param schema
      * @param document
      */
-    public Validator(String schema, String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
+    public Validator(String schema, String rootFileLocation, String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
         this.schema = schema;
+        this.rootFileLocation = rootFileLocation;
         this.document = document;
         this.schemaProvider = schemaProvider;
         this.resolver = resolver;
     }
 
     private String schema;
+    private String rootFileLocation;
     private String document;
     private SchemaProvider schemaProvider;
     private ClasspathResourceResolver resolver;
@@ -85,7 +87,7 @@ public class Validator implements Callable<ValidationResult> {
      * @return
      */
     private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
-        return schemaProvider.getSchema(schemaName, null);
+        return schemaProvider.getSchema(schemaName, rootFileLocation);
     }
 
     /**

@@ -152,7 +152,7 @@ public class SchemaProvider {
             schema.setPath(unzippedSchemaLocation.getAbsolutePath() + File.separator + rootFileLocation);
             return schema;
         } else {
-            throw new SchemaProviderException("Provided root xsd file name does not exist in archive");
+            throw new SchemaProviderException("Provided root xsd file does not exist in archive");
         }
     }
 

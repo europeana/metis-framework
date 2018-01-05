@@ -72,6 +72,7 @@ public class ValidationController {
      * and the record via POST as a form-data parameter
      *
      * @param targetSchema The schema to validate against
+     * @param rootFileLocation location of the schema root file
      * @param record       The record to validate
      * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
      */
@@ -79,11 +80,12 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
+                                     @RequestParam("rootFileLocation") String rootFileLocation,
                                      @ApiParam @RequestBody Record record
     )
             throws ValidationException {
         ValidationResult result = null;
-        result = validator.singleValidation(targetSchema, record.getRecord());
+        result = validator.singleValidation(targetSchema, rootFileLocation, record.getRecord());
         if (result.isSuccess()) {
             return result;
         } else {
@@ -97,6 +99,7 @@ public class ValidationController {
      * a zip file with records (folders are not currently supported so records need to be at the root of the file)
      *
      * @param targetSchema The schema to validate against
+     * @param rootFileLocation location of the schema root file
      * @param zipFile      A zip file
      * @return A Validation result List. If the service result is empty we assume that the success field is true
      */
@@ -105,6 +108,7 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
     public ValidationResultList batchValidate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
+                                              @RequestParam("rootFileLocation") String rootFileLocation,
                                               @ApiParam(value = "file") @RequestParam("file") MultipartFile zipFile) throws ServerException, BatchValidationException {
 
 
@@ -124,7 +128,7 @@ public class ValidationController {
                 xmls.add(record);
                 stream.close();
             }
-            ValidationResultList list = validator.batchValidation(targetSchema, xmls);
+            ValidationResultList list = validator.batchValidation(targetSchema, rootFileLocation, xmls);
             if (list.getResultList() != null || list.getResultList().size() == 0) {
                 list.setSuccess(true);
             }
