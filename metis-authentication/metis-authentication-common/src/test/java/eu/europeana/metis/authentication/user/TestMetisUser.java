@@ -24,10 +24,10 @@ public class TestMetisUser {
   @Test
   public void metisUserConstructor() throws Exception {
     MetisUser metisUser = new MetisUser(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    Assert.assertEquals(true, metisUser.isMetisUserFlag());
+    Assert.assertTrue(metisUser.isMetisUserFlag());
     Assert.assertEquals(AccountRole.EUROPEANA_DATA_OFFICER, metisUser.getAccountRole());
     Assert.assertEquals("simon.metis@europeana.eu", metisUser.getEmail());
-    Assert.assertEquals(true, metisUser.isNetworkMember());
+    Assert.assertTrue(metisUser.isNetworkMember());
     Assert.assertNotNull(metisUser.getUserId());
     Assert.assertEquals("Europeana Foundation", metisUser.getOrganizationName());
   }
