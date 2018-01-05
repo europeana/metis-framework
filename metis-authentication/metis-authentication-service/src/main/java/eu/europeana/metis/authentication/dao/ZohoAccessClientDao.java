@@ -2,6 +2,8 @@ package eu.europeana.metis.authentication.dao;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.common.model.OrganizationRole;
+import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
 import java.util.Iterator;
 import org.slf4j.Logger;
@@ -64,7 +66,8 @@ public class ZohoAccessClientDao {
         .get(ROW_STRING).get(FIELDS_LABEL);
   }
 
-  public JsonNode getOrganizationByOrganizationName(String organizationName) throws IOException {
+  public String getOrganizationIdByOrganizationName(String organizationName)
+      throws IOException, BadContentException {
     String contactsSearchUrl = String
         .format("%s/%s/%s/%s", zohoBaseUrl, JSON_STRING, ACCOUNTS_MODULE_STRING,
             SEARCH_RECORDS_STRING);
@@ -80,7 +83,8 @@ public class ZohoAccessClientDao {
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
-    return findExactMatchOfOrganization(jsonContactResponse, organizationName);
+    return checkOrganizationRoleAndGetOrganizationIdFromJsonNode(
+        findExactMatchOfOrganization(jsonContactResponse, organizationName));
   }
 
   private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse,
@@ -88,12 +92,12 @@ public class ZohoAccessClientDao {
     if (jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
     }
-    JsonNode organizationJsonNode = jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING)
-        .get(ACCOUNTS_MODULE_STRING).get(ROW_STRING).get(FIELDS_LABEL);
-    if (organizationJsonNode == null) {
+    if (jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING)
+        .get(ACCOUNTS_MODULE_STRING).get(ROW_STRING).isArray()) {
       return findOrganizationFromListOfJsonNodes(jsonOrgizationsResponse, organizationName);
     }
-    return organizationJsonNode;
+    return jsonOrgizationsResponse.get(RESPONSE_STRING).get(RESULT_STRING)
+        .get(ACCOUNTS_MODULE_STRING).get(ROW_STRING).get(FIELDS_LABEL);
   }
 
   private JsonNode findOrganizationFromListOfJsonNodes(JsonNode jsonOrgizationsResponse,
@@ -117,6 +121,32 @@ public class ZohoAccessClientDao {
       }
     }
     return null;
+  }
+
+  private String checkOrganizationRoleAndGetOrganizationIdFromJsonNode(JsonNode jsonNode)
+      throws BadContentException {
+    Iterator<JsonNode> elements = jsonNode.elements();
+    OrganizationRole organizationRole = null;
+    String organizationId = null;
+    while (elements.hasNext()) {
+      JsonNode next = elements.next();
+      JsonNode val = next.get("val");
+      JsonNode content = next.get("content");
+      switch (val.textValue()) {
+        case "ACCOUNTID":
+          organizationId = content.textValue();
+          break;
+        case "Organisation Role":
+          organizationRole = OrganizationRole.getRoleFromName(content.textValue());
+          break;
+        default:
+          break;
+      }
+    }
+    if (organizationRole == null) {
+      throw new BadContentException("Organization Role from Zoho is empty");
+    }
+    return organizationId;
   }
 
 }

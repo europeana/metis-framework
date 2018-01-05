@@ -20,8 +20,6 @@ public class TestMetisUser {
 
   private static final String DATA_JSON_NODE_ZOHO_USER_EXAMPLE = "data/jsonNodeZohoUserExample";
   private static final String DATA_JSON_NODE_ZOHO_USER_IS_ADMIN_EXAMPLE = "data/jsonNodeZohoUserIsAdminExample";
-  private static final String DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE = "data/jsonNodeZohoOrganizationExample";
-  private static final String DATA_JSON_NODE_ZOHO_ORGANIZATION_WRONG_ROLE_EXAMPLE = "data/jsonNodeZohoOrganizationWrongRoleExample";
 
   @Test
   public void metisUserConstructor() throws Exception {
@@ -32,20 +30,11 @@ public class TestMetisUser {
     Assert.assertEquals(true, metisUser.isNetworkMember());
     Assert.assertNotNull(metisUser.getUserId());
     Assert.assertEquals("Europeana Foundation", metisUser.getOrganizationName());
-
-    metisUser.setAndCheckOrganizationIdFromJsonNode(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
-    Assert.assertNotNull(metisUser.getOrganizationId());
   }
 
   @Test(expected = BadContentException.class)
   public void metisUserConstructorWithAdminRoleFromZohoFails() throws Exception {
     new MetisUser(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_IS_ADMIN_EXAMPLE));
-  }
-
-  @Test(expected = BadContentException.class)
-  public void metisUserSetOrganizationWithEmptyRoleFails() throws Exception {
-    MetisUser metisUser = new MetisUser();
-    metisUser.setAndCheckOrganizationIdFromJsonNode(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_WRONG_ROLE_EXAMPLE));
   }
 
   private JsonNode getZohoJsonNodeExample(String filePath) throws IOException, URISyntaxException {

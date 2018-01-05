@@ -46,7 +46,7 @@ public class AuthenticationServiceTest {
   private static final String DATA_JSON_NODE_ZOHO_USER_EXAMPLE = "data/jsonNodeZohoUserExample";
   private static final String DATA_JSON_NODE_ZOHO_USER_WRONG_CREATED_DATE_FORMAT_EXAMPLE = "data/jsonNodeZohoUserWrongCreatedDateFormatExample";
   private static final String DATA_JSON_NODE_ZOHO_USER_NO_ORGANIZATION_NAME_EXAMPLE = "data/jsonNodeZohoUserNoOrganizationNameExample";
-  private static final String DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE = "data/jsonNodeZohoOrganizationExample";
+  private static final String ORGANIZATION_ID = "1482250000000451555";
   private static final String EXAMPLE_EMAIL = "example@example.com";
   private static final String EXAMPLE_PASSWORD = "123qwe456";
   private static final String EXAMPLE_ACCESS_TOKEN = "1234567890qwertyuiopasdfghjklQWE";
@@ -73,8 +73,8 @@ public class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationByOrganizationName(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
+    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
+        .thenReturn(ORGANIZATION_ID);
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     verify(psqlMetisUserDao).createMetisUser(any(MetisUser.class));
   }
@@ -122,7 +122,7 @@ public class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationByOrganizationName(anyString()))
+    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
         .thenThrow(new IOException("Exception"));
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
   }
@@ -133,8 +133,8 @@ public class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationByOrganizationName(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
+    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
+        .thenReturn(ORGANIZATION_ID);
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
   }
@@ -146,8 +146,8 @@ public class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(metisUser);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationByOrganizationName(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
+    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
+        .thenReturn(ORGANIZATION_ID);
     ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUser.class);
 
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
@@ -161,8 +161,8 @@ public class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationByOrganizationName(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
+    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
+        .thenReturn(ORGANIZATION_ID);
     authenticationService.updateUserFromZoho(EXAMPLE_EMAIL);
     verify(psqlMetisUserDao).updateMetisUser(any(MetisUser.class));
   }
@@ -450,8 +450,8 @@ public class AuthenticationServiceTest {
     when(psqlMetisUserDao.getMetisUserByEmail(anyString())).thenReturn(null);
     when(zohoAccessClientDao.getUserByEmail(anyString()))
         .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_USER_EXAMPLE));
-    when(zohoAccessClientDao.getOrganizationByOrganizationName(anyString()))
-        .thenReturn(getZohoJsonNodeExample(DATA_JSON_NODE_ZOHO_ORGANIZATION_EXAMPLE));
+    when(zohoAccessClientDao.getOrganizationIdByOrganizationName(anyString()))
+        .thenReturn(ORGANIZATION_ID);
     authenticationService.registerUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD);
     ArgumentCaptor<MetisUser> metisUserArgumentCaptor = ArgumentCaptor.forClass(MetisUser.class);
     verify(psqlMetisUserDao).createMetisUser(metisUserArgumentCaptor.capture());

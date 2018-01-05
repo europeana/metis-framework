@@ -3,7 +3,6 @@ package eu.europeana.metis.authentication.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.JsonNode;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.common.model.OrganizationRole;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -119,29 +118,6 @@ public class MetisUser {
         default:
           break;
       }
-    }
-  }
-
-  public void setAndCheckOrganizationIdFromJsonNode(JsonNode jsonNode) throws BadContentException {
-    Iterator<JsonNode> elements = jsonNode.elements();
-    OrganizationRole organizationRole = null;
-    while (elements.hasNext()) {
-      JsonNode next = elements.next();
-      JsonNode val = next.get("val");
-      JsonNode content = next.get("content");
-      switch (val.textValue()) {
-        case "ACCOUNTID":
-          organizationId = content.textValue();
-          break;
-        case "Organisation Role":
-          organizationRole = OrganizationRole.getRoleFromName(content.textValue());
-          break;
-        default:
-          break;
-      }
-    }
-    if (organizationRole == null) {
-      throw new BadContentException("Organization Role from Zoho is empty");
     }
   }
 
