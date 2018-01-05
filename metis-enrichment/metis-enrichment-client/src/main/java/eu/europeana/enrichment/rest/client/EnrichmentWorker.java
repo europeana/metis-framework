@@ -1,20 +1,8 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.corelib.definitions.jibx.Creator;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Lang;
-import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.dereference.client.DereferenceClient;
-import eu.europeana.metis.utils.DereferenceUtils;
-import eu.europeana.metis.utils.EnrichmentUtils;
-import eu.europeana.metis.utils.InputValue;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +13,18 @@ import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.definitions.jibx.Creator;
+import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
+import eu.europeana.corelib.definitions.jibx.ProxyType;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType.Lang;
+import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.dereference.client.DereferenceClient;
+import eu.europeana.metis.utils.DereferenceUtils;
+import eu.europeana.metis.utils.EnrichmentUtils;
+import eu.europeana.metis.utils.InputValue;
 
 /*
  * To be integrated into eCloud topology. This code serves as an example of enrichment through use of the
@@ -34,9 +34,10 @@ import org.slf4j.LoggerFactory;
  * 
  */
 public class EnrichmentWorker {
+	
 	public static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
 	private static IBindingFactory enrichmentBaseFactory;
-	private final static String UTF8= "UTF-8";
+	private static final String ENCODING = StandardCharsets.UTF_8.name();
 
 	/* ***NOTE: Need to create JiBX definition for EnrichmentBase (and subclasses too?) so that EnrichmentClient
 	 * results can be converted to XML for further processing.
@@ -52,12 +53,13 @@ public class EnrichmentWorker {
     }
 	
 	public static void main(String[] args) {
-		System.out.println("W");
 		
 		RDF rdf = new RDF();
-		
-		DereferenceClient dereferenceClient = new DereferenceClient();
-		EnrichmentClient enrichmentClient = new EnrichmentClient();
+
+		// TODO JOCHEN provide host URL
+		final String hostUrl = "";
+		final DereferenceClient dereferenceClient = new DereferenceClient(hostUrl);
+		final EnrichmentClient enrichmentClient = new EnrichmentClient(hostUrl);
 
 		// Create a simple RDF
 		// ***NOTE: Still need to create a better RDF in order to test the flow. This RDF is not sufficient. Need samples!
@@ -82,18 +84,9 @@ public class EnrichmentWorker {
 		proxyList.add(proxy);
 
 		rdf.setProxyList(proxyList);
-
 		
 		// Extract fields for enrichment
-		List<InputValue> fieldsForEnrichment = null;
-		
-		try {
-			fieldsForEnrichment = EnrichmentUtils.extractFieldsForEnrichment(rdf);
-		} 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}	    	
-
+		final List<InputValue> fieldsForEnrichment = EnrichmentUtils.extractFieldsForEnrichment(rdf);
 
 		// Get the information with which to enrich using the extracted fields
 		EnrichmentResultList enrichmentInformation = null;
@@ -101,8 +94,6 @@ public class EnrichmentWorker {
 		try {
 			enrichmentInformation = enrichmentClient.enrich(fieldsForEnrichment);
 		} catch (UnknownException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
@@ -116,10 +107,10 @@ public class EnrichmentWorker {
 			ByteArrayOutputStream out  = new ByteArrayOutputStream();
 			
 			for (EnrichmentBase enrichmentBase : enrichmentInformation.getResult()) {
-				context.marshalDocument(enrichmentBase, UTF8, null, out);
+				context.marshalDocument(enrichmentBase, ENCODING, null, out);
 				
 				String entity;
-				entity = out.toString(UTF8);
+				entity = out.toString(ENCODING);
 
 				rdf = EnrichmentUtils.mergeEntityForEnrichment(EnrichmentUtils.convertRDFtoString(rdf), entity, "");
 			}
@@ -129,16 +120,10 @@ public class EnrichmentWorker {
 
 		
 		// Extract fields for dereferencing
-		Set<String> fieldsForDereferencing = null;
-		try {
-			fieldsForDereferencing = DereferenceUtils.extractValuesForDereferencing(rdf);
-		} catch (JiBXException e) {
-			e.printStackTrace();
-		}
-		
-		
+		final Set<String> fieldsForDereferencing = DereferenceUtils.extractValuesForDereferencing(rdf);
+
 		// Get the information with which to enrich using the extracted fields (via dereferencing)
-		ArrayList<String> enrichmentInformationViaDereferencing = new ArrayList<String>();
+		ArrayList<String> enrichmentInformationViaDereferencing = new ArrayList<>();
 		Iterator<String> fieldsIter = fieldsForDereferencing.iterator();
 		while (fieldsIter.hasNext()) {
 			String field = fieldsIter.next();			

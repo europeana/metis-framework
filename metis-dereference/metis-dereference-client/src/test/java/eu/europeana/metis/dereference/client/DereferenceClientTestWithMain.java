@@ -16,23 +16,30 @@
  */
 package eu.europeana.metis.dereference.client;
 
-import eu.europeana.metis.utils.DereferenceUtils;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.Set;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
+import eu.europeana.metis.utils.DereferenceUtils;
 
 /**
  * Created by gmamakis on 1-3-16.
  */
 public class DereferenceClientTestWithMain {
 
+    // TODO JOCHEN should not have a main class.
     public static void main (String[] args) {
         try {
-            DereferenceClient client = new DereferenceClient();
+          
+            final Properties props = new Properties();
+            props.load(DereferenceClientTestWithMain.class.getClassLoader()
+                .getResourceAsStream("client.properties"));
+            final String hostUrl = props.getProperty("host.url");
+			final DereferenceClient client = new DereferenceClient(hostUrl);
             
             String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rdf:RDF xmlns:edm=\"http://www.europeana.eu/schemas/edm/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">" +
             "<edm:ProvidedCHO rdf:about=\"/00903/1008362\"/>" +

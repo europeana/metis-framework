@@ -83,7 +83,8 @@ public class EnrichmentUtils {
      * @return List<InputValue>
      * @throws JiBXException
      */
-    public static List<InputValue> extractFieldsForEnrichment(RDF rdf) throws JiBXException {
+    // TODO JOCHEN should this method be public? Where is it used?
+    public static List<InputValue> extractFieldsForEnrichment(RDF rdf) {
         ProxyType providerProxy = EntityMergeUtils.getProviderProxy(rdf);
         List<InputValue> valuesForEnrichment= new ArrayList<>();
         

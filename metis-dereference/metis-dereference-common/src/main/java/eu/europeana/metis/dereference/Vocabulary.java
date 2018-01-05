@@ -17,12 +17,13 @@
 package eu.europeana.metis.dereference;
 
 
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlElement;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Indexed;
-
-import javax.xml.bind.annotation.XmlElement;
-import java.io.Serializable;
 
 /**
  * A controlled vocabulary representation
@@ -31,9 +32,8 @@ import java.io.Serializable;
 
 @Entity("Vocabulary")
 public class Vocabulary implements Serializable {
-    /**
-	 * 
-	 */
+
+	/** Required for implementations of {@link Serializable}. **/
 	private static final long serialVersionUID = 2946293185967000823L;
 	
 	@Id

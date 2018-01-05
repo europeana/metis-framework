@@ -24,9 +24,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ResponseStatus(value= HttpStatus.INTERNAL_SERVER_ERROR, reason="Dereferencing failed")
 public class DereferenceException extends RuntimeException {
-    /**
-	 * 
-	 */
+
+	/** Required for implementations of {@link java.io.Serializable} **/
 	private static final long serialVersionUID = 2510936695311769525L;
 
 	public DereferenceException(String message, String uri) {

@@ -94,6 +94,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.url}")
   private String enrichmentUrl;
+  
   private MongoProviderImpl mongoProviderEntity;
   private MongoProviderImpl mongoProviderVocabulary;
   private RedisProvider redisProvider;
@@ -101,7 +102,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   /**
    * Used for overwriting properties if cloud foundry environment is used
    */
-  @SuppressWarnings("deprecation")
   @Override
   public void afterPropertiesSet() throws Exception {
     if (socksProxyEnabled) {
@@ -136,7 +136,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
     MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
     mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb,
         mongoUsername,
         mongoPassword, options);

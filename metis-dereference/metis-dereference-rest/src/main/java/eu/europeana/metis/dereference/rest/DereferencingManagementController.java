@@ -16,19 +16,31 @@
  */
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.metis.RestEndpoints;
-import static eu.europeana.metis.RestEndpoints.*;
-import eu.europeana.metis.dereference.service.DereferencingManagementService;
-import eu.europeana.metis.dereference.Vocabulary;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import static eu.europeana.metis.RestEndpoints.CACHE_EMPTY;
+import static eu.europeana.metis.RestEndpoints.ENTITY;
+import static eu.europeana.metis.RestEndpoints.ENTITY_DELETE;
+import static eu.europeana.metis.RestEndpoints.VOCABULARIES;
+import static eu.europeana.metis.RestEndpoints.VOCABULARY_BYNAME;
+import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.DereferencingManagementService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * REST controller for managing vocabularies and entities
@@ -108,13 +120,17 @@ public class DereferencingManagementController {
      * @param uri The uri of the entity to delete
      * @return OK
      */
-    @SuppressWarnings("deprecation")
 	@RequestMapping(value = ENTITY_DELETE, method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ApiOperation(value = "Delete an entity")
-    public void deleteEntity(@ApiParam("uri") @PathVariable("uri") String uri) {
-        service.removeEntity(URLDecoder.decode(uri));
-    }
+	public void deleteEntity(@ApiParam("uri") @PathVariable("uri") String uri) {
+      try {
+        service.removeEntity(URLDecoder.decode(uri, StandardCharsets.UTF_8.name()));
+      } catch (UnsupportedEncodingException e) {
+        // This cannot really happen.
+        throw new IllegalStateException(e.getMessage(), e);
+      }
+	}
 
     /**
      * Update an entity

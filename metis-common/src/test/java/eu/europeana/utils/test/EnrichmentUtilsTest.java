@@ -148,14 +148,7 @@ public class EnrichmentUtilsTest {
 
 		 rdf.setProxyList(proxyList);
 
-		 List<InputValue> result = null;
-
-		 try {
-			 result = EnrichmentUtils.extractFieldsForEnrichment(rdf);
-		 } 
-		 catch (JiBXException e) {
-			 e.printStackTrace();
-		 }
+		 List<InputValue> result = EnrichmentUtils.extractFieldsForEnrichment(rdf);
 		 
 		 Assert.assertNotNull(result);
 		 Assert.assertEquals(10, result.size());

@@ -16,20 +16,25 @@
  */
 package eu.europeana.metis.dereference.client;
 
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.dereference.Vocabulary;
-import java.io.IOException;
+import static eu.europeana.metis.RestEndpoints.DEREFERENCE;
+import static eu.europeana.metis.RestEndpoints.ENTITY;
+import static eu.europeana.metis.RestEndpoints.ENTITY_DELETE;
+import static eu.europeana.metis.RestEndpoints.VOCABULARIES;
+import static eu.europeana.metis.RestEndpoints.VOCABULARY;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
+
 import org.springframework.web.client.RestTemplate;
 
-import static eu.europeana.metis.RestEndpoints.*;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * A REST wrapper client to be used for dereferencing
@@ -37,24 +42,11 @@ import static eu.europeana.metis.RestEndpoints.*;
  * Created by ymamakis on 2/15/16.
  */
 public class DereferenceClient {
-    private RestTemplate restTemplate;
-    private String hostUrl;
+	
+    private final String hostUrl;
+    private final RestTemplate restTemplate = new RestTemplate();
 
-    public DereferenceClient() {
-        restTemplate = new RestTemplate();
-        Properties props = new Properties();
-        
-        try {
-        	props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
-        	hostUrl = props.getProperty("host.url"); 
-        }
-        catch (IOException e) {
-        	e.printStackTrace();
-        }
-    }
-
-    public DereferenceClient(String hostUrl){
-        restTemplate = new RestTemplate();
+    public DereferenceClient(String hostUrl) {
         this.hostUrl = hostUrl;
     }
 
@@ -95,20 +87,20 @@ public class DereferenceClient {
      * @param name The name of the vocabulary to retrieve
      * @return The retrieved vocabulary
      */
-    public Vocabulary getVocabularyByName(String name) {
-        Vocabulary voc = restTemplate.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name), Vocabulary.class);
-        return voc;
-    }
+	public Vocabulary getVocabularyByName(String name) {
+		return restTemplate.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name),
+				Vocabulary.class);
+	}
 
     /**
      * Retrieve all the vocabularies
      *
      * @return The list of all vocabularies
      */
-    @SuppressWarnings("unchecked")
 	public List<Vocabulary> getAllVocabularies() {
-        List<Vocabulary> vocs = (List<Vocabulary>) restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
-        return vocs;
+		@SuppressWarnings("unchecked")
+		final List<Vocabulary> result = restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
+		return result;
     }
 
     /**
@@ -116,10 +108,14 @@ public class DereferenceClient {
      *
      * @param uri The url of the entity
      */
-    @SuppressWarnings("deprecation")
 	public void deleteEntity(String uri) {
-        restTemplate.delete(hostUrl + RestEndpoints.resolve(ENTITY_DELETE, URLEncoder.encode(uri)));
-    }
+		try {
+			String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+			restTemplate.delete(hostUrl + RestEndpoints.resolve(ENTITY_DELETE, encodedUri));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 
     /**
      * Update Entity by URL
