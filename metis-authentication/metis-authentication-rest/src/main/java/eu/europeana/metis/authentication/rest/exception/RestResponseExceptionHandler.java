@@ -2,12 +2,11 @@ package eu.europeana.metis.authentication.rest.exception;
 
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
+import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.TransactionException;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -28,17 +27,31 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @ControllerAdvice
 public class RestResponseExceptionHandler {
 
+  /**
+   * Handle user controlled exceptions.
+   *
+   * @param ex the exception produced
+   * @param response the response that needs to have it's status modified
+   * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
+   */
   @ExceptionHandler(value = {BadContentException.class, NoUserFoundException.class,
       IOException.class, ExecutionException.class,
-      InterruptedException.class, UserAlreadyExistsException.class, UserUnauthorizedException.class})
+      InterruptedException.class, UserAlreadyExistsException.class,
+      UserUnauthorizedException.class})
   @ResponseBody
-  public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,
-      HttpServletResponse response) {
+  public StructuredExceptionWrapper handleException(Exception ex, HttpServletResponse response) {
     HttpStatus status = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class).value();
     response.setStatus(status.value());
     return new StructuredExceptionWrapper(ex.getMessage());
   }
 
+  /**
+   * Handle a {@link HttpMessageNotReadableException}
+   *
+   * @param ex the exception produced
+   * @param response the response that needs to have it's status modified
+   * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
+   */
   @ExceptionHandler(HttpMessageNotReadableException.class)
   @ResponseBody
   public StructuredExceptionWrapper handleMessageNotReadable(HttpMessageNotReadableException ex,
@@ -48,6 +61,13 @@ public class RestResponseExceptionHandler {
         "Message body not readable. It is missing or malformed\n" + ex.getMessage());
   }
 
+  /**
+   * Handle a {@link MissingServletRequestParameterException}
+   *
+   * @param ex the exception produced
+   * @param response the response that needs to have it's status modified
+   * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
+   */
   @ExceptionHandler(MissingServletRequestParameterException.class)
   @ResponseBody
   public StructuredExceptionWrapper handleMissingParams(MissingServletRequestParameterException ex,
@@ -56,6 +76,13 @@ public class RestResponseExceptionHandler {
     return new StructuredExceptionWrapper(ex.getParameterName() + " parameter is missing");
   }
 
+  /**
+   * Handle a {@link HttpRequestMethodNotSupportedException}
+   *
+   * @param ex the exception produced
+   * @param response the response that needs to have it's status modified
+   * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
+   */
   @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
   @ResponseBody
   public StructuredExceptionWrapper handleMissingParams(HttpRequestMethodNotSupportedException ex,
@@ -64,7 +91,13 @@ public class RestResponseExceptionHandler {
     return new StructuredExceptionWrapper("Method not allowed: " + ex.getMessage());
   }
 
-
+  /**
+   * Handle a {@link IllegalStateException} and {@link MethodArgumentTypeMismatchException}
+   *
+   * @param ex the exception produced
+   * @param response the response that needs to have it's status modified
+   * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
+   */
   @ExceptionHandler(value = {IllegalStateException.class,
       MethodArgumentTypeMismatchException.class})
   @ResponseBody
@@ -75,6 +108,13 @@ public class RestResponseExceptionHandler {
         "Request not readable.\n" + ex.getMessage());
   }
 
+  /**
+   * Handle a {@link TransactionException}
+   *
+   * @param ex the exception produced
+   * @param response the response that needs to have it's status modified
+   * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
+   */
   @ExceptionHandler(value = {TransactionException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleMessageTransactionException(Exception ex,

@@ -47,7 +47,7 @@ public class AuthenticationControllerTest {
   private static MockMvc authenticationControllerMock;
 
   @BeforeClass
-  public static void setUp() {
+  public static void oneTimeSetUp() {
     authenticationService = mock(AuthenticationService.class);
     AuthenticationController authenticationController = new AuthenticationController(
         authenticationService);

@@ -39,11 +39,22 @@ public class ZohoAccessClientDao {
   private String zohoBaseUrl;
   private String zohoAuthenticationToken;
 
+  /**
+   * @param zohoBaseUrl the remote url endpoint
+   * @param zohoAuthenticationToken the remote authentication token required to access its REST API
+   */
   public ZohoAccessClientDao(String zohoBaseUrl, String zohoAuthenticationToken) {
     this.zohoBaseUrl = zohoBaseUrl;
     this.zohoAuthenticationToken = zohoAuthenticationToken;
   }
 
+  /**
+   * Retrieves a {@link JsonNode} containing user details from the remote CRM, using an email
+   *
+   * @param email the email to search for the user
+   * @return {@link JsonNode}
+   * @throws IOException if the response cannot be converted to {@link JsonNode}
+   */
   public JsonNode getUserByEmail(String email) throws IOException {
     String contactsSearchUrl = String
         .format("%s/%s/%s/%s", zohoBaseUrl, JSON_STRING, CONTACTS_MODULE_STRING,
@@ -66,6 +77,19 @@ public class ZohoAccessClientDao {
         .get(ROW_STRING).get(FIELDS_LABEL);
   }
 
+
+  /**
+   * Using an organizationName find its corresponding organizationId. <p>It will try to fetch the
+   * organization from the external CRM. The external CRM does NOT check for an exact match, so it
+   * is possible that instead of a singe organization it will return a list of organization in json
+   * format. The exact match will be checked in memory and the correct organizationId will be
+   * returned</p>
+   *
+   * @param organizationName to search for
+   * @return the String representation of the organizationId
+   * @throws IOException if the response cannot be converted to {@link JsonNode}
+   * @throws BadContentException if the organization did not have a role defined
+   */
   public String getOrganizationIdByOrganizationName(String organizationName)
       throws IOException, BadContentException {
     String contactsSearchUrl = String

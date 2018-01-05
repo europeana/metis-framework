@@ -28,8 +28,15 @@ public class MetisUserAccessToken {
   private Date timestamp;
 
   public MetisUserAccessToken() {
+    //Required for json serialization
   }
 
+  /**
+   * Contains the access token information of a user.
+   * @param email the email of the user
+   * @param accessToken the String representation of an access token
+   * @param timestamp the timestamp of the token
+   */
   public MetisUserAccessToken(String email, String accessToken, Date timestamp) {
     this.email = email;
     this.accessToken = accessToken;

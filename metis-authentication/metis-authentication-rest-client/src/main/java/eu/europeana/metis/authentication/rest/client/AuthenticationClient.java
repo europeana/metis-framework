@@ -21,12 +21,25 @@ import org.springframework.web.client.RestTemplate;
 public class AuthenticationClient {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationClient.class);
-  private String baseUrl;
+  private final String baseUrl;
 
+  /**
+   * Constructs an {@link AuthenticationClient}
+   * @param baseUrl the base url endpoint to the authentication REST API
+   */
   public AuthenticationClient(String baseUrl) {
     this.baseUrl = baseUrl;
   }
 
+  /**
+   * Retrieves a user from the remote REST API using an authorization header that contains an access token.
+   * @param authorizationHeader the authorization header containing the access token
+   * <p>
+   *   The expected input should follow the rule
+   *   Bearer accessTokenHere
+   * </p>
+   * @return {@link MetisUser}
+   */
   public MetisUser getUserByAccessTokenInHeader(String authorizationHeader) {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
