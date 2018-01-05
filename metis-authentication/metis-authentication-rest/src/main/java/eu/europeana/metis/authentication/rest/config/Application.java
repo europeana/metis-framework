@@ -84,6 +84,9 @@ public class Application extends WebMvcConfigurerAdapter {
     return psqlMetisUserDao;
   }
 
+  /**
+   * Scheduled method that would expire access token periodically.
+   */
   @Scheduled(fixedDelay = 60 * 1000, initialDelay = 60 * 1000) //1min
   public void expireAccessTokens() {
     authenticationService.expireAccessTokens();

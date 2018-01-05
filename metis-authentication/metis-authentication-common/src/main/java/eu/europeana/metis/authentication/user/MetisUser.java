@@ -63,8 +63,15 @@ public class MetisUser {
   private MetisUserAccessToken metisUserAccessToken;
 
   public MetisUser() {
+    //Required for json serialization
   }
 
+  /**
+   * MetisUser for the Metis project.
+   * @param jsonNode the {@link JsonNode} to construct the MetisUser
+   * @throws ParseException if the content is unparsable
+   * @throws BadContentException if the content of the JsonNode is unacceptable because of rules that should be followed
+   */
   public MetisUser(JsonNode jsonNode) throws ParseException, BadContentException {
     parseJsonNodeZohoUserToMetisUser(jsonNode);
   }

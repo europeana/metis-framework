@@ -25,19 +25,33 @@ import org.springframework.stereotype.Repository;
 public class PsqlMetisUserDao {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PsqlMetisUserDao.class);
+  private static final int DEFAULT_EXPIRE_TIME_IN_MINS = 10;
+  private static final int DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS = 100;
 
-  private int accessTokenExpireTimeInMins = 10;
+  private int accessTokenExpireTimeInMins = DEFAULT_EXPIRE_TIME_IN_MINS;
   private SessionFactory sessionFactory;
 
+  /**
+   * Constructor {@link PsqlMetisUserDao}.
+   * @param sessionFactory {@link SessionFactory} required
+   */
   @Autowired
   public PsqlMetisUserDao(SessionFactory sessionFactory) {
     this.sessionFactory = sessionFactory;
   }
 
+  /**
+   * Stores a {@link MetisUser} in the database.
+   * @param metisUser the {@link MetisUser} to store
+   */
   public void createMetisUser(MetisUser metisUser) {
     createObjectInDB(metisUser);
   }
 
+  /**
+   * Re write a {@link MetisUser} in the database.
+   * @param metisUser the {@link MetisUser} to update
+   */
   public void updateMetisUser(MetisUser metisUser) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
@@ -45,7 +59,7 @@ public class PsqlMetisUserDao {
     try {
       session.update(metisUser);
       tx.commit();
-    } catch (Exception e) {
+    } catch (RuntimeException e) {
       tx.rollback();
       LOGGER.error("Could not persist object, rolling back..");
       throw new TransactionException("Could not persist object in database", e);
@@ -55,6 +69,11 @@ public class PsqlMetisUserDao {
     }
   }
 
+  /**
+   * Retrieve a {@link MetisUser} from the database using an email.
+   * @param email the email to use.
+   * @return the {@link MetisUser}
+   */
   public MetisUser getMetisUserByEmail(String email) {
     Session session = sessionFactory.openSession();
 
@@ -69,6 +88,11 @@ public class PsqlMetisUserDao {
     return metisUser;
   }
 
+  /**
+   * Retrieve the {@link MetisUser} from the database using an access token.
+   * @param accessToken the access token to retrieve the user
+   * @return {@link MetisUser}
+   */
   public MetisUser getMetisUserByAccessToken(String accessToken) {
     Session session = sessionFactory.openSession();
 
@@ -92,10 +116,18 @@ public class PsqlMetisUserDao {
     return metisUser;
   }
 
+  /**
+   * Store a {@link MetisUserAccessToken} in the database
+   * @param metisUserAccessToken {@link MetisUserAccessToken}
+   */
   public void createUserAccessToken(MetisUserAccessToken metisUserAccessToken) {
     createObjectInDB(metisUserAccessToken);
   }
 
+  /**
+   * Stores an {@link Object} in the database.
+   * @param o {@link Object}
+   */
   private void createObjectInDB(Object o) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
@@ -103,7 +135,7 @@ public class PsqlMetisUserDao {
     try {
       session.persist(o);
       tx.commit();
-    } catch (Exception e) {
+    } catch (RuntimeException e) {
       tx.rollback();
       LOGGER.error("Could not persist object, rolling back..");
       throw new TransactionException("Could not persist object in database", e);
@@ -113,13 +145,19 @@ public class PsqlMetisUserDao {
     }
   }
 
-  public void expireAccessTokens(Date now) {
+  /**
+   * Goes through all the access tokens in the database and removes the ones that are expired.
+   * <p>Requests access tokens from the database by pages and checks the stored timestamps and the timestamp provided.
+   * If the expire time has passed it will remove the access token from the database.</p>
+   * @param date the {@link Date} to compare the stored timestamp with
+   */
+  public void expireAccessTokens(Date date) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
-    final long oneMinuteInMillis = 60000;
+    final long oneMinuteInMillis = 60_000;
 
     int offset = 0;
-    int pageSize = 100;
+    int pageSize = DEFAULT_PAGE_SIZE_FOR_ACCESS_TOKENS;
     List metisUserAccessTokens;
     do {
       Criteria criteria = session.createCriteria(MetisUserAccessToken.class).setFirstResult(offset)
@@ -130,7 +168,7 @@ public class PsqlMetisUserDao {
           MetisUserAccessToken metisUserAccessToken = (MetisUserAccessToken) object;
           long accessTokenInMillis = metisUserAccessToken.getTimestamp().getTime();
           Date afterAddingTenMins = new Date(accessTokenInMillis + (accessTokenExpireTimeInMins * oneMinuteInMillis));
-          if (afterAddingTenMins.compareTo(now) <= 0) {
+          if (afterAddingTenMins.compareTo(date) <= 0) {
             //Remove access token
             String hql = String.format("DELETE FROM MetisUserAccessToken WHERE access_token='%s'",
                 metisUserAccessToken.getAccessToken());
@@ -155,6 +193,10 @@ public class PsqlMetisUserDao {
     return accessTokenExpireTimeInMins;
   }
 
+  /**
+   * Removes a {@link MetisUser} from the database by using the user's email.
+   * @param email to find the {@link MetisUser}
+   */
   public void deleteMetisUser(String email) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
@@ -174,6 +216,10 @@ public class PsqlMetisUserDao {
     session.close();
   }
 
+  /**
+   * Updates the timestamp of a stored {@link MetisUserAccessToken} using the email.
+   * @param email to find the stored {@link MetisUserAccessToken}
+   */
   public void updateAccessTokenTimestamp(String email) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
@@ -186,6 +232,10 @@ public class PsqlMetisUserDao {
     session.close();
   }
 
+  /**
+   * Updates the timestamp of a stored {@link MetisUserAccessToken} using the access token.
+   * @param accessToken to find the stored {@link MetisUserAccessToken}
+   */
   public void updateAccessTokenTimestampByAccessToken(String accessToken) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
@@ -198,6 +248,10 @@ public class PsqlMetisUserDao {
     session.close();
   }
 
+  /**
+   * Updates a users {@link AccountRole} to administrator
+   * @param userEmailToMakeAdmin the email to change it's {@link AccountRole}
+   */
   public void updateMetisUserToMakeAdmin(String userEmailToMakeAdmin) {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
@@ -211,6 +265,10 @@ public class PsqlMetisUserDao {
     session.close();
   }
 
+  /**
+   * Retrieves a list of all the {@link MetisUser}s.
+   * @return list of all {@link MetisUser}s
+   */
   public List<MetisUser> getAllMetisUsers() {
     Session session = sessionFactory.openSession();
     List<MetisUser> metisUsers = new ArrayList<>();
