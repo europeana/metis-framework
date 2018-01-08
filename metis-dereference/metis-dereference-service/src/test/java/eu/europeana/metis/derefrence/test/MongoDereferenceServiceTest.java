@@ -101,6 +101,8 @@ public class MongoDereferenceServiceTest {
             Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
             ProcessedEntity entity1 = cacheDao.getByUri("http://sws.geonames.org/3020251");
             Assert.assertNotNull(entity1);
+            
+            System.out.println("ALL DONE.");
         } catch (TransformerException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
