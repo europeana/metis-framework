@@ -26,6 +26,8 @@ import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.utils.InputValue;
 import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.http.HttpEntity;
@@ -33,8 +35,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -45,12 +45,20 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class EnrichmentClient {
-
     private String path;
-    private RestTemplate template = new RestTemplate();
-
-    public EnrichmentClient(String path) {
-        this.path = path;
+    private RestTemplate template;
+   
+    public EnrichmentClient() {
+        template = new RestTemplate();
+    	Properties props = new Properties();
+        
+        try {
+        	props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
+        	path = props.getProperty("host.url"); 
+        }
+        catch (IOException e) {
+        	e.printStackTrace();
+        }
     }
 
     /**
@@ -66,25 +74,15 @@ public class EnrichmentClient {
         InputValueList inList = new InputValueList();
         inList.setInputValueList(values);
 
-        MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        map.add("input", inList);
-
-        MultiValueMap<String, String> headers = new LinkedMultiValueMap<>();
-        headers.add("Content-Type", MediaType.APPLICATION_XML_VALUE);
-
-        HttpEntity list = new HttpEntity(headers);
-
         try {
-            return template.postForObject(path + ENRICHMENT_ENRICH, list,
-                EnrichmentResultList.class, map);
-
+        	EnrichmentResultList result = template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
+        	return result;
         } catch (Exception e){
             throw new UnknownException(e.getMessage());
         }
     }
 
     public EnrichmentBase getByUri(String uri) throws IOException {
-
         RestTemplate template = new RestTemplate();
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI)
@@ -100,6 +98,5 @@ public class EnrichmentClient {
                 EnrichmentBase.class);
 
         return x.getBody();
-
     }
 }

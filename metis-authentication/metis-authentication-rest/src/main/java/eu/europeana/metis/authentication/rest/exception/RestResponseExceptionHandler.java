@@ -1,7 +1,6 @@
 package eu.europeana.metis.authentication.rest.exception;
 
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.NoOrganizationFoundException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
@@ -30,7 +29,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 public class RestResponseExceptionHandler {
 
   @ExceptionHandler(value = {BadContentException.class, NoUserFoundException.class,
-      IOException.class, ExecutionException.class, NoOrganizationFoundException.class,
+      IOException.class, ExecutionException.class,
       InterruptedException.class, UserAlreadyExistsException.class, UserUnauthorizedException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(HttpServletRequest request, Exception ex,

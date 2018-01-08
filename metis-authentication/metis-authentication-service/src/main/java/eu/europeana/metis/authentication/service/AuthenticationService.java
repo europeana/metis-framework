@@ -1,14 +1,15 @@
 package eu.europeana.metis.authentication.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.NoUserFoundException;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.NoUserFoundException;
+import eu.europeana.metis.exception.UserAlreadyExistsException;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
@@ -104,16 +105,16 @@ public class AuthenticationService {
     }
 
     //Get Organization Id related to user
-    JsonNode organizationJsonNode;
+    String organizationId;
     try {
-      organizationJsonNode = zohoAccessClientDao
-          .getOrganizationByOrganizationName(metisUser.getOrganizationName());
+      organizationId = zohoAccessClientDao
+          .getOrganizationIdByOrganizationName(metisUser.getOrganizationName());
     } catch (IOException e) {
       throw new BadContentException(
           String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
               metisUser.getOrganizationName()), e);
     }
-    metisUser.setAndCheckOrganizationIdFromJsonNode(organizationJsonNode);
+    metisUser.setOrganizationId(organizationId);
     return metisUser;
   }
 
@@ -208,9 +209,13 @@ public class AuthenticationService {
 
   public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
-      throws BadContentException {
+      throws BadContentException, NoUserFoundException {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
+    if (storedMetisUserToUpdate == null) {
+      throw new NoUserFoundException(
+          String.format("User with email: %s does not exist", userEmailToUpdate));
+    }
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN || storedMetisUser.getEmail()
         .equals(storedMetisUserToUpdate.getEmail());
   }
@@ -248,7 +253,7 @@ public class AuthenticationService {
       throws BadContentException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     if (storedMetisUser == null) {
-      throw new BadContentException("Wrong access token");
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
     psqlMetisUserDao.updateAccessTokenTimestampByAccessToken(accessToken);
     return storedMetisUser;

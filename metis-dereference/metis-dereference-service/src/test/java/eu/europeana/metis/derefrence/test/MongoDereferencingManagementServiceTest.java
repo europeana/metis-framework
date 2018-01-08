@@ -38,11 +38,11 @@ import redis.clients.jedis.Jedis;
  * Created by ymamakis on 2/22/16.
  */
 public class MongoDereferencingManagementServiceTest {
-
     private MongoDereferencingManagementService service;
     private Jedis jedis;
     private EntityDao entityDao;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+    
     @Before
     public void prepare() throws IOException {
         embeddedLocalhostMongo.start();
@@ -57,9 +57,8 @@ public class MongoDereferencingManagementServiceTest {
         service = new MongoDereferencingManagementService(vocDao, cacheDao,entityDao);
     }
 
-
     @Test
-    public void testCreateRetrieveVocabulary(){
+    public void testCreateRetrieveVocabulary() {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
@@ -79,7 +78,7 @@ public class MongoDereferencingManagementServiceTest {
     }
 
     @Test
-    public void testCreateUpdateRetrieveVocabulary(){
+    public void testCreateUpdateRetrieveVocabulary() {
         Mockito.doAnswer(invocation -> null).when(jedis).flushAll();
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
@@ -102,7 +101,7 @@ public class MongoDereferencingManagementServiceTest {
     }
 
     @Test
-    public void testGetAllVocabularies(){
+    public void testGetAllVocabularies() {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
@@ -117,7 +116,7 @@ public class MongoDereferencingManagementServiceTest {
     }
 
     @Test
-    public void testDeleteVocabularies(){
+    public void testDeleteVocabularies() {
         Mockito.doAnswer(invocation -> null).when(jedis).flushAll();
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
@@ -136,7 +135,7 @@ public class MongoDereferencingManagementServiceTest {
     }
 
     @Test
-    public void removeEntity(){
+    public void removeEntity() {
         OriginalEntity entity = new OriginalEntity();
         entity.setURI("testUri");
         entity.setXml("testXml");
@@ -145,11 +144,10 @@ public class MongoDereferencingManagementServiceTest {
         service.removeEntity(entity.getURI());
 
         Assert.assertEquals(null,entityDao.getByUri(entity.getURI()));
-
     }
 
     @Test
-    public void updateEntity(){
+    public void updateEntity() {
         OriginalEntity entity = new OriginalEntity();
         entity.setURI("testUri");
         entity.setXml("testXml");
@@ -158,13 +156,10 @@ public class MongoDereferencingManagementServiceTest {
         service.updateEntity(entity.getURI(),"testXml2");
         OriginalEntity entity1 = entityDao.getByUri(entity.getURI());
         Assert.assertEquals(entity1.getXml(),"testXml2");
-
     }
 
     @After
-    public void destroy(){
+    public void destroy() {
         embeddedLocalhostMongo.stop();
     }
-
-
 }

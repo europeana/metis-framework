@@ -59,11 +59,14 @@ public class TestWorkflowExecutorManager {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
     rabbitmqChannel = Mockito.mock(Channel.class);
+    dpsClient = Mockito.mock(DpsClient.class);
     workflowExecutorManager = new WorkflowExecutorManager(workflowExecutionDao, rabbitmqChannel,
         redissonClient, dpsClient);
     workflowExecutorManager.setRabbitmqQueueName("ExampleQueueName");
     workflowExecutorManager.setMaxConcurrentThreads(10);
     workflowExecutorManager.setMonitorCheckIntervalInSecs(5);
+    workflowExecutorManager.setEcloudBaseUrl("http://universe.space");
+    workflowExecutorManager.setEcloudProvider("providerExample");
     assertEquals(5, workflowExecutorManager.getMonitorCheckIntervalInSecs());
   }
 

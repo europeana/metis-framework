@@ -90,7 +90,7 @@ public class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt()); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
@@ -103,7 +103,7 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull());
     verify(orchestratorService, atMost(listSize * 4))
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt());
   }
 
@@ -136,7 +136,7 @@ public class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt()); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
@@ -149,7 +149,7 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(3))
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull());
     verify(orchestratorService, times(0))
-        .addWorkflowInQueueOfWorkflowExecutions(anyString(), anyString(), anyString(),
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt());
   }
 

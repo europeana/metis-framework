@@ -41,6 +41,11 @@
   <dependencies>
     <dependency>
       <groupId>eu.europeana.metis</groupId>
+      <artifactId>metis-authentication-common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>eu.europeana.metis</groupId>
       <artifactId>metis-core-common</artifactId>
       <version>${project.version}</version>
     </dependency>
@@ -140,11 +145,6 @@
       <artifactId>awaitility</artifactId>
       <version>${version.awaitability}</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>eu.europeana.metis</groupId>
-      <artifactId>metis-core-search</artifactId>
-      <version>${project.version}</version>
     </dependency>
   </dependencies>
   <!-- Run with -Dspring.profiles.active=production -->

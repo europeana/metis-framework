@@ -144,8 +144,8 @@ public class TestWorkflowExecutionDao {
         .getById(objectId);
     Assert.assertEquals(workflowExecution.getCreatedDate(),
         retrievedWorkflowExecution.getCreatedDate());
-    Assert.assertEquals(workflowExecution.getDatasetName(),
-        retrievedWorkflowExecution.getDatasetName());
+    Assert.assertEquals(workflowExecution.getDatasetId(),
+        retrievedWorkflowExecution.getDatasetId());
     Assert.assertEquals(workflowExecution.getWorkflowOwner(),
         retrievedWorkflowExecution.getWorkflowOwner());
     Assert.assertEquals(workflowExecution.getWorkflowName(),
@@ -169,7 +169,7 @@ public class TestWorkflowExecutionDao {
     workflowExecutionRunning.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecutionDao.create(workflowExecutionRunning);
     WorkflowExecution runningOrInQueueExecution = workflowExecutionDao
-        .getRunningOrInQueueExecution(workflowExecutionRunning.getDatasetName());
+        .getRunningOrInQueueExecution(workflowExecutionRunning.getDatasetId());
     Assert.assertEquals(WorkflowStatus.RUNNING, runningOrInQueueExecution.getWorkflowStatus());
   }
 
@@ -188,7 +188,7 @@ public class TestWorkflowExecutionDao {
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     String objectId = workflowExecutionDao.create(workflowExecution);
     Assert.assertEquals(objectId, workflowExecutionDao
-        .existsAndNotCompleted(workflowExecution.getDatasetName()));
+        .existsAndNotCompleted(workflowExecution.getDatasetId()));
   }
 
   @Test
@@ -198,7 +198,7 @@ public class TestWorkflowExecutionDao {
     workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
     workflowExecutionDao.create(workflowExecution);
     Assert.assertNull(
-        workflowExecutionDao.existsAndNotCompleted(workflowExecution.getDatasetName()));
+        workflowExecutionDao.existsAndNotCompleted(workflowExecution.getDatasetId()));
   }
 
   @Test
@@ -208,7 +208,7 @@ public class TestWorkflowExecutionDao {
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     String objectId = workflowExecutionDao.create(workflowExecution);
     WorkflowExecution runningWorkflowExecution = workflowExecutionDao
-        .getRunningWorkflowExecution(workflowExecution.getDatasetName());
+        .getRunningWorkflowExecution(workflowExecution.getDatasetId());
     Assert.assertEquals(objectId, runningWorkflowExecution.getId().toString());
   }
 
@@ -226,7 +226,7 @@ public class TestWorkflowExecutionDao {
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllWorkflowExecutions(TestObjectFactory.DATASETNAME,
+              .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
                   TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
                   WorkflowStatus.INQUEUE, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest());
@@ -279,7 +279,7 @@ public class TestWorkflowExecutionDao {
   }
 
   @Test
-  public void isExecutionActive() {
+  public void isExecutionActiveUpdatedDateHasChanged() {
     Date beforeDate = new Date();
     Date afterDate = new Date(beforeDate.getTime() + 1000);
     WorkflowExecution workflowExecution = TestObjectFactory
@@ -289,6 +289,34 @@ public class TestWorkflowExecutionDao {
     WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
         .getById(objectId);
     retrievedWorkflowExecution.setUpdatedDate(beforeDate);
+    Assert
+        .assertTrue(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
+  }
+
+  @Test
+  public void isExecutionActiveUpdatedDateGotValueFromNull() {
+    Date updatedDate = new Date();
+    WorkflowExecution workflowExecution = TestObjectFactory
+        .createUserWorkflowExecutionObject();
+    workflowExecution.setUpdatedDate(updatedDate);
+    String objectId = workflowExecutionDao.create(workflowExecution);
+    WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
+        .getById(objectId);
+    retrievedWorkflowExecution.setUpdatedDate(null);
+    Assert
+        .assertTrue(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
+  }
+
+  @Test
+  public void isExecutionActiveFinishedExecution() {
+    Date updatedDate = new Date();
+    WorkflowExecution workflowExecution = TestObjectFactory
+        .createUserWorkflowExecutionObject();
+    workflowExecution.setUpdatedDate(updatedDate);
+    workflowExecution.setFinishedDate(new Date());
+    String objectId = workflowExecutionDao.create(workflowExecution);
+    WorkflowExecution retrievedWorkflowExecution = workflowExecutionDao
+        .getById(objectId);
     Assert
         .assertTrue(workflowExecutionDao.isExecutionActive(retrievedWorkflowExecution, 0));
   }
@@ -362,24 +390,12 @@ public class TestWorkflowExecutionDao {
   }
 
   @Test
-  public void deleteAllByDatasetName() {
+  public void deleteAllByDatasetId() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     workflowExecutionDao.create(workflowExecution);
     Assert.assertTrue(
-        workflowExecutionDao.deleteAllByDatasetName(workflowExecution.getDatasetName()));
-  }
-
-  @Test
-  public void updateAllDatasetNames() {
-    WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
-    workflowExecutionDao.create(workflowExecution);
-    String updatedDatasetName = "updatedDatasetName";
-    workflowExecutionDao
-        .updateAllDatasetNames(workflowExecution.getDatasetName(), updatedDatasetName);
-    workflowExecution.setDatasetName(updatedDatasetName);
-    Assert.assertTrue(workflowExecutionDao.exists(workflowExecution));
+        workflowExecutionDao.deleteAllByDatasetId(workflowExecution.getDatasetId()));
   }
 
   private void untilThreadIsSleeping(Thread t) {

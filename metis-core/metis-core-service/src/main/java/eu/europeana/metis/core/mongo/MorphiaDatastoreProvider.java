@@ -17,53 +17,55 @@
 package eu.europeana.metis.core.mongo;
 
 import com.mongodb.MongoClient;
-import eu.europeana.metis.core.api.MetisKey;
 import eu.europeana.metis.core.common.AltLabel;
 import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.organization.Organization;
+import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
-import org.springframework.stereotype.Component;
 
 /**
- * Class providing connections to Mongo
- * Created by ymamakis on 2/17/16.
+ * Class providing connections to Mongo Created by ymamakis on 2/17/16.
  */
-@Component
 public class MorphiaDatastoreProvider {
 
-    private Datastore datastore;
+  private Datastore datastore;
 
-    public MorphiaDatastoreProvider(MongoClient mongoClient,String db){
-        Morphia morphia = new Morphia();
-        morphia.map(Dataset.class);
-        morphia.map(Organization.class);
-        morphia.map(PrefLabel.class);
-        morphia.map(AltLabel.class);
-        morphia.map(MetisKey.class);
-        morphia.map(Workflow.class);
-        morphia.map(WorkflowExecution.class);
-        morphia.map(ScheduledWorkflow.class);
-        morphia.map(OaipmhHarvestPlugin.class);
-        morphia.map(HTTPHarvestPlugin.class);
-        morphia.map(DereferencePlugin.class);
-        morphia.map(VoidMetisPlugin.class);
-        datastore = morphia.createDatastore(mongoClient,db);
-        datastore.ensureIndexes();
+  public MorphiaDatastoreProvider(MongoClient mongoClient, String db) {
+    Morphia morphia = new Morphia();
+    morphia.map(Dataset.class);
+    morphia.map(DatasetIdSequence.class);
+    morphia.map(PrefLabel.class);
+    morphia.map(AltLabel.class);
+    morphia.map(Workflow.class);
+    morphia.map(WorkflowExecution.class);
+    morphia.map(ScheduledWorkflow.class);
+    morphia.map(OaipmhHarvestPlugin.class);
+    morphia.map(HTTPHarvestPlugin.class);
+    morphia.map(DereferencePlugin.class);
+    morphia.map(VoidMetisPlugin.class);
+    datastore = morphia.createDatastore(mongoClient, db);
+    datastore.ensureIndexes();
+
+    DatasetIdSequence datasetIdSequence = datastore.find(DatasetIdSequence.class).get();
+    if (datasetIdSequence == null) {
+      datastore.save(new DatasetIdSequence(0));
     }
-    /**
-     * Retrieve the datastore connection to Mongo
-     * @return The datastore connection to Mongo
-     */
-    public Datastore getDatastore(){
-        return datastore;
-    }
+  }
+
+  /**
+   * Retrieve the datastore connection to Mongo
+   *
+   * @return The datastore connection to Mongo
+   */
+  public Datastore getDatastore() {
+    return datastore;
+  }
 }

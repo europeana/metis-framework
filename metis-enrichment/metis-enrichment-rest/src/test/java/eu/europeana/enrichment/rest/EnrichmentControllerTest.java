@@ -31,7 +31,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.xml.bind.annotation.XmlNs;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -41,13 +40,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class EnrichmentControllerTest {
-
   private MockMvc enrichmentControllerMock;
   private Enricher enrichmerMock;
   private EntityRemover entityRemoverMock;
   private Converter converterMock;
   private EnrichmentController enrichmentController;
-
 
   @Before
   public void setUp() throws Exception {
@@ -66,7 +63,7 @@ public class EnrichmentControllerTest {
   }
 
   @Test
-  public void testdelete() throws Exception {
+  public void testDelete() throws Exception {
     enrichmentControllerMock.perform(delete("/delete")
         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
         .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -74,7 +71,7 @@ public class EnrichmentControllerTest {
         .andExpect(status().is(200))
         .andExpect(content().string(""));
 
-    ArgumentCaptor<List> argumentCaptor =ArgumentCaptor.forClass(List.class);
+    ArgumentCaptor<List> argumentCaptor = ArgumentCaptor.forClass(List.class);
     verify(entityRemoverMock,times(1)).remove(argumentCaptor.capture());
     assertEquals("myUri", argumentCaptor.getValue().get(0));
   }
@@ -93,8 +90,7 @@ public class EnrichmentControllerTest {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.about", is("http://www.fennek-it.nl")))
         .andExpect(jsonPath("$.altLabelList[?(@.lang=='en')].value", containsInAnyOrder("labelEn")))
-        .andExpect(
-            jsonPath("$.altLabelList[?(@.lang=='nl')].value", containsInAnyOrder("labelNl")));
+        .andExpect(jsonPath("$.altLabelList[?(@.lang=='nl')].value", containsInAnyOrder("labelNl")));
   }
 
   @Test
@@ -111,7 +107,6 @@ public class EnrichmentControllerTest {
         .andExpect(status().is(400))
         .andExpect(jsonPath("$.errorMessage", is("MyException")));
   }
-
 
   @Test
   public void getByUri_XML() throws Exception {
@@ -147,7 +142,6 @@ public class EnrichmentControllerTest {
 
     Map<String, String> namespaceMap = getNamespaceMap();
 
-
     List<EnrichmentBase> list = new ArrayList<>();
     EnrichmentResultList enrichmentResultList = new EnrichmentResultList(list);
     String uri = "http://www.fennek-it.nl";
@@ -168,7 +162,7 @@ public class EnrichmentControllerTest {
   }
 
   @Test
-  public void enrich_throwsException() throws Exception{
+  public void enrich_throwsException() throws Exception {
     String body =
         "{\n"
             + "  \"inputValueList\": [\n"
@@ -189,7 +183,6 @@ public class EnrichmentControllerTest {
         .andExpect(status().is(400))
         .andExpect(jsonPath("$.errorMessage", is("myException")));
   }
-
 
   private Agent getAgent(String uri) {
     Agent agent = new Agent();
@@ -223,5 +216,4 @@ public class EnrichmentControllerTest {
     namespaceMap.put("rdaGr2", "http://RDVocab.info/ElementsGr2/");
     return namespaceMap;
   }
-
 }

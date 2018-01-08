@@ -1,14 +1,15 @@
 package eu.europeana.metis.core.rest;
 
-import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
-import static junit.framework.TestCase.assertEquals;
+import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertEquals;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -18,21 +19,20 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import eu.europeana.metis.core.api.MetisKey;
-import eu.europeana.metis.core.api.Options;
-import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
+import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoOrganizationFoundException;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.DatasetService;
-import eu.europeana.metis.core.service.MetisAuthorizationService;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import java.util.ArrayList;
 import java.util.List;
-import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -42,285 +42,591 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class TestDatasetController {
 
-    private DatasetService datasetServiceMock;
-    private MetisAuthorizationService metisAuthorizationServiceMock;
-    private MockMvc datasetControllerMock;
+  private DatasetService datasetServiceMock;
+  private AuthenticationClient authenticationClient;
+  private MockMvc datasetControllerMock;
 
-    @Before
-    public void setUp() throws Exception {
-        metisAuthorizationServiceMock = mock(MetisAuthorizationService.class);
-        datasetServiceMock = mock(DatasetService.class);
-        DatasetController datasetController = new DatasetController(datasetServiceMock, metisAuthorizationServiceMock);
-        datasetControllerMock = MockMvcBuilders
-            .standaloneSetup(datasetController)
-            .setControllerAdvice(new RestResponseExceptionHandler())
-            .build();
-    }
+  @Before
+  public void setUp() throws Exception {
+    datasetServiceMock = mock(DatasetService.class);
+    authenticationClient = mock(AuthenticationClient.class);
+    DatasetController datasetController = new DatasetController(datasetServiceMock,
+        authenticationClient);
+    datasetControllerMock = MockMvcBuilders
+        .standaloneSetup(datasetController)
+        .setControllerAdvice(new RestResponseExceptionHandler())
+        .build();
+  }
 
-    @Test
-    public void createDatasetForOrganization() throws Exception {
-        Dataset dataset = new Dataset();
+  @Test
+  public void createDataset() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.createDataset(any(MetisUser.class), any(Dataset.class)))
+        .thenReturn(dataset);
 
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
+    datasetControllerMock.perform(post("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(201))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)));
+    verify(datasetServiceMock, times(1)).createDataset(any(MetisUser.class), any(Dataset.class));
+  }
 
-        datasetControllerMock.perform(post("/datasets")
-                .param("organizationId", "myOrg").param("apikey", "myApiKey")
-                .contentType(TestUtils.APPLICATION_JSON_UTF8)
-                .content(TestUtils.convertObjectToJsonBytes(dataset)))
-                .andExpect(status().is(201))
-                .andExpect(content().string(""));
+  @Test
+  public void createDatasetInvalidUser() throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
 
-        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+    datasetControllerMock.perform(post("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+    verify(datasetServiceMock, times(0)).createDataset(any(MetisUser.class), any(Dataset.class));
+  }
 
-        verify(metisAuthorizationServiceMock, times(1)).getKeyFromId("myApiKey");
-        verify(datasetServiceMock, times(1)).createDatasetForOrganization(any(Dataset.class), argument.capture());
-        verifyNoMoreInteractions(metisAuthorizationServiceMock, datasetServiceMock);
+  @Test
+  public void createDataset_DatasetAlreadyExistsException_Returns409() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
-        assertEquals("myOrg", argument.getValue());
-    }
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    doThrow(new DatasetAlreadyExistsException("Conflict"))
+        .when(datasetServiceMock).createDataset(any(MetisUser.class), any(Dataset.class));
 
-    @Test
-    public void createDatasetForOrganization_InValidApiKey_Returns401() throws Exception {
-        Dataset dataset = new Dataset();
+    datasetControllerMock.perform(post("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(409))
+        .andExpect(jsonPath("$.errorMessage", is("Conflict")));
+  }
 
-        when(metisAuthorizationServiceMock.getKeyFromId("myApiKey")).thenReturn(null);
-        datasetControllerMock.perform(post("/datasets")
-            .param("organizationId", "myOrg").param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(401))
-            .andExpect(jsonPath("$.errorMessage", is("No API key found with name: myApiKey")));
-    }
+  @Test
+  public void updateDataset_withValidData_Returns204() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    datasetControllerMock.perform(put("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(204))
+        .andExpect(content().string(""));
 
-    @Test
-    public void createDatasetForOrganization_ApiKeyWithoutAuthorizaitons_Returns401()
-        throws Exception {
-        Dataset dataset = new Dataset();
+    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class));
+  }
 
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.READ);
+  @Test
+  public void updateDataset_InvalidUser() throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+    datasetControllerMock.perform(put("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(406))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
-        datasetControllerMock.perform(post("/datasets")
-            .param("organizationId", "myOrg").param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(401))
-            .andExpect(jsonPath("$.errorMessage", is("API key myApiKey not authorized")));
+    verify(datasetServiceMock, times(0)).updateDataset(any(MetisUser.class), any(Dataset.class));
+  }
 
-    }
-//BadContentException, DatasetAlreadyExistsException, NoOrganizationFoundException,
-    @Test
-    public void createDatasetForOrganization_BadContentException_Returns406() throws Exception {
-        Dataset dataset = new Dataset();
+  @Test
+  public void updateDataset_noDatasetFound_Returns404() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    doThrow(new NoDatasetFoundException("Does not exist")).when(datasetServiceMock)
+        .updateDataset(any(MetisUser.class), any(Dataset.class));
+    datasetControllerMock.perform(put("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(404))
+        .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
 
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        doThrow(new BadContentException("Bad"))
-            .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
+    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class));
+  }
 
-        datasetControllerMock.perform(post("/datasets")
-            .param("organizationId", "myOrg").param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(406))
-            .andExpect(jsonPath("$.errorMessage", is("Bad")));
-    }
+  @Test
+  public void updateDataset_BadContentException_Returns406() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
+        .updateDataset(any(MetisUser.class), any(Dataset.class));
+    datasetControllerMock.perform(put("/datasets")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(dataset)))
+        .andExpect(status().is(406))
+        .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
 
-    @Test
-    public void createDatasetForOrganization_DatasetAlreadyExistsException_Returns409() throws Exception {
-        Dataset dataset = new Dataset();
+    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class));
+  }
 
-        String keyName = "myApiKey";
-        Options write = Options.WRITE;
-        prepareAuthorizationMockWithValidKey(keyName, write);
-        doThrow(new DatasetAlreadyExistsException("Conflict"))
-            .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
+  @Test
+  public void deleteDataset() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(204))
+        .andExpect(content().string(""));
 
-        datasetControllerMock.perform(post("/datasets")
-            .param("organizationId", "myOrg").param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(409))
-            .andExpect(jsonPath("$.errorMessage", is("Dataset with name Conflict already exists")));
-    }
+    ArgumentCaptor<Integer> datasetIdArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
 
-    @Test
-    public void createDatasetForOrganization_NoOrganizationFoundException_Returns404() throws Exception {
-        Dataset dataset = new Dataset();
+    verify(datasetServiceMock, times(1))
+        .deleteDatasetByDatasetId(any(MetisUser.class), datasetIdArgumentCaptor.capture());
 
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        doThrow(new NoOrganizationFoundException("Doesnotexist"))
-            .when(datasetServiceMock).createDatasetForOrganization(any(Dataset.class), any(String.class));
+    assertEquals(TestObjectFactory.DATASETID, datasetIdArgumentCaptor.getValue().intValue());
+  }
 
-        datasetControllerMock.perform(post("/datasets")
-            .param("organizationId", "myOrg").param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(404))
-            .andExpect(jsonPath("$.errorMessage", is("Doesnotexist")));
-    }
+  @Test
+  public void deleteDatasetInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+    datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+    verify(datasetServiceMock, times(0))
+        .deleteDatasetByDatasetId(any(MetisUser.class), anyInt());
+  }
 
-    @Test
-    public void updateDataset_withValidData_Returns204() throws Exception {
-        Dataset dataset = new Dataset();
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        datasetControllerMock.perform(put("/datasets/myDataset")
-            .param("apikey", "myApiKey")
+  @Test
+  public void deleteDataset_BadContentException_Returns406() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
+        .deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
+    datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .accept(MediaType.APPLICATION_JSON_UTF8)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
+  }
 
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(204))
-            .andExpect(content().string(""));
 
-        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+  @Test
+  public void getByDatasetId() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
 
-        verify(metisAuthorizationServiceMock, times(1)).getKeyFromId("myApiKey");
-        verify(datasetServiceMock, times(1)).updateDatasetByDatasetName(any(Dataset.class), argument.capture());
-        verifyNoMoreInteractions(metisAuthorizationServiceMock, datasetServiceMock);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID))
+        .thenReturn(dataset);
+    datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)))
+        .andExpect(jsonPath("$.datasetId", is(TestObjectFactory.DATASETID)));
 
-        assertEquals("myDataset", argument.getValue());
-    }
+    ArgumentCaptor<Integer> datasetIdArgumentCaptor = ArgumentCaptor.forClass(Integer.class);
+    verify(datasetServiceMock, times(1))
+        .getDatasetByDatasetId(any(MetisUser.class), datasetIdArgumentCaptor.capture());
+    assertEquals(TestObjectFactory.DATASETID, datasetIdArgumentCaptor.getValue().longValue());
+  }
 
-    @Test
-    public void updateDataset_withNotExistingName_Returns404() throws Exception {
-        Dataset dataset = new Dataset();
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        doThrow(new NoDatasetFoundException("NoExisting"))
-            .when(datasetServiceMock).updateDatasetByDatasetName(any(Dataset.class), any(String.class));
+  @Test
+  public void getByDatasetIdInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+    datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
-        datasetControllerMock.perform(put("/datasets/myDataset")
-            .param("apikey", "myApiKey")
-            .accept(MediaType.APPLICATION_JSON)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(dataset)))
-            .andExpect(status().is(404))
-            .andExpect(jsonPath("$.errorMessage", is("NoExisting")));
-    }
+    verify(datasetServiceMock, times(0))
+        .getDatasetByDatasetId(any(MetisUser.class), anyInt());
+  }
 
-    @Test
-    public void updateDatasetName() throws Exception {
+  @Test
+  public void getByDatasetId_noDatasetFound_Returns404() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID))
+        .thenThrow(new NoDatasetFoundException("Does not exist"));
+    datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(status().is(404))
+        .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
+  }
 
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        datasetControllerMock.perform(put("/datasets/myDataset/updateName")
-            .param("apikey", "myApiKey")
-            .param("newDatasetName", "newName")
+  @Test
+  public void getByDatasetName() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME))
+        .thenReturn(dataset);
+    datasetControllerMock
+        .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
-            .andExpect(status().is(204))
-            .andExpect(content().string(""));
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.datasetName", is(TestObjectFactory.DATASETNAME)))
+        .andExpect(jsonPath("$.datasetId", is(TestObjectFactory.DATASETID)));
 
-        ArgumentCaptor<String> oldNameCaptor = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> newNameCaptor = ArgumentCaptor.forClass(String.class);
-        verify(metisAuthorizationServiceMock, times(1)).getKeyFromId("myApiKey");
-        verify(datasetServiceMock, times(1)).updateDatasetName(oldNameCaptor.capture(), newNameCaptor.capture());
-        verifyNoMoreInteractions(metisAuthorizationServiceMock, datasetServiceMock);
+    ArgumentCaptor<String> datasetNameArgumentCaptor = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(1))
+        .getDatasetByDatasetName(any(MetisUser.class), datasetNameArgumentCaptor.capture());
+    assertEquals(TestObjectFactory.DATASETNAME, datasetNameArgumentCaptor.getValue());
+  }
 
-        assertEquals("myDataset", oldNameCaptor.getValue());
-        assertEquals("newName", newNameCaptor.getValue());
-    }
-
-    @Test
-    public void deleteDataset() throws Exception {
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        datasetControllerMock.perform(delete("/datasets/myDataset")
-            .param("apikey", "myApiKey")
+  @Test
+  public void getByDatasetNameInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+    datasetControllerMock
+        .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
-            .andExpect(status().is(204))
-            .andExpect(content().string(""));
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
-        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(0))
+        .getDatasetByDatasetName(any(MetisUser.class), anyString());
+  }
 
-        verify(metisAuthorizationServiceMock, times(1)).getKeyFromId("myApiKey");
-        verify(datasetServiceMock, times(1)).deleteDatasetByDatasetName(argument.capture());
-        verifyNoMoreInteractions(metisAuthorizationServiceMock, datasetServiceMock);
 
-        assertEquals("myDataset", argument.getValue());
-    }
-
-    @Test
-    public void getByDatasetName() throws Exception {
-        Dataset dataSet = new Dataset();
-        dataSet.setCountry(Country.ALBANIA);
-        dataSet.setAcceptanceStep(Boolean.TRUE);
-        dataSet.setDatasetName("myDataset");
-        dataSet.setDataProvider("erik");
-
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        when(datasetServiceMock.getDatasetByDatasetName("myDataset")).thenReturn(dataSet);
-        datasetControllerMock.perform(get("/datasets/myDataset")
-            .param("apikey", "myApiKey")
+  @Test
+  public void getByDatasetName_noDatasetFound_Returns404() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME))
+        .thenThrow(new NoDatasetFoundException("Does not exist"));
+    datasetControllerMock
+        .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
+            .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
-            .andExpect(status().is(200))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.datasetName", is("myDataset")))
-            .andExpect(jsonPath("$.dataProvider", is("erik")));
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(status().is(404))
+        .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
+  }
 
-        ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
+  @Test
+  public void getAllDatasetsByProvider() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    List<Dataset> datasetList = getDatasets();
 
-        verify(metisAuthorizationServiceMock, times(1)).getKeyFromId("myApiKey");
-        verify(datasetServiceMock, times(1)).getDatasetByDatasetName(argument.capture());
-        verifyNoMoreInteractions(metisAuthorizationServiceMock, datasetServiceMock);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getAllDatasetsByProvider(metisUser, "myProvider", "3"))
+        .thenReturn(datasetList);
+    when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
-        assertEquals("myDataset", argument.getValue());
-    }
+    datasetControllerMock.perform(get("/datasets/provider/myProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.results", hasSize(2)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
-    @Test
-    public void getAllDatasetsByDataProvider() throws Exception {
-        List<Dataset> list = getDatasets();
+    ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(1))
+        .getAllDatasetsByProvider(any(MetisUser.class), provider.capture(), page.capture());
 
-        prepareAuthorizationMockWithValidKey("myApiKey", Options.WRITE);
-        when(datasetServiceMock.getAllDatasetsByDataProvider("myDataProvider", "3")).thenReturn(list);
+    assertEquals("myProvider", provider.getValue());
+    assertEquals("3", page.getValue());
+  }
 
-        datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
-            .param("apikey", "myApiKey")
-            .param("nextPage" , "3")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(TestUtils.convertObjectToJsonBytes(null)))
-            .andExpect(status().is(200))
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
-            .andExpect(jsonPath("$.results", hasSize(2)))
-            .andExpect(jsonPath("$.results[0].id", is("1f1f1f1f1f1f1f1f1f1f1f1f")))
-            .andExpect(jsonPath("$.results[0].datasetName", is("name1")))
-            .andExpect(jsonPath("$.results[1].id", is("2f2f2f2f2f2f2f2f2f2f2f2f")))
-            .andExpect(jsonPath("$.results[1].datasetName", is("name2")));
+  @Test
+  public void getAllDatasetsByProviderInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
 
-        ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
-        ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
-        verify(datasetServiceMock, times(1)).getAllDatasetsByDataProvider(provider.capture(), page.capture());
-        verify(metisAuthorizationServiceMock, times(1)).getKeyFromId("myApiKey");
+    datasetControllerMock.perform(get("/datasets/provider/myProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
-        assertEquals("myDataProvider", provider.getValue());
-        assertEquals("3", page.getValue());
-    }
+    verify(datasetServiceMock, times(0))
+        .getAllDatasetsByProvider(any(MetisUser.class), anyString(), anyString());
+  }
 
-    private void prepareAuthorizationMockWithValidKey(String keyName, Options option) {
-        MetisKey key = new MetisKey();
-        key.setOptions(option);
-        when(metisAuthorizationServiceMock.getKeyFromId(keyName)).thenReturn(key);
-    }
+  @Test
+  public void getAllDatasetsByIntermediateProvider() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    List<Dataset> datasetList = getDatasets();
 
-    private List<Dataset> getDatasets() {
-        List<Dataset> list = new ArrayList<>();
-        Dataset s1 = new Dataset();
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", "3"))
+        .thenReturn(datasetList);
+    when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
-        s1.setId( new ObjectId("1f1f1f1f1f1f1f1f1f1f1f1f"));
-        s1.setDatasetName("name1");
-        s1.setCountry(Country.ALBANIA);
-        list.add(s1);
+    datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.results", hasSize(2)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
-        Dataset s2 = new Dataset();
-        s2.setId( new ObjectId("2f2f2f2f2f2f2f2f2f2f2f2f"));
-        s2.setDatasetName("name2");
-        s1.setCountry(Country.ANDORRA);
-        list.add(s2);
+    ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(1))
+        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(), page.capture());
 
-        return list;
-    }
+    assertEquals("myIntermediateProvider", provider.getValue());
+    assertEquals("3", page.getValue());
+  }
+
+  @Test
+  public void getAllDatasetsByIntermediateProviderInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+
+    datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+
+    verify(datasetServiceMock, times(0))
+        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), anyString(), anyString());
+  }
+
+  @Test
+  public void getAllDatasetsByDataProvider() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    List<Dataset> datasetList = getDatasets();
+
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getAllDatasetsByDataProvider(metisUser, "myDataProvider", "3"))
+        .thenReturn(datasetList);
+    when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
+
+    datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.results", hasSize(2)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
+
+    ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(1))
+        .getAllDatasetsByDataProvider(any(MetisUser.class), provider.capture(), page.capture());
+
+    assertEquals("myDataProvider", provider.getValue());
+    assertEquals("3", page.getValue());
+  }
+
+  @Test
+  public void getAllDatasetsByDataProviderInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+
+    datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+
+    verify(datasetServiceMock, times(0))
+        .getAllDatasetsByDataProvider(any(MetisUser.class), anyString(), anyString());
+  }
+
+  @Test
+  public void getAllDatasetsByOrganizationId() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    List<Dataset> datasetList = getDatasets();
+
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getAllDatasetsByOrganizationId(metisUser, "myOrganizationId", "3"))
+        .thenReturn(datasetList);
+    when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
+
+    datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.results", hasSize(2)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
+
+    ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(1))
+        .getAllDatasetsByOrganizationId(any(MetisUser.class), provider.capture(), page.capture());
+
+    assertEquals("myOrganizationId", provider.getValue());
+    assertEquals("3", page.getValue());
+  }
+
+  @Test
+  public void getAllDatasetsByOrganizationIdInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+
+    datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+
+    verify(datasetServiceMock, times(0))
+        .getAllDatasetsByOrganizationId(any(MetisUser.class), anyString(), anyString());
+  }
+
+  @Test
+  public void getAllDatasetsByOrganizationName() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    List<Dataset> datasetList = getDatasets();
+
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+    when(datasetServiceMock.getAllDatasetsByOrganizationName(metisUser, "myOrganizationName", "3"))
+        .thenReturn(datasetList);
+    when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
+
+    datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.results", hasSize(2)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
+
+    ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    verify(datasetServiceMock, times(1))
+        .getAllDatasetsByOrganizationName(any(MetisUser.class), provider.capture(), page.capture());
+
+    assertEquals("myOrganizationName", provider.getValue());
+    assertEquals("3", page.getValue());
+  }
+
+  @Test
+  public void getAllDatasetsByOrganizationNameInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+
+    datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "3")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+
+    verify(datasetServiceMock, times(0))
+        .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyString());
+  }
+
+  private List<Dataset> getDatasets() {
+    List<Dataset> datasetList = new ArrayList<>();
+    Dataset dataset1 = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset1.setDatasetId(TestObjectFactory.DATASETID + 1);
+    datasetList.add(dataset1);
+
+    Dataset dataset2 = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset2.setDatasetId(TestObjectFactory.DATASETID + 2);
+    datasetList.add(dataset2);
+
+    return datasetList;
+  }
 
 
 }

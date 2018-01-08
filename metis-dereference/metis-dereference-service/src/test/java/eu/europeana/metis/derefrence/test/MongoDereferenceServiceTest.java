@@ -21,6 +21,7 @@ import com.mongodb.MongoClient;
 import eu.europeana.enrichment.api.external.EntityWrapper;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
 import eu.europeana.metis.dereference.OriginalEntity;
@@ -58,15 +59,18 @@ public class MongoDereferenceServiceTest {
     private CacheDao cacheDao;
     private EnrichmentClient enrichmentClient;
     private EmbeddedLocalhostMongo embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
+    
     @Before
     public void prepare() throws IOException {
         embeddedLocalhostMongo.start();
         String mongoHost = embeddedLocalhostMongo.getMongoHost();
         int mongoPort = embeddedLocalhostMongo.getMongoPort();
+    
         vocabularyDao = new VocabularyDao(new MongoClient(mongoHost, mongoPort), "voctest");
         entityDao = new EntityDao(new MongoClient(mongoHost, mongoPort), "voctest");
         jedis = Mockito.mock(Jedis.class);
         cacheDao = new CacheDao(jedis);
+        
         RdfRetriever retriever = new RdfRetriever();
 
         enrichmentClient = Mockito.mock(EnrichmentClient.class);
@@ -82,27 +86,68 @@ public class MongoDereferenceServiceTest {
         geonames.setName("Geonames");
         geonames.setIterations(0);
         vocabularyDao.save(geonames);
+        
         try {
             EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
+            
             Place place = new Place();
+            
             place.setAbout("http://sws.geonames.org/my");
+            
             Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
             Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
+            
             EnrichmentResultList result = service.dereference("http://sws.geonames.org/3020251");
+            
             Assert.assertNotNull(result);
+            
+            System.out.println("Processing dereferencing result (EnrichmentResultList)");
+            int i=1;
+            for (EnrichmentBase b : result.getResult()) {
+            	System.out.println("	EnrichmentBase" + i);
+            	
+            	System.out.println("		ABOUT:");
+            	System.out.println("			" + b.getAbout());
+            	
+            	System.out.println("		ALT LABEL LIST:");
+            	for (Label l : b.getAltLabelList()) {
+            		System.out.println("			" + l.getLang() + ", " + l.getValue());
+            	}
+            	
+            	System.out.println("		NOTES:");
+            	for (Label l : b.getNotes()) {
+            		System.out.println("			" + l.getLang() + ", " + l.getValue());
+            	}
+
+            	System.out.println("		PREF LABEL LIST:");
+            	for (Label l : b.getPrefLabelList()) {
+            		System.out.println("			" + l.getLang() + ", " + l.getValue());
+            	}
+            }
+            
             OriginalEntity entity = entityDao.getByUri("http://sws.geonames.org/3020251");
+            
             Assert.assertNotNull(entity);
             Assert.assertNotNull(entity.getXml());
             Assert.assertNotNull(entity.getURI());
+            
+            System.out.println("Original Entity:");
+            System.out.println("Id: " + entity.getId());
+            System.out.println("URI: " + entity.getURI());
+            System.out.println("XML: " + entity.getXml());
+            
             ProcessedEntity entity2 = new ProcessedEntity();
             entity2.setURI("http://sws.geonames.org/3020251");
-
             entity2.setXml(serialize(place));
+            
+            System.out.println("entity2:");
+            System.out.println("URI: " + entity2.getURI());
+            System.out.println("XML: " + entity2.getXml());
+            
             Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
+            
             ProcessedEntity entity1 = cacheDao.getByUri("http://sws.geonames.org/3020251");
             Assert.assertNotNull(entity1);
-            
-            System.out.println("ALL DONE.");
         } catch (TransformerException e) {
             e.printStackTrace();
         } catch (ParserConfigurationException e) {
@@ -110,7 +155,6 @@ public class MongoDereferenceServiceTest {
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-
     }
 
     @After
@@ -128,5 +172,4 @@ public class MongoDereferenceServiceTest {
         writer.close();
         return ret;
     }
-
 }

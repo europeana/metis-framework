@@ -24,13 +24,11 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.support.AbstractDispatcherServletInitializer;
 
-
 /**
  * Servlet initialization
  * Created by gmamakis on 12-2-16.
  */
 public class ServletInitializer extends AbstractDispatcherServletInitializer {
-
     @Override
     protected WebApplicationContext createServletApplicationContext() {
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
