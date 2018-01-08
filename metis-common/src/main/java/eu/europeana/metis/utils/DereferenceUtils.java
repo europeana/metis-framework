@@ -88,7 +88,8 @@ public class DereferenceUtils {
    * @return set of values for dereferencing
    * @throws JiBXException
    */
-  public static Set<String> extractValuesForDereferencing(RDF rdf) throws JiBXException {
+  // TODO JOCHEN should this method be public? Where is it used?
+  public static Set<String> extractValuesForDereferencing(RDF rdf) {
 	    Set<String> values = new HashSet<>();
 
 	    values.addAll(dereferencePlaceList(rdf.getPlaceList()));
@@ -101,6 +102,7 @@ public class DereferenceUtils {
 	    return values;
   }
   
+  // TODO JOCHEN is this method needed? It is definitely not functional.
   public static RDF toRDF(String xml) throws JiBXException {
 	    Set<String> values = new HashSet<>();
 

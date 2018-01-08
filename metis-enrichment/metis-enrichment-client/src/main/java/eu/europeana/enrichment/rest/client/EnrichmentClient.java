@@ -19,17 +19,8 @@ package eu.europeana.enrichment.rest.client;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 
-import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.InputValueList;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.utils.InputValue;
-import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -38,6 +29,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.InputValueList;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.utils.InputValue;
+
 /**
  * REST API wrapper class abstracting the REST calls and providing a clean POJO
  * implementation
@@ -45,58 +42,46 @@ import org.springframework.web.util.UriComponentsBuilder;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class EnrichmentClient {
-    private String path;
-    private RestTemplate template;
-   
-    public EnrichmentClient() {
-        template = new RestTemplate();
-    	Properties props = new Properties();
-        
-        try {
-        	props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
-        	path = props.getProperty("host.url"); 
-        }
-        catch (IOException e) {
-        	e.printStackTrace();
-        }
-    }
 
-    /**
-     * Enrich REST call invocation
-     *
-     * @param values The values to be enriched
-     * @return The enrichments generated for the input values
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
-     * @throws IOException
-     */
-    public EnrichmentResultList enrich(List<InputValue> values) throws IOException, UnknownException {
+    private final String path;
+    private final RestTemplate template = new RestTemplate();
+
+	public EnrichmentClient(String path) {
+		this.path = path;
+	}
+
+	/**
+	 * Enrich REST call invocation
+	 *
+	 * @param values
+	 *            The values to be enriched
+	 * @return The enrichments generated for the input values
+	 */
+	public EnrichmentResultList enrich(List<InputValue> values) {
         InputValueList inList = new InputValueList();
         inList.setInputValueList(values);
-
         try {
-        	EnrichmentResultList result = template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
-        	return result;
+        	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
         } catch (Exception e){
             throw new UnknownException(e.getMessage());
         }
     }
 
-    public EnrichmentBase getByUri(String uri) throws IOException {
-        RestTemplate template = new RestTemplate();
+	// TODO JOCHEN This method should be private.
+    public EnrichmentBase getByUri(String uri) {
+    	
+    	// TODO JOCHEN should use the class variable for this?
+		RestTemplate template = new RestTemplate();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI)
-            .queryParam("uri", uri);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
+		final HttpEntity<Void> request = new HttpEntity<>(headers);
 
-        HttpEntity entity = new HttpEntity(headers);
+		final ResponseEntity<EnrichmentBase> response = template.exchange(builder.build(true).toUri(), HttpMethod.GET,
+				request, EnrichmentBase.class);
 
-        ResponseEntity<EnrichmentBase> x = template
-            .exchange(builder.build(true).toUri(), HttpMethod.GET, entity,
-                EnrichmentBase.class);
-
-        return x.getBody();
+		return response.getBody();
     }
 }

@@ -56,6 +56,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 @Api("/")
 @Controller
 public class EnrichmentController {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentController.class);
   private final Converter converter;
   private final Enricher enricher;

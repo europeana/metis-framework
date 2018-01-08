@@ -1,2 +1,2 @@
 ##Add to ignore to not commit by mistake
-/src/main/resources/enrichment.properties
+/src/main/resources/enrichment.proxy.properties

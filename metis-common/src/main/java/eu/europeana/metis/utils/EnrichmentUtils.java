@@ -59,8 +59,7 @@ public class EnrichmentUtils {
         IMarshallingContext context = rdfFactory.createMarshallingContext();
         context.setIndent(2);
         ByteArrayOutputStream out  = new ByteArrayOutputStream();
-        context.marshalDocument(rdf, UTF8,
-                null, out);
+        context.marshalDocument(rdf, UTF8, null, out);
         return out.toString(UTF8);
     }
 
@@ -83,7 +82,8 @@ public class EnrichmentUtils {
      * @return List<InputValue>
      * @throws JiBXException
      */
-    public static List<InputValue> extractFieldsForEnrichment(RDF rdf) throws JiBXException {
+    // TODO JOCHEN should this method be public? Where is it used?
+    public static List<InputValue> extractFieldsForEnrichment(RDF rdf) {
         ProxyType providerProxy = EntityMergeUtils.getProviderProxy(rdf);
         List<InputValue> valuesForEnrichment= new ArrayList<>();
         

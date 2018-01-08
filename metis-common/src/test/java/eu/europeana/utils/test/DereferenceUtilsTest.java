@@ -1,5 +1,12 @@
 package eu.europeana.utils.test;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Set;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Alternative;
 import eu.europeana.corelib.definitions.jibx.BitRate;
@@ -13,8 +20,6 @@ import eu.europeana.corelib.definitions.jibx.Created;
 import eu.europeana.corelib.definitions.jibx.Creator;
 import eu.europeana.corelib.definitions.jibx.CurrentLocation;
 import eu.europeana.corelib.definitions.jibx.Date;
-import eu.europeana.corelib.definitions.jibx.Incorporates;
-import eu.europeana.corelib.definitions.jibx.IsDerivativeOf;
 import eu.europeana.corelib.definitions.jibx.ExactMatch;
 import eu.europeana.corelib.definitions.jibx.Extent;
 import eu.europeana.corelib.definitions.jibx.Format;
@@ -23,6 +28,8 @@ import eu.europeana.corelib.definitions.jibx.HasMet;
 import eu.europeana.corelib.definitions.jibx.HasPart;
 import eu.europeana.corelib.definitions.jibx.HasType;
 import eu.europeana.corelib.definitions.jibx.HasVersion;
+import eu.europeana.corelib.definitions.jibx.Incorporates;
+import eu.europeana.corelib.definitions.jibx.IsDerivativeOf;
 import eu.europeana.corelib.definitions.jibx.IsFormatOf;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.IsReferencedBy;
@@ -56,12 +63,6 @@ import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.Type;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.metis.utils.DereferenceUtils;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Set;
-import org.jibx.runtime.JiBXException;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class DereferenceUtilsTest {
 	
@@ -106,13 +107,7 @@ public class DereferenceUtilsTest {
         
         rdf.setPlaceList(placeList);
         
-        Set<String> result = null;
-        
-		try {
-			result = DereferenceUtils.extractValuesForDereferencing(rdf); } 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}
+        Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(4, result.size());
@@ -156,13 +151,7 @@ public class DereferenceUtilsTest {
 
         rdf.setAgentList(agentList);
         
-        Set<String> result = null;
-        
-		try {
-			result = DereferenceUtils.extractValuesForDereferencing(rdf); } 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}
+        Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(3, result.size());
@@ -231,13 +220,7 @@ public class DereferenceUtilsTest {
         
         rdf.setConceptList(conceptList);
         
-        Set<String> result = null;
-        
-		try {
-			result = DereferenceUtils.extractValuesForDereferencing(rdf); } 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}
+        Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(7, result.size());
@@ -292,13 +275,7 @@ public class DereferenceUtilsTest {
         
         rdf.setTimeSpanList(timeSpanList);
         
-        Set<String> result = null;
-        
-		try {
-			result = DereferenceUtils.extractValuesForDereferencing(rdf); } 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}
+        Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(4, result.size());
@@ -373,13 +350,7 @@ public class DereferenceUtilsTest {
         
         rdf.setWebResourceList(webResourceList);
         
-        Set<String> result = null;
-        
-		try {
-			result = DereferenceUtils.extractValuesForDereferencing(rdf); } 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}
+        Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(6, result.size());
@@ -681,13 +652,7 @@ public class DereferenceUtilsTest {
         
         rdf.setProxyList(proxyList);
         
-        Set<String> result = null;
-        
-		try {
-			result = DereferenceUtils.extractValuesForDereferencing(rdf); } 
-		catch (JiBXException e) {
-			e.printStackTrace();
-		}
+        Set<String> result = DereferenceUtils.extractValuesForDereferencing(rdf);
 		
 		Assert.assertNotNull(result);
         Assert.assertEquals(35, result.size());

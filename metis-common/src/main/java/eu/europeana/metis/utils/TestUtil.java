@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import java.io.IOException;
 import java.nio.charset.Charset;
  
+// TODO JOCHEN This class is only used from test code so should go there.
 public class TestUtil {
  
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
@@ -17,6 +18,7 @@ public class TestUtil {
         return mapper.writeValueAsBytes(object);
     }
  
+    // TODO JOCHEN This method is not currently used at all.
     public static String createStringWithLength(int length) {
         StringBuilder builder = new StringBuilder();
  
