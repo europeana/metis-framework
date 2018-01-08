@@ -55,8 +55,7 @@ public class ClasspathResourceResolver implements LSResourceResolver {
         }
       } else {
         if (cache.get(systemId) == null) {
-          stream = new FileInputStream(
-              this.getClass().getClassLoader().getResource("xml.xsd").getFile());
+          stream = this.getClass().getClassLoader().getResourceAsStream("xml.xsd");
           cache.put(systemId, stream);
         } else {
           stream = cache.get(systemId);
