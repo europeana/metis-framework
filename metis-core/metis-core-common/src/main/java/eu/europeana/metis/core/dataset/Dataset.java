@@ -191,19 +191,19 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
+    this.createdDate = new Date(createdDate.getTime());
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
+    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
   public DatasetStatus getDatasetStatus() {
@@ -263,19 +263,19 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getFirstPublishedDate() {
-    return firstPublishedDate;
+    return new Date(firstPublishedDate.getTime());
   }
 
   public void setFirstPublishedDate(Date firstPublishedDate) {
-    this.firstPublishedDate = firstPublishedDate;
+    this.firstPublishedDate = firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
   }
 
   public Date getLastPublishedDate() {
-    return lastPublishedDate;
+    return new Date(lastPublishedDate.getTime());
   }
 
   public void setLastPublishedDate(Date lastPublishedDate) {
-    this.lastPublishedDate = lastPublishedDate;
+    this.lastPublishedDate = lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
   }
 
   public long getPublishedRecords() {
@@ -287,11 +287,11 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getHarvestedDate() {
-    return harvestedDate;
+    return new Date(harvestedDate.getTime());
   }
 
   public void setHarvestedDate(Date harvestedDate) {
-    this.harvestedDate = harvestedDate;
+    this.harvestedDate = harvestedDate == null?null:new Date(harvestedDate.getTime());
   }
 
   public long getHarvestedRecords() {
