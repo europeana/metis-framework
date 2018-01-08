@@ -27,11 +27,20 @@ import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Indexes;
 
+/**
+ * Dataset model that contains all the required fields for Dataset functionality.
+ * It also contains the harvesting metadata required when executing a harvesting plugin.
+ */
 @Entity
+@Indexes(@Index(fields = {@Field("organizationId"),
+    @Field("datasetName")}, options = @IndexOptions(unique = true)))
 public class Dataset implements HasMongoObjectId {
 
   @Id
@@ -43,7 +52,7 @@ public class Dataset implements HasMongoObjectId {
 
   private int datasetId;
 
-  @Indexed(options = @IndexOptions(unique = true))
+  @Indexed
   private String datasetName;
 
   @Indexed
