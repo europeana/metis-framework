@@ -67,23 +67,21 @@ public class EnrichmentClient {
         }
     }
 
+	// TODO JOCHEN This method should be private.
     public EnrichmentBase getByUri(String uri) {
     	
     	// TODO JOCHEN should use the class variable for this?
-        RestTemplate template = new RestTemplate();
+		RestTemplate template = new RestTemplate();
 
-        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI)
-            .queryParam("uri", uri);
+		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Content-Type", MediaType.APPLICATION_XML_VALUE);
+		final HttpEntity<Void> request = new HttpEntity<>(headers);
 
-        HttpEntity<Void> entity = new HttpEntity<>(headers);
+		final ResponseEntity<EnrichmentBase> response = template.exchange(builder.build(true).toUri(), HttpMethod.GET,
+				request, EnrichmentBase.class);
 
-        ResponseEntity<EnrichmentBase> x = template
-            .exchange(builder.build(true).toUri(), HttpMethod.GET, entity,
-                EnrichmentBase.class);
-
-        return x.getBody();
+		return response.getBody();
     }
 }

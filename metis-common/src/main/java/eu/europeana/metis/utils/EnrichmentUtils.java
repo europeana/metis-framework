@@ -59,8 +59,7 @@ public class EnrichmentUtils {
         IMarshallingContext context = rdfFactory.createMarshallingContext();
         context.setIndent(2);
         ByteArrayOutputStream out  = new ByteArrayOutputStream();
-        context.marshalDocument(rdf, UTF8,
-                null, out);
+        context.marshalDocument(rdf, UTF8, null, out);
         return out.toString(UTF8);
     }
 

@@ -55,6 +55,7 @@ public class DereferenceClient {
      *
      * @param voc The vocabulary to persist
      */
+	// TODO JOCHEN this method is not used.
     public void createVocabulary(Vocabulary voc) {
         restTemplate.postForObject(hostUrl + VOCABULARY, voc, Void.class);
     }
@@ -64,6 +65,7 @@ public class DereferenceClient {
      *
      * @param voc The vocabulary to update
      */
+	// TODO JOCHEN this method is not used.
     public void updateVocabulary(Vocabulary voc) {
         try {
             restTemplate.put(new URI(hostUrl + RestEndpoints.VOCABULARY), voc);
@@ -77,6 +79,7 @@ public class DereferenceClient {
      *
      * @param name The vocabulary to delete
      */
+	// TODO JOCHEN this method is not used.
     public void deleteVocabulary(String name) {
         restTemplate.delete(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name));
     }
@@ -87,6 +90,7 @@ public class DereferenceClient {
      * @param name The name of the vocabulary to retrieve
      * @return The retrieved vocabulary
      */
+	// TODO JOCHEN this method is not used.
 	public Vocabulary getVocabularyByName(String name) {
 		return restTemplate.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name),
 				Vocabulary.class);
@@ -97,6 +101,7 @@ public class DereferenceClient {
      *
      * @return The list of all vocabularies
      */
+	// TODO JOCHEN this method is not used.
 	public List<Vocabulary> getAllVocabularies() {
 		@SuppressWarnings("unchecked")
 		final List<Vocabulary> result = restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
@@ -108,6 +113,7 @@ public class DereferenceClient {
      *
      * @param uri The url of the entity
      */
+	// TODO JOCHEN this method is not used.
 	public void deleteEntity(String uri) {
 		try {
 			String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
@@ -123,6 +129,7 @@ public class DereferenceClient {
      * @param uri The url of the Entity
      * @param xml The xml to update the entity with
      */
+	// TODO JOCHEN this method is not used.
     public void updateEntity(String uri, String xml) {
         Map<String, String> params = new HashMap<>();
         params.put("uri", uri);
@@ -136,16 +143,13 @@ public class DereferenceClient {
      * @param uri the uri to dereference
      * @return A string of the referenced response
      */
-    public String dereference(String uri) {
-        String uriString = null;
-        
-        try {
-        	uriString = URLEncoder.encode(uri, "UTF-8");
-        } 
-        catch (UnsupportedEncodingException e) {
-        	e.printStackTrace();
-        }
-        
-        return restTemplate.getForObject(hostUrl + DEREFERENCE+"?uri=" + uriString, String.class);
-    }
+	public String dereference(String uri) {
+		final String uriString;
+		try {
+			uriString = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+		} catch (UnsupportedEncodingException e) {
+			throw new IllegalStateException(e);
+		}
+		return restTemplate.getForObject(hostUrl + DEREFERENCE + "?uri=" + uriString, String.class);
+	}
 }
