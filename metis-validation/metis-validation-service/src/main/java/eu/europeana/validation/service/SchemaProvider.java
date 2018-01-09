@@ -61,11 +61,11 @@ public class SchemaProvider {
     public Schema getSchema(String fileLocation, String rootFileLocation) throws SchemaProviderException {
         if (isPredefined(fileLocation)) {
             File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation.toLowerCase()), fileLocation.toLowerCase());
-            unzipArchive(downloadedFile);
+            unzipArchiveIfNeeded(downloadedFile,rootFileLocation);
             return prepareSchema(fileLocation, downloadedFile.getParentFile(), rootFileLocation);
         } else {
             File downloadedFile = downloadZipIfNeeded(fileLocation, prepareDirectoryName(fileLocation));
-            unzipArchive(downloadedFile);
+            unzipArchiveIfNeeded(downloadedFile,rootFileLocation);
             return prepareSchema(prepareDirectoryName(fileLocation), downloadedFile.getParentFile(), rootFileLocation);
         }
     }
@@ -123,6 +123,15 @@ public class SchemaProvider {
                 }
             } catch (IOException ignored) {
             }
+        }
+    }
+
+    private void unzipArchiveIfNeeded(File downloadedFile, String rootFileLocation) throws SchemaProviderException {
+
+        if (!rootFileExists(new File(downloadedFile.getParent()), rootFileLocation)) {
+            unzipArchive(downloadedFile);
+        } else {
+            LOGGER.info("Archive will not be unzipped.");
         }
     }
 
