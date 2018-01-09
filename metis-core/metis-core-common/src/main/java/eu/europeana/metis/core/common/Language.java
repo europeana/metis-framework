@@ -52,9 +52,15 @@ public enum Language {
     return name;
   }
 
-  public static Language getLanguageFromEnumName(String name) {
+  /**
+   * Creates a {@link Language} enum from a provided enum String representation of the enum value.
+   * <p>e.g. if provided enumName is EL then the returned Language will be Language.EL</p>
+   * @param enumName the String representation of an enum value
+   * @return the {@link Language} that represents the provided value or null if not found
+   */
+  public static Language getLanguageFromEnumName(String enumName) {
     for (Language language : Language.values()) {
-      if (language.name().equalsIgnoreCase(name)) {
+      if (language.name().equalsIgnoreCase(enumName)) {
         return language;
       }
     }

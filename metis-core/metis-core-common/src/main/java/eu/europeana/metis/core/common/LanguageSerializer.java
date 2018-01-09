@@ -11,6 +11,7 @@ import java.io.IOException;
  */
 public class LanguageSerializer extends StdSerializer<Language> {
 
+  private static final long serialVersionUID = 1L;
 
   public LanguageSerializer() {
     super(Language.class);

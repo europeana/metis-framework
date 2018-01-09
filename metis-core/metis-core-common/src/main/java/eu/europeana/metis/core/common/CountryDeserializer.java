@@ -12,6 +12,8 @@ import java.io.IOException;
  */
 public class CountryDeserializer extends StdDeserializer<Country> {
 
+  private static final long serialVersionUID = 1L;
+
   public CountryDeserializer() {
     this(null);
   }

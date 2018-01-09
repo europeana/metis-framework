@@ -46,6 +46,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+/**
+ * Contains all the calls that are related to Datasets.
+ * <p>The {@link DatasetService} has control on how to manipulate a dataset</p>
+ */
 @Controller
 public class DatasetController {
 
@@ -54,6 +58,12 @@ public class DatasetController {
   private final DatasetService datasetService;
   private final AuthenticationClient authenticationClient;
 
+  /**
+   * Autowired constructor with all required parameters.
+   *
+   * @param datasetService the datasetService
+   * @param authenticationClient the java client to communicate with the external authentication service
+   */
   @Autowired
   public DatasetController(DatasetService datasetService,
       AuthenticationClient authenticationClient) {
@@ -61,6 +71,19 @@ public class DatasetController {
     this.authenticationClient = authenticationClient;
   }
 
+  /**
+   * Create a provided dataset.
+   * <p>Dataset is provided as json or xml.</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param dataset the provided dataset to be created
+   * @return the dataset created including all other fields that are auto generated
+   * @throws DatasetAlreadyExistsException if the dataset already exists for the organizationId and datasetName
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   * @throws UserUnauthorizedException if the user is unauthorized
+   */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
@@ -82,6 +105,19 @@ public class DatasetController {
     return createdDataset;
   }
 
+  /**
+   * Update a provided dataset.
+   * <p>Non allowed field to be manually updated will be ignored</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param dataset the provided dataset to be updated
+   * @throws NoDatasetFoundException if the dataset was not found for the datasetId
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws DatasetAlreadyExistsException if a datasetName change is requested and the datasetName for that organizationId already exists
+   */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -99,6 +135,17 @@ public class DatasetController {
     LOGGER.info("Dataset with datasetId {} updated", dataset.getDatasetId());
   }
 
+  /**
+   * Delete a dataset using a datasetId.
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param datasetId the identifier used to find and delete the dataset
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws NoDatasetFoundException if the dataset was not found for datasetId
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(@RequestHeader("Authorization") String authorization,
@@ -115,6 +162,18 @@ public class DatasetController {
     LOGGER.info("Dataset with datasetId '{}' deleted", datasetId);
   }
 
+  /**
+   * Get a dataset based on its datasetId
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param datasetId the identifier used to find a dataset
+   * @return {@link Dataset}
+   * @throws NoDatasetFoundException if the dataset was not found
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -134,6 +193,18 @@ public class DatasetController {
     return storedDataset;
   }
 
+  /**
+   * Get a dataset based on its datasetName
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param datasetName the name of the dataset used to find a dataset
+   * @return {@link Dataset}
+   * @throws NoDatasetFoundException if the dataset was not found
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -153,6 +224,18 @@ public class DatasetController {
     return dataset;
   }
 
+  /**
+   * Get a list of all the datasets using the provider field for lookup.
+   * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param provider the provider used to search
+   * @param nextPage the nextPage token or null
+   * @return {@link ResponseListWrapper}
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_PROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -179,6 +262,18 @@ public class DatasetController {
     return responseListWrapper;
   }
 
+  /**
+   * Get a list of all the datasets using the intermediateProvider field for lookup.
+   * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param intermediateProvider the intermediateProvider used to search
+   * @param nextPage the nextPage token or null
+   * @return {@link ResponseListWrapper}
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_INTERMEDIATE_PROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -198,13 +293,26 @@ public class DatasetController {
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
         .setResultsAndLastPage(
-            datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage),
+            datasetService
+                .getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage),
             datasetService.getDatasetsPerRequestLimit());
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
   }
 
+  /**
+   * Get a list of all the datasets using the dataProvider field for lookup.
+   * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param dataProvider the dataProvider used to search
+   * @param nextPage the nextPage token or null
+   * @return {@link ResponseListWrapper}
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -231,6 +339,18 @@ public class DatasetController {
     return responseListWrapper;
   }
 
+  /**
+   * Get a list of all the datasets using the organizationId field for lookup.
+   * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param organizationId the organizationId used to search
+   * @param nextPage the nextPage token or null
+   * @return {@link ResponseListWrapper}
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -257,6 +377,18 @@ public class DatasetController {
     return responseListWrapper;
   }
 
+  /**
+   * Get a list of all the datasets using the organizationName field for lookup.
+   * <p>The results are paged and wrapped around {@link ResponseListWrapper}</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param organizationName the organizationName used to search
+   * @param nextPage the nextPage token or null
+   * @return {@link ResponseListWrapper}
+   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_NAME, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -283,6 +415,16 @@ public class DatasetController {
     return responseListWrapper;
   }
 
+  /**
+   * Get all available countries that can be used.
+   * <p>The list is retrieved based on an internal enum</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.CountrySerializer}
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_COUNTRIES, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -299,6 +441,16 @@ public class DatasetController {
     return new ArrayList<>(Arrays.asList(Country.values()));
   }
 
+  /**
+   * Get all available languages that can be used.
+   * <p>The list is retrieved based on an internal enum</p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.LanguageSerializer}
+   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * authenticated
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_LANGUAGES, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)

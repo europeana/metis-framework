@@ -12,6 +12,8 @@ import java.io.IOException;
  */
 public class CountrySerializer extends StdSerializer<Country> {
 
+  private static final long serialVersionUID = 1L;
+
   public CountrySerializer() {
     super(Country.class);
   }

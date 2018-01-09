@@ -12,6 +12,8 @@ import java.io.IOException;
  */
 public class LanguageDeserializer extends StdDeserializer<Language> {
 
+  private static final long serialVersionUID = 1L;
+
   public LanguageDeserializer() {
     this(null);
   }
