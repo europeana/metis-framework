@@ -87,7 +87,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
-      throws NoDatasetFoundException, BadContentException, UserUnauthorizedException {
+      throws NoDatasetFoundException, BadContentException, UserUnauthorizedException, DatasetAlreadyExistsException {
 
     MetisUser metisUser = authenticationClient
         .getUserByAccessTokenInHeader(authorization);
