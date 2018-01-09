@@ -2,7 +2,6 @@ package eu.europeana.metis.core.common;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * Countries supported by METIS
@@ -49,25 +48,6 @@ public enum Country {
     return this.isoCode;
   }
 
-  public static Country toCountry(String isoCode) {
-    for (Country country : Country.values()) {
-      if (StringUtils.equals(country.getIsoCode(), isoCode)) {
-        return country;
-      }
-    }
-    return null;
-  }
-
-  public static Country getCountryFromName(String name) {
-    for (Country country : Country.values()) {
-      if (country.getName().equals(name)) {
-        return country;
-      }
-    }
-    return null;
-  }
-
-//  @JsonCreator
   public static Country getCountryFromEnumName(String name) {
     for (Country country : Country.values()) {
       if (country.name().equalsIgnoreCase(name)) {

@@ -19,6 +19,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
@@ -33,11 +35,13 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class TestDatasetController {
@@ -423,7 +427,8 @@ public class TestDatasetController {
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", "3"))
+    when(datasetServiceMock
+        .getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", "3"))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -441,7 +446,8 @@ public class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(), page.capture());
+        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(),
+            page.capture());
 
     assertEquals("myIntermediateProvider", provider.getValue());
     assertEquals("3", page.getValue());
@@ -613,6 +619,82 @@ public class TestDatasetController {
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyString());
+  }
+
+  @Test
+  public void getDatasetsCountries() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/countries")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+
+    String resultListOfCountries = mvcResult.getResponse().getContentAsString();
+    Object document = Configuration.defaultConfiguration().jsonProvider()
+        .parse(resultListOfCountries);
+
+    List<Map<String, Object>> mapListOfCountries = JsonPath.read(document, "$[*]");
+    assertEquals(59, mapListOfCountries.size());
+    assertEquals(mapListOfCountries.get(22).get("enum"), "GREECE");
+    assertEquals(mapListOfCountries.get(22).get("name"), "Greece");
+    assertEquals(mapListOfCountries.get(22).get("isoCode"), "GR");
+  }
+
+  @Test
+  public void getDatasetsCountriesInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+
+    datasetControllerMock.perform(get("/datasets/countries")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+  }
+
+  @Test
+  public void getDatasetsLanguages() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(
+        authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/languages")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+
+    String resultListOfLanguages = mvcResult.getResponse().getContentAsString();
+    Object document = Configuration.defaultConfiguration().jsonProvider()
+        .parse(resultListOfLanguages);
+
+    List<Map<String, Object>> mapListOfLanguages = JsonPath.read(document, "$[*]");
+    assertEquals(51, mapListOfLanguages.size());
+    assertEquals(mapListOfLanguages.get(10).get("enum"), "EL");
+    assertEquals(mapListOfLanguages.get(10).get("name"), "Greek");
+  }
+
+  @Test
+  public void getDatasetsLanguagesInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(null);
+
+    datasetControllerMock.perform(get("/datasets/languages")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
   }
 
   private List<Dataset> getDatasets() {
