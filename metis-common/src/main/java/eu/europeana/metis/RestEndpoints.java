@@ -17,6 +17,8 @@ public final class RestEndpoints {
   public static final String DATASETS_INTERMEDIATE_PROVIDER = "/datasets/intermediate_provider/{intermediateProvider}";
   public static final String DATASETS_ORGANIZATION_ID = "/datasets/organization_id/{organizationId}";
   public static final String DATASETS_ORGANIZATION_NAME = "/datasets/organization_name/{organizationName}";
+  public static final String DATASETS_COUNTRIES = "/datasets/countries";
+  public static final String DATASETS_LANGUAGES = "/datasets/languages";
 
   //AUTHENTICATION
   public static final String AUTHENTICATION_REGISTER = "/authentication/register";

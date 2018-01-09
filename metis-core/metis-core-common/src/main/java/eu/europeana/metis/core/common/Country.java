@@ -1,11 +1,14 @@
 package eu.europeana.metis.core.common;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Countries supported by METIS Created by ymamakis on 2/17/16.
+ * Countries supported by METIS
  */
+@JsonSerialize(using = CountrySerializer.class)
+@JsonDeserialize(using = CountryDeserializer.class)
 public enum Country {
 
   ALBANIA("Albania", "AL"), ANDORRA("Andorra", "AD"), ARMENIA("Armenia", "AM"), AUSTRIA("Austria",
@@ -64,7 +67,7 @@ public enum Country {
     return null;
   }
 
-  @JsonCreator
+//  @JsonCreator
   public static Country getCountryFromEnumName(String name) {
     for (Country country : Country.values()) {
       if (country.name().equalsIgnoreCase(name)) {

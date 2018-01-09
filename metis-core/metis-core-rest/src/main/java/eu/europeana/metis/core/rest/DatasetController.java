@@ -20,12 +20,17 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -276,5 +281,37 @@ public class DatasetController {
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
+  }
+
+  @RequestMapping(value = RestEndpoints.DATASETS_COUNTRIES, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<Country> getDatasetsCountries(@RequestHeader("Authorization") String authorization)
+      throws BadContentException {
+
+    MetisUser metisUser = authenticationClient
+        .getUserByAccessTokenInHeader(authorization);
+    if (metisUser == null) {
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
+    }
+
+    return new ArrayList<>(Arrays.asList(Country.values()));
+  }
+
+  @RequestMapping(value = RestEndpoints.DATASETS_LANGUAGES, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<Language> getDatasetsLanguages(@RequestHeader("Authorization") String authorization)
+      throws BadContentException {
+
+    MetisUser metisUser = authenticationClient
+        .getUserByAccessTokenInHeader(authorization);
+    if (metisUser == null) {
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
+    }
+
+    return new ArrayList<>(Arrays.asList(Language.values()));
   }
 }

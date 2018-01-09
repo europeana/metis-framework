@@ -191,7 +191,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return new Date(createdDate.getTime());
+    return createdDate == null?null:new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
@@ -199,7 +199,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getUpdatedDate() {
-    return new Date(updatedDate.getTime());
+    return updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
@@ -263,7 +263,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getFirstPublishedDate() {
-    return new Date(firstPublishedDate.getTime());
+    return firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
   }
 
   public void setFirstPublishedDate(Date firstPublishedDate) {
@@ -271,7 +271,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getLastPublishedDate() {
-    return new Date(lastPublishedDate.getTime());
+    return lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
   }
 
   public void setLastPublishedDate(Date lastPublishedDate) {
@@ -287,7 +287,7 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getHarvestedDate() {
-    return new Date(harvestedDate.getTime());
+    return harvestedDate == null?null:new Date(harvestedDate.getTime());
   }
 
   public void setHarvestedDate(Date harvestedDate) {
