@@ -15,16 +15,17 @@
  *  the Licence.
  */
 
-import eu.europeana.validation.service.ClasspathResourceResolver;
-import eu.europeana.validation.service.ValidationExecutionService;
-import eu.europeana.validation.service.ValidationServiceConfig;
+import eu.europeana.validation.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import javax.annotation.PostConstruct;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by ymamakis on 7/14/16.
@@ -51,6 +52,16 @@ public class TestApplication {
   @Bean(name = "lsResourceResolver")
   public ClasspathResourceResolver getLSResourceResolver() {
       return new ClasspathResourceResolver();
+  }
+
+  @Bean
+  public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
+    Map<String,String> predefinedSchemasLocations = new HashMap();
+
+    predefinedSchemasLocations.put("edm-internal", "http://localhost:9999/schema.zip");
+    predefinedSchemasLocations.put("edm-external", "http://localhost:9999/schema.zip");
+
+    return new SchemaProvider(predefinedSchemasLocations);
   }
 
   @PostConstruct

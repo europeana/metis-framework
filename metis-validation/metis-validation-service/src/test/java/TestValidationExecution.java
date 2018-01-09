@@ -15,6 +15,7 @@
  *  the Licence.
  */
 
+import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
@@ -23,10 +24,7 @@ import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,6 +39,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.*;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.wireMockConfig;
+
 /**
  * Created by gmamakis on 18-12-15.
  */
@@ -53,46 +54,51 @@ public class TestValidationExecution {
 
     private static final String EDM_INTERNAL = "EDM-INTERNAL";
 
+    @Rule
+    public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(9999));
+
     @Autowired
     ValidationExecutionService validationExecutionService;
 
     @Before
     public void prepare() {
+        wireMockRule.resetAll();
+        wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withFixedDelay(2000)
+                        .withBodyFile("schema.zip")));
     }
 
-    @Ignore
     @Test
     public void testSingleValidationSuccess() throws Exception {
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,null, fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,"EDM-INTERNAL.xsd", fileToValidate);
         Assert.assertEquals(true, result.isSuccess());
         Assert.assertNull(result.getRecordId());
         Assert.assertNull(result.getMessage());
     }
 
-    @Ignore
     @Test
     public void testSingleValidationFailure() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_wrong.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,null, fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,"EDM-INTERNAL.xsd", fileToValidate);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
     }
 
-    @Ignore
     @Test
     public void testSingleValidationFailureWrongSchema() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, null, fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM.xsd", fileToValidate);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
     }
 
-    @Ignore
     @Test
     public void testBatchValidationSuccess() throws IOException, ExecutionException, InterruptedException, ZipException {
         String fileName = "src/test/resources/test";
@@ -106,14 +112,13 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, null, xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", xmls);
         Assert.assertEquals(true, result.isSuccess());
         Assert.assertEquals(0, result.getResultList().size());
 
         FileUtils.forceDelete(new File(fileName));
     }
 
-    @Ignore
     @Test
     public void testBatchValidationFailure() throws IOException, ExecutionException, InterruptedException, ZipException {
 
@@ -130,7 +135,7 @@ public class TestValidationExecution {
             xmls.add(record);
             fileInputStream.close();
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, null, xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", xmls);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1, result.getResultList().size());
 
@@ -138,7 +143,6 @@ public class TestValidationExecution {
         FileUtils.forceDelete(new File(fileName));
     }
 
-    @Ignore
     @Test
     public void testBatchValidationFailureWrongSchema() throws IOException, ExecutionException, InterruptedException, ZipException {
 
@@ -153,7 +157,7 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, null, xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, "EDM-INTERNAL.xsd", xmls);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1506, result.getResultList().size());
 
