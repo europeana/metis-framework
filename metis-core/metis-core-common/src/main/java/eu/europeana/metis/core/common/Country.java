@@ -49,7 +49,7 @@ public enum Country {
   }
 
   /**
-   * Creates a {@link Country} enum from a provided enum String representation of the enum value.
+   * Lookup of a {@link Country} enum from a provided enum String representation of the enum value.
    * <p>e.g. if provided enumName is GREECE then the returned Country will be Country.GREECE</p>
    * @param enumName the String representation of an enum value
    * @return the {@link Country} that represents the provided value or null if not found

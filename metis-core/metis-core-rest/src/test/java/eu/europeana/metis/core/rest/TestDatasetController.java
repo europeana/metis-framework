@@ -25,6 +25,8 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -87,7 +89,7 @@ public class TestDatasetController {
   public void createDatasetInvalidUser() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(post("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -142,7 +144,7 @@ public class TestDatasetController {
   public void updateDataset_InvalidUser() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -219,7 +221,7 @@ public class TestDatasetController {
   @Test
   public void deleteDatasetInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -277,7 +279,7 @@ public class TestDatasetController {
   @Test
   public void getByDatasetIdInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -336,7 +338,7 @@ public class TestDatasetController {
   @Test
   public void getByDatasetNameInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -404,7 +406,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -456,7 +458,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByIntermediateProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -506,7 +508,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByDataProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -556,7 +558,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByOrganizationIdInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -606,7 +608,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByOrganizationNameInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -639,16 +641,16 @@ public class TestDatasetController {
         .parse(resultListOfCountries);
 
     List<Map<String, Object>> mapListOfCountries = JsonPath.read(document, "$[*]");
-    assertEquals(59, mapListOfCountries.size());
-    assertEquals(mapListOfCountries.get(22).get("enum"), "GREECE");
-    assertEquals(mapListOfCountries.get(22).get("name"), "Greece");
-    assertEquals(mapListOfCountries.get(22).get("isoCode"), "GR");
+    assertEquals(Country.values().length, mapListOfCountries.size());
+    assertEquals(mapListOfCountries.get(22).get("enum"), Country.values()[22].name());
+    assertEquals(mapListOfCountries.get(22).get("name"), Country.values()[22].getName());
+    assertEquals(mapListOfCountries.get(22).get("isoCode"), Country.values()[22].getIsoCode());
   }
 
   @Test
   public void getDatasetsCountriesInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/countries")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -678,15 +680,15 @@ public class TestDatasetController {
         .parse(resultListOfLanguages);
 
     List<Map<String, Object>> mapListOfLanguages = JsonPath.read(document, "$[*]");
-    assertEquals(51, mapListOfLanguages.size());
-    assertEquals(mapListOfLanguages.get(10).get("enum"), "EL");
-    assertEquals(mapListOfLanguages.get(10).get("name"), "Greek");
+    assertEquals(Language.values().length, mapListOfLanguages.size());
+    assertEquals(mapListOfLanguages.get(10).get("enum"), Language.values()[10].name());
+    assertEquals(mapListOfLanguages.get(10).get("name"), Language.values()[10].getName());
   }
 
   @Test
   public void getDatasetsLanguagesInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/languages")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)

@@ -1,8 +1,10 @@
 package eu.europeana.metis.authentication.rest.client;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.exceptions.BadContentException;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,7 @@ public class AuthenticationClient {
 
   /**
    * Constructs an {@link AuthenticationClient}
+   *
    * @param baseUrl the base url endpoint to the authentication REST API
    */
   public AuthenticationClient(String baseUrl) {
@@ -33,14 +36,16 @@ public class AuthenticationClient {
 
   /**
    * Retrieves a user from the remote REST API using an authorization header that contains an access token.
+   *
    * @param authorizationHeader the authorization header containing the access token
    * <p>
-   *   The expected input should follow the rule
-   *   Bearer accessTokenHere
+   * The expected input should follow the rule
+   * Bearer accessTokenHere
    * </p>
    * @return {@link MetisUser}
    */
-  public MetisUser getUserByAccessTokenInHeader(String authorizationHeader) {
+  public MetisUser getUserByAccessTokenInHeader(String authorizationHeader)
+      throws BadContentException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
     HttpHeaders headers = new HttpHeaders();
@@ -52,11 +57,11 @@ public class AuthenticationClient {
           restTemplate
               .exchange(String.format("%s%s", baseUrl, RestEndpoints.AUTHENTICATION_USER_BY_TOKEN),
                   HttpMethod.GET, request, String.class);
-      String responseBody = response.getBody();
-      return objectMapper.readValue(responseBody, MetisUser.class);
+      return objectMapper.readValue(response.getBody(), MetisUser.class);
     } catch (HttpClientErrorException e) {
       LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
           e, e.getRawStatusCode(), e.getResponseBodyAsString());
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     } catch (IOException e) {
       LOGGER.error("Could not parse response to Object, {}", e);
     }

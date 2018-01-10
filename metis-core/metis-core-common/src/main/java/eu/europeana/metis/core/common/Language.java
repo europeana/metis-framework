@@ -37,7 +37,7 @@ public enum Language {
       "Icelandic"), IT("Italian"), JA("Japanese"), KA("Georgian"), KO("Korean"), LT(
       "Lithuanian"), LV("Latvian (Lettish)"), MK(
       "Macedonian"), MT("Maltese"),
-  MUL("Multilingual Content"), NL("Netherlands"), NO("Norwegian"), PL("Polish"), PT(
+  MUL("Multilingual Content"), NL("Dutch"), NO("Norwegian"), PL("Polish"), PT(
       "Portugese"), RO("Romanian"), RU("Russian"), SK("Slovak"), SL("Slovenian"), SQ(
       "Albanian"), SR("Serbian"), SV(
       "Swedish"), TR("Turkish"), UK("Ukrainian"), YI("Yiddish"), ZH("Chinese");
@@ -53,7 +53,7 @@ public enum Language {
   }
 
   /**
-   * Creates a {@link Language} enum from a provided enum String representation of the enum value.
+   * Lookup of a {@link Language} enum from a provided enum String representation of the enum value.
    * <p>e.g. if provided enumName is EL then the returned Language will be Language.EL</p>
    * @param enumName the String representation of an enum value
    * @return the {@link Language} that represents the provided value or null if not found

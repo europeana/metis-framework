@@ -28,7 +28,6 @@ import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
@@ -90,13 +89,9 @@ public class DatasetController {
   @ResponseBody
   public Dataset createDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
-      throws DatasetAlreadyExistsException, BadContentException, UserUnauthorizedException {
+      throws DatasetAlreadyExistsException, UserUnauthorizedException, BadContentException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     Dataset createdDataset = datasetService.createDataset(metisUser, dataset);
     LOGGER.info("Dataset with datasetId: {}, datasetName: {} and organizationId {} created",
@@ -107,7 +102,7 @@ public class DatasetController {
 
   /**
    * Update a provided dataset.
-   * <p>Non allowed field to be manually updated will be ignored</p>
+   * <p>Non allowed fields, to be manually updated, will be ignored</p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
@@ -123,13 +118,9 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
-      throws NoDatasetFoundException, BadContentException, UserUnauthorizedException, DatasetAlreadyExistsException {
+      throws NoDatasetFoundException, BadContentException, UserUnauthorizedException, DatasetAlreadyExistsException, eu.europeana.metis.core.exceptions.BadContentException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     datasetService.updateDataset(metisUser, dataset);
     LOGGER.info("Dataset with datasetId {} updated", dataset.getDatasetId());
@@ -152,11 +143,7 @@ public class DatasetController {
       @PathVariable("datasetId") int datasetId)
       throws BadContentException, UserUnauthorizedException, NoDatasetFoundException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     datasetService.deleteDatasetByDatasetId(metisUser, datasetId);
     LOGGER.info("Dataset with datasetId '{}' deleted", datasetId);
@@ -182,11 +169,7 @@ public class DatasetController {
       @PathVariable("datasetId") int datasetId)
       throws NoDatasetFoundException, UserUnauthorizedException, BadContentException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUser, datasetId);
     LOGGER.info("Dataset with datasetId '{}' found", datasetId);
@@ -213,11 +196,7 @@ public class DatasetController {
       @PathVariable("datasetName") String datasetName)
       throws NoDatasetFoundException, BadContentException, UserUnauthorizedException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     Dataset dataset = datasetService.getDatasetByDatasetName(metisUser, datasetName);
     LOGGER.info("Dataset with datasetName '{}' found", datasetName);
@@ -246,11 +225,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false) String nextPage)
       throws BadContentException, UserUnauthorizedException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
@@ -284,11 +259,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false) String nextPage)
       throws BadContentException, UserUnauthorizedException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
@@ -323,11 +294,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false) String nextPage)
       throws BadContentException, UserUnauthorizedException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
@@ -361,11 +328,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false) String nextPage)
       throws BadContentException, UserUnauthorizedException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
@@ -399,11 +362,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false) String nextPage)
       throws BadContentException, UserUnauthorizedException {
 
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     ResponseListWrapper<Dataset> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
@@ -431,14 +390,8 @@ public class DatasetController {
   @ResponseBody
   public List<Country> getDatasetsCountries(@RequestHeader("Authorization") String authorization)
       throws BadContentException {
-
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
-
-    return new ArrayList<>(Arrays.asList(Country.values()));
+    authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return Arrays.asList(Country.values());
   }
 
   /**
@@ -457,13 +410,7 @@ public class DatasetController {
   @ResponseBody
   public List<Language> getDatasetsLanguages(@RequestHeader("Authorization") String authorization)
       throws BadContentException {
-
-    MetisUser metisUser = authenticationClient
-        .getUserByAccessTokenInHeader(authorization);
-    if (metisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
-    }
-
-    return new ArrayList<>(Arrays.asList(Language.values()));
+    authenticationClient.getUserByAccessTokenInHeader(authorization);
+    return Arrays.asList(Language.values());
   }
 }
