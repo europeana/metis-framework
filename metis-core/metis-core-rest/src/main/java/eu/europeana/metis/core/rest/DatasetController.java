@@ -118,7 +118,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
-      throws NoDatasetFoundException, BadContentException, UserUnauthorizedException, DatasetAlreadyExistsException, eu.europeana.metis.core.exceptions.BadContentException {
+      throws NoDatasetFoundException, UserUnauthorizedException, DatasetAlreadyExistsException, BadContentException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -201,6 +202,15 @@ public class TestDatasetService {
   public void testDeleteDatasetByDatasetIdUnauthorizedUserAccountRole() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
+    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
+    verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
+  }
+
+  @Test(expected = NoDatasetFoundException.class)
+  public void testDeleteDatasetByDatasetIdNoDatasetFoundException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(datasetDao.getDatasetByDatasetId(anyInt())).thenReturn(null);
     datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
     verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
   }
