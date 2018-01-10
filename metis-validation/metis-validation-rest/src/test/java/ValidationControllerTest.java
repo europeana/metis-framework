@@ -78,7 +78,7 @@ public class ValidationControllerTest {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withFixedDelay(2000)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
 
         String requestJson = prepareJsonRequest();
         mockMvc.perform(MockMvcRequestBuilders
@@ -125,7 +125,7 @@ public class ValidationControllerTest {
         wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
 
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test.zip"));
         mockMvc.perform(MockMvcRequestBuilders
@@ -143,7 +143,7 @@ public class ValidationControllerTest {
         wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
 
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test_wrong.zip"));
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders

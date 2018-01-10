@@ -67,7 +67,7 @@ public class TestValidationExecution {
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withFixedDelay(2000)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
     }
 
     @Test
@@ -92,8 +92,8 @@ public class TestValidationExecution {
     @Test
     public void testSingleValidationFailureWrongSchema() throws Exception {
 
-        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM.xsd", fileToValidate);
+        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473.xml"));
+        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
@@ -157,7 +157,7 @@ public class TestValidationExecution {
             record.setRecord(IOUtils.toString(new FileInputStream(input)));
             xmls.add(record);
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, "EDM-INTERNAL.xsd", xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, "EDM.xsd", xmls);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertEquals(1506, result.getResultList().size());
 

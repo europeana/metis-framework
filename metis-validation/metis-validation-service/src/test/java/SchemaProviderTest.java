@@ -38,7 +38,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -55,7 +55,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -72,7 +72,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/custom_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -89,7 +89,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/custom_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -120,7 +120,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -137,7 +137,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -154,7 +154,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/userDefinedSchema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
@@ -170,7 +170,7 @@ public class SchemaProviderTest {
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
-                        .withBodyFile("schema.zip")));
+                        .withBodyFile("test_schema.zip")));
         clearSchemasDir();
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
