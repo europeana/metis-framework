@@ -32,11 +32,9 @@ public class SchemaProvider {
     public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
     public static String SCHEMAS_DIR;
 
-    private final Map<String, String> predefinedSchemasLocations;
-    private static final String STARTING_SCHEMATRON_FILE_NAME = File.separator + "schematron-internal.xsl";
-    private static final String XSD_ENTRY_FILE_NAME = File.separator + "MAIN.xsd";
+    private final PredefinedSchemas predefinedSchemasLocations;
 
-    public SchemaProvider(Map<String, String> predefinedSchemasLocations) {
+    public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
         if (TMP_DIR.endsWith(File.separator)) {
             SCHEMAS_DIR = TMP_DIR + "schemas" + File.separator;
         } else {
@@ -60,13 +58,21 @@ public class SchemaProvider {
      */
     public Schema getSchema(String fileLocation, String rootFileLocation) throws SchemaProviderException {
         if (isPredefined(fileLocation)) {
-            File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation.toLowerCase()), fileLocation.toLowerCase());
+            File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation).getLocation(), fileLocation.toLowerCase());
             unzipArchiveIfNeeded(downloadedFile,rootFileLocation);
             return prepareSchema(fileLocation, downloadedFile.getParentFile(), rootFileLocation);
         } else {
             File downloadedFile = downloadZipIfNeeded(fileLocation, prepareDirectoryName(fileLocation));
             unzipArchiveIfNeeded(downloadedFile,rootFileLocation);
             return prepareSchema(prepareDirectoryName(fileLocation), downloadedFile.getParentFile(), rootFileLocation);
+        }
+    }
+
+    public Schema getSchema(String fileLocation) throws SchemaProviderException {
+        if(isPredefined(fileLocation)){
+            return getSchema(fileLocation, predefinedSchemasLocations.get(fileLocation).getRootFileLocation());
+        }else{
+            throw new SchemaProviderException("XSD root file not provided");
         }
     }
 
@@ -83,7 +89,7 @@ public class SchemaProvider {
     }
 
     private boolean isPredefined(String name) {
-        return predefinedSchemasLocations.containsKey(name.toLowerCase());
+        return predefinedSchemasLocations.contains(name);
     }
 
     /**
@@ -115,7 +121,7 @@ public class SchemaProvider {
             throw new SchemaProviderException("Unable to store schema file", e);
         } finally {
             try {
-                if (rbc != null) {
+                    if (rbc != null) {
                     rbc.close();
                 }
                 if (fos != null) {

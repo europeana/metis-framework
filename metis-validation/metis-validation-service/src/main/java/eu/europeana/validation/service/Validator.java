@@ -87,7 +87,11 @@ public class Validator implements Callable<ValidationResult> {
      * @return
      */
     private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
-        return schemaProvider.getSchema(schemaName, rootFileLocation);
+        if (rootFileLocation == null) {
+            return schemaProvider.getSchema(schemaName);
+        } else {
+            return schemaProvider.getSchema(schemaName, rootFileLocation);
+        }
     }
 
     /**

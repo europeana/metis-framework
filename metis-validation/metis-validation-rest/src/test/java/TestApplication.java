@@ -36,12 +36,12 @@ public class TestApplication {
 
     @Bean
     public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
-        Map<String,String> predefinedSchemasLocations = new HashMap();
+        PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
 
-        predefinedSchemasLocations.put("edm-internal", "http://localhost:9999/schema.zip");
-        predefinedSchemasLocations.put("edm-external", "http://localhost:9999/schema.zip");
+        predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd");
+        predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd");
 
-        return new SchemaProvider(predefinedSchemasLocations);
+        return new SchemaProvider(predefinedSchemas);
     }
 }
 

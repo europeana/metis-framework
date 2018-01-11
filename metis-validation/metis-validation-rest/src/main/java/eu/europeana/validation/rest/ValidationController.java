@@ -80,7 +80,7 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                     @RequestParam("rootFileLocation") String rootFileLocation,
+                                     @RequestParam(required = false, name = "rootFileLocation") String rootFileLocation,
                                      @ApiParam @RequestBody Record record
     )
             throws ValidationException {
@@ -108,7 +108,7 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
     public ValidationResultList batchValidate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                              @RequestParam("rootFileLocation") String rootFileLocation,
+                                              @RequestParam(required = false, name = "rootFileLocation") String rootFileLocation,
                                               @ApiParam(value = "file") @RequestParam("file") MultipartFile zipFile) throws ServerException, BatchValidationException {
 
 

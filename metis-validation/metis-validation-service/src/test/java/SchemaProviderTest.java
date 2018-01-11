@@ -1,5 +1,6 @@
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
 import eu.europeana.validation.model.Schema;
+import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.SchemaProviderException;
 import org.apache.commons.io.FileUtils;
@@ -25,11 +26,11 @@ public class SchemaProviderTest {
     public WireMockRule wireMockRule = new WireMockRule(wireMockConfig().port(9999));
 
 
-    private static final Map<String, String> PREDEFINED_SCHEMAS_LOCATIONS = new HashMap();
+    private static final PredefinedSchemas PREDEFINED_SCHEMAS_LOCATIONS = new PredefinedSchemas();
 
     static {
-        PREDEFINED_SCHEMAS_LOCATIONS.put("edm-internal", "http://localhost:9999/test_schema.zip");
-        PREDEFINED_SCHEMAS_LOCATIONS.put("edm-external", "http://localhost:9999/test_schema.zip");
+        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd");
+        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd");
     }
 
     @Test
@@ -51,6 +52,24 @@ public class SchemaProviderTest {
     }
 
     @Test
+    public void shouldCreateCorrectSchemaForEdmInternalWithDefaultRootFile() throws SchemaProviderException {
+
+        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBodyFile("test_schema.zip")));
+        //given
+        SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
+        //when
+        Schema s = provider.getSchema("EDM-INTERNAL");
+        //then
+        Assert.assertEquals("EDM-INTERNAL", s.getName());
+        Assert.assertEquals(entryFileLocation("edm-internal","EDM-INTERNAL.xsd"), s.getPath());
+        Assert.assertNull(s.getSchematronPath());
+        assertZipFileExistence(s);
+    }
+
+    @Test
     public void shouldCreateCorrectSchemaForEdmExternal() throws SchemaProviderException {
         wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
@@ -60,6 +79,23 @@ public class SchemaProviderTest {
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
         Schema schema = provider.getSchema("EDM-EXTERNAL","EDM.xsd");
+        //then
+        Assert.assertEquals("EDM-EXTERNAL", schema.getName());
+        Assert.assertEquals(entryFileLocation("edm-external","EDM.xsd"), schema.getPath());
+        Assert.assertNull(schema.getSchematronPath());
+        assertZipFileExistence(schema);
+    }
+
+    @Test
+    public void shouldCreateCorrectSchemaForEdmExternalWithDefaultRootFile() throws SchemaProviderException {
+        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBodyFile("test_schema.zip")));
+        //given
+        SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
+        //when
+        Schema schema = provider.getSchema("EDM-EXTERNAL");
         //then
         Assert.assertEquals("EDM-EXTERNAL", schema.getName());
         Assert.assertEquals(entryFileLocation("edm-external","EDM.xsd"), schema.getPath());
