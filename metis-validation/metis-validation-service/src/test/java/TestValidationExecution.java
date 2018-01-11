@@ -63,7 +63,7 @@ public class TestValidationExecution {
     @Before
     public void prepare() {
         wireMockRule.resetAll();
-        wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withFixedDelay(2000)
