@@ -42,7 +42,8 @@ public class AuthenticationClient {
    * The expected input should follow the rule
    * Bearer accessTokenHere
    * </p>
-   * @return {@link MetisUser}
+   * @return {@link MetisUser}.
+   * @throws BadContentException In case the user could not be authenticated.
    */
   public MetisUser getUserByAccessTokenInHeader(String authorizationHeader)
       throws BadContentException {
@@ -64,7 +65,7 @@ public class AuthenticationClient {
       throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
     } catch (IOException e) {
       LOGGER.error("Could not parse response to Object, {}", e);
+      throw new BadContentException(CommonStringValues.COULD_NOT_PARSE_USER_RETURNED_FROM_ZOHO);
     }
-    return null;
   }
 }
