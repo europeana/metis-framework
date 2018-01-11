@@ -1,7 +1,7 @@
 !tape
 name: testGetUserByAccessTokenInHeaderHttpClientErrorException
 interactions:
-- recorded: 2018-01-02T11:35:15.260Z
+- recorded: 2018-01-10T14:17:39.210Z
   request:
     method: GET
     uri: http://localhost:8080/metis-authentication-rest-test/authentication/user_by_access_token
@@ -16,6 +16,6 @@ interactions:
     status: 406
     headers:
       Content-Type: application/json;charset=UTF-8
-      Date: Tue, 02 Jan 2018 11:35:15 GMT
+      Date: Wed, 10 Jan 2018 14:17:39 GMT
       Transfer-Encoding: chunked
     body: '{"errorMessage":"Wrong access token"}'

@@ -1,11 +1,13 @@
 package eu.europeana.metis.core.common;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import org.apache.commons.lang3.StringUtils;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 /**
- * Countries supported by METIS Created by ymamakis on 2/17/16.
+ * Countries supported by METIS
  */
+@JsonSerialize(using = CountrySerializer.class)
+@JsonDeserialize(using = CountryDeserializer.class)
 public enum Country {
 
   ALBANIA("Albania", "AL"), ANDORRA("Andorra", "AD"), ARMENIA("Armenia", "AM"), AUSTRIA("Austria",
@@ -46,28 +48,15 @@ public enum Country {
     return this.isoCode;
   }
 
-  public static Country toCountry(String isoCode) {
+  /**
+   * Lookup of a {@link Country} enum from a provided enum String representation of the enum value.
+   * <p>e.g. if provided enumName is GREECE then the returned Country will be Country.GREECE</p>
+   * @param enumName the String representation of an enum value
+   * @return the {@link Country} that represents the provided value or null if not found
+   */
+  public static Country getCountryFromEnumName(String enumName) {
     for (Country country : Country.values()) {
-      if (StringUtils.equals(country.getIsoCode(), isoCode)) {
-        return country;
-      }
-    }
-    return null;
-  }
-
-  public static Country getCountryFromName(String name) {
-    for (Country country : Country.values()) {
-      if (country.getName().equals(name)) {
-        return country;
-      }
-    }
-    return null;
-  }
-
-  @JsonCreator
-  public static Country getCountryFromEnumName(String name) {
-    for (Country country : Country.values()) {
-      if (country.name().equalsIgnoreCase(name)) {
+      if (country.name().equalsIgnoreCase(enumName)) {
         return country;
       }
     }

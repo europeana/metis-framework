@@ -19,10 +19,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
+import eu.europeana.metis.core.common.Country;
+import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
@@ -33,11 +37,13 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 public class TestDatasetController {
@@ -83,7 +89,7 @@ public class TestDatasetController {
   public void createDatasetInvalidUser() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(post("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -138,7 +144,7 @@ public class TestDatasetController {
   public void updateDataset_InvalidUser() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -215,7 +221,7 @@ public class TestDatasetController {
   @Test
   public void deleteDatasetInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -273,7 +279,7 @@ public class TestDatasetController {
   @Test
   public void getByDatasetIdInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -332,7 +338,7 @@ public class TestDatasetController {
   @Test
   public void getByDatasetNameInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -400,7 +406,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -423,7 +429,8 @@ public class TestDatasetController {
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", "3"))
+    when(datasetServiceMock
+        .getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", "3"))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -441,7 +448,8 @@ public class TestDatasetController {
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
     ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
     verify(datasetServiceMock, times(1))
-        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(), page.capture());
+        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(),
+            page.capture());
 
     assertEquals("myIntermediateProvider", provider.getValue());
     assertEquals("3", page.getValue());
@@ -450,7 +458,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByIntermediateProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -500,7 +508,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByDataProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -550,7 +558,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByOrganizationIdInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -600,7 +608,7 @@ public class TestDatasetController {
   @Test
   public void getAllDatasetsByOrganizationNameInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
-        .thenReturn(null);
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
 
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
@@ -613,6 +621,82 @@ public class TestDatasetController {
 
     verify(datasetServiceMock, times(0))
         .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyString());
+  }
+
+  @Test
+  public void getDatasetsCountries() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/countries")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+
+    String resultListOfCountries = mvcResult.getResponse().getContentAsString();
+    Object document = Configuration.defaultConfiguration().jsonProvider()
+        .parse(resultListOfCountries);
+
+    List<Map<String, Object>> mapListOfCountries = JsonPath.read(document, "$[*]");
+    assertEquals(Country.values().length, mapListOfCountries.size());
+    assertEquals(mapListOfCountries.get(22).get("enum"), Country.values()[22].name());
+    assertEquals(mapListOfCountries.get(22).get("name"), Country.values()[22].getName());
+    assertEquals(mapListOfCountries.get(22).get("isoCode"), Country.values()[22].getIsoCode());
+  }
+
+  @Test
+  public void getDatasetsCountriesInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
+
+    datasetControllerMock.perform(get("/datasets/countries")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
+  }
+
+  @Test
+  public void getDatasetsLanguages() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    when(
+        authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenReturn(metisUser);
+
+    MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/languages")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(200))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
+
+    String resultListOfLanguages = mvcResult.getResponse().getContentAsString();
+    Object document = Configuration.defaultConfiguration().jsonProvider()
+        .parse(resultListOfLanguages);
+
+    List<Map<String, Object>> mapListOfLanguages = JsonPath.read(document, "$[*]");
+    assertEquals(Language.values().length, mapListOfLanguages.size());
+    assertEquals(mapListOfLanguages.get(10).get("enum"), Language.values()[10].name());
+    assertEquals(mapListOfLanguages.get(10).get("name"), Language.values()[10].getName());
+  }
+
+  @Test
+  public void getDatasetsLanguagesInvalidUser() throws Exception {
+    when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
+        .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
+
+    datasetControllerMock.perform(get("/datasets/languages")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(""))
+        .andExpect(status().is(406))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
+        .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
   }
 
   private List<Dataset> getDatasets() {

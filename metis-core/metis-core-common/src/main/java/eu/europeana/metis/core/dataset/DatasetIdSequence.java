@@ -20,8 +20,13 @@ public class DatasetIdSequence {
   private int sequence;
 
   public DatasetIdSequence() {
+    //Required for json serialization
   }
 
+  /**
+   * Initialize sequence with provided argument.
+   * @param sequence the number to start the sequence from
+   */
   public DatasetIdSequence(int sequence) {
     this.sequence = sequence;
   }

@@ -1,13 +1,13 @@
 !tape
 name: testGetUserByAccessTokenInHeader
 interactions:
-- recorded: 2018-01-02T11:35:17.716Z
+- recorded: 2018-01-10T14:17:41.640Z
   request:
     method: GET
     uri: http://localhost:8080/metis-authentication-rest-test/authentication/user_by_access_token
     headers:
       Accept: application/json
-      Authorization: Bearer OUwbCoeELS28sFP8AmBqsbSfiR7CiEuU
+      Authorization: Bearer GSI8ypAuepJ7lwKjcyhtCqGcTQXFhxYp
       Content-Length: '0'
       Host: localhost:8080
       Proxy-Connection: keep-alive
@@ -16,6 +16,6 @@ interactions:
     status: 200
     headers:
       Content-Type: application/json;charset=UTF-8
-      Date: Tue, 02 Jan 2018 11:35:17 GMT
+      Date: Wed, 10 Jan 2018 14:17:41 GMT
       Transfer-Encoding: chunked
-    body: '{"userId":"1482250000003948001","email":"valentine.metis@europeana.eu","firstName":"Valentine","lastName":"Metis","organizationId":"1482250000001617026","organizationName":"Europeana Foundation","accountRole":"EUROPEANA_DATA_OFFICER","country":"Netherlands","networkMember":true,"metisUserFlag":true,"createdDate":1509698100000,"updatedDate":1514308201000,"metisUserAccessToken":{"accessToken":"OUwbCoeELS28sFP8AmBqsbSfiR7CiEuU"}}'
+    body: '{"userId":"1482250000003948001","email":"valentine.metis@europeana.eu","firstName":"Valentine","lastName":"Metis","organizationId":"1482250000001617026","organizationName":"Europeana Foundation","accountRole":"EUROPEANA_DATA_OFFICER","country":"Netherlands","networkMember":true,"metisUserFlag":true,"createdDate":1509698100000,"updatedDate":1515350924000,"metisUserAccessToken":{"accessToken":"GSI8ypAuepJ7lwKjcyhtCqGcTQXFhxYp"}}'

@@ -27,11 +27,20 @@ import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Index;
 import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Indexes;
 
+/**
+ * Dataset model that contains all the required fields for Dataset functionality.
+ * It also contains the harvesting metadata required when executing a harvesting plugin.
+ */
 @Entity
+@Indexes(@Index(fields = {@Field("organizationId"),
+    @Field("datasetName")}, options = @IndexOptions(unique = true)))
 public class Dataset implements HasMongoObjectId {
 
   @Id
@@ -43,7 +52,7 @@ public class Dataset implements HasMongoObjectId {
 
   private int datasetId;
 
-  @Indexed(options = @IndexOptions(unique = true))
+  @Indexed
   private String datasetName;
 
   @Indexed
@@ -182,19 +191,19 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return createdDate == null?null:new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
+    this.createdDate = new Date(createdDate.getTime());
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
+    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
   public DatasetStatus getDatasetStatus() {
@@ -254,19 +263,19 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getFirstPublishedDate() {
-    return firstPublishedDate;
+    return firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
   }
 
   public void setFirstPublishedDate(Date firstPublishedDate) {
-    this.firstPublishedDate = firstPublishedDate;
+    this.firstPublishedDate = firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
   }
 
   public Date getLastPublishedDate() {
-    return lastPublishedDate;
+    return lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
   }
 
   public void setLastPublishedDate(Date lastPublishedDate) {
-    this.lastPublishedDate = lastPublishedDate;
+    this.lastPublishedDate = lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
   }
 
   public long getPublishedRecords() {
@@ -278,11 +287,11 @@ public class Dataset implements HasMongoObjectId {
   }
 
   public Date getHarvestedDate() {
-    return harvestedDate;
+    return harvestedDate == null?null:new Date(harvestedDate.getTime());
   }
 
   public void setHarvestedDate(Date harvestedDate) {
-    this.harvestedDate = harvestedDate;
+    this.harvestedDate = harvestedDate == null?null:new Date(harvestedDate.getTime());
   }
 
   public long getHarvestedRecords() {

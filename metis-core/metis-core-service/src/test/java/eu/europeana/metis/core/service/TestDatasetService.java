@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -150,6 +151,19 @@ public class TestDatasetService {
     verify(datasetDao, times(0)).update(dataset);
   }
 
+  @Test(expected = DatasetAlreadyExistsException.class)
+  public void testUpdateDatasetDatasetAlreadyExistsException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    dataset.setOrganizationId(metisUser.getOrganizationId());
+    Dataset storedDataset = TestObjectFactory.createDataset(String.format("%s%s", TestObjectFactory.DATASETNAME, 10));
+    storedDataset.setOrganizationId(metisUser.getOrganizationId());
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
+    when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(), dataset.getDatasetName())).thenReturn(new Dataset());
+    datasetService.updateDataset(metisUser, dataset);
+  }
+
   @Test(expected = BadContentException.class)
   public void testUpdateDatasetDatasetExecutionIsActive() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
@@ -188,6 +202,15 @@ public class TestDatasetService {
   public void testDeleteDatasetByDatasetIdUnauthorizedUserAccountRole() throws Exception {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
+    datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
+    verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
+  }
+
+  @Test(expected = NoDatasetFoundException.class)
+  public void testDeleteDatasetByDatasetIdNoDatasetFoundException() throws Exception {
+    MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
+    metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
+    when(datasetDao.getDatasetByDatasetId(anyInt())).thenReturn(null);
     datasetService.deleteDatasetByDatasetId(metisUser, TestObjectFactory.DATASETID);
     verify(datasetDao, times(0)).deleteByDatasetId(TestObjectFactory.DATASETID);
   }
