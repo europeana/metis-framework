@@ -163,7 +163,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   EnrichmentClient getEnrichmentClient() {
-    return new EnrichmentClient();
+    return new EnrichmentClient(enrichmentUrl);
   }
 
   MongoClient getEntityMongoClient() {

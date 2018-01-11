@@ -121,11 +121,17 @@ class EntityMergeUtils {
   }
 
   private static PlaceType appendPlaceInRDF(RDF rdf, String entity) throws JiBXException {
-    IUnmarshallingContext unmarshaller = placeFactory.createUnmarshallingContext();
-    PlaceType placeType = (PlaceType) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);
+    //IUnmarshallingContext unmarshaller = placeFactory.createUnmarshallingContext();
+    //PlaceType placeType = (PlaceType) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);
+	  
+	IUnmarshallingContext unmarshaller = rdfFactory.createUnmarshallingContext();
+	RDF tempRDF = (RDF) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);
     if (rdf.getPlaceList()==null) {
       rdf.setPlaceList(new ArrayList<>());
     }
+    
+    PlaceType placeType = tempRDF.getPlaceList().get(0);
+    
     rdf.getPlaceList().add(placeType);
     return placeType;
   }

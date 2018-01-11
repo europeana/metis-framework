@@ -1,5 +1,6 @@
 package eu.europeana.metis.utils;
 
+import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import java.io.ByteArrayOutputStream;
@@ -21,12 +22,14 @@ import org.slf4j.LoggerFactory;
  */
 public class EnrichmentUtils {
     public static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentUtils.class);
-    private static IBindingFactory rdfFactory;
+    private static IBindingFactory rdfFactory, placeTypeFactory;
     private final static String UTF8= "UTF-8";
 
     static {
     	try {
     		rdfFactory = BindingDirectory.getFactory(RDF.class);
+    		placeTypeFactory = BindingDirectory.getFactory(PlaceType.class);
+    		
     	} 
     	catch (JiBXException e) {
     		LOGGER.error("Unable to get BindingFactory", e);
@@ -62,7 +65,7 @@ public class EnrichmentUtils {
         context.marshalDocument(rdf, UTF8, null, out);
         return out.toString(UTF8);
     }
-
+    
     /**
      * Extract the fields to enrich from an XML record
      * @param record
@@ -73,7 +76,7 @@ public class EnrichmentUtils {
         IUnmarshallingContext rdfCTX = rdfFactory.createUnmarshallingContext();
         RDF rdf = (RDF)rdfCTX.unmarshalDocument(IOUtils.toInputStream(record),UTF8);
         
-        return extractFieldsForEnrichment(rdf);
+        return extractFieldsForEnrichmentFromRDF(rdf);
     }
     
     /**
@@ -82,8 +85,7 @@ public class EnrichmentUtils {
      * @return List<InputValue>
      * @throws JiBXException
      */
-    // TODO JOCHEN should this method be public? Where is it used?
-    public static List<InputValue> extractFieldsForEnrichment(RDF rdf) {
+    public static List<InputValue> extractFieldsForEnrichmentFromRDF(RDF rdf) {
         ProxyType providerProxy = EntityMergeUtils.getProviderProxy(rdf);
         List<InputValue> valuesForEnrichment= new ArrayList<>();
         

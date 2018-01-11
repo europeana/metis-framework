@@ -31,15 +31,9 @@ import eu.europeana.metis.utils.DereferenceUtils;
  */
 public class DereferenceClientTestWithMain {
 
-    // TODO JOCHEN should not have a main class.
     public static void main (String[] args) {
-        try {
-          
-            final Properties props = new Properties();
-            props.load(DereferenceClientTestWithMain.class.getClassLoader()
-                .getResourceAsStream("client.properties"));
-            final String hostUrl = props.getProperty("host.url");
-			final DereferenceClient client = new DereferenceClient(hostUrl);
+        try {          
+			final DereferenceClient client = new DereferenceClient("http://metis-dereference-rest-test.eanadev.org");
             
             String xml = "<?xml version=\"1.0\" encoding=\"utf-8\"?><rdf:RDF xmlns:edm=\"http://www.europeana.eu/schemas/edm/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">" +
             "<edm:ProvidedCHO rdf:about=\"/00903/1008362\"/>" +

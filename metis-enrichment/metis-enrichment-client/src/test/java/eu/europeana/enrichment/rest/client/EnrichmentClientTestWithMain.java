@@ -19,15 +19,14 @@ package eu.europeana.enrichment.rest.client;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.utils.EntityClass;
 import eu.europeana.metis.utils.InputValue;
 
 public class EnrichmentClientTestWithMain {
 	
-    // TODO JOCHEN should not have a main class.
 	public static void main(String[] args) throws IOException {
 		List<InputValue> values = new ArrayList<InputValue>();
 
@@ -90,30 +89,26 @@ public class EnrichmentClientTestWithMain {
 		Form form = new Form();
 		form.param("uri", "http://data.europeana.eu/concept/base/96");
 		form.param("toXml", Boolean.toString(true));
-		*/
-		//eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://metis-enrichment-test.cfapps.io/");
-		
-        final Properties props = new Properties();
-        try {
-          props.load(EnrichmentClientTestWithMain.class.getClassLoader()
-              .getResourceAsStream("client.properties"));
-        } catch (IOException e1) {
-          e1.printStackTrace();
-          throw e1;
-        }
-        final String hostUrl = props.getProperty("host.url");
-		EnrichmentClient enrichmentClient = new EnrichmentClient(hostUrl);
-		
+		*/	
+		EnrichmentClient enrichmentClient = new EnrichmentClient("http://metis-enrichment-rest-test.eanadev.org");
+        
 		//String inputValue = "{ \"inputValue\": [ { \"language\": \"string\", \"originalField\": \"string\", \"value\": \"string\", \"vocabularies\": [ \"CONCEPT\"]}]}";
 		
 		EnrichmentResultList result = null;
 		
 		try {
 			result = enrichmentClient.enrich(values);
+			
 		} catch (UnknownException e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(result);
+		System.out.println(result.getResult());
+		
+		int counter = 1;
+		for (EnrichmentBase b : result.getResult()) {
+			System.out.println(counter + "." + b.getAbout() + " " + b.getNotes());
+			counter++;
+		}	
 	}
 }

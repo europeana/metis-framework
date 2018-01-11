@@ -27,12 +27,19 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.dereference.Vocabulary;
 
@@ -150,6 +157,15 @@ public class DereferenceClient {
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalStateException(e);
 		}
-		return restTemplate.getForObject(hostUrl + DEREFERENCE + "?uri=" + uriString, String.class);
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		ResponseEntity<String> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + uriString, HttpMethod.GET, entity, String.class);
+		String responseBody = response.getBody();
+		
+		return responseBody;
+		//return restTemplate.getForObject(hostUrl + DEREFERENCE + "?uri=" + uriString, String.class);
 	}
 }

@@ -148,7 +148,7 @@ public class EnrichmentUtilsTest {
 
 		 rdf.setProxyList(proxyList);
 
-		 List<InputValue> result = EnrichmentUtils.extractFieldsForEnrichment(rdf);
+		 List<InputValue> result = EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
 		 
 		 Assert.assertNotNull(result);
 		 Assert.assertEquals(10, result.size());

@@ -58,8 +58,11 @@ public class EnrichmentClient {
 	 * @return The enrichments generated for the input values
 	 */
 	public EnrichmentResultList enrich(List<InputValue> values) {
-        InputValueList inList = new InputValueList();
-        inList.setInputValueList(values);
+		RestTemplate template = new RestTemplate();
+
+		InputValueList inList = new InputValueList();
+	    inList.setInputValueList(values);
+	        
         try {
         	return template.postForObject(path + ENRICHMENT_ENRICH, inList, EnrichmentResultList.class);
         } catch (Exception e){
