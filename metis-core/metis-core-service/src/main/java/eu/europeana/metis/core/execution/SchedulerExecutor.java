@@ -24,64 +24,52 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-09-27
  */
-public class SchedulerExecutor implements Runnable {
+public class SchedulerExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerExecutor.class);
 
-  private int periodicSchedulerCheckInSecs = 90;
+  private final RLock lock;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
   private static final String SCHEDULER_LOCK = "schedulerLock";
-  private final boolean infiniteLoop; //True for infinite loop which is the normal scenario, false for testing
+  private LocalDateTime lastExecutionTime = LocalDateTime.now();
 
-  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient,
-      int periodicSchedulerCheckInSecs, boolean infiniteLoop) {
+  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
-    this.periodicSchedulerCheckInSecs = periodicSchedulerCheckInSecs;
-    this.infiniteLoop = infiniteLoop;
+    this.lock = redissonClient.getFairLock(SCHEDULER_LOCK);
   }
 
-  @Override
-  public void run() {
-    RLock lock = redissonClient.getFairLock(SCHEDULER_LOCK);
-    LocalDateTime dateBeforeSleep = LocalDateTime.now();
-    do {
-      LocalDateTime dateAfterSleep;
-      try {
-        LOGGER.info("Scheduler thread sleeping for {} seconds.", periodicSchedulerCheckInSecs);
-        Thread.sleep(periodicSchedulerCheckInSecs * 1000L);
+  public void performScheduling() {
+    try {
+      lock.lock();
+      final LocalDateTime thisExecutionTime = LocalDateTime.now();
+      LOGGER.info("Date range checking lowerbound: {}, upperBound:{}", this.lastExecutionTime,
+          thisExecutionTime);
+      List<ScheduledWorkflow> allCleanedScheduledWorkflows =
+          getCleanedScheduledUserWorkflows(lastExecutionTime, thisExecutionTime);
 
-        lock.lock();
-        dateAfterSleep = LocalDateTime.now();
-        LOGGER.info("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}",
-            dateBeforeSleep, dateAfterSleep);
-        List<ScheduledWorkflow> allCleanedScheduledWorkflows = getCleanedScheduledUserWorkflows(
-            dateBeforeSleep, dateAfterSleep);
+      for (ScheduledWorkflow scheduledWorkflow : allCleanedScheduledWorkflows) {
+        LOGGER.info(
+            "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
+            scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
+            scheduledWorkflow.getWorkflowName(), scheduledWorkflow.getPointerDate(),
+            scheduledWorkflow.getScheduleFrequence());
 
-        for (ScheduledWorkflow scheduledWorkflow :
-            allCleanedScheduledWorkflows) {
-          LOGGER.info(
-              "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
-              scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
-              scheduledWorkflow.getWorkflowName(), scheduledWorkflow.getPointerDate(),
-              scheduledWorkflow.getScheduleFrequence());
-
-          tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
-        }
-        dateBeforeSleep = dateAfterSleep;
-      } catch (InterruptedException | RuntimeException e) {
-        LOGGER.warn(
-            "Thread was interruped or exception thrown from rabbitmq channel or Redis disconnection, scheduler thread continues",
-            e);
-      } finally {
-        try {
-          lock.unlock();
-        } catch (RedisConnectionException e) {
-          LOGGER.warn("Cannot connect to unlock, scheduler thread continues");
-        }
+        tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
       }
-    } while (infiniteLoop);
+      lastExecutionTime = thisExecutionTime;
+    } catch (RuntimeException e) {
+      LOGGER.warn(
+          "Exception thrown from rabbitmq channel or Redis disconnection, scheduler thread continues",
+          e);
+    } finally {
+      try {
+        lock.unlock();
+      } catch (RedisConnectionException e) {
+        LOGGER.warn("Cannot connect to unlock, scheduler thread continues");
+      }
+    }
   }
 
   private List<ScheduledWorkflow> getCleanedScheduledUserWorkflows(LocalDateTime lowerBound,

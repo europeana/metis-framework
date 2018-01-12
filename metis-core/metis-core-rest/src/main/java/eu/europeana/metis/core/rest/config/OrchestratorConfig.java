@@ -1,5 +1,26 @@
 package eu.europeana.metis.core.rest.config;
 
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeoutException;
+import javax.annotation.PreDestroy;
+import org.apache.commons.lang.StringUtils;
+import org.redisson.Redisson;
+import org.redisson.api.RedissonClient;
+import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
@@ -15,22 +36,6 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeoutException;
-import javax.annotation.PreDestroy;
-import org.apache.commons.lang.StringUtils;
-import org.redisson.Redisson;
-import org.redisson.api.RedissonClient;
-import org.redisson.config.Config;
-import org.redisson.config.SingleServerConfig;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -39,7 +44,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties"})
+@EnableScheduling
 public class OrchestratorConfig extends WebMvcConfigurerAdapter {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerExecutor.class);
 
   //Orchestration
   @Value("${max.concurrent.threads}")
@@ -48,8 +56,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   private int monitorCheckIntervalInSecs;
   @Value("${periodic.failsafe.check.in.secs}")
   private int periodicFailsafeCheckInSecs;
-  @Value("${periodic.scheduler.check.in.secs}")
-  private int periodicSchedulerCheckInSecs;
+  @Value("${periodic.scheduler.check.in.millisecs}")
+  private int periodicSchedulerCheckInMillisecs;
   @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
   private int pollingTimeoutForCleaningCompletionServiceInSecs;
 
@@ -84,6 +92,9 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   private Connection connection;
   private Channel channel;
+  
+  @Autowired
+  private SchedulerExecutor schedulerExecutor;
 
   @Bean
   Channel getRabbitmqChannel() throws IOException, TimeoutException {
@@ -177,13 +188,19 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     return failsafeExecutor;
   }
 
-  @Bean // Only used for starting the threaded class
-  public SchedulerExecutor startSchedulingExecutorThread(
-      OrchestratorService orchestratorService, RedissonClient redissonClient) {
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient,
-        periodicSchedulerCheckInSecs, true);
-    new Thread(schedulerExecutor).start();
-    return schedulerExecutor;
+  @Bean
+  public SchedulerExecutor getSchedulingExecutor(OrchestratorService orchestratorService,
+      RedissonClient redissonClient) {
+    return new SchedulerExecutor(orchestratorService, redissonClient);
+  }
+
+  @Scheduled(fixedDelayString = "${periodic.scheduler.check.in.millisecs}",
+      initialDelayString = "${periodic.scheduler.check.in.millisecs}")
+  public void runSchedulingExecutor() {
+    LOGGER.info("Scheduler task started (runs every {} milliseconds).",
+        periodicSchedulerCheckInMillisecs);
+    this.schedulerExecutor.performScheduling();
+    LOGGER.info("Scheduler task finished.");
   }
 
   @PreDestroy
