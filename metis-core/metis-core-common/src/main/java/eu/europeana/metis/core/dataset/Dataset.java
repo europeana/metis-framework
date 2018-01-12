@@ -79,8 +79,6 @@ public class Dataset implements HasMongoObjectId {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date updatedDate;
 
-  private DatasetStatus datasetStatus;
-
   private String replacedBy;
 
   private String replaces;
@@ -92,19 +90,6 @@ public class Dataset implements HasMongoObjectId {
   private String description;
 
   private String notes;
-
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private Date firstPublishedDate;
-
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private Date lastPublishedDate;
-
-  private long publishedRecords;
-
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private Date harvestedDate;
-
-  private long harvestedRecords;
 
   private AbstractMetisPluginMetadata harvestingMetadata;
 
@@ -206,14 +191,6 @@ public class Dataset implements HasMongoObjectId {
     this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
-  public DatasetStatus getDatasetStatus() {
-    return datasetStatus;
-  }
-
-  public void setDatasetStatus(DatasetStatus datasetStatus) {
-    this.datasetStatus = datasetStatus;
-  }
-
   public String getReplacedBy() {
     return replacedBy;
   }
@@ -260,46 +237,6 @@ public class Dataset implements HasMongoObjectId {
 
   public void setNotes(String notes) {
     this.notes = notes;
-  }
-
-  public Date getFirstPublishedDate() {
-    return firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
-  }
-
-  public void setFirstPublishedDate(Date firstPublishedDate) {
-    this.firstPublishedDate = firstPublishedDate == null?null:new Date(firstPublishedDate.getTime());
-  }
-
-  public Date getLastPublishedDate() {
-    return lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
-  }
-
-  public void setLastPublishedDate(Date lastPublishedDate) {
-    this.lastPublishedDate = lastPublishedDate == null?null:new Date(lastPublishedDate.getTime());
-  }
-
-  public long getPublishedRecords() {
-    return publishedRecords;
-  }
-
-  public void setPublishedRecords(long publishedRecords) {
-    this.publishedRecords = publishedRecords;
-  }
-
-  public Date getHarvestedDate() {
-    return harvestedDate == null?null:new Date(harvestedDate.getTime());
-  }
-
-  public void setHarvestedDate(Date harvestedDate) {
-    this.harvestedDate = harvestedDate == null?null:new Date(harvestedDate.getTime());
-  }
-
-  public long getHarvestedRecords() {
-    return harvestedRecords;
-  }
-
-  public void setHarvestedRecords(long harvestedRecords) {
-    this.harvestedRecords = harvestedRecords;
   }
 
   public AbstractMetisPluginMetadata getHarvestingMetadata() {

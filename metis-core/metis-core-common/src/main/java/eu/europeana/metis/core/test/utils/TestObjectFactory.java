@@ -8,7 +8,6 @@ import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -171,18 +170,12 @@ public class TestObjectFactory {
     ds.setCreatedByUserId("userId");
     ds.setCreatedDate(new Date());
     ds.setUpdatedDate(new Date());
-    ds.setDatasetStatus(DatasetStatus.CREATED);
     ds.setReplacedBy("replacedBy");
     ds.setReplaces("12345");
     ds.setCountry(Country.GREECE);
     ds.setLanguage(Language.AR);
     ds.setDescription("description");
     ds.setNotes("Notes");
-    ds.setFirstPublishedDate(new Date());
-    ds.setLastPublishedDate(new Date());
-    ds.setPublishedRecords(100);
-    ds.setHarvestedDate(new Date());
-    ds.setHarvestedRecords(100);
     ds.setHarvestingMetadata(new OaipmhHarvestPluginMetadata());
     return ds;
   }

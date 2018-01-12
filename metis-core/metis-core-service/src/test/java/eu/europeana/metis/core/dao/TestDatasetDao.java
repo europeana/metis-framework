@@ -9,7 +9,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
-import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
@@ -68,17 +67,14 @@ public class TestDatasetDao {
     assertEquals(dataset.getDescription(), storedDataset.getDescription());
     assertEquals(dataset.getLanguage(), storedDataset.getLanguage());
     assertEquals(dataset.getNotes(), storedDataset.getNotes());
-    assertEquals(dataset.getPublishedRecords(), storedDataset.getPublishedRecords());
     assertEquals(dataset.getReplacedBy(), storedDataset.getReplacedBy());
     assertEquals(dataset.getUpdatedDate(), storedDataset.getUpdatedDate());
-    assertEquals(dataset.getDatasetStatus(), storedDataset.getDatasetStatus());
   }
 
 
   @Test
   public void testUpdateRetrieveDataset() {
     datasetDao.create(dataset);
-    dataset.setDatasetStatus(DatasetStatus.HARVESTED);
     datasetDao.update(dataset);
     Dataset storedDataset = datasetDao.getDatasetByDatasetId(dataset.getDatasetId());
     assertEquals(dataset.getDatasetName(), storedDataset.getDatasetName());
@@ -88,10 +84,8 @@ public class TestDatasetDao {
     assertEquals(dataset.getDescription(), storedDataset.getDescription());
     assertEquals(dataset.getLanguage(), storedDataset.getLanguage());
     assertEquals(dataset.getNotes(), storedDataset.getNotes());
-    assertEquals(dataset.getPublishedRecords(), storedDataset.getPublishedRecords());
     assertEquals(dataset.getReplacedBy(), storedDataset.getReplacedBy());
     assertEquals(dataset.getUpdatedDate(), storedDataset.getUpdatedDate());
-    assertEquals(dataset.getDatasetStatus(), storedDataset.getDatasetStatus());
   }
 
   @Test
