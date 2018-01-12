@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -285,5 +286,18 @@ public class OrchestratorController {
         "Requesting proxy call task logs for topologyName: {}, externalTaskId: {}, from: {}, to: {}",
         topologyName, externalTaskId, from, to);
     return orchestratorService.getExternalTaskLogs(topologyName, externalTaskId, from, to);
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public TaskErrorsInfo getExternalTaskReport(
+      @PathVariable("topologyName") String topologyName,
+      @PathVariable("externalTaskId") long externalTaskId) {
+    LOGGER.info(
+        "Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
+        topologyName, externalTaskId);
+    return orchestratorService.getExternalTaskReport(topologyName, externalTaskId);
   }
 }

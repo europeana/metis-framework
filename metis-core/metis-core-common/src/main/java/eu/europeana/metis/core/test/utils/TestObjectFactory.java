@@ -2,6 +2,8 @@ package eu.europeana.metis.core.test.utils;
 
 import eu.europeana.cloud.common.model.dps.States;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -106,7 +108,7 @@ public class TestObjectFactory {
       workflow.setId(new ObjectId());
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
-      dataset.setDatasetId(DATASETID+i);
+      dataset.setDatasetId(DATASETID + i);
       WorkflowExecution workflowExecution = createUserWorkflowExecutionObject(dataset,
           workflow);
       workflowExecution.setId(new ObjectId());
@@ -144,7 +146,8 @@ public class TestObjectFactory {
     return scheduledWorkflows;
   }
 
-  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(int size, Date date, ScheduleFrequence scheduleFrequence) {
+  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(
+      int size, Date date, ScheduleFrequence scheduleFrequence) {
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
       ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
@@ -180,8 +183,7 @@ public class TestObjectFactory {
     return ds;
   }
 
-  public static MetisUser createMetisUser(String email)
-  {
+  public static MetisUser createMetisUser(String email) {
     MetisUserAccessToken metisUserAccessToken = new MetisUserAccessToken();
     metisUserAccessToken.setAccessToken("AccessToken_12345");
     metisUserAccessToken.setTimestamp(new Date());
@@ -200,14 +202,53 @@ public class TestObjectFactory {
     return metisUser;
   }
 
-  public static List<SubTaskInfo> createListOfSubTaskInfo()
-  {
-    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", States.SUCCESS, "", "Sensitive Information");
-    SubTaskInfo subTaskInfo2 = new SubTaskInfo(2, "some_resource_id1", States.SUCCESS, "", "Sensitive Information");
+  public static List<SubTaskInfo> createListOfSubTaskInfo() {
+    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", States.SUCCESS, "",
+        "Sensitive Information");
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(2, "some_resource_id1", States.SUCCESS, "",
+        "Sensitive Information");
     ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
     subTaskInfos.add(subTaskInfo1);
     subTaskInfos.add(subTaskInfo2);
     return subTaskInfos;
+  }
+
+  public static TaskErrorsInfo createTaskErrorsInfoListWithoutIdentifiers(int numberOfErrorTypes) {
+    ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
+    for (int i = 0; i < numberOfErrorTypes; i++)
+    {
+      TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
+          String.format("Error%s", i), 2);
+      taskErrorInfos.add(taskErrorInfo);
+    }
+    return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
+  }
+
+  public static TaskErrorsInfo createTaskErrorsInfoListWithIdentifiers(int numberOfErrorTypes) {
+    ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
+    for (int i = 0; i < numberOfErrorTypes; i++)
+    {
+      TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
+          String.format("Error%s", i), 2);
+      ArrayList<String> identifiers = new ArrayList<>();
+      identifiers.add("identifier1");
+      identifiers.add("identifier2");
+      taskErrorInfo.setIdentifiers(identifiers);
+      taskErrorInfos.add(taskErrorInfo);
+    }
+    return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
+  }
+
+  public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType, String message) {
+    ArrayList<String> identifiers1 = new ArrayList<>();
+    identifiers1.add("identifier1");
+    identifiers1.add("identifier2");
+    TaskErrorInfo taskErrorInfo1 = new TaskErrorInfo(errorType,
+        message, 2, identifiers1);
+    ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
+    taskErrorInfos.add(taskErrorInfo1);
+
+    return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 }
 

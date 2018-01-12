@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -642,12 +643,42 @@ public class TestOrchestratorService {
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
 
     when(dpsClient
-        .getDetailedTaskReportBetweenChunks(TopologyName.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L,
+        .getDetailedTaskReportBetweenChunks(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+            2070373127078497810L,
             1, 100)).thenReturn(listOfSubTaskInfo);
-    List<SubTaskInfo> externalTaskLogs = orchestratorService
-        .getExternalTaskLogs(TopologyName.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1, 100);
+    orchestratorService
+        .getExternalTaskLogs(TopologyName.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
+            100);
     Assert.assertEquals(2, listOfSubTaskInfo.size());
     Assert.assertTrue(listOfSubTaskInfo.get(0).getAdditionalInformations() == null);
     Assert.assertTrue(listOfSubTaskInfo.get(1).getAdditionalInformations() == null);
+  }
+
+  @Test
+  public void getExternalTaskReport() {
+    TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
+    TaskErrorsInfo taskErrorsInfoWithIdentifiers1 = TestObjectFactory
+        .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(0).getErrorType(),
+            taskErrorsInfo.getErrors().get(0).getMessage());
+    TaskErrorsInfo taskErrorsInfoWithIdentifiers2 = TestObjectFactory
+        .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(1).getErrorType(),
+            taskErrorsInfo.getErrors().get(1).getMessage());
+
+    when(dpsClient
+        .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID, null)).thenReturn(taskErrorsInfo);
+    when(dpsClient
+        .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(0).getErrorType())).thenReturn(taskErrorsInfoWithIdentifiers1);
+    when(dpsClient
+        .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(1).getErrorType())).thenReturn(taskErrorsInfoWithIdentifiers2);
+
+    TaskErrorsInfo externalTaskReport = orchestratorService
+        .getExternalTaskReport(TopologyName.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
+
+    Assert.assertEquals(2, externalTaskReport.getErrors().size());
+    Assert.assertTrue(externalTaskReport.getErrors().get(0).getIdentifiers().size() != 0);
+    Assert.assertTrue(externalTaskReport.getErrors().get(1).getIdentifiers().size() != 0);
   }
 }

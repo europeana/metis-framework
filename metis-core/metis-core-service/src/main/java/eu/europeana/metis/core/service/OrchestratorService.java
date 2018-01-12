@@ -2,6 +2,8 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -368,5 +370,19 @@ public class OrchestratorService {
       subTaskInfo.setAdditionalInformations(null);
     }
     return detailedTaskReportBetweenChunks;
+  }
+
+  public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId) {
+    // TODO: 12-1-18 Modify with new supported implementation when ready that has one call with option to request number of sample identifiers
+    TaskErrorsInfo taskErrorsInfo = dpsClient
+        .getTaskErrorsReport(topologyName, externalTaskId, null);
+
+    for (TaskErrorInfo taskErrorInfo : taskErrorsInfo.getErrors()) {
+      TaskErrorsInfo taskErrorsInfoWithIdentifiers = dpsClient
+          .getTaskErrorsReport(topologyName, externalTaskId, taskErrorInfo.getErrorType());
+      taskErrorInfo
+          .setIdentifiers(taskErrorsInfoWithIdentifiers.getErrors().get(0).getIdentifiers());
+    }
+    return taskErrorsInfo;
   }
 }

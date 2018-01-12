@@ -20,6 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -597,4 +598,30 @@ public class TestOrchestratorController {
         .andExpect(jsonPath("$[1].additionalInformations", is(IsNull.nullValue())));
   }
 
+  @Test
+  public void getExternalTaskReport() throws Exception {
+    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
+    for (SubTaskInfo subTaskInfo :
+        listOfSubTaskInfo) {
+      subTaskInfo.setAdditionalInformations(null);
+    }
+
+    TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithIdentifiers(2);
+    when(orchestratorService
+        .getExternalTaskReport(TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID))
+        .thenReturn(taskErrorsInfo);
+
+    orchestratorControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT,
+            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.id", is(TestObjectFactory.EXTERNAL_TASK_ID)))
+        .andExpect(jsonPath("$.errors", hasSize(taskErrorsInfo.getErrors().size())))
+        .andExpect(jsonPath("$.errors[0].identifiers",
+            hasSize(taskErrorsInfo.getErrors().get(0).getIdentifiers().size())))
+        .andExpect(jsonPath("$.errors[1].identifiers",
+            hasSize(taskErrorsInfo.getErrors().get(1).getIdentifiers().size())));
+  }
 }
