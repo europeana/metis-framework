@@ -60,19 +60,20 @@ public class DereferencingController {
      * @return The dereferenced entities
      */
     @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.DEREFERENCE,
-        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+    		produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
     @ResponseBody
     @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
     public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String uri)
-        throws DereferenceException, JAXBException {
-        try {
-            EnrichmentResultList x = dereferenceService
-                .dereference(URLDecoder.decode(uri, "UTF-8"));
-            return x;
-            //return dereferenceService.dereference(URLDecoder.decode(uri, "UTF-8"));
-        } catch (TransformerException | ParserConfigurationException | IOException e) {
-            throw new DereferenceException(e.getMessage(), uri);
-        }
+    		throws DereferenceException, JAXBException {
+    	try {
+    		EnrichmentResultList x = dereferenceService
+    				.dereference(URLDecoder.decode(uri, "UTF-8"));
+    		
+    		return x;
+    		//return dereferenceService.dereference(URLDecoder.decode(uri, "UTF-8"));
+    	} catch (TransformerException | ParserConfigurationException | IOException e) {
+    		throw new DereferenceException(e.getMessage(), uri);
+    	}
     }
 
     /**
@@ -82,24 +83,25 @@ public class DereferencingController {
      * @return The dereferenced entities
      */
     @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.DEREFERENCE,
-        consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-        produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
+    		consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+    		produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
     @ResponseBody
     @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
     public EnrichmentResultList dereference(@RequestBody List<String> uris)
-        throws DereferenceException, JAXBException {
-        EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
+    		throws DereferenceException, JAXBException {
+    	EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
 
-        for (String uri : uris) {
-            try {
-                String decodeUri = URLDecoder.decode(uri, "UTF-8");
-                EnrichmentResultList res = dereference(decodeUri);
-                if (res == null) {continue;}
-                dereferencedEntities.getResult().addAll(res.getResult());
-            } catch (UnsupportedEncodingException e) {
-                throw new DereferenceException(e.getMessage(),uri);
-            }
-        }
-        return dereferencedEntities;
+    	for (String uri : uris) {
+    		try {
+    			String decodeUri = URLDecoder.decode(uri, "UTF-8");
+    			EnrichmentResultList res = dereference(decodeUri);
+    			if (res == null) {continue;}
+    			dereferencedEntities.getResult().addAll(res.getResult());
+    		} catch (UnsupportedEncodingException e) {
+    			throw new DereferenceException(e.getMessage(),uri);
+    		}
+    	}
+    	
+    	return dereferencedEntities;
     }
 }

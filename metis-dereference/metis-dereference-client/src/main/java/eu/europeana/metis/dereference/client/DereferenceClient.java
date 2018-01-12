@@ -150,7 +150,7 @@ public class DereferenceClient {
      * @param uri the uri to dereference
      * @return A string of the referenced response
      */
-	public String dereference(String uri) {
+	public EnrichmentResultList dereference(String uri) {
 		final String uriString;
 		try {
 			uriString = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
@@ -162,8 +162,8 @@ public class DereferenceClient {
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
-		ResponseEntity<String> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + uriString, HttpMethod.GET, entity, String.class);
-		String responseBody = response.getBody();
+		ResponseEntity<EnrichmentResultList> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + uriString, HttpMethod.GET, entity, EnrichmentResultList.class);
+		EnrichmentResultList responseBody = response.getBody();
 		
 		return responseBody;
 		//return restTemplate.getForObject(hostUrl + DEREFERENCE + "?uri=" + uriString, String.class);
