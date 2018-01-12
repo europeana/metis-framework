@@ -153,19 +153,21 @@ public class TestSchedulerExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    doNothing().when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     schedulerExecutor.performScheduling();
     verifyNoMoreInteractions(orchestratorService);
   }
 
   @Test
-  public void runThatThrowsExceptionDuringUnlockAndContinues() {
+  public void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(SCHEDULER_LOCK)).thenReturn(rlock);
     SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).unlock();
     schedulerExecutor.performScheduling();
+    verify(rlock, times(1)).unlock();
     verifyNoMoreInteractions(orchestratorService);
   }
 

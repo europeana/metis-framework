@@ -54,8 +54,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   private int maxConcurrentThreads;
   @Value("${monitor.check.interval.in.secs}")
   private int monitorCheckIntervalInSecs;
-  @Value("${periodic.failsafe.check.in.secs}")
-  private int periodicFailsafeCheckInSecs;
+  @Value("${periodic.failsafe.check.in.millisecs}")
+  private int periodicFailsafeCheckInMillisecs;
   @Value("${periodic.scheduler.check.in.millisecs}")
   private int periodicSchedulerCheckInMillisecs;
   @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
@@ -95,6 +95,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   
   @Autowired
   private SchedulerExecutor schedulerExecutor;
+  @Autowired
+  private FailsafeExecutor failsafeExecutor;
 
   @Bean
   Channel getRabbitmqChannel() throws IOException, TimeoutException {
@@ -179,19 +181,25 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     return workflowDao;
   }
 
-  @Bean // Only used for starting the threaded class
-  public FailsafeExecutor startFailsafeExecutorThread(OrchestratorService orchestratorService,
+  @Bean
+  public FailsafeExecutor getFailsafeExecutor(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
-    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        periodicFailsafeCheckInSecs, true);
-    new Thread(failsafeExecutor).start();
-    return failsafeExecutor;
+    return new FailsafeExecutor(orchestratorService, redissonClient);
   }
 
   @Bean
   public SchedulerExecutor getSchedulingExecutor(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
     return new SchedulerExecutor(orchestratorService, redissonClient);
+  }
+
+  @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}",
+      initialDelayString = "${periodic.failsafe.check.in.millisecs}")
+  public void runFailsafeExecutor() {
+    LOGGER.info("Failsafe task started (runs every {} milliseconds).",
+        periodicFailsafeCheckInMillisecs);
+    this.failsafeExecutor.performFailsafe();
+    LOGGER.info("Failsafe task finished.");
   }
 
   @Scheduled(fixedDelayString = "${periodic.scheduler.check.in.millisecs}",

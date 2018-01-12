@@ -18,64 +18,50 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-09-21
  */
-public class FailsafeExecutor implements Runnable {
+public class FailsafeExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(FailsafeExecutor.class);
 
-  private final int periodicFailsafeCheckInSecs;
   private final OrchestratorService orchestratorService;
   private final RedissonClient redissonClient;
   private static final String FAILSAFE_LOCK = "failsafeLock";
-  private final boolean infiniteLoop; //True for infinite loop which is the normal scenario, false for testing
+  private final RLock lock;
 
-  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient,
-      int periodicFailsafeCheckInSecs, boolean infiniteLoop) {
+  public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
     this.redissonClient = redissonClient;
-    this.periodicFailsafeCheckInSecs = periodicFailsafeCheckInSecs;
-    this.infiniteLoop = infiniteLoop;
+    this.lock = redissonClient.getFairLock(FAILSAFE_LOCK);
   }
 
-  @SuppressWarnings("InfiniteLoopStatement")
-  @Override
-  public void run() {
-    RLock lock = redissonClient.getFairLock(FAILSAFE_LOCK);
-    do {
-      try {
-        LOGGER.info("Failsafe thread sleeping for {} seconds.", periodicFailsafeCheckInSecs);
-        Thread.sleep(periodicFailsafeCheckInSecs * 1000L);
+  public void performFailsafe() {
+    try {
+      lock.lock();
+      List<WorkflowExecution> allInQueueAndRunningWorkflowExecutions = new ArrayList<>();
+      addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.RUNNING,
+          allInQueueAndRunningWorkflowExecutions);
+      addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.INQUEUE,
+          allInQueueAndRunningWorkflowExecutions);
 
-        lock.lock();
-        LOGGER.info("Failsafe thread woke up.");
-        List<WorkflowExecution> allInQueueAndRunningWorkflowExecutions = new ArrayList<>();
-        addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.RUNNING,
-            allInQueueAndRunningWorkflowExecutions);
-        addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus.INQUEUE,
-            allInQueueAndRunningWorkflowExecutions);
+      if (!allInQueueAndRunningWorkflowExecutions.isEmpty()) {
+        orchestratorService
+            .removeActiveWorkflowExecutionsFromList(allInQueueAndRunningWorkflowExecutions);
 
-        if (!allInQueueAndRunningWorkflowExecutions.isEmpty()) {
-          orchestratorService
-              .removeActiveWorkflowExecutionsFromList(
-                  allInQueueAndRunningWorkflowExecutions);
-
-          for (WorkflowExecution workflowExecution : allInQueueAndRunningWorkflowExecutions) {
-            orchestratorService
-                .addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
-                    workflowExecution.getWorkflowPriority());
-          }
-        }
-      } catch (Exception e) {
-        LOGGER.warn(
-            "Thread was interruped or exception thrown from rabbitmq channel or Redis disconnection, failsafe thread continues",
-            e);
-      } finally {
-        try {
-          lock.unlock();
-        } catch (RedisConnectionException e) {
-          LOGGER.warn("Cannot connect to unlock, failsafe thread continues");
+        for (WorkflowExecution workflowExecution : allInQueueAndRunningWorkflowExecutions) {
+          orchestratorService.addWorkflowExecutionToQueue(workflowExecution.getId().toString(),
+              workflowExecution.getWorkflowPriority());
         }
       }
-    } while (infiniteLoop);
+    } catch (RuntimeException e) {
+      LOGGER.warn(
+          "Exception thrown from rabbitmq channel or Redis disconnection, failsafe thread continues",
+          e);
+    } finally {
+      try {
+        lock.unlock();
+      } catch (RedisConnectionException e) {
+        LOGGER.warn("Cannot connect to unlock, failsafe thread continues");
+      }
+    }
   }
 
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,

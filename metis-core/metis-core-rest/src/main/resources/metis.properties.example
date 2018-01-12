@@ -1,7 +1,7 @@
 #Orchestration
 max.concurrent.threads=
 monitor.check.interval.in.secs=
-periodic.failsafe.check.in.secs=
+periodic.failsafe.check.in.millisecs=
 periodic.scheduler.check.in.millisecs=
 redisson.lock.watchdog.timeout.in.secs=
 polling.timeout.for.cleaning.completion.service.in.secs=
