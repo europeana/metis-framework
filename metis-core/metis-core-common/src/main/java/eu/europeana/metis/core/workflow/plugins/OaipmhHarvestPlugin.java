@@ -33,7 +33,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
-  public static final String TOPOLOGY_NAME = "oai_harvest";
+  private final String topologyName = TopologyName.OAIPMH_HARVEST.getTopologyName();
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -143,6 +143,10 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
     this.executionProgress = executionProgress;
   }
 
+  public String getTopologyName() {
+    return topologyName;
+  }
+
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
@@ -186,7 +190,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       revision.setCreationTimeStamp(startedDate);
       dpsTask.setOutputRevision(revision);
 
-      externalTaskId = dpsClient.submitTask(dpsTask, TOPOLOGY_NAME);
+      externalTaskId = dpsClient.submitTask(dpsTask, topologyName);
       LOGGER.info("Submitted task with externalTaskId: {}", externalTaskId);
     }
   }
@@ -194,7 +198,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Override
   public ExecutionProgress monitor(DpsClient dpsClient) {
     LOGGER.info("Requesting progress information for externalTaskId: {}", externalTaskId);
-    TaskInfo taskInfo = dpsClient.getTaskProgress(TOPOLOGY_NAME, externalTaskId);
+    TaskInfo taskInfo = dpsClient.getTaskProgress(topologyName, externalTaskId);
     return executionProgress.copyExternalTaskInformation(taskInfo);
   }
 }

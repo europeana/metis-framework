@@ -36,7 +36,7 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.TopologyName;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -642,10 +642,10 @@ public class TestOrchestratorService {
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
 
     when(dpsClient
-        .getDetailedTaskReportBetweenChunks(OaipmhHarvestPlugin.TOPOLOGY_NAME, 2070373127078497810L,
+        .getDetailedTaskReportBetweenChunks(TopologyName.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L,
             1, 100)).thenReturn(listOfSubTaskInfo);
     List<SubTaskInfo> externalTaskLogs = orchestratorService
-        .getExternalTaskLogs(OaipmhHarvestPlugin.TOPOLOGY_NAME, 2070373127078497810L, 1, 100);
+        .getExternalTaskLogs(TopologyName.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1, 100);
     Assert.assertEquals(2, listOfSubTaskInfo.size());
     Assert.assertTrue(listOfSubTaskInfo.get(0).getAdditionalInformations() == null);
     Assert.assertTrue(listOfSubTaskInfo.get(1).getAdditionalInformations() == null);
