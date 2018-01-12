@@ -173,10 +173,6 @@ public class SchemaProvider {
 
     private boolean rootFileExists(File unzippedSchemaLocation, String rootFileLocation) {
         File rootFile = new File(unzippedSchemaLocation, rootFileLocation);
-        if (rootFile.exists()) {
-            return true;
-        } else {
-            return false;
-        }
+        return rootFile.exists();
     }
 }

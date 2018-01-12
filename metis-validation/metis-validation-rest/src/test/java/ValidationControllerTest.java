@@ -70,7 +70,6 @@ public class ValidationControllerTest {
     }
 
 
-    @Ignore
     @Test
     public void exceptionShouldBeThrownForMalformedXmlFile() throws Exception {
 
@@ -84,7 +83,6 @@ public class ValidationControllerTest {
 
     }
 
-    @Ignore
     @Test
     public void shouldValidateJSONRecordAgainstEDMInternal() throws Exception {
         wireMockRule.resetAll();
@@ -102,20 +100,6 @@ public class ValidationControllerTest {
                 .content(xmlContent))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andReturn();
-    }
-
-    @Test
-    public void exceptionShouldBeThrownForMalformedXmlFile() throws Exception {
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .post(RestEndpoints.SCHEMA_VALIDATE, "sampleSchema")
-                .param("rootFileLocation","sampleRootFileLocation")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("malformed content"))
-                .andExpect(MockMvcResultMatchers.status().is(400))
-                .andReturn();
-        Assert.assertTrue(result.getResolvedException() instanceof HttpMessageNotReadableException);
-
     }
 
     @Test
@@ -218,21 +202,5 @@ public class ValidationControllerTest {
 
     private String prepareXMLRequest() throws IOException {
         return IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-    }
-
-
-    @Ignore
-    @Test
-    public void exceptionShouldBeThrownForMalformedZipFile() throws Exception {
-
-        MockMultipartFile firstFile = new MockMultipartFile("file", "filename.txt", "text/plain", "some xml".getBytes());
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "sampleSchema")
-                .file(firstFile))
-                .andExpect(MockMvcResultMatchers.status().is(500))
-                .andReturn();
-
-        Assert.assertTrue(result.getResolvedException() instanceof ServerException);
     }
 }

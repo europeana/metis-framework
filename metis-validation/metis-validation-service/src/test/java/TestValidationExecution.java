@@ -16,7 +16,6 @@
  */
 
 import com.github.tomakehurst.wiremock.junit.WireMockRule;
-import eu.europeana.validation.model.Record;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.service.*;
@@ -167,14 +166,19 @@ public class TestValidationExecution {
         Assert.assertNotNull(es);
         ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
         Assert.assertNotNull(config);
-        Assert.assertEquals(config.getThreadCount(), 10);
+        Assert.assertEquals(10, config.getThreadCount());
         SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
         Properties properties = loadDefaultProperties("src/test/resources/validation.properties");
         Assert.assertNotNull(schemaProvider);
-        Map<String, String> locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
+        PredefinedSchemas locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
         Assert.assertNotNull(locations);
-        Assert.assertEquals(locations.get("edm-internal"), properties.getProperty("edm-internal"));
-        Assert.assertEquals(locations.get("edm-external"), properties.getProperty("edm-external"));
+        Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-INTERNAL.url"), locations.get("EDM-INTERNAL").getLocation());
+        Assert.assertEquals("EDM-INTERNAL",locations.get("EDM-INTERNAL").getKey());
+        Assert.assertEquals("EDM-INTERNAL.xsd",locations.get("EDM-INTERNAL").getRootFileLocation());
+
+        Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-EXTERNAL.url"), locations.get("EDM-EXTERNAL").getLocation());
+        Assert.assertEquals("EDM-EXTERNAL",locations.get("EDM-EXTERNAL").getKey());
+        Assert.assertEquals("EDM.xsd",locations.get("EDM-EXTERNAL").getRootFileLocation());
     }
 
     private Properties loadDefaultProperties(String propertyFile) {
@@ -194,38 +198,48 @@ public class TestValidationExecution {
         Assert.assertNotNull(es);
         ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
         Assert.assertNotNull(config);
-        Assert.assertEquals(config.getThreadCount(), 10);
+        Assert.assertEquals(10, config.getThreadCount());
         SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
         Properties properties = loadDefaultProperties("src/test/resources/custom-validation.properties");
         Assert.assertNotNull(schemaProvider);
-        Map<String, String> locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
+        PredefinedSchemas locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
         Assert.assertNotNull(locations);
-        Assert.assertEquals(locations.get("edm-internal"), properties.getProperty("edm-internal"));
-        Assert.assertEquals(locations.get("edm-external"), properties.getProperty("edm-external"));
+        Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-INTERNAL.url"), locations.get("EDM-INTERNAL").getLocation());
+        Assert.assertEquals("EDM-INTERNAL",locations.get("EDM-INTERNAL").getKey());
+        Assert.assertEquals("EDM-INTERNAL.xsd",locations.get("EDM-INTERNAL").getRootFileLocation());
+
+        Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-EXTERNAL.url"), locations.get("EDM-EXTERNAL").getLocation());
+        Assert.assertEquals("EDM-EXTERNAL",locations.get("EDM-EXTERNAL").getKey());
+        Assert.assertEquals("EDM.xsd",locations.get("EDM-EXTERNAL").getRootFileLocation());
     }
 
     @Test
     public void ValidationExecutionServiceTestWithCustomConfiguration() throws SchemaProviderException {
-        Map<String, String> predefinedSchemasLocations = new HashMap<>();
-        predefinedSchemasLocations.put("edm-internal","url to edm-internal");
-        predefinedSchemasLocations.put("edm-external","url to edm-external");
+        PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
+        predefinedSchemas.add("name","location","root");
+        predefinedSchemas.add("name1","location1","root1");
         ValidationExecutionService validationExecutionService = new ValidationExecutionService(new ValidationServiceConfig() {
             @Override
             public int getThreadCount() {
                 return 12;
             }
-        }, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemasLocations));
+        }, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
         ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
         Assert.assertNotNull(es);
         ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
         Assert.assertNotNull(config);
-        Assert.assertEquals(config.getThreadCount(), 12);
+        Assert.assertEquals(12, config.getThreadCount());
         SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
         Assert.assertNotNull(schemaProvider);
-        Map<String, String> locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
+        PredefinedSchemas locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
         Assert.assertNotNull(locations);
-        Assert.assertEquals(locations.get("edm-internal"), predefinedSchemasLocations.get("edm-internal"));
-        Assert.assertEquals(locations.get("edm-external"), predefinedSchemasLocations.get("edm-external"));
+        Assert.assertEquals(locations.get("name").getKey(), predefinedSchemas.get("name").getKey());
+        Assert.assertEquals(locations.get("name").getLocation(), predefinedSchemas.get("name").getLocation());
+        Assert.assertEquals(locations.get("name").getRootFileLocation(), predefinedSchemas.get("name").getRootFileLocation());
+        //
+        Assert.assertEquals(locations.get("name1").getKey(), predefinedSchemas.get("name1").getKey());
+        Assert.assertEquals(locations.get("name1").getLocation(), predefinedSchemas.get("name1").getLocation());
+        Assert.assertEquals(locations.get("name1").getRootFileLocation(), predefinedSchemas.get("name1").getRootFileLocation());
     }
 
 }

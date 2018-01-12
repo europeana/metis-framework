@@ -47,8 +47,8 @@ public class TestApplication {
 
         @Override
         public int getThreadCount() {
-      return 10;
-    }
+            return 10;
+        }
     }
 
     public TestApplication() {
@@ -68,15 +68,12 @@ public class TestApplication {
     @Bean(name = "schemaProvider")
     @DependsOn(value = "validationProperties")
     public SchemaProvider getSchemaProvider() {
-        Map<String, String> schemaLocations = new HashMap<>();
-        for (String key : predefinedSchemasLocations.stringPropertyNames()) {
-          schemaLocations.put(key, predefinedSchemasLocations.getProperty(key));
-        }
-        return new SchemaProvider(schemaLocations);
+        PredefinedSchemas predefinedSchemas = PredefinedSchemasGenerator.generate(predefinedSchemasLocations);
+        return new SchemaProvider(predefinedSchemas);
     }
 
     @Bean
-    @DependsOn(value = { "lsResourceResolver", "schemaProvider"})
+    @DependsOn(value = {"lsResourceResolver", "schemaProvider"})
     ValidationExecutionService getValidationExecutionService() {
         return new ValidationExecutionService(new Config(), getLSResourceResolver());
     }
@@ -87,16 +84,16 @@ public class TestApplication {
     }
 
     @Bean
-  public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
-    PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
+    public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
+        PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
 
-    predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd");
-    predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd");
+        predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip", "EDM-INTERNAL.xsd");
+        predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip", "EDM.xsd");
 
-    return new SchemaProvider(predefinedSchemas);
-  }
+        return new SchemaProvider(predefinedSchemas);
+    }
 
-  @PostConstruct
+    @PostConstruct
     public void startup() throws IOException {
     }
 }

@@ -114,11 +114,8 @@ public class ValidationExecutionService {
 
     private SchemaProvider getSchemaProvider(String propertyFilename) {
         Properties predefinedSchemasLocations = readProperties(propertyFilename);
-        Map<String, String> schemaLocations = new HashMap<>();
-        for (String key : predefinedSchemasLocations.stringPropertyNames()) {
-            schemaLocations.put(key, predefinedSchemasLocations.getProperty(key));
-        }
-        return new SchemaProvider(schemaLocations);
+        PredefinedSchemas predefinedSchemas = PredefinedSchemasGenerator.generate(predefinedSchemasLocations);
+        return new SchemaProvider(predefinedSchemas);
     }
 
     /**
@@ -130,7 +127,7 @@ public class ValidationExecutionService {
      * @return A service result
      */
     public ValidationResult singleValidation(final String schema,final String rootFileLocation, final String document) {
-        return new Validator(schema, rootFileLocation, document,schemaProvider, lsResourceResolver).call();
+        return new Validator(schema, rootFileLocation, document, schemaProvider, lsResourceResolver).call();
     }
 
     /**

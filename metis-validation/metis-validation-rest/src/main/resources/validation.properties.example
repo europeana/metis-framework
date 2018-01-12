@@ -6,3 +6,11 @@ socks.proxy.username=
 socks.proxy.password=
 
 validation.executor.threadCount=10
+
+predefinedSchemas=EDM-INTERNAL,EDM-EXTERNAL
+
+predefinedSchemas.EDM-INTERNAL.url=
+predefinedSchemas.EDM-INTERNAL.rootLocation=
+
+predefinedSchemas.EDM-EXTERNAL.url=
+predefinedSchemas.EDM-EXTERNAL.rootLocation=

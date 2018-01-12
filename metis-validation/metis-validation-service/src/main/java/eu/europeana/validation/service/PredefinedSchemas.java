@@ -5,19 +5,19 @@ import java.util.Map;
 
 public class PredefinedSchemas {
 
-    private Map<String, PredefinedSchema> predefinedSchemas = new HashMap<>();
+    private Map<String, PredefinedSchema> schemas = new HashMap<>();
 
     public void add(String name, String location, String rootFileLocation) {
         PredefinedSchema predefinedSchema = new PredefinedSchema(name, location, rootFileLocation);
-        predefinedSchemas.put(predefinedSchema.getKey(), predefinedSchema);
+        schemas.put(predefinedSchema.getKey(), predefinedSchema);
     }
 
     public PredefinedSchema get(String key) {
-            return predefinedSchemas.get(key);
+            return schemas.get(key);
     }
 
     public boolean contains(String key) {
-        return predefinedSchemas.get(key) != null;
+        return schemas.get(key) != null;
     }
 
     public class PredefinedSchema {
