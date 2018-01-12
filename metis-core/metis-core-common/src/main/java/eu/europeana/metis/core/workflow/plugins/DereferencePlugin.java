@@ -27,7 +27,7 @@ public class DereferencePlugin implements AbstractMetisPlugin {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
   private long externalTaskId;
-  private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
+  private ExecutionProgress executionProgress = new ExecutionProgress();
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
@@ -114,14 +114,14 @@ public class DereferencePlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
-    return executionRecordsStatistics;
+  public ExecutionProgress getExecutionProgress() {
+    return executionProgress;
   }
 
   @Override
-  public void setExecutionRecordsStatistics(
-      ExecutionRecordsStatistics executionRecordsStatistics) {
-    this.executionRecordsStatistics = executionRecordsStatistics;
+  public void setExecutionProgress(
+      ExecutionProgress executionProgress) {
+    this.executionProgress = executionProgress;
   }
 
   @Override
@@ -131,7 +131,7 @@ public class DereferencePlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public ExecutionRecordsStatistics monitor(String externalTaskId) {
+  public ExecutionProgress monitor(DpsClient dpsClient) {
     return null;
   }
 

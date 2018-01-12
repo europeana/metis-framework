@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.execution;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.dps.TaskState;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -134,7 +135,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     int iterationsToFake = 2;
     int sleepTime = monitorCheckIntervalInSecs * 1000;
 
-    //Determinned the startedDate for the plugin
+    //Determine the startedDate for the plugin
     if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
       if (firstPluginExecution) {
         firstPluginExecution = false;
@@ -148,13 +149,46 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     //Start execution and periodical check
     abstractMetisPlugin
         .execute(dpsClient, ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId());
+
+    if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
+      return periodicCheckingLoop(sleepTime, abstractMetisPlugin);
+    } else {
+      return periodicCheckingLoopMocked(sleepTime, iterationsToFake, abstractMetisPlugin);
+    }
+  }
+
+  private Date periodicCheckingLoop(int sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
+    TaskState taskState;
+    do {
+      try {
+        if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+          return null;
+        }
+        Thread.sleep(sleepTime);
+        taskState = abstractMetisPlugin.monitor(dpsClient).getStatus();
+        Date updatedDate = new Date();
+        abstractMetisPlugin.setUpdatedDate(updatedDate);
+        workflowExecution.setUpdatedDate(updatedDate);
+        workflowExecutionDao.updateMonitorInformation(workflowExecution);
+      } catch (InterruptedException e) {
+        LOGGER.warn("Thread was interrupted", e);
+        Thread.currentThread().interrupt();
+        return null;
+      }
+    } while (taskState != TaskState.DROPPED && taskState != TaskState.PROCESSED);
+    abstractMetisPlugin.setFinishedDate(new Date());
+    abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
+    return abstractMetisPlugin.getFinishedDate();
+  }
+
+  private Date periodicCheckingLoopMocked(int sleepTime, int iterationsToFake, AbstractMetisPlugin abstractMetisPlugin) {
     for (int i = 0; i < iterationsToFake; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
           return null;
         }
         Thread.sleep(sleepTime);
-        abstractMetisPlugin.monitor("");
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);

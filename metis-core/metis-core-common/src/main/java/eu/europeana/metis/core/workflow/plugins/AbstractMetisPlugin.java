@@ -48,13 +48,13 @@ public interface AbstractMetisPlugin {
 
   void setExternalTaskId(long externalTaskId);
 
-  ExecutionRecordsStatistics getExecutionRecordsStatistics();
+  ExecutionProgress getExecutionProgress();
 
-  void setExecutionRecordsStatistics(
-      ExecutionRecordsStatistics executionRecordsStatistics);
+  void setExecutionProgress(
+      ExecutionProgress executionProgress);
 
   void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset);
 
-  ExecutionRecordsStatistics monitor(String externalTaskId);
+  ExecutionProgress monitor(DpsClient dpsClient);
 
 }
