@@ -20,6 +20,7 @@ import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
 import eu.europeana.validation.service.ValidationServiceConfig;
 import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import eu.europeana.validation.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
@@ -27,8 +28,11 @@ import org.springframework.core.io.ClassPathResource;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import javax.annotation.PostConstruct;
+import java.io.FileNotFoundException;
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -82,7 +86,17 @@ public class TestApplication {
         return new ClasspathResourceResolver();
     }
 
-    @PostConstruct
+    @Bean
+  public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
+    PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
+
+    predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd");
+    predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd");
+
+    return new SchemaProvider(predefinedSchemas);
+  }
+
+  @PostConstruct
     public void startup() throws IOException {
     }
 }

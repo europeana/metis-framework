@@ -124,12 +124,13 @@ public class ValidationExecutionService {
     /**
      * Perform single service given a schema.
      *
-     * @param schema   The schema to perform service against.
-     * @param document The document to validate against
+     * @param schema           The schema to perform service against.
+     * @param rootFileLocation location of the schema root file
+     * @param document         The document to validate against
      * @return A service result
      */
-    public ValidationResult singleValidation(final String schema, final String document) {
-        return new Validator(schema, document,schemaProvider, lsResourceResolver).call();
+    public ValidationResult singleValidation(final String schema,final String rootFileLocation, final String document) {
+        return new Validator(schema, rootFileLocation, document,schemaProvider, lsResourceResolver).call();
     }
 
     /**
@@ -141,11 +142,11 @@ public class ValidationExecutionService {
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    public ValidationResultList batchValidation(final String schema, List<String> documents) throws InterruptedException, ExecutionException {
+    public ValidationResultList batchValidation(final String schema, final String rootFileLocation, List<String> documents) throws InterruptedException, ExecutionException {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
         for (final String document : documents) {
-            cs.submit(new Validator(schema, document,schemaProvider, lsResourceResolver));
+            cs.submit(new Validator(schema, rootFileLocation, document,schemaProvider, lsResourceResolver));
         }
 
         List<ValidationResult> results = new ArrayList<>();

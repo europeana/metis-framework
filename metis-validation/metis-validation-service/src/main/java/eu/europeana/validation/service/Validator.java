@@ -41,10 +41,7 @@ import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.SchemaFactory;
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -69,25 +66,32 @@ public class Validator implements Callable<ValidationResult> {
      * @param schema
      * @param document
      */
-    public Validator(String schema, String document,SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
+    public Validator(String schema, String rootFileLocation, String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
         this.schema = schema;
+        this.rootFileLocation = rootFileLocation;
         this.document = document;
         this.schemaProvider = schemaProvider;
         this.resolver = resolver;
     }
 
     private String schema;
+    private String rootFileLocation;
     private String document;
     private SchemaProvider schemaProvider;
     private ClasspathResourceResolver resolver;
 
     /**
      * Get schema object specified with its name
+     *
      * @param schemaName name of the schema
      * @return
      */
     private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
-        return schemaProvider.getSchema(schemaName);
+        if (rootFileLocation == null) {
+            return schemaProvider.getSchema(schemaName);
+        } else {
+            return schemaProvider.getSchema(schemaName, rootFileLocation);
+        }
     }
 
     /**
@@ -106,7 +110,7 @@ public class Validator implements Callable<ValidationResult> {
                 return constructValidationError(document, "Specified schema does not exist");
             }
 
-            resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), "/"));
+            resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
 
             EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
             if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {

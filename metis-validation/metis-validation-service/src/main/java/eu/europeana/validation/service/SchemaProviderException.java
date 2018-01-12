@@ -10,6 +10,10 @@ public class SchemaProviderException extends Exception {
         super(t);
     }
 
+    public SchemaProviderException(String message){
+        super(message);
+    }
+
     public SchemaProviderException(String message, Throwable t) {
         super(message, t);
     }

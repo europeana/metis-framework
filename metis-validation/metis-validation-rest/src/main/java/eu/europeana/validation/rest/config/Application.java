@@ -17,6 +17,7 @@
 package eu.europeana.validation.rest.config;
 
 import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.validation.service.PredefinedSchemas;
 import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ClasspathResourceResolver;
 import org.springframework.beans.factory.InitializingBean;
@@ -109,12 +110,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public SchemaProvider schemaManager(){
-    Map<String,String> predefinedSchemasLocations = new HashMap();
 
-    predefinedSchemasLocations.put("edm-internal", "http://localhost/schema.zip");
-    predefinedSchemasLocations.put("edm-external", "http://localhost/schema.zip");
+    PredefinedSchemas ps = new PredefinedSchemas();
+    ps.add("EDM-INTERNAL", "http://localhost/schema.zip","EDM-INTERNAL.xsd");
+    ps.add("EDM-EXTERNAL", "http://localhost/schema.zip","EDM.xsd");
 
-    return new SchemaProvider(predefinedSchemasLocations);
+    return new SchemaProvider(ps);
   }
 
   @Bean
