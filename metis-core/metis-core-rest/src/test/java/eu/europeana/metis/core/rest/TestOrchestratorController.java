@@ -19,6 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -38,6 +39,7 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
+import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -483,8 +485,7 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void getAllScheduledUserWorkflows() throws Exception
-  {
+  public void getAllScheduledUserWorkflows() throws Exception {
     int listSize = 2;
     List<ScheduledWorkflow> listOfScheduledWorkflows = TestObjectFactory
         .createListOfScheduledUserWorkflows(listSize + 1);//To get the effect of next page
@@ -509,8 +510,7 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void updateScheduledUserWorkflow() throws Exception
-  {
+  public void updateScheduledUserWorkflow() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
@@ -523,11 +523,11 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void updateScheduledUserWorkflow_NoUserWorkflowFoundException() throws Exception
-  {
+  public void updateScheduledUserWorkflow_NoUserWorkflowFoundException() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledWorkflow(any(ScheduledWorkflow.class));
+    doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
+        .updateScheduledWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
@@ -536,11 +536,11 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void updateScheduledUserWorkflow_NoScheduledUserWorkflowFoundException() throws Exception
-  {
+  public void updateScheduledUserWorkflow_NoScheduledUserWorkflowFoundException() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new NoScheduledWorkflowFoundException("Some error")).when(orchestratorService).updateScheduledWorkflow(any(ScheduledWorkflow.class));
+    doThrow(new NoScheduledWorkflowFoundException("Some error")).when(orchestratorService)
+        .updateScheduledWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
@@ -549,11 +549,11 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void updateScheduledUserWorkflow_BadContentException() throws Exception
-  {
+  public void updateScheduledUserWorkflow_BadContentException() throws Exception {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledUserWorkflowObject();
-    doThrow(new BadContentException("Some error")).when(orchestratorService).updateScheduledWorkflow(any(ScheduledWorkflow.class));
+    doThrow(new BadContentException("Some error")).when(orchestratorService)
+        .updateScheduledWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
@@ -562,14 +562,39 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void deleteScheduledUserWorkflowExecution() throws Exception
-  {
-    orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, TestObjectFactory.DATASETID)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
-        .content(""))
+  public void deleteScheduledUserWorkflowExecution() throws Exception {
+    orchestratorControllerMock.perform(
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, TestObjectFactory.DATASETID)
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
     verify(orchestratorService, times(1)).deleteScheduledWorkflow(anyInt());
+  }
+
+  @Test
+  public void getExternalTaskLogs() throws Exception {
+    int from = 1;
+    int to = 100;
+    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
+    for (SubTaskInfo subTaskInfo :
+        listOfSubTaskInfo) {
+      subTaskInfo.setAdditionalInformations(null);
+    }
+    when(orchestratorService
+        .getExternalTaskLogs(TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID,
+            from, to)).thenReturn(listOfSubTaskInfo);
+
+    orchestratorControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS,
+            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
+            .param("from", Integer.toString(from))
+            .param("to", Integer.toString(to))
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$[0].additionalInformations", is(IsNull.nullValue())))
+        .andExpect(jsonPath("$[1].additionalInformations", is(IsNull.nullValue())));
   }
 
 }

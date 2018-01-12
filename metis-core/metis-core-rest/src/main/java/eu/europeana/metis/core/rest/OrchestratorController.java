@@ -1,5 +1,6 @@
 package eu.europeana.metis.core.rest;
 
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -15,6 +16,7 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,7 +115,8 @@ public class OrchestratorController {
   public void addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
-      @RequestParam("workflowName") String workflowName, @RequestParam(value = "priority", defaultValue = "0") int priority)
+      @RequestParam("workflowName") String workflowName,
+      @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner,
@@ -266,5 +269,21 @@ public class OrchestratorController {
     LOGGER.info(
         "ScheduledWorkflowExecution for datasetId '{}' deleted",
         datasetId);
+  }
+
+  //PROXIES
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public List<SubTaskInfo> getExternalTaskLogs(
+      @PathVariable("topologyName") String topologyName,
+      @PathVariable("externalTaskId") long externalTaskId,
+      @RequestParam(value = "from") int from,
+      @RequestParam(value = "to") int to) {
+    LOGGER.info(
+        "Requesting proxy call task logs for topologyName: {}, externalTaskId: {}, from: {}, to: {}",
+        topologyName, externalTaskId, from, to);
+    return orchestratorService.getExternalTaskLogs(topologyName, externalTaskId, from, to);
   }
 }

@@ -11,6 +11,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
+import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -34,9 +36,11 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.After;
 import org.junit.Assert;
@@ -59,6 +63,7 @@ public class TestOrchestratorService {
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
+  private static DpsClient dpsClient;
 
   @BeforeClass
   public static void prepare() throws IOException {
@@ -68,9 +73,11 @@ public class TestOrchestratorService {
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
+    dpsClient = Mockito.mock(DpsClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient);
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        dpsClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
   }
 
@@ -628,5 +635,19 @@ public class TestOrchestratorService {
         .deleteScheduledWorkflow(TestObjectFactory.DATASETID);
     verify(scheduledWorkflowDao, times(1))
         .deleteScheduledWorkflow(anyInt());
+  }
+
+  @Test
+  public void getExternalTaskLogs() {
+    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
+
+    when(dpsClient
+        .getDetailedTaskReportBetweenChunks(OaipmhHarvestPlugin.TOPOLOGY_NAME, 2070373127078497810L,
+            1, 100)).thenReturn(listOfSubTaskInfo);
+    List<SubTaskInfo> externalTaskLogs = orchestratorService
+        .getExternalTaskLogs(OaipmhHarvestPlugin.TOPOLOGY_NAME, 2070373127078497810L, 1, 100);
+    Assert.assertEquals(2, listOfSubTaskInfo.size());
+    Assert.assertTrue(listOfSubTaskInfo.get(0).getAdditionalInformations() == null);
+    Assert.assertTrue(listOfSubTaskInfo.get(1).getAdditionalInformations() == null);
   }
 }

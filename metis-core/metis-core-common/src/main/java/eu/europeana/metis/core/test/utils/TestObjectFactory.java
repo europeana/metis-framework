@@ -1,5 +1,7 @@
 package eu.europeana.metis.core.test.utils;
 
+import eu.europeana.cloud.common.model.dps.States;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
@@ -33,6 +35,9 @@ public class TestObjectFactory {
   public static final String WORKFLOWNAME = "workflowName";
   public static final String EMAIL = "user.metis@europeana.eu";
   public static final String AUTHORIZATION_HEADER = "Bearer qwerty12345";
+  public static final String TOPOLOGY_NAME = "topology_name";
+  public static final long EXTERNAL_TASK_ID = 2070373127078497810L;
+
 
   private TestObjectFactory() {
   }
@@ -200,6 +205,16 @@ public class TestObjectFactory {
     metisUser.setMetisUserAccessToken(metisUserAccessToken);
 
     return metisUser;
+  }
+
+  public static List<SubTaskInfo> createListOfSubTaskInfo()
+  {
+    SubTaskInfo subTaskInfo1 = new SubTaskInfo(1, "some_resource_id1", States.SUCCESS, "", "Sensitive Information");
+    SubTaskInfo subTaskInfo2 = new SubTaskInfo(2, "some_resource_id1", States.SUCCESS, "", "Sensitive Information");
+    ArrayList<SubTaskInfo> subTaskInfos = new ArrayList<>();
+    subTaskInfos.add(subTaskInfo1);
+    subTaskInfos.add(subTaskInfo2);
+    return subTaskInfos;
   }
 }
 

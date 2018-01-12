@@ -33,7 +33,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
-  private static final String TOPOLOGY_NAME = "oai_harvest";
+  public static final String TOPOLOGY_NAME = "oai_harvest";
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
