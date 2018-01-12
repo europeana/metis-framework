@@ -33,6 +33,7 @@ public class HTTPHarvestPlugin implements AbstractMetisPlugin {
   private AbstractMetisPluginMetadata pluginMetadata;
 
   public HTTPHarvestPlugin() {
+    //Required for json serialization
   }
 
   public HTTPHarvestPlugin(

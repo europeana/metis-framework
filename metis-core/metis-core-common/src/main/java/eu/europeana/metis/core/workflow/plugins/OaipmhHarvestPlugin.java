@@ -50,6 +50,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   private AbstractMetisPluginMetadata pluginMetadata;
 
   public OaipmhHarvestPlugin() {
+    //Required for json serialization
   }
 
   public OaipmhHarvestPlugin(

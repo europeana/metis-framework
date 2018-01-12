@@ -24,10 +24,10 @@ import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationPlugin;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -49,8 +49,8 @@ public class MorphiaDatastoreProvider {
     morphia.map(ScheduledWorkflow.class);
     morphia.map(OaipmhHarvestPlugin.class);
     morphia.map(HTTPHarvestPlugin.class);
-    morphia.map(DereferencePlugin.class);
-    morphia.map(VoidMetisPlugin.class);
+    morphia.map(EnrichmentPlugin.class);
+    morphia.map(ValidationPlugin.class);
     datastore = morphia.createDatastore(mongoClient, db);
     datastore.ensureIndexes();
 

@@ -10,9 +10,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public enum PluginType{
   HTTP_HARVEST,
   OAIPMH_HARVEST,
-  DEREFERENCE,
-  VOID,
-  QA,
+  ENRICHMENT,
+  VALIDATION,
   NULL;
 
   @JsonCreator

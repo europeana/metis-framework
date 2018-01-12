@@ -18,8 +18,8 @@ import java.util.Date;
 @JsonSubTypes({
     @JsonSubTypes.Type(value=OaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value=HTTPHarvestPlugin.class, name="HTTP_HARVEST"),
-    @JsonSubTypes.Type(value=DereferencePlugin.class, name="DEREFERENCE"),
-    @JsonSubTypes.Type(value=VoidMetisPlugin.class, name="VOID")
+    @JsonSubTypes.Type(value=EnrichmentPlugin.class, name="ENRICHMENT"),
+    @JsonSubTypes.Type(value=ValidationPlugin.class, name="VALIDATION")
 })
 public interface AbstractMetisPlugin {
 

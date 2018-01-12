@@ -7,12 +7,12 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.DereferencePlugin;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.VoidMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationPlugin;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -111,20 +111,20 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   private void addProcessPlugins(Workflow workflow) {
     AbstractMetisPluginMetadata dereferencePluginMetadata = workflow
-        .getPluginMetadata(PluginType.DEREFERENCE);
+        .getPluginMetadata(PluginType.ENRICHMENT);
     if (dereferencePluginMetadata != null) {
-      DereferencePlugin dereferencePlugin = new DereferencePlugin(dereferencePluginMetadata);
-      dereferencePlugin
-          .setId(new ObjectId().toString() + "-" + dereferencePlugin.getPluginType().name());
-      metisPlugins.add(dereferencePlugin);
+      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(dereferencePluginMetadata);
+      enrichmentPlugin
+          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
+      metisPlugins.add(enrichmentPlugin);
     }
     AbstractMetisPluginMetadata voidMetisPluginMetadata = workflow
-        .getPluginMetadata(PluginType.VOID);
+        .getPluginMetadata(PluginType.VALIDATION);
     if (voidMetisPluginMetadata != null) {
-      VoidMetisPlugin voidMetisPlugin = new VoidMetisPlugin(voidMetisPluginMetadata);
-      voidMetisPlugin
-          .setId(new ObjectId().toString() + "-" + voidMetisPlugin.getPluginType().name());
-      metisPlugins.add(voidMetisPlugin);
+      ValidationPlugin validationPlugin = new ValidationPlugin(voidMetisPluginMetadata);
+      validationPlugin
+          .setId(new ObjectId().toString() + "-" + validationPlugin.getPluginType().name());
+      metisPlugins.add(validationPlugin);
     }
   }
 
