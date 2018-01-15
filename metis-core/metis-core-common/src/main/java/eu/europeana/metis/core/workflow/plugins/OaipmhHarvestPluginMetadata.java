@@ -10,7 +10,7 @@ import java.util.Map;
  * @since 2017-05-29
  */
 public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata {
-  private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
+  private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
   private boolean mocked = true;
   private String url;
   private String metadataFormat;
@@ -84,7 +84,7 @@ public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata 
 
   @Override
   public PluginType getPluginType() {
-    return pluginType;
+    return PLUGIN_TYPE;
   }
 
   @Override

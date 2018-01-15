@@ -32,7 +32,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
+  private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
   private final String topologyName = TopologyName.OAIPMH_HARVEST.getTopologyName();
 
   @Indexed
@@ -89,7 +89,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public PluginType getPluginType() {
-    return pluginType;
+    return PLUGIN_TYPE;
   }
 
   @Override
@@ -143,6 +143,10 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
     this.executionProgress = executionProgress;
   }
 
+  /**
+   * Required for json serialization.
+   * @return the String representation of the topology
+   */
   public String getTopologyName() {
     return topologyName;
   }
@@ -151,7 +155,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
     if (!pluginMetadata.isMocked()) {
-      String pluginTypeName = pluginType.name();
+      String pluginTypeName = PLUGIN_TYPE.name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName, ecloudDataset);
       String oaipmhUrl = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUrl();
       String setSpec = ((OaipmhHarvestPluginMetadata) pluginMetadata).getSetSpec();
