@@ -3,6 +3,8 @@ package eu.europeana.metis.utils;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -50,6 +52,17 @@ public class EnrichmentUtils {
     public static RDF mergeEntityForEnrichment (String record, String entity, String fieldName) throws JiBXException {
         return EntityMergeUtils.mergeEntityForEnrichment(record, entity, fieldName);
     }
+    
+    /**
+     * Merge entities in a record after enrichment
+     * @param rdf The RDF to enrich
+     * @param enrichmentBaseList The information to append
+     * @param fieldName The name of the field so that it can be connected to Europeana Proxy
+     * @return An RDF object with the merged entities
+     */
+    public static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList, String fieldName) {
+    	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, fieldName);
+    }
 
     /**
      * Convert an RDF to a UTF-8 encoded XML
@@ -89,9 +102,11 @@ public class EnrichmentUtils {
         ProxyType providerProxy = EntityMergeUtils.getProviderProxy(rdf);
         List<InputValue> valuesForEnrichment= new ArrayList<>();
         
-        for(EnrichmentFields field: EnrichmentFields.values()) {
-            List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-            valuesForEnrichment.addAll(values);
+        if (providerProxy != null) {
+        	for(EnrichmentFields field: EnrichmentFields.values()) {
+        		List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
+        		valuesForEnrichment.addAll(values);
+        	}
         }
         
         return valuesForEnrichment;

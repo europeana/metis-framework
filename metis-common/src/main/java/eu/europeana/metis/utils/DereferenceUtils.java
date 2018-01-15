@@ -26,6 +26,9 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.SameAs;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -67,6 +70,17 @@ public class DereferenceUtils {
    */
   public static RDF mergeEntityForDereferencing(String record, String entity) throws JiBXException {
     return EntityMergeUtils.mergeEntity(record, entity);
+  }
+  
+  /**
+   * Merge entities in a record after dereferencing
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @param fieldName The name of the field so that it can be connected to Europeana Proxy
+   * @return An RDF object with the merged entities
+   */
+  public static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList) {
+  	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, "");
   }
 
   /**
