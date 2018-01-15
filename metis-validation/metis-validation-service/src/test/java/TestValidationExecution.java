@@ -73,7 +73,7 @@ public class TestValidationExecution {
     @Test
     public void testSingleValidationSuccess() throws Exception {
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,"EDM-INTERNAL.xsd", fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
         Assert.assertEquals(true, result.isSuccess());
         Assert.assertNull(result.getRecordId());
         Assert.assertNull(result.getMessage());
@@ -83,7 +83,7 @@ public class TestValidationExecution {
     public void testSingleValidationFailure() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_wrong.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL,"EDM-INTERNAL.xsd", fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
         Assert.assertEquals(false, result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
@@ -159,27 +159,6 @@ public class TestValidationExecution {
         FileUtils.forceDelete(new File(fileName));
     }
 
-    @Test
-    public void ValidationExecutionServiceTestWithDefaultPropertyFile() throws SchemaProviderException {
-        ValidationExecutionService validationExecutionService = new ValidationExecutionService();
-        ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
-        Assert.assertNotNull(es);
-        ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
-        Assert.assertNotNull(config);
-        Assert.assertEquals(10, config.getThreadCount());
-        SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
-        Properties properties = loadDefaultProperties("src/test/resources/validation.properties");
-        Assert.assertNotNull(schemaProvider);
-        PredefinedSchemas locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
-        Assert.assertNotNull(locations);
-        Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-INTERNAL.url"), locations.get("EDM-INTERNAL").getLocation());
-        Assert.assertEquals("EDM-INTERNAL",locations.get("EDM-INTERNAL").getKey());
-        Assert.assertEquals("EDM-INTERNAL.xsd",locations.get("EDM-INTERNAL").getRootFileLocation());
-
-        Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-EXTERNAL.url"), locations.get("EDM-EXTERNAL").getLocation());
-        Assert.assertEquals("EDM-EXTERNAL",locations.get("EDM-EXTERNAL").getKey());
-        Assert.assertEquals("EDM.xsd",locations.get("EDM-EXTERNAL").getRootFileLocation());
-    }
 
     private Properties loadDefaultProperties(String propertyFile) {
         Properties properties = new Properties();
@@ -192,8 +171,9 @@ public class TestValidationExecution {
     }
 
     @Test
-    public void ValidationExecutionServiceTestWithProvidedPropertyFile() throws SchemaProviderException {
-        ValidationExecutionService validationExecutionService = new ValidationExecutionService("src/test/resources/custom-validation.properties");
+    public void ValidationExecutionServiceTestWithProvidedProperties() throws SchemaProviderException {
+        Properties property = loadDefaultProperties("src/test/resources/custom-validation.properties");
+        ValidationExecutionService validationExecutionService = new ValidationExecutionService(property);
         ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
         Assert.assertNotNull(es);
         ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
@@ -205,19 +185,19 @@ public class TestValidationExecution {
         PredefinedSchemas locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
         Assert.assertNotNull(locations);
         Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-INTERNAL.url"), locations.get("EDM-INTERNAL").getLocation());
-        Assert.assertEquals("EDM-INTERNAL",locations.get("EDM-INTERNAL").getKey());
-        Assert.assertEquals("EDM-INTERNAL.xsd",locations.get("EDM-INTERNAL").getRootFileLocation());
+        Assert.assertEquals("EDM-INTERNAL", locations.get("EDM-INTERNAL").getKey());
+        Assert.assertEquals("EDM-INTERNAL.xsd", locations.get("EDM-INTERNAL").getRootFileLocation());
 
         Assert.assertEquals(properties.getProperty("predefinedSchemas.EDM-EXTERNAL.url"), locations.get("EDM-EXTERNAL").getLocation());
-        Assert.assertEquals("EDM-EXTERNAL",locations.get("EDM-EXTERNAL").getKey());
-        Assert.assertEquals("EDM.xsd",locations.get("EDM-EXTERNAL").getRootFileLocation());
+        Assert.assertEquals("EDM-EXTERNAL", locations.get("EDM-EXTERNAL").getKey());
+        Assert.assertEquals("EDM.xsd", locations.get("EDM-EXTERNAL").getRootFileLocation());
     }
 
     @Test
     public void ValidationExecutionServiceTestWithCustomConfiguration() throws SchemaProviderException {
         PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
-        predefinedSchemas.add("name","location","root");
-        predefinedSchemas.add("name1","location1","root1");
+        predefinedSchemas.add("name", "location", "root");
+        predefinedSchemas.add("name1", "location1", "root1");
         ValidationExecutionService validationExecutionService = new ValidationExecutionService(new ValidationServiceConfig() {
             @Override
             public int getThreadCount() {
