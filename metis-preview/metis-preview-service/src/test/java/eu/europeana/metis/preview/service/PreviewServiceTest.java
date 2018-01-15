@@ -57,7 +57,7 @@ public class PreviewServiceTest {
             String record = IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("Item_5791754.xml"));
             ValidationResult result = new ValidationResult();
             result.setSuccess(true);
-            when(mockValidationClient.validateRecord("EDM-INTERNAL", record, "undefined")).thenReturn(result);
+            when(mockValidationClient.validateRecord("EDM-INTERNAL", record)).thenReturn(result);
             when(mockIdentifierClient.generateIdentifier(any(String.class), any(String.class))).thenReturn("/12345/test");
             Mockito.doAnswer(invocationOnMock -> null).when(mockDao).createRecord(Mockito.anyObject());
             List<String> records = new ArrayList<>();

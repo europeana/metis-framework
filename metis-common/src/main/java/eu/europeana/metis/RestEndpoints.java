@@ -95,9 +95,8 @@ public final class RestEndpoints {
   public static final String NORMALIZATION = "/normalizeEdmInternal";
 
   /* METIS SCHEMA VALIDATION ENDPOINT */
-  public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}/{version}";
-  public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}/{version}";
-  public static final String SCHEMA_RECORDS_BATCH_VALIDATE = "/schema/validate/batch/records/{schema}/{version}";
+  public static final String SCHEMA_VALIDATE = "/schema/validate/{schema}";
+  public static final String SCHEMA_BATCH_VALIDATE = "/schema/validate/batch/{schema}";
   public static final String SCHEMAS_DOWNLOAD_BY_NAME = "/schemas/download/schema/{name}/{version}";
   public static final String SCHEMAS_MANAGE_BY_NAME = "/schemas/schema/{name}/{version}";
   public static final String SCHEMAS_UPDATE_BY_NAME = "/schemas/schema/update/{name}/{version}";

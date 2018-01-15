@@ -15,25 +15,27 @@
  *  the Licence.
  */
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
-import eu.europeana.validation.model.Schema;
-import eu.europeana.validation.service.AbstractLSResourceResolver;
-import eu.europeana.validation.service.AbstractSchemaDao;
 import eu.europeana.validation.service.ClasspathResourceResolver;
-import eu.europeana.validation.service.SchemaDao;
+import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
-import eu.europeana.validation.service.ValidationManagementService;
 import eu.europeana.validation.service.ValidationServiceConfig;
-import java.io.IOException;
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
+import org.springframework.beans.factory.config.PropertiesFactoryBean;
+import eu.europeana.validation.service.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.core.io.ClassPathResource;
+import org.w3c.dom.ls.LSResourceResolver;
+
+import javax.annotation.PostConstruct;
+import java.io.FileNotFoundException;
+import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Created by ymamakis on 7/14/16.
@@ -41,56 +43,57 @@ import org.springframework.context.annotation.DependsOn;
 @Configuration
 public class TestApplication {
 
-  private class Config implements ValidationServiceConfig {
-    @Override
-    public int getThreadCount() {
-      return 10;
+    private class Config implements ValidationServiceConfig {
+
+        @Override
+        public int getThreadCount() {
+            return 10;
+        }
     }
-  }
 
-  private final String mongoHost;
-  private final int mongoPort;
-  private EmbeddedLocalhostMongo embeddedLocalhostMongo;
+    public TestApplication() {
+    }
 
-  public TestApplication() throws IOException {
-    embeddedLocalhostMongo = new EmbeddedLocalhostMongo();
-    embeddedLocalhostMongo.start();
-    mongoHost = embeddedLocalhostMongo.getMongoHost();
-    mongoPort = embeddedLocalhostMongo.getMongoPort();
-  }
+    @Resource(name = "validationProperties")
+    Properties predefinedSchemasLocations;
 
-  @Bean
-  ValidationManagementService getValidationManagementService() {
-    ServerAddress address = new ServerAddress(mongoHost, mongoPort);
-    MongoClient client = new MongoClient(address);
-    Morphia morphia = new Morphia();
-    morphia.map(Schema.class);
-    Datastore datastore = morphia.createDatastore(client, "validation");
-    datastore.ensureIndexes();
-    AbstractSchemaDao abstractSchemaDao = new SchemaDao(datastore, "/tmp/schema");
-    ValidationManagementService validationManagementService = new ValidationManagementService(
-        abstractSchemaDao);
+    @Bean(name = "validationProperties")
+    PropertiesFactoryBean mapper() {
+        PropertiesFactoryBean bean = new PropertiesFactoryBean();
+        bean.setLocation(new ClassPathResource(
+                "validation.properties"));
+        return bean;
+    }
 
-    return validationManagementService;
-  }
+    @Bean(name = "schemaProvider")
+    @DependsOn(value = "validationProperties")
+    public SchemaProvider getSchemaProvider() {
+        PredefinedSchemas predefinedSchemas = PredefinedSchemasGenerator.generate(predefinedSchemasLocations);
+        return new SchemaProvider(predefinedSchemas);
+    }
 
-  @Bean
-  @DependsOn(value = "abstractLSResourcResolver")
-  ValidationExecutionService getValidationExecutionService() {
-    return new ValidationExecutionService(new Config(), getValidationManagementService(), getAbstractLSResourceResolver());
-  }
+    @Bean
+    @DependsOn(value = {"lsResourceResolver", "schemaProvider"})
+    ValidationExecutionService getValidationExecutionService() {
+        return new ValidationExecutionService(new Config(), getLSResourceResolver());
+    }
 
-  @Bean(name = "abstractLSResourcResolver")
-  public AbstractLSResourceResolver getAbstractLSResourceResolver() {
-      return new ClasspathResourceResolver();
-  }
+    @Bean(name = "lsResourceResolver")
+    public ClasspathResourceResolver getLSResourceResolver() {
+        return new ClasspathResourceResolver();
+    }
 
-  @PostConstruct
-  public void startup() throws IOException {
-  }
+    @Bean
+    public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
+        PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
 
-  @PreDestroy
-  public void shutdown() {
-    embeddedLocalhostMongo.stop();
-  }
+        predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip", "EDM-INTERNAL.xsd");
+        predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip", "EDM.xsd");
+
+        return new SchemaProvider(predefinedSchemas);
+    }
+
+    @PostConstruct
+    public void startup() throws IOException {
+    }
 }

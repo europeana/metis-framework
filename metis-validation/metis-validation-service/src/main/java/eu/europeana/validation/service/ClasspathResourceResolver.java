@@ -16,10 +16,10 @@
  */
 package eu.europeana.validation.service;
 
-import eu.europeana.features.ObjectStorageClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.ls.LSInput;
+import org.w3c.dom.ls.LSResourceResolver;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -31,7 +31,7 @@ import java.util.Map;
  * Class enabling classpath XSD reading for split XSDs. This is because of an issue with JAXP XSD
  * loading Created by ymamakis on 12/21/15.
  */
-public class ClasspathResourceResolver implements AbstractLSResourceResolver {
+public class ClasspathResourceResolver implements LSResourceResolver {
 
   private String prefix;
   private static final Logger LOGGER = LoggerFactory.getLogger(ClasspathResourceResolver.class);
@@ -55,8 +55,7 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
         }
       } else {
         if (cache.get(systemId) == null) {
-          stream = new FileInputStream(
-              this.getClass().getClassLoader().getResource("xml.xsd").getFile());
+          stream = this.getClass().getClassLoader().getResourceAsStream("xml.xsd");
           cache.put(systemId, stream);
         } else {
           stream = cache.get(systemId);
@@ -80,12 +79,6 @@ public class ClasspathResourceResolver implements AbstractLSResourceResolver {
   public String getPrefix() {
     return prefix;
   }
-
-  @Override
-  public ObjectStorageClient getObjectStorageClient() {
-    return null;
-  }
-
 
   /**
    * @param prefix the prefix to set
