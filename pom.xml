@@ -36,6 +36,12 @@
       <groupId>org.apache.logging.log4j</groupId>
       <artifactId>log4j-slf4j-impl</artifactId>
       <version>${version.log4j}</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+        </exclusion>
+	  </exclusions>      
     </dependency>
     <!-- Log4j API and Core implementation required for binding -->
     <dependency>
@@ -309,8 +315,11 @@
     <version.json.path>2.2.0</version.json.path>
     <version.hamcrest>1.3</version.hamcrest>
     <version.rabbitmq>4.2.0</version.rabbitmq>
-    <version.slf4j>1.7.23</version.slf4j>
-    <version.log4j>2.8</version.log4j>
+    
+    <!-- These two versions are interdependent. -->
+    <version.slf4j>1.7.25</version.slf4j>
+    <version.log4j>2.10.0</version.log4j>
+    
     <version.surefire.plugin>2.18</version.surefire.plugin>
     <version.junit>4.12</version.junit>
     <version.awaitability>1.7.0</version.awaitability>
