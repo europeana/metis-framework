@@ -7,16 +7,16 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class VoidMetisPluginMetadata implements AbstractMetisPluginMetadata {
+public class ValidationPluginMetadata implements AbstractMetisPluginMetadata {
 
-  private static final PluginType pluginType = PluginType.VOID;
+  private static final PluginType pluginType = PluginType.VALIDATION;
   private boolean mocked = true;
   private Map<String, List<String>> parameters;
 
-  public VoidMetisPluginMetadata() {
+  public ValidationPluginMetadata() {
   }
 
-  public VoidMetisPluginMetadata(
+  public ValidationPluginMetadata(
       Map<String, List<String>> parameters) {
     this.parameters = parameters;
   }

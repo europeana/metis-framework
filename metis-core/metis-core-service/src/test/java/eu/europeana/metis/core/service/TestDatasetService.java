@@ -17,7 +17,6 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.DatasetStatus;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -108,7 +107,6 @@ public class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
     Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    storedDataset.setDatasetStatus(DatasetStatus.HARVESTED);
     storedDataset.setUpdatedDate(new Date(-1000));
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
@@ -118,8 +116,6 @@ public class TestDatasetService {
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
     verify(datasetDao, times(1)).update(dataSetArgumentCaptor.capture());
     assertEquals(dataset.getProvider(), dataSetArgumentCaptor.getValue().getProvider());
-    assertEquals(storedDataset.getDatasetStatus(),
-        dataSetArgumentCaptor.getValue().getDatasetStatus());
     assertEquals(dataset.getUpdatedDate(), dataSetArgumentCaptor.getValue().getUpdatedDate());
     assertEquals(storedDataset.getCreatedByUserId(), dataSetArgumentCaptor.getValue().getCreatedByUserId());
     assertNotEquals(storedDataset.getUpdatedDate(),
@@ -143,7 +139,6 @@ public class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
     Dataset storedDataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    storedDataset.setDatasetStatus(DatasetStatus.HARVESTED);
     storedDataset.setUpdatedDate(new Date(-1000));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
@@ -247,7 +242,6 @@ public class TestDatasetService {
     when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(dataset);
     Dataset returnedDataset = datasetService
         .getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
-    assertEquals(dataset.getDatasetStatus(), returnedDataset.getDatasetStatus());
   }
 
   @Test(expected = UserUnauthorizedException.class)
@@ -285,7 +279,6 @@ public class TestDatasetService {
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     Dataset returnedDataset = datasetService
         .getDatasetByDatasetId(metisUser, dataset.getDatasetId());
-    assertEquals(dataset.getDatasetStatus(), returnedDataset.getDatasetStatus());
   }
 
   @Test(expected = UserUnauthorizedException.class)

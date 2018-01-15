@@ -15,8 +15,8 @@ import java.util.Map;
 @JsonSubTypes({
     @JsonSubTypes.Type(value=OaipmhHarvestPluginMetadata.class, name="OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value=HTTPHarvestPluginMetadata.class, name="HTTP_HARVEST"),
-    @JsonSubTypes.Type(value=DereferencePluginMetadata.class, name="DEREFERENCE"),
-    @JsonSubTypes.Type(value=VoidMetisPluginMetadata.class, name="VOID")
+    @JsonSubTypes.Type(value=EnrichmentPluginMetadata.class, name="ENRICHMENT"),
+    @JsonSubTypes.Type(value=ValidationPluginMetadata.class, name="VALIDATION")
 })
 public interface AbstractMetisPluginMetadata {
   PluginType getPluginType();

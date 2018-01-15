@@ -28,14 +28,11 @@ public class PluginDeserializer extends JsonDeserializer<AbstractMetisPlugin> {
       case OAIPMH_HARVEST:
         abstractMetisPlugin = mapper.readValue(node.toString(), OaipmhHarvestPlugin.class);
         break;
-      case DEREFERENCE:
-        abstractMetisPlugin = mapper.readValue(node.toString(), DereferencePlugin.class);
+      case ENRICHMENT:
+        abstractMetisPlugin = mapper.readValue(node.toString(), EnrichmentPlugin.class);
         break;
-      case VOID:
-        abstractMetisPlugin = mapper.readValue(node.toString(), VoidMetisPlugin.class);
-        break;
-      case QA:
-        abstractMetisPlugin = null;
+      case VALIDATION:
+        abstractMetisPlugin = mapper.readValue(node.toString(), ValidationPlugin.class);
         break;
       case NULL:
         abstractMetisPlugin = null;

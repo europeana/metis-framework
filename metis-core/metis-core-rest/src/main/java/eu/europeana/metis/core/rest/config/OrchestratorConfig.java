@@ -121,10 +121,12 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
-      WorkflowExecutorManager workflowExecutorManager, DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+      WorkflowExecutorManager workflowExecutorManager,
+      DataSetServiceClient ecloudDataSetServiceClient, DpsClient dpsClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient);
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        dpsClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;
   }

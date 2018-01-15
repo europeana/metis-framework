@@ -7,15 +7,15 @@ import java.util.Map;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class DereferencePluginMetadata implements AbstractMetisPluginMetadata {
-  private static final PluginType pluginType = PluginType.DEREFERENCE;
+public class EnrichmentPluginMetadata implements AbstractMetisPluginMetadata {
+  private static final PluginType pluginType = PluginType.ENRICHMENT;
   private Map<String, List<String>> parameters;
   private boolean mocked = true;
 
-  public DereferencePluginMetadata() {
+  public EnrichmentPluginMetadata() {
   }
 
-  public DereferencePluginMetadata(boolean mocked,
+  public EnrichmentPluginMetadata(boolean mocked,
       Map<String, List<String>> parameters) {
     this.mocked = mocked;
     this.parameters = parameters;

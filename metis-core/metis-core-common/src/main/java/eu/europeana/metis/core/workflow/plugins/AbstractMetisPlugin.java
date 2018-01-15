@@ -18,8 +18,8 @@ import java.util.Date;
 @JsonSubTypes({
     @JsonSubTypes.Type(value=OaipmhHarvestPlugin.class, name="OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value=HTTPHarvestPlugin.class, name="HTTP_HARVEST"),
-    @JsonSubTypes.Type(value=DereferencePlugin.class, name="DEREFERENCE"),
-    @JsonSubTypes.Type(value=VoidMetisPlugin.class, name="VOID")
+    @JsonSubTypes.Type(value=EnrichmentPlugin.class, name="ENRICHMENT"),
+    @JsonSubTypes.Type(value=ValidationPlugin.class, name="VALIDATION")
 })
 public interface AbstractMetisPlugin {
 
@@ -48,13 +48,13 @@ public interface AbstractMetisPlugin {
 
   void setExternalTaskId(long externalTaskId);
 
-  ExecutionRecordsStatistics getExecutionRecordsStatistics();
+  ExecutionProgress getExecutionProgress();
 
-  void setExecutionRecordsStatistics(
-      ExecutionRecordsStatistics executionRecordsStatistics);
+  void setExecutionProgress(
+      ExecutionProgress executionProgress);
 
   void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider, String ecloudDataset);
 
-  ExecutionRecordsStatistics monitor(String externalTaskId);
+  ExecutionProgress monitor(DpsClient dpsClient);
 
 }

@@ -53,7 +53,7 @@ public class TestDatasetController {
   private MockMvc datasetControllerMock;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     datasetServiceMock = mock(DatasetService.class);
     authenticationClient = mock(AuthenticationClient.class);
     DatasetController datasetController = new DatasetController(datasetServiceMock,

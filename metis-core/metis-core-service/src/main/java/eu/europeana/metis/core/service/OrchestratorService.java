@@ -1,5 +1,9 @@
 package eu.europeana.metis.core.service;
 
+import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.dps.SubTaskInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
+import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -49,6 +53,7 @@ public class OrchestratorService {
   private final DatasetDao datasetDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final DataSetServiceClient ecloudDataSetServiceClient;
+  private final DpsClient dpsClient;
   private String ecloudProvider; //Initialize with setter
 
   @Autowired
@@ -57,13 +62,15 @@ public class OrchestratorService {
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager,
-      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+      DataSetServiceClient ecloudDataSetServiceClient,
+      DpsClient dpsClient) throws IOException {
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
+    this.dpsClient = dpsClient;
 
     this.workflowExecutorManager.initiateConsumer();
   }
@@ -353,5 +360,29 @@ public class OrchestratorService {
 
   public void setEcloudProvider(String ecloudProvider) {
     this.ecloudProvider = ecloudProvider;
+  }
+
+  public List<SubTaskInfo> getExternalTaskLogs(String topologyName, long externalTaskId, int from,
+      int to) {
+    List<SubTaskInfo> detailedTaskReportBetweenChunks = dpsClient
+        .getDetailedTaskReportBetweenChunks(topologyName, externalTaskId, from, to);
+    for (SubTaskInfo subTaskInfo : detailedTaskReportBetweenChunks) { //Hide sensitive information
+      subTaskInfo.setAdditionalInformations(null);
+    }
+    return detailedTaskReportBetweenChunks;
+  }
+
+  public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId) {
+    // TODO: 12-1-18 Modify with new supported implementation when ready that has one call with option to request number of sample identifiers
+    TaskErrorsInfo taskErrorsInfo = dpsClient
+        .getTaskErrorsReport(topologyName, externalTaskId, null);
+
+    for (TaskErrorInfo taskErrorInfo : taskErrorsInfo.getErrors()) {
+      TaskErrorsInfo taskErrorsInfoWithIdentifiers = dpsClient
+          .getTaskErrorsReport(topologyName, externalTaskId, taskErrorInfo.getErrorType());
+      taskErrorInfo
+          .setIdentifiers(taskErrorsInfoWithIdentifiers.getErrors().get(0).getIdentifiers());
+    }
+    return taskErrorsInfo;
   }
 }

@@ -3,6 +3,7 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
+import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.OAIPMHHarvestingDetails;
@@ -31,7 +32,8 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType pluginType = PluginType.OAIPMH_HARVEST;
+  private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
+  private final String topologyName = TopologyName.OAIPMH_HARVEST.getTopologyName();
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -43,11 +45,12 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
   private long externalTaskId;
-  private ExecutionRecordsStatistics executionRecordsStatistics = new ExecutionRecordsStatistics();
+  private ExecutionProgress executionProgress = new ExecutionProgress();
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
   public OaipmhHarvestPlugin() {
+    //Required for json serialization
   }
 
   public OaipmhHarvestPlugin(
@@ -86,7 +89,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public PluginType getPluginType() {
-    return pluginType;
+    return PLUGIN_TYPE;
   }
 
   @Override
@@ -130,21 +133,29 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public ExecutionRecordsStatistics getExecutionRecordsStatistics() {
-    return executionRecordsStatistics;
+  public ExecutionProgress getExecutionProgress() {
+    return executionProgress;
   }
 
   @Override
-  public void setExecutionRecordsStatistics(
-      ExecutionRecordsStatistics executionRecordsStatistics) {
-    this.executionRecordsStatistics = executionRecordsStatistics;
+  public void setExecutionProgress(
+      ExecutionProgress executionProgress) {
+    this.executionProgress = executionProgress;
+  }
+
+  /**
+   * Required for json serialization.
+   * @return the String representation of the topology
+   */
+  public String getTopologyName() {
+    return topologyName;
   }
 
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
     if (!pluginMetadata.isMocked()) {
-      String pluginTypeName = pluginType.name();
+      String pluginTypeName = PLUGIN_TYPE.name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName, ecloudDataset);
       String oaipmhUrl = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUrl();
       String setSpec = ((OaipmhHarvestPluginMetadata) pluginMetadata).getSetSpec();
@@ -183,15 +194,15 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       revision.setCreationTimeStamp(startedDate);
       dpsTask.setOutputRevision(revision);
 
-      externalTaskId = dpsClient.submitTask(dpsTask, "oai_harvest");
-      LOGGER.info("Submitted task with externalId: {}", externalTaskId);
-
+      externalTaskId = dpsClient.submitTask(dpsTask, topologyName);
+      LOGGER.info("Submitted task with externalTaskId: {}", externalTaskId);
     }
   }
 
   @Override
-  public ExecutionRecordsStatistics monitor(String externalTaskId) {
-    // TODO: 16-11-17 Get execution statistics from ecloud using dps id returned from execute
-    return null;
+  public ExecutionProgress monitor(DpsClient dpsClient) {
+    LOGGER.info("Requesting progress information for externalTaskId: {}", externalTaskId);
+    TaskInfo taskInfo = dpsClient.getTaskProgress(topologyName, externalTaskId);
+    return executionProgress.copyExternalTaskInformation(taskInfo);
   }
 }
