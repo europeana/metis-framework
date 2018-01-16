@@ -72,6 +72,7 @@
 			<version>${version.jackson}</version>
 		</dependency>
 		
+		<!-- 
 		  <dependency>
          <groupId>eu.europeana.metis</groupId>
          <artifactId>metis-enrichment-common</artifactId>
@@ -79,5 +80,12 @@
          <version>1.0</version>
          <systemPath>${basedir}/src/lib/metis-enrichment-common-1.0-SNAPSHOT.jar</systemPath>
       </dependency>
+      -->
+      
+       <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-enrichment-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 	</dependencies>
 </project>
