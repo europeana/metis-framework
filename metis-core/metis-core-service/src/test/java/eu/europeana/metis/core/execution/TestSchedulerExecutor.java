@@ -89,9 +89,8 @@ public class TestSchedulerExecutor {
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
-    doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt()); //Throw an exception as well, should continue execution after that
+    when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
+            anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.run();
@@ -135,9 +134,8 @@ public class TestSchedulerExecutor {
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
-    doThrow(new NoDatasetFoundException("Some Error")).doNothing().when(orchestratorService)
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt()); //Throw an exception as well, should continue execution after that
+    when(orchestratorService
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.run();
