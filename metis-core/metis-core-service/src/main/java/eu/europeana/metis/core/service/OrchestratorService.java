@@ -99,12 +99,11 @@ public class OrchestratorService {
     return workflowDao.getAllWorkflows(workflowOwner, nextPage);
   }
 
-  public WorkflowExecution getRunningWorkflowExecution(int datasetName) {
-    return workflowExecutionDao
-        .getRunningWorkflowExecution(datasetName);
+  public WorkflowExecution getWorkflowExecutionByExecutionId(String executionId) {
+    return workflowExecutionDao.getById(executionId);
   }
 
-  public void addWorkflowInQueueOfWorkflowExecutions(int datasetId,
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName, int priority)
       throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException {
 
@@ -126,10 +125,11 @@ public class OrchestratorService {
     String objectId = workflowExecutionDao.create(workflowExecution);
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
+    return workflowExecutionDao.getById(objectId);
   }
 
   //Used for direct, on the fly provided, execution of a Workflow
-  public void addWorkflowInQueueOfWorkflowExecutions(int datasetId,
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       Workflow workflow, int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
     Dataset dataset = checkDatasetExistence(datasetId);
@@ -153,19 +153,22 @@ public class OrchestratorService {
     String objectId = workflowExecutionDao.create(workflowExecution);
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
+    return workflowExecutionDao.getById(objectId);
   }
 
-  public void cancelWorkflowExecution(int datasetName)
+  public void cancelWorkflowExecution(String executionId)
       throws NoWorkflowExecutionFoundException {
 
     WorkflowExecution workflowExecution = workflowExecutionDao
-        .getRunningOrInQueueExecution(datasetName);
-    if (workflowExecution != null) {
+        .getById(executionId);
+    if (workflowExecution != null && (
+        workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
+            || workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE)) {
       workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
-    } else {
+    } else{
       throw new NoWorkflowExecutionFoundException(String.format(
-          "Running workflowExecution with datasetName: %s, does not exist or not running",
-          datasetName));
+          "Running workflowExecution with executionId: %s, does not exist or not active",
+          executionId));
     }
   }
 
@@ -320,7 +323,7 @@ public class OrchestratorService {
     String storedId = scheduledWorkflowDao.existsForDatasetId(scheduledWorkflow.getDatasetId());
     if (StringUtils.isEmpty(storedId)) {
       throw new NoScheduledWorkflowFoundException(String.format(
-          "Workflow with datasetName: %s, not found", scheduledWorkflow.getDatasetId()));
+          "Workflow with datasetId: %s, not found", scheduledWorkflow.getDatasetId()));
     }
     if (scheduledWorkflow.getPointerDate() == null) {
       throw new BadContentException("PointerDate cannot be null");
@@ -352,8 +355,8 @@ public class OrchestratorService {
         LOGGER.error("An error has occurred during ecloud dataset creation.", e);
       }
     } else {
-      LOGGER.info("Dataset with name {} already has a dataset initialized in Ecloud with id {}",
-          dataset.getDatasetName(), dataset.getEcloudDatasetId());
+      LOGGER.info("Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
+          dataset.getDatasetId(), dataset.getEcloudDatasetId());
     }
     return dataset.getEcloudDatasetId();
   }

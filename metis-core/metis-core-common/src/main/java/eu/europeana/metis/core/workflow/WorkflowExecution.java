@@ -65,8 +65,8 @@ public class WorkflowExecution implements HasMongoObjectId {
 
   private List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
-  //Keep this constructor
   public WorkflowExecution() {
+    //Required for json serialization
   }
 
   public WorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
@@ -90,18 +90,14 @@ public class WorkflowExecution implements HasMongoObjectId {
         case HTTP_HARVEST:
           HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
           httpHarvestPlugin
-              .setId(
-                  new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
+              .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
           metisPlugins.add(httpHarvestPlugin);
           break;
         case OAIPMH_HARVEST:
           OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
           oaipmhHarvestPlugin
-              .setId(
-                  new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
+              .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
           metisPlugins.add(oaipmhHarvestPlugin);
-          break;
-        case NULL:
           break;
         default:
           break;
@@ -128,8 +124,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     }
   }
 
-  public void setAllRunningAndInqueuePluginsToCancelled()
-  {
+  public void setAllRunningAndInqueuePluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);
     for (AbstractMetisPlugin metisPlugin :
         this.getMetisPlugins()) {
@@ -183,7 +178,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.workflowStatus = workflowStatus;
   }
 
-  public long getDatasetId() {
+  public int getDatasetId() {
     return datasetId;
   }
 

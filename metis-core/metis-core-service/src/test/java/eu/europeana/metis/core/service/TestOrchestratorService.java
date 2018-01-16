@@ -3,7 +3,6 @@ package eu.europeana.metis.core.service;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -170,11 +169,11 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void getRunningUserWorkflowExecution() {
-    orchestratorService.getRunningWorkflowExecution(anyInt());
+  public void getWorkflowExecutionByExecutionId() {
+    orchestratorService.getWorkflowExecutionByExecutionId(anyString());
     InOrder inOrder = Mockito.inOrder(workflowExecutionDao);
     inOrder.verify(workflowExecutionDao, times(1))
-        .getRunningWorkflowExecution(anyLong());
+        .getById(anyString());
     inOrder.verifyNoMoreInteractions();
   }
 
@@ -346,19 +345,19 @@ public class TestOrchestratorService {
   public void cancelUserWorkflowExecution() throws Exception {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
-    when(workflowExecutionDao.getRunningOrInQueueExecution(TestObjectFactory.DATASETID))
+    when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID))
         .thenReturn(workflowExecution);
     doNothing().when(workflowExecutorManager)
         .cancelWorkflowExecution(workflowExecution);
-    orchestratorService.cancelWorkflowExecution(TestObjectFactory.DATASETID);
+    orchestratorService.cancelWorkflowExecution(TestObjectFactory.EXECUTIONID);
   }
 
   @Test(expected = NoWorkflowExecutionFoundException.class)
   public void cancelUserWorkflowExecution_NoUserWorkflowExecutionFoundException()
       throws Exception {
-    when(workflowExecutionDao.getRunningOrInQueueExecution(TestObjectFactory.DATASETID))
+    when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID))
         .thenReturn(null);
-    orchestratorService.cancelWorkflowExecution(TestObjectFactory.DATASETID);
+    orchestratorService.cancelWorkflowExecution(TestObjectFactory.EXECUTIONID);
     verifyNoMoreInteractions(workflowExecutorManager);
   }
 
@@ -404,7 +403,7 @@ public class TestOrchestratorService {
         TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWOWNER, WorkflowStatus.RUNNING,
         objectId);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(anyLong(), anyString(), anyString(), any(
+        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), any(
             WorkflowStatus.class), anyString());
     verifyNoMoreInteractions(workflowExecutionDao);
   }

@@ -113,57 +113,59 @@ public class OrchestratorController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void addWorkflowInQueueOfWorkflowExecutions(
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
-    orchestratorService
+    WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner,
             workflowName, priority);
     LOGGER.info(
         "WorkflowExecution for datasetId '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
         datasetId, workflowOwner, workflowName);
+    return workflowExecution;
   }
 
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public void addWorkflowInQueueOfWorkflowExecutions(
+  public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId, @RequestBody Workflow workflow,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
-    orchestratorService
+    WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, priority);
     LOGGER.info(
         "WorkflowExecution for datasetId '{}' with workflowOwner '{}' started", datasetId,
         workflow.getWorkflowOwner());
+    return workflowExecution;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID, method = RequestMethod.DELETE, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
   public void cancelWorkflowExecution(
-      @PathVariable("datasetId") int datasetId)
+      @PathVariable("executionId") String executionId)
       throws NoWorkflowExecutionFoundException {
-    orchestratorService.cancelWorkflowExecution(datasetId);
+    orchestratorService.cancelWorkflowExecution(executionId);
     LOGGER.info(
-        "WorkflowExecution for datasetId '{}' is cancelling",
-        datasetId);
+        "WorkflowExecution for executionId '{}' is cancelling",
+        executionId);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public WorkflowExecution getRunningWorkflowExecution(
-      @PathVariable("datasetId") int datasetId) {
+  public WorkflowExecution getWorkflowExecutionByExecutionId(
+      @PathVariable("executionId") String executionId) {
     WorkflowExecution workflowExecution = orchestratorService
-        .getRunningWorkflowExecution(datasetId);
-    LOGGER.info("WorkflowExecution with datasetId '{}' found", datasetId);
+        .getWorkflowExecutionByExecutionId(executionId);
+    LOGGER.info("WorkflowExecution with executionId '{}' found", executionId);
     return workflowExecution;
   }
 

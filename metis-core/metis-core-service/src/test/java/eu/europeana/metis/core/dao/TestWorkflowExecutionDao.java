@@ -202,13 +202,13 @@ public class TestWorkflowExecutionDao {
   }
 
   @Test
-  public void getRunningUserWorkflowExecution() {
+  public void getWorkflowExecutionByExecutionId() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     String objectId = workflowExecutionDao.create(workflowExecution);
     WorkflowExecution runningWorkflowExecution = workflowExecutionDao
-        .getRunningWorkflowExecution(workflowExecution.getDatasetId());
+        .getById(workflowExecution.getId().toString());
     Assert.assertEquals(objectId, runningWorkflowExecution.getId().toString());
   }
 

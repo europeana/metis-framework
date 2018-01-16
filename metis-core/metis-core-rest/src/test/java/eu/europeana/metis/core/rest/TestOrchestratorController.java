@@ -58,7 +58,7 @@ public class TestOrchestratorController {
   private static MockMvc orchestratorControllerMock;
 
   @BeforeClass
-  public static void setUp() throws Exception {
+  public static void setUp() {
     orchestratorService = mock(OrchestratorService.class);
     OrchestratorController orchestratorController = new OrchestratorController(orchestratorService);
     orchestratorControllerMock = MockMvcBuilders
@@ -178,9 +178,11 @@ public class TestOrchestratorController {
 
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions() throws Exception {
-    doNothing().when(orchestratorService)
+    WorkflowExecution workflowExecution = TestObjectFactory
+        .createUserWorkflowExecutionObject();
+    when(orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt());
+            anyInt())).thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -189,7 +191,7 @@ public class TestOrchestratorController {
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(201))
-        .andExpect(content().string(""));
+        .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.INQUEUE.name())));
   }
 
   @Test
@@ -245,9 +247,11 @@ public class TestOrchestratorController {
 
   @Test
   public void addUserWorkflowInQueueOfUserWorkflowExecutions_direct() throws Exception {
-    doNothing().when(orchestratorService)
+    WorkflowExecution workflowExecution = TestObjectFactory
+        .createUserWorkflowExecutionObject();
+    when(orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            anyInt());
+            anyInt())).thenReturn(workflowExecution);
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -255,7 +259,7 @@ public class TestOrchestratorController {
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(201))
-        .andExpect(content().string(""));
+        .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.INQUEUE.name())));
   }
 
   @Test
@@ -307,11 +311,11 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void cancelUserWorkflowExecution() throws Exception {
-    doNothing().when(orchestratorService).cancelWorkflowExecution(anyInt());
+  public void cancelWorkflowExecution() throws Exception {
+    doNothing().when(orchestratorService).cancelWorkflowExecution(anyString());
     orchestratorControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID,
-            TestObjectFactory.DATASETID)
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID,
+            TestObjectFactory.EXECUTIONID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(204))
@@ -319,12 +323,12 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void cancelUserWorkflowExecution_NoUserWorkflowExecutionFoundException() throws Exception {
+  public void cancelWorkflowExecution_NoUserWorkflowExecutionFoundException() throws Exception {
     doThrow(new NoWorkflowExecutionFoundException("Some error")).when(orchestratorService)
-        .cancelWorkflowExecution(anyInt());
+        .cancelWorkflowExecution(anyString());
     orchestratorControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID,
-            TestObjectFactory.DATASETID)
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID,
+            TestObjectFactory.EXECUTIONID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
@@ -332,14 +336,14 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void getRunningUserWorkflowExecution() throws Exception {
+  public void getWorkflowExecutionByExecutionId() throws Exception {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
-    when(orchestratorService.getRunningWorkflowExecution(anyInt()))
+    when(orchestratorService.getWorkflowExecutionByExecutionId(anyString()))
         .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
-        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_DATASETID,
+        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID,
             TestObjectFactory.DATASETID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
