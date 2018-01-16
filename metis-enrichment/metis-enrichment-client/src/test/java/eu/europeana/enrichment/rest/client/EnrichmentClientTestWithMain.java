@@ -22,8 +22,8 @@ import java.util.List;
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.utils.EntityClass;
-import eu.europeana.metis.utils.InputValue;
+import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.InputValue;
 
 public class EnrichmentClientTestWithMain {
 	

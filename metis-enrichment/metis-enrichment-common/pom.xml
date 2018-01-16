@@ -35,11 +35,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>eu.europeana.metis</groupId>
-			<artifactId>metis-common</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.mongojack</groupId>
 			<artifactId>mongojack</artifactId>
 			<version>${version.mongojack}</version>

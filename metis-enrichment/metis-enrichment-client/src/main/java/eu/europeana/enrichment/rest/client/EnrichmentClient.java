@@ -18,9 +18,7 @@ package eu.europeana.enrichment.rest.client;
 
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
-
 import java.util.List;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -28,12 +26,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.InputValueList;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.utils.InputValue;
+import eu.europeana.enrichment.utils.InputValue;
 
 /**
  * REST API wrapper class abstracting the REST calls and providing a clean POJO
@@ -73,7 +70,7 @@ public class EnrichmentClient {
 	// TODO JOCHEN This method should be private.
     public EnrichmentBase getByUri(String uri) {
     	
-    	// TODO JOCHEN should use the class variable for this?
+    	// TODO JOCHEN should use the class variable for this? Class variable is currently unused!
 		RestTemplate template = new RestTemplate();
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);

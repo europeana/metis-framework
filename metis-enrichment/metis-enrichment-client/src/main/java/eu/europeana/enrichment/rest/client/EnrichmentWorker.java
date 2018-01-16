@@ -1,16 +1,5 @@
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.corelib.definitions.jibx.IsPartOf;
-import eu.europeana.corelib.definitions.jibx.PlaceType;
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.dereference.client.DereferenceClient;
-import eu.europeana.metis.utils.DereferenceUtils;
-import eu.europeana.metis.utils.EnrichmentUtils;
-import eu.europeana.metis.utils.InputValue;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +8,17 @@ import java.util.Set;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import eu.europeana.corelib.definitions.jibx.IsPartOf;
+import eu.europeana.corelib.definitions.jibx.PlaceType;
+import eu.europeana.corelib.definitions.jibx.RDF;
+import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
+import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.utils.EnrichmentUtils;
+import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.metis.dereference.DereferenceUtils;
+import eu.europeana.metis.dereference.client.DereferenceClient;
 
 /*
  * To be integrated into eCloud topology. This code serves as an example of enrichment through use of the

@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.enrichment.utils;
 
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;

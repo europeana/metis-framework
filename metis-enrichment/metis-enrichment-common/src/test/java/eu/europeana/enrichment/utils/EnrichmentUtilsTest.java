@@ -1,12 +1,10 @@
-package eu.europeana.utils.test;
+package eu.europeana.enrichment.utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import org.jibx.runtime.JiBXException;
 import org.junit.Assert;
 import org.junit.Test;
-
 import eu.europeana.corelib.definitions.jibx.Contributor;
 import eu.europeana.corelib.definitions.jibx.Coverage;
 import eu.europeana.corelib.definitions.jibx.Created;
@@ -23,8 +21,6 @@ import eu.europeana.corelib.definitions.jibx.Spatial;
 import eu.europeana.corelib.definitions.jibx.Subject;
 import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.Type;
-import eu.europeana.metis.utils.EnrichmentUtils;
-import eu.europeana.metis.utils.InputValue;
 
 public class EnrichmentUtilsTest {
 	

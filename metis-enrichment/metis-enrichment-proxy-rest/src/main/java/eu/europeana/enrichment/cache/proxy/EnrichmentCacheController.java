@@ -1,10 +1,6 @@
 package eu.europeana.enrichment.cache.proxy;
 
 import static eu.europeana.metis.RestEndpoints.CACHE_EMPTY;
-
-import eu.europeana.enrichment.service.RedisInternalEnricher;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -12,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import eu.europeana.enrichment.service.RedisInternalEnricher;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * Enrichment Cache REST endpoint

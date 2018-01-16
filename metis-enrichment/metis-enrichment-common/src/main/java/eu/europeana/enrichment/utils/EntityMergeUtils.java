@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.enrichment.utils;
 
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Created by erikkonijnenburg on 28/07/2017.
  */
-class EntityMergeUtils {
+public class EntityMergeUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EntityMergeUtils.class);
   private final static String UTF8= "UTF-8";
@@ -213,7 +213,7 @@ class EntityMergeUtils {
     return rdf;
   }
   
-  static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList, String fieldName) {
+  public static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList, String fieldName) {
 	  for (EnrichmentBase enrichmentBase : enrichmentBaseList) {			
 		  if (enrichmentBase.getClass() == Place.class) {
 			  Place place_ = (Place)enrichmentBase;

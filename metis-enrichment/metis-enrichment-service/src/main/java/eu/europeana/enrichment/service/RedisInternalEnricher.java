@@ -15,23 +15,6 @@ a * Copyright 2005-2009 the original author or authors.
  */
 package eu.europeana.enrichment.service;
 
-
-import eu.europeana.corelib.solr.entity.AgentImpl;
-import eu.europeana.corelib.solr.entity.ConceptImpl;
-import eu.europeana.corelib.solr.entity.PlaceImpl;
-import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.api.external.ObjectIdSerializer;
-import eu.europeana.enrichment.api.internal.AgentTermList;
-import eu.europeana.enrichment.api.internal.ConceptTermList;
-import eu.europeana.enrichment.api.internal.MongoTerm;
-import eu.europeana.enrichment.api.internal.MongoTermList;
-import eu.europeana.enrichment.api.internal.PlaceTermList;
-import eu.europeana.enrichment.api.internal.TimespanTermList;
-import eu.europeana.enrichment.utils.MongoDatabaseUtils;
-import eu.europeana.metis.cache.redis.RedisProvider;
-import eu.europeana.metis.utils.EntityClass;
-import eu.europeana.metis.utils.InputValue;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -46,6 +29,22 @@ import org.codehaus.jackson.map.module.SimpleModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import eu.europeana.corelib.solr.entity.AgentImpl;
+import eu.europeana.corelib.solr.entity.ConceptImpl;
+import eu.europeana.corelib.solr.entity.PlaceImpl;
+import eu.europeana.corelib.solr.entity.TimespanImpl;
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.ObjectIdSerializer;
+import eu.europeana.enrichment.api.internal.AgentTermList;
+import eu.europeana.enrichment.api.internal.ConceptTermList;
+import eu.europeana.enrichment.api.internal.MongoTerm;
+import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.PlaceTermList;
+import eu.europeana.enrichment.api.internal.TimespanTermList;
+import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.MongoDatabaseUtils;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import redis.clients.jedis.Jedis;
 
 

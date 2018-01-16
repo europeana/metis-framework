@@ -1,4 +1,4 @@
-package eu.europeana.utils.test;
+package eu.europeana.metis.dereference;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +62,6 @@ import eu.europeana.corelib.definitions.jibx.Temporal;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.Type;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.metis.utils.DereferenceUtils;
 
 public class DereferenceUtilsTest {
 	

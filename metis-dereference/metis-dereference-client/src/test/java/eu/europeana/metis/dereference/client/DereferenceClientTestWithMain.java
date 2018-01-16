@@ -18,13 +18,12 @@ package eu.europeana.metis.dereference.client;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Properties;
 import java.util.Set;
 import eu.europeana.corelib.definitions.jibx.IsPartOf;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
-import eu.europeana.metis.utils.DereferenceUtils;
+import eu.europeana.metis.dereference.DereferenceUtils;
 
 /**
  * Created by gmamakis on 1-3-16.
