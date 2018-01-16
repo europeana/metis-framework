@@ -67,10 +67,7 @@ public class EnrichmentClient {
         }
     }
 
-	// TODO JOCHEN This method should be private.
     public EnrichmentBase getByUri(String uri) {
-    	
-    	// TODO JOCHEN should use the class variable for this? Class variable is currently unused!
 		RestTemplate template = new RestTemplate();
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);

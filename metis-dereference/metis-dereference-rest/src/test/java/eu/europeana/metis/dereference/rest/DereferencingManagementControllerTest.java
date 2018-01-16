@@ -3,7 +3,8 @@ package eu.europeana.metis.dereference.rest;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferencingManagementService;
-import eu.europeana.metis.utils.TestUtil;
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,8 +15,11 @@ import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -24,6 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class DereferencingManagementControllerTest {
+
+  public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
+  
 	  private DereferencingManagementService dereferencingManagementServiceMock;
 	  private MockMvc dereferencingManagementControllerMock;
 
@@ -54,8 +61,8 @@ public class DereferencingManagementControllerTest {
 		    }).when(dereferencingManagementServiceMock).saveVocabulary(any(Vocabulary.class));
 		  
 		   dereferencingManagementControllerMock.perform(post("/vocabulary")
-				   .contentType(TestUtil.APPLICATION_JSON_UTF8)
-				   .content(TestUtil.convertObjectToJsonBytes(dummyVocab)))
+				   .contentType(APPLICATION_JSON_UTF8)
+				   .content(convertObjectToJsonBytes(dummyVocab)))
 		   .andExpect(status().is(200));
 		  
 		  Assert.assertEquals("OK", testSaveVocabularyResult);
@@ -77,8 +84,8 @@ public class DereferencingManagementControllerTest {
 		    }).when(dereferencingManagementServiceMock).updateVocabulary(any(Vocabulary.class));
 		  
 		   dereferencingManagementControllerMock.perform(put("/vocabulary")
-				   .contentType(TestUtil.APPLICATION_JSON_UTF8)
-				   .content(TestUtil.convertObjectToJsonBytes(dummyVocab)))
+				   .contentType(APPLICATION_JSON_UTF8)
+				   .content(convertObjectToJsonBytes(dummyVocab)))
 		   .andExpect(status().is(200));
 		  
 		  Assert.assertEquals("OK", testUpdateVocabularyResult);
@@ -164,7 +171,7 @@ public class DereferencingManagementControllerTest {
 		    }).when(dereferencingManagementServiceMock).updateEntity(any(String.class), any(String.class));
 		  
 		   dereferencingManagementControllerMock.perform(put("/entity")
-				   .contentType(TestUtil.APPLICATION_JSON_UTF8)
+				   .contentType(APPLICATION_JSON_UTF8)
 				   .param("uri", "dummy1")
 				   .param("xml", "dummy2"))
 		   .andExpect(status().is(200));
@@ -188,4 +195,10 @@ public class DereferencingManagementControllerTest {
 		  
 		  Assert.assertEquals("OK", testEmptyCacheResult);
 	  }
+	  
+  private static byte[] convertObjectToJsonBytes(Object object) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+    return mapper.writeValueAsBytes(object);
+  }
 }
