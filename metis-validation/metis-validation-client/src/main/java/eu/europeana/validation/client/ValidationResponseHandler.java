@@ -13,8 +13,7 @@ public class ValidationResponseHandler implements ResponseErrorHandler {
     @Override
     public boolean hasError(ClientHttpResponse response) throws IOException {
         HttpStatus.Series series = response.getStatusCode().series();
-        return (HttpStatus.Series.CLIENT_ERROR.equals(series)
-                || HttpStatus.Series.SERVER_ERROR.equals(series));
+        return HttpStatus.Series.CLIENT_ERROR == series || HttpStatus.Series.SERVER_ERROR == series;
     }
 
     @Override
