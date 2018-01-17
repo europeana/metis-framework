@@ -3,6 +3,8 @@ package eu.europeana.metis.core.rest.config;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
@@ -36,6 +38,10 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
+import io.netty.util.ThreadDeathWatcher;
+import io.netty.util.concurrent.FastThreadLocal;
+import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.internal.InternalThreadLocalMap;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -92,6 +98,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   private Connection connection;
   private Channel channel;
+  private RedissonClient redissonClient;
   
   @Autowired
   private SchedulerExecutor schedulerExecutor;
@@ -126,7 +133,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     config.setLockWatchdogTimeout(
         redissonLockWatchdogTimeoutInSecs
             * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
-    return Redisson.create(config);
+    redissonClient = Redisson.create(config);
+    return redissonClient;
   }
 
   @Bean
@@ -212,12 +220,25 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   }
 
   @PreDestroy
-  public void close() throws IOException, TimeoutException {
+  public void close()
+      throws IOException, TimeoutException, InterruptedException, ExecutionException {
+
+    // Shut down RabbitMQ
     if (channel != null && channel.isOpen()) {
       channel.close();
     }
     if (connection != null && connection.isOpen()) {
       connection.close();
     }
+
+    // Shut down Redisson
+    if (redissonClient != null && !redissonClient.isShuttingDown()) {
+      redissonClient.shutdown();
+    }
+    FastThreadLocal.removeAll();
+    FastThreadLocal.destroy();
+    InternalThreadLocalMap.remove();
+    InternalThreadLocalMap.destroy();
+    ThreadDeathWatcher.awaitInactivity(2, TimeUnit.SECONDS);
   }
 }
