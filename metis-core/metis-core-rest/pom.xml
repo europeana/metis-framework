@@ -39,11 +39,6 @@
     </plugins>
   </build>
   <dependencies>
-	<dependency>
-	    <groupId>org.slf4j</groupId>
-	    <artifactId>slf4j-simple</artifactId>
-	    <version>${version.slf4j}</version>
-	</dependency>
     <dependency>
       <groupId>eu.europeana.cloud</groupId>
       <artifactId>ecloud-service-uis-rest-client-java</artifactId>
@@ -79,12 +74,12 @@
           <groupId>org.codehaus.woodstox</groupId>
         </exclusion>
         <exclusion>
-          <artifactId>slf4j-simple</artifactId>
           <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
         </exclusion>
         <exclusion>
-          <artifactId>slf4j-jdk14</artifactId>
           <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-jdk14</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
