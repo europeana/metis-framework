@@ -16,6 +16,11 @@
  */
 package eu.europeana.enrichment.rest.client;
 
+import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.InputValueList;
+import eu.europeana.metis.common.model.EnrichmentBase;
+import eu.europeana.metis.common.model.EnrichmentResultList;
+import eu.europeana.metis.utils.InputValue;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_BYURI;
 import static eu.europeana.metis.RestEndpoints.ENRICHMENT_ENRICH;
 import java.util.List;
@@ -26,11 +31,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-import eu.europeana.enrichment.api.exceptions.UnknownException;
-import eu.europeana.enrichment.api.external.InputValueList;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.utils.InputValue;
 
 /**
  * REST API wrapper class abstracting the REST calls and providing a clean POJO
@@ -39,10 +39,8 @@ import eu.europeana.enrichment.utils.InputValue;
  * @author Yorgos.Mamakis@ europeana.eu
  */
 public class EnrichmentClient {
-
     private final String path;
-    private final RestTemplate template = new RestTemplate();
-
+  
 	public EnrichmentClient(String path) {
 		this.path = path;
 	}
@@ -67,7 +65,7 @@ public class EnrichmentClient {
         }
     }
 
-    public EnrichmentBase getByUri(String uri) {
+    public EnrichmentBase getByUri(String uri) {    	   
 		RestTemplate template = new RestTemplate();
 
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(path + ENRICHMENT_BYURI).queryParam("uri", uri);

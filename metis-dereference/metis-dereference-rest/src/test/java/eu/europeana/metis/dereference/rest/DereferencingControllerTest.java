@@ -1,8 +1,8 @@
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.metis.common.model.Agent;
+import eu.europeana.metis.common.model.EnrichmentResultList;
+import eu.europeana.metis.common.model.Label;
 import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import java.io.IOException;

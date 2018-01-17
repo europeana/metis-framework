@@ -16,9 +16,9 @@
  */
 package eu.europeana.enrichment.utils;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
 import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 /**
  * Enumeration that holds the different vocabularies supported for enrichment
@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement
-@JsonSerialize(include = Inclusion.ALWAYS)
+@JsonInclude(Include.ALWAYS)
 public enum EntityClass {
 	CONCEPT, TIMESPAN, AGENT, PLACE;
 }

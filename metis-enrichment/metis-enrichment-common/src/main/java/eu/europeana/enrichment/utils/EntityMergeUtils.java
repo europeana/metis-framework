@@ -338,6 +338,9 @@ public class EntityMergeUtils {
 
 			  // isNextInSequence: not available
 			  
+			  if (rdf.getPlaceList() == null)
+				  rdf.setPlaceList(new ArrayList<PlaceType>());
+			  
 			  rdf.getPlaceList().add(placeType);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
@@ -624,6 +627,9 @@ public class EntityMergeUtils {
 			  }
 			  agentType.setSameAList(sameAsList_);
 
+			  if (rdf.getAgentList() == null)
+				  rdf.setAgentList(new ArrayList<AgentType>());
+			  
 			  rdf.getAgentList().add(agentType);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
@@ -749,6 +755,9 @@ public class EntityMergeUtils {
 			  ArrayList<eu.europeana.corelib.definitions.jibx.Concept> conceptList = new ArrayList<eu.europeana.corelib.definitions.jibx.Concept>();
 			  conceptList.add(concept_);
 
+			  if (rdf.getConceptList() == null)
+				  rdf.setConceptList(new ArrayList<Concept>());
+			  
 			  rdf.setConceptList(conceptList);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
@@ -883,6 +892,9 @@ public class EntityMergeUtils {
 			  }
 			  timeSpanType.setSameAList(sameAsList);
 
+			  if (rdf.getTimeSpanList() == null)
+				  rdf.setTimeSpanList(new ArrayList<TimeSpanType>());
+			  
 			  rdf.getTimeSpanList().add(timeSpanType);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {

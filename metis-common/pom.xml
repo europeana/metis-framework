@@ -56,4 +56,5 @@
 			<version>${version.jackson}</version>
 		</dependency>
 	</dependencies>
+	
 </project>

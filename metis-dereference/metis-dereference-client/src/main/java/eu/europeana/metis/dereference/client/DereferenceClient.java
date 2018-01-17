@@ -39,8 +39,9 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.common.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.Vocabulary;
 
 /**
@@ -150,6 +151,9 @@ public class DereferenceClient {
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalStateException(e);
 		}
+		
+		if (!uriString.startsWith("http") && !uriString.startsWith("https"))
+			return null;
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
