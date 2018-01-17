@@ -1,10 +1,12 @@
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.metis.common.model.Agent;
-import eu.europeana.metis.common.model.EnrichmentResultList;
-import eu.europeana.metis.common.model.Label;
-import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
-import eu.europeana.metis.dereference.service.DereferenceService;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,16 +14,14 @@ import java.util.List;
 import java.util.Map;
 import org.junit.Before;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
+import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
+import eu.europeana.metis.dereference.service.DereferenceService;
 
 public class DereferencingControllerTest {
   private DereferenceService dereferenceServiceMock;

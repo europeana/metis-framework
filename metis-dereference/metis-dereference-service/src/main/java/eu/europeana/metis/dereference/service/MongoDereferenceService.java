@@ -16,17 +16,6 @@
  */
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
-import eu.europeana.metis.common.model.EnrichmentBase;
-import eu.europeana.metis.common.model.EnrichmentResultList;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
-import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -38,6 +27,17 @@ import javax.xml.transform.TransformerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.

@@ -21,7 +21,6 @@ import static eu.europeana.metis.RestEndpoints.ENTITY;
 import static eu.europeana.metis.RestEndpoints.ENTITY_DELETE;
 import static eu.europeana.metis.RestEndpoints.VOCABULARIES;
 import static eu.europeana.metis.RestEndpoints.VOCABULARY;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -31,17 +30,14 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
-
-
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.common.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.Vocabulary;
 
 /**

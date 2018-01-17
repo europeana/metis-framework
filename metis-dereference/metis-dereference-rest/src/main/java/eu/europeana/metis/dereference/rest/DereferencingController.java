@@ -16,13 +16,6 @@
  */
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.common.model.EnrichmentResultList;
-import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
-import eu.europeana.metis.dereference.service.DereferenceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -38,6 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
+import eu.europeana.metis.dereference.service.DereferenceService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * Dereferencing REST endpoint

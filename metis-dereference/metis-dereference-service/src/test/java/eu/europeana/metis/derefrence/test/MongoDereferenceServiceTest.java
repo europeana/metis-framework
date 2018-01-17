@@ -16,23 +16,6 @@
  */
 package eu.europeana.metis.derefrence.test;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.MongoClient;
-
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
-import eu.europeana.metis.common.model.EnrichmentBase;
-import eu.europeana.metis.common.model.EnrichmentResultList;
-import eu.europeana.metis.common.model.Place;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
-import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
@@ -46,6 +29,22 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.MongoClient;
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Place;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.MongoDereferenceService;
+import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import redis.clients.jedis.Jedis;
 
 /**
