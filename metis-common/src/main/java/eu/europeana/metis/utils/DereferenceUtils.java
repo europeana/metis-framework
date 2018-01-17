@@ -26,7 +26,7 @@ import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.SameAs;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.metis.common.model.EnrichmentBase;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -102,7 +102,6 @@ public class DereferenceUtils {
    * @return set of values for dereferencing
    * @throws JiBXException
    */
-  // TODO JOCHEN should this method be public? Where is it used?
   public static Set<String> extractValuesForDereferencing(RDF rdf) {
 	    Set<String> values = new HashSet<>();
 
@@ -116,10 +115,7 @@ public class DereferenceUtils {
 	    return values;
   }
   
-  // TODO JOCHEN is this method needed? It is definitely not functional.
   public static RDF toRDF(String xml) throws JiBXException {
-	    Set<String> values = new HashSet<>();
-
 	    IUnmarshallingContext context = factory.createUnmarshallingContext();
 	    RDF rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), "UTF-8");
 

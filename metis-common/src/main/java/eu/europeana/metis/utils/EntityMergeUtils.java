@@ -42,14 +42,14 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.SameAs;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx._Long;
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.enrichment.api.external.model.LabelResource;
-import eu.europeana.enrichment.api.external.model.Part;
-import eu.europeana.enrichment.api.external.model.Place;
-import eu.europeana.enrichment.api.external.model.Resource;
-import eu.europeana.enrichment.api.external.model.Timespan;
+import eu.europeana.metis.common.model.Agent;
+import eu.europeana.metis.common.model.EnrichmentBase;
+import eu.europeana.metis.common.model.Label;
+import eu.europeana.metis.common.model.LabelResource;
+import eu.europeana.metis.common.model.Part;
+import eu.europeana.metis.common.model.Place;
+import eu.europeana.metis.common.model.Resource;
+import eu.europeana.metis.common.model.Timespan;
 import eu.europeana.corelib.definitions.jibx.Concept.Choice;
 import java.util.ArrayList;
 import java.util.List;
@@ -338,6 +338,9 @@ class EntityMergeUtils {
 
 			  // isNextInSequence: not available
 			  
+			  if (rdf.getPlaceList() == null)
+				  rdf.setPlaceList(new ArrayList<PlaceType>());
+			  
 			  rdf.getPlaceList().add(placeType);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
@@ -624,6 +627,9 @@ class EntityMergeUtils {
 			  }
 			  agentType.setSameAList(sameAsList_);
 
+			  if (rdf.getAgentList() == null)
+				  rdf.setAgentList(new ArrayList<AgentType>());
+			  
 			  rdf.getAgentList().add(agentType);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
@@ -634,8 +640,8 @@ class EntityMergeUtils {
 			    }
 		  }
 
-		  if (enrichmentBase.getClass() == eu.europeana.enrichment.api.external.model.Concept.class) {
-			  eu.europeana.enrichment.api.external.model.Concept concept = (eu.europeana.enrichment.api.external.model.Concept)enrichmentBase;
+		  if (enrichmentBase.getClass() == eu.europeana.metis.common.model.Concept.class) {
+			  eu.europeana.metis.common.model.Concept concept = (eu.europeana.metis.common.model.Concept)enrichmentBase;
 			  eu.europeana.corelib.definitions.jibx.Concept concept_ = new eu.europeana.corelib.definitions.jibx.Concept();
 
 			  // about
@@ -749,6 +755,9 @@ class EntityMergeUtils {
 			  ArrayList<eu.europeana.corelib.definitions.jibx.Concept> conceptList = new ArrayList<eu.europeana.corelib.definitions.jibx.Concept>();
 			  conceptList.add(concept_);
 
+			  if (rdf.getConceptList() == null)
+				  rdf.setConceptList(new ArrayList<Concept>());
+			  
 			  rdf.setConceptList(conceptList);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
@@ -883,6 +892,9 @@ class EntityMergeUtils {
 			  }
 			  timeSpanType.setSameAList(sameAsList);
 
+			  if (rdf.getTimeSpanList() == null)
+				  rdf.setTimeSpanList(new ArrayList<TimeSpanType>());
+			  
 			  rdf.getTimeSpanList().add(timeSpanType);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {

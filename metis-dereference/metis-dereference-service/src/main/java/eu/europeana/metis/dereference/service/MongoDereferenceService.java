@@ -16,9 +16,9 @@
  */
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
+import eu.europeana.metis.common.model.EnrichmentBase;
+import eu.europeana.metis.common.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;

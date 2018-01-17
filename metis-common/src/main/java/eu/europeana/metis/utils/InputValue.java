@@ -16,8 +16,8 @@
  */
 package eu.europeana.metis.utils;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize.Inclusion;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * 
  */
 @XmlRootElement
-@JsonSerialize(include = Inclusion.ALWAYS)
+@JsonInclude(Include.ALWAYS)
 public class InputValue {
 
 	private String originalField;

@@ -16,8 +16,8 @@
  */
 package eu.europeana.metis.dereference.rest;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.common.model.EnrichmentResultList;
 import eu.europeana.metis.dereference.rest.exceptions.DereferenceException;
 import eu.europeana.metis.dereference.service.DereferenceService;
 import io.swagger.annotations.Api;

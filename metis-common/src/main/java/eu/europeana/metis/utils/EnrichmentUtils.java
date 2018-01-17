@@ -3,7 +3,7 @@ package eu.europeana.metis.utils;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.metis.common.model.EnrichmentBase;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
@@ -24,14 +24,12 @@ import org.slf4j.LoggerFactory;
  */
 public class EnrichmentUtils {
     public static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentUtils.class);
-    private static IBindingFactory rdfFactory, placeTypeFactory;
+    private static IBindingFactory rdfFactory;
     private final static String UTF8= "UTF-8";
 
     static {
     	try {
-    		rdfFactory = BindingDirectory.getFactory(RDF.class);
-    		placeTypeFactory = BindingDirectory.getFactory(PlaceType.class);
-    		
+    		rdfFactory = BindingDirectory.getFactory(RDF.class);    		    		
     	} 
     	catch (JiBXException e) {
     		LOGGER.error("Unable to get BindingFactory", e);
