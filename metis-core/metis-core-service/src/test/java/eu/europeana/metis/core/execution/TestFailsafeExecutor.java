@@ -102,12 +102,4 @@ public class TestFailsafeExecutor {
     verify(rlock, times(1)).unlock();
     verifyNoMoreInteractions(orchestratorService);
   }
-
-  @Test
-  public void close() {
-    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
-    when(redissonClient.isShutdown()).thenReturn(false);
-    failsafeExecutor.close();
-    verify(redissonClient, times(1)).shutdown();
-  }
 }

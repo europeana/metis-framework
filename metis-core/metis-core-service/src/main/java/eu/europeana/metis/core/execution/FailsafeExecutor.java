@@ -6,13 +6,13 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -23,16 +23,25 @@ public class FailsafeExecutor {
   private static final Logger LOGGER = LoggerFactory.getLogger(FailsafeExecutor.class);
 
   private final OrchestratorService orchestratorService;
-  private final RedissonClient redissonClient;
   private static final String FAILSAFE_LOCK = "failsafeLock";
   private final RLock lock;
 
+  /**
+   * Constructor the executor
+   *
+   * @param orchestratorService {@link OrchestratorService}
+   * @param redissonClient {@link RedissonClient}
+   */
+  @Autowired
   public FailsafeExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
-    this.redissonClient = redissonClient;
     this.lock = redissonClient.getFairLock(FAILSAFE_LOCK);
   }
 
+  /**
+   * Makes a run to check if there are executions hanging and if some are found it will re-send them in the distributed queue.
+   * It is meant that this method is ran periodically.
+   */
   public void performFailsafe() {
     try {
       lock.lock();
@@ -59,7 +68,7 @@ public class FailsafeExecutor {
       try {
         lock.unlock();
       } catch (RedisConnectionException e) {
-        LOGGER.warn("Cannot connect to unlock, failsafe thread continues");
+        LOGGER.warn("Cannot connect to unlock, failsafe thread continues", e);
       }
     }
   }
@@ -77,12 +86,5 @@ public class FailsafeExecutor {
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (!StringUtils.isEmpty(nextPage));
-  }
-
-  @PreDestroy
-  public void close() {
-    if (!redissonClient.isShutdown()) {
-      this.redissonClient.shutdown();
-    }
   }
 }

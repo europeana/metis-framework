@@ -12,13 +12,13 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -30,16 +30,25 @@ public class SchedulerExecutor {
 
   private final RLock lock;
   private final OrchestratorService orchestratorService;
-  private final RedissonClient redissonClient;
   private static final String SCHEDULER_LOCK = "schedulerLock";
   private LocalDateTime lastExecutionTime = LocalDateTime.now();
 
+  /**
+   * Constructs the executor
+   *
+   * @param orchestratorService {@link OrchestratorService}
+   * @param redissonClient {@link RedissonClient}
+   */
+  @Autowired
   public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
-    this.redissonClient = redissonClient;
     this.lock = redissonClient.getFairLock(SCHEDULER_LOCK);
   }
 
+  /**
+   * Makes a run to check if there are executions scheduled in a range of dates and if some are found it will send them in the distributed queue.
+   * It is meant that this method is ran periodically.
+   */
   public void performScheduling() {
     try {
       lock.lock();
@@ -67,7 +76,7 @@ public class SchedulerExecutor {
       try {
         lock.unlock();
       } catch (RedisConnectionException e) {
-        LOGGER.warn("Cannot connect to unlock, scheduler thread continues");
+        LOGGER.warn("Cannot connect to unlock, scheduler thread continues", e);
       }
     }
   }
@@ -210,13 +219,6 @@ public class SchedulerExecutor {
           scheduledWorkflow.getWorkflowPriority());
     } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
-    }
-  }
-
-  @PreDestroy
-  public void close() {
-    if (!redissonClient.isShutdown()) {
-      this.redissonClient.shutdown();
     }
   }
 }

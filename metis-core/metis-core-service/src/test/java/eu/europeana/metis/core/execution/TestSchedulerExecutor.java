@@ -170,12 +170,4 @@ public class TestSchedulerExecutor {
     verify(rlock, times(1)).unlock();
     verifyNoMoreInteractions(orchestratorService);
   }
-
-  @Test
-  public void close() {
-    SchedulerExecutor schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
-    when(redissonClient.isShutdown()).thenReturn(false);
-    schedulerExecutor.close();
-    verify(redissonClient, times(1)).shutdown();
-  }
 }
