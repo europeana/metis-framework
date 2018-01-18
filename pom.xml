@@ -194,7 +194,6 @@
     <module>metis-enrichment</module>
     <module>metis-common</module>
     <module>metis-preview</module>
-    <module>metis-linkchecking</module>
     <module>metis-normalization</module>
     <module>metis-authentication</module>
   </modules>
