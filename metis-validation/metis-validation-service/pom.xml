@@ -99,6 +99,31 @@
             <artifactId>gson</artifactId>
             <version>${version.gson}</version>
         </dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>slf4j-ext</artifactId>
+		    <version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.slf4j</groupId>
+		    <artifactId>jcl-over-slf4j</artifactId>
+		    <version>${version.slf4j}</version>
+		</dependency>
+        <dependency>
+            <groupId>eu.europeana</groupId>
+            <artifactId>object-storage</artifactId>
+            <version>1.0-SNAPSHOT</version>
+             <exclusions>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-ext</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>jcl-over-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

@@ -12,76 +12,73 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import javax.annotation.PreDestroy;
 import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-09-27
  */
-public class SchedulerExecutor implements Runnable {
+public class SchedulerExecutor {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerExecutor.class);
 
-  private int periodicSchedulerCheckInSecs = 90;
+  private final RLock lock;
   private final OrchestratorService orchestratorService;
-  private final RedissonClient redissonClient;
   private static final String SCHEDULER_LOCK = "schedulerLock";
-  private final boolean infiniteLoop; //True for infinite loop which is the normal scenario, false for testing
+  private LocalDateTime lastExecutionTime = LocalDateTime.now();
 
-  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient,
-      int periodicSchedulerCheckInSecs, boolean infiniteLoop) {
+  /**
+   * Constructs the executor
+   *
+   * @param orchestratorService {@link OrchestratorService}
+   * @param redissonClient {@link RedissonClient}
+   */
+  @Autowired
+  public SchedulerExecutor(OrchestratorService orchestratorService, RedissonClient redissonClient) {
     this.orchestratorService = orchestratorService;
-    this.redissonClient = redissonClient;
-    this.periodicSchedulerCheckInSecs = periodicSchedulerCheckInSecs;
-    this.infiniteLoop = infiniteLoop;
+    this.lock = redissonClient.getFairLock(SCHEDULER_LOCK);
   }
 
-  @Override
-  public void run() {
-    RLock lock = redissonClient.getFairLock(SCHEDULER_LOCK);
-    LocalDateTime dateBeforeSleep = LocalDateTime.now();
-    do {
-      LocalDateTime dateAfterSleep;
-      try {
-        LOGGER.info("Scheduler thread sleeping for {} seconds.", periodicSchedulerCheckInSecs);
-        Thread.sleep(periodicSchedulerCheckInSecs * 1000L);
+  /**
+   * Makes a run to check if there are executions scheduled in a range of dates and if some are found it will send them in the distributed queue.
+   * It is meant that this method is ran periodically.
+   */
+  public void performScheduling() {
+    try {
+      lock.lock();
+      final LocalDateTime thisExecutionTime = LocalDateTime.now();
+      LOGGER.info("Date range checking lowerbound: {}, upperBound:{}", this.lastExecutionTime,
+          thisExecutionTime);
+      List<ScheduledWorkflow> allCleanedScheduledWorkflows =
+          getCleanedScheduledUserWorkflows(lastExecutionTime, thisExecutionTime);
 
-        lock.lock();
-        dateAfterSleep = LocalDateTime.now();
-        LOGGER.info("Scheduler thread woke up. Date range checking lowerbound: {}, upperBound:{}",
-            dateBeforeSleep, dateAfterSleep);
-        List<ScheduledWorkflow> allCleanedScheduledWorkflows = getCleanedScheduledUserWorkflows(
-            dateBeforeSleep, dateAfterSleep);
+      for (ScheduledWorkflow scheduledWorkflow : allCleanedScheduledWorkflows) {
+        LOGGER.info(
+            "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
+            scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
+            scheduledWorkflow.getWorkflowName(), scheduledWorkflow.getPointerDate(),
+            scheduledWorkflow.getScheduleFrequence());
 
-        for (ScheduledWorkflow scheduledWorkflow :
-            allCleanedScheduledWorkflows) {
-          LOGGER.info(
-              "Adding ScheduledWorkflow with DatasetId: {}, workflowOwner: {}, workflowName: {}, pointerDate: {}, frequence: {}",
-              scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
-              scheduledWorkflow.getWorkflowName(), scheduledWorkflow.getPointerDate(),
-              scheduledWorkflow.getScheduleFrequence());
-
-          tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
-        }
-        dateBeforeSleep = dateAfterSleep;
-      } catch (InterruptedException | RuntimeException e) {
-        LOGGER.warn(
-            "Thread was interruped or exception thrown from rabbitmq channel or Redis disconnection, scheduler thread continues",
-            e);
-      } finally {
-        try {
-          lock.unlock();
-        } catch (RedisConnectionException e) {
-          LOGGER.warn("Cannot connect to unlock, scheduler thread continues");
-        }
+        tryAddUserWorkflowInQueueOfUserWorkflowExecutions(scheduledWorkflow);
       }
-    } while (infiniteLoop);
+      lastExecutionTime = thisExecutionTime;
+    } catch (RuntimeException e) {
+      LOGGER.warn(
+          "Exception thrown from rabbitmq channel or Redis disconnection, scheduler thread continues",
+          e);
+    } finally {
+      try {
+        lock.unlock();
+      } catch (RedisConnectionException e) {
+        LOGGER.warn("Cannot connect to unlock, scheduler thread continues", e);
+      }
+    }
   }
 
   private List<ScheduledWorkflow> getCleanedScheduledUserWorkflows(LocalDateTime lowerBound,
@@ -222,13 +219,6 @@ public class SchedulerExecutor implements Runnable {
           scheduledWorkflow.getWorkflowPriority());
     } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
-    }
-  }
-
-  @PreDestroy
-  public void close() {
-    if (!redissonClient.isShutdown()) {
-      this.redissonClient.shutdown();
     }
   }
 }

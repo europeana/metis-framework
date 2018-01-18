@@ -10,14 +10,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-
-import com.jayway.awaitility.Awaitility;
-import com.jayway.awaitility.Duration;
-import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.test.utils.TestUtils;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -27,6 +19,10 @@ import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
+import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -34,18 +30,14 @@ import org.redisson.client.RedisConnectionException;
  */
 public class TestFailsafeExecutor {
 
-  private static int periodicFailsafeCheckInSecs = 1;
   private static OrchestratorService orchestratorService;
   private static RedissonClient redissonClient;
-  private static FailsafeExecutor failsafeExecutor;
   private static final String FAILSAFE_LOCK = "failsafeLock";
 
   @BeforeClass
   public static void prepare() {
     orchestratorService = Mockito.mock(OrchestratorService.class);
     redissonClient = Mockito.mock(RedissonClient.class);
-    failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        periodicFailsafeCheckInSecs, false);
   }
 
   @After
@@ -59,6 +51,7 @@ public class TestFailsafeExecutor {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(rlock);
     doNothing().when(rlock).lock();
+    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
 
     int userWorkflowExecutionsPerRequest = 5;
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
@@ -77,7 +70,7 @@ public class TestFailsafeExecutor {
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);
     doNothing().when(rlock).unlock();
 
-    failsafeExecutor.run();
+    failsafeExecutor.performFailsafe();
 
     InOrder inOrder = Mockito.inOrder(orchestratorService);
     inOrder.verify(orchestratorService, times(1))
@@ -88,38 +81,25 @@ public class TestFailsafeExecutor {
   }
 
   @Test
-  public void runThatThrowsExceptionAndContinues() throws Exception {
-    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        10, false);
+  public void runThatThrowsExceptionDuringLockAndContinues() {
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(rlock);
-    doNothing().when(rlock).lock();
+    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
+    doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     doNothing().when(rlock).unlock();
-
-    Thread t = new Thread(failsafeExecutor);
-    t.start();
-    Awaitility.await().atMost(Duration.TWO_SECONDS).until(() -> TestUtils.untilThreadIsSleeping(t));
-    t.interrupt();
-    t.join();
+    failsafeExecutor.performFailsafe();
     verifyNoMoreInteractions(orchestratorService);
   }
 
   @Test
   public void runThatThrowsExceptionDuringLockAndUnlockAndContinues() {
-    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient,
-        10, false);
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(FAILSAFE_LOCK)).thenReturn(rlock);
+    FailsafeExecutor failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
     doThrow(new RedisConnectionException("Connection error")).when(rlock).lock();
     doThrow(new RedisConnectionException("Connection error")).when(rlock).unlock();
-    failsafeExecutor.run();
+    failsafeExecutor.performFailsafe();
+    verify(rlock, times(1)).unlock();
     verifyNoMoreInteractions(orchestratorService);
-  }
-
-  @Test
-  public void close() {
-    when(redissonClient.isShutdown()).thenReturn(false);
-    failsafeExecutor.close();
-    verify(redissonClient, times(1)).shutdown();
   }
 }
