@@ -11,7 +11,8 @@ import org.springframework.stereotype.Service;
 @PropertySource("classpath:validation.properties")
 public class ValidationServiceConfigImpl implements ValidationServiceConfig {
 
-  private final Logger LOGGER = LoggerFactory.getLogger(ValidationServiceConfig.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationServiceConfig.class);
+  public static final int DEFAULT_THREADS_COUNT = 10;
 
   @Value("${validation.executor.threadCount:10}")
   private String executorThreadCount;
@@ -27,7 +28,7 @@ public class ValidationServiceConfigImpl implements ValidationServiceConfig {
       LOGGER.warn(
           "Failed to parse validation.executor.threadCount with value '{}'. Taking 10 as default",
           executorThreadCount);
-      return 10;
+      return DEFAULT_THREADS_COUNT;
     }
   }
 }

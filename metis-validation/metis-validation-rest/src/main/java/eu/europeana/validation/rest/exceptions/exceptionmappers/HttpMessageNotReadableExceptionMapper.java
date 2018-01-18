@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- *
  * Created by pwozniak on 12/7/17
- *
  */
 @ControllerAdvice
 public class HttpMessageNotReadableExceptionMapper {
 
+    /**
+     * Handles specified exception
+     *
+     * @param ex exception to be handled
+     * @return
+     */
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)

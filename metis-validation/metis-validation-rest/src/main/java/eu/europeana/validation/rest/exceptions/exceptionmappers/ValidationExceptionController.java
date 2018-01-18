@@ -29,6 +29,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  */
 @ControllerAdvice
 public class ValidationExceptionController {
+
+    /**
+     * Handles specified exception
+     *
+     * @param e exception to be handled
+     * @return
+     */
     @ExceptionHandler(ValidationException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -37,6 +44,6 @@ public class ValidationExceptionController {
         error.setRecordId(e.getId());
         error.setMessage(e.getMessage());
         error.setSuccess(false);
-        return  error;
+        return error;
     }
 }
