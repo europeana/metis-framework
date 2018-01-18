@@ -2,6 +2,7 @@ package eu.europeana.enrichment.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -21,22 +22,28 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
  * Created by gmamakis on 8-3-17.
  */
 public class EnrichmentUtils {
-    public static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentUtils.class);
-    private static IBindingFactory rdfFactory;
-    private final static String UTF8= "UTF-8";
+  
+    private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentUtils.class);
+    private static IBindingFactory rdfBindingFactory;
+    private static final String UTF8 = StandardCharsets.UTF_8.name();
 
     static {
-    	try {
-    		rdfFactory = BindingDirectory.getFactory(RDF.class);    		    		
-    	} 
-    	catch (JiBXException e) {
-    		LOGGER.error("Unable to get BindingFactory", e);
-    		System.exit(-1);
-    	}
+      try {
+        rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
+      } catch (JiBXException e) {
+        LOGGER.error("Unable to create binding factory", e);
+      }
     }
 
     private EnrichmentUtils() {}
 
+    private static IBindingFactory getRdfBindingFactory() {
+      if (rdfBindingFactory != null) {
+        return rdfBindingFactory;
+      }
+      throw new IllegalStateException("No binding factory available.");
+    }
+    
     /**
      * Merge entities in a record after enrichment
      * @param record The record to enrich
@@ -56,7 +63,7 @@ public class EnrichmentUtils {
      * @param fieldName The name of the field so that it can be connected to Europeana Proxy
      * @return An RDF object with the merged entities
      */
-    public static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList, String fieldName) {
+    public static RDF mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList, String fieldName) {
     	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, fieldName);
     }
 
@@ -68,7 +75,7 @@ public class EnrichmentUtils {
      * @throws UnsupportedEncodingException
      */
     public static String convertRDFtoString(RDF rdf) throws JiBXException, UnsupportedEncodingException {
-        IMarshallingContext context = rdfFactory.createMarshallingContext();
+        IMarshallingContext context = getRdfBindingFactory().createMarshallingContext();
         context.setIndent(2);
         ByteArrayOutputStream out  = new ByteArrayOutputStream();
         context.marshalDocument(rdf, UTF8, null, out);
@@ -82,7 +89,7 @@ public class EnrichmentUtils {
      * @throws JiBXException
      */
     public static List<InputValue> extractFieldsForEnrichment(String record) throws JiBXException {
-        IUnmarshallingContext rdfCTX = rdfFactory.createUnmarshallingContext();
+        IUnmarshallingContext rdfCTX = getRdfBindingFactory().createUnmarshallingContext();
         RDF rdf = (RDF)rdfCTX.unmarshalDocument(IOUtils.toInputStream(record),UTF8);
         
         return extractFieldsForEnrichmentFromRDF(rdf);

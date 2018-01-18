@@ -1,6 +1,6 @@
 package eu.europeana.metis.dereference;
 
-import java.util.ArrayList;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -48,18 +48,26 @@ public class DereferenceUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceUtils.class);
 
-  private static IBindingFactory factory;
-
+  private static final String UTF8 = StandardCharsets.UTF_8.name();
+  
+  private static IBindingFactory rdfBindingFactory = null;
+  
   static {
     try {
-      factory = BindingDirectory.getFactory(RDF.class);
+      rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
     } catch (JiBXException e) {
       LOGGER.error("Unable to create binding factory", e);
-      System.exit(-1);
     }
   }
 
   private DereferenceUtils() { }
+
+  private static IBindingFactory getRdfBindingFactory() {
+    if (rdfBindingFactory != null) {
+      return rdfBindingFactory;
+    }
+    throw new IllegalStateException("No binding factory available.");
+  }
 
   /**
    * Merge entities for dereferencing (simpler rules than enrichment)
@@ -79,7 +87,7 @@ public class DereferenceUtils {
    * @param fieldName The name of the field so that it can be connected to Europeana Proxy
    * @return An RDF object with the merged entities
    */
-  public static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList) {
+  public static RDF mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
   	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, "");
   }
 
@@ -90,9 +98,8 @@ public class DereferenceUtils {
    * @throws JiBXException
    */
   public static Set<String> extractValuesForDereferencing(String xml) throws JiBXException {
-    IUnmarshallingContext context = factory.createUnmarshallingContext();
+    IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
     RDF rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), "UTF-8");
-    
     return extractValuesForDereferencing(rdf);
   }
   
@@ -116,13 +123,9 @@ public class DereferenceUtils {
   }
   
   public static RDF toRDF(String xml) throws JiBXException {
-	    Set<String> values = new HashSet<>();
-
-	    IUnmarshallingContext context = factory.createUnmarshallingContext();
-	    RDF rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), "UTF-8");
-
-	    return rdf;
-	  }
+	    IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
+	    return (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), UTF8);
+  }
 
   private static Set<String> dereferenceProxyList(List<ProxyType> proxyList) {
     Set<String> values = new HashSet<>();
@@ -283,54 +286,52 @@ public class DereferenceUtils {
     Set<String> values = new HashSet<>();
     if (tsList != null) {
       for (TimeSpanType ts : tsList) {
-        values.addAll(extractListOfValuesFromListFields(ts));
+        dereferenceTimespan(ts, values);
       }
     }
     return values;
   }
 
-  private static Set<String> extractListOfValuesFromListFields(TimeSpanType ts) {
-    Set<String> values = new HashSet<>();
-    values.add(ts.getAbout());
-    if (ts.getHasPartList() != null) {
-      List<HasPart> hasPartList = ts.getHasPartList();
+  private static Set<String> dereferenceTimespan(TimeSpanType timespan, Set<String> result) {
+    result.add(timespan.getAbout());
+    if (timespan.getHasPartList() != null) {
+      List<HasPart> hasPartList = timespan.getHasPartList();
       for (HasPart hasPart : hasPartList) {
-        values.add(extractValueFromResourceOrLiteral(hasPart));
+        result.add(extractValueFromResourceOrLiteral(hasPart));
       }
     }
-    if (ts.getSameAList() != null) {
-      List<SameAs> sameAsList = ts.getSameAList();
+    if (timespan.getSameAList() != null) {
+      List<SameAs> sameAsList = timespan.getSameAList();
       for (SameAs sameAs : sameAsList) {
-        values.add(extractValueFromResource(sameAs));
+        result.add(extractValueFromResource(sameAs));
       }
     }
-    if (ts.getIsPartOfList() != null) {
-      List<IsPartOf> isPartOfList = ts.getIsPartOfList();
+    if (timespan.getIsPartOfList() != null) {
+      List<IsPartOf> isPartOfList = timespan.getIsPartOfList();
       for (IsPartOf isPartOf : isPartOfList) {
-        values.add(extractValueFromResourceOrLiteral(isPartOf));
+        result.add(extractValueFromResourceOrLiteral(isPartOf));
       }
     }
-    return values;
+    return result;
   }
 
   private static Set<String> dereferenceAgentList(List<AgentType> agentList) {
     Set<String> values = new HashSet<>();
     if (agentList != null) {
       for (AgentType agent : agentList) {
-        values.addAll(dererefenceAgent(agent));
+        dererefenceAgent(agent, values);
       }
     }
     return values;
   }
 
-  private static Set<String> dererefenceAgent(AgentType agent) {
-    Set<String> values = new HashSet<>();
-    values.add(agent.getAbout());
+  private static Set<String> dererefenceAgent(AgentType agent, Set<String> result) {
+    result.add(agent.getAbout());
     if (agent.getHasMetList() != null) {
       for (HasMet hasMet : agent.getHasMetList()) {
         String hasMetResource = extractValueFromResource(hasMet);
         if (hasMetResource != null) {
-          values.add(hasMetResource);
+          result.add(hasMetResource);
         }
       }
     }
@@ -338,11 +339,11 @@ public class DereferenceUtils {
       for (IsRelatedTo hasMet : agent.getIsRelatedToList()) {
         String hasMetResource = extractValueFromResourceOrLiteral(hasMet);
         if (hasMetResource != null) {
-          values.add(hasMetResource);
+          result.add(hasMetResource);
         }
       }
     }
-    return values;
+    return result;
   }
 
   private static Set<String> dereferenceConceptList(List<Concept> conceptList) {
@@ -360,118 +361,126 @@ public class DereferenceUtils {
 
   private static Set<String> derefenceConceptChoiceList(List<Concept.Choice> choiseList) {
     Set<String> values = new HashSet<>();
-    for (Concept.Choice choice: choiseList) {
-      if (choice.ifBroadMatch()) {
-        String res = extractValueFromResource(choice.getBroadMatch());
-        if (StringUtils.isNotEmpty(res)) {
-          values.add(res);
-        }
+    for (Concept.Choice choice : choiseList) {
+      dereferenceConceptChoice(choice, values);
+    }
+    return values;
+  }
+
+  private static Set<String> dereferenceConceptChoice(Concept.Choice choice, Set<String> result) {
+    if (choice.ifBroadMatch()) {
+      String res = extractValueFromResource(choice.getBroadMatch());
+      if (StringUtils.isNotEmpty(res)) {
+        result.add(res);
       }
-      if (choice.ifCloseMatch()) {
-        String res = extractValueFromResource(choice.getCloseMatch());
-        if (StringUtils.isNotEmpty(res)) {
-          values.add(res);
-        }
+    }
+    if (choice.ifCloseMatch()) {
+      String res = extractValueFromResource(choice.getCloseMatch());
+      if (StringUtils.isNotEmpty(res)) {
+        result.add(res);
       }
-      if (choice.ifExactMatch()) {
-        String res = extractValueFromResource(choice.getExactMatch());
-        if (StringUtils.isNotEmpty(res)) {
-          values.add(res);
-        }
+    }
+    if (choice.ifExactMatch()) {
+      String res = extractValueFromResource(choice.getExactMatch());
+      if (StringUtils.isNotEmpty(res)) {
+        result.add(res);
       }
-      if (choice.ifNarrowMatch()) {
-        String res = extractValueFromResource(choice.getNarrowMatch());
-        if (StringUtils.isNotEmpty(res)) {
-          values.add(res);
-        }
+    }
+    if (choice.ifNarrowMatch()) {
+      String res = extractValueFromResource(choice.getNarrowMatch());
+      if (StringUtils.isNotEmpty(res)) {
+        result.add(res);
       }
-      if (choice.ifRelatedMatch()) {
-        String res = extractValueFromResource(choice.getRelatedMatch());
-        if (StringUtils.isNotEmpty(res)) {
-          values.add(res);
-        }
+    }
+    if (choice.ifRelatedMatch()) {
+      String res = extractValueFromResource(choice.getRelatedMatch());
+      if (StringUtils.isNotEmpty(res)) {
+        result.add(res);
       }
-      if (choice.ifRelated()) {
-        String res = extractValueFromResource(choice.getRelated());
-        if (StringUtils.isNotEmpty(res)) {
-          values.add(res);
-        }
+    }
+    if (choice.ifRelated()) {
+      String res = extractValueFromResource(choice.getRelated());
+      if (StringUtils.isNotEmpty(res)) {
+        result.add(res);
+      }
+    }
+    return result;
+  }
+
+  private static Set<String> dereferencePlaceList(List<PlaceType> placeList) {
+    Set<String> values = new HashSet<>();
+    if (placeList != null) {
+      for (PlaceType place : placeList) {
+        dereferencePlace(place, values);
       }
     }
     return values;
   }
 
-  private static Set<String> dereferencePlaceList(List<PlaceType> placeList) {
-
-    Set<String> values = new HashSet<>();
-    if (placeList != null) {
-      for (PlaceType place : placeList) {
-        values.add(place.getAbout());
-        if (place.getIsPartOfList() != null) {
-          for (IsPartOf isPartOf : place.getIsPartOfList()) {
-            values.add(extractValueFromResourceOrLiteral(isPartOf));
-          }
-        }
-        if (place.getSameAList() != null) {
-          for (SameAs sameAs : place.getSameAList()) {
-            values.add(extractValueFromResource(sameAs));
-          }
-        }
-        if (place.getHasPartList() != null) {
-          for (HasPart hasPart : place.getHasPartList()) {
-            values.add(extractValueFromResourceOrLiteral(hasPart));
-          }
-        }
+  private static Set<String> dereferencePlace(PlaceType place, Set<String> result) {
+    result.add(place.getAbout());
+    if (place.getIsPartOfList() != null) {
+      for (IsPartOf isPartOf : place.getIsPartOfList()) {
+        result.add(extractValueFromResourceOrLiteral(isPartOf));
       }
     }
-    return values;
+    if (place.getSameAList() != null) {
+      for (SameAs sameAs : place.getSameAList()) {
+        result.add(extractValueFromResource(sameAs));
+      }
+    }
+    if (place.getHasPartList() != null) {
+      for (HasPart hasPart : place.getHasPartList()) {
+        result.add(extractValueFromResourceOrLiteral(hasPart));
+      }
+    }
+    return result;
   }
 
   private static Set<String> dereferenceWebResourceList(List<WebResourceType> wrList) {
     Set<String> values = new HashSet<>();
     if (wrList != null) {
       for (WebResourceType wr : wrList) {
-        values.addAll(dereferenceWebResource(wr));
+        dereferenceWebResource(wr, values);
       }
     }
     return values;
   }
 
-  private static Set<String> dereferenceWebResource(WebResourceType wr) {
-    Set<String> values = new HashSet<>();
+  private static Set<String> dereferenceWebResource(WebResourceType wr, Set<String> result) {
     if (wr.getCreatedList() != null) {
       for (Created created : wr.getCreatedList()) {
-        values.add(extractValueFromResourceOrLiteral(created));
+        result.add(extractValueFromResourceOrLiteral(created));
       }
     }
     if (wr.getExtentList() != null) {
       for (Extent extent : wr.getExtentList()) {
-        values.add(extractValueFromResourceOrLiteral(extent));
+        result.add(extractValueFromResourceOrLiteral(extent));
       }
     }
     if (wr.getFormatList() != null) {
       for (Format format : wr.getFormatList()) {
-        values.add(extractValueFromResourceOrLiteral(format));
+        result.add(extractValueFromResourceOrLiteral(format));
       }
     }
     if (wr.getHasPartList() != null) {
       for (HasPart hasPart : wr.getHasPartList()) {
-        values.add(extractValueFromResourceOrLiteral(hasPart));
+        result.add(extractValueFromResourceOrLiteral(hasPart));
       }
     }
     if (wr.getIsFormatOfList() != null) {
       List<IsFormatOf> isFormatOfList = wr.getIsFormatOfList();
       for (IsFormatOf isFormatOf : isFormatOfList) {
-        values.add(extractValueFromResourceOrLiteral(isFormatOf));
+        result.add(extractValueFromResourceOrLiteral(isFormatOf));
       }
     }
     if (wr.getIssuedList() != null) {
       List<Issued> issuedList = wr.getIssuedList();
       for (Issued issued : issuedList) {
-        values.add(extractValueFromResourceOrLiteral(issued));
+        result.add(extractValueFromResourceOrLiteral(issued));
       }
     }
-    return values;
+    return result;
   }
 
   private static <T extends ResourceOrLiteralType> String extractValueFromResourceOrLiteral(

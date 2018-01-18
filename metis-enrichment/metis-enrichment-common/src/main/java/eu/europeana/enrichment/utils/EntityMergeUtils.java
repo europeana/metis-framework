@@ -1,5 +1,18 @@
 package eu.europeana.enrichment.utils;
 
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.jibx.runtime.BindingDirectory;
+import org.jibx.runtime.IBindingFactory;
+import org.jibx.runtime.IUnmarshallingContext;
+import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.AboutType;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Alt;
@@ -10,6 +23,7 @@ import eu.europeana.corelib.definitions.jibx.BroadMatch;
 import eu.europeana.corelib.definitions.jibx.Broader;
 import eu.europeana.corelib.definitions.jibx.CloseMatch;
 import eu.europeana.corelib.definitions.jibx.Concept;
+import eu.europeana.corelib.definitions.jibx.Concept.Choice;
 import eu.europeana.corelib.definitions.jibx.Date;
 import eu.europeana.corelib.definitions.jibx.DateOfBirth;
 import eu.europeana.corelib.definitions.jibx.DateOfDeath;
@@ -50,17 +64,6 @@ import eu.europeana.enrichment.api.external.model.Part;
 import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
-import eu.europeana.corelib.definitions.jibx.Concept.Choice;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Created by erikkonijnenburg on 28/07/2017.
@@ -68,28 +71,36 @@ import org.slf4j.LoggerFactory;
 public class EntityMergeUtils {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(EntityMergeUtils.class);
-  private final static String UTF8= "UTF-8";
-  private static IBindingFactory agentFactory;
-  private static IBindingFactory conceptFactory;
-  private static IBindingFactory placeFactory;
-  private static IBindingFactory tsFactory;
-  private static IBindingFactory rdfFactory;
+
+  private static final String UTF8 = StandardCharsets.UTF_8.name();
+
+  private static final Map<Class<?>, IBindingFactory> BINDING_FACTORIES = new HashMap<>();
+  
+  private static final Class<?>[] BINDING_FACTORY_TYPES = new Class<?>[] {AgentType.class,
+      Concept.class, PlaceType.class, TimeSpanType.class, RDF.class};
 
   static {
-    try {
-      agentFactory = BindingDirectory.getFactory(AgentType.class);
-      conceptFactory = BindingDirectory.getFactory(Concept.class);
-      placeFactory = BindingDirectory.getFactory(PlaceType.class);
-      tsFactory = BindingDirectory.getFactory(TimeSpanType.class);
-      rdfFactory = BindingDirectory.getFactory(RDF.class);
-    } catch (JiBXException e) {
-      LOGGER.error("Unable to get BindingFactory", e);
-      System.exit(-1);
+    for (Class<?> type : BINDING_FACTORY_TYPES) {
+      try {
+        BINDING_FACTORIES.put(type, BindingDirectory.getFactory(type));
+      } catch (JiBXException e) {
+        LOGGER.error("Unable to create binding factory for type " + type.getName() + ".", e);
+      }
     }
+  }
+  
+  private EntityMergeUtils() {}
+
+  private static IBindingFactory getBindingFactory(Class<?> type) {
+    final IBindingFactory result = BINDING_FACTORIES.get(type);
+    if (result != null) {
+      return result;
+    }
+    throw new IllegalStateException("No binding factory available.");
   }
 
   public static RDF mergeEntity(String record, String entity) throws JiBXException {
-    IUnmarshallingContext rdfCTX = rdfFactory.createUnmarshallingContext();
+    IUnmarshallingContext rdfCTX = getBindingFactory(RDF.class).createUnmarshallingContext();
     RDF rdf = (RDF)rdfCTX.unmarshalDocument(IOUtils.toInputStream(record),UTF8);
 
     appendEntityInRDF(entity, rdf);
@@ -98,12 +109,12 @@ public class EntityMergeUtils {
   }
 
   public static RDF mergeEntityForEnrichment(String record, String entity, String fieldName) throws JiBXException {
-    IUnmarshallingContext rdfCTX = rdfFactory.createUnmarshallingContext();
+    IUnmarshallingContext rdfCTX = getBindingFactory(RDF.class).createUnmarshallingContext();
     RDF rdf = (RDF)rdfCTX.unmarshalDocument(IOUtils.toInputStream(record),UTF8);
 
     AboutType type =  appendEntityInRDF(entity, rdf);
 
-    if (StringUtils.isNotEmpty(fieldName)) {
+    if (StringUtils.isNotEmpty(fieldName) && type != null) {
       return appendToProxy(rdf, type, fieldName);
     }
     return rdf;
@@ -139,7 +150,7 @@ public class EntityMergeUtils {
   }
 
   private static AgentType appendAgentInRDF(RDF rdf, String entity) throws JiBXException {
-    IUnmarshallingContext unmarshaller = agentFactory.createUnmarshallingContext();
+    IUnmarshallingContext unmarshaller = getBindingFactory(AgentType.class).createUnmarshallingContext();
     AgentType agentType = (AgentType) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);
 
     if (rdf.getAgentList() == null) {
@@ -151,7 +162,7 @@ public class EntityMergeUtils {
   }
 
   private static Concept appendConceptInRDF(RDF rdf, String entity) throws JiBXException {
-    IUnmarshallingContext unmarshaller = conceptFactory.createUnmarshallingContext();
+    IUnmarshallingContext unmarshaller = getBindingFactory(Concept.class).createUnmarshallingContext();
     Concept conceptType = (Concept) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);
     if(rdf.getConceptList() == null) {
       rdf.setConceptList(new ArrayList<>());
@@ -161,7 +172,7 @@ public class EntityMergeUtils {
   }
 
   private static PlaceType appendPlaceInRDF(RDF rdf, String entity) throws JiBXException {
-    IUnmarshallingContext unmarshaller = placeFactory.createUnmarshallingContext();
+    IUnmarshallingContext unmarshaller = getBindingFactory(PlaceType.class).createUnmarshallingContext();
     PlaceType placeType = (PlaceType) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);	  
     if (rdf.getPlaceList()==null) {
       rdf.setPlaceList(new ArrayList<>());
@@ -171,7 +182,7 @@ public class EntityMergeUtils {
   }
 
   private static TimeSpanType appendTimespanInRDF(RDF rdf, String entity) throws JiBXException {
-    IUnmarshallingContext unmarshaller = tsFactory.createUnmarshallingContext();
+    IUnmarshallingContext unmarshaller = getBindingFactory(TimeSpanType.class).createUnmarshallingContext();
     TimeSpanType tsType = (TimeSpanType) unmarshaller.unmarshalDocument(IOUtils.toInputStream(entity),UTF8);
     if (rdf.getTimeSpanList()==null) {
       rdf.setTimeSpanList(new ArrayList<>());
@@ -198,7 +209,7 @@ public class EntityMergeUtils {
         return proxyType;
       }
     }
-    return null;
+    throw new IllegalArgumentException("Could not find Europeana proxy.");
   }
 
   private static RDF replaceProxy(RDF rdf, ProxyType europeanaProxy) {
@@ -213,27 +224,27 @@ public class EntityMergeUtils {
     return rdf;
   }
   
-  public static RDF mergeEntity(RDF rdf, ArrayList<EnrichmentBase> enrichmentBaseList, String fieldName) {
+  public static RDF mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList, String fieldName) {
 	  for (EnrichmentBase enrichmentBase : enrichmentBaseList) {			
 		  if (enrichmentBase.getClass() == Place.class) {
-			  Place place_ = (Place)enrichmentBase;
+			  Place place = (Place)enrichmentBase;
 			  PlaceType placeType = new PlaceType();
 
 			  // about
-			  placeType.setAbout(place_.getAbout());
+			  placeType.setAbout(place.getAbout());
 
 			  // alt					
-			  String place_Alt = place_.getAlt();
-			  if (place_Alt != null) {
+			  String placeAlt = place.getAlt();
+			  if (placeAlt != null) {
 				  Alt alt = new Alt();
-				  alt.setAlt(Float.valueOf(place_.getAlt()));
+				  alt.setAlt(Float.valueOf(place.getAlt()));
 				  placeType.setAlt(alt);
 			  }
 
 			  // altLabelList					
-			  if (place_.getAltLabelList() != null) {
-				  ArrayList<AltLabel> altLabelList = new ArrayList<AltLabel>();
-				  for (Label label : place_.getAltLabelList()) {
+			  if (place.getAltLabelList() != null) {
+				  ArrayList<AltLabel> altLabelList = new ArrayList<>();
+				  for (Label label : place.getAltLabelList()) {
 					  if (label != null) {
 						  AltLabel altLabel = new AltLabel();
 						  LiteralType.Lang lang = new LiteralType.Lang();
@@ -247,9 +258,9 @@ public class EntityMergeUtils {
 			  }
 
 			  // hasPartList					
-			  if (place_.getHasPartsList() != null) {
-				  ArrayList<HasPart> hasPartList = new ArrayList<HasPart>();
-				  for (Part part : place_.getHasPartsList()) {
+			  if (place.getHasPartsList() != null) {
+				  ArrayList<HasPart> hasPartList = new ArrayList<>();
+				  for (Part part : place.getHasPartsList()) {
 					  if (part != null) {
 						  HasPart hasPart = new HasPart();
 						  ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
@@ -262,9 +273,9 @@ public class EntityMergeUtils {
 			  }	
 
 			  // isPartOfList
-			  if (place_.getIsPartOfList() != null) {
-				  ArrayList<IsPartOf> isPartOfList = new ArrayList<IsPartOf>();
-				  for (Part part : place_.getIsPartOfList()) {
+			  if (place.getIsPartOfList() != null) {
+				  ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
+				  for (Part part : place.getIsPartOfList()) {
 					  if (part != null) {
 						  IsPartOf isPartOf = new IsPartOf();							
 						  ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
@@ -278,23 +289,23 @@ public class EntityMergeUtils {
 			  }
 
 			  // lat	
-			  if (place_.getLat() != null) {
+			  if (place.getLat() != null) {
 				  Lat lat = new Lat();
-				  lat.setLat(Float.valueOf(place_.getLat()));
+				  lat.setLat(Float.valueOf(place.getLat()));
 				  placeType.setLat(lat);
 			  }
 
 			  // _long
-			  if (place_.getLon() != null) {
-				  _Long _long = new _Long();
-				  _long.setLong(Float.valueOf(place_.getLon()));
-				  placeType.setLong(_long);
+			  if (place.getLon() != null) {
+				  _Long longitude = new _Long();
+				  longitude.setLong(Float.valueOf(place.getLon()));
+				  placeType.setLong(longitude);
 			  }
 
 			  // noteList					
-			  if (place_.getNotes() != null) {
-				  ArrayList<Note> noteList = new ArrayList<Note>();
-				  for (Label label : place_.getNotes()) {
+			  if (place.getNotes() != null) {
+				  ArrayList<Note> noteList = new ArrayList<>();
+				  for (Label label : place.getNotes()) {
 					  if (label != null) {
 						  Note note = new Note();
 						  LiteralType.Lang lang = new LiteralType.Lang();
@@ -308,9 +319,9 @@ public class EntityMergeUtils {
 			  }
 
 			  // prefLabelList
-			  if (place_.getPrefLabelList() != null) {
-				  ArrayList<PrefLabel> prefLabelList = new ArrayList<PrefLabel>();
-				  for (Label label : place_.getPrefLabelList()) {
+			  if (place.getPrefLabelList() != null) {
+				  ArrayList<PrefLabel> prefLabelList = new ArrayList<>();
+				  for (Label label : place.getPrefLabelList()) {
 					  if (label != null) {
 						  PrefLabel prefLabel = new PrefLabel();
 						  LiteralType.Lang lang = new LiteralType.Lang();
@@ -324,9 +335,9 @@ public class EntityMergeUtils {
 			  }				
 
 			  // sameAsList					
-			  if (place_.getSameAs() != null) {
-				  ArrayList<SameAs> sameAsList = new ArrayList<SameAs>();
-				  for (Part part : place_.getSameAs()) {
+			  if (place.getSameAs() != null) {
+				  ArrayList<SameAs> sameAsList = new ArrayList<>();
+				  for (Part part : place.getSameAs()) {
 					  if (part != null) {
 						  SameAs sameAs = new SameAs();						
 						  sameAs.setResource(part.getResource());												
@@ -359,7 +370,7 @@ public class EntityMergeUtils {
 			  agentType.setAbout(agent.getAbout());
 
 			  // altLabelList
-			  ArrayList<AltLabel> altLabelList = new ArrayList<AltLabel>();
+			  ArrayList<AltLabel> altLabelList = new ArrayList<>();
 			  if (agent.getAltLabelList() != null) {
 				  for (Label label : agent.getAltLabelList()) {
 					  if (label != null) {
@@ -376,7 +387,7 @@ public class EntityMergeUtils {
 
 			  // begin
 			  ArrayList<Label> beginList = (ArrayList<Label>) agent.getBeginList();
-			  if (beginList != null && beginList.size()>0) {
+			  if (beginList != null && !beginList.isEmpty()) {
 				  Begin begin = new Begin();
 				  Label label = beginList.get(0);
 				  if (label != null) {
@@ -390,7 +401,7 @@ public class EntityMergeUtils {
 
 			  // biographicalInformation
 			  ArrayList<Label> bioInfoList = (ArrayList<Label>) agent.getBiographicaInformation();
-			  if (bioInfoList != null && bioInfoList.size()>0) {
+			  if (bioInfoList != null && !bioInfoList.isEmpty()) {
 				  BiographicalInformation bioInfo = new BiographicalInformation();
 				  Label label = bioInfoList.get(0);
 				  if (label != null) {
@@ -403,24 +414,24 @@ public class EntityMergeUtils {
 			  }
 
 			  // dateList
-			  ArrayList<Date> dateList_ = new ArrayList<Date>();					
-			  ArrayList<Label> dateList = (ArrayList<Label>) agent.getBiographicaInformation();
-			  if (dateList != null && dateList.size()>0) {						
-				  Label label = dateList.get(0);
-				  Date date_ = new Date();
+			  ArrayList<Date> dateList = new ArrayList<>();					
+			  ArrayList<Label> dateLabelList = (ArrayList<Label>) agent.getBiographicaInformation();
+			  if (dateLabelList != null && !dateLabelList.isEmpty()) {						
+				  Label label = dateLabelList.get(0);
+				  Date date = new Date();
 				  if (label != null) {							
 					  ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
 					  lang.setLang(label.getLang());
-					  date_.setLang(lang);
-					  date_.setString(label.getValue());
+					  date.setLang(lang);
+					  date.setString(label.getValue());
 				  }			
-				  dateList_.add(date_);
+				  dateList.add(date);
 			  }
-			  agentType.setDateList(dateList_);
+			  agentType.setDateList(dateList);
 
 			  // dateOfBirth
 			  ArrayList<Label> dateOfBirthList = (ArrayList<Label>) agent.getDateOfBirth();
-			  if (dateOfBirthList != null && dateOfBirthList.size()>0) {
+			  if (dateOfBirthList != null && !dateOfBirthList.isEmpty()) {
 				  DateOfBirth dateOfBirth = new DateOfBirth();
 				  Label label = dateOfBirthList.get(0);
 				  if (label != null) {
@@ -434,7 +445,7 @@ public class EntityMergeUtils {
 
 			  // dateofDeath				
 			  ArrayList<Label> dateOfDeathList = (ArrayList<Label>) agent.getDateOfDeath();
-			  if (dateOfDeathList != null && dateOfDeathList.size()>0) {
+			  if (dateOfDeathList != null && !dateOfDeathList.isEmpty()) {
 				  DateOfDeath dateOfDeath = new DateOfDeath();
 				  Label label = dateOfDeathList.get(0);
 				  if (label != null) {
@@ -448,7 +459,7 @@ public class EntityMergeUtils {
 
 			  // dateOfEstablishment
 			  ArrayList<Label> dateOfEstablishmentList = (ArrayList<Label>) agent.getDateOfEstablishment();
-			  if (dateOfEstablishmentList != null && dateOfEstablishmentList.size()>0) {
+			  if (dateOfEstablishmentList != null && !dateOfEstablishmentList.isEmpty()) {
 				  DateOfEstablishment dateOfEstablishment = new DateOfEstablishment();
 				  Label label = dateOfEstablishmentList.get(0);
 				  if (label != null) {
@@ -462,7 +473,7 @@ public class EntityMergeUtils {
 
 			  // dateofTermination
 			  ArrayList<Label> dateOfTerminationList = (ArrayList<Label>) agent.getDateOfTermination();
-			  if (dateOfTerminationList != null && dateOfTerminationList.size()>0) {
+			  if (dateOfTerminationList != null && !dateOfTerminationList.isEmpty()) {
 				  DateOfTermination dateOfTermination = new DateOfTermination();
 				  Label label = dateOfTerminationList.get(0);
 				  if (label != null) {
@@ -476,7 +487,7 @@ public class EntityMergeUtils {
 
 			  // end
 			  ArrayList<Label> endList = (ArrayList<Label>) agent.getEndList();
-			  if (endList != null && endList.size()>0) {
+			  if (endList != null && !endList.isEmpty()) {
 				  End end = new End();
 				  Label label = endList.get(0);
 				  if (label != null) {
@@ -490,7 +501,7 @@ public class EntityMergeUtils {
 
 			  // gender
 			  ArrayList<Label> genderList = (ArrayList<Label>) agent.getGender();
-			  if (genderList != null && genderList.size()>0) {
+			  if (genderList != null && !genderList.isEmpty()) {
 				  Gender gender = new Gender();
 				  Label label = genderList.get(0);
 				  if (label != null) {
@@ -503,129 +514,129 @@ public class EntityMergeUtils {
 			  }
 
 			  // hasMetList
-			  ArrayList<HasMet> hasMetList_ = new ArrayList<HasMet>();					
-			  ArrayList<Label> hasMetList = (ArrayList<Label>) agent.getHasMet();
-			  if (hasMetList != null && hasMetList.size()>0) {						
-				  Label label = hasMetList.get(0);
-				  HasMet hasMet_ = new HasMet();
+			  ArrayList<HasMet> hasMetList = new ArrayList<>();					
+			  ArrayList<Label> hasMetLabelList = (ArrayList<Label>) agent.getHasMet();
+			  if (hasMetLabelList != null && !hasMetLabelList.isEmpty()) {						
+				  Label label = hasMetLabelList.get(0);
+				  HasMet hasMet = new HasMet();
 				  if (label != null)
-					  hasMet_.setResource(label.getValue());		
-				  hasMetList_.add(hasMet_);
+					  hasMet.setResource(label.getValue());		
+				  hasMetList.add(hasMet);
 			  }
-			  agentType.setHasMetList(hasMetList_);
+			  agentType.setHasMetList(hasMetList);
 
 			  // hasPartList: not available
 
 			  // identifierList
-			  ArrayList<Identifier> identifierList_ = new ArrayList<Identifier>();					
-			  ArrayList<Label> identifierList = (ArrayList<Label>) agent.getIdentifier();
-			  if (identifierList != null && identifierList.size()>0) {						
-				  Label label = identifierList.get(0);
-				  Identifier identifier_ = new Identifier();
+			  ArrayList<Identifier> identifierList = new ArrayList<>();					
+			  ArrayList<Label> identifierLabelList = (ArrayList<Label>) agent.getIdentifier();
+			  if (identifierLabelList != null && !identifierLabelList.isEmpty()) {						
+				  Label label = identifierLabelList.get(0);
+				  Identifier identifier = new Identifier();
 				  if (label != null)
 				  {
 					  LiteralType.Lang lang = new LiteralType.Lang();
 					  lang.setLang(label.getLang());
-					  identifier_.setLang(lang);
-					  identifier_.setString(label.getValue());
+					  identifier.setLang(lang);
+					  identifier.setString(label.getValue());
 				  }
-				  identifierList_.add(identifier_);
+				  identifierList.add(identifier);
 			  }
-			  agentType.setIdentifierList(identifierList_);
+			  agentType.setIdentifierList(identifierList);
 
 			  // isPartOfList: not available
 
 			  // isRelatedToList
-			  ArrayList<IsRelatedTo> isRelatedToList_ = new ArrayList<IsRelatedTo>();					
-			  ArrayList<LabelResource> isRelatedToList = (ArrayList<LabelResource>) agent.getIsRelatedTo();
-			  if (isRelatedToList != null && isRelatedToList.size()>0) {						
-				  LabelResource labelResource = isRelatedToList.get(0);
-				  IsRelatedTo isRelatedTo_ = new IsRelatedTo();
+			  ArrayList<IsRelatedTo> isRelatedToList = new ArrayList<>();					
+			  ArrayList<LabelResource> isRelatedToLabelResourceList = (ArrayList<LabelResource>) agent.getIsRelatedTo();
+			  if (isRelatedToLabelResourceList != null && !isRelatedToLabelResourceList.isEmpty()) {						
+				  LabelResource labelResource = isRelatedToLabelResourceList.get(0);
+				  IsRelatedTo isRelatedTo = new IsRelatedTo();
 				  if (labelResource != null)
 				  {
-					  isRelatedTo_.setString(labelResource.getValue());
+					  isRelatedTo.setString(labelResource.getValue());
 					  ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
 					  lang.setLang(labelResource.getLang());
-					  isRelatedTo_.setLang(lang);	
+					  isRelatedTo.setLang(lang);	
 					  ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
 					  resrc.setResource(labelResource.getResource());
-					  isRelatedTo_.setResource(resrc);
+					  isRelatedTo.setResource(resrc);
 				  }
-				  isRelatedToList_.add(isRelatedTo_);
+				  isRelatedToList.add(isRelatedTo);
 			  }
-			  agentType.setIsRelatedToList(isRelatedToList_);
+			  agentType.setIsRelatedToList(isRelatedToList);
 
 			  // nameList: not available
 
 			  // noteList
-			  ArrayList<Note> noteList_ = new ArrayList<Note>();					
-			  ArrayList<Label> noteList = (ArrayList<Label>) agent.getNotes();
-			  if (noteList != null && noteList.size()>0) {						
-				  Label label = noteList.get(0);
-				  Note note_ = new Note();
+			  ArrayList<Note> noteList = new ArrayList<>();					
+			  ArrayList<Label> noteLabelList = (ArrayList<Label>) agent.getNotes();
+			  if (noteLabelList != null && !noteLabelList.isEmpty()) {						
+				  Label label = noteLabelList.get(0);
+				  Note note = new Note();
 				  if (label != null)
 				  {
 					  LiteralType.Lang lang = new LiteralType.Lang();
 					  lang.setLang(label.getLang());
-					  note_.setLang(lang);
-					  note_.setString(label.getValue());
+					  note.setLang(lang);
+					  note.setString(label.getValue());
 				  }
-				  noteList_.add(note_);
+				  noteList.add(note);
 			  }
-			  agentType.setNoteList(noteList_);				
+			  agentType.setNoteList(noteList);				
 
 			  // placeofBirth: not available
 
 			  // placeofDeath: not available
 
 			  // prefLabelList
-			  ArrayList<PrefLabel> prefLabelList_ = new ArrayList<PrefLabel>();					
-			  ArrayList<Label> prefLabelList = (ArrayList<Label>) agent.getPrefLabelList();
-			  if (prefLabelList != null && prefLabelList.size()>0) {						
-				  Label label = prefLabelList.get(0);
-				  PrefLabel prefLabel_ = new PrefLabel();
+			  ArrayList<PrefLabel> prefLabelList = new ArrayList<>();					
+			  ArrayList<Label> prefLabelLabelList = (ArrayList<Label>) agent.getPrefLabelList();
+			  if (prefLabelLabelList != null && !prefLabelLabelList.isEmpty()) {						
+				  Label label = prefLabelLabelList.get(0);
+				  PrefLabel prefLabel = new PrefLabel();
 				  if (label != null)
 				  {
 					  LiteralType.Lang lang = new LiteralType.Lang();
 					  lang.setLang(label.getLang());
-					  prefLabel_.setLang(lang);
-					  prefLabel_.setString(label.getValue());
+					  prefLabel.setLang(lang);
+					  prefLabel.setString(label.getValue());
 				  }
-				  prefLabelList_.add(prefLabel_);
+				  prefLabelList.add(prefLabel);
 			  }
-			  agentType.setPrefLabelList(prefLabelList_);
+			  agentType.setPrefLabelList(prefLabelList);
 
 			  // professionOrOccupationList
-			  ArrayList<ProfessionOrOccupation> professionOrOccupationList_ = new ArrayList<ProfessionOrOccupation>();					
-			  ArrayList<LabelResource> professionOrOccupationList = (ArrayList<LabelResource>) agent.getProfessionOrOccupation();
-			  if (professionOrOccupationList != null && professionOrOccupationList.size()>0) {						
-				  LabelResource labelResource = professionOrOccupationList.get(0);
-				  ProfessionOrOccupation professionOrOccupation_ = new ProfessionOrOccupation();
+			  ArrayList<ProfessionOrOccupation> professionOrOccupationList = new ArrayList<>();					
+			  ArrayList<LabelResource> professionOrOccupationLabelResourceList = (ArrayList<LabelResource>) agent.getProfessionOrOccupation();
+			  if (professionOrOccupationLabelResourceList != null && !professionOrOccupationLabelResourceList.isEmpty()) {						
+				  LabelResource labelResource = professionOrOccupationLabelResourceList.get(0);
+				  ProfessionOrOccupation professionOrOccupation = new ProfessionOrOccupation();
 				  if (labelResource != null)
 				  {
-					  professionOrOccupation_.setString(labelResource.getValue());
+					  professionOrOccupation.setString(labelResource.getValue());
 					  ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
 					  lang.setLang(labelResource.getLang());
-					  professionOrOccupation_.setLang(lang);	
+					  professionOrOccupation.setLang(lang);	
 					  ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
 					  resrc.setResource(labelResource.getResource());
-					  professionOrOccupation_.setResource(resrc);
+					  professionOrOccupation.setResource(resrc);
 				  }
-				  professionOrOccupationList_.add(professionOrOccupation_);
+				  professionOrOccupationList.add(professionOrOccupation);
 			  }
-			  agentType.setProfessionOrOccupationList(professionOrOccupationList_);
+			  agentType.setProfessionOrOccupationList(professionOrOccupationList);
 
 			  // sameAsList
-			  ArrayList<SameAs> sameAsList_ = new ArrayList<SameAs>();					
-			  ArrayList<Part> sameAsList = (ArrayList<Part>) agent.getSameAs();
-			  if (sameAsList != null && sameAsList.size()>0) {						
-				  Part part = sameAsList.get(0);
-				  SameAs sameAs_ = new SameAs();
+			  ArrayList<SameAs> sameAsList = new ArrayList<>();					
+			  ArrayList<Part> sameAsPartList = (ArrayList<Part>) agent.getSameAs();
+			  if (sameAsPartList != null && !sameAsPartList.isEmpty()) {						
+				  Part part = sameAsPartList.get(0);
+				  SameAs sameAs = new SameAs();
 				  if (part != null)
-					  sameAs_.setResource(part.getResource());
-				  sameAsList_.add(sameAs_);
+					  sameAs.setResource(part.getResource());
+				  sameAsList.add(sameAs);
 			  }
-			  agentType.setSameAList(sameAsList_);
+			  agentType.setSameAList(sameAsList);
 
 			  if (rdf.getAgentList() == null)
 				  rdf.setAgentList(new ArrayList<AgentType>());
@@ -641,119 +652,119 @@ public class EntityMergeUtils {
 		  }
 
 		  if (enrichmentBase.getClass() == eu.europeana.enrichment.api.external.model.Concept.class) {
-			  eu.europeana.enrichment.api.external.model.Concept concept = (eu.europeana.enrichment.api.external.model.Concept)enrichmentBase;
-			  eu.europeana.corelib.definitions.jibx.Concept concept_ = new eu.europeana.corelib.definitions.jibx.Concept();
+			  eu.europeana.enrichment.api.external.model.Concept baseConcept = (eu.europeana.enrichment.api.external.model.Concept)enrichmentBase;
+			  eu.europeana.corelib.definitions.jibx.Concept concept = new eu.europeana.corelib.definitions.jibx.Concept();
 
 			  // about
-			  concept_.setAbout(concept.getAbout());
+			  concept.setAbout(baseConcept.getAbout());
 
 			  // choiceList
-			  ArrayList<Choice> choiceList_ = new ArrayList<Choice>();
+			  ArrayList<Choice> choiceList = new ArrayList<>();
 
-			  Choice choice_ = new Choice();
+			  Choice choice = new Choice();
 
-			  ArrayList<Label> altLabelList = (ArrayList<Label>) concept.getAltLabelList();
-			  AltLabel altLabel_ = new AltLabel();
+			  ArrayList<Label> altLabelList = (ArrayList<Label>) baseConcept.getAltLabelList();
+			  AltLabel altLabel = new AltLabel();
 			  if (altLabelList != null) {
-				  Label altLabel = altLabelList.get(0);
+				  Label altLabelLabel = altLabelList.get(0);
 				  LiteralType.Lang lang1 = new LiteralType.Lang();
-				  lang1.setLang(altLabel.getLang());
-				  altLabel_.setLang(lang1);
-				  altLabel_.setString(altLabel.getValue());
+				  lang1.setLang(altLabelLabel.getLang());
+				  altLabel.setLang(lang1);
+				  altLabel.setString(altLabelLabel.getValue());
 			  }
-			  choice_.setAltLabel(altLabel_);
+			  choice.setAltLabel(altLabel);
 
-			  ArrayList<Resource> broadMatch = (ArrayList<Resource>)concept.getBroadMatch();
-			  BroadMatch broadMatch_ = new BroadMatch();
-			  if (broadMatch != null)
-				  broadMatch_.setResource(broadMatch.get(0).getResource());
-			  choice_.setBroadMatch(broadMatch_);
+			  ArrayList<Resource> broadMatchResource = (ArrayList<Resource>)baseConcept.getBroadMatch();
+			  BroadMatch broadMatch = new BroadMatch();
+			  if (broadMatchResource != null)
+				  broadMatch.setResource(broadMatchResource.get(0).getResource());
+			  choice.setBroadMatch(broadMatch);
 
-			  ArrayList<Resource> broader = (ArrayList<Resource>)concept.getBroader();
-			  Broader broader_ = new Broader();
-			  if (broader != null)
-				  broader_.setResource(broader.get(0).getResource());
-			  choice_.setBroader(broader_);
+			  ArrayList<Resource> broaderResource = (ArrayList<Resource>)baseConcept.getBroader();
+			  Broader broader = new Broader();
+			  if (broaderResource != null)
+				  broader.setResource(broaderResource.get(0).getResource());
+			  choice.setBroader(broader);
 
-			  ArrayList<Resource> closeMatch = (ArrayList<Resource>)concept.getCloseMatch();
-			  CloseMatch closeMatch_ = new CloseMatch();
-			  if (closeMatch != null)
-				  closeMatch_.setResource(closeMatch.get(0).getResource());
-			  choice_.setCloseMatch(closeMatch_);
+			  ArrayList<Resource> closeMatchResource = (ArrayList<Resource>)baseConcept.getCloseMatch();
+			  CloseMatch closeMatch = new CloseMatch();
+			  if (closeMatchResource != null)
+				  closeMatch.setResource(closeMatchResource.get(0).getResource());
+			  choice.setCloseMatch(closeMatch);
 
-			  ArrayList<Resource> exactMatch = (ArrayList<Resource>)concept.getExactMatch();
-			  ExactMatch exactMatch_ = new ExactMatch();
-			  if (exactMatch != null)
-				  exactMatch_.setResource(exactMatch.get(0).getResource());
-			  choice_.setExactMatch(exactMatch_);
+			  ArrayList<Resource> exactMatchResource = (ArrayList<Resource>)baseConcept.getExactMatch();
+			  ExactMatch exactMatch = new ExactMatch();
+			  if (exactMatchResource != null)
+				  exactMatch.setResource(exactMatchResource.get(0).getResource());
+			  choice.setExactMatch(exactMatch);
 
-			  ArrayList<Resource> inScheme = (ArrayList<Resource>)concept.getInScheme();
-			  InScheme inScheme_ = new InScheme();
-			  if (inScheme != null)
-				  inScheme_.setResource(inScheme.get(0).getResource());
-			  choice_.setInScheme(inScheme_);
+			  ArrayList<Resource> inSchemeResource = (ArrayList<Resource>)baseConcept.getInScheme();
+			  InScheme inScheme = new InScheme();
+			  if (inSchemeResource != null)
+				  inScheme.setResource(inSchemeResource.get(0).getResource());
+			  choice.setInScheme(inScheme);
 
-			  ArrayList<Resource> narrower = (ArrayList<Resource>)concept.getNarrower();
-			  Narrower narrower_ = new Narrower();
-			  if (narrower != null)
-				  narrower_.setResource(narrower.get(0).getResource());
-			  choice_.setNarrower(narrower_);
+			  ArrayList<Resource> narrowerResource = (ArrayList<Resource>)baseConcept.getNarrower();
+			  Narrower narrower = new Narrower();
+			  if (narrowerResource != null)
+				  narrower.setResource(narrowerResource.get(0).getResource());
+			  choice.setNarrower(narrower);
 
-			  ArrayList<Resource> narrowMatch = (ArrayList<Resource>)concept.getNarrowMatch();
-			  NarrowMatch narrowMatch_ = new NarrowMatch();
-			  if (narrowMatch != null)
-				  narrowMatch_.setResource(narrowMatch.get(0).getResource());
-			  choice_.setNarrowMatch(narrowMatch_);
+			  ArrayList<Resource> narrowMatchResource = (ArrayList<Resource>)baseConcept.getNarrowMatch();
+			  NarrowMatch narrowMatch = new NarrowMatch();
+			  if (narrowMatchResource != null)
+				  narrowMatch.setResource(narrowMatchResource.get(0).getResource());
+			  choice.setNarrowMatch(narrowMatch);
 
-			  ArrayList<Label> notationList = (ArrayList<Label>) concept.getNotation();
-			  Notation notation_ = new Notation();
+			  ArrayList<Label> notationList = (ArrayList<Label>) baseConcept.getNotation();
+			  Notation notation = new Notation();
 			  if (notationList != null) {
-				  Label notation = notationList.get(0);
+				  Label notationLabel = notationList.get(0);
 				  LiteralType.Lang lang2 = new LiteralType.Lang();
-				  lang2.setLang(notation.getLang());
-				  notation_.setLang(lang2);
-				  notation_.setString(notation.getValue());
+				  lang2.setLang(notationLabel.getLang());
+				  notation.setLang(lang2);
+				  notation.setString(notationLabel.getValue());
 			  }
-			  choice_.setNotation(notation_);
+			  choice.setNotation(notation);
 
-			  ArrayList<Label> noteList = (ArrayList<Label>) concept.getNotes();
-			  Note note_ = new Note();
+			  ArrayList<Label> noteList = (ArrayList<Label>) baseConcept.getNotes();
+			  Note note = new Note();
 			  if (noteList != null) {
-				  Label note = noteList.get(0);
+				  Label noteLabel = noteList.get(0);
 				  LiteralType.Lang lang3 = new LiteralType.Lang();
-				  lang3.setLang(note.getLang());
-				  note_.setLang(lang3);
-				  note_.setString(note.getValue());
+				  lang3.setLang(noteLabel.getLang());
+				  note.setLang(lang3);
+				  note.setString(noteLabel.getValue());
 			  }
-			  choice_.setNote(note_);
+			  choice.setNote(note);
 
-			  ArrayList<Label> prefLabelList = (ArrayList<Label>) concept.getPrefLabelList();
-			  PrefLabel prefLabel_ = new PrefLabel();
+			  ArrayList<Label> prefLabelList = (ArrayList<Label>) baseConcept.getPrefLabelList();
+			  PrefLabel prefLabel = new PrefLabel();
 			  if (prefLabelList != null) {
-				  Label prefLabel = prefLabelList.get(0);
+				  Label prefLabelLabel = prefLabelList.get(0);
 				  LiteralType.Lang lang4 = new LiteralType.Lang();
-				  lang4.setLang(prefLabel.getLang());
-				  prefLabel_.setLang(lang4);
-				  prefLabel_.setString(prefLabel.getValue());
+				  lang4.setLang(prefLabelLabel.getLang());
+				  prefLabel.setLang(lang4);
+				  prefLabel.setString(prefLabelLabel.getValue());
 			  }
-			  choice_.setPrefLabel(prefLabel_);
+			  choice.setPrefLabel(prefLabel);
 
-			  ArrayList<Resource> related = (ArrayList<Resource>)concept.getRelated();
-			  Related related_ = new Related();
-			  if (related != null)
-				  related_.setResource(related.get(0).getResource());
-			  choice_.setRelated(related_);
+			  ArrayList<Resource> relatedResource = (ArrayList<Resource>)baseConcept.getRelated();
+			  Related related = new Related();
+			  if (relatedResource != null)
+				  related.setResource(relatedResource.get(0).getResource());
+			  choice.setRelated(related);
 
-			  ArrayList<Resource> relatedMatch = (ArrayList<Resource>)concept.getRelatedMatch();
-			  RelatedMatch relatedMatch_ = new RelatedMatch();
-			  if (relatedMatch != null)
-				  relatedMatch_.setResource(relatedMatch.get(0).getResource());
-			  choice_.setRelatedMatch(relatedMatch_);
+			  ArrayList<Resource> relatedMatchResource = (ArrayList<Resource>)baseConcept.getRelatedMatch();
+			  RelatedMatch relatedMatch = new RelatedMatch();
+			  if (relatedMatchResource != null)
+				  relatedMatch.setResource(relatedMatchResource.get(0).getResource());
+			  choice.setRelatedMatch(relatedMatch);
 
-			  choiceList_.add(choice_);
-			  concept_.setChoiceList(choiceList_);
-			  ArrayList<eu.europeana.corelib.definitions.jibx.Concept> conceptList = new ArrayList<eu.europeana.corelib.definitions.jibx.Concept>();
-			  conceptList.add(concept_);
+			  choiceList.add(choice);
+			  concept.setChoiceList(choiceList);
+			  ArrayList<eu.europeana.corelib.definitions.jibx.Concept> conceptList = new ArrayList<>();
+			  conceptList.add(concept);
 
 			  if (rdf.getConceptList() == null)
 				  rdf.setConceptList(new ArrayList<Concept>());
@@ -761,7 +772,7 @@ public class EntityMergeUtils {
 			  rdf.setConceptList(conceptList);
 			  
 			  if (StringUtils.isNotEmpty(fieldName)) {
-				  AboutType type = concept_;				 
+				  AboutType type = concept;				 
 			      return appendToProxy(rdf, type, fieldName);
 			    } else {
 			    	return rdf;
@@ -776,7 +787,7 @@ public class EntityMergeUtils {
 			  timeSpanType.setAbout(timespan.getAbout());
 
 			  // altLabelList
-			  ArrayList<AltLabel> altLabelList = new ArrayList<AltLabel>();
+			  ArrayList<AltLabel> altLabelList = new ArrayList<>();
 			  if (timespan.getAltLabelList() != null) {
 				  for (Label label : timespan.getAltLabelList()) {
 					  if (label != null) {
@@ -793,30 +804,30 @@ public class EntityMergeUtils {
 
 			  // begin		
 			  ArrayList<Label> beginList = (ArrayList<Label>) timespan.getBeginList();
-			  Begin begin_ = new Begin();
+			  Begin begin = new Begin();
 			  if (beginList != null) {
-				  Label begin = beginList.get(0);
+				  Label beginLabel = beginList.get(0);
 				  LiteralType.Lang lang2 = new LiteralType.Lang();
-				  lang2.setLang(begin.getLang());
-				  begin_.setLang(lang2);
-				  begin_.setString(begin.getValue());
+				  lang2.setLang(beginLabel.getLang());
+				  begin.setLang(lang2);
+				  begin.setString(beginLabel.getValue());
 			  }
-			  timeSpanType.setBegin(begin_);
+			  timeSpanType.setBegin(begin);
 
 			  // end		
 			  ArrayList<Label> endList = (ArrayList<Label>) timespan.getEndList();
-			  End end_ = new End();
+			  End end = new End();
 			  if (endList != null) {
-				  Label end = endList.get(0);
+				  Label endLabel = endList.get(0);
 				  LiteralType.Lang lang2 = new LiteralType.Lang();
-				  lang2.setLang(end.getLang());
-				  end_.setLang(lang2);
-				  end_.setString(end.getValue());
+				  lang2.setLang(endLabel.getLang());
+				  end.setLang(lang2);
+				  end.setString(endLabel.getValue());
 			  }
-			  timeSpanType.setEnd(end_);
+			  timeSpanType.setEnd(end);
 
 			  // hasPartList
-			  ArrayList<HasPart> hasPartList = new ArrayList<HasPart>();
+			  ArrayList<HasPart> hasPartList = new ArrayList<>();
 			  if (timespan.getHasPartsList() != null) {
 				  for (Part part : timespan.getHasPartsList()) {
 					  if (part != null) {
@@ -833,7 +844,7 @@ public class EntityMergeUtils {
 			  // isNextInSequence: not available
 
 			  // isPartOfList
-			  ArrayList<IsPartOf> isPartOfList = new ArrayList<IsPartOf>();
+			  ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
 			  if (timespan.getIsPartOfList() != null) {
 				  for (Part part : timespan.getIsPartOfList()) {
 					  if (part != null) {
@@ -848,7 +859,7 @@ public class EntityMergeUtils {
 			  timeSpanType.setIsPartOfList(isPartOfList);
 
 			  // noteList
-			  ArrayList<Note> noteList = new ArrayList<Note>();
+			  ArrayList<Note> noteList = new ArrayList<>();
 			  if (timespan.getNotes() != null) {
 				  for (Label label : timespan.getNotes()) {
 					  if (label != null) {
@@ -864,7 +875,7 @@ public class EntityMergeUtils {
 			  timeSpanType.setNoteList(noteList);
 
 			  // prefLabelList
-			  ArrayList<PrefLabel> prefLabelList = new ArrayList<PrefLabel>();
+			  ArrayList<PrefLabel> prefLabelList = new ArrayList<>();
 			  if (timespan.getPrefLabelList() != null) {
 				  for (Label label : timespan.getPrefLabelList()) {
 					  if (label != null) {
@@ -880,7 +891,7 @@ public class EntityMergeUtils {
 			  timeSpanType.setPrefLabelList(prefLabelList);
 
 			  // sameAsList
-			  ArrayList<SameAs> sameAsList = new ArrayList<SameAs>();
+			  ArrayList<SameAs> sameAsList = new ArrayList<>();
 			  if (timespan.getSameAs() != null) {
 				  for (Part part : timespan.getSameAs()) {
 					  if (part != null) {
