@@ -32,6 +32,16 @@
             <groupId>eu.europeana.metis</groupId>
             <artifactId>metis-enrichment-common</artifactId>
             <version>${project.version}</version>
+            <exclusions>
+                <exclusion>
+				    <groupId>org.mongojack</groupId>
+				    <artifactId>mongojack</artifactId>
+                </exclusion>
+                <exclusion>
+				    <groupId>org.codehaus.jackson</groupId>
+				    <artifactId>jackson-xc</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -85,6 +95,14 @@
                 <exclusion>
                     <artifactId>jackson-annotations</artifactId>
                     <groupId>com.fasterxml.jackson.core</groupId>
+                </exclusion>
+                <exclusion>
+				    <groupId>org.codehaus.jackson</groupId>
+				    <artifactId>jackson-xc</artifactId>
+                </exclusion>
+                <exclusion>
+				    <groupId>com.fasterxml.jackson.dataformat</groupId>
+				    <artifactId>jackson-dataformat-cbor</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
