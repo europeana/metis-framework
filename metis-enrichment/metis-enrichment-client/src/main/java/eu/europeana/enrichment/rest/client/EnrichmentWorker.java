@@ -5,8 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import org.jibx.runtime.JiBXException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.exceptions.UnknownException;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
@@ -14,277 +15,250 @@ import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.metis.dereference.DereferenceUtils;
 import eu.europeana.metis.dereference.client.DereferenceClient;
 
-/*
- * To be integrated into eCloud topology. This code serves as an example of enrichment through use of the
- * enrichment and dereferencing clients and utils. 
+/**
+ * This class performs the task of dereferencing and enrichment for a given RDF document.
  * 
+ * @author jochen
+ *
  */
 public class EnrichmentWorker {
-  
-  public static final String SAMPLE_INPUT = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-      "<rdf:RDF xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"" +
-      "xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\"" +
-      "xmlns:dc=\"http://purl.org/dc/elements/1.1/\"" +
-      "xmlns:edm=\"http://www.europeana.eu/schemas/edm/\"" +
-      "xmlns:wgs84_pos=\"http://www.w3.org/2003/01/geo/wgs84_pos#\"" +
-      "xmlns:foaf=\"http://xmlns.com/foaf/0.1/\"" +
-      "xmlns:rdaGr2=\"http://rdvocab.info/ElementsGr2/\"" +
-      "xmlns:oai=\"http://www.openarchives.org/OAI/2.0/\"" +
-      "xmlns:owl=\"http://www.w3.org/2002/07/owl#\"" +
-      "xmlns:ore=\"http://www.openarchives.org/ore/terms/\"" +
-      "xmlns:skos=\"http://www.w3.org/2004/02/skos/core#\"" +
-      "xmlns:dcterms=\"http://purl.org/dc/terms/\"" +
-      "xmlns:sch=\"http://purl.oclc.org/dsdl/schematron\"" +
-      "xmlns:cc=\"http://creativecommons.org/ns#\"" +
-      "xmlns:dcat=\"http://www.w3.org/ns/dcat#\"" +
-      "xmlns:odrl=\"http://www.w3.org/ns/odrl/2/\"" +
-      "xmlns:adms=\"http://www.w3.org/ns/adms#\"" +
-      "xmlns:svcs=\"http://rdfs.org/sioc/services#\"" +
-      "xmlns:doap=\"http://usefulinc.com/ns/doap#\"" +
-      "xmlns:wdrs=\"http://www.w3.org/2007/05/powder-s#\">" +
-      "<edm:ProvidedCHO rdf:about=\"ProvidedCHO_Bolton_Council_1993_83_27_19\"/>" +
-      "<edm:WebResource rdf:about=\"http://boltonworktown.co.uk/wp-content/uploads/1993.83.27.19.jpg\"/>" +
-      "<edm:TimeSpan rdf:about=\"#Timespan_Photoconsortium_1937-1938\">" +
-      "<skos:prefLabel xml:lang=\"en\">1937-1938</skos:prefLabel>" +
-      "<edm:begin>1937-01-01</edm:begin>" +
-      "<edm:end>1938-12-31</edm:end>" +
-      "</edm:TimeSpan>" +
-      "<ore:Aggregation rdf:about=\"Bolton Council/1993.83.27.19\">" +
-      "<edm:aggregatedCHO rdf:resource=\"ProvidedCHO_Bolton_Council_1993_83_27_19\"/>" +
-      "<edm:dataProvider>Bolton Council</edm:dataProvider>" +
-      "<edm:isShownAt rdf:resource=\"http://boltonworktown.co.uk/photograph/washing-day-2\"/>" +
-      "<edm:isShownBy rdf:resource=\"http://boltonworktown.co.uk/wp-content/uploads/1993.83.27.19.jpg\"/>" +
-      "<edm:object rdf:resource=\"http://boltonworktown.co.uk/wp-content/uploads/1993.83.27.19.jpg\"/>" +
-      "<edm:provider>AthenaPlus</edm:provider>" +
-      "<dc:rights>Bolton Council</dc:rights>" +
-      "<edm:rights rdf:resource=\"http://rightsstatements.org/vocab/InC/1.0/\"/>" +
-      "</ore:Aggregation>" +
-      "<ore:Proxy rdf:about=\"ProvidedCHO_Bolton_Council_1993_83_27_19\">" +
-      "<dc:creator rdf:resource=\"http://vocab.getty.edu/ulan/500021114\"/>" +
-      "<dc:description xml:lang=\"pl\">Washing day near Snowden St. Park Mill is visible in the" +
-      "background.</dc:description>" +
-      "<dc:description xml:lang=\"pl\">Jour de lessive près de Snowden Street. L'usine Park Mills est visible en arrière-plan.</dc:description>" +
-      "<dc:title xml:lang=\"en\">Washing Day</dc:title>" +
-      "<dc:title xml:lang=\"fr\">Jour de lessive</dc:title>" +
-      "<dc:identifier>1993.83.27.19</dc:identifier>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300008247\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300386103\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300247617\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300006321\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300264626\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300008436\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300053042\"/>" +
-      "<dc:subject rdf:resource=\"http://vocab.getty.edu/aat/300005730\"/>" +
-      "<dc:type rdf:resource=\"http://vocab.getty.edu/aat/300046300\"/>" +
-      "<dc:format rdf:resource=\"http://vocab.getty.edu/aat/300128361\"/>" +
-      "<dcterms:medium rdf:resource=\"http://vocab.getty.edu/aat/300127149\"/>" +
-      "<dcterms:created rdf:resource=\"#Timespan_Photoconsortium_1937-1938\"/>" +
-      "<dcterms:provenance xml:lang=\"en\">Bolton Library and Museum Services</dcterms:provenance>" +
-      "<dcterms:spatial rdf:resource=\"http://sws.geonames.org/2655237\"/>" +
-      "<ore:proxyFor rdf:resource=\"ProvidedCHO_Bolton_Council_1993_83_27_19\"/>" +
-      "<ore:proxyIn rdf:resource=\"Bolton Council/1993.83.27.19\"/>" +
-      "<edm:type>IMAGE</edm:type>" +
-      "</ore:Proxy>" +
-      "<edm:EuropeanaAggregation rdf:about=\"Bolton Council/1993.83.27.19\">" +
-      "<edm:aggregatedCHO rdf:resource=\"ProvidedCHO_Bolton_Council_1993_83_27_19\"/>" +
-      "<edm:country>Poland</edm:country>" +
-      "<edm:language>pl</edm:language>" +
-      "</edm:EuropeanaAggregation>" +
-      "</rdf:RDF>";
-  
-  public static void main(String[] args) throws JiBXException {
 
-    RDF rdf = DereferenceUtils.toRDF(SAMPLE_INPUT);
+  private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentWorker.class);
 
-    try {
-      logMessageLine("***Using the following RDF***:\n\n" + EnrichmentUtils.convertRDFtoString(rdf) + "\n");
-    } catch (UnsupportedEncodingException e) {
-      logException(e);
+  private final EnrichmentClient enrichmentClient;
+  private final DereferenceClient dereferenceClient;
+
+  public enum Mode {
+    ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT;
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param dereferenceUrl The URL of the dereference service.
+   * @param enrichmentUrl The URL of the enrichment service.
+   */
+  public EnrichmentWorker(String dereferenceUrl, String enrichmentUrl) {
+    this(new DereferenceClient(dereferenceUrl), new EnrichmentClient(enrichmentUrl));
+  }
+
+  /**
+   * Constructor.
+   * 
+   * @param dereferenceClient The dereference client.
+   * @param enrichmentClient The enrichment client.
+   */
+  EnrichmentWorker(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient) {
+    this.dereferenceClient = dereferenceClient;
+    this.enrichmentClient = enrichmentClient;
+  }
+
+  /**
+   * Performs dereference and enrichment on an input RDF to produce a target RDF. This is a wrapper
+   * for {@link #process(RDF, Mode)} where the mode is {@link Mode#DEREFERENCE_AND_ENRICHMENT}.
+   * 
+   * @param inputRdf The RDF to be processed.
+   * @return The processed RDF. Note: this may be the same object as the input object.
+   * @throws DereferenceOrEnrichException In case something goes wrong.
+   */
+  public RDF process(final RDF inputRdf) throws DereferenceOrEnrichException {
+    return process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+  }
+
+  /**
+   * Performs dereference and enrichment on an input RDF to produce a target RDF.
+   * 
+   * @param inputRdf The RDF to be processed.
+   * @param mode The processing mode to be applied.
+   * @return The processed RDF. Note: this may be the same object as the input object.
+   * @throws DereferenceOrEnrichException In case something goes wrong.
+   */
+  public RDF process(final RDF inputRdf, Mode mode) throws DereferenceOrEnrichException {
+
+    // Sanity checks
+    if (inputRdf == null) {
+      throw new IllegalArgumentException("Input RDF cannot be null.");
+    }
+    if (mode == null) {
+      throw new IllegalArgumentException("Mode cannot be null");
     }
 
-    rdf = performEnrichment(rdf);
-
-    try {
-      logMessageLine("***RDF after enrichment***:\n" + EnrichmentUtils.convertRDFtoString(rdf) + "\n");
-    } catch (UnsupportedEncodingException e) {
-      logException(e);
+    // Preparation
+    RDF currentRdf = inputRdf;
+    LOGGER.info("Received RDF for enrichment/dereferencing.");
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(currentRdf));
     }
 
-    rdf = performDereferencing(rdf);
-    
+    // Dereferencing
+    if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.DEREFERENCE_ONLY.equals(mode)) {
+      LOGGER.info("Performing dereferencing...");
+      currentRdf = performDereferencing(currentRdf);
+      LOGGER.info("Dereferencing completed.");
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(currentRdf));
+      }
+    }
+
+    // Enrichment
+    if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.ENRICHMENT_ONLY.equals(mode)) {
+      LOGGER.info("Performing enrichment...");
+      currentRdf = performEnrichment(currentRdf);
+      LOGGER.info("Enrichment completed.");
+      if (LOGGER.isDebugEnabled()) {
+        LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(currentRdf));
+      }
+    }
+
+    // Done
+    LOGGER.debug("Processing complete.");
+    return currentRdf;
+  }
+
+  private static String convertRdfToStringForLogging(final RDF rdf) {
     try {
-      logMessageLine("***RDF after dereferencing***:\n" + EnrichmentUtils.convertRDFtoString(rdf) + "\n");
-    } catch (UnsupportedEncodingException e) {
-      logException(e);
+      return EnrichmentUtils.convertRDFtoString(rdf);
+    } catch (UnsupportedEncodingException | JiBXException e) {
+      LOGGER.warn("Exception occurred while rendering an RDF document as a String.", e);
+      return "[COULD NOT RENDER RDF]";
     }
   }
-  
-  private static RDF performEnrichment(RDF rdf) {
-    
-    final EnrichmentClient enrichmentClient = new EnrichmentClient("http://metis-enrichment-rest-test.eanadev.org");
 
-    // ==============================================
+  private RDF performEnrichment(final RDF rdf) throws DereferenceOrEnrichException {
+
     // [1] Extract fields from the RDF for enrichment
-    // ==============================================
-    logMessageLine("[1] Extracting fields from RDF for enrichment...");
-    final List<InputValue> fieldsForEnrichment = EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
+    LOGGER.debug("Extracting fields from RDF for enrichment...");
+    final List<InputValue> fieldsForEnrichment =
+        EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
 
-    logMessageLine("Extracted Fields");
-    logMessageLine("================");
-    
-    if (fieldsForEnrichment == null) {
-        logMessageLine("Got a NULL result!\n");
-        return rdf;
-    } 
-    if (fieldsForEnrichment.isEmpty()) {
-        logMessageLine("Got an empty result.\n");
-        return rdf;
+    if (fieldsForEnrichment == null || fieldsForEnrichment.isEmpty()) {
+      LOGGER.debug("No fields to enrich.");
+      return rdf;
     }
-    
-    int count = 0;
-    for (InputValue i : fieldsForEnrichment) {
-      count++;
-      logMessageLine(count + ". " + i.getLanguage() + " " + i.getOriginalField() + " "
-          + i.getValue() + " " + i.getVocabularies());
-    }
-    logMessageLine("");
 
-    // ===============================================================================
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Extracted following fields:");
+      int count = 0;
+      for (InputValue i : fieldsForEnrichment) {
+        count++;
+        LOGGER.debug("== {}: {} {} {} {}.", count, i.getLanguage(), i.getOriginalField(),
+            i.getValue(), i.getVocabularies());
+      }
+    }
+
     // [2] Get the information with which to enrich the RDF using the extracted fields
-    // ===============================================================================
-    logMessageLine("[2] Using extracted fields to gather enrichment information...");
-    EnrichmentResultList enrichmentInformation = null;
-    try {
-      enrichmentInformation = enrichmentClient.enrich(fieldsForEnrichment);
-    } catch (UnknownException e) {
-      logException(e);
-    }
-
-    logMessageLine("Enrichment Information");
-    logMessageLine("======================");
-    if (enrichmentInformation == null || enrichmentInformation.getResult() == null) {
-      logMessageLine("Got a NULL result!\n");
-      return rdf;
-    } 
-    if (enrichmentInformation.getResult().isEmpty()) {
-      logMessageLine("Got an empty result. Nothing to merge.\n");
-      return rdf;
-    } 
-    
-    count = 1;
-    for (EnrichmentBase enrichmentBase : enrichmentInformation.getResult()) {
-      logMessageLine(count + ". " + enrichmentBase);
-      count++;
-    }
-
-    // ===============================================
-    // [3] Merge the acquired information into the RDF
-    // ===============================================
-    logMessageLine("[3] Merging Enrichment Information...\n");
-    ArrayList<EnrichmentBase> enrichmentBaseList =
-        (ArrayList<EnrichmentBase>) enrichmentInformation.getResult();
-    return EnrichmentUtils.mergeEntity(rdf, enrichmentBaseList, "");
-  }
-  
-  private static RDF performDereferencing(RDF rdf) {
-    
-    final DereferenceClient dereferenceClient =
-        new DereferenceClient("http://metis-dereference-rest-test.eanadev.org");
-
-    // =================================================
-    // [4] Extract fields from the RDF for dereferencing
-    // =================================================
-    logMessageLine("[4] Extracting fields from RDF for dereferencing...");
-    Set<String> fieldsForDereferencing = DereferenceUtils.extractValuesForDereferencing(rdf);
-
-    logMessageLine("Extracted Fields");
-    logMessageLine("================");
-
-    if (fieldsForDereferencing == null) {
-      logMessageLine("Got a NULL result!\n");
-      return rdf;
-    }
-    if (fieldsForDereferencing.isEmpty()) {
-      logMessageLine("Got an empty result.\n");
+    LOGGER.debug("Using extracted fields to gather enrichment information...");
+    EnrichmentResultList enrichmentInformation = enrichFields(fieldsForEnrichment);
+    if (enrichmentInformation == null || enrichmentInformation.getResult() == null
+        || enrichmentInformation.getResult().isEmpty()) {
+      LOGGER.debug("No information found. Nothing to merge.");
       return rdf;
     }
 
-    int count = 0;
-    for (String field : fieldsForDereferencing) {
-      logMessageLine(count + ". " + field);
-      count++;
-    }
-    logMessageLine("");
-
-    // ===================================================================================================
-    // [5] Get the information with which to enrich (via dereferencing) the RDF using the extracted
-    // fields
-    // ===================================================================================================
-    logMessageLine(
-        "[5] Using extracted fields to gather enrichment-via-dereferencing information...");
-    ArrayList<EnrichmentResultList> dereferenceInformation = new ArrayList<>();
-    try {
-      for (String url:fieldsForDereferencing) {
-        if (url == null) {
-          continue;
-        }
-        logMessageLine("Processing " + url + "...");
-        EnrichmentResultList result = dereferenceClient.dereference(url);
-        if (result != null) {
-          dereferenceInformation.add(result);
-          logMessageLine("Done.");
-        } else {
-          logMessageLine("Got null.");
-        }
-      }
-    } catch (UnknownException e) {
-      logException(e);
-    }
-
-    logMessageLine("");
-    logMessageLine("Dereference Information");
-    logMessageLine("=======================");
-
-    int contentCount = 0;
-    for (EnrichmentResultList enrichmentResultList : dereferenceInformation) {
-      if (enrichmentResultList.getResult() != null && !enrichmentResultList.getResult().isEmpty()) {
-        contentCount++;
-      }
-    }
-
-    if (contentCount == 0) {
-      logMessageLine("Got an empty result. Nothing to merge.\n");
-      return rdf;
-    } 
-
-    count = 1;
-    for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      for (EnrichmentBase enrichmentBase : dereferenceResultList.getResult()) {
-        logMessageLine(count + ". About: " + enrichmentBase.getAbout() + " AltLabelList: "
-            + enrichmentBase.getAltLabelList() + " Notes: " + enrichmentBase.getNotes()
-            + " PrefLabelListL " + enrichmentBase.getPrefLabelList());
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Following information found:");
+      int count = 1;
+      for (EnrichmentBase enrichmentBase : enrichmentInformation.getResult()) {
+        LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
+            enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(), enrichmentBase.getNotes(),
+            enrichmentBase.getPrefLabelList());
         count++;
       }
     }
-    logMessageLine("");
 
-    // ===============================================
-    // [6] Merge the acquired information into the RDF
-    // ===============================================
-    logMessageLine("[6] Merging Dereference Information...\n");
-    for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      ArrayList<EnrichmentBase> dereferenceBaseList =
-          (ArrayList<EnrichmentBase>) dereferenceResultList.getResult();
-      rdf = DereferenceUtils.mergeEntity(rdf, dereferenceBaseList);
+    // [3] Merge the acquired information into the RDF
+    LOGGER.debug("Merging Enrichment Information...");
+    final RDF result = EnrichmentUtils.mergeEntity(rdf, enrichmentInformation.getResult(), "");
+    LOGGER.debug("Merging completed.");
+
+    return result;
+  }
+
+  private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
+      throws DereferenceOrEnrichException {
+    EnrichmentResultList enrichmentInformation = null;
+    try {
+      enrichmentInformation = enrichmentClient.enrich(fieldsForEnrichment);
+    } catch (RuntimeException e) {
+      throw new DereferenceOrEnrichException(
+          "Exception occurred while trying to perform enrichment.", e);
     }
-    return rdf;
+    return enrichmentInformation;
   }
 
-  private static void logMessageLine(String message) {
-    System.out.println(message);
+  private RDF performDereferencing(final RDF rdf) throws DereferenceOrEnrichException {
+
+    // [1] Extract fields from the RDF for dereferencing
+    LOGGER.debug(" Extracting fields from RDF for dereferencing...");
+    Set<String> fieldsForDereferencing = DereferenceUtils.extractValuesForDereferencing(rdf);
+
+    if (fieldsForDereferencing == null || fieldsForDereferencing.isEmpty()) {
+      LOGGER.debug("No fields to dereference.");
+      return rdf;
+    }
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Extracted following fields:");
+      int count = 0;
+      for (String field : fieldsForDereferencing) {
+        count++;
+        LOGGER.debug("== {}: {}", count, field);
+      }
+    }
+
+    // [2] Get the information with which to enrich (via dereferencing) the RDF using the extracted
+    // fields
+    LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
+    List<EnrichmentResultList> dereferenceInformation = dereferenceFields(fieldsForDereferencing);
+    if (dereferenceInformation.isEmpty()) {
+      LOGGER.debug("No information found. Nothing to merge.");
+      return rdf;
+    }
+
+    if (LOGGER.isDebugEnabled()) {
+      LOGGER.debug("Following information found:");
+      int count = 1;
+      for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
+        for (EnrichmentBase enrichmentBase : dereferenceResultList.getResult()) {
+          LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
+              enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(),
+              enrichmentBase.getNotes(), enrichmentBase.getPrefLabelList());
+          count++;
+        }
+      }
+    }
+
+    // [3] Merge the acquired information into the RDF
+    LOGGER.debug("Merging Dereference Information...");
+    RDF result = rdf;
+    for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
+      result = DereferenceUtils.mergeEntity(result, dereferenceResultList.getResult());
+    }
+    LOGGER.debug("Merging completed.");
+
+    return result;
   }
 
-  private static void logException(Exception exception) {
-    exception.printStackTrace();
+  private List<EnrichmentResultList> dereferenceFields(Set<String> fieldsForDereferencing)
+      throws DereferenceOrEnrichException {
+    List<EnrichmentResultList> dereferenceInformation = new ArrayList<>();
+    try {
+      for (String url : fieldsForDereferencing) {
+        if (url == null) {
+          continue;
+        }
+        LOGGER.debug("== Processing {}", url);
+        EnrichmentResultList result = dereferenceClient.dereference(url);
+        if (result != null && result.getResult() != null && !result.getResult().isEmpty()) {
+          dereferenceInformation.add(result);
+        } else {
+          LOGGER.debug("==== Null or empty value received from {}", url);
+        }
+      }
+    } catch (RuntimeException e) {
+      throw new DereferenceOrEnrichException(
+          "Exception occurred while trying to perform dereferencing.", e);
+    }
+    return dereferenceInformation;
   }
 }
