@@ -41,8 +41,7 @@ public class SchemaProvider {
             SCHEMAS_DIR = TMP_DIR + File.separator + "schemas" + File.separator;
         }
 
-        LOGGER.info("Creating schema manager");
-        LOGGER.info("Files will be stored in: {}", SCHEMAS_DIR);
+        LOGGER.info("Creating schema manager. Files will be stored in: {}", SCHEMAS_DIR);
         this.predefinedSchemasLocations = predefinedSchemasLocations;
     }
 
@@ -106,7 +105,7 @@ public class SchemaProvider {
         try {
             File schemasLocation = new File(SCHEMAS_DIR, destinationDir);
             if (new File(schemasLocation, "zip.zip").exists()) {
-                LOGGER.info("Zip file will not be downloaded, already exists in temp directory");
+                LOGGER.debug("Zip file will not be downloaded, already exists in temp directory");
                 return new File(schemasLocation, "zip.zip");
             }
             URL url = new URL(zipLocation);
@@ -137,7 +136,7 @@ public class SchemaProvider {
         if (!rootFileExists(new File(downloadedFile.getParent()), rootFileLocation)) {
             unzipArchive(downloadedFile);
         } else {
-            LOGGER.info("Archive will not be unzipped.");
+            LOGGER.debug("Archive will not be unzipped.");
         }
     }
 
