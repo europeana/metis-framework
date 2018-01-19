@@ -135,6 +135,24 @@ public class ValidationControllerTest {
     }
 
     @Test
+    public void shouldValidateZipFileContainingDirectoires() throws Exception {
+
+        wireMockRule.resetAll();
+        wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBodyFile("test_schema.zip")));
+
+        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/ZIP_file_with_directory.zip"));
+        mockMvc.perform(MockMvcRequestBuilders
+                .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
+                .file(file)
+                .param("rootFileLocation","EDM-INTERNAL.xsd"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+    }
+
+    @Test
     public void TestValidationFailure() throws Exception {
 
         wireMockRule.resetAll();

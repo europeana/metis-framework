@@ -121,9 +121,11 @@ public class ValidationController {
             File[] files = new File(fileName).listFiles();
             List<String> xmls = new ArrayList<>();
             for (File input : files) {
-                FileInputStream stream = new FileInputStream(input);
-                xmls.add(IOUtils.toString(stream));
-                stream.close();
+                if(!input.isDirectory()){
+                    FileInputStream stream = new FileInputStream(input);
+                    xmls.add(IOUtils.toString(stream));
+                    stream.close();
+                }
             }
             ValidationResultList list = validator.batchValidation(targetSchema, rootFileLocation, xmls);
             if (list.getResultList() != null || list.getResultList().size() == 0) {
