@@ -16,17 +16,6 @@
  */
 package eu.europeana.metis.dereference.service;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.rest.client.EnrichmentClient;
-import eu.europeana.metis.dereference.OriginalEntity;
-import eu.europeana.metis.dereference.ProcessedEntity;
-import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
-import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.dereference.service.utils.RdfRetriever;
-import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
@@ -38,12 +27,22 @@ import javax.xml.transform.TransformerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.rest.client.EnrichmentClient;
+import eu.europeana.metis.dereference.OriginalEntity;
+import eu.europeana.metis.dereference.ProcessedEntity;
+import eu.europeana.metis.dereference.Vocabulary;
+import eu.europeana.metis.dereference.service.dao.CacheDao;
+import eu.europeana.metis.dereference.service.dao.EntityDao;
+import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
  */
 public class MongoDereferenceService implements DereferenceService {
-
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
   private RdfRetriever retriever;
   private CacheDao cacheDao;
@@ -51,17 +50,16 @@ public class MongoDereferenceService implements DereferenceService {
   private VocabularyDao vocabularyDao;
   private EnrichmentClient enrichmentClient;
 
-
   @Autowired
   public MongoDereferenceService(RdfRetriever retriever,
-      CacheDao cacheDao, EntityDao entityDao,
-      VocabularyDao vocabularyDao,
-      EnrichmentClient enrichmentClient) {
-    this.retriever = retriever;
-    this.cacheDao = cacheDao;
-    this.entityDao = entityDao;
-    this.vocabularyDao = vocabularyDao;
-    this.enrichmentClient = enrichmentClient;
+		  CacheDao cacheDao, EntityDao entityDao,
+		  VocabularyDao vocabularyDao,
+		  EnrichmentClient enrichmentClient) {
+	  this.retriever = retriever;
+	  this.cacheDao = cacheDao;
+	  this.entityDao = entityDao;
+	  this.vocabularyDao = vocabularyDao;
+	  this.enrichmentClient = enrichmentClient;
   }
 
   @Override
@@ -100,23 +98,26 @@ public class MongoDereferenceService implements DereferenceService {
     if (enriched != null) {
       toReturn.getResult().add(enriched);
     }
+    
     return toReturn;
   }
 
   private EnrichmentBase transformEntity(String uri, List<Vocabulary> vocs)
       throws TransformerException, ParserConfigurationException, JAXBException {
     OriginalEntity originalEntity = entityDao.getByUri(uri);
+    
     if (originalEntity == null) {
       String originalXml = retriever.retrieve(uri);
       String value =originalXml.contains("<html>") ? null : originalXml;
-
       originalEntity = storeEntity(uri, value);
     }
 
     if (originalEntity.getXml() == null) {
       LOGGER.info("No entity XML for uri {}", uri);
+      
       return null;
     }
+    
     return getEnrichmentFromVocabularyAndStoreInCache(uri, vocs, originalEntity.getXml());
   }
 
@@ -126,6 +127,7 @@ public class MongoDereferenceService implements DereferenceService {
     originalEntity.setXml(value);
 
     entityDao.save(originalEntity);
+    
     return originalEntity;
   }
 
@@ -158,6 +160,7 @@ public class MongoDereferenceService implements DereferenceService {
 
   private EnrichmentBase readFromCache(String uri) throws JAXBException {
     ProcessedEntity entity = cacheDao.getByUri(uri);
+    
     return entity!= null ? deserialize(entity.getXml()): null;
   }
 
@@ -167,10 +170,9 @@ public class MongoDereferenceService implements DereferenceService {
 
   private EnrichmentBase deserialize(String enrichment) throws JAXBException {
     JAXBContext contextA = JAXBContext.newInstance(EnrichmentBase.class);
-
     StringReader reader = new StringReader(enrichment);
     Unmarshaller unmarshaller = contextA.createUnmarshaller();
+    
     return (EnrichmentBase) unmarshaller.unmarshal(reader);
   }
-
 }

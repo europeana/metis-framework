@@ -53,13 +53,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Created by ymamakis on 12-2-16.
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest",
-    "eu.europeana.metis.dereference.rest.exceptions"})
+@ComponentScan(basePackages = {"eu.europeana.metis.dereference.rest", "eu.europeana.metis.dereference.rest.exceptions"})
 @PropertySource("classpath:dereferencing.properties")
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
-
   //Socks proxy
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
@@ -96,6 +94,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Value("${enrichment.url}")
   private String enrichmentUrl;
+  
   private MongoProviderImpl mongoProviderEntity;
   private MongoProviderImpl mongoProviderVocabulary;
   private RedisProvider redisProvider;
@@ -111,15 +110,13 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
     String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
     if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-          vcapServicesJson);
+      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(vcapServicesJson);
 
       MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
       if (mongoClientURI != null) {
         String mongoHostAndPort = mongoClientURI.getHosts().get(0);
         mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
-        mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
+        mongoPort = Integer.parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
         mongoUsername = mongoClientURI.getUsername();
         mongoPassword = String.valueOf(mongoClientURI.getPassword());
         vocabularyDb = mongoClientURI.getDatabase();
@@ -139,7 +136,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
     MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
     mongoProviderEntity = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), entityDb,
         mongoUsername,
         mongoPassword, options);

@@ -18,7 +18,7 @@ package eu.europeana.enrichment.api.external;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
-import eu.europeana.metis.utils.InputValue;
+import eu.europeana.enrichment.utils.InputValue;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;

@@ -16,21 +16,29 @@
  */
 package eu.europeana.metis.dereference.client;
 
-import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.dereference.Vocabulary;
-import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
+import static eu.europeana.metis.RestEndpoints.DEREFERENCE;
+import static eu.europeana.metis.RestEndpoints.ENTITY;
+import static eu.europeana.metis.RestEndpoints.ENTITY_DELETE;
+import static eu.europeana.metis.RestEndpoints.VOCABULARIES;
+import static eu.europeana.metis.RestEndpoints.VOCABULARY;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
-
-import static eu.europeana.metis.RestEndpoints.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * A REST wrapper client to be used for dereferencing
@@ -38,23 +46,11 @@ import static eu.europeana.metis.RestEndpoints.*;
  * Created by ymamakis on 2/15/16.
  */
 public class DereferenceClient {
-    private RestTemplate restTemplate;
-    private String hostUrl;
+	
+    private final String hostUrl;
+    private final RestTemplate restTemplate = new RestTemplate();
 
-    public DereferenceClient() {
-        restTemplate = new RestTemplate();
-        Properties props = new Properties();
-        try {
-            props.load(this.getClass().getClassLoader().getResourceAsStream("client.properties"));
-            hostUrl = props.getProperty("host.url");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public DereferenceClient(String hostUrl){
-        restTemplate = new RestTemplate();
+    public DereferenceClient(String hostUrl) {
         this.hostUrl = hostUrl;
     }
 
@@ -90,24 +86,25 @@ public class DereferenceClient {
     }
 
     /**
-     * Retrieve the vocabulary by name
+     * Retrieve the vocabulary by namedereference
      *
      * @param name The name of the vocabulary to retrieve
      * @return The retrieved vocabulary
      */
-    public Vocabulary getVocabularyByName(String name) {
-        Vocabulary voc = restTemplate.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name), Vocabulary.class);
-        return voc;
-    }
+	public Vocabulary getVocabularyByName(String name) {
+		return restTemplate.getForObject(hostUrl + RestEndpoints.resolve(RestEndpoints.VOCABULARY_BYNAME, name),
+				Vocabulary.class);
+	}
 
     /**
      * Retrieve all the vocabularies
      *
      * @return The list of all vocabularies
      */
-    public List<Vocabulary> getAllVocabularies() {
-        List<Vocabulary> vocs = (List<Vocabulary>) restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
-        return vocs;
+	public List<Vocabulary> getAllVocabularies() {
+		@SuppressWarnings("unchecked")
+		final List<Vocabulary> result = restTemplate.getForObject(hostUrl + VOCABULARIES, List.class);
+		return result;
     }
 
     /**
@@ -115,9 +112,14 @@ public class DereferenceClient {
      *
      * @param uri The url of the entity
      */
-    public void deleteEntity(String uri) {
-        restTemplate.delete(hostUrl + RestEndpoints.resolve(ENTITY_DELETE, URLEncoder.encode(uri)));
-    }
+	public void deleteEntity(String uri) {
+		try {
+			String encodedUri = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+			restTemplate.delete(hostUrl + RestEndpoints.resolve(ENTITY_DELETE, encodedUri));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	}
 
     /**
      * Update Entity by URL
@@ -138,15 +140,24 @@ public class DereferenceClient {
      * @param uri the uri to dereference
      * @return A string of the referenced response
      */
-    public String dereference(String uri) {
-        String uriString = null;
-        try {
-            uriString = URLEncoder.encode(uri, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return restTemplate.getForObject(hostUrl + DEREFERENCE+"?uri=" + uriString, String.class);
-    }
+	public EnrichmentResultList dereference(String uri) {
+		final String uriString;
+		try {
+			uriString = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+		} catch (UnsupportedEncodingException e) {
+			throw new IllegalStateException(e);
+		}
+		
+		if (!uriString.startsWith("http") && !uriString.startsWith("https"))
+			return null;
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
-
+		ResponseEntity<EnrichmentResultList> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + uriString, HttpMethod.GET, entity, EnrichmentResultList.class);
+		EnrichmentResultList responseBody = response.getBody();
+		
+		return responseBody;
+	}
 }

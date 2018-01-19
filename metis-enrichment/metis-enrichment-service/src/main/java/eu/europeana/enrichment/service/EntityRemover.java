@@ -34,5 +34,4 @@ public class EntityRemover {
         List<String> retUris = MongoDatabaseUtils.delete(uris);
         enricher.remove(retUris);
     }
-
 }

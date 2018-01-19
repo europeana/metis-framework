@@ -15,15 +15,15 @@
  */
 package eu.europeana.enrichment.service;
 
-import eu.europeana.enrichment.api.external.EntityWrapper;
-import eu.europeana.metis.utils.InputValue;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import eu.europeana.enrichment.api.external.EntityWrapper;
+import eu.europeana.enrichment.utils.InputValue;
 
 /**
  * Tagging (aka semantic enrichment) of records from SOLR with built-in

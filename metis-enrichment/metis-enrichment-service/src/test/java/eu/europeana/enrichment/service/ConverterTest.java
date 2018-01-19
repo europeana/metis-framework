@@ -23,13 +23,6 @@ import org.codehaus.jackson.map.module.SimpleModule;
 import org.junit.Test;
 
 public class ConverterTest {
-  
-  @Test
-  public void convert() throws Exception {
-
-
-  }
-
   @Test
   public void convertAgent() throws Exception {
     ObjectMapper mapper = createMapper();
@@ -157,6 +150,4 @@ public class ConverterTest {
     return mapper;
 
   }
-
-
 }

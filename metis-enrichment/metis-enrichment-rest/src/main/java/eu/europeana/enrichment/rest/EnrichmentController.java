@@ -78,12 +78,11 @@ public class EnrichmentController {
   @RequestMapping(value = RestEndpoints.ENRICHMENT_DELETE, method = RequestMethod.DELETE)
   @ApiOperation(value = "Delete a list of URIs")
   @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Error processing the result")
+		  @ApiResponse(code = 400, message = "Error processing the result")
   })
   public void delete(@RequestBody UriList values)  {
     remover.remove(values.getUris());
   }
-
 
   /**
    * Get an enrichment by URI (rdf:about or owl:sameAs/skos:exactMatch
@@ -96,7 +95,7 @@ public class EnrichmentController {
   @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ResponseBody
   @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Error processing the result")
+		  @ApiResponse(code = 400, message = "Error processing the result")
   })
   public EnrichmentBase getByUri(@ApiParam("uri") @RequestParam("uri") String uri)
       throws EnrichmentException{
@@ -114,7 +113,6 @@ public class EnrichmentController {
     }
   }
 
-
   /**
    * Enrich a number of values
    *
@@ -128,17 +126,24 @@ public class EnrichmentController {
   @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
   @ApiOperation(value = "Enrich a series of field value pairs", response = EnrichmentResultList.class)
   @ApiResponses(value = {
-      @ApiResponse(code = 400, message = "Error processing the result")
+		  @ApiResponse(code = 400, message = "Error processing the result")
   })
   public EnrichmentResultList enrich(@ApiParam("input") @RequestBody InputValueList input)
       throws EnrichmentException {
+	  
+	  try {
+		  List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
 
-    try {
-      List<EntityWrapper> wrapperList = enricher.tagExternal(input.getInputValueList());
-      return converter.convert(wrapperList);
-    } catch (IOException e) {
-      LOGGER.error("Error converting object.", e);
-      throw new EnrichmentException(e.getMessage());
-    }
+		  EnrichmentResultList result = converter.convert(wrapperList);
+		  
+		  if (result.getResult().size() == 0) {
+			  return null;
+		  }
+		  
+		  return result;
+	  } catch (IOException e) {
+		  LOGGER.error("Error converting object.", e);
+		  throw new EnrichmentException(e.getMessage());
+	  }
   }
 }

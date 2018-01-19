@@ -2,19 +2,11 @@ package eu.europeana.metis.dereference.rest;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
-
-
-import eu.europeana.enrichment.api.external.model.Agent;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.enrichment.api.external.model.Label;
-import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
-import eu.europeana.metis.dereference.service.DereferenceService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +17,13 @@ import org.junit.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.api.external.model.Label;
+import eu.europeana.metis.dereference.rest.exceptions.RestResponseExceptionHandler;
+import eu.europeana.metis.dereference.service.DereferenceService;
 
 public class DereferencingControllerTest {
-
   private DereferenceService dereferenceServiceMock;
   private MockMvc dereferencingControllerMock;
   private Map<String, String> namespaceMap;
@@ -45,12 +41,10 @@ public class DereferencingControllerTest {
 
   @Test
   public void dereferenceGet_outputXML() throws Exception {
-
     EnrichmentResultList list = new EnrichmentResultList();
     list.setResult(new ArrayList<>());
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
-
 
     dereferencingControllerMock.perform(get("/dereference/?uri=http://www.fennek-it.nl")
       .accept(MediaType.APPLICATION_XML_VALUE))
@@ -60,7 +54,6 @@ public class DereferencingControllerTest {
         .andExpect(xpath("metis:results/edm:Agent/skos:altLabel[@xml:lang='en']", namespaceMap).string("labelEn"))
         .andExpect(xpath("metis:results/edm:Agent/skos:altLabel[@xml:lang='nl']", namespaceMap).string("labelNl"))
         .andExpect(xpath("metis:results/edm:Agent/rdaGr2:dateOfBirth[@xml:lang='en']", namespaceMap).string("10-10-10"));
-
   }
 
   @Test
@@ -125,5 +118,4 @@ public class DereferencingControllerTest {
     namespaceMap.put("rdaGr2", "http://RDVocab.info/ElementsGr2/");
     return namespaceMap;
   }
-
 }

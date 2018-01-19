@@ -1,4 +1,4 @@
-package eu.europeana.metis.utils;
+package eu.europeana.enrichment.utils;
 
 import eu.europeana.corelib.definitions.jibx.Contributor;
 import eu.europeana.corelib.definitions.jibx.Coverage;

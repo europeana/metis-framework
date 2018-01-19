@@ -16,22 +16,18 @@
  */
 package eu.europeana.enrichment.rest.client;
 
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
-import eu.europeana.metis.utils.EntityClass;
-import eu.europeana.metis.utils.InputValue;
-import eu.europeana.enrichment.api.external.InputValueList;
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import eu.europeana.enrichment.api.exceptions.UnknownException;
+import eu.europeana.enrichment.api.external.model.EnrichmentBase;
+import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
+import eu.europeana.enrichment.utils.EntityClass;
+import eu.europeana.enrichment.utils.InputValue;
 
-public class EnrichmentClientMainTest {
-
-	public static void main(String[] args) throws JsonGenerationException, JsonMappingException, IOException {
-
+public class EnrichmentClientTestWithMain {
+	
+	public static void main(String[] args) throws IOException {
 		List<InputValue> values = new ArrayList<InputValue>();
 
 		InputValue val1 = new InputValue();
@@ -40,6 +36,7 @@ public class EnrichmentClientMainTest {
 		List<EntityClass> entityClasses1 = new ArrayList<EntityClass>();
 		entityClasses1.add(EntityClass.CONCEPT);
 		val1.setVocabularies(entityClasses1);
+		val1.setLanguage("French");
 
 		InputValue val2 = new InputValue();
 		val2.setOriginalField("proxy_dc_subject");
@@ -47,6 +44,7 @@ public class EnrichmentClientMainTest {
 		List<EntityClass> entityClasses2 = new ArrayList<EntityClass>();
 		entityClasses2.add(EntityClass.CONCEPT);
 		val2.setVocabularies(entityClasses2);
+		val2.setLanguage("French");
 
 		InputValue val3 = new InputValue();
 		val3.setOriginalField("proxy_dc_subject");
@@ -82,8 +80,7 @@ public class EnrichmentClientMainTest {
 		values.add(val4);
 		values.add(val5);
 		values.add(val6);
-		InputValueList inList = new InputValueList();
-		inList.setInputValueList(values);
+		
 		/*
 		ObjectMapper obj = new ObjectMapper();
 		
@@ -91,13 +88,27 @@ public class EnrichmentClientMainTest {
 		
 		Form form = new Form();
 		form.param("uri", "http://data.europeana.eu/concept/base/96");
-		form.param("toXml", Boolean.toString(true));*/
-		eu.europeana.enrichment.rest.client.EnrichmentClient enrichmentClient = new eu.europeana.enrichment.rest.client.EnrichmentClient("http://metis-enrichment-test.cfapps.io/");
-		EnrichmentResultList res = enrichmentClient
-				.enrich(values);
-		for(EnrichmentBase enrichment:res.getResult()){
-			System.out.println(enrichment	);
+		form.param("toXml", Boolean.toString(true));
+		*/	
+		EnrichmentClient enrichmentClient = new EnrichmentClient("http://metis-enrichment-rest-test.eanadev.org");
+        
+		//String inputValue = "{ \"inputValue\": [ { \"language\": \"string\", \"originalField\": \"string\", \"value\": \"string\", \"vocabularies\": [ \"CONCEPT\"]}]}";
+		
+		EnrichmentResultList result = null;
+		
+		try {
+			result = enrichmentClient.enrich(values);
+			
+		} catch (UnknownException e) {
+			e.printStackTrace();
 		}
+		
+		System.out.println(result.getResult());
+		
+		int counter = 1;
+		for (EnrichmentBase b : result.getResult()) {
+			System.out.println(counter + "." + b.getAbout() + " " + b.getNotes());
+			counter++;
+		}	
 	}
-
 }
