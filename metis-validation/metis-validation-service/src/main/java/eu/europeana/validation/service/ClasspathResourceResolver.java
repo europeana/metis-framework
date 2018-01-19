@@ -67,8 +67,7 @@ public class ClasspathResourceResolver implements LSResourceResolver {
       input.setCharacterStream(new InputStreamReader(stream));
       return input;
     } catch (Exception e) {
-      e.printStackTrace();
-      LOGGER.error(e.getMessage());
+      LOGGER.error(e.getMessage(), e);
     }
     return null;
   }

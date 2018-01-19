@@ -105,6 +105,7 @@ public class ClasspathLSInput implements LSInput {
         this.encoding = encoding;
     }
 
+    @Override
     public boolean getCertifiedText() {
         return certifiedText;
     }
