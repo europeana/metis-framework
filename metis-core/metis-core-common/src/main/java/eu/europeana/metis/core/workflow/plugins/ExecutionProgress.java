@@ -4,21 +4,29 @@ import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskState;
 
 /**
+ * Contains execution progress information of a task.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
 public class ExecutionProgress {
+
   private int expectedRecords;
   private int processedRecords;
   private int progressPercentage;
   private int errors;
   private TaskState status;
 
-  public ExecutionProgress copyExternalTaskInformation(TaskInfo taskInfo)
-  {
+  /**
+   * Copy information from {@link TaskInfo} to {@link ExecutionProgress}
+   *
+   * @param taskInfo {@link TaskInfo}
+   * @return the current object
+   */
+  public ExecutionProgress copyExternalTaskInformation(TaskInfo taskInfo) {
     expectedRecords = taskInfo.getExpectedSize();
     processedRecords = taskInfo.getProcessedElementCount();
-    processedRecords = taskInfo.getProcessedPercentage();
+    progressPercentage = taskInfo.getProcessedPercentage();
     errors = taskInfo.getErrors();
     status = taskInfo.getState();
     return this;
