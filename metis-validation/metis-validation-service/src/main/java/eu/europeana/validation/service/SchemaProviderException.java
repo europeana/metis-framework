@@ -6,14 +6,30 @@ package eu.europeana.validation.service;
 public class SchemaProviderException extends Exception {
 
 
+    /**
+     * Cretes {@link SchemaProviderException} from provided {@link Throwable}
+     *
+     * @param t
+     */
     public SchemaProviderException(Throwable t) {
         super(t);
     }
 
-    public SchemaProviderException(String message){
+    /**
+     * Cretes {@link SchemaProviderException} from provided message.
+     *
+     * @param message
+     */
+    public SchemaProviderException(String message) {
         super(message);
     }
 
+    /**
+     * Cretes {@link SchemaProviderException} from provided message and {@link Throwable} object.
+     *
+     * @param message
+     * @param t
+     */
     public SchemaProviderException(String message, Throwable t) {
         super(message, t);
     }

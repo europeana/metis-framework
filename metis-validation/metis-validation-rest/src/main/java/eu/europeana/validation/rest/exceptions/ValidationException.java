@@ -21,19 +21,27 @@ package eu.europeana.validation.rest.exceptions;
  */
 public class ValidationException extends Exception {
 
-    private String message;
-    private String id;
+    private final String id;
 
-    public ValidationException(){
+    /**
+     * Creates class instance
+     */
+    public ValidationException() {
         super();
+        id = null;
     }
-    public ValidationException(String id, String message){
+
+    /**
+     * Creates exception instance based on provided parameters
+     * @param id record id that causes the problem
+     * @param message message provided by validation engine
+     */
+    public ValidationException(String id, String message) {
         super(message);
-        this.message = message;
         this.id = id;
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 }

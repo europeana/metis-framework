@@ -5,5 +5,10 @@ package eu.europeana.validation.service;
  */
 public interface ValidationServiceConfig {
 
+  /**
+   * Retrieves threads count
+   *
+   * @return
+   */
   int getThreadCount();
 }

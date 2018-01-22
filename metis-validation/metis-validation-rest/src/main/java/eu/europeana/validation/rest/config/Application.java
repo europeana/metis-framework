@@ -61,6 +61,8 @@ import java.util.Properties;
 @Configuration
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
+  public static final int MAX_UPLOAD_SIZE = 50_000_000;
+
   //Socks proxy
   @Value("${socks.proxy.enabled}")
   private boolean socksProxyEnabled;
@@ -72,6 +74,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String socksProxyUsername;
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
+
+  @Resource(name = "validationProperties")
+  private Properties predefinedSchemasLocations;
 
   /**
    * Used for overwriting properties if cloud foundry environment is used
@@ -87,9 +92,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addRedirectViewController("/", "swagger-ui.html");
   }
-
-  @Resource(name = "validationProperties")
-  Properties predefinedSchemasLocations;
 
   @Bean(name = "validationProperties")
   PropertiesFactoryBean mapper() {
@@ -114,16 +116,25 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .addResourceLocations("classpath:/META-INF/resources/webjars/");
   }
 
+    /**
+     * Creates {@link org.springframework.web.multipart.MultipartResolver} for application context
+     * @return
+     */
   @Bean
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
     commonsMultipartResolver.setDefaultEncoding("utf-8");
-    commonsMultipartResolver.setMaxUploadSize(50000000);
+    commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
     return commonsMultipartResolver;
   }
 
+  /**
+   * Creates {@link SchemaProvider} for application context
+   *
+   * @return SchemaProvider instance
+   */
   @Bean
-  public SchemaProvider schemaManager(){
+  public SchemaProvider schemaManager() {
     PredefinedSchemas predefinedSchemas = PredefinedSchemasGenerator.generate(predefinedSchemasLocations);
     return new SchemaProvider(predefinedSchemas);
   }
@@ -133,6 +144,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new ClasspathResourceResolver();
   }
 
+    /**
+     * Creates {@link PropertySourcesPlaceholderConfigurer} for application context
+     *
+     * @return PropertySourcesPlaceholderConfigurer instance
+     */
   @Bean
   public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
     return new PropertySourcesPlaceholderConfigurer();

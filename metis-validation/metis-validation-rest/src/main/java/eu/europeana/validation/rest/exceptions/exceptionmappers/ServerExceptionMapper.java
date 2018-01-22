@@ -22,13 +22,19 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by ymamakis on 2/24/16.
  */
 @ControllerAdvice
 public class ServerExceptionMapper {
+
+    /**
+     * Handles specified exception
+     *
+     * @param e exception to be handled
+     * @return
+     */
     @ExceptionHandler(ServerException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)

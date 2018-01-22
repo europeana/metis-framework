@@ -6,10 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.channels.Channels;
@@ -30,15 +27,20 @@ public class SchemaProvider {
     private static final Logger LOGGER = LoggerFactory.getLogger(SchemaProvider.class);
 
     public static final String TMP_DIR = System.getProperty("java.io.tmpdir");
-    public static String SCHEMAS_DIR;
+    private static final String ZIP_FILE_NAME = "zip.zip";
+    private String schemasDir;
 
     private final PredefinedSchemas predefinedSchemasLocations;
 
+    /**
+     * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object.
+     * @param predefinedSchemasLocations
+     */
     public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
         if (TMP_DIR.endsWith(File.separator)) {
-            SCHEMAS_DIR = TMP_DIR + "schemas" + File.separator;
+            schemasDir = TMP_DIR + "schemas" + File.separator;
         } else {
-            SCHEMAS_DIR = TMP_DIR + File.separator + "schemas" + File.separator;
+            schemasDir = TMP_DIR + File.separator + "schemas" + File.separator;
         }
 
         LOGGER.info("Creating schema manager. Files will be stored in: {}", SCHEMAS_DIR);
@@ -57,7 +59,9 @@ public class SchemaProvider {
      */
     public Schema getSchema(String fileLocation, String rootFileLocation) throws SchemaProviderException {
         if (isPredefined(fileLocation)) {
-            File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation).getLocation(), fileLocation.toLowerCase());
+            File downloadedFile = downloadZipIfNeeded(
+                    predefinedSchemasLocations.get(fileLocation).getLocation(),
+                    fileLocation.toLowerCase(Locale.getDefault()));
             unzipArchiveIfNeeded(downloadedFile,rootFileLocation);
             return prepareSchema(fileLocation, downloadedFile.getParentFile(), rootFileLocation);
         } else {
@@ -67,12 +71,23 @@ public class SchemaProvider {
         }
     }
 
+    /**
+     * Creates intance of {@link Schema} class based on provided type of schema
+     *
+     * @param fileLocation location of schema files. Can be url to zip or predefined value (that will be taken from properties file)
+     * @return
+     * @throws SchemaProviderException
+     */
     public Schema getSchema(String fileLocation) throws SchemaProviderException {
         if(isPredefined(fileLocation)){
             return getSchema(fileLocation, predefinedSchemasLocations.get(fileLocation).getRootFileLocation());
         }else{
             throw new SchemaProviderException("XSD root file not provided");
         }
+    }
+
+    public String getSchemasDirectory(){
+        return schemasDir;
     }
 
     private String prepareDirectoryName(String name) throws SchemaProviderException {
@@ -100,34 +115,31 @@ public class SchemaProvider {
      */
     private File downloadZipIfNeeded(String zipLocation, String destinationDir) throws SchemaProviderException {
 
-        ReadableByteChannel rbc = null;
-        FileOutputStream fos = null;
+        File schemasLocation = new File(schemasDir, destinationDir);
+
+        if (new File(schemasLocation, ZIP_FILE_NAME).exists()) {
+            LOGGER.info("Zip file will not be downloaded, already exists in temp directory");
+            return new File(schemasLocation, ZIP_FILE_NAME);
+        }
+
         try {
-            File schemasLocation = new File(SCHEMAS_DIR, destinationDir);
-            if (new File(schemasLocation, "zip.zip").exists()) {
-                LOGGER.debug("Zip file will not be downloaded, already exists in temp directory");
-                return new File(schemasLocation, "zip.zip");
-            }
-            URL url = new URL(zipLocation);
-            rbc = Channels.newChannel(url.openStream());
             FileUtils.deleteDirectory(schemasLocation);
             schemasLocation.mkdirs();
-            File destinationFile = new File(schemasLocation, "zip.zip");
-            fos = new FileOutputStream(destinationFile);
+        } catch (IOException e) {
+            throw new SchemaProviderException("Unable to clean schemaDirecory", e);
+        }
+
+        try (
+                InputStream urlLocation = new URL(zipLocation).openStream();
+                ReadableByteChannel rbc = Channels.newChannel(urlLocation);
+                FileOutputStream fos = new FileOutputStream(new File(schemasLocation, ZIP_FILE_NAME), false)
+        ) {
+
+            File destinationFile = new File(schemasLocation, ZIP_FILE_NAME);
             fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
             return destinationFile;
         } catch (IOException e) {
             throw new SchemaProviderException("Unable to store schema file", e);
-        } finally {
-            try {
-                    if (rbc != null) {
-                    rbc.close();
-                }
-                if (fos != null) {
-                    fos.close();
-                }
-            } catch (IOException ignored) {
-            }
         }
     }
 

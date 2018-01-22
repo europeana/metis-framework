@@ -33,19 +33,32 @@ import java.util.concurrent.*;
 public class ValidationExecutionService {
 
     private final ClasspathResourceResolver lsResourceResolver;
-    private final ValidationServiceConfig config;
     private final ExecutorService es;
+
+    public static final int DEFAULT_THREADS_COUNT = 10;
 
     @Autowired
     private SchemaProvider schemaProvider;
 
+    /**
+     * Creates {@link ValidationExecutionService} instance based on given configuration
+     *
+     * @param config
+     * @param lsResourceResolver
+     */
     @Autowired
     public ValidationExecutionService(ValidationServiceConfig config, ClasspathResourceResolver lsResourceResolver) {
-        this.config = config;
         this.lsResourceResolver = lsResourceResolver;
         this.es = Executors.newFixedThreadPool(config.getThreadCount());
     }
 
+    /**
+     * Creates {@link ValidationExecutionService} instance based on given configuration
+     *
+     * @param config
+     * @param lsResourceResolver
+     * @param schemaProvider
+     */
     public ValidationExecutionService(ValidationServiceConfig config, ClasspathResourceResolver lsResourceResolver, SchemaProvider schemaProvider) {
         this(config, lsResourceResolver);
         this.schemaProvider = schemaProvider;
@@ -67,7 +80,7 @@ public class ValidationExecutionService {
         this(new ValidationServiceConfig() {
             @Override
             public int getThreadCount() {
-                return 10;
+                return DEFAULT_THREADS_COUNT;
             }
         }, new ClasspathResourceResolver());
         this.schemaProvider = getSchemaProvider(predefinedSchemasLocations);
@@ -96,11 +109,15 @@ public class ValidationExecutionService {
      *
      * @param schema    The schema to validate against
      * @param documents The documents to validate
+     * @param rootFileLocation Place where entry xsd file is located
      * @return A list of service results
      * @throws InterruptedException
      * @throws ExecutionException
      */
-    public ValidationResultList batchValidation(final String schema, final String rootFileLocation, List<String> documents) throws InterruptedException, ExecutionException {
+    public ValidationResultList batchValidation(
+            final String schema,
+            final String rootFileLocation,
+            List<String> documents) throws InterruptedException, ExecutionException {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
         for (final String document : documents) {
@@ -118,7 +135,7 @@ public class ValidationExecutionService {
 
         ValidationResultList resultList = new ValidationResultList();
         resultList.setResultList(results);
-        if (resultList.getResultList().size() == 0) {
+        if (resultList.getResultList().isEmpty()) {
             resultList.setSuccess(true);
         }
         return resultList;

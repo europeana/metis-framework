@@ -74,7 +74,7 @@ public class TestValidationExecution {
     public void testSingleValidationSuccess() throws Exception {
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
         ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
-        Assert.assertEquals(true, result.isSuccess());
+        Assert.assertTrue(result.isSuccess());
         Assert.assertNull(result.getRecordId());
         Assert.assertNull(result.getMessage());
     }
@@ -84,7 +84,7 @@ public class TestValidationExecution {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_wrong.xml"));
         ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
-        Assert.assertEquals(false, result.isSuccess());
+        Assert.assertFalse(result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
     }
@@ -94,7 +94,7 @@ public class TestValidationExecution {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473.xml"));
         ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
-        Assert.assertEquals(false, result.isSuccess());
+        Assert.assertFalse(result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
     }
@@ -111,7 +111,7 @@ public class TestValidationExecution {
             xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
         ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", xmls);
-        Assert.assertEquals(true, result.isSuccess());
+        Assert.assertTrue(result.isSuccess());
         Assert.assertEquals(0, result.getResultList().size());
 
         FileUtils.forceDelete(new File(fileName));
@@ -132,7 +132,7 @@ public class TestValidationExecution {
             fileInputStream.close();
         }
         ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", xmls);
-        Assert.assertEquals(false, result.isSuccess());
+        Assert.assertFalse(result.isSuccess());
         Assert.assertEquals(1, result.getResultList().size());
 
 
@@ -152,7 +152,7 @@ public class TestValidationExecution {
             xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
         ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, "EDM.xsd", xmls);
-        Assert.assertEquals(false, result.isSuccess());
+        Assert.assertFalse(result.isSuccess());
         Assert.assertEquals(1506, result.getResultList().size());
 
 
@@ -176,9 +176,6 @@ public class TestValidationExecution {
         ValidationExecutionService validationExecutionService = new ValidationExecutionService(property);
         ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
         Assert.assertNotNull(es);
-        ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
-        Assert.assertNotNull(config);
-        Assert.assertEquals(10, config.getThreadCount());
         SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
         Properties properties = loadDefaultProperties("src/test/resources/custom-validation.properties");
         Assert.assertNotNull(schemaProvider);
@@ -206,9 +203,6 @@ public class TestValidationExecution {
         }, new ClasspathResourceResolver(), new SchemaProvider(predefinedSchemas));
         ExecutorService es = Whitebox.getInternalState(validationExecutionService, "es");
         Assert.assertNotNull(es);
-        ValidationServiceConfig config = Whitebox.getInternalState(validationExecutionService, "config");
-        Assert.assertNotNull(config);
-        Assert.assertEquals(12, config.getThreadCount());
         SchemaProvider schemaProvider = Whitebox.getInternalState(validationExecutionService, "schemaProvider");
         Assert.assertNotNull(schemaProvider);
         PredefinedSchemas locations = Whitebox.getInternalState(schemaProvider, "predefinedSchemasLocations");
