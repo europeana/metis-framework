@@ -32,6 +32,10 @@ public class SchemaProvider {
 
     private final PredefinedSchemas predefinedSchemasLocations;
 
+    /**
+     * Creates {@link SchemaProvider} for given {@link PredefinedSchemas} object.
+     * @param predefinedSchemasLocations
+     */
     public SchemaProvider(PredefinedSchemas predefinedSchemasLocations) {
         if (TMP_DIR.endsWith(File.separator)) {
             schemasDir = TMP_DIR + "schemas" + File.separator;
@@ -56,7 +60,9 @@ public class SchemaProvider {
      */
     public Schema getSchema(String fileLocation, String rootFileLocation) throws SchemaProviderException {
         if (isPredefined(fileLocation)) {
-            File downloadedFile = downloadZipIfNeeded(predefinedSchemasLocations.get(fileLocation).getLocation(), fileLocation.toLowerCase());
+            File downloadedFile = downloadZipIfNeeded(
+                    predefinedSchemasLocations.get(fileLocation).getLocation(),
+                    fileLocation.toLowerCase(Locale.getDefault()));
             unzipArchiveIfNeeded(downloadedFile,rootFileLocation);
             return prepareSchema(fileLocation, downloadedFile.getParentFile(), rootFileLocation);
         } else {
@@ -66,6 +72,13 @@ public class SchemaProvider {
         }
     }
 
+    /**
+     * Creates intance of {@link Schema} class based on provided type of schema
+     *
+     * @param fileLocation location of schema files. Can be url to zip or predefined value (that will be taken from properties file)
+     * @return
+     * @throws SchemaProviderException
+     */
     public Schema getSchema(String fileLocation) throws SchemaProviderException {
         if(isPredefined(fileLocation)){
             return getSchema(fileLocation, predefinedSchemasLocations.get(fileLocation).getRootFileLocation());
