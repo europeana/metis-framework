@@ -170,11 +170,11 @@ public class OrchestratorController {
     return workflowExecution;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETID, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
+  public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(
       @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,

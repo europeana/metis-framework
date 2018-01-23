@@ -352,7 +352,7 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void getAllUserWorkflowExecutions() throws Exception {
+  public void getAllUserWorkflowExecutionsByDatasetId() throws Exception {
 //    int listSize = 2;
 //    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
 //        .createListOfUserWorkflowExecutions(listSize + 1); //To get the effect of next page
@@ -361,7 +361,7 @@ public class TestOrchestratorController {
 //    when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(),
 //        any(WorkflowStatus.class), anyString())).thenReturn(listOfWorkflowExecutions);
 //    orchestratorControllerMock
-//        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETID,
+//        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
 //            TestObjectFactory.DATASETID)
 //            .param("workflowOwner", "owner")
 //            .param("workflowName", "workflow")

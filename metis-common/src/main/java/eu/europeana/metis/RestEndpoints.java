@@ -38,7 +38,7 @@ public final class RestEndpoints {
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE = "/orchestrator/workflows/schedule";
   public static final String ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID = "/orchestrator/workflows/schedule/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID = "/orchestrator/workflows/execution/{executionId}";
-  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASETID = "/orchestrator/workflows/executions/{datasetId}";
+  public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID = "/orchestrator/workflows/executions/dataset/{datasetId}";
   public static final String ORCHESTRATOR_WORKFLOWS_EXECUTIONS = "/orchestrator/workflows/executions";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/logs";
   public static final String ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT = "/orchestrator/proxies/{topologyName}/task/{externalTaskId}/report";
