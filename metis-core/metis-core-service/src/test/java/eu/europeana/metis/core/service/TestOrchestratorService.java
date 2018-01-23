@@ -1,8 +1,10 @@
 package eu.europeana.metis.core.service;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyList;
+import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
@@ -31,6 +33,7 @@ import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -40,6 +43,7 @@ import eu.europeana.metis.core.workflow.plugins.TopologyName;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.After;
@@ -398,14 +402,15 @@ public class TestOrchestratorService {
 
   @Test
   public void getAllUserWorkflowExecutions() {
-//    String objectId = new ObjectId().toString();
-//    orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
-//        TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWOWNER, WorkflowStatus.RUNNING,
-//        objectId);
-//    verify(workflowExecutionDao, times(1))
-//        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), any(
-//            WorkflowStatus.class), anyString());
-//    verifyNoMoreInteractions(workflowExecutionDao);
+    HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
+    workflowStatuses.add(WorkflowStatus.INQUEUE);
+    orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
+        TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
+        workflowStatuses, OrderField._ID, false, 0);
+    verify(workflowExecutionDao, times(1))
+        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), anySet(),
+            any(OrderField.class), anyBoolean(), anyInt());
+    verifyNoMoreInteractions(workflowExecutionDao);
   }
 
   @Test
@@ -667,13 +672,16 @@ public class TestOrchestratorService {
             TestObjectFactory.EXTERNAL_TASK_ID, null)).thenReturn(taskErrorsInfo);
     when(dpsClient
         .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(0).getErrorType())).thenReturn(taskErrorsInfoWithIdentifiers1);
+            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(0).getErrorType()))
+        .thenReturn(taskErrorsInfoWithIdentifiers1);
     when(dpsClient
         .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(1).getErrorType())).thenReturn(taskErrorsInfoWithIdentifiers2);
+            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(1).getErrorType()))
+        .thenReturn(taskErrorsInfoWithIdentifiers2);
 
     TaskErrorsInfo externalTaskReport = orchestratorService
-        .getExternalTaskReport(TopologyName.OAIPMH_HARVEST.getTopologyName(), TestObjectFactory.EXTERNAL_TASK_ID);
+        .getExternalTaskReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+            TestObjectFactory.EXTERNAL_TASK_ID);
 
     Assert.assertEquals(2, externalTaskReport.getErrors().size());
     Assert.assertTrue(externalTaskReport.getErrors().get(0).getIdentifiers().size() != 0);

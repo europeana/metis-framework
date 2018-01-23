@@ -2,6 +2,7 @@ package eu.europeana.metis.core.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
@@ -242,6 +243,7 @@ public class TestDatasetService {
     when(datasetDao.getDatasetByDatasetName(TestObjectFactory.DATASETNAME)).thenReturn(dataset);
     Dataset returnedDataset = datasetService
         .getDatasetByDatasetName(metisUser, TestObjectFactory.DATASETNAME);
+    assertNotNull(returnedDataset);
   }
 
   @Test(expected = UserUnauthorizedException.class)

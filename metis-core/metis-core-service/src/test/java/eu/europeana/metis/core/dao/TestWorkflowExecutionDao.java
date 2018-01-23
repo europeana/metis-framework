@@ -242,6 +242,41 @@ public class TestWorkflowExecutionDao {
   }
 
   @Test
+  public void getAllUserWorkflowExecutionsAscending() {
+    int userWorkflowExecutionsToCreate =
+        workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
+    for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
+      WorkflowExecution workflowExecution = TestObjectFactory
+          .createUserWorkflowExecutionObject();
+      workflowExecutionDao.create(workflowExecution);
+    }
+    HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
+    workflowStatuses.add(WorkflowStatus.INQUEUE);
+    int nextPage = 0;
+    int allUserWorkflowsExecutionsCount = 0;
+    do {
+      ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
+      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
+              .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
+                  TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
+                  workflowStatuses, OrderField.CREATED_DATE, true, nextPage),
+          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
+      WorkflowExecution beforeWorkflowExecution = userWorkflowExecutionResponseListWrapper.getResults().get(0);
+      for (int i = 1; i < userWorkflowExecutionResponseListWrapper.getListSize(); i++)
+      {
+        WorkflowExecution afterWorkflowExecution = userWorkflowExecutionResponseListWrapper.getResults().get(i);
+        Assert.assertTrue(beforeWorkflowExecution.getCreatedDate().before(afterWorkflowExecution.getCreatedDate()));
+        beforeWorkflowExecution = afterWorkflowExecution;
+      }
+
+      allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
+      nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
+    } while (nextPage != -1);
+    
+    Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
+  }
+
+  @Test
   public void getAllUserWorkflowExecutionsByWorkflowStatus() {
     int userWorkflowExecutionsToCreate =
         workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
