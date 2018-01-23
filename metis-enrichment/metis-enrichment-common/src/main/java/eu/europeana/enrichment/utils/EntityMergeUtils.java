@@ -257,6 +257,10 @@ public class EntityMergeUtils {
     }
     else {
     	AltLabel altLabel = new AltLabel();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	altLabel.setLang(lang);
+    	altLabel.setString("");
     	altLabelList.add(altLabel);
     }
     placeType.setAltLabelList(altLabelList);
@@ -267,6 +271,10 @@ public class EntityMergeUtils {
         for (Part part : place.getHasPartsList()) {
             if (part != null) {
                 HasPart hasPart = new HasPart();
+                ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+            	lang.setLang("");
+            	hasPart.setLang(lang);
+            	hasPart.setString("");
                 ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
                 resrc.setResource(part.getResource());
                 hasPart.setResource(resrc);
@@ -275,6 +283,13 @@ public class EntityMergeUtils {
         }
     } else {
     	HasPart hasPart = new HasPart();
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	hasPart.setLang(lang);
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        resrc.setResource("");    	    	
+    	hasPart.setResource(resrc);
+    	hasPart.setString("");
     	hasPartList.add(hasPart);
     }
     placeType.setHasPartList(hasPartList);
@@ -284,7 +299,10 @@ public class EntityMergeUtils {
     if (place.getIsPartOfList() != null && !place.getIsPartOfList().isEmpty()) {        
         for (Part part : place.getIsPartOfList()) {
             if (part != null) {
-                IsPartOf isPartOf = new IsPartOf();                           
+                IsPartOf isPartOf = new IsPartOf(); 
+                ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+            	lang.setLang("");
+            	isPartOf.setLang(lang);
                 ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
                 resrc.setResource(part.getResource());
                 isPartOf.setResource(resrc);
@@ -294,6 +312,13 @@ public class EntityMergeUtils {
         }    
     } else {
     	IsPartOf isPartOf = new IsPartOf(); 
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	isPartOf.setLang(lang);
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        resrc.setResource("");    	    	
+    	isPartOf.setResource(resrc);
+    	isPartOf.setString("");
     	isPartOfList.add(isPartOf);
     }
     placeType.setIsPartOfList(isPartOfList);
@@ -325,6 +350,10 @@ public class EntityMergeUtils {
         }             
     } else {
     	Note note = new Note();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	note.setLang(lang);
+    	note.setString("");
     	noteList.add(note);
     }
     placeType.setNoteList(noteList);
@@ -344,6 +373,10 @@ public class EntityMergeUtils {
         }        
     } else {
     	PrefLabel prefLabel = new PrefLabel();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+        prefLabel.setLang(lang);
+        prefLabel.setString("");
     	prefLabelList.add(prefLabel);
     }
     placeType.setPrefLabelList(prefLabelList);
@@ -359,7 +392,8 @@ public class EntityMergeUtils {
             }
         }        
     } else {
-    	SameAs sameAs = new SameAs();     
+    	SameAs sameAs = new SameAs();
+    	sameAs.setResource("");
     	sameAsList.add(sameAs);
     }
     placeType.setSameAList(sameAsList);
@@ -403,6 +437,10 @@ public class EntityMergeUtils {
         }
     } else {
     	AltLabel altLabel = new AltLabel();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	altLabel.setLang(lang);
+    	altLabel.setString("");
     	altLabelList.add(altLabel);
     }
     agentType.setAltLabelList(altLabelList);
@@ -417,7 +455,18 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             begin.setLang(lang);
             begin.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	begin.setLang(lang);
+        	begin.setString("");
+        }
+    }
+    else {
+        LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	begin.setLang(lang);
+    	begin.setString("");
     }
     agentType.setBegin(begin);
 
@@ -432,6 +481,11 @@ public class EntityMergeUtils {
             bioInfo.setLang(lang);
             bioInfo.setString(label.getValue());
         }        
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	bioInfo.setLang(lang);
+    	bioInfo.setString("");
     }
     agentType.setBiographicalInformation(bioInfo);
 
@@ -445,8 +499,27 @@ public class EntityMergeUtils {
             ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
             lang.setLang(label.getLang());
             date.setLang(lang);
+            ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        	resrc.setResource("");
+        	date.setResource(resrc);
             date.setString(label.getValue());
-        }             
+        } else {
+        	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+        	lang.setLang("");
+        	date.setLang(lang);
+        	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        	resrc.setResource("");
+        	date.setResource(resrc);
+        	date.setString("");
+        }
+    } else {
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	date.setLang(lang);
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+    	resrc.setResource("");
+    	date.setResource(resrc);
+    	date.setString("");    	
     }
     dateList.add(date);
     agentType.setDateList(dateList);
@@ -461,7 +534,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             dateOfBirth.setLang(lang);
             dateOfBirth.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	dateOfBirth.setLang(lang);
+        	dateOfBirth.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	dateOfBirth.setLang(lang);
+    	dateOfBirth.setString("");
     }
     agentType.setDateOfBirth(dateOfBirth);
 
@@ -475,7 +558,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             dateOfDeath.setLang(lang);
             dateOfDeath.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	dateOfDeath.setLang(lang);
+        	dateOfDeath.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	dateOfDeath.setLang(lang);
+    	dateOfDeath.setString("");
     }
     agentType.setDateOfDeath(dateOfDeath);
 
@@ -489,7 +582,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             dateOfEstablishment.setLang(lang);
             dateOfEstablishment.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	dateOfEstablishment.setLang(lang);
+        	dateOfEstablishment.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	dateOfEstablishment.setLang(lang);
+    	dateOfEstablishment.setString("");
     }
     agentType.setDateOfEstablishment(dateOfEstablishment);
 
@@ -503,7 +606,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             dateOfTermination.setLang(lang);
             dateOfTermination.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	dateOfEstablishment.setLang(lang);
+        	dateOfEstablishment.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	dateOfTermination.setLang(lang);
+    	dateOfTermination.setString("");
     }
     agentType.setDateOfTermination(dateOfTermination);
 
@@ -517,7 +630,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             end.setLang(lang);
             end.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	end.setLang(lang);
+        	end.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	end.setLang(lang);
+    	end.setString("");
     }
     agentType.setEnd(end);
 
@@ -531,7 +654,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             gender.setLang(lang);
             gender.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	gender.setLang(lang);
+        	gender.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	gender.setLang(lang);
+    	gender.setString("");
     }
     agentType.setGender(gender);
 
@@ -542,7 +675,11 @@ public class EntityMergeUtils {
     if (hasMetLabelList != null && !hasMetLabelList.isEmpty()) {                      
         Label label = hasMetLabelList.get(0);        
         if (label != null)
-            hasMet.setResource(label.getValue());            
+            hasMet.setResource(label.getValue()); 
+        else
+        	hasMet.setResource("");
+    } else {
+    	hasMet.setResource("");
     }
     hasMetList.add(hasMet);
     agentType.setHasMetList(hasMetList);
@@ -561,7 +698,17 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             identifier.setLang(lang);
             identifier.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+        	identifier.setLang(lang);
+        	identifier.setString("");
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	identifier.setLang(lang);
+    	identifier.setString("");
     }
     identifierList.add(identifier);
     agentType.setIdentifierList(identifierList);
@@ -583,7 +730,23 @@ public class EntityMergeUtils {
             ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
             resrc.setResource(labelResource.getResource());
             isRelatedTo.setResource(resrc);
-        }        
+        } else {
+        	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+        	lang.setLang("");
+        	isRelatedTo.setLang(lang);    
+        	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        	resrc.setResource("");
+        	isRelatedTo.setResource(resrc);
+        	isRelatedTo.setString("");
+        }
+    } else {    	
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	isRelatedTo.setLang(lang);    
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+    	resrc.setResource("");
+    	isRelatedTo.setResource(resrc);
+    	isRelatedTo.setString("");
     }
     isRelatedToList.add(isRelatedTo);
     agentType.setIsRelatedToList(isRelatedToList);
@@ -603,6 +766,22 @@ public class EntityMergeUtils {
             note.setLang(lang);
             note.setString(label.getValue());
         }        
+        else
+        {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+        	lang.setLang("");
+        	note.setLang(lang);
+        	note.setString("");
+        	noteList.add(note);
+        }
+    }
+    else
+    {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	note.setLang(lang);
+    	note.setString("");
+    	noteList.add(note);
     }
     noteList.add(note);
     agentType.setNoteList(noteList);              
@@ -623,7 +802,19 @@ public class EntityMergeUtils {
             lang.setLang(label.getLang());
             prefLabel.setLang(lang);
             prefLabel.setString(label.getValue());
-        }        
+        } else {
+        	LiteralType.Lang lang = new LiteralType.Lang();
+            lang.setLang("");
+            prefLabel.setLang(lang);
+            prefLabel.setString("");
+        	prefLabelList.add(prefLabel);
+        }
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+        prefLabel.setLang(lang);
+        prefLabel.setString("");
+    	prefLabelList.add(prefLabel);
     }
     prefLabelList.add(prefLabel);
     agentType.setPrefLabelList(prefLabelList);
@@ -643,7 +834,23 @@ public class EntityMergeUtils {
             ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
             resrc.setResource(labelResource.getResource());
             professionOrOccupation.setResource(resrc);
-        }        
+        } else {
+        	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+        	lang.setLang("");
+        	professionOrOccupation.setLang(lang);    
+        	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        	resrc.setResource("");
+        	professionOrOccupation.setResource(resrc);
+        	professionOrOccupation.setString("");
+        }
+    } else {
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	professionOrOccupation.setLang(lang);    
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+    	resrc.setResource("");
+    	professionOrOccupation.setResource(resrc);
+    	professionOrOccupation.setString("");
     }
     professionOrOccupationList.add(professionOrOccupation);
     agentType.setProfessionOrOccupationList(professionOrOccupationList);
@@ -655,7 +862,13 @@ public class EntityMergeUtils {
     if (sameAsPartList != null && !sameAsPartList.isEmpty()) {                        
         Part part = sameAsPartList.get(0);        
         if (part != null)
-            sameAs.setResource(part.getResource());        
+            sameAs.setResource(part.getResource());
+        else
+        	sameAs.setResource("");
+    }
+    else {      
+    	sameAs.setResource("");
+    	sameAsList.add(sameAs);
     }
     sameAsList.add(sameAs);
     agentType.setSameAList(sameAsList);
@@ -694,6 +907,11 @@ public class EntityMergeUtils {
         lang1.setLang(altLabelLabel.getLang());
         altLabel.setLang(lang1);
         altLabel.setString(altLabelLabel.getValue());
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	altLabel.setLang(lang);
+    	altLabel.setString("");
     }
     choice.setAltLabel(altLabel);
 
@@ -701,42 +919,56 @@ public class EntityMergeUtils {
     BroadMatch broadMatch = new BroadMatch();
     if (broadMatchResource != null && !broadMatchResource.isEmpty())
         broadMatch.setResource(broadMatchResource.get(0).getResource());
+    else
+    	broadMatch.setResource("");
     choice.setBroadMatch(broadMatch);
 
     ArrayList<Resource> broaderResource = (ArrayList<Resource>)baseConcept.getBroader();
     Broader broader = new Broader();
     if (broaderResource != null && !broaderResource.isEmpty())
         broader.setResource(broaderResource.get(0).getResource());
+    else
+    	broader.setResource("");
     choice.setBroader(broader);
 
     ArrayList<Resource> closeMatchResource = (ArrayList<Resource>)baseConcept.getCloseMatch();
     CloseMatch closeMatch = new CloseMatch();
     if (closeMatchResource != null && !closeMatchResource.isEmpty())
         closeMatch.setResource(closeMatchResource.get(0).getResource());
+    else
+    	closeMatch.setResource("");
     choice.setCloseMatch(closeMatch);
 
     ArrayList<Resource> exactMatchResource = (ArrayList<Resource>)baseConcept.getExactMatch();
     ExactMatch exactMatch = new ExactMatch();
     if (exactMatchResource != null && !exactMatchResource.isEmpty())
         exactMatch.setResource(exactMatchResource.get(0).getResource());
+    else
+    	exactMatch.setResource("");
     choice.setExactMatch(exactMatch);
 
     ArrayList<Resource> inSchemeResource = (ArrayList<Resource>)baseConcept.getInScheme();
     InScheme inScheme = new InScheme();
     if (inSchemeResource != null && !inSchemeResource.isEmpty())
         inScheme.setResource(inSchemeResource.get(0).getResource());
+    else
+    	inScheme.setResource("");
     choice.setInScheme(inScheme);
 
     ArrayList<Resource> narrowerResource = (ArrayList<Resource>)baseConcept.getNarrower();
     Narrower narrower = new Narrower();
     if (narrowerResource != null && !narrowerResource.isEmpty())
         narrower.setResource(narrowerResource.get(0).getResource());
+    else
+    	narrower.setResource("");
     choice.setNarrower(narrower);
 
     ArrayList<Resource> narrowMatchResource = (ArrayList<Resource>)baseConcept.getNarrowMatch();
     NarrowMatch narrowMatch = new NarrowMatch();
     if (narrowMatchResource != null && !narrowMatchResource.isEmpty())
         narrowMatch.setResource(narrowMatchResource.get(0).getResource());
+    else
+    	narrowMatch.setResource("");
     choice.setNarrowMatch(narrowMatch);
 
     ArrayList<Label> notationList = (ArrayList<Label>) baseConcept.getNotation();
@@ -747,6 +979,11 @@ public class EntityMergeUtils {
         lang2.setLang(notationLabel.getLang());
         notation.setLang(lang2);
         notation.setString(notationLabel.getValue());
+    } else {
+    	 LiteralType.Lang lang2 = new LiteralType.Lang();
+         lang2.setLang("");
+         notation.setLang(lang2);
+         notation.setString("");
     }
     choice.setNotation(notation);
 
@@ -759,6 +996,12 @@ public class EntityMergeUtils {
         note.setLang(lang3);
         note.setString(noteLabel.getValue());
     }
+    else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	note.setLang(lang);
+    	note.setString("");
+    }
     choice.setNote(note);
 
     ArrayList<Label> prefLabelList = (ArrayList<Label>) baseConcept.getPrefLabelList();
@@ -769,6 +1012,11 @@ public class EntityMergeUtils {
         lang4.setLang(prefLabelLabel.getLang());
         prefLabel.setLang(lang4);
         prefLabel.setString(prefLabelLabel.getValue());
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+        prefLabel.setLang(lang);
+        prefLabel.setString("");
     }
     choice.setPrefLabel(prefLabel);
 
@@ -776,12 +1024,16 @@ public class EntityMergeUtils {
     Related related = new Related();
     if (relatedResource != null && !relatedResource.isEmpty())
         related.setResource(relatedResource.get(0).getResource());
+    else
+    	related.setResource("");
     choice.setRelated(related);
 
     ArrayList<Resource> relatedMatchResource = (ArrayList<Resource>)baseConcept.getRelatedMatch();
     RelatedMatch relatedMatch = new RelatedMatch();
     if (relatedMatchResource != null && !relatedMatchResource.isEmpty())
         relatedMatch.setResource(relatedMatchResource.get(0).getResource());
+    else
+    	relatedMatch.setResource("");
     choice.setRelatedMatch(relatedMatch);
 
     choiceList.add(choice);
@@ -825,6 +1077,10 @@ public class EntityMergeUtils {
         }
     } else {
     	AltLabel altLabel = new AltLabel();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	altLabel.setLang(lang);
+    	altLabel.setString("");
     	altLabelList.add(altLabel);
     }
     timeSpanType.setAltLabelList(altLabelList);
@@ -838,6 +1094,11 @@ public class EntityMergeUtils {
         lang2.setLang(beginLabel.getLang());
         begin.setLang(lang2);
         begin.setString(beginLabel.getValue());
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	begin.setLang(lang);
+    	begin.setString("");
     }
     timeSpanType.setBegin(begin);
 
@@ -850,6 +1111,11 @@ public class EntityMergeUtils {
         lang2.setLang(endLabel.getLang());
         end.setLang(lang2);
         end.setString(endLabel.getValue());
+    } else {
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+    	end.setLang(lang);
+    	end.setString("");
     }
     timeSpanType.setEnd(end);
 
@@ -859,14 +1125,24 @@ public class EntityMergeUtils {
         for (Part part : timespan.getHasPartsList()) {
             if (part != null) {
                 HasPart hasPart = new HasPart();
+                ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+            	lang.setLang("");
                 ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
                 resrc.setResource(part.getResource());
                 hasPart.setResource(resrc);
+                hasPart.setString("");
                 hasPartList.add(hasPart);
             }
         }
     } else {
     	HasPart hasPart = new HasPart();
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	hasPart.setLang(lang);
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        resrc.setResource("");    	    	
+    	hasPart.setResource(resrc);
+    	hasPart.setString("");
     	hasPartList.add(hasPart);
     }
     timeSpanType.setHasPartList(hasPartList);
@@ -879,14 +1155,25 @@ public class EntityMergeUtils {
         for (Part part : timespan.getIsPartOfList()) {
             if (part != null) {
                 IsPartOf isPartOf = new IsPartOf();
+                ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+            	lang.setLang("");
+            	isPartOf.setLang(lang);
                 ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
                 resrc.setResource(part.getResource());
                 isPartOf.setResource(resrc);
+                isPartOf.setString("");
                 isPartOfList.add(isPartOf);
             }
         }
     } else {
-    	IsPartOf isPartOf = new IsPartOf();
+    	IsPartOf isPartOf = new IsPartOf(); 
+    	ResourceOrLiteralType.Lang lang = new ResourceOrLiteralType.Lang();
+    	lang.setLang("");
+    	isPartOf.setLang(lang);
+    	ResourceOrLiteralType.Resource resrc = new ResourceOrLiteralType.Resource();
+        resrc.setResource("");    	    	
+    	isPartOf.setResource(resrc);
+    	isPartOf.setString("");
     	isPartOfList.add(isPartOf);
     }
     timeSpanType.setIsPartOfList(isPartOfList);
@@ -906,6 +1193,10 @@ public class EntityMergeUtils {
         }
     } else {
     	Note note = new Note();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+    	lang.setLang("");
+    	note.setLang(lang);
+    	note.setString("");
     	noteList.add(note);
     }
     timeSpanType.setNoteList(noteList);
@@ -925,6 +1216,10 @@ public class EntityMergeUtils {
         }
     } else {
     	PrefLabel prefLabel = new PrefLabel();
+    	LiteralType.Lang lang = new LiteralType.Lang();
+        lang.setLang("");
+        prefLabel.setLang(lang);
+        prefLabel.setString("");
     	prefLabelList.add(prefLabel);
     }
     timeSpanType.setPrefLabelList(prefLabelList);
@@ -940,7 +1235,8 @@ public class EntityMergeUtils {
             }
         }
     } else {
-    	SameAs sameAs = new SameAs();
+       	SameAs sameAs = new SameAs();
+    	sameAs.setResource("");
     	sameAsList.add(sameAs);
     }
     timeSpanType.setSameAList(sameAsList);

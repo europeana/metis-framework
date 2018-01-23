@@ -151,8 +151,6 @@ public class DereferenceClient {
 		if (!uriString.startsWith("http") && !uriString.startsWith("https"))
 			return null;
 		
-		System.out.println(uriString);
-		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
