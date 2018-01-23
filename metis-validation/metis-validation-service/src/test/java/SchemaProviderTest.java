@@ -29,8 +29,8 @@ public class SchemaProviderTest {
     private static final PredefinedSchemas PREDEFINED_SCHEMAS_LOCATIONS = new PredefinedSchemas();
 
     static {
-        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd");
-        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd");
+        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd","schematron/schematron-internal.xsl");
+        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd","schematron/schematron.xsl");
     }
 
     @Test

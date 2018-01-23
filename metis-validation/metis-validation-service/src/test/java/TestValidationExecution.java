@@ -193,8 +193,8 @@ public class TestValidationExecution {
     @Test
     public void ValidationExecutionServiceTestWithCustomConfiguration() throws SchemaProviderException {
         PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
-        predefinedSchemas.add("name", "location", "root");
-        predefinedSchemas.add("name1", "location1", "root1");
+        predefinedSchemas.add("name", "location", "root","schematronFile");
+        predefinedSchemas.add("name1", "location1", "root1","schematronFile1");
         ValidationExecutionService validationExecutionService = new ValidationExecutionService(new ValidationServiceConfig() {
             @Override
             public int getThreadCount() {

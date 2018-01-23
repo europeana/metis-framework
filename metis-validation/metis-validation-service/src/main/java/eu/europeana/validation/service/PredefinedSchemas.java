@@ -13,12 +13,13 @@ public class PredefinedSchemas {
     /**
      * Inserts new schema to the list of all predefined schemas
      *
-     * @param name             name of new schema
-     * @param location         place where schema files are stored
-     * @param rootFileLocation file name that should be used as a entry point for validation
+     * @param name                   name of new schema
+     * @param location               place where schema files are stored
+     * @param rootFileLocation       file name that should be used as a entry point for validation
+     * @param schematronFileLocation file name that should be used as a entry point for schematron rules
      */
-    public void add(String name, String location, String rootFileLocation) {
-        PredefinedSchema predefinedSchema = new PredefinedSchema(name, location, rootFileLocation);
+    public void add(String name, String location, String rootFileLocation,String schematronFileLocation) {
+        PredefinedSchema predefinedSchema = new PredefinedSchema(name, location, rootFileLocation, schematronFileLocation);
         schemas.put(predefinedSchema.getKey(), predefinedSchema);
     }
 
@@ -49,6 +50,7 @@ public class PredefinedSchemas {
         private String key;
         private String location;
         private String rootFileLocation;
+        private String schematronFileLocation;
 
         /**
          * Creates new schema
@@ -56,11 +58,13 @@ public class PredefinedSchemas {
          * @param key              schema key
          * @param location         location of schema files
          * @param rootFileLocation file name that should be used as a entry point for validation
+         * @param schematronFileLocation file name that should be used as a entry point for schematron
          */
-        public PredefinedSchema(String key, String location, String rootFileLocation) {
+        public PredefinedSchema(String key, String location, String rootFileLocation, String schematronFileLocation) {
             this.key = key;
             this.location = location;
             this.rootFileLocation = rootFileLocation;
+            this.schematronFileLocation = schematronFileLocation;
         }
 
         public String getKey() {
@@ -73,6 +77,10 @@ public class PredefinedSchemas {
 
         public String getRootFileLocation() {
             return rootFileLocation;
+        }
+
+        public String getSchematronFileLocation() {
+            return schematronFileLocation;
         }
     }
 }
