@@ -43,7 +43,7 @@ public class SchemaProvider {
             schemasDir = TMP_DIR + File.separator + "schemas" + File.separator;
         }
 
-        LOGGER.info("Creating schema manager. Files will be stored in: {}", SCHEMAS_DIR);
+        LOGGER.info("Creating schema manager. Files will be stored in: {}", schemasDir);
         this.predefinedSchemasLocations = predefinedSchemasLocations;
     }
 
