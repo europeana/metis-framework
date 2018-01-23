@@ -248,6 +248,7 @@ public class EnrichmentWorker {
           continue;
         }
         LOGGER.debug("== Processing {}", url);
+        System.out.println(url);
         EnrichmentResultList result = dereferenceClient.dereference(url);
         if (result != null && result.getResult() != null && !result.getResult().isEmpty()) {
           dereferenceInformation.add(result);
