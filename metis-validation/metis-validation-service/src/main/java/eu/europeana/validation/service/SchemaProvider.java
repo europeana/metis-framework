@@ -102,7 +102,13 @@ public class SchemaProvider {
         }
     }
 
-    private boolean isPredefined(String name) {
+    /**
+     * Checks if given schema name is on the {@link PredefinedSchemas} list.
+     *
+     * @param name schema name
+     * @return
+     */
+    public boolean isPredefined(String name) {
         return predefinedSchemasLocations.contains(name);
     }
 
