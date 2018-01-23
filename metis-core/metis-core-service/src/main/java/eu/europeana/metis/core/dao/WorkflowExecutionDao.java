@@ -192,10 +192,12 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
-    if (ascending) {
-      query.order(orderField.getOrderFieldName());
-    } else {
-      query.order("-" + orderField.getOrderFieldName());
+    if (orderField != null) {
+      if (ascending) {
+        query.order(orderField.getOrderFieldName());
+      } else {
+        query.order("-" + orderField.getOrderFieldName());
+      }
     }
     return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
         .limit(workflowExecutionsPerRequest));
