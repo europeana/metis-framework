@@ -181,7 +181,7 @@ public class OrchestratorController {
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false) OrderField orderField,
-      @RequestParam(value = "ascending", required = false, defaultValue = "false") boolean ascending,
+      @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService

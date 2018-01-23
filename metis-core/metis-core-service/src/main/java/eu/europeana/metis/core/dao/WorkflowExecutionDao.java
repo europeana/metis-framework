@@ -188,7 +188,9 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
       }
     }
-    query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    if (!criteriaContainer.isEmpty()) {
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    }
     configureQueryOrdering(query, ascending, orderField, nextPage);
     return query.asList(new FindOptions().limit(workflowExecutionsPerRequest));
   }
@@ -200,18 +202,22 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       lastWorkflowExecutionFromPreviousPage = getById(nextPage);
     }
 
-    switch (orderField) {
-      case FINISHED_DATE:
-        configureFinishedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
-        break;
-      case UPDATED_DATE:
-        configureUpdatedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
-        break;
-      default:
-        query.order("_id");
-        if (StringUtils.isNotEmpty(nextPage)) {
-          query.field("_id").greaterThan(new ObjectId(nextPage));
-        }
+    if (orderField != null) {
+      switch (orderField) {
+        case FINISHED_DATE:
+          configureFinishedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
+          break;
+        case UPDATED_DATE:
+          configureUpdatedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
+          break;
+        default:
+          break;
+      }
+    } else {
+      query.order("_id");
+      if (StringUtils.isNotEmpty(nextPage)) {
+        query.field("_id").greaterThan(new ObjectId(nextPage));
+      }
     }
   }
 
