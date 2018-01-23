@@ -4,12 +4,15 @@ import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.query.CriteriaContainerImpl;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
@@ -167,22 +170,58 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
-      String workflowOwner,
-      String workflowName,
-      WorkflowStatus workflowStatus, String nextPage) {
+      String workflowOwner, String workflowName, Set<WorkflowStatus> workflowStatuses,
+      String orderBy, boolean ascending, String nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
-    query.field(DATASET_ID).equal(datasetId)
-        .field("workflowOwner").equal(workflowOwner)
-        .field("workflowName").equal(workflowName);
-    if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
-      query.field(WORKFLOW_STATUS).equal(workflowStatus);
+    query.field(DATASET_ID).equal(datasetId);
+    if (StringUtils.isNotEmpty(workflowOwner)) {
+      query.field("workflowOwner").equal(workflowOwner);
     }
-    query.order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
+    if (StringUtils.isNotEmpty(workflowOwner)) {
+      query.field("workflowName").equal(workflowName);
     }
+    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
+    for (WorkflowStatus workflowStatus : workflowStatuses) {
+      if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
+        criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
+      }
+    }
+    query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    configureQueryOrdering(query, ascending, orderBy, nextPage);
     return query.asList(new FindOptions().limit(workflowExecutionsPerRequest));
+  }
+
+  private void configureQueryOrdering(Query query, boolean ascending, String orderBy,
+      String nextPage) {
+    WorkflowExecution lastWorkflowExecutionFromPreviousPage = null;
+    if (StringUtils.isNotEmpty(nextPage)) {
+      lastWorkflowExecutionFromPreviousPage = getById(nextPage);
+    }
+
+    if (orderBy.equals("finishedDate")) {
+      configureFinishedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
+    } else {
+      query.order("_id");
+      if (StringUtils.isNotEmpty(nextPage)) {
+        query.field("_id").greaterThan(new ObjectId(nextPage));
+      }
+    }
+  }
+
+  private void configureFinishedDateOrdering(Query query,
+      WorkflowExecution lastWorkflowExecutionFromPreviousPage, boolean ascending) {
+    if (lastWorkflowExecutionFromPreviousPage != null && ascending) {
+      query.field("finishedDate")
+          .greaterThan(lastWorkflowExecutionFromPreviousPage.getFinishedDate());
+    } else if (lastWorkflowExecutionFromPreviousPage != null) {
+      query.field("finishedDate")
+          .lessThan(lastWorkflowExecutionFromPreviousPage.getFinishedDate());
+    } else if (ascending) {
+      query.order("finishedDate");
+    } else {
+      query.order("-finishedDate");
+    }
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,

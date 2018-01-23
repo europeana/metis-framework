@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
@@ -229,10 +230,10 @@ public class OrchestratorService {
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner,
       String workflowName,
-      WorkflowStatus workflowStatus, String nextPage) {
+      Set<WorkflowStatus> workflowStatuses, String orderBy, boolean ascending, String nextPage) {
     return workflowExecutionDao
-        .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatus,
-            nextPage);
+        .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses,
+            orderBy, ascending, nextPage);
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,

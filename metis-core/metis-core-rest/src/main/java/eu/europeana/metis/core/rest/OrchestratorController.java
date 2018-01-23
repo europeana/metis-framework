@@ -18,6 +18,7 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.List;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -177,12 +178,13 @@ public class OrchestratorController {
       @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
-      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
+      @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
+      @RequestParam(value = "orderBy", required = false) String orderBy,
+      @RequestParam(value = "ascending", required = false, defaultValue = "false") boolean ascending,
       @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatus,
-                nextPage),
+            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses, orderBy, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest());
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
