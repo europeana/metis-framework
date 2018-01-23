@@ -243,7 +243,7 @@ public class EntityMergeUtils {
 
     // altLabelList
     ArrayList<AltLabel> altLabelList = new ArrayList<>();
-    if (place.getAltLabelList() != null) {        
+    if (place.getAltLabelList() != null && !place.getAltLabelList().isEmpty()) {        
         for (Label label : place.getAltLabelList()) {
             if (label != null) {
                 AltLabel altLabel = new AltLabel();
@@ -263,7 +263,7 @@ public class EntityMergeUtils {
 
     // hasPartList       
     ArrayList<HasPart> hasPartList = new ArrayList<>();
-    if (place.getHasPartsList() != null) {        
+    if (place.getHasPartsList() != null && !place.getHasPartsList().isEmpty()) {        
         for (Part part : place.getHasPartsList()) {
             if (part != null) {
                 HasPart hasPart = new HasPart();
@@ -281,7 +281,7 @@ public class EntityMergeUtils {
 
     // isPartOfList
     ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
-    if (place.getIsPartOfList() != null) {        
+    if (place.getIsPartOfList() != null && !place.getIsPartOfList().isEmpty()) {        
         for (Part part : place.getIsPartOfList()) {
             if (part != null) {
                 IsPartOf isPartOf = new IsPartOf();                           
@@ -312,7 +312,7 @@ public class EntityMergeUtils {
     
     // noteList
     ArrayList<Note> noteList = new ArrayList<>();
-    if (place.getNotes() != null) {       
+    if (place.getNotes() != null && !place.getNotes().isEmpty()) {       
         for (Label label : place.getNotes()) {
             if (label != null) {
                 Note note = new Note();
@@ -331,7 +331,7 @@ public class EntityMergeUtils {
 
     // prefLabelList
     ArrayList<PrefLabel> prefLabelList = new ArrayList<>();
-    if (place.getPrefLabelList() != null) {        
+    if (place.getPrefLabelList() != null && !place.getPrefLabelList().isEmpty()) {        
         for (Label label : place.getPrefLabelList()) {
             if (label != null) {
                 PrefLabel prefLabel = new PrefLabel();
@@ -350,7 +350,7 @@ public class EntityMergeUtils {
 
     // sameAsList                 
     ArrayList<SameAs> sameAsList = new ArrayList<>();
-    if (place.getSameAs() != null) {        
+    if (place.getSameAs() != null && !place.getSameAs().isEmpty()) {        
         for (Part part : place.getSameAs()) {
             if (part != null) {
                 SameAs sameAs = new SameAs();                     
@@ -390,7 +390,7 @@ public class EntityMergeUtils {
 
     // altLabelList
     ArrayList<AltLabel> altLabelList = new ArrayList<>();
-    if (agent.getAltLabelList() != null) {
+    if (agent.getAltLabelList() != null && !agent.getAltLabelList().isEmpty()) {
         for (Label label : agent.getAltLabelList()) {
             if (label != null) {
                 AltLabel altLabel = new AltLabel();
@@ -688,7 +688,7 @@ public class EntityMergeUtils {
 
     ArrayList<Label> altLabelList = (ArrayList<Label>) baseConcept.getAltLabelList();
     AltLabel altLabel = new AltLabel();
-    if (altLabelList != null) {
+    if (altLabelList != null && !altLabelList.isEmpty()) {
         Label altLabelLabel = altLabelList.get(0);
         LiteralType.Lang lang1 = new LiteralType.Lang();
         lang1.setLang(altLabelLabel.getLang());
@@ -699,49 +699,49 @@ public class EntityMergeUtils {
 
     ArrayList<Resource> broadMatchResource = (ArrayList<Resource>)baseConcept.getBroadMatch();
     BroadMatch broadMatch = new BroadMatch();
-    if (broadMatchResource != null)
+    if (broadMatchResource != null && !broadMatchResource.isEmpty())
         broadMatch.setResource(broadMatchResource.get(0).getResource());
     choice.setBroadMatch(broadMatch);
 
     ArrayList<Resource> broaderResource = (ArrayList<Resource>)baseConcept.getBroader();
     Broader broader = new Broader();
-    if (broaderResource != null)
+    if (broaderResource != null && !broaderResource.isEmpty())
         broader.setResource(broaderResource.get(0).getResource());
     choice.setBroader(broader);
 
     ArrayList<Resource> closeMatchResource = (ArrayList<Resource>)baseConcept.getCloseMatch();
     CloseMatch closeMatch = new CloseMatch();
-    if (closeMatchResource != null)
+    if (closeMatchResource != null && !closeMatchResource.isEmpty())
         closeMatch.setResource(closeMatchResource.get(0).getResource());
     choice.setCloseMatch(closeMatch);
 
     ArrayList<Resource> exactMatchResource = (ArrayList<Resource>)baseConcept.getExactMatch();
     ExactMatch exactMatch = new ExactMatch();
-    if (exactMatchResource != null)
+    if (exactMatchResource != null && !exactMatchResource.isEmpty())
         exactMatch.setResource(exactMatchResource.get(0).getResource());
     choice.setExactMatch(exactMatch);
 
     ArrayList<Resource> inSchemeResource = (ArrayList<Resource>)baseConcept.getInScheme();
     InScheme inScheme = new InScheme();
-    if (inSchemeResource != null)
+    if (inSchemeResource != null && !inSchemeResource.isEmpty())
         inScheme.setResource(inSchemeResource.get(0).getResource());
     choice.setInScheme(inScheme);
 
     ArrayList<Resource> narrowerResource = (ArrayList<Resource>)baseConcept.getNarrower();
     Narrower narrower = new Narrower();
-    if (narrowerResource != null)
+    if (narrowerResource != null && !narrowerResource.isEmpty())
         narrower.setResource(narrowerResource.get(0).getResource());
     choice.setNarrower(narrower);
 
     ArrayList<Resource> narrowMatchResource = (ArrayList<Resource>)baseConcept.getNarrowMatch();
     NarrowMatch narrowMatch = new NarrowMatch();
-    if (narrowMatchResource != null)
+    if (narrowMatchResource != null && !narrowMatchResource.isEmpty())
         narrowMatch.setResource(narrowMatchResource.get(0).getResource());
     choice.setNarrowMatch(narrowMatch);
 
     ArrayList<Label> notationList = (ArrayList<Label>) baseConcept.getNotation();
     Notation notation = new Notation();
-    if (notationList != null) {
+    if (notationList != null && !notationList.isEmpty()) {
         Label notationLabel = notationList.get(0);
         LiteralType.Lang lang2 = new LiteralType.Lang();
         lang2.setLang(notationLabel.getLang());
@@ -752,7 +752,7 @@ public class EntityMergeUtils {
 
     ArrayList<Label> noteList = (ArrayList<Label>) baseConcept.getNotes();
     Note note = new Note();
-    if (noteList != null) {
+    if (noteList != null && !noteList.isEmpty()) {
         Label noteLabel = noteList.get(0);
         LiteralType.Lang lang3 = new LiteralType.Lang();
         lang3.setLang(noteLabel.getLang());
@@ -763,7 +763,7 @@ public class EntityMergeUtils {
 
     ArrayList<Label> prefLabelList = (ArrayList<Label>) baseConcept.getPrefLabelList();
     PrefLabel prefLabel = new PrefLabel();
-    if (prefLabelList != null) {
+    if (prefLabelList != null && !prefLabelList.isEmpty()) {
         Label prefLabelLabel = prefLabelList.get(0);
         LiteralType.Lang lang4 = new LiteralType.Lang();
         lang4.setLang(prefLabelLabel.getLang());
@@ -774,13 +774,13 @@ public class EntityMergeUtils {
 
     ArrayList<Resource> relatedResource = (ArrayList<Resource>)baseConcept.getRelated();
     Related related = new Related();
-    if (relatedResource != null)
+    if (relatedResource != null && !relatedResource.isEmpty())
         related.setResource(relatedResource.get(0).getResource());
     choice.setRelated(related);
 
     ArrayList<Resource> relatedMatchResource = (ArrayList<Resource>)baseConcept.getRelatedMatch();
     RelatedMatch relatedMatch = new RelatedMatch();
-    if (relatedMatchResource != null)
+    if (relatedMatchResource != null && !relatedMatchResource.isEmpty())
         relatedMatch.setResource(relatedMatchResource.get(0).getResource());
     choice.setRelatedMatch(relatedMatch);
 
@@ -812,7 +812,7 @@ public class EntityMergeUtils {
 
     // altLabelList
     ArrayList<AltLabel> altLabelList = new ArrayList<>();
-    if (timespan.getAltLabelList() != null) {
+    if (timespan.getAltLabelList() != null && !timespan.getAltLabelList().isEmpty()) {
         for (Label label : timespan.getAltLabelList()) {
             if (label != null) {
                 AltLabel altLabel = new AltLabel();
@@ -832,7 +832,7 @@ public class EntityMergeUtils {
     // begin      
     ArrayList<Label> beginList = (ArrayList<Label>) timespan.getBeginList();
     Begin begin = new Begin();
-    if (beginList != null) {
+    if (beginList != null && !beginList.isEmpty()) {
         Label beginLabel = beginList.get(0);
         LiteralType.Lang lang2 = new LiteralType.Lang();
         lang2.setLang(beginLabel.getLang());
@@ -844,7 +844,7 @@ public class EntityMergeUtils {
     // end        
     ArrayList<Label> endList = (ArrayList<Label>) timespan.getEndList();
     End end = new End();
-    if (endList != null) {
+    if (endList != null && !endList.isEmpty()) {
         Label endLabel = endList.get(0);
         LiteralType.Lang lang2 = new LiteralType.Lang();
         lang2.setLang(endLabel.getLang());
@@ -855,7 +855,7 @@ public class EntityMergeUtils {
 
     // hasPartList
     ArrayList<HasPart> hasPartList = new ArrayList<>();
-    if (timespan.getHasPartsList() != null) {
+    if (timespan.getHasPartsList() != null && !timespan.getHasPartsList().isEmpty()) {
         for (Part part : timespan.getHasPartsList()) {
             if (part != null) {
                 HasPart hasPart = new HasPart();
@@ -875,7 +875,7 @@ public class EntityMergeUtils {
 
     // isPartOfList
     ArrayList<IsPartOf> isPartOfList = new ArrayList<>();
-    if (timespan.getIsPartOfList() != null) {
+    if (timespan.getIsPartOfList() != null && !timespan.getIsPartOfList().isEmpty()) {
         for (Part part : timespan.getIsPartOfList()) {
             if (part != null) {
                 IsPartOf isPartOf = new IsPartOf();
@@ -893,7 +893,7 @@ public class EntityMergeUtils {
 
     // noteList
     ArrayList<Note> noteList = new ArrayList<>();
-    if (timespan.getNotes() != null) {
+    if (timespan.getNotes() != null && !timespan.getNotes().isEmpty()) {
         for (Label label : timespan.getNotes()) {
             if (label != null) {
                 Note note = new Note();
@@ -912,7 +912,7 @@ public class EntityMergeUtils {
 
     // prefLabelList
     ArrayList<PrefLabel> prefLabelList = new ArrayList<>();
-    if (timespan.getPrefLabelList() != null) {
+    if (timespan.getPrefLabelList() != null && !timespan.getPrefLabelList().isEmpty()) {
         for (Label label : timespan.getPrefLabelList()) {
             if (label != null) {
                 PrefLabel prefLabel = new PrefLabel();
@@ -931,7 +931,7 @@ public class EntityMergeUtils {
 
     // sameAsList
     ArrayList<SameAs> sameAsList = new ArrayList<>();
-    if (timespan.getSameAs() != null) {
+    if (timespan.getSameAs() != null && !timespan.getSameAs().isEmpty()) {
         for (Part part : timespan.getSameAs()) {
             if (part != null) {
                 SameAs sameAs = new SameAs();
