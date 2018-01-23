@@ -62,6 +62,10 @@ public class ValidationController {
 
     private ValidationExecutionService validator;
 
+    /**
+     * Cretes validation controller based on provided {@link ValidationExecutionService}
+     * @param validator
+     */
     @Autowired
     public ValidationController(ValidationExecutionService validator) {
         this.validator = validator;
@@ -80,7 +84,7 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                     @RequestParam(required = false, name = "rootFileLocation") String rootFileLocation,
+                                     @RequestParam(name = "rootFileLocation", required = false) String rootFileLocation,
                                      @RequestBody String record
     )
             throws ValidationException {
@@ -103,12 +107,13 @@ public class ValidationController {
      * @return A Validation result List. If the service result is empty we assume that the success field is true
      */
 
-    @RequestMapping(method = RequestMethod.POST, value = SCHEMA_BATCH_VALIDATE)
+    @RequestMapping(value = SCHEMA_BATCH_VALIDATE, method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
     public ValidationResultList batchValidate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                              @RequestParam(required = false, name = "rootFileLocation") String rootFileLocation,
-                                              @ApiParam(value = "file") @RequestParam("file") MultipartFile zipFile) throws ServerException, BatchValidationException {
+                                              @RequestParam(name = "rootFileLocation", required = false) String rootFileLocation,
+                                              @ApiParam(value = "file") @RequestParam("file") MultipartFile zipFile)
+            throws ServerException, BatchValidationException {
 
 
         try {
@@ -128,7 +133,7 @@ public class ValidationController {
                 }
             }
             ValidationResultList list = validator.batchValidation(targetSchema, rootFileLocation, xmls);
-            if (list.getResultList() != null || list.getResultList().size() == 0) {
+            if (list.getResultList() != null || list.getResultList().isEmpty()) {
                 list.setSuccess(true);
             }
             FileUtils.forceDelete(new File(fileName));
@@ -139,8 +144,7 @@ public class ValidationController {
             }
 
         } catch (IOException | InterruptedException | ExecutionException | ZipException e) {
-            LOGGER.error(e.getMessage());
-            throw new ServerException(e.getMessage());
+            throw new ServerException(e);
         }
     }
 }

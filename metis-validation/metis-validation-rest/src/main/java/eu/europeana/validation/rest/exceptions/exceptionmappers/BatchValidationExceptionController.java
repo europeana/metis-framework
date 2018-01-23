@@ -30,6 +30,13 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
 public class BatchValidationExceptionController {
+
+    /**
+     * Handles specified exception
+     *
+     * @param e exception to be handled
+     * @return
+     */
     @ExceptionHandler(BatchValidationException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)

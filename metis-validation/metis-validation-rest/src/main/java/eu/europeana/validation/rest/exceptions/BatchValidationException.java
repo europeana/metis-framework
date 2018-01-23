@@ -24,17 +24,20 @@ import eu.europeana.validation.model.ValidationResultList;
  */
 public class BatchValidationException extends Exception {
 
-    private String message;
+    private final ValidationResultList list;
 
-    private ValidationResultList list;
-
-    public BatchValidationException(String message,ValidationResultList list){
+    /**
+     * Cretes exception instance based on
+     *
+     * @param message description of the problem
+     * @param list    list of results provided by validation engine
+     */
+    public BatchValidationException(String message, ValidationResultList list) {
         super(message);
-        this.message = message;
         this.list = list;
     }
 
-    public ValidationResultList getList(){
+    public ValidationResultList getList() {
         return list;
     }
 

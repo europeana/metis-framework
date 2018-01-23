@@ -22,6 +22,7 @@ import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSResourceResolver;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -35,15 +36,12 @@ public class ClasspathResourceResolver implements LSResourceResolver {
 
   private String prefix;
   private static final Logger LOGGER = LoggerFactory.getLogger(ClasspathResourceResolver.class);
-  private static Map<String, InputStream> cache;
+  private static Map<String, InputStream> cache = new HashMap<>();
 
   @Override
   public LSInput resolveResource(String type, String namespaceURI, String publicId, String systemId,
       String baseURI) {
     try {
-      if (cache == null) {
-        cache = new HashMap<>();
-      }
       LSInput input = new ClasspathLSInput();
       InputStream stream;
       if (!systemId.startsWith("http")) {
@@ -66,9 +64,8 @@ public class ClasspathResourceResolver implements LSResourceResolver {
       input.setBaseURI(baseURI);
       input.setCharacterStream(new InputStreamReader(stream));
       return input;
-    } catch (Exception e) {
-      e.printStackTrace();
-      LOGGER.error(e.getMessage());
+    } catch (FileNotFoundException e) {
+      LOGGER.error(e.getMessage(), e);
     }
     return null;
   }

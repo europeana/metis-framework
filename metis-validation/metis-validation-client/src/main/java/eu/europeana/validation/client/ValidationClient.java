@@ -19,6 +19,8 @@ package eu.europeana.validation.client;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -36,9 +38,16 @@ import java.util.Properties;
  * Created by ymamakis on 8/1/16.
  */
 public class ValidationClient {
-    private RestTemplate template = new RestTemplate();
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationClient.class);
+
+    private final RestTemplate template = new RestTemplate();
     private String validationEndpoint;
 
+    /**
+     * Creates validation client based on properties file taken from resource
+     *
+     */
     public ValidationClient() {
         Properties props = new Properties();
         try {
@@ -46,10 +55,16 @@ public class ValidationClient {
             props.load(this.getClass().getClassLoader().getResourceAsStream("validation.properties"));
             validationEndpoint = props.getProperty("validation.endpoint");
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage());
+
         }
     }
 
+    /**
+     * Creates validation client based on provided url to validation service
+     *
+     * @param validationEndpoint url to validation service
+     */
     public ValidationClient(String validationEndpoint) {
         this.validationEndpoint = validationEndpoint;
         template.setErrorHandler(new ValidationResponseHandler());

@@ -33,10 +33,7 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Templates;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamSource;
@@ -55,6 +52,12 @@ public class Validator implements Callable<ValidationResult> {
     private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);
     private static ConcurrentMap<String, Templates> templatesCache;
 
+    private String schema;
+    private String rootFileLocation;
+    private String document;
+    private SchemaProvider schemaProvider;
+    private ClasspathResourceResolver resolver;
+
     static {
         templatesCache = new ConcurrentHashMap<>();
     }
@@ -64,7 +67,10 @@ public class Validator implements Callable<ValidationResult> {
      * Constructor specifying the schema to validate against and the document
      *
      * @param schema
+     * @param rootFileLocation
      * @param document
+     * @param schemaProvider
+     * @param resolver
      */
     public Validator(String schema, String rootFileLocation, String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
         this.schema = schema;
@@ -73,12 +79,6 @@ public class Validator implements Callable<ValidationResult> {
         this.schemaProvider = schemaProvider;
         this.resolver = resolver;
     }
-
-    private String schema;
-    private String rootFileLocation;
-    private String document;
-    private SchemaProvider schemaProvider;
-    private ClasspathResourceResolver resolver;
 
     /**
      * Get schema object specified with its name
@@ -104,7 +104,6 @@ public class Validator implements Callable<ValidationResult> {
         InputSource source = new InputSource();
         source.setByteStream(new ByteArrayInputStream(document.getBytes()));
         try {
-            Document doc = EDMParser.getInstance().getEdmParser().parse(source);
             Schema savedSchema = getSchemaByName(schema);
             if (savedSchema == null) {
                 return constructValidationError(document, "Specified schema does not exist");
@@ -112,6 +111,7 @@ public class Validator implements Callable<ValidationResult> {
 
             resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
 
+            Document doc = EDMParser.getInstance().getEdmParser().parse(source);
             EDMParser.getInstance().getEdmValidator(savedSchema.getPath(), resolver).validate(new DOMSource(doc));
             if (StringUtils.isNotEmpty(savedSchema.getSchematronPath())) {
                 Transformer transformer = getTransformer(savedSchema);
@@ -127,7 +127,7 @@ public class Validator implements Callable<ValidationResult> {
                     }
                 }
             }
-        } catch (Exception e) {
+        } catch (IOException | SchemaProviderException | SAXException | TransformerException e) {
             return constructValidationError(document, e);
         }
         LOGGER.info("Validation ended");
@@ -191,7 +191,7 @@ public class Validator implements Callable<ValidationResult> {
 /**
  * Helper class for EDM service exposing two validator and a DOMParser
  */
-class EDMParser {
+final class EDMParser {
     private static EDMParser p;
     private static final ConcurrentMap<String, javax.xml.validation.Schema> cache;
     private static final DocumentBuilderFactory parseFactory;
@@ -207,7 +207,6 @@ class EDMParser {
             temp.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
         } catch (ParserConfigurationException e) {
             LOGGER.error("Unable to create DocumentBuilderFactory", e);
-            e.printStackTrace();
         }
         parseFactory = temp;
     }
@@ -224,7 +223,7 @@ class EDMParser {
         try {
             return parseFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+            LOGGER.error("Unable to configure parser", e);
         }
         return null;
     }
@@ -233,14 +232,15 @@ class EDMParser {
      * Get a JAXP schema validator (singleton)
      *
      * @param path The path location of the schema
+     * @param resolver
      * @return
      */
     public javax.xml.validation.Validator getEdmValidator(String path, LSResourceResolver resolver) {
         try {
             javax.xml.validation.Schema schema = getSchema(path, resolver);
             return schema.newValidator();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (SAXException | IOException e) {
+            LOGGER.error("Unable to create validator", e);
         }
         return null;
     }
@@ -251,8 +251,6 @@ class EDMParser {
 
         if (!cache.containsKey(path)) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            //ClasspathResourceResolver resolver = new ClasspathResourceResolver();
-            //Set the prefix as schema since this is the folder where the schemas exist in the classpath
             factory.setResourceResolver(resolver);
             factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
                     false);
@@ -268,7 +266,7 @@ class EDMParser {
      *
      * @return
      */
-    public static EDMParser getInstance() {
+    public static synchronized EDMParser getInstance() {
         if (p == null) {
             p = new EDMParser();
         }
