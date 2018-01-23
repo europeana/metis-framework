@@ -181,16 +181,16 @@ public class TestScheduledWorkflowDao {
       scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
       scheduledWorkflowDao.create(scheduledWorkflow);
     }
-    String nextPage = null;
+    int nextPage = 0;
     int allScheduledUserWorkflowsCount = 0;
     do {
       ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper.setResultsAndLastPage(
           scheduledWorkflowDao.getAllScheduledWorkflows(ScheduleFrequence.ONCE, nextPage),
-          scheduledWorkflowDao.getScheduledWorkflowPerRequest());
+          scheduledWorkflowDao.getScheduledWorkflowPerRequest(), nextPage);
       allScheduledUserWorkflowsCount += scheduledUserWorkflowResponseListWrapper.getListSize();
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
     Assert.assertEquals(scheduledUserWorkflowToCreate, allScheduledUserWorkflowsCount);
   }
@@ -214,17 +214,17 @@ public class TestScheduledWorkflowDao {
       scheduledWorkflow.setPointerDate(pointerDate);
       scheduledWorkflowDao.create(scheduledWorkflow);
     }
-    String nextPage = null;
+    int nextPage = 0;
     int allScheduledUserWorkflowsCount = 0;
     do {
       ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
       scheduledUserWorkflowResponseListWrapper.setResultsAndLastPage(
           scheduledWorkflowDao
               .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
-          scheduledWorkflowDao.getScheduledWorkflowPerRequest());
+          scheduledWorkflowDao.getScheduledWorkflowPerRequest(), nextPage);
       allScheduledUserWorkflowsCount += scheduledUserWorkflowResponseListWrapper.getListSize();
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
     Assert.assertEquals(scheduledUserWorkflowToCreate, allScheduledUserWorkflowsCount);
   }

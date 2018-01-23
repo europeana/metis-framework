@@ -314,7 +314,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     when(datasetDao.getAllDatasetsByProvider(provider, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage);
     assertSame(list, retList);
@@ -325,7 +325,7 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
     String provider = "myProvider";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage);
     verify(datasetDao, times(0)).getAllDatasetsByProvider(provider, nextPage);
   }
@@ -336,7 +336,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     when(datasetDao.getAllDatasetsByIntermediateProvider(provider, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
         .getAllDatasetsByIntermediateProvider(metisUser, provider, nextPage);
@@ -348,7 +348,7 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
     String intermediateProvider = "myProvider";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     datasetService.getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage);
     verify(datasetDao, times(0))
         .getAllDatasetsByIntermediateProvider(intermediateProvider, nextPage);
@@ -360,7 +360,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String provider = "myProvider";
-    String nextPage = "myNextPage";
+    int  nextPage = 1;
     when(datasetDao.getAllDatasetsByDataProvider(provider, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
         .getAllDatasetsByDataProvider(metisUser, provider, nextPage);
@@ -372,7 +372,7 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
     String dataProvider = "myProvider";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage);
     verify(datasetDao, times(0)).getAllDatasetsByDataProvider(dataProvider, nextPage);
   }
@@ -383,7 +383,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String organizationId = "organizationId";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     when(datasetDao.getAllDatasetsByOrganizationId(organizationId, nextPage)).thenReturn(list);
     List<Dataset> retList = datasetService
         .getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage);
@@ -395,7 +395,7 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
     String organizationId = "organizationId";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage);
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationId(organizationId, nextPage);
   }
@@ -406,7 +406,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     List<Dataset> list = new ArrayList<>();
     String organizationName = "organizationName";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     when(datasetDao.getAllDatasetsByOrganizationName(organizationName, nextPage))
         .thenReturn(list);
     List<Dataset> retList = datasetService
@@ -419,7 +419,7 @@ public class TestDatasetService {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(null);
     String organizationName = "organizationName";
-    String nextPage = "myNextPage";
+    int nextPage = 1;
     datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage);
     verify(datasetDao, times(0)).getAllDatasetsByOrganizationName(organizationName, nextPage);
 

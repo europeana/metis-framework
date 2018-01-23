@@ -20,8 +20,8 @@ import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.workflow.OrderField;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
@@ -179,81 +179,76 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Get all datasets using the provider field.
    *
    * @param provider the provider string used to find the datasets
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link List} of {@link Dataset}
    */
-  public List<Dataset> getAllDatasetsByProvider(String provider, String nextPage) {
+  public List<Dataset> getAllDatasetsByProvider(String provider, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    query.field("provider").equal(provider).order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(datasetsPerRequest));
+    query.field("provider").equal(provider);
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
+        .limit(datasetsPerRequest));
   }
 
   /**
    * Get all datasets using the intermediateProvider field.
    *
    * @param intermediateProvider the intermediateProvider string used to find the datasets
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByIntermediateProvider(String intermediateProvider,
-      String nextPage) {
+      int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    query.field("intermediateProvider").equal(intermediateProvider).order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(datasetsPerRequest));
+    query.field("intermediateProvider").equal(intermediateProvider);
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
+        .limit(datasetsPerRequest));
   }
 
   /**
    * Get all datasets using the dataProvider field.
    *
    * @param dataProvider the dataProvider string used to find the datasets
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link List} of {@link Dataset}
    */
-  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, String nextPage) {
+  public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    query.field("dataProvider").equal(dataProvider).order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(datasetsPerRequest));
+    query.field("dataProvider").equal(dataProvider);
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
+        .limit(datasetsPerRequest));
   }
 
   /**
    * Get all datasets using the organizationId field.
    *
    * @param organizationId the organizationId string used to find the datasets
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link List} of {@link Dataset}
    */
-  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, String nextPage) {
+  public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    query.field("organizationId").equal(organizationId).order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(datasetsPerRequest));
+    query.field("organizationId").equal(organizationId);
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
+        .limit(datasetsPerRequest));
   }
 
   /**
    * Get all datasets using the organizationName field.
    *
    * @param organizationName the organizationName string used to find the datasets
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link List} of {@link Dataset}
    */
-  public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, String nextPage) {
+  public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
-    query.field("organizationName").equal(organizationName).order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(datasetsPerRequest));
+    query.field("organizationName").equal(organizationName);
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
+        .limit(datasetsPerRequest));
   }
 
   public int getDatasetsPerRequest() {

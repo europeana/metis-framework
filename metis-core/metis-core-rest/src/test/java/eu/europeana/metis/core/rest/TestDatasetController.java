@@ -379,7 +379,7 @@ public class TestDatasetController {
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByProvider(metisUser, "myProvider", "3"))
+    when(datasetServiceMock.getAllDatasetsByProvider(metisUser, "myProvider", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -395,12 +395,12 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
         .getAllDatasetsByProvider(any(MetisUser.class), provider.capture(), page.capture());
 
     assertEquals("myProvider", provider.getValue());
-    assertEquals("3", page.getValue());
+    assertEquals(3, page.getValue().intValue());
   }
 
   @Test
@@ -418,7 +418,7 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByProvider(any(MetisUser.class), anyString(), anyString());
+        .getAllDatasetsByProvider(any(MetisUser.class), anyString(), anyInt());
   }
 
   @Test
@@ -430,7 +430,7 @@ public class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     when(datasetServiceMock
-        .getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", "3"))
+        .getAllDatasetsByIntermediateProvider(metisUser, "myIntermediateProvider", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -446,13 +446,13 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
         .getAllDatasetsByIntermediateProvider(any(MetisUser.class), provider.capture(),
             page.capture());
 
     assertEquals("myIntermediateProvider", provider.getValue());
-    assertEquals("3", page.getValue());
+    assertEquals(3, page.getValue().intValue());
   }
 
   @Test
@@ -470,7 +470,7 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), anyString(), anyString());
+        .getAllDatasetsByIntermediateProvider(any(MetisUser.class), anyString(), anyInt());
   }
 
   @Test
@@ -481,7 +481,7 @@ public class TestDatasetController {
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByDataProvider(metisUser, "myDataProvider", "3"))
+    when(datasetServiceMock.getAllDatasetsByDataProvider(metisUser, "myDataProvider", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -497,12 +497,12 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
         .getAllDatasetsByDataProvider(any(MetisUser.class), provider.capture(), page.capture());
 
     assertEquals("myDataProvider", provider.getValue());
-    assertEquals("3", page.getValue());
+    assertEquals(3, page.getValue().intValue());
   }
 
   @Test
@@ -520,7 +520,7 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByDataProvider(any(MetisUser.class), anyString(), anyString());
+        .getAllDatasetsByDataProvider(any(MetisUser.class), anyString(), anyInt());
   }
 
   @Test
@@ -531,7 +531,7 @@ public class TestDatasetController {
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByOrganizationId(metisUser, "myOrganizationId", "3"))
+    when(datasetServiceMock.getAllDatasetsByOrganizationId(metisUser, "myOrganizationId", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -547,12 +547,12 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
         .getAllDatasetsByOrganizationId(any(MetisUser.class), provider.capture(), page.capture());
 
     assertEquals("myOrganizationId", provider.getValue());
-    assertEquals("3", page.getValue());
+    assertEquals(3, page.getValue().intValue());
   }
 
   @Test
@@ -570,7 +570,7 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByOrganizationId(any(MetisUser.class), anyString(), anyString());
+        .getAllDatasetsByOrganizationId(any(MetisUser.class), anyString(), anyInt());
   }
 
   @Test
@@ -581,7 +581,7 @@ public class TestDatasetController {
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
-    when(datasetServiceMock.getAllDatasetsByOrganizationName(metisUser, "myOrganizationName", "3"))
+    when(datasetServiceMock.getAllDatasetsByOrganizationName(metisUser, "myOrganizationName", 3))
         .thenReturn(datasetList);
     when(datasetServiceMock.getDatasetsPerRequestLimit()).thenReturn(5);
 
@@ -597,12 +597,12 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 2)));
 
     ArgumentCaptor<String> provider = ArgumentCaptor.forClass(String.class);
-    ArgumentCaptor<String> page = ArgumentCaptor.forClass(String.class);
+    ArgumentCaptor<Integer> page = ArgumentCaptor.forClass(Integer.class);
     verify(datasetServiceMock, times(1))
         .getAllDatasetsByOrganizationName(any(MetisUser.class), provider.capture(), page.capture());
 
     assertEquals("myOrganizationName", provider.getValue());
-    assertEquals("3", page.getValue());
+    assertEquals(3, page.getValue().intValue());
   }
 
   @Test
@@ -620,7 +620,7 @@ public class TestDatasetController {
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
     verify(datasetServiceMock, times(0))
-        .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyString());
+        .getAllDatasetsByOrganizationName(any(MetisUser.class), anyString(), anyInt());
   }
 
   @Test

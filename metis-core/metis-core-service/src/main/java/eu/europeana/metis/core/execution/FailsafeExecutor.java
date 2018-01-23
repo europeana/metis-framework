@@ -6,7 +6,6 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
@@ -75,16 +74,16 @@ public class FailsafeExecutor {
 
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
       List<WorkflowExecution> workflowExecutions) {
-    String nextPage = null;
+    int nextPage = 0;
     ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper;
     do {
       userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
               .getAllWorkflowExecutions(workflowStatus, nextPage),
-          orchestratorService.getWorkflowExecutionsPerRequest());
+          orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
       workflowExecutions
           .addAll(userWorkflowExecutionResponseListWrapper.getResults());
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
-    } while (!StringUtils.isEmpty(nextPage));
+    } while (nextPage != -1);
   }
 }

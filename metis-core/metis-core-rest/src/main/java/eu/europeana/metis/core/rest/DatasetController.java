@@ -210,7 +210,7 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param provider the provider used to search
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws UserUnauthorizedException if the user is unauthorized
    * @throws BadContentException if the authorization header is un-parsable or the user cannot be
@@ -222,7 +222,7 @@ public class DatasetController {
   public ResponseListWrapper<Dataset> getAllDatasetsByProvider(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("provider") String provider,
-      @RequestParam(value = "nextPage", required = false) String nextPage)
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -231,7 +231,7 @@ public class DatasetController {
     responseListWrapper
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByProvider(metisUser, provider, nextPage),
-            datasetService.getDatasetsPerRequestLimit());
+            datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -244,7 +244,7 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param intermediateProvider the intermediateProvider used to search
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws UserUnauthorizedException if the user is unauthorized
    * @throws BadContentException if the authorization header is un-parsable or the user cannot be
@@ -256,7 +256,7 @@ public class DatasetController {
   public ResponseListWrapper<Dataset> getAllDatasetsByIntermediateProvider(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("intermediateProvider") String intermediateProvider,
-      @RequestParam(value = "nextPage", required = false) String nextPage)
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -266,7 +266,7 @@ public class DatasetController {
         .setResultsAndLastPage(
             datasetService
                 .getAllDatasetsByIntermediateProvider(metisUser, intermediateProvider, nextPage),
-            datasetService.getDatasetsPerRequestLimit());
+            datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -279,7 +279,7 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param dataProvider the dataProvider used to search
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws UserUnauthorizedException if the user is unauthorized
    * @throws BadContentException if the authorization header is un-parsable or the user cannot be
@@ -291,7 +291,7 @@ public class DatasetController {
   public ResponseListWrapper<Dataset> getAllDatasetsByDataProvider(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("dataProvider") String dataProvider,
-      @RequestParam(value = "nextPage", required = false) String nextPage)
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -300,7 +300,7 @@ public class DatasetController {
     responseListWrapper
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByDataProvider(metisUser, dataProvider, nextPage),
-            datasetService.getDatasetsPerRequestLimit());
+            datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -313,7 +313,7 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param organizationId the organizationId used to search
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws UserUnauthorizedException if the user is unauthorized
    * @throws BadContentException if the authorization header is un-parsable or the user cannot be
@@ -325,7 +325,7 @@ public class DatasetController {
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationId(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("organizationId") String organizationId,
-      @RequestParam(value = "nextPage", required = false) String nextPage)
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -334,7 +334,7 @@ public class DatasetController {
     responseListWrapper
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByOrganizationId(metisUser, organizationId, nextPage),
-            datasetService.getDatasetsPerRequestLimit());
+            datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -347,7 +347,7 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param organizationName the organizationName used to search
-   * @param nextPage the nextPage token or null
+   * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws UserUnauthorizedException if the user is unauthorized
    * @throws BadContentException if the authorization header is un-parsable or the user cannot be
@@ -359,7 +359,7 @@ public class DatasetController {
   public ResponseListWrapper<Dataset> getAllDatasetsByOrganizationName(
       @RequestHeader("Authorization") String authorization,
       @PathVariable("organizationName") String organizationName,
-      @RequestParam(value = "nextPage", required = false) String nextPage)
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -368,7 +368,7 @@ public class DatasetController {
     responseListWrapper
         .setResultsAndLastPage(
             datasetService.getAllDatasetsByOrganizationName(metisUser, organizationName, nextPage),
-            datasetService.getDatasetsPerRequestLimit());
+            datasetService.getDatasetsPerRequestLimit(), nextPage);
     LOGGER.info(CommonStringValues.BATCH_OF_DATASETS_RETURNED,
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;

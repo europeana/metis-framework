@@ -15,21 +15,21 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
   @JacksonXmlElementWrapper(localName = "Results")
   @JacksonXmlProperty(localName = "Result")
   private List<T> results;
-  private String nextPage;
   private int listSize;
+  private int nextPage;
 
   public void setResultsAndLastPage(
       List<T> results,
-      int resultsPerRequestLimit) {
+      int resultsPerRequestLimit, int nextPage) {
     if (results != null && results.size() != 0) {
       if (results.size() < resultsPerRequestLimit) {
-        nextPage = null;
+        this.nextPage = -1;
       } else {
-        nextPage = results.get(results.size() - 1).getId().toString();
+        this.nextPage = nextPage+1;
       }
       listSize = results.size();
     } else {
-      nextPage = null;
+      this.nextPage = -1;
     }
     this.results = results;
   }
@@ -42,11 +42,11 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
     this.results = results;
   }
 
-  public String getNextPage() {
+  public int getNextPage() {
     return nextPage;
   }
 
-  public void setNextPage(String nextPage) {
+  public void setNextPage(int nextPage) {
     this.nextPage = nextPage;
   }
 

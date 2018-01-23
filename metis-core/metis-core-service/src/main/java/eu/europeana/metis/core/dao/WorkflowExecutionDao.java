@@ -170,9 +170,10 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
+  public List<WorkflowExecution>
+  getAllWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName, Set<WorkflowStatus> workflowStatuses,
-      OrderField orderField, boolean ascending, String nextPage) {
+      OrderField orderField, boolean ascending, int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(datasetId);
@@ -191,78 +192,26 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (!criteriaContainer.isEmpty()) {
       query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
-    configureQueryOrdering(query, ascending, orderField, nextPage);
-    return query.asList(new FindOptions().limit(workflowExecutionsPerRequest));
-  }
 
-  private void configureQueryOrdering(Query query, boolean ascending, OrderField orderField,
-      String nextPage) {
-    WorkflowExecution lastWorkflowExecutionFromPreviousPage = null;
-    if (StringUtils.isNotEmpty(nextPage)) {
-      lastWorkflowExecutionFromPreviousPage = getById(nextPage);
-    }
-
-    if (orderField != null) {
-      switch (orderField) {
-        case FINISHED_DATE:
-          configureFinishedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
-          break;
-        case UPDATED_DATE:
-          configureUpdatedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
-          break;
-        default:
-          break;
-      }
+    if (ascending) {
+      query.order(orderField.getOrderFieldName());
     } else {
-      query.order("_id");
-      if (StringUtils.isNotEmpty(nextPage)) {
-        query.field("_id").greaterThan(new ObjectId(nextPage));
-      }
+      query.order("-" + orderField.getOrderFieldName());
     }
-  }
-
-  private void configureFinishedDateOrdering(Query query,
-      WorkflowExecution lastWorkflowExecutionFromPreviousPage, boolean ascending) {
-    if (lastWorkflowExecutionFromPreviousPage != null && ascending) {
-      query.field(OrderField.FINISHED_DATE.getOrderFieldName())
-          .greaterThan(lastWorkflowExecutionFromPreviousPage.getFinishedDate());
-    } else if (lastWorkflowExecutionFromPreviousPage != null) {
-      query.field(OrderField.FINISHED_DATE.getOrderFieldName())
-          .lessThan(lastWorkflowExecutionFromPreviousPage.getFinishedDate());
-    } else if (ascending) {
-      query.order(OrderField.FINISHED_DATE.getOrderFieldName());
-    } else {
-      query.order("-" + OrderField.FINISHED_DATE.getOrderFieldName());
-    }
-  }
-
-  private void configureUpdatedDateOrdering(Query query,
-      WorkflowExecution lastWorkflowExecutionFromPreviousPage, boolean ascending) {
-    if (lastWorkflowExecutionFromPreviousPage != null && ascending) {
-      query.field(OrderField.UPDATED_DATE.getOrderFieldName())
-          .greaterThan(lastWorkflowExecutionFromPreviousPage.getUpdatedDate());
-    } else if (lastWorkflowExecutionFromPreviousPage != null) {
-      query.field(OrderField.UPDATED_DATE.getOrderFieldName())
-          .lessThan(lastWorkflowExecutionFromPreviousPage.getUpdatedDate());
-    } else if (ascending) {
-      query.order(OrderField.UPDATED_DATE.getOrderFieldName());
-    } else {
-      query.order("-" + OrderField.UPDATED_DATE.getOrderFieldName());
-    }
+    return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
+        .limit(workflowExecutionsPerRequest));
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,
-      String nextPage) {
+      int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
       query.field(WORKFLOW_STATUS).equal(workflowStatus);
     }
-    query.order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(workflowExecutionsPerRequest));
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
+        .limit(workflowExecutionsPerRequest));
   }
 
   public int getWorkflowExecutionsPerRequest() {

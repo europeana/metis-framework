@@ -162,9 +162,9 @@ public class TestOrchestratorService {
 
   @Test
   public void getAllUserWorkflows() {
-    orchestratorService.getAllWorkflows(anyString(), anyString());
+    orchestratorService.getAllWorkflows(anyString(), anyInt());
     InOrder inOrder = Mockito.inOrder(workflowDao);
-    inOrder.verify(workflowDao, times(1)).getAllWorkflows(anyString(), anyString());
+    inOrder.verify(workflowDao, times(1)).getAllWorkflows(anyString(), anyInt());
     inOrder.verifyNoMoreInteractions();
   }
 
@@ -410,10 +410,9 @@ public class TestOrchestratorService {
 
   @Test
   public void getAllUserWorkflowExecutionsByWorkflowStatus() {
-    String objectId = new ObjectId().toString();
-    orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, objectId);
+    orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, 0);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(any(WorkflowStatus.class), anyString());
+        .getAllWorkflowExecutions(any(WorkflowStatus.class), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 
@@ -527,19 +526,19 @@ public class TestOrchestratorService {
   @Test
   public void getAllScheduledUserWorkflows() {
     orchestratorService
-        .getAllScheduledWorkflows(ScheduleFrequence.ONCE, new ObjectId().toString());
+        .getAllScheduledWorkflows(ScheduleFrequence.ONCE, 0);
     verify(scheduledWorkflowDao, times(1))
-        .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyString());
+        .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
   }
 
   @Test
   public void getAllScheduledUserWorkflowsByDateRangeONCE() {
     orchestratorService
         .getAllScheduledWorkflowsByDateRangeONCE(LocalDateTime.now(), LocalDateTime.now(),
-            new ObjectId().toString());
+            0);
     verify(scheduledWorkflowDao, times(1))
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
-            any(LocalDateTime.class), anyString());
+            any(LocalDateTime.class), anyInt());
   }
 
   @Test

@@ -5,8 +5,9 @@ package eu.europeana.metis.core.workflow;
  * @since 2018-01-23
  */
 public enum OrderField {
-  FINISHED_DATE("finishedDate"), UPDATED_DATE("updatedDate"), STARTED_DATE(
-      "startedDate"), CREATED_DATE("createdDate"), WORKFLOW_STATUS("workflowStatus");
+  _ID("_id"), FINISHED_DATE("finishedDate"), UPDATED_DATE("updatedDate"), STARTED_DATE(
+      "startedDate"), CREATED_DATE("createdDate"), WORKFLOW_STATUS("workflowStatus"), WORKFLOW_NAME(
+      "workflowName"), WORKFLOW_OWNER("workflowOwner");
 
   private String orderFieldName;
 

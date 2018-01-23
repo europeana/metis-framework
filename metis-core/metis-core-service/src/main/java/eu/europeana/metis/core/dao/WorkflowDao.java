@@ -2,9 +2,9 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
@@ -93,15 +93,13 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .get();
   }
 
-  public List<Workflow> getAllWorkflows(String workflowOwner, String nextPage) {
+  public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
-    query.order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(workflowsPerRequest));
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * workflowsPerRequest)
+        .limit(workflowsPerRequest));
   }
 
   public int getWorkflowsPerRequest() {

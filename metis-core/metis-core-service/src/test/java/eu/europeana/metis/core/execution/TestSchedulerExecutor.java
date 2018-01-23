@@ -3,7 +3,6 @@ package eu.europeana.metis.core.execution;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -12,6 +11,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
+import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.ScheduleFrequence;
+import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,11 +28,6 @@ import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
-import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.ScheduleFrequence;
-import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -76,10 +76,10 @@ public class TestSchedulerExecutor {
         .thenReturn(userWorkflowExecutionsPerRequest);
 
     when(orchestratorService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
-        any(LocalDateTime.class), isNull()))
+        any(LocalDateTime.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateONCE);
     when(
-        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull()))
+        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
@@ -92,9 +92,9 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(4)).getScheduledWorkflowsPerRequest();
     verify(orchestratorService, times(1))
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
-            any(LocalDateTime.class), isNull());
+            any(LocalDateTime.class), anyInt());
     verify(orchestratorService, times(3))
-        .getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull());
+        .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt());
@@ -122,10 +122,10 @@ public class TestSchedulerExecutor {
         .thenReturn(userWorkflowExecutionsPerRequest);
 
     when(orchestratorService.getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
-        any(LocalDateTime.class), isNull()))
+        any(LocalDateTime.class), anyInt()))
         .thenReturn(new ArrayList<>());
     when(
-        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull()))
+        orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflowsWithDateDAILY).thenReturn(
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
@@ -138,9 +138,9 @@ public class TestSchedulerExecutor {
     verify(orchestratorService, times(4)).getScheduledWorkflowsPerRequest();
     verify(orchestratorService, times(1))
         .getAllScheduledWorkflowsByDateRangeONCE(any(LocalDateTime.class),
-            any(LocalDateTime.class), isNull());
+            any(LocalDateTime.class), anyInt());
     verify(orchestratorService, times(3))
-        .getAllScheduledWorkflows(any(ScheduleFrequence.class), isNull());
+        .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt());

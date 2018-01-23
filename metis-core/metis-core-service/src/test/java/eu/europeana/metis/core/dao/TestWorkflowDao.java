@@ -137,15 +137,15 @@ public class TestWorkflowDao {
       workflow.setWorkflowName(String.format("%s%s", TestObjectFactory.WORKFLOWNAME, i));
       workflowDao.create(workflow);
     }
-    String nextPage = null;
+    int nextPage = 0;
     int allUserWorkflowsCount = 0;
     do {
       ResponseListWrapper<Workflow> userWorkflowResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowResponseListWrapper.setResultsAndLastPage(workflowDao
-          .getAllWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), workflowDao.getWorkflowsPerRequest());
+          .getAllWorkflows(TestObjectFactory.WORKFLOWOWNER, nextPage), workflowDao.getWorkflowsPerRequest(), nextPage);
       allUserWorkflowsCount+=userWorkflowResponseListWrapper.getListSize();
       nextPage = userWorkflowResponseListWrapper.getNextPage();
-    }while(nextPage != null);
+    }while(nextPage != -1);
 
     Assert.assertEquals(userWorkflowsToCreate, allUserWorkflowsCount);
   }

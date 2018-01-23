@@ -167,18 +167,18 @@ public class TestDatasetDao {
     ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
     datasetDao.create(ds3);
 
-    String nextPage = null;
-    int allUserWorkflowsCount = 0;
+    int nextPage = 0;
+    int allDatasetsCount = 0;
     do {
       ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
       datasetResponseListWrapper.setResultsAndLastPage(
           datasetDao.getAllDatasetsByProvider("myProvider", nextPage), datasetDao
-              .getDatasetsPerRequest());
-      allUserWorkflowsCount += datasetResponseListWrapper.getListSize();
+              .getDatasetsPerRequest(), nextPage);
+      allDatasetsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
-    assertEquals(2, allUserWorkflowsCount);
+    assertEquals(2, allDatasetsCount);
   }
 
   @Test
@@ -204,18 +204,18 @@ public class TestDatasetDao {
     ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
     datasetDao.create(ds3);
 
-    String nextPage = null;
-    int allUserWorkflowsCount = 0;
+    int nextPage = 0;
+    int allDatasetsCount = 0;
     do {
       ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
       datasetResponseListWrapper.setResultsAndLastPage(
           datasetDao.getAllDatasetsByIntermediateProvider("myProvider", nextPage), datasetDao
-              .getDatasetsPerRequest());
-      allUserWorkflowsCount += datasetResponseListWrapper.getListSize();
+              .getDatasetsPerRequest(), nextPage);
+      allDatasetsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
-    assertEquals(2, allUserWorkflowsCount);
+    assertEquals(2, allDatasetsCount);
   }
 
   @Test
@@ -241,18 +241,18 @@ public class TestDatasetDao {
     ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
     datasetDao.create(ds3);
 
-    String nextPage = null;
-    int allUserWorkflowsCount = 0;
+    int nextPage = 0;
+    int allDatestsCount = 0;
     do {
       ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
       datasetResponseListWrapper.setResultsAndLastPage(
           datasetDao.getAllDatasetsByDataProvider("myProvider", nextPage), datasetDao
-              .getDatasetsPerRequest());
-      allUserWorkflowsCount += datasetResponseListWrapper.getListSize();
+              .getDatasetsPerRequest(), nextPage);
+      allDatestsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
-    assertEquals(2, allUserWorkflowsCount);
+    assertEquals(2, allDatestsCount);
   }
 
   @Test
@@ -278,18 +278,18 @@ public class TestDatasetDao {
     ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
     datasetDao.create(ds3);
 
-    String nextPage = null;
-    int allUserWorkflowsCount = 0;
+    int nextPage = 0;
+    int allDatasetsCount = 0;
     do {
       ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
       datasetResponseListWrapper.setResultsAndLastPage(
           datasetDao.getAllDatasetsByOrganizationId("organizationId1", nextPage), datasetDao
-              .getDatasetsPerRequest());
-      allUserWorkflowsCount += datasetResponseListWrapper.getListSize();
+              .getDatasetsPerRequest(), nextPage);
+      allDatasetsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
-    assertEquals(2, allUserWorkflowsCount);
+    assertEquals(2, allDatasetsCount);
   }
 
   @Test
@@ -315,18 +315,18 @@ public class TestDatasetDao {
     ds3.setDatasetId(TestObjectFactory.DATASETID + 3);
     datasetDao.create(ds3);
 
-    String nextPage = null;
-    int allUserWorkflowsCount = 0;
+    int nextPage = 0;
+    int allDatasetsCount = 0;
     do {
       ResponseListWrapper<Dataset> datasetResponseListWrapper = new ResponseListWrapper<>();
       datasetResponseListWrapper.setResultsAndLastPage(
           datasetDao.getAllDatasetsByOrganizationName("organizationName1", nextPage), datasetDao
-              .getDatasetsPerRequest());
-      allUserWorkflowsCount += datasetResponseListWrapper.getListSize();
+              .getDatasetsPerRequest(), nextPage);
+      allDatasetsCount += datasetResponseListWrapper.getListSize();
       nextPage = datasetResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
-    assertEquals(2, allUserWorkflowsCount);
+    assertEquals(2, allDatasetsCount);
   }
 
   @Test

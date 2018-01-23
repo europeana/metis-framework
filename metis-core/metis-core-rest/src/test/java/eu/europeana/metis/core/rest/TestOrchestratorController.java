@@ -3,6 +3,7 @@ package eu.europeana.metis.core.rest;
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
@@ -34,6 +35,7 @@ import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -44,6 +46,7 @@ import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -160,7 +163,7 @@ public class TestOrchestratorController {
         .createListOfUserWorkflowsSameOwner(workflowOwner,
             listSize + 1); //To get the effect of next page
     when(orchestratorService.getWorkflowsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflows(anyString(), anyString()))
+    when(orchestratorService.getAllWorkflows(anyString(), anyInt()))
         .thenReturn(listOfWorkflowsSameOwner);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, workflowOwner)
@@ -353,31 +356,31 @@ public class TestOrchestratorController {
 
   @Test
   public void getAllUserWorkflowExecutionsByDatasetId() throws Exception {
-//    int listSize = 2;
-//    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
-//        .createListOfUserWorkflowExecutions(listSize + 1); //To get the effect of next page
-//
-//    when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-//    when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(),
-//        any(WorkflowStatus.class), anyString())).thenReturn(listOfWorkflowExecutions);
-//    orchestratorControllerMock
-//        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
-//            TestObjectFactory.DATASETID)
-//            .param("workflowOwner", "owner")
-//            .param("workflowName", "workflow")
-//            .param("workflowStatus", WorkflowStatus.INQUEUE.name())
-//            .param("nextPage", "")
-//            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-//            .content(""))
-//        .andExpect(status().is(200))
-//        .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
-//        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
-//        .andExpect(jsonPath("$.results[0].workflowName", is("workflowName0")))
-//        .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
-//        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
-//        .andExpect(jsonPath("$.results[1].workflowName", is("workflowName1")))
-//        .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
-//        .andExpect(jsonPath("$.nextPage").isNotEmpty());
+    int listSize = 2;
+    List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
+        .createListOfUserWorkflowExecutions(listSize + 1); //To get the effect of next page
+
+    when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
+    when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(),
+        ArgumentMatchers.<WorkflowStatus>anySet(), any(OrderField.class), anyBoolean(), anyInt())).thenReturn(listOfWorkflowExecutions);
+    orchestratorControllerMock
+        .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
+            TestObjectFactory.DATASETID)
+            .param("workflowOwner", "owner")
+            .param("workflowName", "workflow")
+            .param("workflowStatus", WorkflowStatus.INQUEUE.name())
+            .param("nextPage", "")
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
+        .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
+        .andExpect(jsonPath("$.results[0].workflowName", is("workflowName0")))
+        .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
+        .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].workflowName", is("workflowName1")))
+        .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
+        .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
 
   @Test
@@ -387,7 +390,7 @@ public class TestOrchestratorController {
         .createListOfUserWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflowExecutions(any(WorkflowStatus.class), anyString()))
+    when(orchestratorService.getAllWorkflowExecutions(any(WorkflowStatus.class), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
@@ -496,7 +499,7 @@ public class TestOrchestratorController {
         .createListOfScheduledUserWorkflows(listSize + 1);//To get the effect of next page
 
     when(orchestratorService.getScheduledWorkflowsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyString()))
+    when(orchestratorService.getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt()))
         .thenReturn(listOfScheduledWorkflows);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)

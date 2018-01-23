@@ -99,11 +99,10 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<Workflow> getAllWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
-      @RequestParam(value = "nextPage", required = false) String nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflows(workflowOwner, nextPage),
-        orchestratorService.getWorkflowsPerRequest());
+    responseListWrapper.setResultsAndLastPage(orchestratorService.getAllWorkflows(workflowOwner, nextPage),
+        orchestratorService.getWorkflowsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -180,13 +179,13 @@ public class OrchestratorController {
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
-      @RequestParam(value = "orderField", required = false) OrderField orderField,
+      @RequestParam(value = "orderField", required = false, defaultValue = "_ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
-      @RequestParam(value = "nextPage", required = false) String nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses, orderField, ascending, nextPage),
-        orchestratorService.getWorkflowExecutionsPerRequest());
+        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -198,11 +197,11 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
       @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
-      @RequestParam(value = "nextPage", required = false) String nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflowExecutions(workflowStatus, nextPage),
-        orchestratorService.getWorkflowExecutionsPerRequest());
+        orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -243,11 +242,11 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
-      @RequestParam(value = "nextPage", required = false) String nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),
-        orchestratorService.getScheduledWorkflowsPerRequest());
+        orchestratorService.getScheduledWorkflowsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} scheduledWorkflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;

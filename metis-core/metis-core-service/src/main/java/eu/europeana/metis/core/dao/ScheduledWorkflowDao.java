@@ -2,13 +2,13 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.FindOptions;
@@ -124,22 +124,20 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
   }
 
   public List<ScheduledWorkflow> getAllScheduledWorkflows(
-      ScheduleFrequence scheduleFrequence, String nextPage) {
+      ScheduleFrequence scheduleFrequence, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     if (scheduleFrequence != null && scheduleFrequence != ScheduleFrequence.NULL) {
       query.field("scheduleFrequence").equal(scheduleFrequence);
     }
-    query.order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(scheduledWorkflowPerRequest));
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * scheduledWorkflowPerRequest)
+        .limit(scheduledWorkflowPerRequest));
   }
 
   public List<ScheduledWorkflow> getAllScheduledWorkflowsByDateRangeONCE(
       LocalDateTime lowerBound,
-      LocalDateTime upperBound, String nextPage) {
+      LocalDateTime upperBound, int nextPage) {
     Query<ScheduledWorkflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(ScheduledWorkflow.class);
     query.criteria("scheduleFrequence").equal(ScheduleFrequence.ONCE).and(
@@ -147,11 +145,10 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
             Date.from(lowerBound.atZone(ZoneId.systemDefault()).toInstant()))).and(
         query.criteria("pointerDate")
             .lessThan(Date.from(upperBound.atZone(ZoneId.systemDefault()).toInstant())));
-    query.order("_id");
-    if (StringUtils.isNotEmpty(nextPage)) {
-      query.field("_id").greaterThan(new ObjectId(nextPage));
-    }
-    return query.asList(new FindOptions().limit(scheduledWorkflowPerRequest));
+    query.order(OrderField._ID.getOrderFieldName());
+    return query.asList(new FindOptions().skip(nextPage * scheduledWorkflowPerRequest)
+        .limit(scheduledWorkflowPerRequest));
+
   }
 
   public int getScheduledWorkflowPerRequest() {

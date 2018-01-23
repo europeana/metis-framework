@@ -7,6 +7,7 @@ import com.mongodb.ServerAddress;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
@@ -14,6 +15,7 @@ import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import org.bson.types.ObjectId;
 import org.junit.After;
@@ -214,27 +216,29 @@ public class TestWorkflowExecutionDao {
 
   @Test
   public void getAllUserWorkflowExecutions() {
-//    int userWorkflowExecutionsToCreate =
-//        workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
-//    for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
-//      WorkflowExecution workflowExecution = TestObjectFactory
-//          .createUserWorkflowExecutionObject();
-//      workflowExecutionDao.create(workflowExecution);
-//    }
-//    String nextPage = null;
-//    int allUserWorkflowsExecutionsCount = 0;
-//    do {
-//      ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
-//      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-//              .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
-//                  TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
-//                  WorkflowStatus.INQUEUE, nextPage),
-//          workflowExecutionDao.getWorkflowExecutionsPerRequest());
-//      allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
-//      nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
-//    } while (nextPage != null);
-//
-//    Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
+    int userWorkflowExecutionsToCreate =
+        workflowExecutionDao.getWorkflowExecutionsPerRequest() + 1;
+    for (int i = 0; i < userWorkflowExecutionsToCreate; i++) {
+      WorkflowExecution workflowExecution = TestObjectFactory
+          .createUserWorkflowExecutionObject();
+      workflowExecutionDao.create(workflowExecution);
+    }
+    HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
+    workflowStatuses.add(WorkflowStatus.INQUEUE);
+    int nextPage = 0;
+    int allUserWorkflowsExecutionsCount = 0;
+    do {
+      ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
+      userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
+              .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
+                  TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
+                  workflowStatuses, OrderField._ID, false, nextPage),
+          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
+      allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
+      nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
+    } while (nextPage != -1);
+
+    Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
   }
 
   @Test
@@ -246,16 +250,16 @@ public class TestWorkflowExecutionDao {
           .createUserWorkflowExecutionObject();
       workflowExecutionDao.create(workflowExecution);
     }
-    String nextPage = null;
+    int nextPage = 0;
     int allUserWorkflowsExecutionsCount = 0;
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
               .getAllWorkflowExecutions(WorkflowStatus.INQUEUE, nextPage),
-          workflowExecutionDao.getWorkflowExecutionsPerRequest());
+          workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
-    } while (nextPage != null);
+    } while (nextPage != -1);
 
     Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
   }

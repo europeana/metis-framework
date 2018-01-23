@@ -12,7 +12,6 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
@@ -95,7 +94,7 @@ public class SchedulerExecutor {
   private List<ScheduledWorkflow> getScheduledUserWorkflowsFrequenceOnce(
       LocalDateTime lowerBound,
       LocalDateTime upperBound) {
-    String nextPage = null;
+    int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
     do {
@@ -103,11 +102,11 @@ public class SchedulerExecutor {
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
-              orchestratorService.getScheduledWorkflowsPerRequest());
+              orchestratorService.getScheduledWorkflowsPerRequest(), nextPage);
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
-    } while (!StringUtils.isEmpty(nextPage));
+    } while (nextPage != -1);
     return scheduledWorkflows;
   }
 
@@ -194,7 +193,7 @@ public class SchedulerExecutor {
 
   private List<ScheduledWorkflow> getScheduledUserWorkflows(
       ScheduleFrequence scheduleFrequence) {
-    String nextPage = null;
+    int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
     do {
@@ -202,11 +201,11 @@ public class SchedulerExecutor {
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledWorkflows(scheduleFrequence, nextPage),
-              orchestratorService.getScheduledWorkflowsPerRequest());
+              orchestratorService.getScheduledWorkflowsPerRequest(), nextPage);
       scheduledWorkflows
           .addAll(scheduledUserWorkflowResponseListWrapper.getResults());
       nextPage = scheduledUserWorkflowResponseListWrapper.getNextPage();
-    } while (!StringUtils.isEmpty(nextPage));
+    } while (nextPage != -1);
     return scheduledWorkflows;
   }
 

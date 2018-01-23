@@ -97,7 +97,7 @@ public class OrchestratorService {
     return workflowDao.getWorkflow(workflowOwner, workflowName);
   }
 
-  public List<Workflow> getAllWorkflows(String workflowOwner, String nextPage) {
+  public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
     return workflowDao.getAllWorkflows(workflowOwner, nextPage);
   }
 
@@ -231,14 +231,14 @@ public class OrchestratorService {
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner,
       String workflowName,
-      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, String nextPage) {
+      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage) {
     return workflowExecutionDao
         .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses,
             orderField, ascending, nextPage);
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,
-      String nextPage) {
+      int nextPage) {
     return workflowExecutionDao.getAllWorkflowExecutions(workflowStatus, nextPage);
   }
 
@@ -253,13 +253,13 @@ public class OrchestratorService {
   }
 
   public List<ScheduledWorkflow> getAllScheduledWorkflows(
-      ScheduleFrequence scheduleFrequence, String nextPage) {
+      ScheduleFrequence scheduleFrequence, int nextPage) {
     return scheduledWorkflowDao.getAllScheduledWorkflows(scheduleFrequence, nextPage);
   }
 
   public List<ScheduledWorkflow> getAllScheduledWorkflowsByDateRangeONCE(
       LocalDateTime lowerBound,
-      LocalDateTime upperBound, String nextPage) {
+      LocalDateTime upperBound, int nextPage) {
     return scheduledWorkflowDao
         .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage);
   }
