@@ -21,6 +21,7 @@ import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsExceptio
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -230,10 +231,10 @@ public class OrchestratorService {
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner,
       String workflowName,
-      Set<WorkflowStatus> workflowStatuses, String orderBy, boolean ascending, String nextPage) {
+      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, String nextPage) {
     return workflowExecutionDao
         .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses,
-            orderBy, ascending, nextPage);
+            orderField, ascending, nextPage);
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,

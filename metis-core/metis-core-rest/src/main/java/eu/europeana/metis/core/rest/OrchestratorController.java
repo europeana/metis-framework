@@ -12,6 +12,7 @@ import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsExceptio
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -179,12 +180,12 @@ public class OrchestratorController {
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
-      @RequestParam(value = "orderBy", required = false) String orderBy,
+      @RequestParam(value = "orderField", required = false) OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "false") boolean ascending,
       @RequestParam(value = "nextPage", required = false) String nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses, orderBy, ascending, nextPage),
+            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses, orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest());
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);

@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.util.ArrayList;
@@ -171,7 +172,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName, Set<WorkflowStatus> workflowStatuses,
-      String orderBy, boolean ascending, String nextPage) {
+      OrderField orderField, boolean ascending, String nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(datasetId);
@@ -188,39 +189,59 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       }
     }
     query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
-    configureQueryOrdering(query, ascending, orderBy, nextPage);
+    configureQueryOrdering(query, ascending, orderField, nextPage);
     return query.asList(new FindOptions().limit(workflowExecutionsPerRequest));
   }
 
-  private void configureQueryOrdering(Query query, boolean ascending, String orderBy,
+  private void configureQueryOrdering(Query query, boolean ascending, OrderField orderField,
       String nextPage) {
     WorkflowExecution lastWorkflowExecutionFromPreviousPage = null;
     if (StringUtils.isNotEmpty(nextPage)) {
       lastWorkflowExecutionFromPreviousPage = getById(nextPage);
     }
 
-    if (orderBy.equals("finishedDate")) {
-      configureFinishedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
-    } else {
-      query.order("_id");
-      if (StringUtils.isNotEmpty(nextPage)) {
-        query.field("_id").greaterThan(new ObjectId(nextPage));
-      }
+    switch (orderField) {
+      case FINISHED_DATE:
+        configureFinishedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
+        break;
+      case UPDATED_DATE:
+        configureUpdatedDateOrdering(query, lastWorkflowExecutionFromPreviousPage, ascending);
+        break;
+      default:
+        query.order("_id");
+        if (StringUtils.isNotEmpty(nextPage)) {
+          query.field("_id").greaterThan(new ObjectId(nextPage));
+        }
     }
   }
 
   private void configureFinishedDateOrdering(Query query,
       WorkflowExecution lastWorkflowExecutionFromPreviousPage, boolean ascending) {
     if (lastWorkflowExecutionFromPreviousPage != null && ascending) {
-      query.field("finishedDate")
+      query.field(OrderField.FINISHED_DATE.getOrderFieldName())
           .greaterThan(lastWorkflowExecutionFromPreviousPage.getFinishedDate());
     } else if (lastWorkflowExecutionFromPreviousPage != null) {
-      query.field("finishedDate")
+      query.field(OrderField.FINISHED_DATE.getOrderFieldName())
           .lessThan(lastWorkflowExecutionFromPreviousPage.getFinishedDate());
     } else if (ascending) {
-      query.order("finishedDate");
+      query.order(OrderField.FINISHED_DATE.getOrderFieldName());
     } else {
-      query.order("-finishedDate");
+      query.order("-" + OrderField.FINISHED_DATE.getOrderFieldName());
+    }
+  }
+
+  private void configureUpdatedDateOrdering(Query query,
+      WorkflowExecution lastWorkflowExecutionFromPreviousPage, boolean ascending) {
+    if (lastWorkflowExecutionFromPreviousPage != null && ascending) {
+      query.field(OrderField.UPDATED_DATE.getOrderFieldName())
+          .greaterThan(lastWorkflowExecutionFromPreviousPage.getUpdatedDate());
+    } else if (lastWorkflowExecutionFromPreviousPage != null) {
+      query.field(OrderField.UPDATED_DATE.getOrderFieldName())
+          .lessThan(lastWorkflowExecutionFromPreviousPage.getUpdatedDate());
+    } else if (ascending) {
+      query.order(OrderField.UPDATED_DATE.getOrderFieldName());
+    } else {
+      query.order("-" + OrderField.UPDATED_DATE.getOrderFieldName());
     }
   }
 
