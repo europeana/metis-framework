@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
@@ -34,7 +35,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final String WORKFLOW_STATUS = "workflowStatus";
   private static final String DATASET_ID = "datasetId";
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
-  private int workflowExecutionsPerRequest = 5;
+  private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit();
 
   @Autowired
   public WorkflowExecutionDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {

@@ -16,6 +16,7 @@ public class HTTPHarvestPluginMetadata implements AbstractMetisPluginMetadata {
   private Map<String, List<String>> parameters;
 
   public HTTPHarvestPluginMetadata() {
+    //Required for json serialization
   }
 
   public HTTPHarvestPluginMetadata(boolean mocked, String url, String user, String password,

@@ -109,7 +109,7 @@ public class AuthenticationController {
       @QueryParam("newPassword") String newPassword)
       throws BadContentException {
     String accessToken = authenticationService
-        .validateAuthorizationHeaderWithAccessToken(authorization);
+        .validateAuthorizationHeaderWithAccessToken(authorization);//Before any action, validate token
     if (StringUtils.isEmpty(newPassword)) {
       throw new BadContentException("newPassword not provided");
     }

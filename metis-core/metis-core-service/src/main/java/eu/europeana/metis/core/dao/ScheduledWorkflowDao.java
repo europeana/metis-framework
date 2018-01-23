@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -27,7 +28,7 @@ public class ScheduledWorkflowDao implements MetisDao<ScheduledWorkflow, String>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ScheduledWorkflowDao.class);
   private static final String DATASET_ID = "datasetId";
-  private int scheduledWorkflowPerRequest = 5;
+  private int scheduledWorkflowPerRequest = RequestLimits.SCHEDULED_EXECUTIONS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired

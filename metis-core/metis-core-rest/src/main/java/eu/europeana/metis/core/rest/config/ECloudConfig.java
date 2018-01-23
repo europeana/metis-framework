@@ -6,6 +6,8 @@ import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.exceptions.ProviderDoesNotExistException;
 import eu.europeana.cloud.common.model.DataProviderProperties;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties"})
 public class ECloudConfig extends WebMvcConfigurerAdapter implements InitializingBean {
+  private static final Logger LOGGER = LoggerFactory.getLogger(ECloudConfig.class);
+
   @Value("${ecloud.baseUrl}")
   private String ecloudBaseUrl;
   @Value("${ecloud.dps.baseUrl}")
@@ -40,6 +44,7 @@ public class ECloudConfig extends WebMvcConfigurerAdapter implements Initializin
       uisClient.getDataProvider(ecloudProvider);
     } catch (CloudException e) {
       if (e.getCause() instanceof ProviderDoesNotExistException) {
+        LOGGER.warn("Ecloud provider does not exist in Ecloud", e);
         DataProviderProperties dataProviderProperties = new DataProviderProperties();
         dataProviderProperties.setOrganisationName("Eurpeana Foundation");
         uisClient.createProvider(ecloudProvider, dataProviderProperties);

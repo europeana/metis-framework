@@ -2,6 +2,7 @@ package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.Workflow;
 import java.util.List;
@@ -24,7 +25,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
   private static final String WORKFLOW_OWNER = "workflowOwner";
   public static final String WORKFLOW_NAME = "workflowName";
-  private int workflowsPerRequest = 5;
+  private int workflowsPerRequest = RequestLimits.WORKFLOWS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
   @Autowired

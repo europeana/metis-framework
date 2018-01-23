@@ -40,7 +40,6 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
-import io.netty.util.concurrent.GlobalEventExecutor;
 import io.netty.util.internal.InternalThreadLocalMap;
 
 /**
@@ -53,7 +52,7 @@ import io.netty.util.internal.InternalThreadLocalMap;
 @EnableScheduling
 public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(SchedulerExecutor.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorConfig.class);
 
   //Orchestration
   @Value("${max.concurrent.threads}")
@@ -174,7 +173,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     WorkflowExecutionDao workflowExecutionDao = new WorkflowExecutionDao(
         morphiaDatastoreProvider);
     workflowExecutionDao.setWorkflowExecutionsPerRequest(
-        RequestLimits.USER_WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
+        RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit());
     return workflowExecutionDao;
   }
 
@@ -187,7 +186,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public WorkflowDao getWorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     WorkflowDao workflowDao = new WorkflowDao(morphiaDatastoreProvider);
-    workflowDao.setWorkflowsPerRequest(RequestLimits.USER_WORKFLOWS_PER_REQUEST.getLimit());
+    workflowDao.setWorkflowsPerRequest(RequestLimits.WORKFLOWS_PER_REQUEST.getLimit());
     return workflowDao;
   }
 

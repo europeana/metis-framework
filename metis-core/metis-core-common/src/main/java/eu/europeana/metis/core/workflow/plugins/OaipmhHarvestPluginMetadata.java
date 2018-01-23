@@ -22,6 +22,7 @@ public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata 
   private Map<String, List<String>> parameters;
 
   public OaipmhHarvestPluginMetadata() {
+    //Required for json serialization
   }
 
   public OaipmhHarvestPluginMetadata(boolean mocked, String url, String metadataFormat,
