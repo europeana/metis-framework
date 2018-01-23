@@ -185,7 +185,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByProvider(String provider, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("provider").equal(provider);
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
         .limit(datasetsPerRequest));
   }
@@ -201,7 +201,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
       int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("intermediateProvider").equal(intermediateProvider);
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
         .limit(datasetsPerRequest));
   }
@@ -216,7 +216,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("dataProvider").equal(dataProvider);
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
         .limit(datasetsPerRequest));
   }
@@ -231,7 +231,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationId").equal(organizationId);
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
         .limit(datasetsPerRequest));
   }
@@ -246,7 +246,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
   public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, int nextPage) {
     Query<Dataset> query = morphiaDatastoreProvider.getDatastore().createQuery(Dataset.class);
     query.field("organizationName").equal(organizationName);
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * datasetsPerRequest)
         .limit(datasetsPerRequest));
   }

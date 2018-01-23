@@ -97,7 +97,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * workflowsPerRequest)
         .limit(workflowsPerRequest));
   }

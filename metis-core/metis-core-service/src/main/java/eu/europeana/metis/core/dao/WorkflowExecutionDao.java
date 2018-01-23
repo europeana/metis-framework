@@ -208,7 +208,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
       query.field(WORKFLOW_STATUS).equal(workflowStatus);
     }
-    query.order(OrderField._ID.getOrderFieldName());
+    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
         .limit(workflowExecutionsPerRequest));
   }

@@ -317,7 +317,7 @@ public class TestOrchestratorController {
   public void cancelWorkflowExecution() throws Exception {
     doNothing().when(orchestratorService).cancelWorkflowExecution(anyString());
     orchestratorControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID,
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
@@ -330,7 +330,7 @@ public class TestOrchestratorController {
     doThrow(new NoWorkflowExecutionFoundException("Some error")).when(orchestratorService)
         .cancelWorkflowExecution(anyString());
     orchestratorControllerMock.perform(
-        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID,
+        delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
@@ -346,7 +346,7 @@ public class TestOrchestratorController {
     when(orchestratorService.getWorkflowExecutionByExecutionId(anyString()))
         .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
-        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID,
+        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.DATASETID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))

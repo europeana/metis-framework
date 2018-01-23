@@ -232,7 +232,7 @@ public class TestWorkflowExecutionDao {
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
               .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
                   TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
-                  workflowStatuses, OrderField._ID, false, nextPage),
+                  workflowStatuses, OrderField.ID, false, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();

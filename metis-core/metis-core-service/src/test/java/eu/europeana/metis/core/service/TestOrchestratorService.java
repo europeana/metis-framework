@@ -406,7 +406,7 @@ public class TestOrchestratorService {
     workflowStatuses.add(WorkflowStatus.INQUEUE);
     orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
         TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
-        workflowStatuses, OrderField._ID, false, 0);
+        workflowStatuses, OrderField.ID, false, 0);
     verify(workflowExecutionDao, times(1))
         .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());

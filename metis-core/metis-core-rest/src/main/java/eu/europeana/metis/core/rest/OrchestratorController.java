@@ -108,7 +108,6 @@ public class OrchestratorController {
     return responseListWrapper;
   }
 
-
   //WORKFLOW EXECUTIONS
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -145,7 +144,7 @@ public class OrchestratorController {
     return workflowExecution;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID, method = RequestMethod.DELETE, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ResponseBody
@@ -158,7 +157,7 @@ public class OrchestratorController {
         executionId);
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTION_EXECUTIONID, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
@@ -179,7 +178,7 @@ public class OrchestratorController {
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
-      @RequestParam(value = "orderField", required = false, defaultValue = "_ID") OrderField orderField,
+      @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
