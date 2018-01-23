@@ -170,7 +170,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
+  public List<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(int datasetId,
       String workflowOwner, String workflowName, Set<WorkflowStatus> workflowStatuses,
       OrderField orderField, boolean ascending, int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()

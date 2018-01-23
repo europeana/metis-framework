@@ -230,7 +230,7 @@ public class TestWorkflowExecutionDao {
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
+              .getAllWorkflowExecutionsByDatasetId(TestObjectFactory.DATASETID,
                   TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
                   workflowStatuses, OrderField.ID, false, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
@@ -257,7 +257,7 @@ public class TestWorkflowExecutionDao {
     do {
       ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(workflowExecutionDao
-              .getAllWorkflowExecutions(TestObjectFactory.DATASETID,
+              .getAllWorkflowExecutionsByDatasetId(TestObjectFactory.DATASETID,
                   TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
                   workflowStatuses, OrderField.CREATED_DATE, true, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);

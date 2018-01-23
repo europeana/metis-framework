@@ -408,7 +408,7 @@ public class TestOrchestratorService {
         TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
         workflowStatuses, OrderField.ID, false, 0);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), anySet(),
+        .getAllWorkflowExecutionsByDatasetId(anyInt(), anyString(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
   }

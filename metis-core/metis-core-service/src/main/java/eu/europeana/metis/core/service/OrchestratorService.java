@@ -233,7 +233,7 @@ public class OrchestratorService {
       String workflowName,
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage) {
     return workflowExecutionDao
-        .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses,
+        .getAllWorkflowExecutionsByDatasetId(datasetId, workflowOwner, workflowName, workflowStatuses,
             orderField, ascending, nextPage);
   }
 
