@@ -183,10 +183,13 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (StringUtils.isNotEmpty(workflowOwner)) {
       query.field("workflowName").equal(workflowName);
     }
+
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
-    for (WorkflowStatus workflowStatus : workflowStatuses) {
-      if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
-        criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
+    if (workflowStatuses != null) {
+      for (WorkflowStatus workflowStatus : workflowStatuses) {
+        if (workflowStatus != null) {
+          criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
+        }
       }
     }
     if (!criteriaContainer.isEmpty()) {
@@ -208,7 +211,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
-    if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
+    if (workflowStatus != null) {
       query.field(WORKFLOW_STATUS).equal(workflowStatus);
     }
     query.order(OrderField.ID.getOrderFieldName());

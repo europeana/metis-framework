@@ -175,9 +175,9 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(
       @PathVariable("datasetId") int datasetId,
-      @RequestParam("workflowOwner") String workflowOwner,
-      @RequestParam("workflowName") String workflowName,
-      @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
+      @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
+      @RequestParam(value = "workflowName", required = false) String workflowName,
+      @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
@@ -195,7 +195,7 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
-      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
+      @RequestParam(value = "workflowStatus", required = false) WorkflowStatus workflowStatus,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
