@@ -169,6 +169,7 @@
   <!--</reporting>-->
   <modules>
     <module>metis-core</module>
+    <module>metis-indexing</module>
     <module>metis-hierarchies</module>
     <module>metis-dereference</module>
     <module>metis-redirect</module>
@@ -180,6 +181,7 @@
     <module>metis-preview</module>
     <module>metis-normalization</module>
     <module>metis-authentication</module>
+    <module>metis-indexing</module>
   </modules>
   <repositories>
 
