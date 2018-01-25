@@ -29,32 +29,14 @@ public class SchemaProviderTest {
     private static final PredefinedSchemas PREDEFINED_SCHEMAS_LOCATIONS = new PredefinedSchemas();
 
     static {
-        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip","EDM-INTERNAL.xsd","schematron/schematron-internal.xsl");
-        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip","EDM.xsd","schematron/schematron.xsl");
+        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-INTERNAL", "http://localhost:9999/internal_test_schema.zip","EDM-INTERNAL.xsd","schematron/schematron-internal.xsl");
+        PREDEFINED_SCHEMAS_LOCATIONS.add("EDM-EXTERNAL", "http://localhost:9999/external_test_schema.zip","EDM.xsd","schematron/schematron.xsl");
     }
 
     @Test
     public void shouldCreateCorrectSchemaForEdmInternal() throws SchemaProviderException {
 
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withBodyFile("test_schema.zip")));
-        //given
-        SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
-        //when
-        Schema s = provider.getSchema("EDM-INTERNAL","EDM-INTERNAL.xsd");
-        //then
-        Assert.assertEquals("EDM-INTERNAL", s.getName());
-        Assert.assertEquals(entryFileLocation(provider, "edm-internal","EDM-INTERNAL.xsd"), s.getPath());
-        Assert.assertNull(s.getSchematronPath());
-        assertZipFileExistence(s);
-    }
-
-    @Test
-    public void shouldCreateCorrectSchemaForEdmInternalWithDefaultRootFile() throws SchemaProviderException {
-
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/internal_test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
@@ -63,32 +45,15 @@ public class SchemaProviderTest {
         //when
         Schema s = provider.getSchema("EDM-INTERNAL");
         //then
-        Assert.assertEquals("EDM-INTERNAL", s.getName());
-        Assert.assertEquals(entryFileLocation(provider, "edm-internal","EDM-INTERNAL.xsd"), s.getPath());
-        Assert.assertNull(s.getSchematronPath());
+        Assert.assertEquals("localhost_internal_test_schema", s.getName());
+        Assert.assertEquals(entryFileLocation(provider, "localhost_internal_test_schema","EDM-INTERNAL.xsd"), s.getPath());
+        Assert.assertNotNull(s.getSchematronPath());
         assertZipFileExistence(s);
     }
 
     @Test
     public void shouldCreateCorrectSchemaForEdmExternal() throws SchemaProviderException {
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
-                .willReturn(aResponse()
-                        .withStatus(200)
-                        .withBodyFile("test_schema.zip")));
-        //given
-        SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
-        //when
-        Schema schema = provider.getSchema("EDM-EXTERNAL","EDM.xsd");
-        //then
-        Assert.assertEquals("EDM-EXTERNAL", schema.getName());
-        Assert.assertEquals(entryFileLocation(provider, "edm-external","EDM.xsd"), schema.getPath());
-        Assert.assertNull(schema.getSchematronPath());
-        assertZipFileExistence(schema);
-    }
-
-    @Test
-    public void shouldCreateCorrectSchemaForEdmExternalWithDefaultRootFile() throws SchemaProviderException {
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/external_test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
@@ -97,9 +62,9 @@ public class SchemaProviderTest {
         //when
         Schema schema = provider.getSchema("EDM-EXTERNAL");
         //then
-        Assert.assertEquals("EDM-EXTERNAL", schema.getName());
-        Assert.assertEquals(entryFileLocation(provider, "edm-external","EDM.xsd"), schema.getPath());
-        Assert.assertNull(schema.getSchematronPath());
+        Assert.assertEquals("localhost_external_test_schema", schema.getName());
+        Assert.assertEquals(entryFileLocation(provider, "localhost_external_test_schema","EDM.xsd"), schema.getPath());
+        Assert.assertNotNull(schema.getSchematronPath());
         assertZipFileExistence(schema);
     }
 
@@ -112,7 +77,7 @@ public class SchemaProviderTest {
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        Schema schema = provider.getSchema("http://localhost:9999/custom_schema.zip","DC.xsd");
+        Schema schema = provider.getSchema("http://localhost:9999/custom_schema.zip","DC.xsd", null);
         //then
         Assert.assertEquals("localhost_custom_schema", schema.getName());
         Assert.assertEquals(entryFileLocation(provider, "localhost_custom_schema", "DC.xsd"), schema.getPath());
@@ -129,7 +94,7 @@ public class SchemaProviderTest {
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        Schema schema = provider.getSchema("http://localhost:9999/custom_schema.zip","nonExisting.xsd");
+        Schema schema = provider.getSchema("http://localhost:9999/custom_schema.zip","nonExisting.xsd", null);
         //then
         Assert.assertEquals("localhost_custom_schema", schema.getName());
         Assert.assertEquals(entryFileLocation(provider, "localhost_custom_schema", "nonExisting.xsd"), schema.getPath());
@@ -142,7 +107,7 @@ public class SchemaProviderTest {
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        Schema schema = provider.getSchema("malformedUrl","EDM.xsd");
+        Schema schema = provider.getSchema("malformedUrl","EDM.xsd", null);
         //then
         Assert.assertEquals("EDM-EXTERNAL", schema.getName());
         Assert.assertEquals(entryFileLocation(provider, "edm-external", "EDM.xsd"), schema.getPath());
@@ -153,16 +118,16 @@ public class SchemaProviderTest {
     @Test
     public void zipFileShouldBeCreatedInCorrectLocationForEdmInternal() throws SchemaProviderException {
         wireMockRule.resetAll();
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/internal_test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        provider.getSchema("EDM-INTERNAL","EDM.xsd");
+        provider.getSchema("EDM-INTERNAL");
         //then
-        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "edm-internal");
+        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "localhost_internal_test_schema");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -170,16 +135,16 @@ public class SchemaProviderTest {
     @Test
     public void zipFileShouldBeCreatedInCorrectLocationForEdmExternal() throws SchemaProviderException {
         wireMockRule.resetAll();
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/external_test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        provider.getSchema("EDM-EXTERNAL","EDM.xsd");
+        provider.getSchema("EDM-EXTERNAL");
         //then
-        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "edm-external");
+        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "localhost_external_test_schema");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
@@ -194,16 +159,16 @@ public class SchemaProviderTest {
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        provider.getSchema("http://localhost:9999/userDefinedSchema.zip","EDM.xsd");
+        provider.getSchema("http://localhost:9999/userDefinedSchema.zip","EDM.xsd", "schematron/schematron.xsl");
         //then
-        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "edm-external");
+        File directory = new File(SchemaProvider.TMP_DIR, "schemas" + File.separator + "localhost_userDefinedSchema");
         File zipFile = new File(directory, "zip.zip");
         Assert.assertTrue(zipFile.exists());
     }
 
     @Test
     public void zipFileShouldBeDownloadedWhenNotAvailable() throws IOException, SchemaProviderException {
-        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/internal_test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
@@ -211,11 +176,11 @@ public class SchemaProviderTest {
         //given
         SchemaProvider provider = new SchemaProvider(PREDEFINED_SCHEMAS_LOCATIONS);
         //when
-        Schema s = provider.getSchema("EDM-INTERNAL","EDM.xsd");
+        Schema s = provider.getSchema("EDM-INTERNAL");
         //then
-        Assert.assertEquals("EDM-INTERNAL", s.getName());
-        Assert.assertEquals(entryFileLocation(provider, "edm-internal", "EDM.xsd"), s.getPath());
-        Assert.assertNull(s.getSchematronPath());
+        Assert.assertEquals("localhost_internal_test_schema", s.getName());
+        Assert.assertEquals(entryFileLocation(provider, "localhost_internal_test_schema", "EDM-INTERNAL.xsd"), s.getPath());
+        Assert.assertNotNull(s.getSchematronPath());
         assertZipFileExistence(s);
     }
 

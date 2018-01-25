@@ -124,7 +124,7 @@ public class ValidationControllerTest {
     public void shouldValidateZipFileRecordsAgainstEDMInternal() throws Exception {
 
         wireMockRule.resetAll();
-        wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));

@@ -94,7 +94,7 @@ public class ValidationController {
             throw new ValidationException("", "It is not predefined schema.");
         }
 
-        ValidationResult result = validator.singleValidation(targetSchema,null, record);
+        ValidationResult result = validator.singleValidation(targetSchema,null, null, record);
         if (result.isSuccess()) {
             return result;
         } else {
@@ -139,7 +139,7 @@ public class ValidationController {
                     stream.close();
                 }
             }
-            ValidationResultList list = validator.batchValidation(targetSchema, null, xmls);
+            ValidationResultList list = validator.batchValidation(targetSchema, null, null, xmls);
             if (list.getResultList() != null || list.getResultList().isEmpty()) {
                 list.setSuccess(true);
             }

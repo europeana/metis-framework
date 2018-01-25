@@ -84,11 +84,11 @@ public class TestApplication {
     }
 
     @Bean
-    public SchemaProvider schemaManager() throws SchemaProviderException, FileNotFoundException {
+    public SchemaProvider schemaManager() {
         PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
 
-        predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/test_schema.zip", "EDM-INTERNAL.xsd","schematron/schematron-internal.xsl");
-        predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/test_schema.zip", "EDM.xsd","schematron/schematron.xsl");
+        predefinedSchemas.add("EDM-INTERNAL", "http://localhost:9999/edm_internal_schema.zip", "EDM-INTERNAL.xsd", "schematron/schematron-internal.xsl");
+        predefinedSchemas.add("EDM-EXTERNAL", "http://localhost:9999/edm_external_schema.zip", "EDM.xsd", "schematron/schematron.xsl");
 
         return new SchemaProvider(predefinedSchemas);
     }
