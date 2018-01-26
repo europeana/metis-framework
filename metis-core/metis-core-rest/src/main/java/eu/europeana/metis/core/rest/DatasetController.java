@@ -225,7 +225,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -262,7 +262,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -300,7 +300,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -337,7 +337,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -374,7 +374,7 @@ public class DatasetController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException, UserUnauthorizedException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);

@@ -43,10 +43,12 @@ public class Workflow implements HasMongoObjectId {
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
   private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();
 
+  @Override
   public ObjectId getId() {
     return id;
   }
 
+  @Override
   public void setId(ObjectId id) {
     this.id = id;
   }

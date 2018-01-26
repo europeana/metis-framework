@@ -9,7 +9,6 @@ import java.util.List;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-
 public class ResponseListWrapper<T extends HasMongoObjectId> {
 
   @JacksonXmlElementWrapper(localName = "Results")

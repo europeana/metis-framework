@@ -32,13 +32,18 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 /**
- * Class providing connections to Mongo Created by ymamakis on 2/17/16.
+ * Class to initializes the mongo collections and the {@link Datastore} connection.
  */
 public class MorphiaDatastoreProvider {
 
   private Datastore datastore;
 
-  public MorphiaDatastoreProvider(MongoClient mongoClient, String db) {
+  /**
+   * Constructor to initialize the mongo collections and the {@link Datastore} connection.
+   * @param mongoClient {@link MongoClient}
+   * @param databaseName the database name
+   */
+  public MorphiaDatastoreProvider(MongoClient mongoClient, String databaseName) {
     Morphia morphia = new Morphia();
     morphia.map(Dataset.class);
     morphia.map(DatasetIdSequence.class);
@@ -51,7 +56,7 @@ public class MorphiaDatastoreProvider {
     morphia.map(HTTPHarvestPlugin.class);
     morphia.map(EnrichmentPlugin.class);
     morphia.map(ValidationPlugin.class);
-    datastore = morphia.createDatastore(mongoClient, db);
+    datastore = morphia.createDatastore(mongoClient, databaseName);
     datastore.ensureIndexes();
 
     DatasetIdSequence datasetIdSequence = datastore.find(DatasetIdSequence.class).get();
@@ -61,9 +66,7 @@ public class MorphiaDatastoreProvider {
   }
 
   /**
-   * Retrieve the datastore connection to Mongo
-   *
-   * @return The datastore connection to Mongo
+   * @return the {@link Datastore} connection to Mongo
    */
   public Datastore getDatastore() {
     return datastore;

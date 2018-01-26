@@ -21,7 +21,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
  * A provider domain
- * Created by ymamakis on 4/4/16.
  */
 public enum Domain {
     GALLERY("Gallery"), LIBRARY("Library"), ARCHIVE("Archive"), MUSEUM("Museum"), AV_ARCHIVE("AV/Sound archive"),
@@ -38,6 +37,11 @@ public enum Domain {
         return this.name;
     }
 
+    /**
+     * Do a lookup of {@link Domain} enum field based on the {@link #name} parameter
+     * @param name the name parameter inside the enum
+     * @return the corresponding {@link Domain}
+     */
     public static Domain getDomainFromName(String name){
         for (Domain domain:Domain.values()) {
             if(domain.getName().equals(name)){
@@ -47,6 +51,12 @@ public enum Domain {
         return null;
     }
 
+    /**
+     * Do a lookup of {@link Domain} enum field based on the {@link #name()} function.
+     * <p>{@link #name()} is the string representation of the enum field name</p>
+     * @param name the string representation of the enum field name
+     * @return the corresponding {@link Domain}
+     */
     @JsonCreator
     public static Domain getDomainFromEnumName(String name){
         for (Domain domain:Domain.values()) {

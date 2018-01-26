@@ -2,6 +2,7 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -102,7 +103,7 @@ public class OrchestratorController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper
@@ -188,7 +189,7 @@ public class OrchestratorController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
@@ -209,7 +210,7 @@ public class OrchestratorController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
@@ -258,7 +259,7 @@ public class OrchestratorController {
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws BadContentException {
     if (nextPage < 0) {
-      throw new BadContentException("nextPage cannot be a negative number");
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService

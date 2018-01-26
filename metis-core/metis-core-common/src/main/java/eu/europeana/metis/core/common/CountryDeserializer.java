@@ -14,10 +14,17 @@ public class CountryDeserializer extends StdDeserializer<Country> {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor for null value
+   */
   public CountryDeserializer() {
     this(null);
   }
 
+  /**
+   * Required as part of {@link StdDeserializer}
+   * @param vc
+   */
   public CountryDeserializer(Class<?> vc) {
     super(vc);
   }

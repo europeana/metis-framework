@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Interface that gathers required methods for a class that contains plugin metadata
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */

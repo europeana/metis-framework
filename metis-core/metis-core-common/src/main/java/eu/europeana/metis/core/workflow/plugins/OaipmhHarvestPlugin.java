@@ -53,6 +53,10 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
     //Required for json serialization
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata required.
+   * @param pluginMetadata should be {@link OaipmhHarvestPluginMetadata}
+   */
   public OaipmhHarvestPlugin(
       AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
