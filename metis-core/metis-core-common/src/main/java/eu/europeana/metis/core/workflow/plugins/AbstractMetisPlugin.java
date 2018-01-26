@@ -44,9 +44,9 @@ public interface AbstractMetisPlugin {
 
   void setPluginStatus(PluginStatus pluginStatus);
 
-  long getExternalTaskId();
+  String getExternalTaskId();
 
-  void setExternalTaskId(long externalTaskId);
+  void setExternalTaskId(String externalTaskId);
 
   ExecutionProgress getExecutionProgress();
 
