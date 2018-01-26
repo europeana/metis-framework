@@ -3,11 +3,14 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.validation.model.ValidationResult;
 import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.ValidationController;
+import eu.europeana.validation.rest.exceptions.BatchValidationException;
 import eu.europeana.validation.rest.exceptions.ServerException;
 import eu.europeana.validation.rest.exceptions.ValidationException;
+import eu.europeana.validation.rest.exceptions.exceptionmappers.BatchValidationExceptionController;
 import eu.europeana.validation.rest.exceptions.exceptionmappers.HttpMessageNotReadableExceptionMapper;
 import eu.europeana.validation.rest.exceptions.exceptionmappers.ServerExceptionMapper;
 import eu.europeana.validation.rest.exceptions.exceptionmappers.ValidationExceptionController;
+import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
 import org.apache.commons.io.IOUtils;
 import org.junit.*;
@@ -54,6 +57,9 @@ public class ValidationControllerTest {
     @Autowired
     ValidationExecutionService validationExecutionService;
 
+    @Autowired
+    SchemaProvider schemaProvider;
+
     private static MockMvc mockMvc;
 
     private static boolean isOneTime = true;
@@ -62,8 +68,8 @@ public class ValidationControllerTest {
     public void setup() throws Exception {
         if (isOneTime) {
             mockMvc = MockMvcBuilders
-                    .standaloneSetup(new ValidationController(validationExecutionService))
-                    .setControllerAdvice(new HttpMessageNotReadableExceptionMapper(), new ServerExceptionMapper(), new ValidationExceptionController())
+                    .standaloneSetup(new ValidationController(validationExecutionService, schemaProvider))
+                    .setControllerAdvice(new HttpMessageNotReadableExceptionMapper(), new ServerExceptionMapper(), new ValidationExceptionController(), new BatchValidationExceptionController())
                     .build();
         }
         isOneTime = false;
@@ -95,7 +101,6 @@ public class ValidationControllerTest {
         String xmlContent = prepareXMLRequest();
         mockMvc.perform(MockMvcRequestBuilders
                 .post(RestEndpoints.SCHEMA_VALIDATE, "EDM-INTERNAL")
-                .param("rootFileLocation", "EDM-INTERNAL.xsd")
                 .contentType(MediaType.APPLICATION_XML)
                 .content(xmlContent))
                 .andExpect(MockMvcResultMatchers.status().is(200))
@@ -107,11 +112,10 @@ public class ValidationControllerTest {
         String xmlContent = prepareXMLRequest();
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .post(RestEndpoints.SCHEMA_VALIDATE, "UNDEFINED_SCHEMA")
-                .param("rootFileLocation","EDM-INTERNAL.xsd")
                 .contentType(MediaType.APPLICATION_XML)
                 .content(xmlContent)).andExpect(MockMvcResultMatchers.status().is(422))
                 .andReturn();
-        Assert.assertTrue(result.getResolvedException().getMessage().contains("MalformedURLException"));
+        Assert.assertTrue(result.getResolvedException().getMessage().contains("not predefined schema"));
         Assert.assertTrue(result.getResolvedException() instanceof ValidationException);
     }
 
@@ -120,7 +124,7 @@ public class ValidationControllerTest {
     public void shouldValidateZipFileRecordsAgainstEDMInternal() throws Exception {
 
         wireMockRule.resetAll();
-        wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
+        wireMockRule.stubFor(get(urlEqualTo("/test_schema.zip"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
@@ -128,14 +132,13 @@ public class ValidationControllerTest {
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test.zip"));
         mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
-                .file(file)
-                .param("rootFileLocation","EDM-INTERNAL.xsd"))
+                .file(file))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
     }
 
     @Test
-    public void shouldValidateZipFileContainingDirectoires() throws Exception {
+    public void shouldValidateZipFileContainingDirectories() throws Exception {
 
         wireMockRule.resetAll();
         wireMockRule.stubFor(get(urlEqualTo("/schema.zip"))
@@ -146,8 +149,7 @@ public class ValidationControllerTest {
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/ZIP_file_with_directory.zip"));
         mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
-                .file(file)
-                .param("rootFileLocation","EDM-INTERNAL.xsd"))
+                .file(file))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
     }
@@ -164,8 +166,7 @@ public class ValidationControllerTest {
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test_wrong.zip"));
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
-                .file(file)
-                .param("rootFileLocation","EDM-INTERNAL.xsd"))
+                .file(file))
                 .andExpect(MockMvcResultMatchers.status().is(200))
                 .andReturn();
         ValidationResultList validationResultList = unmarshalXMLToValidationResultSet(result);
@@ -181,17 +182,12 @@ public class ValidationControllerTest {
         MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test.zip"));
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "UNDEFINED_SCHEMA")
-                .file(file)
-                .param("rootFileLocation","EDM-INTERNAL.xsd"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .file(file))
                 .andReturn();
         ValidationResultList validationResultList = unmarshalXMLToValidationResultSet(result);
-        Assert.assertTrue(validationResultList.isSuccess());
+        Assert.assertFalse(validationResultList.isSuccess());
         List<ValidationResult> validationResults = validationResultList.getResultList();
-        for (ValidationResult validationResult : validationResults) {
-            Assert.assertTrue(validationResult.getMessage().contains("MalformedURLException"));
-        }
-
+        Assert.assertTrue(validationResults == null);
 
     }
 
@@ -200,11 +196,9 @@ public class ValidationControllerTest {
 
         MockMultipartFile firstFile = new MockMultipartFile("file", "filename.txt", "text/plain", "some xml".getBytes());
 
-
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
-                .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "sampleSchema")
-                .file(firstFile)
-                .param("rootFileLocation","EDM-INTERNAL.xsd"))
+                .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
+                .file(firstFile))
                 .andExpect(MockMvcResultMatchers.status().is(500))
                 .andReturn();
 

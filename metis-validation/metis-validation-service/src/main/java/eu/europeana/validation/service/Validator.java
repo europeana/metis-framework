@@ -54,6 +54,7 @@ public class Validator implements Callable<ValidationResult> {
 
     private String schema;
     private String rootFileLocation;
+    private String schematronFileLocation;
     private String document;
     private SchemaProvider schemaProvider;
     private ClasspathResourceResolver resolver;
@@ -66,15 +67,17 @@ public class Validator implements Callable<ValidationResult> {
     /**
      * Constructor specifying the schema to validate against and the document
      *
-     * @param schema
-     * @param rootFileLocation
-     * @param document
+     * @param schema                 schema that will be used for validation
+     * @param rootFileLocation       location of the schema root file
+     * @param schematronFileLocation location of the schematron file
+     * @param document               document that will be validated
      * @param schemaProvider
      * @param resolver
      */
-    public Validator(String schema, String rootFileLocation, String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
+    public Validator(String schema, String rootFileLocation, String schematronFileLocation, String document, SchemaProvider schemaProvider, ClasspathResourceResolver resolver) {
         this.schema = schema;
         this.rootFileLocation = rootFileLocation;
+        this.schematronFileLocation = schematronFileLocation;
         this.document = document;
         this.schemaProvider = schemaProvider;
         this.resolver = resolver;
@@ -87,10 +90,14 @@ public class Validator implements Callable<ValidationResult> {
      * @return
      */
     private Schema getSchemaByName(String schemaName) throws SchemaProviderException {
-        if (rootFileLocation == null) {
+        if (schemaProvider.isPredefined(schemaName)) {
             return schemaProvider.getSchema(schemaName);
         } else {
-            return schemaProvider.getSchema(schemaName, rootFileLocation);
+            if (rootFileLocation != null) {
+                return schemaProvider.getSchema(schemaName, rootFileLocation, schematronFileLocation);
+            } else {
+                throw new SchemaProviderException("Missing root file location for custom schema");
+            }
         }
     }
 

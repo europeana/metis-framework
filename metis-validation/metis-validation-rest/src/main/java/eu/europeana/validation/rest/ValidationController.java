@@ -23,6 +23,7 @@ import eu.europeana.validation.model.ValidationResultList;
 import eu.europeana.validation.rest.exceptions.BatchValidationException;
 import eu.europeana.validation.rest.exceptions.ServerException;
 import eu.europeana.validation.rest.exceptions.ValidationException;
+import eu.europeana.validation.service.SchemaProvider;
 import eu.europeana.validation.service.ValidationExecutionService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -61,14 +62,17 @@ public class ValidationController {
 
 
     private ValidationExecutionService validator;
+    private SchemaProvider schemaProvider;
 
     /**
      * Cretes validation controller based on provided {@link ValidationExecutionService}
      * @param validator
+     * @param schemaProvider
      */
     @Autowired
-    public ValidationController(ValidationExecutionService validator) {
+    public ValidationController(ValidationExecutionService validator, SchemaProvider schemaProvider) {
         this.validator = validator;
+        this.schemaProvider = schemaProvider;
     }
 
     /**
@@ -76,7 +80,6 @@ public class ValidationController {
      * and the record via POST as a form-data parameter
      *
      * @param targetSchema The schema to validate against
-     * @param rootFileLocation location of the schema root file
      * @param record       The record to validate
      * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
      */
@@ -84,11 +87,14 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                     @RequestParam(name = "rootFileLocation", required = false) String rootFileLocation,
                                      @RequestBody String record
     )
             throws ValidationException {
-        ValidationResult result = validator.singleValidation(targetSchema, rootFileLocation, record);
+        if(!schemaProvider.isPredefined(targetSchema)){
+            throw new ValidationException("", "It is not predefined schema.");
+        }
+
+        ValidationResult result = validator.singleValidation(targetSchema,null, null, record);
         if (result.isSuccess()) {
             return result;
         } else {
@@ -102,7 +108,6 @@ public class ValidationController {
      * a zip file with records (folders are not currently supported so records need to be at the root of the file)
      *
      * @param targetSchema The schema to validate against
-     * @param rootFileLocation location of the schema root file
      * @param zipFile      A zip file
      * @return A Validation result List. If the service result is empty we assume that the success field is true
      */
@@ -111,10 +116,12 @@ public class ValidationController {
     @ResponseBody
     @ApiOperation(value = "Validate zip file based on schema", response = ValidationResultList.class)
     public ValidationResultList batchValidate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
-                                              @RequestParam(name = "rootFileLocation", required = false) String rootFileLocation,
                                               @ApiParam(value = "file") @RequestParam("file") MultipartFile zipFile)
             throws ServerException, BatchValidationException {
 
+        if(!schemaProvider.isPredefined(targetSchema)){
+            throw new BatchValidationException("It is not predefined schema.", new ValidationResultList());
+        }
 
         try {
             String fileName = "/tmp/" + zipFile.getName() + "/" + new Date().getTime();
@@ -132,7 +139,7 @@ public class ValidationController {
                     stream.close();
                 }
             }
-            ValidationResultList list = validator.batchValidation(targetSchema, rootFileLocation, xmls);
+            ValidationResultList list = validator.batchValidation(targetSchema, null, null, xmls);
             if (list.getResultList() != null || list.getResultList().isEmpty()) {
                 list.setSuccess(true);
             }
