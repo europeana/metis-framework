@@ -2,6 +2,7 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -99,10 +100,15 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<Workflow> getAllWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws BadContentException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(orchestratorService.getAllWorkflows(workflowOwner, nextPage),
-        orchestratorService.getWorkflowsPerRequest(), nextPage);
+    responseListWrapper
+        .setResultsAndLastPage(orchestratorService.getAllWorkflows(workflowOwner, nextPage),
+            orchestratorService.getWorkflowsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -180,10 +186,15 @@ public class OrchestratorController {
       @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws BadContentException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses, orderField, ascending, nextPage),
+            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses,
+                orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -196,7 +207,11 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
       @RequestParam(value = "workflowStatus", required = false) WorkflowStatus workflowStatus,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws BadContentException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflowExecutions(workflowStatus, nextPage),
@@ -241,7 +256,11 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws BadContentException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),

@@ -20,8 +20,7 @@ package eu.europeana.metis.core.common;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
 /**
- * The sector the institution belongs to
- * Created by ymamakis on 4/4/16.
+ * The sector the institution belongs to.
  */
 public enum Sector {
 
@@ -36,6 +35,11 @@ public enum Sector {
         return this.name;
     }
 
+    /**
+     * Do a lookup of {@link Sector} enum field based on the {@link #name} parameter
+     * @param name the name parameter inside the enum
+     * @return the corresponding {@link Sector}
+     */
     public static Sector getSectorFromName(String name){
         for (Sector sector:Sector.values()) {
             if(sector.getName().equals(name)){
@@ -45,6 +49,12 @@ public enum Sector {
         return null;
     }
 
+    /**
+     * Do a lookup of {@link Sector} enum field based on the {@link #name()} function.
+     * <p>{@link #name()} is the string representation of the enum field name</p>
+     * @param name the string representation of the enum field name
+     * @return the corresponding {@link Sector}
+     */
     @JsonCreator
     public static Sector getSectorFromEnumName(String name){
         for (Sector sector:Sector.values()) {

@@ -27,7 +27,7 @@ public class HTTPHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
-  private long externalTaskId;
+  private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
 
   private AbstractMetisPluginMetadata pluginMetadata;
@@ -76,12 +76,12 @@ public class HTTPHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public long getExternalTaskId() {
+  public String getExternalTaskId() {
     return this.externalTaskId;
   }
 
   @Override
-  public void setExternalTaskId(long externalTaskId) {
+  public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
 

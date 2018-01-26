@@ -404,6 +404,16 @@ public class TestDatasetController {
   }
 
   @Test
+  public void getAllDatasetsByProviderNegativeNextPage() throws Exception {
+    datasetControllerMock.perform(get("/datasets/provider/myProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "-1")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406));
+  }
+
+  @Test
   public void getAllDatasetsByProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
@@ -453,6 +463,16 @@ public class TestDatasetController {
 
     assertEquals("myIntermediateProvider", provider.getValue());
     assertEquals(3, page.getValue().intValue());
+  }
+
+  @Test
+  public void getAllDatasetsByIntermediateProviderNegativeNextPage() throws Exception {
+    datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "-1")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406));
   }
 
   @Test
@@ -506,6 +526,16 @@ public class TestDatasetController {
   }
 
   @Test
+  public void getAllDatasetsByDataProviderNegativeNextPage() throws Exception {
+    datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "-1")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406));
+  }
+
+  @Test
   public void getAllDatasetsByDataProviderInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
@@ -556,6 +586,16 @@ public class TestDatasetController {
   }
 
   @Test
+  public void getAllDatasetsByOrganizationIdNegativeNextPage() throws Exception {
+    datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "-1")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406));
+  }
+
+  @Test
   public void getAllDatasetsByOrganizationIdInvalidUser() throws Exception {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN));
@@ -603,6 +643,16 @@ public class TestDatasetController {
 
     assertEquals("myOrganizationName", provider.getValue());
     assertEquals(3, page.getValue().intValue());
+  }
+
+  @Test
+  public void getAllDatasetsByOrganizationNameNegativeNextPage() throws Exception {
+    datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
+        .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
+        .param("nextPage", "-1")
+        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .content(TestUtils.convertObjectToJsonBytes(null)))
+        .andExpect(status().is(406));
   }
 
   @Test

@@ -44,7 +44,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date finishedDate;
-  private long externalTaskId;
+  private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
 
   private AbstractMetisPluginMetadata pluginMetadata;
@@ -53,6 +53,10 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
     //Required for json serialization
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata required.
+   * @param pluginMetadata should be {@link OaipmhHarvestPluginMetadata}
+   */
   public OaipmhHarvestPlugin(
       AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
@@ -123,12 +127,12 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   }
 
   @Override
-  public long getExternalTaskId() {
+  public String getExternalTaskId() {
     return externalTaskId;
   }
 
   @Override
-  public void setExternalTaskId(long externalTaskId) {
+  public void setExternalTaskId(String externalTaskId) {
     this.externalTaskId = externalTaskId;
   }
 
@@ -194,7 +198,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       revision.setCreationTimeStamp(startedDate);
       dpsTask.setOutputRevision(revision);
 
-      externalTaskId = dpsClient.submitTask(dpsTask, topologyName);
+      externalTaskId = Long.toString(dpsClient.submitTask(dpsTask, topologyName));
       LOGGER.info("Submitted task with externalTaskId: {}", externalTaskId);
     }
   }
@@ -202,7 +206,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
   @Override
   public ExecutionProgress monitor(DpsClient dpsClient) {
     LOGGER.info("Requesting progress information for externalTaskId: {}", externalTaskId);
-    TaskInfo taskInfo = dpsClient.getTaskProgress(topologyName, externalTaskId);
+    TaskInfo taskInfo = dpsClient.getTaskProgress(topologyName, Long.parseLong(externalTaskId));
     return executionProgress.copyExternalTaskInformation(taskInfo);
   }
 }
