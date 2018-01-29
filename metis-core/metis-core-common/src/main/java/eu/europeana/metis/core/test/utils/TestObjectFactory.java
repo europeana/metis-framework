@@ -20,7 +20,6 @@ import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import org.bson.types.ObjectId;
 
@@ -50,15 +49,7 @@ public class TestObjectFactory {
     workflow.setTransformPlugin(false);
     workflow.setWorkflowOwner(WORKFLOWOWNER);
     workflow.setWorkflowName(WORKFLOWNAME);
-
-    ArrayList<String> dereferenceParameters = new ArrayList<>();
-    dereferenceParameters.add("dereference_parameter_a");
-    dereferenceParameters.add("dereference_parameter_b");
-    HashMap<String, List<String>> dereferenceParameterGroups = new HashMap<>();
-    dereferenceParameterGroups.put("GroupA", dereferenceParameters);
-    dereferenceParameterGroups.put("GroupB", dereferenceParameters);
-    EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata(true,
-        dereferenceParameterGroups);
+    EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);

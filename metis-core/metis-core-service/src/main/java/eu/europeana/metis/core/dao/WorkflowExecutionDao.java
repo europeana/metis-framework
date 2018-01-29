@@ -6,6 +6,7 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -35,7 +36,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final String WORKFLOW_STATUS = "workflowStatus";
   private static final String DATASET_ID = "datasetId";
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
-  private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit();
+  private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
+      .getLimit();
 
   @Autowired
   public WorkflowExecutionDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
@@ -169,6 +171,17 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       return storedWorkflowExecution.getId().toString();
     }
     return null;
+  }
+
+  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId,
+      PluginType pluginType) {
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class);
+    query.field(DATASET_ID).equal(datasetId);
+    query.field("metisPlugins.pluginStatus").equal("FINISHED");
+    query.field("metisPlugins.pluginType").equal(pluginType.name());
+    query.order("-" + "metisPlugins.finishedDate");
+    return query.get();
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(int datasetId,

@@ -10,6 +10,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
@@ -41,6 +42,7 @@ public class Workflow implements HasMongoObjectId {
 
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
+  @Embedded
   private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();
 
   @Override

@@ -19,6 +19,7 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.List;
 import java.util.Set;
 import org.slf4j.Logger;
@@ -172,6 +173,24 @@ public class OrchestratorController {
     WorkflowExecution workflowExecution = orchestratorService
         .getWorkflowExecutionByExecutionId(executionId);
     LOGGER.info("WorkflowExecution with executionId '{}' found", executionId);
+    return workflowExecution;
+  }
+
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_LATEST_PLUGIN, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(
+      @PathVariable("datasetId") int datasetId,
+      @RequestParam(value = "pluginType", required = false) PluginType pluginType) {
+    WorkflowExecution workflowExecution = orchestratorService
+        .getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginType);
+    if (workflowExecution != null) {
+      LOGGER
+          .info("Latest WorkflowExecution with executionId '{}' found", workflowExecution.getId());
+    } else {
+      LOGGER.info("Latest WorkflowExecution with executionId NOT found");
+    }
     return workflowExecution;
   }
 

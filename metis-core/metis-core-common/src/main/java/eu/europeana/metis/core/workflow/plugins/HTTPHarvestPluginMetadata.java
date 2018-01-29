@@ -1,41 +1,23 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class HTTPHarvestPluginMetadata implements AbstractMetisPluginMetadata {
+public class HTTPHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   private static final PluginType pluginType = PluginType.HTTP_HARVEST;
-  private boolean mocked = true;
   private String url;
   private String user;
   private String password;
-  private Map<String, List<String>> parameters;
 
   public HTTPHarvestPluginMetadata() {
     //Required for json serialization
   }
 
-  public HTTPHarvestPluginMetadata(boolean mocked, String url, String user, String password,
-      Map<String, List<String>> parameters) {
-    this.mocked = mocked;
+  public HTTPHarvestPluginMetadata(String url, String user, String password) {
     this.url = url;
     this.user = user;
     this.password = password;
-    this.parameters = parameters;
-  }
-
-  @Override
-  public boolean isMocked() {
-    return mocked;
-  }
-
-  @Override
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
   }
 
   public String getUrl() {
@@ -65,16 +47,6 @@ public class HTTPHarvestPluginMetadata implements AbstractMetisPluginMetadata {
   @Override
   public PluginType getPluginType() {
     return pluginType;
-  }
-
-  @Override
-  public Map<String, List<String>> getParameters() {
-    return parameters;
-  }
-
-  @Override
-  public void setParameters(Map<String, List<String>> parameters) {
-    this.parameters = parameters;
   }
 
 }

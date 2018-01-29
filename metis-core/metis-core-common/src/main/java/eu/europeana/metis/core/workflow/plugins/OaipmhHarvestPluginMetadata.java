@@ -2,16 +2,13 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-29
  */
-public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata {
+public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
-  private boolean mocked = true;
   private String url;
   private String metadataFormat;
   private String setSpec;
@@ -19,28 +16,16 @@ public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata 
   private Date fromDate;
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date untilDate;
-  private Map<String, List<String>> parameters;
 
   public OaipmhHarvestPluginMetadata() {
     //Required for json serialization
   }
 
-  public OaipmhHarvestPluginMetadata(boolean mocked, String url, String metadataFormat,
-      String setSpec, Map<String, List<String>> parameters) {
-    this.mocked = mocked;
+  public OaipmhHarvestPluginMetadata(boolean mocked, String url, String metadataFormat, String setSpec) {
+    setMocked(mocked);
     this.url = url;
     this.metadataFormat = metadataFormat;
     this.setSpec = setSpec;
-    this.parameters = parameters;
-  }
-
-  @Override
-  public boolean isMocked() {
-    return mocked;
-  }
-
-  public void setMocked(boolean mocked) {
-    this.mocked = mocked;
   }
 
   public String getUrl() {
@@ -86,16 +71,6 @@ public class OaipmhHarvestPluginMetadata implements AbstractMetisPluginMetadata 
   @Override
   public PluginType getPluginType() {
     return PLUGIN_TYPE;
-  }
-
-  @Override
-  public Map<String, List<String>> getParameters() {
-    return parameters;
-  }
-
-  @Override
-  public void setParameters(Map<String, List<String>> parameters) {
-    this.parameters = parameters;
   }
 
 }

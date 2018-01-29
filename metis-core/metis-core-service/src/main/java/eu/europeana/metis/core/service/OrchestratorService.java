@@ -27,6 +27,7 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -167,7 +168,7 @@ public class OrchestratorService {
         workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
             || workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE)) {
       workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
-    } else{
+    } else {
       throw new NoWorkflowExecutionFoundException(String.format(
           "Running workflowExecution with executionId: %s, does not exist or not active",
           executionId));
@@ -228,12 +229,18 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
+  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId, PluginType pluginType) {
+    return workflowExecutionDao.getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginType);
+  }
+
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner,
       String workflowName,
-      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending, int nextPage) {
+      Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending,
+      int nextPage) {
     return workflowExecutionDao
-        .getAllWorkflowExecutionsByDatasetId(datasetId, workflowOwner, workflowName, workflowStatuses,
+        .getAllWorkflowExecutionsByDatasetId(datasetId, workflowOwner, workflowName,
+            workflowStatuses,
             orderField, ascending, nextPage);
   }
 
@@ -357,8 +364,9 @@ public class OrchestratorService {
         LOGGER.error("An error has occurred during ecloud dataset creation.", e);
       }
     } else {
-      LOGGER.info("Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
-          dataset.getDatasetId(), dataset.getEcloudDatasetId());
+      LOGGER
+          .info("Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
+              dataset.getDatasetId(), dataset.getEcloudDatasetId());
     }
     return dataset.getEcloudDatasetId();
   }

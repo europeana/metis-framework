@@ -89,9 +89,6 @@ public class TestWorkflowDao {
         retrievedUserWorkflowMetisPluginsMetadata.size());
     Assert.assertEquals(retrievedUserWorkflowMetisPluginsMetadata.get(0).getPluginType(),
         metisPluginsMetadata.get(0).getPluginType());
-    Assert.assertEquals(
-        retrievedUserWorkflowMetisPluginsMetadata.get(0).getParameters().get("GroupA").size(),
-        metisPluginsMetadata.get(0).getParameters().get("GroupA").size());
   }
 
   @Test

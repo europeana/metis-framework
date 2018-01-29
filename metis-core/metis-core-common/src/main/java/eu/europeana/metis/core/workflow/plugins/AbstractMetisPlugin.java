@@ -1,9 +1,12 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import java.util.Date;
+import org.mongodb.morphia.annotations.Embedded;
+import org.mongodb.morphia.annotations.Indexed;
 
 /**
  * This interface specifies the minimum o plugin should support so that it can be plugged in the
@@ -18,90 +21,156 @@ import java.util.Date;
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
-    @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
-    @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL")
+    @JsonSubTypes.Type(value = ValidationInternalPlugin.class, name = "VALIDATION_INTENRAL"),
+    @JsonSubTypes.Type(value = TransformationPlugin.class, name = "TRANSFORMATION"),
+    @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL"),
+    @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT")
 })
-public interface AbstractMetisPlugin {
+@Embedded
+public abstract class AbstractMetisPlugin {
+
+  private PluginType pluginType;
+
+  public AbstractMetisPlugin() {
+    //Required for json serialization
+  }
+
+  @Indexed
+  private String id;
+
+  private PluginStatus pluginStatus = PluginStatus.INQUEUE;
+  @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date startedDate;
+  @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date updatedDate;
+  @Indexed
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date finishedDate;
+  private String externalTaskId;
+  private ExecutionProgress executionProgress = new ExecutionProgress();
+
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
 
   /**
    * @return {@link PluginType}
    */
-  PluginType getPluginType();
+  public PluginType getPluginType() {
+    return pluginType;
+  }
+
+  /**
+   * @return {@link PluginType}
+   */
+  public void setPluginType(PluginType pluginType) {
+    this.pluginType = pluginType;
+  }
 
   /**
    * The metadata corresponding to this plugin.
    *
    * @return {@link AbstractMetisPluginMetadata}
    */
-  AbstractMetisPluginMetadata getPluginMetadata();
+  public abstract AbstractMetisPluginMetadata getPluginMetadata();
 
   /**
    * @param abstractMetisPluginMetadata {@link AbstractMetisPluginMetadata} to add for the plugin
    */
-  void setPluginMetadata(AbstractMetisPluginMetadata abstractMetisPluginMetadata);
+  public abstract void setPluginMetadata(AbstractMetisPluginMetadata abstractMetisPluginMetadata);
 
   /**
    * @return started {@link Date} of the execution of the plugin
    */
-  Date getStartedDate();
+  public Date getStartedDate() {
+    return this.startedDate;
+  }
 
   /**
    * @param startedDate {@link Date}
    */
-  void setStartedDate(Date startedDate);
+  public void setStartedDate(Date startedDate) {
+    this.startedDate = startedDate;
+  }
 
   /**
    * @return finished {@link Date} of the execution of the plugin
    */
-  Date getFinishedDate();
+  public Date getFinishedDate() {
+    return this.finishedDate;
+  }
 
   /**
    * @param finishedDate {@link Date}
    */
-  void setFinishedDate(Date finishedDate);
+  public void setFinishedDate(Date finishedDate) {
+    this.finishedDate = finishedDate;
+  }
 
   /**
    * @return updated {@link Date} of the execution of the plugin
    */
-  Date getUpdatedDate();
+  public Date getUpdatedDate() {
+    return this.updatedDate;
+  }
 
   /**
    * @param updatedDate {@link Date}
    */
-  void setUpdatedDate(Date updatedDate);
+  public void setUpdatedDate(Date updatedDate) {
+    this.updatedDate = updatedDate;
+  }
 
   /**
    * @return status {@link PluginStatus} of the execution of the plugin
    */
-  PluginStatus getPluginStatus();
+  public PluginStatus getPluginStatus() {
+    return pluginStatus;
+  }
 
   /**
    * @param pluginStatus {@link PluginStatus}
    */
-  void setPluginStatus(PluginStatus pluginStatus);
+  public void setPluginStatus(PluginStatus pluginStatus) {
+    this.pluginStatus = pluginStatus;
+  }
 
   /**
    * @return String representation of the external task identifier of the execution
    */
-  String getExternalTaskId();
+  public String getExternalTaskId() {
+    return this.externalTaskId;
+  }
 
   /**
    * @param externalTaskId String representation of the external task identifier of the execution
    */
-  void setExternalTaskId(String externalTaskId);
+  public void setExternalTaskId(String externalTaskId) {
+    this.externalTaskId = externalTaskId;
+  }
 
   /**
    * Progress information of the execution of the plugin
    *
    * @return {@link ExecutionProgress}
    */
-  ExecutionProgress getExecutionProgress();
+  public ExecutionProgress getExecutionProgress() {
+    return this.executionProgress;
+  }
 
   /**
    * @param executionProgress {@link ExecutionProgress} of the external execution
    */
-  void setExecutionProgress(
-      ExecutionProgress executionProgress);
+  public void setExecutionProgress(
+      ExecutionProgress executionProgress) {
+    this.executionProgress = executionProgress;
+  }
 
   /**
    * Starts the execution of the plugin at the external location.
@@ -112,7 +181,7 @@ public interface AbstractMetisPlugin {
    * @param ecloudProvider the ecloud provider to be used for the external task
    * @param ecloudDataset the ecloud dataset identifier to be used for the external task
    */
-  void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
+  public abstract void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset);
 
   /**
@@ -121,6 +190,5 @@ public interface AbstractMetisPlugin {
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
    * @return {@link ExecutionProgress} of the plugin.
    */
-  ExecutionProgress monitor(DpsClient dpsClient);
-
+  public abstract ExecutionProgress monitor(DpsClient dpsClient);
 }
