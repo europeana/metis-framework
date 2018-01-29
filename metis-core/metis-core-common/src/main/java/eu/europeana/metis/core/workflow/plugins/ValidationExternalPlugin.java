@@ -11,12 +11,12 @@ import org.mongodb.morphia.annotations.Indexed;
  * @since 2017-05-24
  */
 @Embedded
-public class ValidationPlugin implements AbstractMetisPlugin {
+public class ValidationExternalPlugin implements AbstractMetisPlugin {
 
   @Indexed
   private String id;
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType pluginType = PluginType.VALIDATION;
+  private static final PluginType pluginType = PluginType.VALIDATION_EXTERNAL;
 
   @Indexed
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
@@ -32,11 +32,11 @@ public class ValidationPlugin implements AbstractMetisPlugin {
 
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public ValidationPlugin() {
+  public ValidationExternalPlugin() {
     //Required for json serialization
   }
 
-  public ValidationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+  public ValidationExternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
   }
 

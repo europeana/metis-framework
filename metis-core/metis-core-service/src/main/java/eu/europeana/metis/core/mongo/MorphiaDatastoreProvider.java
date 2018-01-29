@@ -27,7 +27,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.ValidationPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -55,7 +55,7 @@ public class MorphiaDatastoreProvider {
     morphia.map(OaipmhHarvestPlugin.class);
     morphia.map(HTTPHarvestPlugin.class);
     morphia.map(EnrichmentPlugin.class);
-    morphia.map(ValidationPlugin.class);
+    morphia.map(ValidationExternalPlugin.class);
     datastore = morphia.createDatastore(mongoClient, databaseName);
     datastore.ensureIndexes();
 

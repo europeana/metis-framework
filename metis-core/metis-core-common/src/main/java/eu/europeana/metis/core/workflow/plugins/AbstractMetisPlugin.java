@@ -19,7 +19,7 @@ import java.util.Date;
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
     @JsonSubTypes.Type(value = EnrichmentPlugin.class, name = "ENRICHMENT"),
-    @JsonSubTypes.Type(value = ValidationPlugin.class, name = "VALIDATION")
+    @JsonSubTypes.Type(value = ValidationExternalPlugin.class, name = "VALIDATION_EXTERNAL")
 })
 public interface AbstractMetisPlugin {
 

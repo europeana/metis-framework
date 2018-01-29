@@ -31,8 +31,8 @@ public class PluginDeserializer extends JsonDeserializer<AbstractMetisPlugin> {
       case ENRICHMENT:
         abstractMetisPlugin = mapper.readValue(node.toString(), EnrichmentPlugin.class);
         break;
-      case VALIDATION:
-        abstractMetisPlugin = mapper.readValue(node.toString(), ValidationPlugin.class);
+      case VALIDATION_EXTERNAL:
+        abstractMetisPlugin = mapper.readValue(node.toString(), ValidationExternalPlugin.class);
         break;
       case NULL:
         abstractMetisPlugin = null;

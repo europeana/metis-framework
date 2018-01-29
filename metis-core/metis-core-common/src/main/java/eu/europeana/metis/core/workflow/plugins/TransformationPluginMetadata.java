@@ -5,18 +5,18 @@ import java.util.Map;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-29
+ * @since 2018-01-29
  */
-public class ValidationPluginMetadata implements AbstractMetisPluginMetadata {
+public class TransformationPluginMetadata implements AbstractMetisPluginMetadata {
 
-  private static final PluginType pluginType = PluginType.VALIDATION;
+  private static final PluginType pluginType = PluginType.VALIDATION_EXTERNAL;
   private boolean mocked = true;
   private Map<String, List<String>> parameters;
 
-  public ValidationPluginMetadata() {
+  public TransformationPluginMetadata() {
   }
 
-  public ValidationPluginMetadata(
+  public TransformationPluginMetadata(
       Map<String, List<String>> parameters) {
     this.parameters = parameters;
   }

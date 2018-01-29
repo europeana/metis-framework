@@ -12,7 +12,7 @@ import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.ValidationPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -115,12 +115,12 @@ public class WorkflowExecution implements HasMongoObjectId {
       metisPlugins.add(enrichmentPlugin);
     }
     AbstractMetisPluginMetadata voidMetisPluginMetadata = workflow
-        .getPluginMetadata(PluginType.VALIDATION);
+        .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
     if (voidMetisPluginMetadata != null) {
-      ValidationPlugin validationPlugin = new ValidationPlugin(voidMetisPluginMetadata);
-      validationPlugin
-          .setId(new ObjectId().toString() + "-" + validationPlugin.getPluginType().name());
-      metisPlugins.add(validationPlugin);
+      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(voidMetisPluginMetadata);
+      validationExternalPlugin
+          .setId(new ObjectId().toString() + "-" + validationExternalPlugin.getPluginType().name());
+      metisPlugins.add(validationExternalPlugin);
     }
   }
 
