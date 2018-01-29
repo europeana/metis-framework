@@ -182,9 +182,9 @@ public class OrchestratorController {
   @ResponseBody
   public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(
       @PathVariable("datasetId") int datasetId,
-      @RequestParam(value = "pluginType", required = false) PluginType pluginType) {
+      @RequestParam(value = "pluginType", required = false) Set<PluginType> pluginTypes) {
     WorkflowExecution workflowExecution = orchestratorService
-        .getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginType);
+        .getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginTypes);
     if (workflowExecution != null) {
       LOGGER
           .info("Latest WorkflowExecution with executionId '{}' found", workflowExecution.getId());

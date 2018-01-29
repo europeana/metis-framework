@@ -21,30 +21,30 @@ public class PluginDeserializer extends JsonDeserializer<AbstractMetisPlugin> {
     String pluginName = node.get("pluginType").textValue();
     AbstractMetisPlugin abstractMetisPlugin = null;
     PluginType pluginType = PluginType.getPluginTypeFromEnumName(pluginName);
-    switch (pluginType) {
-      case OAIPMH_HARVEST:
-        abstractMetisPlugin = mapper.readValue(node.toString(), OaipmhHarvestPlugin.class);
-        break;
-      case HTTP_HARVEST:
-        abstractMetisPlugin = mapper.readValue(node.toString(), HTTPHarvestPlugin.class);
-        break;
-      case VALIDATION_INTERNAL:
-        abstractMetisPlugin = mapper.readValue(node.toString(), ValidationInternalPlugin.class);
-        break;
-      case TRANSFORMATION:
-        abstractMetisPlugin = mapper.readValue(node.toString(), TransformationPlugin.class);
-        break;
-      case VALIDATION_EXTERNAL:
-        abstractMetisPlugin = mapper.readValue(node.toString(), ValidationExternalPlugin.class);
-        break;
-      case ENRICHMENT:
-        abstractMetisPlugin = mapper.readValue(node.toString(), EnrichmentPlugin.class);
-        break;
-      case NULL:
-        abstractMetisPlugin = null;
-        break;
-      default:
-        break;
+    if (pluginType != null) {
+      switch (pluginType) {
+        case OAIPMH_HARVEST:
+          abstractMetisPlugin = mapper.readValue(node.toString(), OaipmhHarvestPlugin.class);
+          break;
+        case HTTP_HARVEST:
+          abstractMetisPlugin = mapper.readValue(node.toString(), HTTPHarvestPlugin.class);
+          break;
+        case VALIDATION_INTERNAL:
+          abstractMetisPlugin = mapper.readValue(node.toString(), ValidationInternalPlugin.class);
+          break;
+        case TRANSFORMATION:
+          abstractMetisPlugin = mapper.readValue(node.toString(), TransformationPlugin.class);
+          break;
+        case VALIDATION_EXTERNAL:
+          abstractMetisPlugin = mapper.readValue(node.toString(), ValidationExternalPlugin.class);
+          break;
+        case ENRICHMENT:
+          abstractMetisPlugin = mapper.readValue(node.toString(), EnrichmentPlugin.class);
+          break;
+        default:
+          abstractMetisPlugin = null;
+          break;
+      }
     }
     return abstractMetisPlugin;
   }

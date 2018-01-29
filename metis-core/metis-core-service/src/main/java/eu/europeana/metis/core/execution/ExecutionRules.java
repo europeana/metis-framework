@@ -22,6 +22,7 @@ public class ExecutionRules {
   public static boolean isPluginAllowedForExecution(PluginType pluginType, int datasetId,
       WorkflowExecutionDao workflowExecutionDao) {
     //Get latest FINISHED plugin for datasetId
+//    workflowExecutionDao.getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId)
     AbstractMetisPlugin abstractMetisPlugin = null;
 
     if (harvestPluginGroup.contains(pluginType)) {

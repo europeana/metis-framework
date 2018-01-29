@@ -14,8 +14,7 @@ public enum PluginType{
   VALIDATION_EXTERNAL,
   TRANSFORMATION,
   VALIDATION_INTERNAL,
-  INDEX_TO_PREVIEW,
-  NULL;
+  INDEX_TO_PREVIEW;
 
   @JsonCreator
   public static PluginType getPluginTypeFromEnumName(@JsonProperty("pluginName")String pluginName){
@@ -24,6 +23,6 @@ public enum PluginType{
         return pluginType;
       }
     }
-    return NULL;
+    return null;
   }
 }

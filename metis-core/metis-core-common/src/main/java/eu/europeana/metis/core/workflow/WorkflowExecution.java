@@ -1,10 +1,8 @@
 package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
@@ -13,6 +11,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -30,9 +29,6 @@ import org.mongodb.morphia.annotations.Indexes;
  */
 @Entity
 @Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
-@JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetId",
-    "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
-    "httpHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
 public class WorkflowExecution implements HasMongoObjectId {
 
   @Id

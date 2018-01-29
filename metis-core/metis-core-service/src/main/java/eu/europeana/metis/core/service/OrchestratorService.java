@@ -229,8 +229,8 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
-  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId, PluginType pluginType) {
-    return workflowExecutionDao.getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginType);
+  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId, Set<PluginType> pluginTypes) {
+    return workflowExecutionDao.getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginTypes);
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,

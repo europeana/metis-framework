@@ -174,12 +174,24 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   }
 
   public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId,
-      PluginType pluginType) {
+      Set<PluginType> pluginTypes) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
     query.field(DATASET_ID).equal(datasetId);
     query.field("metisPlugins.pluginStatus").equal("FINISHED");
-    query.field("metisPlugins.pluginType").equal(pluginType.name());
+
+    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
+    if (pluginTypes != null) {
+      for (PluginType pluginType : pluginTypes) {
+        if (pluginType != null) {
+          criteriaContainer.add(query.criteria("metisPlugins.pluginType").equal(pluginType));
+        }
+      }
+    }
+    if (!criteriaContainer.isEmpty()) {
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    }
+
     query.order("-" + "metisPlugins.finishedDate");
     return query.get();
   }
