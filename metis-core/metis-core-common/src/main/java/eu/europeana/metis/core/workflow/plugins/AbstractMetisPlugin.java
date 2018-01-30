@@ -30,6 +30,7 @@ import org.mongodb.morphia.annotations.Indexed;
 public abstract class AbstractMetisPlugin {
 
   private PluginType pluginType;
+  private static final String representationName = "metadataRecord";
 
   @Indexed
   private String id;
@@ -71,6 +72,10 @@ public abstract class AbstractMetisPlugin {
    */
   public void setPluginType(PluginType pluginType) {
     this.pluginType = pluginType;
+  }
+
+  public static String getRepresentationName() {
+    return representationName;
   }
 
   /**

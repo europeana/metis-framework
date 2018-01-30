@@ -89,6 +89,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
       parameters.put("PROVIDER_ID", ecloudProvider);
       parameters.put("OUTPUT_DATA_SETS", String.format("%s/data-providers/%s/data-sets/%s",
           ecloudBaseUrl, ecloudProvider, ecloudDataset));
+      parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
       dpsTask.setParameters(parameters);
 
       OAIPMHHarvestingDetails oaipmhHarvestingDetails = new OAIPMHHarvestingDetails();

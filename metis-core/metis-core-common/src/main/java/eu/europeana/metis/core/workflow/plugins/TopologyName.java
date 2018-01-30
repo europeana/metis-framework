@@ -5,7 +5,7 @@ package eu.europeana.metis.core.workflow.plugins;
  * @since 2018-01-12
  */
 public enum TopologyName {
-  OAIPMH_HARVEST("oai_harvest");
+  OAIPMH_HARVEST("oai_harvest"), VALIDATION("validation_topology");
 
   String topologyName;
 

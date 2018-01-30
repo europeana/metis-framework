@@ -72,14 +72,15 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
 
-    addHarvestingPlugin(dataset, workflow);
+    boolean firstPluginDefined = false;
+    addHarvestingPlugin(dataset, workflow, firstPluginDefined);
 
     // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
 
-    addProcessPlugins(workflow);
+    addProcessPlugins(workflow, firstPluginDefined);
   }
 
-  private void addHarvestingPlugin(Dataset dataset, Workflow workflow) {
+  private void addHarvestingPlugin(Dataset dataset, Workflow workflow, boolean firstPluginDefined) {
     AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
     if (workflow.isHarvestPlugin()) {
       switch (harvestingMetadata.getPluginType()) {
@@ -88,12 +89,14 @@ public class WorkflowExecution implements HasMongoObjectId {
           httpHarvestPlugin
               .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
           metisPlugins.add(httpHarvestPlugin);
+          firstPluginDefined = true;
           break;
         case OAIPMH_HARVEST:
           OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
           oaipmhHarvestPlugin
               .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
           metisPlugins.add(oaipmhHarvestPlugin);
+          firstPluginDefined = true;
           break;
         default:
           break;
@@ -101,22 +104,28 @@ public class WorkflowExecution implements HasMongoObjectId {
     }
   }
 
-  private void addProcessPlugins(Workflow workflow) {
-    AbstractMetisPluginMetadata dereferencePluginMetadata = workflow
-        .getPluginMetadata(PluginType.ENRICHMENT);
-    if (dereferencePluginMetadata != null) {
-      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(dereferencePluginMetadata);
-      enrichmentPlugin
-          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
-      metisPlugins.add(enrichmentPlugin);
-    }
-    AbstractMetisPluginMetadata voidMetisPluginMetadata = workflow
+  private void addProcessPlugins(Workflow workflow, boolean firstPluginDefined) {
+    AbstractMetisPluginMetadata validationExternalMetisPluginMetadata = workflow
         .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
-    if (voidMetisPluginMetadata != null) {
-      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(voidMetisPluginMetadata);
+    if (validationExternalMetisPluginMetadata != null) {
+//      if (!firstPluginDefined) {
+//        xecutionRules
+//            .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
+//                workflowExecutionDao);
+//      }
+      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
+          validationExternalMetisPluginMetadata);
       validationExternalPlugin
           .setId(new ObjectId().toString() + "-" + validationExternalPlugin.getPluginType().name());
       metisPlugins.add(validationExternalPlugin);
+    }
+    AbstractMetisPluginMetadata enrichmentPluginMetadata = workflow
+        .getPluginMetadata(PluginType.ENRICHMENT);
+    if (enrichmentPluginMetadata != null) {
+      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(enrichmentPluginMetadata);
+      enrichmentPlugin
+          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
+      metisPlugins.add(enrichmentPlugin);
     }
   }
 
