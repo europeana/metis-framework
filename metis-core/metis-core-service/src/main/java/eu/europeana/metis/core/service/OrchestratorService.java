@@ -17,9 +17,11 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -230,8 +232,16 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
-  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId, Set<PluginType> pluginTypes) {
-    return workflowExecutionDao.getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId, pluginTypes);
+  public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(int datasetId,
+      PluginType pluginType) throws PluginExecutionNotAllowed {
+    AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
+        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
+            workflowExecutionDao);
+    if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
+        && !ExecutionRules.harvestPluginGroup.contains(pluginType)) {
+      throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
+    }
+    return latestFinishedPluginIfRequestedPluginAllowedForExecution;
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,

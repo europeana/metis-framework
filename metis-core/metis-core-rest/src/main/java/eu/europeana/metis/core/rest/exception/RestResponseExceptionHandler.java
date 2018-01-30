@@ -6,6 +6,7 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
@@ -50,7 +51,7 @@ public class RestResponseExceptionHandler {
       WorkflowExecutionAlreadyExistsException.class,
       ScheduledWorkflowAlreadyExistsException.class,
       NoWorkflowExecutionFoundException.class, ExecutionException.class,
-      InterruptedException.class, UserUnauthorizedException.class})
+      InterruptedException.class, UserUnauthorizedException.class, PluginExecutionNotAllowed.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(Exception exception,
       HttpServletResponse response) {

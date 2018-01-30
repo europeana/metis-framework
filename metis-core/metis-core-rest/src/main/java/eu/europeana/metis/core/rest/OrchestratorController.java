@@ -9,9 +9,11 @@ import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -177,20 +179,22 @@ public class OrchestratorController {
     return workflowExecution;
   }
 
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_LATEST_PLUGIN, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetId(
+  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @PathVariable("datasetId") int datasetId,
-      @RequestParam(value = "pluginType", required = false) Set<PluginType> pluginTypes) {
+      @RequestParam("pluginType") PluginType pluginType)
+      throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
-        .getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginTypes);
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
       LOGGER
-          .info("Latest Plugin WorkflowExecution with id '{}' found", latestFinishedPluginWorkflowExecutionByDatasetId.getId());
-    } else {
-      LOGGER.info("Latest WorkflowExecution with executionId NOT found");
+          .info("Latest Plugin WorkflowExecution with id '{}' found",
+              latestFinishedPluginWorkflowExecutionByDatasetId.getId());
+    } else if(ExecutionRules.harvestPluginGroup.contains(pluginType)) {
+      LOGGER.info("PluginType allowed by default");
     }
     return latestFinishedPluginWorkflowExecutionByDatasetId;
   }
