@@ -27,8 +27,6 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
 
   private final String topologyName = TopologyName.OAIPMH_HARVEST.getTopologyName();
 
-  private AbstractMetisPluginMetadata pluginMetadata;
-
   public OaipmhHarvestPlugin() {
     super();
     setPluginType(PluginType.OAIPMH_HARVEST);
@@ -41,19 +39,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
    * @param pluginMetadata should be {@link OaipmhHarvestPluginMetadata}
    */
   public OaipmhHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    setPluginType(PluginType.OAIPMH_HARVEST);
-    this.pluginMetadata = pluginMetadata;
-  }
-
-  @Override
-  public AbstractMetisPluginMetadata getPluginMetadata() {
-    return pluginMetadata;
-  }
-
-  @Override
-  public void setPluginMetadata(
-      AbstractMetisPluginMetadata pluginMetadata) {
-    this.pluginMetadata = pluginMetadata;
+    super(PluginType.OAIPMH_HARVEST, pluginMetadata);
   }
 
   /**
@@ -68,15 +54,15 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
-    if (!pluginMetadata.isMocked()) {
+    if (!getPluginMetadata().isMocked()) {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
           ecloudDataset);
-      String oaipmhUrl = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUrl();
-      String setSpec = ((OaipmhHarvestPluginMetadata) pluginMetadata).getSetSpec();
-      String metadataFormat = ((OaipmhHarvestPluginMetadata) pluginMetadata).getMetadataFormat();
-      Date fromDate = ((OaipmhHarvestPluginMetadata) pluginMetadata).getFromDate();
-      Date untilDate = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUntilDate();
+      String oaipmhUrl = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUrl();
+      String setSpec = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getSetSpec();
+      String metadataFormat = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getMetadataFormat();
+      Date fromDate = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getFromDate();
+      Date untilDate = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUntilDate();
       DpsTask dpsTask = new DpsTask();
 
       Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(

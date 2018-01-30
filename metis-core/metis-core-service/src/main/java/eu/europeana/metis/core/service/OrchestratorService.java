@@ -30,9 +30,16 @@ import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
+import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
+import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -111,17 +118,16 @@ public class OrchestratorService {
 
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName, int priority)
-      throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException {
+      throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException, PluginExecutionNotAllowed {
 
     Dataset dataset = checkDatasetExistence(datasetId);
     Workflow workflow = checkWorkflowExistence(workflowOwner, workflowName);
     checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        priority);
+        createMetisPluginsList(dataset, workflow), priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    String storedWorkflowExecutionId = workflowExecutionDao
-        .existsAndNotCompleted(datasetId);
+    String storedWorkflowExecutionId = workflowExecutionDao.existsAndNotCompleted(datasetId);
     if (storedWorkflowExecutionId != null) {
       throw new WorkflowExecutionAlreadyExistsException(
           String.format("Workflow execution already exists with id %s and is not completed",
@@ -137,7 +143,7 @@ public class OrchestratorService {
   //Used for direct, on the fly provided, execution of a Workflow
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       Workflow workflow, int priority)
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException, PluginExecutionNotAllowed {
     Dataset dataset = checkDatasetExistence(datasetId);
     //Generate uuid workflowName and check if by any chance it exists.
     workflow.setWorkflowName(new ObjectId().toString());
@@ -145,7 +151,7 @@ public class OrchestratorService {
     checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        priority);
+        createMetisPluginsList(dataset, workflow), priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     String storedWorkflowExecutionId = workflowExecutionDao
         .existsAndNotCompleted(datasetId);
@@ -160,6 +166,77 @@ public class OrchestratorService {
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
     return workflowExecutionDao.getById(objectId);
+  }
+
+  private List<AbstractMetisPlugin> createMetisPluginsList(Dataset dataset, Workflow workflow)
+      throws PluginExecutionNotAllowed {
+    List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
+
+    boolean firstPluginDefined = addHarvestingPlugin(dataset, workflow, metisPlugins);
+    addProcessPlugins(dataset, workflow, metisPlugins, firstPluginDefined);
+    return metisPlugins;
+  }
+
+  private boolean addHarvestingPlugin(Dataset dataset, Workflow workflow,
+      List<AbstractMetisPlugin> metisPlugins) {
+    AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
+    if (workflow.isHarvestPlugin()) {
+      switch (harvestingMetadata.getPluginType()) {
+        case HTTP_HARVEST:
+          HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
+          httpHarvestPlugin
+              .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
+          metisPlugins.add(httpHarvestPlugin);
+          return true;
+        case OAIPMH_HARVEST:
+          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
+          oaipmhHarvestPlugin
+              .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
+          metisPlugins.add(oaipmhHarvestPlugin);
+          return true;
+        default:
+          return false;
+      }
+    }
+    return false;
+  }
+
+  private boolean addProcessPlugins(Dataset dataset, Workflow workflow,
+      List<AbstractMetisPlugin> metisPlugins,
+      boolean firstPluginDefined) throws PluginExecutionNotAllowed {
+    ValidationExternalPluginMetadata validationExternalMetisPluginMetadata = (ValidationExternalPluginMetadata) workflow
+        .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
+    if (validationExternalMetisPluginMetadata != null) {
+      if (!firstPluginDefined) {
+        AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+            dataset.getDatasetId(),
+            validationExternalMetisPluginMetadata.getPluginType());
+        validationExternalMetisPluginMetadata
+            .setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
+        validationExternalMetisPluginMetadata
+            .setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
+      }
+      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
+          validationExternalMetisPluginMetadata);
+      validationExternalPlugin
+          .setId(new ObjectId().toString() + "-" + validationExternalPlugin.getPluginType().name());
+      metisPlugins.add(validationExternalPlugin);
+      firstPluginDefined = true;
+    }
+    AbstractMetisPluginMetadata enrichmentPluginMetadata = workflow
+        .getPluginMetadata(PluginType.ENRICHMENT);
+    if (enrichmentPluginMetadata != null) {
+      if (!firstPluginDefined) {
+        getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(dataset.getDatasetId(),
+            enrichmentPluginMetadata.getPluginType());
+      }
+      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(enrichmentPluginMetadata);
+      enrichmentPlugin
+          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
+      metisPlugins.add(enrichmentPlugin);
+      firstPluginDefined = true;
+    }
+    return firstPluginDefined;
   }
 
   public void cancelWorkflowExecution(String executionId)
@@ -232,7 +309,8 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
-  public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(int datasetId,
+  public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+      int datasetId,
       PluginType pluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,

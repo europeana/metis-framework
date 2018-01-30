@@ -1,7 +1,9 @@
 package eu.europeana.metis.core.workflow.plugins;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 
 /**
@@ -25,6 +27,9 @@ import org.mongodb.morphia.annotations.Embedded;
 public abstract class AbstractMetisPluginMetadata {
 
   private boolean mocked = true;
+  private String revisionNamePreviousPlugin;
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date revisionTimestampPreviousPlugin;
 
   public AbstractMetisPluginMetadata() {
   }
@@ -37,5 +42,21 @@ public abstract class AbstractMetisPluginMetadata {
 
   public void setMocked(boolean mocked) {
     this.mocked = mocked;
+  }
+
+  public String getRevisionNamePreviousPlugin() {
+    return revisionNamePreviousPlugin;
+  }
+
+  public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
+    this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
+  }
+
+  public Date getRevisionTimestampPreviousPlugin() {
+    return revisionTimestampPreviousPlugin;
+  }
+
+  public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
+    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin;
   }
 }

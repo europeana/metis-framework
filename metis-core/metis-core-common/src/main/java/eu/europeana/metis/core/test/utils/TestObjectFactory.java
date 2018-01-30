@@ -76,7 +76,7 @@ public class TestObjectFactory {
     Dataset dataset = createDataset(DATASETNAME);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
-        workflow, 0);
+        workflow, new ArrayList<>(), 0);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
 
@@ -86,7 +86,7 @@ public class TestObjectFactory {
   public static WorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
       Workflow workflow) {
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
-        workflow, 0);
+        workflow, new ArrayList<>(), 0);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     workflowExecution.setCreatedDate(new Date());
 

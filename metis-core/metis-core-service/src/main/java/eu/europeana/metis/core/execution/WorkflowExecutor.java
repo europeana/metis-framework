@@ -92,12 +92,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     lock.unlock(); //Unlock as soon as possible
-    for (AbstractMetisPlugin metisPlugin :
-        workflowExecution.getMetisPlugins()) {
+    AbstractMetisPlugin previousMetisPlugin = null;
+    for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
       if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
         break;
       }
-      finishDate = runMetisPlugin(metisPlugin);
+      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
+      previousMetisPlugin = metisPlugin;
     }
   }
 
@@ -122,16 +123,19 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         == PluginStatus.RUNNING) {
       firstPluginExecution = false;
     }
+    AbstractMetisPlugin previousMetisPlugin = null;
     for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size();
         i++) {
       if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
         break;
       }
-      finishDate = runMetisPlugin(workflowExecution.getMetisPlugins().get(i));
+      finishDate = runMetisPlugin(previousMetisPlugin, workflowExecution.getMetisPlugins().get(i));
+      previousMetisPlugin = workflowExecution.getMetisPlugins().get(i);
     }
   }
 
-  private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
+  private Date runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
+      AbstractMetisPlugin abstractMetisPlugin) {
     int iterationsToFake = 2;
     int sleepTime = monitorCheckIntervalInSecs * 1000;
 
@@ -145,6 +149,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
     abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
+    if (previousAbstractMetisPlugin != null) { //Get previous plugin revision information
+      abstractMetisPlugin.getPluginMetadata().setRevisionNamePreviousPlugin(
+          previousAbstractMetisPlugin.getPluginType().name());
+      abstractMetisPlugin.getPluginMetadata().setRevisionTimestampPreviousPlugin(
+          previousAbstractMetisPlugin.getStartedDate());
+    }
+
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
     abstractMetisPlugin
@@ -182,7 +193,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     return abstractMetisPlugin.getFinishedDate();
   }
 
-  private Date periodicCheckingLoopMocked(int sleepTime, int iterationsToFake, AbstractMetisPlugin abstractMetisPlugin) {
+  private Date periodicCheckingLoopMocked(int sleepTime, int iterationsToFake,
+      AbstractMetisPlugin abstractMetisPlugin) {
     for (int i = 0; i < iterationsToFake; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {

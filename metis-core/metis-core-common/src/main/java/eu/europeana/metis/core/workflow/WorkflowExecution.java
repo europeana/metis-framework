@@ -4,13 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.Date;
@@ -65,69 +59,72 @@ public class WorkflowExecution implements HasMongoObjectId {
     //Required for json serialization
   }
 
-  public WorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
+  public WorkflowExecution(Dataset dataset, Workflow workflow,
+      List<AbstractMetisPlugin> metisPlugins,
+      int workflowPriority) {
     this.workflowOwner = workflow.getWorkflowOwner();
     this.workflowName = workflow.getWorkflowName();
     this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
+    this.metisPlugins = metisPlugins;
 
-    boolean firstPluginDefined = false;
-    addHarvestingPlugin(dataset, workflow, firstPluginDefined);
-
-    // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
-
-    addProcessPlugins(workflow, firstPluginDefined);
+//    boolean firstPluginDefined = false;
+//    addHarvestingPlugin(dataset, workflow, firstPluginDefined);
+//
+//    // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
+//
+//    addProcessPlugins(workflow, firstPluginDefined);
   }
 
-  private void addHarvestingPlugin(Dataset dataset, Workflow workflow, boolean firstPluginDefined) {
-    AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
-    if (workflow.isHarvestPlugin()) {
-      switch (harvestingMetadata.getPluginType()) {
-        case HTTP_HARVEST:
-          HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
-          httpHarvestPlugin
-              .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
-          metisPlugins.add(httpHarvestPlugin);
-          firstPluginDefined = true;
-          break;
-        case OAIPMH_HARVEST:
-          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
-          oaipmhHarvestPlugin
-              .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
-          metisPlugins.add(oaipmhHarvestPlugin);
-          firstPluginDefined = true;
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
-  private void addProcessPlugins(Workflow workflow, boolean firstPluginDefined) {
-    AbstractMetisPluginMetadata validationExternalMetisPluginMetadata = workflow
-        .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
-    if (validationExternalMetisPluginMetadata != null) {
-//      if (!firstPluginDefined) {
-//        xecutionRules
-//            .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
-//                workflowExecutionDao);
+//  private void addHarvestingPlugin(Dataset dataset, Workflow workflow, boolean firstPluginDefined) {
+//    AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
+//    if (workflow.isHarvestPlugin()) {
+//      switch (harvestingMetadata.getPluginType()) {
+//        case HTTP_HARVEST:
+//          HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
+//          httpHarvestPlugin
+//              .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
+//          metisPlugins.add(httpHarvestPlugin);
+//          firstPluginDefined = true;
+//          break;
+//        case OAIPMH_HARVEST:
+//          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
+//          oaipmhHarvestPlugin
+//              .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
+//          metisPlugins.add(oaipmhHarvestPlugin);
+//          firstPluginDefined = true;
+//          break;
+//        default:
+//          break;
 //      }
-      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
-          validationExternalMetisPluginMetadata);
-      validationExternalPlugin
-          .setId(new ObjectId().toString() + "-" + validationExternalPlugin.getPluginType().name());
-      metisPlugins.add(validationExternalPlugin);
-    }
-    AbstractMetisPluginMetadata enrichmentPluginMetadata = workflow
-        .getPluginMetadata(PluginType.ENRICHMENT);
-    if (enrichmentPluginMetadata != null) {
-      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(enrichmentPluginMetadata);
-      enrichmentPlugin
-          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
-      metisPlugins.add(enrichmentPlugin);
-    }
-  }
+//    }
+//  }
+//
+//  private void addProcessPlugins(Workflow workflow, boolean firstPluginDefined) {
+//    AbstractMetisPluginMetadata validationExternalMetisPluginMetadata = workflow
+//        .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
+//    if (validationExternalMetisPluginMetadata != null) {
+////      if (!firstPluginDefined) {
+////        xecutionRules
+////            .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
+////                workflowExecutionDao);
+////      }
+//      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
+//          validationExternalMetisPluginMetadata);
+//      validationExternalPlugin
+//          .setId(new ObjectId().toString() + "-" + validationExternalPlugin.getPluginType().name());
+//      metisPlugins.add(validationExternalPlugin);
+//    }
+//    AbstractMetisPluginMetadata enrichmentPluginMetadata = workflow
+//        .getPluginMetadata(PluginType.ENRICHMENT);
+//    if (enrichmentPluginMetadata != null) {
+//      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(enrichmentPluginMetadata);
+//      enrichmentPlugin
+//          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
+//      metisPlugins.add(enrichmentPlugin);
+//    }
+//  }
 
   public void setAllRunningAndInqueuePluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);

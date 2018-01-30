@@ -2,6 +2,7 @@ package eu.europeana.metis.core.execution;
 
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
+import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
@@ -216,7 +217,7 @@ public class SchedulerExecutor {
           scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
           scheduledWorkflow.getWorkflowName(),
           scheduledWorkflow.getWorkflowPriority());
-    } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException e) {
+    } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException | PluginExecutionNotAllowed e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
     }
   }

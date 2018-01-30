@@ -8,8 +8,6 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
  */
 public class TransformationPlugin extends AbstractMetisPlugin {
 
-  private AbstractMetisPluginMetadata pluginMetadata;
-
   public TransformationPlugin() {
     super();
     setPluginType(PluginType.TRANSFORMATION);
@@ -17,19 +15,7 @@ public class TransformationPlugin extends AbstractMetisPlugin {
   }
 
   public TransformationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    setPluginType(PluginType.TRANSFORMATION);
-    this.pluginMetadata = pluginMetadata;
-  }
-
-  @Override
-  public AbstractMetisPluginMetadata getPluginMetadata() {
-    return pluginMetadata;
-  }
-
-  @Override
-  public void setPluginMetadata(
-      AbstractMetisPluginMetadata pluginMetadata) {
-    this.pluginMetadata = pluginMetadata;
+    super(PluginType.TRANSFORMATION, pluginMetadata);
   }
 
   @Override

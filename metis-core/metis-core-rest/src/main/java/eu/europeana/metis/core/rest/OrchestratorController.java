@@ -128,7 +128,7 @@ public class OrchestratorController {
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException, PluginExecutionNotAllowed {
     WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner,
             workflowName, priority);
@@ -145,7 +145,7 @@ public class OrchestratorController {
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId, @RequestBody Workflow workflow,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
+      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException, PluginExecutionNotAllowed {
     WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, priority);
     LOGGER.info(
@@ -193,7 +193,7 @@ public class OrchestratorController {
       LOGGER
           .info("Latest Plugin WorkflowExecution with id '{}' found",
               latestFinishedPluginWorkflowExecutionByDatasetId.getId());
-    } else if(ExecutionRules.harvestPluginGroup.contains(pluginType)) {
+    } else if (ExecutionRules.harvestPluginGroup.contains(pluginType)) {
       LOGGER.info("PluginType allowed by default");
     }
     return latestFinishedPluginWorkflowExecutionByDatasetId;

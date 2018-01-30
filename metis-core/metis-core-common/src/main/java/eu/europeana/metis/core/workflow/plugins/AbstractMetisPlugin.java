@@ -47,9 +47,15 @@ public abstract class AbstractMetisPlugin {
   private Date finishedDate;
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
+  private AbstractMetisPluginMetadata pluginMetadata;
 
   public AbstractMetisPlugin() {
     //Required for json serialization
+  }
+
+  public AbstractMetisPlugin(PluginType pluginType, AbstractMetisPluginMetadata pluginMetadata) {
+    this.pluginType = pluginType;
+    this.pluginMetadata = pluginMetadata;
   }
 
   public String getId() {
@@ -83,12 +89,16 @@ public abstract class AbstractMetisPlugin {
    *
    * @return {@link AbstractMetisPluginMetadata}
    */
-  public abstract AbstractMetisPluginMetadata getPluginMetadata();
+  public AbstractMetisPluginMetadata getPluginMetadata() {
+    return pluginMetadata;
+  }
 
   /**
    * @param abstractMetisPluginMetadata {@link AbstractMetisPluginMetadata} to add for the plugin
    */
-  public abstract void setPluginMetadata(AbstractMetisPluginMetadata abstractMetisPluginMetadata);
+  public void setPluginMetadata(AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
+    this.pluginMetadata = pluginMetadata;
+  }
 
   /**
    * @return started {@link Date} of the execution of the plugin

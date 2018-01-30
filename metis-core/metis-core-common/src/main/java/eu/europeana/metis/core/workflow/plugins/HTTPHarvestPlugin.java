@@ -8,8 +8,6 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
  */
 public class HTTPHarvestPlugin extends AbstractMetisPlugin {
 
-  private AbstractMetisPluginMetadata pluginMetadata;
-
   public HTTPHarvestPlugin() {
     super();
     setPluginType(PluginType.HTTP_HARVEST);
@@ -17,19 +15,7 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
   }
 
   public HTTPHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    setPluginType(PluginType.HTTP_HARVEST);
-    this.pluginMetadata = pluginMetadata;
-  }
-
-  @Override
-  public AbstractMetisPluginMetadata getPluginMetadata() {
-    return pluginMetadata;
-  }
-
-  @Override
-  public void setPluginMetadata(
-      AbstractMetisPluginMetadata pluginMetadata) {
-    this.pluginMetadata = pluginMetadata;
+    super(PluginType.HTTP_HARVEST, pluginMetadata);
   }
 
   @Override

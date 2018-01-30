@@ -8,8 +8,6 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
  */
 public class ValidationInternalPlugin extends AbstractMetisPlugin {
 
-  private AbstractMetisPluginMetadata pluginMetadata;
-
   public ValidationInternalPlugin() {
     super();
     setPluginType(PluginType.VALIDATION_INTERNAL);
@@ -17,19 +15,7 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
   }
 
   public ValidationInternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
-    setPluginType(PluginType.VALIDATION_INTERNAL);
-    this.pluginMetadata = pluginMetadata;
-  }
-
-  @Override
-  public AbstractMetisPluginMetadata getPluginMetadata() {
-    return pluginMetadata;
-  }
-
-  @Override
-  public void setPluginMetadata(
-      AbstractMetisPluginMetadata pluginMetadata) {
-    this.pluginMetadata = pluginMetadata;
+    super(PluginType.VALIDATION_INTERNAL, pluginMetadata);
   }
 
   @Override

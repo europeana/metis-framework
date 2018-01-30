@@ -11,10 +11,6 @@ public class ValidationExternalPluginMetadata extends AbstractMetisPluginMetadat
   private String schemaRootPath;
   private String schematronRootPath;
 
-  private String revisionNamePreviousPlugin;
-  private String revisionProviderPreviousPlugin;
-  private String revisionTimestampPreviousPlugin;
-
   public ValidationExternalPluginMetadata() {
     //Required for json serialization
   }
@@ -53,29 +49,5 @@ public class ValidationExternalPluginMetadata extends AbstractMetisPluginMetadat
 
   public void setSchematronRootPath(String schematronRootPath) {
     this.schematronRootPath = schematronRootPath;
-  }
-
-  public String getRevisionNamePreviousPlugin() {
-    return revisionNamePreviousPlugin;
-  }
-
-  public void setRevisionNamePreviousPlugin(String revisionNamePreviousPlugin) {
-    this.revisionNamePreviousPlugin = revisionNamePreviousPlugin;
-  }
-
-  public String getRevisionProviderPreviousPlugin() {
-    return revisionProviderPreviousPlugin;
-  }
-
-  public void setRevisionProviderPreviousPlugin(String revisionProviderPreviousPlugin) {
-    this.revisionProviderPreviousPlugin = revisionProviderPreviousPlugin;
-  }
-
-  public String getRevisionTimestampPreviousPlugin() {
-    return revisionTimestampPreviousPlugin;
-  }
-
-  public void setRevisionTimestampPreviousPlugin(String revisionTimestampPreviousPlugin) {
-    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin;
   }
 }
