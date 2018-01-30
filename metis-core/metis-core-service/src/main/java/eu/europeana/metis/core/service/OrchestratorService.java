@@ -27,6 +27,7 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -229,8 +230,8 @@ public class OrchestratorService {
     return workflowDao.getWorkflowsPerRequest();
   }
 
-  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId, Set<PluginType> pluginTypes) {
-    return workflowExecutionDao.getLatestFinishedPluginWorkflowExecutionByDatasetId(datasetId, pluginTypes);
+  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId, Set<PluginType> pluginTypes) {
+    return workflowExecutionDao.getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId, pluginTypes);
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,

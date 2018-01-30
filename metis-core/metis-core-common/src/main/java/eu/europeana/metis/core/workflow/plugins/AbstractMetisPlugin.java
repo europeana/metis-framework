@@ -31,10 +31,6 @@ public abstract class AbstractMetisPlugin {
 
   private PluginType pluginType;
 
-  public AbstractMetisPlugin() {
-    //Required for json serialization
-  }
-
   @Indexed
   private String id;
 
@@ -50,6 +46,10 @@ public abstract class AbstractMetisPlugin {
   private Date finishedDate;
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
+
+  public AbstractMetisPlugin() {
+    //Required for json serialization
+  }
 
   public String getId() {
     return id;

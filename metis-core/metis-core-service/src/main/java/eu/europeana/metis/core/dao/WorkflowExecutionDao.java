@@ -6,6 +6,8 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,9 +17,12 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.CriteriaContainerImpl;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.Sort;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
@@ -173,12 +178,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
-  public WorkflowExecution getLatestFinishedPluginWorkflowExecutionByDatasetId(int datasetId,
+  public AbstractMetisPlugin getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(
+      int datasetId,
       Set<PluginType> pluginTypes) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
-    query.field(DATASET_ID).equal(datasetId);
-    query.field("metisPlugins.pluginStatus").equal("FINISHED");
+
+    AggregationPipeline aggregation = morphiaDatastoreProvider.getDatastore()
+        .createAggregation(WorkflowExecution.class);
+
+    Criteria[] criteria = {
+        query.criteria(DATASET_ID).equal(datasetId),
+        query.criteria("metisPlugins.pluginStatus").equal(PluginStatus.FINISHED.name())};
+    query.and(criteria);
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
     if (pluginTypes != null) {
@@ -192,8 +204,27 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
     }
 
-    query.order("-" + "metisPlugins.finishedDate");
-    return query.get();
+    Iterator<WorkflowExecution> metisPluginsIterator = aggregation.match(query)
+        .unwind("metisPlugins")
+        .match(query).sort(Sort.descending("metisPlugins.finishedDate"))
+        .aggregate(WorkflowExecution.class);
+
+    if (metisPluginsIterator.hasNext()) {
+      return metisPluginsIterator.next().getMetisPlugins().get(0);
+    }
+    return null;
+  }
+
+  private AbstractMetisPlugin searchAndFindLatestPluginFromSortedWorkflowExecutionPlugins(
+      WorkflowExecution workflowExecution, Set<PluginType> pluginTypes) {
+    for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
+      for (PluginType pluginType : pluginTypes) {
+        if (metisPlugin.getPluginType() == pluginType) {
+          return metisPlugin;
+        }
+      }
+    }
+    return null;
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(int datasetId,
