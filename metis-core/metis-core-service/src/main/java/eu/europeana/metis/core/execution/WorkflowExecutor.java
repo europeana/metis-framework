@@ -158,8 +158,11 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
-    abstractMetisPlugin
-        .execute(dpsClient, ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId());
+    if (workflowExecution.getEcloudDatasetId().contains("NOT_CREATED_YET")) {
+      abstractMetisPlugin
+          .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
+              workflowExecution.getEcloudDatasetId());
+    }
 
     if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
       return periodicCheckingLoop(sleepTime, abstractMetisPlugin);

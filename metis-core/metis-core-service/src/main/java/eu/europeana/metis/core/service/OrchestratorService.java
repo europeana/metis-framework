@@ -209,8 +209,7 @@ public class OrchestratorService {
     if (validationExternalMetisPluginMetadata != null) {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            dataset.getDatasetId(),
-            validationExternalMetisPluginMetadata.getPluginType());
+            dataset.getDatasetId(), validationExternalMetisPluginMetadata.getPluginType());
         validationExternalMetisPluginMetadata
             .setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
         validationExternalMetisPluginMetadata
@@ -310,8 +309,7 @@ public class OrchestratorService {
   }
 
   public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      int datasetId,
-      PluginType pluginType) throws PluginExecutionNotAllowed {
+      int datasetId, PluginType pluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
             workflowExecutionDao);
