@@ -189,7 +189,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     Criteria[] criteria = {
         query.criteria(DATASET_ID).equal(datasetId),
-        query.criteria("metisPlugins.pluginStatus").equal(PluginStatus.FINISHED.name())};
+        query.criteria("metisPlugins.pluginStatus").equal(PluginStatus.FINISHED)};
     query.and(criteria);
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
@@ -211,18 +211,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
     if (metisPluginsIterator.hasNext()) {
       return metisPluginsIterator.next().getMetisPlugins().get(0);
-    }
-    return null;
-  }
-
-  private AbstractMetisPlugin searchAndFindLatestPluginFromSortedWorkflowExecutionPlugins(
-      WorkflowExecution workflowExecution, Set<PluginType> pluginTypes) {
-    for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
-      for (PluginType pluginType : pluginTypes) {
-        if (metisPlugin.getPluginType() == pluginType) {
-          return metisPlugin;
-        }
-      }
     }
     return null;
   }

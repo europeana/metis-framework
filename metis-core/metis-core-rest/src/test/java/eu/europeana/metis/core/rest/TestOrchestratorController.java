@@ -41,6 +41,9 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import java.util.List;
 import org.hamcrest.core.IsNull;
 import org.junit.After;
@@ -359,11 +362,48 @@ public class TestOrchestratorController {
         .thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
-            TestObjectFactory.DATASETID)
+            TestObjectFactory.EXECUTIONID)
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.RUNNING.name())));
+  }
+
+
+  @Test
+  public void getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution()
+      throws Exception {
+    AbstractMetisPlugin abstractMetisPlugin = new ValidationExternalPlugin();
+    abstractMetisPlugin.setId("validation_external_id");
+    when(orchestratorService.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+        TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL))
+        .thenReturn(abstractMetisPlugin);
+
+    orchestratorControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN,
+            TestObjectFactory.DATASETID)
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .param("pluginType", "VALIDATION_EXTERNAL")
+            .content(""))
+        .andExpect(status().is(200))
+        .andExpect(jsonPath("$.pluginType", is(PluginType.VALIDATION_EXTERNAL.name())));
+  }
+
+  @Test
+  public void getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution_HarvestingPlugin()
+      throws Exception {
+    when(orchestratorService
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
+            TestObjectFactory.DATASETID, PluginType.OAIPMH_HARVEST))
+        .thenReturn(null);
+
+    orchestratorControllerMock.perform(
+        get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN,
+            TestObjectFactory.DATASETID)
+            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .param("pluginType", "OAIPMH_HARVEST")
+            .content(""))
+        .andExpect(status().is(200));
   }
 
   @Test
@@ -374,7 +414,8 @@ public class TestOrchestratorController {
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
     when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(),
-        ArgumentMatchers.<WorkflowStatus>anySet(), any(OrderField.class), anyBoolean(), anyInt())).thenReturn(listOfWorkflowExecutions);
+        ArgumentMatchers.<WorkflowStatus>anySet(), any(OrderField.class), anyBoolean(), anyInt()))
+        .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID,
             TestObjectFactory.DATASETID)

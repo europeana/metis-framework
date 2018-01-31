@@ -10,11 +10,14 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import org.bson.types.ObjectId;
@@ -204,6 +207,46 @@ public class TestWorkflowExecutionDao {
   }
 
   @Test
+  public void getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType() {
+
+    WorkflowExecution workflowExecution = TestObjectFactory
+        .createUserWorkflowExecutionObject();
+    workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
+    workflowExecution.setDatasetId(TestObjectFactory.DATASETID);
+
+    WorkflowExecution workflowExecution2 = TestObjectFactory
+        .createUserWorkflowExecutionObject();
+    workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
+    workflowExecution.setDatasetId(TestObjectFactory.DATASETID);
+    for (int i = 0; i < workflowExecution2.getMetisPlugins().size(); i++) {
+      workflowExecution2.getMetisPlugins().get(i).setFinishedDate(
+          new Date(workflowExecution.getMetisPlugins().get(i).getFinishedDate().getTime() + 1000));
+      workflowExecution.getMetisPlugins().get(i).setPluginStatus(PluginStatus.FINISHED);
+      workflowExecution2.getMetisPlugins().get(i).setPluginStatus(PluginStatus.FINISHED);
+    }
+
+    workflowExecutionDao.create(workflowExecution);
+    workflowExecutionDao.create(workflowExecution2);
+
+    AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
+        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+            EnumSet.of(PluginType.OAIPMH_HARVEST));
+
+    Assert.assertEquals(latestFinishedWorkflowExecutionByDatasetIdAndPluginType.getFinishedDate(),
+        workflowExecution2.getMetisPlugins().get(0).getFinishedDate());
+  }
+
+  @Test
+  public void getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType_isNull() {
+    AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
+        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+            EnumSet.of(PluginType.OAIPMH_HARVEST));
+
+    Assert.assertEquals(null, latestFinishedWorkflowExecutionByDatasetIdAndPluginType);
+  }
+
+
+  @Test
   public void getWorkflowExecutionByExecutionId() {
     WorkflowExecution workflowExecution = TestObjectFactory
         .createUserWorkflowExecutionObject();
@@ -261,18 +304,20 @@ public class TestWorkflowExecutionDao {
                   TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
                   workflowStatuses, OrderField.CREATED_DATE, true, nextPage),
           workflowExecutionDao.getWorkflowExecutionsPerRequest(), nextPage);
-      WorkflowExecution beforeWorkflowExecution = userWorkflowExecutionResponseListWrapper.getResults().get(0);
-      for (int i = 1; i < userWorkflowExecutionResponseListWrapper.getListSize(); i++)
-      {
-        WorkflowExecution afterWorkflowExecution = userWorkflowExecutionResponseListWrapper.getResults().get(i);
-        Assert.assertTrue(beforeWorkflowExecution.getCreatedDate().before(afterWorkflowExecution.getCreatedDate()));
+      WorkflowExecution beforeWorkflowExecution = userWorkflowExecutionResponseListWrapper
+          .getResults().get(0);
+      for (int i = 1; i < userWorkflowExecutionResponseListWrapper.getListSize(); i++) {
+        WorkflowExecution afterWorkflowExecution = userWorkflowExecutionResponseListWrapper
+            .getResults().get(i);
+        Assert.assertTrue(beforeWorkflowExecution.getCreatedDate()
+            .before(afterWorkflowExecution.getCreatedDate()));
         beforeWorkflowExecution = afterWorkflowExecution;
       }
 
       allUserWorkflowsExecutionsCount += userWorkflowExecutionResponseListWrapper.getListSize();
       nextPage = userWorkflowExecutionResponseListWrapper.getNextPage();
     } while (nextPage != -1);
-    
+
     Assert.assertEquals(userWorkflowExecutionsToCreate, allUserWorkflowsExecutionsCount);
   }
 
