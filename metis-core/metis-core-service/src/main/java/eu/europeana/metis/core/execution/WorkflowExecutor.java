@@ -9,6 +9,7 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
 import java.util.Date;
 import java.util.concurrent.Callable;
+import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -158,7 +159,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
-    if (workflowExecution.getEcloudDatasetId().contains("NOT_CREATED_YET")) {
+    if (StringUtils.isEmpty(abstractMetisPlugin.getExternalTaskId())) {
       abstractMetisPlugin
           .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
               workflowExecution.getEcloudDatasetId());
