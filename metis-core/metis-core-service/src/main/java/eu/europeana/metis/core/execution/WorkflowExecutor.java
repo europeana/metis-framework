@@ -81,6 +81,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       workflowExecution.setFinishedDate(finishDate);
       workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
+    } else {
+      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed();
     }
     //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
     workflowExecutionDao.update(workflowExecution);
@@ -99,6 +101,8 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         break;
       }
       finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
+      if (metisPlugin.getPluginStatus() == PluginStatus.FAILED)
+        break;
       previousMetisPlugin = metisPlugin;
     }
   }
@@ -191,8 +195,13 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         return null;
       }
     } while (taskState != TaskState.DROPPED && taskState != TaskState.PROCESSED);
-    abstractMetisPlugin.setFinishedDate(new Date());
-    abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    if (taskState == TaskState.DROPPED) {
+      abstractMetisPlugin.setFinishedDate(null);
+      abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+    } else {
+      abstractMetisPlugin.setFinishedDate(new Date());
+      abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    }
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     return abstractMetisPlugin.getFinishedDate();
   }

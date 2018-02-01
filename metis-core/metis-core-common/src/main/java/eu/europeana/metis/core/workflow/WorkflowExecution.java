@@ -82,6 +82,25 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.setCancelling(false);
   }
 
+  public void checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed() {
+    boolean hasAPluginFailed = false;
+    for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
+      if (metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
+        hasAPluginFailed = true;
+        break;
+      }
+    }
+    if (hasAPluginFailed) {
+      this.setWorkflowStatus(WorkflowStatus.FAILED);
+      for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
+        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
+            || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+        }
+      }
+    }
+  }
+
   @Override
   public ObjectId getId() {
     return id;
