@@ -94,9 +94,9 @@ public abstract class AbstractMetisPlugin {
   }
 
   /**
-   * @param abstractMetisPluginMetadata {@link AbstractMetisPluginMetadata} to add for the plugin
+   * @param pluginMetadata {@link AbstractMetisPluginMetadata} to add for the plugin
    */
-  public void setPluginMetadata(AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
+  public void setPluginMetadata(AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginMetadata = pluginMetadata;
   }
 

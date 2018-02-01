@@ -131,7 +131,7 @@ public class TestWorkflowExecutorManager {
   @Test
   public void cancelUserWorkflowExecutionWasINQUEUE() {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
     workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
   }
@@ -139,7 +139,7 @@ public class TestWorkflowExecutorManager {
   @Test
   public void cancelUserWorkflowExecutionWasRUNNING() {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     doNothing().when(workflowExecutionDao).setCancellingState(workflowExecution);
     workflowExecutorManager.cancelWorkflowExecution(workflowExecution);
@@ -153,7 +153,7 @@ public class TestWorkflowExecutorManager {
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
         .priority(priority).build();
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
 
     when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
     doNothing().when(rabbitmqChannel).basicAck(envelope.getDeliveryTag(), false);
@@ -171,7 +171,7 @@ public class TestWorkflowExecutorManager {
     BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
         .priority(priority).build();
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution.setCancelling(true);
 
     when(workflowExecutionDao.getById(objectId)).thenReturn(workflowExecution);
@@ -203,11 +203,11 @@ public class TestWorkflowExecutorManager {
     byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
     byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
     WorkflowExecution workflowExecution1 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution2 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution3 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution1.setId(objectId1);
     workflowExecution2.setId(objectId2);
     workflowExecution3.setId(objectId3);
@@ -261,11 +261,11 @@ public class TestWorkflowExecutorManager {
     byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
     byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
     WorkflowExecution workflowExecution1 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution2 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution3 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution1.setId(objectId1);
     workflowExecution2.setId(objectId2);
     workflowExecution3.setId(objectId3);
@@ -317,11 +317,11 @@ public class TestWorkflowExecutorManager {
     byte[] objectIdBytes2 = objectId2.toString().getBytes("UTF-8");
     byte[] objectIdBytes3 = objectId3.toString().getBytes("UTF-8");
     WorkflowExecution workflowExecution1 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution2 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     WorkflowExecution workflowExecution3 = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution1.setId(objectId1);
     workflowExecution2.setId(objectId2);
     workflowExecution3.setId(objectId3);

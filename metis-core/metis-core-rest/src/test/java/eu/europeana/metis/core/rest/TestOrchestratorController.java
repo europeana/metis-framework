@@ -197,7 +197,7 @@ public class TestOrchestratorController {
   @Test
   public void addWorkflowInQueueOfWorkflowExecutions() throws Exception {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     when(orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
             anyInt())).thenReturn(workflowExecution);
@@ -266,7 +266,7 @@ public class TestOrchestratorController {
   @Test
   public void addWorkflowInQueueOfWorkflowExecutions_direct() throws Exception {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     when(orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
             anyInt())).thenReturn(workflowExecution);
@@ -356,7 +356,7 @@ public class TestOrchestratorController {
   @Test
   public void getWorkflowExecutionByExecutionId() throws Exception {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     when(orchestratorService.getWorkflowExecutionByExecutionId(anyString()))
         .thenReturn(workflowExecution);

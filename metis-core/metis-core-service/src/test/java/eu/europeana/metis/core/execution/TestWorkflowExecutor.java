@@ -62,7 +62,7 @@ public class TestWorkflowExecutor {
   public void call()
   {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
 
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
@@ -211,7 +211,7 @@ public class TestWorkflowExecutor {
   public void callExecutionInRUNNINGState()
   {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecution.setStartedDate(new Date());
     AbstractMetisPlugin metisPlugin = workflowExecution.getMetisPlugins().get(0);
@@ -242,7 +242,7 @@ public class TestWorkflowExecutor {
   public void callExecutionInFINISHEDState()
   {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
 
     RLock rlock = mock(RLock.class);
@@ -264,7 +264,7 @@ public class TestWorkflowExecutor {
   public void callCancellingStateINQUEUE()
   {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
 
     RLock rlock = mock(RLock.class);
     when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
@@ -284,7 +284,7 @@ public class TestWorkflowExecutor {
   public void callCancellingStateRUNNING()
   {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecution.setStartedDate(new Date());
 
@@ -306,7 +306,7 @@ public class TestWorkflowExecutor {
   @Test
   public void callInterrupted() throws InterruptedException {
     WorkflowExecution workflowExecution = TestObjectFactory
-        .createUserWorkflowExecutionObject();
+        .createWorkflowExecutionObject();
 
     int monitorCheckIntervalInSecs = 1;
     RLock rlock = mock(RLock.class);

@@ -21,6 +21,8 @@ import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -52,10 +54,14 @@ public class TestObjectFactory {
     workflow.setTransformPlugin(false);
     workflow.setWorkflowOwner(WORKFLOWOWNER);
     workflow.setWorkflowName(WORKFLOWNAME);
+    ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
     EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
+    ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
+    abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
     abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
+    abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 
     return workflow;
@@ -74,15 +80,15 @@ public class TestObjectFactory {
     return workflows;
   }
 
-  public static WorkflowExecution createUserWorkflowExecutionObject() {
+  public static WorkflowExecution createWorkflowExecutionObject() {
     Workflow workflow = createUserWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
     OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
-    oaipmhHarvestPlugin.setFinishedDate(new Date(1000));
+    oaipmhHarvestPlugin.setPluginMetadata(new OaipmhHarvestPluginMetadata());
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
     ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin();
-    validationExternalPlugin.setFinishedDate(new Date(2000));
+    validationExternalPlugin.setPluginMetadata(new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
@@ -93,7 +99,7 @@ public class TestObjectFactory {
     return workflowExecution;
   }
 
-  public static WorkflowExecution createUserWorkflowExecutionObject(Dataset dataset,
+  public static WorkflowExecution createWorkflowExecutionObject(Dataset dataset,
       Workflow workflow) {
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
         workflow, new ArrayList<>(), 0);
@@ -111,7 +117,7 @@ public class TestObjectFactory {
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
       dataset.setDatasetId(DATASETID + i);
-      WorkflowExecution workflowExecution = createUserWorkflowExecutionObject(dataset,
+      WorkflowExecution workflowExecution = createWorkflowExecutionObject(dataset,
           workflow);
       workflowExecution.setId(new ObjectId());
       workflowExecutions.add(workflowExecution);
