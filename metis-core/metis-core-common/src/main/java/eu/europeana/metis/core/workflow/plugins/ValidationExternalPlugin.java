@@ -35,6 +35,15 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
     super(PluginType.VALIDATION_EXTERNAL, pluginMetadata);
   }
 
+  /**
+   * Required for json serialization.
+   *
+   * @return the String representation of the topology
+   */
+  public String getTopologyName() {
+    return topologyName;
+  }
+
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
