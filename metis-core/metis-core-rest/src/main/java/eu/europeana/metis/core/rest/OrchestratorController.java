@@ -193,7 +193,7 @@ public class OrchestratorController {
       LOGGER
           .info("Latest Plugin WorkflowExecution with id '{}' found",
               latestFinishedPluginWorkflowExecutionByDatasetId.getId());
-    } else if (ExecutionRules.harvestPluginGroup.contains(pluginType)) {
+    } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
       LOGGER.info("PluginType allowed by default");
     }
     return latestFinishedPluginWorkflowExecutionByDatasetId;

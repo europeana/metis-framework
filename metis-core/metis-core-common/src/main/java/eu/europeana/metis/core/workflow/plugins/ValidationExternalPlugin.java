@@ -23,7 +23,7 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ValidationExternalPlugin.class);
 
-  private final String topologyName = TopologyName.VALIDATION.getTopologyName();
+  private final String topologyName = Topology.VALIDATION.getTopologyName();
 
   public ValidationExternalPlugin() {
     super();

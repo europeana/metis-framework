@@ -62,10 +62,10 @@ public class AuthenticationClient {
     } catch (HttpClientErrorException e) {
       LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
           e, e.getRawStatusCode(), e.getResponseBodyAsString());
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN, e);
     } catch (IOException e) {
       LOGGER.error("Could not parse response to Object, {}", e);
-      throw new BadContentException(CommonStringValues.COULD_NOT_PARSE_USER_RETURNED_FROM_ZOHO);
+      throw new BadContentException(CommonStringValues.COULD_NOT_PARSE_USER_RETURNED_FROM_ZOHO, e);
     }
   }
 }

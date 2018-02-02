@@ -14,4 +14,8 @@ public class BadContentException extends Exception {
   public BadContentException(String message) {
     super(message);
   }
+
+  public BadContentException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

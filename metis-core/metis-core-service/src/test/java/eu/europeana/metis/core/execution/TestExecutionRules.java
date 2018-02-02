@@ -43,7 +43,7 @@ public class TestExecutionRules {
   public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_ValidationExternalPlugin() {
     when(workflowExecutionDao
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
-            ExecutionRules.harvestPluginGroup)).thenReturn(new OaipmhHarvestPlugin());
+            ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_EXTERNAL,
             TestObjectFactory.DATASETID, workflowExecutionDao));

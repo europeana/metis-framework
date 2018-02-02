@@ -22,6 +22,7 @@ import org.slf4j.LoggerFactory;
 public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
+  private static final String EXECUTION_CHECK_LOCK = "EXECUTION_CHECK_LOCK";
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
@@ -50,8 +51,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   @Override
   public WorkflowExecution call() {
     //Get lock for the case that two cores will retrieve the same execution id from 2 items in the queue in different cores
-    final String executionCheckLock = "executionCheckLock";
-    RLock lock = redissonClient.getFairLock(executionCheckLock);
+    RLock lock = redissonClient.getFairLock(EXECUTION_CHECK_LOCK);
     lock.lock();
     LOGGER.info("Starting user workflow execution with id: {} and priority {}",
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
@@ -97,12 +97,10 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     lock.unlock(); //Unlock as soon as possible
     AbstractMetisPlugin previousMetisPlugin = null;
     for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
-      if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
+      if (workflowExecutionDao.isCancelling(workflowExecution.getId()) || metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
-      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
-      if (metisPlugin.getPluginStatus() == PluginStatus.FAILED)
-        break;
       previousMetisPlugin = metisPlugin;
     }
   }

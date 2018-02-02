@@ -97,9 +97,9 @@ public class SchedulerExecutor {
       LocalDateTime upperBound) {
     int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
-    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
+    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
     do {
-      scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
@@ -196,9 +196,9 @@ public class SchedulerExecutor {
       ScheduleFrequence scheduleFrequence) {
     int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
-    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
+    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
     do {
-      scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledWorkflows(scheduleFrequence, nextPage),

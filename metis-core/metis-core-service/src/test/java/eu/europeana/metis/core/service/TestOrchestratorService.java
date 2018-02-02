@@ -46,7 +46,7 @@ import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.TopologyName;
+import eu.europeana.metis.core.workflow.plugins.Topology;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -239,7 +239,7 @@ public class TestOrchestratorService {
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.harvestPluginGroup)).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -263,7 +263,7 @@ public class TestOrchestratorService {
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.harvestPluginGroup)).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -291,7 +291,7 @@ public class TestOrchestratorService {
     oaipmhHarvestPlugin.setStartedDate(new Date());
     when(workflowExecutionDao
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
-            ExecutionRules.harvestPluginGroup)).thenReturn(oaipmhHarvestPlugin);
+            ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
         workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
   }
@@ -513,7 +513,7 @@ public class TestOrchestratorService {
       throws Exception {
     when(workflowExecutionDao
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
-            ExecutionRules.harvestPluginGroup)).thenReturn(new OaipmhHarvestPlugin());
+            ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     Assert.assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL).getPluginType());
@@ -524,7 +524,7 @@ public class TestOrchestratorService {
       throws Exception {
     when(workflowExecutionDao
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
-            ExecutionRules.harvestPluginGroup)).thenReturn(null);
+            ExecutionRules.getHarvestPluginGroup())).thenReturn(null);
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL);
@@ -777,11 +777,11 @@ public class TestOrchestratorService {
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
 
     when(dpsClient
-        .getDetailedTaskReportBetweenChunks(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+        .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
             2070373127078497810L,
             1, 100)).thenReturn(listOfSubTaskInfo);
     orchestratorService
-        .getExternalTaskLogs(TopologyName.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
+        .getExternalTaskLogs(Topology.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
             100);
     Assert.assertEquals(2, listOfSubTaskInfo.size());
     Assert.assertTrue(listOfSubTaskInfo.get(0).getAdditionalInformations() == null);
@@ -799,19 +799,19 @@ public class TestOrchestratorService {
             taskErrorsInfo.getErrors().get(1).getMessage());
 
     when(dpsClient
-        .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, null)).thenReturn(taskErrorsInfo);
     when(dpsClient
-        .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(0).getErrorType()))
         .thenReturn(taskErrorsInfoWithIdentifiers1);
     when(dpsClient
-        .getTaskErrorsReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(1).getErrorType()))
         .thenReturn(taskErrorsInfoWithIdentifiers2);
 
     TaskErrorsInfo externalTaskReport = orchestratorService
-        .getExternalTaskReport(TopologyName.OAIPMH_HARVEST.getTopologyName(),
+        .getExternalTaskReport(Topology.OAIPMH_HARVEST.getTopologyName(),
             TestObjectFactory.EXTERNAL_TASK_ID);
 
     Assert.assertEquals(2, externalTaskReport.getErrors().size());

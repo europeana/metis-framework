@@ -25,7 +25,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OaipmhHarvestPlugin.class);
 
-  private final String topologyName = TopologyName.OAIPMH_HARVEST.getTopologyName();
+  private final String topologyName = Topology.OAIPMH_HARVEST.getTopologyName();
 
   public OaipmhHarvestPlugin() {
     super();

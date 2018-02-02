@@ -314,7 +314,7 @@ public class OrchestratorService {
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
             workflowExecutionDao);
     if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
-        && !ExecutionRules.harvestPluginGroup.contains(pluginType)) {
+        && !ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
       throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
     }
     return latestFinishedPluginIfRequestedPluginAllowedForExecution;

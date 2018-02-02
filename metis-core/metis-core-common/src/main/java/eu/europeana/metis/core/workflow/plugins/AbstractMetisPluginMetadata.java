@@ -53,10 +53,10 @@ public abstract class AbstractMetisPluginMetadata {
   }
 
   public Date getRevisionTimestampPreviousPlugin() {
-    return revisionTimestampPreviousPlugin;
+    return revisionTimestampPreviousPlugin == null?null:new Date(revisionTimestampPreviousPlugin.getTime());
   }
 
   public void setRevisionTimestampPreviousPlugin(Date revisionTimestampPreviousPlugin) {
-    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin;
+    this.revisionTimestampPreviousPlugin = revisionTimestampPreviousPlugin == null?null:new Date(revisionTimestampPreviousPlugin.getTime());
   }
 }

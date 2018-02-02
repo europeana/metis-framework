@@ -24,13 +24,21 @@ public class ResponseListWrapper<T extends HasMongoObjectId> {
       if (results.size() < resultsPerRequestLimit) {
         this.nextPage = -1;
       } else {
-        this.nextPage = nextPage+1;
+        this.nextPage = nextPage + 1;
       }
       listSize = results.size();
     } else {
       this.nextPage = -1;
     }
     this.results = results;
+  }
+
+  public void clear() {
+    if (results != null) {
+      results.clear();
+    }
+    listSize = 0;
+    nextPage = 0;
   }
 
   public List<T> getResults() {

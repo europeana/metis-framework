@@ -42,7 +42,7 @@ public class TestWorkflowExecutor {
   private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
   private static DpsClient dpsClient;
-  private static final String EXECUTION_CHECK_LOCK = "executionCheckLock";
+  private static final String EXECUTION_CHECK_LOCK = "EXECUTION_CHECK_LOCK";
 
   @BeforeClass
   public static void prepare() {
@@ -160,7 +160,7 @@ public class TestWorkflowExecutor {
         workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
-    verify(workflowExecutionDao, times(1)).updateMonitorInformation(workflowExecution);
+    verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
   }
 

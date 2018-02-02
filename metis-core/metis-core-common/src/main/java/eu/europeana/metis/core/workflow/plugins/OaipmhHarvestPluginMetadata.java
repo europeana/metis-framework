@@ -53,19 +53,19 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
   }
 
   public Date getFromDate() {
-    return fromDate;
+    return fromDate == null?null:new Date(fromDate.getTime());
   }
 
   public void setFromDate(Date fromDate) {
-    this.fromDate = fromDate;
+    this.fromDate = fromDate == null?null:new Date(fromDate.getTime());
   }
 
   public Date getUntilDate() {
-    return untilDate;
+    return untilDate == null?null:new Date(untilDate.getTime());
   }
 
   public void setUntilDate(Date untilDate) {
-    this.untilDate = untilDate;
+    this.untilDate = untilDate == null?null:new Date(untilDate.getTime());
   }
 
   @Override

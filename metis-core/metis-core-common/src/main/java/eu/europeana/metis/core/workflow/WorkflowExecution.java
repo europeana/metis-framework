@@ -168,35 +168,35 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return createdDate == null?null:new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
+    this.createdDate = createdDate == null?null:new Date(createdDate.getTime());
   }
 
   public Date getStartedDate() {
-    return startedDate;
+    return startedDate == null?null:new Date(startedDate.getTime());
   }
 
   public void setStartedDate(Date startedDate) {
-    this.startedDate = startedDate;
+    this.startedDate = startedDate == null?null:new Date(startedDate.getTime());
   }
 
   public Date getFinishedDate() {
-    return finishedDate;
+    return finishedDate == null?null:new Date(finishedDate.getTime());
   }
 
   public void setFinishedDate(Date finishedDate) {
-    this.finishedDate = finishedDate;
+    this.finishedDate = finishedDate == null?null:new Date(finishedDate.getTime());
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
+    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
   }
 
   public List<AbstractMetisPlugin> getMetisPlugins() {
@@ -215,8 +215,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + Integer.hashCode(datasetId);
     result = prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
-    result = prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
-    return result;
+    return prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
   }
 
   @Override

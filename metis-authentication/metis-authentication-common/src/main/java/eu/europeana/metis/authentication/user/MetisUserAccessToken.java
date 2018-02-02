@@ -40,7 +40,7 @@ public class MetisUserAccessToken {
   public MetisUserAccessToken(String email, String accessToken, Date timestamp) {
     this.email = email;
     this.accessToken = accessToken;
-    this.timestamp = timestamp;
+    this.timestamp = timestamp == null ? null : new Date(timestamp.getTime());
   }
 
   public String getEmail() {
@@ -60,10 +60,10 @@ public class MetisUserAccessToken {
   }
 
   public Date getTimestamp() {
-    return timestamp;
+    return timestamp == null ? null : new Date(timestamp.getTime());
   }
 
   public void setTimestamp(Date timestamp) {
-    this.timestamp = timestamp;
+    this.timestamp = timestamp == null ? null : new Date(timestamp.getTime());
   }
 }

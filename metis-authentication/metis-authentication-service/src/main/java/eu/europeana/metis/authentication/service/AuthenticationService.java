@@ -30,9 +30,11 @@ import org.springframework.util.StringUtils;
 public class AuthenticationService {
 
   private static final int LOG_ROUNDS = 13;
-  public static final int CREDENTIAL_FIELDS_NUMBER = 2;
-  private ZohoAccessClientDao zohoAccessClientDao;
-  private PsqlMetisUserDao psqlMetisUserDao;
+  private static final int CREDENTIAL_FIELDS_NUMBER = 2;
+  private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  private static final int ACCESS_TOKEN_LENGTH = 32;
+  private final ZohoAccessClientDao zohoAccessClientDao;
+  private final PsqlMetisUserDao psqlMetisUserDao;
 
   /**
    * @param zohoAccessClientDao {@link ZohoAccessClientDao}
@@ -116,7 +118,7 @@ public class AuthenticationService {
     try {
       metisUser = new MetisUser(userByEmailJsonNode);
     } catch (ParseException e) {
-      throw new BadContentException("Bad content while constructing metisUser");
+      throw new BadContentException("Bad content while constructing metisUser", e);
     }
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
@@ -293,12 +295,10 @@ public class AuthenticationService {
   }
 
   private String generateAccessToken() {
-    final String characterBasket = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     final SecureRandom rnd = new SecureRandom();
-    final int accessTokenLength = 32;
-    StringBuilder sb = new StringBuilder(accessTokenLength);
-    for (int i = 0; i < accessTokenLength; i++) {
-      sb.append(characterBasket.charAt(rnd.nextInt(characterBasket.length())));
+    StringBuilder sb = new StringBuilder(ACCESS_TOKEN_LENGTH);
+    for (int i = 0; i < ACCESS_TOKEN_LENGTH; i++) {
+      sb.append(ACCESS_TOKEN_CHARACTER_BASKET.charAt(rnd.nextInt(ACCESS_TOKEN_CHARACTER_BASKET.length())));
     }
     return sb.toString();
   }
