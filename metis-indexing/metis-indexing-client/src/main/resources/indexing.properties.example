@@ -1,0 +1,12 @@
+mongo.host=host1,...,hostn
+mongo.port=port1,...,portn
+mongo.username=
+mongo.password=
+fullbean.db=
+zookeeper.host=
+zookeeper.port=
+solr.host=
+solr.port=
+solrcloud.host=
+solrcloud.port=
+solr.collection=
