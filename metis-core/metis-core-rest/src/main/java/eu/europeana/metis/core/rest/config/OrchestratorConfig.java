@@ -146,7 +146,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient);
+        dpsClient, redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;
   }

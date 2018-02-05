@@ -7,6 +7,7 @@ import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
@@ -62,6 +63,8 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -77,6 +80,7 @@ public class TestOrchestratorService {
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
   private static DpsClient dpsClient;
+  private static RedissonClient redissonClient;
 
   @BeforeClass
   public static void prepare() throws IOException {
@@ -87,10 +91,11 @@ public class TestOrchestratorService {
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
     dpsClient = Mockito.mock(DpsClient.class);
+    redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient);
+        dpsClient, redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
   }
 
@@ -199,9 +204,13 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
+    doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
         workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
@@ -325,9 +334,13 @@ public class TestOrchestratorService {
         .thenReturn(workflow);
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new DataSetAlreadyExistsException());
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
+    doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
         workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
@@ -399,8 +412,12 @@ public class TestOrchestratorService {
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowDao.exists(workflow)).thenReturn(null);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
+    doNothing().when(rlock).lock();
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), workflow, 0);
@@ -436,8 +453,12 @@ public class TestOrchestratorService {
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(dataset);
     when(workflowDao.exists(workflow)).thenReturn(null);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
+    doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
+    doNothing().when(rlock).unlock();
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
             workflow, 0);

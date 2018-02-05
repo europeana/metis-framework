@@ -46,6 +46,8 @@ import java.util.Set;
 import java.util.UUID;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +61,8 @@ import org.springframework.stereotype.Service;
 public class OrchestratorService {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorService.class);
+  //Use with String.format to suffix the datasetId
+  private static final String EXECUTION_FOR_DATASETID_SUBMITION_LOCK = "EXECUTION_FOR_DATASETID_SUBMITION_LOCK_%s";
 
   private final WorkflowExecutionDao workflowExecutionDao;
   private final WorkflowDao workflowDao;
@@ -67,6 +71,7 @@ public class OrchestratorService {
   private final WorkflowExecutorManager workflowExecutorManager;
   private final DataSetServiceClient ecloudDataSetServiceClient;
   private final DpsClient dpsClient;
+  private final RedissonClient redissonClient;
   private String ecloudProvider; //Initialize with setter
 
   @Autowired
@@ -76,7 +81,7 @@ public class OrchestratorService {
       DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient,
-      DpsClient dpsClient) throws IOException {
+      DpsClient dpsClient, RedissonClient redissonClient) throws IOException {
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
@@ -84,6 +89,7 @@ public class OrchestratorService {
     this.workflowExecutorManager = workflowExecutorManager;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.dpsClient = dpsClient;
+    this.redissonClient = redissonClient;
 
     this.workflowExecutorManager.initiateConsumer();
   }
@@ -127,14 +133,19 @@ public class OrchestratorService {
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         createMetisPluginsList(dataset, workflow), priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
+    RLock executionDatasetIdLock = redissonClient
+        .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
+    executionDatasetIdLock.lock();
     String storedWorkflowExecutionId = workflowExecutionDao.existsAndNotCompleted(datasetId);
     if (storedWorkflowExecutionId != null) {
+      executionDatasetIdLock.unlock();
       throw new WorkflowExecutionAlreadyExistsException(
           String.format("Workflow execution already exists with id %s and is not completed",
               storedWorkflowExecutionId));
     }
     workflowExecution.setCreatedDate(new Date());
     String objectId = workflowExecutionDao.create(workflowExecution);
+    executionDatasetIdLock.unlock();
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
     return workflowExecutionDao.getById(objectId);
@@ -153,9 +164,12 @@ public class OrchestratorService {
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
         createMetisPluginsList(dataset, workflow), priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
-    String storedWorkflowExecutionId = workflowExecutionDao
-        .existsAndNotCompleted(datasetId);
+    RLock executionDatasetIdLock = redissonClient
+        .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
+    executionDatasetIdLock.lock();
+    String storedWorkflowExecutionId = workflowExecutionDao.existsAndNotCompleted(datasetId);
     if (storedWorkflowExecutionId != null) {
+      executionDatasetIdLock.unlock();
       throw new WorkflowExecutionAlreadyExistsException(
           String.format(
               "Workflow execution for datasetId: %s, already exists with id: %s, and is not completed",
@@ -163,6 +177,7 @@ public class OrchestratorService {
     }
     workflowExecution.setCreatedDate(new Date());
     String objectId = workflowExecutionDao.create(workflowExecution);
+    executionDatasetIdLock.unlock();
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
     LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
     return workflowExecutionDao.getById(objectId);
