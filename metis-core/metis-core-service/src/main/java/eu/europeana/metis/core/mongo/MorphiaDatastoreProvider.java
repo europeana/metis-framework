@@ -17,8 +17,6 @@
 package eu.europeana.metis.core.mongo;
 
 import com.mongodb.MongoClient;
-import eu.europeana.metis.core.common.AltLabel;
-import eu.europeana.metis.core.common.PrefLabel;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.dataset.DatasetIdSequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
@@ -36,14 +34,14 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 /**
- * Class to initializes the mongo collections and the {@link Datastore} connection.
+ * Class to initialize the mongo collections and the {@link Datastore} connection.
  */
 public class MorphiaDatastoreProvider {
 
   private Datastore datastore;
 
   /**
-   * Constructor to initialize the mongo collections and the {@link Datastore} connection.
+   * Constructor to initialize the mongo mappings/collections and the {@link Datastore} connection.
    * @param mongoClient {@link MongoClient}
    * @param databaseName the database name
    */
@@ -51,8 +49,6 @@ public class MorphiaDatastoreProvider {
     Morphia morphia = new Morphia();
     morphia.map(Dataset.class);
     morphia.map(DatasetIdSequence.class);
-    morphia.map(PrefLabel.class);
-    morphia.map(AltLabel.class);
     morphia.map(Workflow.class);
     morphia.map(WorkflowExecution.class);
     morphia.map(ScheduledWorkflow.class);

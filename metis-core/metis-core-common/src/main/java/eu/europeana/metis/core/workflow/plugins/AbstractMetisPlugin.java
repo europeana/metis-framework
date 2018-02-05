@@ -9,7 +9,7 @@ import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * This interface specifies the minimum o plugin should support so that it can be plugged in the
+ * This abstract class specifies the minimum o plugin should support so that it can be plugged in the
  * Metis workflow registry and can be accessible via the REST API of Metis.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
