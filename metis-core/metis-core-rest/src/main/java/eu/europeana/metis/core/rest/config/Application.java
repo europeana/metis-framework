@@ -1,8 +1,10 @@
 package eu.europeana.metis.core.rest.config;
 
+import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -10,12 +12,14 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.utils.CustomTrustoreAppender;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
-import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -53,17 +57,27 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
 
+  //Custom trustore
+  @Value("${truststore.path}")
+  private String truststorePath;
+  @Value("${truststore.password}")
+  private String truststorePassword;
+
   //Mongo
   @Value("${mongo.hosts}")
-  private String mongoHosts;
+  private String[] mongoHosts;
   @Value("${mongo.port}")
-  private int mongoPort;
+  private int[] mongoPorts;
   @Value("${mongo.username}")
   private String mongoUsername;
   @Value("${mongo.password}")
   private String mongoPassword;
+  @Value("${mongo.authentication.db}")
+  private String mongoAuthenticationDb;
   @Value("${mongo.db}")
   private String mongoDb;
+  @Value("${mongo.enableSSL}")
+  private boolean mongoEnableSSL;
 
   //Redis
   @Value("${redis.host}")
@@ -82,7 +96,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
 
-  private MongoProviderImpl mongoProvider;
+  private MongoClient mongoClient;
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
@@ -94,41 +108,37 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * Used for overwriting properties if cloud foundry environment is used
    */
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() throws TrustStoreConfigurationException {
+    CustomTrustoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    checkAndSetCloudFoundryProperties();
-
-    String[] mongoHostsArray = mongoHosts.split(",");
-    StringBuilder mongoPorts = new StringBuilder();
-    for (String aMongoHostsArray : mongoHostsArray) {
-      mongoPorts.append(mongoPort).append(",");
+    if (mongoHosts.length != mongoPorts.length && mongoPorts.length != 1) {
+      throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
-    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
-    MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
-    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword, options);
-  }
 
-  private void checkAndSetCloudFoundryProperties() {
-    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-          vcapServicesJson);
-
-      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      if (mongoClientURI != null) {
-        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
-        mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
-        mongoUsername = mongoClientURI.getUsername();
-        mongoPassword = String.valueOf(mongoClientURI.getPassword());
-        mongoDb = mongoClientURI.getDatabase();
+    List<ServerAddress> serverAddresses = new ArrayList<>();
+    for (int i = 0; i < mongoHosts.length; i++) {
+      ServerAddress address;
+      if (mongoHosts.length == mongoPorts.length) {
+        address = new ServerAddress(mongoHosts[i], mongoPorts[i]);
+      } else { // Same port for all
+        address = new ServerAddress(mongoHosts[i], mongoPorts[0]);
       }
+      serverAddresses.add(address);
+    }
+
+    MongoClientOptions.Builder optionsBuilder = new Builder();
+    optionsBuilder.sslEnabled(mongoEnableSSL);
+    if (StringUtils.isEmpty(mongoDb) || StringUtils.isEmpty(mongoUsername) || StringUtils
+        .isEmpty(mongoPassword)) {
+      mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
+    } else {
+      List<MongoCredential> credentials = new ArrayList<>();
+      credentials.add(MongoCredential
+          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray()));
+      mongoClient = new MongoClient(serverAddresses, credentials, optionsBuilder.build());
     }
   }
 
@@ -139,7 +149,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+    return new MorphiaDatastoreProvider(mongoClient, mongoDb);
   }
 
   @Bean
@@ -159,8 +169,8 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @PreDestroy
   public void close() {
-    if (mongoProvider != null) {
-      mongoProvider.close();
+    if (mongoClient != null) {
+      mongoClient.close();
     }
   }
 
