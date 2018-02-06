@@ -5,11 +5,9 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.io.IOUtils;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IMarshallingContext;
-import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,18 +44,6 @@ public class EnrichmentUtils {
     
     /**
      * Merge entities in a record after enrichment
-     * @param record The record to enrich
-     * @param entity The entity to append in XML
-     * @param fieldName The name of the field so that it can be connected to Europeana Proxy
-     * @return An RDF object with the merged entities
-     * @throws JiBXException
-     */
-    public static RDF mergeEntityForEnrichment (String record, String entity, String fieldName) throws JiBXException {
-        return EntityMergeUtils.mergeEntityForEnrichment(record, entity, fieldName);
-    }
-    
-    /**
-     * Merge entities in a record after enrichment
      * @param rdf The RDF to enrich
      * @param enrichmentBaseList The information to append
      * @param fieldName The name of the field so that it can be connected to Europeana Proxy
@@ -80,19 +66,6 @@ public class EnrichmentUtils {
         ByteArrayOutputStream out  = new ByteArrayOutputStream();
         context.marshalDocument(rdf, UTF8, null, out);
         return out.toString(UTF8);
-    }
-    
-    /**
-     * Extract the fields to enrich from an XML record
-     * @param record
-     * @return
-     * @throws JiBXException
-     */
-    public static List<InputValue> extractFieldsForEnrichment(String record) throws JiBXException {
-        IUnmarshallingContext rdfCTX = getRdfBindingFactory().createUnmarshallingContext();
-        RDF rdf = (RDF)rdfCTX.unmarshalDocument(IOUtils.toInputStream(record),UTF8);
-        
-        return extractFieldsForEnrichmentFromRDF(rdf);
     }
     
     /**

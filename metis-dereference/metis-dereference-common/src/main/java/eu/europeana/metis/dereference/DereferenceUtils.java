@@ -70,17 +70,6 @@ public class DereferenceUtils {
   }
 
   /**
-   * Merge entities for dereferencing (simpler rules than enrichment)
-   *
-   * @param record The original record
-   * @param entity The xml representation of the entity
-   * @return A JibX RDF object (Java object)
-   */
-  public static RDF mergeEntityForDereferencing(String record, String entity) throws JiBXException {
-    return EntityMergeUtils.mergeEntity(record, entity);
-  }
-  
-  /**
    * Merge entities in a record after dereferencing
    * @param rdf The RDF to enrich
    * @param enrichmentBaseList The information to append
@@ -91,18 +80,6 @@ public class DereferenceUtils {
   	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, "");
   }
 
-  /**
-   * Extract values from xml document
-   * @param xml input document
-   * @return set of values for dereferencing
-   * @throws JiBXException
-   */
-  public static Set<String> extractValuesForDereferencing(String xml) throws JiBXException {
-    IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
-    RDF rdf = (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), "UTF-8");
-    return extractValuesForDereferencing(rdf);
-  }
-  
   /**
    * Extract values from RDF document
    * @param RDF input document
