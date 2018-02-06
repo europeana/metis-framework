@@ -12,9 +12,9 @@ import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.utils.CustomTrustoreAppender;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
+import eu.europeana.metis.utils.CustomTrustoreAppender;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
@@ -27,7 +27,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
@@ -39,6 +38,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+/**
+ * Entry class with configuration fields and beans initialization for the application.
+ */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties"})
@@ -154,6 +156,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return new MorphiaDatastoreProvider(mongoClient, mongoDb);
   }
 
+  /**
+   * Get the DAO for datasets.
+   *
+   * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
+   * @return {@link DatasetDao} used to access the database for datasets
+   */
   @Bean
   public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
@@ -161,6 +169,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return datasetDao;
   }
 
+  /**
+   * Get the Service for datasets.
+   * <p>It encapsulates several DAOs and combines their functionality into methods</p>
+   *
+   * @param datasetDao {@link DatasetDao}
+   * @param workflowExecutionDao {@link WorkflowExecutionDao}
+   * @param scheduledWorkflowDao {@link ScheduledWorkflowDao}
+   * @param redissonClient {@link RedissonClient}
+   * @return {@link DatasetService}
+   */
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
       WorkflowExecutionDao workflowExecutionDao,
@@ -169,6 +187,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         scheduledWorkflowDao, redissonClient);
   }
 
+  /**
+   * Closes connections to databases when the application closes.
+   */
   @PreDestroy
   public void close() {
     if (mongoClient != null) {
@@ -176,6 +197,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
   }
 
+  /**
+   * Required for json serialization for REST.
+   * @return {@link View}
+   */
   @Bean
   public View json() {
     MappingJackson2JsonView view = new MappingJackson2JsonView();
@@ -184,6 +209,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return view;
   }
 
+  /**
+   * Required for json serialization for REST.
+   * @return {@link ViewResolver}
+   */
   @Bean
   public ViewResolver viewResolver() {
     return new BeanNameViewResolver();
@@ -194,10 +223,5 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
     super.configureMessageConverters(converters);
-  }
-
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
   }
 }
