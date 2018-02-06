@@ -54,6 +54,24 @@ public class EnrichmentWorker {
   }
 
   /**
+   * Performs dereference and enrichment on an input String to produce a target String. This is a
+   * wrapper for {@link #process(RDF)}.
+   * 
+   * @param inputString The RDF to be processed as a String.
+   * @return The processed RDF as a String.
+   * @throws JiBXException In case there is a problem converting to or from RDF format.
+   * @throws UnsupportedEncodingException In case something goes wrong with converting the result
+   *         RDF back to a String.
+   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   */
+  public String process(final String inputString)
+      throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
+    final RDF inputRdf = DereferenceUtils.toRDF(inputString);
+    final RDF resultRdf = process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+    return EnrichmentUtils.convertRDFtoString(resultRdf);
+  }
+
+  /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF. This is a wrapper
    * for {@link #process(RDF, Mode)} where the mode is {@link Mode#DEREFERENCE_AND_ENRICHMENT}.
    * 
