@@ -18,7 +18,6 @@ package eu.europeana.metis.dereference.rest.config;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
@@ -26,9 +25,7 @@ import eu.europeana.metis.cache.redis.RedisProvider;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
-import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import javax.annotation.PreDestroy;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -106,27 +103,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void afterPropertiesSet() throws Exception {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
-    }
-
-    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(vcapServicesJson);
-
-      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      if (mongoClientURI != null) {
-        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
-        mongoPort = Integer.parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
-        mongoUsername = mongoClientURI.getUsername();
-        mongoPassword = String.valueOf(mongoClientURI.getPassword());
-        vocabularyDb = mongoClientURI.getDatabase();
-        entityDb = mongoClientURI.getDatabase();
-      }
-
-      RedisProvider redisProviderFromService = vcapServices.getRedisProviderFromService();
-      if (redisProviderFromService != null) {
-        redisProvider = redisProviderFromService;
-      }
     }
 
     String[] mongoHostsArray = mongoHosts.split(",");

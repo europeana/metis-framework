@@ -17,20 +17,17 @@
 package eu.europeana.redirects.rest.config;
 
 import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.lookup.impl.CollectionMongoServerImpl;
 import eu.europeana.corelib.lookup.impl.EuropeanaIdMongoServerImpl;
 import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.tools.lookuptable.CollectionMongoServer;
 import eu.europeana.corelib.tools.lookuptable.EuropeanaIdMongoServer;
 import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.redirects.service.RedirectService;
 import eu.europeana.redirects.service.mongo.MongoRedirectService;
 import java.net.MalformedURLException;
 import java.util.List;
 import javax.annotation.PreDestroy;
-import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
 import org.springframework.beans.factory.InitializingBean;
@@ -101,24 +98,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     public void afterPropertiesSet() throws Exception {
         if (socksProxyEnabled) {
             new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
-        }
-
-        String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-        if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-            PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-                vcapServicesJson);
-
-            MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-            if (mongoClientURI != null) {
-                String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-                mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
-                mongoPort = Integer
-                    .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
-                mongoUsername = mongoClientURI.getUsername();
-                mongoPassword = String.valueOf(mongoClientURI.getPassword());
-                mongoDb = mongoClientURI.getDatabase();
-                mongoCollectionsDb = mongoClientURI.getDatabase();
-            }
         }
 
         String[] mongoHostsArray = mongoHosts.split(",");
