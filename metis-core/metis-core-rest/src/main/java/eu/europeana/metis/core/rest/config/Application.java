@@ -14,7 +14,7 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
-import eu.europeana.metis.utils.CustomTrustoreAppender;
+import eu.europeana.metis.utils.CustomTruststoreAppender;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
@@ -112,7 +112,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Override
   public void afterPropertiesSet() throws TrustStoreConfigurationException {
     if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
-      CustomTrustoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
+      CustomTruststoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
     }
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();

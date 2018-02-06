@@ -22,11 +22,11 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-06
  */
-public final class CustomTrustoreAppender {
+public final class CustomTruststoreAppender {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(CustomTrustoreAppender.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(CustomTruststoreAppender.class);
 
-  private CustomTrustoreAppender() {
+  private CustomTruststoreAppender() {
   }
 
   /**
