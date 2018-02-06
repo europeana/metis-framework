@@ -139,10 +139,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .isEmpty(mongoPassword)) {
       mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
     } else {
-      List<MongoCredential> credentials = new ArrayList<>();
-      credentials.add(MongoCredential
-          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray()));
-      mongoClient = new MongoClient(serverAddresses, credentials, optionsBuilder.build());
+      MongoCredential mongoCredential = MongoCredential
+          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray());
+      mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
     }
   }
 
@@ -199,6 +198,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   /**
    * Required for json serialization for REST.
+   *
    * @return {@link View}
    */
   @Bean
@@ -211,6 +211,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   /**
    * Required for json serialization for REST.
+   *
    * @return {@link ViewResolver}
    */
   @Bean
