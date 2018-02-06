@@ -109,7 +109,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    */
   @Override
   public void afterPropertiesSet() throws TrustStoreConfigurationException {
-    CustomTrustoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
+    if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
+      CustomTrustoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
+    }
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
