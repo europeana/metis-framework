@@ -116,6 +116,13 @@ public class DereferenceUtils {
     }
   }
 
+  private static <T> void convertValue(boolean proceed, T source,
+      Function<T, String> conversion, Set<String> result) {
+    if (proceed) {
+      convertValue(source, conversion, result);
+    }
+  }
+
   public static RDF toRDF(String xml) throws JiBXException {
 	    IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
 	    return (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), UTF8);
@@ -135,32 +142,32 @@ public class DereferenceUtils {
   }
 
   private static void dereferenceChoice(Choice choice, Set<String> values) {
-    convertValue(choice.getSubject(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getPublisher(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getReferences(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getRelation(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getReplaces(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getContributor(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getCoverage(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getCreator(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getCreated(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getDate(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getExtent(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getHasFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getHasPart(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getHasVersion(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getSource(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getSpatial(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getTemporal(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getIsFormatOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getIsPartOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getIsReferencedBy(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getIsRequiredBy(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getIssued(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getIsVersionOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getMedium(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
-    convertValue(choice.getType(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifSubject(), choice.getSubject(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifPublisher(), choice.getPublisher(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifReferences(), choice.getReferences(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifRelation(), choice.getRelation(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifReplaces(), choice.getReplaces(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifContributor(), choice.getContributor(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifCoverage(), choice.getCoverage(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifCreator(), choice.getCreator(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifCreated(), choice.getCreated(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifDate(), choice.getDate(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifExtent(), choice.getExtent(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifFormat(), choice.getFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifHasFormat(), choice.getHasFormat(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifHasPart(), choice.getHasPart(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifHasVersion(), choice.getHasVersion(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifSource(), choice.getSource(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifSpatial(), choice.getSpatial(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifTemporal(), choice.getTemporal(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIsFormatOf(), choice.getIsFormatOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIsPartOf(), choice.getIsPartOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIsReferencedBy(), choice.getIsReferencedBy(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIsRequiredBy(), choice.getIsRequiredBy(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIssued(), choice.getIssued(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifIsVersionOf(), choice.getIsVersionOf(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifMedium(), choice.getMedium(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
+    convertValue(choice.ifType(), choice.getType(), RESOURCE_OR_LITERAL_EXTRACTOR, values);
   }
 
   private static void dereferenceTimespan(TimeSpanType timespan, final Set<String> result) {
@@ -177,12 +184,12 @@ public class DereferenceUtils {
   }
 
   private static void dereferenceConceptChoice(Concept.Choice choice, final Set<String> result) {
-    convertValue(choice.getBroadMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.getCloseMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.getExactMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.getNarrowMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.getRelatedMatch(), RESOURCE_EXTRACTOR, result);
-    convertValue(choice.getRelated(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifBroadMatch(), choice.getBroadMatch(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifCloseMatch(), choice.getCloseMatch(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifExactMatch(), choice.getExactMatch(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifNarrowMatch(), choice.getNarrowMatch(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifRelatedMatch(), choice.getRelatedMatch(), RESOURCE_EXTRACTOR, result);
+    convertValue(choice.ifRelated(), choice.getRelated(), RESOURCE_EXTRACTOR, result);
   }
 
   private static void dereferencePlace(PlaceType place, Set<String> result) {
