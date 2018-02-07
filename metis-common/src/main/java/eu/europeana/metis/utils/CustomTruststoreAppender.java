@@ -76,8 +76,7 @@ public final class CustomTruststoreAppender {
   private static X509TrustManager getCustomX509TrustManager(String trustorePath,
       String truststorePassword)
       throws IOException, KeyStoreException, CertificateException, NoSuchAlgorithmException {
-//    "/data/metis-properties/test/metis-core-rest/metis-core-test-mongo-compose-truststore.jks"
-    KeyStore customTrustStore = null;
+    KeyStore customTrustStore;
     try (FileInputStream truststoreFileInputStream = new FileInputStream(trustorePath)) {
       customTrustStore = KeyStore.getInstance(KeyStore.getDefaultType());
       customTrustStore.load(truststoreFileInputStream, truststorePassword.toCharArray());
@@ -122,7 +121,8 @@ public final class CustomTruststoreAppender {
       try {
         x509TrustManagerToBeMerged.checkServerTrusted(chain, authType);
       } catch (CertificateException e) {
-        LOGGER.warn("x509TrustManagerToBeMerged.checkServerTrusted failed.", e);
+        LOGGER.warn(
+            "Custom x509TrustManager did not have trusted certificates for the accessible resource, will try default x509TrustManager now");
         x509TrustManager.checkServerTrusted(chain, authType);
       }
     }
