@@ -1,19 +1,12 @@
 package eu.europeana.metis.dereference;
 
-import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.AgentType;
 import eu.europeana.corelib.definitions.jibx.Concept;
 import eu.europeana.corelib.definitions.jibx.EuropeanaType.Choice;
@@ -26,37 +19,17 @@ import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.utils.EntityMergeUtils;
+import eu.europeana.enrichment.utils.RdfConversionUtils;
 
 /**
  * Created by gmamakis on 9-3-17.
  */
 public class DereferenceUtils {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(DereferenceUtils.class);
-
-  private static final String UTF8 = StandardCharsets.UTF_8.name();
-  
   private static final Function<ResourceType, String> RESOURCE_EXTRACTOR = DereferenceUtils::extractFromResource; 
   private static final Function<ResourceOrLiteralType, String> RESOURCE_OR_LITERAL_EXTRACTOR = DereferenceUtils::extractFromResourceOrLiteral; 
   
-  private static IBindingFactory rdfBindingFactory = null;
-  
-  static {
-    try {
-      rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-    } catch (JiBXException e) {
-      LOGGER.error("Unable to create binding factory", e);
-    }
-  }
-
   private DereferenceUtils() { }
-
-  private static IBindingFactory getRdfBindingFactory() {
-    if (rdfBindingFactory != null) {
-      return rdfBindingFactory;
-    }
-    throw new IllegalStateException("No binding factory available.");
-  }
 
   /**
    * Merge entities in a record after dereferencing
@@ -123,9 +96,16 @@ public class DereferenceUtils {
     }
   }
 
+  /**
+   * 
+   * @param xml
+   * @return
+   * @throws JiBXException
+   * @{@link Deprecated} use {@link RdfConversionUtils#convertStringToRdf(String)} instead.
+   */
+  @Deprecated
   public static RDF toRDF(String xml) throws JiBXException {
-	    IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
-	    return (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), UTF8);
+    return RdfConversionUtils.convertStringToRdf(xml);
   }
   
   private static void dereferenceProxy(ProxyType proxyType, Set<String> values) {

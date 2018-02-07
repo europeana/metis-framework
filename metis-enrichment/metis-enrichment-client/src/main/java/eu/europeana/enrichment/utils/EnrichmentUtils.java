@@ -1,16 +1,9 @@
 package eu.europeana.enrichment.utils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-import org.jibx.runtime.BindingDirectory;
-import org.jibx.runtime.IBindingFactory;
-import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
@@ -21,27 +14,8 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
  */
 public class EnrichmentUtils {
   
-    private static final Logger LOGGER = LoggerFactory.getLogger(EnrichmentUtils.class);
-    private static IBindingFactory rdfBindingFactory;
-    private static final String UTF8 = StandardCharsets.UTF_8.name();
-
-    static {
-      try {
-        rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-      } catch (JiBXException e) {
-        LOGGER.error("Unable to create binding factory", e);
-      }
-    }
-
     private EnrichmentUtils() {}
 
-    private static IBindingFactory getRdfBindingFactory() {
-      if (rdfBindingFactory != null) {
-        return rdfBindingFactory;
-      }
-      throw new IllegalStateException("No binding factory available.");
-    }
-    
     /**
      * Merge entities in a record after enrichment
      * @param rdf The RDF to enrich
@@ -54,18 +28,16 @@ public class EnrichmentUtils {
     }
 
     /**
-     * Convert an RDF to a UTF-8 encoded XML
+     * Convert an RDF to a UTF-8 encoded XML.
      * @param rdf The RDF object to convert
      * @return An XML string representation of the RDF object
      * @throws JiBXException
      * @throws UnsupportedEncodingException
+     * @deprecated Use {@link RdfConversionUtils#convertRdftoString(RDF)}.
      */
+    @Deprecated
     public static String convertRDFtoString(RDF rdf) throws JiBXException, UnsupportedEncodingException {
-        IMarshallingContext context = getRdfBindingFactory().createMarshallingContext();
-        context.setIndent(2);
-        ByteArrayOutputStream out  = new ByteArrayOutputStream();
-        context.marshalDocument(rdf, UTF8, null, out);
-        return out.toString(UTF8);
+        return RdfConversionUtils.convertRdftoString(rdf);
     }
     
     /**

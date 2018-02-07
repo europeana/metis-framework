@@ -12,8 +12,8 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.RdfConversionUtils;
 import eu.europeana.metis.dereference.DereferenceUtils;
-import eu.europeana.metis.dereference.client.DereferenceClient;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -66,9 +66,9 @@ public class EnrichmentWorker {
    */
   public String process(final String inputString)
       throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
-    final RDF inputRdf = DereferenceUtils.toRDF(inputString);
+    final RDF inputRdf = RdfConversionUtils.convertStringToRdf(inputString);
     final RDF resultRdf = process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
-    return EnrichmentUtils.convertRDFtoString(resultRdf);
+    return RdfConversionUtils.convertRdftoString(resultRdf);
   }
 
   /**
@@ -135,7 +135,7 @@ public class EnrichmentWorker {
 
   private static String convertRdfToStringForLogging(final RDF rdf) {
     try {
-      return EnrichmentUtils.convertRDFtoString(rdf);
+      return RdfConversionUtils.convertRdftoString(rdf);
     } catch (UnsupportedEncodingException | JiBXException e) {
       LOGGER.warn("Exception occurred while rendering an RDF document as a String.", e);
       return "[COULD NOT RENDER RDF]";
