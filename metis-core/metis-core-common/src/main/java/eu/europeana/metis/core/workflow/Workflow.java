@@ -38,7 +38,6 @@ public class Workflow implements HasMongoObjectId {
   @Indexed
   private String workflowName;
   private boolean harvestPlugin;
-  private boolean transformPlugin;
 
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
@@ -61,14 +60,6 @@ public class Workflow implements HasMongoObjectId {
 
   public void setHarvestPlugin(boolean harvestPlugin) {
     this.harvestPlugin = harvestPlugin;
-  }
-
-  public boolean isTransformPlugin() {
-    return transformPlugin;
-  }
-
-  public void setTransformPlugin(boolean transformPlugin) {
-    this.transformPlugin = transformPlugin;
   }
 
   public String getWorkflowOwner() {
@@ -96,6 +87,11 @@ public class Workflow implements HasMongoObjectId {
     this.metisPluginsMetadata = metisPluginsMetadata;
   }
 
+  /**
+   * Get the {@link AbstractMetisPluginMetadata} class based on the {@link PluginType} if that exists in the {@link Workflow#metisPluginsMetadata}.
+   * @param pluginType the {@link PluginType} to search for
+   * @return {@link AbstractMetisPluginMetadata} corresponding to the concrete class
+   */
   public AbstractMetisPluginMetadata getPluginMetadata(PluginType pluginType) {
     for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
         ) {

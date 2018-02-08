@@ -79,8 +79,6 @@ public class TestWorkflowDao {
     Assert.assertEquals(workflow.getWorkflowOwner(), retrievedWorkflow.getWorkflowOwner());
     Assert.assertEquals(workflow.getWorkflowName(), retrievedWorkflow.getWorkflowName());
     Assert.assertEquals(workflow.isHarvestPlugin(), retrievedWorkflow.isHarvestPlugin());
-    Assert
-        .assertEquals(workflow.isTransformPlugin(), retrievedWorkflow.isTransformPlugin());
 
     List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
     List<AbstractMetisPluginMetadata> retrievedUserWorkflowMetisPluginsMetadata = retrievedWorkflow

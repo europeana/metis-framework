@@ -17,8 +17,7 @@ public final class ExecutionRules {
   private static final Set<PluginType> processPluginGroup = EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL);
-  private static final Set<PluginType> indexPluginGroup = EnumSet
-      .of(PluginType.INDEX_TO_PREVIEW);
+  private static final Set<PluginType> indexPluginGroup = EnumSet.of(PluginType.INDEX_TO_PREVIEW);
 
   private ExecutionRules() {
     //Private constructor
@@ -43,21 +42,22 @@ public final class ExecutionRules {
       int datasetId,
       WorkflowExecutionDao workflowExecutionDao) {
 
+    AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
     if (pluginType == PluginType.VALIDATION_EXTERNAL) {
-      return workflowExecutionDao
+      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               harvestPluginGroup);
     } else if (pluginType == PluginType.TRANSFORMATION) {
-      return workflowExecutionDao
+      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               EnumSet.of(PluginType.VALIDATION_EXTERNAL));
 
     } else if ((pluginType == PluginType.VALIDATION_INTERNAL)) {
-      return workflowExecutionDao
+      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               EnumSet.of(PluginType.TRANSFORMATION));
     }
-    return null;
+    return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;
   }
 
   public static Set<PluginType> getHarvestPluginGroup() {

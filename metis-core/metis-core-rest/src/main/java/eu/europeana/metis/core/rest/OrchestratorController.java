@@ -190,8 +190,7 @@ public class OrchestratorController {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
-      LOGGER
-          .info("Latest Plugin WorkflowExecution with id '{}' found",
+      LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
               latestFinishedPluginWorkflowExecutionByDatasetId.getId());
     } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
       LOGGER.info("PluginType allowed by default");

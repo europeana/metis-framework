@@ -31,12 +31,11 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
-import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -210,7 +209,7 @@ public class OrchestratorService {
           metisPlugins.add(oaipmhHarvestPlugin);
           return true;
         default:
-          return false;
+          break;
       }
     }
     return false;
@@ -219,35 +218,41 @@ public class OrchestratorService {
   private boolean addProcessPlugins(Dataset dataset, Workflow workflow,
       List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined) throws PluginExecutionNotAllowed {
-    ValidationExternalPluginMetadata validationExternalMetisPluginMetadata = (ValidationExternalPluginMetadata) workflow
-        .getPluginMetadata(PluginType.VALIDATION_EXTERNAL);
-    if (validationExternalMetisPluginMetadata != null) {
+    firstPluginDefined = addProcessPlugin(dataset, workflow, metisPlugins,
+        firstPluginDefined, PluginType.VALIDATION_EXTERNAL);
+    firstPluginDefined = addProcessPlugin(dataset, workflow, metisPlugins,
+        firstPluginDefined, PluginType.TRANSFORMATION);
+    firstPluginDefined = addProcessPlugin(dataset, workflow, metisPlugins,
+        firstPluginDefined, PluginType.ENRICHMENT);
+    return firstPluginDefined;
+  }
+
+  private boolean addProcessPlugin(Dataset dataset, Workflow workflow,
+      List<AbstractMetisPlugin> metisPlugins,
+      boolean firstPluginDefined, PluginType pluginType) throws PluginExecutionNotAllowed {
+    AbstractMetisPluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
+    if (pluginMetadata != null) {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            dataset.getDatasetId(), validationExternalMetisPluginMetadata.getPluginType());
-        validationExternalMetisPluginMetadata
+            dataset.getDatasetId(), pluginMetadata.getPluginType());
+        pluginMetadata
             .setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
-        validationExternalMetisPluginMetadata
+        pluginMetadata
             .setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
       }
-      ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
-          validationExternalMetisPluginMetadata);
-      validationExternalPlugin
-          .setId(new ObjectId().toString() + "-" + validationExternalPlugin.getPluginType().name());
-      metisPlugins.add(validationExternalPlugin);
-      firstPluginDefined = true;
-    }
-    AbstractMetisPluginMetadata enrichmentPluginMetadata = workflow
-        .getPluginMetadata(PluginType.ENRICHMENT);
-    if (enrichmentPluginMetadata != null) {
-      if (!firstPluginDefined) {
-        getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(dataset.getDatasetId(),
-            enrichmentPluginMetadata.getPluginType());
+      AbstractMetisPlugin abstractMetisPlugin;
+      if (pluginType == PluginType.VALIDATION_EXTERNAL) {
+        abstractMetisPlugin = new ValidationExternalPlugin(pluginMetadata);
+
+      } else if (pluginType == PluginType.TRANSFORMATION) {
+        abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
+      } else {
+        //Anything else is not supported yet and should fail.
+        throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
       }
-      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(enrichmentPluginMetadata);
-      enrichmentPlugin
-          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
-      metisPlugins.add(enrichmentPlugin);
+      abstractMetisPlugin
+          .setId(new ObjectId().toString() + "-" + abstractMetisPlugin.getPluginType().name());
+      metisPlugins.add(abstractMetisPlugin);
       firstPluginDefined = true;
     }
     return firstPluginDefined;

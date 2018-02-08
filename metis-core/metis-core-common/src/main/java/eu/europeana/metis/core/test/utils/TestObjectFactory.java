@@ -17,9 +17,9 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.EnrichmentPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPluginMetadata;
@@ -51,16 +51,15 @@ public class TestObjectFactory {
   public static Workflow createUserWorkflowObject() {
     Workflow workflow = new Workflow();
     workflow.setHarvestPlugin(true);
-    workflow.setTransformPlugin(false);
     workflow.setWorkflowOwner(WORKFLOWOWNER);
     workflow.setWorkflowName(WORKFLOWNAME);
     ValidationExternalPluginMetadata validationExternalPluginMetadata = new ValidationExternalPluginMetadata();
-    EnrichmentPluginMetadata enrichmentPluginMetadata = new EnrichmentPluginMetadata();
+    TransformationPluginMetadata transformationPluginMetadata = new TransformationPluginMetadata();
     ValidationInternalPluginMetadata validationInternalPluginMetadata = new ValidationInternalPluginMetadata();
 
     List<AbstractMetisPluginMetadata> abstractMetisPluginMetadata = new ArrayList<>();
     abstractMetisPluginMetadata.add(validationExternalPluginMetadata);
-    abstractMetisPluginMetadata.add(enrichmentPluginMetadata);
+    abstractMetisPluginMetadata.add(transformationPluginMetadata);
     abstractMetisPluginMetadata.add(validationInternalPluginMetadata);
     workflow.setMetisPluginsMetadata(abstractMetisPluginMetadata);
 

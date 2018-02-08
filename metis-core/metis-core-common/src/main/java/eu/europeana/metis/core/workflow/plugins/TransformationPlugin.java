@@ -1,6 +1,19 @@
 package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.Revision;
+import eu.europeana.cloud.common.model.dps.TaskInfo;
+import eu.europeana.cloud.service.dps.DpsTask;
+import eu.europeana.cloud.service.dps.InputDataType;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -8,9 +21,11 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
  */
 public class TransformationPlugin extends AbstractMetisPlugin {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(TransformationPlugin.class);
+
+  private final String topologyName = Topology.TRANSFORMATION.getTopologyName();
+
   public TransformationPlugin() {
-    super();
-    setPluginType(PluginType.TRANSFORMATION);
     //Required for json serialization
   }
 
@@ -18,14 +33,66 @@ public class TransformationPlugin extends AbstractMetisPlugin {
     super(PluginType.TRANSFORMATION, pluginMetadata);
   }
 
+  /**
+   * Required for json serialization.
+   *
+   * @return the String representation of the topology
+   */
+  public String getTopologyName() {
+    return topologyName;
+  }
+
+  @Override
+  public void setPluginType(PluginType pluginType) {
+    super.setPluginType(PluginType.TRANSFORMATION);
+  }
+
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
-    //This is an empty example
+    if (!getPluginMetadata().isMocked()) {
+      String pluginTypeName = getPluginType().name();
+      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
+          ecloudDataset);
+
+      String xsltUlr = ((TransformationPluginMetadata) getPluginMetadata()).getXsltUrl();
+
+      DpsTask dpsTask = new DpsTask();
+
+      Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(
+          InputDataType.class);
+      inputDataTypeListHashMap.put(InputDataType.DATASET_URLS,
+          Collections.singletonList(String.format("%s/data-providers/%s/data-sets/%s",
+              ecloudBaseUrl, ecloudProvider, ecloudDataset)));
+      dpsTask.setInputData(inputDataTypeListHashMap);
+
+      Map<String, String> parameters = new HashMap<>();
+      parameters.put("REPRESENTATION_NAME", getRepresentationName());
+      parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
+      parameters.put("REVISION_PROVIDER", ecloudProvider);
+      DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+      parameters.put("REVISION_TIMESTAMP", dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
+      parameters.put("XSLT_URL", xsltUlr);
+      parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+
+      dpsTask.setParameters(parameters);
+
+      Revision revision = new Revision();
+      revision.setRevisionName(pluginTypeName);
+      revision.setRevisionProviderId(ecloudProvider);
+      revision.setCreationTimeStamp(getStartedDate());
+      dpsTask.setOutputRevision(revision);
+
+      setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, topologyName)));
+      LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
+    }
   }
 
   @Override
   public ExecutionProgress monitor(DpsClient dpsClient) {
-    return null;
+    LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
+    TaskInfo taskInfo = dpsClient
+        .getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
+    return getExecutionProgress().copyExternalTaskInformation(taskInfo);
   }
 }
