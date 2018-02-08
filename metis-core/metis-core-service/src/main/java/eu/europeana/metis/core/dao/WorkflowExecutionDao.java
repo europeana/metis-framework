@@ -224,7 +224,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (StringUtils.isNotEmpty(workflowOwner)) {
       query.field("workflowOwner").equal(workflowOwner);
     }
-    if (StringUtils.isNotEmpty(workflowOwner)) {
+    if (StringUtils.isNotEmpty(workflowName)) {
       query.field("workflowName").equal(workflowName);
     }
 
