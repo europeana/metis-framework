@@ -24,7 +24,6 @@ import eu.europeana.corelib.definitions.jibx.DateOfDeath;
 import eu.europeana.corelib.definitions.jibx.DateOfEstablishment;
 import eu.europeana.corelib.definitions.jibx.DateOfTermination;
 import eu.europeana.corelib.definitions.jibx.End;
-import eu.europeana.corelib.definitions.jibx.EuropeanaType;
 import eu.europeana.corelib.definitions.jibx.ExactMatch;
 import eu.europeana.corelib.definitions.jibx.Gender;
 import eu.europeana.corelib.definitions.jibx.HasMet;
@@ -42,7 +41,6 @@ import eu.europeana.corelib.definitions.jibx.Note;
 import eu.europeana.corelib.definitions.jibx.PlaceType;
 import eu.europeana.corelib.definitions.jibx.PrefLabel;
 import eu.europeana.corelib.definitions.jibx.ProfessionOrOccupation;
-import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.corelib.definitions.jibx.Related;
 import eu.europeana.corelib.definitions.jibx.RelatedMatch;
@@ -52,6 +50,7 @@ import eu.europeana.corelib.definitions.jibx.SameAs;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx._Long;
 import eu.europeana.enrichment.api.external.model.Agent;
+import eu.europeana.enrichment.api.external.model.Concept;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.Label;
 import eu.europeana.enrichment.api.external.model.LabelResource;
@@ -63,56 +62,9 @@ import eu.europeana.enrichment.api.external.model.Timespan;
 /**
  * Created by erikkonijnenburg on 28/07/2017.
  */
-public final class EntityMergeUtils {
+public final class EntityMergeEngine {
 
-  private EntityMergeUtils() {}
-
-  static ProxyType getProviderProxy(RDF rdf) {
-    for (ProxyType proxyType : rdf.getProxyList()) {
-      if (proxyType.getEuropeanaProxy() == null
-          || !proxyType.getEuropeanaProxy().isEuropeanaProxy()) {
-        return proxyType;
-      }
-    }
-    return null;
-  }
-
-  private static RDF appendToProxy(RDF rdf, AboutType about, String fieldName) {
-    ProxyType europeanaProxy = getEuropeanaProxy(rdf);
-    appendToProxy(europeanaProxy, EnrichmentFields.valueOf(fieldName), about.getAbout());
-    return replaceProxy(rdf, europeanaProxy);
-  }
-
-  private static void appendToProxy(ProxyType europeanaProxy, EnrichmentFields enrichmentFields,
-      String about) {
-    List<EuropeanaType.Choice> choices = europeanaProxy.getChoiceList();
-    choices.add(enrichmentFields.createChoice(about));
-    europeanaProxy.setChoiceList(choices);
-  }
-
-  private static ProxyType getEuropeanaProxy(RDF rdf) {
-    for (ProxyType proxyType : rdf.getProxyList()) {
-      if (proxyType.getEuropeanaProxy() != null
-          && proxyType.getEuropeanaProxy().isEuropeanaProxy()) {
-        return proxyType;
-      }
-    }
-    throw new IllegalArgumentException("Could not find Europeana proxy.");
-  }
-
-  private static RDF replaceProxy(RDF rdf, ProxyType europeanaProxy) {
-    List<ProxyType> proxyTypeList = new ArrayList<>();
-    proxyTypeList.add(europeanaProxy);
-    for (ProxyType proxyType : rdf.getProxyList()) {
-      if (!StringUtils.equals(proxyType.getAbout(), europeanaProxy.getAbout())) {
-        proxyTypeList.add(proxyType);
-      }
-    }
-    rdf.setProxyList(proxyTypeList);
-    return rdf;
-  }
-
-  private static RDF mergePlace(RDF rdf, Place place, String fieldName) {
+  private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
 
     PlaceType placeType = new PlaceType();
 
@@ -166,19 +118,12 @@ public final class EntityMergeUtils {
 
     // isNextInSequence: not available
 
-    if (rdf.getPlaceList() == null) {
-      rdf.setPlaceList(new ArrayList<PlaceType>());
-    }
-    rdf.getPlaceList().add(placeType);
-
-    if (StringUtils.isNotEmpty(fieldName)) {
-      return appendToProxy(rdf, placeType, fieldName);
-    } else {
-      return rdf;
-    }
+    // Done
+    destination.add(placeType);
+    return placeType;
   }
 
-  private static RDF mergeAgent(RDF rdf, Agent agent, String fieldName) {
+  private static AgentType convertAndAddAgent(Agent agent, List<AgentType> destination) {
 
     AgentType agentType = new AgentType();
 
@@ -258,20 +203,12 @@ public final class EntityMergeUtils {
     agentType.setSameAList(
         extractFirstAsResourceToList(agent.getSameAs(), SameAs::new, Part::getResource));
 
-    if (rdf.getAgentList() == null) {
-      rdf.setAgentList(new ArrayList<AgentType>());
-    }
-    rdf.getAgentList().add(agentType);
-
-    if (StringUtils.isNotEmpty(fieldName)) {
-      return appendToProxy(rdf, agentType, fieldName);
-    } else {
-      return rdf;
-    }
+    destination.add(agentType);
+    return agentType;
   }
 
-  private static RDF mergeConcept(RDF rdf,
-      eu.europeana.enrichment.api.external.model.Concept baseConcept, String fieldName) {
+  private static eu.europeana.corelib.definitions.jibx.Concept convertAndAddConcept(
+      Concept baseConcept, List<eu.europeana.corelib.definitions.jibx.Concept> destination) {
     eu.europeana.corelib.definitions.jibx.Concept concept =
         new eu.europeana.corelib.definitions.jibx.Concept();
 
@@ -312,16 +249,12 @@ public final class EntityMergeUtils {
     choice.setRelatedMatch(extractFirstResource(baseConcept.getRelatedMatch(), RelatedMatch::new));
 
     concept.setChoiceList(mutableSingletonList(choice));
-    rdf.setConceptList(mutableSingletonList(concept));
-
-    if (StringUtils.isNotEmpty(fieldName)) {
-      return appendToProxy(rdf, concept, fieldName);
-    } else {
-      return rdf;
-    }
+    
+    destination.add(concept);
+    return concept;
   }
 
-  private static RDF mergeTimespan(RDF rdf, Timespan timespan, String fieldName) {
+  private static TimeSpanType convertAndAddTimespan(Timespan timespan, List<TimeSpanType> destination) {
     TimeSpanType timeSpanType = new TimeSpanType();
 
     // about
@@ -358,36 +291,77 @@ public final class EntityMergeUtils {
     timeSpanType.setSameAList(
         extractPartsAsResources(timespan.getSameAs(), SameAs::new, Part::getResource));
 
-    if (rdf.getTimeSpanList() == null) {
-      rdf.setTimeSpanList(new ArrayList<TimeSpanType>());
-    }
-    rdf.getTimeSpanList().add(timeSpanType);
+    // done
+    destination.add(timeSpanType);
+    return timeSpanType;
+  }
+  
+  private static void convertAndAddEntity(RDF rdf, EnrichmentBase enrichmentBase,
+      String fieldName) {
 
-    if (StringUtils.isNotEmpty(fieldName)) {
-      return appendToProxy(rdf, timeSpanType, fieldName);
+    // Convert the entity.
+    final AboutType entity;
+    if (enrichmentBase instanceof Place) {
+      entity = convertAndAddPlace((Place) enrichmentBase, rdf.getPlaceList());
+    } else if (enrichmentBase instanceof Agent) {
+      entity = convertAndAddAgent((Agent) enrichmentBase, rdf.getAgentList());
+    } else if (enrichmentBase instanceof Concept) {
+      entity = convertAndAddConcept((Concept) enrichmentBase, rdf.getConceptList());
+    } else if (enrichmentBase instanceof Timespan) {
+      entity = convertAndAddTimespan((Timespan) enrichmentBase, rdf.getTimeSpanList());
     } else {
-      return rdf;
+      throw new IllegalStateException("Unknown entity type: " + enrichmentBase.getClass());
+    }
+
+    // Append it to the proxy if needed.
+    if (StringUtils.isNotEmpty(fieldName)) {
+      RdfProxyUtils.appendToProxy(rdf, entity, fieldName);
     }
   }
 
-  public static RDF mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList,
-      String fieldName) {
-    for (EnrichmentBase enrichmentBase : enrichmentBaseList) {
-      if (enrichmentBase.getClass() == Place.class) {
-        return mergePlace(rdf, (Place) enrichmentBase, fieldName);
-      }
-      if (enrichmentBase.getClass() == Agent.class) {
-        return mergeAgent(rdf, (Agent) enrichmentBase, fieldName);
-      }
-      if (enrichmentBase.getClass() == eu.europeana.enrichment.api.external.model.Concept.class) {
-        return mergeConcept(rdf,
-            (eu.europeana.enrichment.api.external.model.Concept) enrichmentBase, fieldName);
-      }
-      if (enrichmentBase.getClass() == Timespan.class) {
-        return mergeTimespan(rdf, (Timespan) enrichmentBase, fieldName);
-      }
+  /**
+   * Merge entities in a record. Wrapper for {@link #mergeEntity(RDF, List, String)} without a field
+   * name.
+   * 
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @return An RDF object with the merged entities
+   */
+  public void mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
+    mergeEntity(rdf, enrichmentBaseList, null);
+  }
+
+  /**
+   * TODO JOCHEN This method is NEVER called with non-null (nonempty) field name? I would expect
+   * that particularly during enrichment (given the history of this method) there may be a need to
+   * provide this parameter.
+   * 
+   * Merge entities in a record
+   * 
+   * @param rdf The RDF to enrich
+   * @param enrichmentBaseList The information to append
+   * @param fieldName The name of the field so that it can be connected to Europeana Proxy
+   */
+  public void mergeEntity(final RDF rdf, List<EnrichmentBase> enrichmentBaseList, String fieldName) {
+    
+    // Ensure that there are lists for all four types.
+    if (rdf.getAgentList() == null) {
+      rdf.setAgentList(new ArrayList<AgentType>());
     }
-    return rdf;
+    if (rdf.getConceptList() == null) {
+      rdf.setConceptList(new ArrayList<eu.europeana.corelib.definitions.jibx.Concept>());
+    }
+    if (rdf.getPlaceList() == null) {
+      rdf.setPlaceList(new ArrayList<PlaceType>());
+    }
+    if (rdf.getTimeSpanList() == null) {
+      rdf.setTimeSpanList(new ArrayList<TimeSpanType>());
+    }
+    
+    // Go by all input data.
+    for (EnrichmentBase enrichmentBase : enrichmentBaseList) {
+      convertAndAddEntity(rdf, enrichmentBase, fieldName);
+    }
   }
 
   private static <S, T> List<T> extractItems(List<S> sourceList, Function<S, T> converter) {

@@ -71,8 +71,8 @@ public enum EnrichmentFields {
   /**
    * Extract fields from a Proxy for enrichment
    * 
-   * @param proxy The proxy to use fro enrichment
-   * @return A list ofg values ready for enrichment
+   * @param proxy The proxy to use for enrichment
+   * @return A list of values ready for enrichment
    */
   public final List<InputValue> extractFieldValuesForEnrichment(ProxyType proxy) {
     return proxy.getChoiceList().stream()

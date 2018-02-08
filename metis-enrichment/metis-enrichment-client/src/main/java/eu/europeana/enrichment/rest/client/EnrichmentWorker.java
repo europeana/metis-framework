@@ -11,6 +11,7 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
+import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 import eu.europeana.metis.dereference.DereferenceUtils;
@@ -27,6 +28,7 @@ public class EnrichmentWorker {
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
+  private final EntityMergeEngine entityMergeEngine = new EntityMergeEngine();
 
   public enum Mode {
     ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT;
@@ -86,51 +88,50 @@ public class EnrichmentWorker {
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
    * 
-   * @param inputRdf The RDF to be processed.
+   * @param rdf The RDF to be processed.
    * @param mode The processing mode to be applied.
-   * @return The processed RDF. Note: this may be the same object as the input object.
+   * @return The processed RDF. Note: this will be the same object as the input object.
    * @throws DereferenceOrEnrichException In case something goes wrong.
    */
-  public RDF process(final RDF inputRdf, Mode mode) throws DereferenceOrEnrichException {
+  public RDF process(final RDF rdf, Mode mode) throws DereferenceOrEnrichException {
 
     // Sanity checks
-    if (inputRdf == null) {
+    if (rdf == null) {
       throw new IllegalArgumentException("Input RDF cannot be null.");
     }
     if (mode == null) {
-      throw new IllegalArgumentException("Mode cannot be null");
+      throw new IllegalArgumentException("Mode cannot be null.");
     }
 
     // Preparation
-    RDF currentRdf = inputRdf;
     LOGGER.info("Received RDF for enrichment/dereferencing.");
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(currentRdf));
+      LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(rdf));
     }
 
     // Dereferencing
     if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.DEREFERENCE_ONLY.equals(mode)) {
       LOGGER.info("Performing dereferencing...");
-      currentRdf = performDereferencing(currentRdf);
+      performDereferencing(rdf);
       LOGGER.info("Dereferencing completed.");
       if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(currentRdf));
+        LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(rdf));
       }
     }
 
     // Enrichment
     if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.ENRICHMENT_ONLY.equals(mode)) {
       LOGGER.info("Performing enrichment...");
-      currentRdf = performEnrichment(currentRdf);
+      performEnrichment(rdf);
       LOGGER.info("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(currentRdf));
+        LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
       }
     }
 
     // Done
     LOGGER.debug("Processing complete.");
-    return currentRdf;
+    return rdf;
   }
 
   private static String convertRdfToStringForLogging(final RDF rdf) {
@@ -142,7 +143,7 @@ public class EnrichmentWorker {
     }
   }
 
-  private RDF performEnrichment(final RDF rdf) throws DereferenceOrEnrichException {
+  private void performEnrichment(final RDF rdf) throws DereferenceOrEnrichException {
 
     // [1] Extract fields from the RDF for enrichment
     LOGGER.debug("Extracting fields from RDF for enrichment...");
@@ -151,7 +152,7 @@ public class EnrichmentWorker {
 
     if (fieldsForEnrichment == null || fieldsForEnrichment.isEmpty()) {
       LOGGER.debug("No fields to enrich.");
-      return rdf;
+      return;
     }
 
     if (LOGGER.isDebugEnabled()) {
@@ -170,7 +171,7 @@ public class EnrichmentWorker {
     if (enrichmentInformation == null || enrichmentInformation.getResult() == null
         || enrichmentInformation.getResult().isEmpty()) {
       LOGGER.debug("No information found. Nothing to merge.");
-      return rdf;
+      return;
     }
 
     if (LOGGER.isDebugEnabled()) {
@@ -186,10 +187,8 @@ public class EnrichmentWorker {
 
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
-    final RDF result = EnrichmentUtils.mergeEntity(rdf, enrichmentInformation.getResult(), "");
+    entityMergeEngine.mergeEntity(rdf, enrichmentInformation.getResult());
     LOGGER.debug("Merging completed.");
-
-    return result;
   }
 
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
@@ -204,7 +203,7 @@ public class EnrichmentWorker {
     return enrichmentInformation;
   }
 
-  private RDF performDereferencing(final RDF rdf) throws DereferenceOrEnrichException {
+  private void performDereferencing(final RDF rdf) throws DereferenceOrEnrichException {
 
     // [1] Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
@@ -212,7 +211,7 @@ public class EnrichmentWorker {
 
     if (fieldsForDereferencing == null || fieldsForDereferencing.isEmpty()) {
       LOGGER.debug("No fields to dereference.");
-      return rdf;
+      return;
     }
 
     if (LOGGER.isDebugEnabled()) {
@@ -230,7 +229,7 @@ public class EnrichmentWorker {
     List<EnrichmentResultList> dereferenceInformation = dereferenceFields(fieldsForDereferencing);
     if (dereferenceInformation.isEmpty()) {
       LOGGER.debug("No information found. Nothing to merge.");
-      return rdf;
+      return;
     }
 
     if (LOGGER.isDebugEnabled()) {
@@ -248,13 +247,10 @@ public class EnrichmentWorker {
 
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    RDF result = rdf;
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      result = DereferenceUtils.mergeEntity(result, dereferenceResultList.getResult());
+      entityMergeEngine.mergeEntity(rdf, dereferenceResultList.getResult());
     }
     LOGGER.debug("Merging completed.");
-
-    return result;
   }
 
   private List<EnrichmentResultList> dereferenceFields(Set<String> fieldsForDereferencing)

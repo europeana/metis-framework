@@ -6,7 +6,6 @@ import java.util.List;
 import org.jibx.runtime.JiBXException;
 import eu.europeana.corelib.definitions.jibx.ProxyType;
 import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 
 /**
  * Utilities for enrichment and dereferencing
@@ -15,17 +14,6 @@ import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 public class EnrichmentUtils {
   
     private EnrichmentUtils() {}
-
-    /**
-     * Merge entities in a record after enrichment
-     * @param rdf The RDF to enrich
-     * @param enrichmentBaseList The information to append
-     * @param fieldName The name of the field so that it can be connected to Europeana Proxy
-     * @return An RDF object with the merged entities
-     */
-    public static RDF mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList, String fieldName) {
-    	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, fieldName);
-    }
 
     /**
      * Convert an RDF to a UTF-8 encoded XML.
@@ -47,16 +35,12 @@ public class EnrichmentUtils {
      * @throws JiBXException
      */
     public static List<InputValue> extractFieldsForEnrichmentFromRDF(RDF rdf) {
-        ProxyType providerProxy = EntityMergeUtils.getProviderProxy(rdf);
+        ProxyType providerProxy = RdfProxyUtils.getProviderProxy(rdf);
         List<InputValue> valuesForEnrichment= new ArrayList<>();
-        
-        if (providerProxy != null) {
-        	for(EnrichmentFields field: EnrichmentFields.values()) {
-        		List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
-        		valuesForEnrichment.addAll(values);
-        	}
-        }
-        
+      	for(EnrichmentFields field: EnrichmentFields.values()) {
+      		List<InputValue> values = field.extractFieldValuesForEnrichment(providerProxy);
+      		valuesForEnrichment.addAll(values);
+      	}
         return valuesForEnrichment;
     }
 }

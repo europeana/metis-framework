@@ -17,8 +17,6 @@ import eu.europeana.corelib.definitions.jibx.ResourceOrLiteralType;
 import eu.europeana.corelib.definitions.jibx.ResourceType;
 import eu.europeana.corelib.definitions.jibx.TimeSpanType;
 import eu.europeana.corelib.definitions.jibx.WebResourceType;
-import eu.europeana.enrichment.api.external.model.EnrichmentBase;
-import eu.europeana.enrichment.utils.EntityMergeUtils;
 import eu.europeana.enrichment.utils.RdfConversionUtils;
 
 /**
@@ -30,17 +28,6 @@ public class DereferenceUtils {
   private static final Function<ResourceOrLiteralType, String> RESOURCE_OR_LITERAL_EXTRACTOR = DereferenceUtils::extractFromResourceOrLiteral; 
   
   private DereferenceUtils() { }
-
-  /**
-   * Merge entities in a record after dereferencing
-   * @param rdf The RDF to enrich
-   * @param enrichmentBaseList The information to append
-   * @param fieldName The name of the field so that it can be connected to Europeana Proxy
-   * @return An RDF object with the merged entities
-   */
-  public static RDF mergeEntity(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
-  	return EntityMergeUtils.mergeEntity(rdf, enrichmentBaseList, "");
-  }
 
   /**
    * Extract values from RDF document
