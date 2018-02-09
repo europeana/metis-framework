@@ -187,7 +187,7 @@ public class EnrichmentWorker {
 
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
-    entityMergeEngine.mergeEntity(rdf, enrichmentInformation.getResult());
+    entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
     LOGGER.debug("Merging completed.");
   }
 
@@ -248,7 +248,7 @@ public class EnrichmentWorker {
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      entityMergeEngine.mergeEntity(rdf, dereferenceResultList.getResult());
+      entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getResult());
     }
     LOGGER.debug("Merging completed.");
   }
