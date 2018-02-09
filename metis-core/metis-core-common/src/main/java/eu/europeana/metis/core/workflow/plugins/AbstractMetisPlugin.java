@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
@@ -197,7 +198,7 @@ public abstract class AbstractMetisPlugin {
    * @param ecloudDataset the ecloud dataset identifier to be used for the external task
    */
   public abstract void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset);
+      String ecloudDataset) throws ExternalTaskException;
 
   /**
    * Request a monitor call to the external execution.
@@ -205,5 +206,5 @@ public abstract class AbstractMetisPlugin {
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
    * @return {@link ExecutionProgress} of the plugin.
    */
-  public abstract ExecutionProgress monitor(DpsClient dpsClient);
+  public abstract ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException;
 }

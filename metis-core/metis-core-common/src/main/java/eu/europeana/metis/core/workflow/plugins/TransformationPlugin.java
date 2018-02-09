@@ -5,6 +5,8 @@ import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
+import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -49,7 +51,7 @@ public class TransformationPlugin extends AbstractMetisPlugin {
 
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) {
+      String ecloudDataset) throws ExternalTaskException {
     if (!getPluginMetadata().isMocked()) {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
@@ -83,16 +85,24 @@ public class TransformationPlugin extends AbstractMetisPlugin {
       revision.setCreationTimeStamp(getStartedDate());
       dpsTask.setOutputRevision(revision);
 
-      setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, topologyName)));
+      try {
+        setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, topologyName)));
+      } catch (DpsException e) {
+        throw new ExternalTaskException("Submitting task failed", e);
+      }
       LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
     }
   }
 
   @Override
-  public ExecutionProgress monitor(DpsClient dpsClient) {
+  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
-    TaskInfo taskInfo = dpsClient
-        .getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
+    TaskInfo taskInfo;
+    try {
+      taskInfo = dpsClient.getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
+    } catch (DpsException e) {
+      throw new ExternalTaskException("Requesting task progress failed", e);
+    }
     return getExecutionProgress().copyExternalTaskInformation(taskInfo);
   }
 }
