@@ -794,7 +794,7 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void getExternalTaskLogs() {
+  public void getExternalTaskLogs() throws Exception {
     List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
 
     when(dpsClient
@@ -810,7 +810,7 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void getExternalTaskReport() {
+  public void getExternalTaskReport() throws Exception {
     TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
     TaskErrorsInfo taskErrorsInfoWithIdentifiers1 = TestObjectFactory
         .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(0).getErrorType(),
@@ -821,19 +821,19 @@ public class TestOrchestratorService {
 
     when(dpsClient
         .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, null)).thenReturn(taskErrorsInfo);
+            TestObjectFactory.EXTERNAL_TASK_ID, null, 10)).thenReturn(taskErrorsInfo);
     when(dpsClient
         .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(0).getErrorType()))
+            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(0).getErrorType(), 10))
         .thenReturn(taskErrorsInfoWithIdentifiers1);
     when(dpsClient
         .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(1).getErrorType()))
+            TestObjectFactory.EXTERNAL_TASK_ID, taskErrorsInfo.getErrors().get(1).getErrorType(), 10))
         .thenReturn(taskErrorsInfoWithIdentifiers2);
 
     TaskErrorsInfo externalTaskReport = orchestratorService
         .getExternalTaskReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID);
+            TestObjectFactory.EXTERNAL_TASK_ID, 10);
 
     Assert.assertEquals(2, externalTaskReport.getErrors().size());
     Assert.assertTrue(externalTaskReport.getErrors().get(0).getIdentifiers().size() != 0);

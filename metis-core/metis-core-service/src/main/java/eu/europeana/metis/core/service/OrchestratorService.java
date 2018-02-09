@@ -2,9 +2,9 @@ package eu.europeana.metis.core.service;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -36,6 +36,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -489,25 +490,32 @@ public class OrchestratorService {
   }
 
   public List<SubTaskInfo> getExternalTaskLogs(String topologyName, long externalTaskId, int from,
-      int to) {
-    List<SubTaskInfo> detailedTaskReportBetweenChunks = dpsClient
-        .getDetailedTaskReportBetweenChunks(topologyName, externalTaskId, from, to);
+      int to) throws ExternalTaskException {
+    List<SubTaskInfo> detailedTaskReportBetweenChunks;
+    try {
+      detailedTaskReportBetweenChunks = dpsClient
+          .getDetailedTaskReportBetweenChunks(topologyName, externalTaskId, from, to);
+    } catch (DpsException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting the task detailed logs failed. topologyName: %s, externalTaskId: %s, from: %s, to: %s",
+          topologyName, externalTaskId, from, to), e);
+    }
     for (SubTaskInfo subTaskInfo : detailedTaskReportBetweenChunks) { //Hide sensitive information
       subTaskInfo.setAdditionalInformations(null);
     }
     return detailedTaskReportBetweenChunks;
   }
 
-  public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId) {
-    // TODO: 12-1-18 Modify with new supported implementation when ready that has one call with option to request number of sample identifiers
-    TaskErrorsInfo taskErrorsInfo = dpsClient
-        .getTaskErrorsReport(topologyName, externalTaskId, null);
-
-    for (TaskErrorInfo taskErrorInfo : taskErrorsInfo.getErrors()) {
-      TaskErrorsInfo taskErrorsInfoWithIdentifiers = dpsClient
-          .getTaskErrorsReport(topologyName, externalTaskId, taskErrorInfo.getErrorType());
-      taskErrorInfo
-          .setIdentifiers(taskErrorsInfoWithIdentifiers.getErrors().get(0).getIdentifiers());
+  public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId,
+      int idsPerError) throws ExternalTaskException {
+    TaskErrorsInfo taskErrorsInfo;
+    try {
+      taskErrorsInfo = dpsClient
+          .getTaskErrorsReport(topologyName, externalTaskId, null, idsPerError);
+    } catch (DpsException e) {
+      throw new ExternalTaskException(String.format(
+          "Getting the task error report failed. topologyName: %s, externalTaskId: %s, idsPerError: %s",
+          topologyName, externalTaskId, idsPerError), e);
     }
     return taskErrorsInfo;
   }

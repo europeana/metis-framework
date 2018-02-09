@@ -23,8 +23,10 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.List;
 import java.util.Set;
+import javax.ws.rs.QueryParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -326,7 +328,7 @@ public class OrchestratorController {
       @PathVariable("topologyName") String topologyName,
       @PathVariable("externalTaskId") long externalTaskId,
       @RequestParam(value = "from") int from,
-      @RequestParam(value = "to") int to) {
+      @RequestParam(value = "to") int to) throws ExternalTaskException {
     LOGGER.info(
         "Requesting proxy call task logs for topologyName: {}, externalTaskId: {}, from: {}, to: {}",
         topologyName, externalTaskId, from, to);
@@ -339,10 +341,11 @@ public class OrchestratorController {
   @ResponseBody
   public TaskErrorsInfo getExternalTaskReport(
       @PathVariable("topologyName") String topologyName,
-      @PathVariable("externalTaskId") long externalTaskId) {
+      @PathVariable("externalTaskId") long externalTaskId,
+      @QueryParam("idsPerError") int idsPerError) throws ExternalTaskException {
     LOGGER.info(
         "Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
         topologyName, externalTaskId);
-    return orchestratorService.getExternalTaskReport(topologyName, externalTaskId);
+    return orchestratorService.getExternalTaskReport(topologyName, externalTaskId, idsPerError);
   }
 }

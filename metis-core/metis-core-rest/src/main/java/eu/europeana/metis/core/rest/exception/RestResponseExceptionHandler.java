@@ -11,6 +11,7 @@ import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsExceptio
 import eu.europeana.metis.core.exceptions.UserNotFoundException;
 import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.io.IOException;
@@ -51,7 +52,8 @@ public class RestResponseExceptionHandler {
       WorkflowExecutionAlreadyExistsException.class,
       ScheduledWorkflowAlreadyExistsException.class,
       NoWorkflowExecutionFoundException.class, ExecutionException.class,
-      InterruptedException.class, UserUnauthorizedException.class, PluginExecutionNotAllowed.class})
+      InterruptedException.class, UserUnauthorizedException.class, PluginExecutionNotAllowed.class,
+      ExternalTaskException.class})
   @ResponseBody
   public StructuredExceptionWrapper handleException(Exception exception,
       HttpServletResponse response) {

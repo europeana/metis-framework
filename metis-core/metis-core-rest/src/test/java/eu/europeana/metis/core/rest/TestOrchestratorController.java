@@ -704,7 +704,8 @@ public class TestOrchestratorController {
 
     TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithIdentifiers(2);
     when(orchestratorService
-        .getExternalTaskReport(TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID))
+        .getExternalTaskReport(TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID,
+            10))
         .thenReturn(taskErrorsInfo);
 
     orchestratorControllerMock.perform(
