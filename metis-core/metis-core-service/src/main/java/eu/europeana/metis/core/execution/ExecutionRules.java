@@ -24,15 +24,22 @@ public final class ExecutionRules {
   }
 
   public static AbstractMetisPlugin getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
-      PluginType pluginType, int datasetId,
+      PluginType pluginType, PluginType enforcedPluginType,
+      int datasetId,
       WorkflowExecutionDao workflowExecutionDao) {
-    //Get latest FINISHED plugin for datasetId
-    if (processPluginGroup.contains(pluginType)) {
-      return getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
-          workflowExecutionDao);
-    } else if (indexPluginGroup.contains(pluginType)) {
-      // TODO: 29-1-18 Implement when index plugins ready
-      return null;
+    if (enforcedPluginType != null) {
+      return workflowExecutionDao
+          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
+              EnumSet.of(enforcedPluginType));
+    } else {
+      //Get latest FINISHED plugin for datasetId
+      if (processPluginGroup.contains(pluginType)) {
+        return getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
+            workflowExecutionDao);
+      } else if (indexPluginGroup.contains(pluginType)) {
+        // TODO: 29-1-18 Implement when index plugins ready
+        return null;
+      }
     }
     return null;
   }

@@ -216,7 +216,7 @@ public class SchedulerExecutor {
       orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
           scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
           scheduledWorkflow.getWorkflowName(),
-          scheduledWorkflow.getWorkflowPriority());
+          null, scheduledWorkflow.getWorkflowPriority());
     } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException | PluginExecutionNotAllowed e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
     }

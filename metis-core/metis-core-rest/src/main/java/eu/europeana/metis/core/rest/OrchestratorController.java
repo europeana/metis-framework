@@ -129,11 +129,12 @@ public class OrchestratorController {
       @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException, PluginExecutionNotAllowed {
     WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner,
-            workflowName, priority);
+            workflowName, enforcedPluginType, priority);
     LOGGER.info(
         "WorkflowExecution for datasetId '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
         datasetId, workflowOwner, workflowName);
@@ -146,10 +147,11 @@ public class OrchestratorController {
   @ResponseBody
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId, @RequestBody Workflow workflow,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException, PluginExecutionNotAllowed {
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, enforcedPluginType, priority);
     LOGGER.info(
         "WorkflowExecution for datasetId '{}' with workflowOwner '{}' started", datasetId,
         workflow.getWorkflowOwner());
@@ -187,10 +189,11 @@ public class OrchestratorController {
   @ResponseBody
   public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
       @PathVariable("datasetId") int datasetId,
-      @RequestParam("pluginType") PluginType pluginType)
+      @RequestParam("pluginType") PluginType pluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType);
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType, enforcedPluginType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
               latestFinishedPluginWorkflowExecutionByDatasetId.getId());

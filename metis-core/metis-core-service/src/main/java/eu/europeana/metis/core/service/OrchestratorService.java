@@ -123,7 +123,8 @@ public class OrchestratorService {
   }
 
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
-      String workflowOwner, String workflowName, int priority)
+      String workflowOwner, String workflowName,
+      PluginType enforcedPluginType, int priority)
       throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException, PluginExecutionNotAllowed {
 
     Dataset dataset = checkDatasetExistence(datasetId);
@@ -131,7 +132,7 @@ public class OrchestratorService {
     checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        createMetisPluginsList(dataset, workflow), priority);
+        createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
@@ -153,7 +154,8 @@ public class OrchestratorService {
 
   //Used for direct, on the fly provided, execution of a Workflow
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
-      Workflow workflow, int priority)
+      Workflow workflow, PluginType enforcedPluginType,
+      int priority)
       throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException, PluginExecutionNotAllowed {
     Dataset dataset = checkDatasetExistence(datasetId);
     //Generate uuid workflowName and check if by any chance it exists.
@@ -162,7 +164,7 @@ public class OrchestratorService {
     checkAndCreateDatasetInEcloud(dataset);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset, workflow,
-        createMetisPluginsList(dataset, workflow), priority);
+        createMetisPluginsList(dataset, workflow, enforcedPluginType), priority);
     workflowExecution.setWorkflowStatus(WorkflowStatus.INQUEUE);
     RLock executionDatasetIdLock = redissonClient
         .getFairLock(String.format(EXECUTION_FOR_DATASETID_SUBMITION_LOCK, dataset.getDatasetId()));
@@ -183,12 +185,13 @@ public class OrchestratorService {
     return workflowExecutionDao.getById(objectId);
   }
 
-  private List<AbstractMetisPlugin> createMetisPluginsList(Dataset dataset, Workflow workflow)
+  private List<AbstractMetisPlugin> createMetisPluginsList(Dataset dataset, Workflow workflow,
+      PluginType enforcedPluginType)
       throws PluginExecutionNotAllowed {
     List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();
 
     boolean firstPluginDefined = addHarvestingPlugin(dataset, workflow, metisPlugins);
-    addProcessPlugins(dataset, workflow, metisPlugins, firstPluginDefined);
+    addProcessPlugins(dataset, workflow, enforcedPluginType, metisPlugins, firstPluginDefined);
     return metisPlugins;
   }
 
@@ -217,25 +220,27 @@ public class OrchestratorService {
   }
 
   private boolean addProcessPlugins(Dataset dataset, Workflow workflow,
+      PluginType enforcedPluginType,
       List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined) throws PluginExecutionNotAllowed {
-    firstPluginDefined = addProcessPlugin(dataset, workflow, metisPlugins,
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.VALIDATION_EXTERNAL);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, metisPlugins,
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.TRANSFORMATION);
-    firstPluginDefined = addProcessPlugin(dataset, workflow, metisPlugins,
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.ENRICHMENT);
     return firstPluginDefined;
   }
 
   private boolean addProcessPlugin(Dataset dataset, Workflow workflow,
+      PluginType enforcedPluginType,
       List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined, PluginType pluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
     if (pluginMetadata != null) {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            dataset.getDatasetId(), pluginMetadata.getPluginType());
+            dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
         pluginMetadata
             .setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
         pluginMetadata
@@ -330,9 +335,10 @@ public class OrchestratorService {
   }
 
   public AbstractMetisPlugin getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-      int datasetId, PluginType pluginType) throws PluginExecutionNotAllowed {
+      int datasetId, PluginType pluginType,
+      PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
-        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, datasetId,
+        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, enforcedPluginType, datasetId,
             workflowExecutionDao);
     if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
         && !ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {

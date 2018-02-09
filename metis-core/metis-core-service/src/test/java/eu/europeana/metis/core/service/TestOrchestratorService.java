@@ -216,7 +216,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test
@@ -234,7 +234,7 @@ public class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test
@@ -264,7 +264,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test
@@ -295,7 +295,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
@@ -319,7 +319,7 @@ public class TestOrchestratorService {
         .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(dataset.getDatasetId(),
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
@@ -335,7 +335,7 @@ public class TestOrchestratorService {
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test
@@ -353,7 +353,7 @@ public class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test
@@ -376,7 +376,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test
@@ -395,7 +395,7 @@ public class TestOrchestratorService {
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), 0);
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
   @Test(expected = NoDatasetFoundException.class)
@@ -404,7 +404,7 @@ public class TestOrchestratorService {
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, 0);
+            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, null, 0);
   }
 
   @Test(expected = NoWorkflowFoundException.class)
@@ -418,7 +418,7 @@ public class TestOrchestratorService {
         .thenReturn(null);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, 0);
+            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, null, 0);
   }
 
   @Test(expected = WorkflowExecutionAlreadyExistsException.class)
@@ -434,7 +434,7 @@ public class TestOrchestratorService {
         .thenReturn(new ObjectId().toString());
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, 0);
+            TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME, null, 0);
   }
 
   @Test
@@ -453,7 +453,8 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
     orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), workflow, 0);
+        .addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(), workflow,
+            null, 0);
   }
 
   @Test(expected = NoDatasetFoundException.class)
@@ -463,7 +464,7 @@ public class TestOrchestratorService {
     when(datasetDao.getDatasetByDatasetId(TestObjectFactory.DATASETID)).thenReturn(null);
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID, workflow,
-            0);
+            null, 0);
   }
 
   @Test(expected = WorkflowAlreadyExistsException.class)
@@ -476,7 +477,7 @@ public class TestOrchestratorService {
     when(workflowDao.exists(workflow)).thenReturn(new ObjectId().toString());
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            workflow, 0);
+            workflow, null, 0);
   }
 
   @Test(expected = WorkflowExecutionAlreadyExistsException.class)
@@ -494,7 +495,7 @@ public class TestOrchestratorService {
     doNothing().when(rlock).unlock();
     orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(TestObjectFactory.DATASETID,
-            workflow, 0);
+            workflow, null, 0);
   }
 
   @Test
@@ -559,7 +560,7 @@ public class TestOrchestratorService {
       throws Exception {
     Assert.assertNull(orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.OAIPMH_HARVEST));
+            TestObjectFactory.DATASETID, PluginType.OAIPMH_HARVEST, null));
   }
 
   @Test
@@ -574,7 +575,7 @@ public class TestOrchestratorService {
             ExecutionRules.getHarvestPluginGroup())).thenReturn(oaipmhHarvestPlugin);
     Assert.assertEquals(PluginType.OAIPMH_HARVEST, orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL).getPluginType());
+            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null).getPluginType());
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
@@ -585,7 +586,7 @@ public class TestOrchestratorService {
             ExecutionRules.getHarvestPluginGroup())).thenReturn(null);
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL);
+            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null);
   }
 
   @Test(expected = PluginExecutionNotAllowed.class)
@@ -596,7 +597,7 @@ public class TestOrchestratorService {
             ExecutionRules.getHarvestPluginGroup())).thenReturn(new OaipmhHarvestPlugin());
     orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL);
+            TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null);
   }
 
   @Test

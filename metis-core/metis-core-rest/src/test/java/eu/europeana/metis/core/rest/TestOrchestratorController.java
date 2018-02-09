@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
@@ -200,7 +201,7 @@ public class TestOrchestratorController {
         .createWorkflowExecutionObject();
     when(orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt())).thenReturn(workflowExecution);
+            (PluginType) isNull(), anyInt())).thenReturn(workflowExecution);
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -217,7 +218,7 @@ public class TestOrchestratorController {
       throws Exception {
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt());
+            (PluginType) isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -234,7 +235,7 @@ public class TestOrchestratorController {
       throws Exception {
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt());
+            (PluginType) isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -251,7 +252,7 @@ public class TestOrchestratorController {
       throws Exception {
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt());
+            (PluginType) isNull(), anyInt());
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE,
             TestObjectFactory.DATASETID)
@@ -269,7 +270,7 @@ public class TestOrchestratorController {
         .createWorkflowExecutionObject();
     when(orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            anyInt())).thenReturn(workflowExecution);
+            (PluginType) isNull(), anyInt())).thenReturn(workflowExecution);
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -285,7 +286,7 @@ public class TestOrchestratorController {
       throws Exception {
     doThrow(new WorkflowExecutionAlreadyExistsException("Some error")).when(orchestratorService)
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            anyInt());
+            (PluginType) isNull(), anyInt());
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -301,7 +302,7 @@ public class TestOrchestratorController {
       throws Exception {
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            anyInt());
+            (PluginType) isNull(), anyInt());
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -317,7 +318,7 @@ public class TestOrchestratorController {
       throws Exception {
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), any(Workflow.class),
-            anyInt());
+            (PluginType) isNull(), anyInt());
     Workflow workflow = TestObjectFactory.createUserWorkflowObject();
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
@@ -376,7 +377,7 @@ public class TestOrchestratorController {
     AbstractMetisPlugin abstractMetisPlugin = new ValidationExternalPlugin();
     abstractMetisPlugin.setId("validation_external_id");
     when(orchestratorService.getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-        TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL))
+        TestObjectFactory.DATASETID, PluginType.VALIDATION_EXTERNAL, null))
         .thenReturn(abstractMetisPlugin);
 
     orchestratorControllerMock.perform(
@@ -394,7 +395,7 @@ public class TestOrchestratorController {
       throws Exception {
     when(orchestratorService
         .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
-            TestObjectFactory.DATASETID, PluginType.OAIPMH_HARVEST))
+            TestObjectFactory.DATASETID, PluginType.OAIPMH_HARVEST, null))
         .thenReturn(null);
 
     orchestratorControllerMock.perform(
@@ -711,6 +712,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
+            .param("idsPerError", "10")
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
