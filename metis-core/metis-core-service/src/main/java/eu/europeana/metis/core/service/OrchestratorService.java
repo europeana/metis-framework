@@ -336,6 +336,12 @@ public class OrchestratorService {
     if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
         && !ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
       throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
+    } else if (latestFinishedPluginIfRequestedPluginAllowedForExecution != null &&
+        latestFinishedPluginIfRequestedPluginAllowedForExecution.getExecutionProgress() != null &&
+        latestFinishedPluginIfRequestedPluginAllowedForExecution.getExecutionProgress()
+            .getProcessedRecords() == latestFinishedPluginIfRequestedPluginAllowedForExecution
+            .getExecutionProgress().getErrors()) { //Do not permit if all records had errors
+      throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
     }
     return latestFinishedPluginIfRequestedPluginAllowedForExecution;
   }
