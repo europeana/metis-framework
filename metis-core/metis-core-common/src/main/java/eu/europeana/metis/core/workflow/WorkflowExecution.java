@@ -18,6 +18,10 @@ import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Indexes;
 
 /**
+ * Is the structure where the combined plugins of harvesting and the other plugins will be stored.
+ * <p>This is the object where the execution of the workflow takes place and will host all information,
+ * regarding its execution.</p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
@@ -59,6 +63,14 @@ public class WorkflowExecution implements HasMongoObjectId {
     //Required for json serialization
   }
 
+  /**
+   * Constructor with all required parameters and initializes it's internal structure.
+   *
+   * @param dataset the {@link Dataset} related to the execution
+   * @param workflow the {@link Workflow} related to the execution
+   * @param metisPlugins the list of {@link AbstractMetisPlugin} including harvest plugin for execution
+   * @param workflowPriority the positive number of the priority of the execution
+   */
   public WorkflowExecution(Dataset dataset, Workflow workflow,
       List<AbstractMetisPlugin> metisPlugins,
       int workflowPriority) {
@@ -70,6 +82,10 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.metisPlugins = metisPlugins;
   }
 
+  /**
+   * Sets all plugins inside the execution, that have status {@link PluginStatus#INQUEUE} or
+   * {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   */
   public void setAllRunningAndInqueuePluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);
     for (AbstractMetisPlugin metisPlugin :
@@ -82,6 +98,10 @@ public class WorkflowExecution implements HasMongoObjectId {
     this.setCancelling(false);
   }
 
+  /**
+   * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
+   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   */
   public void checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed() {
     boolean hasAPluginFailed = false;
     for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
@@ -168,35 +188,35 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate == null?null:new Date(createdDate.getTime());
+    return createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate == null?null:new Date(createdDate.getTime());
+    this.createdDate = createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public Date getStartedDate() {
-    return startedDate == null?null:new Date(startedDate.getTime());
+    return startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   public void setStartedDate(Date startedDate) {
-    this.startedDate = startedDate == null?null:new Date(startedDate.getTime());
+    this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   public Date getFinishedDate() {
-    return finishedDate == null?null:new Date(finishedDate.getTime());
+    return finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   public void setFinishedDate(Date finishedDate) {
-    this.finishedDate = finishedDate == null?null:new Date(finishedDate.getTime());
+    this.finishedDate = finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   public Date getUpdatedDate() {
-    return updatedDate == null?null:new Date(updatedDate.getTime());
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public List<AbstractMetisPlugin> getMetisPlugins() {

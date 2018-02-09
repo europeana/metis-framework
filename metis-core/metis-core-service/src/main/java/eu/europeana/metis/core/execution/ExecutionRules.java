@@ -23,25 +23,38 @@ public final class ExecutionRules {
     //Private constructor
   }
 
+  /**
+   * Get the latest plugin that is allowed to be run for a plugin that is requested for execution.
+   * <p>A pluginType execution must have a source pluginType, except if it's a harvesting plugin.
+   * The ordering of the pluginTypes are predefined in code, but an enforcedPluginType can overwrite that, and
+   * will try to use the enforcedPluginType as a source, if an execution that has properly finished exists.
+   * Executions that are reported as FINISHED but have all records have errors, is not a valid execution as a source.</p>
+   * @param pluginType the {@link PluginType} that is to be executed
+   * @param enforcedPluginType the {@link PluginType} used to enforce the source pluginType of the execution
+   * @param datasetId the dataset identifier to check for
+   * @param workflowExecutionDao {@link WorkflowExecutionDao} to access the corresponding database
+   * @return the {@link AbstractMetisPlugin} that the pluginType execution will use as a source or null
+   */
   public static AbstractMetisPlugin getLatestFinishedPluginIfRequestedPluginAllowedForExecution(
       PluginType pluginType, PluginType enforcedPluginType,
       int datasetId,
       WorkflowExecutionDao workflowExecutionDao) {
+    AbstractMetisPlugin abstractMetisPlugin = null;
     if (enforcedPluginType != null) {
-      return workflowExecutionDao
+      abstractMetisPlugin = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               EnumSet.of(enforcedPluginType));
     } else {
       //Get latest FINISHED plugin for datasetId
       if (processPluginGroup.contains(pluginType)) {
-        return getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
+        abstractMetisPlugin = getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
             workflowExecutionDao);
       } else if (indexPluginGroup.contains(pluginType)) {
         // TODO: 29-1-18 Implement when index plugins ready
-        return null;
+        abstractMetisPlugin = null;
       }
     }
-    return null;
+    return abstractMetisPlugin;
   }
 
   private static AbstractMetisPlugin getLatestFinishedPluginAllowedForExecutionProcess(

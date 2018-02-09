@@ -9,10 +9,15 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 public enum PluginStatus {
   INQUEUE, RUNNING, FINISHED, CANCELLED, FAILED;
 
+  /**
+   * Lookup of a {@link PluginStatus} enum from a provided enum String representation of the enum value.
+   * @param enumName the String representation of an enum value
+   * @return the {@link PluginStatus} that represents the provided value or null if not found
+   */
   @JsonCreator
-  public static PluginStatus getPluginStatusFromEnumName(String name){
+  public static PluginStatus getPluginStatusFromEnumName(String enumName){
     for (PluginStatus pluginStatus:PluginStatus.values()) {
-      if(pluginStatus.name().equalsIgnoreCase(name)){
+      if(pluginStatus.name().equalsIgnoreCase(enumName)){
         return pluginStatus;
       }
     }

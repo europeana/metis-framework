@@ -31,6 +31,11 @@ public class TransformationPlugin extends AbstractMetisPlugin {
     //Required for json serialization
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata required.
+   *
+   * @param pluginMetadata should be {@link TransformationPluginMetadata}
+   */
   public TransformationPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.TRANSFORMATION, pluginMetadata);
   }

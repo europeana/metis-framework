@@ -28,11 +28,14 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.VALIDATION.getTopologyName();
 
   public ValidationExternalPlugin() {
-    super();
-    setPluginType(PluginType.VALIDATION_EXTERNAL);
     //Required for json serialization
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata required.
+   *
+   * @param pluginMetadata should be {@link ValidationExternalPluginMetadata}
+   */
   public ValidationExternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.VALIDATION_EXTERNAL, pluginMetadata);
   }
@@ -44,6 +47,11 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
    */
   public String getTopologyName() {
     return topologyName;
+  }
+
+  @Override
+  public void setPluginType(PluginType pluginType) {
+    super.setPluginType(PluginType.VALIDATION_EXTERNAL);
   }
 
   @Override

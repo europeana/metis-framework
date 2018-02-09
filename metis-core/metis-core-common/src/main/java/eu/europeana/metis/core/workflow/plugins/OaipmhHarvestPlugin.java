@@ -30,8 +30,6 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
   private final String topologyName = Topology.OAIPMH_HARVEST.getTopologyName();
 
   public OaipmhHarvestPlugin() {
-    super();
-    setPluginType(PluginType.OAIPMH_HARVEST);
     //Required for json serialization
   }
 
@@ -42,6 +40,11 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
    */
   public OaipmhHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.OAIPMH_HARVEST, pluginMetadata);
+  }
+
+  @Override
+  public void setPluginType(PluginType pluginType) {
+    super.setPluginType(PluginType.OAIPMH_HARVEST);
   }
 
   /**

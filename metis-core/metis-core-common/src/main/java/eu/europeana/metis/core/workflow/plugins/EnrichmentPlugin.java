@@ -9,13 +9,21 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 public class EnrichmentPlugin extends AbstractMetisPlugin {
 
   public EnrichmentPlugin() {
-    super();
-    setPluginType(PluginType.ENRICHMENT);
     //Required for json serialization
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata required.
+   *
+   * @param pluginMetadata should be {@link EnrichmentPluginMetadata}
+   */
   public EnrichmentPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.ENRICHMENT, pluginMetadata);
+  }
+
+  @Override
+  public void setPluginType(PluginType pluginType) {
+    super.setPluginType(PluginType.ENRICHMENT);
   }
 
   @Override
