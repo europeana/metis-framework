@@ -13,7 +13,7 @@ public class EnrichmentPlugin extends AbstractMetisPlugin {
    */
   public EnrichmentPlugin() {
     //Required for json serialization
-    super.setPluginType(PluginType.ENRICHMENT);
+    super(PluginType.ENRICHMENT);
   }
 
   /**

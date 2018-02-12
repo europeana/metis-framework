@@ -13,7 +13,7 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
    */
   public HTTPHarvestPlugin() {
     //Required for json serialization
-    super.setPluginType(PluginType.HTTP_HARVEST);
+    super(PluginType.HTTP_HARVEST);
   }
 
   /**

@@ -187,7 +187,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private Date periodicCheckingLoop(int sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
     TaskState taskState = null;
-    int monitorFailed = 0;
+    int consecutiveMonitorFailures = 0;
     int maxMonitorFailures = 3;
     do {
       try {
@@ -196,7 +196,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         Thread.sleep(sleepTime);
         taskState = abstractMetisPlugin.monitor(dpsClient).getStatus();
-        monitorFailed = 0;
+        consecutiveMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
@@ -206,16 +206,16 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         Thread.currentThread().interrupt();
         return null;
       } catch (ExternalTaskException e) {
-        monitorFailed++;
-        LOGGER.warn(String.format("Monitoring of external task failed %s/%s", monitorFailed,
+        consecutiveMonitorFailures++;
+        LOGGER.warn(String.format("Monitoring of external task failed %s/%s", consecutiveMonitorFailures,
             maxMonitorFailures), e);
-        if (monitorFailed == maxMonitorFailures) {
+        if (consecutiveMonitorFailures == maxMonitorFailures) {
           break;
         }
       }
     } while (taskState == null || (taskState != TaskState.DROPPED
         && taskState != TaskState.PROCESSED));
-    if (taskState == TaskState.DROPPED || monitorFailed == maxMonitorFailures) {
+    if (taskState == TaskState.DROPPED || consecutiveMonitorFailures == maxMonitorFailures) {
       abstractMetisPlugin.setFinishedDate(null);
       abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
     } else {

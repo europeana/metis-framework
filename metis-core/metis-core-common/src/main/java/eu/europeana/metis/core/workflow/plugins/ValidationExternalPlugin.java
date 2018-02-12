@@ -32,7 +32,8 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
    */
   public ValidationExternalPlugin() {
     //Required for json serialization
-    super.setPluginType(PluginType.VALIDATION_EXTERNAL);
+    super(PluginType.VALIDATION_EXTERNAL);
+
   }
 
   /**

@@ -34,7 +34,7 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
    */
   public OaipmhHarvestPlugin() {
     //Required for json serialization
-    super.setPluginType(PluginType.OAIPMH_HARVEST);
+    super(PluginType.OAIPMH_HARVEST);
   }
 
   /**

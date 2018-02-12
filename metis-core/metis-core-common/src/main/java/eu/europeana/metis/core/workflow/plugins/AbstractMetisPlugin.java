@@ -30,7 +30,7 @@ import org.mongodb.morphia.annotations.Indexed;
 @Embedded
 public abstract class AbstractMetisPlugin {
 
-  private PluginType pluginType;
+  protected final PluginType pluginType;
   private static final String representationName = "metadataRecord";
 
   @Indexed
@@ -50,8 +50,9 @@ public abstract class AbstractMetisPlugin {
   private ExecutionProgress executionProgress = new ExecutionProgress();
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public AbstractMetisPlugin() {
+  public AbstractMetisPlugin(PluginType pluginType) {
     //Required for json serialization
+    this.pluginType = pluginType;
   }
 
   /**
@@ -80,13 +81,6 @@ public abstract class AbstractMetisPlugin {
     return pluginType;
   }
 
-  /**
-   * @return {@link PluginType}
-   */
-  public void setPluginType(PluginType pluginType) {
-    this.pluginType = pluginType;
-  }
-
   public static String getRepresentationName() {
     return representationName;
   }
@@ -111,42 +105,42 @@ public abstract class AbstractMetisPlugin {
    * @return started {@link Date} of the execution of the plugin
    */
   public Date getStartedDate() {
-    return startedDate == null?null:new Date(startedDate.getTime());
+    return startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   /**
    * @param startedDate {@link Date}
    */
   public void setStartedDate(Date startedDate) {
-    this.startedDate = startedDate == null?null:new Date(startedDate.getTime());
+    this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   /**
    * @return finished {@link Date} of the execution of the plugin
    */
   public Date getFinishedDate() {
-    return finishedDate == null?null:new Date(finishedDate.getTime());
+    return finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   /**
    * @param finishedDate {@link Date}
    */
   public void setFinishedDate(Date finishedDate) {
-    this.finishedDate = finishedDate == null?null:new Date(finishedDate.getTime());
+    this.finishedDate = finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   /**
    * @return updated {@link Date} of the execution of the plugin
    */
   public Date getUpdatedDate() {
-    return updatedDate == null?null:new Date(updatedDate.getTime());
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   /**
    * @param updatedDate {@link Date}
    */
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate == null?null:new Date(updatedDate.getTime());
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   /**

@@ -32,7 +32,7 @@ public class TransformationPlugin extends AbstractMetisPlugin {
    */
   public TransformationPlugin() {
     //Required for json serialization
-    super.setPluginType(PluginType.TRANSFORMATION);
+    super(PluginType.TRANSFORMATION);
   }
 
   /**

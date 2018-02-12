@@ -29,6 +29,7 @@ public final class ExecutionRules {
    * The ordering of the pluginTypes are predefined in code, but an enforcedPluginType can overwrite that, and
    * will try to use the enforcedPluginType as a source, if an execution that has properly finished exists.
    * Executions that are reported as FINISHED but have all records have errors, is not a valid execution as a source.</p>
+   *
    * @param pluginType the {@link PluginType} that is to be executed
    * @param enforcedPluginType the {@link PluginType} used to enforce the source pluginType of the execution
    * @param datasetId the dataset identifier to check for
@@ -44,15 +45,12 @@ public final class ExecutionRules {
       abstractMetisPlugin = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               EnumSet.of(enforcedPluginType));
-    } else {
-      //Get latest FINISHED plugin for datasetId
-      if (processPluginGroup.contains(pluginType)) {
-        abstractMetisPlugin = getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
-            workflowExecutionDao);
-      } else if (indexPluginGroup.contains(pluginType)) {
-        // TODO: 29-1-18 Implement when index plugins ready
-        abstractMetisPlugin = null;
-      }
+    } else if (processPluginGroup.contains(pluginType)) { //Get latest FINISHED plugin for datasetId
+      abstractMetisPlugin = getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
+          workflowExecutionDao);
+    } else if (indexPluginGroup.contains(pluginType)) {
+      // TODO: 29-1-18 Implement when index plugins ready
+      abstractMetisPlugin = null;
     }
     return abstractMetisPlugin;
   }

@@ -13,7 +13,7 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
    */
   public ValidationInternalPlugin() {
     //Required for json serialization
-    super.setPluginType(PluginType.VALIDATION_INTERNAL);
+    super(PluginType.VALIDATION_INTERNAL);
   }
 
   /**
