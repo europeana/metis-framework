@@ -48,7 +48,7 @@ public class TestObjectFactory {
   private TestObjectFactory() {
   }
 
-  public static Workflow createUserWorkflowObject() {
+  public static Workflow createWorkflowObject() {
     Workflow workflow = new Workflow();
     workflow.setHarvestPlugin(true);
     workflow.setWorkflowOwner(WORKFLOWOWNER);
@@ -70,7 +70,7 @@ public class TestObjectFactory {
       int size) {
     List<Workflow> workflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      Workflow workflow = createUserWorkflowObject();
+      Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowOwner(workflowOwner);
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
@@ -80,14 +80,12 @@ public class TestObjectFactory {
   }
 
   public static WorkflowExecution createWorkflowExecutionObject() {
-    Workflow workflow = createUserWorkflowObject();
+    Workflow workflow = createWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
-    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin();
-    oaipmhHarvestPlugin.setPluginMetadata(new OaipmhHarvestPluginMetadata());
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(new OaipmhHarvestPluginMetadata());
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
-    ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin();
-    validationExternalPlugin.setPluginMetadata(new ValidationExternalPluginMetadata());
+    ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
@@ -108,10 +106,10 @@ public class TestObjectFactory {
     return workflowExecution;
   }
 
-  public static List<WorkflowExecution> createListOfUserWorkflowExecutions(int size) {
+  public static List<WorkflowExecution> createListOfWorkflowExecutions(int size) {
     List<WorkflowExecution> workflowExecutions = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      Workflow workflow = createUserWorkflowObject();
+      Workflow workflow = createWorkflowObject();
       workflow.setId(new ObjectId());
       workflow.setWorkflowName(String.format("%s%s", WORKFLOWNAME, i));
       Dataset dataset = createDataset(String.format("%s%s", DATASETNAME, i));
@@ -124,14 +122,14 @@ public class TestObjectFactory {
     return workflowExecutions;
   }
 
-  public static void updateListOfUserWorkflowExecutionsWithWorkflowStatus(
+  public static void updateListOfWorkflowExecutionsWithWorkflowStatus(
       List<WorkflowExecution> workflowExecutions, WorkflowStatus workflowStatus) {
     for (WorkflowExecution workflowExecution : workflowExecutions) {
       workflowExecution.setWorkflowStatus(workflowStatus);
     }
   }
 
-  public static ScheduledWorkflow createScheduledUserWorkflowObject() {
+  public static ScheduledWorkflow createScheduledWorkflowObject() {
     ScheduledWorkflow scheduledWorkflow = new ScheduledWorkflow();
     scheduledWorkflow.setDatasetId(DATASETID);
     scheduledWorkflow.setWorkflowOwner(WORKFLOWOWNER);
@@ -142,10 +140,10 @@ public class TestObjectFactory {
     return scheduledWorkflow;
   }
 
-  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflows(int size) {
+  public static List<ScheduledWorkflow> createListOfScheduledWorkflows(int size) {
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
+      ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
       scheduledWorkflow.setDatasetId(DATASETID + i);
       scheduledWorkflows.add(scheduledWorkflow);
@@ -153,11 +151,11 @@ public class TestObjectFactory {
     return scheduledWorkflows;
   }
 
-  public static List<ScheduledWorkflow> createListOfScheduledUserWorkflowsWithDateAndFrequence(
+  public static List<ScheduledWorkflow> createListOfScheduledWorkflowsWithDateAndFrequence(
       int size, Date date, ScheduleFrequence scheduleFrequence) {
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
     for (int i = 0; i < size; i++) {
-      ScheduledWorkflow scheduledWorkflow = createScheduledUserWorkflowObject();
+      ScheduledWorkflow scheduledWorkflow = createScheduledWorkflowObject();
       scheduledWorkflow.setId(new ObjectId());
       scheduledWorkflow.setDatasetId(DATASETID + i);
       scheduledWorkflow.setPointerDate(date);

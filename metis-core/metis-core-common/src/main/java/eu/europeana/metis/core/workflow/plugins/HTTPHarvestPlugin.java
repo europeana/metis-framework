@@ -8,22 +8,22 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
  */
 public class HTTPHarvestPlugin extends AbstractMetisPlugin {
 
+  /**
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   */
   public HTTPHarvestPlugin() {
     //Required for json serialization
+    super.setPluginType(PluginType.HTTP_HARVEST);
   }
 
   /**
-   * Constructor to initialize the plugin with pluginMetadata required.
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
    *
    * @param pluginMetadata should be {@link HTTPHarvestPluginMetadata}
    */
   public HTTPHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.HTTP_HARVEST, pluginMetadata);
-  }
-
-  @Override
-  public void setPluginType(PluginType pluginType) {
-    super.setPluginType(PluginType.HTTP_HARVEST);
   }
 
   @Override

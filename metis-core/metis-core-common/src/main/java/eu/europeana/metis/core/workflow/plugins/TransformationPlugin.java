@@ -27,12 +27,17 @@ public class TransformationPlugin extends AbstractMetisPlugin {
 
   private final String topologyName = Topology.TRANSFORMATION.getTopologyName();
 
+  /**
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   */
   public TransformationPlugin() {
     //Required for json serialization
+    super.setPluginType(PluginType.TRANSFORMATION);
   }
 
   /**
-   * Constructor to initialize the plugin with pluginMetadata required.
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
    *
    * @param pluginMetadata should be {@link TransformationPluginMetadata}
    */
@@ -47,11 +52,6 @@ public class TransformationPlugin extends AbstractMetisPlugin {
    */
   public String getTopologyName() {
     return topologyName;
-  }
-
-  @Override
-  public void setPluginType(PluginType pluginType) {
-    super.setPluginType(PluginType.TRANSFORMATION);
   }
 
   @Override

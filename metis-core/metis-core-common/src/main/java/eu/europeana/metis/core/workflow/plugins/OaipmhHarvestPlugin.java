@@ -29,22 +29,22 @@ public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
 
   private final String topologyName = Topology.OAIPMH_HARVEST.getTopologyName();
 
+  /**
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   */
   public OaipmhHarvestPlugin() {
     //Required for json serialization
+    super.setPluginType(PluginType.OAIPMH_HARVEST);
   }
 
   /**
-   * Constructor to initialize the plugin with pluginMetadata required.
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
    *
    * @param pluginMetadata should be {@link OaipmhHarvestPluginMetadata}
    */
   public OaipmhHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.OAIPMH_HARVEST, pluginMetadata);
-  }
-
-  @Override
-  public void setPluginType(PluginType pluginType) {
-    super.setPluginType(PluginType.OAIPMH_HARVEST);
   }
 
   /**

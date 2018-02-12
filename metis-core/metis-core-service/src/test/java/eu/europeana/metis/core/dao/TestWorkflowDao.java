@@ -54,14 +54,14 @@ public class TestWorkflowDao {
 
   @Test
   public void createUserWorkflow() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     String objectId = workflowDao.create(workflow);
     Assert.assertNotNull(objectId);
   }
 
   @Test
   public void testUpdateUserWorkflow() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     String updatedWorkflowName = "updatedWorkflowName";
     workflow.setWorkflowName(updatedWorkflowName);
@@ -73,7 +73,7 @@ public class TestWorkflowDao {
 
   @Test
   public void getById() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     String objectId = workflowDao.create(workflow);
     Workflow retrievedWorkflow = workflowDao.getById(objectId);
     Assert.assertEquals(workflow.getWorkflowOwner(), retrievedWorkflow.getWorkflowOwner());
@@ -91,7 +91,7 @@ public class TestWorkflowDao {
 
   @Test
   public void delete() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertTrue(workflowDao.delete(workflow));
     Assert.assertFalse(workflowDao.delete(workflow));
@@ -99,7 +99,7 @@ public class TestWorkflowDao {
 
   @Test
   public void deleteUserWorkflow() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertTrue(workflowDao
         .deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
@@ -109,14 +109,14 @@ public class TestWorkflowDao {
 
   @Test
   public void exists() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertNotNull(workflowDao.exists(workflow));
   }
 
   @Test
   public void getUserWorkflow() {
-    Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
     workflowDao.create(workflow);
     Assert.assertNotNull(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()));
@@ -128,7 +128,7 @@ public class TestWorkflowDao {
     int userWorkflowsToCreate = workflowDao.getWorkflowsPerRequest() + 1;
     for (int i = 0; i < userWorkflowsToCreate; i++)
     {
-      Workflow workflow = TestObjectFactory.createUserWorkflowObject();
+      Workflow workflow = TestObjectFactory.createWorkflowObject();
       workflow.setWorkflowName(String.format("%s%s", TestObjectFactory.WORKFLOWNAME, i));
       workflowDao.create(workflow);
     }

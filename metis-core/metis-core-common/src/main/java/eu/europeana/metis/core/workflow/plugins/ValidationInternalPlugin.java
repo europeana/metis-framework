@@ -8,22 +8,22 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
  */
 public class ValidationInternalPlugin extends AbstractMetisPlugin {
 
+  /**
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   */
   public ValidationInternalPlugin() {
     //Required for json serialization
+    super.setPluginType(PluginType.VALIDATION_INTERNAL);
   }
 
   /**
-   * Constructor to initialize the plugin with pluginMetadata required.
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
    *
    * @param pluginMetadata should be {@link ValidationInternalPluginMetadata}
    */
   public ValidationInternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.VALIDATION_INTERNAL, pluginMetadata);
-  }
-
-  @Override
-  public void setPluginType(PluginType pluginType) {
-    super.setPluginType(PluginType.VALIDATION_INTERNAL);
   }
 
   @Override

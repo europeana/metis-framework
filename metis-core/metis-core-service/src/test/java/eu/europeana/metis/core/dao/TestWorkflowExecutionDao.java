@@ -216,8 +216,8 @@ public class TestWorkflowExecutionDao {
 
     WorkflowExecution workflowExecution2 = TestObjectFactory
         .createWorkflowExecutionObject();
-    workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
-    workflowExecution.setDatasetId(TestObjectFactory.DATASETID);
+    workflowExecution2.setWorkflowStatus(WorkflowStatus.FINISHED);
+    workflowExecution2.setDatasetId(TestObjectFactory.DATASETID);
     for (int i = 0; i < workflowExecution2.getMetisPlugins().size(); i++) {
       workflowExecution.getMetisPlugins().get(i).setFinishedDate(new Date());
       workflowExecution2.getMetisPlugins().get(i).setFinishedDate(
