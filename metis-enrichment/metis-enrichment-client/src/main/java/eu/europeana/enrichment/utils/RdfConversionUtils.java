@@ -46,7 +46,7 @@ public final class RdfConversionUtils {
    * @throws JiBXException
    * @throws UnsupportedEncodingException
    */
-  public static String convertRdftoString(RDF rdf)
+  public static String convertRdfToString(RDF rdf)
       throws JiBXException, UnsupportedEncodingException {
     IMarshallingContext context = getRdfBindingFactory().createMarshallingContext();
     context.setIndent(2);

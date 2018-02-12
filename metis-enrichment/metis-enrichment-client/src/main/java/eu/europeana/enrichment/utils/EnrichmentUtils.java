@@ -25,7 +25,7 @@ public class EnrichmentUtils {
      */
     @Deprecated
     public static String convertRDFtoString(RDF rdf) throws JiBXException, UnsupportedEncodingException {
-        return RdfConversionUtils.convertRdftoString(rdf);
+        return RdfConversionUtils.convertRdfToString(rdf);
     }
     
     /**

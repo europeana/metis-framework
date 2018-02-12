@@ -555,7 +555,7 @@ public class EntityMergeEngineTest {
     verifyPlace((Place) inputList.get(2), rdf.getPlaceList().get(2));
 
     // Convert RDF to string as extra test that everything is OK.
-    RdfConversionUtils.convertRdftoString(rdf);
+    RdfConversionUtils.convertRdfToString(rdf);
   }
 
   @Test
@@ -592,7 +592,7 @@ public class EntityMergeEngineTest {
     verifyConcept((Concept) inputList.get(4), rdf.getConceptList().get(1));
 
     // Convert RDF to string as extra test that everything is OK.
-    RdfConversionUtils.convertRdftoString(rdf);
+    RdfConversionUtils.convertRdfToString(rdf);
   }
 
   @Test(expected = IllegalArgumentException.class)

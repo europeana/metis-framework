@@ -59,7 +59,7 @@ import eu.europeana.enrichment.api.external.model.Place;
 import eu.europeana.enrichment.api.external.model.Resource;
 import eu.europeana.enrichment.api.external.model.Timespan;
 
-public final class EntityMergeEngine {
+public class EntityMergeEngine {
 
   private static void setAbout(EnrichmentBase source, AboutType destination) {
     final String about = source.getAbout();
