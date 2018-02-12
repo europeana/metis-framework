@@ -1,10 +1,10 @@
 package eu.europeana.indexing.client.test;
 
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.client.IndexingClient;
-import eu.europeana.indexing.client.IndexingException;
+import eu.europeana.indexing.client.IndexingWorker;
+import eu.europeana.metis.exception.IndexingException;
 
-public class IndexingClientTestWithMain {
+public class IndexingWorkerTestWithMain {
 	public static final String SAMPLE_INPUT_2 = 
 			"<?xml version=\"1.0\"  encoding=\"UTF-8\" ?>" +
 
@@ -101,21 +101,11 @@ public class IndexingClientTestWithMain {
 	      "</edm:EuropeanaAggregation></rdf:RDF>";
 	
 	
-	public static void main(String[] args) {
-		IndexingClient indexingClient = new IndexingClient();
+	public static void main(String[] args) throws IndexingException {
+		IndexingWorker indexingWorker = new IndexingWorker(new IndexingClient());
 		
-		System.out.println("Record to save: " + SAMPLE_INPUT_2 + "\n");
-		System.out.println("Saving record...\n");
-		try {
-			System.out.println("Result of saving record: " + indexingClient.process(SAMPLE_INPUT_2) + "\n");
-		} catch (IndexingException e) {
-			e.printStackTrace();
-		}
-		System.out.println("Number of records currently in Mongo: " + indexingClient.getAll().size() + "\n");
-		System.out.println("\"About\" descriptions of all records currently in Mongo:\n");
-		
-		for (FullBeanImpl fullBean : indexingClient.getAll()) {
-			System.out.println(fullBean.getAbout());
-		}
+		System.out.println("Record to publish: " + SAMPLE_INPUT_2 + "\n");
+		System.out.println("Publishing record...\n");
+		System.out.println("Result of saving record: " + indexingWorker.publish(SAMPLE_INPUT_2) + "\n");
 	}
 }

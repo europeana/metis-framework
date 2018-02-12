@@ -181,7 +181,6 @@
     <module>metis-preview</module>
     <module>metis-normalization</module>
     <module>metis-authentication</module>
-    <module>metis-indexing</module>
   </modules>
   <repositories>
 
