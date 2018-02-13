@@ -775,10 +775,10 @@
 
         <!--ASSERT -->
         <xsl:choose>
-            <xsl:when test="dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial"/>
+            <xsl:when test="dc:subject or dc:type or dct:temporal or dct:spatial"/>
             <xsl:otherwise>
                 <svrl:failed-assert xmlns:svrl="http://purl.oclc.org/dsdl/svrl"
-                                    test="dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial">
+                                    test="dc:subject or dc:type or dct:temporal or dct:spatial">
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
@@ -786,7 +786,7 @@
                         id: <xsl:text/>
                         <xsl:value-of select="@rdf:about"/>
                         <xsl:text/>
-                        - A ProvidedCHO must have a dc:subject or dc:type or dc:coverage or dct:temporal or dct:spatial.
+                        - A ProvidedCHO must have a dc:subject or dc:type or dct:temporal or dct:spatial.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
