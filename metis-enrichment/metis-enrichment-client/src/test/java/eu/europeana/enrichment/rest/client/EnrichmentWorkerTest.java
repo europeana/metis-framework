@@ -1,15 +1,19 @@
 package eu.europeana.enrichment.rest.client;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import org.jibx.runtime.JiBXException;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
@@ -24,6 +28,10 @@ import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
 
+// TODO Tests that could be added:
+// 1. What if there is nothing to process (empty or null lists are returned when extracting or when
+// enriching/dereferencing).
+// 2. Throwing exceptions
 public class EnrichmentWorkerTest {
 
   private static final InputValue[] ENRICHMENT_EXTRACT_RESULT =
@@ -69,8 +77,9 @@ public class EnrichmentWorkerTest {
     final EnrichmentClient enrichmentClient = Mockito.mock(EnrichmentClient.class);
     doReturn(enrichmentResult).when(enrichmentClient).enrich(any());
     final DereferenceClient dereferenceClient = Mockito.mock(DereferenceClient.class);
-    doReturn(dereferenceResult.get(0), dereferenceResult.subList(1, dereferenceResult.size()).toArray())
-        .when(dereferenceClient).dereference(any());
+    doReturn(dereferenceResult.get(0),
+        dereferenceResult.subList(1, dereferenceResult.size()).toArray()).when(dereferenceClient)
+            .dereference(any());
     final EntityMergeEngine entityMergeEngine = Mockito.mock(EntityMergeEngine.class);
 
     // Create enrichment worker and mock the enrichment and dereferencing results.
@@ -164,16 +173,64 @@ public class EnrichmentWorkerTest {
     }
   }
 
-  // test different process methods.
+  @Test
+  public void testProcessWrapperMethods()
+      throws JiBXException, UnsupportedEncodingException, DereferenceOrEnrichException {
 
-  // unhappy flow: rdf is null or mode is null
+    // Create enrichment worker and mock the actual worker method as well as the RDF conversion
+    // methods.
+    final EnrichmentWorker worker = spy(new EnrichmentWorker(null, null, null));
+    final RDF inputRdf = new RDF();
+    final String outputString = "OutputString";
+    doReturn(inputRdf).when(worker).convertStringToRdf(anyString());
+    doReturn(outputString).when(worker).convertRdfToString(inputRdf);
+    doReturn(inputRdf).when(worker).process(any(), any());
 
-  // Test when there is nothing to dereference/enrich
+    // Perform the operations and verify the result
+    final RDF returnedRdf = worker.process(inputRdf);
+    assertEquals(inputRdf, returnedRdf);
+    final String returnedString = worker.process("");
+    assertEquals(outputString, returnedString);
 
-  private <T> ArgumentCaptor<List<T>> createCaptorForList() {
+    // Validate the method calls to the actual worker method
+    verify(worker, times(2)).process(any(), any());
+    verify(worker, times(2)).process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+
+    // Test null string input
+    try {
+      worker.process((String) null);
+      fail("Expected an exception to occur.");
+    } catch (IllegalArgumentException e) {
+      // This is expected
+    }
+  }
+
+  @Test
+  public void testEnrichmentWorkerNullValues() throws DereferenceOrEnrichException {
+
+    // Create enrichment worker
+    final EnrichmentWorker worker = new EnrichmentWorker(null, null, null);
+
+    // Test null string input
+    try {
+      worker.process(null, Mode.DEREFERENCE_AND_ENRICHMENT);
+      fail("Expected an exception to occur.");
+    } catch (IllegalArgumentException e) {
+      // This is expected
+    }
+
+    // Test null string input
+    try {
+      worker.process(new RDF(), null);
+      fail("Expected an exception to occur.");
+    } catch (IllegalArgumentException e) {
+      // This is expected
+    }
+  }
+
+  private static <T> ArgumentCaptor<List<T>> createCaptorForList() {
     @SuppressWarnings("unchecked")
     ArgumentCaptor<List<T>> result = ArgumentCaptor.forClass(List.class);
     return result;
   }
-
 }
