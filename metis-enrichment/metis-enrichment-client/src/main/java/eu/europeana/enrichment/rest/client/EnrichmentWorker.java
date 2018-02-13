@@ -2,8 +2,11 @@ package eu.europeana.enrichment.rest.client;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.ObjIntConsumer;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -152,40 +155,15 @@ public class EnrichmentWorker {
     // [1] Extract fields from the RDF for enrichment
     LOGGER.debug("Extracting fields from RDF for enrichment...");
     final List<InputValue> fieldsForEnrichment = extractFieldsForEnrichment(rdf);
-
-    if (fieldsForEnrichment == null || fieldsForEnrichment.isEmpty()) {
-      LOGGER.debug("No fields to enrich.");
-      return;
-    }
-
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Extracted following fields:");
-      int count = 0;
-      for (InputValue i : fieldsForEnrichment) {
-        count++;
-        LOGGER.debug("== {}: {} {} {} {}.", count, i.getLanguage(), i.getOriginalField(),
-            i.getValue(), i.getVocabularies());
-      }
+      logExtractionResult(fieldsForEnrichment, EnrichmentWorker::logInputValueWithCounter);
     }
 
     // [2] Get the information with which to enrich the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment information...");
     EnrichmentResultList enrichmentInformation = enrichFields(fieldsForEnrichment);
-    if (enrichmentInformation == null || enrichmentInformation.getResult() == null
-        || enrichmentInformation.getResult().isEmpty()) {
-      LOGGER.debug("No information found. Nothing to merge.");
-      return;
-    }
-
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Following information found:");
-      int count = 1;
-      for (EnrichmentBase enrichmentBase : enrichmentInformation.getResult()) {
-        LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-            enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(), enrichmentBase.getNotes(),
-            enrichmentBase.getPrefLabelList());
-        count++;
-      }
+      logDereferencingOrEnrichmentResult(Collections.singletonList(enrichmentInformation));
     }
 
     // [3] Merge the acquired information into the RDF
@@ -211,43 +189,18 @@ public class EnrichmentWorker {
     // [1] Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
     Set<String> fieldsForDereferencing = extractValuesForDereferencing(rdf);
-
-    if (fieldsForDereferencing == null || fieldsForDereferencing.isEmpty()) {
-      LOGGER.debug("No fields to dereference.");
-      return;
-    }
-
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Extracted following fields:");
-      int count = 0;
-      for (String field : fieldsForDereferencing) {
-        count++;
-        LOGGER.debug("== {}: {}", count, field);
-      }
+      logExtractionResult(fieldsForDereferencing, EnrichmentWorker::logStringWithCounter);
     }
 
     // [2] Get the information with which to enrich (via dereferencing) the RDF using the extracted
     // fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
     List<EnrichmentResultList> dereferenceInformation = dereferenceFields(fieldsForDereferencing);
-    if (dereferenceInformation.isEmpty()) {
-      LOGGER.debug("No information found. Nothing to merge.");
-      return;
-    }
-
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Following information found:");
-      int count = 1;
-      for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-        for (EnrichmentBase enrichmentBase : dereferenceResultList.getResult()) {
-          LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-              enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(),
-              enrichmentBase.getNotes(), enrichmentBase.getPrefLabelList());
-          count++;
-        }
-      }
+      logDereferencingOrEnrichmentResult(dereferenceInformation);
     }
-
+    
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
@@ -280,6 +233,57 @@ public class EnrichmentWorker {
           "Exception occurred while trying to perform dereferencing.", e);
     }
     return dereferenceInformation;
+  }
+
+  private static void logStringWithCounter(String field, int count) {
+    LOGGER.debug("== {}: {}", count, field);
+  }
+
+  private static void logInputValueWithCounter(InputValue inputValue, int count) {
+    LOGGER.debug("== {}: {} {} {} {}.", count, inputValue.getLanguage(),
+        inputValue.getOriginalField(), inputValue.getValue(), inputValue.getVocabularies());
+  }
+
+  private <T> void logExtractionResult(Collection<T> resultList, ObjIntConsumer<T> logger) {
+    int count = 0;
+    if (resultList != null) {
+      LOGGER.debug("Extracted following fields:");
+      for (T result : resultList) {
+        if (result == null) {
+          continue;
+        }
+        count++;
+        logger.accept(result, count);
+      }
+    }
+    if (count == 0) {
+      LOGGER.debug("No fields to process.");
+      return;
+    }
+  }
+
+  private void logDereferencingOrEnrichmentResult(List<EnrichmentResultList> resultList) {
+    int count = 0;
+    if (resultList != null) {
+      LOGGER.debug("Following information found:");
+      for (EnrichmentResultList result : resultList) {
+        if (result == null) {
+          continue;
+        }
+        for (EnrichmentBase enrichmentBase : result.getResult()) {
+          if (enrichmentBase == null) {
+            continue;
+          }
+          count++;
+          LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
+              enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(),
+              enrichmentBase.getNotes(), enrichmentBase.getPrefLabelList());
+        }
+      }
+    }
+    if (count == 0) {
+      LOGGER.debug("No information found. Nothing to merge.");
+    }
   }
 
   List<InputValue> extractFieldsForEnrichment(RDF rdf) {
