@@ -1,16 +1,11 @@
 package eu.europeana.metis.core.exceptions;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
 /**
- * Exception used for general purpose of some bad status or input.
- *
+ * Generic Metis exception that would encapsulate the actual exception.
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
- * @since 2017-05-10
+ * @since 2018-02-13
  */
-@ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Bad Content")
-public class BadContentException extends GenericMetisException {
+public class GenericMetisException extends Exception{
 
   private static final long serialVersionUID = -3332292346834265371L;
 
@@ -19,7 +14,7 @@ public class BadContentException extends GenericMetisException {
    *
    * @param message the detail message. The detail message is saved for later retrieval by the {@link #getMessage()} method.
    */
-  public BadContentException(String message) {
+  public GenericMetisException(String message) {
     super(message);
   }
 
@@ -33,7 +28,8 @@ public class BadContentException extends GenericMetisException {
    * permitted, and indicates that the cause is nonexistent or
    * unknown.)
    */
-  public BadContentException(String message, Throwable cause) {
+  public GenericMetisException(String message, Throwable cause) {
     super(message, cause);
   }
+
 }

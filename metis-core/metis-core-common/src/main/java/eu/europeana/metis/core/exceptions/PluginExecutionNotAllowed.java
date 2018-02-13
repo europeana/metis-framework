@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2018-01-30
  */
 @ResponseStatus(value = HttpStatus.NOT_ACCEPTABLE, reason = "Plugin Execution Not Allowed")
-public class PluginExecutionNotAllowed extends Exception {
+public class PluginExecutionNotAllowed extends GenericMetisException {
 
   private static final long serialVersionUID = -3332292346834265371L;
 

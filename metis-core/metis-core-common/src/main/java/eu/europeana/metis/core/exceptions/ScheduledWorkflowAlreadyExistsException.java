@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2017-09-25
  */
 @ResponseStatus(value = HttpStatus.CONFLICT, reason = "ScheduledWorkflow already exists")
-public class ScheduledWorkflowAlreadyExistsException extends Exception {
+public class ScheduledWorkflowAlreadyExistsException extends GenericMetisException {
 
   private static final long serialVersionUID = -3332292346834265371L;
 

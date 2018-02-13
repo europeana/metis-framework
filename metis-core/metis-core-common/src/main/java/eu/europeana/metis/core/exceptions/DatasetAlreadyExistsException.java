@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2017-05-17
  */
 @ResponseStatus(value = HttpStatus.CONFLICT, reason = "Dataset already exists")
-public class DatasetAlreadyExistsException extends Exception {
+public class DatasetAlreadyExistsException extends GenericMetisException {
 
   private static final long serialVersionUID = -3332292346834265371L;
 

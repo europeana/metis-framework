@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2017-09-26
  */
 @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "No userWorkflow found")
-public class NoScheduledWorkflowFoundException extends Exception {
+public class NoScheduledWorkflowFoundException extends GenericMetisException {
 
   private static final long serialVersionUID = -3332292346834265371L;
 

@@ -13,6 +13,7 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.core.exceptions.GenericMetisException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -125,7 +126,7 @@ public class OrchestratorService {
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName,
       PluginType enforcedPluginType, int priority)
-      throws NoDatasetFoundException, NoWorkflowFoundException, WorkflowExecutionAlreadyExistsException, PluginExecutionNotAllowed {
+      throws GenericMetisException {
 
     Dataset dataset = checkDatasetExistence(datasetId);
     Workflow workflow = checkWorkflowExistence(workflowOwner, workflowName);
@@ -156,7 +157,7 @@ public class OrchestratorService {
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(int datasetId,
       Workflow workflow, PluginType enforcedPluginType,
       int priority)
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException, PluginExecutionNotAllowed {
+      throws GenericMetisException {
     Dataset dataset = checkDatasetExistence(datasetId);
     //Generate uuid workflowName and check if by any chance it exists.
     workflow.setWorkflowName(new ObjectId().toString());
@@ -374,7 +375,7 @@ public class OrchestratorService {
   }
 
   public void scheduleWorkflow(ScheduledWorkflow scheduledWorkflow)
-      throws NoDatasetFoundException, NoWorkflowFoundException, BadContentException, ScheduledWorkflowAlreadyExistsException {
+      throws GenericMetisException {
     checkRestrictionsOnScheduleWorkflow(scheduledWorkflow);
     scheduledWorkflowDao.create(scheduledWorkflow);
   }
@@ -423,7 +424,7 @@ public class OrchestratorService {
   }
 
   public void updateScheduledWorkflow(ScheduledWorkflow scheduledWorkflow)
-      throws NoScheduledWorkflowFoundException, BadContentException, NoWorkflowFoundException {
+      throws GenericMetisException {
     String storedId = checkRestrictionsOnScheduledWorkflowUpdate(scheduledWorkflow);
     scheduledWorkflow.setId(new ObjectId(storedId));
     scheduledWorkflowDao.update(scheduledWorkflow);
