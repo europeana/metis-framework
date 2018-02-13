@@ -1,19 +1,3 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.metis.core.rest;
 
 import eu.europeana.metis.CommonStringValues;
@@ -23,10 +7,11 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.exceptions.BadContentException;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.Arrays;
 import java.util.List;
@@ -78,10 +63,11 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param dataset the provided dataset to be created
    * @return the dataset created including all other fields that are auto generated
-   * @throws DatasetAlreadyExistsException if the dataset already exists for the organizationId and datasetName
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
-   * authenticated
-   * @throws UserUnauthorizedException if the user is unauthorized
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * authenticated,
+   * {@link DatasetAlreadyExistsException} if the dataset already exists for the organizationId and datasetName,
+   * {@link UserUnauthorizedException} if the user is unauthorized
    */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -89,7 +75,7 @@ public class DatasetController {
   @ResponseBody
   public Dataset createDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
-      throws DatasetAlreadyExistsException, UserUnauthorizedException, BadContentException {
+      throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
@@ -107,18 +93,19 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param dataset the provided dataset to be updated
-   * @throws NoDatasetFoundException if the dataset was not found for the datasetId
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
-   * authenticated
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws DatasetAlreadyExistsException if a datasetName change is requested and the datasetName for that organizationId already exists
+   * @throws GenericMetisException which can be one of:
+   * {@link NoDatasetFoundException} if the dataset was not found for the datasetId,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * authenticated,
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link DatasetAlreadyExistsException} if a datasetName change is requested and the datasetName for that organizationId already exists
    */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestHeader("Authorization") String authorization,
       @RequestBody Dataset dataset)
-      throws NoDatasetFoundException, UserUnauthorizedException, DatasetAlreadyExistsException, BadContentException {
+      throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
@@ -132,16 +119,17 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param datasetId the identifier used to find and delete the dataset
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
-   * authenticated
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws NoDatasetFoundException if the dataset was not found for datasetId
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * authenticated,
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link NoDatasetFoundException} if the dataset was not found for datasetId
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteDataset(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") int datasetId)
-      throws BadContentException, UserUnauthorizedException, NoDatasetFoundException {
+      throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
@@ -156,9 +144,10 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param datasetId the identifier used to find a dataset
    * @return {@link Dataset}
-   * @throws NoDatasetFoundException if the dataset was not found
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link NoDatasetFoundException} if the dataset was not found,
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    * authenticated
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.GET, produces = {
@@ -167,7 +156,7 @@ public class DatasetController {
   @ResponseBody
   public Dataset getByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") int datasetId)
-      throws NoDatasetFoundException, UserUnauthorizedException, BadContentException {
+      throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
@@ -183,9 +172,10 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param datasetName the name of the dataset used to find a dataset
    * @return {@link Dataset}
-   * @throws NoDatasetFoundException if the dataset was not found
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link NoDatasetFoundException} if the dataset was not found,
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    * authenticated
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
@@ -194,12 +184,12 @@ public class DatasetController {
   @ResponseBody
   public Dataset getByDatasetName(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetName") String datasetName)
-      throws NoDatasetFoundException, BadContentException, UserUnauthorizedException {
+      throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
     Dataset dataset = datasetService.getDatasetByDatasetName(metisUser, datasetName);
-    LOGGER.info("Dataset with datasetName '{}' found", datasetName);
+    LOGGER.info("Dataset with datasetName '{}' found", dataset.getDatasetName());
     return dataset;
   }
 
@@ -212,8 +202,9 @@ public class DatasetController {
    * @param provider the provider used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    */
   @RequestMapping(value = RestEndpoints.DATASETS_PROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -223,7 +214,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("provider") String provider,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws BadContentException, UserUnauthorizedException {
+      throws GenericMetisException {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
@@ -249,8 +240,9 @@ public class DatasetController {
    * @param intermediateProvider the intermediateProvider used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    */
   @RequestMapping(value = RestEndpoints.DATASETS_INTERMEDIATE_PROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -260,7 +252,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("intermediateProvider") String intermediateProvider,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws BadContentException, UserUnauthorizedException {
+      throws GenericMetisException {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
@@ -287,8 +279,9 @@ public class DatasetController {
    * @param dataProvider the dataProvider used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -298,7 +291,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("dataProvider") String dataProvider,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws BadContentException, UserUnauthorizedException {
+      throws GenericMetisException {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
@@ -324,8 +317,9 @@ public class DatasetController {
    * @param organizationId the organizationId used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    */
   @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -335,7 +329,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("organizationId") String organizationId,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws BadContentException, UserUnauthorizedException {
+      throws GenericMetisException {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
@@ -361,8 +355,9 @@ public class DatasetController {
    * @param organizationName the organizationName used to search
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
-   * @throws UserUnauthorizedException if the user is unauthorized
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link UserUnauthorizedException} if the user is unauthorized,
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    */
   @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_NAME, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -372,7 +367,7 @@ public class DatasetController {
       @RequestHeader("Authorization") String authorization,
       @PathVariable("organizationName") String organizationName,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws BadContentException, UserUnauthorizedException {
+      throws GenericMetisException {
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
@@ -396,7 +391,8 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.CountrySerializer}
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    * authenticated
    */
   @RequestMapping(value = RestEndpoints.DATASETS_COUNTRIES, method = RequestMethod.GET, produces = {
@@ -404,7 +400,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<Country> getDatasetsCountries(@RequestHeader("Authorization") String authorization)
-      throws BadContentException {
+      throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Arrays.asList(Country.values());
   }
@@ -416,7 +412,8 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.LanguageSerializer}
-   * @throws BadContentException if the authorization header is un-parsable or the user cannot be
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
    * authenticated
    */
   @RequestMapping(value = RestEndpoints.DATASETS_LANGUAGES, method = RequestMethod.GET, produces = {
@@ -424,7 +421,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public List<Language> getDatasetsLanguages(@RequestHeader("Authorization") String authorization)
-      throws BadContentException {
+      throws GenericMetisException {
     authenticationClient.getUserByAccessTokenInHeader(authorization);
     return Arrays.asList(Language.values());
   }

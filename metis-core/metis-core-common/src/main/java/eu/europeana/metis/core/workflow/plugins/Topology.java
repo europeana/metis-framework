@@ -4,12 +4,15 @@ package eu.europeana.metis.core.workflow.plugins;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-01-12
  */
-public enum TopologyName {
-  OAIPMH_HARVEST("oai_harvest"), VALIDATION("validation");
+public enum Topology {
+  OAIPMH_HARVEST("oai_harvest"), VALIDATION("validation"), TRANSFORMATION("xslt_transform");
 
-  String topologyName;
+  private String topologyName;
 
-  TopologyName(String topologyName) {
+  Topology() {
+  }
+
+  Topology(String topologyName) {
     this.topologyName = topologyName;
   }
 

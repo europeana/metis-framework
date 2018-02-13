@@ -12,7 +12,6 @@ import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -24,11 +23,15 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowDao.class);
   private static final String WORKFLOW_OWNER = "workflowOwner";
-  public static final String WORKFLOW_NAME = "workflowName";
+  private static final String WORKFLOW_NAME = "workflowName";
   private int workflowsPerRequest = RequestLimits.WORKFLOWS_PER_REQUEST.getLimit();
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
-  @Autowired
+  /**
+   * Constructs the DAO
+   *
+   * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider} used to access Mongo
+   */
   public WorkflowDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
   }
@@ -42,6 +45,7 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
             .getWorkflowOwner());
     return workflowKey.getId().toString();
   }
+
 
   @Override
   public String update(Workflow workflow) {
@@ -66,7 +70,13 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return deleteWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName());
   }
 
-
+  /**
+   * Delete a workflow using a workflowOwner and a workflowName.
+   *
+   * @param workflowOwner the workflow owner
+   * @param workflowName the workflow name
+   * @return true if the workflow was found and deleted
+   */
   public boolean deleteWorkflow(String workflowOwner, String workflowName) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore().createQuery(Workflow.class);
     query.field(WORKFLOW_OWNER).equal(workflowOwner);
@@ -77,6 +87,12 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return delete.getN() == 1;
   }
 
+  /**
+   * Check existence of a workflow using a {@link Workflow} class.
+   * <p>It will check based on the {@link Workflow#getWorkflowOwner()} and {@link Workflow#getWorkflowName()}</p>
+   * @param workflow the {@link Workflow}
+   * @return null or the {@link ObjectId} of the object
+   */
   public String exists(Workflow workflow) {
     Workflow storedWorkflow = morphiaDatastoreProvider.getDatastore().find(Workflow.class)
         .field(WORKFLOW_OWNER)
@@ -87,6 +103,13 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
     return storedWorkflow != null ? storedWorkflow.getId().toString() : null;
   }
 
+  /**
+   * Get a workflow using a workflowOwner and a workflowName.
+   *
+   * @param workflowOwner the workflow owner
+   * @param workflowName the workflow name
+   * @return {@link Workflow}
+   */
   public Workflow getWorkflow(String workflowOwner, String workflowName) {
     return morphiaDatastoreProvider.getDatastore().find(Workflow.class).field(WORKFLOW_OWNER)
         .equal(workflowOwner)
@@ -94,6 +117,13 @@ public class WorkflowDao implements MetisDao<Workflow, String> {
         .get();
   }
 
+  /**
+   * Get all workflows using the workflowOwner field.
+   *
+   * @param workflowOwner the workflowOwner string used to find the workflows
+   * @param nextPage the nextPage positive number
+   * @return {@link List} of {@link Workflow}
+   */
   public List<Workflow> getAllWorkflows(String workflowOwner, int nextPage) {
     Query<Workflow> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(Workflow.class);

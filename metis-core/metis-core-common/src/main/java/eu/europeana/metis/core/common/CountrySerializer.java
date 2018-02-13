@@ -14,12 +14,11 @@ public class CountrySerializer extends StdSerializer<Country> {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor for the {@link Country} json serializer.
+   */
   public CountrySerializer() {
     super(Country.class);
-  }
-
-  public CountrySerializer(Class t) {
-    super(t);
   }
 
   @Override

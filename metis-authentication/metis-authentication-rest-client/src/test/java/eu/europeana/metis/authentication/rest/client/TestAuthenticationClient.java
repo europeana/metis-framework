@@ -4,7 +4,7 @@ package eu.europeana.metis.authentication.rest.client;
 import static org.junit.Assert.assertNotNull;
 
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;

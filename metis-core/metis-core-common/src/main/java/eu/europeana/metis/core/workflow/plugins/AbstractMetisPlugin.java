@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
- * This interface specifies the minimum o plugin should support so that it can be plugged in the
+ * This abstract class specifies the minimum o plugin should support so that it can be plugged in the
  * Metis workflow registry and can be accessible via the REST API of Metis.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -29,7 +30,7 @@ import org.mongodb.morphia.annotations.Indexed;
 @Embedded
 public abstract class AbstractMetisPlugin {
 
-  private PluginType pluginType;
+  protected final PluginType pluginType;
   private static final String representationName = "metadataRecord";
 
   @Indexed
@@ -49,10 +50,17 @@ public abstract class AbstractMetisPlugin {
   private ExecutionProgress executionProgress = new ExecutionProgress();
   private AbstractMetisPluginMetadata pluginMetadata;
 
-  public AbstractMetisPlugin() {
+  public AbstractMetisPlugin(PluginType pluginType) {
     //Required for json serialization
+    this.pluginType = pluginType;
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata required and the pluginType.
+   *
+   * @param pluginMetadata one of the implemented {@link AbstractMetisPluginMetadata}
+   * @param pluginType a {@link PluginType} related to the implemented plugin
+   */
   public AbstractMetisPlugin(PluginType pluginType, AbstractMetisPluginMetadata pluginMetadata) {
     this.pluginType = pluginType;
     this.pluginMetadata = pluginMetadata;
@@ -71,13 +79,6 @@ public abstract class AbstractMetisPlugin {
    */
   public PluginType getPluginType() {
     return pluginType;
-  }
-
-  /**
-   * @return {@link PluginType}
-   */
-  public void setPluginType(PluginType pluginType) {
-    this.pluginType = pluginType;
   }
 
   public static String getRepresentationName() {
@@ -104,42 +105,42 @@ public abstract class AbstractMetisPlugin {
    * @return started {@link Date} of the execution of the plugin
    */
   public Date getStartedDate() {
-    return this.startedDate;
+    return startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   /**
    * @param startedDate {@link Date}
    */
   public void setStartedDate(Date startedDate) {
-    this.startedDate = startedDate;
+    this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   /**
    * @return finished {@link Date} of the execution of the plugin
    */
   public Date getFinishedDate() {
-    return this.finishedDate;
+    return finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   /**
    * @param finishedDate {@link Date}
    */
   public void setFinishedDate(Date finishedDate) {
-    this.finishedDate = finishedDate;
+    this.finishedDate = finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   /**
    * @return updated {@link Date} of the execution of the plugin
    */
   public Date getUpdatedDate() {
-    return this.updatedDate;
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   /**
    * @param updatedDate {@link Date}
    */
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   /**
@@ -195,15 +196,17 @@ public abstract class AbstractMetisPlugin {
    * @param ecloudBaseUrl the base url of the ecloud apis
    * @param ecloudProvider the ecloud provider to be used for the external task
    * @param ecloudDataset the ecloud dataset identifier to be used for the external task
+   * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
   public abstract void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset);
+      String ecloudDataset) throws ExternalTaskException;
 
   /**
    * Request a monitor call to the external execution.
    *
    * @param dpsClient {@link DpsClient} used to request a monitor call the external execution
    * @return {@link ExecutionProgress} of the plugin.
+   * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public abstract ExecutionProgress monitor(DpsClient dpsClient);
+  public abstract ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException;
 }

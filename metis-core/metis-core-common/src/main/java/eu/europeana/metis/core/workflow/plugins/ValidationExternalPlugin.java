@@ -5,6 +5,8 @@ import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
+import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -23,14 +25,23 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ValidationExternalPlugin.class);
 
-  private final String topologyName = TopologyName.VALIDATION.getTopologyName();
+  private final String topologyName = Topology.VALIDATION.getTopologyName();
 
+  /**
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   */
   public ValidationExternalPlugin() {
-    super();
-    setPluginType(PluginType.VALIDATION_EXTERNAL);
     //Required for json serialization
+    super(PluginType.VALIDATION_EXTERNAL);
+
   }
 
+  /**
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
+   *
+   * @param pluginMetadata should be {@link ValidationExternalPluginMetadata}
+   */
   public ValidationExternalPlugin(AbstractMetisPluginMetadata pluginMetadata) {
     super(PluginType.VALIDATION_EXTERNAL, pluginMetadata);
   }
@@ -46,7 +57,7 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
 
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) {
+      String ecloudDataset) throws ExternalTaskException {
     if (!getPluginMetadata().isMocked()) {
       String pluginTypeName = getPluginType().name();
       LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
@@ -73,7 +84,8 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
       parameters.put("REVISION_NAME", getPluginMetadata().getRevisionNamePreviousPlugin());
       parameters.put("REVISION_PROVIDER", ecloudProvider);
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
-      parameters.put("REVISION_TIMESTAMP", dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
+      parameters.put("REVISION_TIMESTAMP",
+          dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
       parameters.put("SCHEMA_NAME", "edm-external");
 //      parameters.put("SCHEMA_NAME", urlOfSchemasZip);
 //      parameters.put("ROOT_LOCATION", schemaRootPath);
@@ -88,16 +100,24 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
       revision.setCreationTimeStamp(getStartedDate());
       dpsTask.setOutputRevision(revision);
 
-      setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, topologyName)));
+      try {
+        setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, topologyName)));
+      } catch (DpsException e) {
+        throw new ExternalTaskException("Submitting task failed", e);
+      }
       LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
     }
   }
 
   @Override
-  public ExecutionProgress monitor(DpsClient dpsClient) {
+  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
     LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
-    TaskInfo taskInfo = dpsClient
-        .getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
+    TaskInfo taskInfo;
+    try {
+      taskInfo = dpsClient.getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
+    } catch (DpsException e) {
+      throw new ExternalTaskException("Requesting task progress failed", e);
+    }
     return getExecutionProgress().copyExternalTaskInformation(taskInfo);
   }
 }

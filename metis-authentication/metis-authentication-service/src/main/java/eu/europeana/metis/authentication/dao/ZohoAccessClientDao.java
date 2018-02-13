@@ -40,6 +40,8 @@ public class ZohoAccessClientDao {
   private String zohoAuthenticationToken;
 
   /**
+   * Constructor with required fields that will be used to access the Zoho service.
+   *
    * @param zohoBaseUrl the remote url endpoint
    * @param zohoAuthenticationToken the remote authentication token required to access its REST API
    */
@@ -108,7 +110,8 @@ public class ZohoAccessClientDao {
     ObjectMapper mapper = new ObjectMapper();
     JsonNode jsonContactResponse = mapper.readTree(contactResponse);
     return checkOrganizationRoleAndGetOrganizationIdFromJsonNode(
-        findExactMatchOfOrganization(jsonContactResponse, organizationName));
+        findExactMatchOfOrganization(jsonContactResponse,
+            organizationName));
   }
 
   private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse,
@@ -149,26 +152,28 @@ public class ZohoAccessClientDao {
 
   private String checkOrganizationRoleAndGetOrganizationIdFromJsonNode(JsonNode jsonNode)
       throws BadContentException {
-    Iterator<JsonNode> elements = jsonNode.elements();
-    OrganizationRole organizationRole = null;
     String organizationId = null;
-    while (elements.hasNext()) {
-      JsonNode next = elements.next();
-      JsonNode val = next.get("val");
-      JsonNode content = next.get("content");
-      switch (val.textValue()) {
-        case "ACCOUNTID":
-          organizationId = content.textValue();
-          break;
-        case "Organisation Role":
-          organizationRole = OrganizationRole.getRoleFromName(content.textValue());
-          break;
-        default:
-          break;
+    if (jsonNode != null) {
+      Iterator<JsonNode> elements = jsonNode.elements();
+      OrganizationRole organizationRole = null;
+      while (elements.hasNext()) {
+        JsonNode next = elements.next();
+        JsonNode val = next.get(VALUE_LABEL);
+        JsonNode content = next.get(CONTENT_LABEL);
+        switch (val.textValue()) {
+          case "ACCOUNTID":
+            organizationId = content.textValue();
+            break;
+          case "Organisation Role":
+            organizationRole = OrganizationRole.getRoleFromName(content.textValue());
+            break;
+          default:
+            break;
+        }
       }
-    }
-    if (organizationRole == null) {
-      throw new BadContentException("Organization Role from Zoho is empty");
+      if (organizationRole == null) {
+        throw new BadContentException("Organization Role from Zoho is empty");
+      }
     }
     return organizationId;
   }

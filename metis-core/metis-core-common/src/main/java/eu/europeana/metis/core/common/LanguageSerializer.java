@@ -13,12 +13,11 @@ public class LanguageSerializer extends StdSerializer<Language> {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor for the {@link Language} json serializer.
+   */
   public LanguageSerializer() {
     super(Language.class);
-  }
-
-  public LanguageSerializer(Class t) {
-    super(t);
   }
 
   @Override

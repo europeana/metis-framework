@@ -1,9 +1,6 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.PluginExecutionNotAllowed;
-import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -97,9 +94,9 @@ public class SchedulerExecutor {
       LocalDateTime upperBound) {
     int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
-    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
+    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
     do {
-      scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledWorkflowsByDateRangeONCE(lowerBound, upperBound, nextPage),
@@ -196,9 +193,9 @@ public class SchedulerExecutor {
       ScheduleFrequence scheduleFrequence) {
     int nextPage = 0;
     List<ScheduledWorkflow> scheduledWorkflows = new ArrayList<>();
-    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper;
+    ResponseListWrapper<ScheduledWorkflow> scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
     do {
-      scheduledUserWorkflowResponseListWrapper = new ResponseListWrapper<>();
+      scheduledUserWorkflowResponseListWrapper.clear();
       scheduledUserWorkflowResponseListWrapper
           .setResultsAndLastPage(orchestratorService
                   .getAllScheduledWorkflows(scheduleFrequence, nextPage),
@@ -216,8 +213,8 @@ public class SchedulerExecutor {
       orchestratorService.addWorkflowInQueueOfWorkflowExecutions(
           scheduledWorkflow.getDatasetId(), scheduledWorkflow.getWorkflowOwner(),
           scheduledWorkflow.getWorkflowName(),
-          scheduledWorkflow.getWorkflowPriority());
-    } catch (NoDatasetFoundException | NoWorkflowFoundException | WorkflowExecutionAlreadyExistsException | PluginExecutionNotAllowed e) {
+          null, scheduledWorkflow.getWorkflowPriority());
+    } catch (GenericMetisException e) {
       LOGGER.warn("Scheduled execution was not added to queue", e);
     }
   }

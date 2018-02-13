@@ -1,9 +1,26 @@
 package eu.europeana.metis.core.rest.config;
 
+import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.Connection;
+import com.rabbitmq.client.ConnectionFactory;
+import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowDao;
+import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.execution.FailsafeExecutor;
+import eu.europeana.metis.core.execution.SchedulerExecutor;
+import eu.europeana.metis.core.execution.WorkflowExecutorManager;
+import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
+import eu.europeana.metis.core.rest.RequestLimits;
+import eu.europeana.metis.core.service.OrchestratorService;
+import io.netty.util.ThreadDeathWatcher;
+import io.netty.util.concurrent.FastThreadLocal;
+import io.netty.util.internal.InternalThreadLocalMap;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
@@ -23,24 +40,6 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.metis.core.dao.DatasetDao;
-import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowDao;
-import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.execution.FailsafeExecutor;
-import eu.europeana.metis.core.execution.SchedulerExecutor;
-import eu.europeana.metis.core.execution.WorkflowExecutorManager;
-import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
-import eu.europeana.metis.core.rest.RequestLimits;
-import eu.europeana.metis.core.service.OrchestratorService;
-import io.netty.util.ThreadDeathWatcher;
-import io.netty.util.concurrent.FastThreadLocal;
-import io.netty.util.internal.InternalThreadLocalMap;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -98,7 +97,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   private Connection connection;
   private Channel channel;
   private RedissonClient redissonClient;
-  
+
   @Autowired
   private SchedulerExecutor schedulerExecutor;
   @Autowired
@@ -129,9 +128,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     if (StringUtils.isNotEmpty(redisPassword)) {
       singleServerConfig.setPassword(redisPassword);
     }
-    config.setLockWatchdogTimeout(
-        redissonLockWatchdogTimeoutInSecs
-            * 1000L); //Give some secs to unlock if connection lost, or if too long to unlock
+    config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(
+        redissonLockWatchdogTimeoutInSecs)); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
     return redissonClient;
   }
@@ -146,7 +144,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient);
+        dpsClient, redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;
   }
@@ -222,7 +220,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   @PreDestroy
   public void close()
-      throws IOException, TimeoutException, InterruptedException, ExecutionException {
+      throws IOException, TimeoutException, InterruptedException {
 
     // Shut down RabbitMQ
     if (channel != null && channel.isOpen()) {

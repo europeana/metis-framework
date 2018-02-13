@@ -58,7 +58,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void createScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     String objectId = scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertNotNull(objectId);
   }
@@ -66,7 +66,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void updateScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Date updatedPointerDate = new Date();
     scheduledWorkflow.setPointerDate(updatedPointerDate);
@@ -82,7 +82,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void getById() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     String objectId = scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getById(objectId);
@@ -108,7 +108,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void getScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getScheduledWorkflow(scheduledWorkflow.getDatasetId(),
@@ -122,7 +122,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void getScheduledUserWorkflowByDatasetName() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     ScheduledWorkflow retrievedScheduledWorkflow = scheduledWorkflowDao
         .getScheduledWorkflowByDatasetId(scheduledWorkflow.getDatasetId());
@@ -139,7 +139,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void exists() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertTrue(scheduledWorkflowDao.exists(scheduledWorkflow));
   }
@@ -147,7 +147,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void existsForDatasetName() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertNotNull(
         scheduledWorkflowDao.existsForDatasetId(scheduledWorkflow.getDatasetId()));
@@ -156,7 +156,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void deleteScheduledUserWorkflow() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertTrue(
         scheduledWorkflowDao.deleteScheduledWorkflow(scheduledWorkflow.getDatasetId()));
@@ -165,7 +165,7 @@ public class TestScheduledWorkflowDao {
   @Test
   public void deleteAllByDatasetId() {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-        .createScheduledUserWorkflowObject();
+        .createScheduledWorkflowObject();
     scheduledWorkflowDao.create(scheduledWorkflow);
     Assert.assertTrue(
         scheduledWorkflowDao.deleteAllByDatasetId(scheduledWorkflow.getDatasetId()));
@@ -177,7 +177,7 @@ public class TestScheduledWorkflowDao {
         scheduledWorkflowDao.getScheduledWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-          .createScheduledUserWorkflowObject();
+          .createScheduledWorkflowObject();
       scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
       scheduledWorkflowDao.create(scheduledWorkflow);
     }
@@ -206,7 +206,7 @@ public class TestScheduledWorkflowDao {
         scheduledWorkflowDao.getScheduledWorkflowPerRequest() + 1;
     for (int i = 0; i < scheduledUserWorkflowToCreate; i++) {
       ScheduledWorkflow scheduledWorkflow = TestObjectFactory
-          .createScheduledUserWorkflowObject();
+          .createScheduledWorkflowObject();
       scheduledWorkflow.setDatasetId(TestObjectFactory.DATASETID + i);
       int plusMinutes = ThreadLocalRandom.current().nextInt(1, minutesRange);
       Date pointerDate = Date

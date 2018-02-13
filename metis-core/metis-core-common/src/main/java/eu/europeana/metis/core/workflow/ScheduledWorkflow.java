@@ -53,7 +53,7 @@ public class ScheduledWorkflow implements HasMongoObjectId {
    */
   public ScheduledWorkflow(Date pointerDate, int datasetId, String workflowOwner,
       String workflowName, ScheduleFrequence scheduleFrequence, int workflowPriority) {
-    this.pointerDate = pointerDate;
+    this.pointerDate = pointerDate == null?null:new Date(pointerDate.getTime());
     this.datasetId = datasetId;
     this.workflowOwner = workflowOwner;
     this.workflowName = workflowName;
@@ -96,11 +96,11 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   }
 
   public Date getPointerDate() {
-    return pointerDate;
+    return pointerDate == null?null:new Date(pointerDate.getTime());
   }
 
   public void setPointerDate(Date pointerDate) {
-    this.pointerDate = pointerDate;
+    this.pointerDate = pointerDate == null?null:new Date(pointerDate.getTime());
   }
 
   public ScheduleFrequence getScheduleFrequence() {

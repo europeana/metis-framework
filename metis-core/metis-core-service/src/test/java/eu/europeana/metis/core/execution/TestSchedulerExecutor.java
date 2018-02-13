@@ -3,6 +3,7 @@ package eu.europeana.metis.core.execution;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.atMost;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
@@ -64,13 +65,13 @@ public class TestSchedulerExecutor {
     Date now = new Date();
     now.setTime(now.getTime() + periodicSchedulerCheckInSecs * 1000);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateONCE = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.ONCE);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.ONCE);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateDAILY = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.DAILY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.DAILY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateWEEKLY = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.WEEKLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.WEEKLY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.MONTHLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, now, ScheduleFrequence.MONTHLY);
 
     when(orchestratorService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
@@ -84,7 +85,7 @@ public class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     when(orchestratorService.addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
+        isNull(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.performScheduling();
@@ -97,7 +98,7 @@ public class TestSchedulerExecutor {
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, atMost(listSize * 4))
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt());
+            isNull(), anyInt());
   }
 
   @Test
@@ -112,11 +113,11 @@ public class TestSchedulerExecutor {
     Date past = new Date();
     past.setTime(past.getTime() - periodicSchedulerCheckInSecs * 1000);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateDAILY = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.DAILY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.DAILY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateWEEKLY = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.WEEKLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.WEEKLY);
     List<ScheduledWorkflow> listOfScheduledWorkflowsWithDateMONTHLY = TestObjectFactory
-        .createListOfScheduledUserWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.MONTHLY);
+        .createListOfScheduledWorkflowsWithDateAndFrequence(listSize, past, ScheduleFrequence.MONTHLY);
 
     when(orchestratorService.getScheduledWorkflowsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest);
@@ -130,7 +131,8 @@ public class TestSchedulerExecutor {
         listOfScheduledWorkflowsWithDateWEEKLY).thenReturn(
         listOfScheduledWorkflowsWithDateMONTHLY);
     when(orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
+        .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
+            isNull(), anyInt())).thenThrow(new NoDatasetFoundException("Some Error")).thenReturn(null); //Throw an exception as well, should continue execution after that
     doNothing().when(rlock).unlock();
 
     schedulerExecutor.performScheduling();
@@ -143,7 +145,7 @@ public class TestSchedulerExecutor {
         .getAllScheduledWorkflows(any(ScheduleFrequence.class), anyInt());
     verify(orchestratorService, times(0))
         .addWorkflowInQueueOfWorkflowExecutions(anyInt(), anyString(), anyString(),
-            anyInt());
+            isNull(), anyInt());
   }
 
   @Test

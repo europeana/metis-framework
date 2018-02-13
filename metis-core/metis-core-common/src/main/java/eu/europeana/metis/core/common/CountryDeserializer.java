@@ -23,7 +23,7 @@ public class CountryDeserializer extends StdDeserializer<Country> {
 
   /**
    * Required as part of {@link StdDeserializer}
-   * @param vc
+   * @param vc required parameter
    */
   public CountryDeserializer(Class<?> vc) {
     super(vc);

@@ -1,7 +1,10 @@
 package eu.europeana.metis.core.execution;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.isNull;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -22,6 +25,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.ArrayList;
 import java.util.Date;
 import org.bson.types.ObjectId;
@@ -42,7 +46,7 @@ public class TestWorkflowExecutor {
   private static WorkflowExecutionDao workflowExecutionDao;
   private static RedissonClient redissonClient;
   private static DpsClient dpsClient;
-  private static final String EXECUTION_CHECK_LOCK = "executionCheckLock";
+  private static final String EXECUTION_CHECK_LOCK = "EXECUTION_CHECK_LOCK";
 
   @BeforeClass
   public static void prepare() {
@@ -85,8 +89,7 @@ public class TestWorkflowExecutor {
   }
 
   @Test
-  public void callNonMockedFieldValue()
-  {
+  public void callNonMockedFieldValue() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress processedExecutionProgress = new ExecutionProgress();
@@ -124,9 +127,78 @@ public class TestWorkflowExecutor {
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
   }
 
+
   @Test
-  public void callNonMockedFieldValueCancellingState()
-  {
+  public void callNonMockedFieldValue_ExceptionWhenExecuteIsCalled() throws Exception {
+    WorkflowExecution workflowExecution = Mockito.mock(WorkflowExecution.class);
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.mock(OaipmhHarvestPlugin.class);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setMocked(false);
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
+    doThrow(new ExternalTaskException("Some error")).when(oaipmhHarvestPlugin).execute(any(DpsClient.class), isNull(), isNull(), isNull());
+    when(oaipmhHarvestPlugin.getPluginStatus()).thenReturn(PluginStatus.FAILED);
+
+    when(workflowExecution.getWorkflowStatus()).thenReturn(WorkflowStatus.INQUEUE);
+    when(workflowExecution.getMetisPlugins()).thenReturn(abstractMetisPlugins);
+    when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
+
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
+    doNothing().when(rlock).lock();
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
+    doNothing().when(rlock).unlock();
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
+
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
+    workflowExecutor.call();
+
+    verify(workflowExecutionDao, times(1)).update(workflowExecution);
+  }
+
+  @Test
+  public void callNonMockedFieldValue_ConsecutiveMonitorFailures() throws Exception {
+
+    WorkflowExecution workflowExecution = Mockito.mock(WorkflowExecution.class);
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = Mockito.mock(OaipmhHarvestPlugin.class);
+    OaipmhHarvestPluginMetadata oaipmhHarvestPluginMetadata = new OaipmhHarvestPluginMetadata();
+    oaipmhHarvestPluginMetadata.setMocked(false);
+    oaipmhHarvestPlugin.setPluginMetadata(oaipmhHarvestPluginMetadata);
+    ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
+    abstractMetisPlugins.add(oaipmhHarvestPlugin);
+
+    when(workflowExecution.getWorkflowStatus()).thenReturn(WorkflowStatus.INQUEUE);
+    when(workflowExecution.getMetisPlugins()).thenReturn(abstractMetisPlugins);
+    when(oaipmhHarvestPlugin.getPluginMetadata()).thenReturn(oaipmhHarvestPluginMetadata);
+    when(oaipmhHarvestPlugin.monitor(dpsClient)).thenThrow(new ExternalTaskException("Some error")).thenThrow(new ExternalTaskException("Some error"));
+
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(EXECUTION_CHECK_LOCK)).thenReturn(rlock);
+    doNothing().when(rlock).lock();
+    when(workflowExecutionDao.isExecutionActive(workflowExecution, monitorCheckIntervalInSecs)).thenReturn(false);
+    doNothing().when(workflowExecutionDao).updateMonitorInformation(workflowExecution);
+    doNothing().when(rlock).unlock();
+    when(workflowExecutionDao.isCancelling(workflowExecution.getId())).thenReturn(false);
+
+    doNothing().when(workflowExecutionDao).updateWorkflowPlugins(workflowExecution);
+    when(workflowExecutionDao.update(workflowExecution)).thenReturn(anyString());
+
+    WorkflowExecutor workflowExecutor = new WorkflowExecutor(workflowExecution,
+        workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
+    workflowExecutor.call();
+
+    verify(workflowExecutionDao, times(1)).updateMonitorInformation(workflowExecution);
+    verify(workflowExecutionDao, times(1)).update(workflowExecution);
+  }
+
+  @Test
+  public void callNonMockedFieldValueCancellingState() throws Exception {
     ExecutionProgress currentlyProcessingExecutionProgress = new ExecutionProgress();
     currentlyProcessingExecutionProgress.setStatus(TaskState.CURRENTLY_PROCESSING);
     ExecutionProgress processedExecutionProgress = new ExecutionProgress();
@@ -160,7 +232,7 @@ public class TestWorkflowExecutor {
         workflowExecutionDao, monitorCheckIntervalInSecs, redissonClient, dpsClient, null, null);
     workflowExecutor.call();
 
-    verify(workflowExecutionDao, times(1)).updateMonitorInformation(workflowExecution);
+    verify(workflowExecutionDao, times(2)).updateMonitorInformation(workflowExecution);
     verify(workflowExecutionDao, times(1)).update(workflowExecution);
   }
 
