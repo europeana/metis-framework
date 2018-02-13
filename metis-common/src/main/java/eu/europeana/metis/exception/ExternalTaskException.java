@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2018-02-09
  */
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason="Bad Content")
-public class ExternalTaskException extends Exception {
+public class ExternalTaskException extends GenericMetisException {
   private static final long serialVersionUID = -3332292346834265371L;
 
   public ExternalTaskException(String message) {

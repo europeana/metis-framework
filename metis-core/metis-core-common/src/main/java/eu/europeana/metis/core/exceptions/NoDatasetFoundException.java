@@ -17,6 +17,7 @@
 
 package eu.europeana.metis.core.exceptions;
 
+import eu.europeana.metis.exception.GenericMetisException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 

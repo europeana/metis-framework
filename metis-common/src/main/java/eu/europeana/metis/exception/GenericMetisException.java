@@ -1,7 +1,8 @@
-package eu.europeana.metis.core.exceptions;
+package eu.europeana.metis.exception;
 
 /**
  * Generic Metis exception that would encapsulate the actual exception.
+ * <p>Used on public method to encapsulate all the possible errors into one.</p>
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-13
  */

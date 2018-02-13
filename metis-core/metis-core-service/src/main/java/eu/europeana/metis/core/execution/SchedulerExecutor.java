@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.execution;
 
-import eu.europeana.metis.core.exceptions.GenericMetisException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.rest.ResponseListWrapper;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;

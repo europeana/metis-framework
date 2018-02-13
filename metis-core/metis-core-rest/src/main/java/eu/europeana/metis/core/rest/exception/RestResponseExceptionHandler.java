@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.rest.exception;
 
-import eu.europeana.metis.core.exceptions.GenericMetisException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
