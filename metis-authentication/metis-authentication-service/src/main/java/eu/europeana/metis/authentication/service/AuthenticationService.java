@@ -38,6 +38,7 @@ public class AuthenticationService {
   private final PsqlMetisUserDao psqlMetisUserDao;
 
   /**
+   * Constructor of class with required parameters
    * @param zohoAccessClientDao {@link ZohoAccessClientDao}
    * @param psqlMetisUserDao {@link PsqlMetisUserDao}
    */
@@ -192,7 +193,7 @@ public class AuthenticationService {
    * {@link BadContentException} if the content of the authorization String is un-parsable
    */
   public String validateAuthorizationHeaderWithAccessToken(String authorization)
-      throws BadContentException {
+      throws GenericMetisException {
     if (StringUtils.isEmpty(authorization)) {
       throw new BadContentException("Authorization header was empty");
     }
@@ -357,7 +358,7 @@ public class AuthenticationService {
    * {@link BadContentException} if the authentication of the user fails
    */
   public MetisUser authenticateUser(String accessToken)
-      throws BadContentException {
+      throws GenericMetisException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     if (storedMetisUser == null) {
       throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);

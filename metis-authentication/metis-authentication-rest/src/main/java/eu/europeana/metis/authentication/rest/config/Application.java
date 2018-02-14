@@ -5,11 +5,15 @@ import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
+import eu.europeana.metis.utils.CustomTruststoreAppender;
 import java.util.List;
 import javax.annotation.PreDestroy;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.service.ServiceRegistry;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -33,7 +37,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @PropertySource("classpath:authentication.properties")
 @EnableWebMvc
 @EnableScheduling
-public class Application extends WebMvcConfigurerAdapter {
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+
+  //Custom trustore
+  @Value("${truststore.path}")
+  private String truststorePath;
+  @Value("${truststore.password}")
+  private String truststorePassword;
 
   @Value("${zoho.base.url}")
   private String zohoBaseUrl;
@@ -46,6 +56,16 @@ public class Application extends WebMvcConfigurerAdapter {
 
   private SessionFactory sessionFactory;
   private AuthenticationService authenticationService;
+
+  /**
+   * Used for overwriting properties if cloud foundry environment is used
+   */
+  @Override
+  public void afterPropertiesSet() throws TrustStoreConfigurationException {
+    if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
+      CustomTruststoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
+    }
+  }
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {

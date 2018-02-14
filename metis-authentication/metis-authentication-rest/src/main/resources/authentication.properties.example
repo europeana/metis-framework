@@ -1,3 +1,7 @@
+#Truststore
+truststore.path=
+truststore.password=
+
 zoho.base.url=
 zoho.base.authentication.token=
 access.token.expire.time.in.mins=
