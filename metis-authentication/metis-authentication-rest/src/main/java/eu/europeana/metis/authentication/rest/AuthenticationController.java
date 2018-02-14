@@ -12,6 +12,7 @@ import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.List;
 import javax.ws.rs.QueryParam;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,7 +144,7 @@ public class AuthenticationController {
       throw new UserUnauthorizedException("Action allowed only from admin users");
     }
     authenticationService.deleteUser(userEmailToDelete);
-    LOGGER.info("User with email: {} deleted", userEmailToDelete);
+    LOGGER.info("User with email: {} deleted", StringEscapeUtils.escapeJava(userEmailToDelete));
   }
 
   /**
@@ -173,7 +174,7 @@ public class AuthenticationController {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
-    LOGGER.info("User with email: {} updated", userEmailToUpdate);
+    LOGGER.info("User with email: {} updated", StringEscapeUtils.escapeJava(userEmailToUpdate));
     return metisUser;
   }
 
@@ -202,7 +203,7 @@ public class AuthenticationController {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
-    LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin);
+    LOGGER.info("User with email: {} made admin", StringEscapeUtils.escapeJava(userEmailToMakeAdmin));
   }
 
   /**
