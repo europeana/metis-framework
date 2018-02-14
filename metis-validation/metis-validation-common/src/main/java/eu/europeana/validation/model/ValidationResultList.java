@@ -35,6 +35,8 @@ import java.util.List;
 @ApiModel(value="Validation Result List",description = "Batch service result")
 public class ValidationResultList implements Serializable{
 
+    private static final long serialVersionUID = -8670240754211591813L;
+
     /**
      * List of service results. If the list is empty then we assume success == true
      */

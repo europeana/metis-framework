@@ -5,6 +5,7 @@ package eu.europeana.validation.service;
  */
 public class SchemaProviderException extends Exception {
 
+    private static final long serialVersionUID = -6861990081785732650L;
 
     /**
      * Cretes {@link SchemaProviderException} from provided {@link Throwable}

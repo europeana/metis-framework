@@ -47,6 +47,8 @@ public class PreviewService {
      * Constructor for the preview service
      *
      * @param previewServiceConfig The configuration for the preview servide
+     * @param dao The DAO for records.
+     * @param factory The factory for creating validation tasks.
      */
     @Autowired
     public PreviewService(PreviewServiceConfig previewServiceConfig, RecordDao dao, ValidationTaskFactory factory) {
@@ -63,6 +65,8 @@ public class PreviewService {
      * @param records        The records to persist as list of XML strings
      * @param collectionId   The collection id to apply (can be null)
      * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to EDM-Internal)
+     * @param crosswalkPath  The path of the conversion XSL from EDM-External to EDM-Internal
+     * @param individualRecords Whether we need to return the IDs of the individual records.
      * @return The preview URL of the records along with the result of the validation
      * @throws PreviewServiceException an error occured while
      */
@@ -79,7 +83,7 @@ public class PreviewService {
             dao.deleteCollection(collectionId);
             dao.commit();
 
-            ExecutorCompletionService cs = new ExecutorCompletionService(executor);
+            ExecutorCompletionService<ValidationTaskResult> cs = new ExecutorCompletionService<>(executor);
 
             scheduleValidationTasks(cs, records, collectionId, applyCrosswalk, crosswalkPath,
                 individualRecords);
@@ -105,7 +109,7 @@ public class PreviewService {
     }
 
     private ExtendedValidationResult waitForValidationsToFinishAndRetrieveResults(
-        ExecutorCompletionService cs, int numberOfSubmittedTasks,
+        ExecutorCompletionService<ValidationTaskResult> cs, int numberOfSubmittedTasks,
         String collectionId)
         throws InterruptedException, ExecutionException {
 
@@ -137,7 +141,7 @@ public class PreviewService {
     }
 
     private void scheduleValidationTasks(
-        ExecutorCompletionService cs, List<String> records,
+        ExecutorCompletionService<ValidationTaskResult> cs, List<String> records,
         String collectionId, boolean applyCrosswalk, String crosswalkPath,
         boolean individualRecords) {
 

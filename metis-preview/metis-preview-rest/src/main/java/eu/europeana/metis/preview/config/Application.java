@@ -67,7 +67,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableScheduling
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
 
-  private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -113,7 +113,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
     MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
         mongoPassword, options);
   }

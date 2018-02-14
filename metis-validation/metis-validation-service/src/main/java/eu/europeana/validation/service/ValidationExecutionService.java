@@ -122,7 +122,7 @@ public class ValidationExecutionService {
             final String schematronFileLocation,
             List<String> documents) throws InterruptedException, ExecutionException {
 
-        ExecutorCompletionService cs = new ExecutorCompletionService(es);
+        ExecutorCompletionService<ValidationResult> cs = new ExecutorCompletionService<>(es);
         for (final String document : documents) {
             cs.submit(new Validator(schema, rootFileLocation, schematronFileLocation, document, schemaProvider, lsResourceResolver));
         }

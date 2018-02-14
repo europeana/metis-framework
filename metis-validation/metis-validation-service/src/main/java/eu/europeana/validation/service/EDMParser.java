@@ -21,12 +21,11 @@ import org.xml.sax.SAXException;
  */
 final class EDMParser {
     private static EDMParser p;
-    private static final ConcurrentMap<String, Schema> cache;
-    private static final DocumentBuilderFactory parseFactory;
+    private static final ConcurrentMap<String, Schema> CACHE = new ConcurrentHashMap<>();
+    private static final DocumentBuilderFactory PARSE_FACTORY;
     private static final Logger LOGGER = LoggerFactory.getLogger(EDMParser.class);
 
     static {
-        cache = new ConcurrentHashMap<>();
         DocumentBuilderFactory temp = null;
         try {
             temp = DocumentBuilderFactory.newInstance();
@@ -36,7 +35,7 @@ final class EDMParser {
         } catch (ParserConfigurationException e) {
             LOGGER.error("Unable to create DocumentBuilderFactory", e);
         }
-        parseFactory = temp;
+        PARSE_FACTORY = temp;
     }
 
     private EDMParser() {
@@ -45,11 +44,11 @@ final class EDMParser {
     /**
      * Get an EDM Parser using DOM
      *
-     * @return
+     * @return EDM parser.
      */
     public DocumentBuilder getEdmParser() {
         try {
-            return parseFactory.newDocumentBuilder();
+            return PARSE_FACTORY.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             LOGGER.error("Unable to configure parser", e);
         }
@@ -61,7 +60,7 @@ final class EDMParser {
      *
      * @param path The path location of the schema
      * @param resolver
-     * @return
+     * @return JAXP schema validator.
      */
     public javax.xml.validation.Validator getEdmValidator(String path, LSResourceResolver resolver) {
         try {
@@ -77,31 +76,27 @@ final class EDMParser {
                                                   LSResourceResolver resolver)
             throws SAXException, IOException {
 
-        if (!cache.containsKey(path)) {
+        if (!CACHE.containsKey(path)) {
             SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             factory.setResourceResolver(resolver);
             factory.setFeature("http://apache.org/xml/features/validation/schema-full-checking",
                     false);
             factory.setFeature("http://apache.org/xml/features/honour-all-schemaLocations", true);
             Schema schema = factory.newSchema(new StreamSource(new FileInputStream(path)));
-            cache.put(path, schema);
+            CACHE.put(path, schema);
         }
-        return cache.get(path);
+        return CACHE.get(path);
     }
 
     /**
      * Get a parser instance as a singleton
      *
-     * @return
+     * @return parser instance.
      */
-    public static EDMParser getInstance() {
-        synchronized (EDMParser.class) {
-            if (p == null) {
-                p = new EDMParser();
-            }
-            return p;
+    public static synchronized EDMParser getInstance() {
+        if (p == null) {
+            p = new EDMParser();
         }
+        return p;
     }
-
-
 }

@@ -8,7 +8,7 @@ public interface ValidationServiceConfig {
   /**
    * Retrieves threads count
    *
-   * @return
+   * @return the thread count
    */
   int getThreadCount();
 }

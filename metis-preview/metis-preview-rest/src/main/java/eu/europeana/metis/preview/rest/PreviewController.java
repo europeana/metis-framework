@@ -32,7 +32,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller(value = "/preview")
 @Api(value = "/preview", description = "Preview service REST API")
 public class PreviewController {
-    private final Logger LOGGER = LoggerFactory.getLogger(PreviewController.class);
+  
+    private static final Logger LOGGER = LoggerFactory.getLogger(PreviewController.class);
 
     private PreviewService service;
     private ZipService zipService;
@@ -51,7 +52,7 @@ public class PreviewController {
      * @param applyCrosswalk Whether the records are in EDM-External (true) or EDM-Internal (false)
      * @param crosswalkPath path of xslt on the server (optional)
      * @param requestIndividualRecordsIds request individual record ids
-     * @return
+     * @return The resulting record with validation information.
      * @throws ZipFileException Error processing the zipfile
      * @throws PreviewServiceException Error while processing the zipfile content
      * @throws PreviewValidationException Semantic errors resulting from processing the zipfile content

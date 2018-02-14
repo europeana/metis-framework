@@ -69,7 +69,7 @@ public class SchemaProvider {
      * Creates intance of {@link Schema} class based on provided type of schema
      *
      * @param fileLocation location of schema files. Can be url to zip or predefined value (that will be taken from properties file)
-     * @return
+     * @return the instance
      * @throws SchemaProviderException
      */
     public Schema getSchema(String fileLocation) throws SchemaProviderException {
@@ -103,7 +103,7 @@ public class SchemaProvider {
      * Checks if given schema name is on the {@link PredefinedSchemas} list.
      *
      * @param name schema name
-     * @return
+     * @return whether the name is on the list.
      */
     public boolean isPredefined(String name) {
         return predefinedSchemasLocations.contains(name);
@@ -115,6 +115,7 @@ public class SchemaProvider {
      * @param zipLocation    location of the file to be downloaded
      * @param destinationDir place where downloaded file will be saved
      * @return newly created file
+     * @throws SchemaProviderException 
      */
     private File downloadZipIfNeeded(String zipLocation, String destinationDir) throws SchemaProviderException {
 
