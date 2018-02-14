@@ -16,7 +16,6 @@
  */
 package eu.europeana.enrichment.rest.config;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.enrichment.service.Converter;
@@ -24,8 +23,6 @@ import eu.europeana.enrichment.service.Enricher;
 import eu.europeana.enrichment.service.EntityRemover;
 import eu.europeana.enrichment.service.RedisInternalEnricher;
 import eu.europeana.metis.cache.redis.RedisProvider;
-import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
-import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -99,17 +96,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void afterPropertiesSet() {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
-    }
-
-    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-          vcapServicesJson);
-      RedisProvider redisProviderFromService = vcapServices.getRedisProviderFromService();
-      if (redisProviderFromService != null) {
-        redisProvider = vcapServices.getRedisProviderFromService();
-      }
-      LOGGER.info("Using Cloud Foundry Redis");
     }
 
     if(redisProvider == null)

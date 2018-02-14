@@ -8,6 +8,7 @@ import eu.europeana.metis.authentication.user.AccountRole;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
 import java.io.IOException;
@@ -30,9 +31,11 @@ import org.springframework.util.StringUtils;
 public class AuthenticationService {
 
   private static final int LOG_ROUNDS = 13;
-  public static final int CREDENTIAL_FIELDS_NUMBER = 2;
-  private ZohoAccessClientDao zohoAccessClientDao;
-  private PsqlMetisUserDao psqlMetisUserDao;
+  private static final int CREDENTIAL_FIELDS_NUMBER = 2;
+  private static final String ACCESS_TOKEN_CHARACTER_BASKET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  private static final int ACCESS_TOKEN_LENGTH = 32;
+  private final ZohoAccessClientDao zohoAccessClientDao;
+  private final PsqlMetisUserDao psqlMetisUserDao;
 
   /**
    * @param zohoAccessClientDao {@link ZohoAccessClientDao}
@@ -48,14 +51,16 @@ public class AuthenticationService {
 
   /**
    * Registers a user in the system.
+   *
    * @param email the unique email of the user
    * @param password the password of the user
-   * @throws BadContentException if any other problem occurred while constructing the user
-   * @throws NoUserFoundException if user was not found in the system
-   * @throws UserAlreadyExistsException if user with the same email already exists in the system
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if any other problem occurred while constructing the user,
+   * {@link NoUserFoundException} if user was not found in the system,
+   * {@link UserAlreadyExistsException} if user with the same email already exists in the system
    */
   public void registerUser(String email, String password)
-      throws BadContentException, NoUserFoundException, UserAlreadyExistsException {
+      throws GenericMetisException {
 
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser != null) {
@@ -72,13 +77,15 @@ public class AuthenticationService {
 
   /**
    * Re-fetches a user by email from the remote CRM and updates its information in the system.
+   *
    * @param email the email to check for updating
    * @return the updated {@link MetisUser}
-   * @throws BadContentException if any other problem occurred while constructing the user
-   * @throws NoUserFoundException if the user was not found in the system
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if any other problem occurred while constructing the user,
+   * {@link NoUserFoundException} if the user was not found in the system
    */
   public MetisUser updateUserFromZoho(String email)
-      throws BadContentException, NoUserFoundException {
+      throws GenericMetisException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null) {
       throw new NoUserFoundException(
@@ -116,7 +123,7 @@ public class AuthenticationService {
     try {
       metisUser = new MetisUser(userByEmailJsonNode);
     } catch (ParseException e) {
-      throw new BadContentException("Bad content while constructing metisUser");
+      throw new BadContentException("Bad content while constructing metisUser", e);
     }
     if (StringUtils.isEmpty(metisUser.getOrganizationName()) || !metisUser.isMetisUserFlag()
         || metisUser.getAccountRole() == null) {
@@ -149,16 +156,18 @@ public class AuthenticationService {
 
   /**
    * Validates an HTTP Authorization header.
+   *
    * @param authorization the String provided by an HTTP Authorization header
    * <p>
-   *   The expected input should follow the rule
-   *   Basic Base64Encoded(email:password)
+   * The expected input should follow the rule
+   * Basic Base64Encoded(email:password)
    * </p>
    * @return a String array containing the email and password decoded, in that order
-   * @throws BadContentException if the content of the authorization String is un-parsable
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException if the content of the authorization String is un-parsable
    */
   public String[] validateAuthorizationHeaderWithCredentials(String authorization)
-      throws BadContentException {
+      throws GenericMetisException {
     if (StringUtils.isEmpty(authorization)) {
       throw new BadContentException("Authorization header was empty");
     }
@@ -172,13 +181,15 @@ public class AuthenticationService {
 
   /**
    * Validates an HTTP Authorization header.
+   *
    * @param authorization the String provided by an HTTP Authorization header
    * <p>
-   *   The expected input should follow the rule
-   *   Bearer accessTokenHere
+   * The expected input should follow the rule
+   * Bearer accessTokenHere
    * </p>
    * @return the string representation of the access token
-   * @throws BadContentException if the content of the authorization String is un-parsable
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the content of the authorization String is un-parsable
    */
   public String validateAuthorizationHeaderWithAccessToken(String authorization)
       throws BadContentException {
@@ -214,13 +225,15 @@ public class AuthenticationService {
 
   /**
    * Login functionality, which checks if the user with email exists and generates an access token.
+   *
    * @param email the unique email used to login
    * @param password the password of corresponding to the email
    * @return {@link MetisUser}
-   * @throws BadContentException if the authentication of the user fails
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authentication of the user fails
    */
   public MetisUser loginUser(String email, String password)
-      throws BadContentException {
+      throws GenericMetisException {
     MetisUser storedMetisUser = authenticateUser(email, password);
 
     if (storedMetisUser.getMetisUserAccessToken() != null) {
@@ -236,6 +249,7 @@ public class AuthenticationService {
 
   /**
    * Update the {@link MetisUser} password.
+   *
    * @param metisUser the metisUser to update
    * @param newPassword the new password
    */
@@ -247,11 +261,13 @@ public class AuthenticationService {
 
   /**
    * Update a user's {@link AccountRole} and make it an administrator.
+   *
    * @param userEmailToMakeAdmin the email to update the {@code AccountRole}
-   * @throws NoUserFoundException if the user to update was not found in the system
+   * @throws GenericMetisException which can be one of:
+   * {@link NoUserFoundException} if the user to update was not found in the system
    */
   public void updateUserMakeAdmin(String userEmailToMakeAdmin)
-      throws NoUserFoundException {
+      throws GenericMetisException {
     if (psqlMetisUserDao.getMetisUserByEmail(userEmailToMakeAdmin) == null) {
       throw new NoUserFoundException(
           String.format("User with email %s does not exist", userEmailToMakeAdmin));
@@ -261,27 +277,31 @@ public class AuthenticationService {
 
   /**
    * Check if a user has an administrator {@link AccountRole}.
+   *
    * @param accessToken the access token of the user in the system
    * @return true for administrator, false for non-administrator
-   * @throws BadContentException if the authentication of the user fails
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authentication of the user fails
    */
   public boolean isUserAdmin(String accessToken)
-      throws BadContentException {
+      throws GenericMetisException {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN;
   }
 
   /**
    * Checks if a user has permission to request a users update.
+   *
    * @param accessToken the access token used to verify the user that requests an update
    * @param userEmailToUpdate the email that should be updated
    * @return true for authorized, false for unauthorized
-   * @throws BadContentException if the authentication of the user fails
-   * @throws NoUserFoundException if a user was not found in the system
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authentication of the user fails
+   * {@link NoUserFoundException} if a user was not found in the system
    */
   public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
-      throws BadContentException, NoUserFoundException {
+      throws GenericMetisException {
     MetisUser storedMetisUserToUpdate = psqlMetisUserDao.getMetisUserByEmail(userEmailToUpdate);
     if (storedMetisUserToUpdate == null) {
       throw new NoUserFoundException(
@@ -293,12 +313,11 @@ public class AuthenticationService {
   }
 
   private String generateAccessToken() {
-    final String characterBasket = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     final SecureRandom rnd = new SecureRandom();
-    final int accessTokenLength = 32;
-    StringBuilder sb = new StringBuilder(accessTokenLength);
-    for (int i = 0; i < accessTokenLength; i++) {
-      sb.append(characterBasket.charAt(rnd.nextInt(characterBasket.length())));
+    StringBuilder sb = new StringBuilder(ACCESS_TOKEN_LENGTH);
+    for (int i = 0; i < ACCESS_TOKEN_LENGTH; i++) {
+      sb.append(ACCESS_TOKEN_CHARACTER_BASKET
+          .charAt(rnd.nextInt(ACCESS_TOKEN_CHARACTER_BASKET.length())));
     }
     return sb.toString();
   }
@@ -313,6 +332,7 @@ public class AuthenticationService {
 
   /**
    * Delete a user based on an email
+   *
    * @param email the email used to remove a user
    */
   public void deleteUser(String email) {
@@ -330,9 +350,11 @@ public class AuthenticationService {
 
   /**
    * Authenticates a user using an access token.
+   *
    * @param accessToken the access token used to authenticate a user
    * @return {@link MetisUser}
-   * @throws BadContentException if the authentication of the user fails
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authentication of the user fails
    */
   public MetisUser authenticateUser(String accessToken)
       throws BadContentException {
@@ -346,12 +368,14 @@ public class AuthenticationService {
 
   /**
    * Checks if a user, using an access token, has permission to request a list of all the users.
+   *
    * @param accessToken the access token used to authenticate the user
    * @return true if authorized, false if unauthorized
-   * @throws BadContentException if the authentication of the user fails
+   * @throws GenericMetisException which can be one of:
+   * {@link BadContentException} if the authentication of the user fails
    */
   public boolean hasPermissionToRequestAllUsers(String accessToken)
-      throws BadContentException {
+      throws GenericMetisException {
     MetisUser storedMetisUser = authenticateUser(accessToken);
     return storedMetisUser.getAccountRole() == AccountRole.METIS_ADMIN
         || storedMetisUser.getAccountRole() == AccountRole.EUROPEANA_DATA_OFFICER;
@@ -360,8 +384,9 @@ public class AuthenticationService {
   /**
    * Retrieves all {@link MetisUser}'s from the system.
    * <p>
-   *   Access tokens are not returned for a requester that is a NON-ADMIN user
+   * Access tokens are not returned for a requester that is a NON-ADMIN user
    * </p>
+   *
    * @param accessToken the access token used to authenticate the user
    * @return the list of all {@code MetisUser}'s in the system
    */

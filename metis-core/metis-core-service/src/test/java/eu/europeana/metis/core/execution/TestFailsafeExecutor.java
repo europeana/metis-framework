@@ -56,11 +56,11 @@ public class TestFailsafeExecutor {
     int userWorkflowExecutionsPerRequest = 5;
     int listSize = userWorkflowExecutionsPerRequest - 1; //To not trigger paging
     List<WorkflowExecution> listOfWorkflowExecutionsWithRunningStatuses = TestObjectFactory
-        .createListOfUserWorkflowExecutions(listSize);
-    TestObjectFactory.updateListOfUserWorkflowExecutionsWithWorkflowStatus(
+        .createListOfWorkflowExecutions(listSize);
+    TestObjectFactory.updateListOfWorkflowExecutionsWithWorkflowStatus(
         listOfWorkflowExecutionsWithRunningStatuses, WorkflowStatus.RUNNING);
     List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
-        .createListOfUserWorkflowExecutions(listSize); //To not trigger paging
+        .createListOfWorkflowExecutions(listSize); //To not trigger paging
 
     when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, 0))
         .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);

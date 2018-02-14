@@ -1,18 +1,11 @@
 package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.json.ObjectIdSerializer;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
-import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
-import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
-import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
-import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
-import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.ValidationPlugin;
+import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,14 +18,15 @@ import org.mongodb.morphia.annotations.Indexed;
 import org.mongodb.morphia.annotations.Indexes;
 
 /**
+ * Is the structure where the combined plugins of harvesting and the other plugins will be stored.
+ * <p>This is the object where the execution of the workflow takes place and will host all information,
+ * regarding its execution.</p>
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-26
  */
 @Entity
 @Indexes({@Index(fields = {@Field("workflowOwner"), @Field("workflowName")})})
-@JsonPropertyOrder({"id", "workflowOnwer", "workflowName", "workflowStatus", "datasetId",
-    "workflowPriority", "createdDate", "startedDate", "updatedDate", "finishedDate",
-    "httpHarvestPlugin", "oaipmhHarvestPlugin", "dereferencePlugin", "voidMetisPlugin"})
 public class WorkflowExecution implements HasMongoObjectId {
 
   @Id
@@ -69,61 +63,29 @@ public class WorkflowExecution implements HasMongoObjectId {
     //Required for json serialization
   }
 
-  public WorkflowExecution(Dataset dataset, Workflow workflow, int workflowPriority) {
+  /**
+   * Constructor with all required parameters and initializes it's internal structure.
+   *
+   * @param dataset the {@link Dataset} related to the execution
+   * @param workflow the {@link Workflow} related to the execution
+   * @param metisPlugins the list of {@link AbstractMetisPlugin} including harvest plugin for execution
+   * @param workflowPriority the positive number of the priority of the execution
+   */
+  public WorkflowExecution(Dataset dataset, Workflow workflow,
+      List<AbstractMetisPlugin> metisPlugins,
+      int workflowPriority) {
     this.workflowOwner = workflow.getWorkflowOwner();
     this.workflowName = workflow.getWorkflowName();
     this.datasetId = dataset.getDatasetId();
     this.ecloudDatasetId = dataset.getEcloudDatasetId();
     this.workflowPriority = workflowPriority;
-
-    addHarvestingPlugin(dataset, workflow);
-
-    // TODO: 31-5-17 Add transformation plugin retrieved probably from the dataset, and generated from the mapping tool.
-
-    addProcessPlugins(workflow);
+    this.metisPlugins = metisPlugins;
   }
 
-  private void addHarvestingPlugin(Dataset dataset, Workflow workflow) {
-    AbstractMetisPluginMetadata harvestingMetadata = dataset.getHarvestingMetadata();
-    if (workflow.isHarvestPlugin()) {
-      switch (harvestingMetadata.getPluginType()) {
-        case HTTP_HARVEST:
-          HTTPHarvestPlugin httpHarvestPlugin = new HTTPHarvestPlugin(harvestingMetadata);
-          httpHarvestPlugin
-              .setId(new ObjectId().toString() + "-" + httpHarvestPlugin.getPluginType().name());
-          metisPlugins.add(httpHarvestPlugin);
-          break;
-        case OAIPMH_HARVEST:
-          OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(harvestingMetadata);
-          oaipmhHarvestPlugin
-              .setId(new ObjectId().toString() + "-" + oaipmhHarvestPlugin.getPluginType().name());
-          metisPlugins.add(oaipmhHarvestPlugin);
-          break;
-        default:
-          break;
-      }
-    }
-  }
-
-  private void addProcessPlugins(Workflow workflow) {
-    AbstractMetisPluginMetadata dereferencePluginMetadata = workflow
-        .getPluginMetadata(PluginType.ENRICHMENT);
-    if (dereferencePluginMetadata != null) {
-      EnrichmentPlugin enrichmentPlugin = new EnrichmentPlugin(dereferencePluginMetadata);
-      enrichmentPlugin
-          .setId(new ObjectId().toString() + "-" + enrichmentPlugin.getPluginType().name());
-      metisPlugins.add(enrichmentPlugin);
-    }
-    AbstractMetisPluginMetadata voidMetisPluginMetadata = workflow
-        .getPluginMetadata(PluginType.VALIDATION);
-    if (voidMetisPluginMetadata != null) {
-      ValidationPlugin validationPlugin = new ValidationPlugin(voidMetisPluginMetadata);
-      validationPlugin
-          .setId(new ObjectId().toString() + "-" + validationPlugin.getPluginType().name());
-      metisPlugins.add(validationPlugin);
-    }
-  }
-
+  /**
+   * Sets all plugins inside the execution, that have status {@link PluginStatus#INQUEUE} or
+   * {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   */
   public void setAllRunningAndInqueuePluginsToCancelled() {
     this.setWorkflowStatus(WorkflowStatus.CANCELLED);
     for (AbstractMetisPlugin metisPlugin :
@@ -134,6 +96,29 @@ public class WorkflowExecution implements HasMongoObjectId {
       }
     }
     this.setCancelling(false);
+  }
+
+  /**
+   * Checks if one of the plugins has {@link PluginStatus#FAILED} and if yes sets all other plugins
+   * that have status {@link PluginStatus#INQUEUE} or {@link PluginStatus#RUNNING}, to {@link PluginStatus#CANCELLED}
+   */
+  public void checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed() {
+    boolean hasAPluginFailed = false;
+    for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
+      if (metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
+        hasAPluginFailed = true;
+        break;
+      }
+    }
+    if (hasAPluginFailed) {
+      this.setWorkflowStatus(WorkflowStatus.FAILED);
+      for (AbstractMetisPlugin metisPlugin : this.getMetisPlugins()) {
+        if (metisPlugin.getPluginStatus() == PluginStatus.INQUEUE
+            || metisPlugin.getPluginStatus() == PluginStatus.RUNNING) {
+          metisPlugin.setPluginStatus(PluginStatus.CANCELLED);
+        }
+      }
+    }
   }
 
   @Override
@@ -203,35 +188,35 @@ public class WorkflowExecution implements HasMongoObjectId {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
+    this.createdDate = createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public Date getStartedDate() {
-    return startedDate;
+    return startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   public void setStartedDate(Date startedDate) {
-    this.startedDate = startedDate;
+    this.startedDate = startedDate == null ? null : new Date(startedDate.getTime());
   }
 
   public Date getFinishedDate() {
-    return finishedDate;
+    return finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   public void setFinishedDate(Date finishedDate) {
-    this.finishedDate = finishedDate;
+    this.finishedDate = finishedDate == null ? null : new Date(finishedDate.getTime());
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public List<AbstractMetisPlugin> getMetisPlugins() {
@@ -250,8 +235,7 @@ public class WorkflowExecution implements HasMongoObjectId {
     result = prime * result + ((id == null) ? 0 : id.hashCode());
     result = prime * result + Integer.hashCode(datasetId);
     result = prime * result + ((workflowOwner == null) ? 0 : workflowOwner.hashCode());
-    result = prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
-    return result;
+    return prime * result + ((workflowName == null) ? 0 : workflowName.hashCode());
   }
 
   @Override

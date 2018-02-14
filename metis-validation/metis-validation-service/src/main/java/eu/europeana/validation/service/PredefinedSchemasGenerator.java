@@ -9,6 +9,8 @@ import java.util.Properties;
  */
 public final class PredefinedSchemasGenerator {
 
+    public static final String PREDEFINED_SCHEMAS_PREFIX = "predefinedSchemas.";
+
     private PredefinedSchemasGenerator() {
     }
 
@@ -25,8 +27,9 @@ public final class PredefinedSchemasGenerator {
             for (String predefinedSchema : predefinedSchemas.split(",")) {
                 result.add(
                         predefinedSchema,
-                        properties.getProperty("predefinedSchemas." + predefinedSchema + ".url"),
-                        properties.getProperty("predefinedSchemas." + predefinedSchema + ".rootLocation"));
+                        properties.getProperty(PREDEFINED_SCHEMAS_PREFIX + predefinedSchema + ".url"),
+                        properties.getProperty(PREDEFINED_SCHEMAS_PREFIX + predefinedSchema + ".rootLocation"),
+                        properties.getProperty(PREDEFINED_SCHEMAS_PREFIX + predefinedSchema + ".schematronLocation"));
             }
         }
         return result;

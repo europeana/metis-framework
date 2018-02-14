@@ -2,15 +2,10 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
-import eu.europeana.metis.core.exceptions.BadContentException;
-import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
-import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowFoundException;
-import eu.europeana.metis.core.exceptions.ScheduledWorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.WorkflowAlreadyExistsException;
-import eu.europeana.metis.core.exceptions.WorkflowExecutionAlreadyExistsException;
+import eu.europeana.metis.core.execution.ExecutionRules;
 import eu.europeana.metis.core.service.OrchestratorService;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
@@ -18,8 +13,14 @@ import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.ExternalTaskException;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.util.List;
 import java.util.Set;
+import javax.ws.rs.QueryParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class OrchestratorController {
   @ResponseBody
   public void createWorkflow(
       @RequestBody Workflow workflow)
-      throws WorkflowAlreadyExistsException {
+      throws GenericMetisException {
     orchestratorService.createWorkflow(workflow);
   }
 
@@ -99,10 +100,15 @@ public class OrchestratorController {
   @ResponseBody
   public ResponseListWrapper<Workflow> getAllWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<Workflow> responseListWrapper = new ResponseListWrapper<>();
-    responseListWrapper.setResultsAndLastPage(orchestratorService.getAllWorkflows(workflowOwner, nextPage),
-        orchestratorService.getWorkflowsPerRequest(), nextPage);
+    responseListWrapper
+        .setResultsAndLastPage(orchestratorService.getAllWorkflows(workflowOwner, nextPage),
+            orchestratorService.getWorkflowsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflows returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
     return responseListWrapper;
@@ -117,11 +123,12 @@ public class OrchestratorController {
       @PathVariable("datasetId") int datasetId,
       @RequestParam("workflowOwner") String workflowOwner,
       @RequestParam("workflowName") String workflowName,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, NoWorkflowFoundException {
+      throws GenericMetisException {
     WorkflowExecution workflowExecution = orchestratorService
         .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflowOwner,
-            workflowName, priority);
+            workflowName, enforcedPluginType, priority);
     LOGGER.info(
         "WorkflowExecution for datasetId '{}' with workflowOwner '{}' and workflowName '{}' added to queue",
         datasetId, workflowOwner, workflowName);
@@ -134,10 +141,11 @@ public class OrchestratorController {
   @ResponseBody
   public WorkflowExecution addWorkflowInQueueOfWorkflowExecutions(
       @PathVariable("datasetId") int datasetId, @RequestBody Workflow workflow,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType,
       @RequestParam(value = "priority", defaultValue = "0") int priority)
-      throws WorkflowExecutionAlreadyExistsException, NoDatasetFoundException, WorkflowAlreadyExistsException {
+      throws GenericMetisException {
     WorkflowExecution workflowExecution = orchestratorService
-        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, priority);
+        .addWorkflowInQueueOfWorkflowExecutions(datasetId, workflow, enforcedPluginType, priority);
     LOGGER.info(
         "WorkflowExecution for datasetId '{}' with workflowOwner '{}' started", datasetId,
         workflow.getWorkflowOwner());
@@ -150,7 +158,7 @@ public class OrchestratorController {
   @ResponseBody
   public void cancelWorkflowExecution(
       @PathVariable("executionId") String executionId)
-      throws NoWorkflowExecutionFoundException {
+      throws GenericMetisException {
     orchestratorService.cancelWorkflowExecution(executionId);
     LOGGER.info(
         "WorkflowExecution for executionId '{}' is cancelling",
@@ -169,21 +177,46 @@ public class OrchestratorController {
     return workflowExecution;
   }
 
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public AbstractMetisPlugin getLatestFinishedPluginWorkflowExecutionByDatasetIdIfPluginTypeAllowedForExecution(
+      @PathVariable("datasetId") int datasetId,
+      @RequestParam("pluginType") PluginType pluginType,
+      @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
+      throws GenericMetisException {
+    AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType, enforcedPluginType);
+    if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
+      LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
+              latestFinishedPluginWorkflowExecutionByDatasetId.getId());
+    } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
+      LOGGER.info("PluginType allowed by default");
+    }
+    return latestFinishedPluginWorkflowExecutionByDatasetId;
+  }
+
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(
       @PathVariable("datasetId") int datasetId,
-      @RequestParam("workflowOwner") String workflowOwner,
-      @RequestParam("workflowName") String workflowName,
-      @RequestParam("workflowStatus") Set<WorkflowStatus> workflowStatuses,
+      @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
+      @RequestParam(value = "workflowName", required = false) String workflowName,
+      @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
       @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
       @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses, orderField, ascending, nextPage),
+            .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName, workflowStatuses,
+                orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
@@ -195,8 +228,12 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
-      @RequestParam("workflowStatus") WorkflowStatus workflowStatus,
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "workflowStatus", required = false) WorkflowStatus workflowStatus,
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllWorkflowExecutions(workflowStatus, nextPage),
@@ -214,7 +251,7 @@ public class OrchestratorController {
   @ResponseBody
   public void scheduleWorkflowExecution(
       @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws BadContentException, ScheduledWorkflowAlreadyExistsException, NoWorkflowFoundException, NoDatasetFoundException {
+      throws GenericMetisException {
     orchestratorService.scheduleWorkflow(scheduledWorkflow);
     LOGGER.info(
         "ScheduledWorkflowExecution for datasetId '{}', workflowOwner '{}', workflowName '{}', pointerDate at '{}', scheduled '{}'",
@@ -241,7 +278,11 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<ScheduledWorkflow> getAllScheduledWorkflows(
-      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage) {
+      @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
+      throws GenericMetisException {
+    if (nextPage < 0) {
+      throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
+    }
     ResponseListWrapper<ScheduledWorkflow> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
             .getAllScheduledWorkflows(ScheduleFrequence.NULL, nextPage),
@@ -257,7 +298,7 @@ public class OrchestratorController {
   @ResponseBody
   public void updateScheduledWorkflow(
       @RequestBody ScheduledWorkflow scheduledWorkflow)
-      throws BadContentException, NoScheduledWorkflowFoundException, NoWorkflowFoundException {
+      throws GenericMetisException {
     orchestratorService.updateScheduledWorkflow(scheduledWorkflow);
     LOGGER.info("ScheduledWorkflow with with datasetId '{}' updated",
         scheduledWorkflow.getDatasetId());
@@ -284,7 +325,7 @@ public class OrchestratorController {
       @PathVariable("topologyName") String topologyName,
       @PathVariable("externalTaskId") long externalTaskId,
       @RequestParam(value = "from") int from,
-      @RequestParam(value = "to") int to) {
+      @RequestParam(value = "to") int to) throws ExternalTaskException {
     LOGGER.info(
         "Requesting proxy call task logs for topologyName: {}, externalTaskId: {}, from: {}, to: {}",
         topologyName, externalTaskId, from, to);
@@ -297,10 +338,11 @@ public class OrchestratorController {
   @ResponseBody
   public TaskErrorsInfo getExternalTaskReport(
       @PathVariable("topologyName") String topologyName,
-      @PathVariable("externalTaskId") long externalTaskId) {
+      @PathVariable("externalTaskId") long externalTaskId,
+      @QueryParam("idsPerError") int idsPerError) throws ExternalTaskException {
     LOGGER.info(
         "Requesting proxy call task reports for topologyName: {}, externalTaskId: {}",
         topologyName, externalTaskId);
-    return orchestratorService.getExternalTaskReport(topologyName, externalTaskId);
+    return orchestratorService.getExternalTaskReport(topologyName, externalTaskId, idsPerError);
   }
 }

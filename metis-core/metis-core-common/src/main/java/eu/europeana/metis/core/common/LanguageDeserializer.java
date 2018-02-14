@@ -14,10 +14,17 @@ public class LanguageDeserializer extends StdDeserializer<Language> {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * Constructor for null value
+   */
   public LanguageDeserializer() {
     this(null);
   }
 
+  /**
+   * Required as part of {@link StdDeserializer}
+   * @param vc required parameter
+   */
   public LanguageDeserializer(Class<?> vc) {
     super(vc);
   }

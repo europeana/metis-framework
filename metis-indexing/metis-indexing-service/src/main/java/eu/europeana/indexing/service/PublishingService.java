@@ -4,7 +4,6 @@ import eu.europeana.corelib.edm.utils.construct.AgentUpdater;
 import eu.europeana.corelib.edm.utils.construct.AggregationUpdater;
 import eu.europeana.corelib.edm.utils.construct.ConceptUpdater;
 import eu.europeana.corelib.edm.utils.construct.EuropeanaAggregationUpdater;
-import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.LicenseUpdater;
 import eu.europeana.corelib.edm.utils.construct.PlaceUpdater;
 import eu.europeana.corelib.edm.utils.construct.ProvidedChoUpdater;
@@ -30,9 +29,10 @@ import eu.europeana.corelib.solr.entity.ProvidedCHOImpl;
 import eu.europeana.corelib.solr.entity.ProxyImpl;
 import eu.europeana.corelib.solr.entity.ServiceImpl;
 import eu.europeana.corelib.solr.entity.TimespanImpl;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.indexing.model.IndexingMongoServer;
 import eu.europeana.indexing.service.dao.FullBeanDao;
+import eu.europeana.metis.exception.IndexingException;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -55,85 +55,81 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-@Component
 public class PublishingService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PublishingService.class);
 	
-	private FullBeanDao fullBeanDao;
-	
-	private MongoProviderImpl mongoProviderFullBean;
-
+	private FullBeanDao fullBeanDao;	
     private static IBindingFactory rdfBindingFactory;
     private static final String UTF8 = StandardCharsets.UTF_8.name();
+    private SolrServer solrServer; 
+    private SolrServer cloudSolrServer;
 
-    private static SolrServer solrServer, cloudSolrServer;
-    private static FullBeanHandler handler;
-
-    static {
+    static {    	
     	try {
-
     		rdfBindingFactory = BindingDirectory.getFactory(RDF.class);
-    		
-    		
     	} catch (JiBXException e) {
-    		e.printStackTrace();
-    		LOGGER.warn("Error creating the JibX factory");
+    		LOGGER.warn("Error creating the JibX factory.");    		
     	}
-
     }
-    
-    @Autowired
+
     public PublishingService(FullBeanDao fullBeanDao, LBHttpSolrServer solrServer, CloudSolrServer cloudSolrServer) {
   	  this.fullBeanDao = fullBeanDao;
   	  this.solrServer = solrServer;
   	  this.cloudSolrServer = cloudSolrServer;
     }
     
-    public boolean process(String record) throws JiBXException, SolrServerException
+    public boolean process(String record) throws IndexingException
     {    	
-    	RDF rdf = toRDF(record); 
+    	RDF rdf;
+    	
+		try {
+			rdf = toRDF(record);
+		} catch (JiBXException e) {
+			throw new IndexingException("Could not convert record to RDF.", e.getCause());
+		} 
     	
     	FullBeanImpl fBean = null;
 		try {
 			fBean = new MongoConstructor().constructFullBean(rdf);
 		} catch (InstantiationException | IllegalAccessException | IOException e) {
-			e.printStackTrace();
+
+			throw new IndexingException("Could not construct FullBean using MongoConstructor.", e.getCause());
+
 		}
     	      	
     	if (fBean != null) {
     		fBean.setEuropeanaCollectionName(new String[100]); // To prevent null pointer exception using sample
     		    		
     		SolrDocumentHandler solrDocHandler = new SolrDocumentHandler(cloudSolrServer);
-    		SolrInputDocument solrInputDoc = solrDocHandler.generate(fBean);
+
+    		SolrInputDocument solrInputDoc;
     		
     		try {
-				cloudSolrServer.add(solrInputDoc);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+    			solrInputDoc = solrDocHandler.generate(fBean);
+    		} catch (SolrServerException e) {
+    			throw new IndexingException("Could not generate Solr input document.", e.getCause());
+    		}
+
+    		try {
+    			cloudSolrServer.add(solrInputDoc);
+    		} catch (IOException | SolrServerException e) {
+    			throw new IndexingException("Could not add Solr input document to Solr server.", e.getCause());
+    		}
     		    		  
-            FullBeanImpl saved;
-            
             if (fBean.getAbout() == null) {
                 try {
 					saveEdmClasses(fBean, true, fullBeanDao);
-				} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException e) {
+					throw new IndexingException("Could not save EDM classes of FullBean to Mongo.", e.getCause());
 				}
                 
                 fullBeanDao.save(fBean);
-                
-                saved = fullBeanDao.getFullBean(fBean.getAbout());
             } else {
                 try {
-					saved = updateFullBean(fBean, fullBeanDao);
-				} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					updateFullBean(fBean, fullBeanDao);
+				} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException | MongoDBException e) {
+					throw new IndexingException("Could not update FullBean.", e.getCause());
 				}
             }            
             
@@ -143,7 +139,8 @@ public class PublishingService {
     	return false;
     }
     
-    public static RDF toRDF(String xml) throws JiBXException {
+
+    private static RDF toRDF(String xml) throws JiBXException {
     	IUnmarshallingContext context = getRdfBindingFactory().createUnmarshallingContext();
     	return (RDF) context.unmarshalDocument(IOUtils.toInputStream(xml), UTF8);
     }
@@ -163,22 +160,20 @@ public class PublishingService {
     	return out.toString(UTF8);
     }
     
-    private static void saveEdmClasses(FullBeanImpl fullBean, boolean isFirstSave, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        List<AgentImpl> agents = new ArrayList<AgentImpl>();
-        List<ConceptImpl> concepts = new ArrayList<ConceptImpl>();
-        List<TimespanImpl> timespans = new ArrayList<TimespanImpl>();
-        List<PlaceImpl> places = new ArrayList<PlaceImpl>();
+
+    // Modified and appended legacy code
+    private static void saveEdmClasses(FullBeanImpl fullBean, boolean isFirstSave, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoDBException {
+        List<AgentImpl> agents = new ArrayList<>();
+        List<ConceptImpl> concepts = new ArrayList<>();
+        List<TimespanImpl> timespans = new ArrayList<>();
+        List<PlaceImpl> places = new ArrayList<>();
         List<LicenseImpl> licenses = new ArrayList<>();
         List<ServiceImpl> services = new ArrayList<>();
                
         EdmMongoServer mongoServer = null;
        
-        try {
-			mongoServer = new EdmMongoServerImpl(fullBeanDao.getMongoClient(), fullBeanDao.getDB());
-		} catch (MongoDBException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		mongoServer = new EdmMongoServerImpl(fullBeanDao.getDS().getMongo(), fullBeanDao.getDS().getDB().getName());
+
         
         if (fullBean.getAgents() != null) {
             for (AgentImpl agent : fullBean.getAgents()) {
@@ -196,6 +191,8 @@ public class PublishingService {
                 }
             }
         }
+
+
         if (fullBean.getPlaces() != null) {
             for (PlaceImpl place : fullBean.getPlaces()) {
                 PlaceImpl retPlace = fullBeanDao.searchByAbout(PlaceImpl.class,
@@ -213,6 +210,7 @@ public class PublishingService {
                 }
             }
         }
+
         if (fullBean.getConcepts() != null) {
             for (ConceptImpl concept : fullBean.getConcepts()) {
                 ConceptImpl retConcept = fullBeanDao.searchByAbout(
@@ -232,6 +230,7 @@ public class PublishingService {
                 }
             }
         }
+
         if (fullBean.getTimespans() != null) {
             for (TimespanImpl timespan : fullBean.getTimespans()) {
                 TimespanImpl retTimespan = fullBeanDao.searchByAbout(
@@ -304,9 +303,11 @@ public class PublishingService {
                 }
             }
         } else {
-            List<ProvidedCHOImpl> pChos = new ArrayList<ProvidedCHOImpl>();
-            List<ProxyImpl> proxies = new ArrayList<ProxyImpl>();
-            List<AggregationImpl> aggregations = new ArrayList<AggregationImpl>();
+
+            List<ProvidedCHOImpl> pChos = new ArrayList<>();
+            List<ProxyImpl> proxies = new ArrayList<>();
+            List<AggregationImpl> aggregations = new ArrayList<>();
+
             for (ProvidedCHOImpl pCho : fullBean.getProvidedCHOs()) {
             	
             	ProvidedCHOImpl pCHOImpl = fullBeanDao.searchByAbout(ProvidedCHOImpl.class, pCho.getAbout());
@@ -353,7 +354,10 @@ public class PublishingService {
         fullBean.setServices(services);
     }
     
-    public static FullBeanImpl updateFullBean(FullBeanImpl fullBean, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
+
+    // Modified and appended legacy code
+    public static FullBeanImpl updateFullBean(FullBeanImpl fullBean, FullBeanDao fullBeanDao) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, MongoDBException {
+
         saveEdmClasses(fullBean, false, fullBeanDao);
         
         IndexingMongoServer mongoServer = new IndexingMongoServer(fullBeanDao.getDS());
@@ -365,9 +369,9 @@ public class PublishingService {
         UpdateOperations<FullBeanImpl> ops = mongoServer.getDatastore().createUpdateOperations(FullBeanImpl.class);
         
         // To avoid index out of bounds below
-        if (fullBean.getProxies().size() == 0)
+        if (fullBean.getProxies().isEmpty())
         {
-        	ArrayList<Proxy> proxyList = new ArrayList<Proxy>();
+        	ArrayList<Proxy> proxyList = new ArrayList<>();
         	ProxyImpl proxy = new ProxyImpl();
         	proxyList.add(proxy);
         	fullBean.setProxies(proxyList);
@@ -393,12 +397,6 @@ public class PublishingService {
         
         mongoServer.getDatastore().update(updateQuery, ops);
         
-        try {
-            return (FullBeanImpl) fullBeanDao.getFullBean(fullBean.getAbout());
-        } catch (Exception e) {
-            //log.log(Level.SEVERE, e.getMessage());
-        }
-        
-        return fullBean;
+        return fullBeanDao.getFullBean(fullBean.getAbout());
     }
 }

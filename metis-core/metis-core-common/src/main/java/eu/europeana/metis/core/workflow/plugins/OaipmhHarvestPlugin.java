@@ -1,12 +1,13 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.OAIPMHHarvestingDetails;
+import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Collections;
 import java.util.Date;
 import java.util.EnumMap;
@@ -15,8 +16,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
-import org.mongodb.morphia.annotations.Embedded;
-import org.mongodb.morphia.annotations.Indexed;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,127 +23,33 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-05-24
  */
-@Embedded
-public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
+public class OaipmhHarvestPlugin extends AbstractMetisPlugin {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OaipmhHarvestPlugin.class);
 
-  @Indexed
-  private String id;
-  private PluginStatus pluginStatus = PluginStatus.INQUEUE;
-  private static final PluginType PLUGIN_TYPE = PluginType.OAIPMH_HARVEST;
-  private final String topologyName = TopologyName.OAIPMH_HARVEST.getTopologyName();
+  private final String topologyName = Topology.OAIPMH_HARVEST.getTopologyName();
 
-  @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private Date startedDate;
-  @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private Date updatedDate;
-  @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
-  private Date finishedDate;
-  private long externalTaskId;
-  private ExecutionProgress executionProgress = new ExecutionProgress();
-
-  private AbstractMetisPluginMetadata pluginMetadata;
-
+  /**
+   * Zero argument constructor that initializes the {@link #pluginType} corresponding to the plugin.
+   */
   public OaipmhHarvestPlugin() {
     //Required for json serialization
+    super(PluginType.OAIPMH_HARVEST);
   }
 
-  public OaipmhHarvestPlugin(
-      AbstractMetisPluginMetadata pluginMetadata) {
-    this.pluginMetadata = pluginMetadata;
-  }
-
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  @Override
-  public AbstractMetisPluginMetadata getPluginMetadata() {
-    return pluginMetadata;
-  }
-
-  @Override
-  public void setPluginMetadata(
-      AbstractMetisPluginMetadata pluginMetadata) {
-    this.pluginMetadata = pluginMetadata;
-  }
-
-  @Override
-  public PluginStatus getPluginStatus() {
-    return pluginStatus;
-  }
-
-  @Override
-  public void setPluginStatus(PluginStatus pluginStatus) {
-    this.pluginStatus = pluginStatus;
-  }
-
-  @Override
-  public PluginType getPluginType() {
-    return PLUGIN_TYPE;
-  }
-
-  @Override
-  public Date getStartedDate() {
-    return startedDate;
-  }
-
-  @Override
-  public void setStartedDate(Date startedDate) {
-    this.startedDate = startedDate;
-  }
-
-  @Override
-  public Date getFinishedDate() {
-    return finishedDate;
-  }
-
-  @Override
-  public void setFinishedDate(Date finishedDate) {
-    this.finishedDate = finishedDate;
-  }
-
-  @Override
-  public Date getUpdatedDate() {
-    return updatedDate;
-  }
-
-  @Override
-  public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
-  }
-
-  @Override
-  public long getExternalTaskId() {
-    return externalTaskId;
-  }
-
-  @Override
-  public void setExternalTaskId(long externalTaskId) {
-    this.externalTaskId = externalTaskId;
-  }
-
-  @Override
-  public ExecutionProgress getExecutionProgress() {
-    return executionProgress;
-  }
-
-  @Override
-  public void setExecutionProgress(
-      ExecutionProgress executionProgress) {
-    this.executionProgress = executionProgress;
+  /**
+   * Constructor to initialize the plugin with pluginMetadata.
+   * <p>Initializes the {@link #pluginType} as well.</p>
+   *
+   * @param pluginMetadata should be {@link OaipmhHarvestPluginMetadata}
+   */
+  public OaipmhHarvestPlugin(AbstractMetisPluginMetadata pluginMetadata) {
+    super(PluginType.OAIPMH_HARVEST, pluginMetadata);
   }
 
   /**
    * Required for json serialization.
+   *
    * @return the String representation of the topology
    */
   public String getTopologyName() {
@@ -153,15 +58,16 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
 
   @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) {
-    if (!pluginMetadata.isMocked()) {
-      String pluginTypeName = PLUGIN_TYPE.name();
-      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName, ecloudDataset);
-      String oaipmhUrl = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUrl();
-      String setSpec = ((OaipmhHarvestPluginMetadata) pluginMetadata).getSetSpec();
-      String metadataFormat = ((OaipmhHarvestPluginMetadata) pluginMetadata).getMetadataFormat();
-      Date fromDate = ((OaipmhHarvestPluginMetadata) pluginMetadata).getFromDate();
-      Date untilDate = ((OaipmhHarvestPluginMetadata) pluginMetadata).getUntilDate();
+      String ecloudDataset) throws ExternalTaskException {
+    if (!getPluginMetadata().isMocked()) {
+      String pluginTypeName = getPluginType().name();
+      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
+          ecloudDataset);
+      String oaipmhUrl = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUrl();
+      String setSpec = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getSetSpec();
+      String metadataFormat = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getMetadataFormat();
+      Date fromDate = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getFromDate();
+      Date untilDate = ((OaipmhHarvestPluginMetadata) getPluginMetadata()).getUntilDate();
       DpsTask dpsTask = new DpsTask();
 
       Map<InputDataType, List<String>> inputDataTypeListHashMap = new EnumMap<>(
@@ -174,6 +80,7 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       parameters.put("PROVIDER_ID", ecloudProvider);
       parameters.put("OUTPUT_DATA_SETS", String.format("%s/data-providers/%s/data-sets/%s",
           ecloudBaseUrl, ecloudProvider, ecloudDataset));
+      parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
       dpsTask.setParameters(parameters);
 
       OAIPMHHarvestingDetails oaipmhHarvestingDetails = new OAIPMHHarvestingDetails();
@@ -191,18 +98,27 @@ public class OaipmhHarvestPlugin implements AbstractMetisPlugin {
       Revision revision = new Revision();
       revision.setRevisionName(pluginTypeName);
       revision.setRevisionProviderId(ecloudProvider);
-      revision.setCreationTimeStamp(startedDate);
+      revision.setCreationTimeStamp(getStartedDate());
       dpsTask.setOutputRevision(revision);
 
-      externalTaskId = dpsClient.submitTask(dpsTask, topologyName);
-      LOGGER.info("Submitted task with externalTaskId: {}", externalTaskId);
+      try {
+        setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, topologyName)));
+      } catch (DpsException e) {
+        throw new ExternalTaskException("Submitting task failed", e);
+      }
+      LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
     }
   }
 
   @Override
-  public ExecutionProgress monitor(DpsClient dpsClient) {
-    LOGGER.info("Requesting progress information for externalTaskId: {}", externalTaskId);
-    TaskInfo taskInfo = dpsClient.getTaskProgress(topologyName, externalTaskId);
-    return executionProgress.copyExternalTaskInformation(taskInfo);
+  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
+    LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
+    TaskInfo taskInfo;
+    try {
+      taskInfo = dpsClient.getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
+    } catch (DpsException e) {
+      throw new ExternalTaskException("Requesting task progress failed", e);
+    }
+    return getExecutionProgress().copyExternalTaskInformation(taskInfo);
   }
 }

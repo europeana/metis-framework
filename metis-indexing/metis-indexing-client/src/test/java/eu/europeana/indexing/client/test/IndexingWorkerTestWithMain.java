@@ -1,22 +1,12 @@
-package eu.europeana.indexing.test;
+package eu.europeana.indexing.client.test;
 
-import com.mongodb.MongoClient;
-import com.mongodb.ServerAddress;
-import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.indexing.service.PublishingService;
-import eu.europeana.indexing.service.dao.FullBeanDao;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.CloudSolrServer;
-import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
-import org.jibx.runtime.JiBXException;
+import eu.europeana.indexing.client.IndexingClient;
+import eu.europeana.indexing.client.IndexingWorker;
+import eu.europeana.metis.exception.IndexingException;
 
-public class PublishingServiceTestWithMain {
+public class IndexingWorkerTestWithMain {
 	public static final String SAMPLE_INPUT_2 = 
-			  "<?xml version=\"1.0\"  encoding=\"UTF-8\" ?>" +
+			"<?xml version=\"1.0\"  encoding=\"UTF-8\" ?>" +
 
 	  "<rdf:RDF xmlns:crm=\"http://www.cidoc-crm.org/rdfs/cidoc_crm_v5.0.2_english_label.rdfs#\"" +
 
@@ -110,52 +100,12 @@ public class PublishingServiceTestWithMain {
 
 	      "</edm:EuropeanaAggregation></rdf:RDF>";
 	
-	public static void main(String[] args) {			
-		String[] hostList = StringUtils.split("reindexing1.eanadev.org,reindexing2.eanadev.org,reindexing3.eanadev.org", ",");
-        String[] portList = StringUtils.split("27017,27017,27017", ",");
-        List<ServerAddress> serverAddresses = new ArrayList<>();
-        int i = 0;
-        for (String host : hostList) {
-            if (host.length() > 0) {
-                try {
-                    ServerAddress address = new ServerAddress(host, Integer.parseInt(portList[i]));
-                    serverAddresses.add(address);
-                } catch (NumberFormatException e) {
-                	e.printStackTrace();
-                }
-            }
-            i++;
-        }
+	
+	public static void main(String[] args) throws IndexingException {
+		IndexingWorker indexingWorker = new IndexingWorker(new IndexingClient());
 		
-		FullBeanDao fullBeanDao = new FullBeanDao(new MongoClient(serverAddresses), "metis_indexing_preview");
-		LBHttpSolrServer solrServer = null;
-		
-		try {
-			solrServer = new LBHttpSolrServer("sol13.eanadev.org");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
-		
-		CloudSolrServer cloudSolrServer = new CloudSolrServer("sol13.eanadev.org", solrServer);
-		cloudSolrServer.setDefaultCollection("metis_indexing_preview");
-		cloudSolrServer.connect();		
-
-		PublishingService ps = new PublishingService(fullBeanDao, solrServer, cloudSolrServer);
-		
-		try {
-			ps.process(SAMPLE_INPUT_2);
-		} catch (JiBXException | SolrServerException e) {
-			e.printStackTrace();
-		}
-		
-		ArrayList<FullBeanImpl> data = (ArrayList<FullBeanImpl>) fullBeanDao.getAll();
-		
-		if (data != null) {
-			
-			System.out.println("From DB:");
-			for (FullBeanImpl fullBean : data) {
-				System.out.println(fullBean.getAbout());
-			}
-		}		
+		System.out.println("Record to publish: " + SAMPLE_INPUT_2 + "\n");
+		System.out.println("Publishing record...\n");
+		System.out.println("Result of saving record: " + indexingWorker.publish(SAMPLE_INPUT_2) + "\n");
 	}
 }

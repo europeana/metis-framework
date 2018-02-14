@@ -7,6 +7,8 @@ import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 /**
+ * The database structure to hold the dataset identifiers sequence.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-12-27
  */
@@ -25,6 +27,7 @@ public class DatasetIdSequence {
 
   /**
    * Initialize sequence with provided argument.
+   *
    * @param sequence the number to start the sequence from
    */
   public DatasetIdSequence(int sequence) {

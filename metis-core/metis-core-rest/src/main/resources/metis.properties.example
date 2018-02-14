@@ -13,6 +13,10 @@ socks.proxy.port=
 socks.proxy.username=
 socks.proxy.password=
 
+#Truststore
+truststore.path=
+truststore.password=
+
 #RabbitMq
 rabbitmq.host=
 rabbitmq.port=
@@ -24,9 +28,11 @@ rabbitmq.highest.priority=
 #Mongo
 mongo.hosts=
 mongo.port=
-mongo.db=
+mongo.authentication.db=
 mongo.username=
 mongo.password=
+mongo.enableSSL=
+mongo.db=
 
 #Redis
 redis.host=

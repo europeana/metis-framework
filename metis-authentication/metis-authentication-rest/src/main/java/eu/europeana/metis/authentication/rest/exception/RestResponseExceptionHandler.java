@@ -1,12 +1,7 @@
 package eu.europeana.metis.authentication.rest.exception;
 
-import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.NoUserFoundException;
+import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
-import eu.europeana.metis.exception.UserAlreadyExistsException;
-import eu.europeana.metis.exception.UserUnauthorizedException;
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
 import javax.servlet.http.HttpServletResponse;
 import org.hibernate.TransactionException;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -34,10 +29,7 @@ public class RestResponseExceptionHandler {
    * @param response the response that needs to have it's status modified
    * @return {@link StructuredExceptionWrapper} that has the exception message wrapped
    */
-  @ExceptionHandler(value = {BadContentException.class, NoUserFoundException.class,
-      IOException.class, ExecutionException.class,
-      InterruptedException.class, UserAlreadyExistsException.class,
-      UserUnauthorizedException.class})
+  @ExceptionHandler(GenericMetisException.class)
   @ResponseBody
   public StructuredExceptionWrapper handleException(Exception ex, HttpServletResponse response) {
     HttpStatus status = AnnotationUtils.findAnnotation(ex.getClass(), ResponseStatus.class).value();

@@ -2,7 +2,7 @@ package eu.europeana.indexing.client.test;
 
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.indexing.client.IndexingClient;
-import eu.europeana.indexing.client.IndexingException;
+import eu.europeana.metis.exception.IndexingException;
 
 public class IndexingClientTestWithMain {
 	public static final String SAMPLE_INPUT_2 = 
@@ -101,13 +101,13 @@ public class IndexingClientTestWithMain {
 	      "</edm:EuropeanaAggregation></rdf:RDF>";
 	
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IndexingException {
 		IndexingClient indexingClient = new IndexingClient();
 		
 		System.out.println("Record to save: " + SAMPLE_INPUT_2 + "\n");
 		System.out.println("Saving record...\n");
 		try {
-			System.out.println("Result of saving record: " + indexingClient.process(SAMPLE_INPUT_2) + "\n");
+			System.out.println("Result of saving record: " + indexingClient.publish(SAMPLE_INPUT_2) + "\n");
 		} catch (IndexingException e) {
 			e.printStackTrace();
 		}

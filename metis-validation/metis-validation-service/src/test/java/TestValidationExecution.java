@@ -68,22 +68,59 @@ public class TestValidationExecution {
                         .withStatus(200)
                         .withFixedDelay(2000)
                         .withBodyFile("test_schema.zip")));
+
+        wireMockRule.stubFor(get(urlEqualTo("/external_test_schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withFixedDelay(2000)
+                        .withBodyFile("test_schema.zip")));
+
+        wireMockRule.stubFor(get(urlEqualTo("/edm_internal_schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withFixedDelay(2000)
+                        .withBodyFile("test_schema.zip")));
+
+        wireMockRule.stubFor(get(urlEqualTo("/edm_external_schema.zip"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withFixedDelay(2000)
+                        .withBodyFile("test_schema.zip")));
+
     }
 
     @Test
-    public void testSingleValidationSuccess() throws Exception {
+    public void testSingleValidationSuccessForPredefinedSchema() throws Exception {
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, null, null, fileToValidate);
         Assert.assertTrue(result.isSuccess());
         Assert.assertNull(result.getRecordId());
         Assert.assertNull(result.getMessage());
     }
 
     @Test
+    public void testSingleValidationSuccessForCustomSchema() throws Exception {
+        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
+        ValidationResult result = validationExecutionService.singleValidation("http://localhost:9999/external_test_schema.zip", "EDM-INTERNAL.xsd", "schematron/schematron-internal.xsl", fileToValidate);
+        Assert.assertTrue(result.isSuccess());
+        Assert.assertNull(result.getRecordId());
+        Assert.assertNull(result.getMessage());
+    }
+
+    @Test
+    public void validationShouldFailForCustomSchemaAndNotProvidedRootLocation() throws IOException {
+        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_test.xml"));
+        ValidationResult result = validationExecutionService.singleValidation("http://localhost:9999/test_schema.zip", null, null, fileToValidate);
+        Assert.assertFalse(result.isSuccess());
+        Assert.assertNotNull(result.getRecordId());
+        Assert.assertNotNull(result.getMessage());
+    }
+
+    @Test
     public void testSingleValidationFailure() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473_wrong.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", "schematron/schematron-internal.xsl", fileToValidate);
         Assert.assertFalse(result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
@@ -93,7 +130,7 @@ public class TestValidationExecution {
     public void testSingleValidationFailureWrongSchema() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473.xml"));
-        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM-INTERNAL.xsd", fileToValidate);
+        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM-INTERNAL.xsd", "schematron/schematron.xsl", fileToValidate);
         Assert.assertFalse(result.isSuccess());
         Assert.assertNotNull(result.getRecordId());
         Assert.assertNotNull(result.getMessage());
@@ -110,7 +147,7 @@ public class TestValidationExecution {
         for (File input : files) {
             xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, null, null, xmls);
         Assert.assertTrue(result.isSuccess());
         Assert.assertEquals(0, result.getResultList().size());
 
@@ -131,7 +168,7 @@ public class TestValidationExecution {
             xmls.add(IOUtils.toString(fileInputStream));
             fileInputStream.close();
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_INTERNAL, "EDM-INTERNAL.xsd", null, xmls);
         Assert.assertFalse(result.isSuccess());
         Assert.assertEquals(1, result.getResultList().size());
 
@@ -151,7 +188,7 @@ public class TestValidationExecution {
         for (File input : files) {
             xmls.add(IOUtils.toString(new FileInputStream(input)));
         }
-        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, "EDM.xsd", xmls);
+        ValidationResultList result = validationExecutionService.batchValidation(EDM_EXTERNAL, "EDM.xsd", "schematron/schematron.xsl", xmls);
         Assert.assertFalse(result.isSuccess());
         Assert.assertEquals(1506, result.getResultList().size());
 
@@ -193,8 +230,8 @@ public class TestValidationExecution {
     @Test
     public void ValidationExecutionServiceTestWithCustomConfiguration() throws SchemaProviderException {
         PredefinedSchemas predefinedSchemas = new PredefinedSchemas();
-        predefinedSchemas.add("name", "location", "root");
-        predefinedSchemas.add("name1", "location1", "root1");
+        predefinedSchemas.add("name", "location", "root", "schematronFile");
+        predefinedSchemas.add("name1", "location1", "root1", "schematronFile1");
         ValidationExecutionService validationExecutionService = new ValidationExecutionService(new ValidationServiceConfig() {
             @Override
             public int getThreadCount() {

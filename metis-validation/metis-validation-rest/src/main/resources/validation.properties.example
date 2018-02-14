@@ -11,6 +11,8 @@ predefinedSchemas=EDM-INTERNAL,EDM-EXTERNAL
 
 predefinedSchemas.EDM-INTERNAL.url=
 predefinedSchemas.EDM-INTERNAL.rootLocation=
+predefinedSchemas.EDM-INTERNAL.schematronLocation=
 
 predefinedSchemas.EDM-EXTERNAL.url=
 predefinedSchemas.EDM-EXTERNAL.rootLocation=
+predefinedSchemas.EDM-EXTERNAL.schematronLocation=

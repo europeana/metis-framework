@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2017-10-30
  */
 @ResponseStatus(value= HttpStatus.CONFLICT, reason="User Already Exists")
-public class UserAlreadyExistsException extends Exception {
+public class UserAlreadyExistsException extends GenericMetisException {
   private static final long serialVersionUID = -3332292346834265371L;
   public UserAlreadyExistsException(String message){
     super(message);

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  * @since 2017-11-01
  */
 @ResponseStatus(value = HttpStatus.UNAUTHORIZED, reason="Unauthorized")
-public class UserUnauthorizedException extends Exception  {
+public class UserUnauthorizedException extends GenericMetisException  {
   private static final long serialVersionUID = -3332292346834265371L;
 
   public UserUnauthorizedException(String message) {

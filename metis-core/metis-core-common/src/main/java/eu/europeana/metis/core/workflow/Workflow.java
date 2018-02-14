@@ -10,6 +10,7 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Field;
 import org.mongodb.morphia.annotations.Id;
@@ -37,16 +38,18 @@ public class Workflow implements HasMongoObjectId {
   @Indexed
   private String workflowName;
   private boolean harvestPlugin;
-  private boolean transformPlugin;
 
   @JacksonXmlElementWrapper(localName = "metisPluginsMetadatas")
   @JacksonXmlProperty(localName = "metisPluginsMetadata")
+  @Embedded
   private List<AbstractMetisPluginMetadata> metisPluginsMetadata = new ArrayList<>();
 
+  @Override
   public ObjectId getId() {
     return id;
   }
 
+  @Override
   public void setId(ObjectId id) {
     this.id = id;
   }
@@ -57,14 +60,6 @@ public class Workflow implements HasMongoObjectId {
 
   public void setHarvestPlugin(boolean harvestPlugin) {
     this.harvestPlugin = harvestPlugin;
-  }
-
-  public boolean isTransformPlugin() {
-    return transformPlugin;
-  }
-
-  public void setTransformPlugin(boolean transformPlugin) {
-    this.transformPlugin = transformPlugin;
   }
 
   public String getWorkflowOwner() {
@@ -92,6 +87,11 @@ public class Workflow implements HasMongoObjectId {
     this.metisPluginsMetadata = metisPluginsMetadata;
   }
 
+  /**
+   * Get the {@link AbstractMetisPluginMetadata} class based on the {@link PluginType} if that exists in the {@link Workflow#metisPluginsMetadata}.
+   * @param pluginType the {@link PluginType} to search for
+   * @return {@link AbstractMetisPluginMetadata} corresponding to the concrete class
+   */
   public AbstractMetisPluginMetadata getPluginMetadata(PluginType pluginType) {
     for (AbstractMetisPluginMetadata metisPluginMetadata : metisPluginsMetadata
         ) {
