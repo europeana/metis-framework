@@ -12,7 +12,6 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
-import java.io.IOException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.text.ParseException;
@@ -40,6 +39,7 @@ public class AuthenticationService {
 
   /**
    * Constructor of class with required parameters
+   *
    * @param zohoAccessClientDao {@link ZohoAccessClientDao}
    * @param psqlMetisUserDao {@link PsqlMetisUserDao}
    */
@@ -57,9 +57,11 @@ public class AuthenticationService {
    * @param email the unique email of the user
    * @param password the password of the user
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if any other problem occurred while constructing the user,
-   * {@link NoUserFoundException} if user was not found in the system,
-   * {@link UserAlreadyExistsException} if user with the same email already exists in the system
+   * <ul>
+   * <li>{@link BadContentException} if any other problem occurred while constructing the user.</li>
+   * <li>{@link NoUserFoundException} if user was not found in the system.</li>
+   * <li>{@link UserAlreadyExistsException} if user with the same email already exists in the system.</li>
+   * </ul>
    */
   public void registerUser(String email, String password)
       throws GenericMetisException {
@@ -83,8 +85,10 @@ public class AuthenticationService {
    * @param email the email to check for updating
    * @return the updated {@link MetisUser}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if any other problem occurred while constructing the user,
-   * {@link NoUserFoundException} if the user was not found in the system
+   * <ul>
+   * <li>{@link BadContentException} if any other problem occurred while constructing the user.</li>
+   * <li>{@link NoUserFoundException} if the user was not found in the system.</li>
+   * </ul>
    */
   public MetisUser updateUserFromZoho(String email)
       throws GenericMetisException {
@@ -107,15 +111,10 @@ public class AuthenticationService {
   }
 
   private MetisUser constructMetisUserFromZoho(String email)
-      throws BadContentException, NoUserFoundException {
+      throws GenericMetisException {
     //Get user from zoho
     JsonNode userByEmailJsonNode;
-    try {
-      userByEmailJsonNode = zohoAccessClientDao.getUserByEmail(email);
-    } catch (IOException e) {
-      throw new BadContentException(
-          String.format("Cannot retrieve user with email %s, from Zoho", email), e);
-    }
+    userByEmailJsonNode = zohoAccessClientDao.getUserByEmail(email);
     if (userByEmailJsonNode == null) {
       throw new NoUserFoundException("User was not found in Zoho");
     }
@@ -136,14 +135,8 @@ public class AuthenticationService {
 
     //Get Organization Id related to user
     String organizationId;
-    try {
-      organizationId = zohoAccessClientDao
-          .getOrganizationIdByOrganizationName(metisUser.getOrganizationName());
-    } catch (IOException e) {
-      throw new BadContentException(
-          String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
-              metisUser.getOrganizationName()), e);
-    }
+    organizationId = zohoAccessClientDao
+        .getOrganizationIdByOrganizationName(metisUser.getOrganizationName());
     metisUser.setOrganizationId(organizationId);
     return metisUser;
   }
@@ -166,7 +159,9 @@ public class AuthenticationService {
    * </p>
    * @return a String array containing the email and password decoded, in that order
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException if the content of the authorization String is un-parsable
+   * <ul>
+   * <li>{@link BadContentException if the content of the authorization String is un-parsable</li>
+   * </ul>
    */
   public Credentials validateAuthorizationHeaderWithCredentials(String authorization)
       throws GenericMetisException {
@@ -191,7 +186,9 @@ public class AuthenticationService {
    * </p>
    * @return the string representation of the access token
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the content of the authorization String is un-parsable
+   * <ul>
+   * <li>{@link BadContentException} if the content of the authorization String is un-parsable</li>
+   * </ul>
    */
   public String validateAuthorizationHeaderWithAccessToken(String authorization)
       throws GenericMetisException {
@@ -213,8 +210,9 @@ public class AuthenticationService {
           Charset.forName("UTF-8"));
       // credentials = username:password
       String[] splittedCredentials = credentialsString.split(":", CREDENTIAL_FIELDS_NUMBER);
-      if (splittedCredentials.length != CREDENTIAL_FIELDS_NUMBER)
+      if (splittedCredentials.length != CREDENTIAL_FIELDS_NUMBER) {
         return null;
+      }
       return new Credentials(splittedCredentials[0], splittedCredentials[1]);
     }
     return null;
@@ -235,7 +233,9 @@ public class AuthenticationService {
    * @param password the password of corresponding to the email
    * @return {@link MetisUser}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authentication of the user fails
+   * <ul>
+   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * </ul>
    */
   public MetisUser loginUser(String email, String password)
       throws GenericMetisException {
@@ -269,7 +269,9 @@ public class AuthenticationService {
    *
    * @param userEmailToMakeAdmin the email to update the {@code AccountRole}
    * @throws GenericMetisException which can be one of:
-   * {@link NoUserFoundException} if the user to update was not found in the system
+   * <ul>
+   * <li>{@link NoUserFoundException} if the user to update was not found in the system</li>
+   * </ul>
    */
   public void updateUserMakeAdmin(String userEmailToMakeAdmin)
       throws GenericMetisException {
@@ -286,7 +288,9 @@ public class AuthenticationService {
    * @param accessToken the access token of the user in the system
    * @return true for administrator, false for non-administrator
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authentication of the user fails
+   * <ul>
+   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * </ul>
    */
   public boolean isUserAdmin(String accessToken)
       throws GenericMetisException {
@@ -301,8 +305,10 @@ public class AuthenticationService {
    * @param userEmailToUpdate the email that should be updated
    * @return true for authorized, false for unauthorized
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authentication of the user fails
-   * {@link NoUserFoundException} if a user was not found in the system
+   * <ul>
+   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * <li>{@link NoUserFoundException} if a user was not found in the system</li>
+   * </ul>
    */
   public boolean hasPermissionToRequestUserUpdate(String accessToken,
       String userEmailToUpdate)
@@ -359,7 +365,9 @@ public class AuthenticationService {
    * @param accessToken the access token used to authenticate a user
    * @return {@link MetisUser}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authentication of the user fails
+   * <ul>
+   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * </ul>
    */
   public MetisUser authenticateUser(String accessToken)
       throws GenericMetisException {
@@ -377,7 +385,9 @@ public class AuthenticationService {
    * @param accessToken the access token used to authenticate the user
    * @return true if authorized, false if unauthorized
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authentication of the user fails
+   * <ul>
+   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * </ul>
    */
   public boolean hasPermissionToRequestAllUsers(String accessToken)
       throws GenericMetisException {

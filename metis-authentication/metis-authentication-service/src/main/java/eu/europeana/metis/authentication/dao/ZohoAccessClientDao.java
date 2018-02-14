@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.common.model.OrganizationRole;
 import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
 import java.util.Iterator;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
@@ -36,8 +38,8 @@ public class ZohoAccessClientDao {
   private static final String CONTENT_LABEL = "content";
   private static final String FIELDS_LABEL = "FL";
 
-  private String zohoBaseUrl;
-  private String zohoAuthenticationToken;
+  private final String zohoBaseUrl;
+  private final String zohoAuthenticationToken;
 
   /**
    * Constructor with required fields that will be used to access the Zoho service.
@@ -55,9 +57,13 @@ public class ZohoAccessClientDao {
    *
    * @param email the email to search for the user
    * @return {@link JsonNode}
-   * @throws IOException if the response cannot be converted to {@link JsonNode}
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li> {@link BadContentException} if any other problem occurred while constructing the user, if the
+   * response cannot be converted to {@link JsonNode} </li>
+   * </ul>
    */
-  public JsonNode getUserByEmail(String email) throws IOException {
+  public JsonNode getUserByEmail(String email) throws GenericMetisException {
     String contactsSearchUrl = String
         .format("%s/%s/%s/%s", zohoBaseUrl, JSON_STRING, CONTACTS_MODULE_STRING,
             SEARCH_RECORDS_STRING);
@@ -71,7 +77,12 @@ public class ZohoAccessClientDao {
         .getForObject(builder.build().encode().toUri(), String.class);
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
-    JsonNode jsonContactResponse = mapper.readTree(contactResponse);
+    JsonNode jsonContactResponse = null;
+    try {
+      jsonContactResponse = mapper.readTree(contactResponse);
+    } catch (IOException e) {
+      throw new BadContentException(String.format("Cannot retrieve user with email %s, from Zoho", email), e);
+    }
     if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
     }
@@ -89,11 +100,14 @@ public class ZohoAccessClientDao {
    *
    * @param organizationName to search for
    * @return the String representation of the organizationId
-   * @throws IOException if the response cannot be converted to {@link JsonNode}
-   * @throws BadContentException if the organization did not have a role defined
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link BadContentException} if any other problem occurred while constructing the user, like an
+   * organization did not have a role defined or the response cannot be converted to {@link JsonNode}</li>
+   * </ul>
    */
   public String getOrganizationIdByOrganizationName(String organizationName)
-      throws IOException, BadContentException {
+      throws GenericMetisException {
     String contactsSearchUrl = String
         .format("%s/%s/%s/%s", zohoBaseUrl, JSON_STRING, ACCOUNTS_MODULE_STRING,
             SEARCH_RECORDS_STRING);
@@ -108,7 +122,14 @@ public class ZohoAccessClientDao {
         .getForObject(builder.build().encode().toUri(), String.class);
     LOGGER.info(contactResponse);
     ObjectMapper mapper = new ObjectMapper();
-    JsonNode jsonContactResponse = mapper.readTree(contactResponse);
+    JsonNode jsonContactResponse;
+    try {
+      jsonContactResponse = mapper.readTree(contactResponse);
+    } catch (IOException e) {
+      throw new BadContentException(
+          String.format("Cannot retrieve organization with orgnaization name %s, from Zoho",
+              organizationName), e);
+    }
     return checkOrganizationRoleAndGetOrganizationIdFromJsonNode(
         findExactMatchOfOrganization(jsonContactResponse,
             organizationName));
@@ -141,8 +162,9 @@ public class ZohoAccessClientDao {
         JsonNode organizationField = organizationFields.next();
         JsonNode val = organizationField.get(VALUE_LABEL);
         JsonNode content = organizationField.get(CONTENT_LABEL);
-        if (val.textValue().equals(ORGANIZATION_NAME_FIELD) && content.textValue()
-            .equals(organizationName)) {
+        if (StringUtils.isNotEmpty(val.textValue()) && val.textValue()
+            .equals(ORGANIZATION_NAME_FIELD) && StringUtils.isNotEmpty(content.textValue())
+            && content.textValue().equals(organizationName)) {
           return nextOrganizationJsonNode;
         }
       }
