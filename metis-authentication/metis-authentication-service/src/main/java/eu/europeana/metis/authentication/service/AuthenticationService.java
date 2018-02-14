@@ -5,6 +5,7 @@ import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
 import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.exception.BadContentException;
@@ -167,13 +168,13 @@ public class AuthenticationService {
    * @throws GenericMetisException which can be one of:
    * {@link BadContentException if the content of the authorization String is un-parsable
    */
-  public String[] validateAuthorizationHeaderWithCredentials(String authorization)
+  public Credentials validateAuthorizationHeaderWithCredentials(String authorization)
       throws GenericMetisException {
     if (StringUtils.isEmpty(authorization)) {
       throw new BadContentException("Authorization header was empty");
     }
-    String[] credentials = decodeAuthorizationHeaderWithCredentials(authorization);
-    if (credentials.length < CREDENTIAL_FIELDS_NUMBER) {
+    Credentials credentials = decodeAuthorizationHeaderWithCredentials(authorization);
+    if (credentials == null) {
       throw new BadContentException(
           "Username or password not provided, or not properly defined in the Authorization Header");
     }
@@ -204,16 +205,19 @@ public class AuthenticationService {
     return accessToken;
   }
 
-  private String[] decodeAuthorizationHeaderWithCredentials(String authorization) {
+  private Credentials decodeAuthorizationHeaderWithCredentials(String authorization) {
     if (authorization != null && authorization.startsWith("Basic")) {
       // Authorization: Basic base64credentials
       String base64Credentials = authorization.substring("Basic".length()).trim();
-      String credentials = new String(Base64.getDecoder().decode(base64Credentials),
+      String credentialsString = new String(Base64.getDecoder().decode(base64Credentials),
           Charset.forName("UTF-8"));
       // credentials = username:password
-      return credentials.split(":", CREDENTIAL_FIELDS_NUMBER);
+      String[] splittedCredentials = credentialsString.split(":", CREDENTIAL_FIELDS_NUMBER);
+      if (splittedCredentials.length != CREDENTIAL_FIELDS_NUMBER)
+        return null;
+      return new Credentials(splittedCredentials[0], splittedCredentials[1]);
     }
-    return new String[0];
+    return null;
   }
 
   private String decodeAuthorizationHeaderWithAccessToken(String authorization) {

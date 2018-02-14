@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
+import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
@@ -173,7 +174,10 @@ public class AuthenticationServiceTest {
     byte[] base64AuthenticationBytes = Base64.encodeBase64(authenticationString.getBytes());
     String authorizationHeader = "Basic " + new String(base64AuthenticationBytes);
 
-    assertEquals(2, authenticationService.validateAuthorizationHeaderWithCredentials(authorizationHeader).length);
+    Credentials credentials = authenticationService
+        .validateAuthorizationHeaderWithCredentials(authorizationHeader);
+    assertEquals(EXAMPLE_EMAIL, credentials.getEmail());
+    assertEquals(EXAMPLE_PASSWORD, credentials.getPassword());
   }
 
   @Test(expected = BadContentException.class)

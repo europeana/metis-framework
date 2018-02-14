@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -63,12 +64,9 @@ public class AuthenticationController {
   public void registerUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
 
-    String[] credentials = authenticationService
-        .validateAuthorizationHeaderWithCredentials(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
-    authenticationService.registerUser(email, password);
-    LOGGER.info("User with email {} has been registered", email);
+    Credentials credentials = authenticationService.validateAuthorizationHeaderWithCredentials(authorization);
+    authenticationService.registerUser(credentials.getEmail(), credentials.getPassword());
+    LOGGER.info("User with email {} has been registered", credentials.getEmail());
   }
 
   /**
@@ -86,11 +84,9 @@ public class AuthenticationController {
   @ResponseBody
   public MetisUser loginUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
-    String[] credentials = authenticationService
+    Credentials credentials = authenticationService
         .validateAuthorizationHeaderWithCredentials(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
-    MetisUser metisUser = authenticationService.loginUser(email, password);
+    MetisUser metisUser = authenticationService.loginUser(credentials.getEmail(), credentials.getPassword());
     LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(),
         metisUser.getUserId());
     return metisUser;
