@@ -52,6 +52,7 @@ public class EnrichmentWorker {
    * 
    * @param dereferenceClient The dereference client.
    * @param enrichmentClient The enrichment client.
+   * @param entityMergeEngine The engine to be used for merging entities into the RDF.
    */
   EnrichmentWorker(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient, EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
@@ -118,9 +119,9 @@ public class EnrichmentWorker {
 
     // Dereferencing
     if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.DEREFERENCE_ONLY.equals(mode)) {
-      LOGGER.info("Performing dereferencing...");
+      LOGGER.debug("Performing dereferencing...");
       performDereferencing(rdf);
-      LOGGER.info("Dereferencing completed.");
+      LOGGER.debug("Dereferencing completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(rdf));
       }
@@ -128,9 +129,9 @@ public class EnrichmentWorker {
 
     // Enrichment
     if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.ENRICHMENT_ONLY.equals(mode)) {
-      LOGGER.info("Performing enrichment...");
+      LOGGER.debug("Performing enrichment...");
       performEnrichment(rdf);
-      LOGGER.info("Enrichment completed.");
+      LOGGER.debug("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
         LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
       }
@@ -174,14 +175,12 @@ public class EnrichmentWorker {
 
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
       throws DereferenceOrEnrichException {
-    EnrichmentResultList enrichmentInformation = null;
     try {
-      enrichmentInformation = enrichmentClient.enrich(fieldsForEnrichment);
+      return enrichmentClient.enrich(fieldsForEnrichment);
     } catch (RuntimeException e) {
       throw new DereferenceOrEnrichException(
           "Exception occurred while trying to perform enrichment.", e);
     }
-    return enrichmentInformation;
   }
 
   private void performDereferencing(final RDF rdf) throws DereferenceOrEnrichException {
@@ -258,7 +257,6 @@ public class EnrichmentWorker {
     }
     if (count == 0) {
       LOGGER.debug("No fields to process.");
-      return;
     }
   }
 

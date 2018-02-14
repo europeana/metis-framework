@@ -110,4 +110,9 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
 		return owlSameAs;
 	}
 
+  @SuppressWarnings("unchecked")
+  public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
+      MongoTermList<S> source) {
+    return (MongoTermList<T>) source;
+  }
 }

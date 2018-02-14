@@ -27,45 +27,43 @@ import eu.europeana.corelib.definitions.jibx.Type;
  */
 public enum EnrichmentFields {
   
-  DC_CREATOR(Choice::ifCreator, Choice::getCreator, (choice, content) -> choice.setCreator(content),
-      Creator::new, EntityClass.AGENT),
+  DC_CREATOR(Choice::ifCreator, Choice::getCreator, Choice::setCreator, Creator::new,
+      EntityClass.AGENT),
 
-  DC_CONTRIBUTOR(Choice::ifContributor, Choice::getContributor,
-      (choice, content) -> choice.setContributor(content), Contributor::new, EntityClass.AGENT),
+  DC_CONTRIBUTOR(Choice::ifContributor, Choice::getContributor, Choice::setContributor,
+      Contributor::new, EntityClass.AGENT),
 
-  DC_DATE(Choice::ifDate, Choice::getDate, (choice, content) -> choice.setDate(content), Date::new,
+  DC_DATE(Choice::ifDate, Choice::getDate, Choice::setDate, Date::new, EntityClass.TIMESPAN),
+
+  DCTERMS_ISSUED(Choice::ifIssued, Choice::getIssued, Choice::setIssued, Issued::new,
       EntityClass.TIMESPAN),
 
-  DCTERMS_ISSUED(Choice::ifIssued, Choice::getIssued,
-      (choice, content) -> choice.setIssued(content), Issued::new, EntityClass.TIMESPAN),
+  DCTERMS_CREATED(Choice::ifCreated, Choice::getCreated, Choice::setCreated, Created::new,
+      EntityClass.TIMESPAN),
 
-  DCTERMS_CREATED(Choice::ifCreated, Choice::getCreated,
-      (choice, content) -> choice.setCreated(content), Created::new, EntityClass.TIMESPAN),
+  DC_COVERAGE(Choice::ifCoverage, Choice::getCoverage, Choice::setCoverage, Coverage::new,
+      EntityClass.PLACE),
 
-  DC_COVERAGE(Choice::ifCoverage, Choice::getCoverage,
-      (choice, content) -> choice.setCoverage(content), Coverage::new, EntityClass.PLACE),
+  DCTERMS_TEMPORAL(Choice::ifTemporal, Choice::getTemporal, Choice::setTemporal, Temporal::new,
+      EntityClass.TIMESPAN),
 
-  DCTERMS_TEMPORAL(Choice::ifTemporal, Choice::getTemporal,
-      (choice, content) -> choice.setTemporal(content), Temporal::new, EntityClass.TIMESPAN),
+  DC_TYPE(Choice::ifType, Choice::getType, Choice::setType, Type::new, EntityClass.CONCEPT),
 
-  DC_TYPE(Choice::ifType, Choice::getType, (choice, content) -> choice.setType(content), Type::new,
-      EntityClass.CONCEPT),
+  DCTERMS_SPATIAL(Choice::ifSpatial, Choice::getSpatial, Choice::setSpatial, Spatial::new,
+      EntityClass.PLACE),
 
-  DCTERMS_SPATIAL(Choice::ifSpatial, Choice::getSpatial,
-      (choice, content) -> choice.setSpatial(content), Spatial::new, EntityClass.PLACE),
-
-  DC_SUBJECT(Choice::ifSubject, Choice::getSubject, (choice, content) -> choice.setSubject(content),
-      Subject::new, EntityClass.CONCEPT);
+  DC_SUBJECT(Choice::ifSubject, Choice::getSubject, Choice::setSubject, Subject::new,
+      EntityClass.CONCEPT);
 
   private final ChoiceContentHandler<?> choiceContentHandler;
-  private final EntityClass[] entityClasses;
+  private final EntityClass entityClass;
 
-  private <T extends ResourceOrLiteralType> EnrichmentFields(Predicate<Choice> choiceChecker,
+  <T extends ResourceOrLiteralType> EnrichmentFields(Predicate<Choice> choiceChecker,
       Function<Choice, T> contentGetter, BiConsumer<Choice, T> contentSetter,
-      Supplier<T> contentCreator, EntityClass... entityClasses) {
+      Supplier<T> contentCreator, EntityClass entityClass) {
     this.choiceContentHandler =
         new ChoiceContentHandler<>(choiceChecker, contentGetter, contentSetter, contentCreator);
-    this.entityClasses = entityClasses;
+    this.entityClass = entityClass;
   }
 
   /**
@@ -86,7 +84,7 @@ public enum EnrichmentFields {
   
   private InputValue convert(ResourceOrLiteralType content) {
     final String language = content.getLang() != null ? content.getLang().getLang() : null;
-    return new InputValue(this.name(), content.getString(), language, entityClasses);
+    return new InputValue(this.name(), content.getString(), language, entityClass);
   }
 
   /**
@@ -100,10 +98,10 @@ public enum EnrichmentFields {
   }
 
   private static final class ChoiceContentHandler<T extends ResourceOrLiteralType> {
-    public final Predicate<Choice> choiceChecker;
-    public final Function<Choice, T> contentGetter;
-    public final BiConsumer<Choice, T> contentSetter;
-    public final Supplier<T> contentCreator;
+    private final Predicate<Choice> choiceChecker;
+    private final Function<Choice, T> contentGetter;
+    private final BiConsumer<Choice, T> contentSetter;
+    private final Supplier<T> contentCreator;
 
     private ChoiceContentHandler(Predicate<Choice> choiceChecker, Function<Choice, T> contentGetter,
         BiConsumer<Choice, T> contentSetter, Supplier<T> contentCreator) {
@@ -113,7 +111,7 @@ public enum EnrichmentFields {
       this.contentCreator = contentCreator;
     }
 
-    public final EuropeanaType.Choice createChoice(String about) {
+    final EuropeanaType.Choice createChoice(String about) {
       final EuropeanaType.Choice choice = new EuropeanaType.Choice();
       final T content = contentCreator.get();
       final ResourceOrLiteralType.Resource resource = new ResourceOrLiteralType.Resource();

@@ -62,8 +62,7 @@ import eu.europeana.enrichment.api.external.model.Timespan;
 public class EntityMergeEngine {
 
   private static void setAbout(EnrichmentBase source, AboutType destination) {
-    final String about = source.getAbout();
-    destination.setAbout(about != null ? about : null);
+    destination.setAbout(source.getAbout());
   }
 
   private static PlaceType convertAndAddPlace(Place place, List<PlaceType> destination) {
@@ -329,12 +328,11 @@ public class EntityMergeEngine {
   }
 
   /**
-   * Merge entities in a record. Wrapper for {@link #mergeEntity(RDF, List, String)} without a field
+   * Merge entities in a record. Wrapper for {@link #mergeEntities(RDF, List, String)} without a field
    * name.
    * 
    * @param rdf The RDF to enrich
    * @param enrichmentBaseList The information to append
-   * @return An RDF object with the merged entities
    */
   public void mergeEntities(RDF rdf, List<EnrichmentBase> enrichmentBaseList) {
     mergeEntities(rdf, enrichmentBaseList, null);
@@ -351,21 +349,21 @@ public class EntityMergeEngine {
    * @param enrichmentBaseList The information to append
    * @param fieldName The name of the field so that it can be connected to Europeana Proxy
    */
-  public void mergeEntities(final RDF rdf, List<EnrichmentBase> enrichmentBaseList,
+  private void mergeEntities(final RDF rdf, List<EnrichmentBase> enrichmentBaseList,
       String fieldName) {
 
     // Ensure that there are lists for all four types.
     if (rdf.getAgentList() == null) {
-      rdf.setAgentList(new ArrayList<AgentType>());
+      rdf.setAgentList(new ArrayList<>());
     }
     if (rdf.getConceptList() == null) {
-      rdf.setConceptList(new ArrayList<eu.europeana.corelib.definitions.jibx.Concept>());
+      rdf.setConceptList(new ArrayList<>());
     }
     if (rdf.getPlaceList() == null) {
-      rdf.setPlaceList(new ArrayList<PlaceType>());
+      rdf.setPlaceList(new ArrayList<>());
     }
     if (rdf.getTimeSpanList() == null) {
-      rdf.setTimeSpanList(new ArrayList<TimeSpanType>());
+      rdf.setTimeSpanList(new ArrayList<>());
     }
 
     // Go by all input data.

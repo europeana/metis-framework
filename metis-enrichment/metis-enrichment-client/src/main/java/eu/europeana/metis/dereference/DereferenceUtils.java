@@ -31,9 +31,8 @@ public class DereferenceUtils {
 
   /**
    * Extract values from RDF document
-   * @param RDF input document
+   * @param rdf input document
    * @return set of values for dereferencing
-   * @throws JiBXException
    */
   public static Set<String> extractValuesForDereferencing(RDF rdf) {
     final Set<String> result = new HashSet<>();
@@ -86,9 +85,9 @@ public class DereferenceUtils {
   /**
    * 
    * @param xml
-   * @return
+   * @return The RDF
    * @throws JiBXException
-   * @{@link Deprecated} use {@link RdfConversionUtils#convertStringToRdf(String)} instead.
+   * @Deprecated use {@link RdfConversionUtils#convertStringToRdf(String)} instead.
    */
   @Deprecated
   public static RDF toRDF(String xml) throws JiBXException {

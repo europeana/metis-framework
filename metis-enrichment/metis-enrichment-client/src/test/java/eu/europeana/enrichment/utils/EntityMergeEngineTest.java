@@ -47,13 +47,13 @@ public class EntityMergeEngineTest {
 
     Label label1 = new Label("labelP1");
     Label label2 = new Label("langP2", "labelP2");
-    place.setAltLabelList(Arrays.asList(new Label[] {label1, label2}));
+    place.setAltLabelList(Arrays.asList(label1, label2));
 
     Part part1 = new Part("partP1");
-    place.setHasPartsList(Arrays.asList(new Part[] {part1}));
+    place.setHasPartsList(Arrays.asList(part1));
 
     Part part2 = new Part("partP2");
-    place.setIsPartOfList(Arrays.asList(new Part[] {part2}));
+    place.setIsPartOfList(Arrays.asList(part2));
 
     place.setLat("12.34");
     place.setLon("43.21");
@@ -62,11 +62,11 @@ public class EntityMergeEngineTest {
     place.setNotes(Arrays.asList(label3));
 
     Label label4 = new Label("langP4", "labelP4");
-    place.setPrefLabelList(Arrays.asList(new Label[] {label4}));
+    place.setPrefLabelList(Arrays.asList(label4));
 
     Part part3 = new Part("partP3");
     Part part4 = new Part("partP4");
-    place.setSameAs(Arrays.asList(new Part[] {part3, part4}));
+    place.setSameAs(Arrays.asList(part3, part4));
 
     return place;
   }
