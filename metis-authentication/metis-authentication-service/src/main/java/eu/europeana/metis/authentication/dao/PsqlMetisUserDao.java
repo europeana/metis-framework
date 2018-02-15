@@ -241,7 +241,7 @@ public class PsqlMetisUserDao {
     Transaction tx = session.beginTransaction();
     Query updateQuery = session
         .createQuery(String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE email=:%s", TIMESTAMP_STRING , EMAIL_STRING));
-    updateQuery.setString(TIMESTAMP_STRING, new Date().toString());
+    updateQuery.setDate(TIMESTAMP_STRING, new Date());
     updateQuery.setString(EMAIL_STRING, email);
     int i = updateQuery.executeUpdate();
     LOGGER.info("Updated {} Access Token with email: {}", i, email);
@@ -260,7 +260,7 @@ public class PsqlMetisUserDao {
     Transaction tx = session.beginTransaction();
     Query updateQuery = session.createQuery(
         String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE access_token=:%s", TIMESTAMP_STRING, ACCESS_TOKEN_STRING));
-    updateQuery.setString("timestamp", new Date().toString());
+    updateQuery.setDate(TIMESTAMP_STRING, new Date());
     updateQuery.setString(ACCESS_TOKEN_STRING, accessToken);
     int i = updateQuery.executeUpdate();
     LOGGER.info("Updated {} Access Token timestamp: {}", i, accessToken);
@@ -278,7 +278,7 @@ public class PsqlMetisUserDao {
     Session session = sessionFactory.openSession();
     Transaction tx = session.beginTransaction();
     Query updateQuery = session.createQuery(String.format("UPDATE MetisUser SET account_role=:%s WHERE email=:%s", ACCESS_ROLE_STRING, EMAIL_STRING));
-    updateQuery.setString("accessRole", AccountRole.METIS_ADMIN.name());
+    updateQuery.setString(ACCESS_ROLE_STRING, AccountRole.METIS_ADMIN.name());
     updateQuery.setString(EMAIL_STRING, userEmailToMakeAdmin);
     int i = updateQuery.executeUpdate();
     LOGGER.info("Updated {} MetisUser with email: {}, made METIS_ADMIN", i, userEmailToMakeAdmin);

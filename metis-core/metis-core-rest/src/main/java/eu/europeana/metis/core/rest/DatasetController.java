@@ -64,10 +64,11 @@ public class DatasetController {
    * @param dataset the provided dataset to be created
    * @return the dataset created including all other fields that are auto generated
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated,
-   * {@link DatasetAlreadyExistsException} if the dataset already exists for the organizationId and datasetName,
-   * {@link UserUnauthorizedException} if the user is unauthorized
+   * <ul>
+   * <li>{@link DatasetAlreadyExistsException} if the dataset already exists for the organizationId and datasetName.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be.</li>
+   * </ul>
+   * authenticated or the user is unauthorized
    */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -94,11 +95,11 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param dataset the provided dataset to be updated
    * @throws GenericMetisException which can be one of:
-   * {@link NoDatasetFoundException} if the dataset was not found for the datasetId,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated,
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link DatasetAlreadyExistsException} if a datasetName change is requested and the datasetName for that organizationId already exists
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found for the datasetId.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * <li>{@link DatasetAlreadyExistsException} if a datasetName change is requested and the datasetName for that organizationId already exists.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.PUT, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -120,10 +121,10 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param datasetId the identifier used to find and delete the dataset
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated,
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link NoDatasetFoundException} if the dataset was not found for datasetId
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found for datasetId</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -145,10 +146,10 @@ public class DatasetController {
    * @param datasetId the identifier used to find a dataset
    * @return {@link Dataset}
    * @throws GenericMetisException which can be one of:
-   * {@link NoDatasetFoundException} if the dataset was not found,
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -173,10 +174,10 @@ public class DatasetController {
    * @param datasetName the name of the dataset used to find a dataset
    * @return {@link Dataset}
    * @throws GenericMetisException which can be one of:
-   * {@link NoDatasetFoundException} if the dataset was not found,
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETNAME, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -203,8 +204,9 @@ public class DatasetController {
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws GenericMetisException which can be one of:
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_PROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -241,8 +243,9 @@ public class DatasetController {
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws GenericMetisException which can be one of:
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_INTERMEDIATE_PROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -280,8 +283,9 @@ public class DatasetController {
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws GenericMetisException which can be one of:
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_DATAPROVIDER, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -318,8 +322,9 @@ public class DatasetController {
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws GenericMetisException which can be one of:
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_ID, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -356,8 +361,9 @@ public class DatasetController {
    * @param nextPage the nextPage number or -1
    * @return {@link ResponseListWrapper}
    * @throws GenericMetisException which can be one of:
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_ORGANIZATION_NAME, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -392,8 +398,9 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.CountrySerializer}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_COUNTRIES, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -413,8 +420,9 @@ public class DatasetController {
    * should follow the rule Bearer accessTokenHere </p>
    * @return The list of countries that are serialized based on {@link eu.europeana.metis.core.common.LanguageSerializer}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_LANGUAGES, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

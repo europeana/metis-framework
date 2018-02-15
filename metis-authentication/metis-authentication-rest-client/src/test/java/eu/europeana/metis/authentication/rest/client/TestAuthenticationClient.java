@@ -4,7 +4,7 @@ package eu.europeana.metis.authentication.rest.client;
 import static org.junit.Assert.assertNotNull;
 
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,12 +34,12 @@ public class TestAuthenticationClient {
   @Test
   public void testGetUserByAccessTokenInHeader() throws Exception {
     MetisUser userByAccessTokenInHeader = authenticationClient
-        .getUserByAccessTokenInHeader("Bearer GSI8ypAuepJ7lwKjcyhtCqGcTQXFhxYp");
+        .getUserByAccessTokenInHeader("Bearer vq6V1YJIOfLC0pSTeb1plANiopyVlwrx");
     assertNotNull(userByAccessTokenInHeader);
   }
 
   @Betamax(tape = "testGetUserByAccessTokenInHeaderHttpClientErrorException")
-  @Test(expected = BadContentException.class)
+  @Test(expected = UserUnauthorizedException.class)
   public void testGetUserByAccessTokenInHeaderHttpClientErrorException() throws Exception {
     authenticationClient.getUserByAccessTokenInHeader("Bearer OUwbCoeELS28sF");
   }

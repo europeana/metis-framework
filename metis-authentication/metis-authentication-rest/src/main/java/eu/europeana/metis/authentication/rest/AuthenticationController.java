@@ -3,6 +3,7 @@ package eu.europeana.metis.authentication.rest;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.service.AuthenticationService;
 import eu.europeana.metis.authentication.user.AccountRole;
+import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -11,6 +12,7 @@ import eu.europeana.metis.exception.UserAlreadyExistsException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.util.List;
 import javax.ws.rs.QueryParam;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,22 +55,21 @@ public class AuthenticationController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Basic Base64Encoded(email:password) </p>
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or there is problem
-   * while constructing the user,
-   * {@link NoUserFoundException} if the user was not found in the remote CRM,
-   * {@link UserAlreadyExistsException} if the user already exists in the system
+   * <ul>
+   * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
+   * while constructing the user.</li>
+   * <li>{@link NoUserFoundException} if the user was not found in the remote CRM.</li>
+   * <li>{@link UserAlreadyExistsException} if the user already exists in the system.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_REGISTER, method = RequestMethod.POST)
   @ResponseStatus(HttpStatus.CREATED)
   public void registerUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
 
-    String[] credentials = authenticationService
-        .validateAuthorizationHeaderWithCredentials(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
-    authenticationService.registerUser(email, password);
-    LOGGER.info("User with email {} has been registered", email);
+    Credentials credentials = authenticationService.validateAuthorizationHeaderWithCredentials(authorization);
+    authenticationService.registerUser(credentials.getEmail(), credentials.getPassword());
+    LOGGER.info("User with email {} has been registered", credentials.getEmail());
   }
 
   /**
@@ -78,19 +79,21 @@ public class AuthenticationController {
    * should follow the rule Basic Base64Encoded(email:password) </p>
    * @return {@link MetisUser}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
+   * while constructing the user.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_LOGIN, method = RequestMethod.POST, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser loginUser(@RequestHeader("Authorization") String authorization)
       throws GenericMetisException {
-    String[] credentials = authenticationService
+    Credentials credentials = authenticationService
         .validateAuthorizationHeaderWithCredentials(authorization);
-    String email = credentials[0];
-    String password = credentials[1];
-    MetisUser metisUser = authenticationService.loginUser(email, password);
+    MetisUser metisUser = authenticationService.loginUser(credentials.getEmail(), credentials.getPassword());
     LOGGER.info("User with email: {} and user id: {} logged in", metisUser.getEmail(),
         metisUser.getUserId());
     return metisUser;
@@ -103,8 +106,10 @@ public class AuthenticationController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param newPassword the new password for the user
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_PASSD, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -129,9 +134,10 @@ public class AuthenticationController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param userEmailToDelete the user email used to delete a user account
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated,
-   * {@link UserUnauthorizedException} if the user is unauthorized
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated or the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE, produces = {
       MediaType.APPLICATION_JSON_VALUE,
@@ -147,7 +153,7 @@ public class AuthenticationController {
       throw new UserUnauthorizedException("Action allowed only from admin users");
     }
     authenticationService.deleteUser(userEmailToDelete);
-    LOGGER.info("User with email: {} deleted", userEmailToDelete);
+    LOGGER.info("User with email: {} deleted", StringEscapeUtils.escapeJava(userEmailToDelete));
   }
 
   /**
@@ -158,18 +164,18 @@ public class AuthenticationController {
    * @param userEmailToUpdate the user email used to update a user account
    * @return updated {@link MetisUser}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated,
-   * {@link NoUserFoundException} if a user was not found in the system,
-   * {@link UserUnauthorizedException} if the user is unauthorized
+   * <ul>
+   * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated or the user is unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON_VALUE,
       MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser updateUser(@RequestHeader("Authorization") String authorization,
-      @QueryParam("userEmailToUpdate") String userEmailToUpdate)
-      throws GenericMetisException {
+      @QueryParam("userEmailToUpdate") String userEmailToUpdate) throws GenericMetisException {
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService
@@ -177,7 +183,7 @@ public class AuthenticationController {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     MetisUser metisUser = authenticationService.updateUserFromZoho(userEmailToUpdate);
-    LOGGER.info("User with email: {} updated", userEmailToUpdate);
+    LOGGER.info("User with email: {} updated", StringEscapeUtils.escapeJava(userEmailToUpdate));
     return metisUser;
   }
 
@@ -188,10 +194,11 @@ public class AuthenticationController {
    * should follow the rule Bearer accessTokenHere </p>
    * @param userEmailToMakeAdmin the email used to change a user's account to make administrator
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated,
-   * {@link UserUnauthorizedException} if the user is unauthorized,
-   * {@link NoUserFoundException} if a user was not found in the system
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated or the user is unauthorized.</li>
+   * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE_ROLE_ADMIN, method = RequestMethod.PUT, produces = {
       MediaType.APPLICATION_JSON_VALUE,
@@ -206,7 +213,7 @@ public class AuthenticationController {
       throw new UserUnauthorizedException(ACTION_NOT_ALLOWED_FOR_USER);
     }
     authenticationService.updateUserMakeAdmin(userEmailToMakeAdmin);
-    LOGGER.info("User with email: {} made admin", userEmailToMakeAdmin);
+    LOGGER.info("User with email: {} made admin", StringEscapeUtils.escapeJava(userEmailToMakeAdmin));
   }
 
   /**
@@ -216,8 +223,10 @@ public class AuthenticationController {
    * should follow the rule Bearer accessTokenHere </p>
    * @return the corresponding {@link MetisUser}
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_USER_BY_TOKEN, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -239,8 +248,10 @@ public class AuthenticationController {
    * should follow the rule Bearer accessTokenHere </p>
    * @return the list with all the {@link MetisUser}s
    * @throws GenericMetisException which can be one of:
-   * {@link BadContentException} if the authorization header is un-parsable or the user cannot be,
-   * {@link UserUnauthorizedException} if the user was unauthorized
+   * <ul>
+   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be.</li>
+   * <li>{@link UserUnauthorizedException} if the user was unauthorized.</li>
+   * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_USERS, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})

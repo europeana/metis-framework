@@ -1,7 +1,7 @@
 !tape
 name: testGetUserByAccessTokenInHeaderHttpClientErrorException
 interactions:
-- recorded: 2018-01-10T14:17:39.210Z
+- recorded: 2018-02-15T08:06:38.216Z
   request:
     method: GET
     uri: http://localhost:8080/metis-authentication-rest-test/authentication/user_by_access_token
@@ -11,11 +11,11 @@ interactions:
       Content-Length: '0'
       Host: localhost:8080
       Proxy-Connection: keep-alive
-      User-Agent: Java/1.8.0_151
+      User-Agent: Java/1.8.0_161
   response:
-    status: 406
+    status: 401
     headers:
       Content-Type: application/json;charset=UTF-8
-      Date: Wed, 10 Jan 2018 14:17:39 GMT
+      Date: Thu, 15 Feb 2018 08:06:38 GMT
       Transfer-Encoding: chunked
     body: '{"errorMessage":"Wrong access token"}'
