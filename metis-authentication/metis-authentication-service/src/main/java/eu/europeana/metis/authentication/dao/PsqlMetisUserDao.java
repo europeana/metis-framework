@@ -241,7 +241,7 @@ public class PsqlMetisUserDao {
     Transaction tx = session.beginTransaction();
     Query updateQuery = session
         .createQuery(String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE email=:%s", TIMESTAMP_STRING , EMAIL_STRING));
-    updateQuery.setDate(TIMESTAMP_STRING, new Date());
+    updateQuery.setTimestamp(TIMESTAMP_STRING, new Date());
     updateQuery.setString(EMAIL_STRING, email);
     int i = updateQuery.executeUpdate();
     LOGGER.info("Updated {} Access Token with email: {}", i, email);
@@ -260,7 +260,7 @@ public class PsqlMetisUserDao {
     Transaction tx = session.beginTransaction();
     Query updateQuery = session.createQuery(
         String.format("UPDATE MetisUserAccessToken SET timestamp=:%s WHERE access_token=:%s", TIMESTAMP_STRING, ACCESS_TOKEN_STRING));
-    updateQuery.setDate(TIMESTAMP_STRING, new Date());
+    updateQuery.setTimestamp(TIMESTAMP_STRING, new Date());
     updateQuery.setString(ACCESS_TOKEN_STRING, accessToken);
     int i = updateQuery.executeUpdate();
     LOGGER.info("Updated {} Access Token timestamp: {}", i, accessToken);
