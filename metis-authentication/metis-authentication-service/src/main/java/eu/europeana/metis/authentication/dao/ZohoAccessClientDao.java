@@ -81,7 +81,8 @@ public class ZohoAccessClientDao {
     try {
       jsonContactResponse = mapper.readTree(contactResponse);
     } catch (IOException e) {
-      throw new BadContentException(String.format("Cannot retrieve user with email %s, from Zoho", email), e);
+      throw new BadContentException(
+          String.format("Cannot retrieve user with email %s, from Zoho", email), e);
     }
     if (jsonContactResponse.get(RESPONSE_STRING).get(RESULT_STRING) == null) {
       return null;
@@ -162,9 +163,8 @@ public class ZohoAccessClientDao {
         JsonNode organizationField = organizationFields.next();
         JsonNode val = organizationField.get(VALUE_LABEL);
         JsonNode content = organizationField.get(CONTENT_LABEL);
-        if (StringUtils.isNotEmpty(val.textValue()) && val.textValue()
-            .equals(ORGANIZATION_NAME_FIELD) && StringUtils.isNotEmpty(content.textValue())
-            && content.textValue().equals(organizationName)) {
+        if (StringUtils.equals(val.textValue(), ORGANIZATION_NAME_FIELD) && StringUtils
+            .equals(content.textValue(), organizationName)) {
           return nextOrganizationJsonNode;
         }
       }

@@ -161,7 +161,7 @@ public class AuthenticationService {
    * @return a String array containing the email and password decoded, in that order
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link UserUnauthorizedException if the content of the authorization String is un-parsable</li>
+   * <li>{@link UserUnauthorizedException} if the content of the authorization String is un-parsable</li>
    * </ul>
    */
   public Credentials validateAuthorizationHeaderWithCredentials(String authorization)
