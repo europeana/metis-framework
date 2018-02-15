@@ -29,5 +29,5 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 @XmlRootElement
 @JsonInclude(Include.ALWAYS)
 public enum EntityClass {
-	CONCEPT, TIMESPAN, AGENT, PLACE;
+	CONCEPT, TIMESPAN, AGENT, PLACE, ORGANIZATION
 }
