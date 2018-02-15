@@ -28,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import java.util.List;
 
 /**
- * Basic Class linking a number of MonoTerms. This class enables searching by
+ * Basic Class linking a number of MongoTerms. This class enables searching by
  * CodeUri for fetching all the relevant MongoTerms while it includes the parent
  * term (skos:broader, dcterms:isPartOf), the className of the entityType for
  * deserialization and a JSON representation of the contextual class
@@ -110,4 +110,9 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
 		return owlSameAs;
 	}
 
+  @SuppressWarnings("unchecked")
+  public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
+      MongoTermList<S> source) {
+    return (MongoTermList<T>) source;
+  }
 }

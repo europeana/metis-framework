@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlSeeAlso;
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlSeeAlso({Agent.class, Concept.class, Place.class, Timespan.class})
-public class EnrichmentBase {
+public abstract class EnrichmentBase {
   @XmlElement(name = "altLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Label> altLabelList = new ArrayList<>();
   @XmlAttribute(name = "about", namespace = "http://www.w3.org/1999/02/22-rdf-syntax-ns#")

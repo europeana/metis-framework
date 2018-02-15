@@ -14,7 +14,7 @@
  *  See the Licence for the specific language governing permissions and limitations under
  *  the Licence.
  */
-package eu.europeana.metis.dereference.client;
+package eu.europeana.enrichment.rest.client;
 
 import static eu.europeana.metis.RestEndpoints.DEREFERENCE;
 import static eu.europeana.metis.RestEndpoints.ENTITY;

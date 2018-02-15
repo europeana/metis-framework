@@ -2,8 +2,11 @@ package eu.europeana.enrichment.rest.client;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.function.ObjIntConsumer;
 import org.jibx.runtime.JiBXException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,9 +14,10 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.utils.EnrichmentUtils;
+import eu.europeana.enrichment.utils.EntityMergeEngine;
 import eu.europeana.enrichment.utils.InputValue;
+import eu.europeana.enrichment.utils.RdfConversionUtils;
 import eu.europeana.metis.dereference.DereferenceUtils;
-import eu.europeana.metis.dereference.client.DereferenceClient;
 
 /**
  * This class performs the task of dereferencing and enrichment for a given RDF document.
@@ -27,6 +31,7 @@ public class EnrichmentWorker {
 
   private final EnrichmentClient enrichmentClient;
   private final DereferenceClient dereferenceClient;
+  private final EntityMergeEngine entityMergeEngine;
 
   public enum Mode {
     ENRICHMENT_ONLY, DEREFERENCE_ONLY, DEREFERENCE_AND_ENRICHMENT;
@@ -39,7 +44,7 @@ public class EnrichmentWorker {
    * @param enrichmentUrl The URL of the enrichment service.
    */
   public EnrichmentWorker(String dereferenceUrl, String enrichmentUrl) {
-    this(new DereferenceClient(dereferenceUrl), new EnrichmentClient(enrichmentUrl));
+    this(new DereferenceClient(dereferenceUrl), new EnrichmentClient(enrichmentUrl), new EntityMergeEngine());
   }
 
   /**
@@ -47,10 +52,33 @@ public class EnrichmentWorker {
    * 
    * @param dereferenceClient The dereference client.
    * @param enrichmentClient The enrichment client.
+   * @param entityMergeEngine The engine to be used for merging entities into the RDF.
    */
-  EnrichmentWorker(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient) {
+  EnrichmentWorker(DereferenceClient dereferenceClient, EnrichmentClient enrichmentClient, EntityMergeEngine entityMergeEngine) {
     this.dereferenceClient = dereferenceClient;
     this.enrichmentClient = enrichmentClient;
+    this.entityMergeEngine = entityMergeEngine;
+  }
+
+  /**
+   * Performs dereference and enrichment on an input String to produce a target String. This is a
+   * wrapper for {@link #process(RDF)}.
+   * 
+   * @param inputString The RDF to be processed as a String.
+   * @return The processed RDF as a String.
+   * @throws JiBXException In case there is a problem converting to or from RDF format.
+   * @throws UnsupportedEncodingException In case something goes wrong with converting the result
+   *         RDF back to a String.
+   * @throws DereferenceOrEnrichException In case something goes wrong with processing the RDF.
+   */
+  public String process(final String inputString)
+      throws DereferenceOrEnrichException, JiBXException, UnsupportedEncodingException {
+    if (inputString == null) {
+      throw new IllegalArgumentException("Input RDF string cannot be null.");
+    }
+    final RDF inputRdf = convertStringToRdf(inputString);
+    final RDF resultRdf = process(inputRdf, Mode.DEREFERENCE_AND_ENRICHMENT);
+    return convertRdfToString(resultRdf);
   }
 
   /**
@@ -68,175 +96,119 @@ public class EnrichmentWorker {
   /**
    * Performs dereference and enrichment on an input RDF to produce a target RDF.
    * 
-   * @param inputRdf The RDF to be processed.
+   * @param rdf The RDF to be processed.
    * @param mode The processing mode to be applied.
-   * @return The processed RDF. Note: this may be the same object as the input object.
+   * @return The processed RDF. Note: this will be the same object as the input object.
    * @throws DereferenceOrEnrichException In case something goes wrong.
    */
-  public RDF process(final RDF inputRdf, Mode mode) throws DereferenceOrEnrichException {
+  public RDF process(final RDF rdf, Mode mode) throws DereferenceOrEnrichException {
 
     // Sanity checks
-    if (inputRdf == null) {
+    if (rdf == null) {
       throw new IllegalArgumentException("Input RDF cannot be null.");
     }
     if (mode == null) {
-      throw new IllegalArgumentException("Mode cannot be null");
+      throw new IllegalArgumentException("Mode cannot be null.");
     }
 
     // Preparation
-    RDF currentRdf = inputRdf;
-    LOGGER.info("Received RDF for enrichment/dereferencing.");
+    LOGGER.info("Received RDF for enrichment/dereferencing. Mode: {}", mode);
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(currentRdf));
+      LOGGER.debug("Processing RDF:\n{}", convertRdfToStringForLogging(rdf));
     }
 
     // Dereferencing
     if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.DEREFERENCE_ONLY.equals(mode)) {
-      LOGGER.info("Performing dereferencing...");
-      currentRdf = performDereferencing(currentRdf);
-      LOGGER.info("Dereferencing completed.");
+      LOGGER.debug("Performing dereferencing...");
+      performDereferencing(rdf);
+      LOGGER.debug("Dereferencing completed.");
       if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(currentRdf));
+        LOGGER.debug("RDF after dereferencing:\n{}", convertRdfToStringForLogging(rdf));
       }
     }
 
     // Enrichment
     if (Mode.DEREFERENCE_AND_ENRICHMENT.equals(mode) || Mode.ENRICHMENT_ONLY.equals(mode)) {
-      LOGGER.info("Performing enrichment...");
-      currentRdf = performEnrichment(currentRdf);
-      LOGGER.info("Enrichment completed.");
+      LOGGER.debug("Performing enrichment...");
+      performEnrichment(rdf);
+      LOGGER.debug("Enrichment completed.");
       if (LOGGER.isDebugEnabled()) {
-        LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(currentRdf));
+        LOGGER.debug("RDF after enrichment:\n{}", convertRdfToStringForLogging(rdf));
       }
     }
 
     // Done
     LOGGER.debug("Processing complete.");
-    return currentRdf;
+    return rdf;
   }
 
-  private static String convertRdfToStringForLogging(final RDF rdf) {
+  private String convertRdfToStringForLogging(final RDF rdf) {
     try {
-      return EnrichmentUtils.convertRDFtoString(rdf);
+      return convertRdfToString(rdf);
     } catch (UnsupportedEncodingException | JiBXException e) {
       LOGGER.warn("Exception occurred while rendering an RDF document as a String.", e);
       return "[COULD NOT RENDER RDF]";
     }
   }
 
-  private RDF performEnrichment(final RDF rdf) throws DereferenceOrEnrichException {
+  private void performEnrichment(final RDF rdf) throws DereferenceOrEnrichException {
 
     // [1] Extract fields from the RDF for enrichment
     LOGGER.debug("Extracting fields from RDF for enrichment...");
-    final List<InputValue> fieldsForEnrichment =
-        EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
-
-    if (fieldsForEnrichment == null || fieldsForEnrichment.isEmpty()) {
-      LOGGER.debug("No fields to enrich.");
-      return rdf;
-    }
-
+    final List<InputValue> fieldsForEnrichment = extractFieldsForEnrichment(rdf);
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Extracted following fields:");
-      int count = 0;
-      for (InputValue i : fieldsForEnrichment) {
-        count++;
-        LOGGER.debug("== {}: {} {} {} {}.", count, i.getLanguage(), i.getOriginalField(),
-            i.getValue(), i.getVocabularies());
-      }
+      logExtractionResult(fieldsForEnrichment, EnrichmentWorker::logInputValueWithCounter);
     }
 
     // [2] Get the information with which to enrich the RDF using the extracted fields
     LOGGER.debug("Using extracted fields to gather enrichment information...");
     EnrichmentResultList enrichmentInformation = enrichFields(fieldsForEnrichment);
-    if (enrichmentInformation == null || enrichmentInformation.getResult() == null
-        || enrichmentInformation.getResult().isEmpty()) {
-      LOGGER.debug("No information found. Nothing to merge.");
-      return rdf;
-    }
-
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Following information found:");
-      int count = 1;
-      for (EnrichmentBase enrichmentBase : enrichmentInformation.getResult()) {
-        LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-            enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(), enrichmentBase.getNotes(),
-            enrichmentBase.getPrefLabelList());
-        count++;
-      }
+      logDereferencingOrEnrichmentResult(Collections.singletonList(enrichmentInformation));
     }
 
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Enrichment Information...");
-    final RDF result = EnrichmentUtils.mergeEntity(rdf, enrichmentInformation.getResult(), "");
+    entityMergeEngine.mergeEntities(rdf, enrichmentInformation.getResult());
     LOGGER.debug("Merging completed.");
-
-    return result;
   }
 
   private EnrichmentResultList enrichFields(List<InputValue> fieldsForEnrichment)
       throws DereferenceOrEnrichException {
-    EnrichmentResultList enrichmentInformation = null;
     try {
-      enrichmentInformation = enrichmentClient.enrich(fieldsForEnrichment);
+      return enrichmentClient.enrich(fieldsForEnrichment);
     } catch (RuntimeException e) {
       throw new DereferenceOrEnrichException(
           "Exception occurred while trying to perform enrichment.", e);
     }
-    return enrichmentInformation;
   }
 
-  private RDF performDereferencing(final RDF rdf) throws DereferenceOrEnrichException {
+  private void performDereferencing(final RDF rdf) throws DereferenceOrEnrichException {
 
     // [1] Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
-    Set<String> fieldsForDereferencing = DereferenceUtils.extractValuesForDereferencing(rdf);
-
-    if (fieldsForDereferencing == null || fieldsForDereferencing.isEmpty()) {
-      LOGGER.debug("No fields to dereference.");
-      return rdf;
-    }
-
+    Set<String> fieldsForDereferencing = extractValuesForDereferencing(rdf);
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Extracted following fields:");
-      int count = 0;
-      for (String field : fieldsForDereferencing) {
-        count++;
-        LOGGER.debug("== {}: {}", count, field);
-      }
+      logExtractionResult(fieldsForDereferencing, EnrichmentWorker::logStringWithCounter);
     }
 
     // [2] Get the information with which to enrich (via dereferencing) the RDF using the extracted
     // fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
     List<EnrichmentResultList> dereferenceInformation = dereferenceFields(fieldsForDereferencing);
-    if (dereferenceInformation.isEmpty()) {
-      LOGGER.debug("No information found. Nothing to merge.");
-      return rdf;
-    }
-
     if (LOGGER.isDebugEnabled()) {
-      LOGGER.debug("Following information found:");
-      int count = 1;
-      for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-        for (EnrichmentBase enrichmentBase : dereferenceResultList.getResult()) {
-          LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
-              enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(),
-              enrichmentBase.getNotes(), enrichmentBase.getPrefLabelList());
-          count++;
-        }
-      }
+      logDereferencingOrEnrichmentResult(dereferenceInformation);
     }
-
+    
     // [3] Merge the acquired information into the RDF
     LOGGER.debug("Merging Dereference Information...");
-    RDF result = rdf;
     for (EnrichmentResultList dereferenceResultList : dereferenceInformation) {
-      result = DereferenceUtils.mergeEntity(result, dereferenceResultList.getResult());
+      if (dereferenceResultList != null && dereferenceResultList.getResult() != null
+          && !dereferenceResultList.getResult().isEmpty()) {
+        entityMergeEngine.mergeEntities(rdf, dereferenceResultList.getResult());
+      }
     }
     LOGGER.debug("Merging completed.");
-
-    return result;
   }
 
   private List<EnrichmentResultList> dereferenceFields(Set<String> fieldsForDereferencing)
@@ -252,7 +224,7 @@ public class EnrichmentWorker {
         if (result != null && result.getResult() != null && !result.getResult().isEmpty()) {
           dereferenceInformation.add(result);
         } else {
-          LOGGER.debug("==== Null or empty value received from {}", url);
+          LOGGER.debug("==== Null or empty value received for reference {}", url);
         }
       }
     } catch (RuntimeException e) {
@@ -260,5 +232,71 @@ public class EnrichmentWorker {
           "Exception occurred while trying to perform dereferencing.", e);
     }
     return dereferenceInformation;
+  }
+
+  private static void logStringWithCounter(String field, int count) {
+    LOGGER.debug("== {}: {}", count, field);
+  }
+
+  private static void logInputValueWithCounter(InputValue inputValue, int count) {
+    LOGGER.debug("== {}: {} {} {} {}.", count, inputValue.getLanguage(),
+        inputValue.getOriginalField(), inputValue.getValue(), inputValue.getVocabularies());
+  }
+
+  private <T> void logExtractionResult(Collection<T> resultList, ObjIntConsumer<T> logger) {
+    int count = 0;
+    if (resultList != null) {
+      LOGGER.debug("Extracted following fields:");
+      for (T result : resultList) {
+        if (result == null) {
+          continue;
+        }
+        count++;
+        logger.accept(result, count);
+      }
+    }
+    if (count == 0) {
+      LOGGER.debug("No fields to process.");
+    }
+  }
+
+  private void logDereferencingOrEnrichmentResult(List<EnrichmentResultList> resultList) {
+    int count = 0;
+    if (resultList != null) {
+      LOGGER.debug("Following information found:");
+      for (EnrichmentResultList result : resultList) {
+        if (result == null) {
+          continue;
+        }
+        for (EnrichmentBase enrichmentBase : result.getResult()) {
+          if (enrichmentBase == null) {
+            continue;
+          }
+          count++;
+          LOGGER.debug("== {}: About: {} AltLabelList: {} Notes: {} PrefLabelListL {}", count,
+              enrichmentBase.getAbout(), enrichmentBase.getAltLabelList(),
+              enrichmentBase.getNotes(), enrichmentBase.getPrefLabelList());
+        }
+      }
+    }
+    if (count == 0) {
+      LOGGER.debug("No information found. Nothing to merge.");
+    }
+  }
+
+  List<InputValue> extractFieldsForEnrichment(RDF rdf) {
+    return EnrichmentUtils.extractFieldsForEnrichmentFromRDF(rdf);
+  }
+
+  Set<String> extractValuesForDereferencing(RDF rdf) {
+    return DereferenceUtils.extractValuesForDereferencing(rdf);
+  }
+  
+  String convertRdfToString(RDF rdf) throws UnsupportedEncodingException, JiBXException {
+    return RdfConversionUtils.convertRdfToString(rdf);
+  }
+  
+  RDF convertStringToRdf(String xml) throws JiBXException {
+    return RdfConversionUtils.convertStringToRdf(xml);
   }
 }
