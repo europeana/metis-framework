@@ -17,21 +17,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ValidationTaskFactory {
-  public static final Logger LOGGER = LoggerFactory
-      .getLogger(ValidationTask.class);
+  
+  public static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
+  
   private RestClient identifierClient;
   private ValidationClient validationClient;
   private RecordDao recordDao;
 
   @Autowired
-  public ValidationTaskFactory(RestClient identifierClient,
-      ValidationClient validationClient, RecordDao recordDao) {
+  public ValidationTaskFactory(RestClient identifierClient, ValidationClient validationClient,
+      RecordDao recordDao) {
     this.identifierClient = identifierClient;
     this.validationClient = validationClient;
     this.recordDao = recordDao;
   }
 
-  private static final IBindingFactory bindingFactory;
+  private static final IBindingFactory BINDING_FACTORY;
 
   static {
     IBindingFactory bfactTemp;
@@ -40,16 +41,13 @@ public class ValidationTaskFactory {
     } catch (JiBXException e) {
       bfactTemp = null;
       LOGGER.error("Unable to get binding factory for RDF.class", e);
-      System.exit(-1);
     }
-    bindingFactory = bfactTemp;
+    BINDING_FACTORY = bfactTemp;
   }
 
-  public ValidationTask createValidationTask(boolean applyCrosswalk,
-      String record, String collectionId, String crosswalkPath, boolean requestRecordId) {
-
-    return new ValidationTask(applyCrosswalk, bindingFactory, record, identifierClient, validationClient, recordDao,
-       collectionId, crosswalkPath, requestRecordId);
+  public ValidationTask createValidationTask(boolean applyCrosswalk, String record,
+      String collectionId, String crosswalkPath, boolean requestRecordId) {
+    return new ValidationTask(applyCrosswalk, BINDING_FACTORY, record, identifierClient,
+        validationClient, recordDao, collectionId, crosswalkPath, requestRecordId);
   }
-
 }

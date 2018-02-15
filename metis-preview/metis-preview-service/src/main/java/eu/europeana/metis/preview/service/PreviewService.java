@@ -4,16 +4,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.jetbrains.annotations.NotNull;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,89 +71,71 @@ public class PreviewService {
     public ExtendedValidationResult createRecords(List<String> records, final String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
         throws PreviewServiceException {
 
-        ExtendedValidationResult returnList;
+        // Create the tasks
+        final Function<String, ValidationTask> validationTaskCreator = record -> factory.createValidationTask(applyCrosswalk, record, collectionId, crosswalkPath, individualRecords);
+        final List<ValidationTask> tasks = records.stream().map(validationTaskCreator).collect(Collectors.toList());
+      
+        // Schedule the tasks.
+        final ExecutorCompletionService<ValidationTaskResult> executorCompletionService = new ExecutorCompletionService<>(executor);
+        final List<Future<ValidationTaskResult>> taskResultFutures = tasks.stream().map(executorCompletionService::submit).collect(Collectors.toList()); 
         
+        // Wait until the tasks are finished.
+        final List<ValidationTaskResult> taskResults = waitForTasksToComplete(taskResultFutures);
+        
+        // Commit the changes made by the tasks.
         try {
-            dao.deleteCollection(collectionId);
             dao.commit();
+        } catch (IOException | SolrServerException e) {
+            LOGGER.error("Updating search engine failed", e);
+            throw new PreviewServiceException("Updating search engine failed");
+        }
 
-            ExecutorCompletionService<ValidationTaskResult> cs = new ExecutorCompletionService<>(executor);
-
-            scheduleValidationTasks(cs, records, collectionId, applyCrosswalk, crosswalkPath,
-                individualRecords);
-            returnList = waitForValidationsToFinishAndRetrieveResults(cs,
-                records.size(), collectionId);
-
-            dao.commit();
+        // Done: compile the results.
+        return compileResult(taskResults, collectionId);
+    }
+    
+    private List<ValidationTaskResult> waitForTasksToComplete(List<Future<ValidationTaskResult>> taskResultFutures) throws PreviewServiceException {
+        final List<ValidationTaskResult> taskResults;
+        try {
+            int counter = 0;
+            taskResults = new ArrayList<>();
+            for (Future<ValidationTaskResult> taskResultFuture : taskResultFutures) {
+              LOGGER.info("Retrieving validation result {} of {}.", counter, taskResultFutures.size());
+              taskResults.add(taskResultFuture.get());
+            }
         } catch (InterruptedException e) {
             LOGGER.error("Processing validations interrupted", e);
+            Thread.currentThread().interrupt();
             throw new PreviewServiceException("Processing validations was interrupted");
         } catch (ExecutionException e) {
             LOGGER.error("Executing validations failed", e);
             throw new PreviewServiceException("Executing validations failed");
-        } catch (SolrServerException e) {
-            LOGGER.error("Updating search engine failed", e);
-            throw new PreviewServiceException("Updating search engine failed");
-        } catch (IOException e) {
-            LOGGER.error("Updating search engine failed", e);
-            throw new PreviewServiceException("Updating search engine failed");
         }
-
-        return returnList;
+        return taskResults;
     }
 
-    private ExtendedValidationResult waitForValidationsToFinishAndRetrieveResults(
-        ExecutorCompletionService<ValidationTaskResult> cs, int numberOfSubmittedTasks,
-        String collectionId)
-        throws InterruptedException, ExecutionException {
-
-        List<ValidationResult> results = new ArrayList<>();
-        ExtendedValidationResult extendedValidationResult =  buildExtendedValidationResult();
-
-        for(int i=0; i<numberOfSubmittedTasks; i++) {
-            Future<ValidationTaskResult> future = cs.take();
-            ValidationTaskResult result = future.get();
-
-            if (!result.isSuccess()) {
-                results.add(result.getValidationResult());
-                extendedValidationResult.setSuccess(false);
-            }
-
-            if (!Strings.isNullOrEmpty(result.getRecordId())) {
-                extendedValidationResult.getRecords().add(result.getRecordId());
-            }
-
-            LOGGER.info("Retrieving validation result {}", i);
-        }
-        extendedValidationResult.setResultList(results);
+    private ExtendedValidationResult compileResult(final List<ValidationTaskResult> taskResults, String collectionId) {
+      
+        // Obtain the failed results as list of validation results.
+        final List<ValidationResult> failedResults =
+            taskResults.stream().filter(result -> !result.isSuccess())
+                .map(ValidationTaskResult::getValidationResult).collect(Collectors.toList());
+        
+        // Obtain the succeeded results as list of record IDs.
+        final List<String> succeededResults = taskResults.stream()
+            .filter(ValidationTaskResult::isSuccess).map(ValidationTaskResult::getRecordId)
+            .filter(record -> !Strings.isNullOrEmpty(record)).collect(Collectors.toList());
+        
+        // Compile the validation result object.
+        final ExtendedValidationResult extendedValidationResult = new ExtendedValidationResult();
+        extendedValidationResult.setResultList(failedResults);
+        extendedValidationResult.setSuccess(failedResults.isEmpty());
+        extendedValidationResult.setRecords(succeededResults);
         extendedValidationResult.setPortalUrl(previewServiceConfig.getPreviewUrl() + collectionId + "*");
-        DateTime date = new DateTime();
-        Date nextDay = date.toDate();
-        extendedValidationResult.setDate(nextDay);
+        extendedValidationResult.setDate(new Date());
 
+        // Done.
         return extendedValidationResult;
-    }
-
-    private void scheduleValidationTasks(
-        ExecutorCompletionService<ValidationTaskResult> cs, List<String> records,
-        String collectionId, boolean applyCrosswalk, String crosswalkPath,
-        boolean individualRecords) {
-
-        for (int i=0;i<records.size(); i++) {
-            ValidationTask task = factory.createValidationTask(applyCrosswalk, records.get(i), collectionId, crosswalkPath, individualRecords);
-
-            LOGGER.info("Submiting validation of record {}", i);
-            cs.submit(task);
-        }
-    }
-
-    @NotNull
-    private ExtendedValidationResult buildExtendedValidationResult() {
-        ExtendedValidationResult list = new ExtendedValidationResult();
-        List<String> ids = new CopyOnWriteArrayList<>();
-        list.setRecords(ids);
-        list.setSuccess(true);
-        return list;
     }
 
     /**

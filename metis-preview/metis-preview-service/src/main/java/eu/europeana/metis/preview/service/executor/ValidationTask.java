@@ -32,25 +32,27 @@ import eu.europeana.validation.model.ValidationResult;
  */
 public class ValidationTask implements Callable<ValidationTaskResult> {
 
+    public static final String SCHEMANAME = "EDM-INTERNAL";
+
     public static final Logger LOGGER = LoggerFactory
             .getLogger(ValidationTask.class);
 
-    private boolean applyCrosswalk;
-    private IBindingFactory bFact;
-    private String record;
-    private RestClient identifierClient;
-    private ValidationClient validationClient;
-    private RecordDao recordDao;
-    private String collectionId;
-    private String crosswalkPath;
-    private boolean requestRecordId;
+    private final boolean applyCrosswalk;
+    private final IBindingFactory bFact;
+    private final String incomingRecord;
+    private final RestClient identifierClient;
+    private final ValidationClient validationClient;
+    private final RecordDao recordDao;
+    private final String collectionId;
+    private final String crosswalkPath;
+    private final boolean requestRecordId;
 
     /**
      * Default constructor of the validation service
      *
      * @param applyCrosswalk   Whether the record needs to be transformed
      * @param bFact            The JibX binding factory for the conversion of the XML to RDF class
-     * @param record           The record to be validated and transformed
+     * @param incomingRecord   The record to be validated and transformed
      * @param identifierClient The identifier generation REST client connecting to METIS
      * @param validationClient The validation REST client
      * @param recordDao        The persistence layer in Solr and Mongo
@@ -59,11 +61,11 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
      * @param requestRecordId  Whether the request IDs are to be returned.
      */
     public ValidationTask(boolean applyCrosswalk, IBindingFactory bFact,
-                          String record, RestClient identifierClient, ValidationClient validationClient,
+                          String incomingRecord, RestClient identifierClient, ValidationClient validationClient,
                           RecordDao recordDao, String collectionId, String crosswalkPath, boolean requestRecordId) {
         this.applyCrosswalk = applyCrosswalk;
         this.bFact = bFact;
-        this.record = record;
+        this.incomingRecord = incomingRecord;
         this.identifierClient = identifierClient;
         this.validationClient = validationClient;
         this.recordDao = recordDao;
@@ -78,78 +80,59 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     @Override
     public ValidationTaskResult call()
             throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException, ParserConfigurationException, MongoRuntimeException, IllegalAccessException, MongoDBException, TransformerException, SolrServerException {
-        ValidationExecutor validationExecutor = new ValidationExecutor();
         try {
-            validationExecutor.invoke();
+            return invoke();
         } catch (Exception ex) {
             LOGGER.error("An error occurred while validating", ex);
             throw ex;
         }
-        return new ValidationTaskResult(record,
-                validationExecutor.getValidationResult(),
-                validationExecutor.isValidationSuccess());
+    }
+    
+    private String transformRecord()
+        throws TransformerException, ParserConfigurationException, IOException {
+        String tempRecord;
+        XsltTransformer transformer = new XsltTransformer();
+        tempRecord = transformer.transform(incomingRecord, FileUtils.readFileToString(new File(this.getClass()
+                .getClassLoader().getResource(crosswalkPath).getFile())));
+        return tempRecord;
     }
 
-    private class ValidationExecutor {
+    private ValidationTaskResult invoke()
+        throws JiBXException, TransformerException, ParserConfigurationException, IOException, InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException, MongoDBException, MongoRuntimeException {
 
-        public static final String SCHEMANAME = "EDM-INTERNAL";
-
-        private ValidationResult validationResult;
-        private boolean validationSuccess;
-
-        public ValidationResult getValidationResult() {
-            return validationResult;
+        String resultRecord = incomingRecord;
+        if (applyCrosswalk) {
+          resultRecord = transformRecord();
         }
-
-        public boolean isValidationSuccess() {
-            return validationSuccess;
-        }
-
-        private String transformRecord()
-            throws TransformerException, ParserConfigurationException, IOException {
-            String tempRecord;
-            XsltTransformer transformer = new XsltTransformer();
-            tempRecord = transformer.transform(record, FileUtils.readFileToString(new File(this.getClass()
-                    .getClassLoader().getResource(crosswalkPath).getFile())));
-            return tempRecord;
-        }
-
-        public ValidationExecutor invoke()
-                throws JiBXException, TransformerException, ParserConfigurationException, IOException, InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException, MongoDBException, MongoRuntimeException {
-            IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
-            if (applyCrosswalk) {
-                record = transformRecord();
-            }
-
-            validationResult = validationClient.validateRecord(SCHEMANAME, record);
-
-            validationSuccess = false;
-
-            if (validationResult.isSuccess()) {
-                RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(record));
-                String id = identifierClient
-                        .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
-                        .replace("\"", "");
-
-                if (StringUtils.isNotEmpty(id)) {
-                    rdf.getProvidedCHOList().get(0).setAbout(id);
-                    FullBeanImpl fBean = new MongoConstructor()
-                            .constructFullBean(rdf);
-                    fBean.setAbout(id);
-                    fBean.setEuropeanaCollectionName(new String[]{collectionId});
-                    recordDao.createRecord(fBean);
-                    if (requestRecordId) {
-                        record = fBean.getAbout();
-                    }
-                    validationSuccess = true;
-                } else {
-                    validationResult = new ValidationResult();
-                    validationResult.setSuccess(false);
-                    validationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
-                    validationResult.setMessage("Id generation failed. Record not persisted");
+    
+        ValidationResult validationResult = validationClient.validateRecord(SCHEMANAME, resultRecord);
+        boolean validationSuccess = false;
+    
+        if (validationResult.isSuccess()) {
+            final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
+            RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
+            String id = identifierClient
+                    .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
+                    .replace("\"", "");
+    
+            if (StringUtils.isNotEmpty(id)) {
+                rdf.getProvidedCHOList().get(0).setAbout(id);
+                FullBeanImpl fBean = new MongoConstructor()
+                        .constructFullBean(rdf);
+                fBean.setAbout(id);
+                fBean.setEuropeanaCollectionName(new String[]{collectionId});
+                recordDao.createRecord(fBean);
+                if (requestRecordId) {
+                    resultRecord = fBean.getAbout();
                 }
+                validationSuccess = true;
+            } else {
+                validationResult = new ValidationResult();
+                validationResult.setSuccess(false);
+                validationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
+                validationResult.setMessage("Id generation failed. Record not persisted");
             }
-            return this;
         }
+        return new ValidationTaskResult(resultRecord, validationResult, validationSuccess);
     }
 }

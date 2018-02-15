@@ -70,19 +70,20 @@ public class PreviewController {
                                                   @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath,
                                                   @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean requestIndividualRecordsIds)
         throws ZipFileException, PreviewServiceException, PreviewValidationException {
-        List<String> records;
+        final List<String> records;
         try {
             records = zipService.readFileToStringList(file.getInputStream());
         } catch(IOException ex) {
             LOGGER.error("Cannot read from stream", ex);
             throw new ZipFileException("Cannot read from stream");
         }
-        Long start = System.currentTimeMillis();
+        final Long start = System.currentTimeMillis();
         final String collectionId = UUID.randomUUID().toString();
-        ExtendedValidationResult result = service.createRecords(records, collectionId, applyCrosswalk, crosswalkPath, requestIndividualRecordsIds);
-        LOGGER.info("Duration: {} ms", System.currentTimeMillis()-start);
-        if(!result.isSuccess()){
-            throw new PreviewValidationException(result);
+        final ExtendedValidationResult result = service.createRecords(records, collectionId, applyCrosswalk,
+            crosswalkPath, requestIndividualRecordsIds);
+        LOGGER.info("Duration: {} ms", System.currentTimeMillis() - start);
+        if (!result.isSuccess()) {
+          throw new PreviewValidationException(result);
         }
         return result;
     }
