@@ -17,6 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import eu.europeana.metis.RestEndpoints;
+import eu.europeana.metis.authentication.user.Credentials;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
@@ -58,14 +59,14 @@ public class AuthenticationControllerTest {
   }
 
   @After
-  public void tearDown() throws Exception {
+  public void tearDown() {
     reset(authenticationService);
   }
 
   @Test
   public void registerUser() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new String[]{EXAMPLE_EMAIL, EXAMPLE_PASSWORD});
+        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
 
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
         HttpHeaders.AUTHORIZATION, ""))
@@ -89,7 +90,7 @@ public class AuthenticationControllerTest {
   @Test
   public void registerUserNoUserFoundException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new String[]{EXAMPLE_EMAIL, EXAMPLE_PASSWORD});
+        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     doThrow(new NoUserFoundException("")).when(authenticationService)
         .registerUser(anyString(), anyString());
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
@@ -100,7 +101,7 @@ public class AuthenticationControllerTest {
   @Test
   public void registerUserUserAlreadyExistsException() throws Exception {
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new String[]{EXAMPLE_EMAIL, EXAMPLE_PASSWORD});
+        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     doThrow(new UserAlreadyExistsException("")).when(authenticationService)
         .registerUser(anyString(), anyString());
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_REGISTER).header(
@@ -115,7 +116,7 @@ public class AuthenticationControllerTest {
     metisUser.setMetisUserAccessToken(
         new MetisUserAccessToken(EXAMPLE_EMAIL, EXAMPLE_ACCESS_TOKEN, new Date()));
     when(authenticationService.validateAuthorizationHeaderWithCredentials(anyString()))
-        .thenReturn(new String[]{EXAMPLE_EMAIL, EXAMPLE_PASSWORD});
+        .thenReturn(new Credentials(EXAMPLE_EMAIL, EXAMPLE_PASSWORD));
     when(authenticationService.loginUser(EXAMPLE_EMAIL, EXAMPLE_PASSWORD)).thenReturn(metisUser);
 
     authenticationControllerMock.perform(post(RestEndpoints.AUTHENTICATION_LOGIN).header(
