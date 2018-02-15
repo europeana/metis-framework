@@ -16,6 +16,7 @@
  */
 package eu.europeana.enrichment.utils;
 
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import java.util.ArrayList;
 import java.util.List;
 import org.mongojack.DBCursor;
@@ -51,11 +52,13 @@ public class MongoDatabaseUtils {
   private static final String CONCEPT_TYPE = "ConceptImpl";
   private static final String AGENT_TYPE = "AgentImpl";
   private static final String TIMESPAN_TYPE = "TimespanImpl";
+  private static final String ORGANIZATION_TYPE = "OrganizationImpl";
   
   private static final String AGENT_TABLE = "people";
   private static final String CONCEPT_TABLE = "concept";
   private static final String PLACE_TABLE = "place";
   private static final String TIMESPAN_TABLE = "period";
+  private static final String ORGANIZATION_TABLE = "organization";
   private static final String TERMLIST_TABLE = "TermList";
 
   private static final String UNIQUE_PROPERTY = "unique";
@@ -68,6 +71,7 @@ public class MongoDatabaseUtils {
   private static JacksonDBCollection<PlaceTermList, String> pColl;
   private static JacksonDBCollection<TimespanTermList, String> tColl;
   private static JacksonDBCollection<AgentTermList, String> aColl;
+  private static JacksonDBCollection<OrganizationTermList, String> oColl;
   
   // TODO the DB class is (effectively) deprecated (see MongoClient.getDB), but
   // this object is still needed for MongoJack. Upgrade MongoJack and migrate this 
@@ -109,6 +113,10 @@ public class MongoDatabaseUtils {
           db.getCollection(TERMLIST_TABLE), PlaceTermList.class,
           String.class);
 
+      oColl = JacksonDBCollection.wrap(
+          db.getCollection(ORGANIZATION_TABLE), OrganizationTermList.class,
+          String.class);
+
       if (!exist) {
         pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
@@ -122,6 +130,8 @@ public class MongoDatabaseUtils {
         pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
 
+        oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
       }
       return exist;
     } catch (MongoException e) {
@@ -144,6 +154,7 @@ public class MongoDatabaseUtils {
       retUris.addAll(deleteConcepts(uri));
       retUris.addAll(deleteAgents(uri));
       retUris.addAll(deleteTimespan(uri));
+      retUris.addAll(deleteOrganizations(uri));
     }
     return retUris;
   }
@@ -184,6 +195,27 @@ public class MongoDatabaseUtils {
       String origA = objA.next().getCodeUri();
       retUris.add(origA);
       aColl.remove(new BasicDBObject(TERM_CODE_URI, origA));
+      termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
+    }
+    return retUris;
+  }
+
+  private static List<String> deleteOrganizations(String uri) {
+    List<String> retUris = new ArrayList<>();
+
+    oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
+    JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
+        .wrap(db.getCollection(ORGANIZATION_TABLE), MongoTerm.class, String.class);
+    termA.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
+        new BasicDBObject(UNIQUE_PROPERTY, true));
+    termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
+    termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
+    DBCursor<OrganizationTermList> objA = oColl
+        .find(new BasicDBObject(TERM_SAME_AS, uri).append(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE));
+    if (objA.hasNext()) {
+      String origA = objA.next().getCodeUri();
+      retUris.add(origA);
+      oColl.remove(new BasicDBObject(TERM_CODE_URI, origA));
       termA.remove(new BasicDBObject(TERM_CODE_URI, origA));
     }
     return retUris;
@@ -253,6 +285,9 @@ public class MongoDatabaseUtils {
       case TIMESPAN:
         result = findTimespanByCode(codeUri);
         break;
+      case ORGANIZATION:
+        result = findOrganizationByCode(codeUri);
+        break;
       default:
         result = null;
         break;
@@ -297,6 +332,15 @@ public class MongoDatabaseUtils {
     return null;
   }
 
+  private static OrganizationTermList findOrganizationByCode(String codeUri) {
+    DBCursor<OrganizationTermList> curs = oColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE))
+        .is(TERM_CODE_URI, codeUri);
+    if (curs.hasNext()) {
+      return curs.next();
+    }
+    return null;
+  }
+
   private static String getTableName(EntityClass entityClass) {
     final String result;
     switch (entityClass) {
@@ -311,6 +355,9 @@ public class MongoDatabaseUtils {
         break;
       case TIMESPAN:
         result = TIMESPAN_TABLE;
+        break;
+      case ORGANIZATION:
+        result = ORGANIZATION_TABLE;
         break;
       default:
         throw new IllegalStateException("Unknown entity: " + entityClass);

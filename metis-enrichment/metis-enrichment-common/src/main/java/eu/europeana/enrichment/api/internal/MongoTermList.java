@@ -35,7 +35,7 @@ import java.util.List;
  * 
  * @author Yorgos.Mamakis@ europeana.eu
  * 
- * @param <T> AgentImpl, PlaceImpl, ConceptImpl, TimespanImpl
+ * @param <T> AgentImpl, PlaceImpl, ConceptImpl, TimespanImpl, OrganizationImpl
  */
 
 public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
