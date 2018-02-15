@@ -12,6 +12,7 @@ import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.NoUserFoundException;
 import eu.europeana.metis.exception.UserAlreadyExistsException;
+import eu.europeana.metis.exception.UserUnauthorizedException;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.text.ParseException;
@@ -160,7 +161,7 @@ public class AuthenticationService {
    * @return a String array containing the email and password decoded, in that order
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException if the content of the authorization String is un-parsable</li>
+   * <li>{@link UserUnauthorizedException if the content of the authorization String is un-parsable</li>
    * </ul>
    */
   public Credentials validateAuthorizationHeaderWithCredentials(String authorization)
@@ -187,17 +188,17 @@ public class AuthenticationService {
    * @return the string representation of the access token
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the content of the authorization String is un-parsable</li>
+   * <li>{@link UserUnauthorizedException} if the content of the authorization String is un-parsable</li>
    * </ul>
    */
   public String validateAuthorizationHeaderWithAccessToken(String authorization)
       throws GenericMetisException {
     if (StringUtils.isEmpty(authorization)) {
-      throw new BadContentException("Authorization header was empty");
+      throw new UserUnauthorizedException("Authorization header was empty");
     }
     String accessToken = decodeAuthorizationHeaderWithAccessToken(authorization);
     if (StringUtils.isEmpty(accessToken)) {
-      throw new BadContentException("Access token not provided properly");
+      throw new UserUnauthorizedException("Access token not provided properly");
     }
     return accessToken;
   }
@@ -234,7 +235,7 @@ public class AuthenticationService {
    * @return {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
   public MetisUser loginUser(String email, String password)
@@ -289,7 +290,7 @@ public class AuthenticationService {
    * @return true for administrator, false for non-administrator
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
   public boolean isUserAdmin(String accessToken)
@@ -306,7 +307,7 @@ public class AuthenticationService {
    * @return true for authorized, false for unauthorized
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * <li>{@link NoUserFoundException} if a user was not found in the system</li>
    * </ul>
    */
@@ -350,11 +351,10 @@ public class AuthenticationService {
     psqlMetisUserDao.deleteMetisUser(email);
   }
 
-  private MetisUser authenticateUser(String email, String password)
-      throws BadContentException {
+  private MetisUser authenticateUser(String email, String password) throws UserUnauthorizedException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByEmail(email);
     if (storedMetisUser == null || !isPasswordValid(storedMetisUser, password)) {
-      throw new BadContentException("Wrong credentials");
+      throw new UserUnauthorizedException("Wrong credentials");
     }
     return storedMetisUser;
   }
@@ -366,14 +366,14 @@ public class AuthenticationService {
    * @return {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
   public MetisUser authenticateUser(String accessToken)
       throws GenericMetisException {
     MetisUser storedMetisUser = psqlMetisUserDao.getMetisUserByAccessToken(accessToken);
     if (storedMetisUser == null) {
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
+      throw new UserUnauthorizedException(CommonStringValues.WRONG_ACCESS_TOKEN);
     }
     psqlMetisUserDao.updateAccessTokenTimestampByAccessToken(accessToken);
     return storedMetisUser;
@@ -386,7 +386,7 @@ public class AuthenticationService {
    * @return true if authorized, false if unauthorized
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authentication of the user fails</li>
+   * <li>{@link UserUnauthorizedException} if the authentication of the user fails</li>
    * </ul>
    */
   public boolean hasPermissionToRequestAllUsers(String accessToken)

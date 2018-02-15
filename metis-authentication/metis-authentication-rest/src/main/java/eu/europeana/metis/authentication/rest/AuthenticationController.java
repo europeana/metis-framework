@@ -80,7 +80,9 @@ public class AuthenticationController {
    * @return {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <li>{@link BadContentException} if the authorization header is un-parsable or there is problem
+   * while constructing the user.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
    * authenticated.</li>
    * </ul>
    */
@@ -105,7 +107,7 @@ public class AuthenticationController {
    * @param newPassword the new password for the user
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
    * authenticated.</li>
    * </ul>
    */
@@ -133,9 +135,8 @@ public class AuthenticationController {
    * @param userEmailToDelete the user email used to delete a user account
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated.</li>
-   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated or the user is unauthorized.</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_DELETE, method = RequestMethod.DELETE, produces = {
@@ -164,10 +165,9 @@ public class AuthenticationController {
    * @return updated {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated.</li>
    * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
-   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated or the user is unauthorized.</li>
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.AUTHENTICATION_UPDATE, method = RequestMethod.PUT, produces = {
@@ -175,8 +175,7 @@ public class AuthenticationController {
       MediaType.APPLICATION_XML_VALUE})
   @ResponseBody
   public MetisUser updateUser(@RequestHeader("Authorization") String authorization,
-      @QueryParam("userEmailToUpdate") String userEmailToUpdate)
-      throws GenericMetisException {
+      @QueryParam("userEmailToUpdate") String userEmailToUpdate) throws GenericMetisException {
     String accessToken = authenticationService
         .validateAuthorizationHeaderWithAccessToken(authorization);
     if (!authenticationService
@@ -196,9 +195,8 @@ public class AuthenticationController {
    * @param userEmailToMakeAdmin the email used to change a user's account to make administrator
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be
-   * authenticated.</li>
-   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
+   * authenticated or the user is unauthorized.</li>
    * <li>{@link NoUserFoundException} if a user was not found in the system.</li>
    * </ul>
    */
@@ -226,7 +224,7 @@ public class AuthenticationController {
    * @return the corresponding {@link MetisUser}
    * @throws GenericMetisException which can be one of:
    * <ul>
-   * <li>{@link BadContentException} if the authorization header is un-parsable or the user cannot be
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be
    * authenticated.</li>
    * </ul>
    */
