@@ -1,25 +1,10 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.metis.core.rest.config;
 
-
+import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -29,10 +14,12 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
-import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
+import eu.europeana.metis.utils.CustomTruststoreAppender;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
+import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +27,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
@@ -52,6 +38,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.BeanNameViewResolver;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 
+/**
+ * Entry class with configuration fields and beans initialization for the application.
+ */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
 @PropertySource({"classpath:metis.properties"})
@@ -70,17 +59,27 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${socks.proxy.password}")
   private String socksProxyPassword;
 
+  //Custom trustore
+  @Value("${truststore.path}")
+  private String truststorePath;
+  @Value("${truststore.password}")
+  private String truststorePassword;
+
   //Mongo
   @Value("${mongo.hosts}")
-  private String mongoHosts;
+  private String[] mongoHosts;
   @Value("${mongo.port}")
-  private int mongoPort;
+  private int[] mongoPorts;
   @Value("${mongo.username}")
   private String mongoUsername;
   @Value("${mongo.password}")
   private String mongoPassword;
+  @Value("${mongo.authentication.db}")
+  private String mongoAuthenticationDb;
   @Value("${mongo.db}")
   private String mongoDb;
+  @Value("${mongo.enableSSL}")
+  private boolean mongoEnableSSL;
 
   //Redis
   @Value("${redis.host}")
@@ -99,7 +98,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${allowed.cors.hosts}")
   private String[] allowedCorsHosts;
 
-  private MongoProviderImpl mongoProvider;
+  private MongoClient mongoClient;
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
@@ -111,41 +110,38 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * Used for overwriting properties if cloud foundry environment is used
    */
   @Override
-  public void afterPropertiesSet() throws Exception {
+  public void afterPropertiesSet() throws TrustStoreConfigurationException {
+    if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
+      CustomTruststoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
+    }
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    checkAndSetCloudFoundryProperties();
-
-    String[] mongoHostsArray = mongoHosts.split(",");
-    StringBuilder mongoPorts = new StringBuilder();
-    for (String aMongoHostsArray : mongoHostsArray) {
-      mongoPorts.append(mongoPort).append(",");
+    if (mongoHosts.length != mongoPorts.length && mongoPorts.length != 1) {
+      throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
-    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
-    MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
-    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword, options);
-  }
 
-  private void checkAndSetCloudFoundryProperties() {
-    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-          vcapServicesJson);
-
-      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      if (mongoClientURI != null) {
-        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(':'));
-        mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(':') + 1));
-        mongoUsername = mongoClientURI.getUsername();
-        mongoPassword = String.valueOf(mongoClientURI.getPassword());
-        mongoDb = mongoClientURI.getDatabase();
+    List<ServerAddress> serverAddresses = new ArrayList<>();
+    for (int i = 0; i < mongoHosts.length; i++) {
+      ServerAddress address;
+      if (mongoHosts.length == mongoPorts.length) {
+        address = new ServerAddress(mongoHosts[i], mongoPorts[i]);
+      } else { // Same port for all
+        address = new ServerAddress(mongoHosts[i], mongoPorts[0]);
       }
+      serverAddresses.add(address);
+    }
+
+    MongoClientOptions.Builder optionsBuilder = new Builder();
+    optionsBuilder.sslEnabled(mongoEnableSSL);
+    if (StringUtils.isEmpty(mongoDb) || StringUtils.isEmpty(mongoUsername) || StringUtils
+        .isEmpty(mongoPassword)) {
+      mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
+    } else {
+      MongoCredential mongoCredential = MongoCredential
+          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray());
+      mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
     }
   }
 
@@ -156,9 +152,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    return new MorphiaDatastoreProvider(mongoProvider.getMongo(), mongoDb);
+    return new MorphiaDatastoreProvider(mongoClient, mongoDb);
   }
 
+  /**
+   * Get the DAO for datasets.
+   *
+   * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
+   * @return {@link DatasetDao} used to access the database for datasets
+   */
   @Bean
   public DatasetDao getDatasetDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     DatasetDao datasetDao = new DatasetDao(morphiaDatastoreProvider);
@@ -166,6 +168,16 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return datasetDao;
   }
 
+  /**
+   * Get the Service for datasets.
+   * <p>It encapsulates several DAOs and combines their functionality into methods</p>
+   *
+   * @param datasetDao {@link DatasetDao}
+   * @param workflowExecutionDao {@link WorkflowExecutionDao}
+   * @param scheduledWorkflowDao {@link ScheduledWorkflowDao}
+   * @param redissonClient {@link RedissonClient}
+   * @return {@link DatasetService}
+   */
   @Bean
   public DatasetService getDatasetService(DatasetDao datasetDao,
       WorkflowExecutionDao workflowExecutionDao,
@@ -174,13 +186,21 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         scheduledWorkflowDao, redissonClient);
   }
 
+  /**
+   * Closes connections to databases when the application closes.
+   */
   @PreDestroy
   public void close() {
-    if (mongoProvider != null) {
-      mongoProvider.close();
+    if (mongoClient != null) {
+      mongoClient.close();
     }
   }
 
+  /**
+   * Required for json serialization for REST.
+   *
+   * @return {@link View}
+   */
   @Bean
   public View json() {
     MappingJackson2JsonView view = new MappingJackson2JsonView();
@@ -189,6 +209,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return view;
   }
 
+  /**
+   * Required for json serialization for REST.
+   *
+   * @return {@link ViewResolver}
+   */
   @Bean
   public ViewResolver viewResolver() {
     return new BeanNameViewResolver();
@@ -199,10 +224,5 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
     super.configureMessageConverters(converters);
-  }
-
-  @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
   }
 }

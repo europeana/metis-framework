@@ -68,6 +68,7 @@ public class MetisUser {
 
   /**
    * MetisUser for the Metis project.
+   *
    * @param jsonNode the {@link JsonNode} to construct the MetisUser
    * @throws ParseException if the content is unparsable
    * @throws BadContentException if the content of the JsonNode is unacceptable because of rules that should be followed
@@ -76,7 +77,8 @@ public class MetisUser {
     parseJsonNodeZohoUserToMetisUser(jsonNode);
   }
 
-  private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode) throws BadContentException, ParseException {
+  private void parseJsonNodeZohoUserToMetisUser(JsonNode jsonNode)
+      throws BadContentException, ParseException {
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     Iterator<JsonNode> elements = jsonNode.elements();
     while (elements.hasNext()) {
@@ -124,6 +126,7 @@ public class MetisUser {
           break;
         default:
           break;
+
       }
     }
   }
@@ -217,19 +220,19 @@ public class MetisUser {
   }
 
   public Date getCreatedDate() {
-    return createdDate;
+    return createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public void setCreatedDate(Date createdDate) {
-    this.createdDate = createdDate;
+    this.createdDate = createdDate == null ? null : new Date(createdDate.getTime());
   }
 
   public Date getUpdatedDate() {
-    return updatedDate;
+    return updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public void setUpdatedDate(Date updatedDate) {
-    this.updatedDate = updatedDate;
+    this.updatedDate = updatedDate == null ? null : new Date(updatedDate.getTime());
   }
 
   public MetisUserAccessToken getMetisUserAccessToken() {

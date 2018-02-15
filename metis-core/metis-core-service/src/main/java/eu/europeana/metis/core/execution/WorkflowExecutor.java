@@ -6,9 +6,12 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Date;
 import java.util.concurrent.Callable;
+import org.apache.commons.lang3.StringUtils;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
@@ -21,6 +24,7 @@ import org.slf4j.LoggerFactory;
 public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
+  private static final String EXECUTION_CHECK_LOCK = "EXECUTION_CHECK_LOCK";
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
@@ -49,8 +53,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   @Override
   public WorkflowExecution call() {
     //Get lock for the case that two cores will retrieve the same execution id from 2 items in the queue in different cores
-    final String executionCheckLock = "executionCheckLock";
-    RLock lock = redissonClient.getFairLock(executionCheckLock);
+    RLock lock = redissonClient.getFairLock(EXECUTION_CHECK_LOCK);
     lock.lock();
     LOGGER.info("Starting user workflow execution with id: {} and priority {}",
         workflowExecution.getId(), workflowExecution.getWorkflowPriority());
@@ -76,10 +79,12 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       workflowExecution.setAllRunningAndInqueuePluginsToCancelled();
       LOGGER.info(
           "Cancelled running user workflow execution with id: {}", workflowExecution.getId());
-    } else if (finishDate != null) { //finishedDate can be null in case of InterruptedException
+    } else if (finishDate != null) { //finishedDate can be null in case of Exception
       workflowExecution.setFinishedDate(finishDate);
       workflowExecution.setWorkflowStatus(WorkflowStatus.FINISHED);
       LOGGER.info("Finished user workflow execution with id: {}", workflowExecution.getId());
+    } else {
+      workflowExecution.checkAndSetAllRunningAndInqueuePluginsToFailedIfOnePluginHasFailed();
     }
     //The only full update is used here. The rest of the execution uses partial updates to avoid losing the cancelling state field
     workflowExecutionDao.update(workflowExecution);
@@ -92,12 +97,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     workflowExecution.setWorkflowStatus(WorkflowStatus.RUNNING);
     workflowExecutionDao.updateMonitorInformation(workflowExecution);
     lock.unlock(); //Unlock as soon as possible
-    for (AbstractMetisPlugin metisPlugin :
-        workflowExecution.getMetisPlugins()) {
-      if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
+    AbstractMetisPlugin previousMetisPlugin = null;
+    for (AbstractMetisPlugin metisPlugin : workflowExecution.getMetisPlugins()) {
+      finishDate = runMetisPlugin(previousMetisPlugin, metisPlugin);
+      if (workflowExecutionDao.isCancelling(workflowExecution.getId())
+          || metisPlugin.getPluginStatus() == PluginStatus.FAILED) {
         break;
       }
-      finishDate = runMetisPlugin(metisPlugin);
+      previousMetisPlugin = metisPlugin;
     }
   }
 
@@ -122,16 +129,18 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         == PluginStatus.RUNNING) {
       firstPluginExecution = false;
     }
-    for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size();
-        i++) {
+    AbstractMetisPlugin previousMetisPlugin = null;
+    for (int i = firstPluginPositionToStart; i < workflowExecution.getMetisPlugins().size(); i++) {
       if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
         break;
       }
-      finishDate = runMetisPlugin(workflowExecution.getMetisPlugins().get(i));
+      finishDate = runMetisPlugin(previousMetisPlugin, workflowExecution.getMetisPlugins().get(i));
+      previousMetisPlugin = workflowExecution.getMetisPlugins().get(i);
     }
   }
 
-  private Date runMetisPlugin(AbstractMetisPlugin abstractMetisPlugin) {
+  private Date runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
+      AbstractMetisPlugin abstractMetisPlugin) {
     int iterationsToFake = 2;
     int sleepTime = monitorCheckIntervalInSecs * 1000;
 
@@ -145,10 +154,29 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
     abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
+    if (previousAbstractMetisPlugin != null) { //Get previous plugin revision information
+      abstractMetisPlugin.getPluginMetadata().setRevisionNamePreviousPlugin(
+          previousAbstractMetisPlugin.getPluginType().name());
+      abstractMetisPlugin.getPluginMetadata().setRevisionTimestampPreviousPlugin(
+          previousAbstractMetisPlugin.getStartedDate());
+    }
+
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
-    abstractMetisPlugin
-        .execute(dpsClient, ecloudBaseUrl, ecloudProvider, workflowExecution.getEcloudDatasetId());
+
+    if (StringUtils.isEmpty(abstractMetisPlugin.getExternalTaskId())) {
+      try {
+        abstractMetisPlugin
+            .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
+                workflowExecution.getEcloudDatasetId());
+      } catch (ExternalTaskException e) {
+        LOGGER.warn("Execution of external task failed", e);
+        abstractMetisPlugin.setFinishedDate(null);
+        abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+        workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
+        return abstractMetisPlugin.getFinishedDate();
+      }
+    }
 
     if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
       return periodicCheckingLoop(sleepTime, abstractMetisPlugin);
@@ -158,7 +186,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   }
 
   private Date periodicCheckingLoop(int sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
-    TaskState taskState;
+    TaskState taskState = null;
+    int consecutiveMonitorFailures = 0;
+    int maxMonitorFailures = 3;
     do {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
@@ -166,6 +196,7 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         }
         Thread.sleep(sleepTime);
         taskState = abstractMetisPlugin.monitor(dpsClient).getStatus();
+        consecutiveMonitorFailures = 0;
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
@@ -174,21 +205,36 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
         LOGGER.warn("Thread was interrupted", e);
         Thread.currentThread().interrupt();
         return null;
+      } catch (ExternalTaskException e) {
+        consecutiveMonitorFailures++;
+        LOGGER.warn(String.format("Monitoring of external task failed %s/%s", consecutiveMonitorFailures,
+            maxMonitorFailures), e);
+        if (consecutiveMonitorFailures == maxMonitorFailures) {
+          break;
+        }
       }
-    } while (taskState != TaskState.DROPPED && taskState != TaskState.PROCESSED);
-    abstractMetisPlugin.setFinishedDate(new Date());
-    abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    } while (taskState == null || (taskState != TaskState.DROPPED
+        && taskState != TaskState.PROCESSED));
+    if (taskState == TaskState.DROPPED || consecutiveMonitorFailures == maxMonitorFailures) {
+      abstractMetisPlugin.setFinishedDate(null);
+      abstractMetisPlugin.setPluginStatus(PluginStatus.FAILED);
+    } else {
+      abstractMetisPlugin.setFinishedDate(new Date());
+      abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
+    }
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     return abstractMetisPlugin.getFinishedDate();
   }
 
-  private Date periodicCheckingLoopMocked(int sleepTime, int iterationsToFake, AbstractMetisPlugin abstractMetisPlugin) {
-    for (int i = 0; i < iterationsToFake; i++) {
+  private Date periodicCheckingLoopMocked(int sleepTime, int iterationsToFake,
+      AbstractMetisPlugin abstractMetisPlugin) {
+    for (int i = 1; i <= iterationsToFake; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
           return null;
         }
         Thread.sleep(sleepTime);
+        fakeMonitorUpdateProcessedRecords(abstractMetisPlugin, i, iterationsToFake, 100);
         Date updatedDate = new Date();
         abstractMetisPlugin.setUpdatedDate(updatedDate);
         workflowExecution.setUpdatedDate(updatedDate);
@@ -203,5 +249,14 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     abstractMetisPlugin.setPluginStatus(PluginStatus.FINISHED);
     workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     return abstractMetisPlugin.getFinishedDate();
+  }
+
+  private void fakeMonitorUpdateProcessedRecords(
+      AbstractMetisPlugin abstractMetisPlugin, int iteration, int totalIterations,
+      int recordPerIteration) {
+    ExecutionProgress executionProgress = abstractMetisPlugin.getExecutionProgress();
+    executionProgress.setExpectedRecords(totalIterations * recordPerIteration);
+    executionProgress.setProcessedRecords(iteration * recordPerIteration);
+    abstractMetisPlugin.setExecutionProgress(executionProgress);
   }
 }

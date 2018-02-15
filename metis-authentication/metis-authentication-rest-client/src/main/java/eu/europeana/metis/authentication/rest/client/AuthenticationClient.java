@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.authentication.user.MetisUser;
-import eu.europeana.metis.core.exceptions.BadContentException;
+import eu.europeana.metis.exception.BadContentException;
+import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,10 +44,10 @@ public class AuthenticationClient {
    * Bearer accessTokenHere
    * </p>
    * @return {@link MetisUser}.
-   * @throws BadContentException In case the user could not be authenticated.
+   * @throws GenericMetisException which can be one of {@link BadContentException}
    */
   public MetisUser getUserByAccessTokenInHeader(String authorizationHeader)
-      throws BadContentException {
+      throws GenericMetisException {
     RestTemplate restTemplate = new RestTemplate();
     ObjectMapper objectMapper = new ObjectMapper();
     HttpHeaders headers = new HttpHeaders();
@@ -62,10 +63,10 @@ public class AuthenticationClient {
     } catch (HttpClientErrorException e) {
       LOGGER.error("Could not retrieve MetisUser. Exception: {}, ErrorCode: {}, {}",
           e, e.getRawStatusCode(), e.getResponseBodyAsString());
-      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN);
+      throw new BadContentException(CommonStringValues.WRONG_ACCESS_TOKEN, e);
     } catch (IOException e) {
       LOGGER.error("Could not parse response to Object, {}", e);
-      throw new BadContentException(CommonStringValues.COULD_NOT_PARSE_USER_RETURNED_FROM_ZOHO);
+      throw new BadContentException(CommonStringValues.COULD_NOT_PARSE_USER_RETURNED_FROM_ZOHO, e);
     }
   }
 }

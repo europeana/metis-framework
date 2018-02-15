@@ -6,6 +6,9 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.workflow.OrderField;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
+import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
+import eu.europeana.metis.core.workflow.plugins.PluginStatus;
+import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -14,9 +17,12 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
+import org.mongodb.morphia.aggregation.AggregationPipeline;
+import org.mongodb.morphia.query.Criteria;
 import org.mongodb.morphia.query.CriteriaContainerImpl;
 import org.mongodb.morphia.query.FindOptions;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.Sort;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.mongodb.morphia.query.UpdateResults;
 import org.slf4j.Logger;
@@ -35,7 +41,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   private static final String WORKFLOW_STATUS = "workflowStatus";
   private static final String DATASET_ID = "datasetId";
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
-  private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST.getLimit();
+  private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
+      .getLimit();
 
   @Autowired
   public WorkflowExecutionDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
@@ -171,6 +178,43 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
+  public AbstractMetisPlugin getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(
+      int datasetId,
+      Set<PluginType> pluginTypes) {
+    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(WorkflowExecution.class);
+
+    AggregationPipeline aggregation = morphiaDatastoreProvider.getDatastore()
+        .createAggregation(WorkflowExecution.class);
+
+    Criteria[] criteria = {
+        query.criteria(DATASET_ID).equal(datasetId),
+        query.criteria("metisPlugins.pluginStatus").equal(PluginStatus.FINISHED)};
+    query.and(criteria);
+
+    List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
+    if (pluginTypes != null) {
+      for (PluginType pluginType : pluginTypes) {
+        if (pluginType != null) {
+          criteriaContainer.add(query.criteria("metisPlugins.pluginType").equal(pluginType));
+        }
+      }
+    }
+    if (!criteriaContainer.isEmpty()) {
+      query.or((CriteriaContainerImpl[]) criteriaContainer.toArray(new CriteriaContainerImpl[0]));
+    }
+
+    Iterator<WorkflowExecution> metisPluginsIterator = aggregation.match(query)
+        .unwind("metisPlugins")
+        .match(query).sort(Sort.descending("metisPlugins.finishedDate"))
+        .aggregate(WorkflowExecution.class);
+
+    if (metisPluginsIterator.hasNext()) {
+      return metisPluginsIterator.next().getMetisPlugins().get(0);
+    }
+    return null;
+  }
+
   public List<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(int datasetId,
       String workflowOwner, String workflowName, Set<WorkflowStatus> workflowStatuses,
       OrderField orderField, boolean ascending, int nextPage) {
@@ -180,13 +224,16 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     if (StringUtils.isNotEmpty(workflowOwner)) {
       query.field("workflowOwner").equal(workflowOwner);
     }
-    if (StringUtils.isNotEmpty(workflowOwner)) {
+    if (StringUtils.isNotEmpty(workflowName)) {
       query.field("workflowName").equal(workflowName);
     }
+
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
-    for (WorkflowStatus workflowStatus : workflowStatuses) {
-      if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
-        criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
+    if (workflowStatuses != null) {
+      for (WorkflowStatus workflowStatus : workflowStatuses) {
+        if (workflowStatus != null) {
+          criteriaContainer.add(query.criteria(WORKFLOW_STATUS).equal(workflowStatus));
+        }
       }
     }
     if (!criteriaContainer.isEmpty()) {
@@ -208,7 +255,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
-    if (workflowStatus != null && workflowStatus != WorkflowStatus.NULL) {
+    if (workflowStatus != null) {
       query.field(WORKFLOW_STATUS).equal(workflowStatus);
     }
     query.order(OrderField.ID.getOrderFieldName());

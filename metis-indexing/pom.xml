@@ -12,7 +12,6 @@
   <artifactId>metis-indexing</artifactId>
   <packaging>pom</packaging>
   <modules>
-    <module>metis-indexing-service</module>
     <module>metis-indexing-client</module>
   </modules>
 

@@ -11,6 +11,7 @@ import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,28 +67,32 @@ public class WorkflowExecutorManager {
     rabbitmqChannel.basicConsume(rabbitmqQueueName, false, new QueueConsumer(rabbitmqChannel));
   }
 
-  public synchronized void addWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
+  public void addWorkflowExecutionToQueue(String userWorkflowExecutionObjectId,
       int priority) {
-    //Based on Rabbitmq the basicPublish between threads should be controlled(synchronized)
-    BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
-        .priority(priority)
-        .build();
-    try {
-      //First parameter is the ExchangeName which is not used
-      rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
-          userWorkflowExecutionObjectId.getBytes("UTF-8"));
-    } catch (IOException e) {
-      LOGGER.error("WorkflowExecution with objectId: {} not added in queue..",
-          userWorkflowExecutionObjectId, e);
+    synchronized (this) {
+      //Based on Rabbitmq the basicPublish between threads should be controlled(synchronized)
+      BasicProperties basicProperties = MessageProperties.PERSISTENT_TEXT_PLAIN.builder()
+          .priority(priority)
+          .build();
+      try {
+        //First parameter is the ExchangeName which is not used
+        rabbitmqChannel.basicPublish("", rabbitmqQueueName, basicProperties,
+            userWorkflowExecutionObjectId.getBytes(StandardCharsets.UTF_8));
+      } catch (IOException e) {
+        LOGGER.error("WorkflowExecution with objectId: {} not added in queue..",
+            userWorkflowExecutionObjectId, e);
+      }
     }
   }
 
   public synchronized void cancelWorkflowExecution(WorkflowExecution workflowExecution) {
-    if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
-        || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
-      workflowExecutionDao.setCancellingState(workflowExecution);
-      LOGGER.info(
-          "Cancelling user workflow execution with id: {}", workflowExecution.getId());
+    synchronized (this) {
+      if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+          || workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING) {
+        workflowExecutionDao.setCancellingState(workflowExecution);
+        LOGGER.info(
+            "Cancelling user workflow execution with id: {}", workflowExecution.getId());
+      }
     }
   }
 
@@ -139,7 +144,7 @@ public class WorkflowExecutorManager {
     @Override
     public void handleDelivery(String consumerTag, Envelope rabbitmqEnvelope,
         AMQP.BasicProperties properties, byte[] body) throws IOException {
-      String objectId = new String(body, "UTF-8");
+      String objectId = new String(body, StandardCharsets.UTF_8);
       LOGGER.info("WorkflowExecution id: {} received from queue.", objectId);
       //Clean thread pool, some executions might have already finished
       if (threadsCounter >= maxConcurrentThreads) {

@@ -6,7 +6,7 @@ package eu.europeana.metis.core.rest;
  */
 public enum RequestLimits {
   DATASETS_PER_REQUEST(5), WORKFLOW_EXECUTIONS_PER_REQUEST(5), WORKFLOWS_PER_REQUEST(
-      5), SCHEDULED_EXECUTIONS_PER_REQUEST(5), SUGGEST_TERMS_PER_REQUEST(5);
+      5), SCHEDULED_EXECUTIONS_PER_REQUEST(5);
 
   private int limit;
 

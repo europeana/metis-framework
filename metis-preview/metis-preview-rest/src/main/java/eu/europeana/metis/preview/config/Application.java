@@ -17,7 +17,6 @@
 package eu.europeana.metis.preview.config;
 
 import com.mongodb.MongoClientOptions;
-import com.mongodb.MongoClientURI;
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
@@ -27,11 +26,9 @@ import eu.europeana.corelib.storage.impl.MongoProviderImpl;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.service.ZipService;
-import eu.europeana.metis.utils.PivotalCloudFoundryServicesReader;
 import eu.europeana.validation.client.ValidationClient;
 import java.util.List;
 import javax.annotation.PreDestroy;
-import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.slf4j.Logger;
@@ -107,24 +104,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void afterPropertiesSet() throws Exception {
     if (socksProxyEnabled) {
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
-    }
-
-    String vcapServicesJson = System.getenv().get("VCAP_SERVICES");
-    if (StringUtils.isNotEmpty(vcapServicesJson) && !StringUtils.equals(vcapServicesJson, "{}")) {
-      PivotalCloudFoundryServicesReader vcapServices = new PivotalCloudFoundryServicesReader(
-          vcapServicesJson);
-
-      MongoClientURI mongoClientURI = vcapServices.getMongoClientUriFromService();
-      if (mongoClientURI != null) {
-        String mongoHostAndPort = mongoClientURI.getHosts().get(0);
-        mongoHosts = mongoHostAndPort.substring(0, mongoHostAndPort.lastIndexOf(":"));
-        mongoPort = Integer
-            .parseInt(mongoHostAndPort.substring(mongoHostAndPort.lastIndexOf(":") + 1));
-        mongoUsername = mongoClientURI.getUsername();
-        mongoPassword = String.valueOf(mongoClientURI.getPassword());
-        mongoDb = mongoClientURI.getDatabase();
-        LOGGER.info("Using Cloud Foundry Mongo");
-      }
     }
 
     String[] mongoHostsArray = mongoHosts.split(",");

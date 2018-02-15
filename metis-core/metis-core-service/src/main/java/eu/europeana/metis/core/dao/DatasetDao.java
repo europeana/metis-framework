@@ -179,7 +179,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Get all datasets using the provider field.
    *
    * @param provider the provider string used to find the datasets
-   * @param nextPage the nextPage number or -1
+   * @param nextPage the nextPage positive number
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByProvider(String provider, int nextPage) {
@@ -194,7 +194,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Get all datasets using the intermediateProvider field.
    *
    * @param intermediateProvider the intermediateProvider string used to find the datasets
-   * @param nextPage the nextPage number or -1
+   * @param nextPage the nextPage positive number
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByIntermediateProvider(String intermediateProvider,
@@ -210,7 +210,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Get all datasets using the dataProvider field.
    *
    * @param dataProvider the dataProvider string used to find the datasets
-   * @param nextPage the nextPage number or -1
+   * @param nextPage the nextPage positive number
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByDataProvider(String dataProvider, int nextPage) {
@@ -225,7 +225,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Get all datasets using the organizationId field.
    *
    * @param organizationId the organizationId string used to find the datasets
-   * @param nextPage the nextPage number or -1
+   * @param nextPage the nextPage positive number
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByOrganizationId(String organizationId, int nextPage) {
@@ -240,7 +240,7 @@ public class DatasetDao implements MetisDao<Dataset, String> {
    * Get all datasets using the organizationName field.
    *
    * @param organizationName the organizationName string used to find the datasets
-   * @param nextPage the nextPage number or -1
+   * @param nextPage the nextPage positive number
    * @return {@link List} of {@link Dataset}
    */
   public List<Dataset> getAllDatasetsByOrganizationName(String organizationName, int nextPage) {

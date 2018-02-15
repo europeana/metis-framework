@@ -39,7 +39,7 @@ public class IndexingWorker {
 			LOGGER.info("Successfully published record.");
 		else
 			LOGGER.debug("Failed to publish record.");
-		
+
 		return result;
 	}
 }

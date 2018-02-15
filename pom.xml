@@ -308,7 +308,7 @@
     <version.junit>4.12</version.junit>
     <version.awaitability>1.7.0</version.awaitability>
     <version.embedded.mongo>2.0.0</version.embedded.mongo>
-    <version.mongo.java.driver>3.5.0</version.mongo.java.driver>
+    <version.mongo.java.driver>3.6.2</version.mongo.java.driver>
     <version.mongojack>2.3.0</version.mongojack>
     <version.javax.persistence>1.0.2</version.javax.persistence>
     <version.commons.io>2.4</version.commons.io>

@@ -95,21 +95,23 @@ public class ValidationExecutionService {
     /**
      * Perform single service given a schema.
      *
-     * @param schema           The schema to perform service against.
-     * @param rootFileLocation location of the schema root file
-     * @param document         The document to validate against
+     * @param schema                 The schema to perform service against.
+     * @param rootFileLocation       location of the schema root file
+     * @param schematronFileLocation location of the schematron file
+     * @param document               The document to validate against
      * @return A service result
      */
-    public ValidationResult singleValidation(final String schema, final String rootFileLocation, final String document) {
-        return new Validator(schema, rootFileLocation, document, schemaProvider, lsResourceResolver).call();
+    public ValidationResult singleValidation(final String schema, final String rootFileLocation, String schematronFileLocation, final String document) {
+        return new Validator(schema, rootFileLocation, schematronFileLocation, document, schemaProvider, lsResourceResolver).call();
     }
 
     /**
      * Batch service given a schema
      *
-     * @param schema    The schema to validate against
-     * @param documents The documents to validate
-     * @param rootFileLocation Place where entry xsd file is located
+     * @param schema                 The schema to validate against
+     * @param documents              The documents to validate
+     * @param rootFileLocation       place where entry xsd file is located
+     * @param schematronFileLocation place where schematron file is located
      * @return A list of service results
      * @throws InterruptedException
      * @throws ExecutionException
@@ -117,11 +119,12 @@ public class ValidationExecutionService {
     public ValidationResultList batchValidation(
             final String schema,
             final String rootFileLocation,
+            final String schematronFileLocation,
             List<String> documents) throws InterruptedException, ExecutionException {
 
         ExecutorCompletionService cs = new ExecutorCompletionService(es);
         for (final String document : documents) {
-            cs.submit(new Validator(schema, rootFileLocation, document, schemaProvider, lsResourceResolver));
+            cs.submit(new Validator(schema, rootFileLocation, schematronFileLocation, document, schemaProvider, lsResourceResolver));
         }
 
         List<ValidationResult> results = new ArrayList<>();

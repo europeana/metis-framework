@@ -14,7 +14,6 @@ public class IndexingClient {
 	public IndexingClient() throws IndexingException
 	{		
 		IndexingConfig config = IndexingConfig.getInstance();
-	    	    
 		fullBeanDao = config.getFullBeanDao();		
 		publishingService = config.getPublishingService();
 	}
@@ -26,7 +25,7 @@ public class IndexingClient {
 	public List<FullBeanImpl> getAll() {
 		return fullBeanDao.getAll();
 	}
-	
+
 	public FullBeanImpl getFullBean(String id) {
 		return fullBeanDao.getFullBean(id);
 	}

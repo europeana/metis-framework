@@ -133,12 +133,9 @@ public class PublishingServiceTest {
     }
 
 	@Test
-	public void testPublish() throws IndexingException {			
-		
+	public void testPublish() throws IndexingException {					
 		// NOTE: At present, corelib null pointer issues occuring when working with mocks
 		
 		//publishingService.process(SAMPLE_INPUT_2);
-		
-		
 	}
 }

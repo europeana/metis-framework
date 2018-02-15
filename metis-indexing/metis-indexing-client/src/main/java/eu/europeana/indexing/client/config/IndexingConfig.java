@@ -22,7 +22,6 @@ import eu.europeana.indexing.service.PublishingService;
 import eu.europeana.indexing.service.dao.FullBeanDao;
 import eu.europeana.indexing.service.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.exception.IndexingException;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -32,11 +31,15 @@ import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
 import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IndexingConfig {
+	private static final Logger LOGGER = LoggerFactory.getLogger(IndexingConfig.class);
 	private static IndexingConfig instance = null;
 	private PublishingService publishingService;
 	private FullBeanDao fullBeanDao;
+	private static final String IndexingConfigLoadErrorMsg = "Could not load indexing configuration.";
 	
 	protected IndexingConfig() throws IndexingException {
 		init();		
@@ -44,8 +47,7 @@ public class IndexingConfig {
 	
 	public static IndexingConfig getInstance() throws IndexingException {
 		if (instance == null)
-			instance = new IndexingConfig();
-		
+			instance = new IndexingConfig();		
 		return instance;
 	}
 	
@@ -62,11 +64,14 @@ public class IndexingConfig {
 		ClassLoader loader = Thread.currentThread().getContextClassLoader();
 		Properties props = new Properties();
 
+		LOGGER.info("Reading indexing.properties file.");
 		try(InputStream resourceStream = loader.getResourceAsStream(resourceName)) {
 		    props.load(resourceStream);
 		} catch (IOException e) {
-			throw new IndexingException("Could not load indexing configuration.", e.getCause());
+			LOGGER.error("Failed to read indexing.properties file.");
+			throw new IndexingException("Failed to read indexing.properties file.", e.getCause());
 		}
+		LOGGER.info("Successfully read indexing.properties file.");
 
 		// Mongo
 		String mongoHost = props.getProperty("mongo.host");
@@ -88,6 +93,8 @@ public class IndexingConfig {
 		  
 		String[] hostList = StringUtils.split(mongoHost, ",");
 	    String[] portList = StringUtils.split(mongoPort, ",");
+	    
+	    LOGGER.info("Loading indexing configuration.");
 	    List<ServerAddress> serverAddresses = new ArrayList<>();
 	    int i = 0;
 	    for (String host : hostList) {
@@ -96,7 +103,8 @@ public class IndexingConfig {
 	                ServerAddress address = new ServerAddress(host, Integer.parseInt(portList[i]));
 	                serverAddresses.add(address);
 	            } catch (NumberFormatException e) {
-	            	throw new IndexingException("Could not load indexing configuration.", e.getCause());
+	            	LOGGER.error(IndexingConfigLoadErrorMsg);
+	            	throw new IndexingException(IndexingConfigLoadErrorMsg, e.getCause());
 	            }
 	        }
 	        i++;
@@ -111,8 +119,11 @@ public class IndexingConfig {
 	    	cloudSolrServer.setDefaultCollection(solrCollection);
 	    	cloudSolrServer.connect();
 	    } catch (MalformedURLException e) {
-	    	throw new IndexingException("Could not load indexing configuration.", e.getCause());
+	    	LOGGER.error(IndexingConfigLoadErrorMsg);
+	    	throw new IndexingException(IndexingConfigLoadErrorMsg, e.getCause());
 	    }
+	    
+	    LOGGER.info("Successfully loaded indexing configuration.");
 	    
 	    MorphiaDatastoreProvider morphiaDatastoreProvider = new MorphiaDatastoreProvider(new MongoClient(serverAddresses), fullBeanDB);
 	    fullBeanDao = new FullBeanDao(morphiaDatastoreProvider);		

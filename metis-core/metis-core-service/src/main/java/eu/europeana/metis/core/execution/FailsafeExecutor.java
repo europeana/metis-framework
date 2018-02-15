@@ -75,9 +75,9 @@ public class FailsafeExecutor {
   private void addUserWorkflowExecutionsWithStatusInQueue(WorkflowStatus workflowStatus,
       List<WorkflowExecution> workflowExecutions) {
     int nextPage = 0;
-    ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper;
+    ResponseListWrapper<WorkflowExecution> userWorkflowExecutionResponseListWrapper =new ResponseListWrapper<>();
     do {
-      userWorkflowExecutionResponseListWrapper = new ResponseListWrapper<>();
+      userWorkflowExecutionResponseListWrapper.clear();
       userWorkflowExecutionResponseListWrapper.setResultsAndLastPage(orchestratorService
               .getAllWorkflowExecutions(workflowStatus, nextPage),
           orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
