@@ -45,7 +45,7 @@ public class ValidationTaskFactory {
     bindingFactory = bfactTemp;
   }
 
-  public ValidationTask createValidationTaks(boolean applyCrosswalk,
+  public ValidationTask createValidationTask(boolean applyCrosswalk,
       String record, String collectionId, String crosswalkPath, boolean requestRecordId) {
 
     return new ValidationTask(applyCrosswalk, bindingFactory, record, identifierClient, validationClient, recordDao,

@@ -1,13 +1,5 @@
 package eu.europeana.metis.preview.service;
 
-import com.google.common.base.Strings;
-import eu.europeana.metis.preview.common.exception.PreviewServiceException;
-import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
-import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.executor.ValidationTask;
-import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
-import eu.europeana.metis.preview.service.executor.ValidationTaskResult;
-import eu.europeana.validation.model.ValidationResult;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +11,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import javax.annotation.PreDestroy;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.jetbrains.annotations.NotNull;
 import org.joda.time.DateTime;
@@ -28,6 +19,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import com.google.common.base.Strings;
+import eu.europeana.metis.preview.common.exception.PreviewServiceException;
+import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
+import eu.europeana.metis.preview.persistence.RecordDao;
+import eu.europeana.metis.preview.service.executor.ValidationTask;
+import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
+import eu.europeana.metis.preview.service.executor.ValidationTaskResult;
+import eu.europeana.validation.model.ValidationResult;
 
 /**
  * The Preview Service implementation to upload (and potentially transform from EDM-External to EDM-Internal) records
@@ -63,22 +62,18 @@ public class PreviewService {
      * Persist temporarily (24h) records in the preview portal
      *
      * @param records        The records to persist as list of XML strings
-     * @param collectionId   The collection id to apply (can be null)
+     * @param collectionId   The collection id to apply (can not be null).
      * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to EDM-Internal)
      * @param crosswalkPath  The path of the conversion XSL from EDM-External to EDM-Internal
      * @param individualRecords Whether we need to return the IDs of the individual records.
      * @return The preview URL of the records along with the result of the validation
      * @throws PreviewServiceException an error occured while
      */
-    public ExtendedValidationResult createRecords(List<String> records, String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
+    public ExtendedValidationResult createRecords(List<String> records, final String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
         throws PreviewServiceException {
 
         ExtendedValidationResult returnList;
-
-        if (StringUtils.isEmpty(collectionId)) {
-            collectionId = CollectionUtils.generateCollectionId();
-        }
-
+        
         try {
             dao.deleteCollection(collectionId);
             dao.commit();
@@ -146,7 +141,7 @@ public class PreviewService {
         boolean individualRecords) {
 
         for (int i=0;i<records.size(); i++) {
-            ValidationTask task = factory.createValidationTaks(applyCrosswalk, records.get(i), collectionId, crosswalkPath, individualRecords);
+            ValidationTask task = factory.createValidationTask(applyCrosswalk, records.get(i), collectionId, crosswalkPath, individualRecords);
 
             LOGGER.info("Submiting validation of record {}", i);
             cs.submit(task);

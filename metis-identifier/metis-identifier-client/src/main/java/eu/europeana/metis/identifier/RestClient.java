@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -57,9 +58,10 @@ public class RestClient {
      * @param collectionId The dataset identifier of the record
      * @param recordId The record identifier of the record
      * @return The valid Europeana Identifier
+     * @throws UnsupportedEncodingException 
      */
     public String generateIdentifier(String collectionId, String recordId) throws UnsupportedEncodingException {
-            recordId = URLEncoder.encode(recordId, "UTF-8");
+            recordId = URLEncoder.encode(recordId, StandardCharsets.UTF_8.name());
             return template.getForObject(identifierEndpoint + RestEndpoints.resolve(
                     RestEndpoints.IDENTIFIER_GENERATE, collectionId) + "?recordId=" + recordId, String.class);
     }

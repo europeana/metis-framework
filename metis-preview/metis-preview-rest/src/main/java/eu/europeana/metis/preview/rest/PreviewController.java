@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +49,6 @@ public class PreviewController {
     /**
      * Persist records from a zip file
      * @param file The zip file
-     * @param collectionId The collection id - can be null
      * @param applyCrosswalk Whether the records are in EDM-External (true) or EDM-Internal (false)
      * @param crosswalkPath path of xslt on the server (optional)
      * @param requestIndividualRecordsIds request individual record ids
@@ -66,7 +66,6 @@ public class PreviewController {
         @ApiResponse(code = 422, message = "" ,response = ValidationResultList.class)
     })
     public ExtendedValidationResult createRecords(@ApiParam @RequestParam("file") MultipartFile file,
-                                                  @ApiParam @RequestParam(value = "collectionId", defaultValue = "") String collectionId,
                                                   @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal",defaultValue = "true")boolean applyCrosswalk,
                                                   @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath,
                                                   @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean requestIndividualRecordsIds)
@@ -79,7 +78,8 @@ public class PreviewController {
             throw new ZipFileException("Cannot read from stream");
         }
         Long start = System.currentTimeMillis();
-        ExtendedValidationResult result = service.createRecords(records,collectionId,applyCrosswalk, crosswalkPath, requestIndividualRecordsIds);
+        final String collectionId = UUID.randomUUID().toString();
+        ExtendedValidationResult result = service.createRecords(records, collectionId, applyCrosswalk, crosswalkPath, requestIndividualRecordsIds);
         LOGGER.info("Duration: {} ms", System.currentTimeMillis()-start);
         if(!result.isSuccess()){
             throw new PreviewValidationException(result);
