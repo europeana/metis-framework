@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.exception.StructuredExceptionWrapper;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
 import eu.europeana.metis.preview.common.exception.PreviewValidationException;
@@ -57,7 +58,7 @@ public class PreviewController {
      * @throws PreviewServiceException Error while processing the zipfile content
      * @throws PreviewValidationException Semantic errors resulting from processing the zipfile content
      */
-    @RequestMapping(value = "/upload", method = RequestMethod.POST)
+    @RequestMapping(value = RestEndpoints.PREVIEW_UPLOAD, method = RequestMethod.POST)
     @ResponseBody
     @ApiOperation(value = "Validation Result with preview URL", response = ExtendedValidationResult.class)
     @ApiResponses( {
@@ -67,7 +68,7 @@ public class PreviewController {
     })
     public ExtendedValidationResult createRecords(@ApiParam @RequestParam("file") MultipartFile file,
                                                   @ApiParam(name = "edmExternal") @RequestParam(value = "edmExternal",defaultValue = "true")boolean applyCrosswalk,
-                                                  @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",defaultValue = "EDM_external2internal_v2.xsl") String crosswalkPath,
+                                                  @ApiParam(name="crosswalk") @RequestParam(value="crosswalk",required=false) String crosswalkPath,
                                                   @ApiParam(name="individualRecords")@RequestParam(value = "individualRecords",defaultValue = "true")boolean requestIndividualRecordsIds)
         throws ZipFileException, PreviewServiceException, PreviewValidationException {
         final List<String> records;

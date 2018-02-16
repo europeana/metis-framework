@@ -103,6 +103,9 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${validation.schema.after_transformation}")
   private String schemaAfterTransformation;
 
+  @Value("${transformation.default}")
+  private String defaultTransformationFile;
+
   private MongoProviderImpl mongoProvider;
   private HttpSolrServer solrServer;
 
@@ -208,7 +211,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Bean
   public ValidationUtils getValidationUtils() throws MongoDBException {
     return new ValidationUtils(restClient(), validationClient(), recordDao(),
-        schemaBeforeTransformation, schemaAfterTransformation);
+        schemaBeforeTransformation, schemaAfterTransformation, defaultTransformationFile);
   }
 
   @PreDestroy

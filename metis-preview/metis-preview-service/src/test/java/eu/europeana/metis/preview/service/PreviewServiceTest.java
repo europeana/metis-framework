@@ -43,7 +43,8 @@ public class PreviewServiceTest {
         mockConfig = Mockito.mock(PreviewServiceConfig.class);
         mockValidationClient = Mockito.mock(ValidationClient.class);
         mockIdentifierClient = Mockito.mock(RestClient.class);
-        final ValidationUtils validationUtils = new ValidationUtils(mockIdentifierClient, mockValidationClient, mockDao, "EDM-EXTERNAL", "EDM-INTERNAL");
+        final ValidationUtils validationUtils = new ValidationUtils(mockIdentifierClient, mockValidationClient, mockDao, 
+            "EDM-EXTERNAL", "EDM-INTERNAL", "EDM_external2internal_v2.xsl");
 
         ValidationTaskFactory taskFactory = new ValidationTaskFactory(validationUtils);
             Mockito.mock(ValidationTaskFactory.class);
@@ -69,6 +70,6 @@ public class PreviewServiceTest {
 
             Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
             Assert.assertEquals(0,extendedValidationResult.getResultList().size());
-            Assert.assertEquals(true,extendedValidationResult.isSuccess());
+            Assert.assertTrue(extendedValidationResult.isSuccess());
     }
 }

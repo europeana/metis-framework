@@ -20,14 +20,17 @@ public class ValidationUtils {
   private final RecordDao recordDao;
   private final String schemaBeforeTransformation;
   private final String schemaAfterTransformation;
+  private final String defaultTransformationFile;
 
   public ValidationUtils(RestClient identifierClient, ValidationClient validationClient,
-      RecordDao recordDao, String schemaBeforeTransformation, String schemaAfterTransformation) {
+      RecordDao recordDao, String schemaBeforeTransformation, String schemaAfterTransformation,
+      String defaultTransformationFile) {
     this.identifierClient = identifierClient;
     this.validationClient = validationClient;
     this.recordDao = recordDao;
     this.schemaBeforeTransformation = schemaBeforeTransformation;
     this.schemaAfterTransformation = schemaAfterTransformation;
+    this.defaultTransformationFile = defaultTransformationFile;
   }
 
   public ValidationResult validateRecord(String record, boolean needsTransformation) {
@@ -47,5 +50,9 @@ public class ValidationUtils {
       throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
       MongoDBException, MongoRuntimeException, SolrServerException, IOException {
     recordDao.createRecord(fBean);
+  }
+
+  public String getDefaultTransformationFile() {
+    return defaultTransformationFile;
   }
 }

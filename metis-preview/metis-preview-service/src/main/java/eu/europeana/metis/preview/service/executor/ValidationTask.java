@@ -47,7 +47,8 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
      * @param bFact            The JibX binding factory for the conversion of the XML to RDF class
      * @param incomingRecord   The record to be validated and transformed
      * @param collectionId     The collection identifier
-     * @param crosswalkPath    The path where the crosswalk between EDM-External and EDM-Internal resides
+     * @param crosswalkPath    The path where the crosswalk between EDM-External and EDM-Internal 
+     *                         resides. Can be Null, in which case the default is used.
      * @param requestRecordId  Whether the request IDs are to be returned.
      */
     public ValidationTask(ValidationUtils validationUtils, boolean applyCrosswalk, IBindingFactory bFact,
@@ -79,11 +80,14 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     
   private String transformRecord()
       throws TransformerException, ParserConfigurationException, IOException {
-    String tempRecord;
-    XsltTransformer transformer = new XsltTransformer();
-    tempRecord = transformer.transform(incomingRecord, FileUtils.readFileToString(
-        new File(this.getClass().getClassLoader().getResource(crosswalkPath).getFile())));
-    return tempRecord;
+    final String transformationFile;
+    if (StringUtils.isEmpty(crosswalkPath)) {
+      transformationFile = validationUtils.getDefaultTransformationFile();
+    } else {
+      transformationFile = crosswalkPath;
+    }
+    return new XsltTransformer().transform(incomingRecord, FileUtils.readFileToString(
+        new File(this.getClass().getClassLoader().getResource(transformationFile).getFile())));
   }
 
   private ValidationTaskResult invoke()

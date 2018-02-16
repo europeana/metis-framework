@@ -57,17 +57,19 @@ public class PreviewService {
     }
 
 
-    /**
-     * Persist temporarily (24h) records in the preview portal
-     *
-     * @param records        The records to persist as list of XML strings
-     * @param collectionId   The collection id to apply (can not be null).
-     * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to EDM-Internal)
-     * @param crosswalkPath  The path of the conversion XSL from EDM-External to EDM-Internal
-     * @param individualRecords Whether we need to return the IDs of the individual records.
-     * @return The preview URL of the records along with the result of the validation
-     * @throws PreviewServiceException an error occured while
-     */
+  /**
+   * Persist temporarily (24h) records in the preview portal
+   *
+   * @param records The records to persist as list of XML strings
+   * @param collectionId The collection id to apply (can not be null).
+   * @param applyCrosswalk Whether the records are in EDM-External (thus need conversion to
+   *        EDM-Internal)
+   * @param crosswalkPath The path of the conversion XSL from EDM-External to EDM-Internal. Can be
+   *        null, in which case the default will be used.
+   * @param individualRecords Whether we need to return the IDs of the individual records.
+   * @return The preview URL of the records along with the result of the validation
+   * @throws PreviewServiceException an error occured while
+   */
     public ExtendedValidationResult createRecords(List<String> records, final String collectionId, boolean applyCrosswalk, String crosswalkPath, boolean individualRecords)
         throws PreviewServiceException {
 
