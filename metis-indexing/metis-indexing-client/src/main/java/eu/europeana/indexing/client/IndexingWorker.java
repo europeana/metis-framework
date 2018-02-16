@@ -14,9 +14,10 @@ public class IndexingWorker {
 	 * Constructor.
 	 * 
 	 * @param indexingClient The indexing client
+	 * @throws IndexingException 
 	 */
-	public IndexingWorker(IndexingClient indexingClient) {		
-		this.indexingClient = indexingClient;
+	public IndexingWorker() throws IndexingException {		
+		this.indexingClient = new IndexingClient();
 	}
 	
 	 /**

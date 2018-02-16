@@ -1,6 +1,5 @@
 package eu.europeana.indexing.client.test;
 
-import eu.europeana.indexing.client.IndexingClient;
 import eu.europeana.indexing.client.IndexingWorker;
 import eu.europeana.metis.exception.IndexingException;
 
@@ -102,7 +101,7 @@ public class IndexingWorkerTestWithMain {
 	
 	
 	public static void main(String[] args) throws IndexingException {
-		IndexingWorker indexingWorker = new IndexingWorker(new IndexingClient());
+		IndexingWorker indexingWorker = new IndexingWorker();
 		
 		System.out.println("Record to publish: " + SAMPLE_INPUT_2 + "\n");
 		System.out.println("Publishing record...\n");

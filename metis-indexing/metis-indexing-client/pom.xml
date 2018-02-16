@@ -12,12 +12,7 @@
   <artifactId>metis-indexing-client</artifactId>
 
 	<dependencies>
-    <dependency>
-            <groupId>eu.europeana.metis</groupId>
-            <artifactId>metis-indexing-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-		<dependency>
+  		<dependency>
 			<groupId>eu.europeana.corelib</groupId>
 			<artifactId>corelib-definitions</artifactId>
 		</dependency>
