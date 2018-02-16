@@ -88,14 +88,14 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         }
     }
     
-    private String transformRecord()
-        throws TransformerException, ParserConfigurationException, IOException {
-        String tempRecord;
-        XsltTransformer transformer = new XsltTransformer();
-        tempRecord = transformer.transform(incomingRecord, FileUtils.readFileToString(new File(this.getClass()
-                .getClassLoader().getResource(crosswalkPath).getFile())));
-        return tempRecord;
-    }
+  private String transformRecord()
+      throws TransformerException, ParserConfigurationException, IOException {
+    String tempRecord;
+    XsltTransformer transformer = new XsltTransformer();
+    tempRecord = transformer.transform(incomingRecord, FileUtils.readFileToString(
+        new File(this.getClass().getClassLoader().getResource(crosswalkPath).getFile())));
+    return tempRecord;
+  }
 
   private ValidationTaskResult invoke()
       throws JiBXException, TransformerException, ParserConfigurationException, IOException,
@@ -107,37 +107,57 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         applyCrosswalk ? SCHEMANAME_BEFORE_TRANSFORMATION : SCHEMANAME_AFTER_TRANSFORMATION;
     ValidationResult validationResult =
         validationClient.validateRecord(currentSchema, incomingRecord);
-    
-    String resultRecord = incomingRecord;
-    boolean validationSuccess = false;
 
+    // If successful, we handle the result.
+    final ValidationTaskResult result;
     if (validationResult.isSuccess()) {
-      if (applyCrosswalk) {
-        resultRecord = transformRecord();
-      }
-      final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
-      RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
-      String id = identifierClient
-          .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
-          .replace("\"", "");
-
-      if (StringUtils.isNotEmpty(id)) {
-        rdf.getProvidedCHOList().get(0).setAbout(id);
-        FullBeanImpl fBean = new MongoConstructor().constructFullBean(rdf);
-        fBean.setAbout(id);
-        fBean.setEuropeanaCollectionName(new String[] {collectionId});
-        recordDao.createRecord(fBean);
-        if (requestRecordId) {
-          resultRecord = fBean.getAbout();
-        }
-        validationSuccess = true;
-      } else {
-        validationResult = new ValidationResult();
-        validationResult.setSuccess(false);
-        validationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
-        validationResult.setMessage("Id generation failed. Record not persisted");
-      }
+      result = handleValidatedResult(validationResult);
+    } else {
+      result = new ValidationTaskResult(null, validationResult, false);
     }
-    return new ValidationTaskResult(resultRecord, validationResult, validationSuccess);
+
+    // Done
+    return result;
+  }
+
+  private ValidationTaskResult handleValidatedResult(final ValidationResult validationResult)
+      throws JiBXException, TransformerException, ParserConfigurationException, IOException,
+      InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
+      InvocationTargetException, MongoDBException, MongoRuntimeException {
+    
+    // Transform the record (apply crosswalk) if necessary.
+    final String resultRecord = applyCrosswalk ? transformRecord() : incomingRecord;
+    
+    // Convert record to RDF and obtain record ID.
+    final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
+    final RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
+    final String recordId = identifierClient
+        .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
+        .replace("\"", "");
+
+    // Obtain the result.
+    final ValidationTaskResult result;
+    if (StringUtils.isNotEmpty(recordId)) {
+      
+      // If we have obtained a record ID we return a successful result.
+      rdf.getProvidedCHOList().get(0).setAbout(recordId);
+      final FullBeanImpl fBean = new MongoConstructor().constructFullBean(rdf);
+      fBean.setAbout(recordId);
+      fBean.setEuropeanaCollectionName(new String[] {collectionId});
+      recordDao.createRecord(fBean);
+      // TODO JOCHEN if !requestRecordId, should we return the ENTIRE record? Or nothing?
+      result = new ValidationTaskResult(requestRecordId ? recordId : resultRecord, validationResult, true);
+    } else {
+      
+      // If we couldn't obtain a record ID we return a failed result.
+      ValidationResult noIdValidationResult = new ValidationResult();
+      noIdValidationResult.setSuccess(false);
+      noIdValidationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
+      noIdValidationResult.setMessage("Id generation failed. Record not persisted");
+      result = new ValidationTaskResult(resultRecord, noIdValidationResult, false);
+    }
+    
+    // Done
+    return result;
   }
 }

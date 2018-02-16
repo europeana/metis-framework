@@ -97,7 +97,7 @@ public class PreviewService {
     private List<ValidationTaskResult> waitForTasksToComplete(List<Future<ValidationTaskResult>> taskResultFutures) throws PreviewServiceException {
         final List<ValidationTaskResult> taskResults;
         try {
-            int counter = 0;
+            int counter = 1;
             taskResults = new ArrayList<>();
             for (Future<ValidationTaskResult> taskResultFuture : taskResultFutures) {
               LOGGER.info("Retrieving validation result {} of {}.", counter, taskResultFutures.size());
@@ -122,6 +122,7 @@ public class PreviewService {
                 .map(ValidationTaskResult::getValidationResult).collect(Collectors.toList());
         
         // Obtain the succeeded results as list of record IDs.
+        // TODO JOCHEN if !individualRecords (see constructor), should succeededResults not be null?
         final List<String> succeededResults = taskResults.stream()
             .filter(ValidationTaskResult::isSuccess).map(ValidationTaskResult::getRecordId)
             .filter(record -> !Strings.isNullOrEmpty(record)).collect(Collectors.toList());
