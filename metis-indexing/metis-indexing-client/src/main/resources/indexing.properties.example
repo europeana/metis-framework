@@ -1,0 +1,17 @@
+## Mongo
+mongo.host=host1,...,hostn
+mongo.port=port1,...,portn
+mongo.username=
+mongo.password=
+fullbean.db=
+
+## Zookeeper
+zookeeper.host=
+zookeeper.port=
+
+## Solr
+solr.host=
+solr.port=
+solrcloud.host=
+solrcloud.port=
+solr.collection=
