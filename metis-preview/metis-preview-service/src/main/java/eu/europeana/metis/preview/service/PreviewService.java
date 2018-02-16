@@ -37,9 +37,9 @@ public class PreviewService {
     private static final Logger LOGGER = LoggerFactory.getLogger(PreviewService.class);
     private final ExecutorService executor;
 
-    private PreviewServiceConfig previewServiceConfig;
-    private RecordDao dao;
-    private ValidationTaskFactory factory;
+    private final String previewUrl;
+    private final RecordDao dao;
+    private final ValidationTaskFactory factory;
 
     /**
      * Constructor for the preview service
@@ -50,7 +50,7 @@ public class PreviewService {
      */
     @Autowired
     public PreviewService(PreviewServiceConfig previewServiceConfig, RecordDao dao, ValidationTaskFactory factory) {
-        this.previewServiceConfig = previewServiceConfig;
+        this.previewUrl = previewServiceConfig.getPreviewUrl();
         this.dao = dao;
         this.factory = factory;
         this.executor = Executors.newFixedThreadPool(previewServiceConfig.getThreadCount());
@@ -131,7 +131,7 @@ public class PreviewService {
         extendedValidationResult.setResultList(failedResults);
         extendedValidationResult.setSuccess(failedResults.isEmpty());
         extendedValidationResult.setRecords(succeededResults);
-        extendedValidationResult.setPortalUrl(previewServiceConfig.getPreviewUrl() + collectionId + "*");
+        extendedValidationResult.setPortalUrl(this.previewUrl + collectionId + "*");
         extendedValidationResult.setDate(new Date());
 
         // Done.

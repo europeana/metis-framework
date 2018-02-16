@@ -16,17 +16,6 @@
  */
 package eu.europeana.metis.preview.config;
 
-import com.mongodb.MongoClientOptions;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
-import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.identifier.RestClient;
-import eu.europeana.metis.preview.service.ZipService;
-import eu.europeana.validation.client.ValidationClient;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServer;
@@ -48,6 +37,18 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.mongodb.MongoClientOptions;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
+import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.identifier.RestClient;
+import eu.europeana.metis.preview.persistence.RecordDao;
+import eu.europeana.metis.preview.service.ZipService;
+import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -59,11 +60,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Configuration file for Spring MVC
  */
-@ComponentScan(basePackages = {"eu.europeana.metis.preview" })
+@Configuration
+@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest", "eu.europeana.metis.preview.service" })
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
-@Configuration
 @EnableScheduling
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
 
@@ -169,9 +170,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return solrServer;
   }
 
-
-
-
+  @Bean
+  @DependsOn(value = "solrServer")
+  RecordDao recordDao() throws MongoDBException {
+    return new RecordDao(fullBeanHandler(), solrDocumentHandler(), solrServer(), edmMongoServer());
+  }
 
   @Bean
   public CommonsMultipartResolver multipartResolver() {
