@@ -32,7 +32,8 @@ import eu.europeana.validation.model.ValidationResult;
  */
 public class ValidationTask implements Callable<ValidationTaskResult> {
 
-    public static final String SCHEMANAME = "EDM-INTERNAL";
+    public static final String SCHEMANAME_AFTER_TRANSFORMATION = "EDM-INTERNAL";
+    public static final String SCHEMANAME_BEFORE_TRANSFORMATION = "EDM-EXTERNAL";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
 
@@ -96,42 +97,47 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         return tempRecord;
     }
 
-    private ValidationTaskResult invoke()
-        throws JiBXException, TransformerException, ParserConfigurationException, IOException, InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException, MongoDBException, MongoRuntimeException {
+  private ValidationTaskResult invoke()
+      throws JiBXException, TransformerException, ParserConfigurationException, IOException,
+      InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
+      InvocationTargetException, MongoDBException, MongoRuntimeException {
 
-        String resultRecord = incomingRecord;
-        if (applyCrosswalk) {
-          resultRecord = transformRecord();
+    // Validate the input
+    final String currentSchema =
+        applyCrosswalk ? SCHEMANAME_BEFORE_TRANSFORMATION : SCHEMANAME_AFTER_TRANSFORMATION;
+    ValidationResult validationResult =
+        validationClient.validateRecord(currentSchema, incomingRecord);
+    
+    String resultRecord = incomingRecord;
+    boolean validationSuccess = false;
+
+    if (validationResult.isSuccess()) {
+      if (applyCrosswalk) {
+        resultRecord = transformRecord();
+      }
+      final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
+      RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
+      String id = identifierClient
+          .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
+          .replace("\"", "");
+
+      if (StringUtils.isNotEmpty(id)) {
+        rdf.getProvidedCHOList().get(0).setAbout(id);
+        FullBeanImpl fBean = new MongoConstructor().constructFullBean(rdf);
+        fBean.setAbout(id);
+        fBean.setEuropeanaCollectionName(new String[] {collectionId});
+        recordDao.createRecord(fBean);
+        if (requestRecordId) {
+          resultRecord = fBean.getAbout();
         }
-    
-        ValidationResult validationResult = validationClient.validateRecord(SCHEMANAME, resultRecord);
-        boolean validationSuccess = false;
-    
-        if (validationResult.isSuccess()) {
-            final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
-            RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
-            String id = identifierClient
-                    .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
-                    .replace("\"", "");
-    
-            if (StringUtils.isNotEmpty(id)) {
-                rdf.getProvidedCHOList().get(0).setAbout(id);
-                FullBeanImpl fBean = new MongoConstructor()
-                        .constructFullBean(rdf);
-                fBean.setAbout(id);
-                fBean.setEuropeanaCollectionName(new String[]{collectionId});
-                recordDao.createRecord(fBean);
-                if (requestRecordId) {
-                    resultRecord = fBean.getAbout();
-                }
-                validationSuccess = true;
-            } else {
-                validationResult = new ValidationResult();
-                validationResult.setSuccess(false);
-                validationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
-                validationResult.setMessage("Id generation failed. Record not persisted");
-            }
-        }
-        return new ValidationTaskResult(resultRecord, validationResult, validationSuccess);
+        validationSuccess = true;
+      } else {
+        validationResult = new ValidationResult();
+        validationResult.setSuccess(false);
+        validationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
+        validationResult.setMessage("Id generation failed. Record not persisted");
+      }
     }
+    return new ValidationTaskResult(resultRecord, validationResult, validationSuccess);
+  }
 }
