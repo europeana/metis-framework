@@ -34,8 +34,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
 
     public static final String SCHEMANAME = "EDM-INTERNAL";
 
-    public static final Logger LOGGER = LoggerFactory
-            .getLogger(ValidationTask.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
 
     private final boolean applyCrosswalk;
     private final IBindingFactory bFact;

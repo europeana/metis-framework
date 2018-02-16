@@ -150,9 +150,9 @@ public class PreviewService {
     }
 
     @PreDestroy
-    public void close()
-    {
-        if (executor != null)
+    public void close() {
+        if (executor != null) {
             executor.shutdown();
+        }
     }
 }
