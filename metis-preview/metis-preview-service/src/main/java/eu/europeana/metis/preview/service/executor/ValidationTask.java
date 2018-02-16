@@ -21,9 +21,6 @@ import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
-import eu.europeana.metis.identifier.RestClient;
-import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.validation.client.ValidationClient;
 import eu.europeana.validation.model.ValidationResult;
 
 /**
@@ -32,17 +29,12 @@ import eu.europeana.validation.model.ValidationResult;
  */
 public class ValidationTask implements Callable<ValidationTaskResult> {
 
-    public static final String SCHEMANAME_AFTER_TRANSFORMATION = "EDM-INTERNAL";
-    public static final String SCHEMANAME_BEFORE_TRANSFORMATION = "EDM-EXTERNAL";
-
     private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
 
+    private final ValidationUtils validationUtils;
     private final boolean applyCrosswalk;
     private final IBindingFactory bFact;
     private final String incomingRecord;
-    private final RestClient identifierClient;
-    private final ValidationClient validationClient;
-    private final RecordDao recordDao;
     private final String collectionId;
     private final String crosswalkPath;
     private final boolean requestRecordId;
@@ -50,25 +42,20 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     /**
      * Default constructor of the validation service
      *
+     * @param validationUtils  Utils class for validation tasks
      * @param applyCrosswalk   Whether the record needs to be transformed
      * @param bFact            The JibX binding factory for the conversion of the XML to RDF class
      * @param incomingRecord   The record to be validated and transformed
-     * @param identifierClient The identifier generation REST client connecting to METIS
-     * @param validationClient The validation REST client
-     * @param recordDao        The persistence layer in Solr and Mongo
      * @param collectionId     The collection identifier
      * @param crosswalkPath    The path where the crosswalk between EDM-External and EDM-Internal resides
      * @param requestRecordId  Whether the request IDs are to be returned.
      */
-    public ValidationTask(boolean applyCrosswalk, IBindingFactory bFact,
-                          String incomingRecord, RestClient identifierClient, ValidationClient validationClient,
-                          RecordDao recordDao, String collectionId, String crosswalkPath, boolean requestRecordId) {
+    public ValidationTask(ValidationUtils validationUtils, boolean applyCrosswalk, IBindingFactory bFact,
+                          String incomingRecord, String collectionId, String crosswalkPath, boolean requestRecordId) {
+        this.validationUtils = validationUtils;
         this.applyCrosswalk = applyCrosswalk;
         this.bFact = bFact;
         this.incomingRecord = incomingRecord;
-        this.identifierClient = identifierClient;
-        this.validationClient = validationClient;
-        this.recordDao = recordDao;
         this.collectionId = collectionId;
         this.crosswalkPath = crosswalkPath;
         this.requestRecordId = requestRecordId;
@@ -79,7 +66,9 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
      */
     @Override
     public ValidationTaskResult call()
-            throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException, JiBXException, ParserConfigurationException, MongoRuntimeException, IllegalAccessException, MongoDBException, TransformerException, SolrServerException {
+                throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException,
+                JiBXException, ParserConfigurationException, MongoRuntimeException, IllegalAccessException,
+                MongoDBException, TransformerException, SolrServerException {
         try {
             return invoke();
         } catch (Exception ex) {
@@ -103,10 +92,8 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
       InvocationTargetException, MongoDBException, MongoRuntimeException {
 
     // Validate the input
-    final String currentSchema =
-        applyCrosswalk ? SCHEMANAME_BEFORE_TRANSFORMATION : SCHEMANAME_AFTER_TRANSFORMATION;
-    ValidationResult validationResult =
-        validationClient.validateRecord(currentSchema, incomingRecord);
+    final ValidationResult validationResult =
+        validationUtils.validateRecord(incomingRecord, applyCrosswalk);
 
     // If successful, we handle the result.
     final ValidationTaskResult result;
@@ -131,9 +118,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     // Convert record to RDF and obtain record ID.
     final IUnmarshallingContext uctx = bFact.createUnmarshallingContext();
     final RDF rdf = (RDF) uctx.unmarshalDocument(new StringReader(resultRecord));
-    final String recordId = identifierClient
-        .generateIdentifier(collectionId, rdf.getProvidedCHOList().get(0).getAbout())
-        .replace("\"", "");
+    final String recordId = validationUtils.generateIdentifier(collectionId, rdf);
 
     // Obtain the result.
     final ValidationTaskResult result;
@@ -144,7 +129,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
       final FullBeanImpl fBean = new MongoConstructor().constructFullBean(rdf);
       fBean.setAbout(recordId);
       fBean.setEuropeanaCollectionName(new String[] {collectionId});
-      recordDao.createRecord(fBean);
+      validationUtils.persistFullBean(fBean);
       // TODO JOCHEN if !requestRecordId, should we return the ENTIRE record? Or nothing?
       result = new ValidationTaskResult(requestRecordId ? recordId : resultRecord, validationResult, true);
     } else {

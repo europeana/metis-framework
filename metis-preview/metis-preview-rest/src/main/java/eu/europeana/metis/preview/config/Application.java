@@ -48,6 +48,7 @@ import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.persistence.RecordDao;
 import eu.europeana.metis.preview.service.ZipService;
+import eu.europeana.metis.preview.service.executor.ValidationUtils;
 import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -96,6 +97,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String mongoDb;
   @Value("${solr.search.url}")
   private String solrSearchUrl;
+
+  @Value("${validation.schema.before_transformation}")
+  private String schemaBeforeTransformation;
+  @Value("${validation.schema.after_transformation}")
+  private String schemaAfterTransformation;
 
   private MongoProviderImpl mongoProvider;
   private HttpSolrServer solrServer;
@@ -197,6 +203,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .paths(PathSelectors.regex("/.*"))
         .build()
         .apiInfo(apiInfo());
+  }
+
+  @Bean
+  public ValidationUtils getValidationUtils() throws MongoDBException {
+    return new ValidationUtils(restClient(), validationClient(), recordDao(),
+        schemaBeforeTransformation, schemaAfterTransformation);
   }
 
   @PreDestroy

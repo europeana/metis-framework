@@ -1,9 +1,5 @@
 package eu.europeana.metis.preview.service.executor;
 
-import eu.europeana.corelib.definitions.jibx.RDF;
-import eu.europeana.metis.identifier.RestClient;
-import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.validation.client.ValidationClient;
 import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.JiBXException;
@@ -11,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import eu.europeana.corelib.definitions.jibx.RDF;
 
 /**
  * Created by erikkonijnenburg on 06/07/2017.
@@ -18,21 +15,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class ValidationTaskFactory {
   
-  public static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
   
-  private RestClient identifierClient;
-  private ValidationClient validationClient;
-  private RecordDao recordDao;
+  private static final IBindingFactory BINDING_FACTORY;
+
+  private final ValidationUtils validationUtils;
 
   @Autowired
-  public ValidationTaskFactory(RestClient identifierClient, ValidationClient validationClient,
-      RecordDao recordDao) {
-    this.identifierClient = identifierClient;
-    this.validationClient = validationClient;
-    this.recordDao = recordDao;
+  public ValidationTaskFactory(ValidationUtils validationUtils) {
+    this.validationUtils = validationUtils;
   }
-
-  private static final IBindingFactory BINDING_FACTORY;
 
   static {
     IBindingFactory bfactTemp;
@@ -47,7 +39,7 @@ public class ValidationTaskFactory {
 
   public ValidationTask createValidationTask(boolean applyCrosswalk, String record,
       String collectionId, String crosswalkPath, boolean requestRecordId) {
-    return new ValidationTask(applyCrosswalk, BINDING_FACTORY, record, identifierClient,
-        validationClient, recordDao, collectionId, crosswalkPath, requestRecordId);
+    return new ValidationTask(validationUtils, applyCrosswalk, BINDING_FACTORY, record,
+        collectionId, crosswalkPath, requestRecordId);
   }
 }

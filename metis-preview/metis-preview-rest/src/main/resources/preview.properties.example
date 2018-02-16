@@ -15,3 +15,6 @@ solr.search.url=
 
 preview.portal.url=
 preview.executor.threadCount=
+
+validation.schema.before_transformation=EDM-EXTERNAL
+validation.schema.after_transformation=EDM-INTERNAL
