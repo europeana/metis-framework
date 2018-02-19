@@ -2,7 +2,7 @@ package eu.europeana.metis.preview.rest;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.UUID;
+import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,14 +37,16 @@ public class PreviewController {
   
     private static final Logger LOGGER = LoggerFactory.getLogger(PreviewController.class);
 
-    private PreviewService service;
-    private ZipService zipService;
+    private final PreviewService service;
+    private final ZipService zipService;
+    private final Supplier<String> collectionIdGenerator;
 
     @Autowired
     public PreviewController(PreviewService service,
-        ZipService zipService) {
+                ZipService zipService, Supplier<String> collectionIdGenerator) {
         this.service = service;
         this.zipService = zipService;
+        this.collectionIdGenerator = collectionIdGenerator;
     }
 
     /**
@@ -79,7 +81,7 @@ public class PreviewController {
             throw new ZipFileException("Cannot read from stream");
         }
         final Long start = System.currentTimeMillis();
-        final String collectionId = UUID.randomUUID().toString();
+        final String collectionId = collectionIdGenerator.get();
         final ExtendedValidationResult result = service.createRecords(records, collectionId, applyCrosswalk,
             crosswalkPath, requestIndividualRecordsIds);
         LOGGER.info("Duration: {} ms", System.currentTimeMillis() - start);

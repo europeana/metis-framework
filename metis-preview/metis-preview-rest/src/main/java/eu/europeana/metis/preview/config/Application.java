@@ -62,7 +62,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Configuration file for Spring MVC
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest", "eu.europeana.metis.preview.service" })
+@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest", "eu.europeana.metis.preview.service", "eu.europeana.metis.preview" })
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
