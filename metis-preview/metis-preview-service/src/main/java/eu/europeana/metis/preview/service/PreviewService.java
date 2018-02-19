@@ -74,7 +74,7 @@ public class PreviewService {
         throws PreviewServiceException {
 
         // Create the tasks
-        final Function<String, ValidationTask> validationTaskCreator = record -> factory.createValidationTask(applyCrosswalk, record, collectionId, crosswalkPath, individualRecords);
+        final Function<String, ValidationTask> validationTaskCreator = record -> factory.createValidationTask(applyCrosswalk, record, collectionId, crosswalkPath);
         final List<ValidationTask> tasks = records.stream().map(validationTaskCreator).collect(Collectors.toList());
       
         // Schedule the tasks.
@@ -93,7 +93,7 @@ public class PreviewService {
         }
 
         // Done: compile the results.
-        return compileResult(taskResults, collectionId);
+        return compileResult(taskResults, collectionId, individualRecords);
     }
     
     private List<ValidationTaskResult> waitForTasksToComplete(List<Future<ValidationTaskResult>> taskResultFutures) throws PreviewServiceException {
@@ -116,7 +116,7 @@ public class PreviewService {
         return taskResults;
     }
 
-    private ExtendedValidationResult compileResult(final List<ValidationTaskResult> taskResults, String collectionId) {
+    private ExtendedValidationResult compileResult(final List<ValidationTaskResult> taskResults, String collectionId, boolean includeRecordIds) {
       
         // Obtain the failed results as list of validation results.
         final List<ValidationResult> failedResults =
@@ -124,10 +124,14 @@ public class PreviewService {
                 .map(ValidationTaskResult::getValidationResult).collect(Collectors.toList());
         
         // Obtain the succeeded results as list of record IDs.
-        // TODO JOCHEN if !individualRecords (see constructor), should succeededResults not be null?
-        final List<String> succeededResults = taskResults.stream()
-            .filter(ValidationTaskResult::isSuccess).map(ValidationTaskResult::getRecordId)
-            .filter(record -> !Strings.isNullOrEmpty(record)).collect(Collectors.toList());
+        final List<String> succeededResults;
+        if (includeRecordIds) {
+          succeededResults = taskResults.stream().filter(ValidationTaskResult::isSuccess)
+              .map(ValidationTaskResult::getRecordId).filter(record -> !Strings.isNullOrEmpty(record))
+              .collect(Collectors.toList());
+        } else {
+          succeededResults = null;
+        }
         
         // Compile the validation result object.
         final ExtendedValidationResult extendedValidationResult = new ExtendedValidationResult();

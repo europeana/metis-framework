@@ -38,8 +38,8 @@ public class ValidationTaskFactory {
   }
 
   public ValidationTask createValidationTask(boolean applyCrosswalk, String record,
-      String collectionId, String crosswalkPath, boolean requestRecordId) {
+      String collectionId, String crosswalkPath) {
     return new ValidationTask(validationUtils, applyCrosswalk, BINDING_FACTORY, record,
-        collectionId, crosswalkPath, requestRecordId);
+        collectionId, crosswalkPath);
   }
 }

@@ -37,7 +37,6 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     private final String incomingRecord;
     private final String collectionId;
     private final String crosswalkPath;
-    private final boolean requestRecordId;
 
     /**
      * Default constructor of the validation service
@@ -49,17 +48,15 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
      * @param collectionId     The collection identifier
      * @param crosswalkPath    The path where the crosswalk between EDM-External and EDM-Internal 
      *                         resides. Can be Null, in which case the default is used.
-     * @param requestRecordId  Whether the request IDs are to be returned.
      */
     public ValidationTask(ValidationUtils validationUtils, boolean applyCrosswalk, IBindingFactory bFact,
-                          String incomingRecord, String collectionId, String crosswalkPath, boolean requestRecordId) {
+                          String incomingRecord, String collectionId, String crosswalkPath) {
         this.validationUtils = validationUtils;
         this.applyCrosswalk = applyCrosswalk;
         this.bFact = bFact;
         this.incomingRecord = incomingRecord;
         this.collectionId = collectionId;
         this.crosswalkPath = crosswalkPath;
-        this.requestRecordId = requestRecordId;
     }
 
     /**
@@ -134,8 +131,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
       fBean.setAbout(recordId);
       fBean.setEuropeanaCollectionName(new String[] {collectionId});
       validationUtils.persistFullBean(fBean);
-      // TODO JOCHEN if !requestRecordId, should we return the ENTIRE record? Or nothing?
-      result = new ValidationTaskResult(requestRecordId ? recordId : resultRecord, validationResult, true);
+      result = new ValidationTaskResult(recordId, validationResult, true);
     } else {
       
       // If we couldn't obtain a record ID we return a failed result.
@@ -143,7 +139,7 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
       noIdValidationResult.setSuccess(false);
       noIdValidationResult.setRecordId(rdf.getProvidedCHOList().get(0).getAbout());
       noIdValidationResult.setMessage("Id generation failed. Record not persisted");
-      result = new ValidationTaskResult(resultRecord, noIdValidationResult, false);
+      result = new ValidationTaskResult(null, noIdValidationResult, false);
     }
     
     // Done
