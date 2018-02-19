@@ -18,7 +18,7 @@ public final class PredefinedSchemasGenerator {
      * Creates {@link PredefinedSchemas} instance based on provided properties
      *
      * @param properties properties to be used for {@link PredefinedSchemas} creation
-     * @return
+     * @return the instance.
      */
     public static PredefinedSchemas generate(Properties properties) {
         PredefinedSchemas result = new PredefinedSchemas();

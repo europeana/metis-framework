@@ -16,17 +16,6 @@
  */
 package eu.europeana.metis.preview.config;
 
-import com.mongodb.MongoClientOptions;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
-import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.identifier.RestClient;
-import eu.europeana.metis.preview.service.ZipService;
-import eu.europeana.validation.client.ValidationClient;
 import java.util.List;
 import javax.annotation.PreDestroy;
 import org.apache.solr.client.solrj.SolrServer;
@@ -48,6 +37,19 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.mongodb.MongoClientOptions;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
+import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.corelib.storage.impl.MongoProviderImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.identifier.RestClient;
+import eu.europeana.metis.preview.persistence.RecordDao;
+import eu.europeana.metis.preview.service.ZipService;
+import eu.europeana.metis.preview.service.executor.ValidationUtils;
+import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -59,15 +61,17 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * Configuration file for Spring MVC
  */
-@ComponentScan(basePackages = {"eu.europeana.metis.preview" })
+@Configuration
+@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest", "eu.europeana.metis.preview.service", "eu.europeana.metis.preview" })
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
-@Configuration
 @EnableScheduling
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
 
-  private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
+  
+  private static final int MAX_UPLOAD_SIZE = 50_000_000;
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")
@@ -94,6 +98,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${solr.search.url}")
   private String solrSearchUrl;
 
+  @Value("${validation.schema.before_transformation}")
+  private String schemaBeforeTransformation;
+  @Value("${validation.schema.after_transformation}")
+  private String schemaAfterTransformation;
+
+  @Value("${transformation.default}")
+  private String defaultTransformationFile;
+
   private MongoProviderImpl mongoProvider;
   private HttpSolrServer solrServer;
 
@@ -113,7 +125,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     }
     mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
     MongoClientOptions.Builder options = MongoClientOptions.builder();
-    options.socketKeepAlive(true);
     mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
         mongoPassword, options);
   }
@@ -168,15 +179,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return solrServer;
   }
 
-
-
-
+  @Bean
+  @DependsOn(value = "solrServer")
+  RecordDao recordDao() throws MongoDBException {
+    return new RecordDao(fullBeanHandler(), solrDocumentHandler(), solrServer(), edmMongoServer());
+  }
 
   @Bean
   public CommonsMultipartResolver multipartResolver() {
     CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
     commonsMultipartResolver.setDefaultEncoding("utf-8");
-    commonsMultipartResolver.setMaxUploadSize(50000000);
+    commonsMultipartResolver.setMaxUploadSize(MAX_UPLOAD_SIZE);
     return commonsMultipartResolver;
   }
 
@@ -193,6 +206,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
         .paths(PathSelectors.regex("/.*"))
         .build()
         .apiInfo(apiInfo());
+  }
+
+  @Bean
+  public ValidationUtils getValidationUtils() throws MongoDBException {
+    return new ValidationUtils(restClient(), validationClient(), recordDao(),
+        schemaBeforeTransformation, schemaAfterTransformation, defaultTransformationFile);
   }
 
   @PreDestroy

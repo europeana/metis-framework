@@ -82,14 +82,14 @@ public class ValidationController {
      * @param targetSchema The schema to validate against
      * @param record       The record to validate
      * @return A serialized ValidationResult. The result is always an OK response unless an Exception is thrown (500)
+     * @throws ValidationException 
      */
     @RequestMapping(value = RestEndpoints.SCHEMA_VALIDATE, method = RequestMethod.POST, consumes = APPLICATION_XML_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseBody
     @ApiOperation(value = "Validate single record based on schema", response = ValidationResult.class)
     public ValidationResult validate(@ApiParam(value = "schema") @PathVariable("schema") String targetSchema,
                                      @RequestBody String record
-    )
-            throws ValidationException {
+    ) throws ValidationException {
         if(!schemaProvider.isPredefined(targetSchema)){
             throw new ValidationException("", "It is not predefined schema.");
         }

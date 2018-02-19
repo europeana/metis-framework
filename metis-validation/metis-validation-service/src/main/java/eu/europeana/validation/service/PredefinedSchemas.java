@@ -37,7 +37,7 @@ public class PredefinedSchemas {
      * Checks if schema exists for given key
      *
      * @param key key that should be used for check
-     * @return
+     * @return whether the schema exists.
      */
     public boolean contains(String key) {
         return schemas.get(key) != null;
@@ -47,10 +47,10 @@ public class PredefinedSchemas {
      * Describes one schema used in application
      */
     public static class PredefinedSchema {
-        private String key;
-        private String location;
-        private String rootFileLocation;
-        private String schematronFileLocation;
+        private final String key;
+        private final String location;
+        private final String rootFileLocation;
+        private final String schematronFileLocation;
 
         /**
          * Creates new schema

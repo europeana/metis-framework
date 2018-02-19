@@ -1,10 +1,10 @@
 package eu.europeana.metis.preview.common.model;
 
-import eu.europeana.validation.model.ValidationResultList;
 import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import eu.europeana.validation.model.ValidationResultList;
 
 /**
  * Extended class with preview URL for preview service
@@ -12,6 +12,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 public class ExtendedValidationResult extends ValidationResultList {
+  
+    /** This class implements {@link java.io.Serializable} **/
+    private static final long serialVersionUID = -4038005673397775934L;
+  
     private String portalUrl;
     private Date date;
     private List<String> records;

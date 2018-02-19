@@ -1,5 +1,16 @@
 package eu.europeana.metis.preview.persistence;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.common.SolrInputDocument;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.WriteConcern;
@@ -14,18 +25,6 @@ import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
 import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
 import eu.europeana.corelib.mongo.server.EdmMongoServer;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.corelib.solr.entity.ProxyImpl;
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-import org.apache.solr.client.solrj.SolrQuery;
-import org.apache.solr.client.solrj.SolrServer;
-import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.common.SolrInputDocument;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 /**
  * Record persistence DAO
@@ -56,6 +55,9 @@ public class RecordDao {
      * @throws NoSuchMethodException
      * @throws IllegalAccessException
      * @throws InvocationTargetException
+     * @throws IOException 
+     * @throws MongoDBException 
+     * @throws MongoRuntimeException 
      */
     public void createRecord(FullBean fBean) throws SolrServerException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, IOException, MongoDBException, MongoRuntimeException {
         SolrInputDocument doc =solrDocumentHandler.generate((FullBeanImpl) fBean);
@@ -85,8 +87,7 @@ public class RecordDao {
         euAggr.setAbout("/aggregation/europeana"+fBean.getAbout());
         fBean.setEuropeanaAggregation(euAggr);
         List<Proxy> proxies = new ArrayList<>();
-        List<ProxyImpl> beanProxies = (List<ProxyImpl>)fBean.getProxies();
-        for(Proxy proxy:beanProxies) {
+        for (Proxy proxy : fBean.getProxies()) {
             if (proxy.isEuropeanaProxy()) {
                 proxy.setAbout("/proxy/europeana" + fBean.getAbout());
             } else {
@@ -119,10 +120,14 @@ public class RecordDao {
     /**
      * Create records
      * @param fBeans The records to create
+     * @param collectionName 
      * @throws InvocationTargetException
      * @throws NoSuchMethodException
      * @throws IllegalAccessException
      * @throws SolrServerException
+     * @throws IOException 
+     * @throws MongoDBException 
+     * @throws MongoRuntimeException 
      */
     public void createRecords(List<FullBean> fBeans, String collectionName) throws InvocationTargetException, NoSuchMethodException, IllegalAccessException, SolrServerException, IOException, MongoDBException, MongoRuntimeException {
         for(FullBean fBean:fBeans){

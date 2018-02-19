@@ -65,8 +65,8 @@ public class IdentifierController {
      *
      * @param record The record to normalize the identifiers
      * @return The normalized record
+     * @throws IdentifierException 
      */
-
     @RequestMapping(method = RequestMethod.POST,value = RestEndpoints.IDENTIFIER_NORMALIZE_SINGLE)
     @ResponseBody
     @ApiOperation(value = "Fix the identifiers of a record for internal semantic linking", response = String.class)
@@ -83,6 +83,7 @@ public class IdentifierController {
      *
      * @param records The records to normalize the identifiers
      * @return
+     * @throws IdentifierException 
      */
 
     @RequestMapping(value = RestEndpoints.IDENTIFIER_NORMALIZE_BATCH, method = RequestMethod.POST, consumes = "application/json")

@@ -49,9 +49,9 @@ public class IdentifierService {
      * Modify a single record identifiers to correctly link them
      * @param record The record to modify
      * @return The correctly linked record
+     * @throws JiBXException 
      */
     public String fixIdentifiers(String record) throws JiBXException{
-
         return normalizer.normalize(record);
     }
 
@@ -59,6 +59,7 @@ public class IdentifierService {
      * Modify a record to append the correct Europeana Identifier
      * @param records The list of records to modify the identifiers
      * @return The correctly linked records
+     * @throws JiBXException 
      */
     public List<String> fixIdentifiers(List<String> records)throws JiBXException{
         List<String> fixed = new ArrayList<>();
