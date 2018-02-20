@@ -79,9 +79,8 @@ public class MongoDereferenceServiceTest {
     @Test
     public void testDereference() throws IOException {
         Vocabulary geonames = new Vocabulary();
-        geonames.setURI("http://sws.geonames.org/");
+        geonames.setUri("http://sws.geonames.org/");
         geonames.setXslt(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
-        geonames.setRules("*");
         geonames.setName("Geonames");
         geonames.setIterations(0);
         vocabularyDao.save(geonames);
