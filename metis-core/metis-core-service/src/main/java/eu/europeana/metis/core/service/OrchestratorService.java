@@ -7,6 +7,7 @@ import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -255,7 +256,7 @@ public class OrchestratorService {
         abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
       } else {
         //Anything else is not supported yet and should fail.
-        throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
+        throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
       abstractMetisPlugin
           .setId(new ObjectId().toString() + "-" + abstractMetisPlugin.getPluginType().name());
@@ -343,13 +344,13 @@ public class OrchestratorService {
             workflowExecutionDao);
     if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
         && !ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-      throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     } else if (latestFinishedPluginIfRequestedPluginAllowedForExecution != null &&
         latestFinishedPluginIfRequestedPluginAllowedForExecution.getExecutionProgress() != null &&
         latestFinishedPluginIfRequestedPluginAllowedForExecution.getExecutionProgress()
             .getProcessedRecords() == latestFinishedPluginIfRequestedPluginAllowedForExecution
             .getExecutionProgress().getErrors()) { //Do not permit if all records had errors
-      throw new PluginExecutionNotAllowed("Plugin Execution Not Allowed");
+      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     return latestFinishedPluginIfRequestedPluginAllowedForExecution;
   }
@@ -360,14 +361,9 @@ public class OrchestratorService {
       Set<WorkflowStatus> workflowStatuses, OrderField orderField, boolean ascending,
       int nextPage) {
     return workflowExecutionDao
-        .getAllWorkflowExecutionsByDatasetId(datasetId, workflowOwner, workflowName,
+        .getAllWorkflowExecutions(datasetId, workflowOwner, workflowName,
             workflowStatuses,
             orderField, ascending, nextPage);
-  }
-
-  public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,
-      int nextPage) {
-    return workflowExecutionDao.getAllWorkflowExecutions(workflowStatus, nextPage);
   }
 
   public ScheduledWorkflow getScheduledWorkflowByDatasetId(int datasetId) {
