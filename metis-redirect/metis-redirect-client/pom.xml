@@ -57,5 +57,14 @@
     <properties>
         <version.jersey>2.22.1</version.jersey>
     </properties>
+	
+	<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
 
 </project>

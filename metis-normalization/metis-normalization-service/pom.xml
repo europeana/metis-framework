@@ -10,6 +10,15 @@
   </parent>
   <artifactId>metis-normalization-service</artifactId>
 
+  <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+  
   <dependencies>
     <!-- <dependency>
        <groupId>eu.europeana.metis</groupId>
