@@ -187,10 +187,11 @@ public class OrchestratorController {
       @RequestParam(value = "enforcedPluginType", required = false, defaultValue = "") PluginType enforcedPluginType)
       throws GenericMetisException {
     AbstractMetisPlugin latestFinishedPluginWorkflowExecutionByDatasetId = orchestratorService
-        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType, enforcedPluginType);
+        .getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(datasetId, pluginType,
+            enforcedPluginType);
     if (latestFinishedPluginWorkflowExecutionByDatasetId != null) {
       LOGGER.info("Latest Plugin WorkflowExecution with id '{}' found",
-              latestFinishedPluginWorkflowExecutionByDatasetId.getId());
+          latestFinishedPluginWorkflowExecutionByDatasetId.getId());
     } else if (ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
       LOGGER.info("PluginType allowed by default");
     }
@@ -228,7 +229,11 @@ public class OrchestratorController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public ResponseListWrapper<WorkflowExecution> getAllWorkflowExecutions(
-      @RequestParam(value = "workflowStatus", required = false) WorkflowStatus workflowStatus,
+      @RequestParam(value = "workflowOwner", required = false) String workflowOwner,
+      @RequestParam(value = "workflowName", required = false) String workflowName,
+      @RequestParam(value = "workflowStatus", required = false) Set<WorkflowStatus> workflowStatuses,
+      @RequestParam(value = "orderField", required = false, defaultValue = "ID") OrderField orderField,
+      @RequestParam(value = "ascending", required = false, defaultValue = "true") boolean ascending,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
       throws GenericMetisException {
     if (nextPage < 0) {
@@ -236,7 +241,8 @@ public class OrchestratorController {
     }
     ResponseListWrapper<WorkflowExecution> responseListWrapper = new ResponseListWrapper<>();
     responseListWrapper.setResultsAndLastPage(orchestratorService
-            .getAllWorkflowExecutions(workflowStatus, nextPage),
+            .getAllWorkflowExecutions(-1, workflowOwner, workflowName, workflowStatuses,
+                orderField, ascending, nextPage),
         orchestratorService.getWorkflowExecutionsPerRequest(), nextPage);
     LOGGER.info("Batch of: {} workflowExecutions returned, using batch nextPage: {}",
         responseListWrapper.getListSize(), nextPage);
