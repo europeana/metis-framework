@@ -86,10 +86,9 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
       parameters.put("REVISION_TIMESTAMP",
           dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
-      parameters.put("SCHEMA_NAME", "edm-external");
-//      parameters.put("SCHEMA_NAME", urlOfSchemasZip);
-//      parameters.put("ROOT_LOCATION", schemaRootPath);
-//      parameters.put("SCHEMATRON_ROOT_LOCATION", schematronRootPath);
+      parameters.put("SCHEMA_NAME", urlOfSchemasZip);
+      parameters.put("ROOT_LOCATION", schemaRootPath);
+      parameters.put("SCHEMATRON_LOCATION", schematronRootPath);
       parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
 
       dpsTask.setParameters(parameters);
