@@ -144,16 +144,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private Date runMetisPlugin(AbstractMetisPlugin previousAbstractMetisPlugin,
       AbstractMetisPlugin abstractMetisPlugin) {
 
-    //Determine the startedDate for the plugin
-    if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
-      if (firstPluginExecution) {
-        firstPluginExecution = false;
-        abstractMetisPlugin.setStartedDate(startDate);
-      } else {
-        abstractMetisPlugin.setStartedDate(new Date());
-      }
-    }
-    abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
     if (previousAbstractMetisPlugin != null) { //Get previous plugin revision information
       abstractMetisPlugin.getPluginMetadata().setRevisionNamePreviousPlugin(
           previousAbstractMetisPlugin.getPluginType().name());
@@ -161,14 +151,24 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
           previousAbstractMetisPlugin.getStartedDate());
     }
 
-    workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
     //Start execution and periodical check
-
     if (StringUtils.isEmpty(abstractMetisPlugin.getExternalTaskId())) {
       try {
         abstractMetisPlugin
             .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
                 workflowExecution.getEcloudDatasetId());
+
+        //Determine the startedDate for the plugin
+        if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
+          if (firstPluginExecution) {
+            firstPluginExecution = false;
+            abstractMetisPlugin.setStartedDate(startDate);
+          } else {
+            abstractMetisPlugin.setStartedDate(new Date());
+          }
+        }
+        abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
+        workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
       } catch (ExternalTaskException e) {
         LOGGER.warn("Execution of external task failed", e);
         abstractMetisPlugin.setFinishedDate(null);

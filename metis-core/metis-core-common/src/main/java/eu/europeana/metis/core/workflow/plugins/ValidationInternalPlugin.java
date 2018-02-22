@@ -27,6 +27,11 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
   }
 
   @Override
+  public String getTopologyName() {
+    return null;
+  }
+
+  @Override
   public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
       String ecloudDataset) {
     //This is an empty example

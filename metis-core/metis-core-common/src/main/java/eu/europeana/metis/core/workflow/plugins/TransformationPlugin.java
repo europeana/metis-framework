@@ -50,6 +50,7 @@ public class TransformationPlugin extends AbstractMetisPlugin {
    *
    * @return the String representation of the topology
    */
+  @Override
   public String getTopologyName() {
     return topologyName;
   }
