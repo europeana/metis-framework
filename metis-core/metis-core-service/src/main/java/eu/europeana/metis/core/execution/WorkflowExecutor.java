@@ -154,10 +154,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
     //Start execution and periodical check
     if (StringUtils.isEmpty(abstractMetisPlugin.getExternalTaskId())) {
       try {
-        abstractMetisPlugin
-            .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
-                workflowExecution.getEcloudDatasetId());
-
         //Determine the startedDate for the plugin
         if (abstractMetisPlugin.getPluginStatus() == PluginStatus.INQUEUE) {
           if (firstPluginExecution) {
@@ -167,6 +163,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
             abstractMetisPlugin.setStartedDate(new Date());
           }
         }
+        abstractMetisPlugin
+            .execute(dpsClient, ecloudBaseUrl, ecloudProvider,
+                workflowExecution.getEcloudDatasetId());
         abstractMetisPlugin.setPluginStatus(PluginStatus.RUNNING);
         workflowExecutionDao.updateWorkflowPlugins(workflowExecution);
       } catch (ExternalTaskException e) {

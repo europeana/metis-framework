@@ -21,13 +21,6 @@ public class OaipmhHarvestPluginMetadata extends AbstractMetisPluginMetadata {
     //Required for json serialization
   }
 
-  public OaipmhHarvestPluginMetadata(boolean mocked, String url, String metadataFormat, String setSpec) {
-    setMocked(mocked);
-    this.url = url;
-    this.metadataFormat = metadataFormat;
-    this.setSpec = setSpec;
-  }
-
   public String getUrl() {
     return url;
   }

@@ -91,6 +91,8 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
       parameters.put("ROOT_LOCATION", schemaRootPath);
       parameters.put("SCHEMATRON_LOCATION", schematronRootPath);
       parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+      parameters.put("OUTPUT_DATA_SETS", String.format("%s/data-providers/%s/data-sets/%s",
+          ecloudBaseUrl, ecloudProvider, ecloudDataset));
 
       dpsTask.setParameters(parameters);
 

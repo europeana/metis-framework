@@ -36,6 +36,7 @@ import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
+import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
@@ -230,6 +231,8 @@ public class OrchestratorService {
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.TRANSFORMATION);
     firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
+        firstPluginDefined, PluginType.VALIDATION_INTERNAL);
+    firstPluginDefined = addProcessPlugin(dataset, workflow, enforcedPluginType, metisPlugins,
         firstPluginDefined, PluginType.ENRICHMENT);
     return firstPluginDefined;
   }
@@ -254,6 +257,8 @@ public class OrchestratorService {
 
       } else if (pluginType == PluginType.TRANSFORMATION) {
         abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
+      } else if (pluginType == PluginType.VALIDATION_INTERNAL) {
+        abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
       } else {
         //Anything else is not supported yet and should fail.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
