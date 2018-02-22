@@ -292,7 +292,6 @@
     <developerConnection>scm:git:https://github.com/europeana/metis-framework</developerConnection>
   </scm>
 
-
   <properties>
     <jacocoArgLine /> <!-- Leave as is, it's required from jacoco plugin integration -->
     <version.ecloud>0.8-SNAPSHOT</version.ecloud>
