@@ -26,19 +26,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>metis-validation-common</artifactId>
-    <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                    <testSource>1.7</testSource>
-                    <testTarget>1.7</testTarget>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
     <dependencies>
         <dependency>
             <groupId>io.swagger</groupId>
