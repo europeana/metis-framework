@@ -118,7 +118,7 @@ public class DereferencingManagementControllerTest {
 
 	    dereferencingManagementControllerMock.perform(get("/vocabulary/dummy"))
 	    		.andExpect(status().is(200))
-	        	.andExpect(content().string("{\"id\":\"Dummy\",\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy\",\"type\":null,\"uri\":null}"));
+	        	.andExpect(content().string("{\"id\":\"Dummy\",\"uri\":null,\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy\",\"type\":null}"));
 	  }	  
 	  
 	  @Test
@@ -139,7 +139,7 @@ public class DereferencingManagementControllerTest {
 
 	    dereferencingManagementControllerMock.perform(get("/vocabularies"))	
 	        	.andExpect(status().is(200))	        	
-	        	.andExpect(content().string("[{\"id\":\"Dummy1\",\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy1\",\"type\":null,\"uri\":null},{\"id\":\"Dummy2\",\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy2\",\"type\":null,\"uri\":null}]"));
+	        	.andExpect(content().string("[{\"id\":\"Dummy1\",\"uri\":null,\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy1\",\"type\":null},{\"id\":\"Dummy2\",\"uri\":null,\"suffix\":null,\"typeRules\":null,\"rules\":null,\"xslt\":null,\"iterations\":0,\"name\":\"Dummy2\",\"type\":null}]"));
 	  }
 	  
 	  String testDeleteEntityResult = "";	  

@@ -96,6 +96,7 @@ public class VocabularyDao {
         }
         ops.set("uri", entity.getUri());
         ops.set("xslt", entity.getXslt());
+        ops.set("suffix", entity.getSuffix());
         ds.update(query, ops);
     }
 
@@ -128,13 +129,13 @@ public class VocabularyDao {
 
     // Check the rules
     final Set<String> vocabularyRules = vocabulary.getRules();
-    if (!vocabularyRules.isEmpty() && !vocabularyRules.contains(uri)) {
+    if (vocabularyRules != null && !vocabularyRules.isEmpty() && !vocabularyRules.contains(uri)) {
       return false;
     }
 
     // Check the type rules (more expensive operation: only do when needed).
     final Set<String> typeRules = vocabulary.getTypeRules();
-    return typeRules.isEmpty() || typeRules.stream().anyMatch(typeRule -> StringUtils.contains(incomingDataXml, typeRule));
+    return typeRules == null || typeRules.isEmpty() || typeRules.stream().anyMatch(typeRule -> StringUtils.contains(incomingDataXml, typeRule));
   }
 
     /**

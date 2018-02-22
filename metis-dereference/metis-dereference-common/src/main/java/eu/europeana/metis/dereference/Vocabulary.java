@@ -99,7 +99,7 @@ public class Vocabulary implements Serializable {
   
     @XmlElement
     public Set<String> getTypeRules() {
-        return this.typeRules == null ? Collections.emptySet() : Collections.unmodifiableSet(this.typeRules);
+        return this.typeRules == null ? null : Collections.unmodifiableSet(this.typeRules);
     }
   
     public void setTypeRules(Set<String> typeRules) {
@@ -130,7 +130,7 @@ public class Vocabulary implements Serializable {
     
     @XmlElement
     public Set<String> getRules() {
-      return this.rules == null ? Collections.emptySet() : Collections.unmodifiableSet(this.rules);
+      return this.rules == null ? null : Collections.unmodifiableSet(this.rules);
     }
 
     public void setRules(Set<String> rules) {

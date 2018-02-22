@@ -68,6 +68,7 @@ public class MongoDereferencingManagementServiceTest {
         voc.setTypeRules(Collections.singleton("testTypeRules"));
         voc.setUri("testURI");
         voc.setXslt("testXSLT");
+        voc.setSuffix("testSuffix");
         service.saveVocabulary(voc);
         Vocabulary retVoc = service.findByName(voc.getName());
         Assert.assertEquals(voc.getName(),retVoc.getName());
@@ -76,6 +77,8 @@ public class MongoDereferencingManagementServiceTest {
         Assert.assertEquals(voc.getType(),retVoc.getType());
         Assert.assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
         Assert.assertEquals(voc.getUri(),retVoc.getUri());
+        Assert.assertEquals(voc.getXslt(),retVoc.getXslt());
+        Assert.assertEquals(voc.getSuffix(),retVoc.getSuffix());
     }
 
     @Test
@@ -89,6 +92,7 @@ public class MongoDereferencingManagementServiceTest {
         voc.setTypeRules(Collections.singleton("testTypeRules"));
         voc.setUri("testURI");
         voc.setXslt("testXSLT");
+        voc.setSuffix("testSuffix");
         service.saveVocabulary(voc);
         voc.setUri("testUri2");
         service.updateVocabulary(voc);
@@ -99,6 +103,8 @@ public class MongoDereferencingManagementServiceTest {
         Assert.assertEquals(voc.getType(),retVoc.getType());
         Assert.assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
         Assert.assertEquals(voc.getUri(),retVoc.getUri());
+        Assert.assertEquals(voc.getXslt(),retVoc.getXslt());
+        Assert.assertEquals(voc.getSuffix(),retVoc.getSuffix());
     }
 
     @Test
