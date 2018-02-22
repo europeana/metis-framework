@@ -601,23 +601,15 @@ public class TestOrchestratorService {
   }
 
   @Test
-  public void getAllWorkflowExecutions() {
+  public void getAllWorkflowExecutionsByDatasetId() {
     HashSet<WorkflowStatus> workflowStatuses = new HashSet<>();
     workflowStatuses.add(WorkflowStatus.INQUEUE);
     orchestratorService.getAllWorkflowExecutions(TestObjectFactory.DATASETID,
         TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME,
         workflowStatuses, OrderField.ID, false, 0);
     verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutionsByDatasetId(anyInt(), anyString(), anyString(), anySet(),
+        .getAllWorkflowExecutions(anyInt(), anyString(), anyString(), anySet(),
             any(OrderField.class), anyBoolean(), anyInt());
-    verifyNoMoreInteractions(workflowExecutionDao);
-  }
-
-  @Test
-  public void getAllWorkflowExecutionsByWorkflowStatus() {
-    orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, 0);
-    verify(workflowExecutionDao, times(1))
-        .getAllWorkflowExecutions(any(WorkflowStatus.class), anyInt());
     verifyNoMoreInteractions(workflowExecutionDao);
   }
 

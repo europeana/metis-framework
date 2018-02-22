@@ -452,16 +452,18 @@ public class TestOrchestratorController {
   }
 
   @Test
-  public void getAllWorkflowExecutionsByWorkflowStatus() throws Exception {
+  public void getAllWorkflowExecutions() throws Exception {
     int listSize = 2;
     List<WorkflowExecution> listOfWorkflowExecutions = TestObjectFactory
         .createListOfWorkflowExecutions(listSize + 1); //To get the effect of next page
 
     when(orchestratorService.getWorkflowExecutionsPerRequest()).thenReturn(listSize);
-    when(orchestratorService.getAllWorkflowExecutions(any(WorkflowStatus.class), anyInt()))
+    when(orchestratorService.getAllWorkflowExecutions(anyInt(), anyString(), anyString(), ArgumentMatchers.<WorkflowStatus>anySet(), any(OrderField.class), anyBoolean(), anyInt()))
         .thenReturn(listOfWorkflowExecutions);
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
+            .param("workflowOwner", "owner")
+            .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
@@ -469,16 +471,18 @@ public class TestOrchestratorController {
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
         .andExpect(jsonPath("$.results[0].datasetId", is(TestObjectFactory.DATASETID)))
+        .andExpect(jsonPath("$.results[0].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[0].workflowName", is("workflowName0")))
         .andExpect(jsonPath("$.results[0].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.results[1].datasetId", is(TestObjectFactory.DATASETID + 1)))
+        .andExpect(jsonPath("$.results[1].workflowOwner", is("workflowOwner")))
         .andExpect(jsonPath("$.results[1].workflowName", is("workflowName1")))
         .andExpect(jsonPath("$.results[1].workflowStatus", is(WorkflowStatus.INQUEUE.name())))
         .andExpect(jsonPath("$.nextPage").isNotEmpty());
   }
 
   @Test
-  public void getAllWorkflowExecutionsByWorkflowStatusNegativeNextPage() throws Exception {
+  public void getAllWorkflowExecutionsNegativeNextPage() throws Exception {
 
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)

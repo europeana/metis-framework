@@ -10,6 +10,13 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
+
+import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.OrderField;
+import eu.europeana.metis.core.workflow.WorkflowExecution;
+import eu.europeana.metis.core.workflow.WorkflowStatus;
+import java.util.EnumSet;
 import java.util.List;
 import org.junit.After;
 import org.junit.BeforeClass;
@@ -19,10 +26,6 @@ import org.mockito.Mockito;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.redisson.client.RedisConnectionException;
-import eu.europeana.metis.core.service.OrchestratorService;
-import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.workflow.WorkflowExecution;
-import eu.europeana.metis.core.workflow.WorkflowStatus;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -62,9 +65,9 @@ public class TestFailsafeExecutor {
     List<WorkflowExecution> listOfWorkflowExecutionsWithInqueueStatuses = TestObjectFactory
         .createListOfWorkflowExecutions(listSize); //To not trigger paging
 
-    when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.RUNNING, 0))
+    when(orchestratorService.getAllWorkflowExecutions(-1, null, null, EnumSet.of(WorkflowStatus.RUNNING), OrderField.ID, true, 0))
         .thenReturn(listOfWorkflowExecutionsWithRunningStatuses);
-    when(orchestratorService.getAllWorkflowExecutions(WorkflowStatus.INQUEUE, 0))
+    when(orchestratorService.getAllWorkflowExecutions(-1, null, null, EnumSet.of(WorkflowStatus.INQUEUE), OrderField.ID, true, 0))
         .thenReturn(listOfWorkflowExecutionsWithInqueueStatuses);
     when(orchestratorService.getWorkflowExecutionsPerRequest())
         .thenReturn(userWorkflowExecutionsPerRequest).thenReturn(userWorkflowExecutionsPerRequest);

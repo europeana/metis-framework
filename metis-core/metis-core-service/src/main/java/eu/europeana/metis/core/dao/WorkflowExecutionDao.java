@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -39,7 +40,11 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutionDao.class);
   private static final String WORKFLOW_STATUS = "workflowStatus";
+  private static final String WORKFLOW_OWNER = "workflowOwner";
+  private static final String WORKFLOW_NAME = "workflowName";
   private static final String DATASET_ID = "datasetId";
+  private static final String METIS_PLUGINS = "metisPlugins";
+  private static final int MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS = 2;
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
   private int workflowExecutionsPerRequest = RequestLimits.WORKFLOW_EXECUTIONS_PER_REQUEST
       .getLimit();
@@ -79,7 +84,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         .find(WorkflowExecution.class)
         .filter("_id", workflowExecution.getId());
     workflowExecutionUpdateOperations
-        .set("metisPlugins", workflowExecution.getMetisPlugins());
+        .set(METIS_PLUGINS, workflowExecution.getMetisPlugins());
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
@@ -106,7 +111,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
           .set("updatedDate", workflowExecution.getUpdatedDate());
     }
     workflowExecutionUpdateOperations
-        .set("metisPlugins", workflowExecution.getMetisPlugins());
+        .set(METIS_PLUGINS, workflowExecution.getMetisPlugins());
     UpdateResults updateResults = morphiaDatastoreProvider.getDatastore()
         .update(query, workflowExecutionUpdateOperations);
     LOGGER.debug(
@@ -157,8 +162,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public boolean exists(WorkflowExecution workflowExecution) {
     return morphiaDatastoreProvider.getDatastore().find(WorkflowExecution.class)
         .field(DATASET_ID).equal(
-            workflowExecution.getDatasetId()).field("workflowOwner").equal(
-            workflowExecution.getWorkflowOwner()).field("workflowName")
+            workflowExecution.getDatasetId()).field(WORKFLOW_OWNER).equal(
+            workflowExecution.getWorkflowOwner()).field(WORKFLOW_NAME)
         .equal(workflowExecution.getWorkflowName())
         .project("_id", true).get() != null;
   }
@@ -205,7 +210,7 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     }
 
     Iterator<WorkflowExecution> metisPluginsIterator = aggregation.match(query)
-        .unwind("metisPlugins")
+        .unwind(METIS_PLUGINS)
         .match(query).sort(Sort.descending("metisPlugins.finishedDate"))
         .aggregate(WorkflowExecution.class);
 
@@ -215,17 +220,19 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
     return null;
   }
 
-  public List<WorkflowExecution> getAllWorkflowExecutionsByDatasetId(int datasetId,
+  public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
       String workflowOwner, String workflowName, Set<WorkflowStatus> workflowStatuses,
       OrderField orderField, boolean ascending, int nextPage) {
     Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(WorkflowExecution.class);
-    query.field(DATASET_ID).equal(datasetId);
+    if (datasetId > 0) {
+      query.field(DATASET_ID).equal(datasetId);
+    }
     if (StringUtils.isNotEmpty(workflowOwner)) {
-      query.field("workflowOwner").equal(workflowOwner);
+      query.field(WORKFLOW_OWNER).equal(workflowOwner);
     }
     if (StringUtils.isNotEmpty(workflowName)) {
-      query.field("workflowName").equal(workflowName);
+      query.field(WORKFLOW_NAME).equal(workflowName);
     }
 
     List<CriteriaContainerImpl> criteriaContainer = new ArrayList<>();
@@ -247,18 +254,6 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
         query.order("-" + orderField.getOrderFieldName());
       }
     }
-    return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
-        .limit(workflowExecutionsPerRequest));
-  }
-
-  public List<WorkflowExecution> getAllWorkflowExecutions(WorkflowStatus workflowStatus,
-      int nextPage) {
-    Query<WorkflowExecution> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(WorkflowExecution.class);
-    if (workflowStatus != null) {
-      query.field(WORKFLOW_STATUS).equal(workflowStatus);
-    }
-    query.order(OrderField.ID.getOrderFieldName());
     return query.asList(new FindOptions().skip(nextPage * workflowExecutionsPerRequest)
         .limit(workflowExecutionsPerRequest));
   }
@@ -287,7 +282,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
       int monitorCheckInSecs) {
     try {
       Date updatedDateBefore = workflowExecutionToCheck.getUpdatedDate();
-      Thread.sleep(2 * monitorCheckInSecs * 1000L);
+      Thread.sleep(
+          TimeUnit.SECONDS.toMillis(MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS) * monitorCheckInSecs);
       WorkflowExecution workflowExecution = this
           .getById(workflowExecutionToCheck.getId().toString());
       return hasUpdatedDateChanged(updatedDateBefore, workflowExecution.getUpdatedDate())
@@ -307,7 +303,8 @@ public class WorkflowExecutionDao implements MetisDao<WorkflowExecution, String>
   public void removeActiveExecutionsFromList(List<WorkflowExecution> workflowExecutions,
       int monitorCheckInSecs) {
     try {
-      Thread.sleep(2 * monitorCheckInSecs * 1000L);
+      Thread.sleep(
+          TimeUnit.SECONDS.toMillis(MULTIPLIER_FOR_MONITOR_CHECK_IN_SECS) * monitorCheckInSecs);
       for (Iterator<WorkflowExecution> iterator = workflowExecutions.iterator();
           iterator.hasNext(); ) {
         WorkflowExecution workflowExecutionToCheck = iterator.next();
