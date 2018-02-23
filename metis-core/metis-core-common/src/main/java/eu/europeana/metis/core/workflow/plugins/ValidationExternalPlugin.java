@@ -51,6 +51,7 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
    *
    * @return the String representation of the topology
    */
+  @Override
   public String getTopologyName() {
     return topologyName;
   }
@@ -86,11 +87,12 @@ public class ValidationExternalPlugin extends AbstractMetisPlugin {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
       parameters.put("REVISION_TIMESTAMP",
           dateFormat.format(getPluginMetadata().getRevisionTimestampPreviousPlugin()));
-      parameters.put("SCHEMA_NAME", "edm-external");
-//      parameters.put("SCHEMA_NAME", urlOfSchemasZip);
-//      parameters.put("ROOT_LOCATION", schemaRootPath);
-//      parameters.put("SCHEMATRON_ROOT_LOCATION", schematronRootPath);
+      parameters.put("SCHEMA_NAME", urlOfSchemasZip);
+      parameters.put("ROOT_LOCATION", schemaRootPath);
+      parameters.put("SCHEMATRON_LOCATION", schematronRootPath);
       parameters.put("NEW_REPRESENTATION_NAME", getRepresentationName());
+      parameters.put("OUTPUT_DATA_SETS", String.format("%s/data-providers/%s/data-sets/%s",
+          ecloudBaseUrl, ecloudProvider, ecloudDataset));
 
       dpsTask.setParameters(parameters);
 

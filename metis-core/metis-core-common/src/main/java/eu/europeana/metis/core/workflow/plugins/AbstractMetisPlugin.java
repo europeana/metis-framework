@@ -50,6 +50,10 @@ public abstract class AbstractMetisPlugin {
   private ExecutionProgress executionProgress = new ExecutionProgress();
   private AbstractMetisPluginMetadata pluginMetadata;
 
+  /**
+   * Constructor with provided pluginType
+   * @param pluginType {@link PluginType}
+   */
   public AbstractMetisPlugin(PluginType pluginType) {
     //Required for json serialization
     this.pluginType = pluginType;
@@ -187,6 +191,12 @@ public abstract class AbstractMetisPlugin {
       ExecutionProgress executionProgress) {
     this.executionProgress = executionProgress;
   }
+
+  /**
+   * It is required as an abstract method to have proper serialization on the api level.
+   * @return the topologyName string coming from {@link Topology}
+   */
+  public abstract String getTopologyName();
 
   /**
    * Starts the execution of the plugin at the external location.

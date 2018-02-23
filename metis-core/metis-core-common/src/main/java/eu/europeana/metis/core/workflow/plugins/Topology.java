@@ -9,9 +9,6 @@ public enum Topology {
 
   private String topologyName;
 
-  Topology() {
-  }
-
   Topology(String topologyName) {
     this.topologyName = topologyName;
   }
