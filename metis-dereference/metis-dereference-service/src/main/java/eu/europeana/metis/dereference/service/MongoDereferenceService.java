@@ -83,7 +83,7 @@ public class MongoDereferenceService implements DereferenceService {
         + splitName[2] + "/";
     List<Vocabulary> vocs = vocabularyDao.getByUri(vocabularyUri);
 
-    if (vocs == null || vocs.size() <= 0) {
+    if (vocs == null || vocs.isEmpty()) {
       LOGGER.info("No vocabularies found for uri {}", uri);
       return toReturn;
     }
@@ -134,8 +134,11 @@ public class MongoDereferenceService implements DereferenceService {
   private EnrichmentBase getEnrichmentFromVocabularyAndStoreInCache(String uri, List<Vocabulary> vocs,
       String entityString)
       throws TransformerException, ParserConfigurationException, JAXBException {
-    Vocabulary vocabulary;
-    vocabulary = vocabularyDao.findByEntity(vocs, entityString, uri);
+    
+    final Vocabulary vocabulary = VocabularyDao.findByEntity(vocs, entityString, uri);
+    if (vocabulary == null) {
+      return null;
+    }
 
     String transformed;
     try {

@@ -16,15 +16,15 @@
  */
 package eu.europeana.metis.dereference.service.dao;
 
-import com.mongodb.MongoClient;
-import eu.europeana.metis.dereference.Vocabulary;
+import java.util.List;
+import java.util.Set;
 import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
-
-import java.util.List;
+import com.mongodb.MongoClient;
+import eu.europeana.metis.dereference.Vocabulary;
 
 /**
  * Dao for vocabularies
@@ -50,7 +50,7 @@ public class VocabularyDao {
      * after the entity has been retrieved
      */
     public List<Vocabulary> getByUri(String uri) {
-        return ds.find(Vocabulary.class).filter("URI", uri).asList();
+        return ds.find(Vocabulary.class).filter("uri", uri).asList();
     }
 
     /**
@@ -94,8 +94,9 @@ public class VocabularyDao {
         if(entity.getType()!=null) {
             ops.set("type", entity.getType());
         }
-        ops.set("URI", entity.getURI());
+        ops.set("uri", entity.getUri());
         ops.set("xslt", entity.getXslt());
+        ops.set("suffix", entity.getSuffix());
         ds.update(query, ops);
     }
 
@@ -108,23 +109,34 @@ public class VocabularyDao {
         return ds.find(Vocabulary.class).asList();
     }
 
-    /**
-     * Once the entity has been retrieved decide on the actual vocabulary that you want
-     *
-     * @param vocs The vocabularies to choose from
-     * @param xml  The actual retrieved entity
-     * @param uri  The uri of the record to check for rules
-     * @return The corresponding vocabulary
-     */
-    public Vocabulary findByEntity(List<Vocabulary> vocs, String xml, String uri) {
-        for (Vocabulary vocabulary : vocs) {
-            if (StringUtils.equals(vocabulary.getRules(), "*")
-                    || StringUtils.contains(uri, vocabulary.getRules()) || StringUtils.contains(xml, vocabulary.getTypeRules())) {
-                return vocabulary;
-            }
-        }
-        return null;
+  /**
+   * Once the entity has been retrieved decide on the actual vocabulary that you want
+   *
+   * @param vocabularies The vocabularies to choose from
+   * @param incomingDataXml The actual retrieved entity
+   * @param uri The uri of the record to check for rules
+   * @return The corresponding vocabulary, or null if no such vocabulary is found.
+   */
+  public static Vocabulary findByEntity(List<Vocabulary> vocabularies, String incomingDataXml,
+      String uri) {
+    return vocabularies.stream()
+        .filter(vocabulary -> vocabularyMatches(vocabulary, incomingDataXml, uri)).findAny()
+        .orElse(null);
+  }
+
+  private static boolean vocabularyMatches(Vocabulary vocabulary, String incomingDataXml,
+      String uri) {
+
+    // Check the rules
+    final Set<String> vocabularyRules = vocabulary.getRules();
+    if (vocabularyRules != null && !vocabularyRules.isEmpty() && !vocabularyRules.contains(uri)) {
+      return false;
     }
+
+    // Check the type rules (more expensive operation: only do when needed).
+    final Set<String> typeRules = vocabulary.getTypeRules();
+    return typeRules == null || typeRules.isEmpty() || typeRules.stream().anyMatch(typeRule -> StringUtils.contains(incomingDataXml, typeRule));
+  }
 
     /**
      * Return a Vocabulary by name

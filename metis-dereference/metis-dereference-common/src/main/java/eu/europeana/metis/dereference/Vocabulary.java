@@ -17,9 +17,13 @@
 package eu.europeana.metis.dereference;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 import javax.xml.bind.annotation.XmlElement;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.IndexOptions;
 import org.mongodb.morphia.annotations.Indexed;
 
 /**
@@ -31,7 +35,7 @@ import org.mongodb.morphia.annotations.Indexed;
 public class Vocabulary implements Serializable {
 
 	/** Required for implementations of {@link Serializable}. **/
-	private static final long serialVersionUID = 2946293185967000823L;
+	private static final long serialVersionUID = 2946293185967000824L;
 	
 	@Id
     private String id;
@@ -39,18 +43,23 @@ public class Vocabulary implements Serializable {
     /**
      * The URI of the controlled vocabulary
      */
-    @Indexed(unique = false)
-    private String URI;
+    @Indexed
+    private String uri;
 
+    /**
+     * The suffix of the vocabulary: needs to be added after the variable bit of the URI.
+     */
+    private String suffix;
+    
     /**
      * Rules that take into account the rdf:type attribute of an rdf:Description to specify whether
      */
-    private String typeRules;
+    private Set<String> typeRules;
 
     /**
      * Rules by URL
      */
-    private String rules;
+    private Set<String> rules;
 
     /**
      * The XSLT to convert an external entity to an internal entity
@@ -65,29 +74,42 @@ public class Vocabulary implements Serializable {
     /**
      * The name of the vocabulary
      */
-    @Indexed(unique = true)
+    @Indexed(options = @IndexOptions(unique = true))
     private String name;
 
     private ContextualClass type;
 
     @XmlElement
-    public String getURI() {
-        return URI;
+    public String getUri() {
+        return uri;
     }
 
-    public void setURI(String URI) {
-        this.URI = URI;
+    public void setUri(String uri) {
+        this.uri = uri;
     }
-
+    
     @XmlElement
-    public String getTypeRules() {
-        return typeRules;
+    public String getSuffix() {
+        return suffix;
     }
-
-    public void setTypeRules(String typeRules) {
-        this.typeRules = typeRules;
+    
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
-
+  
+    @XmlElement
+    public Set<String> getTypeRules() {
+        return this.typeRules == null ? null : Collections.unmodifiableSet(this.typeRules);
+    }
+  
+    public void setTypeRules(Set<String> typeRules) {
+        if (typeRules == null || typeRules.isEmpty()) {
+            this.typeRules = null;
+        } else {
+            this.typeRules = new HashSet<>(typeRules);
+        }
+    }
+  
     @XmlElement
     public String getXslt() {
         return xslt;
@@ -105,14 +127,22 @@ public class Vocabulary implements Serializable {
     public void setIterations(int iterations) {
         this.iterations = iterations;
     }
+    
     @XmlElement
-    public String getRules() {
-        return rules;
+    public Set<String> getRules() {
+      return this.rules == null ? null : Collections.unmodifiableSet(this.rules);
     }
 
-    public void setRules(String rules) {
-        this.rules = rules;
+    public void setRules(Set<String> rules) {
+        if (rules == null || rules.isEmpty()) {
+            this.rules = null;
+        } else {
+            this.rules = new HashSet<>(rules);
+            // For people who have old stubborn habits.
+            this.rules.remove("*"); 
+        }
     }
+    
     @XmlElement
     public String getName() {
         return name;

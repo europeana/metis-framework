@@ -26,6 +26,7 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.mongo.EmbeddedLocalhostMongo;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import org.junit.After;
 import org.junit.Assert;
@@ -62,11 +63,12 @@ public class MongoDereferencingManagementServiceTest {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
-        voc.setRules("testRules");
+        voc.setRules(Collections.singleton("testRules"));
         voc.setType(ContextualClass.AGENT);
-        voc.setTypeRules("testTypeRules");
-        voc.setURI("testURI");
+        voc.setTypeRules(Collections.singleton("testTypeRules"));
+        voc.setUri("testURI");
         voc.setXslt("testXSLT");
+        voc.setSuffix("testSuffix");
         service.saveVocabulary(voc);
         Vocabulary retVoc = service.findByName(voc.getName());
         Assert.assertEquals(voc.getName(),retVoc.getName());
@@ -74,7 +76,9 @@ public class MongoDereferencingManagementServiceTest {
         Assert.assertEquals(voc.getRules(),retVoc.getRules());
         Assert.assertEquals(voc.getType(),retVoc.getType());
         Assert.assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
-        Assert.assertEquals(voc.getURI(),retVoc.getURI());
+        Assert.assertEquals(voc.getUri(),retVoc.getUri());
+        Assert.assertEquals(voc.getXslt(),retVoc.getXslt());
+        Assert.assertEquals(voc.getSuffix(),retVoc.getSuffix());
     }
 
     @Test
@@ -83,13 +87,14 @@ public class MongoDereferencingManagementServiceTest {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
-        voc.setRules("testRules");
+        voc.setRules(Collections.singleton("testRules"));
         voc.setType(ContextualClass.AGENT);
-        voc.setTypeRules("testTypeRules");
-        voc.setURI("testURI");
+        voc.setTypeRules(Collections.singleton("testTypeRules"));
+        voc.setUri("testURI");
         voc.setXslt("testXSLT");
+        voc.setSuffix("testSuffix");
         service.saveVocabulary(voc);
-        voc.setURI("testUri2");
+        voc.setUri("testUri2");
         service.updateVocabulary(voc);
         Vocabulary retVoc = service.findByName(voc.getName());
         Assert.assertEquals(voc.getName(),retVoc.getName());
@@ -97,7 +102,9 @@ public class MongoDereferencingManagementServiceTest {
         Assert.assertEquals(voc.getRules(),retVoc.getRules());
         Assert.assertEquals(voc.getType(),retVoc.getType());
         Assert.assertEquals(voc.getTypeRules(),retVoc.getTypeRules());
-        Assert.assertEquals(voc.getURI(),retVoc.getURI());
+        Assert.assertEquals(voc.getUri(),retVoc.getUri());
+        Assert.assertEquals(voc.getXslt(),retVoc.getXslt());
+        Assert.assertEquals(voc.getSuffix(),retVoc.getSuffix());
     }
 
     @Test
@@ -105,10 +112,10 @@ public class MongoDereferencingManagementServiceTest {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
-        voc.setRules("testRules");
+        voc.setRules(Collections.singleton("testRules"));
         voc.setType(ContextualClass.AGENT);
-        voc.setTypeRules("testTypeRules");
-        voc.setURI("testURI");
+        voc.setTypeRules(Collections.singleton("testTypeRules"));
+        voc.setUri("testURI");
         voc.setXslt("testXSLT");
         service.saveVocabulary(voc);
         List<Vocabulary> retVoc = service.getAllVocabularies();
@@ -121,10 +128,10 @@ public class MongoDereferencingManagementServiceTest {
         Vocabulary voc = new Vocabulary();
         voc.setIterations(0);
         voc.setName("testName");
-        voc.setRules("testRules");
+        voc.setRules(Collections.singleton("testRules"));
         voc.setType(ContextualClass.AGENT);
-        voc.setTypeRules("testTypeRules");
-        voc.setURI("testURI");
+        voc.setTypeRules(Collections.singleton("testTypeRules"));
+        voc.setUri("testURI");
         voc.setXslt("testXSLT");
         service.saveVocabulary(voc);
         List<Vocabulary> retVoc = service.getAllVocabularies();
