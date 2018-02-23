@@ -26,6 +26,9 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(WorkflowExecutor.class);
   private static final String EXECUTION_CHECK_LOCK = "EXECUTION_CHECK_LOCK";
+  private static final int MONITOR_ITERATIONS_TO_FAKE = 2;
+  private static final int FAKE_RECORDS_PER_ITERATION = 100;
+  private static final int MAX_MONITOR_FAILURES = 3;
   private Date startDate;
   private Date finishDate;
   private boolean firstPluginExecution;
@@ -55,26 +58,28 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   public WorkflowExecution call() {
     //Get lock for the case that two cores will retrieve the same execution id from 2 items in the queue in different cores
     RLock lock = redissonClient.getFairLock(EXECUTION_CHECK_LOCK);
-    lock.lock();
-    LOGGER.info("Starting user workflow execution with id: {} and priority {}",
-        workflowExecution.getId(), workflowExecution.getWorkflowPriority());
-    firstPluginExecution = true;
-    if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
-        && !workflowExecutionDao
-        .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
-      runInQueueStateWorkflowExecution(lock);
-    } else if (workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
-        && !workflowExecutionDao
-        .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
-      runRunningStateWorkflowExecution(lock);
-    } else {
-      LOGGER.info(
-          "Discarding user workflow execution with id: {}, it's not INQUEUE or RUNNNING and not active",
-          workflowExecution.getId());
+    try {
+      lock.lock();
+      LOGGER.info("Starting user workflow execution with id: {} and priority {}",
+          workflowExecution.getId(), workflowExecution.getWorkflowPriority());
+      firstPluginExecution = true;
+      if (workflowExecution.getWorkflowStatus() == WorkflowStatus.INQUEUE
+          && !workflowExecutionDao
+          .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
+        runInQueueStateWorkflowExecution(lock);
+      } else if (workflowExecution.getWorkflowStatus() == WorkflowStatus.RUNNING
+          && !workflowExecutionDao
+          .isExecutionActive(this.workflowExecution, monitorCheckIntervalInSecs)) {
+        runRunningStateWorkflowExecution(lock);
+      } else {
+        LOGGER.info(
+            "Discarding user workflow execution with id: {}, it's not INQUEUE or RUNNNING and not active",
+            workflowExecution.getId());
+        return workflowExecution;
+      }
+    } finally {
       lock.unlock();
-      return workflowExecution;
     }
-    lock.unlock();
 
     //Cancel workflow and all other than finished plugins if the workflow was cancelled during execution
     if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
@@ -177,7 +182,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
       }
     }
 
-    final int MONITOR_ITERATIONS_TO_FAKE = 2;
     long sleepTime = TimeUnit.SECONDS.toMillis(monitorCheckIntervalInSecs);
     if (!abstractMetisPlugin.getPluginMetadata().isMocked()) {
       return periodicCheckingLoop(sleepTime, abstractMetisPlugin);
@@ -189,7 +193,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
   private Date periodicCheckingLoop(long sleepTime, AbstractMetisPlugin abstractMetisPlugin) {
     TaskState taskState = null;
     int consecutiveMonitorFailures = 0;
-    final int MAX_MONITOR_FAILURES = 3;
     do {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
@@ -230,7 +233,6 @@ public class WorkflowExecutor implements Callable<WorkflowExecution> {
 
   private Date periodicCheckingLoopMocked(long sleepTime, int iterationsToFake,
       AbstractMetisPlugin abstractMetisPlugin) {
-    final int FAKE_RECORDS_PER_ITERATION = 100;
     for (int i = 1; i <= iterationsToFake; i++) {
       try {
         if (workflowExecutionDao.isCancelling(workflowExecution.getId())) {
