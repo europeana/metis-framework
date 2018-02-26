@@ -13,11 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.DatasetDao;
@@ -48,10 +44,8 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
-import eu.europeana.metis.core.workflow.plugins.Topology;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.ExternalTaskException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -82,7 +76,6 @@ public class TestOrchestratorService {
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
-  private static DpsClient dpsClient;
   private static RedissonClient redissonClient;
 
   @BeforeClass
@@ -93,12 +86,11 @@ public class TestOrchestratorService {
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
-    dpsClient = Mockito.mock(DpsClient.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient, redissonClient);
+        redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
   }
 
@@ -110,6 +102,7 @@ public class TestOrchestratorService {
     Mockito.reset(datasetDao);
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(ecloudDataSetServiceClient);
+    Mockito.reset(redissonClient);
   }
 
   @Test
@@ -229,6 +222,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -348,6 +342,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -390,6 +385,7 @@ public class TestOrchestratorService {
         .thenReturn(workflow);
     when(ecloudDataSetServiceClient.createDataSet(any(), any(), any()))
         .thenThrow(new MCSException());
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -430,6 +426,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     orchestratorService
@@ -831,62 +828,5 @@ public class TestOrchestratorService {
         .deleteScheduledWorkflow(TestObjectFactory.DATASETID);
     verify(scheduledWorkflowDao, times(1))
         .deleteScheduledWorkflow(anyInt());
-  }
-
-  @Test
-  public void getExternalTaskLogs() throws Exception {
-    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
-
-    when(dpsClient
-        .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
-            2070373127078497810L,
-            1, 100)).thenReturn(listOfSubTaskInfo);
-    orchestratorService
-        .getExternalTaskLogs(Topology.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
-            100);
-    Assert.assertEquals(2, listOfSubTaskInfo.size());
-    Assert.assertTrue(listOfSubTaskInfo.get(0).getAdditionalInformations() == null);
-    Assert.assertTrue(listOfSubTaskInfo.get(1).getAdditionalInformations() == null);
-  }
-
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskLogs_ExternalTaskException() throws Exception {
-    when(dpsClient
-        .getDetailedTaskReportBetweenChunks(Topology.OAIPMH_HARVEST.getTopologyName(),
-            2070373127078497810L, 1, 100)).thenThrow(new DpsException());
-    orchestratorService
-        .getExternalTaskLogs(Topology.OAIPMH_HARVEST.getTopologyName(), 2070373127078497810L, 1,
-            100);
-  }
-
-  @Test
-  public void getExternalTaskReport() throws Exception {
-    TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithoutIdentifiers(2);
-    TaskErrorsInfo taskErrorsInfoWithIdentifiers = TestObjectFactory
-        .createTaskErrorsInfoWithIdentifiers(taskErrorsInfo.getErrors().get(0).getErrorType(),
-            taskErrorsInfo.getErrors().get(0).getMessage());
-
-    when(dpsClient
-        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, null, 10))
-        .thenReturn(taskErrorsInfoWithIdentifiers);
-
-    TaskErrorsInfo externalTaskReport = orchestratorService
-        .getExternalTaskReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, 10);
-
-    Assert.assertEquals(1, externalTaskReport.getErrors().size());
-    Assert.assertTrue(externalTaskReport.getErrors().get(0).getIdentifiers().size() != 0);
-  }
-
-  @Test(expected = ExternalTaskException.class)
-  public void getExternalTaskReport_ExternalTaskException() throws Exception {
-    when(dpsClient
-        .getTaskErrorsReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, null, 10))
-        .thenThrow(new DpsException());
-    orchestratorService
-        .getExternalTaskReport(Topology.OAIPMH_HARVEST.getTopologyName(),
-            TestObjectFactory.EXTERNAL_TASK_ID, 10);
   }
 }

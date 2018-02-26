@@ -6,6 +6,8 @@ import eu.europeana.cloud.client.uis.rest.UISClient;
 import eu.europeana.cloud.common.exceptions.ProviderDoesNotExistException;
 import eu.europeana.cloud.common.model.DataProviderProperties;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -55,6 +57,16 @@ public class ECloudConfig extends WebMvcConfigurerAdapter implements Initializin
   @Bean
   DataSetServiceClient dataSetServiceClient() {
     return new DataSetServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
+  }
+
+  @Bean
+  RecordServiceClient recordServiceClient() {
+    return new RecordServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
+  }
+
+  @Bean
+  FileServiceClient fileServiceClient() {
+    return new FileServiceClient(ecloudBaseUrl, ecloudUsername, ecloudPassword);
   }
 
   @Bean

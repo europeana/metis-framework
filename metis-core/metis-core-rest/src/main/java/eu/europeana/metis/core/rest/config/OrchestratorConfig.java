@@ -5,6 +5,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -15,6 +17,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.service.ProxiesService;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
@@ -140,13 +143,22 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager,
-      DataSetServiceClient ecloudDataSetServiceClient, DpsClient dpsClient) throws IOException {
+      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient, redissonClient);
+        redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;
+  }
+
+  @Bean
+  public ProxiesService getProxiesService(WorkflowExecutionDao workflowExecutionDao,
+      DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
+      FileServiceClient fileServiceClient,
+      DpsClient dpsClient) {
+    return new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient,
+        fileServiceClient, dpsClient, ecloudProvider);
   }
 
   @Bean

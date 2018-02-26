@@ -1,10 +1,6 @@
 package eu.europeana.metis.core.service;
 
-import eu.europeana.cloud.client.dps.rest.DpsClient;
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
-import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.CommonStringValues;
@@ -38,7 +34,6 @@ import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
 import eu.europeana.metis.exception.BadContentException;
-import eu.europeana.metis.exception.ExternalTaskException;
 import eu.europeana.metis.exception.GenericMetisException;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -73,7 +68,6 @@ public class OrchestratorService {
   private final DatasetDao datasetDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final DataSetServiceClient ecloudDataSetServiceClient;
-  private final DpsClient dpsClient;
   private final RedissonClient redissonClient;
   private String ecloudProvider; //Initialize with setter
 
@@ -84,14 +78,13 @@ public class OrchestratorService {
       DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient,
-      DpsClient dpsClient, RedissonClient redissonClient) throws IOException {
+      RedissonClient redissonClient) throws IOException {
     this.workflowDao = workflowDao;
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
-    this.dpsClient = dpsClient;
     this.redissonClient = redissonClient;
 
     this.workflowExecutorManager.initiateConsumer();
@@ -184,7 +177,7 @@ public class OrchestratorService {
     String objectId = workflowExecutionDao.create(workflowExecution);
     executionDatasetIdLock.unlock();
     workflowExecutorManager.addWorkflowExecutionToQueue(objectId, priority);
-    LOGGER.info("WorkflowExecution with id: %s, added to execution queue", objectId);
+    LOGGER.info("WorkflowExecution with id: {}, added to execution queue", objectId);
     return workflowExecutionDao.getById(objectId);
   }
 
@@ -345,7 +338,8 @@ public class OrchestratorService {
       int datasetId, PluginType pluginType,
       PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
-        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, enforcedPluginType, datasetId,
+        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, enforcedPluginType,
+            datasetId,
             workflowExecutionDao);
     if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
         && !ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
@@ -495,36 +489,5 @@ public class OrchestratorService {
 
   public void setEcloudProvider(String ecloudProvider) {
     this.ecloudProvider = ecloudProvider;
-  }
-
-  public List<SubTaskInfo> getExternalTaskLogs(String topologyName, long externalTaskId, int from,
-      int to) throws ExternalTaskException {
-    List<SubTaskInfo> detailedTaskReportBetweenChunks;
-    try {
-      detailedTaskReportBetweenChunks = dpsClient
-          .getDetailedTaskReportBetweenChunks(topologyName, externalTaskId, from, to);
-    } catch (DpsException e) {
-      throw new ExternalTaskException(String.format(
-          "Getting the task detailed logs failed. topologyName: %s, externalTaskId: %s, from: %s, to: %s",
-          topologyName, externalTaskId, from, to), e);
-    }
-    for (SubTaskInfo subTaskInfo : detailedTaskReportBetweenChunks) { //Hide sensitive information
-      subTaskInfo.setAdditionalInformations(null);
-    }
-    return detailedTaskReportBetweenChunks;
-  }
-
-  public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId,
-      int idsPerError) throws ExternalTaskException {
-    TaskErrorsInfo taskErrorsInfo;
-    try {
-      taskErrorsInfo = dpsClient
-          .getTaskErrorsReport(topologyName, externalTaskId, null, idsPerError);
-    } catch (DpsException e) {
-      throw new ExternalTaskException(String.format(
-          "Getting the task error report failed. topologyName: %s, externalTaskId: %s, idsPerError: %s",
-          topologyName, externalTaskId, idsPerError), e);
-    }
-    return taskErrorsInfo;
   }
 }
