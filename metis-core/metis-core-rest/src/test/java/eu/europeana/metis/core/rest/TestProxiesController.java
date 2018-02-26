@@ -112,7 +112,7 @@ public class TestProxiesController {
         PluginType.TRANSFORMATION, null, 5)).thenReturn(recordsResponse);
 
     proxiesControllerMock.perform(
-        get(RestEndpoints.ORCHESTRATOR_PROXIES_REVISION)
+        get(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", PluginType.TRANSFORMATION.name())
             .contentType(TestUtils.APPLICATION_JSON_UTF8)

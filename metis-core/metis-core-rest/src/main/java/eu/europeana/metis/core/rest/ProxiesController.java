@@ -109,7 +109,7 @@ public class ProxiesController {
    * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
    * </ul>
    */
-  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_REVISION, method = RequestMethod.GET, produces = {
+  @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
