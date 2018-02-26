@@ -12,7 +12,8 @@ import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.rest.RecordResponse;
+import eu.europeana.metis.core.rest.Record;
+import eu.europeana.metis.core.rest.RecordsResponse;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -38,7 +39,7 @@ public class ProxiesService {
   private final RecordServiceClient recordServiceClient;
   private final FileServiceClient fileServiceClient;
   private final DpsClient dpsClient;
-  private String ecloudProvider; //Initialize with setter
+  private String ecloudProvider;
 
   /**
    * Constructor with required parameters.
@@ -120,14 +121,16 @@ public class ProxiesService {
    * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param nextPage the string representation of the next page which is provided from the response and can be used to get the next page of results
+   * @param numberOfRecords the number of records per response
    * @return the list of records from the external resource
    * @throws ExternalTaskException can be one of:
    * <ul>
    * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
    * </ul>
    */
-  public List<RecordResponse> getListOfFileContentsFromPluginExecution(String workflowExecutionId,
-      PluginType pluginType)
+  public RecordsResponse getListOfFileContentsFromPluginExecution(String workflowExecutionId,
+      PluginType pluginType, String nextPage, int numberOfRecords)
       throws ExternalTaskException {
     WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
     AbstractMetisPlugin abstractMetisPluginToGetRecords = null;
@@ -137,7 +140,8 @@ public class ProxiesService {
       }
     }
 
-    List<RecordResponse> recordResponse = new ArrayList<>();
+    String nextPageAfterResponse = null;
+    List<Record> records = new ArrayList<>();
     if (abstractMetisPluginToGetRecords != null) {
       String providerId = ecloudProvider;
       String datasetId = workflowExecution.getEcloudDatasetId();
@@ -150,7 +154,8 @@ public class ProxiesService {
       try {
         ResultSlice<CloudTagsResponse> resultSlice = ecloudDataSetServiceClient
             .getDataSetRevisionsChunk(providerId, datasetId, representationName, revisionName,
-                revisionProviderId, revisionTimestamp, null, 5);
+                revisionProviderId, revisionTimestamp, nextPage, numberOfRecords);
+        nextPageAfterResponse = resultSlice.getNextSlice();
 
         for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
           RepresentationRevisionResponse representationRevision = recordServiceClient
@@ -158,7 +163,7 @@ public class ProxiesService {
                   revisionName, revisionProviderId, revisionTimestamp);
           InputStream inputStream = fileServiceClient
               .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
-          recordResponse.add(new RecordResponse(cloudTagsResponse.getCloudId(),
+          records.add(new Record(cloudTagsResponse.getCloudId(),
               IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
         }
       } catch (MCSException e) {
@@ -169,6 +174,6 @@ public class ProxiesService {
         throw new ExternalTaskException("Getting while reading the contents of the file.", e);
       }
     }
-    return recordResponse;
+    return new RecordsResponse(records, nextPageAfterResponse);
   }
 }

@@ -99,16 +99,17 @@ public class TestProxiesController {
 
   @Test
   public void getListOfFileContentsFromPluginExecution() throws Exception {
-    ArrayList<RecordResponse> recordResponses = new ArrayList<>();
-    RecordResponse recordResponse1 = new RecordResponse("ECLOUDID1",
+    ArrayList<Record> records = new ArrayList<>();
+    Record record1 = new Record("ECLOUDID1",
         "<rdf:RDF><edm:ProvidedCHO rdf:about=\"/some/path1\"></edm:ProvidedCHO></rdf:RDF>");
-    RecordResponse recordResponse2 = new RecordResponse("ECLOUDID2",
+    Record record2 = new Record("ECLOUDID2",
         "<rdf:RDF><edm:ProvidedCHO rdf:about=\"/some/path2\"></edm:ProvidedCHO></rdf:RDF>");
-    recordResponses.add(recordResponse1);
-    recordResponses.add(recordResponse2);
+    records.add(record1);
+    records.add(record2);
+    RecordsResponse recordsResponse = new RecordsResponse(records, null);
 
     when(proxiesService.getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
-        PluginType.TRANSFORMATION)).thenReturn(recordResponses);
+        PluginType.TRANSFORMATION, null, 5)).thenReturn(recordsResponse);
 
     proxiesControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_PROXIES_REVISION)
@@ -117,10 +118,10 @@ public class TestProxiesController {
             .contentType(TestUtils.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
-        .andExpect(jsonPath("$.[0].ecloudId", is(recordResponse1.getEcloudId())))
-        .andExpect(jsonPath("$.[0].xmlRecord", is(recordResponse1.getXmlRecord())))
-        .andExpect(jsonPath("$.[1].ecloudId", is(recordResponse2.getEcloudId())))
-        .andExpect(jsonPath("$.[1].xmlRecord", is(recordResponse2.getXmlRecord())));
+        .andExpect(jsonPath("$.records[0].ecloudId", is(record1.getEcloudId())))
+        .andExpect(jsonPath("$.records[0].xmlRecord", is(record1.getXmlRecord())))
+        .andExpect(jsonPath("$.records[1].ecloudId", is(record2.getEcloudId())))
+        .andExpect(jsonPath("$.records[1].xmlRecord", is(record2.getXmlRecord())));
   }
 
 }

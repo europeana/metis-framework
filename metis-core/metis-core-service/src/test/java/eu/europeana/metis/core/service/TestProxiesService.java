@@ -18,7 +18,7 @@ import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.rest.RecordResponse;
+import eu.europeana.metis.core.rest.RecordsResponse;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -163,12 +163,12 @@ public class TestProxiesService {
         .getFile(representationRevisionResponse.getFiles().get(0).getContentUri().toString()))
         .thenReturn(stubInputStream);
 
-    List<RecordResponse> listOfFileContentsFromPluginExecution = proxiesService
+    RecordsResponse listOfFileContentsFromPluginExecution = proxiesService
         .getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
-            PluginType.OAIPMH_HARVEST);
+            PluginType.OAIPMH_HARVEST, null, 5);
 
-    Assert.assertEquals(xmlRecord, listOfFileContentsFromPluginExecution.get(0).getXmlRecord());
-    Assert.assertEquals(ecloudId, listOfFileContentsFromPluginExecution.get(0).getEcloudId());
+    Assert.assertEquals(xmlRecord, listOfFileContentsFromPluginExecution.getRecords().get(0).getXmlRecord());
+    Assert.assertEquals(ecloudId, listOfFileContentsFromPluginExecution.getRecords().get(0).getEcloudId());
   }
 
 
@@ -203,7 +203,7 @@ public class TestProxiesService {
         .thenThrow(new IOException("Cannot read file"));
 
     proxiesService.getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
-            PluginType.OAIPMH_HARVEST);
+            PluginType.OAIPMH_HARVEST, null, 5);
   }
 
   @Test(expected = ExternalTaskException.class)
@@ -224,7 +224,7 @@ public class TestProxiesService {
 
 
     proxiesService.getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
-        PluginType.OAIPMH_HARVEST);
+        PluginType.OAIPMH_HARVEST, null, 5);
   }
 
 }

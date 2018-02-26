@@ -32,6 +32,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ProxiesController {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(ProxiesController.class);
+  private static final int NUMBER_OF_RECORDS = 5;
   private final ProxiesService proxiesService;
 
   /**
@@ -101,6 +102,7 @@ public class ProxiesController {
    * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}
    * @param workflowExecutionId the execution identifier of the workflow
    * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @param nextPage the string representation of the next page which is provided from the response and can be used to get the next page of results
    * @return the list of records from the external resource
    * @throws ExternalTaskException can be one of:
    * <ul>
@@ -111,11 +113,13 @@ public class ProxiesController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public List<RecordResponse> getListOfFileContentsFromPluginExecution(
+  public RecordsResponse getListOfFileContentsFromPluginExecution(
       @RequestParam("workflowExecutionId") String workflowExecutionId,
-      @RequestParam("pluginType") PluginType pluginType
+      @RequestParam("pluginType") PluginType pluginType,
+      @RequestParam(value = "nextPage", required = false) String nextPage
   ) throws ExternalTaskException {
-    return proxiesService.getListOfFileContentsFromPluginExecution(workflowExecutionId, pluginType);
+    return proxiesService.getListOfFileContentsFromPluginExecution(workflowExecutionId, pluginType, nextPage,
+        NUMBER_OF_RECORDS);
   }
 
 }

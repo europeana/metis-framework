@@ -4,7 +4,7 @@ package eu.europeana.metis.core.rest;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-23
  */
-public class RecordResponse {
+public class Record {
   private String ecloudId;
   private String xmlRecord;
 
@@ -13,7 +13,7 @@ public class RecordResponse {
    * @param ecloudId the ecloudId representing the record
    * @param xmlRecord the text representing the xml record
    */
-  public RecordResponse(String ecloudId, String xmlRecord) {
+  public Record(String ecloudId, String xmlRecord) {
     this.ecloudId = ecloudId;
     this.xmlRecord = xmlRecord;
   }
