@@ -146,7 +146,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient, redissonClient);
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;
   }
@@ -155,12 +156,9 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   public ProxiesService getProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
       FileServiceClient fileServiceClient,
-      DpsClient dpsClient) throws IOException {
-    ProxiesService proxiesService = new ProxiesService(
-        workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient, fileServiceClient,
-        dpsClient);
-    proxiesService.setEcloudProvider(ecloudProvider);
-    return proxiesService;
+      DpsClient dpsClient) {
+    return new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient,
+        fileServiceClient, dpsClient, ecloudProvider);
   }
 
   @Bean

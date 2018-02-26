@@ -25,9 +25,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
+ * Proxies Service which encapsulates functionality that has to be proxied to an external resource.
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
  */
@@ -40,17 +40,40 @@ public class ProxiesService {
   private final DpsClient dpsClient;
   private String ecloudProvider; //Initialize with setter
 
-  @Autowired
+  /**
+   * Constructor with required parameters.
+   *
+   * @param workflowExecutionDao {@link WorkflowExecutionDao}
+   * @param ecloudDataSetServiceClient {@link DataSetServiceClient}
+   * @param recordServiceClient {@link RecordServiceClient}
+   * @param fileServiceClient {@link FileServiceClient}
+   * @param dpsClient {@link DpsClient}
+   * @param ecloudProvider the ecloud provider string
+   */
   public ProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
-      FileServiceClient fileServiceClient, DpsClient dpsClient) {
+      FileServiceClient fileServiceClient, DpsClient dpsClient, String ecloudProvider) {
     this.workflowExecutionDao = workflowExecutionDao;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.recordServiceClient = recordServiceClient;
     this.fileServiceClient = fileServiceClient;
     this.dpsClient = dpsClient;
+    this.ecloudProvider = ecloudProvider;
   }
 
+  /**
+   * Get logs from a specific topology task paged.
+   *
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param from integer to start getting logs from
+   * @param to integer until where logs should be received
+   * @return the list of logs
+   * @throws ExternalTaskException can be one of:
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the logs from the external resource</li>
+   * </ul>
+   */
   public List<SubTaskInfo> getExternalTaskLogs(String topologyName, long externalTaskId, int from,
       int to) throws ExternalTaskException {
     List<SubTaskInfo> detailedTaskReportBetweenChunks;
@@ -68,6 +91,17 @@ public class ProxiesService {
     return detailedTaskReportBetweenChunks;
   }
 
+  /**
+   * Get the final report that includes all the errors grouped. The number of ids per error can be specified through the parameters.
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param idsPerError the number of ids that should be displayed per error group
+   * @return the list of errors grouped
+   * @throws ExternalTaskException can be one of:
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the report from the external resource</li>
+   * </ul>
+   */
   public TaskErrorsInfo getExternalTaskReport(String topologyName, long externalTaskId,
       int idsPerError) throws ExternalTaskException {
     TaskErrorsInfo taskErrorsInfo;
@@ -82,6 +116,16 @@ public class ProxiesService {
     return taskErrorsInfo;
   }
 
+  /**
+   * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @return the list of records from the external resource
+   * @throws ExternalTaskException can be one of:
+   * <ul>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
+   * </ul>
+   */
   public List<RecordResponse> getListOfFileContentsFromPluginExecution(String workflowExecutionId,
       PluginType pluginType)
       throws ExternalTaskException {
@@ -112,25 +156,19 @@ public class ProxiesService {
           RepresentationRevisionResponse representationRevision = recordServiceClient
               .getRepresentationRevision(cloudTagsResponse.getCloudId(), representationName,
                   revisionName, revisionProviderId, revisionTimestamp);
-          try {
-            InputStream inputStream = fileServiceClient
-                .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
-            recordResponse.add(new RecordResponse(cloudTagsResponse.getCloudId(),
-                IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
-          } catch (IOException e) {
-            throw new ExternalTaskException("Getting while reading the contents of the file.", e);
-          }
+          InputStream inputStream = fileServiceClient
+              .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
+          recordResponse.add(new RecordResponse(cloudTagsResponse.getCloudId(),
+              IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
         }
       } catch (MCSException e) {
         throw new ExternalTaskException(String.format(
             "Getting record list with file content failed. workflowExecutionId: %s, pluginType: %s",
             workflowExecutionId, pluginType), e);
+      } catch (IOException e) {
+        throw new ExternalTaskException("Getting while reading the contents of the file.", e);
       }
     }
     return recordResponse;
-  }
-
-  public void setEcloudProvider(String ecloudProvider) {
-    this.ecloudProvider = ecloudProvider;
   }
 }

@@ -61,8 +61,7 @@ public class TestProxiesService {
     dpsClient = Mockito.mock(DpsClient.class);
 
     proxiesService = new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient,
-        recordServiceClient, fileServiceClient, dpsClient);
-    proxiesService.setEcloudProvider("ecloudProvider");
+        recordServiceClient, fileServiceClient, dpsClient, "ecloudProvider");
   }
 
   @After

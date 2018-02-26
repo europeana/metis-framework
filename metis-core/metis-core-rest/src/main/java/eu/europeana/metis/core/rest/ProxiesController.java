@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Proxies Controller that encapsulates functionality that has to be proxied to an external resource.
+ * Proxies Controller which encapsulates functionality that has to be proxied to an external resource.
  *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
