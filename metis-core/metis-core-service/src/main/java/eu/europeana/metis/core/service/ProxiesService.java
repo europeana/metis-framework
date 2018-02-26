@@ -164,7 +164,7 @@ public class ProxiesService {
           InputStream inputStream = fileServiceClient
               .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
           records.add(new Record(cloudTagsResponse.getCloudId(),
-              IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
+              IOUtils.toString(inputStream, StandardCharsets.UTF_8.name())));
         }
       } catch (MCSException e) {
         throw new ExternalTaskException(String.format(
