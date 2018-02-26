@@ -9,6 +9,7 @@ import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.List;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,7 +119,8 @@ public class ProxiesController {
       @RequestParam("pluginType") PluginType pluginType,
       @RequestParam(value = "nextPage", required = false) String nextPage
   ) throws ExternalTaskException {
-    return proxiesService.getListOfFileContentsFromPluginExecution(workflowExecutionId, pluginType, nextPage,
+    return proxiesService.getListOfFileContentsFromPluginExecution(workflowExecutionId, pluginType,
+        StringUtils.isEmpty(nextPage)?null:nextPage,
         NUMBER_OF_RECORDS);
   }
 

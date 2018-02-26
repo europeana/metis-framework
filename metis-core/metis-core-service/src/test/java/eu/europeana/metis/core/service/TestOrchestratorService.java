@@ -101,6 +101,8 @@ public class TestOrchestratorService {
     Mockito.reset(scheduledWorkflowDao);
     Mockito.reset(datasetDao);
     Mockito.reset(workflowExecutorManager);
+    Mockito.reset(ecloudDataSetServiceClient);
+    Mockito.reset(redissonClient);
   }
 
   @Test
@@ -220,6 +222,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -339,6 +342,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
@@ -422,6 +426,7 @@ public class TestOrchestratorService {
     when(workflowDao
         .getWorkflow(TestObjectFactory.WORKFLOWOWNER, TestObjectFactory.WORKFLOWNAME))
         .thenReturn(workflow);
+    when(redissonClient.getFairLock(anyString())).thenReturn(Mockito.mock(RLock.class));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId()))
         .thenReturn(new ObjectId().toString());
     orchestratorService
