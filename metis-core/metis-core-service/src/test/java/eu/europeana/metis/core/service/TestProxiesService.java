@@ -158,7 +158,7 @@ public class TestProxiesService {
 
     String xmlRecord = "<rdf:RDF><edm:ProvidedCHO rdf:about=\"/some/path1\"></edm:ProvidedCHO></rdf:RDF>";
     InputStream stubInputStream = IOUtils.toInputStream(xmlRecord,
-        StandardCharsets.UTF_8);
+        StandardCharsets.UTF_8.name());
     when(fileServiceClient
         .getFile(representationRevisionResponse.getFiles().get(0).getContentUri().toString()))
         .thenReturn(stubInputStream);
