@@ -17,6 +17,8 @@ import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
@@ -82,6 +84,8 @@ public class TestOrchestratorService {
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
+  private static RecordServiceClient recordServiceClient;
+  private static FileServiceClient fileServiceClient;
   private static DpsClient dpsClient;
   private static RedissonClient redissonClient;
 
@@ -93,12 +97,14 @@ public class TestOrchestratorService {
     datasetDao = Mockito.mock(DatasetDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
+    recordServiceClient = Mockito.mock(RecordServiceClient.class);
+    fileServiceClient = Mockito.mock(FileServiceClient.class);
     dpsClient = Mockito.mock(DpsClient.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        dpsClient, redissonClient);
+        recordServiceClient, fileServiceClient, dpsClient, redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
   }
 
@@ -110,6 +116,8 @@ public class TestOrchestratorService {
     Mockito.reset(datasetDao);
     Mockito.reset(workflowExecutorManager);
     Mockito.reset(ecloudDataSetServiceClient);
+    Mockito.reset(recordServiceClient);
+    Mockito.reset(fileServiceClient);
   }
 
   @Test

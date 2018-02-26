@@ -5,6 +5,8 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
+import eu.europeana.cloud.mcs.driver.FileServiceClient;
+import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
@@ -140,10 +142,13 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager,
-      DataSetServiceClient ecloudDataSetServiceClient, DpsClient dpsClient) throws IOException {
+      DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
+      FileServiceClient fileServiceClient,
+      DpsClient dpsClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
         scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        recordServiceClient, fileServiceClient,
         dpsClient, redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;
