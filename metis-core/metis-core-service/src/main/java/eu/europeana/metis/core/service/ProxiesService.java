@@ -84,7 +84,7 @@ public class ProxiesService {
 
   public List<RecordResponse> getListOfFileContentsFromPluginExecution(String workflowExecutionId,
       PluginType pluginType)
-      throws MCSException {
+      throws ExternalTaskException {
     WorkflowExecution workflowExecution = workflowExecutionDao.getById(workflowExecutionId);
     AbstractMetisPlugin abstractMetisPluginToGetRecords = null;
     for (AbstractMetisPlugin abstractMetisPlugin : workflowExecution.getMetisPlugins()) {
@@ -103,22 +103,28 @@ public class ProxiesService {
       DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
       String revisionTimestamp = dateFormat
           .format(abstractMetisPluginToGetRecords.getStartedDate());
-      ResultSlice<CloudTagsResponse> resultSlice = ecloudDataSetServiceClient
-          .getDataSetRevisionsChunk(providerId, datasetId, representationName, revisionName,
-              revisionProviderId, revisionTimestamp, null, 5);
+      try {
+        ResultSlice<CloudTagsResponse> resultSlice = ecloudDataSetServiceClient
+            .getDataSetRevisionsChunk(providerId, datasetId, representationName, revisionName,
+                revisionProviderId, revisionTimestamp, null, 5);
 
-      for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
-        RepresentationRevisionResponse representationRevision = recordServiceClient
-            .getRepresentationRevision(cloudTagsResponse.getCloudId(), representationName,
-                revisionName, revisionProviderId, revisionTimestamp);
-        try {
-          InputStream inputStream = fileServiceClient
-              .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
-          recordResponse.add(new RecordResponse(cloudTagsResponse.getCloudId(),
-              IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
-        } catch (IOException e) {
-          throw new MCSException("Getting while reading the contents of the file.", e);
+        for (CloudTagsResponse cloudTagsResponse : resultSlice.getResults()) {
+          RepresentationRevisionResponse representationRevision = recordServiceClient
+              .getRepresentationRevision(cloudTagsResponse.getCloudId(), representationName,
+                  revisionName, revisionProviderId, revisionTimestamp);
+          try {
+            InputStream inputStream = fileServiceClient
+                .getFile(representationRevision.getFiles().get(0).getContentUri().toString());
+            recordResponse.add(new RecordResponse(cloudTagsResponse.getCloudId(),
+                IOUtils.toString(inputStream, StandardCharsets.UTF_8)));
+          } catch (IOException e) {
+            throw new ExternalTaskException("Getting while reading the contents of the file.", e);
+          }
         }
+      } catch (MCSException e) {
+        throw new ExternalTaskException(String.format(
+            "Getting record list with file content failed. workflowExecutionId: %s, pluginType: %s",
+            workflowExecutionId, pluginType), e);
       }
     }
     return recordResponse;

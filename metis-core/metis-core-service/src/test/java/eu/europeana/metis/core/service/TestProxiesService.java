@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -52,7 +53,7 @@ public class TestProxiesService {
   private static FileServiceClient fileServiceClient;
 
   @BeforeClass
-  public static void prepare() throws IOException {
+  public static void prepare() {
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
     recordServiceClient = Mockito.mock(RecordServiceClient.class);
@@ -62,6 +63,15 @@ public class TestProxiesService {
     proxiesService = new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient,
         recordServiceClient, fileServiceClient, dpsClient);
     proxiesService.setEcloudProvider("ecloudProvider");
+  }
+
+  @After
+  public void cleanUp() {
+    Mockito.reset(workflowExecutionDao);
+    Mockito.reset(ecloudDataSetServiceClient);
+    Mockito.reset(recordServiceClient);
+    Mockito.reset(fileServiceClient);
+    Mockito.reset(dpsClient);
   }
 
   @Test
@@ -163,7 +173,7 @@ public class TestProxiesService {
   }
 
 
-  @Test(expected = MCSException.class)
+  @Test(expected = ExternalTaskException.class)
   public void getListOfFileContentsFromPluginExecution_FileReadException() throws Exception {
     WorkflowExecution workflowExecutionObject = TestObjectFactory.createWorkflowExecutionObject();
     workflowExecutionObject.getMetisPlugins()
@@ -193,9 +203,29 @@ public class TestProxiesService {
         .getFile(representationRevisionResponse.getFiles().get(0).getContentUri().toString()))
         .thenThrow(new IOException("Cannot read file"));
 
-    List<RecordResponse> listOfFileContentsFromPluginExecution = proxiesService
-        .getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
+    proxiesService.getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
             PluginType.OAIPMH_HARVEST);
+  }
+
+  @Test(expected = ExternalTaskException.class)
+  public void getListOfFileContentsFromPluginExecution_ExceptionRequestingRevisions() throws Exception {
+    WorkflowExecution workflowExecutionObject = TestObjectFactory.createWorkflowExecutionObject();
+    workflowExecutionObject.getMetisPlugins()
+        .forEach(abstractMetisPlugin -> abstractMetisPlugin.setStartedDate(new Date()));
+    when(workflowExecutionDao.getById(TestObjectFactory.EXECUTIONID))
+        .thenReturn(workflowExecutionObject);
+
+    ResultSlice<CloudTagsResponse> resultSlice = new ResultSlice<>();
+    String ecloudId = "ECLOUDID1";
+    CloudTagsResponse cloudTagsResponse = new CloudTagsResponse(ecloudId, false, false, false);
+    resultSlice.setResults(Collections.singletonList(cloudTagsResponse));
+    when(ecloudDataSetServiceClient
+        .getDataSetRevisionsChunk(anyString(), anyString(), anyString(), anyString(),
+            anyString(), anyString(), isNull(), anyInt())).thenThrow(new MCSException("Chunk cannot be retrieved"));
+
+
+    proxiesService.getListOfFileContentsFromPluginExecution(TestObjectFactory.EXECUTIONID,
+        PluginType.OAIPMH_HARVEST);
   }
 
 }

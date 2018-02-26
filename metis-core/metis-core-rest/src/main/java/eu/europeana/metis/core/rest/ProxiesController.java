@@ -2,6 +2,7 @@ package eu.europeana.metis.core.rest;
 
 import eu.europeana.cloud.common.model.dps.SubTaskInfo;
 import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
+import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.service.ProxiesService;
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
+ * Proxies Controller that encapsulates functionality that has to be proxied to an external resource.
+ *
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-26
  */
@@ -31,11 +34,29 @@ public class ProxiesController {
   private static final Logger LOGGER = LoggerFactory.getLogger(ProxiesController.class);
   private final ProxiesService proxiesService;
 
+  /**
+   * Constructor with required parameters
+   *
+   * @param proxiesService {@link ProxiesService}
+   */
   @Autowired
   public ProxiesController(ProxiesService proxiesService) {
     this.proxiesService = proxiesService;
   }
 
+  /**
+   * Get logs from a specific topology task paged.
+   *
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param from integer to start getting logs from
+   * @param to integer until where logs should be received
+   * @return the list of logs
+   * @throws ExternalTaskException can be one of:
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the logs from the external resource</li>
+   * </ul>
+   */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -51,6 +72,17 @@ public class ProxiesController {
     return proxiesService.getExternalTaskLogs(topologyName, externalTaskId, from, to);
   }
 
+  /**
+   * Get the final report that includes all the errors grouped. The number of ids per error can be specified through the parameters.
+   * @param topologyName the topology name of the task
+   * @param externalTaskId the task identifier
+   * @param idsPerError the number of ids that should be displayed per error group
+   * @return the list of errors grouped
+   * @throws ExternalTaskException can be one of:
+   * <ul>
+   * <li>{@link DpsException} if an error occurred while retrieving the report from the external resource</li>
+   * </ul>
+   */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -65,6 +97,16 @@ public class ProxiesController {
     return proxiesService.getExternalTaskReport(topologyName, externalTaskId, idsPerError);
   }
 
+  /**
+   * Get a list with record contents from the external resource based on an workflow execution and {@link PluginType}
+   * @param workflowExecutionId the execution identifier of the workflow
+   * @param pluginType the {@link PluginType} that is to be located inside the workflow
+   * @return the list of records from the external resource
+   * @throws ExternalTaskException can be one of:
+   * <ul>
+   * <li>{@link MCSException} if an error occurred while retrieving the records from the external resource</li>
+   * </ul>
+   */
   @RequestMapping(value = RestEndpoints.ORCHESTRATOR_PROXIES_REVISION, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -72,7 +114,7 @@ public class ProxiesController {
   public List<RecordResponse> getListOfFileContentsFromPluginExecution(
       @RequestParam("workflowExecutionId") String workflowExecutionId,
       @RequestParam("pluginType") PluginType pluginType
-  ) throws MCSException {
+  ) throws ExternalTaskException {
     return proxiesService.getListOfFileContentsFromPluginExecution(workflowExecutionId, pluginType);
   }
 
