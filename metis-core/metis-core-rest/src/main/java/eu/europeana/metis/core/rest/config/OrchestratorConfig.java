@@ -17,6 +17,7 @@ import eu.europeana.metis.core.execution.WorkflowExecutorManager;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.OrchestratorService;
+import eu.europeana.metis.core.service.ProxiesService;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
@@ -142,16 +143,24 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
       WorkflowExecutorManager workflowExecutorManager,
+      DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
+    OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
+        workflowExecutionDao,
+        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient, redissonClient);
+    orchestratorService.setEcloudProvider(ecloudProvider);
+    return orchestratorService;
+  }
+
+  @Bean
+  public ProxiesService getProxiesService(WorkflowExecutionDao workflowExecutionDao,
       DataSetServiceClient ecloudDataSetServiceClient, RecordServiceClient recordServiceClient,
       FileServiceClient fileServiceClient,
       DpsClient dpsClient) throws IOException {
-    OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
-        workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
-        recordServiceClient, fileServiceClient,
-        dpsClient, redissonClient);
-    orchestratorService.setEcloudProvider(ecloudProvider);
-    return orchestratorService;
+    ProxiesService proxiesService = new ProxiesService(
+        workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient, fileServiceClient,
+        dpsClient);
+    proxiesService.setEcloudProvider(ecloudProvider);
+    return proxiesService;
   }
 
   @Bean

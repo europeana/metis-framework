@@ -21,8 +21,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import eu.europeana.cloud.common.model.dps.SubTaskInfo;
-import eu.europeana.cloud.common.model.dps.TaskErrorsInfo;
 import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
@@ -46,7 +44,6 @@ import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import java.util.List;
-import org.hamcrest.core.IsNull;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -672,59 +669,5 @@ public class TestOrchestratorController {
         .andExpect(status().is(204))
         .andExpect(content().string(""));
     verify(orchestratorService, times(1)).deleteScheduledWorkflow(anyInt());
-  }
-
-  @Test
-  public void getExternalTaskLogs() throws Exception {
-    int from = 1;
-    int to = 100;
-    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
-    for (SubTaskInfo subTaskInfo :
-        listOfSubTaskInfo) {
-      subTaskInfo.setAdditionalInformations(null);
-    }
-    when(orchestratorService
-        .getExternalTaskLogs(TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID,
-            from, to)).thenReturn(listOfSubTaskInfo);
-
-    orchestratorControllerMock.perform(
-        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_LOGS,
-            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
-            .param("from", Integer.toString(from))
-            .param("to", Integer.toString(to))
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(""))
-        .andExpect(status().is(200))
-        .andExpect(jsonPath("$[0].additionalInformations", is(IsNull.nullValue())))
-        .andExpect(jsonPath("$[1].additionalInformations", is(IsNull.nullValue())));
-  }
-
-  @Test
-  public void getExternalTaskReport() throws Exception {
-    List<SubTaskInfo> listOfSubTaskInfo = TestObjectFactory.createListOfSubTaskInfo();
-    for (SubTaskInfo subTaskInfo :
-        listOfSubTaskInfo) {
-      subTaskInfo.setAdditionalInformations(null);
-    }
-
-    TaskErrorsInfo taskErrorsInfo = TestObjectFactory.createTaskErrorsInfoListWithIdentifiers(2);
-    when(orchestratorService
-        .getExternalTaskReport(TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID,
-            10))
-        .thenReturn(taskErrorsInfo);
-
-    orchestratorControllerMock.perform(
-        get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT,
-            TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
-            .param("idsPerError", "10")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
-            .content(""))
-        .andExpect(status().is(200))
-        .andExpect(jsonPath("$.id", is(TestObjectFactory.EXTERNAL_TASK_ID)))
-        .andExpect(jsonPath("$.errors", hasSize(taskErrorsInfo.getErrors().size())))
-        .andExpect(jsonPath("$.errors[0].identifiers",
-            hasSize(taskErrorsInfo.getErrors().get(0).getIdentifiers().size())))
-        .andExpect(jsonPath("$.errors[1].identifiers",
-            hasSize(taskErrorsInfo.getErrors().get(1).getIdentifiers().size())));
   }
 }
