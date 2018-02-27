@@ -55,6 +55,9 @@ public class RedisInternalEnricher {
   private static final String CACHED_ENRICHMENT_STATUS = "enrichmentstatus";
 
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+  
+  private static final int SECONDS_PER_MINUTE = 60;
+  private static final int MILLISECONDS_PER_SECOND = 1000;
 
   private enum EntityType {
 
@@ -167,9 +170,9 @@ public class RedisInternalEnricher {
       loadEntities(type);
     }
     setStatus("finished");
-    int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / 1000);
-    int seconds = totalSeconds % 60;
-    int minutes = (totalSeconds - seconds) / 60;
+    int totalSeconds = (int) ((System.currentTimeMillis() - startTime) / MILLISECONDS_PER_SECOND);
+    int seconds = totalSeconds % SECONDS_PER_MINUTE;
+    int minutes = (totalSeconds - seconds) / SECONDS_PER_MINUTE;
     LOGGER.info("Time spent in populating Redis. minutes: {}, seconds: {}", minutes, seconds);
   }
 
