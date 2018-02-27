@@ -136,7 +136,7 @@ public class EnrichmentController {
 
 		  EnrichmentResultList result = converter.convert(wrapperList);
 		  
-		  if (result.getResult().size() == 0) {
+		  if (result.getResult().isEmpty()) {
 			  return null;
 		  }
 		  

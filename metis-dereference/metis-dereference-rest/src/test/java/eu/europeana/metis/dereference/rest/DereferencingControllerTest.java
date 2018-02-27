@@ -42,7 +42,6 @@ public class DereferencingControllerTest {
   @Test
   public void dereferenceGet_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
-    list.setResult(new ArrayList<>());
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
 
@@ -59,7 +58,6 @@ public class DereferencingControllerTest {
   @Test
   public void dereferencePost_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
-    list.setResult(new ArrayList<>());
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
 

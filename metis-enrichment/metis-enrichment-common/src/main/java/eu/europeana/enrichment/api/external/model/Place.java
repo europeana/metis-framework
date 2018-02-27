@@ -1,13 +1,14 @@
 package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Place", namespace = "http://www.europeana.eu/schemas/edm/")
+@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Place")
 @XmlAccessorType(XmlAccessType.FIELD)
 
 public class Place extends EnrichmentBase {
@@ -27,27 +28,27 @@ public class Place extends EnrichmentBase {
 
 
   public List<Part> getIsPartOfList() {
-    return isPartOfList;
+    return cloneListForGetting(isPartOfList);
   }
 
   public void setIsPartOfList(List<Part> isPartOfList) {
-    this.isPartOfList = isPartOfList;
+    this.isPartOfList = cloneListForSetting(isPartOfList);
   }
 
   public List<Part> getHasPartsList() {
-    return hasPartsList;
+    return cloneListForGetting(hasPartsList);
   }
 
   public void setHasPartsList(List<Part> hasPartsList) {
-    this.hasPartsList = hasPartsList;
+    this.hasPartsList = cloneListForSetting(hasPartsList);
   }
 
   public List<Part> getSameAs() {
-    return sameAs;
+    return cloneListForGetting(sameAs);
   }
 
   public void setSameAs(List<Part> sameAs) {
-    this.sameAs = sameAs;
+    this.sameAs = cloneListForSetting(sameAs);
   }
 
   public String getLat() {

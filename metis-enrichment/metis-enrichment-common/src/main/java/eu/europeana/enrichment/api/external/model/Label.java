@@ -14,11 +14,17 @@ public class Label {
   @XmlValue
   private String value;
 
+  public Label() {}
+  
   public Label(String value1) {
     this(null, value1);
   }
 
-  public Label() {}
+  public Label(String lang1, String value1) {
+    lang = lang1;
+    value = value1;
+  }
+  
   public String getLang() {
     return lang;
   }
@@ -33,11 +39,5 @@ public class Label {
 
   public void setValue(String value) {
     this.value = value;
-  }
-
-
-  public Label(String lang1, String value1) {
-    lang = lang1;
-    value = value1;
   }
 }

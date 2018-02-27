@@ -9,31 +9,25 @@ import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 
-@XmlRootElement(name = "results", namespace = "http://www.europeana.eu/schemas/metis")
+@XmlRootElement(namespace = "http://www.europeana.eu/schemas/metis", name = "results")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EnrichmentResultList {
 
-  public List<EnrichmentBase> getResult() {
-    return result;
-  }
-
-  public void setResult(List<EnrichmentBase> result) {
-    this.result = result;
-  }
-
   @XmlElements(value={
-      @XmlElement(name="Concept", type=Concept.class, namespace = "http://www.europeana.eu/schemas/edm/"),
-      @XmlElement(name="Agent", type=Agent.class, namespace = "http://www.europeana.eu/schemas/edm/"),
-      @XmlElement(name="Place", type=Place.class, namespace = "http://www.europeana.eu/schemas/edm/"),
-      @XmlElement(name="Timespan", type=Timespan.class, namespace = "http://www.europeana.eu/schemas/edm/")
+      @XmlElement(name="Concept", namespace = "http://www.europeana.eu/schemas/edm/", type=Concept.class),
+      @XmlElement(name="Agent", namespace = "http://www.europeana.eu/schemas/edm/", type=Agent.class),
+      @XmlElement(name="Place", namespace = "http://www.europeana.eu/schemas/edm/", type=Place.class),
+      @XmlElement(name="Timespan", namespace = "http://www.europeana.eu/schemas/edm/", type=Timespan.class)
       })
-  private List<EnrichmentBase> result;
+  private List<EnrichmentBase> result = new ArrayList<>();
+
+  public EnrichmentResultList() {}
 
   public EnrichmentResultList(List<EnrichmentBase> result) {
-    this.result = result;
+    this.result.addAll(result);
   }
 
-  public EnrichmentResultList() {
-    result = new ArrayList<>();
+  public List<EnrichmentBase> getResult() {
+    return result;
   }
 }

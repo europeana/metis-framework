@@ -1,6 +1,7 @@
 package eu.europeana.enrichment.api.external.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -30,25 +31,33 @@ public abstract class EnrichmentBase {
   }
 
   public List<Label> getPrefLabelList() {
-    return prefLabelList;
+    return cloneListForGetting(prefLabelList);
   }
 
   public void setPrefLabelList(List<Label> prefLabelList) {
-    this.prefLabelList = prefLabelList;
+    this.prefLabelList = cloneListForSetting(prefLabelList);
   }
 
   public List<Label> getAltLabelList() {
-    return altLabelList;
+    return cloneListForGetting(altLabelList);
   }
   public void setAltLabelList(List<Label> altLabelList) {
-    this.altLabelList = altLabelList;
+    this.altLabelList = cloneListForSetting(altLabelList);
   }
 
   public List<Label> getNotes() {
-    return notes;
+    return cloneListForGetting(notes);
   }
 
   public void setNotes(List<Label> notes) {
-    this.notes = notes;
+    this.notes = cloneListForSetting(notes);
+  }
+
+  protected <T> List<T> cloneListForSetting(List<T> input) {
+    return input == null ? null : new ArrayList<>(input);
+  }
+
+  protected <T> List<T> cloneListForGetting(List<T> input) {
+    return input == null ? null : Collections.unmodifiableList(input);
   }
 }
