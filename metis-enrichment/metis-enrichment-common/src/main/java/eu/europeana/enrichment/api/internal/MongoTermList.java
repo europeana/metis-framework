@@ -16,16 +16,19 @@
  */
 package eu.europeana.enrichment.api.internal;
 
-import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
-import eu.europeana.enrichment.api.external.ObjectIdSerializer;
+import java.util.Date;
+import java.util.List;
+
+import javax.xml.bind.annotation.XmlTransient;
+
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.mongojack.DBRef;
 import org.mongojack.ObjectId;
 
-import javax.xml.bind.annotation.XmlTransient;
-import java.util.List;
+import eu.europeana.corelib.solr.entity.AbstractEdmEntityImpl;
+import eu.europeana.enrichment.api.external.ObjectIdSerializer;
 
 /**
  * Basic Class linking a number of MongoTerms. This class enables searching by
@@ -38,12 +41,15 @@ import java.util.List;
  * @param <T> AgentImpl, PlaceImpl, ConceptImpl, TimespanImpl, OrganizationImpl
  */
 
-public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
+public abstract class MongoTermList<T extends AbstractEdmEntityImpl> implements DatedObject{
 
 	private String parent;
 	private String codeUri;
 	private String[] owlSameAs;
-
+	
+	private Date created;
+	private Date modified;
+	
 	@JsonIgnore
 	@XmlTransient
 	private List<DBRef<? extends MongoTerm, String>> terms;
@@ -114,5 +120,25 @@ public abstract class MongoTermList<T extends AbstractEdmEntityImpl> {
   public static <T extends AbstractEdmEntityImpl, S extends T> MongoTermList<T> cast(
       MongoTermList<S> source) {
     return (MongoTermList<T>) source;
+  }
+  
+  @Override
+  public Date getModified() {
+	return modified;
+  }
+
+  @Override
+  public void setModified(Date modified) {
+	this.modified = modified;
+  }
+
+  @Override
+  public Date getCreated() {
+	return created;
+  }
+
+  @Override
+  public void setCreated(Date created) {
+	this.created = created;
   }
 }
