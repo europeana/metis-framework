@@ -3,10 +3,16 @@ package eu.europeana.metis.preview.service.executor;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -20,7 +26,6 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 import eu.europeana.validation.model.ValidationResult;
 
 /**
@@ -75,6 +80,8 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   }
     
   private String transformRecord() throws TransformerException, IOException {
+    
+    // Obtain the XSL transform.
     final String transformationFilePath;
     if (StringUtils.isEmpty(crosswalkPath)) {
       transformationFilePath = validationUtils.getDefaultTransformationFile();
@@ -83,7 +90,14 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
     }
     final File transformationFile = new File(this.getClass().getClassLoader().getResource(transformationFilePath).getFile());
     final String xslTransform = FileUtils.readFileToString(transformationFile, StandardCharsets.UTF_8);
-    return new XsltTransformer(xslTransform).transform(incomingRecord);
+
+    // Perform the XSL transformation on the incoming record.
+    final Source xsltSource = new StreamSource(new StringReader(xslTransform));
+    final Transformer transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
+    final Source recordSource = new StreamSource(new StringReader(incomingRecord));
+    final StringWriter stringWriter = new StringWriter();
+    transformer.transform(recordSource, new StreamResult(stringWriter));
+    return stringWriter.toString();
   }
 
   private ValidationTaskResult invoke() throws JiBXException, TransformerException, IOException,

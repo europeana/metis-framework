@@ -35,7 +35,7 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.utils.VocabularyMatchUtils;
-import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
+import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
@@ -126,7 +126,7 @@ public class MongoDereferenceService implements DereferenceService {
 
     final String transformed;
     try {
-      transformed = new XsltTransformer(vocabulary.getXslt()).transform(entityString);
+      transformed = new IncomingRecordToEdmConverter(vocabulary).convert(entityString, resourceId);
     } catch (TransformerException e) {
       LOGGER.error("Error transforming entity: {} with message :{}", resourceId, e.getMessage());
       throw e;
