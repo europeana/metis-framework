@@ -31,33 +31,33 @@ public abstract class EnrichmentBase {
   }
 
   public List<Label> getPrefLabelList() {
-    return cloneListForGetting(prefLabelList);
+    return unmodifiableListAcceptingNull(prefLabelList);
   }
 
   public void setPrefLabelList(List<Label> prefLabelList) {
-    this.prefLabelList = cloneListForSetting(prefLabelList);
+    this.prefLabelList = cloneListAcceptingNull(prefLabelList);
   }
 
   public List<Label> getAltLabelList() {
-    return cloneListForGetting(altLabelList);
+    return unmodifiableListAcceptingNull(altLabelList);
   }
   public void setAltLabelList(List<Label> altLabelList) {
-    this.altLabelList = cloneListForSetting(altLabelList);
+    this.altLabelList = cloneListAcceptingNull(altLabelList);
   }
 
   public List<Label> getNotes() {
-    return cloneListForGetting(notes);
+    return unmodifiableListAcceptingNull(notes);
   }
 
   public void setNotes(List<Label> notes) {
-    this.notes = cloneListForSetting(notes);
+    this.notes = cloneListAcceptingNull(notes);
   }
 
-  protected <T> List<T> cloneListForSetting(List<T> input) {
+  protected <T> List<T> cloneListAcceptingNull(List<T> input) {
     return input == null ? null : new ArrayList<>(input);
   }
 
-  protected <T> List<T> cloneListForGetting(List<T> input) {
+  protected <T> List<T> unmodifiableListAcceptingNull(List<T> input) {
     return input == null ? null : Collections.unmodifiableList(input);
   }
 }

@@ -27,27 +27,27 @@ public class Place extends EnrichmentBase {
 
 
   public List<Part> getIsPartOfList() {
-    return cloneListForGetting(isPartOfList);
+    return unmodifiableListAcceptingNull(isPartOfList);
   }
 
   public void setIsPartOfList(List<Part> isPartOfList) {
-    this.isPartOfList = cloneListForSetting(isPartOfList);
+    this.isPartOfList = cloneListAcceptingNull(isPartOfList);
   }
 
   public List<Part> getHasPartsList() {
-    return cloneListForGetting(hasPartsList);
+    return unmodifiableListAcceptingNull(hasPartsList);
   }
 
   public void setHasPartsList(List<Part> hasPartsList) {
-    this.hasPartsList = cloneListForSetting(hasPartsList);
+    this.hasPartsList = cloneListAcceptingNull(hasPartsList);
   }
 
   public List<Part> getSameAs() {
-    return cloneListForGetting(sameAs);
+    return unmodifiableListAcceptingNull(sameAs);
   }
 
   public void setSameAs(List<Part> sameAs) {
-    this.sameAs = cloneListForSetting(sameAs);
+    this.sameAs = cloneListAcceptingNull(sameAs);
   }
 
   public String getLat() {

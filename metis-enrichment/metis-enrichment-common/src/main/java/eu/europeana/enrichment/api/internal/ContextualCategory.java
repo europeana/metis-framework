@@ -2,8 +2,10 @@ package eu.europeana.enrichment.api.internal;
 
 public enum ContextualCategory {
 
-  AGENT("agent", "AgentImpl"), TIMESPAN("timespan", "TimespanImpl"), PLACE("place",
-      "PlaceImpl"), CONCEPT("concept", "ConceptImpl");
+  AGENT("agent", "AgentImpl"), 
+  TIMESPAN("timespan", "TimespanImpl"), 
+  PLACE("place", "PlaceImpl"),
+  CONCEPT("concept", "ConceptImpl");
 
   private String label;
 

@@ -26,50 +26,50 @@ public class Timespan extends EnrichmentBase {
   private List<Label> hiddenLabel = new ArrayList<>();
 
   public List<Part> getIsPartOfList() {
-    return cloneListForGetting(isPartOfList);
+    return unmodifiableListAcceptingNull(isPartOfList);
   }
 
   public void setIsPartOfList(List<Part> isPartOfList) {
-    this.isPartOfList = cloneListForSetting(isPartOfList);
+    this.isPartOfList = cloneListAcceptingNull(isPartOfList);
   }
 
   public List<Part> getHasPartsList() {
-    return cloneListForGetting(hasPartsList);
+    return unmodifiableListAcceptingNull(hasPartsList);
   }
 
   public void setHasPartsList(List<Part> hasPartsList) {
-    this.hasPartsList = cloneListForSetting(hasPartsList);
+    this.hasPartsList = cloneListAcceptingNull(hasPartsList);
   }
 
   public List<Part> getSameAs() {
-    return cloneListForGetting(sameAs);
+    return unmodifiableListAcceptingNull(sameAs);
   }
 
   public void setSameAs(List<Part> sameAs) {
-    this.sameAs = cloneListForSetting(sameAs);
+    this.sameAs = cloneListAcceptingNull(sameAs);
   }
 
   public List<Label> getBeginList() {
-    return cloneListForGetting(beginList);
+    return unmodifiableListAcceptingNull(beginList);
   }
 
   public void setBeginList(List<Label> beginList) {
-    this.beginList = cloneListForSetting(beginList);
+    this.beginList = cloneListAcceptingNull(beginList);
   }
 
   public List<Label> getEndList() {
-    return cloneListForGetting(endList);
+    return unmodifiableListAcceptingNull(endList);
   }
 
   public void setEndList(List<Label> endList) {
-    this.endList = cloneListForSetting(endList);
+    this.endList = cloneListAcceptingNull(endList);
   }
 
   public List<Label> getHiddenLabel() {
-    return cloneListForGetting(hiddenLabel);
+    return unmodifiableListAcceptingNull(hiddenLabel);
   }
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
-    this.hiddenLabel = cloneListForSetting(hiddenLabel);
+    this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
   }
 }

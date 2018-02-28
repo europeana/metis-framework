@@ -47,138 +47,138 @@ public class Agent extends EnrichmentBase {
   private List<Part> sameAs = new ArrayList<>();
 
   public List<Label> getHiddenLabel() {
-    return cloneListForGetting(hiddenLabel);
+    return unmodifiableListAcceptingNull(hiddenLabel);
   }
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
-    this.hiddenLabel = cloneListForSetting(hiddenLabel);
+    this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
   }
 
   public List<Label> getFoafName() {
-    return cloneListForGetting(name);
+    return unmodifiableListAcceptingNull(name);
   }
 
   public void setFoafName(List<Label> foafName) {
-    this.name = cloneListForSetting(foafName);
+    this.name = cloneListAcceptingNull(foafName);
   }
 
   public List<Label> getBeginList() {
-    return cloneListForGetting(beginList);
+    return unmodifiableListAcceptingNull(beginList);
   }
 
   public void setBeginList(List<Label> beginList) {
-    this.beginList = cloneListForSetting(beginList);
+    this.beginList = cloneListAcceptingNull(beginList);
   }
 
   public List<Label> getEndList() {
-    return cloneListForGetting(endList);
+    return unmodifiableListAcceptingNull(endList);
   }
 
   public void setEndList(List<Label> endList) {
-    this.endList = cloneListForSetting(endList);
+    this.endList = cloneListAcceptingNull(endList);
   }
 
   public List<Label> getIdentifier() {
-    return cloneListForGetting(identifier);
+    return unmodifiableListAcceptingNull(identifier);
   }
 
   public void setIdentifier(List<Label> identifier) {
-    this.identifier = cloneListForSetting(identifier);
+    this.identifier = cloneListAcceptingNull(identifier);
   }
 
   public List<Label> getHasMet() {
-    return cloneListForGetting(hasMet);
+    return unmodifiableListAcceptingNull(hasMet);
   }
 
   public void setHasMet(List<Label> hasMet) {
-    this.hasMet = cloneListForSetting(hasMet);
+    this.hasMet = cloneListAcceptingNull(hasMet);
   }
 
   public List<Label> getBiographicaInformation() {
-    return cloneListForGetting(biographicaInformation);
+    return unmodifiableListAcceptingNull(biographicaInformation);
   }
 
   public void setBiographicaInformation(List<Label> biographicaInformation) {
-    this.biographicaInformation = cloneListForSetting(biographicaInformation);
+    this.biographicaInformation = cloneListAcceptingNull(biographicaInformation);
   }
 
   public List<Label> getDateOfBirth() {
-    return cloneListForGetting(dateOfBirth);
+    return unmodifiableListAcceptingNull(dateOfBirth);
   }
 
   public void setDateOfBirth(List<Label> dateOfBirth) {
-    this.dateOfBirth = cloneListForSetting(dateOfBirth);
+    this.dateOfBirth = cloneListAcceptingNull(dateOfBirth);
   }
 
   public List<Label> getDateOfDeath() {
-    return cloneListForGetting(dateOfDeath);
+    return unmodifiableListAcceptingNull(dateOfDeath);
   }
 
   public void setDateOfDeath(List<Label> dateOfDeath) {
-    this.dateOfDeath = cloneListForSetting(dateOfDeath);
+    this.dateOfDeath = cloneListAcceptingNull(dateOfDeath);
   }
 
   public List<Label> getDateOfEstablishment() {
-    return cloneListForGetting(dateOfEstablishment);
+    return unmodifiableListAcceptingNull(dateOfEstablishment);
   }
 
   public void setDateOfEstablishment(List<Label> dateOfEstablishment) {
-    this.dateOfEstablishment = cloneListForSetting(dateOfEstablishment);
+    this.dateOfEstablishment = cloneListAcceptingNull(dateOfEstablishment);
   }
 
   public List<Label> getDateOfTermination() {
-    return cloneListForGetting(dateOfTermination);
+    return unmodifiableListAcceptingNull(dateOfTermination);
   }
 
   public void setDateOfTermination(List<Label> dateOfTermination) {
-    this.dateOfTermination = cloneListForSetting(dateOfTermination);
+    this.dateOfTermination = cloneListAcceptingNull(dateOfTermination);
   }
 
   public List<Label> getGender() {
-    return cloneListForGetting(gender);
+    return unmodifiableListAcceptingNull(gender);
   }
 
   public void setGender(List<Label> gender) {
-    this.gender = cloneListForSetting(gender);
+    this.gender = cloneListAcceptingNull(gender);
   }
 
   public List<LabelResource> getProfessionOrOccupation() {
-    return cloneListForGetting(professionOrOccupation);
+    return unmodifiableListAcceptingNull(professionOrOccupation);
   }
 
   public void setProfessionOrOccupation(List<LabelResource> professionOrOccupation) {
-    this.professionOrOccupation = cloneListForSetting(professionOrOccupation);
+    this.professionOrOccupation = cloneListAcceptingNull(professionOrOccupation);
   }
 
   public List<LabelResource> getDate() {
-    return cloneListForGetting(date);
+    return unmodifiableListAcceptingNull(date);
   }
 
   public void setDate(List<LabelResource> date) {
-    this.date = cloneListForSetting(date);
+    this.date = cloneListAcceptingNull(date);
   }
 
   public List<LabelResource> getIsRelatedTo() {
-    return cloneListForGetting(isRelatedTo);
+    return unmodifiableListAcceptingNull(isRelatedTo);
   }
 
   public void setIsRelatedTo(List<LabelResource> isRelatedTo) {
-    this.isRelatedTo = cloneListForSetting(isRelatedTo);
+    this.isRelatedTo = cloneListAcceptingNull(isRelatedTo);
   }
 
   public List<Resource> getWasPresentAt() {
-    return cloneListForGetting(wasPresentAt);
+    return unmodifiableListAcceptingNull(wasPresentAt);
   }
 
   public void setWasPresentAt(List<Resource> wasPresentAt) {
-    this.wasPresentAt = cloneListForSetting(wasPresentAt);
+    this.wasPresentAt = cloneListAcceptingNull(wasPresentAt);
   }
 
   public List<Part> getSameAs() {
-    return cloneListForGetting(sameAs);
+    return unmodifiableListAcceptingNull(sameAs);
   }
 
   public void setSameAs(List<Part> sameAs) {
-    this.sameAs = cloneListForSetting(sameAs);
+    this.sameAs = cloneListAcceptingNull(sameAs);
   }
 }

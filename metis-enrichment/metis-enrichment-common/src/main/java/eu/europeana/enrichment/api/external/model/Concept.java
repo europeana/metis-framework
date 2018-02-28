@@ -37,90 +37,90 @@ public class Concept extends EnrichmentBase {
   }
 
   public List<Label> getHiddenLabel() {
-    return cloneListForGetting(hiddenLabel);
+    return unmodifiableListAcceptingNull(hiddenLabel);
   }
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
-    this.hiddenLabel = cloneListForSetting(hiddenLabel);
+    this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
   }
 
   public List<Label> getNotation() {
-    return cloneListForGetting(notation);
+    return unmodifiableListAcceptingNull(notation);
   }
 
   public void setNotation(List<Label> notation) {
-    this.notation = cloneListForSetting(notation);
+    this.notation = cloneListAcceptingNull(notation);
   }
 
   public List<Resource> getBroader() {
-    return cloneListForGetting(broader);
+    return unmodifiableListAcceptingNull(broader);
   }
 
   public void setBroader(List<Resource> broader) {
-    this.broader = cloneListForSetting(broader);
+    this.broader = cloneListAcceptingNull(broader);
   }
 
   public List<Resource> getBroadMatch() {
-    return cloneListForGetting(broadMatch);
+    return unmodifiableListAcceptingNull(broadMatch);
   }
 
   public void setBroadMatch(List<Resource> broader) {
-    this.broadMatch = cloneListForSetting(broader);
+    this.broadMatch = cloneListAcceptingNull(broader);
   }
 
   public List<Resource> getCloseMatch() {
-    return cloneListForGetting(closeMatch);
+    return unmodifiableListAcceptingNull(closeMatch);
   }
 
   public void setCloseMatch(List<Resource> closeMatch) {
-    this.closeMatch = cloneListForSetting(closeMatch);
+    this.closeMatch = cloneListAcceptingNull(closeMatch);
   }
 
   public List<Resource> getExactMatch() {
-    return cloneListForGetting(exactMatch);
+    return unmodifiableListAcceptingNull(exactMatch);
   }
 
   public void setExactMatch(List<Resource> exactMatch) {
-    this.exactMatch = cloneListForSetting(exactMatch);
+    this.exactMatch = cloneListAcceptingNull(exactMatch);
   }
 
   public List<Resource> getInScheme() {
-    return cloneListForGetting(inScheme);
+    return unmodifiableListAcceptingNull(inScheme);
   }
 
   public void setInScheme(List<Resource> inScheme) {
-    this.inScheme = cloneListForSetting(inScheme);
+    this.inScheme = cloneListAcceptingNull(inScheme);
   }
 
   public List<Resource> getNarrower() {
-    return cloneListForGetting(narrower);
+    return unmodifiableListAcceptingNull(narrower);
   }
 
   public void setNarrower(List<Resource> narrower) {
-    this.narrower = cloneListForSetting(narrower);
+    this.narrower = cloneListAcceptingNull(narrower);
   }
 
   public List<Resource> getNarrowMatch() {
-    return cloneListForGetting(narrowMatch);
+    return unmodifiableListAcceptingNull(narrowMatch);
   }
 
   public void setNarrowMatch(List<Resource> narrowMatch) {
-    this.narrowMatch = cloneListForSetting(narrowMatch);
+    this.narrowMatch = cloneListAcceptingNull(narrowMatch);
   }
 
   public List<Resource> getRelated() {
-    return cloneListForGetting(related);
+    return unmodifiableListAcceptingNull(related);
   }
 
   public void setRelated(List<Resource> related) {
-    this.related = cloneListForSetting(related);
+    this.related = cloneListAcceptingNull(related);
   }
 
   public List<Resource> getRelatedMatch() {
-    return cloneListForGetting(relatedMatch);
+    return unmodifiableListAcceptingNull(relatedMatch);
   }
 
   public void setRelatedMatch(List<Resource> relatedMatch) {
-    this.relatedMatch = cloneListForSetting(relatedMatch);
+    this.relatedMatch = cloneListAcceptingNull(relatedMatch);
   }
 }
