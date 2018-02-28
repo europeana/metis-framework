@@ -23,11 +23,11 @@ package eu.europeana.metis.dereference.service.dao;
 public interface  AbstractDao<T> {
 
     /**
-     * Get an Entityby URL
-     * @param uri The uri to retrieve from
+     * Get an Entity by URL
+     * @param resourceId The resource ID (URI) to retrieve
      * @return A list of Entity
      */
-     T getByUri(String uri);
+     T get(String resourceId);
 
     /**
      * Save a vocabulary or entity
@@ -37,15 +37,15 @@ public interface  AbstractDao<T> {
 
     /**
      * Delete a Vocabulary or Entity
-     * @param uri The entity to delete
+     * @param resourceId The entity to delete
      */
-    void delete(String uri);
+    void delete(String resourceId);
 
     /**
      * Update a Vocabulary or Entity
-     * @param uri The uri to update
+     * @param resourceId The resource to update
      * @param entity The entity to update
      */
-    void update(String uri, T entity);
+    void update(String resourceId, T entity);
 
 }

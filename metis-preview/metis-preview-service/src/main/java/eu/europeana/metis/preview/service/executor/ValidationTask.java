@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -59,36 +59,34 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         this.crosswalkPath = crosswalkPath;
     }
 
-    /**
-     * Execution of transformation, id-generation and validation for Europeana Preview Service
-     */
-    @Override
-    public ValidationTaskResult call()
-                throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException,
-                JiBXException, ParserConfigurationException, MongoRuntimeException, IllegalAccessException,
-                MongoDBException, TransformerException, SolrServerException {
-        try {
-            return invoke();
-        } catch (Exception ex) {
-            LOGGER.error("An error occurred while validating", ex);
-            throw ex;
-        }
+  /**
+   * Execution of transformation, id-generation and validation for Europeana Preview Service
+   */
+  @Override
+  public ValidationTaskResult call() throws IOException, InstantiationException,
+      InvocationTargetException, NoSuchMethodException, JiBXException, MongoRuntimeException,
+      IllegalAccessException, MongoDBException, TransformerException, SolrServerException {
+    try {
+      return invoke();
+    } catch (Exception ex) {
+      LOGGER.error("An error occurred while validating", ex);
+      throw ex;
     }
+  }
     
-  private String transformRecord()
-      throws TransformerException, ParserConfigurationException, IOException {
-    final String transformationFile;
+  private String transformRecord() throws TransformerException, IOException {
+    final String transformationFilePath;
     if (StringUtils.isEmpty(crosswalkPath)) {
-      transformationFile = validationUtils.getDefaultTransformationFile();
+      transformationFilePath = validationUtils.getDefaultTransformationFile();
     } else {
-      transformationFile = crosswalkPath;
+      transformationFilePath = crosswalkPath;
     }
-    return new XsltTransformer().transform(incomingRecord, FileUtils.readFileToString(
-        new File(this.getClass().getClassLoader().getResource(transformationFile).getFile())));
+    final File transformationFile = new File(this.getClass().getClassLoader().getResource(transformationFilePath).getFile());
+    final String xslTransform = FileUtils.readFileToString(transformationFile, StandardCharsets.UTF_8);
+    return new XsltTransformer(xslTransform).transform(incomingRecord);
   }
 
-  private ValidationTaskResult invoke()
-      throws JiBXException, TransformerException, ParserConfigurationException, IOException,
+  private ValidationTaskResult invoke() throws JiBXException, TransformerException, IOException,
       InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
       InvocationTargetException, MongoDBException, MongoRuntimeException {
 
@@ -109,10 +107,10 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   }
 
   private ValidationTaskResult handleValidatedResult(final ValidationResult validationResult)
-      throws JiBXException, TransformerException, ParserConfigurationException, IOException,
-      InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
-      InvocationTargetException, MongoDBException, MongoRuntimeException {
-    
+      throws JiBXException, TransformerException, IOException, InstantiationException,
+      IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException,
+      MongoDBException, MongoRuntimeException {
+   
     // Transform the record (apply crosswalk) if necessary.
     final String resultRecord = applyCrosswalk ? transformRecord() : incomingRecord;
     

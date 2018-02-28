@@ -16,13 +16,10 @@
  */
 package eu.europeana.metis.dereference.service;
 
-import java.io.IOException;
 import java.io.StringReader;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +34,7 @@ import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
+import eu.europeana.metis.dereference.service.utils.VocabularyMatchUtils;
 import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 
 /**
@@ -51,10 +49,8 @@ public class MongoDereferenceService implements DereferenceService {
   private EnrichmentClient enrichmentClient;
 
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever,
-		  CacheDao cacheDao, EntityDao entityDao,
-		  VocabularyDao vocabularyDao,
-		  EnrichmentClient enrichmentClient) {
+  public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao, EntityDao entityDao,
+      VocabularyDao vocabularyDao, EnrichmentClient enrichmentClient) {
 	  this.retriever = retriever;
 	  this.cacheDao = cacheDao;
 	  this.entityDao = entityDao;
@@ -63,38 +59,27 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   @Override
-  public EnrichmentResultList dereference(String uri)
-      throws TransformerException, ParserConfigurationException, IOException, JAXBException {
+  public EnrichmentResultList dereference(String resourceId) throws TransformerException, JAXBException {
     EnrichmentResultList toReturn = new EnrichmentResultList();
-    EnrichmentBase fromEntity = checkInEntityCollection(uri);
+    EnrichmentBase fromEntity = checkInEntityCollection(resourceId);
 
     if (fromEntity != null) {
       toReturn.getResult().add(fromEntity);
       return toReturn;
     }
 
-    String[] splitName = uri.split("/");
-    if (splitName.length <= 3) {
-      LOGGER.info("Invalid uri {}", uri);
-      return toReturn;
-    }
-
-    String vocabularyUri = splitName[0] + "/" + splitName[1] + "/"
-        + splitName[2] + "/";
-    List<Vocabulary> vocs = vocabularyDao.getByUri(vocabularyUri);
-
-    if (vocs == null || vocs.isEmpty()) {
-      LOGGER.info("No vocabularies found for uri {}", uri);
-      return toReturn;
-    }
-
-    EnrichmentBase enriched = readFromCache(uri);
+    EnrichmentBase enriched = readFromCache(resourceId);
     if (enriched != null) {
       toReturn.getResult().add(enriched);
       return toReturn;
     }
+    
+    final List<Vocabulary> vocabularies = VocabularyMatchUtils.findVocabulariesForResource(resourceId, vocabularyDao::getByUri);
+    if (vocabularies.isEmpty()) {
+      return toReturn;
+    }
 
-    enriched = transformEntity(uri, vocs);
+    enriched = transformEntity(resourceId, vocabularies);
     if (enriched != null) {
       toReturn.getResult().add(enriched);
     }
@@ -102,28 +87,28 @@ public class MongoDereferenceService implements DereferenceService {
     return toReturn;
   }
 
-  private EnrichmentBase transformEntity(String uri, List<Vocabulary> vocs)
-      throws TransformerException, ParserConfigurationException, JAXBException {
-    OriginalEntity originalEntity = entityDao.getByUri(uri);
+  private EnrichmentBase transformEntity(String resourceId, List<Vocabulary> vocabularies)
+      throws TransformerException, JAXBException {
+    OriginalEntity originalEntity = entityDao.get(resourceId);
     
     if (originalEntity == null) {
-      String originalXml = retriever.retrieve(uri);
-      String value =originalXml.contains("<html>") ? null : originalXml;
-      originalEntity = storeEntity(uri, value);
+      String originalXml = retriever.retrieve(resourceId);
+      String value = originalXml.contains("<html>") ? null : originalXml;
+      originalEntity = storeEntity(resourceId, value);
     }
 
     if (originalEntity.getXml() == null) {
-      LOGGER.info("No entity XML for uri {}", uri);
+      LOGGER.info("No entity XML for uri {}", resourceId);
       
       return null;
     }
     
-    return getEnrichmentFromVocabularyAndStoreInCache(uri, vocs, originalEntity.getXml());
+    return getEnrichmentFromVocabularyAndStoreInCache(resourceId, vocabularies, originalEntity.getXml());
   }
 
-  private OriginalEntity storeEntity(String uri, String value) {
+  private OriginalEntity storeEntity(String resourceId, String value) {
     OriginalEntity originalEntity = new OriginalEntity();
-    originalEntity.setURI(uri);
+    originalEntity.setURI(resourceId);
     originalEntity.setXml(value);
 
     entityDao.save(originalEntity);
@@ -131,51 +116,46 @@ public class MongoDereferenceService implements DereferenceService {
     return originalEntity;
   }
 
-  private EnrichmentBase getEnrichmentFromVocabularyAndStoreInCache(String uri, List<Vocabulary> vocs,
-      String entityString)
-      throws TransformerException, ParserConfigurationException, JAXBException {
+  private EnrichmentBase getEnrichmentFromVocabularyAndStoreInCache(String resourceId, List<Vocabulary> vocabularies,
+      String entityString) throws TransformerException, JAXBException {
     
-    final Vocabulary vocabulary = VocabularyDao.findByEntity(vocs, entityString, uri);
+    final Vocabulary vocabulary = VocabularyMatchUtils.findByEntity(vocabularies, entityString, resourceId);
     if (vocabulary == null) {
       return null;
     }
 
-    String transformed;
+    final String transformed;
     try {
-      transformed = new XsltTransformer()
-          .transform(entityString, vocabulary.getXslt());
-    } catch (ParserConfigurationException | TransformerException e) {
-      LOGGER.error("Error transforming entity: " + uri + " with message :" + e.getMessage());
+      transformed = new XsltTransformer(vocabulary.getXslt()).transform(entityString);
+    } catch (TransformerException e) {
+      LOGGER.error("Error transforming entity: {} with message :{}", resourceId, e.getMessage());
       throw e;
     }
 
-    storeInCache(uri, transformed);
+    storeInCache(resourceId, transformed);
 
     return deserialize(transformed);
   }
 
-  private void storeInCache(String uri, String transformed) {
+  private void storeInCache(String resourceId, String transformed) {
     ProcessedEntity entity = new ProcessedEntity();
     entity.setXml(transformed);
-    entity.setURI(uri);
+    entity.setURI(resourceId);
     cacheDao.save(entity);
   }
 
-  private EnrichmentBase readFromCache(String uri) throws JAXBException {
-    ProcessedEntity entity = cacheDao.getByUri(uri);
-    
-    return entity!= null ? deserialize(entity.getXml()): null;
+  private EnrichmentBase readFromCache(String resourceId) throws JAXBException {
+    ProcessedEntity entity = cacheDao.get(resourceId);
+    return entity != null ? deserialize(entity.getXml()) : null;
   }
 
-  private EnrichmentBase checkInEntityCollection(String uri) throws IOException {
-    return enrichmentClient.getByUri(uri);
+  private EnrichmentBase checkInEntityCollection(String resourceId) {
+    return enrichmentClient.getByUri(resourceId);
   }
 
   private EnrichmentBase deserialize(String enrichment) throws JAXBException {
-    JAXBContext contextA = JAXBContext.newInstance(EnrichmentBase.class);
-    StringReader reader = new StringReader(enrichment);
-    Unmarshaller unmarshaller = contextA.createUnmarshaller();
-    
-    return (EnrichmentBase) unmarshaller.unmarshal(reader);
+    final StringReader reader = new StringReader(enrichment);
+    final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
+    return (EnrichmentBase) context.createUnmarshaller().unmarshal(reader);
   }
 }

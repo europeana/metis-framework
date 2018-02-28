@@ -21,7 +21,6 @@ import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
@@ -99,7 +98,7 @@ public class MongoDereferenceServiceTest {
             
             Assert.assertNotNull(result);
             
-            OriginalEntity entity = entityDao.getByUri("http://sws.geonames.org/3020251");
+            OriginalEntity entity = entityDao.get("http://sws.geonames.org/3020251");
             
             Assert.assertNotNull(entity);
             Assert.assertNotNull(entity.getXml());
@@ -111,11 +110,9 @@ public class MongoDereferenceServiceTest {
                         
             Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
             
-            ProcessedEntity entity1 = cacheDao.getByUri("http://sws.geonames.org/3020251");
+            ProcessedEntity entity1 = cacheDao.get("http://sws.geonames.org/3020251");
             Assert.assertNotNull(entity1);
         } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (JAXBException e) {
             e.printStackTrace();
