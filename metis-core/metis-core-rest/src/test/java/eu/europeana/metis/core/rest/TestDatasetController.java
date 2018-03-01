@@ -137,7 +137,7 @@ public class TestDatasetController {
         .andExpect(status().is(204))
         .andExpect(content().string(""));
 
-    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class));
+    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
   }
 
   @Test
@@ -153,7 +153,7 @@ public class TestDatasetController {
         .andExpect(status().is(406))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.WRONG_ACCESS_TOKEN)));
 
-    verify(datasetServiceMock, times(0)).updateDataset(any(MetisUser.class), any(Dataset.class));
+    verify(datasetServiceMock, times(0)).updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
   }
 
   @Test
@@ -164,7 +164,7 @@ public class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new NoDatasetFoundException("Does not exist")).when(datasetServiceMock)
-        .updateDataset(any(MetisUser.class), any(Dataset.class));
+        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -173,7 +173,7 @@ public class TestDatasetController {
         .andExpect(status().is(404))
         .andExpect(jsonPath("$.errorMessage", is("Does not exist")));
 
-    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class));
+    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
   }
 
   @Test
@@ -184,7 +184,7 @@ public class TestDatasetController {
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
     doThrow(new BadContentException("Bad Content")).when(datasetServiceMock)
-        .updateDataset(any(MetisUser.class), any(Dataset.class));
+        .updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
     datasetControllerMock.perform(put("/datasets")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
@@ -193,7 +193,7 @@ public class TestDatasetController {
         .andExpect(status().is(406))
         .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
 
-    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class));
+    verify(datasetServiceMock, times(1)).updateDataset(any(MetisUser.class), any(Dataset.class), anyString());
   }
 
   @Test

@@ -7,6 +7,8 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
+import eu.europeana.metis.core.dataset.Xslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
@@ -105,13 +107,14 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void updateDataset(@RequestHeader("Authorization") String authorization,
-      @RequestBody Dataset dataset)
+      @RequestBody DatasetXsltStringWrapper datasetXsltStringWrapper)
       throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    datasetService.updateDataset(metisUser, dataset);
-    LOGGER.info("Dataset with datasetId {} updated", dataset.getDatasetId());
+    datasetService.updateDataset(metisUser, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
+        .getXslt());
+    LOGGER.info("Dataset with datasetId {} updated", datasetXsltStringWrapper.getDataset().getDatasetId());
   }
 
   /**
@@ -164,6 +167,31 @@ public class DatasetController {
     Dataset storedDataset = datasetService.getDatasetByDatasetId(metisUser, datasetId);
     LOGGER.info("Dataset with datasetId '{}' found", datasetId);
     return storedDataset;
+  }
+
+  @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT, method = RequestMethod.GET, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public Xslt getXsltByDatasetId(@RequestHeader("Authorization") String authorization,
+      @PathVariable("datasetId") int datasetId) throws GenericMetisException {
+
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+
+    Xslt xslt = datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
+    LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId, xslt.getId());
+    return xslt;
+  }
+
+  @RequestMapping(value = RestEndpoints.DATASETS_XSLT_XSLTID, method = RequestMethod.GET, produces = {
+      MediaType.TEXT_PLAIN_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public String getXsltByXsltId(@PathVariable("xsltId") String xsltId)
+      throws GenericMetisException {
+    Xslt xslt = datasetService.getDatasetXsltByXsltId(xsltId);
+    LOGGER.info("XSLT with xsltId '{}' found", xslt.getId());
+    return xslt.getXslt();
   }
 
   /**

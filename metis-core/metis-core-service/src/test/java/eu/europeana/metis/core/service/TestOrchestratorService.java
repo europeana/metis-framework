@@ -20,6 +20,7 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
@@ -73,6 +74,7 @@ public class TestOrchestratorService {
   private static WorkflowDao workflowDao;
   private static ScheduledWorkflowDao scheduledWorkflowDao;
   private static DatasetDao datasetDao;
+  private static XsltsDao xsltsDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
@@ -84,12 +86,13 @@ public class TestOrchestratorService {
     workflowDao = Mockito.mock(WorkflowDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
+    xsltsDao = Mockito.mock(XsltsDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        scheduledWorkflowDao, datasetDao, xsltsDao, workflowExecutorManager, ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
   }

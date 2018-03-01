@@ -11,6 +11,7 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
@@ -141,12 +142,12 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   public OrchestratorService getOrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
-      DatasetDao datasetDao,
+      DatasetDao datasetDao, XsltsDao xsltsDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        scheduledWorkflowDao, datasetDao, xsltsDao, workflowExecutorManager, ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     return orchestratorService;

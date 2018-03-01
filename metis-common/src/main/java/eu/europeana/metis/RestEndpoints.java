@@ -11,6 +11,8 @@ public final class RestEndpoints {
   //DATASETS
   public static final String DATASETS = "/datasets";
   public static final String DATASETS_DATASETID = "/datasets/{datasetId}";
+  public static final String DATASETS_DATASETID_XSLT = "/datasets/{datasetId}/xslt";
+  public static final String DATASETS_XSLT_XSLTID = "/datasets/xslt/{xsltId}";
   public static final String DATASETS_DATASETNAME = "/datasets/dataset_name/{datasetName}";
   public static final String DATASETS_DATAPROVIDER = "/datasets/data_provider/{dataProvider}";
   public static final String DATASETS_PROVIDER = "/datasets/provider/{provider}";

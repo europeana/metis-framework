@@ -8,6 +8,7 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
@@ -66,6 +67,7 @@ public class OrchestratorService {
   private final WorkflowDao workflowDao;
   private final ScheduledWorkflowDao scheduledWorkflowDao;
   private final DatasetDao datasetDao;
+  private final XsltsDao xsltsDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final DataSetServiceClient ecloudDataSetServiceClient;
   private final RedissonClient redissonClient;
@@ -75,7 +77,7 @@ public class OrchestratorService {
   public OrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
-      DatasetDao datasetDao,
+      DatasetDao datasetDao, XsltsDao xsltsDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient,
       RedissonClient redissonClient) throws IOException {
@@ -83,6 +85,7 @@ public class OrchestratorService {
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
+    this.xsltsDao = xsltsDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.redissonClient = redissonClient;

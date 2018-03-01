@@ -10,6 +10,7 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
@@ -28,6 +29,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.View;
@@ -168,6 +170,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return datasetDao;
   }
 
+  @Bean
+  public XsltsDao getXsltDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new XsltsDao(morphiaDatastoreProvider);
+  }
+
   /**
    * Get the Service for datasets.
    * <p>It encapsulates several DAOs and combines their functionality into methods</p>
@@ -179,10 +186,10 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * @return {@link DatasetService}
    */
   @Bean
-  public DatasetService getDatasetService(DatasetDao datasetDao,
+  public DatasetService getDatasetService(DatasetDao datasetDao, XsltsDao xsltsDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
-    return new DatasetService(datasetDao, workflowExecutionDao,
+    return new DatasetService(datasetDao, xsltsDao, workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 
@@ -223,6 +230,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
+    converters.add(new StringHttpMessageConverter());
     super.configureMessageConverters(converters);
   }
 }

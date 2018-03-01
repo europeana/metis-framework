@@ -17,6 +17,7 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
@@ -36,6 +37,7 @@ import org.redisson.api.RedissonClient;
 public class TestDatasetService {
 
   private DatasetDao datasetDao;
+  private XsltsDao xsltsDao;
   private WorkflowExecutionDao workflowExecutionDao;
   private ScheduledWorkflowDao scheduledWorkflowDao;
   private DatasetService datasetService;
@@ -46,11 +48,12 @@ public class TestDatasetService {
   @Before
   public void prepare() {
     datasetDao = Mockito.mock(DatasetDao.class);
+    xsltsDao = Mockito.mock(XsltsDao.class);
     workflowExecutionDao = Mockito.mock(WorkflowExecutionDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
-    datasetService = new DatasetService(datasetDao, workflowExecutionDao,
+    datasetService = new DatasetService(datasetDao, xsltsDao, workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 
@@ -112,7 +115,7 @@ public class TestDatasetService {
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
-    datasetService.updateDataset(metisUser, dataset);
+    datasetService.updateDataset(metisUser, dataset, null);
 
     ArgumentCaptor<Dataset> dataSetArgumentCaptor = ArgumentCaptor.forClass(Dataset.class);
     verify(datasetDao, times(1)).update(dataSetArgumentCaptor.capture());
@@ -129,7 +132,7 @@ public class TestDatasetService {
     metisUser.setAccountRole(null);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     dataset.setProvider("newProvider");
-    datasetService.updateDataset(metisUser, dataset);
+    datasetService.updateDataset(metisUser, dataset, null);
     verify(datasetDao, times(0)).update(dataset);
   }
 
@@ -143,7 +146,7 @@ public class TestDatasetService {
     storedDataset.setUpdatedDate(new Date(-1000));
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
-    datasetService.updateDataset(metisUser, dataset);
+    datasetService.updateDataset(metisUser, dataset, null);
     verify(datasetDao, times(0)).update(dataset);
   }
 
@@ -157,7 +160,7 @@ public class TestDatasetService {
     storedDataset.setOrganizationId(metisUser.getOrganizationId());
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(storedDataset);
     when(datasetDao.getDatasetByOrganizationIdAndDatasetName(dataset.getOrganizationId(), dataset.getDatasetName())).thenReturn(new Dataset());
-    datasetService.updateDataset(metisUser, dataset);
+    datasetService.updateDataset(metisUser, dataset, null);
   }
 
   @Test(expected = BadContentException.class)
@@ -167,7 +170,7 @@ public class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn("ObjectId");
-    datasetService.updateDataset(metisUser, dataset);
+    datasetService.updateDataset(metisUser, dataset, null);
   }
 
   @Test(expected = NoDatasetFoundException.class)
@@ -177,7 +180,7 @@ public class TestDatasetService {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(null);
-    datasetService.updateDataset(metisUser, dataset);
+    datasetService.updateDataset(metisUser, dataset, null);
   }
 
   @Test
