@@ -16,22 +16,28 @@
  */
 package eu.europeana.enrichment.utils;
 
-import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.mongojack.DBCursor;
+import org.mongojack.DBRef;
 import org.mongojack.JacksonDBCollection;
+import org.mongojack.WriteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
+
 import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.enrichment.api.internal.AgentTermList;
 import eu.europeana.enrichment.api.internal.ConceptTermList;
 import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.MongoTermList;
+import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.api.internal.PlaceTermList;
 import eu.europeana.enrichment.api.internal.TimespanTermList;
 
@@ -91,12 +97,14 @@ public class MongoDatabaseUtils {
     if (db != null) {
       return true;
     }
-    try(MongoClient mongo = new MongoClient(host, port)) {
+    try {
       LOGGER.info("Creating Mongo connection to host {}.", host);
       
+      MongoClient mongo = new MongoClient(host, port);
       db = mongo.getDB("annocultor_db"); // See TODO above.
 
       boolean exist = db.collectionExists(TERMLIST_TABLE);
+      
       cColl = JacksonDBCollection.wrap(
           db.getCollection(TERMLIST_TABLE),
           ConceptTermList.class, String.class);
@@ -114,24 +122,31 @@ public class MongoDatabaseUtils {
           String.class);
 
       oColl = JacksonDBCollection.wrap(
-          db.getCollection(ORGANIZATION_TABLE), OrganizationTermList.class,
+          db.getCollection(TERMLIST_TABLE), OrganizationTermList.class,
           String.class);
 
+      //TODO: Sergiu looks like the following commands need to be updated. All c,a,t,p,oColl are mapped to the TermList table 
+      // so there is a lot o redundancy in the commands. Shouldn't these collections be mapped to the corresponding concept/agent/timespan/person/organization tables?  
       if (!exist) {
-        pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        cColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        cColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
 
         aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        aColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
 
         tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        tColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
 
         pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        pColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
 
         oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
         oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        oColl.createIndex(new BasicDBObject(ENTITY_TYPE_PROPERTY, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
       }
       return exist;
     } catch (MongoException e) {
@@ -200,7 +215,8 @@ public class MongoDatabaseUtils {
     return retUris;
   }
 
-  private static List<String> deleteOrganizations(String uri) {
+  //TODO: rename to deleteOrganization
+  public static List<String> deleteOrganizations(String uri) {
     List<String> retUris = new ArrayList<>();
 
     oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
@@ -378,4 +394,68 @@ public class MongoDatabaseUtils {
 
     return lst;
   }
+  
+  public static MongoTermList<? extends ContextualClassImpl> insertMongoTermList(
+			MongoTermList<? extends ContextualClassImpl> termList) {
+		
+		String type = termList.getEntityType();
+		switch (type) {
+		case ORGANIZATION_TYPE:
+			return insertOrganization((OrganizationTermList) termList);
+
+		default: // TODO add support for other entity types
+			throw new RuntimeException("insertion of MongoTermList of type: " + type + " not supported yet!");
+
+		}
+
+	}
+
+	private static OrganizationTermList insertOrganization(OrganizationTermList termList) {
+//		JacksonDBCollection<OrganizationTermList, String> termColl = JacksonDBCollection.wrap(db.getCollection(TERMLIST_TABLE), OrganizationTermList.class, String.class);
+		return oColl.insert(termList).getSavedObject();
+	}
+	
+	public static List<DBRef<? extends MongoTerm, String>> storeEntityLabels(ContextualClassImpl entity, EntityClass entityClass){
+		//select collection
+		String collection = getTableName(entityClass);
+		JacksonDBCollection<MongoTerm, String> termColl = JacksonDBCollection.wrap(db.getCollection(collection), MongoTerm.class, String.class);
+		
+		//store terms
+		List<MongoTerm> terms = createListOfMongoTerms(entity);
+		WriteResult<MongoTerm, String> res = termColl.insert(terms);
+		
+		//return references
+		List<String> ids = res.getSavedIds();
+		return createReferenceList(ids, collection);
+	}
+
+	private static List<DBRef<? extends MongoTerm, String>> createReferenceList(List<String> ids, String collection) {
+		List<DBRef<? extends MongoTerm, String>> termList = new ArrayList<>();
+		DBRef<MongoTerm, String> termRef;
+		for (String id : ids){
+			termRef = new DBRef<>(id, collection);
+			termList.add(termRef);
+		}
+		return termList;
+	}
+
+	private static List<MongoTerm> createListOfMongoTerms(ContextualClassImpl entity) {
+		MongoTerm term;
+		List<MongoTerm> terms= new ArrayList<MongoTerm>();
+		String lang;
+		
+		for (Map.Entry<String, List<String>> prefLabel : entity.getPrefLabel().entrySet()) {
+			for (String label : prefLabel.getValue()) {
+				term = new MongoTerm();
+				term.setCodeUri(entity.getAbout());
+				term.setLabel(label.toLowerCase());
+				lang = prefLabel.getKey();
+
+				term.setOriginalLabel(label);
+				term.setLang(lang);
+				terms.add(term);
+			}
+		}
+		return terms;
+	}
 }

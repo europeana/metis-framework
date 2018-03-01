@@ -29,6 +29,7 @@ import eu.europeana.metis.exception.GenericMetisException;
 @Service
 public class ZohoAccessService {
 
+	private static final String URL_ORGANIZATION_BASE = "http://data.europeana.eu/organization/base/";
 	private final ZohoAccessClientDao zohoAccessClientDao;
 
 	/**
@@ -95,6 +96,7 @@ public class ZohoAccessService {
 			throw new ZohoAccessException("Cannot find fields label in zoho response." + jsonRecord, e);
 		}
 
+		res.setAbout(URL_ORGANIZATION_BASE + zoa.getZohoId());
 		res.setDcIdentifier(createMap(zoa.getLanguage(), zoa.getZohoId()));
 		res.setPrefLabel(createMap(zoa.getLanguage(), zoa.getOrganizationName()));
 		res.setAltLabel(createMapFromList(zoa.getLanguage(), zoa.getAlternativeOrganizationName()));
