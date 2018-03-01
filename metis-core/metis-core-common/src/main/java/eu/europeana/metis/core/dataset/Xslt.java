@@ -1,7 +1,9 @@
 package eu.europeana.metis.core.dataset;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import eu.europeana.metis.json.ObjectIdSerializer;
+import java.util.Date;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
@@ -19,6 +21,8 @@ public class Xslt {
 
   private int datasetId;
   private String xslt;
+  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  private Date createdDate;
 
   public Xslt() {
     //Required for json serialization
@@ -27,6 +31,7 @@ public class Xslt {
   public Xslt(int datasetId, String xslt) {
     this.datasetId = datasetId;
     this.xslt = xslt;
+    this.createdDate = new Date();
   }
 
   public ObjectId getId() {
@@ -51,5 +56,13 @@ public class Xslt {
 
   public void setXslt(String xslt) {
     this.xslt = xslt;
+  }
+
+  public Date getCreatedDate() {
+    return createdDate;
+  }
+
+  public void setCreatedDate(Date createdDate) {
+    this.createdDate = createdDate;
   }
 }

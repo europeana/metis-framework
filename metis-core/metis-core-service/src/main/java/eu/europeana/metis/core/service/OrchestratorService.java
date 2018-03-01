@@ -4,12 +4,14 @@ import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.service.mcs.exception.DataSetAlreadyExistsException;
 import eu.europeana.cloud.service.mcs.exception.MCSException;
 import eu.europeana.metis.CommonStringValues;
+import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.Xslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -32,6 +34,7 @@ import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
+import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
 import eu.europeana.metis.core.workflow.plugins.ValidationInternalPlugin;
 import eu.europeana.metis.exception.BadContentException;
@@ -72,12 +75,14 @@ public class OrchestratorService {
   private final DataSetServiceClient ecloudDataSetServiceClient;
   private final RedissonClient redissonClient;
   private String ecloudProvider; //Initialize with setter
+  private String metisCoreUrl; //Initialize with setter
 
   @Autowired
   public OrchestratorService(WorkflowDao workflowDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
-      DatasetDao datasetDao, XsltsDao xsltsDao,
+      DatasetDao datasetDao,
+      XsltsDao xsltsDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient,
       RedissonClient redissonClient) throws IOException {
@@ -250,8 +255,8 @@ public class OrchestratorService {
       AbstractMetisPlugin abstractMetisPlugin;
       if (pluginType == PluginType.VALIDATION_EXTERNAL) {
         abstractMetisPlugin = new ValidationExternalPlugin(pluginMetadata);
-
       } else if (pluginType == PluginType.TRANSFORMATION) {
+        setupXsltUrlForPluginMetadata(dataset, pluginMetadata);
         abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
       } else if (pluginType == PluginType.VALIDATION_INTERNAL) {
         abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
@@ -265,6 +270,21 @@ public class OrchestratorService {
       firstPluginDefined = true;
     }
     return firstPluginDefined;
+  }
+
+  private void setupXsltUrlForPluginMetadata(Dataset dataset,
+      AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
+    Xslt xsltObject;
+    if (((TransformationPluginMetadata) abstractMetisPluginMetadata).isCustomXslt()) {
+      xsltObject = xsltsDao.getById(dataset.getXsltId().toString());
+    } else {
+      xsltObject = xsltsDao.getLatestDefaultXslt();
+    }
+    if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
+      ((TransformationPluginMetadata) abstractMetisPluginMetadata)
+          .setXsltUrl(metisCoreUrl + RestEndpoints
+              .resolve(RestEndpoints.DATASETS_XSLT_XSLTID, xsltObject.getId().toString()));
+    }
   }
 
   public void cancelWorkflowExecution(String executionId)
@@ -492,5 +512,9 @@ public class OrchestratorService {
 
   public void setEcloudProvider(String ecloudProvider) {
     this.ecloudProvider = ecloudProvider;
+  }
+
+  public void setMetisCoreUrl(String metisCoreUrl) {
+    this.metisCoreUrl = metisCoreUrl;
   }
 }

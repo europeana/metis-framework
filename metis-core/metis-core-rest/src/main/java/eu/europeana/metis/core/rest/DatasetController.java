@@ -12,9 +12,11 @@ import eu.europeana.metis.core.dataset.Xslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
+import eu.europeana.metis.core.workflow.plugins.TransformationPlugin;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import eu.europeana.metis.core.exceptions.NoXsltFoundException;
 import java.util.Arrays;
 import java.util.List;
 import org.slf4j.Logger;
@@ -68,9 +70,8 @@ public class DatasetController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link DatasetAlreadyExistsException} if the dataset already exists for the organizationId and datasetName.</li>
-   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be.</li>
+   * <li>{@link UserUnauthorizedException} if the authorization header is un-parsable or the user cannot be authenticated or the user is unauthorized.</li>
    * </ul>
-   * authenticated or the user is unauthorized
    */
   @RequestMapping(value = RestEndpoints.DATASETS, method = RequestMethod.POST, consumes = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
@@ -90,12 +91,16 @@ public class DatasetController {
   }
 
   /**
-   * Update a provided dataset.
-   * <p>Non allowed fields, to be manually updated, will be ignored</p>
+   * Update a provided dataset including an xslt string.
+   * <p>
+   * Non allowed fields, to be manually updated, will be ignored.
+   * Updating a datast with a new xslt will only overwrite the {@link Dataset#xsltId} and a new
+   * {@link Xslt} object will be stored. The older {@link Xslt} will still be accessible.
+   * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
-   * @param dataset the provided dataset to be updated
+   * @param datasetXsltStringWrapper {@link DatasetXsltStringWrapper}
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoDatasetFoundException} if the dataset was not found for the datasetId.</li>
@@ -112,9 +117,11 @@ public class DatasetController {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    datasetService.updateDataset(metisUser, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
-        .getXslt());
-    LOGGER.info("Dataset with datasetId {} updated", datasetXsltStringWrapper.getDataset().getDatasetId());
+    datasetService
+        .updateDataset(metisUser, datasetXsltStringWrapper.getDataset(), datasetXsltStringWrapper
+            .getXslt());
+    LOGGER.info("Dataset with datasetId {} updated",
+        datasetXsltStringWrapper.getDataset().getDatasetId());
   }
 
   /**
@@ -169,11 +176,24 @@ public class DatasetController {
     return storedDataset;
   }
 
+  /**
+   * Get the xslt object containing the escaped xslt string using a dataset identifier.
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param datasetId the identifier used to find a dataset
+   * @return the {@link Xslt} object containing the xslt as an escaped string
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_DATASETID_XSLT, method = RequestMethod.GET, produces = {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public Xslt getXsltByDatasetId(@RequestHeader("Authorization") String authorization,
+  public Xslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") int datasetId) throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
@@ -183,6 +203,21 @@ public class DatasetController {
     return xslt;
   }
 
+  /**
+   * Get the xslt string as non escaped text using an xslt identifier.
+   * <p>
+   * It is an method that does not require authentication and it is meant to be used from
+   * external service to download the corresponding xslt. At the point of writing, ECloud
+   * transformation topology is using it. {@link TransformationPlugin}
+   * </p>
+   *
+   * @param xsltId the xslt identifier
+   * @return the text non escaped representation of the xslt string
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
+   * </ul>
+   */
   @RequestMapping(value = RestEndpoints.DATASETS_XSLT_XSLTID, method = RequestMethod.GET, produces = {
       MediaType.TEXT_PLAIN_VALUE})
   @ResponseStatus(HttpStatus.OK)
@@ -191,6 +226,61 @@ public class DatasetController {
       throws GenericMetisException {
     Xslt xslt = datasetService.getDatasetXsltByXsltId(xsltId);
     LOGGER.info("XSLT with xsltId '{}' found", xslt.getId());
+    return xslt.getXslt();
+  }
+
+  /**
+   * Create a new default xslt in the database.
+   * <p>
+   * Each dataset can have it's own custom xslt but a default xslt should always be available.
+   * Creating a new default xslt will create a new {@link Xslt} object and the older one will still
+   * be available.
+   * </p>
+   *
+   * @param authorization the String provided by an HTTP Authorization header <p> The expected input
+   * should follow the rule Bearer accessTokenHere </p>
+   * @param xsltString the text of the String representation non escaped
+   * @return the created {@link Xslt}
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, method = RequestMethod.POST, consumes = {
+      MediaType.TEXT_PLAIN_VALUE})
+  @ResponseStatus(HttpStatus.CREATED)
+  @ResponseBody
+  public Xslt createDefaultXslt(@RequestHeader("Authorization") String authorization,
+      @RequestBody String xsltString)
+      throws GenericMetisException {
+
+    MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
+    Xslt defaultXslt = datasetService.createDefaultXslt(metisUser, xsltString);
+    LOGGER.info("New default xslt created with xsltId: {}", defaultXslt.getId());
+    return defaultXslt;
+  }
+
+  /**
+   * Get the latest created default xslt.
+   * <p>
+   * It is an method that does not require authentication and it is meant to be used from
+   * external service to download the corresponding xslt. At the point of writing, ECloud
+   * transformation topology is using it. {@link TransformationPlugin}
+   * </p>
+   *
+   * @return the text representaion of the String xslt non escaped
+   * @throws GenericMetisException which can be one of:
+   * <ul>
+   * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
+   * </ul>
+   */
+  @RequestMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, method = RequestMethod.GET, produces = {
+      MediaType.TEXT_PLAIN_VALUE})
+  @ResponseStatus(HttpStatus.OK)
+  @ResponseBody
+  public String getLatestDefaultXslt() throws GenericMetisException {
+    Xslt xslt = datasetService.getLatestDefaultXslt();
+    LOGGER.info("Default XSLT with xsltId '{}' found", xslt.getId());
     return xslt.getXslt();
   }
 

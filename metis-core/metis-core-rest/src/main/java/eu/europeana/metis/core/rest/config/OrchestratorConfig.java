@@ -98,6 +98,9 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Value("${ecloud.baseUrl}")
   private String ecloudBaseUrl;
 
+  @Value("${metis.core.baseUrl}")
+  private String metisCoreBaseUrl;
+
   private Connection connection;
   private Channel channel;
   private RedissonClient redissonClient;
@@ -150,6 +153,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         scheduledWorkflowDao, datasetDao, xsltsDao, workflowExecutorManager, ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
+    orchestratorService.setMetisCoreUrl(metisCoreBaseUrl);
     return orchestratorService;
   }
 

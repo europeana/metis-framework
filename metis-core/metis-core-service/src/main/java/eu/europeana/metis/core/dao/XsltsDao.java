@@ -6,6 +6,7 @@ import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.query.Query;
+import org.mongodb.morphia.query.Sort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,5 +71,10 @@ public class XsltsDao implements MetisDao<Xslt, String> {
     WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.debug("Xslts with datasetId: {}, deleted from Mongo", datasetId);
     return delete.getN() >= 1;
+  }
+
+  public Xslt getLatestDefaultXslt() {
+    return morphiaDatastoreProvider.getDatastore().find(Xslt.class)
+        .filter("datasetId", -1).order(Sort.descending("createdDate")).get();
   }
 }

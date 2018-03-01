@@ -53,3 +53,5 @@ authentication.baseUrl=
 
 #CORS
 allowed.cors.hosts=*
+
+metis.core.baseUrl=
