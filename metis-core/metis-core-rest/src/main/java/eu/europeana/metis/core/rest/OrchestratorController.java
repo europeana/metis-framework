@@ -15,6 +15,8 @@ import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.GenericMetisException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,7 +98,10 @@ public class OrchestratorController {
   public ResponseListWrapper<Workflow> getAllWorkflows(
       @PathVariable("workflowOwner") String workflowOwner,
       @RequestParam(value = "nextPage", required = false, defaultValue = "0") int nextPage)
-      throws GenericMetisException {
+      throws GenericMetisException, UnknownHostException {
+    LOGGER.info(InetAddress.getLocalHost().getHostName());
+    LOGGER.info(InetAddress.getLocalHost().getCanonicalHostName());
+    LOGGER.info(InetAddress.getLocalHost().getHostAddress());
     if (nextPage < 0) {
       throw new BadContentException(CommonStringValues.NEXT_PAGE_CANNOT_BE_NEGATIVE);
     }
