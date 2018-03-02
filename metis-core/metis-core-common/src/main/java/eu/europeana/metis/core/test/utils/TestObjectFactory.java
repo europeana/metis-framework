@@ -10,7 +10,7 @@ import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.Xslt;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -259,8 +259,8 @@ public class TestObjectFactory {
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 
-  public static Xslt createXslt(Dataset dataset) {
-    return new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+  public static DatasetXslt createXslt(Dataset dataset) {
+    return new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
   }
 }
 

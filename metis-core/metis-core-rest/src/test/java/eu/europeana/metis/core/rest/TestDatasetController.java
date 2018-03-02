@@ -28,8 +28,8 @@ import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
-import eu.europeana.metis.core.dataset.Xslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoXsltFoundException;
@@ -336,7 +336,7 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenReturn(metisUser);
@@ -401,7 +401,7 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
@@ -422,7 +422,7 @@ public class TestDatasetController {
   @Test
   public void getXsltByXsltId() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
 
     when(datasetServiceMock.getDatasetXsltByXsltId(TestObjectFactory.XSLTID))
         .thenReturn(xsltObject);
@@ -462,7 +462,7 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.METIS_ADMIN);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
     xsltObject.setId(new ObjectId(TestObjectFactory.XSLTID));
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -486,7 +486,7 @@ public class TestDatasetController {
     MetisUser metisUser = TestObjectFactory.createMetisUser(TestObjectFactory.EMAIL);
     metisUser.setAccountRole(AccountRole.EUROPEANA_DATA_OFFICER);
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
     xsltObject.setId(new ObjectId(TestObjectFactory.XSLTID));
 
     when(authenticationClient.getUserByAccessTokenInHeader(TestObjectFactory.AUTHORIZATION_HEADER))
@@ -507,7 +507,7 @@ public class TestDatasetController {
   @Test
   public void getLatestDefaultXslt() throws Exception {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
+    DatasetXslt xsltObject = new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
 
     when(datasetServiceMock.getLatestXsltForDatasetId(-1)).thenReturn(xsltObject);
     datasetControllerMock.perform(get("/datasets/xslt/default")

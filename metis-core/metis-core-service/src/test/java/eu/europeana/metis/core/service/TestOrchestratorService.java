@@ -20,9 +20,9 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.XsltsDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.Xslt;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -76,7 +76,7 @@ public class TestOrchestratorService {
   private static WorkflowDao workflowDao;
   private static ScheduledWorkflowDao scheduledWorkflowDao;
   private static DatasetDao datasetDao;
-  private static XsltsDao xsltsDao;
+  private static DatasetXsltDao datasetXsltDao;
   private static WorkflowExecutorManager workflowExecutorManager;
   private static OrchestratorService orchestratorService;
   private static DataSetServiceClient ecloudDataSetServiceClient;
@@ -88,13 +88,13 @@ public class TestOrchestratorService {
     workflowDao = Mockito.mock(WorkflowDao.class);
     scheduledWorkflowDao = Mockito.mock(ScheduledWorkflowDao.class);
     datasetDao = Mockito.mock(DatasetDao.class);
-    xsltsDao = Mockito.mock(XsltsDao.class);
+    datasetXsltDao = Mockito.mock(DatasetXsltDao.class);
     workflowExecutorManager = Mockito.mock(WorkflowExecutorManager.class);
     ecloudDataSetServiceClient = Mockito.mock(DataSetServiceClient.class);
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, xsltsDao, workflowExecutorManager,
+        scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager,
         ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
@@ -212,9 +212,9 @@ public class TestOrchestratorService {
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
-    Xslt xslt = TestObjectFactory.createXslt(dataset);
-    xslt.setId(new ObjectId(TestObjectFactory.XSLTID));
-    when(xsltsDao.getLatestXsltForDatasetId(-1)).thenReturn(xslt);
+    DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
+    datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    when(datasetXsltDao.getLatestXsltForDatasetId(-1)).thenReturn(datasetXslt);
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
@@ -241,10 +241,10 @@ public class TestOrchestratorService {
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
-    Xslt xslt = TestObjectFactory.createXslt(dataset);
-    xslt.setId(new ObjectId(TestObjectFactory.XSLTID));
-    dataset.setXsltId(xslt.getId());
-    when(xsltsDao.getById(dataset.getXsltId().toString())).thenReturn(xslt);
+    DatasetXslt datasetXslt = TestObjectFactory.createXslt(dataset);
+    datasetXslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    dataset.setXsltId(datasetXslt.getId());
+    when(datasetXsltDao.getById(dataset.getXsltId().toString())).thenReturn(datasetXslt);
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);

@@ -10,7 +10,7 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.XsltsDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
@@ -175,11 +175,11 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * Get the DAO for xslts.
    *
    * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
-   * @return {@link XsltsDao} used to access the database for datasets
+   * @return {@link DatasetXsltDao} used to access the database for datasets
    */
   @Bean
-  public XsltsDao getXsltDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
-    return new XsltsDao(morphiaDatastoreProvider);
+  public DatasetXsltDao getXsltDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new DatasetXsltDao(morphiaDatastoreProvider);
   }
 
   /**
@@ -187,17 +187,17 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * <p>It encapsulates several DAOs and combines their functionality into methods</p>
    *
    * @param datasetDao {@link DatasetDao}
-   * @param xsltsDao {@link XsltsDao}
+   * @param datasetXsltDao {@link DatasetXsltDao}
    * @param workflowExecutionDao {@link WorkflowExecutionDao}
    * @param scheduledWorkflowDao {@link ScheduledWorkflowDao}
    * @param redissonClient {@link RedissonClient}
    * @return {@link DatasetService}
    */
   @Bean
-  public DatasetService getDatasetService(DatasetDao datasetDao, XsltsDao xsltsDao,
+  public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
-    return new DatasetService(datasetDao, xsltsDao, workflowExecutionDao,
+    return new DatasetService(datasetDao, datasetXsltDao, workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 

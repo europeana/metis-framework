@@ -1,7 +1,7 @@
 package eu.europeana.metis.core.dao;
 
 import com.mongodb.WriteResult;
-import eu.europeana.metis.core.dataset.Xslt;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import org.bson.types.ObjectId;
 import org.mongodb.morphia.Key;
@@ -17,10 +17,12 @@ import org.springframework.stereotype.Repository;
  * @since 2018-02-27
  */
 @Repository
-public class XsltsDao implements MetisDao<Xslt, String> {
+public class DatasetXsltDao implements MetisDao<DatasetXslt, String> {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(XsltsDao.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(DatasetXsltDao.class);
+  private static final String ID = "_id";
   private static final String DATASET_ID = "datasetId";
+  public static final int DEFAULT_DATASET_ID = -1;
 
   private final MorphiaDatastoreProvider morphiaDatastoreProvider;
 
@@ -30,37 +32,37 @@ public class XsltsDao implements MetisDao<Xslt, String> {
    * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider} used to access Mongo
    */
   @Autowired
-  public XsltsDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+  public DatasetXsltDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     this.morphiaDatastoreProvider = morphiaDatastoreProvider;
   }
 
   @Override
-  public String create(Xslt xslt) {
-    Key<Xslt> datasetKey = morphiaDatastoreProvider.getDatastore().save(xslt);
-    LOGGER.debug("Xslt for datasetId: '{}'created in Mongo", xslt.getDatasetId());
+  public String create(DatasetXslt datasetXslt) {
+    Key<DatasetXslt> datasetKey = morphiaDatastoreProvider.getDatastore().save(datasetXslt);
+    LOGGER.debug("DatasetXslt for datasetId: '{}'created in Mongo", datasetXslt.getDatasetId());
     return datasetKey.getId().toString();
   }
 
   @Override
-  public String update(Xslt xslt) {
-    Key<Xslt> datasetKey = morphiaDatastoreProvider.getDatastore().save(xslt);
-    LOGGER.debug("Xslt for datasetId: '{}' updated in Mongo", xslt.getDatasetId());
+  public String update(DatasetXslt datasetXslt) {
+    Key<DatasetXslt> datasetKey = morphiaDatastoreProvider.getDatastore().save(datasetXslt);
+    LOGGER.debug("DatasetXslt for datasetId: '{}' updated in Mongo", datasetXslt.getDatasetId());
     return datasetKey.getId().toString();
   }
 
   @Override
-  public Xslt getById(String id) {
-    return morphiaDatastoreProvider.getDatastore().find(Xslt.class)
-        .filter("_id", new ObjectId(id)).get();
+  public DatasetXslt getById(String id) {
+    return morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
+        .filter(ID, new ObjectId(id)).get();
   }
 
   @Override
-  public boolean delete(Xslt xslt) {
+  public boolean delete(DatasetXslt datasetXslt) {
     morphiaDatastoreProvider.getDatastore().delete(
-        morphiaDatastoreProvider.getDatastore().createQuery(Xslt.class).field("_id")
-            .equal(xslt.getId()));
-    LOGGER.debug("Xslt with objectId: '{}', datasetId: '{}'deleted in Mongo", xslt.getId(),
-        xslt.getDatasetId());
+        morphiaDatastoreProvider.getDatastore().createQuery(DatasetXslt.class).field(ID)
+            .equal(datasetXslt.getId()));
+    LOGGER.debug("DatasetXslt with objectId: '{}', datasetId: '{}'deleted in Mongo", datasetXslt.getId(),
+        datasetXslt.getDatasetId());
     return true;
   }
 
@@ -70,8 +72,8 @@ public class XsltsDao implements MetisDao<Xslt, String> {
    * @return true if something was found and deleted or false
    */
   public boolean deleteAllByDatasetId(int datasetId) {
-    Query<Xslt> query = morphiaDatastoreProvider.getDatastore()
-        .createQuery(Xslt.class);
+    Query<DatasetXslt> query = morphiaDatastoreProvider.getDatastore()
+        .createQuery(DatasetXslt.class);
     query.field(DATASET_ID).equal(datasetId);
     WriteResult delete = morphiaDatastoreProvider.getDatastore().delete(query);
     LOGGER.debug("Xslts with datasetId: {}, deleted from Mongo", datasetId);
@@ -82,10 +84,10 @@ public class XsltsDao implements MetisDao<Xslt, String> {
    * Fet latest stored xslt using a dataset identifier.
    * <p>Use -1 to get the default xslt that is not related to a dataset</p>
    * @param datasetId the dataset identifier
-   * @return the {@link Xslt} object
+   * @return the {@link DatasetXslt} object
    */
-  public Xslt getLatestXsltForDatasetId(int datasetId) {
-    return morphiaDatastoreProvider.getDatastore().find(Xslt.class)
+  public DatasetXslt getLatestXsltForDatasetId(int datasetId) {
+    return morphiaDatastoreProvider.getDatastore().find(DatasetXslt.class)
         .filter(DATASET_ID, datasetId).order(Sort.descending("createdDate")).get();
   }
 }

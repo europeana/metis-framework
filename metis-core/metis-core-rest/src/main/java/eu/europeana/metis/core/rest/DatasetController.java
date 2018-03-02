@@ -6,9 +6,10 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.authentication.user.MetisUser;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.dataset.DatasetXsltStringWrapper;
-import eu.europeana.metis.core.dataset.Xslt;
 import eu.europeana.metis.core.exceptions.DatasetAlreadyExistsException;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.service.DatasetService;
@@ -95,7 +96,7 @@ public class DatasetController {
    * <p>
    * Non allowed fields, to be manually updated, will be ignored.
    * Updating a datast with a new xslt will only overwrite the {@link Dataset#xsltId} and a new
-   * {@link Xslt} object will be stored. The older {@link Xslt} will still be accessible.
+   * {@link DatasetXslt} object will be stored. The older {@link DatasetXslt} will still be accessible.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
@@ -182,7 +183,7 @@ public class DatasetController {
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param datasetId the identifier used to find a dataset
-   * @return the {@link Xslt} object containing the xslt as an escaped string
+   * @return the {@link DatasetXslt} object containing the xslt as an escaped string
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
@@ -194,14 +195,14 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
-  public Xslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
+  public DatasetXslt getDatasetXsltByDatasetId(@RequestHeader("Authorization") String authorization,
       @PathVariable("datasetId") int datasetId) throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
 
-    Xslt xslt = datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
-    LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId, xslt.getId());
-    return xslt;
+    DatasetXslt datasetXslt = datasetService.getDatasetXsltByDatasetId(metisUser, datasetId);
+    LOGGER.info("Dataset XSLT with datasetId '{}' and xsltId: '{}' found", datasetId, datasetXslt.getId());
+    return datasetXslt;
   }
 
   /**
@@ -225,24 +226,24 @@ public class DatasetController {
   @ResponseBody
   public String getXsltByXsltId(@PathVariable("xsltId") String xsltId)
       throws GenericMetisException {
-    Xslt xslt = datasetService.getDatasetXsltByXsltId(xsltId);
-    LOGGER.info("XSLT with xsltId '{}' found", xslt.getId());
-    return xslt.getXslt();
+    DatasetXslt datasetXslt = datasetService.getDatasetXsltByXsltId(xsltId);
+    LOGGER.info("XSLT with xsltId '{}' found", datasetXslt.getId());
+    return datasetXslt.getXslt();
   }
 
   /**
    * Create a new default xslt in the database.
    * <p>
    * Each dataset can have it's own custom xslt but a default xslt should always be available.
-   * Creating a new default xslt will create a new {@link Xslt} object and the older one will still
-   * be available. The created {@link Xslt} will have it's {@link Xslt#datasetId} as -1 to indicate
+   * Creating a new default xslt will create a new {@link DatasetXslt} object and the older one will still
+   * be available. The created {@link DatasetXslt} will have it's {@link DatasetXslt#datasetId} as -1 to indicate
    * that it is not related to a specific dataset.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
    * should follow the rule Bearer accessTokenHere </p>
    * @param xsltString the text of the String representation non escaped
-   * @return the created {@link Xslt}
+   * @return the created {@link DatasetXslt}
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
@@ -253,14 +254,14 @@ public class DatasetController {
       MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
-  public Xslt createDefaultXslt(@RequestHeader("Authorization") String authorization,
+  public DatasetXslt createDefaultXslt(@RequestHeader("Authorization") String authorization,
       @RequestBody String xsltString)
       throws GenericMetisException {
 
     MetisUser metisUser = authenticationClient.getUserByAccessTokenInHeader(authorization);
-    Xslt defaultXslt = datasetService.createDefaultXslt(metisUser, xsltString);
-    LOGGER.info("New default xslt created with xsltId: {}", defaultXslt.getId());
-    return defaultXslt;
+    DatasetXslt defaultDatasetXslt = datasetService.createDefaultXslt(metisUser, xsltString);
+    LOGGER.info("New default xslt created with xsltId: {}", defaultDatasetXslt.getId());
+    return defaultDatasetXslt;
   }
 
   /**
@@ -282,9 +283,9 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String getLatestDefaultXslt() throws GenericMetisException {
-    Xslt xslt = datasetService.getLatestXsltForDatasetId(-1);
-    LOGGER.info("Default XSLT with xsltId '{}' found", xslt.getId());
-    return xslt.getXslt();
+    DatasetXslt datasetXslt = datasetService.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
+    LOGGER.info("Default XSLT with xsltId '{}' found", datasetXslt.getId());
+    return datasetXslt.getXslt();
   }
 
   /**

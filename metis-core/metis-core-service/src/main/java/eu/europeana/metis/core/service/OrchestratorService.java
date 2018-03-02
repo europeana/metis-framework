@@ -9,9 +9,9 @@ import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.XsltsDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dataset.Dataset;
-import eu.europeana.metis.core.dataset.Xslt;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -70,7 +70,7 @@ public class OrchestratorService {
   private final WorkflowDao workflowDao;
   private final ScheduledWorkflowDao scheduledWorkflowDao;
   private final DatasetDao datasetDao;
-  private final XsltsDao xsltsDao;
+  private final DatasetXsltDao datasetXsltDao;
   private final WorkflowExecutorManager workflowExecutorManager;
   private final DataSetServiceClient ecloudDataSetServiceClient;
   private final RedissonClient redissonClient;
@@ -82,7 +82,7 @@ public class OrchestratorService {
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao,
       DatasetDao datasetDao,
-      XsltsDao xsltsDao,
+      DatasetXsltDao datasetXsltDao,
       WorkflowExecutorManager workflowExecutorManager,
       DataSetServiceClient ecloudDataSetServiceClient,
       RedissonClient redissonClient) throws IOException {
@@ -90,7 +90,7 @@ public class OrchestratorService {
     this.workflowExecutionDao = workflowExecutionDao;
     this.scheduledWorkflowDao = scheduledWorkflowDao;
     this.datasetDao = datasetDao;
-    this.xsltsDao = xsltsDao;
+    this.datasetXsltDao = datasetXsltDao;
     this.workflowExecutorManager = workflowExecutorManager;
     this.ecloudDataSetServiceClient = ecloudDataSetServiceClient;
     this.redissonClient = redissonClient;
@@ -274,11 +274,11 @@ public class OrchestratorService {
 
   private void setupXsltUrlForPluginMetadata(Dataset dataset,
       AbstractMetisPluginMetadata abstractMetisPluginMetadata) {
-    Xslt xsltObject;
+    DatasetXslt xsltObject;
     if (((TransformationPluginMetadata) abstractMetisPluginMetadata).isCustomXslt()) {
-      xsltObject = xsltsDao.getById(dataset.getXsltId().toString());
+      xsltObject = datasetXsltDao.getById(dataset.getXsltId().toString());
     } else {
-      xsltObject = xsltsDao.getLatestXsltForDatasetId(-1);
+      xsltObject = datasetXsltDao.getLatestXsltForDatasetId(DatasetXsltDao.DEFAULT_DATASET_ID);
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       ((TransformationPluginMetadata) abstractMetisPluginMetadata)

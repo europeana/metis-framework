@@ -12,8 +12,8 @@ import org.mongodb.morphia.annotations.Id;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2018-02-27
  */
-@Entity(value = "Xslts")
-public class Xslt {
+@Entity
+public class DatasetXslt {
 
   @Id
   @JsonSerialize(using = ObjectIdSerializer.class)
@@ -24,11 +24,11 @@ public class Xslt {
   @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
   private Date createdDate;
 
-  public Xslt() {
+  public DatasetXslt() {
     //Required for json serialization
   }
 
-  public Xslt(int datasetId, String xslt) {
+  public DatasetXslt(int datasetId, String xslt) {
     this.datasetId = datasetId;
     this.xslt = xslt;
     this.createdDate = new Date();
