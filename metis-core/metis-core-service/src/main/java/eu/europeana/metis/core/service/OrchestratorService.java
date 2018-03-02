@@ -278,7 +278,7 @@ public class OrchestratorService {
     if (((TransformationPluginMetadata) abstractMetisPluginMetadata).isCustomXslt()) {
       xsltObject = xsltsDao.getById(dataset.getXsltId().toString());
     } else {
-      xsltObject = xsltsDao.getLatestDefaultXslt();
+      xsltObject = xsltsDao.getLatestXsltForDatasetId(-1);
     }
     if (xsltObject != null && StringUtils.isNotEmpty(xsltObject.getXslt())) {
       ((TransformationPluginMetadata) abstractMetisPluginMetadata)
