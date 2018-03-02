@@ -11,6 +11,9 @@ public final class RestEndpoints {
   //DATASETS
   public static final String DATASETS = "/datasets";
   public static final String DATASETS_DATASETID = "/datasets/{datasetId}";
+  public static final String DATASETS_DATASETID_XSLT = "/datasets/{datasetId}/xslt";
+  public static final String DATASETS_XSLT_DEFAULT = "/datasets/xslt/default";
+  public static final String DATASETS_XSLT_XSLTID = "/datasets/xslt/{xsltId}";
   public static final String DATASETS_DATASETNAME = "/datasets/dataset_name/{datasetName}";
   public static final String DATASETS_DATAPROVIDER = "/datasets/data_provider/{dataProvider}";
   public static final String DATASETS_PROVIDER = "/datasets/provider/{provider}";
@@ -116,6 +119,13 @@ public final class RestEndpoints {
   private RestEndpoints() {
   }
 
+  /**
+   * Resolves an endpoint with parameters wrapped around "{" and "}" by providing the endpoint and
+   * all the required parameters.
+   * @param endpoint the endpoint to resolve
+   * @param params all the parameters specified
+   * @return the resolved endpoint
+   */
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {
       return endpoint;

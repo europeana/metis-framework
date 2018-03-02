@@ -10,11 +10,13 @@ import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
@@ -28,6 +30,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.web.servlet.View;
@@ -169,20 +172,32 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   /**
+   * Get the DAO for xslts.
+   *
+   * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
+   * @return {@link DatasetXsltDao} used to access the database for datasets
+   */
+  @Bean
+  public DatasetXsltDao getXsltDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
+    return new DatasetXsltDao(morphiaDatastoreProvider);
+  }
+
+  /**
    * Get the Service for datasets.
    * <p>It encapsulates several DAOs and combines their functionality into methods</p>
    *
    * @param datasetDao {@link DatasetDao}
+   * @param datasetXsltDao {@link DatasetXsltDao}
    * @param workflowExecutionDao {@link WorkflowExecutionDao}
    * @param scheduledWorkflowDao {@link ScheduledWorkflowDao}
    * @param redissonClient {@link RedissonClient}
    * @return {@link DatasetService}
    */
   @Bean
-  public DatasetService getDatasetService(DatasetDao datasetDao,
+  public DatasetService getDatasetService(DatasetDao datasetDao, DatasetXsltDao datasetXsltDao,
       WorkflowExecutionDao workflowExecutionDao,
       ScheduledWorkflowDao scheduledWorkflowDao, RedissonClient redissonClient) {
-    return new DatasetService(datasetDao, workflowExecutionDao,
+    return new DatasetService(datasetDao, datasetXsltDao, workflowExecutionDao,
         scheduledWorkflowDao, redissonClient);
   }
 
@@ -223,6 +238,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
+    converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
     super.configureMessageConverters(converters);
   }
 }

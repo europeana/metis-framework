@@ -10,6 +10,7 @@ import eu.europeana.metis.authentication.user.MetisUserAccessToken;
 import eu.europeana.metis.core.common.Country;
 import eu.europeana.metis.core.common.Language;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.DatasetXslt;
 import eu.europeana.metis.core.workflow.ScheduleFrequence;
 import eu.europeana.metis.core.workflow.ScheduledWorkflow;
 import eu.europeana.metis.core.workflow.Workflow;
@@ -35,6 +36,7 @@ import org.bson.types.ObjectId;
 public class TestObjectFactory {
 
   public static final int DATASETID = 100;
+  public static final String XSLTID = "5a9821af34f04b794dcf63df";
   public static final String EXECUTIONID = "5a5dc67ba458bb00083d49e3";
   public static final String DATASETNAME = "datasetName";
   public static final String WORKFLOWOWNER = "workflowOwner";
@@ -83,9 +85,11 @@ public class TestObjectFactory {
     Workflow workflow = createWorkflowObject();
     Dataset dataset = createDataset(DATASETNAME);
     ArrayList<AbstractMetisPlugin> abstractMetisPlugins = new ArrayList<>();
-    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(new OaipmhHarvestPluginMetadata());
+    OaipmhHarvestPlugin oaipmhHarvestPlugin = new OaipmhHarvestPlugin(
+        new OaipmhHarvestPluginMetadata());
     abstractMetisPlugins.add(oaipmhHarvestPlugin);
-    ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(new ValidationExternalPluginMetadata());
+    ValidationExternalPlugin validationExternalPlugin = new ValidationExternalPlugin(
+        new ValidationExternalPluginMetadata());
     abstractMetisPlugins.add(validationExternalPlugin);
 
     WorkflowExecution workflowExecution = new WorkflowExecution(dataset,
@@ -220,8 +224,7 @@ public class TestObjectFactory {
 
   public static TaskErrorsInfo createTaskErrorsInfoListWithoutIdentifiers(int numberOfErrorTypes) {
     ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
-    for (int i = 0; i < numberOfErrorTypes; i++)
-    {
+    for (int i = 0; i < numberOfErrorTypes; i++) {
       TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
           String.format("Error%s", i), 2);
       taskErrorInfos.add(taskErrorInfo);
@@ -231,8 +234,7 @@ public class TestObjectFactory {
 
   public static TaskErrorsInfo createTaskErrorsInfoListWithIdentifiers(int numberOfErrorTypes) {
     ArrayList<TaskErrorInfo> taskErrorInfos = new ArrayList<>();
-    for (int i = 0; i < numberOfErrorTypes; i++)
-    {
+    for (int i = 0; i < numberOfErrorTypes; i++) {
       TaskErrorInfo taskErrorInfo = new TaskErrorInfo("be39ef50-f77d-11e7-af0f-fa163e77119a",
           String.format("Error%s", i), 2);
       ArrayList<String> identifiers = new ArrayList<>();
@@ -244,7 +246,8 @@ public class TestObjectFactory {
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
   }
 
-  public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType, String message) {
+  public static TaskErrorsInfo createTaskErrorsInfoWithIdentifiers(String errorType,
+      String message) {
     ArrayList<String> identifiers1 = new ArrayList<>();
     identifiers1.add("identifier1");
     identifiers1.add("identifier2");
@@ -254,6 +257,10 @@ public class TestObjectFactory {
     taskErrorInfos.add(taskErrorInfo1);
 
     return new TaskErrorsInfo(EXTERNAL_TASK_ID, taskErrorInfos);
+  }
+
+  public static DatasetXslt createXslt(Dataset dataset) {
+    return new DatasetXslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
   }
 }
 

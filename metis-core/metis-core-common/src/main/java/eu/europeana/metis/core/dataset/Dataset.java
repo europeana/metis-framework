@@ -91,6 +91,9 @@ public class Dataset implements HasMongoObjectId {
 
   private String notes;
 
+  @JsonSerialize(using = ObjectIdSerializer.class)
+  private ObjectId xsltId;
+
   private AbstractMetisPluginMetadata harvestingMetadata;
 
   @Override
@@ -246,5 +249,13 @@ public class Dataset implements HasMongoObjectId {
   public void setHarvestingMetadata(
       AbstractMetisPluginMetadata harvestingMetadata) {
     this.harvestingMetadata = harvestingMetadata;
+  }
+
+  public ObjectId getXsltId() {
+    return xsltId;
+  }
+
+  public void setXsltId(ObjectId xsltId) {
+    this.xsltId = xsltId;
   }
 }

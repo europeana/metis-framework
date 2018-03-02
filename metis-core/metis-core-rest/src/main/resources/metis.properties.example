@@ -53,3 +53,6 @@ authentication.baseUrl=
 
 #CORS
 allowed.cors.hosts=*
+
+#Use this to specify the FQDN where the application will be hosted under
+metis.core.baseUrl=
