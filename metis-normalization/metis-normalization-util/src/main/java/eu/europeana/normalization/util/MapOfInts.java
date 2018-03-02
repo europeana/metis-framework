@@ -1,7 +1,3 @@
-/*
- * Created on Oct 12, 2004
- *
- */
 package eu.europeana.normalization.util;
 
 import java.io.Serializable;

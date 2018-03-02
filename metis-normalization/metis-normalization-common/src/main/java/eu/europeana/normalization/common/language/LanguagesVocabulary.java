@@ -1,4 +1,3 @@
-/* TargetLanguagesVocabulary.java - created on 11/05/2016, Copyright (c) 2011 The European Library, all rights reserved */
 package eu.europeana.normalization.common.language;
 
 /**

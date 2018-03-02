@@ -55,12 +55,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PublishingService {
-	private static final Logger LOGGER = LoggerFactory.getLogger(PublishingService.class);	
-	private FullBeanDao fullBeanDao;	
+  
+	private static final Logger LOGGER = LoggerFactory.getLogger(PublishingService.class);
+	
+	private final FullBeanDao fullBeanDao;	
     private static IBindingFactory rdfBindingFactory;
     private static final String UTF8 = StandardCharsets.UTF_8.name();
-    private SolrServer solrServer; 
-    private CloudSolrServer cloudSolrServer;
+    private final SolrServer solrServer; 
+    private final CloudSolrServer cloudSolrServer;
 
     static {    	
     	try {
