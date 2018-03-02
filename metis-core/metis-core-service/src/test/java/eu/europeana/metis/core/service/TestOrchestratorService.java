@@ -22,6 +22,7 @@ import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.dao.XsltsDao;
 import eu.europeana.metis.core.dataset.Dataset;
+import eu.europeana.metis.core.dataset.Xslt;
 import eu.europeana.metis.core.exceptions.NoDatasetFoundException;
 import eu.europeana.metis.core.exceptions.NoScheduledWorkflowFoundException;
 import eu.europeana.metis.core.exceptions.NoWorkflowExecutionFoundException;
@@ -45,6 +46,7 @@ import eu.europeana.metis.core.workflow.plugins.ExecutionProgress;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
+import eu.europeana.metis.core.workflow.plugins.TransformationPluginMetadata;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPluginMetadata;
 import eu.europeana.metis.exception.BadContentException;
 import java.io.IOException;
@@ -92,9 +94,11 @@ public class TestOrchestratorService {
     redissonClient = Mockito.mock(RedissonClient.class);
 
     orchestratorService = new OrchestratorService(workflowDao, workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, xsltsDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        scheduledWorkflowDao, datasetDao, xsltsDao, workflowExecutorManager,
+        ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider("ecloudProvider");
+    orchestratorService.setMetisCoreUrl("https://some.url.com");
   }
 
   @After
@@ -208,6 +212,39 @@ public class TestOrchestratorService {
     doNothing().when(rlock).lock();
     when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
     String objectId = new ObjectId().toString();
+    Xslt xslt = TestObjectFactory.createXslt(dataset);
+    xslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    when(xsltsDao.getLatestXsltForDatasetId(-1)).thenReturn(xslt);
+    when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
+    doNothing().when(rlock).unlock();
+    doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
+    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
+        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
+  }
+
+  @Test
+  public void addWorkflowInQueueOfWorkflowExecutions_TransformationUsesCustomXslt()
+      throws Exception {
+    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
+    Workflow workflow = TestObjectFactory.createWorkflowObject();
+    workflow.getMetisPluginsMetadata().forEach(abstractMetisPluginMetadata -> {
+      if (abstractMetisPluginMetadata instanceof TransformationPluginMetadata) {
+        ((TransformationPluginMetadata) abstractMetisPluginMetadata).setCustomXslt(true);
+      }
+    });
+    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
+    when(workflowDao
+        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
+        .thenReturn(workflow);
+    RLock rlock = mock(RLock.class);
+    when(redissonClient.getFairLock(anyString())).thenReturn(rlock);
+    doNothing().when(rlock).lock();
+    when(workflowExecutionDao.existsAndNotCompleted(dataset.getDatasetId())).thenReturn(null);
+    String objectId = new ObjectId().toString();
+    Xslt xslt = TestObjectFactory.createXslt(dataset);
+    xslt.setId(new ObjectId(TestObjectFactory.XSLTID));
+    dataset.setXsltId(xslt.getId());
+    when(xsltsDao.getById(dataset.getXsltId().toString())).thenReturn(xslt);
     when(workflowExecutionDao.create(any(WorkflowExecution.class))).thenReturn(objectId);
     doNothing().when(rlock).unlock();
     doNothing().when(workflowExecutorManager).addWorkflowExecutionToQueue(objectId, 0);
