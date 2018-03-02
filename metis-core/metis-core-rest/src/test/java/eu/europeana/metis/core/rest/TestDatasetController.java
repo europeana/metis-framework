@@ -500,26 +500,26 @@ public class TestDatasetController {
     Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
     Xslt xsltObject = new Xslt(dataset.getDatasetId(), "<xslt attribute:\"value\"></xslt>");
 
-    when(datasetServiceMock.getLatestDefaultXslt()).thenReturn(xsltObject);
+    when(datasetServiceMock.getLatestXsltForDatasetId(-1)).thenReturn(xsltObject);
     datasetControllerMock.perform(get("/datasets/xslt/default")
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(TestUtils.TEXT_PLAIN))
         .andExpect(content().string(xsltObject.getXslt()));
 
-    verify(datasetServiceMock, times(1)).getLatestDefaultXslt();
+    verify(datasetServiceMock, times(1)).getLatestXsltForDatasetId(-1);
   }
 
   @Test
   public void getLatestDefaultXslt_NoXsltFound_404() throws Exception {
-    when(datasetServiceMock.getLatestDefaultXslt())
+    when(datasetServiceMock.getLatestXsltForDatasetId(-1))
         .thenThrow(new NoXsltFoundException("No xslt found"));
     datasetControllerMock.perform(get("/datasets/xslt/default")
         .contentType(TestUtils.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404));
 
-    verify(datasetServiceMock, times(1)).getLatestDefaultXslt();
+    verify(datasetServiceMock, times(1)).getLatestXsltForDatasetId(-1);
   }
 
   @Test

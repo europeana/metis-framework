@@ -282,7 +282,7 @@ public class DatasetController {
   @ResponseStatus(HttpStatus.OK)
   @ResponseBody
   public String getLatestDefaultXslt() throws GenericMetisException {
-    Xslt xslt = datasetService.getLatestDefaultXslt();
+    Xslt xslt = datasetService.getLatestXsltForDatasetId(-1);
     LOGGER.info("Default XSLT with xsltId '{}' found", xslt.getId());
     return xslt.getXslt();
   }
