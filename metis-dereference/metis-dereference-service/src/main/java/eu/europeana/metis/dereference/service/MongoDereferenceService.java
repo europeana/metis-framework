@@ -25,121 +25,127 @@ import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
  */
 public class MongoDereferenceService implements DereferenceService {
+
   private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
-  private RdfRetriever retriever;
-  private CacheDao cacheDao;
-  private EntityDao entityDao;
-  private VocabularyDao vocabularyDao;
-  private EnrichmentClient enrichmentClient;
+
+  private final RdfRetriever retriever;
+  private final CacheDao cacheDao;
+  private final EntityDao entityDao;
+  private final VocabularyDao vocabularyDao;
+  private final EnrichmentClient enrichmentClient;
 
   @Autowired
   public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao, EntityDao entityDao,
       VocabularyDao vocabularyDao, EnrichmentClient enrichmentClient) {
-	  this.retriever = retriever;
-	  this.cacheDao = cacheDao;
-	  this.entityDao = entityDao;
-	  this.vocabularyDao = vocabularyDao;
-	  this.enrichmentClient = enrichmentClient;
+    this.retriever = retriever;
+    this.cacheDao = cacheDao;
+    this.entityDao = entityDao;
+    this.vocabularyDao = vocabularyDao;
+    this.enrichmentClient = enrichmentClient;
   }
 
   @Override
-  public EnrichmentResultList dereference(String resourceId) throws TransformerException, JAXBException {
-    EnrichmentResultList toReturn = new EnrichmentResultList();
-    EnrichmentBase fromEntity = checkInEntityCollection(resourceId);
+  public EnrichmentResultList dereference(String resourceId)
+      throws TransformerException, JAXBException {
 
-    if (fromEntity != null) {
-      toReturn.getResult().add(fromEntity);
-      return toReturn;
-    }
+    // First try to get the entity from the entity collection.
+    EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
 
-    EnrichmentBase enriched = readFromCache(resourceId);
-    if (enriched != null) {
-      toReturn.getResult().add(enriched);
-      return toReturn;
-    }
-    
-    final List<Vocabulary> vocabularies = VocabularyMatchUtils.findVocabulariesForResource(resourceId, vocabularyDao::getByUri);
-    if (vocabularies.isEmpty()) {
-      return toReturn;
+    // Otherwise, get it from the source.
+    if (enrichedEntity == null) {
+      enrichedEntity = retrieveCachedEntity(resourceId);
     }
 
-    enriched = transformEntity(resourceId, vocabularies);
-    if (enriched != null) {
-      toReturn.getResult().add(enriched);
+    // Prepare the result: empty if we didn't find an entity.
+    final EnrichmentResultList result = new EnrichmentResultList();
+    if (enrichedEntity != null) {
+      result.getResult().add(enrichedEntity);
     }
-    
-    return toReturn;
+
+    // Done.
+    return result;
   }
 
-  private EnrichmentBase transformEntity(String resourceId, List<Vocabulary> vocabularies)
-      throws TransformerException, JAXBException {
-    OriginalEntity originalEntity = entityDao.get(resourceId);
-    
-    if (originalEntity == null) {
-      String originalXml = retriever.retrieve(resourceId);
-      String value = originalXml.contains("<html>") ? null : originalXml;
-      originalEntity = storeEntity(resourceId, value);
+  private EnrichmentBase retrieveCachedEntity(String resourceId)
+      throws JAXBException, TransformerException {
+
+    // Try to get it from the cache.
+    final ProcessedEntity cachedEntity = cacheDao.get(resourceId);
+    String entityString = cachedEntity != null ? cachedEntity.getXml() : null;
+
+    // If it is not in the cache, get it from the source vocabulary and cache it.
+    if (entityString == null) {
+      entityString = retrieveFromSourceVocabulary(resourceId);
+      if (entityString != null) {
+        final ProcessedEntity entityToCache = new ProcessedEntity();
+        entityToCache.setXml(entityString);
+        entityToCache.setURI(resourceId);
+        cacheDao.save(entityToCache);
+      }
     }
 
-    if (originalEntity.getXml() == null) {
-      LOGGER.info("No entity XML for uri {}", resourceId);
-      
+    // Parse the entity.
+    final EnrichmentBase result;
+    if (entityString != null) {
+      final StringReader reader = new StringReader(entityString);
+      final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
+      result = (EnrichmentBase) context.createUnmarshaller().unmarshal(reader);
+    } else {
+      result = null;
+    }
+
+    // Done
+    return result;
+  }
+
+  private String retrieveFromSourceVocabulary(String resourceId) throws TransformerException {
+
+    // Get the vocabularies that potentially match the given resource ID.
+    final List<Vocabulary> vocabularyCandidates =
+        VocabularyMatchUtils.findVocabulariesForResource(resourceId, vocabularyDao::getByUri);
+    if (vocabularyCandidates.isEmpty()) {
       return null;
     }
-    
-    return getEnrichmentFromVocabularyAndStoreInCache(resourceId, vocabularies, originalEntity.getXml());
-  }
 
-  private OriginalEntity storeEntity(String resourceId, String value) {
-    OriginalEntity originalEntity = new OriginalEntity();
-    originalEntity.setURI(resourceId);
-    originalEntity.setXml(value);
+    // Obtain the original entity
+    final String originalEntity = retrieveStoredOriginalEntity(resourceId);
+    if (originalEntity == null) {
+      LOGGER.info("No entity XML for uri {}", resourceId);
+      return null;
+    }
 
-    entityDao.save(originalEntity);
-    
-    return originalEntity;
-  }
-
-  private EnrichmentBase getEnrichmentFromVocabularyAndStoreInCache(String resourceId, List<Vocabulary> vocabularies,
-      String entityString) throws TransformerException, JAXBException {
-    
-    final Vocabulary vocabulary = VocabularyMatchUtils.findByEntity(vocabularies, entityString, resourceId);
+    // Find the vocabulary that applies to the entity.
+    final Vocabulary vocabulary =
+        VocabularyMatchUtils.findByEntity(vocabularyCandidates, originalEntity, resourceId);
     if (vocabulary == null) {
       return null;
     }
 
-    final String transformed;
+    // Transform the original entity.
     try {
-      transformed = new IncomingRecordToEdmConverter(vocabulary).convert(entityString, resourceId);
+      return new IncomingRecordToEdmConverter(vocabulary).convert(originalEntity, resourceId);
     } catch (TransformerException e) {
       LOGGER.error("Error transforming entity: {} with message :{}", resourceId, e.getMessage());
       throw e;
     }
-
-    storeInCache(resourceId, transformed);
-
-    return deserialize(transformed);
   }
 
-  private void storeInCache(String resourceId, String transformed) {
-    ProcessedEntity entity = new ProcessedEntity();
-    entity.setXml(transformed);
-    entity.setURI(resourceId);
-    cacheDao.save(entity);
-  }
+  private String retrieveStoredOriginalEntity(String resourceId) {
 
-  private EnrichmentBase readFromCache(String resourceId) throws JAXBException {
-    ProcessedEntity entity = cacheDao.get(resourceId);
-    return entity != null ? deserialize(entity.getXml()) : null;
-  }
+    // Get the entity from the own store
+    OriginalEntity originalEntity = entityDao.get(resourceId);
 
-  private EnrichmentBase checkInEntityCollection(String resourceId) {
-    return enrichmentClient.getByUri(resourceId);
-  }
+    // If we can't find it, get it from the remote source.
+    if (originalEntity == null) {
+      String originalXml = retriever.retrieve(resourceId);
+      String value = originalXml.contains("<html>") ? null : originalXml;
+      originalEntity = new OriginalEntity();
+      originalEntity.setURI(resourceId);
+      originalEntity.setXml(value);
+      entityDao.save(originalEntity);
+    }
 
-  private EnrichmentBase deserialize(String enrichment) throws JAXBException {
-    final StringReader reader = new StringReader(enrichment);
-    final JAXBContext context = JAXBContext.newInstance(EnrichmentBase.class);
-    return (EnrichmentBase) context.createUnmarshaller().unmarshal(reader);
+    // Done.
+    return originalEntity.getXml();
   }
 }

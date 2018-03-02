@@ -17,12 +17,22 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
  */
 @Component
 public class RedisProvider {
-	private final Logger LOGGER = LoggerFactory.getLogger(RedisProvider.class);
+  
+	private static final Logger LOGGER = LoggerFactory.getLogger(RedisProvider.class);
+	
+	private static final int JEDIS_TIMEOUT = 600000;
+	
+	private static final int TIME_BETWEEN_EVICTION_RUNS_MILLISECONDS = 60000;
+	
+	private static final int TESTS_PER_EVICTION_RUN = 10;
+	
+	private static final int MAX_NUMBER_OF_IDLE_CONNECTIONS = 5;
 
 	private JedisPool pool;
-	private String host;
-	private int port;
-	private String password;
+	
+	private final String host;
+	private final int port;
+	private final String password;
 
 	public RedisProvider(String host, int port, String password) {
 		this.host = host;
@@ -33,7 +43,8 @@ public class RedisProvider {
 
 	private JedisPool getPool(String host, int port, String password) {
 		if (pool == null || pool.isClosed()) {
-			LOGGER.info("Get new pool from Redis" + (StringUtils.isNotEmpty(password)?" using a password.":".") + " Host:" + host + ", port:" + port);
+            LOGGER.info("Get new pool from Redis Host: {}, port: {}",
+                (StringUtils.isNotEmpty(password) ? " using a password." : "."), host, port);
 			JedisPoolConfig poolConfig = new JedisPoolConfig();
 			// 'Borrowed' from http://www.ncolomer.net/2011/07/time-to-redis/
 			// Tests whether connection is dead when connection
@@ -45,22 +56,22 @@ public class RedisProvider {
 			poolConfig.setTestOnReturn(true);
 			// Number of connections to Redis that just sit there
 			// and do nothing
-			poolConfig.setMaxIdle(5);
+			poolConfig.setMaxIdle(MAX_NUMBER_OF_IDLE_CONNECTIONS);
 			// Minimum number of idle connections to Redis
 			// These can be seen as always open and ready to serve
 			poolConfig.setMinIdle(1);
 			// Tests whether connections are dead during idle periods
 			poolConfig.setTestWhileIdle(true);
 			// Maximum number of connections to test in each idle check
-			poolConfig.setNumTestsPerEvictionRun(10);
+			poolConfig.setNumTestsPerEvictionRun(TESTS_PER_EVICTION_RUN);
 			// Idle connection checking period
-			poolConfig.setTimeBetweenEvictionRunsMillis(60000);
+			poolConfig.setTimeBetweenEvictionRunsMillis(TIME_BETWEEN_EVICTION_RUNS_MILLISECONDS);
 
 			// Create the jedisPool
 			if (StringUtils.isNotEmpty(password))
-				pool = new JedisPool(poolConfig, host, port, 600000, password);
+				pool = new JedisPool(poolConfig, host, port, JEDIS_TIMEOUT, password);
 			else
-				pool = new JedisPool(poolConfig, host, port, 600000);
+				pool = new JedisPool(poolConfig, host, port, JEDIS_TIMEOUT);
 		}
 
 		//Check if connection works
@@ -83,17 +94,16 @@ public class RedisProvider {
 		try {
 			return pool.getResource();
 		}
-		catch (Exception e){
+		catch (RuntimeException e){
 			close();
 			pool = getPool(host, port, password);
 			return pool.getResource();
 		}
 	}
 
-	@PreDestroy
-	public void close()
-  {
-    if (pool != null && !pool.isClosed())
-      pool.close();
-  }
+    @PreDestroy
+    public void close() {
+      if (pool != null && !pool.isClosed())
+        pool.close();
+    }
 }

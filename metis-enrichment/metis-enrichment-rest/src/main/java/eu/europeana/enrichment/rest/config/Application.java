@@ -1,14 +1,5 @@
 package eu.europeana.enrichment.rest.config;
 
-import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.enrichment.service.Converter;
-import eu.europeana.enrichment.service.Enricher;
-import eu.europeana.enrichment.service.EntityRemover;
-import eu.europeana.enrichment.service.RedisInternalEnricher;
-import eu.europeana.metis.cache.redis.RedisProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +13,13 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.enrichment.service.Converter;
+import eu.europeana.enrichment.service.Enricher;
+import eu.europeana.enrichment.service.EntityRemover;
+import eu.europeana.enrichment.service.RedisInternalEnricher;
+import eu.europeana.metis.cache.redis.RedisProvider;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -41,7 +39,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableWebMvc
 @EnableSwagger2
 public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
-  private final Logger LOGGER = LoggerFactory.getLogger(Application.class);
 
   //Socks proxy
   @Value("${socks.proxy.enabled}")

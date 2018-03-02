@@ -14,7 +14,7 @@ public class EntityRemover {
 
     private final String mongoHost;
     private final int mongoPort;
-    private RedisInternalEnricher enricher;
+    private final RedisInternalEnricher enricher;
 
     @Autowired
     public EntityRemover(RedisInternalEnricher enricher, String mongoHost, int mongoPort){

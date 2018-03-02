@@ -20,7 +20,7 @@ import org.mongodb.morphia.Morphia;
 
 public class MorphiaDatastoreProvider {
 
-  private Datastore datastore;
+  private final Datastore datastore;
 
   public MorphiaDatastoreProvider(MongoClient mongoClient, String db) {
 	  Morphia morphia = new Morphia();

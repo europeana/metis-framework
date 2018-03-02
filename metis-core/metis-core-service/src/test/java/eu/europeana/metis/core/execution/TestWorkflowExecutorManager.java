@@ -1,6 +1,7 @@
 package eu.europeana.metis.core.execution;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.AdditionalMatchers.or;
 import static org.mockito.ArgumentMatchers.any;
@@ -93,7 +94,7 @@ public class TestWorkflowExecutorManager {
     verify(rabbitmqChannel, times(1))
         .basicConsume(or(anyString(), isNull()), autoAcknowledge.capture(), any(
             QueueConsumer.class));
-    assertEquals(false, autoAcknowledge.getValue());
+    assertFalse(autoAcknowledge.getValue());
   }
 
   @Test(expected = IOException.class)

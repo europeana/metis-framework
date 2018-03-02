@@ -18,8 +18,10 @@ import eu.europeana.enrichment.utils.InputValue;
  */
 @Service
 public class Enricher {
+  
   private static final Logger LOGGER = LoggerFactory.getLogger(Enricher.class);
-  private RedisInternalEnricher redisEnricher;
+  
+  private final RedisInternalEnricher redisEnricher;
 
   @Autowired
   public Enricher(RedisInternalEnricher redisEnricher) {
