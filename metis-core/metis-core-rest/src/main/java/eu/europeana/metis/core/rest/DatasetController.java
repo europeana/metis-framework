@@ -186,6 +186,7 @@ public class DatasetController {
    * @throws GenericMetisException which can be one of:
    * <ul>
    * <li>{@link NoXsltFoundException} if the xslt was not found.</li>
+   * <li>{@link NoDatasetFoundException} if the dataset was not found.</li>
    * <li>{@link UserUnauthorizedException} if the user is unauthorized.</li>
    * </ul>
    */
@@ -248,7 +249,8 @@ public class DatasetController {
    * </ul>
    */
   @RequestMapping(value = RestEndpoints.DATASETS_XSLT_DEFAULT, method = RequestMethod.POST, consumes = {
-      MediaType.TEXT_PLAIN_VALUE})
+      MediaType.TEXT_PLAIN_VALUE}, produces = {
+      MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseBody
   public Xslt createDefaultXslt(@RequestHeader("Authorization") String authorization,

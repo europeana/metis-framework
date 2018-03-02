@@ -15,6 +15,10 @@ public class TestUtils {
       MediaType.APPLICATION_JSON.getType(), MediaType.APPLICATION_JSON.getSubtype(),
       Charset.forName("utf8"));
 
+  public static final MediaType TEXT_PLAIN = new MediaType(
+      MediaType.TEXT_PLAIN.getType(), MediaType.TEXT_PLAIN.getSubtype(),
+      Charset.forName("ISO-8859-1"));
+
   public static byte[] convertObjectToJsonBytes(Object object) throws IOException {
     ObjectMapper mapper = new ObjectMapper();
     mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
