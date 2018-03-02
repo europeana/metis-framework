@@ -16,6 +16,7 @@ import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
 import eu.europeana.metis.json.CustomObjectMapper;
 import eu.europeana.metis.utils.CustomTruststoreAppender;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
@@ -237,7 +238,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
     converters.add(new MappingJackson2HttpMessageConverter());
     converters.add(new MappingJackson2XmlHttpMessageConverter());
-    converters.add(new StringHttpMessageConverter());
+    converters.add(new StringHttpMessageConverter(StandardCharsets.UTF_8));
     super.configureMessageConverters(converters);
   }
 }

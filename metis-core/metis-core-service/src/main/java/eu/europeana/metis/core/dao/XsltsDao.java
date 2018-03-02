@@ -78,6 +78,12 @@ public class XsltsDao implements MetisDao<Xslt, String> {
     return delete.getN() >= 1;
   }
 
+  /**
+   * Fet latest stored xslt using a dataset identifier.
+   * <p>Use -1 to get the default xslt that is not related to a dataset</p>
+   * @param datasetId the dataset identifier
+   * @return the {@link Xslt} object
+   */
   public Xslt getLatestXsltForDatasetId(int datasetId) {
     return morphiaDatastoreProvider.getDatastore().find(Xslt.class)
         .filter(DATASET_ID, datasetId).order(Sort.descending("createdDate")).get();

@@ -39,6 +39,7 @@ import eu.europeana.metis.core.test.utils.TestObjectFactory;
 import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.exception.BadContentException;
 import eu.europeana.metis.exception.UserUnauthorizedException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -66,6 +70,9 @@ public class TestDatasetController {
     datasetControllerMock = MockMvcBuilders
         .standaloneSetup(datasetController)
         .setControllerAdvice(new RestResponseExceptionHandler())
+        .setMessageConverters(new MappingJackson2HttpMessageConverter(),
+            new MappingJackson2XmlHttpMessageConverter(),
+            new StringHttpMessageConverter(StandardCharsets.UTF_8))
         .build();
   }
 
@@ -220,7 +227,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -240,7 +247,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(jsonPath("$.errorMessage", is(CommonStringValues.UNAUTHORIZED)));
@@ -259,7 +266,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(delete(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .accept(MediaType.APPLICATION_JSON_UTF8)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406))
         .andExpect(jsonPath("$.errorMessage", is("Bad Content")));
@@ -278,7 +285,7 @@ public class TestDatasetController {
         .thenReturn(dataset);
     datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -297,7 +304,7 @@ public class TestDatasetController {
         .thenThrow(new UserUnauthorizedException(CommonStringValues.UNAUTHORIZED));
     datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -317,7 +324,7 @@ public class TestDatasetController {
         .thenThrow(new NoDatasetFoundException("Does not exist"));
     datasetControllerMock.perform(get(String.format("/datasets/%s", TestObjectFactory.DATASETID))
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().is(404))
@@ -338,7 +345,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -363,7 +370,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -382,7 +389,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -403,7 +410,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/%s/xslt", TestObjectFactory.DATASETID))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -423,7 +430,9 @@ public class TestDatasetController {
         .perform(get(String.format("/datasets/xslt/%s", TestObjectFactory.XSLTID))
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(TestUtils.TEXT_PLAIN))
+        .andExpect(content().contentType(
+            new MediaType(MediaType.TEXT_PLAIN.getType(), MediaType.TEXT_PLAIN.getSubtype(),
+                StandardCharsets.UTF_8)))
         .andExpect(content().string(xsltObject.getXslt()));
 
     ArgumentCaptor<String> xsltIdArgumentCaptor = ArgumentCaptor.forClass(String.class);
@@ -438,7 +447,7 @@ public class TestDatasetController {
         .thenThrow(new NoXsltFoundException("No xslt found"));
     datasetControllerMock
         .perform(get(String.format("/datasets/xslt/%s", TestObjectFactory.XSLTID))
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404));
 
@@ -464,10 +473,10 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(post("/datasets/xslt/default", TestObjectFactory.XSLTID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.TEXT_PLAIN)
+            .contentType(MediaType.TEXT_PLAIN)
             .content(TestUtils.convertObjectToJsonBytes(xsltObject.getXslt())))
         .andExpect(status().is(201))
-        .andExpect(content().contentType(TestUtils.APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(jsonPath("$.xslt", is(xsltObject.getXslt())))
         .andExpect(jsonPath("$.datasetId", is(TestObjectFactory.DATASETID)));
   }
@@ -488,7 +497,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(post("/datasets/xslt/default", TestObjectFactory.XSLTID)
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.TEXT_PLAIN)
+            .contentType(MediaType.TEXT_PLAIN)
             .content(TestUtils.convertObjectToJsonBytes(xsltObject.getXslt())))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -504,7 +513,9 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/xslt/default")
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
-        .andExpect(content().contentType(TestUtils.TEXT_PLAIN))
+        .andExpect(content().contentType(
+            new MediaType(MediaType.TEXT_PLAIN.getType(), MediaType.TEXT_PLAIN.getSubtype(),
+                StandardCharsets.UTF_8)))
         .andExpect(content().string(xsltObject.getXslt()));
 
     verify(datasetServiceMock, times(1)).getLatestXsltForDatasetId(-1);
@@ -515,7 +526,7 @@ public class TestDatasetController {
     when(datasetServiceMock.getLatestXsltForDatasetId(-1))
         .thenThrow(new NoXsltFoundException("No xslt found"));
     datasetControllerMock.perform(get("/datasets/xslt/default")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(404));
 
@@ -535,7 +546,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -555,7 +566,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -577,7 +588,7 @@ public class TestDatasetController {
     datasetControllerMock
         .perform(get(String.format("/datasets/dataset_name/%s", TestObjectFactory.DATASETNAME))
             .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
         .andExpect(status().is(404))
@@ -599,7 +610,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -621,7 +632,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -634,7 +645,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/provider/myProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -660,7 +671,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -683,7 +694,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -696,7 +707,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/intermediate_provider/myIntermediateProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -721,7 +732,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -743,7 +754,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -756,7 +767,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/data_provider/myDataProvider")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -781,7 +792,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -803,7 +814,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -816,7 +827,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_id/myOrganizationId")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -841,7 +852,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -863,7 +874,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "-1")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(406));
   }
@@ -876,7 +887,7 @@ public class TestDatasetController {
     datasetControllerMock.perform(get("/datasets/organization_name/myOrganizationName")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
         .param("nextPage", "3")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(null)))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -894,7 +905,7 @@ public class TestDatasetController {
 
     MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/countries")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
@@ -917,7 +928,7 @@ public class TestDatasetController {
 
     datasetControllerMock.perform(get("/datasets/countries")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -933,7 +944,7 @@ public class TestDatasetController {
 
     MvcResult mvcResult = datasetControllerMock.perform(get("/datasets/languages")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(200))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8)).andReturn();
@@ -955,7 +966,7 @@ public class TestDatasetController {
 
     datasetControllerMock.perform(get("/datasets/languages")
         .header("Authorization", TestObjectFactory.AUTHORIZATION_HEADER)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(401))
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8))

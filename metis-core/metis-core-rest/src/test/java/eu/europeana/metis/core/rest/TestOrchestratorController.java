@@ -49,6 +49,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -80,7 +81,7 @@ public class TestOrchestratorController {
   public void createWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
@@ -94,7 +95,7 @@ public class TestOrchestratorController {
     doThrow(new WorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .createWorkflow(any(Workflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -106,7 +107,7 @@ public class TestOrchestratorController {
   public void updateWorkflow() throws Exception {
     Workflow workflow = TestObjectFactory.createWorkflowObject();
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -120,7 +121,7 @@ public class TestOrchestratorController {
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .updateWorkflow(any(Workflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -133,7 +134,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
         .param("workflowOwner", "owner")
         .param("workflowName", "workflow")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -148,7 +149,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS)
         .param("workflowOwner", "owner")
         .param("workflowName", "workflow")
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.workflowName", is(workflowName)));
@@ -169,7 +170,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, workflowOwner)
             .param("nextPage", "")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -187,7 +188,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_OWNER, workflowOwner)
             .param("nextPage", "-1")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -204,7 +205,7 @@ public class TestOrchestratorController {
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
             .param("workflowName", "workflow")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(201))
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.INQUEUE.name())));
@@ -221,7 +222,7 @@ public class TestOrchestratorController {
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
             .param("workflowName", "workflow")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -238,7 +239,7 @@ public class TestOrchestratorController {
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
             .param("workflowName", "workflow")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -255,7 +256,7 @@ public class TestOrchestratorController {
             TestObjectFactory.DATASETID)
             .param("workflowOwner", "owner")
             .param("workflowName", "workflow")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -272,7 +273,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(201))
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.INQUEUE.name())));
@@ -288,7 +289,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -304,7 +305,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -320,7 +321,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_DATASETID_EXECUTE_DIRECT,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(TestUtils.convertObjectToJsonBytes(workflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -332,7 +333,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -345,7 +346,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -361,7 +362,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_EXECUTIONID,
             TestObjectFactory.EXECUTIONID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.workflowStatus", is(WorkflowStatus.RUNNING.name())));
@@ -380,7 +381,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .param("pluginType", "VALIDATION_EXTERNAL")
             .content(""))
         .andExpect(status().is(200))
@@ -398,7 +399,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS_DATASET_DATASETID_ALLOWED_PLUGIN,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .param("pluginType", "OAIPMH_HARVEST")
             .content(""))
         .andExpect(status().is(200));
@@ -421,7 +422,7 @@ public class TestOrchestratorController {
             .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -443,7 +444,7 @@ public class TestOrchestratorController {
             .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "-1")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -463,7 +464,7 @@ public class TestOrchestratorController {
             .param("workflowName", "workflow")
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -485,7 +486,7 @@ public class TestOrchestratorController {
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_EXECUTIONS)
             .param("workflowStatus", WorkflowStatus.INQUEUE.name())
             .param("nextPage", "-1")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -495,7 +496,7 @@ public class TestOrchestratorController {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(201))
         .andExpect(content().string(""));
@@ -510,7 +511,7 @@ public class TestOrchestratorController {
     doThrow(new BadContentException("Some error")).when(orchestratorService)
         .scheduleWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(406))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -524,7 +525,7 @@ public class TestOrchestratorController {
     doThrow(new ScheduledWorkflowAlreadyExistsException("Some error")).when(orchestratorService)
         .scheduleWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(409))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -537,7 +538,7 @@ public class TestOrchestratorController {
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .scheduleWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -550,7 +551,7 @@ public class TestOrchestratorController {
     doThrow(new NoDatasetFoundException("Some error")).when(orchestratorService)
         .scheduleWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(post(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -565,7 +566,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock.perform(
         get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID,
             TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.scheduleFrequence", is(ScheduleFrequence.ONCE.name())));
@@ -585,7 +586,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .param("nextPage", "")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.results", hasSize(listSize + 1)))
@@ -603,7 +604,7 @@ public class TestOrchestratorController {
     orchestratorControllerMock
         .perform(get(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
             .param("nextPage", "-1")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(406));
   }
@@ -613,7 +614,7 @@ public class TestOrchestratorController {
     ScheduledWorkflow scheduledWorkflow = TestObjectFactory
         .createScheduledWorkflowObject();
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(204))
         .andExpect(content().string(""));
@@ -628,7 +629,7 @@ public class TestOrchestratorController {
     doThrow(new NoWorkflowFoundException("Some error")).when(orchestratorService)
         .updateScheduledWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -641,7 +642,7 @@ public class TestOrchestratorController {
     doThrow(new NoScheduledWorkflowFoundException("Some error")).when(orchestratorService)
         .updateScheduledWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(404))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -654,7 +655,7 @@ public class TestOrchestratorController {
     doThrow(new BadContentException("Some error")).when(orchestratorService)
         .updateScheduledWorkflow(any(ScheduledWorkflow.class));
     orchestratorControllerMock.perform(put(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE)
-        .contentType(TestUtils.APPLICATION_JSON_UTF8)
+        .contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(TestUtils.convertObjectToJsonBytes(scheduledWorkflow)))
         .andExpect(status().is(406))
         .andExpect(content().string("{\"errorMessage\":\"Some error\"}"));
@@ -664,7 +665,7 @@ public class TestOrchestratorController {
   public void deleteScheduledWorkflowExecution() throws Exception {
     orchestratorControllerMock.perform(
         delete(RestEndpoints.ORCHESTRATOR_WORKFLOWS_SCHEDULE_DATASETID, TestObjectFactory.DATASETID)
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(204))
         .andExpect(content().string(""));

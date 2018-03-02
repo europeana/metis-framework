@@ -1,10 +1,10 @@
 package eu.europeana.metis.core.rest;
 
 import static com.jayway.jsonassert.impl.matcher.IsCollectionWithSize.hasSize;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.hamcrest.core.Is.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -14,13 +14,13 @@ import eu.europeana.metis.RestEndpoints;
 import eu.europeana.metis.core.rest.exception.RestResponseExceptionHandler;
 import eu.europeana.metis.core.service.ProxiesService;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
-import eu.europeana.metis.core.test.utils.TestUtils;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import java.util.ArrayList;
 import java.util.List;
 import org.hamcrest.core.IsNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -61,7 +61,7 @@ public class TestProxiesController {
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
             .param("from", Integer.toString(from))
             .param("to", Integer.toString(to))
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$[0].additionalInformations", is(IsNull.nullValue())))
@@ -86,7 +86,7 @@ public class TestProxiesController {
         get(RestEndpoints.ORCHESTRATOR_PROXIES_TOPOLOGY_TASK_REPORT,
             TestObjectFactory.TOPOLOGY_NAME, TestObjectFactory.EXTERNAL_TASK_ID)
             .param("idsPerError", "10")
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.id", is(TestObjectFactory.EXTERNAL_TASK_ID)))
@@ -115,7 +115,7 @@ public class TestProxiesController {
         get(RestEndpoints.ORCHESTRATOR_PROXIES_RECORDS)
             .param("workflowExecutionId", TestObjectFactory.EXECUTIONID)
             .param("pluginType", PluginType.TRANSFORMATION.name())
-            .contentType(TestUtils.APPLICATION_JSON_UTF8)
+            .contentType(MediaType.APPLICATION_JSON_UTF8)
             .content(""))
         .andExpect(status().is(200))
         .andExpect(jsonPath("$.records[0].ecloudId", is(record1.getEcloudId())))
