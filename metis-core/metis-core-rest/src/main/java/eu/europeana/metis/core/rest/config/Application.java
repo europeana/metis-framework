@@ -170,6 +170,12 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
     return datasetDao;
   }
 
+  /**
+   * Get the DAO for xslts.
+   *
+   * @param morphiaDatastoreProvider {@link MorphiaDatastoreProvider}
+   * @return {@link XsltsDao} used to access the database for datasets
+   */
   @Bean
   public XsltsDao getXsltDao(MorphiaDatastoreProvider morphiaDatastoreProvider) {
     return new XsltsDao(morphiaDatastoreProvider);
@@ -180,6 +186,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
    * <p>It encapsulates several DAOs and combines their functionality into methods</p>
    *
    * @param datasetDao {@link DatasetDao}
+   * @param xsltsDao {@link XsltsDao}
    * @param workflowExecutionDao {@link WorkflowExecutionDao}
    * @param scheduledWorkflowDao {@link ScheduledWorkflowDao}
    * @param redissonClient {@link RedissonClient}

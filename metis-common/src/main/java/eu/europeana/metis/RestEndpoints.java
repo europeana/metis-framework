@@ -119,6 +119,13 @@ public final class RestEndpoints {
   private RestEndpoints() {
   }
 
+  /**
+   * Resolves an endpoint with parameters wrapped around "{" and "}" by providing the endpoint and
+   * all the required parameters.
+   * @param endpoint the endpoint to resolve
+   * @param params all the parameters specified
+   * @return the resolved endpoint
+   */
   public static String resolve(String endpoint, String... params) {
     if (params == null || params.length == 0) {
       return endpoint;

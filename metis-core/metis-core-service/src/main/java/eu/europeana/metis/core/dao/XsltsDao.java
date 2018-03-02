@@ -64,6 +64,11 @@ public class XsltsDao implements MetisDao<Xslt, String> {
     return true;
   }
 
+  /**
+   * Delete All Xslts but using a dataset identifier.
+   * @param datasetId the dataset identifier
+   * @return true if something was found and deleted or false
+   */
   public boolean deleteAllByDatasetId(int datasetId) {
     Query<Xslt> query = morphiaDatastoreProvider.getDatastore()
         .createQuery(Xslt.class);
@@ -75,6 +80,6 @@ public class XsltsDao implements MetisDao<Xslt, String> {
 
   public Xslt getLatestDefaultXslt() {
     return morphiaDatastoreProvider.getDatastore().find(Xslt.class)
-        .filter("datasetId", -1).order(Sort.descending("createdDate")).get();
+        .filter(DATASET_ID, -1).order(Sort.descending("createdDate")).get();
   }
 }

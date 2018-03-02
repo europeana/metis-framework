@@ -15,6 +15,12 @@ public class DatasetXsltStringWrapper {
     //Required for json serialization
   }
 
+  /**
+   * Constructor with all the required paramets
+   *
+   * @param dataset {@link Dataset}
+   * @param xslt the String representation of the xslt text
+   */
   public DatasetXsltStringWrapper(Dataset dataset, String xslt) {
     this.dataset = dataset;
     this.xslt = xslt;

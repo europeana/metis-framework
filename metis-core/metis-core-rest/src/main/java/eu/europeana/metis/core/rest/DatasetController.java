@@ -206,7 +206,7 @@ public class DatasetController {
   /**
    * Get the xslt string as non escaped text using an xslt identifier.
    * <p>
-   * It is an method that does not require authentication and it is meant to be used from
+   * It is a method that does not require authentication and it is meant to be used from
    * external service to download the corresponding xslt. At the point of writing, ECloud
    * transformation topology is using it. {@link TransformationPlugin}
    * </p>
@@ -234,7 +234,8 @@ public class DatasetController {
    * <p>
    * Each dataset can have it's own custom xslt but a default xslt should always be available.
    * Creating a new default xslt will create a new {@link Xslt} object and the older one will still
-   * be available.
+   * be available. The created {@link Xslt} will have it's {@link Xslt#datasetId} as -1 to indicate
+   * that it is not related to a specific dataset.
    * </p>
    *
    * @param authorization the String provided by an HTTP Authorization header <p> The expected input
