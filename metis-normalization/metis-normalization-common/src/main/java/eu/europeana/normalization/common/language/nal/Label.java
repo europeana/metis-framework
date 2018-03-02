@@ -1,4 +1,3 @@
-/* LanguageName.java - created on 16/03/2016, Copyright (c) 2011 The European Library, all rights reserved */
 package eu.europeana.normalization.common.language.nal;
 
 /**
