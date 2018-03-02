@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Agent", namespace = "http://www.europeana.eu/schemas/edm/")
+@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Agent")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Agent extends EnrichmentBase {
 
@@ -47,220 +47,138 @@ public class Agent extends EnrichmentBase {
   private List<Part> sameAs = new ArrayList<>();
 
   public List<Label> getHiddenLabel() {
-    return hiddenLabel;
+    return unmodifiableListAcceptingNull(hiddenLabel);
   }
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
-    this.hiddenLabel = hiddenLabel;
+    this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
   }
 
   public List<Label> getFoafName() {
-    return name;
+    return unmodifiableListAcceptingNull(name);
   }
 
   public void setFoafName(List<Label> foafName) {
-    this.name = foafName;
+    this.name = cloneListAcceptingNull(foafName);
   }
 
   public List<Label> getBeginList() {
-    return beginList;
+    return unmodifiableListAcceptingNull(beginList);
   }
 
   public void setBeginList(List<Label> beginList) {
-    this.beginList = beginList;
+    this.beginList = cloneListAcceptingNull(beginList);
   }
 
   public List<Label> getEndList() {
-    return endList;
+    return unmodifiableListAcceptingNull(endList);
   }
 
   public void setEndList(List<Label> endList) {
-    this.endList = endList;
+    this.endList = cloneListAcceptingNull(endList);
   }
 
-
   public List<Label> getIdentifier() {
-    return identifier;
+    return unmodifiableListAcceptingNull(identifier);
   }
 
   public void setIdentifier(List<Label> identifier) {
-    this.identifier = identifier;
+    this.identifier = cloneListAcceptingNull(identifier);
   }
 
-
   public List<Label> getHasMet() {
-    return hasMet;
+    return unmodifiableListAcceptingNull(hasMet);
   }
 
   public void setHasMet(List<Label> hasMet) {
-    this.hasMet = hasMet;
+    this.hasMet = cloneListAcceptingNull(hasMet);
   }
 
-
   public List<Label> getBiographicaInformation() {
-    return biographicaInformation;
+    return unmodifiableListAcceptingNull(biographicaInformation);
   }
 
   public void setBiographicaInformation(List<Label> biographicaInformation) {
-    this.biographicaInformation = biographicaInformation;
+    this.biographicaInformation = cloneListAcceptingNull(biographicaInformation);
   }
 
-
   public List<Label> getDateOfBirth() {
-    return dateOfBirth;
+    return unmodifiableListAcceptingNull(dateOfBirth);
   }
 
   public void setDateOfBirth(List<Label> dateOfBirth) {
-    this.dateOfBirth = dateOfBirth;
+    this.dateOfBirth = cloneListAcceptingNull(dateOfBirth);
   }
 
-
   public List<Label> getDateOfDeath() {
-    return dateOfDeath;
+    return unmodifiableListAcceptingNull(dateOfDeath);
   }
 
   public void setDateOfDeath(List<Label> dateOfDeath) {
-    this.dateOfDeath = dateOfDeath;
+    this.dateOfDeath = cloneListAcceptingNull(dateOfDeath);
   }
 
-
   public List<Label> getDateOfEstablishment() {
-    return dateOfEstablishment;
+    return unmodifiableListAcceptingNull(dateOfEstablishment);
   }
 
   public void setDateOfEstablishment(List<Label> dateOfEstablishment) {
-    this.dateOfEstablishment = dateOfEstablishment;
+    this.dateOfEstablishment = cloneListAcceptingNull(dateOfEstablishment);
   }
 
   public List<Label> getDateOfTermination() {
-    return dateOfTermination;
+    return unmodifiableListAcceptingNull(dateOfTermination);
   }
 
   public void setDateOfTermination(List<Label> dateOfTermination) {
-    this.dateOfTermination = dateOfTermination;
+    this.dateOfTermination = cloneListAcceptingNull(dateOfTermination);
   }
 
- public List<Label> getGender() {
-    return gender;
+  public List<Label> getGender() {
+    return unmodifiableListAcceptingNull(gender);
   }
 
   public void setGender(List<Label> gender) {
-    this.gender = gender;
+    this.gender = cloneListAcceptingNull(gender);
   }
 
   public List<LabelResource> getProfessionOrOccupation() {
-    return professionOrOccupation;
+    return unmodifiableListAcceptingNull(professionOrOccupation);
   }
 
   public void setProfessionOrOccupation(List<LabelResource> professionOrOccupation) {
-    this.professionOrOccupation = professionOrOccupation;
+    this.professionOrOccupation = cloneListAcceptingNull(professionOrOccupation);
   }
 
   public List<LabelResource> getDate() {
-    return date;
+    return unmodifiableListAcceptingNull(date);
   }
 
   public void setDate(List<LabelResource> date) {
-    this.date = date;
+    this.date = cloneListAcceptingNull(date);
   }
 
   public List<LabelResource> getIsRelatedTo() {
-    return isRelatedTo;
+    return unmodifiableListAcceptingNull(isRelatedTo);
   }
 
   public void setIsRelatedTo(List<LabelResource> isRelatedTo) {
-    this.isRelatedTo = isRelatedTo;
+    this.isRelatedTo = cloneListAcceptingNull(isRelatedTo);
   }
 
   public List<Resource> getWasPresentAt() {
-    return wasPresentAt;
+    return unmodifiableListAcceptingNull(wasPresentAt);
   }
 
   public void setWasPresentAt(List<Resource> wasPresentAt) {
-    this.wasPresentAt = wasPresentAt;
+    this.wasPresentAt = cloneListAcceptingNull(wasPresentAt);
   }
 
-
   public List<Part> getSameAs() {
-    return sameAs;
+    return unmodifiableListAcceptingNull(sameAs);
   }
 
   public void setSameAs(List<Part> sameAs) {
-    this.sameAs = sameAs;
+    this.sameAs = cloneListAcceptingNull(sameAs);
   }
 }
-
-//  private String convertAgent(String contextualEntity)
-//      throws IOException {
-//    AgentImpl agent = new ObjectMapper().readValue(contextualEntity,
-//        AgentImpl.class);
-//    StringBuilder sb = new StringBuilder();
-//    sb.append("<edm:Agent rdf:about=\"");
-//    sb.append(agent.getAbout());
-//    sb.append("\">");
-//    addMap(sb, agent.getPrefLabel(), "skos:prefLabel", "xml:lang", false);
-//    addMap(sb, agent.getAltLabel(), "skos:altLabel", "xml:lang", false);
-//    addMap(sb, agent.getHiddenLabel(), "skos:hiddenLabel", "xml:lang",
-//        false);
-//    addMap(sb, agent.getFoafName(), "foaf:name", "xml:lang", false);
-//    addMap(sb, agent.getNote(), "skos:note", "xml:lang", false);
-//    addMap(sb, agent.getBegin(), "edm:begin", "xml:lang", false);
-//    addMap(sb, agent.getEnd(), "edm:end", "xml:lang", false);
-//    addMap(sb, agent.getDcIdentifier(), "dc:identifier", "xml:lang", false);
-//    addMap(sb, agent.getEdmHasMet(), "edm:hasMet", "xml:lang", false);
-//    addMap(sb, agent.getDcIdentifier(), "dc:identifier", "xml:lang", false);
-
-//    addMap(sb, agent.getRdaGr2BiographicalInformation(),
-//        "rdaGr2:biographicaInformation", "xml:lang", false);
-//    addMap(sb, agent.getRdaGr2DateOfBirth(), "rdaGr2:dateOfBirth",
-//        "xml:lang", false);
-//    addMap(sb, agent.getRdaGr2DateOfDeath(), "rdaGr2:dateOfDeath",
-//        "xml:lang", false);
-//    addMap(sb, agent.getRdaGr2DateOfEstablishment(),
-//        "rdaGr2:dateOfEstablishment", "xml:lang", false);
-//    addMap(sb, agent.getRdaGr2DateOfTermination(),
-//        "rdaGr2:dateOfTermination", "xml:lang", false);
-//    addMap(sb, agent.getRdaGr2Gender(), "rdaGr2:gender", "xml:lang", false);
-//
-//    addMapResourceOrLiteral(sb, agent.getRdaGr2ProfessionOrOccupation(),
-//        "rdaGr2:professionOrOccupation");
-
-//    addMapResourceOrLiteral(sb, agent.getDcDate(), "dc:date");
-//    addMapResourceOrLiteral(sb, agent.getEdmIsRelatedTo(),
-//        "edm:isRelatedTo");
-
-//    addArray(sb, agent.getEdmWasPresentAt(), "edm:wasPresentAt",
-//        "rdf:resource");
-
-//    addArray(sb, agent.getOwlSameAs(), "owl:sameAs", "rdf:resource");
-//    sb.append("</edm:Agent>\n");
-//    LOGGER.info(StringEscapeUtils.escapeXml(sb.toString()));
-//    return StringEscapeUtils.escapeHtml3(sb.toString());
-//  }
-
-//  private void addMapResourceOrLiteral(StringBuilder sb,
-//      Map<String, List<String>> values, String element) {
-//
-//    if (values != null) {
-//      for (Entry<String, List<String>> entry : values.entrySet()) {
-//        for (String str : entry.getValue()) {
-//          sb.append("<");
-//          sb.append(element);
-//          sb.append(" ");
-//          if (isUri(str)) {
-//            sb.append("rdf:resource=\"");
-//            sb.append(str);
-//            sb.append("\"/>\n");
-//          } else {
-//            sb.append("xml:lang=\"");
-//            sb.append(entry.getKey());
-//            sb.append("\">");
-//            sb.append(str);
-//            sb.append("</");
-//            sb.append(element);
-//            sb.append(">\n");
-//          }
-//        }
-//      }
-//    }
-//  }

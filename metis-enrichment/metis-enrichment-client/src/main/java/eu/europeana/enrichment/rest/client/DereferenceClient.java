@@ -137,27 +137,25 @@ public class DereferenceClient {
     /**
      * Dereference an entity
      *
-     * @param uri the uri to dereference
+     * @param resourceId the resource ID (URI) to dereference
      * @return A string of the referenced response
      */
-	public EnrichmentResultList dereference(String uri) {
-		final String uriString;
+	public EnrichmentResultList dereference(String resourceId) {
+		final String resourceString;
 		try {
-			uriString = URLEncoder.encode(uri, StandardCharsets.UTF_8.name());
+		    resourceString = URLEncoder.encode(resourceId, StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw new IllegalStateException(e);
 		}
 		
-		if (!uriString.startsWith("http") && !uriString.startsWith("https"))
+		if (!resourceString.startsWith("http") && !resourceString.startsWith("https"))
 			return null;
 		
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_XML));
-		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+		HttpEntity<String> entity = new HttpEntity<>("parameters", headers);
 
-		ResponseEntity<EnrichmentResultList> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + uriString, HttpMethod.GET, entity, EnrichmentResultList.class);
-		EnrichmentResultList responseBody = response.getBody();
-		
-		return responseBody;
+		ResponseEntity<EnrichmentResultList> response = restTemplate.exchange(hostUrl + DEREFERENCE + "?uri=" + resourceString, HttpMethod.GET, entity, EnrichmentResultList.class);
+		return response.getBody();
 	}
 }

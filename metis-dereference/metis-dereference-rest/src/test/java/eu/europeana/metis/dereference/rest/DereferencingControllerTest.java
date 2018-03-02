@@ -7,11 +7,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.xml.transform.TransformerException;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
@@ -42,7 +42,6 @@ public class DereferencingControllerTest {
   @Test
   public void dereferenceGet_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
-    list.setResult(new ArrayList<>());
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
 
@@ -59,7 +58,6 @@ public class DereferencingControllerTest {
   @Test
   public void dereferencePost_outputXML() throws Exception {
     EnrichmentResultList list = new EnrichmentResultList();
-    list.setResult(new ArrayList<>());
     list.getResult().add(getAgent("http://www.fennek-it.nl"));
     when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenReturn(list);
 
@@ -77,7 +75,7 @@ public class DereferencingControllerTest {
 
   @Test
   public void exceptionHandling() throws Exception {
-    when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenThrow(new IOException("myException"));
+    when(dereferenceServiceMock.dereference("http://www.fennek-it.nl")).thenThrow(new TransformerException("myException"));
     dereferencingControllerMock.perform(post("/dereference")
         .content("[ \"http://www.fennek-it.nl\" ]")
         .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)

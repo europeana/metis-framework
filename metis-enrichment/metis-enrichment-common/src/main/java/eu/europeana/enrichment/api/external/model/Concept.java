@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "Concept", namespace = "http://www.europeana.eu/schemas/edm/")
+@XmlRootElement(namespace = "http://www.europeana.eu/schemas/edm/", name = "Concept")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Concept extends EnrichmentBase {
   @XmlElement(name = "hiddenLabel", namespace = "http://www.w3.org/2004/02/skos/core#")
@@ -32,119 +32,95 @@ public class Concept extends EnrichmentBase {
   @XmlElement(name = "related", namespace = "http://www.w3.org/2004/02/skos/core#")
   private List<Resource> relatedMatch;
 
-  public Concept(){ }
+  public Concept() {
+    // Required for XML binding.
+  }
 
   public List<Label> getHiddenLabel() {
-    return hiddenLabel;
+    return unmodifiableListAcceptingNull(hiddenLabel);
   }
 
   public void setHiddenLabel(List<Label> hiddenLabel) {
-    this.hiddenLabel = hiddenLabel;
+    this.hiddenLabel = cloneListAcceptingNull(hiddenLabel);
   }
 
   public List<Label> getNotation() {
-    return notation;
+    return unmodifiableListAcceptingNull(notation);
   }
 
   public void setNotation(List<Label> notation) {
-    this.notation = notation;
+    this.notation = cloneListAcceptingNull(notation);
   }
 
-
-   public List<Resource> getBroader() {
-    return broader;
+  public List<Resource> getBroader() {
+    return unmodifiableListAcceptingNull(broader);
   }
 
   public void setBroader(List<Resource> broader) {
-    this.broader = broader;
+    this.broader = cloneListAcceptingNull(broader);
   }
 
   public List<Resource> getBroadMatch() {
-    return broadMatch;
+    return unmodifiableListAcceptingNull(broadMatch);
   }
 
   public void setBroadMatch(List<Resource> broader) {
-    this.broadMatch = broader;
+    this.broadMatch = cloneListAcceptingNull(broader);
   }
 
   public List<Resource> getCloseMatch() {
-    return closeMatch;
+    return unmodifiableListAcceptingNull(closeMatch);
   }
 
   public void setCloseMatch(List<Resource> closeMatch) {
-    this.closeMatch = closeMatch;
+    this.closeMatch = cloneListAcceptingNull(closeMatch);
   }
 
- public List<Resource> getExactMatch() {
-    return exactMatch;
+  public List<Resource> getExactMatch() {
+    return unmodifiableListAcceptingNull(exactMatch);
   }
 
   public void setExactMatch(List<Resource> exactMatch) {
-    this.exactMatch = exactMatch;
+    this.exactMatch = cloneListAcceptingNull(exactMatch);
   }
 
   public List<Resource> getInScheme() {
-    return inScheme;
+    return unmodifiableListAcceptingNull(inScheme);
   }
 
   public void setInScheme(List<Resource> inScheme) {
-    this.inScheme = inScheme;
+    this.inScheme = cloneListAcceptingNull(inScheme);
   }
 
   public List<Resource> getNarrower() {
-    return narrower;
+    return unmodifiableListAcceptingNull(narrower);
   }
 
   public void setNarrower(List<Resource> narrower) {
-    this.narrower = narrower;
+    this.narrower = cloneListAcceptingNull(narrower);
   }
 
   public List<Resource> getNarrowMatch() {
-    return narrowMatch;
+    return unmodifiableListAcceptingNull(narrowMatch);
   }
 
   public void setNarrowMatch(List<Resource> narrowMatch) {
-    this.narrowMatch = narrowMatch;
+    this.narrowMatch = cloneListAcceptingNull(narrowMatch);
   }
 
   public List<Resource> getRelated() {
-    return related;
+    return unmodifiableListAcceptingNull(related);
   }
 
   public void setRelated(List<Resource> related) {
-    this.related = related;
+    this.related = cloneListAcceptingNull(related);
   }
 
   public List<Resource> getRelatedMatch() {
-    return relatedMatch;
+    return unmodifiableListAcceptingNull(relatedMatch);
   }
 
   public void setRelatedMatch(List<Resource> relatedMatch) {
-    this.relatedMatch = relatedMatch;
+    this.relatedMatch = cloneListAcceptingNull(relatedMatch);
   }
 }
-
-//  ConceptImpl concept = new ObjectMapper().readValue(contextualEntity,
-//      ConceptImpl.class);
-//  StringBuilder sb = new StringBuilder();
-//    sb.append("<skos:Concept rdf:about=\"");
-//        sb.append(concept.getAbout());
-//        sb.append("\"/>\n");
-//        addMap(sb, concept.getPrefLabel(), "skos:prefLabel", "xml:lang", false);
-//        addMap(sb, concept.getAltLabel(), "skos:altLabel", "xml:lang", false);
-//        addMap(sb, concept.getHiddenLabel(), "skos:hiddenLabel", "xml:lang",
-//        false);
-//        addMap(sb, concept.getNotation(), "skos:notation", "xml:lang", false);
-//        addMap(sb, concept.getNote(), "skos:note", "xml:lang", false);
-//        addArray(sb, concept.getBroader(), "skos:broader", "rdf:resource");
-//        addArray(sb, concept.getBroadMatch(), "skos:broadMatch", "rdf:resource");
-//        addArray(sb, concept.getCloseMatch(), "skos:closeMatch", "rdf:resource");
-//        addArray(sb, concept.getExactMatch(), "skos:exactMatch", "rdf:resource");
-//        addArray(sb, concept.getInScheme(), "skos:inScheme", "rdf:resource");
-//        addArray(sb, concept.getNarrower(), "skos:narrower", "rdf:resource");
-//        addArray(sb, concept.getNarrowMatch(), "skos:narrowMatch",
-//        "rdf:resource");
-//        addArray(sb, concept.getRelated(), "skos:related", "rdf:resource");
-//        addArray(sb, concept.getRelatedMatch(), "skos:relatedMatch",
-//        "rdf:resource");
-//        sb.append("</skos:Concept>\n");

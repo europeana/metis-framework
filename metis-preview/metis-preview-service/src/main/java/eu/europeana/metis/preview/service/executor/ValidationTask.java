@@ -3,10 +3,16 @@ package eu.europeana.metis.preview.service.executor;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.stream.StreamResult;
+import javax.xml.transform.stream.StreamSource;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -20,7 +26,6 @@ import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
 import eu.europeana.corelib.edm.utils.MongoConstructor;
 import eu.europeana.corelib.solr.bean.impl.FullBeanImpl;
-import eu.europeana.metis.dereference.service.xslt.XsltTransformer;
 import eu.europeana.validation.model.ValidationResult;
 
 /**
@@ -59,36 +64,43 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
         this.crosswalkPath = crosswalkPath;
     }
 
-    /**
-     * Execution of transformation, id-generation and validation for Europeana Preview Service
-     */
-    @Override
-    public ValidationTaskResult call()
-                throws IOException, InstantiationException, InvocationTargetException, NoSuchMethodException,
-                JiBXException, ParserConfigurationException, MongoRuntimeException, IllegalAccessException,
-                MongoDBException, TransformerException, SolrServerException {
-        try {
-            return invoke();
-        } catch (Exception ex) {
-            LOGGER.error("An error occurred while validating", ex);
-            throw ex;
-        }
+  /**
+   * Execution of transformation, id-generation and validation for Europeana Preview Service
+   */
+  @Override
+  public ValidationTaskResult call() throws IOException, InstantiationException,
+      InvocationTargetException, NoSuchMethodException, JiBXException, MongoRuntimeException,
+      IllegalAccessException, MongoDBException, TransformerException, SolrServerException {
+    try {
+      return invoke();
+    } catch (Exception ex) {
+      LOGGER.error("An error occurred while validating", ex);
+      throw ex;
     }
+  }
     
-  private String transformRecord()
-      throws TransformerException, ParserConfigurationException, IOException {
-    final String transformationFile;
+  private String transformRecord() throws TransformerException, IOException {
+    
+    // Obtain the XSL transform.
+    final String transformationFilePath;
     if (StringUtils.isEmpty(crosswalkPath)) {
-      transformationFile = validationUtils.getDefaultTransformationFile();
+      transformationFilePath = validationUtils.getDefaultTransformationFile();
     } else {
-      transformationFile = crosswalkPath;
+      transformationFilePath = crosswalkPath;
     }
-    return new XsltTransformer().transform(incomingRecord, FileUtils.readFileToString(
-        new File(this.getClass().getClassLoader().getResource(transformationFile).getFile())));
+    final File transformationFile = new File(this.getClass().getClassLoader().getResource(transformationFilePath).getFile());
+    final String xslTransform = FileUtils.readFileToString(transformationFile, StandardCharsets.UTF_8);
+
+    // Perform the XSL transformation on the incoming record.
+    final Source xsltSource = new StreamSource(new StringReader(xslTransform));
+    final Transformer transformer = TransformerFactory.newInstance().newTransformer(xsltSource);
+    final Source recordSource = new StreamSource(new StringReader(incomingRecord));
+    final StringWriter stringWriter = new StringWriter();
+    transformer.transform(recordSource, new StreamResult(stringWriter));
+    return stringWriter.toString();
   }
 
-  private ValidationTaskResult invoke()
-      throws JiBXException, TransformerException, ParserConfigurationException, IOException,
+  private ValidationTaskResult invoke() throws JiBXException, TransformerException, IOException,
       InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
       InvocationTargetException, MongoDBException, MongoRuntimeException {
 
@@ -109,10 +121,10 @@ public class ValidationTask implements Callable<ValidationTaskResult> {
   }
 
   private ValidationTaskResult handleValidatedResult(final ValidationResult validationResult)
-      throws JiBXException, TransformerException, ParserConfigurationException, IOException,
-      InstantiationException, IllegalAccessException, SolrServerException, NoSuchMethodException,
-      InvocationTargetException, MongoDBException, MongoRuntimeException {
-    
+      throws JiBXException, TransformerException, IOException, InstantiationException,
+      IllegalAccessException, SolrServerException, NoSuchMethodException, InvocationTargetException,
+      MongoDBException, MongoRuntimeException {
+   
     // Transform the record (apply crosswalk) if necessary.
     final String resultRecord = applyCrosswalk ? transformRecord() : incomingRecord;
     

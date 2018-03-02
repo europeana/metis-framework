@@ -187,15 +187,15 @@ public class EnrichmentWorker {
 
     // [1] Extract fields from the RDF for dereferencing
     LOGGER.debug(" Extracting fields from RDF for dereferencing...");
-    Set<String> fieldsForDereferencing = extractValuesForDereferencing(rdf);
+    Set<String> resourceIds = extractValuesForDereferencing(rdf);
     if (LOGGER.isDebugEnabled()) {
-      logExtractionResult(fieldsForDereferencing, EnrichmentWorker::logStringWithCounter);
+      logExtractionResult(resourceIds, EnrichmentWorker::logStringWithCounter);
     }
 
     // [2] Get the information with which to enrich (via dereferencing) the RDF using the extracted
     // fields
     LOGGER.debug("Using extracted fields to gather enrichment-via-dereferencing information...");
-    List<EnrichmentResultList> dereferenceInformation = dereferenceFields(fieldsForDereferencing);
+    List<EnrichmentResultList> dereferenceInformation = dereferenceFields(resourceIds);
     if (LOGGER.isDebugEnabled()) {
       logDereferencingOrEnrichmentResult(dereferenceInformation);
     }
@@ -211,20 +211,20 @@ public class EnrichmentWorker {
     LOGGER.debug("Merging completed.");
   }
 
-  private List<EnrichmentResultList> dereferenceFields(Set<String> fieldsForDereferencing)
+  private List<EnrichmentResultList> dereferenceFields(Set<String> resourceIds)
       throws DereferenceOrEnrichException {
     List<EnrichmentResultList> dereferenceInformation = new ArrayList<>();
     try {
-      for (String url : fieldsForDereferencing) {
-        if (url == null) {
+      for (String resourceId : resourceIds) {
+        if (resourceId == null) {
           continue;
         }
-        LOGGER.debug("== Processing {}", url);
-        EnrichmentResultList result = dereferenceClient.dereference(url);
+        LOGGER.debug("== Processing {}", resourceId);
+        EnrichmentResultList result = dereferenceClient.dereference(resourceId);
         if (result != null && result.getResult() != null && !result.getResult().isEmpty()) {
           dereferenceInformation.add(result);
         } else {
-          LOGGER.debug("==== Null or empty value received for reference {}", url);
+          LOGGER.debug("==== Null or empty value received for reference {}", resourceId);
         }
       }
     } catch (RuntimeException e) {

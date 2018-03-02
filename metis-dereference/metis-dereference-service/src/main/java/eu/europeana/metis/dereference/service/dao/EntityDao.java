@@ -40,8 +40,8 @@ public class EntityDao implements AbstractDao<OriginalEntity> {
     }
 
     @Override
-    public OriginalEntity getByUri(String uri) {
-        return ds.find(OriginalEntity.class).filter("URI", uri).get();
+    public OriginalEntity get(String resourceId) {
+        return ds.find(OriginalEntity.class).filter("URI", resourceId).get();
     }
 
     @Override
@@ -50,17 +50,15 @@ public class EntityDao implements AbstractDao<OriginalEntity> {
     }
 
     @Override
-    public void delete(String uri) {
-        ds.delete(ds.createQuery(OriginalEntity.class).filter("URI", uri));
+    public void delete(String resourceId) {
+        ds.delete(ds.createQuery(OriginalEntity.class).filter("URI", resourceId));
     }
 
     @Override
-    public void update(String uri, OriginalEntity entity) {
-        Query<OriginalEntity> query = ds.createQuery(OriginalEntity.class).filter("URI", uri);
+    public void update(String resourceId, OriginalEntity entity) {
+        Query<OriginalEntity> query = ds.createQuery(OriginalEntity.class).filter("URI", resourceId);
         UpdateOperations<OriginalEntity> ops = ds.createUpdateOperations(OriginalEntity.class);
         ops.set("xml", entity.getXml());
         ds.update(query, ops);
     }
-
-
 }

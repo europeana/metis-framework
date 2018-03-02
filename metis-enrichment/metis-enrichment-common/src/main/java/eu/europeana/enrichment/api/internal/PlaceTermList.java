@@ -1,38 +1,23 @@
-/*
- * Copyright 2007-2013 The Europeana Foundation
- *
- *  Licenced under the EUPL, Version 1.1 (the "Licence") and subsequent versions as approved
- *  by the European Commission;
- *  You may not use this work except in compliance with the Licence.
- *
- *  You may obtain a copy of the Licence at:
- *  http://joinup.ec.europa.eu/software/page/eupl
- *
- *  Unless required by applicable law or agreed to in writing, software distributed under
- *  the Licence is distributed on an "AS IS" basis, without warranties or conditions of
- *  any kind, either express or implied.
- *  See the Licence for the specific language governing permissions and limitations under
- *  the Licence.
- */
 package eu.europeana.enrichment.api.internal;
 
 import eu.europeana.corelib.solr.entity.PlaceImpl;
 
 /**
  * PlaceImpl specific MongoTermList
+ * 
  * @author Yorgos.Mamakis@ europeana.eu
  *
  */
 public class PlaceTermList extends MongoTermList<PlaceImpl> {
 
-	@Override
-	public PlaceImpl getRepresentation() {
-		return representation;
-	}
+  @Override
+  public PlaceImpl getRepresentation() {
+    return representation;
+  }
 
-	@Override
-	public void setRepresentation(PlaceImpl representation) {
-		this.representation = representation;
-	}
-	
+  @Override
+  public void setRepresentation(PlaceImpl representation) {
+    this.representation = representation;
+  }
+
 }

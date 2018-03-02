@@ -17,8 +17,6 @@
 package eu.europeana.metis.dereference.service.dao;
 
 import java.util.List;
-import java.util.Set;
-import org.apache.commons.lang.StringUtils;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
@@ -44,6 +42,10 @@ public class VocabularyDao {
 
     /**
      * Retrieve a list of vocabularies for a given URI
+     *
+     * TODO MET-655: We should be more clever about this: we should probably only return those of which the 
+     * url matches the beginning of the supplied url (rename the method)? Or just not use this method at all, 
+     * but get all vocabularies and filter through them manually.
      *
      * @param uri The uri to search on
      * @return The list of URIs that conform to that. They need to be further refined by the internal rules
@@ -108,35 +110,6 @@ public class VocabularyDao {
     public List<Vocabulary> getAll() {
         return ds.find(Vocabulary.class).asList();
     }
-
-  /**
-   * Once the entity has been retrieved decide on the actual vocabulary that you want
-   *
-   * @param vocabularies The vocabularies to choose from
-   * @param incomingDataXml The actual retrieved entity
-   * @param uri The uri of the record to check for rules
-   * @return The corresponding vocabulary, or null if no such vocabulary is found.
-   */
-  public static Vocabulary findByEntity(List<Vocabulary> vocabularies, String incomingDataXml,
-      String uri) {
-    return vocabularies.stream()
-        .filter(vocabulary -> vocabularyMatches(vocabulary, incomingDataXml, uri)).findAny()
-        .orElse(null);
-  }
-
-  private static boolean vocabularyMatches(Vocabulary vocabulary, String incomingDataXml,
-      String uri) {
-
-    // Check the rules
-    final Set<String> vocabularyRules = vocabulary.getRules();
-    if (vocabularyRules != null && !vocabularyRules.isEmpty() && !vocabularyRules.contains(uri)) {
-      return false;
-    }
-
-    // Check the type rules (more expensive operation: only do when needed).
-    final Set<String> typeRules = vocabulary.getTypeRules();
-    return typeRules == null || typeRules.isEmpty() || typeRules.stream().anyMatch(typeRule -> StringUtils.contains(incomingDataXml, typeRule));
-  }
 
     /**
      * Return a Vocabulary by name

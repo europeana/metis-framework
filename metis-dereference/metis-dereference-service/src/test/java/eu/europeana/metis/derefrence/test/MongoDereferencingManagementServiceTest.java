@@ -150,7 +150,7 @@ public class MongoDereferencingManagementServiceTest {
 
         service.removeEntity(entity.getURI());
 
-        Assert.assertEquals(null,entityDao.getByUri(entity.getURI()));
+        Assert.assertEquals(null,entityDao.get(entity.getURI()));
     }
 
     @Test
@@ -161,7 +161,7 @@ public class MongoDereferencingManagementServiceTest {
         entityDao.save(entity);
 
         service.updateEntity(entity.getURI(),"testXml2");
-        OriginalEntity entity1 = entityDao.getByUri(entity.getURI());
+        OriginalEntity entity1 = entityDao.get(entity.getURI());
         Assert.assertEquals(entity1.getXml(),"testXml2");
     }
 

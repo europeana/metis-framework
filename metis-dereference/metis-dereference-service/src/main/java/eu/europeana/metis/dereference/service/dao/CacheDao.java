@@ -41,14 +41,14 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
     }
 
     @Override
-    public ProcessedEntity getByUri(String uri) {
+    public ProcessedEntity get(String resourceId) {
         try {
-            String entity = jedis.get(uri);
+            String entity = jedis.get(resourceId);
             if(entity!=null) {
                 return om.readValue(entity, ProcessedEntity.class);
             }
         } catch (IOException e) {
-            LOGGER.warn("Unable to read entity " + uri, e);
+            LOGGER.warn("Unable to read entity " + resourceId, e);
         }
         return null;
     }
@@ -63,12 +63,12 @@ public class CacheDao implements AbstractDao<ProcessedEntity> {
     }
 
     @Override
-    public void delete(String uri) {
-        jedis.del(uri);
+    public void delete(String resourceId) {
+        jedis.del(resourceId);
     }
 
     @Override
-    public void update(String uri, ProcessedEntity entity) {
+    public void update(String resourceId, ProcessedEntity entity) {
         save(entity);
     }
 

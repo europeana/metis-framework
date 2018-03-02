@@ -142,11 +142,8 @@ public class EnrichmentControllerTest {
 
     Map<String, String> namespaceMap = getNamespaceMap();
 
-    List<EnrichmentBase> list = new ArrayList<>();
-    EnrichmentResultList enrichmentResultList = new EnrichmentResultList(list);
-    String uri = "http://www.fennek-it.nl";
-    Agent agent = getAgent(uri);
-    list.add(agent);
+    EnrichmentResultList enrichmentResultList = new EnrichmentResultList();
+    enrichmentResultList.getResult().add(getAgent("http://www.fennek-it.nl"));
 
     when(converterMock.convert(anyList())).thenReturn(enrichmentResultList);
 
