@@ -2,6 +2,7 @@ package eu.europeana.enrichment.service.zoho;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
+import eu.europeana.corelib.solr.entity.Address;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
@@ -87,7 +89,7 @@ public class ZohoAccessService {
 	}
 
 	Organization getOrganizationFromJsonNode(JsonNode jsonRecord) throws ZohoAccessException {
-		OrganizationImpl res = new OrganizationImpl();
+		OrganizationImpl org = new OrganizationImpl();
 
 		ZohoOrganizationAdapter zoa = null;
 		try {
@@ -96,21 +98,35 @@ public class ZohoAccessService {
 			throw new ZohoAccessException("Cannot find fields label in zoho response." + jsonRecord, e);
 		}
 
-		res.setAbout(URL_ORGANIZATION_BASE + zoa.getZohoId());
-		res.setDcIdentifier(createMap(zoa.getLanguage(), zoa.getZohoId()));
-		res.setPrefLabel(createMap(zoa.getLanguage(), zoa.getOrganizationName()));
-		res.setAltLabel(createMapFromList(zoa.getLanguage(), zoa.getAlternativeOrganizationName()));
-		res.setEdmAcronym(createMap(zoa.getLanguage(), zoa.getAcronym()));
-		// res.setFoafLogo(zoa.getLogo());
-		res.setFoafHomepage(zoa.getWebsite());
-		res.setEdmEuropeanaRole(createMap(zoa.getLanguage(), zoa.getRole()));
-		res.setEdmOrganizationDomain(createMapOfStrings(zoa.getLanguage(), zoa.getDomain()));
-		res.setEdmOrganizationSector(createMapOfStrings(zoa.getLanguage(), zoa.getSector()));
-		res.setEdmOrganizationScope(createMapOfStrings(zoa.getLanguage(), zoa.getScope()));
-		res.setEdmGeorgraphicLevel(createMapOfStrings(zoa.getLanguage(), zoa.getGeographicLevel()));
-		res.setEdmCountry(zoa.getOrganizationCountry());
-
-		return res;
+		org.setAbout(URL_ORGANIZATION_BASE + zoa.getZohoId());
+		org.setDcIdentifier(createMapOfStringList(zoa.getLanguage(), zoa.getZohoId()));
+		org.setPrefLabel(createMapOfStringList(zoa.getLanguage(), zoa.getOrganizationName()));
+		org.setAltLabel(createMapOfStringList(zoa.getLanguage(), zoa.getAlternativeOrganizationName()));
+		org.setEdmAcronym(createMapOfStringList(zoa.getLanguage(), zoa.getAcronym()));
+		org.setFoafLogo(zoa.getLogo());
+		org.setFoafHomepage(zoa.getWebsite());
+		org.setEdmEuropeanaRole(createList(zoa.getRole()));
+		org.setEdmOrganizationDomain(zoa.getDomain());
+		org.setEdmOrganizationSector(zoa.getSector());
+		org.setEdmOrganizationScope(zoa.getScope());
+		org.setEdmGeorgraphicLevel(zoa.getGeographicLevel());
+		org.setEdmCountry(zoa.getOrganizationCountry());
+		org.setModified(zoa.getModified());
+		org.setCreated(zoa.getCreated());
+		
+		//address
+		Address address = new Address();
+	
+		address.setAbout(org.getAbout()+"#address");
+		address.setVcardStreetAddress(zoa.getStreet());
+		address.setVcardLocality(zoa.getCity());
+		address.setVcardCountryName(zoa.getCountry());
+		address.setVcardPostalCode(zoa.getZipCode());
+		address.setVcardPostOfficeBox(zoa.getPostBox());
+		
+		org.setAddress(address);
+		
+		return org;
 	}
 
 	/**
@@ -172,12 +188,13 @@ public class ZohoAccessService {
 	 *            The value
 	 * @return map of strings and lists
 	 */
-	private Map<String, List<String>> createMap(String key, String value) {
-		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
-		List<String> valueList = new ArrayList<String>();
-		valueList.add(value);
-		resMap.put(key, valueList);
-		return resMap;
+	private Map<String, List<String>> createMapOfStringList(String key, String value) {
+		List<String> valueList = createList(value);
+		return createMapOfStringList(key, valueList);
+	}
+
+	private List<String> createList(String value) {
+		return Arrays.asList(new String[]{value});
 	}
 
 	/**
@@ -189,11 +206,11 @@ public class ZohoAccessService {
 	 *            The value
 	 * @return map of strings
 	 */
-	private Map<String, String> createMapOfStrings(String key, String value) {
-		Map<String, String> resMap = new HashMap<String, String>();
-		resMap.put(key, value);
-		return resMap;
-	}
+//	private Map<String, String> createMapOfStrings(String key, String value) {
+//		Map<String, String> resMap = new HashMap<String, String>();
+//		resMap.put(key, value);
+//		return resMap;
+//	}
 
 	/**
 	 * Create OrganizationImpl map from list of values
@@ -204,7 +221,7 @@ public class ZohoAccessService {
 	 *            The list of values
 	 * @return map of strings and lists
 	 */
-	private Map<String, List<String>> createMapFromList(String key, List<String> value) {
+	private Map<String, List<String>> createMapOfStringList(String key, List<String> value) {
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		resMap.put(key, value);
 		return resMap;

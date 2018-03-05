@@ -1,5 +1,6 @@
 package eu.europeana.corelib.solr.entity;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,21 +17,32 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 @JsonSerialize(include = Inclusion.NON_EMPTY)
 @JsonInclude(NON_EMPTY)
 @Entity("Organization")
-//TODO: NOT TO BE USED
-public class OrganizationImpl extends AgentImpl implements Organization {
+public class OrganizationImpl extends ContextualClassImpl implements Organization {
 
-	private Map<String,List<String>> edmAcronym;
-	private Map<String,String> edmOrganizationScope;
-	private Map<String,String> edmOrganizationDomain;
-	private Map<String,String> edmOrganizationSector;
-	private Map<String,String> edmGeographicLevel;
-	private String edmCountry;
-	private Map<String,List<String>> edmEuropeanaRole;
-	private String foafHomepage;	
+	private String rdfType;
 	private Map<String,List<String>> dcIdentifier;
+	private Map<String,String> dcDescription;
+	private Map<String,List<String>> edmAcronym;
+	
 	private String foafLogo;
-	@Override
+	private String foafHomepage;	
+	private List<String> foafPhone;
+	private List<String> foafMbox;
+	
+	private List<String> edmEuropeanaRole;
+	private String edmOrganizationDomain;
+	private String edmOrganizationSector;
+	private String edmOrganizationScope;
+	private String edmGeographicLevel;
+	private String edmCountry;
+	
+	private Address address;
+	
+	private Date created;
+	private Date modified;
 
+	
+	@Override
 	public Map<String, List<String>> getEdmAcronym() {
 		return this.edmAcronym;
 	}
@@ -41,42 +53,42 @@ public class OrganizationImpl extends AgentImpl implements Organization {
 	}
 
 	@Override
-	public Map<String,String> getEdmOrganizationScope() {
+	public String getEdmOrganizationScope() {
 		return this.edmOrganizationScope;
 	}
 
 	@Override
-	public void setEdmOrganizationScope(Map<String,String> edmOrganizationScope) {
+	public void setEdmOrganizationScope(String edmOrganizationScope) {
 		this.edmOrganizationScope = edmOrganizationScope;
 	}
 
 	@Override
-	public Map<String,String> getEdmOrganizationDomain() {
+	public String getEdmOrganizationDomain() {
 		return this.edmOrganizationDomain;
 	}
 
 	@Override
-	public void setEdmOrganizationDomain(Map<String,String> edmOrganizationDomain) {
+	public void setEdmOrganizationDomain(String edmOrganizationDomain) {
 		this.edmOrganizationDomain = edmOrganizationDomain;
 	}
 
 	@Override
-	public Map<String,String> getEdmOrganizationSector() {
+	public String getEdmOrganizationSector() {
 		return this.edmOrganizationSector;
 	}
 
 	@Override
-	public void setEdmOrganizationSector(Map<String,String> edmOrganizationSector) {
+	public void setEdmOrganizationSector(String edmOrganizationSector) {
 		this.edmOrganizationSector= edmOrganizationSector;
 	}
 
 	@Override
-	public Map<String,String> getEdmGeographicLevel() {
+	public String getEdmGeographicLevel() {
 		return this.edmGeographicLevel;
 	}
 
 	@Override
-	public void setEdmGeorgraphicLevel(Map<String,String> edmGeographicLevel) {
+	public void setEdmGeorgraphicLevel(String edmGeographicLevel) {
 		this.edmGeographicLevel = edmGeographicLevel;
 	}
 
@@ -91,12 +103,12 @@ public class OrganizationImpl extends AgentImpl implements Organization {
 	}
 
 	@Override
-	public Map<String,List<String>> getEdmEuropeanaRole() {
+	public List<String> getEdmEuropeanaRole() {
 		return this.edmEuropeanaRole;
 	}
 
 	@Override
-	public void setEdmEuropeanaRole(Map<String,List<String>> edmEuropeanaRole) {
+	public void setEdmEuropeanaRole(List<String> edmEuropeanaRole) {
 		this.edmEuropeanaRole = edmEuropeanaRole;
 	}
 
@@ -130,5 +142,77 @@ public class OrganizationImpl extends AgentImpl implements Organization {
 		
 		this.dcIdentifier= dcIdentifier;
 	}
+
+	@Override
+	public String getRdfType() {
+		return rdfType;
+	}
+
+	@Override
+	public void setRdfType(String rdfType) {
+		this.rdfType = rdfType;
+	}
+
+	@Override
+	public Map<String, String> getDcDescription() {
+		return dcDescription;
+	}
+
+	@Override
+	public void setDcDescription(Map<String, String> dcDescription) {
+		this.dcDescription = dcDescription;
+	}
+
+	@Override
+	public List<String> getFoafPhone() {
+		return foafPhone;
+	}
+
+	@Override
+	public void setFoafPhone(List<String> foafPhone) {
+		this.foafPhone = foafPhone;
+	}
+
+	@Override
+	public List<String> getFoafMbox() {
+		return foafMbox;
+	}
+
+	@Override
+	public void setFoafMbox(List<String> foafMbox) {
+		this.foafMbox = foafMbox;
+	}
+
+	@Override
+	public Date getModified() {
+		return modified;
+	}
+
+	@Override
+	public void setModified(Date modified) {
+		this.modified = modified;
+	}
+
+	@Override
+	public Date getCreated() {
+		return created;
+	}
+
+	@Override
+	public void setCreated(Date created) {
+		this.created = created;
+	}
+
+	@Override
+	public Address getAddress() {
+		return address;
+	}
+
+	@Override
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	
 
 }

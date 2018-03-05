@@ -1,5 +1,6 @@
 package eu.europeana.enrichment.api.external.model.zoho;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,10 +25,12 @@ public interface ZohoOrganization {
 	String getRole();
 	String getScope();
 	String getGeographicLevel();
-	String getModifiedBy();
+//	String getModifiedBy();
+	Date getModified();
+	Date getCreated();
 	List<String> getSameAs();
 	String getPostBox();
-	String getHasAddress();
+//	String getHasAddress();
 	String getStreet();
 	String getCity();
 	String getZipCode();

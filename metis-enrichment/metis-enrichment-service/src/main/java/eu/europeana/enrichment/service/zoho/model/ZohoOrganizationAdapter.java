@@ -1,8 +1,14 @@
 package eu.europeana.enrichment.service.zoho.model;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -45,10 +51,14 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private final String LOGO = "Logo (link to WikimediaCommons)";
 	private final String SECTOR = "Sector";
 	private final String POST_BOX = "PO box";
+	private final String MODIFIED = "Modified Time";
+	private final String CREATED = "Created Time";
 	private final int MAX_ALTERNATIVES = 5;
 	private final int MAX_LANG_ALTERNATIVES = 5;
 	private final int MAX_SAME_AS = 3;
 
+	//force 0 timezone
+	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	
 	List<ZohoOrganizationField> organizationFields = null;
 	
@@ -157,7 +167,9 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		String fieldName = fieldBaseName + " " + "%d";
 		for (int i = 0; i < size; i++) {
 			String fieldValue = getContent(String.format(fieldName, i));
-			res.add(fieldValue);
+			//add only existing values
+			if(StringUtils.isNotBlank(fieldValue))
+				res.add(fieldValue);
 		}
 		return res;
 	}
@@ -177,11 +189,11 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getContent(GEOGRAPHIC_LEVEL);
 	}
 
-	@Override
-	public String getModifiedBy() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public String getModifiedBy() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public List<String> getSameAs() {
@@ -193,11 +205,11 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getContent(POST_BOX);
 	}
 
-	@Override
-	public String getHasAddress() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public String getHasAddress() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public String getStreet() {
@@ -222,6 +234,29 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	@Override
 	public String getDescription() {
 		return getContent(DESCRIPTION);
+	}
+
+	@Override
+	public Date getModified(){
+		String modified = getContent(MODIFIED);
+		return getDateOrDefault(modified);
+	}
+
+	private Date getDateOrDefault(String dateTime) {
+		if(StringUtils.isBlank(dateTime))
+			return new Date(0);
+		
+		try {
+			return formatter. parse(dateTime);			
+		} catch (ParseException e) {
+			throw new RuntimeException("Cannot parse modified date. Wrong format: " + dateTime, e);
+		}
+	}
+
+	@Override
+	public Date getCreated() {
+		String created = getContent(CREATED);
+		return getDateOrDefault(created);
 	}
 
 }

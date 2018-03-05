@@ -37,6 +37,8 @@ public class ZohoImportTest extends BaseZohoAccessTest{
 		Date now = new Date();
 		Organization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
 		assertNotNull(org);
+		assertTrue(org.getCreated().getTime() > 0);
+		assertTrue(org.getCreated().getTime() > 0);
 		OrganizationTermList termList = entityService.storeOrganization(org);
 		assertNotNull(termList);
 		
