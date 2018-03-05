@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.service;
 
 import java.io.StringReader;
+import java.net.URISyntaxException;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -46,7 +47,7 @@ public class MongoDereferenceService implements DereferenceService {
 
   @Override
   public EnrichmentResultList dereference(String resourceId)
-      throws TransformerException, JAXBException {
+      throws TransformerException, JAXBException, URISyntaxException {
 
     // First try to get the entity from the entity collection.
     EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
@@ -67,7 +68,7 @@ public class MongoDereferenceService implements DereferenceService {
   }
 
   private EnrichmentBase retrieveCachedEntity(String resourceId)
-      throws JAXBException, TransformerException {
+      throws JAXBException, TransformerException, URISyntaxException {
 
     // Try to get it from the cache.
     final ProcessedEntity cachedEntity = cacheDao.get(resourceId);
@@ -98,11 +99,12 @@ public class MongoDereferenceService implements DereferenceService {
     return result;
   }
 
-  private String retrieveFromSourceVocabulary(String resourceId) throws TransformerException {
+  private String retrieveFromSourceVocabulary(String resourceId)
+      throws TransformerException, URISyntaxException {
 
     // Get the vocabularies that potentially match the given resource ID.
     final List<Vocabulary> vocabularyCandidates =
-        VocabularyMatchUtils.findVocabulariesForResource(resourceId, vocabularyDao::getByUri);
+        VocabularyMatchUtils.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
     if (vocabularyCandidates.isEmpty()) {
       return null;
     }
@@ -115,8 +117,8 @@ public class MongoDereferenceService implements DereferenceService {
     }
 
     // Find the vocabulary that applies to the entity.
-    final Vocabulary vocabulary =
-        VocabularyMatchUtils.findByEntity(vocabularyCandidates, originalEntity, resourceId);
+    final Vocabulary vocabulary = VocabularyMatchUtils.findVocabularyForType(vocabularyCandidates,
+        originalEntity, resourceId);
     if (vocabulary == null) {
       return null;
     }

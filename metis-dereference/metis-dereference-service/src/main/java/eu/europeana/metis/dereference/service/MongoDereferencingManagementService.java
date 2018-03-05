@@ -38,21 +38,21 @@ public class MongoDereferencingManagementService implements DereferencingManagem
     @Override
     public void saveVocabulary(Vocabulary vocabulary) {
         vocabularyDao.save(vocabulary);
-        LOGGER.info("Saved vocabulary with name: " +vocabulary.getName());
+        LOGGER.info("Saved vocabulary with name: {}", vocabulary.getName());
     }
 
     @Override
     public void updateVocabulary(Vocabulary vocabulary) {
         vocabularyDao.update(vocabulary);
         cacheDao.emptyCache();
-        LOGGER.info("Updated vocabulary with name: " +vocabulary.getName());
+        LOGGER.info("Updated vocabulary with name: {}", vocabulary.getName());
     }
 
     @Override
     public void deleteVocabulary(String name) {
         vocabularyDao.delete(name);
         cacheDao.emptyCache();
-        LOGGER.info("Deleted vocabulary with name: " +name);
+        LOGGER.info("Deleted vocabulary with name: {}", name);
     }
 
     @Override

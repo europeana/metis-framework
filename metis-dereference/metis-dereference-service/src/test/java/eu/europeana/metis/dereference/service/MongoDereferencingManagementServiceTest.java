@@ -1,4 +1,4 @@
-package eu.europeana.metis.derefrence.test;
+package eu.europeana.metis.dereference.service;
 
 import com.mongodb.MongoClient;
 import eu.europeana.metis.dereference.ContextualClass;

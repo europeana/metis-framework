@@ -1,7 +1,8 @@
-package eu.europeana.metis.derefrence.test;
+package eu.europeana.metis.dereference.service;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -60,7 +61,7 @@ public class MongoDereferenceServiceTest {
     }
 
     @Test
-    public void testDereference() throws IOException {
+    public void testDereference() throws IOException, URISyntaxException {
         Vocabulary geonames = new Vocabulary();
         geonames.setUri("http://sws.geonames.org/");
         geonames.setXslt(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));

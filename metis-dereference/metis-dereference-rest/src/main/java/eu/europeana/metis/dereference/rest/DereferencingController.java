@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.rest;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -54,7 +55,7 @@ public class DereferencingController {
     public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) throws JAXBException {
     	try {
     	  return dereferenceService.dereference(URLDecoder.decode(resourceId, URI_CHARSET.name()));
-    	} catch (TransformerException | IOException e) {
+    	} catch (TransformerException | IOException | URISyntaxException e) {
     		throw new DereferenceException(e.getMessage(), resourceId);
     	}
     }
