@@ -30,6 +30,7 @@ import eu.europeana.metis.core.workflow.WorkflowExecution;
 import eu.europeana.metis.core.workflow.WorkflowStatus;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPluginMetadata;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.HTTPHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
@@ -247,10 +248,8 @@ public class OrchestratorService {
       if (!firstPluginDefined) {
         AbstractMetisPlugin previousPlugin = getLatestFinishedPluginByDatasetIdIfPluginTypeAllowedForExecution(
             dataset.getDatasetId(), pluginMetadata.getPluginType(), enforcedPluginType);
-        pluginMetadata
-            .setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
-        pluginMetadata
-            .setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
+        pluginMetadata.setRevisionNamePreviousPlugin(previousPlugin.getPluginType().name());
+        pluginMetadata.setRevisionTimestampPreviousPlugin(previousPlugin.getStartedDate());
       }
       AbstractMetisPlugin abstractMetisPlugin;
       if (pluginType == PluginType.VALIDATION_EXTERNAL) {
@@ -260,6 +259,8 @@ public class OrchestratorService {
         abstractMetisPlugin = new TransformationPlugin(pluginMetadata);
       } else if (pluginType == PluginType.VALIDATION_INTERNAL) {
         abstractMetisPlugin = new ValidationInternalPlugin(pluginMetadata);
+      } else if (pluginType == PluginType.ENRICHMENT) {
+        abstractMetisPlugin = new EnrichmentPlugin(pluginMetadata);
       } else {
         //Anything else is not supported yet and should fail.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
@@ -362,19 +363,19 @@ public class OrchestratorService {
       PluginType enforcedPluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPlugin latestFinishedPluginIfRequestedPluginAllowedForExecution = ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(pluginType, enforcedPluginType,
-            datasetId,
-            workflowExecutionDao);
-    if (latestFinishedPluginIfRequestedPluginAllowedForExecution == null
-        && !ExecutionRules.getHarvestPluginGroup().contains(pluginType)) {
-      throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
-    } else if (latestFinishedPluginIfRequestedPluginAllowedForExecution != null &&
-        latestFinishedPluginIfRequestedPluginAllowedForExecution.getExecutionProgress() != null &&
-        latestFinishedPluginIfRequestedPluginAllowedForExecution.getExecutionProgress()
-            .getProcessedRecords() == latestFinishedPluginIfRequestedPluginAllowedForExecution
-            .getExecutionProgress().getErrors()) { //Do not permit if all records had errors
+            datasetId, workflowExecutionDao);
+    if ((latestFinishedPluginIfRequestedPluginAllowedForExecution == null
+        && !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
+        || doesPluginHaveAllErrorRecords(latestFinishedPluginIfRequestedPluginAllowedForExecution)) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     return latestFinishedPluginIfRequestedPluginAllowedForExecution;
+  }
+
+  private boolean doesPluginHaveAllErrorRecords(AbstractMetisPlugin abstractMetisPlugin) {
+    return abstractMetisPlugin != null && abstractMetisPlugin.getExecutionProgress() != null
+        && abstractMetisPlugin.getExecutionProgress().getProcessedRecords() == abstractMetisPlugin
+        .getExecutionProgress().getErrors();
   }
 
   public List<WorkflowExecution> getAllWorkflowExecutions(int datasetId,
@@ -449,7 +450,8 @@ public class OrchestratorService {
   }
 
   private void checkRestrictionsOnScheduleWorkflow(ScheduledWorkflow scheduledWorkflow)
-      throws NoWorkflowFoundException, NoDatasetFoundException, ScheduledWorkflowAlreadyExistsException, BadContentException {
+      throws
+      NoWorkflowFoundException, NoDatasetFoundException, ScheduledWorkflowAlreadyExistsException, BadContentException {
     checkDatasetExistence(scheduledWorkflow.getDatasetId());
     checkWorkflowExistence(scheduledWorkflow.getWorkflowOwner(),
         scheduledWorkflow.getWorkflowName());
@@ -504,7 +506,8 @@ public class OrchestratorService {
       }
     } else {
       LOGGER
-          .info("Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
+          .info(
+              "Dataset with datasetId {} already has a dataset initialized in Ecloud with id {}",
               dataset.getDatasetId(), dataset.getEcloudDatasetId());
     }
     return dataset.getEcloudDatasetId();

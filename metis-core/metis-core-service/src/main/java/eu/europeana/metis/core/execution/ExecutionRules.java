@@ -16,7 +16,7 @@ public final class ExecutionRules {
       .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST);
   private static final Set<PluginType> processPluginGroup = EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
-          PluginType.VALIDATION_INTERNAL);
+          PluginType.VALIDATION_INTERNAL, PluginType.ENRICHMENT);
   private static final Set<PluginType> indexPluginGroup = EnumSet.of(PluginType.INDEX_TO_PREVIEW);
 
   private ExecutionRules() {
@@ -50,7 +50,6 @@ public final class ExecutionRules {
           workflowExecutionDao);
     } else if (indexPluginGroup.contains(pluginType)) {
       // TODO: 29-1-18 Implement when index plugins ready
-      abstractMetisPlugin = null;
     }
     return abstractMetisPlugin;
   }
@@ -74,6 +73,10 @@ public final class ExecutionRules {
       latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               EnumSet.of(PluginType.TRANSFORMATION));
+    } else if ((pluginType == PluginType.ENRICHMENT)) {
+      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
+          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
+              EnumSet.of(PluginType.VALIDATION_INTERNAL));
     }
     return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;
   }
