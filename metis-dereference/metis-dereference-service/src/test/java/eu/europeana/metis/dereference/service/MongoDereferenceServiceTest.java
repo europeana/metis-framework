@@ -54,10 +54,10 @@ public class MongoDereferenceServiceTest {
         jedis = Mockito.mock(Jedis.class);
         cacheDao = new CacheDao(jedis);
         
-        RdfRetriever retriever = new RdfRetriever();
+        RdfRetriever retriever = new RdfRetriever(entityDao);
 
         enrichmentClient = Mockito.mock(EnrichmentClient.class);
-        service = new MongoDereferenceService(retriever, cacheDao, entityDao, vocabularyDao, enrichmentClient);
+        service = new MongoDereferenceService(retriever, cacheDao, vocabularyDao, enrichmentClient);
     }
 
     @Test

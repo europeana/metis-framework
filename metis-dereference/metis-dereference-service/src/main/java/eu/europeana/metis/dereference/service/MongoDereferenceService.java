@@ -14,11 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import eu.europeana.enrichment.api.external.model.EnrichmentBase;
 import eu.europeana.enrichment.api.external.model.EnrichmentResultList;
 import eu.europeana.enrichment.rest.client.EnrichmentClient;
-import eu.europeana.metis.dereference.OriginalEntity;
 import eu.europeana.metis.dereference.ProcessedEntity;
 import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
-import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
 import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
@@ -33,16 +31,22 @@ public class MongoDereferenceService implements DereferenceService {
 
   private final RdfRetriever retriever;
   private final CacheDao cacheDao;
-  private final EntityDao entityDao;
   private final VocabularyDao vocabularyDao;
   private final EnrichmentClient enrichmentClient;
 
+  /**
+   * Constructor.
+   * 
+   * @param retriever Object that retrieves entities from their source services.
+   * @param cacheDao Object that accesses the cache of processed entities.
+   * @param vocabularyDao Object that accesses vocabularies.
+   * @param enrichmentClient Object that accesses the enrichment service.
+   */
   @Autowired
-  public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao, EntityDao entityDao,
+  public MongoDereferenceService(RdfRetriever retriever, CacheDao cacheDao,
       VocabularyDao vocabularyDao, EnrichmentClient enrichmentClient) {
     this.retriever = retriever;
     this.cacheDao = cacheDao;
-    this.entityDao = entityDao;
     this.vocabularyDao = vocabularyDao;
     this.enrichmentClient = enrichmentClient;
   }
@@ -124,7 +128,7 @@ public class MongoDereferenceService implements DereferenceService {
         .collect(Collectors.toSet());
 
     // Obtain the original entity
-    final String originalEntity = retrieveStoredOriginalEntity(resourceId, possibleSuffixes);
+    final String originalEntity = retriever.retrieve(resourceId, possibleSuffixes);
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
       return null;
@@ -144,20 +148,5 @@ public class MongoDereferenceService implements DereferenceService {
       LOGGER.error("Error transforming entity: {} with message :{}", resourceId, e.getMessage());
       throw e;
     }
-  }
-
-  private String retrieveStoredOriginalEntity(String resourceId, Set<String> possibleSuffixes) {
-
-    // Get the entity from the own store
-    OriginalEntity originalEntity = entityDao.get(resourceId);
-
-    // If we can't find it, get it from the remote source.
-    if (originalEntity == null) {
-      originalEntity = retriever.retrieve(resourceId, possibleSuffixes);
-      entityDao.save(originalEntity);
-    }
-
-    // Done.
-    return originalEntity.getXml();
   }
 }

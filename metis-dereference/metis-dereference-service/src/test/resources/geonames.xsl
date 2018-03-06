@@ -6,7 +6,7 @@
 	<xsl:param name="targetId"></xsl:param>
 	<xsl:output indent="yes" encoding="UTF-8"></xsl:output>
 	<xsl:template match="/rdf:RDF">
-		<!-- Parent mapping: gn:Feature -> edm:place -->
+		<!-- Parent mapping: gn:Feature -> edm:Place -->
 		<xsl:for-each select="./gn:Feature">
 			<xsl:if test="@rdf:about=$targetId">
 				<edm:Place>
@@ -30,7 +30,7 @@
 					<!-- Tag mapping: wgs84_pos:long -> wgs84_pos:long -->
 					<xsl:for-each select="./wgs84_pos:long">
 						<wgs84_pos:long>
-						<!-- Text content mapping (only content with non-space characters) -->
+							<!-- Text content mapping (only content with non-space characters) -->
 							<xsl:for-each select="text()[normalize-space()]">
 								<xsl:if test="position() &gt; 1">
 									<xsl:text> </xsl:text>
@@ -42,7 +42,7 @@
 					<!-- Tag mapping: gn:name -> skos:prefLabel -->
 					<xsl:for-each select="./gn:name">
 						<skos:prefLabel>
-						<!-- Text content mapping (only content with non-space characters) -->
+							<!-- Text content mapping (only content with non-space characters) -->
 							<xsl:for-each select="text()[normalize-space()]">
 								<xsl:if test="position() &gt; 1">
 									<xsl:text> </xsl:text>
