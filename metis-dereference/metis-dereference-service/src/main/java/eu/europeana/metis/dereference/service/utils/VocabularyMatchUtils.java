@@ -11,7 +11,6 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
 
 /**
  * This class contains some utility functionality related to finding the appropriate vocabulary for
@@ -22,7 +21,7 @@ import eu.europeana.metis.dereference.service.MongoDereferenceService;
  */
 public final class VocabularyMatchUtils {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyMatchUtils.class);
 
   private VocabularyMatchUtils() {}
 
@@ -40,12 +39,18 @@ public final class VocabularyMatchUtils {
    * case the vocabulary does have rules.</li>
    * </ol>
    * </p>
+   * <p>
+   * Hence, all vocabulary objects that are returned by this method represent the same vocabulary. A
+   * further selection on the type mappings (or in case of duplicates) can be achieved by the method
+   * {@link #findVocabularyForType(List, String, String)}, which will require the resource to have
+   * been resolved.
+   * </p>
    * 
    * @param resourceId The resource identifier (URI) that we receive and that we are to match.
    * @param searchInPersistence A function that searches the persistence for vocabularies of which
-   *        the URL contains a given string. This function will be called once on the host name of
-   *        the resource to allow the persistence to greatly narrow down the list of candidate
-   *        vocabularies.
+   *        the URL contains a given string. This function will be called once for the host name of
+   *        the resource to allow persistence to greatly narrow down the list of candidate
+   *        vocabularies before they are loaded in memory and processed.
    * @return The list of vocabularies that match the given URI. Or the empty list if none are found.
    *         This method does not return null.
    * @throws URISyntaxException In case the resource ID could not be read as URI.

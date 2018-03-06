@@ -3,6 +3,8 @@ package eu.europeana.metis.dereference.service;
 import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
@@ -18,9 +20,9 @@ import eu.europeana.metis.dereference.Vocabulary;
 import eu.europeana.metis.dereference.service.dao.CacheDao;
 import eu.europeana.metis.dereference.service.dao.EntityDao;
 import eu.europeana.metis.dereference.service.dao.VocabularyDao;
+import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
 import eu.europeana.metis.dereference.service.utils.RdfRetriever;
 import eu.europeana.metis.dereference.service.utils.VocabularyMatchUtils;
-import eu.europeana.metis.dereference.service.utils.IncomingRecordToEdmConverter;
 
 /**
  * Mongo implementation of the dereference service Created by ymamakis on 2/11/16.
@@ -48,6 +50,11 @@ public class MongoDereferenceService implements DereferenceService {
   @Override
   public EnrichmentResultList dereference(String resourceId)
       throws TransformerException, JAXBException, URISyntaxException {
+
+    // Sanity check
+    if (resourceId == null) {
+      throw new IllegalArgumentException("Parameter resourceId cannot be null.");
+    }
 
     // First try to get the entity from the entity collection.
     EnrichmentBase enrichedEntity = enrichmentClient.getByUri(resourceId);
@@ -109,8 +116,15 @@ public class MongoDereferenceService implements DereferenceService {
       return null;
     }
 
+    // Obtain the possible suffixes to check from the vocabulary candidates. Note that all the
+    // vocabulary candidates must at this point represent the same vocabulary, so the number of
+    // suffixes should be very limited (1, if all vocabularies are configured the same way).
+    final Set<String> possibleSuffixes = vocabularyCandidates.stream()
+        .map(vocabulary -> vocabulary.getSuffix() == null ? "" : vocabulary.getSuffix())
+        .collect(Collectors.toSet());
+
     // Obtain the original entity
-    final String originalEntity = retrieveStoredOriginalEntity(resourceId);
+    final String originalEntity = retrieveStoredOriginalEntity(resourceId, possibleSuffixes);
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
       return null;
@@ -132,18 +146,14 @@ public class MongoDereferenceService implements DereferenceService {
     }
   }
 
-  private String retrieveStoredOriginalEntity(String resourceId) {
+  private String retrieveStoredOriginalEntity(String resourceId, Set<String> possibleSuffixes) {
 
     // Get the entity from the own store
     OriginalEntity originalEntity = entityDao.get(resourceId);
 
     // If we can't find it, get it from the remote source.
     if (originalEntity == null) {
-      String originalXml = retriever.retrieve(resourceId);
-      String value = originalXml.contains("<html>") ? null : originalXml;
-      originalEntity = new OriginalEntity();
-      originalEntity.setURI(resourceId);
-      originalEntity.setXml(value);
+      originalEntity = retriever.retrieve(resourceId, possibleSuffixes);
       entityDao.save(originalEntity);
     }
 
