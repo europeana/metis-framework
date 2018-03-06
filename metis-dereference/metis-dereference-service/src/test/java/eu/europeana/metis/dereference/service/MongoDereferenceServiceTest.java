@@ -61,7 +61,10 @@ public class MongoDereferenceServiceTest {
     }
 
     @Test
-    public void testDereference() throws IOException, URISyntaxException {
+    public void testDereference() throws TransformerException, JAXBException, IOException, URISyntaxException {
+        
+        final String entityId = "http://sws.geonames.org/3020251/";
+      
         Vocabulary geonames = new Vocabulary();
         geonames.setUri("http://sws.geonames.org/");
         geonames.setXslt(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("geonames.xsl")));
@@ -69,39 +72,33 @@ public class MongoDereferenceServiceTest {
         geonames.setIterations(0);
         vocabularyDao.save(geonames);
         
-        try {
-            EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
-            
-            Place place = new Place();
-            
-            place.setAbout("http://sws.geonames.org/my");
-            
-            Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
-            Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
-            
-            EnrichmentResultList result = service.dereference("http://sws.geonames.org/3020251");
-            
-            Assert.assertNotNull(result);
-            
-            OriginalEntity entity = entityDao.get("http://sws.geonames.org/3020251");
-            
-            Assert.assertNotNull(entity);
-            Assert.assertNotNull(entity.getXml());
-            Assert.assertNotNull(entity.getURI());
-                                  
-            ProcessedEntity entity2 = new ProcessedEntity();
-            entity2.setURI("http://sws.geonames.org/3020251");
-            entity2.setXml(serialize(place));
-                        
-            Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
-            
-            ProcessedEntity entity1 = cacheDao.get("http://sws.geonames.org/3020251");
-            Assert.assertNotNull(entity1);
-        } catch (TransformerException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+        EntityWrapper wrapper = Mockito.mock(EntityWrapper.class);
+        
+        Place place = new Place();
+        
+        place.setAbout("http://sws.geonames.org/my");
+        
+        Mockito.when(enrichmentClient.getByUri(Mockito.anyString())).thenReturn(null);
+        Mockito.when(wrapper.getContextualEntity()).thenReturn(null);
+        
+        EnrichmentResultList result = service.dereference(entityId);
+        
+        Assert.assertNotNull(result);
+        
+        OriginalEntity entity = entityDao.get(entityId);
+        
+        Assert.assertNotNull(entity);
+        Assert.assertNotNull(entity.getXml());
+        Assert.assertNotNull(entity.getURI());
+                              
+        ProcessedEntity entity2 = new ProcessedEntity();
+        entity2.setURI(entityId);
+        entity2.setXml(serialize(place));
+                    
+        Mockito.when(jedis.get(Mockito.anyString())).thenReturn(new ObjectMapper().writeValueAsString(entity2));
+        
+        ProcessedEntity entity1 = cacheDao.get(entityId);
+        Assert.assertNotNull(entity1);
     }
 
     @After
