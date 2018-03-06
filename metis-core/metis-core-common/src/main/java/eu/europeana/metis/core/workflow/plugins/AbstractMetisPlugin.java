@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.Revision;
 import eu.europeana.cloud.common.model.dps.TaskInfo;
+import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.exception.DpsException;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
@@ -20,9 +23,7 @@ import org.slf4j.LoggerFactory;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "pluginType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "pluginType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPlugin.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPlugin.class, name = "HTTP_HARVEST"),
@@ -43,13 +44,13 @@ public abstract class AbstractMetisPlugin {
 
   private PluginStatus pluginStatus = PluginStatus.INQUEUE;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date updatedDate;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
   private String externalTaskId;
   private ExecutionProgress executionProgress = new ExecutionProgress();
@@ -205,6 +206,22 @@ public abstract class AbstractMetisPlugin {
    */
   public abstract String getTopologyName();
 
+  Revision createOutputRevisionForExecution(String ecloudProvider) {
+    return new Revision(getPluginType().name(), ecloudProvider, getStartedDate(), false, false,
+        false);
+  }
+
+  /**
+   * Prepare the {@link DpsTask} based on the specific implementation of the plugin.
+   *
+   * @param ecloudBaseUrl the base url of the ecloud apis
+   * @param ecloudProvider the ecloud provider to be used for the external task
+   * @param ecloudDataset the ecloud dataset identifier to be used for the external task
+   * @return the {@link DpsTask} prepared with all the required parameters
+   */
+  abstract DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider,
+      String ecloudDataset);
+
   /**
    * Starts the execution of the plugin at the external location.
    * <p>It is non blocking method and the {@link #monitor(DpsClient)} should be used to monitor the external execution</p>
@@ -215,8 +232,23 @@ public abstract class AbstractMetisPlugin {
    * @param ecloudDataset the ecloud dataset identifier to be used for the external task
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public abstract void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) throws ExternalTaskException;
+  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
+      String ecloudDataset) throws ExternalTaskException {
+    if (!getPluginMetadata().isMocked()) {
+      String pluginTypeName = getPluginType().name();
+      LOGGER.info("Starting real execution of {} plugin for ecloudDatasetId {}", pluginTypeName,
+          ecloudDataset);
+
+      DpsTask dpsTask = prepareDpsTask(ecloudBaseUrl, ecloudProvider, ecloudDataset);
+
+      try {
+        setExternalTaskId(Long.toString(dpsClient.submitTask(dpsTask, getTopologyName())));
+      } catch (DpsException e) {
+        throw new ExternalTaskException("Submitting task failed", e);
+      }
+      LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
+    }
+  }
 
   /**
    * Request a monitor call to the external execution.

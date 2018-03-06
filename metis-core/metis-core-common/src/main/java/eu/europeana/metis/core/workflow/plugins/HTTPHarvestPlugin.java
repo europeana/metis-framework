@@ -1,6 +1,6 @@
 package eu.europeana.metis.core.workflow.plugins;
 
-import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.service.dps.DpsTask;
 
 /**
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
@@ -32,8 +32,9 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
   }
 
   @Override
-  public void execute(DpsClient dpsClient, String ecloudBaseUrl, String ecloudProvider,
-      String ecloudDataset) {
-    // TODO: 24-11-17 Execution of http harvest topology
+  DpsTask prepareDpsTask(String ecloudBaseUrl, String ecloudProvider, String ecloudDataset) {
+    // TODO: 6-3-18 When HTTP topology ready
+    return null;
   }
+
 }

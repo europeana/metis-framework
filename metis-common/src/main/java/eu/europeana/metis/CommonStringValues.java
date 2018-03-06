@@ -13,6 +13,12 @@ public final class CommonStringValues {
   public static final String PLUGIN_EXECUTION_NOT_ALLOWED = "Plugin Execution Not Allowed";
   public static final String UNAUTHORIZED = "Unauthorized";
 
+  public static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
+  public static final String DATE_FORMAT_FOR_SCHEDULING = "yyyy-MM-dd'T'HH:mm:ssXXX";
+
+  public static final String S_DATA_PROVIDERS_S_DATA_SETS_S_TEMPLATE = "%s/data-providers/%s/data-sets/%s";
+
+
 
   private CommonStringValues() {
   }
