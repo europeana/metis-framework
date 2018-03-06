@@ -2,7 +2,6 @@ package eu.europeana.metis.core.workflow.plugins;
 
 import eu.europeana.cloud.client.dps.rest.DpsClient;
 import eu.europeana.cloud.common.model.Revision;
-import eu.europeana.cloud.common.model.dps.TaskInfo;
 import eu.europeana.cloud.service.dps.DpsTask;
 import eu.europeana.cloud.service.dps.InputDataType;
 import eu.europeana.cloud.service.dps.exception.DpsException;
@@ -109,17 +108,4 @@ public class ValidationInternalPlugin extends AbstractMetisPlugin {
       LOGGER.info("Submitted task with externalTaskId: {}", getExternalTaskId());
     }
   }
-
-  @Override
-  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
-    LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
-    TaskInfo taskInfo;
-    try {
-      taskInfo = dpsClient.getTaskProgress(topologyName, Long.parseLong(getExternalTaskId()));
-    } catch (DpsException e) {
-      throw new ExternalTaskException("Requesting task progress failed", e);
-    }
-    return getExecutionProgress().copyExternalTaskInformation(taskInfo);
-  }
-
 }

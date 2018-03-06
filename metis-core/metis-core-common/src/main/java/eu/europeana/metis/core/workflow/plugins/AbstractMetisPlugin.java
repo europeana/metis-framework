@@ -4,10 +4,14 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import eu.europeana.cloud.client.dps.rest.DpsClient;
+import eu.europeana.cloud.common.model.dps.TaskInfo;
+import eu.europeana.cloud.service.dps.exception.DpsException;
 import eu.europeana.metis.exception.ExternalTaskException;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Indexed;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This abstract class specifies the minimum o plugin should support so that it can be plugged in the
@@ -30,8 +34,9 @@ import org.mongodb.morphia.annotations.Indexed;
 @Embedded
 public abstract class AbstractMetisPlugin {
 
+  private static final Logger LOGGER = LoggerFactory.getLogger(AbstractMetisPlugin.class);
   protected final PluginType pluginType;
-  private static final String representationName = "metadataRecord";
+  private static final String REPRESENTATION_NAME = "metadataRecord";
 
   @Indexed
   private String id;
@@ -52,6 +57,7 @@ public abstract class AbstractMetisPlugin {
 
   /**
    * Constructor with provided pluginType
+   *
    * @param pluginType {@link PluginType}
    */
   public AbstractMetisPlugin(PluginType pluginType) {
@@ -86,7 +92,7 @@ public abstract class AbstractMetisPlugin {
   }
 
   public static String getRepresentationName() {
-    return representationName;
+    return REPRESENTATION_NAME;
   }
 
   /**
@@ -194,6 +200,7 @@ public abstract class AbstractMetisPlugin {
 
   /**
    * It is required as an abstract method to have proper serialization on the api level.
+   *
    * @return the topologyName string coming from {@link Topology}
    */
   public abstract String getTopologyName();
@@ -218,5 +225,14 @@ public abstract class AbstractMetisPlugin {
    * @return {@link ExecutionProgress} of the plugin.
    * @throws ExternalTaskException exceptions that encapsulates the external occurred exception
    */
-  public abstract ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException;
+  public ExecutionProgress monitor(DpsClient dpsClient) throws ExternalTaskException {
+    LOGGER.info("Requesting progress information for externalTaskId: {}", getExternalTaskId());
+    TaskInfo taskInfo;
+    try {
+      taskInfo = dpsClient.getTaskProgress(getTopologyName(), Long.parseLong(getExternalTaskId()));
+    } catch (DpsException e) {
+      throw new ExternalTaskException("Requesting task progress failed", e);
+    }
+    return getExecutionProgress().copyExternalTaskInformation(taskInfo);
+  }
 }

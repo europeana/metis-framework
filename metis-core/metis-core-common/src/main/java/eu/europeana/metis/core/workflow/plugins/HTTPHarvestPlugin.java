@@ -36,9 +36,4 @@ public class HTTPHarvestPlugin extends AbstractMetisPlugin {
       String ecloudDataset) {
     // TODO: 24-11-17 Execution of http harvest topology
   }
-
-  @Override
-  public ExecutionProgress monitor(DpsClient dpsClient) {
-    return null;
-  }
 }
