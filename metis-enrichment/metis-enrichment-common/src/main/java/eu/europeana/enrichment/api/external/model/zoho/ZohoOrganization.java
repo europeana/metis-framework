@@ -25,12 +25,11 @@ public interface ZohoOrganization {
 	String getRole();
 	String getScope();
 	String getGeographicLevel();
-//	String getModifiedBy();
+	String getModifiedBy();
 	Date getModified();
 	Date getCreated();
 	List<String> getSameAs();
 	String getPostBox();
-//	String getHasAddress();
 	String getStreet();
 	String getCity();
 	String getZipCode();
