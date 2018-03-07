@@ -240,8 +240,7 @@ public class OrchestratorService {
   }
 
   private boolean addProcessPlugin(Dataset dataset, Workflow workflow,
-      PluginType enforcedPluginType,
-      List<AbstractMetisPlugin> metisPlugins,
+      PluginType enforcedPluginType, List<AbstractMetisPlugin> metisPlugins,
       boolean firstPluginDefined, PluginType pluginType) throws PluginExecutionNotAllowed {
     AbstractMetisPluginMetadata pluginMetadata = workflow.getPluginMetadata(pluginType);
     if (pluginMetadata != null) {
@@ -262,7 +261,7 @@ public class OrchestratorService {
       } else if (pluginType == PluginType.ENRICHMENT) {
         abstractMetisPlugin = new EnrichmentPlugin(pluginMetadata);
       } else {
-        //Anything else is not supported yet and should fail.
+        //This is practically impossible to happen since the pluginMetadata has to be valid in the Workflow using a pluginType, before reaching this state.
         throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
       }
       abstractMetisPlugin
@@ -366,7 +365,8 @@ public class OrchestratorService {
             datasetId, workflowExecutionDao);
     if ((latestFinishedPluginIfRequestedPluginAllowedForExecution == null
         && !ExecutionRules.getHarvestPluginGroup().contains(pluginType))
-        || doesPluginHaveAllErrorRecords(latestFinishedPluginIfRequestedPluginAllowedForExecution)) {
+        || doesPluginHaveAllErrorRecords(
+        latestFinishedPluginIfRequestedPluginAllowedForExecution)) {
       throw new PluginExecutionNotAllowed(CommonStringValues.PLUGIN_EXECUTION_NOT_ALLOWED);
     }
     return latestFinishedPluginIfRequestedPluginAllowedForExecution;
