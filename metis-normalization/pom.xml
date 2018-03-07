@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xmlns="http://maven.apache.org/POM/4.0.0"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -7,16 +8,8 @@
     <groupId>eu.europeana.metis</groupId>
     <version>1.0-SNAPSHOT</version>
   </parent>
-
   <artifactId>metis-normalization</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>metis-normalization-util</module>
-    <module>metis-normalization-service</module>
-    <module>metis-normalization-common</module>
-    <module>metis-normalization-rest</module>
-    <module>metis-normalization-client</module>
-  </modules>
+
   <build>
     <plugins>
         <plugin>
@@ -25,58 +18,54 @@
         </plugin>
     </plugins>
 </build>
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>org.apache.commons</groupId>
-        <artifactId>commons-lang3</artifactId>
-        <version>${version.commons.lang}</version>
-      </dependency>
-      <dependency>
-        <groupId>commons-io</groupId>
-        <artifactId>commons-io</artifactId>
-        <version>${version.commons.io}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jersey.containers</groupId>
-        <artifactId>jersey-container-servlet</artifactId>
-        <version>${version.jersey}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jersey.media</groupId>
-        <artifactId>jersey-media-multipart</artifactId>
-        <version>${version.jersey}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.glassfish.jersey.core</groupId>
-        <artifactId>jersey-client</artifactId>
-        <version>${version.jersey}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>${version.slf4j}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>${version.slf4j}</version>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.ibm.icu</groupId>
+      <artifactId>icu4j</artifactId>
+      <version>51.1</version>
+    </dependency>
 
-  <distributionManagement>
-    <repository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-releases</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-release-local</url>
-    </repository>
-    <snapshotRepository>
-      <id>artifactory.eanadev.org</id>
-      <name>artifactory.eanadev.org-snapshots</name>
-      <url>http://artifactory.eanadev.org/artifactory/libs-snapshot-local</url>
-    </snapshotRepository>
-  </distributionManagement>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>4.1</version>
+    </dependency>
 
-
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.4</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-lang</groupId>
+      <artifactId>commons-lang</artifactId>
+      <version>2.6</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>2.4</version>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${version.jackson}</version>
+    </dependency>
+    <dependency>
+      <groupId>net.htmlparser.jericho</groupId>
+      <artifactId>jericho-html</artifactId>
+      <version>3.4</version>
+    </dependency>
+  </dependencies>
 </project>
