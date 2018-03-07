@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.OperationNotSupportedException;
+
 import org.mongojack.DBCursor;
 import org.mongojack.DBRef;
 import org.mongojack.JacksonDBCollection;
@@ -404,7 +406,7 @@ public class MongoDatabaseUtils {
 			return insertOrganization((OrganizationTermList) termList);
 
 		default: // TODO add support for other entity types
-			throw new RuntimeException("insertion of MongoTermList of type: " + type + " not supported yet!");
+			throw new IllegalArgumentException("insertion of MongoTermList of type: " + type + " not supported yet!");
 
 		}
 
