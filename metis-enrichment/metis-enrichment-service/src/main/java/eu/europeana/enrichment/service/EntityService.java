@@ -1,16 +1,13 @@
 package eu.europeana.enrichment.service;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
 import org.mongojack.DBRef;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.ContextualClassImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.api.internal.MongoTerm;
-import eu.europeana.enrichment.api.internal.MongoTermList;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.MongoDatabaseUtils;
@@ -41,8 +38,7 @@ public class EntityService {
 		List<DBRef<? extends MongoTerm, String>> terms = MongoDatabaseUtils.storeEntityLabels((OrganizationImpl)org, EntityClass.ORGANIZATION);
 		termList.setTerms(terms);
 		//store term list
-		OrganizationTermList res = (OrganizationTermList) MongoDatabaseUtils.insertMongoTermList(termList);
-		return res;
+		return (OrganizationTermList) MongoDatabaseUtils.insertMongoTermList(termList);
 	}
 	
 	private OrganizationTermList organizationToOrganizationTermList(OrganizationImpl organization){

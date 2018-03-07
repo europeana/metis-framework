@@ -59,12 +59,12 @@ public class ZohoAccessClientDao {
 	 *             </ul>
 	 */
 	public JsonNode getUserByEmail(String email) throws GenericMetisException {
-		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoFields.JSON_STRING,
-				ZohoFields.CONTACTS_MODULE_STRING, ZohoFields.SEARCH_RECORDS_STRING);
+		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+				ZohoApiFields.CONTACTS_MODULE_STRING, ZohoApiFields.SEARCH_RECORDS_STRING);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-				.queryParam(ZohoFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-				.queryParam(ZohoFields.SCOPE_STRING, ZohoFields.CRMAPI_STRING)
-				.queryParam(ZohoFields.CRITERIA_STRING, String.format("(%s:%s)", ZohoFields.EMAIL_FIELD, email));
+				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+				.queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+				.queryParam(ZohoApiFields.CRITERIA_STRING, String.format("(%s:%s)", ZohoApiFields.EMAIL_FIELD, email));
 
 		RestTemplate restTemplate = new RestTemplate();
 		String contactResponse = restTemplate.getForObject(builder.build().encode().toUri(), String.class);
@@ -76,11 +76,11 @@ public class ZohoAccessClientDao {
 		} catch (IOException e) {
 			throw new BadContentException(String.format("Cannot retrieve user with email %s, from Zoho", email), e);
 		}
-		if (jsonContactResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING) == null) {
+		if (jsonContactResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING) == null) {
 			return null;
 		}
-		return jsonContactResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING)
-				.get(ZohoFields.CONTACTS_MODULE_STRING).get(ZohoFields.ROW_STRING).get(ZohoFields.FIELDS_LABEL);
+		return jsonContactResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
+				.get(ZohoApiFields.CONTACTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING).get(ZohoApiFields.FIELDS_LABEL);
 	}
 
 	/**
@@ -106,12 +106,12 @@ public class ZohoAccessClientDao {
 	 *             </ul>
 	 */
 	public String getOrganizationIdByOrganizationName(String organizationName) throws GenericMetisException {
-		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoFields.JSON_STRING,
-				ZohoFields.ACCOUNTS_MODULE_STRING, ZohoFields.SEARCH_RECORDS_STRING);
+		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+				ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.SEARCH_RECORDS_STRING);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-				.queryParam(ZohoFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-				.queryParam(ZohoFields.SCOPE_STRING, ZohoFields.CRMAPI_STRING).queryParam(ZohoFields.CRITERIA_STRING,
-						String.format("(%s:%s)", ZohoFields.ORGANIZATION_NAME_FIELD, organizationName));
+				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+				.queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING).queryParam(ZohoApiFields.CRITERIA_STRING,
+						String.format("(%s:%s)", ZohoApiFields.ORGANIZATION_NAME_FIELD, organizationName));
 
 		RestTemplate restTemplate = new RestTemplate();
 		String contactResponse = restTemplate.getForObject(builder.build().encode().toUri(), String.class);
@@ -129,32 +129,32 @@ public class ZohoAccessClientDao {
 	}
 
 	private JsonNode findExactMatchOfOrganization(JsonNode jsonOrgizationsResponse, String organizationName) {
-		if (jsonOrgizationsResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING) == null) {
+		if (jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING) == null) {
 			return null;
 		}
-		if (jsonOrgizationsResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING)
-				.get(ZohoFields.ACCOUNTS_MODULE_STRING).get(ZohoFields.ROW_STRING).isArray()) {
+		if (jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
+				.get(ZohoApiFields.ACCOUNTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING).isArray()) {
 			return findOrganizationFromListOfJsonNodes(jsonOrgizationsResponse, organizationName);
 		}
-		return jsonOrgizationsResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING)
-				.get(ZohoFields.ACCOUNTS_MODULE_STRING).get(ZohoFields.ROW_STRING).get(ZohoFields.FIELDS_LABEL);
+		return jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING)
+				.get(ZohoApiFields.ACCOUNTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING).get(ZohoApiFields.FIELDS_LABEL);
 	}
 
 	private JsonNode findOrganizationFromListOfJsonNodes(JsonNode jsonOrgizationsResponse, String organizationName) {
-		Iterator<JsonNode> organizationJsonNodes = jsonOrgizationsResponse.get(ZohoFields.RESPONSE_STRING)
-				.get(ZohoFields.RESULT_STRING).get(ZohoFields.ACCOUNTS_MODULE_STRING).get(ZohoFields.ROW_STRING)
+		Iterator<JsonNode> organizationJsonNodes = jsonOrgizationsResponse.get(ZohoApiFields.RESPONSE_STRING)
+				.get(ZohoApiFields.RESULT_STRING).get(ZohoApiFields.ACCOUNTS_MODULE_STRING).get(ZohoApiFields.ROW_STRING)
 				.elements();
 		if (organizationJsonNodes == null || !organizationJsonNodes.hasNext()) {
 			return null;
 		}
 		while (organizationJsonNodes.hasNext()) {
-			JsonNode nextOrganizationJsonNode = organizationJsonNodes.next().get(ZohoFields.FIELDS_LABEL);
+			JsonNode nextOrganizationJsonNode = organizationJsonNodes.next().get(ZohoApiFields.FIELDS_LABEL);
 			Iterator<JsonNode> organizationFields = nextOrganizationJsonNode.elements();
 			while (organizationFields.hasNext()) {
 				JsonNode organizationField = organizationFields.next();
-				JsonNode val = organizationField.get(ZohoFields.VALUE_LABEL);
-				JsonNode content = organizationField.get(ZohoFields.CONTENT_LABEL);
-				if (StringUtils.equals(val.textValue(), ZohoFields.ORGANIZATION_NAME_FIELD)
+				JsonNode val = organizationField.get(ZohoApiFields.VALUE_LABEL);
+				JsonNode content = organizationField.get(ZohoApiFields.CONTENT_LABEL);
+				if (StringUtils.equals(val.textValue(), ZohoApiFields.ORGANIZATION_NAME_FIELD)
 						&& StringUtils.equals(content.textValue(), organizationName)) {
 					return nextOrganizationJsonNode;
 				}
@@ -170,8 +170,8 @@ public class ZohoAccessClientDao {
 			OrganizationRole organizationRole = null;
 			while (elements.hasNext()) {
 				JsonNode next = elements.next();
-				JsonNode val = next.get(ZohoFields.VALUE_LABEL);
-				JsonNode content = next.get(ZohoFields.CONTENT_LABEL);
+				JsonNode val = next.get(ZohoApiFields.VALUE_LABEL);
+				JsonNode content = next.get(ZohoApiFields.CONTENT_LABEL);
 				switch (val.textValue()) {
 				case "ACCOUNTID":
 					organizationId = content.textValue();
@@ -215,16 +215,16 @@ public class ZohoAccessClientDao {
 	 */
 	public JsonNode getOrganizationById(String organizationId) throws GenericMetisException {
 
-		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoFields.JSON_STRING,
-				ZohoFields.ACCOUNTS_MODULE_STRING, ZohoFields.GET_RECORDS_STRING);
+		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+				ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-				.queryParam(ZohoFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-				.queryParam(ZohoFields.SCOPE_STRING, ZohoFields.CRMAPI_STRING)
-				.queryParam(ZohoFields.ID, organizationId);
+				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+				.queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+				.queryParam(ZohoApiFields.ID, organizationId);
 
 		RestTemplate restTemplate = new RestTemplate();
 		URI uri = builder.build().encode().toUri();
-		LOGGER.trace(uri.toString());
+		LOGGER.trace("{}", uri);
 
 		String organisationsResponse = restTemplate.getForObject(uri, String.class);
 		LOGGER.debug(organisationsResponse);
@@ -251,7 +251,7 @@ public class ZohoAccessClientDao {
 	 *
 	 * @param start
 	 *            to start search from this index
-	 * @param end
+	 * @param rows
 	 *            to end search by this index
 	 * @return the list of the organizations
 	 * @throws GenericMetisException
@@ -266,16 +266,16 @@ public class ZohoAccessClientDao {
 	 */
 	public JsonNode getOrganizations(int start, int rows) throws GenericMetisException {
 
-		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoFields.JSON_STRING,
-				ZohoFields.ACCOUNTS_MODULE_STRING, ZohoFields.GET_RECORDS_STRING);
+		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
+				ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
-				.queryParam(ZohoFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
-				.queryParam(ZohoFields.SCOPE_STRING, ZohoFields.CRMAPI_STRING)
-				.queryParam(ZohoFields.FROM_INDEX_STRING, start).queryParam(ZohoFields.TO_INDEX_STRING, start + rows -1);
+				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
+				.queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
+				.queryParam(ZohoApiFields.FROM_INDEX_STRING, start).queryParam(ZohoApiFields.TO_INDEX_STRING, start + rows -1);
 
 		RestTemplate restTemplate = new RestTemplate();
 		URI uri = builder.build().encode().toUri();
-		LOGGER.trace(uri.toString());
+		LOGGER.trace("{}", uri);
 		
 		String organisationsResponse = restTemplate.getForObject(uri, String.class);
 		LOGGER.info(organisationsResponse);
