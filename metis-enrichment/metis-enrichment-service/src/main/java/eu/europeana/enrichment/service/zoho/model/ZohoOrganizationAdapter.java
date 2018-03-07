@@ -6,18 +6,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
-import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganizationField;
+import eu.europeana.enrichment.api.external.model.zoho.ZohoResponseField;
+import eu.europeana.enrichment.service.exception.ZohoAccessException;
 
 
 
@@ -29,43 +27,46 @@ import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganizationField;
 public class ZohoOrganizationAdapter implements ZohoOrganization {
 
 	/** Fields from Zoho organization */
-	private final String ACCOUNTID = "ACCOUNTID";
-	private final String ACCOUNT_NAME = "Account Name";
-	private final String ACCOUNT_OWNER = "Account Owner";
-	private final String LANG_ORGANIZATION_NAME = "Lang Organisation Name";
-	private final String WEBSITE = "Website";
-	private final String DESCRIPTION = "Description";
-	private final String DOMAIN = "Domain";
-	private final String STREET = "Street";
-	private final String CITY = "City";
-	private final String ZIP_CODE = "ZIP code";
-	private final String COUNTRY = "Country";
-	private final String ALTERNATIVE = "Alternative";
-	private final String LANG_ALTERNATIVE = "Lang Alternative";
-	private final String SCOPE = "Scope";
-	private final String SAME_AS = "SameAs";
-	private final String ORGANIZATION_ROLE = "Organisation Role";
-	private final String GEOGRAPHIC_LEVEL = "Geographic Level";
-	private final String ACRONYM = "Acronym";
-	private final String ORGNAIZATION_COUNTRY = "Organisation Country";
-	private final String LOGO = "Logo (link to WikimediaCommons)";
-	private final String SECTOR = "Sector";
-	private final String POST_BOX = "PO box";
-	private final String MODIFIED = "Modified Time";
-	private final String CREATED = "Created Time";
-	private final int MAX_ALTERNATIVES = 5;
-	private final int MAX_LANG_ALTERNATIVES = 5;
-	private final int MAX_SAME_AS = 3;
+	private static final String ACCOUNTID = "ACCOUNTID";
+	private static final String ACCOUNT_NAME = "Account Name";
+	private static final String ACCOUNT_OWNER = "Account Owner";
+	private static final String LANG_ORGANIZATION_NAME = "Lang Organisation Name";
+	private static final String WEBSITE = "Website";
+	private static final String DESCRIPTION = "Description";
+	private static final String DOMAIN = "Domain";
+	private static final String STREET = "Street";
+	private static final String CITY = "City";
+	private static final String ZIP_CODE = "ZIP code";
+	private static final String COUNTRY = "Country";
+	private static final String ALTERNATIVE = "Alternative";
+	private static final String LANG_ALTERNATIVE = "Lang Alternative";
+	private static final String SCOPE = "Scope";
+	private static final String SAME_AS = "SameAs";
+	private static final String ORGANIZATION_ROLE = "Organisation Role";
+	private static final String GEOGRAPHIC_LEVEL = "Geographic Level";
+	private static final String ACRONYM = "Acronym";
+	private static final String ORGNAIZATION_COUNTRY = "Organisation Country";
+	private static final String LOGO = "Logo (link to WikimediaCommons)";
+	private static final String SECTOR = "Sector";
+	private static final String POST_BOX = "PO box";
+	private static final String MODIFIED = "Modified Time";
+	private static final String CREATED = "Created Time";
+	private static final String MODIFIED_BY = "Modified By";
+	private static final int MAX_ALTERNATIVES = 5;
+	private static final int MAX_LANG_ALTERNATIVES = 5;
+	private static final int MAX_SAME_AS = 3;
 
-	//force 0 timezone
-	SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	private List<ZohoResponseField> organizationFields = null;
 	
-	List<ZohoOrganizationField> organizationFields = null;
-	
-	public ZohoOrganizationAdapter(JsonNode response) throws JsonParseException, JsonMappingException, IOException {
+	public ZohoOrganizationAdapter(JsonNode response) throws ZohoAccessException{
 		ObjectMapper mapper = new ObjectMapper();		
-		organizationFields = mapper.readValue(
-				response.toString(), new TypeReference<List<ZohoOrganizationField>>(){});
+		try {
+			organizationFields = mapper.readValue(
+					response.toString(), new TypeReference<List<ZohoResponseField>>(){});
+		} catch (IOException e) {
+			throw new ZohoAccessException("Cannot parse zoho response ", e); 
+		} 
 	}
 	
 	/**
@@ -77,7 +78,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private String getContent(String fieldName) {
 		String res = "";
 		
-		ZohoOrganizationField zohoFieldObject = new ZohoOrganizationField();
+		ZohoResponseField zohoFieldObject = new ZohoResponseField();
 		zohoFieldObject.setVal(fieldName);
 		int fieldIndex = organizationFields.indexOf(zohoFieldObject);
 		if (fieldIndex != -1)
@@ -88,11 +89,6 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	@Override
 	public String toString() {
 		return getZohoId() + ", " + getOrganizationName();
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		return false;
 	}
 
 	@Override
@@ -189,12 +185,6 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getContent(GEOGRAPHIC_LEVEL);
 	}
 
-//	@Override
-//	public String getModifiedBy() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-
 	@Override
 	public List<String> getSameAs() {
 		return getFieldArray(SAME_AS, MAX_SAME_AS);
@@ -204,12 +194,6 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	public String getPostBox() {
 		return getContent(POST_BOX);
 	}
-
-//	@Override
-//	public String getHasAddress() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
 
 	@Override
 	public String getStreet() {
@@ -242,14 +226,14 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getDateOrDefault(modified);
 	}
 
-	private Date getDateOrDefault(String dateTime) {
+	protected Date getDateOrDefault(String dateTime) {
 		if(StringUtils.isBlank(dateTime))
 			return new Date(0);
 		
 		try {
 			return formatter. parse(dateTime);			
 		} catch (ParseException e) {
-			throw new RuntimeException("Cannot parse modified date. Wrong format: " + dateTime, e);
+			throw new IllegalArgumentException("Cannot parse modified date. Wrong format: " + dateTime, e);
 		}
 	}
 
@@ -257,6 +241,23 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	public Date getCreated() {
 		String created = getContent(CREATED);
 		return getDateOrDefault(created);
+	}
+
+	@Override
+	public String getModifiedBy() {
+		return getContent(MODIFIED_BY);
+	}
+
+	public SimpleDateFormat getFormatter() {
+		return formatter;
+	}
+
+	protected List<ZohoResponseField> getOrganizationFields() {
+		return organizationFields;
+	}
+
+	protected void setOrganizationFields(List<ZohoResponseField> organizationFields) {
+		this.organizationFields = organizationFields;
 	}
 
 }
