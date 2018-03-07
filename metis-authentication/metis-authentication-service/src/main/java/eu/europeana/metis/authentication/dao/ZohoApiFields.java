@@ -1,6 +1,6 @@
 package eu.europeana.metis.authentication.dao;
 
-public interface ZohoFields {
+public abstract class ZohoApiFields {
 
 	public static final String CONTACTS_MODULE_STRING = "Contacts";
 	public static final String ACCOUNTS_MODULE_STRING = "Accounts";

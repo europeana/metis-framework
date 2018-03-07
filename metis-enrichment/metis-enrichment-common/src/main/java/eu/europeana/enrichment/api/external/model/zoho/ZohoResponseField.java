@@ -6,7 +6,7 @@ package eu.europeana.enrichment.api.external.model.zoho;
  * @author GrafR
  *
  */
-public class ZohoOrganizationField {
+public class ZohoResponseField {
 
     private String val;
     private String content;
@@ -26,18 +26,13 @@ public class ZohoOrganizationField {
 	
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof ZohoOrganizationField 
-				&& this.val.equals(((ZohoOrganizationField) obj).val))
-			return true;
-				
-		return false;
+		return (obj instanceof ZohoResponseField 
+				&& this.val.equals(((ZohoResponseField) obj).val));
 	}
 	
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + val.hashCode();
-        return result;
+        return val.hashCode();
     }
 	
 }
