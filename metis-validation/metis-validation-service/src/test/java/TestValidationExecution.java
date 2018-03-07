@@ -110,6 +110,28 @@ public class TestValidationExecution {
     }
 
     @Test
+    public void shouldFailOnSchematronValidation() throws Exception {
+
+        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_schematron_invalid.xml"));
+        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM-EXTERNAL.xsd", "schematron/schematron.xsl", fileToValidate);
+        Assert.assertFalse(result.isSuccess());
+        Assert.assertEquals(" rdf:about=\"URN:RS:NAE:5485bed1-1b22-42c9-8ad7-3c5978ebfa9acho\"", result.getRecordId());
+        Assert.assertEquals("http://digitalna.nb.rs/wb/NBS/Knjige/sabrana_dela_vuka_karadzica/II_146423_24", result.getNodeId());
+        Assert.assertEquals("Schematron error: An ore:Aggregation must have at least one instance of edm:dataProvider", result.getMessage());
+    }
+
+    @Test
+    public void shouldFailOnSchematronValidationWithNoNodeId() throws Exception {
+
+        String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_schematron_invalid2.xml"));
+        ValidationResult result = validationExecutionService.singleValidation(EDM_EXTERNAL, "EDM-EXTERNAL.xsd", "schematron/schematron.xsl", fileToValidate);
+        Assert.assertFalse(result.isSuccess());
+        Assert.assertEquals(" rdf:about=\"#UEDIN:214\"", result.getRecordId());
+        Assert.assertEquals("Missing node identifier", result.getNodeId());
+        Assert.assertEquals("Schematron error: Empty rdf:resource attribute is not allowed for edm:hasView element.", result.getMessage());
+    }
+
+    @Test
     public void testSingleValidationFailureWrongSchema() throws Exception {
 
         String fileToValidate = IOUtils.toString(new FileInputStream("src/test/resources/Item_35834473.xml"));

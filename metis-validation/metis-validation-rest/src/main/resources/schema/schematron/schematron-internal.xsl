@@ -314,12 +314,7 @@
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Element
-                        <xsl:text/>
-                        <xsl:value-of select="name(.)"/>
-                        <xsl:text/>
-                        should not have both rdf:resource attribute and text value
-                        populated.
+                        Element <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> should not have both rdf:resource attribute and text value populated.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -347,11 +342,7 @@
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Empty rdf:resource attribute is not allowed for
-                        <xsl:text/>
-                        <xsl:value-of select="name(.)"/>
-                        <xsl:text/>
-                        element.
+                        Empty rdf:resource attribute is not allowed for <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/>element.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -379,13 +370,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        An ore:Aggregation must have either
-                        edm:isShownAt or edm:isShownBy
+                    </xsl:attribute>
+                    <svrl:text>
+                        An ore:Aggregation must have either edm:isShownAt or edm:isShownBy
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -412,13 +401,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        An ore:Aggregation must have at least one instance of
-                        edm:dataProvider
+                    </xsl:attribute>
+                    <svrl:text>
+                        An ore:Aggregation must have at least one instance of edm:dataProvider
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -445,13 +432,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        An ore:Aggregation must have at least one instance of
-                        edm:provider
+                    </xsl:attribute>
+                    <svrl:text>
+                        An ore:Aggregation must have at least one instance of edm:provider
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -479,13 +464,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        An ore:Aggregation must have at least one instance of
-                        edm:rights
+                    </xsl:attribute>
+                    <svrl:text>
+                        An ore:Aggregation must have at least one instance of edm:rights
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -632,14 +615,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        - A Proxy must have a
-                        dc:subject or dc:type or dc:coverage or dct:temporal or
-                        dct:spatial.
+                    </xsl:attribute>
+                    <svrl:text>
+                        A Proxy must have a dc:subject or dc:type or dc:coverage or dct:temporal or dc:spatial.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -672,11 +652,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>A Proxy must have a non empty dc:title or a non empty
-                        dc:description
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
+                    </xsl:attribute>
+                    <svrl:text>
+                        A Proxy must have a non empty dc:title or a non empty dc:description
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -691,14 +671,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        - Within a Proxy
-                        context, dc:language is mandatory when dc:language has the value
-                        'TEXT'.
+                    </xsl:attribute>
+                    <svrl:text>
+                        Within a Proxy context, dc:language is mandatory when dc:language has the value 'TEXT'.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -713,11 +690,10 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
+                    </xsl:attribute>
+                    <svrl:text>
                         edm:type should be present in an ore:Proxy context.
                     </svrl:text>
                 </svrl:failed-assert>
@@ -733,13 +709,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        id:
-                        <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>
-                        edm:type should not be present in an Europeana Proxy context
-                        (when the edm:europeanaProxy value is present).
+                    </xsl:attribute>
+                    <svrl:text>
+                        edm:type should not be present in an Europeana Proxy context (when the edm:europeanaProxy value is present).
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -766,11 +740,11 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>
-                        The element dcterms:isPartOf should not have a literal value in the edm:WebResource context
-                        with id: <xsl:text/>
+                    <xsl:attribute name="nodeId">
                         <xsl:value-of select="@rdf:about"/>
-                        <xsl:text/>. Use an rdf:resource instead.
+                    </xsl:attribute>
+                    <svrl:text>
+                        The element dcterms:isPartOf should not have a literal value in the edm:WebResource context with this id. Use an rdf:resource instead.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>

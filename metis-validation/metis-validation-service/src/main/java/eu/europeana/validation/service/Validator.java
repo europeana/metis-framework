@@ -2,11 +2,8 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.StringReader;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -35,6 +32,7 @@ import org.xml.sax.SAXException;
  */
 public class Validator implements Callable<ValidationResult> {
 
+    private static final String NODE_ID_ATTR = "nodeId";
     private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);
     private static ConcurrentMap<String, Templates> templatesCache;
 
@@ -100,7 +98,7 @@ public class Validator implements Callable<ValidationResult> {
         try {
             Schema savedSchema = getSchemaByName(schema);
             if (savedSchema == null) {
-                return constructValidationError(document, "Specified schema does not exist");
+                return constructValidationError(document, "Specified schema does not exist", null);
             }
 
             resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
@@ -112,12 +110,16 @@ public class Validator implements Callable<ValidationResult> {
 
                 DOMResult result = new DOMResult();
                 transformer.transform(new DOMSource(doc), result);
-
                 NodeList nresults = result.getNode().getFirstChild().getChildNodes();
                 for (int i = 0; i < nresults.getLength(); i++) {
                     Node nresult = nresults.item(i);
                     if ("failed-assert".equals(nresult.getLocalName())) {
-                        return constructValidationError(document, "Schematron error: " + nresult.getTextContent());
+                        String nodeId = null;
+                        Node nodeIdAttr  = nresult.getAttributes().getNamedItem(NODE_ID_ATTR);
+                        if(nodeIdAttr!=null){
+                            nodeId = nodeIdAttr.getTextContent();
+                        }
+                        return constructValidationError(document, "Schematron error: " + nresult.getTextContent().trim() , nodeId);
                     }
                 }
             }
@@ -155,12 +157,17 @@ public class Validator implements Callable<ValidationResult> {
         return res;
     }
 
-    private ValidationResult constructValidationError(String document, String message) {
+    private ValidationResult constructValidationError(String document, String message, String nodeId) {
         ValidationResult res = new ValidationResult();
         res.setMessage(message);
         res.setRecordId(StringUtils.substringBetween(document, "ProvidedCHO", ">"));
         if (StringUtils.isEmpty(res.getRecordId())) {
             res.setRecordId("Missing record identifier for EDM record");
+        }
+        if (nodeId != null) {
+            res.setNodeId(nodeId);
+        } else {
+            res.setNodeId("Missing node identifier");
         }
 
         res.setSuccess(false);
