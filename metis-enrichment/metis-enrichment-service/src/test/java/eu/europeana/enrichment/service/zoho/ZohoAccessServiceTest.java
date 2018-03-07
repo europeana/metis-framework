@@ -1,7 +1,6 @@
 package eu.europeana.enrichment.service.zoho;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.util.List;
 import java.util.Map.Entry;
@@ -45,6 +44,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest{
 		List<Organization> orgList = zohoAccessService.getOrganizations(1, 5);
 		
 		assertNotNull(orgList);
+		assertFalse(orgList.isEmpty());
 		assertEquals(5, orgList.size());
 		
 		Organization org = orgList.get(0);
