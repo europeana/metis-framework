@@ -21,7 +21,7 @@ import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
 import eu.europeana.metis.authentication.dao.PsqlMetisUserDao;
 import eu.europeana.metis.authentication.dao.ZohoAccessClientDao;
-import eu.europeana.metis.authentication.dao.ZohoFields;
+import eu.europeana.metis.authentication.dao.ZohoApiFields;
 import eu.europeana.metis.exception.GenericMetisException;
 
 /**
@@ -66,14 +66,14 @@ public class ZohoAccessService {
 		} catch (GenericMetisException e) {
 			throw new ZohoAccessException("Cannot get organization by id: " + organizationId, e);
 		}
-		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse, ZohoFields.ACCOUNTS_MODULE_STRING);
-		JsonNode jsonRecord = accountsNode.findValue(ZohoFields.FIELDS_LABEL);
+		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
+		JsonNode jsonRecord = accountsNode.findValue(ZohoApiFields.FIELDS_LABEL);
 
 		return getOrganizationFromJsonNode(jsonRecord);
 	}
 
 	/**
-	 * This method retrieves a list of organizations in {@link JsonNode} format.
+	 * This method retrieves a list of Zoho records in {@link JsonNode} format.
 	 * 
 	 * @param jsonLeadsResponse
 	 * @param type
@@ -81,23 +81,18 @@ public class ZohoAccessService {
 	 * @return {@link JsonNode} representation of the organization
 	 */
 	JsonNode findRecordsByType(JsonNode jsonLeadsResponse, String type) {
-		if (jsonLeadsResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING) == null) {
+		if (jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING) == null) {
 			return null;
 		}
-		return jsonLeadsResponse.get(ZohoFields.RESPONSE_STRING).get(ZohoFields.RESULT_STRING).get(type)
-				.get(ZohoFields.ROW_STRING);
+		return jsonLeadsResponse.get(ZohoApiFields.RESPONSE_STRING).get(ZohoApiFields.RESULT_STRING).get(type)
+				.get(ZohoApiFields.ROW_STRING);
 	}
 
 	Organization getOrganizationFromJsonNode(JsonNode jsonRecord) throws ZohoAccessException {
 		OrganizationImpl org = new OrganizationImpl();
 
-		ZohoOrganizationAdapter zoa = null;
-		try {
-			zoa = new ZohoOrganizationAdapter(jsonRecord);
-		} catch (IOException e) {
-			throw new ZohoAccessException("Cannot find fields label in zoho response." + jsonRecord, e);
-		}
-
+		ZohoOrganizationAdapter zoa = new ZohoOrganizationAdapter(jsonRecord);
+		
 		org.setAbout(URL_ORGANIZATION_BASE + zoa.getZohoId());
 		org.setDcIdentifier(createMapOfStringList(zoa.getLanguage(), zoa.getZohoId()));
 		org.setPrefLabel(createMapOfStringList(zoa.getLanguage(), zoa.getOrganizationName()));
@@ -164,15 +159,15 @@ public class ZohoAccessService {
 	protected List<Organization> getOrganizationsListFromJsonNode(JsonNode jsonRecordsResponse)
 			throws ZohoAccessException {
 
-		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse, ZohoFields.ACCOUNTS_MODULE_STRING);
-		if (accountsNode == null)
-			return null;
-
+		JsonNode accountsNode = findRecordsByType(jsonRecordsResponse, ZohoApiFields.ACCOUNTS_MODULE_STRING);
 		List<Organization> res = new ArrayList<Organization>();
+		if (accountsNode == null)
+			return res;
+
 		JsonNode organizationNode;
 
 		for (JsonNode accountNode : accountsNode) {
-			organizationNode = accountNode.get(ZohoFields.FIELDS_LABEL);
+			organizationNode = accountNode.get(ZohoApiFields.FIELDS_LABEL);
 			res.add(getOrganizationFromJsonNode(organizationNode));
 		}
 
@@ -194,23 +189,9 @@ public class ZohoAccessService {
 	}
 
 	private List<String> createList(String value) {
-		return Arrays.asList(new String[]{value});
+		return Arrays.asList(value);
 	}
-
-	/**
-	 * Create OrganizationImpl map of strings from value
-	 * 
-	 * @param key
-	 *            The field name
-	 * @param value
-	 *            The value
-	 * @return map of strings
-	 */
-//	private Map<String, String> createMapOfStrings(String key, String value) {
-//		Map<String, String> resMap = new HashMap<String, String>();
-//		resMap.put(key, value);
-//		return resMap;
-//	}
+	
 
 	/**
 	 * Create OrganizationImpl map from list of values
