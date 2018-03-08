@@ -12,12 +12,12 @@ import java.util.Set;
  */
 public final class ExecutionRules {
 
-  private static final Set<PluginType> harvestPluginGroup = EnumSet
+  private static final Set<PluginType> HARVEST_PLUGIN_GROUP = EnumSet
       .of(PluginType.OAIPMH_HARVEST, PluginType.HTTP_HARVEST);
-  private static final Set<PluginType> processPluginGroup = EnumSet
+  private static final Set<PluginType> PROCESS_PLUGIN_GROUP = EnumSet
       .of(PluginType.VALIDATION_EXTERNAL, PluginType.TRANSFORMATION,
           PluginType.VALIDATION_INTERNAL, PluginType.ENRICHMENT);
-  private static final Set<PluginType> indexPluginGroup = EnumSet.of(PluginType.INDEX_TO_PREVIEW);
+  private static final Set<PluginType> INDEX_PLUGIN_GROUP = EnumSet.of(PluginType.INDEX_TO_PREVIEW);
 
   private ExecutionRules() {
     //Private constructor
@@ -45,10 +45,11 @@ public final class ExecutionRules {
       abstractMetisPlugin = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
               EnumSet.of(enforcedPluginType));
-    } else if (processPluginGroup.contains(pluginType)) { //Get latest FINISHED plugin for datasetId
+    } else if (PROCESS_PLUGIN_GROUP
+        .contains(pluginType)) { //Get latest FINISHED plugin for datasetId
       abstractMetisPlugin = getLatestFinishedPluginAllowedForExecutionProcess(pluginType, datasetId,
           workflowExecutionDao);
-    } else if (indexPluginGroup.contains(pluginType)) {
+    } else if (INDEX_PLUGIN_GROUP.contains(pluginType)) {
       // TODO: 29-1-18 Implement when index plugins ready
     }
     return abstractMetisPlugin;
@@ -60,36 +61,41 @@ public final class ExecutionRules {
       WorkflowExecutionDao workflowExecutionDao) {
 
     AbstractMetisPlugin latestFinishedWorkflowExecutionByDatasetIdAndPluginType = null;
-    if (pluginType == PluginType.VALIDATION_EXTERNAL) {
-      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
-              harvestPluginGroup);
-    } else if (pluginType == PluginType.TRANSFORMATION) {
-      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
-              EnumSet.of(PluginType.VALIDATION_EXTERNAL));
 
-    } else if ((pluginType == PluginType.VALIDATION_INTERNAL)) {
+    Set<PluginType> latestPreviousPluginTypesSet = null;
+    switch (pluginType) {
+      case VALIDATION_EXTERNAL:
+        latestPreviousPluginTypesSet = HARVEST_PLUGIN_GROUP;
+        break;
+      case TRANSFORMATION:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.VALIDATION_EXTERNAL);
+        break;
+      case VALIDATION_INTERNAL:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.TRANSFORMATION);
+        break;
+      case ENRICHMENT:
+        latestPreviousPluginTypesSet = EnumSet.of(PluginType.VALIDATION_INTERNAL);
+        break;
+      default:
+        break;
+    }
+    if (latestPreviousPluginTypesSet != null) {
       latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
           .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
-              EnumSet.of(PluginType.TRANSFORMATION));
-    } else if ((pluginType == PluginType.ENRICHMENT)) {
-      latestFinishedWorkflowExecutionByDatasetIdAndPluginType = workflowExecutionDao
-          .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(datasetId,
-              EnumSet.of(PluginType.VALIDATION_INTERNAL));
+              latestPreviousPluginTypesSet);
     }
     return latestFinishedWorkflowExecutionByDatasetIdAndPluginType;
   }
 
   public static Set<PluginType> getHarvestPluginGroup() {
-    return EnumSet.copyOf(harvestPluginGroup);
+    return EnumSet.copyOf(HARVEST_PLUGIN_GROUP);
   }
 
   public static Set<PluginType> getProcessPluginGroup() {
-    return EnumSet.copyOf(processPluginGroup);
+    return EnumSet.copyOf(PROCESS_PLUGIN_GROUP);
   }
 
   public static Set<PluginType> getIndexPluginGroup() {
-    return EnumSet.copyOf(indexPluginGroup);
+    return EnumSet.copyOf(INDEX_PLUGIN_GROUP);
   }
 }
