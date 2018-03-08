@@ -356,22 +356,6 @@ public class TestOrchestratorService {
         workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
   }
 
-  @Test(expected = PluginExecutionNotAllowed.class)
-  public void addWorkflowInQueueOfWorkflowExecutions_PluginShouldNotBeSupported()
-      throws Exception {
-    Dataset dataset = TestObjectFactory.createDataset(TestObjectFactory.DATASETNAME);
-    Workflow workflow = TestObjectFactory.createWorkflowObject();
-    List<AbstractMetisPluginMetadata> metisPluginsMetadata = workflow.getMetisPluginsMetadata();
-    metisPluginsMetadata.add(new EnrichmentPluginMetadata());
-    workflow.setMetisPluginsMetadata(metisPluginsMetadata);
-    when(datasetDao.getDatasetByDatasetId(dataset.getDatasetId())).thenReturn(dataset);
-    when(workflowDao
-        .getWorkflow(workflow.getWorkflowOwner(), workflow.getWorkflowName()))
-        .thenReturn(workflow);
-    orchestratorService.addWorkflowInQueueOfWorkflowExecutions(dataset.getDatasetId(),
-        workflow.getWorkflowOwner(), workflow.getWorkflowName(), null, 0);
-  }
-
   @Test
   public void addWorkflowInQueueOfWorkflowExecutionsEcloudDatasetAlreadyGenerated()
       throws Exception {

@@ -2,6 +2,7 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.core.dataset.Dataset;
 import eu.europeana.metis.core.workflow.plugins.AbstractMetisPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginStatus;
@@ -45,16 +46,16 @@ public class WorkflowExecution implements HasMongoObjectId {
   private boolean cancelling;
 
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date createdDate;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date startedDate;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date updatedDate;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date finishedDate;
 
   private List<AbstractMetisPlugin> metisPlugins = new ArrayList<>();

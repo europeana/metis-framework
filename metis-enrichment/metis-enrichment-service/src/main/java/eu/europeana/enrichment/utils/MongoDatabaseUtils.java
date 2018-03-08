@@ -37,7 +37,7 @@ public class MongoDatabaseUtils {
   private static final String AGENT_TYPE = "AgentImpl";
   private static final String TIMESPAN_TYPE = "TimespanImpl";
   private static final String ORGANIZATION_TYPE = "OrganizationImpl";
-  
+
   private static final String AGENT_TABLE = "people";
   private static final String CONCEPT_TABLE = "concept";
   private static final String PLACE_TABLE = "place";
@@ -56,28 +56,29 @@ public class MongoDatabaseUtils {
   private static JacksonDBCollection<TimespanTermList, String> tColl;
   private static JacksonDBCollection<AgentTermList, String> aColl;
   private static JacksonDBCollection<OrganizationTermList, String> oColl;
-  
+
   // TODO the DB class is (effectively) deprecated (see MongoClient.getDB), but
   // this object is still needed for MongoJack. Upgrade MongoJack and migrate this 
   // object to MongoDatabase.
+  private static MongoClient mongo;
   private static DB db;
 
-  private MongoDatabaseUtils() {}
-  
+  private MongoDatabaseUtils() {
+  }
+
   /**
    * Check if DB exists and initialization of the db
-   * 
-   * @param host
-   * @param port
+   *
    * @return whether the DB exists.
    */
   public static synchronized boolean dbExists(String host, int port) {
     if (db != null) {
       return true;
     }
-    try(MongoClient mongo = new MongoClient(host, port)) {
+    try {
       LOGGER.info("Creating Mongo connection to host {}.", host);
-      
+
+      mongo = new MongoClient(host, port);
       db = mongo.getDB("annocultor_db"); // See TODO above.
 
       boolean exist = db.collectionExists(TERMLIST_TABLE);
@@ -102,20 +103,30 @@ public class MongoDatabaseUtils {
           String.class);
 
       if (!exist) {
-        pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
+        cColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
 
-        aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        aColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
+        aColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
 
-        tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        tColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
+        tColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
 
-        pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        pColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
+        pColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
 
-        oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
-        oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1), new BasicDBObject(UNIQUE_PROPERTY, false));
+        oColl.createIndex(new BasicDBObject(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
+        oColl.createIndex(new BasicDBObject(TERM_SAME_AS, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, false));
       }
       return exist;
     } catch (MongoException e) {
@@ -143,13 +154,14 @@ public class MongoDatabaseUtils {
     return retUris;
   }
 
-  private static List<String> deleteTimespan( String uri) {
+  private static List<String> deleteTimespan(String uri) {
     List<String> retUris = new ArrayList<>();
     tColl.remove(tColl.find().is(TERM_CODE_URI, uri).getQuery());
     JacksonDBCollection<MongoTerm, String> termT = JacksonDBCollection
         .wrap(db.getCollection(TIMESPAN_TABLE), MongoTerm.class, String.class);
-    termT.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
+    termT
+        .createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, true));
     termT.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
     termT.remove(termT.find().is(TERM_CODE_URI, uri).getQuery());
     DBCursor<TimespanTermList> objT = tColl
@@ -169,8 +181,9 @@ public class MongoDatabaseUtils {
     aColl.remove(aColl.find().is(TERM_CODE_URI, uri).getQuery());
     JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
         .wrap(db.getCollection(AGENT_TABLE), MongoTerm.class, String.class);
-    termA.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
+    termA
+        .createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, true));
     termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
     termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
     DBCursor<AgentTermList> objA = aColl
@@ -190,8 +203,9 @@ public class MongoDatabaseUtils {
     oColl.remove(oColl.find().is(TERM_CODE_URI, uri).getQuery());
     JacksonDBCollection<MongoTerm, String> termA = JacksonDBCollection
         .wrap(db.getCollection(ORGANIZATION_TABLE), MongoTerm.class, String.class);
-    termA.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
+    termA
+        .createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, true));
     termA.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
     termA.remove(termA.find().is(TERM_CODE_URI, uri).getQuery());
     DBCursor<OrganizationTermList> objA = oColl
@@ -211,8 +225,9 @@ public class MongoDatabaseUtils {
     cColl.remove(cColl.find().is(TERM_CODE_URI, uri).getQuery());
     JacksonDBCollection<MongoTerm, String> termC = JacksonDBCollection
         .wrap(db.getCollection(CONCEPT_TABLE), MongoTerm.class, String.class);
-    termC.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
+    termC
+        .createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, true));
     termC.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
     termC.remove(termC.find().is(TERM_CODE_URI, uri).getQuery());
     DBCursor<ConceptTermList> objC = cColl
@@ -232,8 +247,9 @@ public class MongoDatabaseUtils {
     pColl.remove(pColl.find().is(TERM_CODE_URI, uri).getQuery());
     JacksonDBCollection<MongoTerm, String> termP = JacksonDBCollection
         .wrap(db.getCollection(PLACE_TABLE), MongoTerm.class, String.class);
-    termP.createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
-        new BasicDBObject(UNIQUE_PROPERTY, true));
+    termP
+        .createIndex(new BasicDBObject(TERM_LABEL, 1).append(TERM_LANG, 1).append(TERM_CODE_URI, 1),
+            new BasicDBObject(UNIQUE_PROPERTY, true));
     termP.createIndex(new BasicDBObject(TERM_CODE_URI, 1));
     termP.remove(termP.find().is(TERM_CODE_URI, uri).getQuery());
     DBCursor<PlaceTermList> objP = pColl
@@ -249,12 +265,11 @@ public class MongoDatabaseUtils {
 
   /**
    * Find TermList by codeURI
-   * 
-   * @param codeUri
-   * @param entityClass
+   *
    * @return the term list.
    */
-  public static MongoTermList<ContextualClassImpl> findByCode(String codeUri, EntityClass entityClass) {
+  public static MongoTermList<ContextualClassImpl> findByCode(String codeUri,
+      EntityClass entityClass) {
     final MongoTermList<? extends ContextualClassImpl> result;
     switch (entityClass) {
       case CONCEPT:
@@ -280,7 +295,8 @@ public class MongoDatabaseUtils {
   }
 
   private static TimespanTermList findTimespanByCode(String codeUri) {
-    DBCursor<TimespanTermList> curs = tColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE))
+    DBCursor<TimespanTermList> curs = tColl
+        .find(new BasicDBObject(ENTITY_TYPE_PROPERTY, TIMESPAN_TYPE))
         .is(TERM_CODE_URI, codeUri);
     if (curs.hasNext()) {
       return curs.next();
@@ -308,7 +324,8 @@ public class MongoDatabaseUtils {
   }
 
   private static ConceptTermList findConceptByCode(String codeUri) {
-    DBCursor<ConceptTermList> curs = cColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE))
+    DBCursor<ConceptTermList> curs = cColl
+        .find(new BasicDBObject(ENTITY_TYPE_PROPERTY, CONCEPT_TYPE))
         .is(TERM_CODE_URI, codeUri);
     if (curs.hasNext()) {
       return curs.next();
@@ -317,7 +334,8 @@ public class MongoDatabaseUtils {
   }
 
   private static OrganizationTermList findOrganizationByCode(String codeUri) {
-    DBCursor<OrganizationTermList> curs = oColl.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE))
+    DBCursor<OrganizationTermList> curs = oColl
+        .find(new BasicDBObject(ENTITY_TYPE_PROPERTY, ORGANIZATION_TYPE))
         .is(TERM_CODE_URI, codeUri);
     if (curs.hasNext()) {
       return curs.next();

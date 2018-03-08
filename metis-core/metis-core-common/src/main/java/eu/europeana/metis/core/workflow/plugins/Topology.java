@@ -5,7 +5,8 @@ package eu.europeana.metis.core.workflow.plugins;
  * @since 2018-01-12
  */
 public enum Topology {
-  OAIPMH_HARVEST("oai_harvest"), VALIDATION("validation"), TRANSFORMATION("xslt_transform");
+  OAIPMH_HARVEST("oai_harvest"), VALIDATION("validation"), TRANSFORMATION(
+      "xslt_transform"), ENRICHMENT("enrichment");
 
   private String topologyName;
 

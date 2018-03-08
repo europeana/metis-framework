@@ -3,6 +3,7 @@ package eu.europeana.metis.core.workflow.plugins;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import eu.europeana.metis.CommonStringValues;
 import java.util.Date;
 import org.mongodb.morphia.annotations.Embedded;
 
@@ -12,9 +13,7 @@ import org.mongodb.morphia.annotations.Embedded;
  * @author Simon Tzanakis (Simon.Tzanakis@europeana.eu)
  * @since 2017-06-01
  */
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME,
-    include = JsonTypeInfo.As.PROPERTY,
-    property = "pluginType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "pluginType")
 @JsonSubTypes({
     @JsonSubTypes.Type(value = OaipmhHarvestPluginMetadata.class, name = "OAIPMH_HARVEST"),
     @JsonSubTypes.Type(value = HTTPHarvestPluginMetadata.class, name = "HTTP_HARVEST"),
@@ -28,7 +27,7 @@ public abstract class AbstractMetisPluginMetadata {
 
   private boolean mocked = true;
   private String revisionNamePreviousPlugin;
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT)
   private Date revisionTimestampPreviousPlugin;
 
   public AbstractMetisPluginMetadata() {

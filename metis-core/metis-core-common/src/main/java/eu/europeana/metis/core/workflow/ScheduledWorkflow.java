@@ -2,6 +2,7 @@ package eu.europeana.metis.core.workflow;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import eu.europeana.metis.CommonStringValues;
 import eu.europeana.metis.json.ObjectIdSerializer;
 import java.util.Date;
 import org.bson.types.ObjectId;
@@ -28,7 +29,7 @@ public class ScheduledWorkflow implements HasMongoObjectId {
   private ObjectId id;
   private int datasetId;
   @Indexed
-  @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+  @JsonFormat(pattern = CommonStringValues.DATE_FORMAT_FOR_SCHEDULING)
   private Date pointerDate;
   @Indexed
   private String workflowOwner;
