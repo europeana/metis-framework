@@ -4,6 +4,7 @@ import static org.mockito.Mockito.when;
 
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
 import eu.europeana.metis.core.test.utils.TestObjectFactory;
+import eu.europeana.metis.core.workflow.plugins.EnrichmentPlugin;
 import eu.europeana.metis.core.workflow.plugins.OaipmhHarvestPlugin;
 import eu.europeana.metis.core.workflow.plugins.PluginType;
 import eu.europeana.metis.core.workflow.plugins.ValidationExternalPlugin;
@@ -76,6 +77,16 @@ public class TestExecutionRules {
             EnumSet.of(PluginType.TRANSFORMATION))).thenReturn(new ValidationExternalPlugin());
     Assert.assertNotNull(ExecutionRules
         .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.VALIDATION_INTERNAL,
+            null, TestObjectFactory.DATASETID, workflowExecutionDao));
+  }
+
+  @Test
+  public void getLatestFinishedPluginIfRequestedPluginAllowedForExecution_EnrichmentPlugin() {
+    when(workflowExecutionDao
+        .getLatestFinishedWorkflowExecutionByDatasetIdAndPluginType(TestObjectFactory.DATASETID,
+            EnumSet.of(PluginType.VALIDATION_INTERNAL))).thenReturn(new EnrichmentPlugin());
+    Assert.assertNotNull(ExecutionRules
+        .getLatestFinishedPluginIfRequestedPluginAllowedForExecution(PluginType.ENRICHMENT,
             null, TestObjectFactory.DATASETID, workflowExecutionDao));
   }
 
