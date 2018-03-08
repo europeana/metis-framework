@@ -8,10 +8,10 @@ import eu.europeana.cloud.mcs.driver.DataSetServiceClient;
 import eu.europeana.cloud.mcs.driver.FileServiceClient;
 import eu.europeana.cloud.mcs.driver.RecordServiceClient;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.execution.FailsafeExecutor;
 import eu.europeana.metis.core.execution.SchedulerExecutor;
 import eu.europeana.metis.core.execution.WorkflowExecutorManager;
@@ -22,13 +22,14 @@ import eu.europeana.metis.core.service.ProxiesService;
 import io.netty.util.ThreadDeathWatcher;
 import io.netty.util.concurrent.FastThreadLocal;
 import io.netty.util.internal.InternalThreadLocalMap;
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import javax.annotation.PreDestroy;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
@@ -69,6 +70,12 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
   private int pollingTimeoutForCleaningCompletionServiceInSecs;
 
+  //Custom trustore
+  @Value("${truststore.path}")
+  private String truststorePath;
+  @Value("${truststore.password}")
+  private String truststorePassword;
+
   //Redis
   @Value("${redis.host}")
   private String redisHost;
@@ -76,6 +83,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   private int redisPort;
   @Value("${redis.password}")
   private String redisPassword;
+  @Value("${redis.enableSSL}")
+  private boolean redisEnableSSL;
   @Value("${redisson.lock.watchdog.timeout.in.secs}")
   private int redissonLockWatchdogTimeoutInSecs;
 
@@ -130,8 +139,17 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   RedissonClient getRedissonClient() {
     Config config = new Config();
-    SingleServerConfig singleServerConfig = config.useSingleServer()
-        .setAddress(String.format("redis://%s:%s", redisHost, redisPort));
+
+    SingleServerConfig singleServerConfig;
+    if (redisEnableSSL) {
+      singleServerConfig = config.useSingleServer()
+          .setAddress(String.format("rediss://%s:%s", redisHost, redisPort))
+          .setSslTruststore(new File(truststorePath).toURI())
+          .setSslTruststorePassword(truststorePassword);
+    } else {
+      singleServerConfig = config.useSingleServer()
+          .setAddress(String.format("redis://%s:%s", redisHost, redisPort));
+    }
     if (StringUtils.isNotEmpty(redisPassword)) {
       singleServerConfig.setPassword(redisPassword);
     }
@@ -150,7 +168,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       DataSetServiceClient ecloudDataSetServiceClient) throws IOException {
     OrchestratorService orchestratorService = new OrchestratorService(workflowDao,
         workflowExecutionDao,
-        scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager, ecloudDataSetServiceClient,
+        scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager,
+        ecloudDataSetServiceClient,
         redissonClient);
     orchestratorService.setEcloudProvider(ecloudProvider);
     orchestratorService.setMetisCoreUrl(metisCoreBaseUrl);

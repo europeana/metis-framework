@@ -84,16 +84,6 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${mongo.enableSSL}")
   private boolean mongoEnableSSL;
 
-  //Redis
-  @Value("${redis.host}")
-  private String redisHost;
-  @Value("${redis.port}")
-  private int redisPort;
-  @Value("${redis.password}")
-  private String redisPassword;
-  @Value("${redisson.lock.watchdog.timeout.in.secs}")
-  private int redissonLockWatchdogTimeoutInSecs;
-
   //Authentication
   @Value("${authentication.baseUrl}")
   private String authenticationBaseUrl;

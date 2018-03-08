@@ -38,6 +38,7 @@ mongo.db=
 redis.host=
 redis.port=0
 redis.password=
+redis.enableSSL=
 
 solr.url=
 
