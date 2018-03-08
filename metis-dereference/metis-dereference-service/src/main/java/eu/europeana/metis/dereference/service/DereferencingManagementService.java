@@ -41,12 +41,16 @@ public interface DereferencingManagementService {
 
     /**
      * Update entity by uri
-     *
+     * 
+     * @param uri The uri of the entity.
+     * @param xml The entity as XML string.
      */
     void updateEntity(String uri, String xml);
 
     /**
      * Retrieve a vocabulary by name
+     * @param name The name of the vocabulary that we are looking for.
+     * @return the Vocabulary that has that name, or null if no such vocabulary could be found.
      */
     Vocabulary findByName(String name);
 

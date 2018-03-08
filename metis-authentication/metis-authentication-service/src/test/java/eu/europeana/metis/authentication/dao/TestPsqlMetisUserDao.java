@@ -208,7 +208,7 @@ public class TestPsqlMetisUserDao {
     metisUserAccessToken.setTimestamp(new Date(
         now.getTime() - ((psqlMetisUserDao.getAccessTokenExpireTimeInMins() + 1) * 60000)));
     metisUserAccessTokens.add(metisUserAccessToken);
-    when(criteria.list()).thenReturn(metisUserAccessTokens).thenReturn(new ArrayList());
+    when(criteria.list()).thenReturn(metisUserAccessTokens).thenReturn(new ArrayList<>());
     when(criteria.setFirstResult(anyInt())).thenReturn(criteria);
     when(criteria.setMaxResults(anyInt())).thenReturn(criteria);
     when(session.createQuery(any(String.class))).thenReturn(query);

@@ -1,4 +1,4 @@
-package eu.europeana.metis.derefrence.test;
+package eu.europeana.metis.dereference.service;
 
 import com.mongodb.MongoClient;
 import eu.europeana.metis.dereference.ContextualClass;
@@ -146,7 +146,7 @@ public class MongoDereferencingManagementServiceTest {
 
         service.updateEntity(entity.getURI(),"testXml2");
         OriginalEntity entity1 = entityDao.get(entity.getURI());
-        Assert.assertEquals(entity1.getXml(),"testXml2");
+        Assert.assertEquals("testXml2", entity1.getXml());
     }
 
     @After

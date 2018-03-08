@@ -1,6 +1,7 @@
 package eu.europeana.metis.dereference.service.dao;
 
 import java.util.List;
+import java.util.regex.Pattern;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 import org.mongodb.morphia.query.Query;
@@ -25,18 +26,14 @@ public class VocabularyDao {
     }
 
     /**
-     * Retrieve a list of vocabularies for a given URI
+     * Retrieve the vocabularies for which the URL contains the given search string.
      *
-     * TODO MET-655: We should be more clever about this: we should probably only return those of which the 
-     * url matches the beginning of the supplied url (rename the method)? Or just not use this method at all, 
-     * but get all vocabularies and filter through them manually.
-     *
-     * @param uri The uri to search on
-     * @return The list of URIs that conform to that. They need to be further refined by the internal rules
-     * after the entity has been retrieved
+     * @param searchString The string to search on
+     * @return The list of vocabularies. Is not null.
      */
-    public List<Vocabulary> getByUri(String uri) {
-        return ds.find(Vocabulary.class).filter("uri", uri).asList();
+    public List<Vocabulary> getByUriSearch(String searchString) {
+        final Pattern pattern = Pattern.compile(Pattern.quote(searchString)); 
+        return ds.find(Vocabulary.class).filter("uri", pattern).asList();
     }
 
     /**

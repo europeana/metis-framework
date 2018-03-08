@@ -1,14 +1,16 @@
 package eu.europeana.metis.dereference.service.utils;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.metis.dereference.Vocabulary;
-import eu.europeana.metis.dereference.service.MongoDereferenceService;
 
 /**
  * This class contains some utility functionality related to finding the appropriate vocabulary for
@@ -19,74 +21,111 @@ import eu.europeana.metis.dereference.service.MongoDereferenceService;
  */
 public final class VocabularyMatchUtils {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(MongoDereferenceService.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(VocabularyMatchUtils.class);
 
   private VocabularyMatchUtils() {}
 
   /**
-   * Return the vocabularies that match the given resource identifier.
+   * <p>
+   * Return the vocabularies that match the given resource identifier. This method looks at the
+   * vocabulary's URL as well as the vocabulary rules (if present), but not at the type rules.
+   * </p>
+   * <p>
+   * A vocabulary matches the given resource Id if and only if:
+   * <ol>
+   * <li>The resource ID starts with the vocabulary URI, in case the vocabulary doesn't have rules,
+   * or</li>
+   * <li>The resource ID starts with the vocabulary URI immediately followed by one of the rules, in
+   * case the vocabulary does have rules.</li>
+   * </ol>
+   * </p>
+   * <p>
+   * Hence, all vocabulary objects that are returned by this method represent the same vocabulary. A
+   * further selection on the type mappings (or in case of duplicates) can be achieved by the method
+   * {@link #findVocabularyForType(List, String, String)}, which will require the resource to have
+   * been resolved.
+   * </p>
    * 
-   * TODO MET-655 We should change this so that it doesn't just look at the uri field of the
-   * vocabulary, but also at the filter of the vocabulary. So first get all vocabularies matching
-   * the uri, but then in this method filter them on the vocabulary's url rules (if there are any).
-   * We also need to normalize the url to the extent that we can (remove '/./' and '//'). Finally,
-   * we should be more generic, not assuming that the uri consists of the three parts given. A unit
-   * test for this method may be in order.
-   * 
-   * @param resource The resource identifier (URI) that we receive and that we are to match.
-   * @param retrieveFromPersistence A function that retrieves the list of vocabularies from
-   *        persistence given a specific URI.
+   * @param resourceId The resource identifier (URI) that we receive and that we are to match.
+   * @param searchInPersistence A function that searches the persistence for vocabularies of which
+   *        the URL contains a given string. This function will be called once for the host name of
+   *        the resource to allow persistence to greatly narrow down the list of candidate
+   *        vocabularies before they are loaded in memory and processed.
    * @return The list of vocabularies that match the given URI. Or the empty list if none are found.
    *         This method does not return null.
+   * @throws URISyntaxException In case the resource ID could not be read as URI.
    */
-  public static List<Vocabulary> findVocabulariesForResource(String resource,
-      Function<String, List<Vocabulary>> retrieveFromPersistence) {
+  public static List<Vocabulary> findVocabulariesForUrl(String resourceId,
+      Function<String, List<Vocabulary>> searchInPersistence) throws URISyntaxException {
 
-    final String[] splitName = resource.split("/");
-    if (splitName.length <= 3) {
-      LOGGER.info("Invalid uri {}", resource);
-      return Collections.emptyList();
+    // Initial search on the host name (already filtering the great majority of vocabularies).
+    final String searchString = new URI(resourceId).getHost();
+    final List<Vocabulary> searchedVocabularies = searchInPersistence.apply(searchString);
+
+    // Narrow it down further: precisely match the URI and URI rules.
+    final List<Vocabulary> matchingVocabularies;
+    if (searchedVocabularies == null) {
+      matchingVocabularies = Collections.emptyList();
+    } else {
+      matchingVocabularies = searchedVocabularies.stream()
+          .filter(vocabulary -> vocabularyMatchesUri(resourceId, vocabulary))
+          .collect(Collectors.toList());
     }
 
-    final String vocabularyUri = splitName[0] + "/" + splitName[1] + "/" + splitName[2] + "/";
-    final List<Vocabulary> vocabularies = retrieveFromPersistence.apply(vocabularyUri);
+    // Log and done.
+    if (matchingVocabularies.isEmpty()) {
+      LOGGER.info("No vocabularies found for uri {}", resourceId);
+    }
+    return matchingVocabularies;
+  }
 
-    if (vocabularies == null || vocabularies.isEmpty()) {
-      LOGGER.info("No vocabularies found for uri {}", resource);
-      return Collections.emptyList();
+  private static boolean vocabularyMatchesUri(String resourceId, Vocabulary vocabulary) {
+
+    // If there are no URI rules, the resource ID must start with the vocabulary URI.
+    if (vocabulary.getRules() == null || vocabulary.getRules().isEmpty()) {
+      return resourceId.startsWith(vocabulary.getUri());
     }
 
-    return vocabularies;
+    // If there are rules, the resource ID must start with the vocabulary URI followed immediately
+    // by the given rule.
+    return vocabulary.getRules().stream()
+        .anyMatch(rule -> resourceId.startsWith(vocabulary.getUri() + rule));
   }
 
   /**
-   * Once the entity has been retrieved decide on the actual vocabulary that you want
-   *
-   * @param vocabularies The vocabularies to choose from
-   * @param incomingDataXml The actual retrieved entity
-   * @param resource The resource identifier (URI) of the record to check for rules
+   * <p>
+   * Returns any vocabulary that match the given incoming data. This method looks at the
+   * vocabulary's type rules (if present), but not at the URL and URL rules. If multiple candidate
+   * vocabularies would match, this method gives no guarantee about which one is returned.
+   * </p>
+   * <p>
+   * A vocabulary matches the given incoming data XML as follows:
+   * <ol>
+   * <li>If the vocabulary doesn't have type rules, it always matches the data XML ,</li>
+   * <li>If the vocabulary does have type rules, it matches the data XML if and only if the XML (as
+   * a string) contains one of the type rules as a substring. <b>Please note:</b> no further
+   * requirements are imposed on the structure or context of the type rule occurrence in the data
+   * XML.</li>
+   * </ol>
+   * </p>
+   * 
+   * @param vocabularyCandidates The candidate vocabularies to choose from
+   * @param incomingDataXml The actual retrieved entity of which to map the type
+   * @param resourceId The resource identifier (URI) of the retrieved entity
    * @return The corresponding vocabulary, or null if no such vocabulary is found.
    */
-  public static Vocabulary findByEntity(List<Vocabulary> vocabularies, String incomingDataXml,
-      String resource) {
-    return vocabularies.stream()
-        .filter(vocabulary -> vocabularyMatches(vocabulary, incomingDataXml, resource)).findAny()
+  public static Vocabulary findVocabularyForType(List<Vocabulary> vocabularyCandidates,
+      String incomingDataXml, String resourceId) {
+    final Vocabulary result = vocabularyCandidates.stream()
+        .filter(vocabulary -> vocabularyMatchesType(vocabulary, incomingDataXml)).findAny()
         .orElse(null);
+    if (result == null) {
+      LOGGER.info("No vocabularies found for uri {}", resourceId);
+    }
+    return result;
   }
 
-  // TODO MET-655: It requires the whole uri to be present in the rule (including the
-  // record-specific part). It should rather test that a certain part of it is included as a rule
-  // (the path?). A unit test for this may also be in order.
-  private static boolean vocabularyMatches(Vocabulary vocabulary, String incomingDataXml,
-      String resource) {
-
-    // Check the rules
-    final Set<String> vocabularyRules = vocabulary.getRules();
-    if (vocabularyRules != null && !vocabularyRules.isEmpty() && !vocabularyRules.contains(resource)) {
-      return false;
-    }
-
-    // Check the type rules (more expensive operation: only do when needed).
+  private static boolean vocabularyMatchesType(Vocabulary vocabulary, String incomingDataXml) {
     final Set<String> typeRules = vocabulary.getTypeRules();
     return typeRules == null || typeRules.isEmpty()
         || typeRules.stream().anyMatch(typeRule -> StringUtils.contains(incomingDataXml, typeRule));
