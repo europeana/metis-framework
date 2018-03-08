@@ -24,8 +24,8 @@ public class VocabularyMatchUtilsTest {
     final String hostName = "dummy.com";
 
     // Create vocabularies that should match (with and without rules)
-    final String correntPath = "complex/path1/";
-    final String correctVocUri = "http://" + hostName + "/" + correntPath;
+    final String correctPath = "complex/path1/";
+    final String correctVocUri = "http://" + hostName + "/" + correctPath;
     final String correctUriRule = "voc1";
     final String wrongUriRule = "voc2";
     final Vocabulary correctVocabulary1 = new Vocabulary();

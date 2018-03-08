@@ -91,7 +91,8 @@ public class RdfRetriever {
       result = IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
       resultContentType = urlConnection.getContentType();
     } catch (IOException e) {
-      LOGGER.error("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
+      LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
+      LOGGER.debug("Problem retrieving resource.", e);
     }
 
     // Check that we didn't receive HTML input.

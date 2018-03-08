@@ -87,7 +87,7 @@ public class MongoDereferenceService implements DereferenceService {
 
     // If it is not in the cache, get it from the source vocabulary and cache it.
     if (entityString == null) {
-      entityString = retrieveFromSourceVocabulary(resourceId);
+      entityString = retrieveTransformedEntity(resourceId);
       if (entityString != null) {
         final ProcessedEntity entityToCache = new ProcessedEntity();
         entityToCache.setXml(entityString);
@@ -110,12 +110,38 @@ public class MongoDereferenceService implements DereferenceService {
     return result;
   }
 
-  private String retrieveFromSourceVocabulary(String resourceId)
-      throws TransformerException, URISyntaxException {
+  private String retrieveTransformedEntity(String resourceId)
+      throws URISyntaxException, TransformerException {
 
     // Get the vocabularies that potentially match the given resource ID.
     final List<Vocabulary> vocabularyCandidates =
         VocabularyMatchUtils.findVocabulariesForUrl(resourceId, vocabularyDao::getByUriSearch);
+
+    // Get the original entity given the list of vocabulary candidates
+    final String originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
+
+    // Try to find the vocabulary.
+    final Vocabulary vocabulary;
+    if (vocabularyCandidates.isEmpty()) {
+      vocabulary = null;
+    } else {
+      vocabulary = VocabularyMatchUtils.findVocabularyForType(vocabularyCandidates, originalEntity,
+          resourceId);
+    }
+
+    // Check vocabulary existence
+    if (vocabulary == null) {
+      LOGGER.debug("Could not find vocabulary for resource {}.", resourceId);
+      return null;
+    }
+
+    // Transform the original entity.
+    return new IncomingRecordToEdmConverter(vocabulary).convert(originalEntity, resourceId);
+  }
+
+  private String retrieveOriginalEntity(String resourceId, List<Vocabulary> vocabularyCandidates) {
+
+    // Sanity check
     if (vocabularyCandidates.isEmpty()) {
       return null;
     }
@@ -131,22 +157,9 @@ public class MongoDereferenceService implements DereferenceService {
     final String originalEntity = retriever.retrieve(resourceId, possibleSuffixes);
     if (originalEntity == null) {
       LOGGER.info("No entity XML for uri {}", resourceId);
-      return null;
     }
 
-    // Find the vocabulary that applies to the entity.
-    final Vocabulary vocabulary = VocabularyMatchUtils.findVocabularyForType(vocabularyCandidates,
-        originalEntity, resourceId);
-    if (vocabulary == null) {
-      return null;
-    }
-
-    // Transform the original entity.
-    try {
-      return new IncomingRecordToEdmConverter(vocabulary).convert(originalEntity, resourceId);
-    } catch (TransformerException e) {
-      LOGGER.error("Error transforming entity: {} with message :{}", resourceId, e.getMessage());
-      throw e;
-    }
+    // Done
+    return originalEntity;
   }
 }

@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import javax.xml.transform.TransformerException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -25,61 +27,67 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 /**
- * Dereferencing REST endpoint
- * Created by gmamakis on 12-2-16.
+ * Dereferencing REST endpoint Created by gmamakis on 12-2-16.
  */
 @Controller
 @Api("/")
 public class DereferencingController {
-  
-    private static final Charset URI_CHARSET = StandardCharsets.UTF_8;
-  
-    private final DereferenceService dereferenceService;
 
-    @Autowired
-    public DereferencingController(DereferenceService dereferenceService) {
-        this.dereferenceService = dereferenceService;
-    }
+  private static final Logger LOGGER = LoggerFactory.getLogger(DereferencingController.class);
 
-    /**
-     * Dereference a record given a URI
-     *
-     * @param resourceId The resource ID (URI) of the entity to dereference
-     * @return The dereferenced entities
-     * @throws JAXBException 
-     */
-    @RequestMapping(method = RequestMethod.GET, value = RestEndpoints.DEREFERENCE,
-    		produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
-    @ResponseBody
-    @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
-    public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) throws JAXBException {
-    	try {
-    	  return dereferenceService.dereference(URLDecoder.decode(resourceId, URI_CHARSET.name()));
-    	} catch (TransformerException | IOException | URISyntaxException e) {
-    		throw new DereferenceException(e.getMessage(), resourceId);
-    	}
-    }
+  private static final Charset URI_CHARSET = StandardCharsets.UTF_8;
 
-    /**
-     * Dereference a record given a URI
-     *
-     * @param resourceIds The resource IDs to dereference
-     * @return The dereferenced entities
-     * @throws JAXBException 
-     */
-    @RequestMapping(method = RequestMethod.POST, value = RestEndpoints.DEREFERENCE,
-    		consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
-    		produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE} )
-    @ResponseBody
-    @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
-    public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) throws JAXBException {
-    	EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
-        for (String resourceId : resourceIds) {
-            EnrichmentResultList result = dereference(resourceId);
-            if (result != null) {
-                dereferencedEntities.getResult().addAll(result.getResult());
-            }
-        }
-    	return dereferencedEntities;
+  private final DereferenceService dereferenceService;
+
+  /**
+   * Constructor.
+   * 
+   * @param dereferenceService An instance for processing dereference requests.
+   */
+  @Autowired
+  public DereferencingController(DereferenceService dereferenceService) {
+    this.dereferenceService = dereferenceService;
+  }
+
+  /**
+   * Dereference a record given a URI
+   *
+   * @param resourceId The resource ID (URI) of the entity to dereference
+   * @return The dereferenced entities
+   */
+  @RequestMapping(value = RestEndpoints.DEREFERENCE, method = RequestMethod.GET,
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseBody
+  @ApiOperation(value = "Dereference a URI", response = EnrichmentResultList.class)
+  public EnrichmentResultList dereference(@ApiParam("uri") @RequestParam("uri") String resourceId) {
+    try {
+      return dereferenceService.dereference(URLDecoder.decode(resourceId, URI_CHARSET.name()));
+    } catch (RuntimeException | JAXBException | TransformerException | IOException
+        | URISyntaxException e) {
+      LOGGER.debug("Problem occurred while dereferencing resource " + resourceId + ".", e);
+      throw new DereferenceException(e.getMessage(), resourceId);
     }
+  }
+
+  /**
+   * Dereference a record given a URI
+   *
+   * @param resourceIds The resource IDs to dereference
+   * @return The dereferenced entities
+   */
+  @RequestMapping(value = RestEndpoints.DEREFERENCE, method = RequestMethod.POST,
+      consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE},
+      produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+  @ResponseBody
+  @ApiOperation(value = "Dereference a list URI", response = EnrichmentResultList.class)
+  public EnrichmentResultList dereference(@RequestBody List<String> resourceIds) {
+    EnrichmentResultList dereferencedEntities = new EnrichmentResultList();
+    for (String resourceId : resourceIds) {
+      EnrichmentResultList result = dereference(resourceId);
+      if (result != null) {
+        dereferencedEntities.getResult().addAll(result.getResult());
+      }
+    }
+    return dereferencedEntities;
+  }
 }
