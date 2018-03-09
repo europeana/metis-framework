@@ -8,6 +8,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -148,7 +150,7 @@ public class Validator implements Callable<ValidationResult> {
     private ValidationResult constructValidationError(String document, Exception e) {
         ValidationResult res = new ValidationResult();
         res.setMessage(e.getMessage());
-        res.setRecordId(StringUtils.substringBetween(document, "ProvidedCHO", ">"));
+        res.setRecordId(getRecordId(document));
         if (StringUtils.isEmpty(res.getRecordId())) {
             res.setRecordId("Missing record identifier for EDM record");
         }
@@ -160,7 +162,7 @@ public class Validator implements Callable<ValidationResult> {
     private ValidationResult constructValidationError(String document, String message, String nodeId) {
         ValidationResult res = new ValidationResult();
         res.setMessage(message);
-        res.setRecordId(StringUtils.substringBetween(document, "ProvidedCHO", ">"));
+        res.setRecordId(getRecordId(document));
         if (StringUtils.isEmpty(res.getRecordId())) {
             res.setRecordId("Missing record identifier for EDM record");
         }
@@ -172,6 +174,14 @@ public class Validator implements Callable<ValidationResult> {
 
         res.setSuccess(false);
         return res;
+    }
+
+    private String getRecordId(String document) {
+        Pattern pattern = Pattern.compile("ProvidedCHO\\s+rdf:about\\s?=\\s?\"(.+)\"\\s?>");
+        Matcher matcher = pattern.matcher(document);
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else return null;
     }
 
     private ValidationResult constructOk() {
