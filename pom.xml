@@ -177,7 +177,6 @@
     <module>metis-hierarchies</module>
     <module>metis-dereference</module>
     <module>metis-redirect</module>
-    <module>metis-identifier</module>
     <module>metis-validation</module>
     <module>metis-mapping</module>
     <module>metis-enrichment</module>
