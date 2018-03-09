@@ -2,7 +2,6 @@ package eu.europeana.normalization.common.language;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import eu.europeana.normalization.common.NormalizeDetails;
 import eu.europeana.normalization.common.RecordNormalization;
@@ -11,9 +10,9 @@ import eu.europeana.normalization.common.language.nal.AmbiguousLabelMatchExcepti
 import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
 import eu.europeana.normalization.common.language.nal.LanguageMatcher;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
-import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
-import eu.europeana.normalization.util.Namespaces;
+import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
+import eu.europeana.normalization.util.XpathQuery;
 
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
@@ -22,6 +21,26 @@ import eu.europeana.normalization.util.NormalizationConfigurationException;
  * @since 16/03/2016
  */
 public class LanguageNormalizer implements ValueNormalization {
+
+  private static final XpathQuery DC_LANGUAGE_QUERY = XpathQuery.create("//%s/%s",
+      Namespace.ORE.getElement("Proxy"), Namespace.DC.getElement("language"));
+
+  private static final XpathQuery XML_LANG_QUERY = XpathQuery.create("//*[@%s]/@%s",
+      Namespace.XML.getElement("lang"), Namespace.XML.getElement("lang"));
+
+  private static final XpathQuery COMBINED_QUERY =
+      XpathQuery.combine(DC_LANGUAGE_QUERY, XML_LANG_QUERY);
+
+  public enum SupportedOperations {
+    
+    DC_LANGUAGE(DC_LANGUAGE_QUERY), XML_LANG(XML_LANG_QUERY), ALL(COMBINED_QUERY);
+
+    private final XpathQuery languageQuery;
+
+    private SupportedOperations(XpathQuery languageQuery) {
+      this.languageQuery = languageQuery;
+    }
+  }
 
   private Float minimumConfidence;
   private final LanguageMatcher normalizer;
@@ -65,9 +84,6 @@ public class LanguageNormalizer implements ValueNormalization {
         if (!normalizeds.isEmpty()) {
           res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
         } else {
-          // if (!lbl.endsWith("[Metadata]") && !lbl.endsWith("[Resource]")) {// Some invalid values
-          // that were
-          // present when research was underway. Ingestion will clean these values later
           normalizeds = normalizer.findLabelAllWordMatches(lbl);
           if (!normalizeds.isEmpty()) {
             res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
@@ -97,36 +113,11 @@ public class LanguageNormalizer implements ValueNormalization {
 
   @Override
   public RecordNormalization toEdmRecordNormalizer() {
-    HashMap<String, String> namespacesPrefixes = new HashMap<String, String>() {
-      {
-        put("dc", Namespaces.DC);
-        put("ore", Namespaces.ORE);
-        put("xml", Namespaces.XML);
-      }
-    };
-    XpathQuery dcLanguageQuery = null;
-    switch (operations) {
-      case ALL:
-        dcLanguageQuery = new XpathQuery(namespacesPrefixes,
-            "//ore:Proxy/dc:language | //*[@xml:lang]/@xml:lang");
-        break;
-      case DC_LANGUAGE:
-        dcLanguageQuery = new XpathQuery(namespacesPrefixes, "//ore:Proxy/dc:language");
-        break;
-      case XML_LANG:
-        dcLanguageQuery = new XpathQuery(namespacesPrefixes, "//*[@xml:lang]/@xml:lang");
-        break;
-    }
-    return new ValueToRecordNormalizationWrapper(this, false, dcLanguageQuery);
+    return new ValueToRecordNormalizationWrapper(this, false, operations.languageQuery);
   }
 
   public LanguageNormalizer setOperations(SupportedOperations operations) {
     this.operations = operations;
     return this;
   }
-
-  public enum SupportedOperations {
-    DC_LANGUAGE, XML_LANG, ALL
-  }
-
 }

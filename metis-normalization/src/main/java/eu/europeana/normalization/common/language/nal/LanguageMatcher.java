@@ -12,7 +12,7 @@ import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.util.IndexUtilUnicode;
+import eu.europeana.normalization.util.IndexLabelNormalizer;
 
 /**
  * Provides the matching algorithms for matching dc:language values with codes and labels in the
@@ -174,7 +174,7 @@ public class LanguageMatcher {
    * @return
    */
   private String normalizeLabelForIndex(String label) {
-    return IndexUtilUnicode.encode(label);
+    return IndexLabelNormalizer.normalizeIndexLabel(label);
   }
 
   // TODO JOCHEN looks a lot like the method below

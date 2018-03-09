@@ -1,12 +1,15 @@
 package eu.europeana.normalization.util;
 
+import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
@@ -14,23 +17,25 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 /**
  * Utility methods for working with XML DOMs (org.w3c.dom)
  *
  * @author Nuno Freire (nfreire@gmail.com)
- * @since 23 de Fev de 2011
  */
-public class XmlUtil {
+public final class XmlUtil {
 
   /**
    * Document builder factory
    */
-  private static DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+  private static final DocumentBuilderFactory FACTORY = DocumentBuilderFactory.newInstance();
 
   static {
-    factory.setNamespaceAware(true);
+    FACTORY.setNamespaceAware(true);
   }
+
+  private XmlUtil() {}
 
   /**
    * An iterable for all the Element childs of a node
@@ -72,26 +77,31 @@ public class XmlUtil {
    * Gets the first child Element with a given name
    *
    * @param n the node get the children from
-   * @param elementName the name of the child elements
+   * @param elementName the name of the child element
    * @return the first child Element with a given name
    */
   public static Element getElementByTagName(Element n, String elementName) {
-    NodeList subNodes = n.getElementsByTagName(elementName);
-    int sz = subNodes.getLength();
-    if (sz > 0) {
-      return (Element) subNodes.item(0);
-    }
-    return null;
+    return (Element) n.getElementsByTagName(elementName).item(0);
   }
 
+  /**
+   * Gets the text content of the first child Element with a given name
+   *
+   * @param n the node get the text from
+   * @param elementName the name of the child element
+   * @return The text in the various text child nodes, concatenated.
+   */
   public static String getElementTextByTagName(Element n, String elementName) {
-    Element subEl = getElementByTagName(n, elementName);
-    if (subEl != null) {
-      return getElementText(subEl);
-    }
-    return null;
+    final Element subEl = getElementByTagName(n, elementName);
+    return subEl != null ? getElementText(subEl) : null;
   }
 
+  /**
+   * Gets the text content of the given element.
+   *
+   * @param n the node get the text from
+   * @return The text in the various text child nodes, concatenated.
+   */
   public static String getElementText(Element n) {
     NodeList childNodes = n.getChildNodes();
     StringBuilder result = new StringBuilder();
@@ -105,46 +115,45 @@ public class XmlUtil {
   }
 
   /**
-   * Creates a DOM from a file representation of an xml record
+   * Deserialize input into a DOM tree.
    *
-   * @param reader the xml reader
+   * @param reader the reader containing the input.
    * @return the DOM document
+   * @throws XmlException In case of parsing or IO errors.
    */
   public static Document parseDom(Reader reader) throws XmlException {
     try {
-      DocumentBuilder builder = factory.newDocumentBuilder();
+      DocumentBuilder builder = FACTORY.newDocumentBuilder();
       return builder.parse(new org.xml.sax.InputSource(reader));
-    } catch (Exception e) {
+    } catch (ParserConfigurationException | SAXException | IOException e) {
       throw new XmlException("Could not parse DOM for '" + reader.toString() + "'!", e);
     }
   }
 
   /**
-   * Converts a dom to a String
+   * Serialize a DOM tree to an XML string.
    *
-   * @param dom dom to convert
-   * @return the dom as a String
+   * @param dom The DOM tree to convert
+   * @return A string containing the XML representation of the DOM tree.
+   * @throws XmlException In case something went wrong while performing the transformation.
    */
   public static String writeDomToString(Document dom) throws XmlException {
     return writeDomToString(dom, null);
   }
 
   /**
-   * Converts a dom to a String
+   * Serialize a DOM tree to an XML string.
    *
-   * @param dom dom to convert
-   * @param outputProperties the properties for the String representation of the XML
-   * @return the dom as a String
+   * @param dom The DOM tree to convert
+   * @param outputProperties the properties for the String representation of the XML. Can be null.
+   * @return A string containing the XML representation of the DOM tree.
+   * @throws XmlException In case something went wrong while performing the transformation.
    */
-  private static String writeDomToString(Document dom, Properties outputProperties) throws XmlException {
-    return writeNodeToString(dom, outputProperties);
-  }
-
-  private static String writeNodeToString(Node dom, Properties outputProperties) throws XmlException {
+  private static String writeDomToString(Document dom, Properties outputProperties)
+      throws XmlException {
     try {
       StringWriter ret = new StringWriter();
       TransformerFactory transFact = TransformerFactory.newInstance();
-// transFact.setAttribute("indent-number", 2);
       Transformer transformer = transFact.newTransformer();
       if (outputProperties != null) {
         transformer.setOutputProperties(outputProperties);
@@ -153,7 +162,7 @@ public class XmlUtil {
       StreamResult result = new StreamResult(ret);
       transformer.transform(source, result);
       return ret.toString();
-    } catch (Exception e) {
+    } catch (RuntimeException | TransformerException e) {
       throw new XmlException("Could not write dom to string!", e);
     }
   }

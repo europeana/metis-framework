@@ -1,52 +1,31 @@
 package eu.europeana.normalization.common.cleaning;
 
+import java.util.Arrays;
 import eu.europeana.normalization.common.RecordNormalization;
 import eu.europeana.normalization.common.ValueNormalization;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
-import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
-import eu.europeana.normalization.util.Namespaces;
-import java.util.HashMap;
+import eu.europeana.normalization.util.Namespace;
+import eu.europeana.normalization.util.Namespace.Element;
+import eu.europeana.normalization.util.XpathQuery;
 
 public abstract class EdmRecordNormalizerBase implements ValueNormalization {
 
-  public EdmRecordNormalizerBase() {
-    super();
+  private static final Element[] ELEMENTS_TO_QUERY = {Namespace.ORE.getElement("Proxy"),
+      Namespace.ORE.getElement("Aggregation"), Namespace.EDM.getElement("WebResource"),
+      Namespace.EDM.getElement("Agent"), Namespace.EDM.getElement("Place"),
+      Namespace.EDM.getElement("Event"), Namespace.EDM.getElement("TimeSpan"),
+      Namespace.EDM.getElement("PhysicalThing"), Namespace.SKOS.getElement("Concept")};
+
+  private static final XpathQuery RECORD_NORMALIZATION_QUERY =
+      XpathQuery.combine(Arrays.stream(ELEMENTS_TO_QUERY)
+          .map(EdmRecordNormalizerBase::getRdfSubtagQuery).toArray(XpathQuery[]::new));
+
+  private static final XpathQuery getRdfSubtagQuery(Element subtag) {
+    return XpathQuery.create("/%s/%s/*", XpathQuery.RDF_TAG, subtag);
   }
 
   @Override
   public RecordNormalization toEdmRecordNormalizer() {
-    XpathQuery cleanablePropertiesQuery = new XpathQuery(
-        new HashMap<String, String>() {
-          private static final long serialVersionUID = 1L;
-
-          {
-            put("rdf", Namespaces.RDF);
-            put("dc", Namespaces.DC);
-            put("ore", Namespaces.ORE);
-            put("edm", Namespaces.EDM);
-            put("skos", Namespaces.SKOS);
-          }
-        },
-        "/rdf:RDF/ore:Proxy/*"
-//				"/rdf:RDF/ore:Proxy[edm:europeanaProxy='true']/*"
-            + "| /rdf:RDF/ore:Aggregation/*"
-            + "| /rdf:RDF/edm:WebResource/*"
-            + "| /rdf:RDF/edm:Agent/*"
-            + "| /rdf:RDF/edm:Place/*"
-            + "| /rdf:RDF/edm:Event/*"
-            + "| /rdf:RDF/edm:TimeSpan/*"
-            + "| /rdf:RDF/edm:PhysicalThing/*"
-            + "| /rdf:RDF/skos:Concept/*"
-    );
-//	}}, "//ore:Proxy[edm:europeanaProxy='true')/dc:language");
-
-//		ore:Proxy_europeana/edm:europeanaProxy
-
-//		For all properties of ore:proxy where edm:europeanaProxy=true, ore:Aggregation, all edm:WebResource, all contextual classes
-
-    return new ValueToRecordNormalizationWrapper(this,
-        false, cleanablePropertiesQuery);
+    return new ValueToRecordNormalizationWrapper(this, false, RECORD_NORMALIZATION_QUERY);
   }
-
-
 }

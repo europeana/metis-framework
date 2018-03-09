@@ -1,18 +1,8 @@
 package eu.europeana.normalization.common.normalizers;
 
-import eu.europeana.normalization.common.NormalizeDetails;
-import eu.europeana.normalization.common.RecordNormalization;
-import eu.europeana.normalization.common.ValueNormalization;
-import eu.europeana.normalization.model.ConfidenceLevel;
-import eu.europeana.normalization.model.NormalizationReport;
-import eu.europeana.normalization.util.Namespaces;
-import eu.europeana.normalization.util.XmlUtil;
-import eu.europeana.normalization.util.XPathUtil;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Attr;
@@ -20,21 +10,25 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import eu.europeana.normalization.common.NormalizeDetails;
+import eu.europeana.normalization.common.RecordNormalization;
+import eu.europeana.normalization.common.ValueNormalization;
+import eu.europeana.normalization.model.ConfidenceLevel;
+import eu.europeana.normalization.model.NormalizationReport;
+import eu.europeana.normalization.util.Namespace;
+import eu.europeana.normalization.util.XmlUtil;
+import eu.europeana.normalization.util.XpathQuery;
 
 public class ValueToRecordNormalizationWrapper implements RecordNormalization {
 
-  private static final XpathQuery EUROPEANA_PROXY_QUERY = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-      }}, "/rdf:RDF/ore:Proxy[edm:europeanaProxy='true']");
-  private static final XpathQuery PROVIDER_PROXY_QUERY = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-      }}, "/rdf:RDF/ore:Proxy[not(edm:europeanaProxy='true')]");
+  private static final XpathQuery EUROPEANA_PROXY_QUERY =
+      XpathQuery.create("/%s/%s[%s='true']", XpathQuery.RDF_TAG, Namespace.ORE.getElement("Proxy"),
+          Namespace.EDM.getElement("europeanaProxy"));
+
+  private static final XpathQuery PROVIDER_PROXY_QUERY =
+      XpathQuery.create("/%s/%s[not(%s='true')]", Namespace.RDF.getElement("RDF"),
+          Namespace.ORE.getElement("Proxy"), Namespace.EDM.getElement("europeanaProxy"));
+
   private boolean normalizeToEuropeanaProxy;
   private List<XpathQuery> targetElements;
   private ValueNormalization normalization;
@@ -51,10 +45,8 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
     Element europeanaProxy;
     Element providerProxy;
     try {
-      europeanaProxy = XPathUtil.queryDomForElement(EUROPEANA_PROXY_QUERY.getNamespacesPrefixes(),
-          EUROPEANA_PROXY_QUERY.getExpression(), edm);
-      providerProxy = XPathUtil.queryDomForElement(PROVIDER_PROXY_QUERY.getNamespacesPrefixes(),
-          PROVIDER_PROXY_QUERY.getExpression(), edm);
+      europeanaProxy = EUROPEANA_PROXY_QUERY.executeForSingleElement(edm);
+      providerProxy = PROVIDER_PROXY_QUERY.executeForSingleElement(edm);
     } catch (XPathExpressionException e) {
       throw new RuntimeException(e.getMessage(), e);
     }
@@ -63,7 +55,7 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
     for (XpathQuery q : targetElements) {
       NodeList elements;
       try {
-        elements = XPathUtil.queryDom(q.getNamespacesPrefixes(), q.getExpression(), edm);
+        elements = q.execute(edm);
       } catch (XPathExpressionException e) {
         throw new RuntimeException(e.getMessage(), e);
       }
@@ -75,8 +67,8 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
           List<NormalizeDetails> normalizedValue = normalization.normalizeDetailed(value);
 
           if (normalizedValue.isEmpty() || normalizedValue.size() > 1) {
-            at.getParentNode().getAttributes()
-                .removeNamedItemNS(at.getNamespaceURI(), at.getLocalName());
+            at.getParentNode().getAttributes().removeNamedItemNS(at.getNamespaceURI(),
+                at.getLocalName());
             report.increment(normalization.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
           } else {
             boolean valueChanged = !normalizedValue.get(0).getNormalizedValue().equals(value);
@@ -93,7 +85,7 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
 
           if (normalizedValue.isEmpty()) {
             if (el.getAttributes().getLength() == 0 || (el.getAttributes().getLength() == 1
-                && !StringUtils.isEmpty(el.getAttributeNS(Namespaces.XML, "lang")))) {
+                && !StringUtils.isEmpty(el.getAttributeNS(Namespace.XML.getUri(), "lang")))) {
               el.getParentNode().removeChild(el);
             } else {
               NodeList childNodes = el.getChildNodes();
@@ -106,20 +98,15 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
             }
             report.increment(normalization.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
           } else {
-            //					System.out.println(value);
-            //					System.out.println(normalizedValue.get(0).getNormalizedValue());
-
-            boolean valueChanged =
-                normalizedValue.size() > 1 || !normalizedValue.get(0).getNormalizedValue()
-                    .equals(value);
-            //					System.out.println(valueChanged);
+            boolean valueChanged = normalizedValue.size() > 1
+                || !normalizedValue.get(0).getNormalizedValue().equals(value);
             if (valueChanged) {
               if (normalizeToEuropeanaProxy && el.getParentNode() == providerProxy) {
                 if (europeanaProxy == null) {
-                  europeanaProxy = edm.createElementNS(Namespaces.ORE, "Proxy");
+                  europeanaProxy = edm.createElementNS(Namespace.ORE.getUri(), "Proxy");
                   edm.getDocumentElement().appendChild(europeanaProxy);
-                  Element europeanaProxyProp = edm
-                      .createElementNS(Namespaces.EDM, "europeanaProxy");
+                  Element europeanaProxyProp =
+                      edm.createElementNS(Namespace.EDM.getUri(), "europeanaProxy");
                   europeanaProxyProp.appendChild(edm.createTextNode("true"));
                   europeanaProxy.appendChild(europeanaProxyProp);
                 }
@@ -128,8 +115,8 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
                       aNormalizedValue.getConfidenceClass());
 
                   Node newEl = el.cloneNode(false);
-                  newEl.appendChild(el.getOwnerDocument()
-                      .createTextNode(aNormalizedValue.getNormalizedValue()));
+                  newEl.appendChild(
+                      el.getOwnerDocument().createTextNode(aNormalizedValue.getNormalizedValue()));
                   europeanaProxy.appendChild(newEl);
                 }
               } else {
@@ -162,25 +149,6 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
       }
     }
     return report;
-  }
-
-  public static class XpathQuery {
-
-    private final Map<String, String> namespacesPrefixes;
-    private final String expression;
-
-    public XpathQuery(Map<String, String> namespacesPrefixes, String expression) {
-      this.namespacesPrefixes = namespacesPrefixes;
-      this.expression = expression;
-    }
-
-    public Map<String, String> getNamespacesPrefixes() {
-      return namespacesPrefixes;
-    }
-
-    public String getExpression() {
-      return expression;
-    }
   }
 
 }

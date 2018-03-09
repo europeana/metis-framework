@@ -1,73 +1,54 @@
 package eu.europeana.normalization.common.cleaning;
 
-import eu.europeana.normalization.common.RecordNormalization;
-import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
-import eu.europeana.normalization.model.ConfidenceLevel;
-import eu.europeana.normalization.model.NormalizationReport;
-import eu.europeana.normalization.util.Namespaces;
-import eu.europeana.normalization.util.XPathUtil;
-import eu.europeana.normalization.util.XmlUtil;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import javax.xml.xpath.XPathExpressionException;
 import org.apache.commons.lang.StringUtils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+import eu.europeana.normalization.common.RecordNormalization;
+import eu.europeana.normalization.model.ConfidenceLevel;
+import eu.europeana.normalization.model.NormalizationReport;
+import eu.europeana.normalization.util.Namespace;
+import eu.europeana.normalization.util.XmlUtil;
+import eu.europeana.normalization.util.XpathQuery;
 
 public class DuplicateStatementCleaning implements RecordNormalization {
 
-  //	Europeana Proxy (dc:title, dcterms:alternative, dc:subject, dc:identifier, dc:type)
-  private final XpathQuery PROXY_QUERY_TITLE = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-        put("dc", Namespaces.DC);
-      }}, "/rdf:RDF/ore:Proxy/dc:title");
-  private final XpathQuery PROXY_QUERY_ALTERNATIVE = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-        put("dcterms", Namespaces.DCTERMS);
-      }}, "/rdf:RDF/ore:Proxy/dcterms:alternative");
-  private final XpathQuery PROXY_QUERY_SUBJECT = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-        put("dc", Namespaces.DC);
-      }}, "/rdf:RDF/ore:Proxy/dc:subject");
-  private final XpathQuery PROXY_QUERY_IDENTIFIER = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-        put("dc", Namespaces.DC);
-      }}, "/rdf:RDF/ore:Proxy/dc:identifier");
-  private final XpathQuery PROXY_QUERY_TYPE = new XpathQuery(
-      new HashMap<String, String>() {{
-        put("rdf", Namespaces.RDF);
-        put("ore", Namespaces.ORE);
-        put("edm", Namespaces.EDM);
-        put("dc", Namespaces.DC);
-      }}, "/rdf:RDF/ore:Proxy/dc:type");
+  private static final XpathQuery PROXY_QUERY_TITLE =
+      getProxySubtagQuery(Namespace.DC.getElement("title"));
 
-  private final XpathQuery[][] fieldSetsToValidate = new XpathQuery[][]{
-      {PROXY_QUERY_TITLE, PROXY_QUERY_ALTERNATIVE}, {PROXY_QUERY_SUBJECT}, {PROXY_QUERY_IDENTIFIER},
-      {PROXY_QUERY_TYPE}};
+  private static final XpathQuery PROXY_QUERY_ALTERNATIVE =
+      getProxySubtagQuery(Namespace.DCTERMS.getElement("alternative"));
 
+  private static final XpathQuery PROXY_QUERY_SUBJECT =
+      getProxySubtagQuery(Namespace.DC.getElement("subject"));
+
+  private static final XpathQuery PROXY_QUERY_IDENTIFIER =
+      getProxySubtagQuery(Namespace.DC.getElement("identifier"));
+
+  private static final XpathQuery PROXY_QUERY_TYPE =
+      getProxySubtagQuery(Namespace.DC.getElement("type"));
+
+  private static final XpathQuery[][] FIELD_SETS_TO_EVALUATE =
+      new XpathQuery[][] {{PROXY_QUERY_TITLE, PROXY_QUERY_ALTERNATIVE}, {PROXY_QUERY_SUBJECT},
+          {PROXY_QUERY_IDENTIFIER}, {PROXY_QUERY_TYPE}};
+
+  private static final XpathQuery getProxySubtagQuery(Namespace.Element subtag) {
+    return XpathQuery.create("/%s/%s/%s", XpathQuery.RDF_TAG, Namespace.ORE.getElement("Proxy"),
+        subtag);
+  }
+          
   @Override
   public NormalizationReport normalize(Document edm) {
     NormalizationReport report = new NormalizationReport();
-    for (XpathQuery[] fieldSet : fieldSetsToValidate) {
+    for (XpathQuery[] fieldSet : FIELD_SETS_TO_EVALUATE) {
       ArrayList<Element> elements = new ArrayList<>();
       for (XpathQuery query : fieldSet) {
         NodeList nodes;
         try {
-          nodes = XPathUtil.queryDom(query.getNamespacesPrefixes(), query.getExpression(), edm);
+          nodes = query.execute(edm);
         } catch (XPathExpressionException e) {
           throw new RuntimeException(e.getMessage(), e);
         }
@@ -79,7 +60,7 @@ public class DuplicateStatementCleaning implements RecordNormalization {
         HashSet<String> dupDetectorWithLang = new HashSet<>();
 
         for (Element el : elements) {
-          String lang = el.getAttributeNS(Namespaces.XML, "lang");
+          String lang = el.getAttributeNS(Namespace.XML.getUri(), "lang");
           String key = XmlUtil.getElementText(el);
           String keyLang = key;
           if (!StringUtils.isEmpty(lang)) {
