@@ -45,6 +45,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final String ORGANIZATION_ROLE = "Organisation Role";
 	private static final String GEOGRAPHIC_LEVEL = "Geographic Level";
 	private static final String ACRONYM = "Acronym";
+	private static final String LANG_ACRONYM = "Lang Acronym";
 	private static final String ORGNAIZATION_COUNTRY = "Organisation Country";
 	private static final String LOGO = "Logo (link to WikimediaCommons)";
 	private static final String SECTOR = "Sector";
@@ -116,6 +117,10 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 		return getContent(ACRONYM);
 	}
 
+	public String getLangAcronym() {
+		return getContent(LANG_ACRONYM);
+	}
+
 	@Override
 	public String getDomain() {
 		return getContent(DOMAIN);
@@ -142,7 +147,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	}
 
 	@Override
-	public String getLanguage() {
+	public String getLanguageForOrganizationName() {
 		return getContent(LANG_ORGANIZATION_NAME);
 	}
 

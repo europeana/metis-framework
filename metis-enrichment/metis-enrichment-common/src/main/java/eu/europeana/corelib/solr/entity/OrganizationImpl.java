@@ -29,12 +29,12 @@ public class OrganizationImpl extends ContextualClassImpl implements Organizatio
 	private List<String> foafPhone;
 	private List<String> foafMbox;
 	
-	private List<String> edmEuropeanaRole;
-	private String edmOrganizationDomain;
-	private String edmOrganizationSector;
-	private String edmOrganizationScope;
-	private String edmGeographicLevel;
-	private String edmCountry;
+	private Map<String,List<String>> edmEuropeanaRole;
+	private Map<String,String> edmOrganizationDomain;
+	private Map<String,String> edmOrganizationSector;
+	private Map<String,String> edmOrganizationScope;
+	private Map<String,String> edmGeographicLevel;
+	private Map<String,String> edmCountry;
 	
 	private Address address;
 	
@@ -53,62 +53,62 @@ public class OrganizationImpl extends ContextualClassImpl implements Organizatio
 	}
 
 	@Override
-	public String getEdmOrganizationScope() {
+	public Map<String,String> getEdmOrganizationScope() {
 		return this.edmOrganizationScope;
 	}
 
 	@Override
-	public void setEdmOrganizationScope(String edmOrganizationScope) {
+	public void setEdmOrganizationScope(Map<String,String> edmOrganizationScope) {
 		this.edmOrganizationScope = edmOrganizationScope;
 	}
 
 	@Override
-	public String getEdmOrganizationDomain() {
+	public Map<String, String> getEdmOrganizationDomain() {
 		return this.edmOrganizationDomain;
 	}
 
 	@Override
-	public void setEdmOrganizationDomain(String edmOrganizationDomain) {
+	public void setEdmOrganizationDomain(Map<String, String> edmOrganizationDomain) {
 		this.edmOrganizationDomain = edmOrganizationDomain;
 	}
 
 	@Override
-	public String getEdmOrganizationSector() {
+	public Map<String, String> getEdmOrganizationSector() {
 		return this.edmOrganizationSector;
 	}
 
 	@Override
-	public void setEdmOrganizationSector(String edmOrganizationSector) {
+	public void setEdmOrganizationSector(Map<String, String> edmOrganizationSector) {
 		this.edmOrganizationSector= edmOrganizationSector;
 	}
 
 	@Override
-	public String getEdmGeographicLevel() {
+	public Map<String, String> getEdmGeographicLevel() {
 		return this.edmGeographicLevel;
 	}
 
 	@Override
-	public void setEdmGeorgraphicLevel(String edmGeographicLevel) {
+	public void setEdmGeorgraphicLevel(Map<String, String> edmGeographicLevel) {
 		this.edmGeographicLevel = edmGeographicLevel;
 	}
 
 	@Override
-	public String getEdmCountry() {
+	public Map<String, String> getEdmCountry() {
 		return this.edmCountry;
 	}
 
 	@Override
-	public void setEdmCountry(String edmCountry) {
+	public void setEdmCountry(Map<String, String> edmCountry) {
 		this.edmCountry = edmCountry;
 	}
 
 	@Override
-	public List<String> getEdmEuropeanaRole() {
+	public Map<String,List<String>> getEdmEuropeanaRole() {
 		return this.edmEuropeanaRole;
 	}
 
 	@Override
-	public void setEdmEuropeanaRole(List<String> edmEuropeanaRole) {
+	public void setEdmEuropeanaRole(Map<String,List<String>> edmEuropeanaRole) {
 		this.edmEuropeanaRole = edmEuropeanaRole;
 	}
 

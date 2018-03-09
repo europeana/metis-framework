@@ -20,7 +20,7 @@ public interface ZohoOrganization {
 	String getSector();
 	String getLogo();
 	String getWebsite();
-	String getLanguage();
+	String getLanguageForOrganizationName();
 	List<String> getAlternativeLanguage();
 	String getRole();
 	String getScope();
@@ -35,5 +35,6 @@ public interface ZohoOrganization {
 	String getZipCode();
 	String getCountry();
 	String getDescription();
+	String getLangAcronym();
 
 }

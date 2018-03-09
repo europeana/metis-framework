@@ -2,11 +2,13 @@ package eu.europeana.enrichment.service.zoho;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,8 @@ import eu.europeana.metis.exception.GenericMetisException;
 @Service
 public class ZohoAccessService {
 
-	private static final String URL_ORGANIZATION_BASE = "http://data.europeana.eu/organization/base/";
+	private static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
+	private static final String UNDEFINED_LANGUAGE_KEY = "def";
 	private final ZohoAccessClientDao zohoAccessClientDao;
 
 	/**
@@ -93,19 +96,21 @@ public class ZohoAccessService {
 
 		ZohoOrganizationAdapter zoa = new ZohoOrganizationAdapter(jsonRecord);
 		
-		org.setAbout(URL_ORGANIZATION_BASE + zoa.getZohoId());
-		org.setDcIdentifier(createMapOfStringList(zoa.getLanguage(), zoa.getZohoId()));
-		org.setPrefLabel(createMapOfStringList(zoa.getLanguage(), zoa.getOrganizationName()));
-		org.setAltLabel(createMapOfStringList(zoa.getLanguage(), zoa.getAlternativeOrganizationName()));
-		org.setEdmAcronym(createMapOfStringList(zoa.getLanguage(), zoa.getAcronym()));
+		org.setAbout(URL_ORGANIZATION_PREFFIX + zoa.getZohoId());
+		org.setDcIdentifier(createMapOfStringList(UNDEFINED_LANGUAGE_KEY, zoa.getZohoId()));
+		String isoLanguage = toIsoLanguage(zoa.getLanguageForOrganizationName());
+		org.setPrefLabel(createMapOfStringList(isoLanguage, zoa.getOrganizationName()));
+		org.setAltLabel(createLanguageMapOfStringList(zoa.getAlternativeLanguage(), zoa.getAlternativeOrganizationName()));
+		org.setEdmAcronym(createLanguageMapOfStringList(zoa.getLangAcronym(), zoa.getAcronym()));
 		org.setFoafLogo(zoa.getLogo());
 		org.setFoafHomepage(zoa.getWebsite());
-		org.setEdmEuropeanaRole(createList(zoa.getRole()));
-		org.setEdmOrganizationDomain(zoa.getDomain());
-		org.setEdmOrganizationSector(zoa.getSector());
-		org.setEdmOrganizationScope(zoa.getScope());
-		org.setEdmGeorgraphicLevel(zoa.getGeographicLevel());
-		org.setEdmCountry(zoa.getOrganizationCountry());
+		org.setEdmEuropeanaRole(createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), zoa.getRole()));
+		org.setEdmOrganizationDomain(createMap(Locale.ENGLISH.getLanguage(), zoa.getDomain()));
+		org.setEdmOrganizationSector(createMap(Locale.ENGLISH.getLanguage(), zoa.getSector()));
+		org.setEdmOrganizationScope(createMap(Locale.ENGLISH.getLanguage(), zoa.getScope()));
+		org.setEdmGeorgraphicLevel(createMap(Locale.ENGLISH.getLanguage(), zoa.getGeographicLevel()));
+		String organizationCountry = toEdmCountry(zoa.getOrganizationCountry());
+		org.setEdmCountry(createMap(Locale.ENGLISH.getLanguage(), organizationCountry));
 		org.setModified(zoa.getModified());
 		org.setCreated(zoa.getCreated());
 		
@@ -122,6 +127,24 @@ public class ZohoAccessService {
 		org.setAddress(address);
 		
 		return org;
+	}
+
+	String toEdmCountry(String organizationCountry) {
+		if(StringUtils.isBlank(organizationCountry))
+			return null;
+		int separatorPos = organizationCountry.indexOf("(");
+		if(separatorPos < 0)
+			return organizationCountry;
+		else
+			return organizationCountry.substring(0, separatorPos);
+	}
+
+	String toIsoLanguage(String language) {
+		if(StringUtils.isBlank(language))
+			return UNDEFINED_LANGUAGE_KEY;
+		
+		//TODO we might want to validate the language using Locale.getISOLanguages()
+		return language.substring(0, 2).toLowerCase();
 	}
 
 	/**
@@ -183,13 +206,19 @@ public class ZohoAccessService {
 	 *            The value
 	 * @return map of strings and lists
 	 */
-	private Map<String, List<String>> createMapOfStringList(String key, String value) {
+	Map<String, List<String>> createMapOfStringList(String key, String value) {
 		List<String> valueList = createList(value);
 		return createMapOfStringList(key, valueList);
 	}
 
-	private List<String> createList(String value) {
-		return Arrays.asList(value);
+	Map<String, String> createMap(String key, String value){
+		Map<String, String> resMap = new HashMap<String, String>();
+		resMap.put(key, value);
+		return resMap;
+	}
+	
+	List<String> createList(String value) {
+		return Collections.singletonList(value);
 	}
 	
 
@@ -202,10 +231,32 @@ public class ZohoAccessService {
 	 *            The list of values
 	 * @return map of strings and lists
 	 */
-	private Map<String, List<String>> createMapOfStringList(String key, List<String> value) {
+	Map<String, List<String>> createMapOfStringList(String key, List<String> value) {
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		resMap.put(key, value);
 		return resMap;
 	}
 
+	Map<String, List<String>> createLanguageMapOfStringList(List<String> languages, List<String> values) {
+		if(languages == null)
+			return null;
+		
+		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
+		for (int i = 0; i < languages.size(); i++) {
+			resMap.put(toIsoLanguage(languages.get(i)), createList(values.get(i)));
+		}
+		return resMap;
+	}
+	
+	Map<String, List<String>> createLanguageMapOfStringList(String language, String value) {
+		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
+		resMap.put(toIsoLanguage(language), createList(value));
+		return resMap;
+	}
+	
+	Map<String, List<String>> createLanguageMapOfStringList(String language, List<String> value) {
+		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
+		resMap.put(toIsoLanguage(language), value);
+		return resMap;
+	}
 }

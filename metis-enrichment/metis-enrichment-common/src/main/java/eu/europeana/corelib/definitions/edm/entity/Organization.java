@@ -16,25 +16,25 @@ public interface Organization extends AbstractEdmEntity{
 	
 	void setEdmAcronym(Map<String,List<String>> edmAcronym);
 	
-	String getEdmOrganizationScope();
+	Map<String, String> getEdmOrganizationScope();
 	
-	void setEdmOrganizationScope(String edmOrganizationScope);
+	void setEdmOrganizationScope(Map<String, String> edmOrganizationScope);
 	
-	String getEdmOrganizationDomain();
+	Map<String, String> getEdmOrganizationDomain();
 	
-	void setEdmOrganizationDomain(String edmOrganizationDomain);
+	void setEdmOrganizationDomain(Map<String, String> edmOrganizationDomain);
 	
-	String getEdmOrganizationSector();
+	Map<String, String> getEdmOrganizationSector();
 	
-	void setEdmOrganizationSector(String edmOrganizationSector);
+	void setEdmOrganizationSector(Map<String, String> edmOrganizationSector);
 	
-	String getEdmGeographicLevel();
+	Map<String, String> getEdmGeographicLevel();
 	
-	void setEdmGeorgraphicLevel(String edmGeographicLevel);
+	void setEdmGeorgraphicLevel(Map<String, String> edmGeographicLevel);
 	
-	String getEdmCountry();
+	Map<String, String> getEdmCountry();
 	
-	void setEdmCountry(String edmCountry);
+	void setEdmCountry(Map<String, String> edmCountry);
 	
 	void setFoafMbox(List<String> foafMbox);
 
@@ -64,8 +64,6 @@ public interface Organization extends AbstractEdmEntity{
 
 	String getFoafHomepage();
 
-	void setEdmEuropeanaRole(List<String> edmEuropeanaRole);
-
 	void setCreated(Date created);
 
 	Date getCreated();
@@ -74,7 +72,9 @@ public interface Organization extends AbstractEdmEntity{
 
 	Date getModified();
 
-	List<String> getEdmEuropeanaRole();
+	void setEdmEuropeanaRole(Map<String,List<String>> edmEuropeanaRole);
+
+	Map<String, List<String>> getEdmEuropeanaRole();
 
 	void setAddress(Address address);
 
