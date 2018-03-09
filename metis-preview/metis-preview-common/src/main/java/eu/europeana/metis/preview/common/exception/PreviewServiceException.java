@@ -10,4 +10,8 @@ public class PreviewServiceException extends Exception{
   public PreviewServiceException(String message) {
     super(message);
   }
+
+  public PreviewServiceException(String message, Throwable cause) {
+    super(message, cause);
+  }
 }

@@ -1,7 +1,24 @@
 package eu.europeana.metis.preview.config;
 
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.MongoClientOptions.Builder;
+import com.mongodb.MongoCredential;
+import com.mongodb.ServerAddress;
+import eu.europeana.corelib.edm.exceptions.MongoDBException;
+import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
+import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
+import eu.europeana.corelib.mongo.server.EdmMongoServer;
+import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
+import eu.europeana.corelib.web.socks.SocksProxy;
+import eu.europeana.metis.preview.persistence.RecordDao;
+import eu.europeana.metis.preview.service.ZipService;
+import eu.europeana.metis.preview.service.executor.ValidationUtils;
+import eu.europeana.validation.client.ValidationClient;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PreDestroy;
+import org.apache.commons.lang.StringUtils;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
 import org.slf4j.Logger;
@@ -21,19 +38,6 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import com.mongodb.MongoClientOptions;
-import eu.europeana.corelib.edm.exceptions.MongoDBException;
-import eu.europeana.corelib.edm.utils.construct.FullBeanHandler;
-import eu.europeana.corelib.edm.utils.construct.SolrDocumentHandler;
-import eu.europeana.corelib.mongo.server.EdmMongoServer;
-import eu.europeana.corelib.mongo.server.impl.EdmMongoServerImpl;
-import eu.europeana.corelib.storage.impl.MongoProviderImpl;
-import eu.europeana.corelib.web.socks.SocksProxy;
-import eu.europeana.metis.identifier.RestClient;
-import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.ZipService;
-import eu.europeana.metis.preview.service.executor.ValidationUtils;
-import eu.europeana.validation.client.ValidationClient;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
@@ -46,15 +50,16 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Configuration file for Spring MVC
  */
 @Configuration
-@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest", "eu.europeana.metis.preview.service", "eu.europeana.metis.preview" })
+@ComponentScan(basePackages = {"eu.europeana.metis.preview.rest",
+    "eu.europeana.metis.preview.service", "eu.europeana.metis.preview"})
 @PropertySource("classpath:preview.properties")
 @EnableWebMvc
 @EnableSwagger2
 @EnableScheduling
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean{
+public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);
-  
+
   private static final int MAX_UPLOAD_SIZE = 50_000_000;
 
   //Socks proxy
@@ -70,15 +75,20 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   private String socksProxyPassword;
 
   @Value("${mongo.hosts}")
-  private String mongoHosts;
+  private String[] mongoHosts;
   @Value("${mongo.port}")
-  private int mongoPort;
+  private int[] mongoPorts;
+  @Value("${mongo.authentication.db}")
+  private String mongoAuthenticationDb;
   @Value("${mongo.username}")
   private String mongoUsername;
   @Value("${mongo.password}")
   private String mongoPassword;
   @Value("${mongo.db}")
   private String mongoDb;
+  @Value("${mongo.enableSSL}")
+  private boolean mongoEnableSSL;
+
   @Value("${solr.search.url}")
   private String solrSearchUrl;
 
@@ -90,7 +100,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   @Value("${transformation.default}")
   private String defaultTransformationFile;
 
-  private MongoProviderImpl mongoProvider;
+  private MongoClient mongoClient;
   private HttpSolrServer solrServer;
 
   /**
@@ -102,15 +112,31 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
       new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
     }
 
-    String[] mongoHostsArray = mongoHosts.split(",");
-    StringBuilder mongoPorts = new StringBuilder();
-    for (int i = 0; i < mongoHostsArray.length; i++) {
-      mongoPorts.append(mongoPort + ",");
+    if (mongoHosts.length != mongoPorts.length && mongoPorts.length != 1) {
+      throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
-    mongoPorts.replace(mongoPorts.lastIndexOf(","), mongoPorts.lastIndexOf(","), "");
-    MongoClientOptions.Builder options = MongoClientOptions.builder();
-    mongoProvider = new MongoProviderImpl(mongoHosts, mongoPorts.toString(), mongoDb, mongoUsername,
-        mongoPassword, options);
+
+    List<ServerAddress> serverAddresses = new ArrayList<>();
+    for (int i = 0; i < mongoHosts.length; i++) {
+      ServerAddress address;
+      if (mongoHosts.length == mongoPorts.length) {
+        address = new ServerAddress(mongoHosts[i], mongoPorts[i]);
+      } else { // Same port for all
+        address = new ServerAddress(mongoHosts[i], mongoPorts[0]);
+      }
+      serverAddresses.add(address);
+    }
+
+    MongoClientOptions.Builder optionsBuilder = new Builder();
+    optionsBuilder.sslEnabled(mongoEnableSSL);
+    if (StringUtils.isEmpty(mongoDb) || StringUtils.isEmpty(mongoUsername) || StringUtils
+        .isEmpty(mongoPassword)) {
+      mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
+    } else {
+      MongoCredential mongoCredential = MongoCredential
+          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray());
+      mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
+    }
   }
 
   @Override
@@ -128,17 +154,14 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
   }
 
   @Bean
-  RestClient restClient() {
-    return new RestClient();
-  }
-
-  @Bean
   ValidationClient validationClient() {
     return new ValidationClient();
   }
 
   @Bean
-  ZipService zipService(){ return new ZipService();}
+  ZipService zipService() {
+    return new ZipService();
+  }
 
   @Bean
   @DependsOn("edmMongoServer")
@@ -148,7 +171,7 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean(name = "edmMongoServer")
   EdmMongoServer edmMongoServer() throws MongoDBException {
-    return new EdmMongoServerImpl(mongoProvider.getMongo(), mongoDb);
+    return new EdmMongoServerImpl(mongoClient, mongoDb);
   }
 
   @Bean
@@ -194,15 +217,15 @@ public class Application extends WebMvcConfigurerAdapter implements Initializing
 
   @Bean
   public ValidationUtils getValidationUtils() throws MongoDBException {
-    return new ValidationUtils(restClient(), validationClient(), recordDao(),
-        schemaBeforeTransformation, schemaAfterTransformation, defaultTransformationFile);
+    return new ValidationUtils(validationClient(), recordDao(), schemaBeforeTransformation,
+        schemaAfterTransformation, defaultTransformationFile);
   }
 
   @PreDestroy
   public void close() {
     LOGGER.info("Closing connections..");
-    if (mongoProvider != null) {
-      mongoProvider.close();
+    if (mongoClient != null) {
+      mongoClient.close();
     }
     if (solrServer != null) {
       solrServer.shutdown();
