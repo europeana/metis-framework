@@ -4,9 +4,15 @@ import eu.europeana.validation.model.ValidationResult;
 
 public class ValidationTaskResult {
 
-  private String recordId;
-  private ValidationResult validationResult;
-  private boolean success;
+  private final String recordId;
+  private final ValidationResult validationResult;
+  private final boolean success;
+
+  public ValidationTaskResult(String recordId, ValidationResult validationResult, boolean success) {
+    this.recordId = recordId;
+    this.validationResult = validationResult;
+    this.success = success;
+  }
 
   public String getRecordId() {
     return recordId;
@@ -18,11 +24,5 @@ public class ValidationTaskResult {
 
   public boolean isSuccess() {
     return success;
-  }
-
-  public ValidationTaskResult(String recordId, ValidationResult validationResult, boolean success) {
-    this.recordId = recordId;
-    this.validationResult = validationResult;
-    this.success = success;
   }
 }

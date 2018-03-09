@@ -15,7 +15,7 @@ import eu.europeana.corelib.definitions.jibx.RDF;
 @Service
 public class ValidationTaskFactory {
   
-  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTask.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(ValidationTaskFactory.class);
   
   private static final IBindingFactory BINDING_FACTORY;
 

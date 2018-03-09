@@ -1,16 +1,12 @@
 package eu.europeana.metis.preview.service;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 import eu.europeana.corelib.edm.exceptions.MongoDBException;
 import eu.europeana.corelib.edm.exceptions.MongoRuntimeException;
-import eu.europeana.metis.identifier.RestClient;
 import eu.europeana.metis.preview.common.exception.PreviewServiceException;
 import eu.europeana.metis.preview.common.model.ExtendedValidationResult;
 import eu.europeana.metis.preview.persistence.RecordDao;
-import eu.europeana.metis.preview.service.PreviewService;
-import eu.europeana.metis.preview.service.PreviewServiceConfig;
 import eu.europeana.metis.preview.service.executor.ValidationTaskFactory;
 import eu.europeana.metis.preview.service.executor.ValidationUtils;
 import eu.europeana.validation.client.ValidationClient;
@@ -31,45 +27,45 @@ import org.mockito.Mockito;
  */
 public class PreviewServiceTest {
 
-    private PreviewService service;
-    private RecordDao mockDao;
-    private PreviewServiceConfig mockConfig;
-    private ValidationClient mockValidationClient;
-    private RestClient mockIdentifierClient;
+  private PreviewService service;
+  private RecordDao mockDao;
+  private PreviewServiceConfig mockConfig;
+  private ValidationClient mockValidationClient;
 
-    @Before
-    public void prepare() {
-        mockDao = Mockito.mock(RecordDao.class);
-        mockConfig = Mockito.mock(PreviewServiceConfig.class);
-        mockValidationClient = Mockito.mock(ValidationClient.class);
-        mockIdentifierClient = Mockito.mock(RestClient.class);
-        final ValidationUtils validationUtils = new ValidationUtils(mockIdentifierClient, mockValidationClient, mockDao, 
-            "EDM-EXTERNAL", "EDM-INTERNAL", "EDM_external2internal_v2.xsl");
+  @Before
+  public void prepare() {
+    mockDao = Mockito.mock(RecordDao.class);
+    mockConfig = Mockito.mock(PreviewServiceConfig.class);
+    mockValidationClient = Mockito.mock(ValidationClient.class);
+    final ValidationUtils validationUtils = new ValidationUtils(mockValidationClient, mockDao,
+        "EDM-EXTERNAL", "EDM-INTERNAL", "EDM_external2internal_v2.xsl");
 
-        ValidationTaskFactory taskFactory = new ValidationTaskFactory(validationUtils);
-            Mockito.mock(ValidationTaskFactory.class);
-        when(mockConfig.getPreviewUrl()).thenReturn("test/");
-        when(mockConfig.getThreadCount()).thenReturn(10);
-        service = new PreviewService(mockConfig, mockDao, taskFactory);
-    }
+    ValidationTaskFactory taskFactory = new ValidationTaskFactory(validationUtils);
+    Mockito.mock(ValidationTaskFactory.class);
+    when(mockConfig.getPreviewUrl()).thenReturn("test/");
+    when(mockConfig.getThreadCount()).thenReturn(10);
+    service = new PreviewService(mockConfig, mockDao, taskFactory);
+  }
 
-    @Test
-    public void test()
-        throws NoSuchMethodException, MongoRuntimeException, MongoDBException, IllegalAccessException,
-        IOException, InvocationTargetException, SolrServerException, PreviewServiceException {
-            String record = IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("Item_5791754.xml"));
-            ValidationResult result = new ValidationResult();
-            result.setSuccess(true);
-            when(mockValidationClient.validateRecord("EDM-INTERNAL", record)).thenReturn(result);
-            when(mockIdentifierClient.generateIdentifier(any(String.class), any(String.class))).thenReturn("/12345/test");
-            Mockito.doAnswer(invocationOnMock -> null).when(mockDao).createRecord(Mockito.anyObject());
-            List<String> records = new ArrayList<>();
-            records.add(record);
+  @Test
+  public void test()
+      throws NoSuchMethodException, MongoRuntimeException, MongoDBException, IllegalAccessException,
+      IOException, InvocationTargetException, SolrServerException, PreviewServiceException {
+    String record = IOUtils.toString(
+        Thread.currentThread().getContextClassLoader().getResourceAsStream("Item_5791754.xml"),
+        "UTF-8");
+    ValidationResult result = new ValidationResult();
+    result.setSuccess(true);
+    when(mockValidationClient.validateRecord("EDM-INTERNAL", record)).thenReturn(result);
+    Mockito.doAnswer(invocationOnMock -> null).when(mockDao).createRecord(Mockito.anyObject());
+    List<String> records = new ArrayList<>();
+    records.add(record);
 
-            ExtendedValidationResult extendedValidationResult = service.createRecords(records, "12345", false,"test",false);
+    ExtendedValidationResult extendedValidationResult = service
+        .createRecords(records, "12345", false, "test", false);
 
-            Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
-            Assert.assertEquals(0,extendedValidationResult.getResultList().size());
-            Assert.assertTrue(extendedValidationResult.isSuccess());
-    }
+    Assert.assertEquals("test/12345*", extendedValidationResult.getPortalUrl());
+    Assert.assertEquals(0, extendedValidationResult.getResultList().size());
+    Assert.assertTrue(extendedValidationResult.isSuccess());
+  }
 }
