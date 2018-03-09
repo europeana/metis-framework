@@ -1,11 +1,11 @@
 package eu.europeana.normalization;
 
-import eu.europeana.normalization.common.model.NormalizationBatchResult;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
+import eu.europeana.normalization.model.NormalizationBatchResult;
 
 /**
  * Command line test for the NormalizationLanguageClient

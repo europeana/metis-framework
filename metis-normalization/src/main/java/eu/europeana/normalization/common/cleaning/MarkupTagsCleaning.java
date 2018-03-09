@@ -1,13 +1,11 @@
 package eu.europeana.normalization.common.cleaning;
 
-import eu.europeana.normalization.common.NormalizeDetails;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Pattern;
+import eu.europeana.normalization.common.NormalizeDetails;
 import net.htmlparser.jericho.Source;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
@@ -16,8 +14,6 @@ import org.slf4j.LoggerFactory;
  * @since 16/03/2016
  */
 public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(MarkupTagsCleaning.class);
 
   private final MarkupCleaner cleaner;
 
@@ -43,7 +39,7 @@ public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
   public List<String> normalize(String htmlText) {
     String ret = cleaner.clean(htmlText);
     if (ret.length() == 0) {
-      return Collections.EMPTY_LIST;
+      return Collections.emptyList();
     }
     return new ArrayList<String>(1) {
       private static final long serialVersionUID = 1L;
@@ -70,12 +66,12 @@ public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
 
   public enum Mode {HTML_ONLY, ALL_MARKUP}
 
-  public interface MarkupCleaner {
+  private interface MarkupCleaner {
 
     String clean(String input);
   }
 
-  public class HtmlMarkupCleaner implements MarkupCleaner {
+  private class HtmlMarkupCleaner implements MarkupCleaner {
 
     private final String[] tagsTab = {"!doctype", "a", "abbr", "acronym", "address", "applet",
         "area", "article", "aside", "audio", "b", "base", "basefont", "bdi", "bdo", "bgsound",
@@ -116,7 +112,7 @@ public class MarkupTagsCleaning extends EdmRecordNormalizerBase {
 
   }
 
-  public class AllMarkupCleaner implements MarkupCleaner {
+  private class AllMarkupCleaner implements MarkupCleaner {
 
     @Override
     public String clean(String input) {

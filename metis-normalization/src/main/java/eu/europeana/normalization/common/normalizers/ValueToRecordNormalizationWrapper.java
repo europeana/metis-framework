@@ -3,8 +3,8 @@ package eu.europeana.normalization.common.normalizers;
 import eu.europeana.normalization.common.NormalizeDetails;
 import eu.europeana.normalization.common.RecordNormalization;
 import eu.europeana.normalization.common.ValueNormalization;
-import eu.europeana.normalization.common.model.ConfidenceLevel;
-import eu.europeana.normalization.common.model.NormalizationReport;
+import eu.europeana.normalization.model.ConfidenceLevel;
+import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.util.Namespaces;
 import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XPathUtil;
@@ -166,16 +166,10 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
 
   public static class XpathQuery {
 
-    Map<String, String> namespacesPrefixes;
-    String expression;
-
-    public XpathQuery(String expression) {
-      super();
-      this.expression = expression;
-    }
+    private final Map<String, String> namespacesPrefixes;
+    private final String expression;
 
     public XpathQuery(Map<String, String> namespacesPrefixes, String expression) {
-      super();
       this.namespacesPrefixes = namespacesPrefixes;
       this.expression = expression;
     }
@@ -184,23 +178,8 @@ public class ValueToRecordNormalizationWrapper implements RecordNormalization {
       return namespacesPrefixes;
     }
 
-    public void setNamespacesPrefixes(Map<String, String> namespacesPrefixes) {
-      this.namespacesPrefixes = namespacesPrefixes;
-    }
-
     public String getExpression() {
       return expression;
-    }
-
-    public void setExpression(String expression) {
-      this.expression = expression;
-    }
-
-    public void setPrefix(String prefix, String namespace) {
-      if (namespacesPrefixes == null) {
-        namespacesPrefixes = new HashMap<>();
-      }
-      namespacesPrefixes.put(prefix, namespace);
     }
   }
 

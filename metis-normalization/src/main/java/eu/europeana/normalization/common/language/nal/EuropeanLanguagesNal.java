@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -19,6 +20,9 @@ import eu.europeana.normalization.util.XmlUtil;
 /**
  * Holds data from the European Languages NAL dump, which is used to support the normalization of
  * language values.
+ * 
+ * TODO JOCHEN load this statically, so that we don't have to read the file every time we want to do
+ * normalization? Or give the option to the callers of the library?
  *
  * @author Nuno Freire (nfreire@gmail.com)
  * @since 15/03/2016
@@ -38,7 +42,7 @@ public class EuropeanLanguagesNal {
   /**
    * Creates a new instance of this class.
    * 
-   * @throws XmlException
+   * @throws NormalizationConfigurationException
    */
   public EuropeanLanguagesNal() throws NormalizationConfigurationException {
     InputStream nalFileIn = getClass().getClassLoader().getResourceAsStream("languages.xml");
@@ -82,7 +86,6 @@ public class EuropeanLanguagesNal {
       } else {
         deprecatedLanguages.add(l);
       }
-      // log.info("Missing language code for: "+recordEl.getAttribute("id"));
     }
   }
 
@@ -100,11 +103,11 @@ public class EuropeanLanguagesNal {
   }
 
   public List<NalLanguage> getLanguages() {
-    return languages;
+    return Collections.unmodifiableList(languages);
   }
 
   public List<NalLanguage> getDeprecatedLanguages() {
-    return deprecatedLanguages;
+    return Collections.unmodifiableList(deprecatedLanguages);
   }
 
   public synchronized void initNormalizedIndex() {

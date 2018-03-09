@@ -1,7 +1,7 @@
 package eu.europeana.normalization.common;
 
-import eu.europeana.normalization.common.model.NormalizationReport;
 import org.w3c.dom.Document;
+import eu.europeana.normalization.model.NormalizationReport;
 
 
 public interface RecordNormalization {

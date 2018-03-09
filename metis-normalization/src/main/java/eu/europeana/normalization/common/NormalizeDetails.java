@@ -1,8 +1,8 @@
 package eu.europeana.normalization.common;
 
-import eu.europeana.normalization.common.model.ConfidenceLevel;
 import java.util.ArrayList;
 import java.util.List;
+import eu.europeana.normalization.model.ConfidenceLevel;
 
 
 /**
@@ -56,7 +56,7 @@ public class NormalizeDetails {
   }
 
   public ConfidenceLevel getConfidenceClass() {
-    return ConfidenceLevel.fromScore(confidence);
+    return ConfidenceLevel.getForConfidence(confidence);
   }
 
 }

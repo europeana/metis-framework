@@ -1,8 +1,5 @@
 package research;
 
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.NalLanguage;
-import eu.europeana.normalization.util.MapOfLists;
 import java.io.BufferedReader;
 import java.io.Closeable;
 import java.io.File;
@@ -22,6 +19,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
+import eu.europeana.normalization.common.language.nal.NalLanguage;
 
 class CsvExporter implements Closeable {
 

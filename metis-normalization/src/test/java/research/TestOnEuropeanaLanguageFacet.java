@@ -28,7 +28,6 @@ public class TestOnEuropeanaLanguageFacet {
     europaEuLanguagesNal.setTargetVocabulary(targetVocab);
     europaEuLanguagesNal.initNormalizedIndex();
     LanguageMatcher normalizer = new LanguageMatcher(europaEuLanguagesNal);
-    normalizer.printStats();
 
     CsvExporter exporter = new CsvExporter(new File("target"), europaEuLanguagesNal);
     try {

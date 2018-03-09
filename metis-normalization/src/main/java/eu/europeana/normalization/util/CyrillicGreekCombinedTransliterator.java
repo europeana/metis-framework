@@ -30,7 +30,6 @@ public class CyrillicGreekCombinedTransliterator {
 
   /**
    * @param args
-   * @throws Exception
    */
   public static void main(String[] args) {
     String source = "\":\" - Топ-10 туристических объектов Латвии."

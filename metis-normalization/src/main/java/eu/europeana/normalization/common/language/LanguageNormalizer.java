@@ -1,21 +1,19 @@
 package eu.europeana.normalization.common.language;
 
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import eu.europeana.normalization.common.NormalizeDetails;
 import eu.europeana.normalization.common.RecordNormalization;
 import eu.europeana.normalization.common.ValueNormalization;
 import eu.europeana.normalization.common.language.nal.AmbiguousLabelMatchException;
 import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.util.Namespaces;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.common.language.nal.LanguageMatcher;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import eu.europeana.normalization.util.Namespaces;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
 
 /**
  * The main Class to be used by applications applying this lib's langage normalization techniques
@@ -24,8 +22,6 @@ import org.slf4j.LoggerFactory;
  * @since 16/03/2016
  */
 public class LanguageNormalizer implements ValueNormalization {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(LanguageNormalizer.class);
 
   private Float minimumConfidence;
   private final LanguageMatcher normalizer;

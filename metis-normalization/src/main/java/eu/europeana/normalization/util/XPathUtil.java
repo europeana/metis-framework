@@ -17,7 +17,7 @@ public class XPathUtil {
 
   private static XPathFactory factory = XPathFactory.newInstance();
 
-  public static XPathExpression newXPath(Map<String, String> prefixMap, String xpathExpression)
+  private static XPathExpression newXPath(Map<String, String> prefixMap, String xpathExpression)
       throws XPathExpressionException {
     XPath xpath = factory.newXPath();
     SimpleNamespaceContext namespaces = new SimpleNamespaceContext(prefixMap);
@@ -43,11 +43,11 @@ public class XPathUtil {
 
   }
 
-  static class SimpleNamespaceContext implements NamespaceContext {
+  private static class SimpleNamespaceContext implements NamespaceContext {
 
     private final Map<String, String> PREF_MAP = new HashMap<>();
 
-    public SimpleNamespaceContext(final Map<String, String> prefMap) {
+    private SimpleNamespaceContext(final Map<String, String> prefMap) {
       PREF_MAP.putAll(prefMap);
     }
 

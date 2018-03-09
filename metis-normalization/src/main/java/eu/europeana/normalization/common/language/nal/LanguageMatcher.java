@@ -13,7 +13,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import eu.europeana.normalization.common.language.LanguagesVocabulary;
 import eu.europeana.normalization.util.IndexUtilUnicode;
-import eu.europeana.normalization.util.MapOfLists;
 
 /**
  * Provides the matching algorithms for matching dc:language values with codes and labels in the
@@ -26,8 +25,8 @@ public class LanguageMatcher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(LanguageMatcher.class);
 
-  private static final Pattern LOCALE_CODE_PATTERN = Pattern
-      .compile("\\s*(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\s*");
+  private static final Pattern LOCALE_CODE_PATTERN =
+      Pattern.compile("\\s*(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\s*");
 
   private final EuropeanLanguagesNal matchVocab;
   private int minimumLabelLength = 4;
@@ -35,7 +34,7 @@ public class LanguageMatcher {
   private final Map<String, String> targetIsoCodes = new HashMap<>();
   private final Map<String, String> isoCodes = new HashMap<>();
   private final Map<String, String> unambiguousLabels = new HashMap<>();
-  private final MapOfLists<String, String> ambiguousLabels = new MapOfLists<>();
+  private final HashMap<String, List<String>> ambiguousLabels = new HashMap<>();
 
   /**
    * Creates a new instance of this class.
@@ -64,7 +63,6 @@ public class LanguageMatcher {
       return;
     }
 
-// Set<String> labelsDedup=l.getAllLabelsAndCodes();
     Set<String> labelsDedup = l.getAllLabels();
     for (String label : labelsDedup) {
       if (label.length() < minimumLabelLength) {
@@ -72,16 +70,23 @@ public class LanguageMatcher {
       }
       String labelNorm = normalizeLabelForIndex(label);
       if (ambiguousLabels.containsKey(labelNorm)) {
-        ambiguousLabels.putIfNotExists(labelNorm, norm);
+        final List<String> alternatives = ambiguousLabels.get(labelNorm);
+        if (!alternatives.contains(norm)) {
+          alternatives.add(norm);
+        }
       } else if (unambiguousLabels.containsKey(labelNorm)) {
         if (!unambiguousLabels.get(labelNorm).equals(norm)) {
-          ambiguousLabels.put(labelNorm, norm);
-          ambiguousLabels.put(labelNorm, unambiguousLabels.remove(labelNorm));
+          final String oldValue = unambiguousLabels.remove(labelNorm);
+          final List<String> alternatives = new ArrayList<>();
+          alternatives.add(oldValue);
+          alternatives.add(norm);
+          ambiguousLabels.put(labelNorm, alternatives);
         }
       } else {
         unambiguousLabels.put(labelNorm, norm);
       }
     }
+    // TODO JOCHEN these if statements are very similar.
     if (l.getIso6391() != null) {
       if (isoCodes.containsKey(l.getIso6391()) && !isoCodes.get(l.getIso6391()).equals(norm)) {
         throw new RuntimeException("ambig iso code!!! : " + l.getIso6391());
@@ -92,8 +97,7 @@ public class LanguageMatcher {
       }
     }
     if (l.getIso6392b() != null) {
-      if (isoCodes.containsKey(l.getIso6392b()) &&
-          !isoCodes.get(l.getIso6392b()).equals(norm)) {
+      if (isoCodes.containsKey(l.getIso6392b()) && !isoCodes.get(l.getIso6392b()).equals(norm)) {
         throw new RuntimeException("ambig iso code!!! : " + l.getIso6392b());
       }
       isoCodes.put(l.getIso6392b(), norm);
@@ -102,8 +106,7 @@ public class LanguageMatcher {
       }
     }
     if (l.getIso6392t() != null) {
-      if (isoCodes.containsKey(l.getIso6392t()) &&
-          !isoCodes.get(l.getIso6392t()).equals(norm)) {
+      if (isoCodes.containsKey(l.getIso6392t()) && !isoCodes.get(l.getIso6392t()).equals(norm)) {
         throw new RuntimeException("ambig iso code!!! : " + l.getIso6392t());
       }
       isoCodes.put(l.getIso6392t(), norm);
@@ -122,27 +125,19 @@ public class LanguageMatcher {
     }
   }
 
-  public void printStats() {
-    String sb = "isoCodes: " + isoCodes.size() + "\n" +
-        "unambiguousLabels: " + unambiguousLabels.size() + "\n" +
-        "ambiguousLabels: " + ambiguousLabels.size() + "\n" +
-        ambiguousLabels.toString() + "\n";
-    System.out.println(sb);
-  }
-
   public List<String> findLabelMatches(String value) throws AmbiguousLabelMatchException {
     String valueNorm = normalizeLabelForIndex(value);
     String match = unambiguousLabels.get(valueNorm);
     if (match == null) {
       if (ambiguousLabels.size() == 0) {
-        return Collections.EMPTY_LIST;
+        return Collections.emptyList();
       } else {
         List<String> matches = ambiguousLabels.get(valueNorm);
         if (matches == null) {
-          return Collections.EMPTY_LIST;
+          return Collections.emptyList();
         }
         throw new AmbiguousLabelMatchException(matches);
-//                return matches;
+        // return matches;
       }
     }
     ArrayList<String> ret = new ArrayList<>(1);
@@ -158,7 +153,8 @@ public class LanguageMatcher {
     return findIsoCodeMatchInternal(targetIsoCodes, valueP, nonNormalizedValue);
   }
 
-  private String findIsoCodeMatchInternal(Map<String, String> map, String valueP, String nonNormalizedValue) {
+  private String findIsoCodeMatchInternal(Map<String, String> map, String valueP,
+      String nonNormalizedValue) {
     String value = valueP.trim();
     if (value.length() > 3 || value.length() < 2) {
       if (nonNormalizedValue != null) {
@@ -177,10 +173,11 @@ public class LanguageMatcher {
    * @param label
    * @return
    */
-  public String normalizeLabelForIndex(String label) {
+  private String normalizeLabelForIndex(String label) {
     return IndexUtilUnicode.encode(label);
   }
 
+  // TODO JOCHEN looks a lot like the method below
   public List<String> findLabelAllWordMatches(String lbl) {
     String lblEnc = normalizeLabelForIndex(lbl);
     String[] words = lblEnc.split("\\s+");
@@ -196,7 +193,6 @@ public class LanguageMatcher {
           continue;
         }
       }
-// if (wrd.length()>2)
 
       List<String> labelMatches;
       try {
@@ -208,8 +204,6 @@ public class LanguageMatcher {
       } catch (AmbiguousLabelMatchException e) {
         if (ambiguityHandling == AmbiguityHandling.NO_MATCH) {
           return Collections.emptyList();
-        } else if (ambiguityHandling == AmbiguityHandling.MATCH_ON_COREFERENCE) {
-          return Collections.emptyList();//TODO
         } else if (ambiguityHandling == AmbiguityHandling.CHOOSE_FIRST) {
           foundMatchesLabels.add(e.getAmbigouosMatches().get(0));
         } else {
@@ -224,8 +218,8 @@ public class LanguageMatcher {
       return new ArrayList<>(foundMatchesCodes);
     }
 
-    return Collections
-        .emptyList();//only considers matches when only labels are detected, ore only codes are detected.
+    return Collections.emptyList();// only considers matches when only labels are detected, ore only
+                                   // codes are detected.
   }
 
   /**
@@ -246,7 +240,6 @@ public class LanguageMatcher {
         }
       }
 
-// if (wrd.length()>2)
       List<String> labelMatches;
       try {
         labelMatches = findLabelMatches(wrd);
@@ -256,8 +249,6 @@ public class LanguageMatcher {
       } catch (AmbiguousLabelMatchException e) {
         if (ambiguityHandling == AmbiguityHandling.NO_MATCH) {
           LOGGER.info("No match for '{}' ", wrd);
-        } else if (ambiguityHandling == AmbiguityHandling.MATCH_ON_COREFERENCE) {
-          throw new RuntimeException("not implemented: " + ambiguityHandling);
         } else if (ambiguityHandling == AmbiguityHandling.CHOOSE_FIRST) {
           foundMatches.add(e.getAmbigouosMatches().get(0));
         } else {
@@ -276,6 +267,8 @@ public class LanguageMatcher {
     this.ambiguityHandling = ambiguityHandling;
   }
 
-  public enum AmbiguityHandling {NO_MATCH, CHOOSE_FIRST, MATCH_ON_COREFERENCE}
+  public enum AmbiguityHandling {
+    NO_MATCH, CHOOSE_FIRST
+  }
 
 }

@@ -1,9 +1,9 @@
 package eu.europeana.normalization.common.cleaning;
 
 import eu.europeana.normalization.common.RecordNormalization;
-import eu.europeana.normalization.common.model.ConfidenceLevel;
-import eu.europeana.normalization.common.model.NormalizationReport;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper.XpathQuery;
+import eu.europeana.normalization.model.ConfidenceLevel;
+import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.util.Namespaces;
 import eu.europeana.normalization.util.XPathUtil;
 import eu.europeana.normalization.util.XmlUtil;
@@ -76,15 +76,12 @@ public class DuplicateStatementCleaning implements RecordNormalization {
         }
       }
       if (elements.size() > 1) {
-//				HashSet<String> dupDetector=new HashSet<>();
         HashSet<String> dupDetectorWithLang = new HashSet<>();
 
         for (Element el : elements) {
           String lang = el.getAttributeNS(Namespaces.XML, "lang");
           String key = XmlUtil.getElementText(el);
           String keyLang = key;
-
-//					boolean dup=dupDetector.contains(key);
           if (!StringUtils.isEmpty(lang)) {
             keyLang = key + "@" + lang;
           }
@@ -95,7 +92,6 @@ public class DuplicateStatementCleaning implements RecordNormalization {
             report.increment(this.getClass().getSimpleName(), ConfidenceLevel.CERTAIN);
           } else {
             dupDetectorWithLang.add(keyLang);
-            //				dupDetector.add(key);
           }
         }
       }

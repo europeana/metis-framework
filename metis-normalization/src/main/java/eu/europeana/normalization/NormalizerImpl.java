@@ -14,10 +14,10 @@ import eu.europeana.normalization.common.cleaning.TrimAndEmptyValueCleaning;
 import eu.europeana.normalization.common.language.LanguageNormalizer;
 import eu.europeana.normalization.common.language.LanguageNormalizer.SupportedOperations;
 import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.common.model.NormalizationBatchResult;
-import eu.europeana.normalization.common.model.NormalizationReport;
-import eu.europeana.normalization.common.model.NormalizationResult;
 import eu.europeana.normalization.common.normalizers.ChainedNormalization;
+import eu.europeana.normalization.model.NormalizationBatchResult;
+import eu.europeana.normalization.model.NormalizationReport;
+import eu.europeana.normalization.model.NormalizationResult;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.util.XmlException;
 import eu.europeana.normalization.util.XmlUtil;
@@ -80,10 +80,12 @@ class NormalizerImpl implements Normalizer {
     try {
       return normalizeInternal(edmRecord);
     } catch (XmlException e) {
-      return new NormalizationResult("Error parsing XML: " + e.getMessage(), edmRecord);
+      return NormalizationResult.createInstanceForError("Error parsing XML: " + e.getMessage(),
+          edmRecord);
     } catch (RuntimeException e) {
       LOGGER.error(e.getMessage(), e);
-      return new NormalizationResult("Unexpected problem: " + e.getMessage(), edmRecord);
+      return NormalizationResult.createInstanceForError("Unexpected problem: " + e.getMessage(),
+          edmRecord);
     }
   }
 
@@ -91,6 +93,6 @@ class NormalizerImpl implements Normalizer {
     final Document recordDom = XmlUtil.parseDom(new StringReader(edmRecord));
     final NormalizationReport report = recordNormalizer.normalize(recordDom);
     final String resultRecord = XmlUtil.writeDomToString(recordDom);
-    return new NormalizationResult(resultRecord, report);
+    return NormalizationResult.createInstanceForSuccess(resultRecord, report);
   }
 }
