@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.naming.OperationNotSupportedException;
-
 import org.mongojack.DBCursor;
-import org.mongojack.DBRef;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.slf4j.Logger;
@@ -417,7 +414,7 @@ public class MongoDatabaseUtils {
 		return oColl.insert(termList).getSavedObject();
 	}
 	
-	public static List<DBRef<? extends MongoTerm, String>> storeEntityLabels(ContextualClassImpl entity, EntityClass entityClass){
+	public static int storeEntityLabels(ContextualClassImpl entity, EntityClass entityClass){
 		//select collection
 		String collection = getTableName(entityClass);
 		JacksonDBCollection<MongoTerm, String> termColl = JacksonDBCollection.wrap(db.getCollection(collection), MongoTerm.class, String.class);
@@ -426,19 +423,7 @@ public class MongoDatabaseUtils {
 		List<MongoTerm> terms = createListOfMongoTerms(entity);
 		WriteResult<MongoTerm, String> res = termColl.insert(terms);
 		
-		//return references
-		List<String> ids = res.getSavedIds();
-		return createReferenceList(ids, collection);
-	}
-
-	private static List<DBRef<? extends MongoTerm, String>> createReferenceList(List<String> ids, String collection) {
-		List<DBRef<? extends MongoTerm, String>> termList = new ArrayList<>();
-		DBRef<MongoTerm, String> termRef;
-		for (String id : ids){
-			termRef = new DBRef<>(id, collection);
-			termList.add(termRef);
-		}
-		return termList;
+		return res.getN();
 	}
 
 	private static List<MongoTerm> createListOfMongoTerms(ContextualClassImpl entity) {

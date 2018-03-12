@@ -1,13 +1,12 @@
 package eu.europeana.enrichment.service;
 
 import java.util.Date;
-import java.util.List;
 
-import org.mongojack.DBRef;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
-import eu.europeana.enrichment.api.internal.MongoTerm;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
 import eu.europeana.enrichment.utils.EntityClass;
 import eu.europeana.enrichment.utils.MongoDatabaseUtils;
@@ -16,6 +15,7 @@ public class EntityService {
 
 	private final String mongoHost;
     private final int mongoPort;
+    private static final Logger LOGGER = LoggerFactory.getLogger(EntityService.class);
     
 	public EntityService(String mongoHost, int mongoPort){
 		this.mongoHost=mongoHost;
@@ -35,8 +35,9 @@ public class EntityService {
 		termList.setModified(now);
 		
 		//store labels
-		List<DBRef<? extends MongoTerm, String>> terms = MongoDatabaseUtils.storeEntityLabels((OrganizationImpl)org, EntityClass.ORGANIZATION);
-		termList.setTerms(terms);
+		int newLabels = MongoDatabaseUtils.storeEntityLabels((OrganizationImpl)org, EntityClass.ORGANIZATION);
+		LOGGER.trace("{}", "Stored new lables: " + newLabels);
+		
 		//store term list
 		return (OrganizationTermList) MongoDatabaseUtils.insertMongoTermList(termList);
 	}
