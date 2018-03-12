@@ -41,8 +41,6 @@ import java.util.List;
 import org.mongodb.morphia.query.Query;
 import org.mongodb.morphia.query.UpdateOperations;
 import org.apache.commons.io.IOUtils;
-import org.apache.solr.client.solrj.impl.CloudSolrServer;
-import org.apache.solr.client.solrj.impl.LBHttpSolrServer;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.common.SolrInputDocument;
@@ -62,7 +60,6 @@ public class PublishingService {
     private static IBindingFactory rdfBindingFactory;
     private static final String UTF8 = StandardCharsets.UTF_8.name();
     private final SolrServer solrServer; 
-    private final CloudSolrServer cloudSolrServer;
 
     static {    	
     	try {
@@ -72,15 +69,14 @@ public class PublishingService {
     	}
     }
 
-    public PublishingService(FullBeanDao fullBeanDao, LBHttpSolrServer solrServer, CloudSolrServer cloudSolrServer) {
+    public PublishingService(FullBeanDao fullBeanDao, SolrServer solrServer) {
   	  this.fullBeanDao = fullBeanDao;
   	  this.solrServer = solrServer;
-  	  this.cloudSolrServer = cloudSolrServer;
     }
 
     public boolean process(String record) throws IndexingException
     {    	
-    	LOGGER.info("processing record...");
+    	LOGGER.info("Processing record...");
 		
 		if (LOGGER.isDebugEnabled()) {
 			LOGGER.debug("Record to process: " + record);
@@ -105,7 +101,7 @@ public class PublishingService {
     	}
     	      	
     	if (fBean != null) {
-    		processFullBean(fBean, fullBeanDao, cloudSolrServer);
+    		processFullBean(fBean, fullBeanDao, solrServer);
     		LOGGER.info("Successfully processed record.");
             return true;
     	}
