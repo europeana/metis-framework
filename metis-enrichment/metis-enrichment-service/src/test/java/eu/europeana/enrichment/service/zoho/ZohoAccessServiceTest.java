@@ -1,7 +1,10 @@
 package eu.europeana.enrichment.service.zoho;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -41,7 +44,7 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest{
 	
 	@Test
 	public void getOrganizationsTest() throws ZohoAccessException {
-		List<Organization> orgList = zohoAccessService.getOrganizations(1, 5);
+		List<Organization> orgList = zohoAccessService.getOrganizations(1, 5, null);
 		
 		assertNotNull(orgList);
 		assertFalse(orgList.isEmpty());
@@ -64,5 +67,37 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest{
 		List<String> identifier = identifiers.iterator().next().getValue();
 		LOGGER.info("First entry identifier: "+identifier);	
 		
+	}
+	
+	@Test
+	public void getOrganizationsSizeOneTest() throws ZohoAccessException {
+		List<Organization> orgList = zohoAccessService.getOrganizations(1, 1, null);
+		
+		assertNotNull(orgList);
+		assertFalse(orgList.isEmpty());
+		assertEquals(1, orgList.size());
+		
+		Organization org = orgList.get(0);
+		assertNotNull(org.getAbout());
+		LOGGER.info("First entry about: "+ org.getAbout());
+	}
+	
+	@Test
+	public void getOrganizationsModifiedTest() throws ZohoAccessException {
+		List<Organization> orgList = zohoAccessService.getOrganizations(1, 5, null);
+		//by default it seems that the records are ordered by lastModified desc 
+		String firstOrgId = orgList.get(0).getAbout();
+		Organization thirdOrg = orgList.get(2);
+		
+		int oneSecond = 1000;
+		Date modifiedDate = new Date(thirdOrg.getModified().getTime() + oneSecond);
+		
+		orgList = zohoAccessService.getOrganizations(1, 5, modifiedDate);
+		assertNotNull(orgList);
+		assertFalse(orgList.isEmpty());
+		
+		assertEquals(2, orgList.size());
+		String orgId = orgList.get(0).getAbout();
+		assertEquals(orgId, firstOrgId);
 	}
 }

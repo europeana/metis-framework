@@ -7,6 +7,7 @@ public abstract class ZohoApiFields {
 	public static final String SEARCH_RECORDS_STRING = "searchRecords";
 	public static final String AUTHENTICATION_TOKEN_STRING = "authtoken";
 	public static final String SCOPE_STRING = "scope";
+	public static final String LAST_MODIFIED_TIME = "lastModifiedTime";
 	public static final String CRITERIA_STRING = "criteria";
 	public static final String RESPONSE_STRING = "response";
 	public static final String RESULT_STRING = "result";
@@ -22,4 +23,10 @@ public abstract class ZohoApiFields {
 	public static final String ID = "id";
 	public static final String FROM_INDEX_STRING = "fromIndex";
 	public static final String TO_INDEX_STRING = "toIndex";
+	public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
+	public static final String SORT_COLUMN = "sortColumnString";
+	public static final String SORT_ORDER = "sortOrderString";
+	public static final String SORT_ORDER_DESC = "desc";
+	public static final String MODIFIED_TIME = "Modified Time";
+	
 }

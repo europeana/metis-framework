@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoOrganization;
 import eu.europeana.enrichment.api.external.model.zoho.ZohoResponseField;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
+import eu.europeana.metis.authentication.dao.ZohoApiFields;
 
 
 
@@ -50,14 +51,14 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final String LOGO = "Logo (link to WikimediaCommons)";
 	private static final String SECTOR = "Sector";
 	private static final String POST_BOX = "PO box";
-	private static final String MODIFIED = "Modified Time";
+	private static final String MODIFIED = ZohoApiFields.MODIFIED_TIME;
 	private static final String CREATED = "Created Time";
 	private static final String MODIFIED_BY = "Modified By";
 	private static final int MAX_ALTERNATIVES = 5;
 	private static final int MAX_LANG_ALTERNATIVES = 5;
 	private static final int MAX_SAME_AS = 3;
 
-	private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+	public SimpleDateFormat formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
 	private List<ZohoResponseField> organizationFields = null;
 	
 	public ZohoOrganizationAdapter(JsonNode response) throws ZohoAccessException{

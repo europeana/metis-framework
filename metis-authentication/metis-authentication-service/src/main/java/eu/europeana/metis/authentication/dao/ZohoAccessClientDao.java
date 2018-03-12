@@ -240,7 +240,7 @@ public class ZohoAccessClientDao {
 	
 
 	/**
-	 * Retrieve organizations using start and end index.
+	 * Retrieve organizations using start and end index. The organizations are pre-ordered by modified time descending
 	 * <p>
 	 * It will try to fetch the organizations from the external CRM. This method
 	 * returns a list of organizations in json format.
@@ -253,6 +253,7 @@ public class ZohoAccessClientDao {
 	 *            to start search from this index
 	 * @param rows
 	 *            to end search by this index
+	 * @param lastModifiedTime If specified, only records created or modified after the given time will be fetched. The value must be provided in yyyy-MM-dd HH:mm:ss format           
 	 * @return the list of the organizations
 	 * @throws GenericMetisException
 	 *             which can be one of:
@@ -264,15 +265,19 @@ public class ZohoAccessClientDao {
 	 *             </ul>
 	 * @throws IOException
 	 */
-	public JsonNode getOrganizations(int start, int rows) throws GenericMetisException {
+	public JsonNode getOrganizations(int start, int rows, String lastModifiedTime) throws GenericMetisException {
 
 		String contactsSearchUrl = String.format("%s/%s/%s/%s", zohoBaseUrl, ZohoApiFields.JSON_STRING,
 				ZohoApiFields.ACCOUNTS_MODULE_STRING, ZohoApiFields.GET_RECORDS_STRING);
 		UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(contactsSearchUrl)
 				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
 				.queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
-				.queryParam(ZohoApiFields.FROM_INDEX_STRING, start).queryParam(ZohoApiFields.TO_INDEX_STRING, start + rows -1);
+				.queryParam(ZohoApiFields.FROM_INDEX_STRING, start).queryParam(ZohoApiFields.TO_INDEX_STRING, start + rows -1)
+				.queryParam(ZohoApiFields.SORT_COLUMN, ZohoApiFields.MODIFIED_TIME).queryParam(ZohoApiFields.SORT_ORDER, ZohoApiFields.SORT_ORDER_DESC);
 
+		if(!StringUtils.isBlank(lastModifiedTime))
+			builder.queryParam(ZohoApiFields.LAST_MODIFIED_TIME, lastModifiedTime);
+			
 		RestTemplate restTemplate = new RestTemplate();
 		URI uri = builder.build().encode().toUri();
 		LOGGER.trace("{}", uri);

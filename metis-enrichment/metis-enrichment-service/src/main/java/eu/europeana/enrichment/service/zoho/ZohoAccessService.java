@@ -1,8 +1,10 @@
 package eu.europeana.enrichment.service.zoho;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -36,7 +38,8 @@ public class ZohoAccessService {
 	private static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
 	private static final String UNDEFINED_LANGUAGE_KEY = "def";
 	private final ZohoAccessClientDao zohoAccessClientDao;
-
+	private SimpleDateFormat dateFormatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+	
 	/**
 	 * Constructor of class with required parameters
 	 *
@@ -156,15 +159,19 @@ public class ZohoAccessService {
 	 * @return
 	 * @throws ZohoAccessException
 	 */
-	public List<Organization> getOrganizations(int start, int rows) throws ZohoAccessException {
+	public List<Organization> getOrganizations(int start, int rows, Date lastModified) throws ZohoAccessException {
 
 		if (start < 1)
 			throw new ZohoAccessException("Invalid start index. Index must be >= 1",
 					new IllegalArgumentException("start: " + start));
 
 		JsonNode jsonRecordsResponse;
+		String lastModifiedTime = null;
+		if(lastModified != null)
+			lastModifiedTime = getDateFormatter().format(lastModified);
+			
 		try {
-			jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start, rows);
+			jsonRecordsResponse = zohoAccessClientDao.getOrganizations(start, rows, lastModifiedTime);
 		} catch (GenericMetisException e) {
 			throw new ZohoAccessException("Cannot get organization list from: " + start + " rows :" + rows, e);
 		}
@@ -187,14 +194,24 @@ public class ZohoAccessService {
 		if (accountsNode == null)
 			return res;
 
-		JsonNode organizationNode;
-
+		//one result in the response
+		boolean oneResult = accountsNode.get(0) == null;
+		if(oneResult){
+			addAccountToOrgList(accountsNode, res);
+			return res;
+		}	
+		
+		//a list of results in the response 
 		for (JsonNode accountNode : accountsNode) {
-			organizationNode = accountNode.get(ZohoApiFields.FIELDS_LABEL);
-			res.add(getOrganizationFromJsonNode(organizationNode));
+			addAccountToOrgList(accountNode, res);
 		}
 
 		return res;
+	}
+
+	private void addAccountToOrgList(JsonNode accountNode, List<Organization> res) throws ZohoAccessException {
+		JsonNode organizationNode = accountNode.get(ZohoApiFields.FIELDS_LABEL);
+		res.add(getOrganizationFromJsonNode(organizationNode));
 	}
 
 	/**
@@ -258,5 +275,9 @@ public class ZohoAccessService {
 		Map<String, List<String>> resMap = new HashMap<String, List<String>>();
 		resMap.put(toIsoLanguage(language), value);
 		return resMap;
+	}
+
+	public SimpleDateFormat getDateFormatter() {
+		return dateFormatter;
 	}
 }
