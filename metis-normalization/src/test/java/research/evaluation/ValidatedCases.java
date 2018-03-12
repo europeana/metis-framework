@@ -1,8 +1,8 @@
 package research.evaluation;
 
-import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.NalLanguage;
+import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.languages.Language;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,9 +19,9 @@ public class ValidatedCases {
 
   private final Map<String, Validation> validations;
   private EvaluationStats stats;
-  private EuropeanLanguagesNal europaEuLanguagesNal;
+  private Languages europaEuLanguagesNal;
 
-  public ValidatedCases(File evaluationFolder, EuropeanLanguagesNal europaEuLanguagesNal)
+  public ValidatedCases(File evaluationFolder, Languages europaEuLanguagesNal)
       throws IOException {
     this.europaEuLanguagesNal = europaEuLanguagesNal;
     validations = new HashMap<>();
@@ -108,11 +108,11 @@ public class ValidatedCases {
     return europaEuLanguagesNal.getTargetVocabulary();
   }
 
-  public EuropeanLanguagesNal getLanguagesNal() {
+  public Languages getLanguagesNal() {
     return europaEuLanguagesNal;
   }
 
-  public void setLanguagesNal(EuropeanLanguagesNal europaEuLanguagesNal) {
+  public void setLanguagesNal(Languages europaEuLanguagesNal) {
     this.europaEuLanguagesNal = europaEuLanguagesNal;
   }
 
@@ -126,8 +126,8 @@ public class ValidatedCases {
   }
 
   public boolean resultMatchesValidation(List<String> normalizeds,
-      List<NalLanguage> validatedResult) {
-    List<NalLanguage> normalizedsEnums = new ArrayList<>(normalizeds.size());
+      List<Language> validatedResult) {
+    List<Language> normalizedsEnums = new ArrayList<>(normalizeds.size());
     for (String nid : normalizeds) {
       normalizedsEnums.add(europaEuLanguagesNal.lookupIsoCode(nid));
     }

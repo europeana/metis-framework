@@ -1,11 +1,11 @@
 package eu.europeana.normalization;
 
-import eu.europeana.normalization.common.language.LanguagesVocabulary;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 
 public class NormalizerFactory {
 
-  // TODO JOCHEN are these sensible defaults? Particularly the conficence?
+  // TODO JOCHEN are these sensible defaults? Particularly the confidence?
   private static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
   private static final float DEFAULT_MINIMAL_CONFIDENCE = 0.95f;
 

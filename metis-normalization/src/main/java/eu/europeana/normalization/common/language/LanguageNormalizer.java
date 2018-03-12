@@ -2,14 +2,19 @@ package eu.europeana.normalization.common.language;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 import eu.europeana.normalization.common.NormalizeDetails;
 import eu.europeana.normalization.common.RecordNormalization;
 import eu.europeana.normalization.common.ValueNormalization;
-import eu.europeana.normalization.common.language.nal.AmbiguousLabelMatchException;
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.LanguageMatcher;
 import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
+import eu.europeana.normalization.languages.LanguageMatch;
+import eu.europeana.normalization.languages.LanguageMatch.Type;
+import eu.europeana.normalization.languages.LanguageMatcher;
+import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.util.XpathQuery;
@@ -32,7 +37,7 @@ public class LanguageNormalizer implements ValueNormalization {
       XpathQuery.combine(DC_LANGUAGE_QUERY, XML_LANG_QUERY);
 
   public enum SupportedOperations {
-    
+
     DC_LANGUAGE(DC_LANGUAGE_QUERY), XML_LANG(XML_LANG_QUERY), ALL(COMBINED_QUERY);
 
     private final XpathQuery languageQuery;
@@ -43,7 +48,7 @@ public class LanguageNormalizer implements ValueNormalization {
   }
 
   private Float minimumConfidence;
-  private final LanguageMatcher normalizer;
+  private final LanguageMatcher matcher;
   private SupportedOperations operations = SupportedOperations.ALL;
 
   /**
@@ -54,9 +59,9 @@ public class LanguageNormalizer implements ValueNormalization {
   public LanguageNormalizer(LanguagesVocabulary targetVocab, Float minimumConfidence)
       throws NormalizationConfigurationException {
     super();
-    EuropeanLanguagesNal matchingVocab = new EuropeanLanguagesNal();
+    Languages matchingVocab = Languages.getLanguages();
     matchingVocab.setTargetVocabulary(targetVocab);
-    normalizer = new LanguageMatcher(matchingVocab);
+    matcher = new LanguageMatcher(matchingVocab);
 
   }
 
@@ -69,46 +74,50 @@ public class LanguageNormalizer implements ValueNormalization {
     return res;
   }
 
-  public List<NormalizeDetails> normalizeDetailed(String lbl) {
-    List<NormalizeDetails> res = new ArrayList<>();
 
-    String normalized = normalizer.findIsoCodeMatch(lbl, lbl);
-    if (normalized != null && normalized.equalsIgnoreCase(lbl)) {
-      res.add(new NormalizeDetails(normalized, 1));
-    } else if (normalized != null) {
-      res.add(new NormalizeDetails(normalized, 0.98f));
+  public List<NormalizeDetails> normalizeDetailed(String label) {
+
+    // Match the input. If there are no results, we are done.
+    final List<LanguageMatch> matches = matcher.match(label);
+    if (matches.isEmpty()) {
+      return Collections.emptyList();
+    }
+
+    // Do some analysis.
+    final Set<Type> matchTypes =
+        matches.stream().map(LanguageMatch::getType).distinct().collect(Collectors.toSet());
+    final boolean justCodeMatches = matchTypes.size() == 1 && matchTypes.contains(Type.CODE_MATCH);
+    final boolean justLabelMatches = matchTypes.size() == 1 && matchTypes.contains(Type.LABEL_MATCH);
+    final boolean justOneMatch = matches.size()==1;
+    final boolean matchesFailed = matchTypes.contains(Type.NO_MATCH);
+
+    // Determine confidence.
+    final Float confidence;
+    if (matchesFailed) {
+      confidence = null;
+    } else if (justCodeMatches && justOneMatch) {
+      final LanguageMatch match = matches.get(0);
+      if (match.getInput().equals(match.getMatch())) {
+        confidence = 1.0F;
+      } else {
+        confidence = 0.98F;
+      }
+    } else if (justCodeMatches || justLabelMatches) {
+      confidence = 0.95F;
     } else {
-      List<String> normalizeds;
-      try {
-        normalizeds = normalizer.findLabelMatches(lbl);
-        if (!normalizeds.isEmpty()) {
-          res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
-        } else {
-          normalizeds = normalizer.findLabelAllWordMatches(lbl);
-          if (!normalizeds.isEmpty()) {
-            res.addAll(NormalizeDetails.newList(normalizeds, 0.95f));
-          } else {
-            normalizeds = normalizer.findLabelWordMatches(lbl);
-            if (!normalizeds.isEmpty()) {
-              res.addAll(NormalizeDetails.newList(normalizeds, 0.85f));
-            }
-          }
-        }
-      } catch (AmbiguousLabelMatchException e) {
-        res.add(new NormalizeDetails(e.getAmbigouosMatches().get(0),
-            1f / (float) e.getAmbigouosMatches().size()));
-      }
+      confidence = 0.85F;
     }
-    if (minimumConfidence != null) {
-      for (int i = 0; i < res.size(); i++) {
-        NormalizeDetails n = res.get(i);
-        if (n.getConfidence() < minimumConfidence) {
-          res.remove(i);
-          i--;
-        }
-      }
+
+    // Check the confidence.
+    if (confidence == null || confidence < minimumConfidence) {
+      return Collections.emptyList();
     }
-    return res;
+
+    // Return the result.
+    final Set<String> matchedLanguages =
+        matches.stream().map(LanguageMatch::getMatch).distinct().collect(Collectors.toSet());
+    return matchedLanguages.stream().map(language -> new NormalizeDetails(language, confidence))
+        .collect(Collectors.toList());
   }
 
   @Override

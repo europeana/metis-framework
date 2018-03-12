@@ -68,7 +68,7 @@ public enum Namespace {
     private final String elementName;
     private final Namespace namespace;
 
-    Element(String elementName, Namespace namespace) {
+    private Element(String elementName, Namespace namespace) {
       this.elementName = elementName;
       this.namespace = namespace;
     }

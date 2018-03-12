@@ -5,13 +5,14 @@ import com.ibm.icu.text.Transliterator;
 
 /**
  * <p>
- * This class normalizes a label for indexing. This consists of the following actions, in the order
- * given here:
+ * This class normalizes a string for indexing or checking against the index. This consists of the
+ * following actions, in the order given here:
  * <ol>
  * <li>Removing all punctuation (replacing them with spaces)</li>
  * <li>Transliterating all Cyrillic and Greek characters to Latin, removing all accents</li>
  * <li>Transforming all characters to lower case</li>
- * <li>Cleaning surplus space characters (so that only single spaces remain)</li>
+ * <li>Cleaning surplus space characters (so that only single spaces remain, and no spaces are found
+ * at the beginning or end of the input)</li>
  * </ol>
  * </p>
  * <p>
@@ -22,7 +23,7 @@ import com.ibm.icu.text.Transliterator;
  * The functionality in this class does not maintain state and is thread-safe.
  * </p>
  */
-public final class IndexLabelNormalizer {
+public final class StringNormalizer {
 
   /** This regular expression matches any sequence of space characters. **/
   private static final Pattern CLEAN_SURPLUS_SPACES = Pattern.compile("\\s+");
@@ -37,20 +38,20 @@ public final class IndexLabelNormalizer {
   private static final Transliterator TRANSLITERATOR = Transliterator.getInstance(
       "Greek-Latin/UNGEGN; Cyrillic-Latin; nfd; [:Nonspacing Mark:] remove; nfc; Lower");
 
-  private IndexLabelNormalizer() {
+  private StringNormalizer() {
     // static methods only - hide constructor
   }
 
   /**
    * Normalizes a string
    *
-   * @param indexLabel The string to normalize
+   * @param input The string to normalize
    * @return The normalized string
    */
-  public static String normalizeIndexLabel(String indexLabel) {
+  public static String normalize(String input) {
 
     // Clean punctuation, replace any punctuation with a space.
-    String result = CLEAN_PUNCTUATION_PATTERN.matcher(indexLabel).replaceAll(" ");
+    String result = CLEAN_PUNCTUATION_PATTERN.matcher(input).replaceAll(" ");
 
     // Transliterate the text, also removing accents and converting to lower case.
     result = TRANSLITERATOR.transliterate(result);

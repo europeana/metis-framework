@@ -1,8 +1,8 @@
 package research.evaluation;
 
-import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.NalLanguage;
+import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.languages.Language;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.csv.CSVRecord;
@@ -10,10 +10,10 @@ import org.apache.commons.csv.CSVRecord;
 class Validation {
 
   private String value;
-  private List<NalLanguage> normalizedValues;
+  private List<Language> normalizedValues;
   private boolean invalidCase;
 
-  public Validation(CSVRecord rec, EuropeanLanguagesNal nal) {
+  public Validation(CSVRecord rec, Languages nal) {
     value = rec.get(0);
     String validation = rec.get(4);
     invalidCase = !validation.equals("n") && !validation.equals("y");
@@ -60,11 +60,11 @@ class Validation {
     this.value = value;
   }
 
-  public List<NalLanguage> getNormalizedValues() {
+  public List<Language> getNormalizedValues() {
     return normalizedValues;
   }
 
-  public void setNormalizedValues(List<NalLanguage> normalizedValues) {
+  public void setNormalizedValues(List<Language> normalizedValues) {
     this.normalizedValues = normalizedValues;
   }
 
@@ -72,7 +72,7 @@ class Validation {
     if (invalidCase) {
       return true;
     }
-    for (NalLanguage l : normalizedValues) {
+    for (Language l : normalizedValues) {
       if (l.getNormalizedLanguageId(languagesVocabulary) == null) {
         return true;
       }

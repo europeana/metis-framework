@@ -19,8 +19,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.NalLanguage;
+import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.Language;
 
 class CsvExporter implements Closeable {
 
@@ -41,9 +41,9 @@ class CsvExporter implements Closeable {
   private final Set<String> noMatchCases = new HashSet<>();
   private final MapOfLists<String, String> noMatchCasesIds = new MapOfLists<>();
 
-  private EuropeanLanguagesNal europaEuLanguagesNal;
+  private Languages europaEuLanguagesNal;
 
-  public CsvExporter(File exportFolder, EuropeanLanguagesNal europaEuLanguagesNal) {
+  public CsvExporter(File exportFolder, Languages europaEuLanguagesNal) {
     super();
     try {
       FileWriter out = new FileWriter(new File(exportFolder, "LangCodeMatch.csv"));
@@ -202,7 +202,7 @@ class CsvExporter implements Closeable {
     out = new FileWriter(new File(evaluationCsvFolder, "evaluation_target-vocabulary.csv"));
     out.write('\ufeff');
     csvPrinter = new CSVPrinter(out, CSVFormat.EXCEL);
-    for (NalLanguage value : europaEuLanguagesNal.getLanguages()) {
+    for (Language value : europaEuLanguagesNal.getActiveLanguages()) {
       String normalizedLanguageId = value
           .getNormalizedLanguageId(europaEuLanguagesNal.getTargetVocabulary());
       if (normalizedLanguageId != null) {

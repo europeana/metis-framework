@@ -1,12 +1,15 @@
 package research;
 
-import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.common.language.nal.AmbiguousLabelMatchException;
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.LanguageMatcher;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import eu.europeana.normalization.languages.LanguageMatch;
+import eu.europeana.normalization.languages.LanguageMatcher;
+import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.languages.LanguageMatch.Type;
 import research.evaluation.EvaluationStats;
 import research.evaluation.ValidatedCases;
 
@@ -16,7 +19,7 @@ public class CalculateEvaluationResultsOnEuropeanaFacet {
   public static void main(String[] args) throws Throwable {
     LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_1;
 //		LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_3;
-    EuropeanLanguagesNal europaEuLanguagesNal = new EuropeanLanguagesNal();
+    Languages europaEuLanguagesNal = Languages.getLanguages();
     europaEuLanguagesNal.setTargetVocabulary(targetVocab);
     europaEuLanguagesNal.initNormalizedIndex();
     LanguageMatcher normalizer = new LanguageMatcher(europaEuLanguagesNal);
@@ -43,52 +46,36 @@ public class CalculateEvaluationResultsOnEuropeanaFacet {
       lbl = lbl.trim();
       Integer cnt = (Integer) label.get("count");
       validation.addCount(cnt);
+      
+      final List<LanguageMatch> matches = normalizer.match(lbl);
+      final Set<Type> matchTypes =
+          matches.stream().map(LanguageMatch::getType).distinct().collect(Collectors.toSet());
+      final List<String> matchedLanguages =
+          matches.stream().map(LanguageMatch::getMatch).distinct().collect(Collectors.toList());
 
-      String normalized = normalizer.findTargetIsoCodeMatch(lbl, lbl);
-      if (normalized != null && normalized.equalsIgnoreCase(lbl)) {
-//                System.out.println("Already normal: " + lbl);
-        validation.addAlreadyNormalized(cnt);
-//                evalStats.getNormalizationMethodStats().addAlreadyNormalized(cnt);
-//                evalStats.getTargetCodesMatchesStats().addAlreadyNormalized(cnt);
-      } else {
-        normalized = normalizer.findIsoCodeMatch(lbl, lbl);
-//            	if (normalized != null && normalized.equalsIgnoreCase(lbl)) {
-//            		evalStats.addCodeMatch(cnt);
-//	            } else 
-        if (normalized != null) {
-          validation.addCodeMatch(cnt);
+      final boolean justCodeMatches = matchTypes.size() == 1 && matchTypes.contains(Type.CODE_MATCH);
+      final boolean justLabelMatches = matchTypes.size() == 1 && matchTypes.contains(Type.LABEL_MATCH);
+      final boolean justOneMatch = matches.size()==1;
+      final boolean allMatchesSucceeded = !matchTypes.contains(Type.NO_MATCH);
+
+      if (matches.isEmpty()) {
+        validation.validateNoMatch(lbl, cnt);
+      } else if (justCodeMatches && justOneMatch) {
+        final LanguageMatch match = matches.get(0);
+        if (match.getInput().equals(match.getMatch())) {
+          validation.addAlreadyNormalized(cnt);
         } else {
-          List<String> normalizeds;
-          try {
-            normalizeds = normalizer.findLabelMatches(lbl);
-            if (!normalizeds.isEmpty()) {
-//			                    System.out.println(" Normalized " + lbl + " ---> " + normalizeds.get(0));
-              validation.validateLabelMatch(lbl, normalizeds, cnt);
-            } else {
-              normalizeds = normalizer.findLabelAllWordMatches(lbl);
-              if (!normalizeds.isEmpty()) {
-//			                    	System.out.println(" Normalized " + lbl + " ---> " + normalizeds);
-                validation.validateLabelWordAllMatch(lbl, normalizeds, cnt);
-              } else {
-                normalizeds = normalizer.findLabelWordMatches(lbl);
-                if (!normalizeds.isEmpty()) {
-//			                            System.out.println(" Normalized " + lbl + " ---> " + normalizeds);
-                  validation.validateLabelWordMatch(lbl, normalizeds, cnt);
-                } else {
-//			                            System.out.println("not found " + lbl);
-                  validation.validateNoMatch(lbl, cnt);
-                }
-              }
-            }
-          } catch (AmbiguousLabelMatchException e) {
-            System.out
-                .println(" Ambiguous (not matching): " + lbl + " ---> " + e.getAmbigouosMatches());
-            validation.validateNoMatch(lbl, cnt);
-          }
-
+          validation.addCodeMatch(cnt);
         }
+      } else if (justLabelMatches && justOneMatch) {
+        validation.validateLabelMatch(lbl, matchedLanguages, cnt);
+      } else if (justCodeMatches || justLabelMatches) {
+        validation.validateLabelWordAllMatch(lbl, matchedLanguages, cnt);
+      } else if (allMatchesSucceeded) {
+        validation.validateLabelWordMatch(lbl, matchedLanguages, cnt);
       }
     }
+    
     System.out.println(evalStats);
     System.out.println();
     System.out.println(evalStats.toCsv());

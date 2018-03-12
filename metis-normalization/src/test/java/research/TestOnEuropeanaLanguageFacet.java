@@ -4,12 +4,16 @@ package research;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import eu.europeana.normalization.common.language.LanguagesVocabulary;
-import eu.europeana.normalization.common.language.nal.EuropeanLanguagesNal;
-import eu.europeana.normalization.common.language.nal.LanguageMatcher;
+import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.languages.LanguageMatch.Type;
+import eu.europeana.normalization.languages.LanguageMatch;
+import eu.europeana.normalization.languages.LanguageMatcher;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * A test that was executed to explore and analyse the dc:language data in europeana. It uses an
@@ -24,7 +28,7 @@ public class TestOnEuropeanaLanguageFacet {
   public static void main(String[] args) throws Exception {
 
     LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_3;
-    EuropeanLanguagesNal europaEuLanguagesNal = new EuropeanLanguagesNal();
+    Languages europaEuLanguagesNal = Languages.getLanguages();
     europaEuLanguagesNal.setTargetVocabulary(targetVocab);
     europaEuLanguagesNal.initNormalizedIndex();
     LanguageMatcher normalizer = new LanguageMatcher(europaEuLanguagesNal);
@@ -49,39 +53,44 @@ public class TestOnEuropeanaLanguageFacet {
         String lbl = (String) label.get("label");
         lbl = lbl.trim();
         Integer cnt = (Integer) label.get("count");
-        String normalized = normalizer.findIsoCodeMatch(lbl, lbl);
-        if (normalized != null && normalized.equalsIgnoreCase(lbl)) {
-          System.out.println("Already normal: " + lbl);
-          okCnt += cnt;
-        } else if (normalized != null) {
-          System.out.println(" Normalized " + lbl + " ---> " + normalized);
-          exporter.exportCodeMatch(lbl, normalized);
-          normalizedFromCodeCnt += cnt;
-        } else {
-          List<String> normalizeds = normalizer.findLabelMatches(lbl);
-          if (!normalizeds.isEmpty()) {
-            System.out.println(" Normalized " + lbl + " ---> " + normalizeds.get(0));
-            normalizedCnt += cnt;
-            exporter.exportLabelMatch(lbl, normalizeds);
+        
+        final List<LanguageMatch> matches = normalizer.match(lbl);
+        final Set<Type> matchTypes =
+            matches.stream().map(LanguageMatch::getType).distinct().collect(Collectors.toSet());
+        final List<String> matchedLanguages =
+            matches.stream().map(LanguageMatch::getMatch).distinct().collect(Collectors.toList());
+        
+        final boolean justCodeMatches = matchTypes.size() == 1 && matchTypes.contains(Type.CODE_MATCH);
+        final boolean justLabelMatches = matchTypes.size() == 1 && matchTypes.contains(Type.LABEL_MATCH);
+        final boolean justOneMatch = matches.size()==1;
+        final boolean allMatchesSucceeded = !matchTypes.contains(Type.NO_MATCH);
+
+        if (matches.isEmpty()) {
+          System.out.println("not found " + lbl);
+          noMatchCnt += cnt;
+          exporter.exportNoMatch(lbl);
+        } else if (justCodeMatches && justOneMatch) {
+          final LanguageMatch match = matches.get(0);
+          if (match.getInput().equals(match.getMatch())) {
+            System.out.println("Already normal: " + lbl);
+            okCnt += cnt;
           } else {
-            normalizeds = normalizer.findLabelAllWordMatches(lbl);
-            if (!normalizeds.isEmpty()) {
-              System.out.println(" Normalized " + lbl + " ---> " + normalizeds);
-              normalizedWordAllCnt += cnt;
-              exporter.exportLabelWordAllMatch(lbl, normalizeds);
-            } else {
-              normalizeds = normalizer.findLabelWordMatches(lbl);
-              if (!normalizeds.isEmpty()) {
-                System.out.println(" Normalized " + lbl + " ---> " + normalizeds);
-                normalizedWordCnt += cnt;
-                exporter.exportLabelWordMatch(lbl, normalizeds);
-              } else {
-                System.out.println("not found " + lbl);
-                noMatchCnt += cnt;
-                exporter.exportNoMatch(lbl);
-              }
-            }
+            System.out.println(" Normalized " + lbl + " ---> " + match.getMatch());
+            exporter.exportCodeMatch(lbl, match.getMatch());
+            normalizedFromCodeCnt += cnt;
           }
+        } else if (justLabelMatches && justOneMatch) {
+          System.out.println(" Normalized " + lbl + " ---> " + matchedLanguages.get(0));
+          normalizedCnt += cnt;
+          exporter.exportLabelMatch(lbl, matchedLanguages);
+        } else if (justCodeMatches || justLabelMatches) {
+          System.out.println(" Normalized " + lbl + " ---> " + matchedLanguages);
+          normalizedWordAllCnt += cnt;
+          exporter.exportLabelWordAllMatch(lbl, matchedLanguages);
+        } else if (allMatchesSucceeded) {
+          System.out.println(" Normalized " + lbl + " ---> " + matchedLanguages);
+          normalizedWordCnt += cnt;
+          exporter.exportLabelWordMatch(lbl, matchedLanguages);
         }
       }
 

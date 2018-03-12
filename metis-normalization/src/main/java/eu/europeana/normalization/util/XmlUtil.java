@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -38,12 +39,12 @@ public final class XmlUtil {
   private XmlUtil() {}
 
   /**
-   * An iterable for all the Element childs of a node
+   * Returns a list for all the Element childs of a node
    *
    * @param n the node get the children from
-   * @return An iterable for all the Element childs of a node
+   * @return The list
    */
-  public static Iterable<Element> elements(Element n) {
+  public static List<Element> elements(Element n) {
     int sz = n.getChildNodes().getLength();
     ArrayList<Element> elements = new ArrayList<>(sz);
     for (int idx = 0; idx < sz; idx++) {
@@ -56,16 +57,16 @@ public final class XmlUtil {
   }
 
   /**
-   * An Iterable for the Element's childs, with a particular name, of a node
+   * Returns a list for the Element's childs, with a particular name, of a node
    *
    * @param n the node get the children from
    * @param elementName the name of the child elements
-   * @return An Iterable for the Element's children, with a particular name, of a node
+   * @return The list.
    */
-  public static Iterable<Element> elements(Element n, String elementName) {
+  public static List<Element> elements(Element n, String elementName) {
     NodeList subNodes = n.getElementsByTagName(elementName);
     int sz = subNodes.getLength();
-    ArrayList<Element> elements = new ArrayList<>(sz);
+    List<Element> elements = new ArrayList<>(sz);
     for (int idx = 0; idx < sz; idx++) {
       Node node = subNodes.item(idx);
       elements.add((Element) node);

@@ -26,19 +26,6 @@ public class NormalizeDetails {
     this.confidence = confidence;
   }
 
-  /**
-   * @param normalizeds
-   * @param confidence
-   * @return
-   */
-  public static List<NormalizeDetails> newList(List<String> normalizeds, float confidence) {
-    List<NormalizeDetails> res = new ArrayList<>();
-    for (String v : normalizeds) {
-      res.add(new NormalizeDetails(v, confidence));
-    }
-    return res;
-  }
-
   public String getNormalizedValue() {
     return normalizedValue;
   }
