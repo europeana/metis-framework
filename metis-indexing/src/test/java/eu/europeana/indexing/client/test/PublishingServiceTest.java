@@ -129,7 +129,7 @@ public class PublishingServiceTest {
 	    LBHttpSolrServer solrServer = Mockito.mock(LBHttpSolrServer.class);
 	    CloudSolrServer cloudSolrServer = Mockito.mock(CloudSolrServer.class);
 	    	    
-	    publishingService = new PublishingService(fullBeanDao, solrServer, cloudSolrServer);
+	    publishingService = new PublishingService(fullBeanDao, cloudSolrServer);
     }
 
 	@Test

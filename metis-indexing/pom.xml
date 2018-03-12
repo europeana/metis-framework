@@ -10,10 +10,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>metis-indexing</artifactId>
-  <packaging>pom</packaging>
-  <modules>
-    <module>metis-indexing-client</module>
-  </modules>
+
 
 <build>
     <plugins>
@@ -23,4 +20,31 @@
         </plugin>
     </plugins>
 </build>
+  
+	<dependencies>
+  		<dependency>
+			<groupId>eu.europeana.corelib</groupId>
+			<artifactId>corelib-definitions</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>eu.europeana.corelib</groupId>
+			<artifactId>corelib-storage</artifactId>
+		</dependency>
+		 <dependency>
+            <groupId>eu.europeana.metis</groupId>
+            <artifactId>metis-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+                <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${version.commons.lang}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${version.mockito.core}</version>
+            <scope>test</scope>
+        </dependency>
+	</dependencies>
 </project>
