@@ -1,14 +1,14 @@
-package eu.europeana.normalization.common.cleaning;
+package eu.europeana.normalization.normalizers;
 
 import java.util.Arrays;
-import eu.europeana.normalization.common.RecordNormalization;
-import eu.europeana.normalization.common.ValueNormalization;
-import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
 import eu.europeana.normalization.util.Namespace;
 import eu.europeana.normalization.util.Namespace.Element;
 import eu.europeana.normalization.util.XpathQuery;
 
-public abstract class EdmRecordNormalizerBase implements ValueNormalization {
+/**
+ * This class represents a normalizer that normalizes values in EDM tags an EDM DOM tree.
+ */
+public abstract class EdmValueNormalizer implements ValueNormalizer {
 
   private static final Element[] ELEMENTS_TO_QUERY = {Namespace.ORE.getElement("Proxy"),
       Namespace.ORE.getElement("Aggregation"), Namespace.EDM.getElement("WebResource"),
@@ -17,15 +17,15 @@ public abstract class EdmRecordNormalizerBase implements ValueNormalization {
       Namespace.EDM.getElement("PhysicalThing"), Namespace.SKOS.getElement("Concept")};
 
   private static final XpathQuery RECORD_NORMALIZATION_QUERY =
-      XpathQuery.combine(Arrays.stream(ELEMENTS_TO_QUERY)
-          .map(EdmRecordNormalizerBase::getRdfSubtagQuery).toArray(XpathQuery[]::new));
+      XpathQuery.combine(Arrays.stream(ELEMENTS_TO_QUERY).map(EdmValueNormalizer::getRdfSubtagQuery)
+          .toArray(XpathQuery[]::new));
 
   private static final XpathQuery getRdfSubtagQuery(Element subtag) {
     return XpathQuery.create("/%s/%s/*", XpathQuery.RDF_TAG, subtag);
   }
 
   @Override
-  public RecordNormalization toEdmRecordNormalizer() {
-    return new ValueToRecordNormalizationWrapper(this, false, RECORD_NORMALIZATION_QUERY);
+  public RecordNormalizer getAsRecordNormalizer() {
+    return new ValueNormalizerWrapper(this, RECORD_NORMALIZATION_QUERY);
   }
 }

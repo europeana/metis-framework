@@ -1,11 +1,13 @@
-package eu.europeana.normalization.common.cleaning;
+package eu.europeana.normalization.normalizers;
 
-import eu.europeana.normalization.common.cleaning.MarkupTagsCleaning.Mode;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
+import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
+import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer.Mode;
 
-public class MarkupTagsCleaningTest {
+public class CleanMarkupTagsNormalizerTest {
 
   private String html = "<div\n\tid=\"blah\" alt=\" man\n"
       + "\tthis is ugly html \"\n"
@@ -15,8 +17,9 @@ public class MarkupTagsCleaningTest {
 
   @Test
   public void testHtmlMarkup() throws Exception {
-    MarkupTagsCleaning cleaner = new MarkupTagsCleaning(Mode.HTML_ONLY);
-    List<String> cleaned = cleaner.normalize(html);
+    CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(Mode.HTML_ONLY);
+    List<String> cleaned = cleaner.normalizeValue(html).stream()
+        .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(html);
     System.out.println(cleaned);
     Assert.assertEquals(1, cleaned.size());
@@ -30,9 +33,9 @@ public class MarkupTagsCleaningTest {
 
   @Test
   public void testAllMarkup() throws Exception {
-    MarkupTagsCleaning cleaner = new MarkupTagsCleaning(Mode.ALL_MARKUP);
-    List<String> cleaned = cleaner.normalize(html);
-
+    CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(Mode.ALL_MARKUP);
+    List<String> cleaned = cleaner.normalizeValue(html).stream()
+        .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(cleaned);
     Assert.assertEquals(1, cleaned.size());
     Assert.assertTrue(cleaned.get(0).contains("ire this guy"));

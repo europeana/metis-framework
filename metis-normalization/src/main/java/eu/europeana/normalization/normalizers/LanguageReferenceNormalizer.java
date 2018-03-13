@@ -1,15 +1,10 @@
-package eu.europeana.normalization.common.language;
+package eu.europeana.normalization.normalizers;
 
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import eu.europeana.normalization.common.NormalizeDetails;
-import eu.europeana.normalization.common.RecordNormalization;
-import eu.europeana.normalization.common.ValueNormalization;
-import eu.europeana.normalization.common.normalizers.ValueToRecordNormalizationWrapper;
 import eu.europeana.normalization.languages.LanguageMatch;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
@@ -20,12 +15,17 @@ import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.util.XpathQuery;
 
 /**
- * The main Class to be used by applications applying this lib's langage normalization techniques
+ * This normalizer normalizes language references. It uses the functionality in
+ * {@link LanguageMatcher}.
  *
  * @author Nuno Freire (nfreire@gmail.com)
- * @since 16/03/2016
  */
-public class LanguageNormalizer implements ValueNormalization {
+public class LanguageReferenceNormalizer implements ValueNormalizer {
+
+  private static final float CONFIDENCE_SINGLE_CODE_EQUALS = 1.0F;
+  private static final float CONFIDENCE_SINGLE_CODE_KNOWN = 0.98F;
+  private static final float CONFIDENCE_LABELS_OR_CODES_MATCHED = 0.95F;
+  private static final float CONFIDENCE_LABELS_AND_CODES_MATCHED = 0.85F;
 
   private static final XpathQuery DC_LANGUAGE_QUERY = XpathQuery.create("//%s/%s",
       Namespace.ORE.getElement("Proxy"), Namespace.DC.getElement("language"));
@@ -36,46 +36,52 @@ public class LanguageNormalizer implements ValueNormalization {
   private static final XpathQuery COMBINED_QUERY =
       XpathQuery.combine(DC_LANGUAGE_QUERY, XML_LANG_QUERY);
 
-  public enum SupportedOperations {
 
-    DC_LANGUAGE(DC_LANGUAGE_QUERY), XML_LANG(XML_LANG_QUERY), ALL(COMBINED_QUERY);
+  /**
+   * This enum contains the language elements that this normalizer can normalize.
+   */
+  public enum SupportedElements {
+
+    /** The tag dc:language **/
+    DC_LANGUAGE(DC_LANGUAGE_QUERY),
+
+    /** The attribute xml:lang **/
+    XML_LANG(XML_LANG_QUERY),
+
+    /** The combination of all elements. **/
+    ALL(COMBINED_QUERY);
 
     private final XpathQuery languageQuery;
 
-    private SupportedOperations(XpathQuery languageQuery) {
+    private SupportedElements(XpathQuery languageQuery) {
       this.languageQuery = languageQuery;
     }
   }
 
-  private Float minimumConfidence;
+  private final float minimumConfidence;
   private final LanguageMatcher matcher;
-  private SupportedOperations operations = SupportedOperations.ALL;
+  private final SupportedElements elements;
 
   /**
-   * Creates a new instance of this class.
+   * Constructor.
    * 
-   * @throws NormalizationConfigurationException
+   * @param targetVocabulary The vocabulary to which to normalize language values.
+   * @param minimumConfidence The minimum confidence to apply to normalizations.
+   * @param elements The elements to normalize.
+   * @throws NormalizationConfigurationException In case there is a problem with configuring the
+   *         normalization.
    */
-  public LanguageNormalizer(LanguagesVocabulary targetVocab, Float minimumConfidence)
-      throws NormalizationConfigurationException {
-    super();
-    Languages matchingVocab = Languages.getLanguages();
-    matchingVocab.setTargetVocabulary(targetVocab);
-    matcher = new LanguageMatcher(matchingVocab);
-
+  public LanguageReferenceNormalizer(LanguagesVocabulary targetVocabulary, float minimumConfidence,
+      SupportedElements elements) throws NormalizationConfigurationException {
+    final Languages matchingVocab = Languages.getLanguages();
+    matchingVocab.setTargetVocabulary(targetVocabulary);
+    this.matcher = new LanguageMatcher(matchingVocab);
+    this.elements = elements;
+    this.minimumConfidence = minimumConfidence;
   }
 
-  public List<String> normalize(String value) {
-    List<NormalizeDetails> normalizeDetailedRes = normalizeDetailed(value);
-    List<String> res = new ArrayList<>(normalizeDetailedRes.size());
-    for (NormalizeDetails dtl : normalizeDetailedRes) {
-      res.add(dtl.getNormalizedValue());
-    }
-    return res;
-  }
-
-
-  public List<NormalizeDetails> normalizeDetailed(String label) {
+  @Override
+  public List<NormalizedValueWithConfidence> normalizeValue(String label) {
 
     // Match the input. If there are no results, we are done.
     final List<LanguageMatch> matches = matcher.match(label);
@@ -87,8 +93,9 @@ public class LanguageNormalizer implements ValueNormalization {
     final Set<Type> matchTypes =
         matches.stream().map(LanguageMatch::getType).distinct().collect(Collectors.toSet());
     final boolean justCodeMatches = matchTypes.size() == 1 && matchTypes.contains(Type.CODE_MATCH);
-    final boolean justLabelMatches = matchTypes.size() == 1 && matchTypes.contains(Type.LABEL_MATCH);
-    final boolean justOneMatch = matches.size()==1;
+    final boolean justLabelMatches =
+        matchTypes.size() == 1 && matchTypes.contains(Type.LABEL_MATCH);
+    final boolean justOneMatch = matches.size() == 1;
     final boolean matchesFailed = matchTypes.contains(Type.NO_MATCH);
 
     // Determine confidence.
@@ -98,14 +105,14 @@ public class LanguageNormalizer implements ValueNormalization {
     } else if (justCodeMatches && justOneMatch) {
       final LanguageMatch match = matches.get(0);
       if (match.getInput().equals(match.getMatch())) {
-        confidence = 1.0F;
+        confidence = CONFIDENCE_SINGLE_CODE_EQUALS;
       } else {
-        confidence = 0.98F;
+        confidence = CONFIDENCE_SINGLE_CODE_KNOWN;
       }
     } else if (justCodeMatches || justLabelMatches) {
-      confidence = 0.95F;
+      confidence = CONFIDENCE_LABELS_OR_CODES_MATCHED;
     } else {
-      confidence = 0.85F;
+      confidence = CONFIDENCE_LABELS_AND_CODES_MATCHED;
     }
 
     // Check the confidence.
@@ -116,17 +123,13 @@ public class LanguageNormalizer implements ValueNormalization {
     // Return the result.
     final Set<String> matchedLanguages =
         matches.stream().map(LanguageMatch::getMatch).distinct().collect(Collectors.toSet());
-    return matchedLanguages.stream().map(language -> new NormalizeDetails(language, confidence))
+    return matchedLanguages.stream()
+        .map(language -> new NormalizedValueWithConfidence(language, confidence))
         .collect(Collectors.toList());
   }
 
   @Override
-  public RecordNormalization toEdmRecordNormalizer() {
-    return new ValueToRecordNormalizationWrapper(this, false, operations.languageQuery);
-  }
-
-  public LanguageNormalizer setOperations(SupportedOperations operations) {
-    this.operations = operations;
-    return this;
+  public RecordNormalizer getAsRecordNormalizer() {
+    return new ValueNormalizerWrapper(this, elements.languageQuery);
   }
 }

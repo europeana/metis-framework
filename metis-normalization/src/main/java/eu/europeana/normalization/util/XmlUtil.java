@@ -3,9 +3,10 @@ package eu.europeana.normalization.util;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -45,15 +46,7 @@ public final class XmlUtil {
    * @return The list
    */
   public static List<Element> elements(Element n) {
-    int sz = n.getChildNodes().getLength();
-    ArrayList<Element> elements = new ArrayList<>(sz);
-    for (int idx = 0; idx < sz; idx++) {
-      Node node = n.getChildNodes().item(idx);
-      if (node instanceof Element) {
-        elements.add((Element) node);
-      }
-    }
-    return elements;
+    return getAsElementList(n.getChildNodes());
   }
 
   /**
@@ -64,14 +57,21 @@ public final class XmlUtil {
    * @return The list.
    */
   public static List<Element> elements(Element n, String elementName) {
-    NodeList subNodes = n.getElementsByTagName(elementName);
-    int sz = subNodes.getLength();
-    List<Element> elements = new ArrayList<>(sz);
-    for (int idx = 0; idx < sz; idx++) {
-      Node node = subNodes.item(idx);
-      elements.add((Element) node);
-    }
-    return elements;
+    return getAsElementList(n.getElementsByTagName(elementName));
+  }
+
+  /**
+   * Convert the given instance of {@link NodeList} to an instance of {@link List} with
+   * {@link Element} objects. Entries in the original list that are not instances of {@link Element}
+   * will be ignored.
+   * 
+   * @param nodeList The list of nodes to convert.
+   * @return The converted list.
+   */
+  public static List<Element> getAsElementList(NodeList nodeList) {
+    return IntStream.range(0, nodeList.getLength()).mapToObj(nodeList::item)
+        .filter(node -> (node instanceof Element)).map(node -> (Element) node)
+        .collect(Collectors.toList());
   }
 
   /**
