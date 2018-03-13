@@ -8,9 +8,9 @@ import com.mongodb.ServerAddress;
 import eu.europeana.corelib.web.socks.SocksProxy;
 import eu.europeana.metis.authentication.rest.client.AuthenticationClient;
 import eu.europeana.metis.core.dao.DatasetDao;
+import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.dao.ScheduledWorkflowDao;
 import eu.europeana.metis.core.dao.WorkflowExecutionDao;
-import eu.europeana.metis.core.dao.DatasetXsltDao;
 import eu.europeana.metis.core.mongo.MorphiaDatastoreProvider;
 import eu.europeana.metis.core.rest.RequestLimits;
 import eu.europeana.metis.core.service.DatasetService;
@@ -23,12 +23,10 @@ import javax.annotation.PreDestroy;
 import org.apache.commons.lang.StringUtils;
 import org.apache.logging.log4j.core.net.ssl.TrustStoreConfigurationException;
 import org.redisson.api.RedissonClient;
-import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -46,106 +44,75 @@ import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
  */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
-@PropertySource({"classpath:metis.properties"})
 @EnableWebMvc
-public class Application extends WebMvcConfigurerAdapter implements InitializingBean {
+public class Application extends WebMvcConfigurerAdapter {
 
-  //Socks proxy
-  @Value("${socks.proxy.enabled}")
-  private boolean socksProxyEnabled;
-  @Value("${socks.proxy.host}")
-  private String socksProxyHost;
-  @Value("${socks.proxy.port}")
-  private String socksProxyPort;
-  @Value("${socks.proxy.username}")
-  private String socksProxyUsername;
-  @Value("${socks.proxy.password}")
-  private String socksProxyPassword;
-
-  //Custom trustore
-  @Value("${truststore.path}")
-  private String truststorePath;
-  @Value("${truststore.password}")
-  private String truststorePassword;
-
-  //Mongo
-  @Value("${mongo.hosts}")
-  private String[] mongoHosts;
-  @Value("${mongo.port}")
-  private int[] mongoPorts;
-  @Value("${mongo.username}")
-  private String mongoUsername;
-  @Value("${mongo.password}")
-  private String mongoPassword;
-  @Value("${mongo.authentication.db}")
-  private String mongoAuthenticationDb;
-  @Value("${mongo.db}")
-  private String mongoDb;
-  @Value("${mongo.enableSSL}")
-  private boolean mongoEnableSSL;
-
-  //Authentication
-  @Value("${authentication.baseUrl}")
-  private String authenticationBaseUrl;
-
-  @Value("${allowed.cors.hosts}")
-  private String[] allowedCorsHosts;
-
+  private ConfigurationPropertiesHolder propertiesHolder;
   private MongoClient mongoClient;
+
+  @Autowired
+  public Application(ConfigurationPropertiesHolder propertiesHolder)
+      throws TrustStoreConfigurationException {
+    this.propertiesHolder = propertiesHolder;
+    preConfigurationInitialization();
+  }
 
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**").allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
-        .allowedOrigins(allowedCorsHosts);
+        .allowedOrigins(propertiesHolder.getAllowedCorsHosts());
   }
 
-  /**
-   * Used for overwriting properties if cloud foundry environment is used
-   */
-  @Override
-  public void afterPropertiesSet() throws TrustStoreConfigurationException {
-    if (StringUtils.isNotEmpty(truststorePath) && StringUtils.isNotEmpty(truststorePassword)) {
-      CustomTruststoreAppender.appendCustomTrustoreToDefault(truststorePath, truststorePassword);
+  private void preConfigurationInitialization() throws TrustStoreConfigurationException {
+    if (StringUtils.isNotEmpty(propertiesHolder.getTruststorePath()) && StringUtils
+        .isNotEmpty(propertiesHolder.getTruststorePassword())) {
+      CustomTruststoreAppender
+          .appendCustomTrustoreToDefault(propertiesHolder.getTruststorePath(), propertiesHolder.getTruststorePassword());
     }
-    if (socksProxyEnabled) {
-      new SocksProxy(socksProxyHost, socksProxyPort, socksProxyUsername, socksProxyPassword).init();
+    if (propertiesHolder.isSocksProxyEnabled()) {
+      new SocksProxy(propertiesHolder.getSocksProxyHost(), propertiesHolder.getSocksProxyPort(), propertiesHolder
+          .getSocksProxyUsername(),
+          propertiesHolder.getSocksProxyPassword()).init();
     }
 
-    if (mongoHosts.length != mongoPorts.length && mongoPorts.length != 1) {
+    if (propertiesHolder.getMongoHosts().length != propertiesHolder.getMongoPorts().length
+        && propertiesHolder.getMongoPorts().length != 1) {
       throw new IllegalArgumentException("Mongo hosts and ports are not properly configured.");
     }
 
     List<ServerAddress> serverAddresses = new ArrayList<>();
-    for (int i = 0; i < mongoHosts.length; i++) {
+    for (int i = 0; i < propertiesHolder.getMongoHosts().length; i++) {
       ServerAddress address;
-      if (mongoHosts.length == mongoPorts.length) {
-        address = new ServerAddress(mongoHosts[i], mongoPorts[i]);
+      if (propertiesHolder.getMongoHosts().length == propertiesHolder.getMongoPorts().length) {
+        address = new ServerAddress(propertiesHolder.getMongoHosts()[i], propertiesHolder.getMongoPorts()[i]);
       } else { // Same port for all
-        address = new ServerAddress(mongoHosts[i], mongoPorts[0]);
+        address = new ServerAddress(propertiesHolder.getMongoHosts()[i], propertiesHolder.getMongoPorts()[0]);
       }
       serverAddresses.add(address);
     }
 
     MongoClientOptions.Builder optionsBuilder = new Builder();
-    optionsBuilder.sslEnabled(mongoEnableSSL);
-    if (StringUtils.isEmpty(mongoDb) || StringUtils.isEmpty(mongoUsername) || StringUtils
-        .isEmpty(mongoPassword)) {
+    optionsBuilder.sslEnabled(propertiesHolder.isMongoEnableSSL());
+    if (StringUtils.isEmpty(propertiesHolder.getMongoDb()) || StringUtils.isEmpty(propertiesHolder.getMongoUsername())
+        || StringUtils
+        .isEmpty(propertiesHolder.getMongoPassword())) {
       mongoClient = new MongoClient(serverAddresses, optionsBuilder.build());
     } else {
       MongoCredential mongoCredential = MongoCredential
-          .createCredential(mongoUsername, mongoAuthenticationDb, mongoPassword.toCharArray());
+          .createCredential(propertiesHolder.getMongoUsername(), propertiesHolder.getMongoAuthenticationDb(),
+              propertiesHolder.getMongoPassword().toCharArray());
       mongoClient = new MongoClient(serverAddresses, mongoCredential, optionsBuilder.build());
     }
   }
 
   @Bean
   AuthenticationClient getAuthenticationClient() {
-    return new AuthenticationClient(authenticationBaseUrl);
+    return new AuthenticationClient(propertiesHolder.getAuthenticationBaseUrl());
   }
 
   @Bean
   MorphiaDatastoreProvider getMorphiaDatastoreProvider() {
-    return new MorphiaDatastoreProvider(mongoClient, mongoDb);
+    return new MorphiaDatastoreProvider(mongoClient, propertiesHolder.getMongoDb());
   }
 
   /**

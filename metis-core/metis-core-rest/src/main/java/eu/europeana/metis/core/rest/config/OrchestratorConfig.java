@@ -37,11 +37,9 @@ import org.redisson.config.SingleServerConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -52,87 +50,38 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @Configuration
 @ComponentScan(basePackages = {"eu.europeana.metis.core.rest"})
-@PropertySource({"classpath:metis.properties"})
 @EnableScheduling
 public class OrchestratorConfig extends WebMvcConfigurerAdapter {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(OrchestratorConfig.class);
 
-  //Orchestration
-  @Value("${max.concurrent.threads}")
-  private int maxConcurrentThreads;
-  @Value("${monitor.check.interval.in.secs}")
-  private int monitorCheckIntervalInSecs;
-  @Value("${periodic.failsafe.check.in.millisecs}")
-  private int periodicFailsafeCheckInMillisecs;
-  @Value("${periodic.scheduler.check.in.millisecs}")
-  private int periodicSchedulerCheckInMillisecs;
-  @Value("${polling.timeout.for.cleaning.completion.service.in.secs}")
-  private int pollingTimeoutForCleaningCompletionServiceInSecs;
-
-  //Custom trustore
-  @Value("${truststore.path}")
-  private String truststorePath;
-  @Value("${truststore.password}")
-  private String truststorePassword;
-
-  //Redis
-  @Value("${redis.host}")
-  private String redisHost;
-  @Value("${redis.port}")
-  private int redisPort;
-  @Value("${redis.password}")
-  private String redisPassword;
-  @Value("${redis.enableSSL}")
-  private boolean redisEnableSSL;
-  @Value("${redisson.lock.watchdog.timeout.in.secs}")
-  private int redissonLockWatchdogTimeoutInSecs;
-
-  //RabbitMq
-  @Value("${rabbitmq.host}")
-  private String rabbitmqHost;
-  @Value("${rabbitmq.port}")
-  private int rabbitmqPort;
-  @Value("${rabbitmq.username}")
-  private String rabbitmqUsername;
-  @Value("${rabbitmq.password}")
-  private String rabbitmqPassword;
-  @Value("${rabbitmq.queue.name}")
-  private String rabbitmqQueueName;
-  @Value("${rabbitmq.highest.priority}")
-  private int rabbitmqHighestPriority;
-
-  @Value("${ecloud.provider}")
-  private String ecloudProvider;
-  @Value("${ecloud.baseUrl}")
-  private String ecloudBaseUrl;
-
-  @Value("${metis.core.baseUrl}")
-  private String metisCoreBaseUrl;
+  private ConfigurationPropertiesHolder propertiesHolder;
+  private SchedulerExecutor schedulerExecutor;
+  private FailsafeExecutor failsafeExecutor;
 
   private Connection connection;
   private Channel channel;
   private RedissonClient redissonClient;
 
   @Autowired
-  private SchedulerExecutor schedulerExecutor;
-  @Autowired
-  private FailsafeExecutor failsafeExecutor;
+  public OrchestratorConfig(ConfigurationPropertiesHolder propertiesHolder) {
+    this.propertiesHolder = propertiesHolder;
+  }
 
   @Bean
   Channel getRabbitmqChannel() throws IOException, TimeoutException {
     ConnectionFactory factory = new ConnectionFactory();
-    factory.setHost(rabbitmqHost);
-    factory.setPort(rabbitmqPort);
-    factory.setUsername(rabbitmqUsername);
-    factory.setPassword(rabbitmqPassword);
+    factory.setHost(propertiesHolder.getRabbitmqHost());
+    factory.setPort(propertiesHolder.getRabbitmqPort());
+    factory.setUsername(propertiesHolder.getRabbitmqUsername());
+    factory.setPassword(propertiesHolder.getRabbitmqPassword());
     factory.setAutomaticRecoveryEnabled(true);
     connection = factory.newConnection();
     channel = connection.createChannel();
     Map<String, Object> args = new HashMap<>();
-    args.put("x-max-priority", rabbitmqHighestPriority);//Higher number means higher priority
+    args.put("x-max-priority", propertiesHolder.getRabbitmqHighestPriority());//Higher number means higher priority
     //Second boolean durable to false
-    channel.queueDeclare(rabbitmqQueueName, false, false, false, args);
+    channel.queueDeclare(propertiesHolder.getRabbitmqQueueName(), false, false, false, args);
     return channel;
   }
 
@@ -141,20 +90,22 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
     Config config = new Config();
 
     SingleServerConfig singleServerConfig;
-    if (redisEnableSSL) {
+    if (propertiesHolder.isRedisEnableSSL()) {
       singleServerConfig = config.useSingleServer()
-          .setAddress(String.format("rediss://%s:%s", redisHost, redisPort))
-          .setSslTruststore(new File(truststorePath).toURI())
-          .setSslTruststorePassword(truststorePassword);
+          .setAddress(String.format("rediss://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
+              .getRedisPort()))
+          .setSslTruststore(new File(propertiesHolder.getTruststorePath()).toURI())
+          .setSslTruststorePassword(propertiesHolder.getTruststorePassword());
     } else {
       singleServerConfig = config.useSingleServer()
-          .setAddress(String.format("redis://%s:%s", redisHost, redisPort));
+          .setAddress(String.format("redis://%s:%s", propertiesHolder.getRedisHost(), propertiesHolder
+              .getRedisPort()));
     }
-    if (StringUtils.isNotEmpty(redisPassword)) {
-      singleServerConfig.setPassword(redisPassword);
+    if (StringUtils.isNotEmpty(propertiesHolder.getRedisPassword())) {
+      singleServerConfig.setPassword(propertiesHolder.getRedisPassword());
     }
     config.setLockWatchdogTimeout(TimeUnit.SECONDS.toMillis(
-        redissonLockWatchdogTimeoutInSecs)); //Give some secs to unlock if connection lost, or if too long to unlock
+        propertiesHolder.getRedissonLockWatchdogTimeoutInSecs())); //Give some secs to unlock if connection lost, or if too long to unlock
     redissonClient = Redisson.create(config);
     return redissonClient;
   }
@@ -171,8 +122,8 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
         scheduledWorkflowDao, datasetDao, datasetXsltDao, workflowExecutorManager,
         ecloudDataSetServiceClient,
         redissonClient);
-    orchestratorService.setEcloudProvider(ecloudProvider);
-    orchestratorService.setMetisCoreUrl(metisCoreBaseUrl);
+    orchestratorService.setEcloudProvider(propertiesHolder.getEcloudProvider());
+    orchestratorService.setMetisCoreUrl(propertiesHolder.getMetisCoreBaseUrl());
     return orchestratorService;
   }
 
@@ -182,7 +133,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       FileServiceClient fileServiceClient,
       DpsClient dpsClient) {
     return new ProxiesService(workflowExecutionDao, ecloudDataSetServiceClient, recordServiceClient,
-        fileServiceClient, dpsClient, ecloudProvider);
+        fileServiceClient, dpsClient, propertiesHolder.getEcloudProvider());
   }
 
   @Bean
@@ -191,13 +142,13 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       RedissonClient redissonClient, DpsClient dpsClient) {
     WorkflowExecutorManager workflowExecutorManager = new WorkflowExecutorManager(
         workflowExecutionDao, rabbitmqChannel, redissonClient, dpsClient);
-    workflowExecutorManager.setRabbitmqQueueName(rabbitmqQueueName);
-    workflowExecutorManager.setMaxConcurrentThreads(maxConcurrentThreads);
-    workflowExecutorManager.setMonitorCheckIntervalInSecs(monitorCheckIntervalInSecs);
+    workflowExecutorManager.setRabbitmqQueueName(propertiesHolder.getRabbitmqQueueName());
+    workflowExecutorManager.setMaxConcurrentThreads(propertiesHolder.getMaxConcurrentThreads());
+    workflowExecutorManager.setMonitorCheckIntervalInSecs(propertiesHolder.getMonitorCheckIntervalInSecs());
     workflowExecutorManager.setPollingTimeoutForCleaningCompletionServiceInSecs(
-        pollingTimeoutForCleaningCompletionServiceInSecs);
-    workflowExecutorManager.setEcloudBaseUrl(ecloudBaseUrl);
-    workflowExecutorManager.setEcloudProvider(ecloudProvider);
+        propertiesHolder.getPollingTimeoutForCleaningCompletionServiceInSecs());
+    workflowExecutorManager.setEcloudBaseUrl(propertiesHolder.getEcloudBaseUrl());
+    workflowExecutorManager.setEcloudProvider(propertiesHolder.getEcloudProvider());
     return workflowExecutorManager;
   }
 
@@ -227,20 +178,22 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
   @Bean
   public FailsafeExecutor getFailsafeExecutor(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
-    return new FailsafeExecutor(orchestratorService, redissonClient);
+    failsafeExecutor = new FailsafeExecutor(orchestratorService, redissonClient);
+    return failsafeExecutor;
   }
 
   @Bean
   public SchedulerExecutor getSchedulingExecutor(OrchestratorService orchestratorService,
       RedissonClient redissonClient) {
-    return new SchedulerExecutor(orchestratorService, redissonClient);
+    schedulerExecutor = new SchedulerExecutor(orchestratorService, redissonClient);
+    return schedulerExecutor;
   }
 
   @Scheduled(fixedDelayString = "${periodic.failsafe.check.in.millisecs}",
       initialDelayString = "${periodic.failsafe.check.in.millisecs}")
   public void runFailsafeExecutor() {
     LOGGER.info("Failsafe task started (runs every {} milliseconds).",
-        periodicFailsafeCheckInMillisecs);
+        propertiesHolder.getPeriodicFailsafeCheckInMillisecs());
     this.failsafeExecutor.performFailsafe();
     LOGGER.info("Failsafe task finished.");
   }
@@ -249,7 +202,7 @@ public class OrchestratorConfig extends WebMvcConfigurerAdapter {
       initialDelayString = "${periodic.scheduler.check.in.millisecs}")
   public void runSchedulingExecutor() {
     LOGGER.info("Scheduler task started (runs every {} milliseconds).",
-        periodicSchedulerCheckInMillisecs);
+        propertiesHolder.getPeriodicSchedulerCheckInMillisecs());
     this.schedulerExecutor.performScheduling();
     LOGGER.info("Scheduler task finished.");
   }
