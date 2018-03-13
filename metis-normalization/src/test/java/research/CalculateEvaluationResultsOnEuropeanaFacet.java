@@ -9,6 +9,7 @@ import eu.europeana.normalization.languages.LanguageMatch;
 import eu.europeana.normalization.languages.LanguageMatcher;
 import eu.europeana.normalization.languages.Languages;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.settings.AmbiguityHandling;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import research.evaluation.EvaluationStats;
 import research.evaluation.ValidatedCases;
@@ -22,7 +23,8 @@ public class CalculateEvaluationResultsOnEuropeanaFacet {
     Languages europaEuLanguagesNal = Languages.getLanguages();
     europaEuLanguagesNal.setTargetVocabulary(targetVocab);
     europaEuLanguagesNal.initNormalizedIndex();
-    LanguageMatcher normalizer = new LanguageMatcher(europaEuLanguagesNal);
+    LanguageMatcher normalizer =
+        new LanguageMatcher(europaEuLanguagesNal, 4, AmbiguityHandling.NO_MATCH);
 
     //		read all evaluation csvs
     ValidatedCases validation = new ValidatedCases(new File("src/research/evaluation"),

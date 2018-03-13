@@ -10,6 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
+import eu.europeana.normalization.settings.AmbiguityHandling;
 import eu.europeana.normalization.util.StringNormalizer;
 
 /**
@@ -20,25 +21,10 @@ import eu.europeana.normalization.util.StringNormalizer;
  */
 public class LanguageMatcher {
 
-  /**
-   * This enum lists the possible ambiguity handling strategies.
-   */
-  public enum AmbiguityHandling {
-
-    /** An ambiguous match does not count: no match will be returned. **/
-    NO_MATCH,
-
-    /** In case of an ambiguous match the first result will be returned. **/
-    CHOOSE_FIRST
-  }
-
   private static final Pattern LOCALE_CODE_PATTERN =
       Pattern.compile("\\A(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\Z");
 
   private static final Pattern LANGUAGE_CODE_MATCHER = Pattern.compile("\\A\\p{Lower}{2,3}\\Z");
-
-  private static final int DEFAULT_MIN_LABEL_LENGTH = 4;
-  private static final AmbiguityHandling DEFAULT_AMBIGUITY_HANDLING = AmbiguityHandling.NO_MATCH;
 
   private final Languages vocabulary;
   private final int minimumLabelLength;
@@ -47,16 +33,6 @@ public class LanguageMatcher {
   private final Map<String, String> isoCodes = new HashMap<>();
   private final Map<String, String> unambiguousLabels = new HashMap<>();
   private final HashMap<String, List<String>> ambiguousLabels = new HashMap<>();
-
-  /**
-   * Constructor for default minimum label length ({@value #DEFAULT_MIN_LABEL_LENGTH}) and default
-   * ambiguity handling ({@value #DEFAULT_AMBIGUITY_HANDLING}).
-   * 
-   * @param vocabulary The vocabulary against which to match.
-   */
-  public LanguageMatcher(Languages vocabulary) {
-    this(vocabulary, DEFAULT_MIN_LABEL_LENGTH, DEFAULT_AMBIGUITY_HANDLING);
-  }
 
   /**
    * Constructor.
@@ -182,15 +158,8 @@ public class LanguageMatcher {
     if (result == null) {
       final List<String> ambiguousMatch = ambiguousLabels.get(word);
       if (ambiguousMatch != null) {
-        switch (ambiguityHandling) {
-          case NO_MATCH:
-            // Fall through to default behavior.
-            break;
-          case CHOOSE_FIRST:
-            return new LanguageMatch(word, ambiguousMatch.get(0), Type.LABEL_MATCH);
-          default:
-            throw new IllegalStateException("not implemented: " + ambiguityHandling);
-        }
+        final String match = ambiguityHandling.resolveAmbiguousMatch(ambiguousMatch);
+        result = new LanguageMatch(word, match, match == null ? Type.NO_MATCH : Type.LABEL_MATCH);
       }
     }
 

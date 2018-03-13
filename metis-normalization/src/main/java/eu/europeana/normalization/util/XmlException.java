@@ -20,13 +20,4 @@ public class XmlException extends Exception {
   public XmlException(String message, Exception cause) {
     super(message, cause);
   }
-
-  /**
-   * Constructor.
-   * 
-   * @param message The message of the exception. Can be null.
-   */
-  public XmlException(String message) {
-    this(message, null);
-  }
 }

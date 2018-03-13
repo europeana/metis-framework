@@ -106,27 +106,19 @@ public final class XpathQuery {
     return (NodeList) toXPath().evaluate(dom, XPathConstants.NODESET);
   }
 
-  /**
-   * This method executes the query on a DOM tree.
-   * 
-   * @param dom The DOM tree on which to execute the query.
-   * @return The first node that satisfies the query. Or null if no such node could be found.
-   * @throws XPathExpressionException In case the expression couldn't be evaluated.
-   */
-  public org.w3c.dom.Element executeForSingleElement(Document dom) throws XPathExpressionException {
-    return (org.w3c.dom.Element) execute(dom).item(0);
-  }
-
   private class SimpleNamespaceContext implements NamespaceContext {
 
+    @Override
     public String getNamespaceURI(String prefix) {
       return namespaceMap.get(prefix);
     }
 
+    @Override
     public String getPrefix(String uri) {
       throw new UnsupportedOperationException();
     }
 
+    @Override
     public Iterator<String> getPrefixes(String uri) {
       throw new UnsupportedOperationException();
     }

@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 import org.junit.Assert;
 import org.junit.Test;
 import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
-import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer.Mode;
+import eu.europeana.normalization.settings.CleanMarkupTagsMode;
 
 public class CleanMarkupTagsNormalizerTest {
 
@@ -17,7 +17,7 @@ public class CleanMarkupTagsNormalizerTest {
 
   @Test
   public void testHtmlMarkup() throws Exception {
-    CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(Mode.HTML_ONLY);
+    CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.HTML_ONLY);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
         .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(html);
@@ -33,7 +33,7 @@ public class CleanMarkupTagsNormalizerTest {
 
   @Test
   public void testAllMarkup() throws Exception {
-    CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(Mode.ALL_MARKUP);
+    CleanMarkupTagsNormalizer cleaner = new CleanMarkupTagsNormalizer(CleanMarkupTagsMode.ALL_MARKUP);
     List<String> cleaned = cleaner.normalizeValue(html).stream()
         .map(NormalizedValueWithConfidence::getNormalizedValue).collect(Collectors.toList());
     System.out.println(cleaned);

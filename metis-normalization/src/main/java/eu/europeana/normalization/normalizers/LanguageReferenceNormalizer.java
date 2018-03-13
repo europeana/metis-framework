@@ -1,6 +1,5 @@
 package eu.europeana.normalization.normalizers;
 
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -8,11 +7,7 @@ import java.util.stream.Collectors;
 import eu.europeana.normalization.languages.LanguageMatch;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.languages.Languages;
-import eu.europeana.normalization.languages.LanguagesVocabulary;
-import eu.europeana.normalization.util.Namespace;
-import eu.europeana.normalization.util.NormalizationConfigurationException;
-import eu.europeana.normalization.util.XpathQuery;
+import eu.europeana.normalization.settings.LanguageElements;
 
 /**
  * This normalizer normalizes language references. It uses the functionality in
@@ -27,56 +22,21 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
   private static final float CONFIDENCE_LABELS_OR_CODES_MATCHED = 0.95F;
   private static final float CONFIDENCE_LABELS_AND_CODES_MATCHED = 0.85F;
 
-  private static final XpathQuery DC_LANGUAGE_QUERY = XpathQuery.create("//%s/%s",
-      Namespace.ORE.getElement("Proxy"), Namespace.DC.getElement("language"));
-
-  private static final XpathQuery XML_LANG_QUERY = XpathQuery.create("//*[@%s]/@%s",
-      Namespace.XML.getElement("lang"), Namespace.XML.getElement("lang"));
-
-  private static final XpathQuery COMBINED_QUERY =
-      XpathQuery.combine(DC_LANGUAGE_QUERY, XML_LANG_QUERY);
-
-
-  /**
-   * This enum contains the language elements that this normalizer can normalize.
-   */
-  public enum SupportedElements {
-
-    /** The tag dc:language **/
-    DC_LANGUAGE(DC_LANGUAGE_QUERY),
-
-    /** The attribute xml:lang **/
-    XML_LANG(XML_LANG_QUERY),
-
-    /** The combination of all elements. **/
-    ALL(COMBINED_QUERY);
-
-    private final XpathQuery languageQuery;
-
-    private SupportedElements(XpathQuery languageQuery) {
-      this.languageQuery = languageQuery;
-    }
-  }
-
   private final float minimumConfidence;
   private final LanguageMatcher matcher;
-  private final SupportedElements elements;
+  private final LanguageElements elementsToNormalize;
 
   /**
    * Constructor.
    * 
-   * @param targetVocabulary The vocabulary to which to normalize language values.
+   * @param languageMatcher A language matcher.
    * @param minimumConfidence The minimum confidence to apply to normalizations.
-   * @param elements The elements to normalize.
-   * @throws NormalizationConfigurationException In case there is a problem with configuring the
-   *         normalization.
+   * @param elementsToNormalize The elements to normalize.
    */
-  public LanguageReferenceNormalizer(LanguagesVocabulary targetVocabulary, float minimumConfidence,
-      SupportedElements elements) throws NormalizationConfigurationException {
-    final Languages matchingVocab = Languages.getLanguages();
-    matchingVocab.setTargetVocabulary(targetVocabulary);
-    this.matcher = new LanguageMatcher(matchingVocab);
-    this.elements = elements;
+  public LanguageReferenceNormalizer(LanguageMatcher languageMatcher, float minimumConfidence,
+      LanguageElements elementsToNormalize) {
+    this.matcher = languageMatcher;
+    this.elementsToNormalize = elementsToNormalize;
     this.minimumConfidence = minimumConfidence;
   }
 
@@ -130,6 +90,6 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
 
   @Override
   public RecordNormalizer getAsRecordNormalizer() {
-    return new ValueNormalizerWrapper(this, elements.languageQuery);
+    return new ValueNormalizerWrapper(this, elementsToNormalize.getElementQuery());
   }
 }
