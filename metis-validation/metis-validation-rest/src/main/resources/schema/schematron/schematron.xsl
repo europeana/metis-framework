@@ -638,8 +638,7 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>An ore:Aggregation must have a non
-                        empty edm:provider</svrl:text>
+                    <svrl:text>An ore:Aggregation must have a non empty edm:provider</svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
         </xsl:choose>
@@ -667,8 +666,7 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>An ore:Aggregation must have a non
-                        empty edm:dataProvider</svrl:text>
+                    <svrl:text>An ore:Aggregation must have a non empty edm:dataProvider</svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
         </xsl:choose>
@@ -695,11 +693,7 @@
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Empty xml:lang attribute is not allowed for
-                        <xsl:text/>
-                        <xsl:value-of select="name(.)"/>
-                        <xsl:text/>
-                        element.
+                        Empty xml:lang attribute is not allowed for <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/> element.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -730,8 +724,7 @@
                         <xsl:value-of select="@rdf:about"/>
                     </xsl:attribute>
                     <svrl:text>
-                        The element dcterms:isPartOf should not have a literal value in the edm:WebResource context
-                        with this id. Use an rdf:resource instead.
+                        The element dcterms:isPartOf should not have a literal value in the edm:WebResource context with this id. Use an rdf:resource instead.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>

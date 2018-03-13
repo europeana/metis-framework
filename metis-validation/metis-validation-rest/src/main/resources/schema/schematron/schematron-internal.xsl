@@ -497,8 +497,7 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>An ore:Aggregation must have a non
-                        empty edm:provider</svrl:text>
+                    <svrl:text>An ore:Aggregation must have a non empty edm:provider</svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
         </xsl:choose>
@@ -526,8 +525,7 @@
                     <xsl:attribute name="location">
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
-                    <svrl:text>An ore:Aggregation must have a non
-                        empty edm:dataProvider</svrl:text>
+                    <svrl:text>An ore:Aggregation must have a non empty edm:dataProvider</svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
         </xsl:choose>
@@ -582,11 +580,7 @@
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        Empty xml:lang attribute is not allowed for
-                        <xsl:text/>
-                        <xsl:value-of select="name(.)"/>
-                        <xsl:text/>
-                        element.
+                        Empty xml:lang attribute is not allowed for <xsl:text/><xsl:value-of select="name(.)"/><xsl:text/>element.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>
@@ -635,9 +629,7 @@
                         <xsl:apply-templates select="." mode="schematron-select-full-path"/>
                     </xsl:attribute>
                     <svrl:text>
-                        A Proxy must have a non empty
-                        dc:subject or dc:type or dc:coverage or dct:temporal or
-                        dct:spatial.
+                        A Proxy must have a non empty dc:subject or dc:type or dc:coverage or dct:temporal or dc:spatial.
                     </svrl:text>
                 </svrl:failed-assert>
             </xsl:otherwise>

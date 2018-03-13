@@ -138,7 +138,7 @@ public class Validator implements Callable<ValidationResult> {
         String schematronPath = schema.getSchematronPath();
 
         if (!templatesCache.containsKey(schematronPath)) {
-            reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath)));
+            reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath), StandardCharsets.UTF_8));
             Templates template = TransformerFactory.newInstance()
                     .newTemplates(new StreamSource(reader));
             templatesCache.put(schematronPath, template);

@@ -129,7 +129,7 @@ public class ValidationControllerTest {
                         .withStatus(200)
                         .withBodyFile("test_schema.zip")));
 
-        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test.zip"));
+        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test_batch.zip"));
         mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "EDM-INTERNAL")
                 .file(file))
@@ -179,7 +179,7 @@ public class ValidationControllerTest {
 
     @Test
     public void ShouldReturnResultSetOfExceptionsForUndefinedSchemaForZipFile() throws Exception {
-        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test.zip"));
+        MockMultipartFile file = new MockMultipartFile("file", "filename.txt", "text/plain", new FileInputStream("src/test/resources/test_batch.zip"));
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders
                 .fileUpload(RestEndpoints.SCHEMA_BATCH_VALIDATE, "UNDEFINED_SCHEMA")
                 .file(file))
