@@ -240,7 +240,7 @@ public class ZohoAccessClientDao {
 	
 
 	/**
-	 * Retrieve organizations using start and end index. The organizations are pre-ordered by modified time descending
+	 * Retrieve organizations using start and end index. The organizations are pre-ordered by modified time ascending
 	 * <p>
 	 * It will try to fetch the organizations from the external CRM. This method
 	 * returns a list of organizations in json format.
@@ -273,7 +273,7 @@ public class ZohoAccessClientDao {
 				.queryParam(ZohoApiFields.AUTHENTICATION_TOKEN_STRING, zohoAuthenticationToken)
 				.queryParam(ZohoApiFields.SCOPE_STRING, ZohoApiFields.CRMAPI_STRING)
 				.queryParam(ZohoApiFields.FROM_INDEX_STRING, start).queryParam(ZohoApiFields.TO_INDEX_STRING, start + rows -1)
-				.queryParam(ZohoApiFields.SORT_COLUMN, ZohoApiFields.MODIFIED_TIME).queryParam(ZohoApiFields.SORT_ORDER, ZohoApiFields.SORT_ORDER_DESC);
+				.queryParam(ZohoApiFields.SORT_COLUMN, ZohoApiFields.MODIFIED_TIME).queryParam(ZohoApiFields.SORT_ORDER, ZohoApiFields.SORT_ORDER_ASC);
 
 		if(!StringUtils.isBlank(lastModifiedTime))
 			builder.queryParam(ZohoApiFields.LAST_MODIFIED_TIME, lastModifiedTime);
