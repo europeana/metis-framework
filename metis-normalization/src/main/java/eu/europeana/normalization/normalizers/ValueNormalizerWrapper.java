@@ -39,7 +39,7 @@ public class ValueNormalizerWrapper implements RecordNormalizer {
     Collections.addAll(this.targetElements, targetElements);
   }
 
-  private void normalizeAttribute(Attr attribute, NormalizationReport report) {
+  private void normalizeAttribute(Attr attribute, InternalNormalizationReport report) {
     String value = attribute.getValue();
     List<NormalizedValueWithConfidence> normalizedValue = normalization.normalizeValue(value);
     if (normalizedValue.isEmpty() || normalizedValue.size() > 1) {
@@ -56,7 +56,7 @@ public class ValueNormalizerWrapper implements RecordNormalizer {
     }
   }
 
-  private void normalizeElement(Element element, NormalizationReport report) {
+  private void normalizeElement(Element element, InternalNormalizationReport report) {
     String value = XmlUtil.getElementText(element);
     List<NormalizedValueWithConfidence> normalizedValues = normalization.normalizeValue(value);
     if (normalizedValues.isEmpty()) {
@@ -87,7 +87,7 @@ public class ValueNormalizerWrapper implements RecordNormalizer {
   }
 
   private void updateElement(Element element, List<NormalizedValueWithConfidence> normalizedValues,
-      NormalizationReport report) {
+      InternalNormalizationReport report) {
     NodeList childNodes = element.getChildNodes();
     for (int j = 0; j < childNodes.getLength(); j++) {
       Node childNode = childNodes.item(j);
@@ -114,7 +114,7 @@ public class ValueNormalizerWrapper implements RecordNormalizer {
 
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
-    NormalizationReport report = new NormalizationReport();
+    InternalNormalizationReport report = new InternalNormalizationReport();
     for (XpathQuery query : targetElements) {
       NodeList queryResult;
       try {

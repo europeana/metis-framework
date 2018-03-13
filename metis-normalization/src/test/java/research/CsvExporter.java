@@ -11,8 +11,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.zip.GZIPInputStream;
 import org.apache.commons.csv.CSVFormat;
@@ -20,6 +22,8 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 import eu.europeana.normalization.languages.Languages;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.languages.Language;
 
 class CsvExporter implements Closeable {
@@ -41,11 +45,16 @@ class CsvExporter implements Closeable {
   private final Set<String> noMatchCases = new HashSet<>();
   private final MapOfLists<String, String> noMatchCasesIds = new MapOfLists<>();
 
-  private Languages europaEuLanguagesNal;
+  private final List<Language> activeLanguages;
+  private final LanguagesVocabulary targetVocabulary;
+  
+  private final Map<String, Language> normalizedIndex;
 
-  public CsvExporter(File exportFolder, Languages europaEuLanguagesNal) {
+  public CsvExporter(File exportFolder, LanguagesVocabulary targetVocabulary)
+      throws NormalizationConfigurationException {
     super();
     try {
+      
       FileWriter out = new FileWriter(new File(exportFolder, "LangCodeMatch.csv"));
       out.write('\ufeff');
       codeMatchPrinter = new CSVPrinter(out, CSVFormat.EXCEL);
@@ -61,7 +70,17 @@ class CsvExporter implements Closeable {
       out = new FileWriter(new File(exportFolder, "LangNoMatch.csv"));
       out.write('\ufeff');
       noMatchPrinter = new CSVPrinter(out, CSVFormat.EXCEL);
-      this.europaEuLanguagesNal = europaEuLanguagesNal;
+      
+      this.activeLanguages = Languages.getLanguages().getActiveLanguages();
+      this.targetVocabulary = targetVocabulary;
+      
+      normalizedIndex = new Hashtable<>();
+      for (Language l : activeLanguages) {
+        String normalizedLanguageId = l.getNormalizedLanguageId(targetVocabulary);
+        if (normalizedLanguageId != null) {
+          normalizedIndex.put(normalizedLanguageId, l);
+        }
+      }
     } catch (IOException e) {
       throw new RuntimeException(e.getMessage(), e);
     }
@@ -76,8 +95,7 @@ class CsvExporter implements Closeable {
   }
 
   private String getMatchDescription(String match) {
-    return match + "(" + europaEuLanguagesNal.lookupNormalizedLanguageId(match).getPrefLabel("eng")
-        + ")";
+    return match + "(" + normalizedIndex.get(match).getPrefLabel("eng") + ")";
   }
 
   public void exportLabelMatch(String label, List<String> normalizeds) {
@@ -202,9 +220,8 @@ class CsvExporter implements Closeable {
     out = new FileWriter(new File(evaluationCsvFolder, "evaluation_target-vocabulary.csv"));
     out.write('\ufeff');
     csvPrinter = new CSVPrinter(out, CSVFormat.EXCEL);
-    for (Language value : europaEuLanguagesNal.getActiveLanguages()) {
-      String normalizedLanguageId = value
-          .getNormalizedLanguageId(europaEuLanguagesNal.getTargetVocabulary());
+    for (Language value : activeLanguages) {
+      String normalizedLanguageId = value.getNormalizedLanguageId(targetVocabulary);
       if (normalizedLanguageId != null) {
         csvPrinter.print(normalizedLanguageId);
         csvPrinter.print(getMatchDescription(normalizedLanguageId));
@@ -250,6 +267,7 @@ class CsvExporter implements Closeable {
 
   }
 
+  @Override
   public void close() throws IOException {
     codeMatchPrinter.close();
     labelMatchPrinter.close();

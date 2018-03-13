@@ -78,13 +78,6 @@ public class MapOfLists<K, O> implements Serializable {
   }
 
   /**
-   * @return size
-   */
-  public int size() {
-    return hashtable.size();
-  }
-
-  /**
    *
    */
   @SuppressWarnings("unchecked")
@@ -102,20 +95,5 @@ public class MapOfLists<K, O> implements Serializable {
       }
     }
     return buffer.toString();
-  }
-
-  /**
-   * @param key
-   * @param value
-   */
-  public void putIfNotExists(K key, O value) {
-    ArrayList<O> recs = hashtable.get(key);
-    if (recs == null) {
-      recs = new ArrayList<>(listInitialCapacity == -1 ? 1 : listInitialCapacity);
-      recs.add(value);
-      hashtable.put(key, recs);
-    } else if (!recs.contains(value)) {
-      recs.add(value);
-    }
   }
 }

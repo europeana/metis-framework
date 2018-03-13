@@ -1,11 +1,11 @@
 package research.evaluation;
 
-import eu.europeana.normalization.languages.Languages;
-import eu.europeana.normalization.languages.LanguagesVocabulary;
-import eu.europeana.normalization.languages.Language;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import org.apache.commons.csv.CSVRecord;
+import eu.europeana.normalization.languages.Language;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
 
 class Validation {
 
@@ -13,7 +13,7 @@ class Validation {
   private List<Language> normalizedValues;
   private boolean invalidCase;
 
-  public Validation(CSVRecord rec, Languages nal) {
+  public Validation(CSVRecord rec, Function<String, Language> isoCodeLookup) {
     value = rec.get(0);
     String validation = rec.get(4);
     invalidCase = !validation.equals("n") && !validation.equals("y");
@@ -29,7 +29,7 @@ class Validation {
           String v = rec.get(i).trim();
           if (!v.isEmpty()) {
             v = v.substring(0, v.indexOf('('));
-            normalizedValues.add(nal.lookupIsoCode(v));
+            normalizedValues.add(isoCodeLookup.apply(v));
           } else if (i == 1) {
             throw new RuntimeException("empty result: " + value);
           } else {
@@ -41,7 +41,7 @@ class Validation {
           String v = rec.get(i).trim();
           if (!v.isEmpty()) {
             v = v.substring(0, v.indexOf('('));
-            normalizedValues.add(nal.lookupIsoCode(v));
+            normalizedValues.add(isoCodeLookup.apply(v));
           } else if (i == 5) {
             throw new RuntimeException("uncorrected wrong case: " + value);
           } else {

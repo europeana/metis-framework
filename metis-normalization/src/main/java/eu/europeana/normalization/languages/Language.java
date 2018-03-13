@@ -120,7 +120,8 @@ public class Language {
   }
 
   /**
-   * Get the preferred label of this language that matches the given result language.
+   * Get the preferred label of this language object that matches the given result language. For
+   * instance, this may be requesting the preferred name for the English language in Dutch.
    * 
    * @param resultLanguageCode The result language.
    * @return The label.

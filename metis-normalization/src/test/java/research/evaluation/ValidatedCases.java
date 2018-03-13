@@ -2,12 +2,14 @@ package research.evaluation;
 
 import eu.europeana.normalization.languages.Languages;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.languages.Language;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
@@ -19,16 +21,33 @@ public class ValidatedCases {
 
   private final Map<String, Validation> validations;
   private EvaluationStats stats;
-  private Languages europaEuLanguagesNal;
+  private final LanguagesVocabulary targetVocabulary;
+  private final Map<String, Language> isoCodeIndex;
 
-  public ValidatedCases(File evaluationFolder, Languages europaEuLanguagesNal)
-      throws IOException {
-    this.europaEuLanguagesNal = europaEuLanguagesNal;
+  public ValidatedCases(File evaluationFolder, LanguagesVocabulary targetVocabulary)
+      throws IOException, NormalizationConfigurationException {
+    this.targetVocabulary = targetVocabulary;
     validations = new HashMap<>();
+    
+    isoCodeIndex = new Hashtable<>();
+    for (Language l : Languages.getLanguages().getActiveLanguages()) {
+      if (l.getIso6391() != null) {
+        isoCodeIndex.put(l.getIso6391(), l);
+      }
+      if (l.getIso6392b() != null) {
+        isoCodeIndex.put(l.getIso6392b(), l);
+      }
+      if (l.getIso6392t() != null) {
+        isoCodeIndex.put(l.getIso6392t(), l);
+      }
+      if (l.getIso6393() != null) {
+        isoCodeIndex.put(l.getIso6393(), l);
+      }
+    }
+
     if (evaluationFolder == null) {
       return;
     }
-
     for (File f : evaluationFolder.listFiles()) {
       if (f.getName().startsWith("Evaluation") && f.getName().endsWith(".csv")) {
         CSVParser parser = new CSVParser(new FileReader(f), CSVFormat.EXCEL);
@@ -40,7 +59,7 @@ public class ValidatedCases {
               dataReached = true;
             }
           } else {
-            Validation v = new Validation(rec, europaEuLanguagesNal);
+            Validation v = new Validation(rec, this::lookupIsoCode);
             validations.put(v.getValue(), v);
           }
         }
@@ -105,15 +124,7 @@ public class ValidatedCases {
   }
 
   public LanguagesVocabulary getTargetVocab() {
-    return europaEuLanguagesNal.getTargetVocabulary();
-  }
-
-  public Languages getLanguagesNal() {
-    return europaEuLanguagesNal;
-  }
-
-  public void setLanguagesNal(Languages europaEuLanguagesNal) {
-    this.europaEuLanguagesNal = europaEuLanguagesNal;
+    return targetVocabulary;
   }
 
   public void addCodeMatch(int cnt) {
@@ -125,11 +136,15 @@ public class ValidatedCases {
     stats.addAlreadyNormalized(cnt);
   }
 
+  private Language lookupIsoCode(String code) {
+    return isoCodeIndex.get(code);
+  }
+  
   public boolean resultMatchesValidation(List<String> normalizeds,
       List<Language> validatedResult) {
     List<Language> normalizedsEnums = new ArrayList<>(normalizeds.size());
     for (String nid : normalizeds) {
-      normalizedsEnums.add(europaEuLanguagesNal.lookupIsoCode(nid));
+      normalizedsEnums.add(lookupIsoCode(nid));
     }
     return CollectionUtils.isEqualCollection(validatedResult, normalizedsEnums);
   }

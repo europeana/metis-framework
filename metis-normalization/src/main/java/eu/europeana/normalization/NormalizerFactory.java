@@ -1,7 +1,6 @@
 package eu.europeana.normalization;
 
 import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.languages.Languages;
 import eu.europeana.normalization.normalizers.ChainedNormalizer;
 import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
 import eu.europeana.normalization.normalizers.CleanSpaceCharactersNormalizer;
@@ -42,10 +41,9 @@ public class NormalizerFactory {
   public Normalizer getNormalizer() throws NormalizationConfigurationException {
 
     // Set up the language normalizer.
-    final Languages vocabulary = Languages.getLanguages();
-    vocabulary.setTargetVocabulary(settings.getTargetLanguageVocabulary());
-    final LanguageMatcher languageMatcher = new LanguageMatcher(vocabulary,
-        settings.getMinLanguageLabelLength(), settings.getLanguageAmbiguityHandling());
+    final LanguageMatcher languageMatcher =
+        new LanguageMatcher(settings.getMinLanguageLabelLength(),
+            settings.getLanguageAmbiguityHandling(), settings.getTargetLanguageVocabulary());
     final LanguageReferenceNormalizer languageNormalizer =
         new LanguageReferenceNormalizer(languageMatcher, settings.getMinimumConfidence(),
             settings.getLanguageElementsToNormalize());

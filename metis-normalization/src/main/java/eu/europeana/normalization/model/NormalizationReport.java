@@ -32,14 +32,13 @@ public class NormalizationReport {
   }
 
   /**
-   * TODO JOCHEN hide this from code using this library!
-   * 
-   * This method increments the counter for the specified operation by one.
+   * This method increments the counter for the specified operation by one. This method is not
+   * public: we don't want to expose this.
    * 
    * @param operation The operation.
    * @param confidence The confidence of this operation.
    */
-  public void increment(String operation, ConfidenceLevel confidence) {
+  protected void increment(String operation, ConfidenceLevel confidence) {
     NormalizationOperationReport normalizationOperationReport =
         operations.computeIfAbsent(operation, key -> new NormalizationOperationReport());
     normalizationOperationReport.increment(confidence);

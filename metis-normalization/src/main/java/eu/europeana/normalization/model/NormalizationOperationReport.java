@@ -25,13 +25,12 @@ class NormalizationOperationReport {
   }
 
   /**
-   * TODO JOCHEN hide this from code using this library!
-   * 
-   * This method increments the counter for the specified confidence level by one.
+   * This method increments the counter for the specified confidence level by one. This method is
+   * not public: we don't want to expose this.
    * 
    * @param confidence The confidence level for which to increase the counter.
    */
-  public void increment(ConfidenceLevel confidence) {
+  void increment(ConfidenceLevel confidence) {
     this.counts.merge(confidence, 1, Integer::sum);
   }
 

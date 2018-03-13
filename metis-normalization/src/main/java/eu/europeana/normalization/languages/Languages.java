@@ -5,9 +5,7 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,7 +21,7 @@ import eu.europeana.normalization.util.XmlUtil;
  *
  * @author Nuno Freire (nfreire@gmail.com)
  */
-public class Languages {
+public final class Languages {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Languages.class);
 
@@ -31,15 +29,6 @@ public class Languages {
 
   private final List<Language> activeLanguages = new ArrayList<>();
   private final List<Language> deprecatedLanguages = new ArrayList<>();
-
-  // TODO JOCHEN should be removed.
-  private Map<String, Language> isoCodeIndex;
-
-  // TODO JOCHEN should be removed.
-  private LanguagesVocabulary targetVocabulary;
-
-  // TODO JOCHEN should be removed.
-  private Map<String, Language> normalizedIndex;
 
   private Languages() throws NormalizationConfigurationException {
 
@@ -56,28 +45,6 @@ public class Languages {
 
     // Read the DOM tree into this object's variables.
     processDom(langNalDom);
-
-    // Create the language indices.
-    initIsoCodeIndex();
-  }
-
-  // TODO JOCHEN should be removed.
-  private void initIsoCodeIndex() {
-    isoCodeIndex = new Hashtable<>();
-    for (Language l : getActiveLanguages()) {
-      if (l.getIso6391() != null) {
-        isoCodeIndex.put(l.getIso6391(), l);
-      }
-      if (l.getIso6392b() != null) {
-        isoCodeIndex.put(l.getIso6392b(), l);
-      }
-      if (l.getIso6392t() != null) {
-        isoCodeIndex.put(l.getIso6392t(), l);
-      }
-      if (l.getIso6393() != null) {
-        isoCodeIndex.put(l.getIso6393(), l);
-      }
-    }
   }
 
   private void processDom(Document langNalDom) {
@@ -146,38 +113,4 @@ public class Languages {
   public List<Language> getDeprecatedLanguages() {
     return Collections.unmodifiableList(deprecatedLanguages);
   }
-
-  // TODO JOCHEN should be removed.
-  public synchronized void initNormalizedIndex() {
-    if (normalizedIndex == null) {
-      normalizedIndex = new Hashtable<>();
-      for (Language l : getActiveLanguages()) {
-        String normalizedLanguageId = l.getNormalizedLanguageId(targetVocabulary);
-        if (normalizedLanguageId != null) {
-          normalizedIndex.put(normalizedLanguageId, l);
-        }
-      }
-    }
-  }
-
-  // TODO JOCHEN should be removed.
-  public Language lookupNormalizedLanguageId(String normalizedLanguageId) {
-    return normalizedIndex.get(normalizedLanguageId);
-  }
-
-  // TODO JOCHEN should be removed.
-  public LanguagesVocabulary getTargetVocabulary() {
-    return targetVocabulary;
-  }
-
-  // TODO JOCHEN should be removed.
-  public synchronized void setTargetVocabulary(LanguagesVocabulary target) {
-    targetVocabulary = target;
-  }
-
-  // TODO JOCHEN should be removed.
-  public Language lookupIsoCode(String code) {
-    return isoCodeIndex.get(code);
-  }
-
 }

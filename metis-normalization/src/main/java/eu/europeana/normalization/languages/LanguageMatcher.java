@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.settings.AmbiguityHandling;
+import eu.europeana.normalization.util.NormalizationConfigurationException;
 import eu.europeana.normalization.util.StringNormalizer;
 
 /**
@@ -26,9 +27,9 @@ public class LanguageMatcher {
 
   private static final Pattern LANGUAGE_CODE_MATCHER = Pattern.compile("\\A\\p{Lower}{2,3}\\Z");
 
-  private final Languages vocabulary;
   private final int minimumLabelLength;
   private final AmbiguityHandling ambiguityHandling;
+  private final LanguagesVocabulary targetVocabulary;
 
   private final Map<String, String> isoCodes = new HashMap<>();
   private final Map<String, String> unambiguousLabels = new HashMap<>();
@@ -37,16 +38,18 @@ public class LanguageMatcher {
   /**
    * Constructor.
    * 
-   * @param vocabulary The vocabulary against which to match.
    * @param minimumLabelLength The minimum label length for indexing.
    * @param ambiguityHandling The minimum ambiguity handling for matching.
+   * @param targetVocabulary The target vocabulary in which to return the match results.
+   * @throws NormalizationConfigurationException In case the list of languages could not be
+   *         configured properly.
    */
-  public LanguageMatcher(Languages vocabulary, int minimumLabelLength,
-      AmbiguityHandling ambiguityHandling) {
-    this.vocabulary = vocabulary;
+  public LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
+      LanguagesVocabulary targetVocabulary) throws NormalizationConfigurationException {
     this.minimumLabelLength = minimumLabelLength;
     this.ambiguityHandling = ambiguityHandling;
-    for (Language l : vocabulary.getActiveLanguages()) {
+    this.targetVocabulary = targetVocabulary;
+    for (Language l : Languages.getLanguages().getActiveLanguages()) {
       index(l);
     }
   }
@@ -54,7 +57,7 @@ public class LanguageMatcher {
   private void index(Language language) {
 
     // Get the normalized language ID.
-    String languageId = language.getNormalizedLanguageId(vocabulary.getTargetVocabulary());
+    final String languageId = language.getNormalizedLanguageId(targetVocabulary);
     if (languageId == null) {
       return;
     }

@@ -6,11 +6,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 import eu.europeana.normalization.languages.LanguageMatch;
+import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.languages.Languages;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.settings.AmbiguityHandling;
-import eu.europeana.normalization.languages.LanguageMatch.Type;
 import research.evaluation.EvaluationStats;
 import research.evaluation.ValidatedCases;
 
@@ -20,15 +19,11 @@ public class CalculateEvaluationResultsOnEuropeanaFacet {
   public static void main(String[] args) throws Throwable {
     LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_1;
 //		LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_3;
-    Languages europaEuLanguagesNal = Languages.getLanguages();
-    europaEuLanguagesNal.setTargetVocabulary(targetVocab);
-    europaEuLanguagesNal.initNormalizedIndex();
-    LanguageMatcher normalizer =
-        new LanguageMatcher(europaEuLanguagesNal, 4, AmbiguityHandling.NO_MATCH);
+    LanguageMatcher normalizer = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, targetVocab);
 
     //		read all evaluation csvs
-    ValidatedCases validation = new ValidatedCases(new File("src/research/evaluation"),
-        europaEuLanguagesNal);
+    ValidatedCases validation =
+        new ValidatedCases(new File("src/research/evaluation"), targetVocab);
     EvaluationStats evalStats = new EvaluationStats();
     validation.setStats(evalStats);
 

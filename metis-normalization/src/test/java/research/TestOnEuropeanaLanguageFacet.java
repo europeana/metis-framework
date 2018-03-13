@@ -1,5 +1,11 @@
 package research;
 
+import java.io.File;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /*
  * TestOnEuropeanaLanguageFacet.java - created on 06/05/2016, Copyright (c) 2011 The European
  * Library, all rights reserved
@@ -7,17 +13,11 @@ package research;
 
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import eu.europeana.normalization.languages.Languages;
-import eu.europeana.normalization.languages.LanguagesVocabulary;
-import eu.europeana.normalization.languages.LanguageMatch.Type;
-import eu.europeana.normalization.settings.AmbiguityHandling;
 import eu.europeana.normalization.languages.LanguageMatch;
+import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
-import java.io.File;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
+import eu.europeana.normalization.languages.LanguagesVocabulary;
+import eu.europeana.normalization.settings.AmbiguityHandling;
 
 /**
  * A test that was executed to explore and analyse the dc:language data in europeana. It uses an
@@ -32,13 +32,9 @@ public class TestOnEuropeanaLanguageFacet {
   public static void main(String[] args) throws Exception {
 
     LanguagesVocabulary targetVocab = LanguagesVocabulary.ISO_639_3;
-    Languages europaEuLanguagesNal = Languages.getLanguages();
-    europaEuLanguagesNal.setTargetVocabulary(targetVocab);
-    europaEuLanguagesNal.initNormalizedIndex();
-    LanguageMatcher normalizer =
-        new LanguageMatcher(europaEuLanguagesNal, 4, AmbiguityHandling.NO_MATCH);
+    LanguageMatcher normalizer = new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, targetVocab);
 
-    CsvExporter exporter = new CsvExporter(new File("target"), europaEuLanguagesNal);
+    CsvExporter exporter = new CsvExporter(new File("target"), targetVocab);
     try {
       Map<String, Object> map = JsonUtil.readJsonMap(new File(
           // "src/research/europeana_language_facet_2015.json"),

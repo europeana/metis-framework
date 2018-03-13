@@ -47,7 +47,7 @@ public class RemoveDuplicateStatementNormalizer implements RecordNormalizer {
 
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
-    final NormalizationReport report = new NormalizationReport();
+    final InternalNormalizationReport report = new InternalNormalizationReport();
     for (XpathQuery[] fieldSet : FIELD_SETS_TO_EVALUATE) {
 
       final List<Element> elements = new ArrayList<>();
