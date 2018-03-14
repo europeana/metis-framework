@@ -33,11 +33,20 @@ public class ValidationResult {
     private String message;
 
     /**
+     * Id of a node for which error occured. Null if success
+     */
+    @XmlElement
+    @ApiModelProperty(value = "The node identifier message", required = false)
+    private String nodeId;
+
+    /**
      * The service result. true if success, false if failure
      */
     @ApiModelProperty(value = "Failed or successful operation", required = true)
     @XmlElement
     private boolean success;
+
+
 
     public String getRecordId() {
         return recordId;
@@ -55,6 +64,10 @@ public class ValidationResult {
         this.message = message;
     }
 
+    public String getNodeId() { return nodeId; }
+
+    public void setNodeId(String nodeId) { this.nodeId = nodeId; }
+
     public boolean isSuccess() {
         return success;
     }
@@ -62,4 +75,5 @@ public class ValidationResult {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+
 }

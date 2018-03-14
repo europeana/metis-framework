@@ -27,6 +27,7 @@ public class ValidationExceptionController {
         ValidationResult error = new ValidationResult();
         error.setRecordId(e.getId());
         error.setMessage(e.getMessage());
+        error.setNodeId(e.getNodeId());
         error.setSuccess(false);
         return error;
     }

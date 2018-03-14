@@ -2,15 +2,14 @@ package eu.europeana.validation.service;
 
 import eu.europeana.validation.model.Schema;
 import eu.europeana.validation.model.ValidationResult;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.StringReader;
+
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.xml.transform.Templates;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -35,6 +34,7 @@ import org.xml.sax.SAXException;
  */
 public class Validator implements Callable<ValidationResult> {
 
+    private static final String NODE_ID_ATTR = "nodeId";
     private static final Logger LOGGER = LoggerFactory.getLogger(Validator.class);
     private static ConcurrentMap<String, Templates> templatesCache;
 
@@ -100,7 +100,7 @@ public class Validator implements Callable<ValidationResult> {
         try {
             Schema savedSchema = getSchemaByName(schema);
             if (savedSchema == null) {
-                return constructValidationError(document, "Specified schema does not exist");
+                return constructValidationError(document, "Specified schema does not exist", null);
             }
 
             resolver.setPrefix(StringUtils.substringBeforeLast(savedSchema.getPath(), File.separator));
@@ -112,12 +112,16 @@ public class Validator implements Callable<ValidationResult> {
 
                 DOMResult result = new DOMResult();
                 transformer.transform(new DOMSource(doc), result);
-
                 NodeList nresults = result.getNode().getFirstChild().getChildNodes();
                 for (int i = 0; i < nresults.getLength(); i++) {
                     Node nresult = nresults.item(i);
                     if ("failed-assert".equals(nresult.getLocalName())) {
-                        return constructValidationError(document, "Schematron error: " + nresult.getTextContent());
+                        String nodeId = null;
+                        Node nodeIdAttr  = nresult.getAttributes().getNamedItem(NODE_ID_ATTR);
+                        if(nodeIdAttr!=null){
+                            nodeId = nodeIdAttr.getTextContent();
+                        }
+                        return constructValidationError(document, "Schematron error: " + nresult.getTextContent().trim() , nodeId);
                     }
                 }
             }
@@ -134,7 +138,7 @@ public class Validator implements Callable<ValidationResult> {
         String schematronPath = schema.getSchematronPath();
 
         if (!templatesCache.containsKey(schematronPath)) {
-            reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath)));
+            reader = new StringReader(IOUtils.toString(new FileInputStream(schematronPath), StandardCharsets.UTF_8));
             Templates template = TransformerFactory.newInstance()
                     .newTemplates(new StreamSource(reader));
             templatesCache.put(schematronPath, template);
@@ -146,7 +150,7 @@ public class Validator implements Callable<ValidationResult> {
     private ValidationResult constructValidationError(String document, Exception e) {
         ValidationResult res = new ValidationResult();
         res.setMessage(e.getMessage());
-        res.setRecordId(StringUtils.substringBetween(document, "ProvidedCHO", ">"));
+        res.setRecordId(getRecordId(document));
         if (StringUtils.isEmpty(res.getRecordId())) {
             res.setRecordId("Missing record identifier for EDM record");
         }
@@ -155,16 +159,29 @@ public class Validator implements Callable<ValidationResult> {
         return res;
     }
 
-    private ValidationResult constructValidationError(String document, String message) {
+    private ValidationResult constructValidationError(String document, String message, String nodeId) {
         ValidationResult res = new ValidationResult();
         res.setMessage(message);
-        res.setRecordId(StringUtils.substringBetween(document, "ProvidedCHO", ">"));
+        res.setRecordId(getRecordId(document));
         if (StringUtils.isEmpty(res.getRecordId())) {
             res.setRecordId("Missing record identifier for EDM record");
+        }
+        if (nodeId != null) {
+            res.setNodeId(nodeId);
+        } else {
+            res.setNodeId("Missing node identifier");
         }
 
         res.setSuccess(false);
         return res;
+    }
+
+    private String getRecordId(String document) {
+        Pattern pattern = Pattern.compile("ProvidedCHO\\s+rdf:about\\s?=\\s?\"(.+)\"\\s?>");
+        Matcher matcher = pattern.matcher(document);
+        if (matcher.find()) {
+            return matcher.group(1);
+        } else return null;
     }
 
     private ValidationResult constructOk() {

@@ -75,7 +75,7 @@ public class ValidationController {
                                      @RequestBody String record
     ) throws ValidationException {
         if(!schemaProvider.isPredefined(targetSchema)){
-            throw new ValidationException("", "It is not predefined schema.");
+            throw new ValidationException("", "", "It is not predefined schema.");
         }
 
         ValidationResult result = validator.singleValidation(targetSchema,null, null, record);
@@ -83,7 +83,7 @@ public class ValidationController {
             return result;
         } else {
             LOGGER.error(result.getMessage());
-            throw new ValidationException(result.getRecordId(), result.getMessage());
+            throw new ValidationException(result.getRecordId(),result.getNodeId(), result.getMessage());
         }
     }
 

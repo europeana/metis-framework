@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:edm="http://www.europeana.eu/schemas/edm/" xmlns:ns10="http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#" xmlns:ns11="http://rdfs.org/sioc/services#" xmlns:ns12="http://xmlns.com/foaf/0.1/" xmlns:ns13="http://www.w3.org/ns/odrl/2/" xmlns:ns14="http://creativecommons.org/ns#" xmlns:ns15="http://usefulinc.com/ns/doap#" xmlns:ns16="http://www.europeana.eu/schemas/edm/enrichment/" xmlns:ore="http://www.openarchives.org/ore/terms/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdaGr2="http://rdvocab.info/ElementsGr2/" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:wgs84="http://www.w3.org/2003/01/geo/wgs84_pos#">
+    <skos:Concept rdf:about="/direct/8647">
+        <skos:prefLabel xml:lang="sr">monografska publikacija</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="/direct/8645">
+        <skos:prefLabel xml:lang="en">monographic publication</skos:prefLabel>
+    </skos:Concept>
+    <skos:Concept rdf:about="/direct/8643">
+        <skos:prefLabel xml:lang="sr">Вук Стефановић Караџић</skos:prefLabel>
+    </skos:Concept>
+    <edm:Agent rdf:about="/direct/8646">
+        <skos:prefLabel xml:lang="sr">Вук Стефановић Караџић</skos:prefLabel>
+    </edm:Agent>
+    <edm:ProvidedCHO rdf:about="URN:RS:NAE:5485bed1-1b22-42c9-8ad7-3c5978ebfa9acho">
+        <dc:identifier>URN:RS:NAE:5485bed1-1b22-42c9-8ad7-3c5978ebfa9acho</dc:identifier>
+        <dc:identifier>38608140</dc:identifier>
+        <dc:title xml:lang="sr">Преписка: 1833-1836</dc:title>
+        <dc:description xml:lang="sr">Тираж 3000</dc:description>
+        <dc:publisher xml:lang="sr">Просвета</dc:publisher>
+        <dc:publisher xml:lang="sr">National Library of Serbia</dc:publisher>
+        <dcterms:issued xml:lang="sr">1989</dcterms:issued>
+        <dc:format xml:lang="sr">785 стр.</dc:format>
+        <dc:format xml:lang="sr">22 cm</dc:format>
+        <dc:type rdf:resource="/direct/8647"/>
+        <dc:type rdf:resource="/direct/8645"/>
+        <dcterms:medium rdf:resource="/direct/8643"/>
+        <dc:creator rdf:resource="/direct/8646"/>
+        <edm:type>SOUND</edm:type>
+    </edm:ProvidedCHO>
+    <ore:Aggregation rdf:about="http://digitalna.nb.rs/wb/NBS/Knjige/sabrana_dela_vuka_karadzica/II_146423_24">
+        <edm:aggregatedCHO rdf:resource="http://digitalna.nb.rs/wb/NBS/Knjige/sabrana_dela_vuka_karadzica/II_146423_24"/>
+        <edm:isShownAt rdf:resource="http://digitalna.nb.rs/wb/NBS/Knjige/sabrana_dela_vuka_karadzica/II_146423_24"/>
+        <edm:isShownBy rdf:resource="http://digitalna.nb.rs/wb/NBS/Knjige/sabrana_dela_vuka_karadzica/II_146423_24?pageIndex=00001"/>
+        <edm:provider>OAI test</edm:provider>
+        <edm:rights rdf:resource="https://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+    </ore:Aggregation>
+</rdf:RDF>
