@@ -283,7 +283,7 @@ public class ZohoAccessClientDao {
 		LOGGER.trace("{}", uri);
 		
 		String organisationsResponse = restTemplate.getForObject(uri, String.class);
-		LOGGER.info(organisationsResponse);
+		LOGGER.debug(organisationsResponse);
 		ObjectMapper mapper = new ObjectMapper();
 		try {
 			return mapper.readTree(organisationsResponse);
