@@ -24,10 +24,10 @@ public class CleanMarkupTagsNormalizer extends EdmValueNormalizer {
 
   @Override
   public List<NormalizedValueWithConfidence> normalizeValue(String htmlText) {
-    final String ret = mode.getCleaner().apply(htmlText);
-    if (ret.length() == 0) {
+    final String result = mode.getCleaner().apply(htmlText);
+    if (result.length() == 0) {
       return Collections.emptyList();
     }
-    return Collections.singletonList(new NormalizedValueWithConfidence(ret, 1));
+    return Collections.singletonList(new NormalizedValueWithConfidence(result, 1));
   }
 }

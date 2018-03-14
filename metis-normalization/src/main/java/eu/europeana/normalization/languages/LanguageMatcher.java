@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -30,6 +31,7 @@ public class LanguageMatcher {
   private final int minimumLabelLength;
   private final AmbiguityHandling ambiguityHandling;
   private final LanguagesVocabulary targetVocabulary;
+  private final Function<String, String> stringNormalizer;
 
   private final Map<String, String> isoCodes = new HashMap<>();
   private final Map<String, String> unambiguousLabels = new HashMap<>();
@@ -46,10 +48,27 @@ public class LanguageMatcher {
    */
   public LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
       LanguagesVocabulary targetVocabulary) throws NormalizationConfigurationException {
+    this(minimumLabelLength, ambiguityHandling, targetVocabulary, Languages.getLanguages(),
+        StringNormalizer::normalize);
+  }
+
+  /**
+   * Constructor for Mocking.
+   * 
+   * @param minimumLabelLength The minimum label length for indexing.
+   * @param ambiguityHandling The minimum ambiguity handling for matching.
+   * @param targetVocabulary The target vocabulary in which to return the match results.
+   * @param languages The language vocabulary.
+   * @param stringNormalizer The function that normalizes a string, used for indexing.
+   */
+  LanguageMatcher(int minimumLabelLength, AmbiguityHandling ambiguityHandling,
+      LanguagesVocabulary targetVocabulary, Languages languages,
+      Function<String, String> stringNormalizer) {
     this.minimumLabelLength = minimumLabelLength;
     this.ambiguityHandling = ambiguityHandling;
     this.targetVocabulary = targetVocabulary;
-    for (Language l : Languages.getLanguages().getActiveLanguages()) {
+    this.stringNormalizer = stringNormalizer;
+    for (Language l : languages.getActiveLanguages()) {
       index(l);
     }
   }
@@ -62,22 +81,23 @@ public class LanguageMatcher {
       return;
     }
 
+    // Add all known language codes to the index.
+    addCodeToIndex(language.getIso6391(), languageId);
+    addCodeToIndex(language.getIso6392b(), languageId);
+    addCodeToIndex(language.getIso6392t(), languageId);
+    addCodeToIndex(language.getIso6393(), languageId);
+    addCodeToIndex(language.getAuthorityCode(), languageId);
+
     // Add all known language labels to the index.
     for (String label : language.getAllLabels()) {
       if (label.length() >= minimumLabelLength) {
         addLabelToIndex(label, languageId);
       }
     }
-
-    // Add all known language codes to the index.
-    addCodeToIndex(language.getIso6391(), languageId);
-    addCodeToIndex(language.getIso6392b(), languageId);
-    addCodeToIndex(language.getIso6392t(), languageId);
-    addCodeToIndex(language.getIso6393(), languageId);
   }
 
   private void addLabelToIndex(String label, String languageId) {
-    final String normalizedLabel = normalizeString(label);
+    final String normalizedLabel = stringNormalizer.apply(label);
     if (ambiguousLabels.containsKey(normalizedLabel)) {
       final List<String> alternatives = ambiguousLabels.get(normalizedLabel);
       if (!alternatives.contains(languageId)) {
@@ -109,7 +129,7 @@ public class LanguageMatcher {
     }
 
     // Add the code to the code index.
-    final String normalizedCode = normalizeString(code);
+    final String normalizedCode = stringNormalizer.apply(code);
     if (isoCodes.containsKey(normalizedCode) && !isoCodes.get(normalizedCode).equals(languageId)) {
       throw new IllegalStateException("Ambiguous iso code detected: " + normalizedCode);
     }
@@ -132,7 +152,7 @@ public class LanguageMatcher {
     }
 
     // Normalize and then split by spaces. We should have non-empty words.
-    final String[] words = normalizeString(input).split("\\s+");
+    final String[] words = stringNormalizer.apply(input).split("\\s+");
 
     // Match words and return the result.
     return Arrays.stream(words).map(this::matchNormalizedWord).collect(Collectors.toList());
@@ -168,7 +188,7 @@ public class LanguageMatcher {
 
     // If nothing worked, we return an empty result.
     if (result == null) {
-      new LanguageMatch(word, null, Type.NO_MATCH);
+      result = new LanguageMatch(word, null, Type.NO_MATCH);
     }
     return result;
   }
@@ -176,12 +196,8 @@ public class LanguageMatcher {
   private String findLocaleMatch(String rawValue) {
     final Matcher matcher = LOCALE_CODE_PATTERN.matcher(rawValue.trim());
     if (matcher.matches()) {
-      return isoCodes.get(normalizeString(matcher.group(1)));
+      return isoCodes.get(stringNormalizer.apply(matcher.group(1)));
     }
     return null;
-  }
-
-  private String normalizeString(String label) {
-    return StringNormalizer.normalize(label);
   }
 }

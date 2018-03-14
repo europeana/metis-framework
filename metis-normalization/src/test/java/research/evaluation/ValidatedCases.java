@@ -43,6 +43,9 @@ public class ValidatedCases {
       if (l.getIso6393() != null) {
         isoCodeIndex.put(l.getIso6393(), l);
       }
+      if (l.getAuthorityCode() != null) {
+        isoCodeIndex.put(l.getAuthorityCode(), l);
+      }
     }
 
     if (evaluationFolder == null) {

@@ -21,7 +21,7 @@ import eu.europeana.normalization.util.XmlUtil;
  *
  * @author Nuno Freire (nfreire@gmail.com)
  */
-public final class Languages {
+public class Languages {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(Languages.class);
 
@@ -59,6 +59,7 @@ public final class Languages {
       l.setIso6392b(XmlUtil.getElementTextByTagName(recordEl, "iso-639-2b"));
       l.setIso6392t(XmlUtil.getElementTextByTagName(recordEl, "iso-639-2t"));
       l.setIso6393(XmlUtil.getElementTextByTagName(recordEl, "iso-639-3"));
+      l.setAuthorityCode(XmlUtil.getElementTextByTagName(recordEl, "authority-code"));
 
       // Read the name tag with the original and alternative names.
       Element nameEl = XmlUtil.getElementByTagName(recordEl, "name");

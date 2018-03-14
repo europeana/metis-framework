@@ -2,6 +2,7 @@ package eu.europeana.normalization.languages;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,9 +18,10 @@ public class Language {
   private String iso6392b = null;
   private String iso6392t = null;
   private String iso6393 = null;
-  private List<LanguageLabel> originalNames = new ArrayList<>();
-  private List<LanguageLabel> alternativeNames = new ArrayList<>();
-  private List<LanguageLabel> labels = new ArrayList<>();
+  private String authorityCode = null;
+  private final List<LanguageLabel> originalNames = new ArrayList<>();
+  private final List<LanguageLabel> alternativeNames = new ArrayList<>();
+  private final List<LanguageLabel> labels = new ArrayList<>();
 
   public String getIso6391() {
     return iso6391;
@@ -53,6 +55,14 @@ public class Language {
     this.iso6393 = iso6393;
   }
 
+  public String getAuthorityCode() {
+    return authorityCode;
+  }
+
+  public void setAuthorityCode(String authorityCode) {
+    this.authorityCode = authorityCode;
+  }
+
   void addOriginalNames(List<LanguageLabel> newOriginalNames) {
     this.originalNames.addAll(newOriginalNames);
   }
@@ -65,8 +75,21 @@ public class Language {
     this.labels.addAll(newLabels);
   }
 
+  public List<LanguageLabel> getOriginalNames() {
+    return Collections.unmodifiableList(originalNames);
+  }
+
+  public List<LanguageLabel> getAlternativeNames() {
+    return Collections.unmodifiableList(alternativeNames);
+  }
+
+  public List<LanguageLabel> getLabels() {
+    return Collections.unmodifiableList(labels);
+  }
+
   /**
-   * @return A set containing all labels that are known for this language.
+   * @return A set containing all labels that are known for this language, including the original
+   *         and alternative names.
    */
   public Set<String> getAllLabels() {
     return Arrays.asList(originalNames, alternativeNames, labels).stream().flatMap(List::stream)
@@ -78,8 +101,8 @@ public class Language {
    */
   public Set<String> getAllLabelsAndCodes() {
     final Set<String> result = getAllLabels();
-    final Set<String> codes = Arrays.asList(iso6391, iso6392b, iso6392t, iso6393).stream()
-        .filter(StringUtils::isNotEmpty).collect(Collectors.toSet());
+    final Set<String> codes = Arrays.asList(iso6391, iso6392b, iso6392t, iso6393, authorityCode)
+        .stream().filter(StringUtils::isNotEmpty).collect(Collectors.toSet());
     result.addAll(codes);
     return result;
   }
@@ -87,36 +110,18 @@ public class Language {
   @Override
   public String toString() {
     return "NalLanguage [iso6391=" + iso6391 + ", iso6392b=" + iso6392b + ", iso6392t=" + iso6392t
-        + ", iso6393=" + iso6393 + ", originalNames=" + originalNames + ", alternativeNames="
-        + alternativeNames + ", labels=" + labels + "]";
+        + ", iso6393=" + iso6393 + ", authoritycode=" + authorityCode + ", originalNames="
+        + originalNames + ", alternativeNames=" + alternativeNames + ", labels=" + labels + "]";
   }
 
   /**
    * Get the language code for the given target vocabulary.
    * 
-   * @param target The target vocabulary for which to obtain the code.
+   * @param vocabulary The target vocabulary for which to obtain the code.
    * @return The code.
    */
-  public String getNormalizedLanguageId(LanguagesVocabulary target) {
-    final String code;
-    switch (target) {
-      case ISO_639_1:
-        code = getIso6391();
-        break;
-      case ISO_639_2B:
-        code = getIso6392b();
-        break;
-      case ISO_639_2T:
-        code = getIso6392t();
-        break;
-      case ISO_639_3:
-      case LANGUAGES_NAL:
-        code = getIso6393();
-        break;
-      default:
-        throw new IllegalStateException("Unknown target vocabulary.");
-    }
-    return code;
+  public String getNormalizedLanguageId(LanguagesVocabulary vocabulary) {
+    return vocabulary.getCodeForLanguage(this);
   }
 
   /**
