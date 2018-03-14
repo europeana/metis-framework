@@ -3,6 +3,7 @@ package eu.europeana.enrichment.service.zoho;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Date;
 import java.util.List;
@@ -32,14 +33,19 @@ public class ZohoAccessServiceTest extends BaseZohoAccessTest{
 		Organization bnf = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
 		assertNotNull(bnf.getEdmAcronym());
 		
-		List<String> acronyms = bnf.getEdmAcronym().get("EN(English)");
+		List<String> acronyms = bnf.getEdmAcronym().get("fr");
 		assertEquals("BnF", acronyms.get(0));
 		
-		List<String> identifiers = bnf.getDcIdentifier().get("EN(English)");
+		List<String> identifiers = bnf.getDcIdentifier().get("def");
 		assertEquals(TEST_ORGANIZATION_ID, identifiers.get(0));
 		
 		LOGGER.info("BNF identifiers: "+identifiers);
 		LOGGER.info("BNF about: "+bnf.getAbout());
+		
+		Set<Entry<String, List<String>>> roles = bnf.getEdmEuropeanaRole().entrySet();
+		List<String> role = roles.iterator().next().getValue();
+		LOGGER.info("Role1: "+ role.get(0) + ", Role2: "+ role.get(1));	
+		assertTrue(role.size() == 2);
 	}
 	
 	@Test

@@ -3,6 +3,7 @@ package eu.europeana.enrichment.service.zoho;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -107,7 +108,8 @@ public class ZohoAccessService {
 		org.setEdmAcronym(createLanguageMapOfStringList(zoa.getLangAcronym(), zoa.getAcronym()));
 		org.setFoafLogo(zoa.getLogo());
 		org.setFoafHomepage(zoa.getWebsite());
-		org.setEdmEuropeanaRole(createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), zoa.getRole()));
+		String[] role = zoa.getRole().split(";");
+		org.setEdmEuropeanaRole(createLanguageMapOfStringList(Locale.ENGLISH.getLanguage(), Arrays.asList(role)));
 		org.setEdmOrganizationDomain(createMap(Locale.ENGLISH.getLanguage(), zoa.getDomain()));
 		org.setEdmOrganizationSector(createMap(Locale.ENGLISH.getLanguage(), zoa.getSector()));
 		org.setEdmOrganizationScope(createMap(Locale.ENGLISH.getLanguage(), zoa.getScope()));
