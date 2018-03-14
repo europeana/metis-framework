@@ -1,8 +1,8 @@
 package eu.europeana.metis.dereference.service.utils;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.Set;
 import org.apache.commons.io.IOUtils;
@@ -17,6 +17,8 @@ import eu.europeana.metis.dereference.service.dao.EntityDao;
  */
 @Service
 public class RdfRetriever {
+
+  private static final int MAX_NUMBER_OF_REDIRECTS = 5;
 
   private static final Logger LOGGER = LoggerFactory.getLogger(RdfRetriever.class);
 
@@ -81,26 +83,54 @@ public class RdfRetriever {
   }
 
   private static String retrieveFromSource(String resourceId, String suffix) {
-
-    // Make the connection and retrieve the result.
-    String result = null;
-    String resultContentType = null;
     try {
-      URLConnection urlConnection = new URL(resourceId + suffix).openConnection();
-      urlConnection.setRequestProperty("accept", "application/rdf+xml");
-      result = IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
-      resultContentType = urlConnection.getContentType();
+      return retrieveFromSource(resourceId, resourceId + suffix, MAX_NUMBER_OF_REDIRECTS);
     } catch (IOException e) {
       LOGGER.warn("Failed to retrieve: {} with message: {}", resourceId, e.getMessage());
       LOGGER.debug("Problem retrieving resource.", e);
+      return null;
+    }
+  }
+
+  private static String retrieveFromSource(String resourceId, String url, int redirectsLeft)
+      throws IOException {
+
+    // Make the connection and retrieve the result.
+    final HttpURLConnection urlConnection = (HttpURLConnection) new URL(url).openConnection();
+    urlConnection.setRequestProperty("accept", "application/rdf+xml");
+    final String resultString =
+        IOUtils.toString(urlConnection.getInputStream(), StandardCharsets.UTF_8);
+    final int responseCode = urlConnection.getResponseCode();
+    final String contentType = urlConnection.getContentType();
+    
+    // Log in case of unexpected issues.
+    if (responseCode != HttpURLConnection.HTTP_OK) {
+      LOGGER.info("Status code {} for url {} for resource {}.", responseCode, url, resourceId);
     }
 
-    // Check that we didn't receive HTML input.
-    if (resultContentType != null && resultContentType.startsWith("text/html")) {
-      result = null;
-    }
-    if (result != null && result.contains("<html>")) {
-      result = null;
+    // Check the response code.
+    final String result;
+    if (responseCode == HttpURLConnection.HTTP_MOVED_TEMP
+        || responseCode == HttpURLConnection.HTTP_MOVED_PERM
+        || responseCode == HttpURLConnection.HTTP_SEE_OTHER) {
+
+      // Perform redirect
+      final String location = urlConnection.getHeaderField("Location");
+      if (redirectsLeft > 0 && location != null) {
+        result = retrieveFromSource(resourceId, location, redirectsLeft - 1);
+      } else {
+        result = null;
+      }
+    } else {
+
+      // Check that we didn't receive HTML input.
+      if (contentType != null && contentType.startsWith("text/html")) {
+        result = null;
+      } else if (resultString != null && resultString.contains("<html>")) {
+        result = null;
+      } else {
+        result = resultString;
+      }
     }
 
     // Done

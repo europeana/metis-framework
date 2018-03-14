@@ -119,7 +119,10 @@ public class MongoDereferenceService implements DereferenceService {
 
     // Get the original entity given the list of vocabulary candidates
     final String originalEntity = retrieveOriginalEntity(resourceId, vocabularyCandidates);
-
+    if (originalEntity == null) {
+      return null;
+    }
+    
     // Try to find the vocabulary.
     final Vocabulary vocabulary;
     if (vocabularyCandidates.isEmpty()) {
