@@ -62,4 +62,19 @@ public enum Country {
     }
     return null;
   }
+
+  /**
+   * Lookup of a {@link Country} enum from a provided enum String representation of the enum value.
+   * <p>e.g. if provided enumName is GREECE then the returned Country will be Country.GREECE</p>
+   * @param isoCode the String representation of an isoCode
+   * @return the {@link Country} that represents the provided value or null if not found
+   */
+  public static Country getCountryFromIsoCode(String isoCode) {
+    for (Country country : Country.values()) {
+      if (country.getIsoCode().equalsIgnoreCase(isoCode)) {
+        return country;
+      }
+    }
+    return null;
+  }
 }
