@@ -1,9 +1,8 @@
 package eu.europeana.normalization;
 
 import static org.junit.Assert.assertNotNull;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -27,14 +26,15 @@ public class NormalizationTest {
     List<String> recs = new ArrayList<>();
 
     // change to correct file location
-    FileInputStream in = new FileInputStream(new File("src/test/samples/edm-record.xml"));
+    final InputStream in = getClass().getClassLoader().getResourceAsStream("edm-record.xml");
     recs.add(IOUtils.toString(in, "UTF-8"));
     in.close();
 
     // change to correct file location
-    in = new FileInputStream(new File("src/test/samples/edm-record-internal.xml"));
-    recs.add(IOUtils.toString(in, "UTF-8"));
-    in.close();
+    final InputStream in2 =
+        getClass().getClassLoader().getResourceAsStream("edm-record-internal.xml");
+    recs.add(IOUtils.toString(in2, "UTF-8"));
+    in2.close();
 
     // Perform actual normalization
     final Normalizer normalizer = new NormalizerFactory().getNormalizer();
