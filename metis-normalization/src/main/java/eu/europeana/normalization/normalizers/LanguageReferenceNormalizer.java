@@ -17,10 +17,10 @@ import eu.europeana.normalization.settings.LanguageElements;
  */
 public class LanguageReferenceNormalizer implements ValueNormalizer {
 
-  private static final float CONFIDENCE_SINGLE_CODE_EQUALS = 1.0F;
-  private static final float CONFIDENCE_SINGLE_CODE_KNOWN = 0.98F;
-  private static final float CONFIDENCE_LABELS_OR_CODES_MATCHED = 0.95F;
-  private static final float CONFIDENCE_LABELS_AND_CODES_MATCHED = 0.85F;
+  protected static final float CONFIDENCE_SINGLE_CODE_EQUALS = 1.0F;
+  protected static final float CONFIDENCE_SINGLE_CODE_KNOWN = 0.98F;
+  protected static final float CONFIDENCE_LABELS_OR_CODES_MATCHES = 0.95F;
+  protected static final float CONFIDENCE_LABELS_AND_CODES_MATCHES = 0.85F;
 
   private final float minimumConfidence;
   private final LanguageMatcher matcher;
@@ -43,10 +43,32 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
   @Override
   public List<NormalizedValueWithConfidence> normalizeValue(String label) {
 
-    // Match the input. If there are no results, we are done.
+    // Match the input.
     final List<LanguageMatch> matches = matcher.match(label);
-    if (matches.isEmpty()) {
+
+    // Determine and check the confidence (also checks against empty match)
+    final Float confidence = determineConfidence(matches);
+    if (confidence == null || confidence < minimumConfidence) {
       return Collections.emptyList();
+    }
+
+    // Return the result.
+    return matches.stream().map(LanguageMatch::getMatch).distinct()
+        .map(language -> new NormalizedValueWithConfidence(language, confidence))
+        .collect(Collectors.toList());
+  }
+
+  /**
+   * Determine the confidence in a match result.
+   * 
+   * @param matches The match result of a given input string.
+   * @return The confidence in the match. Or null if matching did not succeed.
+   */
+  Float determineConfidence(List<LanguageMatch> matches) {
+
+    // Sanity check
+    if (matches.isEmpty()) {
+      return null;
     }
 
     // Do some analysis.
@@ -70,23 +92,15 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
         confidence = CONFIDENCE_SINGLE_CODE_KNOWN;
       }
     } else if (justCodeMatches || justLabelMatches) {
-      confidence = CONFIDENCE_LABELS_OR_CODES_MATCHED;
+      confidence = CONFIDENCE_LABELS_OR_CODES_MATCHES;
     } else {
-      confidence = CONFIDENCE_LABELS_AND_CODES_MATCHED;
+      confidence = CONFIDENCE_LABELS_AND_CODES_MATCHES;
     }
 
-    // Check the confidence.
-    if (confidence == null || confidence < minimumConfidence) {
-      return Collections.emptyList();
-    }
-
-    // Return the result.
-    final Set<String> matchedLanguages =
-        matches.stream().map(LanguageMatch::getMatch).distinct().collect(Collectors.toSet());
-    return matchedLanguages.stream()
-        .map(language -> new NormalizedValueWithConfidence(language, confidence))
-        .collect(Collectors.toList());
+    // Done
+    return confidence;
   }
+
 
   @Override
   public RecordNormalizer getAsRecordNormalizer() {

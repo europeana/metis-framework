@@ -39,7 +39,7 @@ public class LanguageMatch {
    * @param match The match that was found.
    * @param type The type of the match.
    */
-  LanguageMatch(String input, String match, Type type) {
+  public LanguageMatch(String input, String match, Type type) {
     this.input = input;
     this.match = match;
     this.type = type;
