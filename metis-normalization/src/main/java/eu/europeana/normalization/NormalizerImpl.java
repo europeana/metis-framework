@@ -61,6 +61,7 @@ class NormalizerImpl implements Normalizer {
     try {
       return normalizeInternal(edmRecord);
     } catch (XmlException e) {
+      LOGGER.warn(e.getMessage(), e);
       return NormalizationResult.createInstanceForError("Error parsing XML: " + e.getMessage(),
           edmRecord);
     } catch (RuntimeException e) {

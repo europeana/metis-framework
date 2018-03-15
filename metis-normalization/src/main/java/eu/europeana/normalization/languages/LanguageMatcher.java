@@ -26,7 +26,7 @@ public class LanguageMatcher {
   private static final Pattern LOCALE_CODE_PATTERN =
       Pattern.compile("\\A(\\p{Alpha}\\p{Alpha})-\\p{Alpha}\\p{Alpha}\\Z");
 
-  private static final Pattern LANGUAGE_CODE_MATCHER = Pattern.compile("\\A\\p{Lower}{2,3}\\Z");
+  private static final Pattern LANGUAGE_CODE_MATCHER = Pattern.compile("\\A\\p{Alpha}{2,3}\\Z");
 
   private final int minimumLabelLength;
   private final AmbiguityHandling ambiguityHandling;

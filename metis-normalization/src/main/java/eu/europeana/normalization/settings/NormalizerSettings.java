@@ -11,13 +11,13 @@ import eu.europeana.normalization.util.NormalizationConfigurationException;
  */
 public class NormalizerSettings {
 
-  private static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
-  private static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
-  private static final LanguageElements DEFAULT_LANGUAGE_ELEMENTS = LanguageElements.ALL;
-  private static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
-  private static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
+  public static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
+  public static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
+  public static final LanguageElements DEFAULT_LANGUAGE_ELEMENTS = LanguageElements.ALL;
+  public static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
+  public static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
-  private static final CleanMarkupTagsMode DEFAULT_CLEAN_MARKUP_TAGS_MODE =
+  public static final CleanMarkupTagsMode DEFAULT_CLEAN_MARKUP_TAGS_MODE =
       CleanMarkupTagsMode.ALL_MARKUP;
 
   private float minimumConfidence = DEFAULT_MINIMUM_CONFIDENCE;

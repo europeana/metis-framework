@@ -191,13 +191,13 @@ public class LanguageMatcherTest {
   @Test(expected = RuntimeException.class)
   public void testLanguageCodeWithBadCharacters() {
     final Language language = new Language();
-    language.setIso6391("Aa");
+    language.setIso6391("A1a");
     new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
         createLanguages(language), Function.identity());
   }
 
   @Test(expected = RuntimeException.class)
-  public void testLanguageCodeOdWrongLength() {
+  public void testLanguageCodeOfWrongLength() {
     final Language language = new Language();
     language.setIso6391("aaaa");
     new LanguageMatcher(4, AmbiguityHandling.NO_MATCH, LanguagesVocabulary.ISO_639_1,
