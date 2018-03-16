@@ -52,4 +52,12 @@ public class EntityService {
 		return termList;
 	}
 	
+	/**
+	 * This method returns last modified date for organizations.
+	 * @return the last modified date
+	 */
+	public Date getLastModifiedDate() {
+		return MongoDatabaseUtils.getLastModifiedDate(EntityClass.ORGANIZATION);
+	}
+	
 }

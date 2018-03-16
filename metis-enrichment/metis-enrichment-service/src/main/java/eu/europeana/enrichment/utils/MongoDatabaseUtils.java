@@ -17,10 +17,12 @@
 package eu.europeana.enrichment.utils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.mongojack.DBCursor;
+import org.mongojack.DBSort;
 import org.mongojack.JacksonDBCollection;
 import org.mongojack.WriteResult;
 import org.slf4j.Logger;
@@ -71,6 +73,7 @@ public class MongoDatabaseUtils {
   private static final String TERM_CODE_URI = "codeUri";
   private static final String TERM_LANG = "lang";
   private static final String TERM_LABEL = "label";
+  private static final String TERM_MODIFIED = "modified";
 
   private static JacksonDBCollection<ConceptTermList, String> cColl;
   private static JacksonDBCollection<PlaceTermList, String> pColl;
@@ -380,6 +383,18 @@ public class MongoDatabaseUtils {
     return result;
   }
 
+  private static String getTypeName(EntityClass entityClass) {
+    final String result;
+    switch (entityClass) {
+      case ORGANIZATION:
+        result = ORGANIZATION_TYPE;
+        break;
+      default:
+        throw new IllegalStateException("Unknown entity: " + entityClass);
+    }
+    return result;
+  }
+
   public static List<MongoTerm> getAllMongoTerms(EntityClass entityClass) {
     JacksonDBCollection<MongoTerm, String> pColl = JacksonDBCollection
         .wrap(db.getCollection(getTableName(entityClass)), MongoTerm.class, String.class);
@@ -445,4 +460,22 @@ public class MongoDatabaseUtils {
 		}
 		return terms;
 	}
+	
+	/**
+	 * This method returns last modified date for passed entity class.
+	 * @param entityClass The type of the entity e.g. organization
+	 * @return the last modified date for passed entity class
+	 */
+	public static Date getLastModifiedDate(EntityClass entityClass) {
+		Date lastModified = oColl
+				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, getTypeName(entityClass)))
+				.sort(DBSort.desc(TERM_MODIFIED))
+				.limit(1)
+				.toArray()
+				.get(0)
+				.getModified();
+		
+		return lastModified;
+	}
+	
 }
