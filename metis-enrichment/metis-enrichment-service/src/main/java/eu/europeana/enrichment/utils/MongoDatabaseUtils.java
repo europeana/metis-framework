@@ -467,15 +467,18 @@ public class MongoDatabaseUtils {
 	 * @return the last modified date for passed entity class
 	 */
 	public static Date getLastModifiedDate(EntityClass entityClass) {
-		Date lastModified = oColl
+		DBCursor<OrganizationTermList> cursor = oColl
 				.find(new BasicDBObject(ENTITY_TYPE_PROPERTY, getTypeName(entityClass)))
 				.sort(DBSort.desc(TERM_MODIFIED))
-				.limit(1)
-				.toArray()
-				.get(0)
-				.getModified();
-		
-		return lastModified;
+				.limit(1);
+		//empty results
+		if (cursor.size() == 0)
+			return null;
+		//last imported item
+		OrganizationTermList lastModifiedOrg = cursor.toArray()
+				.get(0);
+			
+		return lastModifiedOrg.getModified();
 	}
 	
 }

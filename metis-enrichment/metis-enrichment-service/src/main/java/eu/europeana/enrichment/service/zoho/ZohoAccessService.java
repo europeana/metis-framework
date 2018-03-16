@@ -39,7 +39,7 @@ public class ZohoAccessService {
 	private static final String URL_ORGANIZATION_PREFFIX = "http://data.europeana.eu/organization/";
 	private static final String UNDEFINED_LANGUAGE_KEY = "def";
 	private final ZohoAccessClientDao zohoAccessClientDao;
-	private SimpleDateFormat dateFormatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+//	private SimpleDateFormat dateFormatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
 	
 	/**
 	 * Constructor of class with required parameters
@@ -280,6 +280,6 @@ public class ZohoAccessService {
 	}
 
 	public SimpleDateFormat getDateFormatter() {
-		return dateFormatter;
+		return ZohoApiFields.getZohoTimeFormatter();
 	}
 }

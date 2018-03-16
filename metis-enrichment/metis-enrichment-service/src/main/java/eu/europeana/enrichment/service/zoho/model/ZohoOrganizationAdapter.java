@@ -59,7 +59,6 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final int MAX_LANG_ALTERNATIVES = 5;
 	private static final int MAX_SAME_AS = 3;
 
-	public SimpleDateFormat formatter;
 	private List<ZohoResponseField> organizationFields = null;
 	
 	public ZohoOrganizationAdapter(JsonNode response) throws ZohoAccessException{
@@ -238,7 +237,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 			return new Date(0);
 		
 		try {
-			return getFormatter().parse(dateTime);			
+			return ZohoApiFields.getZohoTimeFormatter().parse(dateTime);			
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("Cannot parse modified date. Wrong format: " + dateTime, e);
 		}
@@ -253,15 +252,6 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	@Override
 	public String getModifiedBy() {
 		return getContent(MODIFIED_BY);
-	}
-
-	public SimpleDateFormat getFormatter() {
-		if(formatter == null){
-			formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
-			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
-		}
-			
-		return formatter;
 	}
 
 	protected List<ZohoResponseField> getOrganizationFields() {

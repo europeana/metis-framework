@@ -10,6 +10,7 @@ import java.util.Properties;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 import eu.europeana.corelib.definitions.edm.entity.Organization;
 import eu.europeana.enrichment.api.internal.OrganizationTermList;
@@ -49,5 +50,21 @@ public class ZohoImportTest extends BaseZohoAccessTest{
 		assertEquals(org.getAbout(), termList.getCodeUri());
 		assertEquals(termList.getCreated(), termList.getModified());
 		assertTrue(termList.getCreated().getTime() > now.getTime());
+	}
+	
+	@Test
+	public void getLastImportedDateTest() throws ZohoAccessException{
+		Date now = new Date();		
+		Organization org = zohoAccessService.getOrganization(TEST_ORGANIZATION_ID);
+		assertNotNull(org);
+		OrganizationTermList termList = entityService.storeOrganization(org);
+		assertNotNull(termList);
+		
+		Date lastImportedDate = entityService.getLastOrganizationImportDate();
+		assertNotNull(lastImportedDate);		
+		LOGGER.info("Last imported date: " + lastImportedDate.toString());
+		assertTrue(lastImportedDate.getTime() > now.getTime());
+		assertEquals(lastImportedDate, termList.getModified());
+		
 	}
 }

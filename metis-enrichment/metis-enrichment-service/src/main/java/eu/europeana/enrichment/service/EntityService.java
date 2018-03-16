@@ -56,7 +56,8 @@ public class EntityService {
 	 * This method returns last modified date for organizations.
 	 * @return the last modified date
 	 */
-	public Date getLastModifiedDate() {
+	public Date getLastOrganizationImportDate() {
+		MongoDatabaseUtils.dbExists(mongoHost, mongoPort);
 		return MongoDatabaseUtils.getLastModifiedDate(EntityClass.ORGANIZATION);
 	}
 	

@@ -1,5 +1,8 @@
 package eu.europeana.metis.authentication.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 public abstract class ZohoApiFields {
 
 	public static final String CONTACTS_MODULE_STRING = "Contacts";
@@ -23,11 +26,21 @@ public abstract class ZohoApiFields {
 	public static final String ID = "id";
 	public static final String FROM_INDEX_STRING = "fromIndex";
 	public static final String TO_INDEX_STRING = "toIndex";
-	public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd hh:mm:ss";
+	public static final String ZOHO_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	public static final String SORT_COLUMN = "sortColumnString";
 	public static final String SORT_ORDER = "sortOrderString";
 	public static final String SORT_ORDER_DESC = "desc";
 	public static final String SORT_ORDER_ASC = "asc";
 	public static final String MODIFIED_TIME = "Modified Time";
-	
+
+	private static SimpleDateFormat formatter;
+
+	public static SimpleDateFormat getZohoTimeFormatter() {
+		if(formatter == null){
+			formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+		}
+			
+		return formatter;
+	}
 }
