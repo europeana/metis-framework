@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -58,7 +59,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	private static final int MAX_LANG_ALTERNATIVES = 5;
 	private static final int MAX_SAME_AS = 3;
 
-	public SimpleDateFormat formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+	public SimpleDateFormat formatter;
 	private List<ZohoResponseField> organizationFields = null;
 	
 	public ZohoOrganizationAdapter(JsonNode response) throws ZohoAccessException{
@@ -237,7 +238,7 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 			return new Date(0);
 		
 		try {
-			return formatter. parse(dateTime);			
+			return getFormatter().parse(dateTime);			
 		} catch (ParseException e) {
 			throw new IllegalArgumentException("Cannot parse modified date. Wrong format: " + dateTime, e);
 		}
@@ -255,6 +256,11 @@ public class ZohoOrganizationAdapter implements ZohoOrganization {
 	}
 
 	public SimpleDateFormat getFormatter() {
+		if(formatter == null){
+			formatter = new SimpleDateFormat(ZohoApiFields.ZOHO_TIME_FORMAT);
+			formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+		}
+			
 		return formatter;
 	}
 
