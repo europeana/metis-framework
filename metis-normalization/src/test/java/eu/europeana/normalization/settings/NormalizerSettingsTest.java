@@ -1,5 +1,6 @@
 package eu.europeana.normalization.settings;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -17,7 +18,7 @@ public class NormalizerSettingsTest {
         settings.getCleanMarkupTagsMode());
     assertEquals(NormalizerSettings.DEFAULT_LANGUAGE_AMBIGUITY_HANDLING,
         settings.getLanguageAmbiguityHandling());
-    assertEquals(NormalizerSettings.DEFAULT_LANGUAGE_ELEMENTS,
+    assertArrayEquals(NormalizerSettings.DEFAULT_LANGUAGE_ELEMENTS,
         settings.getLanguageElementsToNormalize());
     assertEquals(NormalizerSettings.DEFAULT_MIN_LANGUAGE_LABEL_LENGTH,
         settings.getMinLanguageLabelLength());
@@ -32,8 +33,9 @@ public class NormalizerSettingsTest {
     newSettings = settings.setLanguageAmbiguityHandling(AmbiguityHandling.CHOOSE_FIRST);
     assertEquals(AmbiguityHandling.CHOOSE_FIRST, settings.getLanguageAmbiguityHandling());
     assertTrue(newSettings == settings);
-    newSettings = settings.setLanguageElementsToNormalize(LanguageElements.XML_LANG);
-    assertEquals(LanguageElements.XML_LANG, settings.getLanguageElementsToNormalize());
+    newSettings = settings.setLanguageElementsToNormalize(LanguageElement.XML_LANG);
+    assertArrayEquals(new LanguageElement[] {LanguageElement.XML_LANG},
+        settings.getLanguageElementsToNormalize());
     assertTrue(newSettings == settings);
     newSettings = settings.setMinLanguageLabelLength(6);
     assertEquals(6, settings.getMinLanguageLabelLength());
@@ -63,7 +65,7 @@ public class NormalizerSettingsTest {
   @Test(expected = NormalizationConfigurationException.class)
   public void testSetLanguageElementsToNormalizeToNull()
       throws NormalizationConfigurationException {
-    new NormalizerSettings().setLanguageElementsToNormalize(null);
+    new NormalizerSettings().setLanguageElementsToNormalize((LanguageElement[]) null);
   }
 
   @Test(expected = NormalizationConfigurationException.class)

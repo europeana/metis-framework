@@ -1,5 +1,6 @@
 package eu.europeana.normalization.normalizers;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -7,13 +8,12 @@ import java.util.stream.Collectors;
 import eu.europeana.normalization.languages.LanguageMatch;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.settings.LanguageElements;
+import eu.europeana.normalization.settings.LanguageElement;
+import eu.europeana.normalization.util.XpathQuery;
 
 /**
  * This normalizer normalizes language references. It uses the functionality in
  * {@link LanguageMatcher}.
- *
- * @author Nuno Freire (nfreire@gmail.com)
  */
 public class LanguageReferenceNormalizer implements ValueNormalizer {
 
@@ -24,7 +24,7 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
 
   private final float minimumConfidence;
   private final LanguageMatcher matcher;
-  private final LanguageElements elementsToNormalize;
+  private final XpathQuery elementsToNormalize;
 
   /**
    * Constructor.
@@ -34,9 +34,10 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
    * @param elementsToNormalize The elements to normalize.
    */
   public LanguageReferenceNormalizer(LanguageMatcher languageMatcher, float minimumConfidence,
-      LanguageElements elementsToNormalize) {
+      LanguageElement[] elementsToNormalize) {
     this.matcher = languageMatcher;
-    this.elementsToNormalize = elementsToNormalize;
+    this.elementsToNormalize = XpathQuery.combine(Arrays.asList(elementsToNormalize).stream()
+        .map(LanguageElement::getElementQuery).toArray(XpathQuery[]::new));
     this.minimumConfidence = minimumConfidence;
   }
 
@@ -104,6 +105,6 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
 
   @Override
   public RecordNormalizer getAsRecordNormalizer() {
-    return new ValueNormalizerWrapper(this, elementsToNormalize.getElementQuery());
+    return new ValueNormalizerWrapper(this, elementsToNormalize);
   }
 }

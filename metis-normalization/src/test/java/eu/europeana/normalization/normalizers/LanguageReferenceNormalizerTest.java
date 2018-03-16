@@ -17,7 +17,7 @@ import org.junit.Test;
 import eu.europeana.normalization.languages.LanguageMatch;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
-import eu.europeana.normalization.settings.LanguageElements;
+import eu.europeana.normalization.settings.LanguageElement;
 
 public class LanguageReferenceNormalizerTest {
 
@@ -38,7 +38,8 @@ public class LanguageReferenceNormalizerTest {
     // Create normalizer
     final float minimumConfidence = 0.5f;
     final LanguageReferenceNormalizer normalizer =
-        spy(new LanguageReferenceNormalizer(matcher, minimumConfidence, LanguageElements.ALL));
+        spy(new LanguageReferenceNormalizer(matcher, minimumConfidence,
+            new LanguageElement[] {LanguageElement.DC_LANGUAGE, LanguageElement.EDM_LANGUAGE}));
 
     // Check with valid confidence
     final float validConfidence = minimumConfidence + 0.1F;
@@ -71,8 +72,8 @@ public class LanguageReferenceNormalizerTest {
     final LanguageMatch noMatch = new LanguageMatch("input4", null, Type.NO_MATCH);
 
     // Create normalizer
-    final LanguageReferenceNormalizer normalizer =
-        new LanguageReferenceNormalizer(null, 1.0f, null);
+    final LanguageReferenceNormalizer normalizer = new LanguageReferenceNormalizer(null, 1.0f,
+        new LanguageElement[] {LanguageElement.XML_LANG});
 
     // Test single codes or labels
     assertEquals(Float.valueOf(LanguageReferenceNormalizer.CONFIDENCE_SINGLE_CODE_EQUALS),

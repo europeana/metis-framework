@@ -6,22 +6,21 @@ import eu.europeana.normalization.util.XpathQuery;
 /**
  * This enum contains those XML elements that may contain language identifiers.
  */
-public enum LanguageElements {
+public enum LanguageElement {
 
   /** The tag dc:language **/
-  DC_LANGUAGE(XpathQuery.create("//%s/%s", Namespace.ORE.getElement("Proxy"),
-      Namespace.DC.getElement("language"))),
+  DC_LANGUAGE(XpathQuery.create("//%s", Namespace.DC.getElement("language"))),
+
+  /** The tag edm:language **/
+  EDM_LANGUAGE(XpathQuery.create("//%s", Namespace.EDM.getElement("language"))),
 
   /** The attribute xml:lang **/
   XML_LANG(XpathQuery.create("//*[@%s]/@%s", Namespace.XML.getElement("lang"),
-      Namespace.XML.getElement("lang"))),
-
-  /** The combination of all elements. **/
-  ALL(XpathQuery.combine(DC_LANGUAGE.getElementQuery(), XML_LANG.getElementQuery()));
+      Namespace.XML.getElement("lang")));
 
   private final XpathQuery elementQuery;
 
-  private LanguageElements(XpathQuery languageQuery) {
+  private LanguageElement(XpathQuery languageQuery) {
     this.elementQuery = languageQuery;
   }
 

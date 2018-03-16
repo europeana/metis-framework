@@ -63,7 +63,7 @@ public enum Namespace {
    * @author jochen
    *
    */
-  public static class Element implements Formattable {
+  public static final class Element implements Formattable {
 
     private final String elementName;
     private final Namespace namespace;

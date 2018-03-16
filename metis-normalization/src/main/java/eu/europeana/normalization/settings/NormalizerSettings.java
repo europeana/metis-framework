@@ -1,5 +1,6 @@
 package eu.europeana.normalization.settings;
 
+import java.util.Arrays;
 import eu.europeana.normalization.languages.LanguagesVocabulary;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 
@@ -11,18 +12,19 @@ import eu.europeana.normalization.util.NormalizationConfigurationException;
  */
 public class NormalizerSettings {
 
-  public static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
-  public static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
-  public static final LanguageElements DEFAULT_LANGUAGE_ELEMENTS = LanguageElements.ALL;
-  public static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
-  public static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
+  protected static final float DEFAULT_MINIMUM_CONFIDENCE = 0.95F;
+  protected static final LanguagesVocabulary DEFAULT_VOCABULARY = LanguagesVocabulary.ISO_639_3;
+  protected static final LanguageElement[] DEFAULT_LANGUAGE_ELEMENTS =
+      {LanguageElement.DC_LANGUAGE, LanguageElement.EDM_LANGUAGE};
+  protected static final int DEFAULT_MIN_LANGUAGE_LABEL_LENGTH = 4;
+  protected static final AmbiguityHandling DEFAULT_LANGUAGE_AMBIGUITY_HANDLING =
       AmbiguityHandling.NO_MATCH;
-  public static final CleanMarkupTagsMode DEFAULT_CLEAN_MARKUP_TAGS_MODE =
+  protected static final CleanMarkupTagsMode DEFAULT_CLEAN_MARKUP_TAGS_MODE =
       CleanMarkupTagsMode.ALL_MARKUP;
 
   private float minimumConfidence = DEFAULT_MINIMUM_CONFIDENCE;
   private LanguagesVocabulary targetLanguageVocabulary = DEFAULT_VOCABULARY;
-  private LanguageElements elementsToNormalize = DEFAULT_LANGUAGE_ELEMENTS;
+  private LanguageElement[] elementsToNormalize = DEFAULT_LANGUAGE_ELEMENTS;
   private int minLanguageLabelLength = DEFAULT_MIN_LANGUAGE_LABEL_LENGTH;
   private AmbiguityHandling languageAmbiguityHandling = DEFAULT_LANGUAGE_AMBIGUITY_HANDLING;
   private CleanMarkupTagsMode cleanMarkupTagsMode = DEFAULT_CLEAN_MARKUP_TAGS_MODE;
@@ -60,12 +62,12 @@ public class NormalizerSettings {
    * @return This instance, so that the setter methods can be concatenated easily.
    * @throws NormalizationConfigurationException If the provided value is null.
    */
-  public NormalizerSettings setLanguageElementsToNormalize(LanguageElements elementsToNormalize)
+  public NormalizerSettings setLanguageElementsToNormalize(LanguageElement... elementsToNormalize)
       throws NormalizationConfigurationException {
     if (elementsToNormalize == null) {
       throw new NormalizationConfigurationException("Provided setting is null", null);
     }
-    this.elementsToNormalize = elementsToNormalize;
+    this.elementsToNormalize = Arrays.copyOf(elementsToNormalize, elementsToNormalize.length);
     return this;
   }
 
@@ -74,8 +76,8 @@ public class NormalizerSettings {
    * @return The elements to normalizer during language normalization. The default is
    *         {@value #DEFAULT_LANGUAGE_ELEMENTS}.
    */
-  public LanguageElements getLanguageElementsToNormalize() {
-    return elementsToNormalize;
+  public LanguageElement[] getLanguageElementsToNormalize() {
+    return Arrays.copyOf(elementsToNormalize, elementsToNormalize.length);
   }
 
   /**
