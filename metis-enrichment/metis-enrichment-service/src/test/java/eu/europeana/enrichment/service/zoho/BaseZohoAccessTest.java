@@ -28,7 +28,7 @@ public abstract class BaseZohoAccessTest {
 		Properties appProps = loadProperties(propertiesFile);
 		//TODO use constants for property keys
 		zohoAccessClientDao = new ZohoAccessClientDao(appProps.getProperty("zoho.base.url"),
-				appProps.getProperty("zoho.base.authentication.token"));
+				appProps.getProperty("zoho.authentication.token"));
 		zohoAccessService = new ZohoAccessService(zohoAccessClientDao);
 	}
 
