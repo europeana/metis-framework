@@ -8,7 +8,7 @@ import eu.europeana.normalization.util.XpathQuery;
 /**
  * This class represents a normalizer that normalizes values in EDM tags an EDM DOM tree.
  */
-public abstract class EdmValueNormalizer implements ValueNormalizer {
+public abstract class EdmValueNormalizer implements ValueNormalizeAction {
 
   private static final Element[] ELEMENTS_TO_QUERY = {Namespace.ORE.getElement("Proxy"),
       Namespace.ORE.getElement("Aggregation"), Namespace.EDM.getElement("WebResource"),
@@ -25,7 +25,7 @@ public abstract class EdmValueNormalizer implements ValueNormalizer {
   }
 
   @Override
-  public RecordNormalizer getAsRecordNormalizer() {
-    return new ValueNormalizerWrapper(this, RECORD_NORMALIZATION_QUERY);
+  public RecordNormalizeAction getAsRecordNormalizer() {
+    return new ValueNormalizeActionWrapper(this, RECORD_NORMALIZATION_QUERY);
   }
 }

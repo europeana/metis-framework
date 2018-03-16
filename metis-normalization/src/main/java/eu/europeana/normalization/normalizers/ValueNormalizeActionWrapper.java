@@ -18,14 +18,15 @@ import eu.europeana.normalization.util.XmlUtil;
 import eu.europeana.normalization.util.XpathQuery;
 
 /**
- * This class represents a wrapper around a value normalizer (instance of {@link ValueNormalizer})
- * in order to make it a record normalizer (instance of {@link RecordNormalizer}). This wrapper can
- * handle elements and attributes but not other kinds of XML nodes.
+ * This class represents a wrapper around a value normalize action (instance of
+ * {@link ValueNormalizeAction}) in order to make it a record normalize action (instance of
+ * {@link RecordNormalizeAction}). This wrapper can handle elements and attributes but not other
+ * kinds of XML nodes.
  */
-public class ValueNormalizerWrapper implements RecordNormalizer {
+public class ValueNormalizeActionWrapper implements RecordNormalizeAction {
 
   private final List<XpathQuery> targetElements = new ArrayList<>();
-  private final ValueNormalizer normalization;
+  private final ValueNormalizeAction normalization;
 
   /**
    * Constructor.
@@ -34,7 +35,7 @@ public class ValueNormalizerWrapper implements RecordNormalizer {
    * @param targetElements The target nodes (elements or attributes) to which to apply this
    *        normalization.
    */
-  ValueNormalizerWrapper(ValueNormalizer normalization, XpathQuery... targetElements) {
+  ValueNormalizeActionWrapper(ValueNormalizeAction normalization, XpathQuery... targetElements) {
     this.normalization = normalization;
     Collections.addAll(this.targetElements, targetElements);
   }

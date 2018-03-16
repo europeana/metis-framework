@@ -15,7 +15,7 @@ import eu.europeana.normalization.util.XpathQuery;
  * This normalizer normalizes language references. It uses the functionality in
  * {@link LanguageMatcher}.
  */
-public class LanguageReferenceNormalizer implements ValueNormalizer {
+public class LanguageReferenceNormalizer implements ValueNormalizeAction {
 
   protected static final float CONFIDENCE_SINGLE_CODE_EQUALS = 1.0F;
   protected static final float CONFIDENCE_SINGLE_CODE_KNOWN = 0.98F;
@@ -104,7 +104,7 @@ public class LanguageReferenceNormalizer implements ValueNormalizer {
 
 
   @Override
-  public RecordNormalizer getAsRecordNormalizer() {
-    return new ValueNormalizerWrapper(this, elementsToNormalize);
+  public RecordNormalizeAction getAsRecordNormalizer() {
+    return new ValueNormalizeActionWrapper(this, elementsToNormalize);
   }
 }

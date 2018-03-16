@@ -12,23 +12,23 @@ import eu.europeana.normalization.util.NormalizationException;
  * a list of other normalizers and executes them in the order given, providing the result of the
  * first as input to the second.
  */
-public class ChainedNormalizer implements RecordNormalizer {
+public class ChainedNormalizer implements RecordNormalizeAction {
 
-  private final List<RecordNormalizer> normalizations;
+  private final List<RecordNormalizeAction> normalizations;
 
   /**
    * Constructor.
    * 
    * @param normalizations The normalizer subtasks.
    */
-  public ChainedNormalizer(RecordNormalizer... normalizations) {
+  public ChainedNormalizer(RecordNormalizeAction... normalizations) {
     this.normalizations = Arrays.stream(normalizations).collect(Collectors.toList());
   }
 
   @Override
   public NormalizationReport normalize(Document edm) throws NormalizationException {
     final NormalizationReport report = new NormalizationReport();
-    for (RecordNormalizer normOp : normalizations) {
+    for (RecordNormalizeAction normOp : normalizations) {
       report.mergeWith(normOp.normalize(edm));
     }
     return report;

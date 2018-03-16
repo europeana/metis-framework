@@ -10,7 +10,7 @@ import org.w3c.dom.Document;
 import eu.europeana.normalization.model.NormalizationBatchResult;
 import eu.europeana.normalization.model.NormalizationReport;
 import eu.europeana.normalization.model.NormalizationResult;
-import eu.europeana.normalization.normalizers.RecordNormalizer;
+import eu.europeana.normalization.normalizers.RecordNormalizeAction;
 import eu.europeana.normalization.util.NormalizationException;
 import eu.europeana.normalization.util.XmlException;
 import eu.europeana.normalization.util.XmlUtil;
@@ -22,14 +22,14 @@ class NormalizerImpl implements Normalizer {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(NormalizerImpl.class);
 
-  private final RecordNormalizer recordNormalizer;
+  private final RecordNormalizeAction recordNormalizer;
 
   /**
    * Constructor.
    * 
    * @param recordNormalizer The record normalizer that is executed by this normalizer.
    */
-  NormalizerImpl(RecordNormalizer recordNormalizer) {
+  NormalizerImpl(RecordNormalizeAction recordNormalizer) {
     this.recordNormalizer = recordNormalizer;
   }
 

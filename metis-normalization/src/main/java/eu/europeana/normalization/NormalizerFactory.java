@@ -1,20 +1,29 @@
 package eu.europeana.normalization;
 
-import eu.europeana.normalization.languages.LanguageMatcher;
+import java.util.ArrayList;
+import java.util.List;
 import eu.europeana.normalization.normalizers.ChainedNormalizer;
-import eu.europeana.normalization.normalizers.CleanMarkupTagsNormalizer;
-import eu.europeana.normalization.normalizers.CleanSpaceCharactersNormalizer;
-import eu.europeana.normalization.normalizers.LanguageReferenceNormalizer;
-import eu.europeana.normalization.normalizers.RemoveDuplicateStatementNormalizer;
+import eu.europeana.normalization.normalizers.RecordNormalizeAction;
 import eu.europeana.normalization.settings.NormalizerSettings;
 import eu.europeana.normalization.util.NormalizationConfigurationException;
 
 /**
- * This class creates instances of {@link Normalizer}.
+ * This class creates instances of {@link Normalizer}. The default steps for a normalization are:
+ * <ol>
+ * <li>{@link NormalizerStep#CLEAN_SPACE_CHARACTERS}</li>
+ * <li>{@link NormalizerStep#CLEAN_MARKUP_TAGS}</li>
+ * <li>{@link NormalizerStep#NORMALIZE_LANGUAGE_REFERENCES}</li>
+ * <li>{@link NormalizerStep#REMOVE_DUPLICATE_STATEMENTS}</li>
+ * </ol>
+ * But an alternative order may be provided, and steps may be omitted or performed more than once.
  */
 public class NormalizerFactory {
 
   private final NormalizerSettings settings;
+
+  private static final NormalizerStep[] DEFAULT_NORMALIZER_STEPS =
+      {NormalizerStep.CLEAN_SPACE_CHARACTERS, NormalizerStep.CLEAN_MARKUP_TAGS,
+          NormalizerStep.NORMALIZE_LANGUAGE_REFERENCES, NormalizerStep.REMOVE_DUPLICATE_STATEMENTS};
 
   /**
    * Constructor for default settings.
@@ -33,34 +42,37 @@ public class NormalizerFactory {
   }
 
   /**
-   * This method creates a normalizer.
+   * This method creates a normalizer with the default steps and order.
    * 
    * @return A normalizer.
    * @throws NormalizationConfigurationException In case the normalizer could not be set up.
    */
   public Normalizer getNormalizer() throws NormalizationConfigurationException {
+    return getNormalizer(DEFAULT_NORMALIZER_STEPS);
+  }
 
-    // Set up the language normalizer.
-    final LanguageMatcher languageMatcher =
-        new LanguageMatcher(settings.getMinLanguageLabelLength(),
-            settings.getLanguageAmbiguityHandling(), settings.getTargetLanguageVocabulary());
-    final LanguageReferenceNormalizer languageNormalizer =
-        new LanguageReferenceNormalizer(languageMatcher, settings.getMinimumConfidence(),
-            settings.getLanguageElementsToNormalize());
+  /**
+   * This method creates a normalizer.
+   * 
+   * @param normalizerSteps The steps to be performed and the order in which to perform them.
+   * @return A normalizer.
+   * @throws NormalizationConfigurationException In case the normalizer could not be set up.
+   */
+  public Normalizer getNormalizer(NormalizerStep... normalizerSteps)
+      throws NormalizationConfigurationException {
 
-    // Set up the other normalizers
-    final CleanSpaceCharactersNormalizer spacesCleaner = new CleanSpaceCharactersNormalizer();
-    final CleanMarkupTagsNormalizer markupStatementsCleaner =
-        new CleanMarkupTagsNormalizer(settings.getCleanMarkupTagsMode());
-    final RemoveDuplicateStatementNormalizer dupStatementsCleaner =
-        new RemoveDuplicateStatementNormalizer();
+    // Sanity checks
+    if (normalizerSteps == null || normalizerSteps.length == 0) {
+      throw new NormalizationConfigurationException("The list of steps cannot be empty.", null);
+    }
 
-    // Combine the normalizers into one chained record normalizer (note the order).
-    final ChainedNormalizer chainedNormalizer = new ChainedNormalizer(
-        spacesCleaner.getAsRecordNormalizer(), markupStatementsCleaner.getAsRecordNormalizer(),
-        languageNormalizer.getAsRecordNormalizer(), dupStatementsCleaner);
+    // Create actions for the steps.
+    final List<RecordNormalizeAction> actions = new ArrayList<>(normalizerSteps.length);
+    for (NormalizerStep step : normalizerSteps) {
+      actions.add(step.createAction(settings).getAsRecordNormalizer());
+    }
 
-    // Create the normalizer object
-    return new NormalizerImpl(chainedNormalizer);
+    // Create chain normalizer and use it to set up the normalizer.
+    return new NormalizerImpl(new ChainedNormalizer(actions.toArray(new RecordNormalizeAction[0])));
   }
 }

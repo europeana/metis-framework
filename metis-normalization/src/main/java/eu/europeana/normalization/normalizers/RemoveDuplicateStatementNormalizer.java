@@ -19,7 +19,7 @@ import eu.europeana.normalization.util.XpathQuery;
  * This normalizer removes duplicate statements from within the proxy nodes. Only certain statements
  * are considered.
  */
-public class RemoveDuplicateStatementNormalizer implements RecordNormalizer {
+public class RemoveDuplicateStatementNormalizer implements RecordNormalizeAction {
 
   private static final XpathQuery PROXY_QUERY_TITLE =
       getProxySubtagQuery(Namespace.DC.getElement("title"));
