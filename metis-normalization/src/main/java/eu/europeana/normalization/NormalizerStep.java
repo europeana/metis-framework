@@ -53,8 +53,7 @@ public enum NormalizerStep {
   }
 
   @FunctionalInterface
-  private static interface ActionCreator {
-    public NormalizeAction create(NormalizerSettings settings)
-        throws NormalizationConfigurationException;
+  private interface ActionCreator {
+    NormalizeAction create(NormalizerSettings settings) throws NormalizationConfigurationException;
   }
 }

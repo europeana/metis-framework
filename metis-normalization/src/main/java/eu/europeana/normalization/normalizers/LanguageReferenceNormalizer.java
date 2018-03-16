@@ -1,10 +1,10 @@
 package eu.europeana.normalization.normalizers;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import eu.europeana.normalization.languages.LanguageMatch;
 import eu.europeana.normalization.languages.LanguageMatch.Type;
 import eu.europeana.normalization.languages.LanguageMatcher;
@@ -36,7 +36,7 @@ public class LanguageReferenceNormalizer implements ValueNormalizeAction {
   public LanguageReferenceNormalizer(LanguageMatcher languageMatcher, float minimumConfidence,
       LanguageElement[] elementsToNormalize) {
     this.matcher = languageMatcher;
-    this.elementsToNormalize = XpathQuery.combine(Arrays.asList(elementsToNormalize).stream()
+    this.elementsToNormalize = XpathQuery.combine(Stream.of(elementsToNormalize)
         .map(LanguageElement::getElementQuery).toArray(XpathQuery[]::new));
     this.minimumConfidence = minimumConfidence;
   }

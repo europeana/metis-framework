@@ -21,7 +21,7 @@ public interface Normalizer {
    *         normalization.
    * @throws NormalizationException In case there was a problem.
    */
-  public NormalizationResult normalize(String edmRecord) throws NormalizationException;
+  NormalizationResult normalize(String edmRecord) throws NormalizationException;
 
   /**
    * This method is a convenience method for calling {@link #normalize(String)} for multiple EDM
@@ -31,6 +31,6 @@ public interface Normalizer {
    * @return The normalized records, long with reports on the normalizations.
    * @throws NormalizationException In case there was a problem.
    */
-  public NormalizationBatchResult normalize(List<String> edmRecords) throws NormalizationException;
+  NormalizationBatchResult normalize(List<String> edmRecords) throws NormalizationException;
 
 }

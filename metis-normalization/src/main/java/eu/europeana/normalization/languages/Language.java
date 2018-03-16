@@ -1,11 +1,11 @@
 package eu.europeana.normalization.languages;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -92,7 +92,7 @@ public class Language {
    *         and alternative names.
    */
   public Set<String> getAllLabels() {
-    return Arrays.asList(originalNames, alternativeNames, labels).stream().flatMap(List::stream)
+    return Stream.of(originalNames, alternativeNames, labels).flatMap(List::stream)
         .map(LanguageLabel::getLabel).collect(Collectors.toSet());
   }
 
@@ -101,8 +101,8 @@ public class Language {
    */
   public Set<String> getAllLabelsAndCodes() {
     final Set<String> result = getAllLabels();
-    final Set<String> codes = Arrays.asList(iso6391, iso6392b, iso6392t, iso6393, authorityCode)
-        .stream().filter(StringUtils::isNotEmpty).collect(Collectors.toSet());
+    final Set<String> codes = Stream.of(iso6391, iso6392b, iso6392t, iso6393, authorityCode)
+        .filter(StringUtils::isNotEmpty).collect(Collectors.toSet());
     result.addAll(codes);
     return result;
   }
@@ -133,7 +133,7 @@ public class Language {
    */
   public String getPrefLabel(String resultLanguageCode) {
     final LanguageLabel label =
-        Arrays.asList(originalNames, alternativeNames, labels).stream().flatMap(List::stream)
+        Stream.of(originalNames, alternativeNames, labels).flatMap(List::stream)
             .filter(language -> StringUtils.equals(resultLanguageCode, language.getLanguage()))
             .findFirst().orElse(originalNames.get(0));
     return label.getLabel();
