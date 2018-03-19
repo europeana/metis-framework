@@ -149,28 +149,6 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-  <!--<reporting>-->
-  <!--<plugins>-->
-  <!--<plugin>-->
-  <!--<groupId>org.codehaus.mojo</groupId>-->
-  <!--<artifactId>cobertura-maven-plugin</artifactId>-->
-  <!--<version>{version.cobertura}</version>-->
-  <!--<configuration>-->
-  <!--<formats>-->
-  <!--<format>xml</format>-->
-  <!--</formats>-->
-  <!--<check/>-->
-  <!--</configuration>-->
-  <!--<reportSets>-->
-  <!--<reportSet>-->
-  <!--<reports>-->
-  <!--<report>cobertura</report>-->
-  <!--</reports>-->
-  <!--</reportSet>-->
-  <!--</reportSets>-->
-  <!--</plugin>-->
-  <!--</plugins>-->
-  <!--</reporting>-->
   <modules>
     <module>metis-core</module>
     <module>metis-indexing</module>
@@ -183,6 +161,7 @@
     <module>metis-common</module>
     <module>metis-preview</module>
     <module>metis-normalization</module>
+    <module>metis-media-service</module>
     <module>metis-authentication</module>
     <module>metis-transformation</module>
   </modules>
