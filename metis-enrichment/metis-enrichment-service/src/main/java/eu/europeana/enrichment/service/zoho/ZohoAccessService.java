@@ -19,8 +19,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import eu.europeana.corelib.definitions.edm.entity.Address;
 import eu.europeana.corelib.definitions.edm.entity.Organization;
-import eu.europeana.corelib.solr.entity.Address;
+import eu.europeana.corelib.solr.entity.AddressImpl;
 import eu.europeana.corelib.solr.entity.OrganizationImpl;
 import eu.europeana.enrichment.service.exception.ZohoAccessException;
 import eu.europeana.enrichment.service.zoho.model.ZohoOrganizationAdapter;
@@ -120,7 +121,7 @@ public class ZohoAccessService {
 		org.setCreated(zoa.getCreated());
 		
 		//address
-		Address address = new Address();
+		Address address = new AddressImpl();
 	
 		address.setAbout(org.getAbout()+"#address");
 		address.setVcardStreetAddress(zoa.getStreet());
